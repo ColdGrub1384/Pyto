@@ -1,0 +1,846 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		02B86BE56F89606B49216F563DF4FA0D /* InnerTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46D2BCA74C17DD3A65D0284D8BA4ACC /* InnerTextView.swift */; };
+		0579E88E23891C8368972AB9EB746D7A /* ASTVisualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A176157EF4E0313CAA5928C5A032B3C0 /* ASTVisualizer.swift */; };
+		0B14549F31BDA22B57BF392D84E42DB4 /* SavannaKit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C707E1A98C44DE01616FCB720ABCB25 /* SavannaKit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14A36D60E8A7D875842246A850652AD6 /* SyntaxColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E4E4D059F4EB3242BBF9C41F69EA9C /* SyntaxColorTheme.swift */; };
+		2235B93955682A3E77DA2B0372EE9116 /* Paragraphs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3712F30F593EF684AFA83EAF68F1B02 /* Paragraphs.swift */; };
+		227BE16BA3505C0AD94025B8B31CDA2A /* Pods-Pyto-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CF0B3115B8F0A251A7EAC85E6CE4AC6 /* Pods-Pyto-dummy.m */; };
+		2DB1419281514CF68212F1767E3901BE /* SourceCodeTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A0527F66EA832D79E56CC6A05B27FE /* SourceCodeTheme.swift */; };
+		2FE68863FF820268FA4C71DB51E3C66E /* Paragraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80090D3703FD8F5A5C64FABF4BF9995D /* Paragraph.swift */; };
+		3853DA50F91A35F0EE3C20390F92A318 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A181B89D83A33B1B17DA741FDC21ECEA /* Foundation.framework */; };
+		5061EE332AC9C4F447F41DDF3DBE4102 /* SourceEditor-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C23F406CFC88FF005CE9EE8A18E188F /* SourceEditor-dummy.m */; };
+		51C27341A686BE761029DB06A0585B6C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A181B89D83A33B1B17DA741FDC21ECEA /* Foundation.framework */; };
+		66CBC6F2534D8EFB009F4EE5C7C9B86A /* SyntaxTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3472758CCCB108B45A4CF57F38DD3B1 /* SyntaxTextView.swift */; };
+		759A08474A11225B33949FC60F851784 /* SavannaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5210982E26AF855132C7437638CDE2D4 /* SavannaKit.framework */; };
+		7ABAA2D43EA8726B7C2BBBEB48BABC2B /* NSMutableAttributedString+Tokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEFC66F29BEF230198AC5688AB8B068 /* NSMutableAttributedString+Tokens.swift */; };
+		7E11A627F765EC97CFDA192537D1D56C /* TextViewWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA563DD33492646FA1D6214C0EDA039B /* TextViewWrapperView.swift */; };
+		82A60AB1CE52342B7BBE7EBE027D9E91 /* SourceCodeToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43594E01665E376B75C0EE7469C9650 /* SourceCodeToken.swift */; };
+		92EA8DFFE1478899D5C2D2982F2A46A5 /* DefaultSourceCodeTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB009F7C93A489337200E6F38EBAB /* DefaultSourceCodeTheme.swift */; };
+		934695CB52DAA1EC2FC1A4BEF3421E2C /* SavannaKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3684FDD777341366D84E9EFC4381655C /* SavannaKit-dummy.m */; };
+		9D508772C7F821BF4B906389F7F8848D /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E784CB7544F483E898A2463897D3C8 /* Token.swift */; };
+		9DCA500F5FA45100335EE5261EE25559 /* RegexLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7A4AB625B87686DC73755BD07690A0 /* RegexLexer.swift */; };
+		9F26A828CB27D65653B4165549AF140D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A181B89D83A33B1B17DA741FDC21ECEA /* Foundation.framework */; };
+		A6292DFE0F60E67CF39EB5BE8E00718F /* Pods-Pyto-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3185F8624747A0D14426E6AD07808ED7 /* Pods-Pyto-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AE743349FB46E39E1097C5D27CFA6F72 /* LineNumberLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393C1911AD73F2DB3E712D31EEAE4192 /* LineNumberLayoutManager.swift */; };
+		B2A8BF2ED1BC9B480B40B1114DE8F962 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471CCE17CDD8A14F1BDB49B5521A6015 /* Types.swift */; };
+		CF81584B1EFBE70D80F38220D34279AF /* String+Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050173A1EF328863275E0F2CA9856F79 /* String+Range.swift */; };
+		DBED2228AA920DC4E0BE255E4C157EEC /* SyntaxTextViewLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9031773DCCF598F8513C053B7F047EE9 /* SyntaxTextViewLayoutManager.swift */; };
+		E1DFE0EAFE6424320C8EF1DFA3860168 /* SourceEditor-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 34E81AC91E9F6A3C13EFA444ECAFAD95 /* SourceEditor-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F04C4EB5CD5DE99C38F9F2EEE541D890 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D61903D55184CE80D19DDADC1894C /* Lexer.swift */; };
+		F2CEEB7C27C921DBD731AAC176BDB87D /* Python3Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7190511019E2075A0DA815CBAF835CDC /* Python3Lexer.swift */; };
+		F8457146AFD89ECDD56BF9934678163E /* SyntaxTextView+TextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED86CF313709AEA8D39AD7157F3E5567 /* SyntaxTextView+TextViewDelegate.swift */; };
+		F85CA254D0DAAAE9707041237E4A9C6D /* SwiftLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30C862E9CEA67BD6FEAD72EB11BBF96 /* SwiftLexer.swift */; };
+		FA745A0D2A0DE1D6BD9A4C61B324CE4C /* SourceCodeRegexLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DBC2476FF61F37247C18F49AE2F3E8 /* SourceCodeRegexLexer.swift */; };
+		FE68F0B3937A36E0BF9885A3287225A9 /* NSTextView+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BA382E45E80A6BC928A14917CB1E94 /* NSTextView+UIKit.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		187FC1EC49A20EE9AD23C848E5C1FCA2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1FFD8A48ABD20B2FE106C8270807D201;
+			remoteInfo = SavannaKit;
+		};
+		E2BB7EE17F9507B0E528E32EA1DC1567 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AB0AB775784729AAA9EB0784557142F8;
+			remoteInfo = SourceEditor;
+		};
+		EA727964821BA549E538FDAA45FC91AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1FFD8A48ABD20B2FE106C8270807D201;
+			remoteInfo = SavannaKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		050173A1EF328863275E0F2CA9856F79 /* String+Range.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+Range.swift"; path = "Sources/SavannaKit/Util/String+Range.swift"; sourceTree = "<group>"; };
+		07DBC2476FF61F37247C18F49AE2F3E8 /* SourceCodeRegexLexer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SourceCodeRegexLexer.swift; path = Sources/SourceCodeRegexLexer.swift; sourceTree = "<group>"; };
+		08CEB009F7C93A489337200E6F38EBAB /* DefaultSourceCodeTheme.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DefaultSourceCodeTheme.swift; path = Sources/Themes/DefaultSourceCodeTheme.swift; sourceTree = "<group>"; };
+		12283119ECB360C6B1E89323AB94DC2E /* SavannaKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SavannaKit.xcconfig; sourceTree = "<group>"; };
+		14782AFDDA8BFA258FF9A25D641565F4 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		16FDC1889D0CCE05E449875363C91BCA /* SourceEditor.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SourceEditor.modulemap; sourceTree = "<group>"; };
+		20E301B57036A9D2ABEF067E083827D6 /* SourceEditor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SourceEditor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		30B51C12F7DB8867E02003D8517B22F6 /* SavannaKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SavannaKit-prefix.pch"; sourceTree = "<group>"; };
+		3185F8624747A0D14426E6AD07808ED7 /* Pods-Pyto-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Pyto-umbrella.h"; sourceTree = "<group>"; };
+		34E81AC91E9F6A3C13EFA444ECAFAD95 /* SourceEditor-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SourceEditor-umbrella.h"; sourceTree = "<group>"; };
+		3684FDD777341366D84E9EFC4381655C /* SavannaKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SavannaKit-dummy.m"; sourceTree = "<group>"; };
+		393C1911AD73F2DB3E712D31EEAE4192 /* LineNumberLayoutManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineNumberLayoutManager.swift; path = Sources/SavannaKit/View/LineNumberLayoutManager.swift; sourceTree = "<group>"; };
+		3F6D61903D55184CE80D19DDADC1894C /* Lexer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Lexer.swift; path = Sources/SavannaKit/Model/Lexer.swift; sourceTree = "<group>"; };
+		471CCE17CDD8A14F1BDB49B5521A6015 /* Types.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Types.swift; path = Sources/SavannaKit/Util/Types.swift; sourceTree = "<group>"; };
+		49FF0EDB73FECEBAE7BD07E60D4AE4ED /* SavannaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SavannaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BEFC66F29BEF230198AC5688AB8B068 /* NSMutableAttributedString+Tokens.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSMutableAttributedString+Tokens.swift"; path = "Sources/SavannaKit/Util/NSMutableAttributedString+Tokens.swift"; sourceTree = "<group>"; };
+		5210982E26AF855132C7437638CDE2D4 /* SavannaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SavannaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B10E3C6ED25A8D66E2D35568C332192 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5C707E1A98C44DE01616FCB720ABCB25 /* SavannaKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SavannaKit-umbrella.h"; sourceTree = "<group>"; };
+		5CF0B3115B8F0A251A7EAC85E6CE4AC6 /* Pods-Pyto-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Pyto-dummy.m"; sourceTree = "<group>"; };
+		61C6DBA20690C8C4E03D792F373C75B0 /* Pods-Pyto-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Pyto-acknowledgements.plist"; sourceTree = "<group>"; };
+		61E784CB7544F483E898A2463897D3C8 /* Token.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Token.swift; path = Sources/SavannaKit/Model/Token.swift; sourceTree = "<group>"; };
+		6C23F406CFC88FF005CE9EE8A18E188F /* SourceEditor-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SourceEditor-dummy.m"; sourceTree = "<group>"; };
+		7190511019E2075A0DA815CBAF835CDC /* Python3Lexer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Python3Lexer.swift; path = Sources/Languages/Python3Lexer.swift; sourceTree = "<group>"; };
+		755B95700BCCEC8B7385AA9518BF146B /* SavannaKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SavannaKit.modulemap; sourceTree = "<group>"; };
+		7CC459A96A409E1DA63513B1781F3649 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		80090D3703FD8F5A5C64FABF4BF9995D /* Paragraph.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Paragraph.swift; path = Sources/SavannaKit/Model/Paragraph.swift; sourceTree = "<group>"; };
+		9031773DCCF598F8513C053B7F047EE9 /* SyntaxTextViewLayoutManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SyntaxTextViewLayoutManager.swift; path = Sources/SavannaKit/View/SyntaxTextViewLayoutManager.swift; sourceTree = "<group>"; };
+		913A128F8A4B84A8AE4C9D2725865880 /* Pods-Pyto-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Pyto-frameworks.sh"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		96DC284B8B33BCC3FE79247281BF22B3 /* Pods-Pyto-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Pyto-acknowledgements.markdown"; sourceTree = "<group>"; };
+		97A0527F66EA832D79E56CC6A05B27FE /* SourceCodeTheme.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SourceCodeTheme.swift; path = Sources/SourceCodeTheme.swift; sourceTree = "<group>"; };
+		97EF8F5D890B98B8B9314C03C45B052B /* Pods_Pyto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pyto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A176157EF4E0313CAA5928C5A032B3C0 /* ASTVisualizer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ASTVisualizer.swift; path = Sources/SavannaKit/ASTVisualizer.swift; sourceTree = "<group>"; };
+		A181B89D83A33B1B17DA741FDC21ECEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		AF7A4AB625B87686DC73755BD07690A0 /* RegexLexer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RegexLexer.swift; path = Sources/SavannaKit/Model/RegexLexer.swift; sourceTree = "<group>"; };
+		B0BA382E45E80A6BC928A14917CB1E94 /* NSTextView+UIKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSTextView+UIKit.swift"; path = "Sources/SavannaKit/Util/NSTextView+UIKit.swift"; sourceTree = "<group>"; };
+		B2D7EBA5979E88BCBEB3F3A6BE919B64 /* Pods-Pyto.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Pyto.modulemap"; sourceTree = "<group>"; };
+		B9E4E4D059F4EB3242BBF9C41F69EA9C /* SyntaxColorTheme.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SyntaxColorTheme.swift; path = Sources/SavannaKit/Model/SyntaxColorTheme.swift; sourceTree = "<group>"; };
+		BB4E76AD6EE33EB71A7584EF7382A31D /* SourceEditor-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SourceEditor-prefix.pch"; sourceTree = "<group>"; };
+		C3472758CCCB108B45A4CF57F38DD3B1 /* SyntaxTextView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SyntaxTextView.swift; path = Sources/SavannaKit/View/SyntaxTextView.swift; sourceTree = "<group>"; };
+		C6A055D848366B048AE1719175DF373C /* Pods-Pyto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Pyto.release.xcconfig"; sourceTree = "<group>"; };
+		CA563DD33492646FA1D6214C0EDA039B /* TextViewWrapperView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TextViewWrapperView.swift; path = Sources/SavannaKit/View/TextViewWrapperView.swift; sourceTree = "<group>"; };
+		D30C862E9CEA67BD6FEAD72EB11BBF96 /* SwiftLexer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftLexer.swift; path = Sources/Languages/SwiftLexer.swift; sourceTree = "<group>"; };
+		D32FD39F3DABBBCEA731A134A829078D /* Pods-Pyto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Pyto.debug.xcconfig"; sourceTree = "<group>"; };
+		E3712F30F593EF684AFA83EAF68F1B02 /* Paragraphs.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Paragraphs.swift; path = Sources/SavannaKit/View/Paragraphs.swift; sourceTree = "<group>"; };
+		E43594E01665E376B75C0EE7469C9650 /* SourceCodeToken.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SourceCodeToken.swift; path = Sources/SourceCodeToken.swift; sourceTree = "<group>"; };
+		ED86CF313709AEA8D39AD7157F3E5567 /* SyntaxTextView+TextViewDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "SyntaxTextView+TextViewDelegate.swift"; path = "Sources/SavannaKit/View/SyntaxTextView+TextViewDelegate.swift"; sourceTree = "<group>"; };
+		F46D2BCA74C17DD3A65D0284D8BA4ACC /* InnerTextView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = InnerTextView.swift; path = Sources/SavannaKit/View/InnerTextView.swift; sourceTree = "<group>"; };
+		F66D42E259EC9ED10FCC9EE0AC30441F /* Pods-Pyto-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Pyto-resources.sh"; sourceTree = "<group>"; };
+		F8C410093F8F36D2DA3DE34F963DF097 /* SourceEditor.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SourceEditor.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		37AA9918ECAB4C3F8E04928E0A0EB12E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3853DA50F91A35F0EE3C20390F92A318 /* Foundation.framework in Frameworks */,
+				759A08474A11225B33949FC60F851784 /* SavannaKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C40116C26ED8373702E54BDE052E5811 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				51C27341A686BE761029DB06A0585B6C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB3555E1F7ACD731E6EE3BDB0E889CB4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9F26A828CB27D65653B4165549AF140D /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		12656FB08B11572FC0270C85B56FC860 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				A181B89D83A33B1B17DA741FDC21ECEA /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		24A8B3A5AD732783DD50580D94098124 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				97EF8F5D890B98B8B9314C03C45B052B /* Pods_Pyto.framework */,
+				49FF0EDB73FECEBAE7BD07E60D4AE4ED /* SavannaKit.framework */,
+				20E301B57036A9D2ABEF067E083827D6 /* SourceEditor.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		26DF27FF265E5133EFC0780C24C8291D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5210982E26AF855132C7437638CDE2D4 /* SavannaKit.framework */,
+				12656FB08B11572FC0270C85B56FC860 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		35AF17B03C47F9285A538CFE69E94C76 /* SourceEditor */ = {
+			isa = PBXGroup;
+			children = (
+				08CEB009F7C93A489337200E6F38EBAB /* DefaultSourceCodeTheme.swift */,
+				7190511019E2075A0DA815CBAF835CDC /* Python3Lexer.swift */,
+				07DBC2476FF61F37247C18F49AE2F3E8 /* SourceCodeRegexLexer.swift */,
+				97A0527F66EA832D79E56CC6A05B27FE /* SourceCodeTheme.swift */,
+				E43594E01665E376B75C0EE7469C9650 /* SourceCodeToken.swift */,
+				D30C862E9CEA67BD6FEAD72EB11BBF96 /* SwiftLexer.swift */,
+				55FAFA05096DF1777CCC56E2AACCD386 /* Support Files */,
+			);
+			path = SourceEditor;
+			sourceTree = "<group>";
+		};
+		55FAFA05096DF1777CCC56E2AACCD386 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				7CC459A96A409E1DA63513B1781F3649 /* Info.plist */,
+				16FDC1889D0CCE05E449875363C91BCA /* SourceEditor.modulemap */,
+				F8C410093F8F36D2DA3DE34F963DF097 /* SourceEditor.xcconfig */,
+				6C23F406CFC88FF005CE9EE8A18E188F /* SourceEditor-dummy.m */,
+				BB4E76AD6EE33EB71A7584EF7382A31D /* SourceEditor-prefix.pch */,
+				34E81AC91E9F6A3C13EFA444ECAFAD95 /* SourceEditor-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SourceEditor";
+			sourceTree = "<group>";
+		};
+		6F16DA1B0B3BB885C27CDA452887D159 /* Pods-Pyto */ = {
+			isa = PBXGroup;
+			children = (
+				14782AFDDA8BFA258FF9A25D641565F4 /* Info.plist */,
+				B2D7EBA5979E88BCBEB3F3A6BE919B64 /* Pods-Pyto.modulemap */,
+				96DC284B8B33BCC3FE79247281BF22B3 /* Pods-Pyto-acknowledgements.markdown */,
+				61C6DBA20690C8C4E03D792F373C75B0 /* Pods-Pyto-acknowledgements.plist */,
+				5CF0B3115B8F0A251A7EAC85E6CE4AC6 /* Pods-Pyto-dummy.m */,
+				913A128F8A4B84A8AE4C9D2725865880 /* Pods-Pyto-frameworks.sh */,
+				F66D42E259EC9ED10FCC9EE0AC30441F /* Pods-Pyto-resources.sh */,
+				3185F8624747A0D14426E6AD07808ED7 /* Pods-Pyto-umbrella.h */,
+				D32FD39F3DABBBCEA731A134A829078D /* Pods-Pyto.debug.xcconfig */,
+				C6A055D848366B048AE1719175DF373C /* Pods-Pyto.release.xcconfig */,
+			);
+			name = "Pods-Pyto";
+			path = "Target Support Files/Pods-Pyto";
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				26DF27FF265E5133EFC0780C24C8291D /* Frameworks */,
+				DF160349FE2F934052572403C9506E39 /* Pods */,
+				24A8B3A5AD732783DD50580D94098124 /* Products */,
+				C5B8CBD2AB2FA51FB9F829EB6846633A /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		A8E4C23C37FB408C01A2B3D01B694CCF /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				5B10E3C6ED25A8D66E2D35568C332192 /* Info.plist */,
+				755B95700BCCEC8B7385AA9518BF146B /* SavannaKit.modulemap */,
+				12283119ECB360C6B1E89323AB94DC2E /* SavannaKit.xcconfig */,
+				3684FDD777341366D84E9EFC4381655C /* SavannaKit-dummy.m */,
+				30B51C12F7DB8867E02003D8517B22F6 /* SavannaKit-prefix.pch */,
+				5C707E1A98C44DE01616FCB720ABCB25 /* SavannaKit-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SavannaKit";
+			sourceTree = "<group>";
+		};
+		C5B8CBD2AB2FA51FB9F829EB6846633A /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				6F16DA1B0B3BB885C27CDA452887D159 /* Pods-Pyto */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		DF160349FE2F934052572403C9506E39 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E6572FB99C0C277CC2352857B522936D /* SavannaKit */,
+				35AF17B03C47F9285A538CFE69E94C76 /* SourceEditor */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E6572FB99C0C277CC2352857B522936D /* SavannaKit */ = {
+			isa = PBXGroup;
+			children = (
+				A176157EF4E0313CAA5928C5A032B3C0 /* ASTVisualizer.swift */,
+				F46D2BCA74C17DD3A65D0284D8BA4ACC /* InnerTextView.swift */,
+				3F6D61903D55184CE80D19DDADC1894C /* Lexer.swift */,
+				393C1911AD73F2DB3E712D31EEAE4192 /* LineNumberLayoutManager.swift */,
+				4BEFC66F29BEF230198AC5688AB8B068 /* NSMutableAttributedString+Tokens.swift */,
+				B0BA382E45E80A6BC928A14917CB1E94 /* NSTextView+UIKit.swift */,
+				80090D3703FD8F5A5C64FABF4BF9995D /* Paragraph.swift */,
+				E3712F30F593EF684AFA83EAF68F1B02 /* Paragraphs.swift */,
+				AF7A4AB625B87686DC73755BD07690A0 /* RegexLexer.swift */,
+				050173A1EF328863275E0F2CA9856F79 /* String+Range.swift */,
+				B9E4E4D059F4EB3242BBF9C41F69EA9C /* SyntaxColorTheme.swift */,
+				C3472758CCCB108B45A4CF57F38DD3B1 /* SyntaxTextView.swift */,
+				ED86CF313709AEA8D39AD7157F3E5567 /* SyntaxTextView+TextViewDelegate.swift */,
+				9031773DCCF598F8513C053B7F047EE9 /* SyntaxTextViewLayoutManager.swift */,
+				CA563DD33492646FA1D6214C0EDA039B /* TextViewWrapperView.swift */,
+				61E784CB7544F483E898A2463897D3C8 /* Token.swift */,
+				471CCE17CDD8A14F1BDB49B5521A6015 /* Types.swift */,
+				A8E4C23C37FB408C01A2B3D01B694CCF /* Support Files */,
+			);
+			path = SavannaKit;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		1C92C6DB16AEC84DF3A55BA56A6FA9AF /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0B14549F31BDA22B57BF392D84E42DB4 /* SavannaKit-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22B9DCC5B5E2240734F07D5F02A39E65 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1DFE0EAFE6424320C8EF1DFA3860168 /* SourceEditor-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66379FD0C5553D85FA370489635534B4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A6292DFE0F60E67CF39EB5BE8E00718F /* Pods-Pyto-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		1FFD8A48ABD20B2FE106C8270807D201 /* SavannaKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ADD401D337F6E31E17BDD8256E557E65 /* Build configuration list for PBXNativeTarget "SavannaKit" */;
+			buildPhases = (
+				2C5ACA3DF34724902498760C43F5879E /* Sources */,
+				CB3555E1F7ACD731E6EE3BDB0E889CB4 /* Frameworks */,
+				1C92C6DB16AEC84DF3A55BA56A6FA9AF /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SavannaKit;
+			productName = SavannaKit;
+			productReference = 49FF0EDB73FECEBAE7BD07E60D4AE4ED /* SavannaKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		5E7771CD2F5E2C12E877D0D1F0B473B3 /* Pods-Pyto */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1F4F2C3BC520A32978D5661F013A5C76 /* Build configuration list for PBXNativeTarget "Pods-Pyto" */;
+			buildPhases = (
+				558E50280E483C932D43497A6BA01DCC /* Sources */,
+				C40116C26ED8373702E54BDE052E5811 /* Frameworks */,
+				66379FD0C5553D85FA370489635534B4 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7AE224157695C0E2355EED8F006E2B21 /* PBXTargetDependency */,
+				225F0D043E34051E37FA834E20F7B665 /* PBXTargetDependency */,
+			);
+			name = "Pods-Pyto";
+			productName = "Pods-Pyto";
+			productReference = 97EF8F5D890B98B8B9314C03C45B052B /* Pods_Pyto.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		AB0AB775784729AAA9EB0784557142F8 /* SourceEditor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 50FF4E5517BCA1DA123B090E3AF1A436 /* Build configuration list for PBXNativeTarget "SourceEditor" */;
+			buildPhases = (
+				963BBDD762488B6D1AF4E28423EE2180 /* Sources */,
+				37AA9918ECAB4C3F8E04928E0A0EB12E /* Frameworks */,
+				22B9DCC5B5E2240734F07D5F02A39E65 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1911C84156BAFAAD85506F8DAC38DA1B /* PBXTargetDependency */,
+			);
+			name = SourceEditor;
+			productName = SourceEditor;
+			productReference = 20E301B57036A9D2ABEF067E083827D6 /* SourceEditor.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 1000;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 24A8B3A5AD732783DD50580D94098124 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5E7771CD2F5E2C12E877D0D1F0B473B3 /* Pods-Pyto */,
+				1FFD8A48ABD20B2FE106C8270807D201 /* SavannaKit */,
+				AB0AB775784729AAA9EB0784557142F8 /* SourceEditor */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2C5ACA3DF34724902498760C43F5879E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0579E88E23891C8368972AB9EB746D7A /* ASTVisualizer.swift in Sources */,
+				02B86BE56F89606B49216F563DF4FA0D /* InnerTextView.swift in Sources */,
+				F04C4EB5CD5DE99C38F9F2EEE541D890 /* Lexer.swift in Sources */,
+				AE743349FB46E39E1097C5D27CFA6F72 /* LineNumberLayoutManager.swift in Sources */,
+				7ABAA2D43EA8726B7C2BBBEB48BABC2B /* NSMutableAttributedString+Tokens.swift in Sources */,
+				FE68F0B3937A36E0BF9885A3287225A9 /* NSTextView+UIKit.swift in Sources */,
+				2FE68863FF820268FA4C71DB51E3C66E /* Paragraph.swift in Sources */,
+				2235B93955682A3E77DA2B0372EE9116 /* Paragraphs.swift in Sources */,
+				9DCA500F5FA45100335EE5261EE25559 /* RegexLexer.swift in Sources */,
+				934695CB52DAA1EC2FC1A4BEF3421E2C /* SavannaKit-dummy.m in Sources */,
+				CF81584B1EFBE70D80F38220D34279AF /* String+Range.swift in Sources */,
+				14A36D60E8A7D875842246A850652AD6 /* SyntaxColorTheme.swift in Sources */,
+				F8457146AFD89ECDD56BF9934678163E /* SyntaxTextView+TextViewDelegate.swift in Sources */,
+				66CBC6F2534D8EFB009F4EE5C7C9B86A /* SyntaxTextView.swift in Sources */,
+				DBED2228AA920DC4E0BE255E4C157EEC /* SyntaxTextViewLayoutManager.swift in Sources */,
+				7E11A627F765EC97CFDA192537D1D56C /* TextViewWrapperView.swift in Sources */,
+				9D508772C7F821BF4B906389F7F8848D /* Token.swift in Sources */,
+				B2A8BF2ED1BC9B480B40B1114DE8F962 /* Types.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		558E50280E483C932D43497A6BA01DCC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				227BE16BA3505C0AD94025B8B31CDA2A /* Pods-Pyto-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		963BBDD762488B6D1AF4E28423EE2180 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92EA8DFFE1478899D5C2D2982F2A46A5 /* DefaultSourceCodeTheme.swift in Sources */,
+				F2CEEB7C27C921DBD731AAC176BDB87D /* Python3Lexer.swift in Sources */,
+				FA745A0D2A0DE1D6BD9A4C61B324CE4C /* SourceCodeRegexLexer.swift in Sources */,
+				2DB1419281514CF68212F1767E3901BE /* SourceCodeTheme.swift in Sources */,
+				82A60AB1CE52342B7BBE7EBE027D9E91 /* SourceCodeToken.swift in Sources */,
+				5061EE332AC9C4F447F41DDF3DBE4102 /* SourceEditor-dummy.m in Sources */,
+				F85CA254D0DAAAE9707041237E4A9C6D /* SwiftLexer.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1911C84156BAFAAD85506F8DAC38DA1B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SavannaKit;
+			target = 1FFD8A48ABD20B2FE106C8270807D201 /* SavannaKit */;
+			targetProxy = EA727964821BA549E538FDAA45FC91AF /* PBXContainerItemProxy */;
+		};
+		225F0D043E34051E37FA834E20F7B665 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SourceEditor;
+			target = AB0AB775784729AAA9EB0784557142F8 /* SourceEditor */;
+			targetProxy = E2BB7EE17F9507B0E528E32EA1DC1567 /* PBXContainerItemProxy */;
+		};
+		7AE224157695C0E2355EED8F006E2B21 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SavannaKit;
+			target = 1FFD8A48ABD20B2FE106C8270807D201 /* SavannaKit */;
+			targetProxy = 187FC1EC49A20EE9AD23C848E5C1FCA2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0E12B7268EF0862DFEEB8B6B0BD7C9F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		1086A27E1FEC332DF45B4328054FCD8E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 12283119ECB360C6B1E89323AB94DC2E /* SavannaKit.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SavannaKit/SavannaKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SavannaKit/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SavannaKit/SavannaKit.modulemap";
+				PRODUCT_MODULE_NAME = SavannaKit;
+				PRODUCT_NAME = SavannaKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		312F225FA8FD9BE91E5D5BBD0B1AD263 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D32FD39F3DABBBCEA731A134A829078D /* Pods-Pyto.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Pyto/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Pyto/Pods-Pyto.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		716BFFBFD014F205DAED4A0F4F4E3193 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F8C410093F8F36D2DA3DE34F963DF097 /* SourceEditor.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SourceEditor/SourceEditor-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SourceEditor/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SourceEditor/SourceEditor.modulemap";
+				PRODUCT_MODULE_NAME = SourceEditor;
+				PRODUCT_NAME = SourceEditor;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		986E011F340BFCDD560E8B5B51BD9A3A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 12283119ECB360C6B1E89323AB94DC2E /* SavannaKit.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SavannaKit/SavannaKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SavannaKit/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SavannaKit/SavannaKit.modulemap";
+				PRODUCT_MODULE_NAME = SavannaKit;
+				PRODUCT_NAME = SavannaKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		9CB00CCB3C15FC2080F149D7A1FEB56A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F8C410093F8F36D2DA3DE34F963DF097 /* SourceEditor.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SourceEditor/SourceEditor-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SourceEditor/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SourceEditor/SourceEditor.modulemap";
+				PRODUCT_MODULE_NAME = SourceEditor;
+				PRODUCT_NAME = SourceEditor;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		CD8324D57CD462761E218EEA4EA91EC7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		F7A5243EC0BCBC938E452DF6160B7D3F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C6A055D848366B048AE1719175DF373C /* Pods-Pyto.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Pyto/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Pyto/Pods-Pyto.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1F4F2C3BC520A32978D5661F013A5C76 /* Build configuration list for PBXNativeTarget "Pods-Pyto" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				312F225FA8FD9BE91E5D5BBD0B1AD263 /* Debug */,
+				F7A5243EC0BCBC938E452DF6160B7D3F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E12B7268EF0862DFEEB8B6B0BD7C9F4 /* Debug */,
+				CD8324D57CD462761E218EEA4EA91EC7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		50FF4E5517BCA1DA123B090E3AF1A436 /* Build configuration list for PBXNativeTarget "SourceEditor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9CB00CCB3C15FC2080F149D7A1FEB56A /* Debug */,
+				716BFFBFD014F205DAED4A0F4F4E3193 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ADD401D337F6E31E17BDD8256E557E65 /* Build configuration list for PBXNativeTarget "SavannaKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				986E011F340BFCDD560E8B5B51BD9A3A /* Debug */,
+				1086A27E1FEC332DF45B4328054FCD8E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}
