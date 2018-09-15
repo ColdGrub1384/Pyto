@@ -20,15 +20,6 @@ import UIKit
     /// Allow multiple selection or not.
     @objc public var allowsMultipleSelection = false
     
-    /// Setups a `PyFilePicker`.
-    ///
-    /// - Returns: A new `PyFilePicker`.
-    @objc public func new() -> PyFilePicker {
-        let picker = PyFilePicker()
-        picker.fileTypes = []
-        return picker
-    }
-    
     // MARK: - Document picker delegate
     
     public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
