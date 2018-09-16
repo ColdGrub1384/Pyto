@@ -52,6 +52,10 @@ class ViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewCont
             samplesSheet.view.tintColor = UIView().tintColor
             self.present(samplesSheet, animated: true, completion: nil)
         }))
+        sheet.addAction(UIAlertAction(title: "Acknowledgments", style: .default, handler: { _ in
+            let safari = SFSafariViewController(url: URL(string: "https://coldgrub1384.github.io/Pyto/Licenses")!)
+            self.present(safari, animated: true, completion: nil)
+        }))
         sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         sheet.popoverPresentationController?.barButtonItem = sender
         sheet.view.tintColor = UIView().tintColor
