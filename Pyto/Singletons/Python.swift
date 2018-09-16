@@ -25,7 +25,7 @@ class Python {
     /// - Parameters:
     ///     - url: URL of the Python script to run.
     func runScript(at url: URL) {
-                
+        
         freopen(pythonStderrPath.cValue, "a+", stderr)
         
         queue.async {
