@@ -10,7 +10,7 @@ import UIKit
 
 /// A class representing an alert to be used from the Python API.
 @objc public class PyAlert: NSObject {
-        
+    
     /// The alert's title.
     @objc public var title: String?
     
@@ -34,6 +34,7 @@ import UIKit
         return self_
     }
     
+    /// Show an alert with set parameters.
     @objc public func show() {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: self.title, message: self.message, preferredStyle: .alert)

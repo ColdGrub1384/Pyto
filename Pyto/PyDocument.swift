@@ -8,13 +8,16 @@
 
 import UIKit
 
+/// Errors opening the document.
 enum PyDocumentError: Error {
     case unableToParseText
     case unableToEncodeText
 }
 
+/// A document representing a Python script.
 class PyDocument: UIDocument {
     
+    /// The text of the Python script to save.
     var text = ""
     
     override func contents(forType typeName: String) throws -> Any {
