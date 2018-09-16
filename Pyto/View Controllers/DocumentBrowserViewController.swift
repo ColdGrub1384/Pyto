@@ -80,7 +80,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         let tabBarVC = UITabBarController()
         tabBarVC.viewControllers = [navVC, contentVC]
         tabBarVC.tabBar.barStyle = .black
-        present(tabBarVC, animated: true, completion: {
+        UIApplication.shared.keyWindow?.topViewController?.present(tabBarVC, animated: true, completion: {
             if run {
                 editor.run()
             }
