@@ -19,7 +19,7 @@ Prints to the Pyto console, not to the stdout. Works as the builtin `print` func
 ### Sharing
 
 ## `FilePicker`
-(Wraps [PyFIlePicker](PyFilePicker/))
+(Wraps [PyFIlePicker](PyFilePicker))
 
 A class representing a file picker.
 
@@ -46,18 +46,18 @@ Opens a share sheet with given items.
 
 ## `pickedFiles()`
 
-Returns files picked with [`pickDocumentsWithFilePicker`](#pickDocumentsWithFilePicker(filePicker)) as URLs.
+Returns files picked with `pickDocumentsWithFilePicker` as URLs.
 
 ## `pickDocumentsWithFilePicker(filePicker)`
 
-Pick documents with given parameters as a [`FilePicker`](#FilePicker).
+Pick documents with given parameters as a `FilePicker`.
 
 - filePicker: The parameters of the file picker to be presented.
 
 ### Alerts
 
 ## Alert
-(Wraps [PyAlert](PyAlert/))
+(Wraps [PyAlert](PyAlert))
 
 A class representing an alert.
 
