@@ -47,7 +47,7 @@ import UIKit
     
     // MARK: - Setters
     
-    private func addAction(title: String, handler: @escaping (() -> Void), style: UIAlertAction.Style) {
+    private func addAction(title: String, handler: (() -> Void)?, style: UIAlertAction.Style) {
         DispatchQueue.main.async {
             
             if self.actions == nil {
@@ -55,7 +55,7 @@ import UIKit
             }
             
             self.actions?.append(UIAlertAction(title: title, style: style, handler: { (_) in
-                handler()
+                handler?()
             }))
         }
     }
@@ -65,7 +65,7 @@ import UIKit
     /// - Parameters:
     ///     - title: The title of the action.
     ///     - handler: The action's handler.
-    @objc public func addAction(title: String, handler: @escaping (() -> Void)) {
+    @objc public func addAction(title: String, handler: (() -> Void)?) {
         addAction(title: title, handler: handler, style: .default)
     }
     
@@ -74,7 +74,7 @@ import UIKit
     /// - Parameters:
     ///     - title: The title of the action.
     ///     - handler: The action's handler.
-    @objc public func addDestructiveAction(title: String, handler: @escaping (() -> Void)) {
+    @objc public func addDestructiveAction(title: String, handler: (() -> Void)?) {
         addAction(title: title, handler: handler, style: .destructive)
     }
     
@@ -83,7 +83,7 @@ import UIKit
     /// - Parameters:
     ///     - title: The title of the action.
     ///     - handler: The action's handler.
-    @objc public func addCancelAction(title: String, handler: @escaping (() -> Void)) {
+    @objc public func addCancelAction(title: String, handler: (() -> Void)?) {
         addAction(title: title, handler: handler, style: .cancel)
     }
 }
