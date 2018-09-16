@@ -34,7 +34,7 @@
 		C9FCFD5B214428AE00A07974 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCFD5A214428AE00A07974 /* EditorViewController.swift */; };
 		C9FCFD60214428B300A07974 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9FCFD5F214428B300A07974 /* Assets.xcassets */; };
 		C9FCFD63214428B300A07974 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9FCFD61214428B300A07974 /* LaunchScreen.storyboard */; };
-		C9FCFD6B21442DE700A07974 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCFD6A21442DE700A07974 /* ViewController.swift */; };
+		C9FCFD6B21442DE700A07974 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCFD6A21442DE700A07974 /* DocumentBrowserViewController.swift */; };
 		C9FCFD6D21442FD700A07974 /* Untitled.py in Resources */ = {isa = PBXBuildFile; fileRef = C9FCFD6C21442FD700A07974 /* Untitled.py */; };
 		C9FCFD6F214452FB00A07974 /* PyDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCFD6E214452FB00A07974 /* PyDocument.swift */; };
 /* End PBXBuildFile section */
@@ -89,7 +89,7 @@
 		C9FCFD5F214428B300A07974 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9FCFD62214428B300A07974 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9FCFD64214428B300A07974 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C9FCFD6A21442DE700A07974 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C9FCFD6A21442DE700A07974 /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
 		C9FCFD6C21442FD700A07974 /* Untitled.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = Untitled.py; sourceTree = "<group>"; };
 		C9FCFD6E214452FB00A07974 /* PyDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyDocument.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -138,7 +138,7 @@
 		C93D61E52145E19300C8B5E3 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				C9FCFD6A21442DE700A07974 /* ViewController.swift */,
+				C9FCFD6A21442DE700A07974 /* DocumentBrowserViewController.swift */,
 				C9FCFD5A214428AE00A07974 /* EditorViewController.swift */,
 				C9EDF9A821446EE600382DCC /* PyContentViewController.swift */,
 				C9EDF9AA21446FCA00382DCC /* ConsoleViewController.swift */,
@@ -373,7 +373,7 @@
 			files = (
 				C9EDF9AB21446FCA00382DCC /* ConsoleViewController.swift in Sources */,
 				C9EDF9A921446EE600382DCC /* PyContentViewController.swift in Sources */,
-				C9FCFD6B21442DE700A07974 /* ViewController.swift in Sources */,
+				C9FCFD6B21442DE700A07974 /* DocumentBrowserViewController.swift in Sources */,
 				C95A79E6214DC627007A1B90 /* PyMainThread.swift in Sources */,
 				C93D61DD2145CD0800C8B5E3 /* PyInputHelper.swift in Sources */,
 				C98E1FED214EA7E4002F0178 /* ClearStderr.swift in Sources */,

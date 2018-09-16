@@ -10,7 +10,7 @@ import UIKit
 import SafariServices
 
 /// The main file browser used to edit scripts.
-class ViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate {
+class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()

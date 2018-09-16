@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
                 
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = ViewController()
+        window?.rootViewController = UIDocumentBrowserViewController()
         window?.accessibilityIgnoresInvertColors = true
         window?.tintColor = #colorLiteral(red: 0.394202292, green: 0.8019036651, blue: 0.3871951401, alpha: 1)
         window?.makeKeyAndVisible()
