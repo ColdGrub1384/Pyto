@@ -28,12 +28,10 @@ Py_Initialize()
 /// The path of the file where errors are printed.
 let pythonStderrPath = FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask)[0].appendingPathComponent("errors").path
 
-if FileManager.default.fileExists(atPath: pythonStderrPath) {
-    try? FileManager.default.removeItem(atPath: pythonStderrPath)
-}
-FileManager.default.createFile(atPath: pythonStderrPath, contents: nil, attributes: nil)
+// Clear stderr
+ClearStderr()
 
-DispatchQueue.global().async {
+DispatchQueue.global().async { // Read stderr
     var output = ""
     while true {
         do {
