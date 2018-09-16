@@ -32,6 +32,11 @@ class ConsoleViewController: UIViewController {
         }
     }
     
+    /// Closes the View controller.
+    @objc func close() {
+        dismiss(animated: true, completion: nil)
+    }
+    
     deinit {        
         NotificationCenter.default.removeObserver(self)
     }
@@ -50,6 +55,8 @@ class ConsoleViewController: UIViewController {
         textView.isEditable = false
         textView.font = UIFont(name: "Courier", size: UIFont.systemFontSize)
         view.addSubview(textView)
+        
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))]
         
         NotificationCenter.default.addObserver(self, selector: #selector(print_(_:)), name: .init(rawValue: "DidReceiveOutput"), object: nil)
     }
