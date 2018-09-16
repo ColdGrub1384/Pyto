@@ -18,16 +18,14 @@ class Python {
     private init() {}
     
     /// The queue running scripts.
-    var queue = DispatchQueue.global()
+    let queue = DispatchQueue.global()
     
     /// Run script at given URL. The only argument passed will be the file path.
     ///
     /// - Parameters:
     ///     - url: URL of the Python script to run.
     func runScript(at url: URL) {
-        
-        queue = DispatchQueue.global()
-        
+                
         freopen(pythonStderrPath.cValue, "a+", stderr)
         
         queue.async {
