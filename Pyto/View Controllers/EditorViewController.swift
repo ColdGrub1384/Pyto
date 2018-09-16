@@ -19,6 +19,14 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate {
     /// The document to be edited.
     var document: PyDocument?
     
+    /// Returns `true` if the opened file is a sample.
+    var isSample: Bool {
+        guard document != nil else {
+            return true
+        }
+        return !FileManager.default.isWritableFile(atPath: document!.fileURL.path)
+    }
+    
     /// Initialize with given document.
     ///
     /// - Parameters:
@@ -52,12 +60,24 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate {
         let saveItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
         let runItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(run))
         navigationItem.rightBarButtonItems = [saveItem, runItem]
+        if isSample {
+            navigationItem.rightBarButtonItems?.append(UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share(_:))))
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        textView.contentTextView.isEditable = !isSample
     }
     
     // MARK: - Actions
+    
+    /// Shares the current script.
+    @objc func share(_ sender: UIBarButtonItem) {
+        let activityVC = UIActivityViewController(activityItems: [document?.fileURL as Any], applicationActivities: nil)
+        activityVC.popoverPresentationController?.barButtonItem = sender
+        present(activityVC, animated: true, completion: nil)
+    }
     
     /// Run the script represented by `document`.
     @objc func run() {
@@ -87,6 +107,11 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate {
             textView.contentTextView.resignFirstResponder()
         } else {
             dismiss(animated: true) {
+                
+                guard !self.isSample else {
+                    return
+                }
+                
                 self.document?.save(to: self.document!.fileURL, for: .forOverwriting, completionHandler: { success in
                     if !success {
                         let alert = UIAlertController(title: "Error writting to script", message: "Cannot save the contents of '\(self.document!.fileURL.lastPathComponent)'", preferredStyle: .alert)
