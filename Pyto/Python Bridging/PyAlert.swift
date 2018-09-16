@@ -10,31 +10,15 @@ import UIKit
 
 /// A class representing an alert to be used from the Python API.
 @objc public class PyAlert: NSObject {
-    
-    let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-    
+        
     /// The alert's title.
-    @objc public var title: String? {
-        didSet {
-            DispatchQueue.main.async {
-                self.alert.title = self.title
-            }
-        }
-    }
+    @objc public var title: String?
     
     /// The alert's message.
-    @objc public var message: String? {
-        didSet {
-            DispatchQueue.main.async {
-                self.alert.message = self.message
-            }
-        }
-    }
+    @objc public var message: String?
     
-    /// The alert's text fields.
-    @objc public var textFields: [UITextField] {
-        return alert.textFields ?? []
-    }
+    /// The alert's actions.
+    var actions: [UIAlertAction]?
     
     /// Initialize a new alert.
     ///
@@ -52,11 +36,28 @@ import UIKit
     
     @objc public func show() {
         DispatchQueue.main.async {
-            UIApplication.shared.keyWindow?.topViewController?.present(self.alert, animated: true, completion: nil)
+            let alert = UIAlertController(title: self.title, message: self.message, preferredStyle: .alert)
+            for action in self.actions ?? [] {
+                alert.addAction(action)
+            }
+            UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
         }
     }
     
     // MARK: - Setters
+    
+    private func addAction(title: String, handler: @escaping (() -> Void), style: UIAlertAction.Style) {
+        DispatchQueue.main.async {
+            
+            if self.actions == nil {
+                self.actions = []
+            }
+            
+            self.actions?.append(UIAlertAction(title: title, style: style, handler: { (_) in
+                handler()
+            }))
+        }
+    }
     
     /// Add an action with given tilte and handler.
     ///
@@ -64,11 +65,7 @@ import UIKit
     ///     - title: The title of the action.
     ///     - handler: The action's handler.
     @objc public func addAction(title: String, handler: @escaping (() -> Void)) {
-        DispatchQueue.main.async {
-            self.alert.addAction(UIAlertAction(title: title, style: .default, handler: { (_) in
-                handler()
-            }))
-        }
+        addAction(title: title, handler: handler, style: .default)
     }
     
     /// Add a destructive action with given tilte and handler.
@@ -77,11 +74,7 @@ import UIKit
     ///     - title: The title of the action.
     ///     - handler: The action's handler.
     @objc public func addDestructiveAction(title: String, handler: @escaping (() -> Void)) {
-        DispatchQueue.main.async {
-            self.alert.addAction(UIAlertAction(title: title, style: .destructive, handler: { (_) in
-                handler()
-            }))
-        }
+        addAction(title: title, handler: handler, style: .destructive)
     }
     
     /// Add a cancel action with given tilte and handler.
@@ -90,20 +83,6 @@ import UIKit
     ///     - title: The title of the action.
     ///     - handler: The action's handler.
     @objc public func addCancelAction(title: String, handler: @escaping (() -> Void)) {
-        DispatchQueue.main.async {
-            self.alert.addAction(UIAlertAction(title: title, style: .cancel, handler: { (_) in
-                handler()
-            }))
-        }
-    }
-    
-    /// Add a text field.
-    ///
-    /// - Parameters:
-    ///     - configurationHandler: The code called to configure the text field. The parameter passed is an `UITextField`.
-    @objc public func addTextField(configurationHandler: @escaping ((UITextField) -> Void)) {
-        DispatchQueue.main.async {
-            self.alert.addTextField(configurationHandler: configurationHandler)
-        }
+        addAction(title: title, handler: handler, style: .cancel)
     }
 }
