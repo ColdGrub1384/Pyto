@@ -1,3 +1,7 @@
+"""
+Prints the user pasteboard text.
+"""
+
 from rubicon.objc import *
 UIPasteboard = ObjCClass("UIPasteboard")
 

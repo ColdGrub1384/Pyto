@@ -1,3 +1,7 @@
+"""
+Shows an alert asking for the user's name, says hello and says good bye 2 seconds after.
+"""
+
 from time import sleep
 
 # Code here
