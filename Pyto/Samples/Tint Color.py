@@ -1,3 +1,7 @@
+"""
+Changes the tint color of the app to red.
+"""
+
 from rubicon.objc import *
 import mainthread
 

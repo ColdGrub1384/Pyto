@@ -1,7 +1,12 @@
+"""
+Shares `"Hello Wordl!"` with the share sheet.
+"""
+
 import pyto
 
 # Code here
 
-print("Hello World!")
+item = "Hello World!"
+print(item)
 
-pyto.shareItems(["Hello World!"])
+pyto.shareItems([item])

@@ -1,3 +1,7 @@
+"""
+Asks the user for selecting files and shares them.
+"""
+
 import pyto
 
 # Code here
