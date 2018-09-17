@@ -28,7 +28,7 @@ import UIKit
             alert.addTextField(configurationHandler: { (textField_) in
                 textField = textField_
             })
-            UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
+            PyContentViewController.shared?.present(alert, animated: true, completion: nil)
         }
     }
 }
