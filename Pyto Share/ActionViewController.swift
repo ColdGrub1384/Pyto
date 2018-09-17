@@ -53,6 +53,7 @@ class ActionViewController: PyContentViewController, UIDocumentPickerDelegate {
         putenv("PYTHONDONTWRITEBYTECODE=1".cValue)
         putenv("TMP=\(NSTemporaryDirectory())".cValue)
         putenv("PYTHONHOME=\(pythonHome)".cValue)
+        putenv("HOME=\(FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].path)".cValue)
         
         Py_SetPythonHome(pythonHome.cWchar_t)
         Py_Initialize()

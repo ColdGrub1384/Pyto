@@ -30,7 +30,7 @@ void initializePython() {
     
     // Python env variables
     putenv("PYTHONOPTIMIZE=");
-    putenv((char *)[[NSString stringWithFormat:@"HOME=%@", [[[NSFileManager defaultManager] URLsForDirectory:NSLibraryDirectory inDomains:NSAllDomainsMask] firstObject].path] UTF8String]);
+    putenv((char *)[[NSString stringWithFormat:@"HOME=%@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask] firstObject].path] UTF8String]);
     putenv("PYTHONDONTWRITEBYTECODE=1");
     putenv((char *)[[NSString stringWithFormat:@"TMP=%@", NSTemporaryDirectory()] UTF8String]);
     putenv((char *)[[NSString stringWithFormat:@"PYTHONHOME=%@", pythonHome] UTF8String]);
