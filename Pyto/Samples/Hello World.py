@@ -1,5 +1,3 @@
-import Pyto
-
 from time import sleep
 
 # Code here

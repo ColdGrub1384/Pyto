@@ -1,4 +1,4 @@
-# Pyto
+# pyto
 
 This module allows you to interact with Pyto with a Pythonic API.
 
@@ -26,16 +26,16 @@ A class representing a file picker.
 Example:
 
 ```python
-filePicker = Pyto.FilePicker.new()
+filePicker = pyto.FilePicker.new()
 filePicker.fileTypes = ["public.data"]
 filePicker.allowsMultipleSelection = True
 
 def filesPicked() -> None:
-    files = Pyto.pickedFiles()
-    Pyto.shareItems(files)
+    files = pyto.pickedFiles()
+    pyto.shareItems(files)
 
 filePicker.completion = filesPicked
-Pyto.pickDocumentsWithFilePicker(filePicker)
+pyto.pickDocumentsWithFilePicker(filePicker)
 ```
 
 ## `shareItems(items)`
@@ -67,7 +67,7 @@ Example:
 def ok() -> None:
     print("Good Bye!")
 
-alert = Pyto.Alert.initWithTitle("Hello", message="Hello World!")
+alert = pyto.Alert.initWithTitle("Hello", message="Hello World!")
 alert.addActionWithTitle("Ok", handler=ok)
 alert.addCancelActionWithTitle("Cancel", handler=None)
 alert.show()

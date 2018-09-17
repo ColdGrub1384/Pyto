@@ -1,16 +1,16 @@
-# MainThread
+# mainthread
 
 This module allows you to run code on the main thread easely. This can be used for modifiying the UI.
 
 ## Example:
 
 ```python
-import MainThread
+import mainthread
 
 def sayHello() -> None:
     print("Hello World!")
 
-MainThread.async(sayHello)
+mainthread.async(sayHello)
 ```
 
 ## `async(code)`

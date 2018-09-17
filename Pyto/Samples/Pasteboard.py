@@ -1,5 +1,3 @@
-import Pyto
-
 from rubicon.objc import *
 UIPasteboard = ObjCClass("UIPasteboard")
 

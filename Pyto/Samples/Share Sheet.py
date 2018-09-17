@@ -1,7 +1,7 @@
-import Pyto
+import pyto
 
 # Code here
 
 print("Hello World!")
 
-Pyto.shareItems(["Hello World!"])
+pyto.shareItems(["Hello World!"])
