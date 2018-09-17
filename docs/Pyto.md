@@ -77,3 +77,10 @@ alert.show()
 
 ## `extensionItems()`
 Returns the items shared trough the share sheet. Loaded with `NSExtensionContext`.
+
+### Importing
+
+## `module(name)`
+Returns the given module located in the app's Documents directory.
+
+- The name of the script without the extension located in the Documents directory.
