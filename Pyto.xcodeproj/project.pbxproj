@@ -38,6 +38,8 @@
 		C98E2022214F25DC002F0178 /* ConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EDF9AA21446FCA00382DCC /* ConsoleViewController.swift */; };
 		C98E2023214F2646002F0178 /* PyContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EDF9A821446EE600382DCC /* PyContentViewController.swift */; };
 		C98E2024214F26C0002F0178 /* Python.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904EB7221445D5800585C28 /* Python.swift */; };
+		C9B3FDEC21503DE7000FC9A8 /* PyExtensionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */; };
+		C9B3FDED21504107000FC9A8 /* PyExtensionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */; };
 		C9BA42EF2150007000FED228 /* PyInputHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DC2145CD0800C8B5E3 /* PyInputHelper.swift */; };
 		C9BA42F02150007000FED228 /* PyOutputHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E02145D46700C8B5E3 /* PyOutputHelper.swift */; };
 		C9BA42F12150007000FED228 /* PySharingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97659052147192C001C96A8 /* PySharingHelper.swift */; };
@@ -125,6 +127,7 @@
 		C98E200C214F1F38002F0178 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		C98E200E214F1F38002F0178 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C98E201E214F2513002F0178 /* Pyto Share-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pyto Share-Bridging-Header.h"; sourceTree = "<group>"; };
+		C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyExtensionContext.swift; sourceTree = "<group>"; };
 		C9BA42F6215005E700FED228 /* PytoClassesApp.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = PytoClassesApp.py; sourceTree = "<group>"; };
 		C9BA42F72150061900FED228 /* PytoClassesShareExtension.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = PytoClassesShareExtension.py; sourceTree = "<group>"; };
 		C9C57EB40A56344EEB889161 /* Pods-Pyto Share.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Share.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Share/Pods-Pyto Share.release.xcconfig"; sourceTree = "<group>"; };
@@ -219,6 +222,7 @@
 				C976592621471D23001C96A8 /* PyFilePicker.swift */,
 				C95A79E5214DC627007A1B90 /* PyMainThread.swift */,
 				C95A79E7214DC9D0007A1B90 /* PyAlert.swift */,
+				C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */,
 			);
 			path = "Python Bridging";
 			sourceTree = "<group>";
@@ -520,6 +524,7 @@
 				C9BA42F52150008B00FED228 /* UIWindow.swift in Sources */,
 				C98E200A214F1F38002F0178 /* ActionViewController.swift in Sources */,
 				C9BA42EF2150007000FED228 /* PyInputHelper.swift in Sources */,
+				C9B3FDED21504107000FC9A8 /* PyExtensionContext.swift in Sources */,
 				C9BA42F22150007000FED228 /* PyFilePicker.swift in Sources */,
 				C98E2023214F2646002F0178 /* PyContentViewController.swift in Sources */,
 				C9BA42F12150007000FED228 /* PySharingHelper.swift in Sources */,
@@ -537,6 +542,7 @@
 				C9EDF9A921446EE600382DCC /* PyContentViewController.swift in Sources */,
 				C9FCFD6B21442DE700A07974 /* DocumentBrowserViewController.swift in Sources */,
 				C95A79E6214DC627007A1B90 /* PyMainThread.swift in Sources */,
+				C9B3FDEC21503DE7000FC9A8 /* PyExtensionContext.swift in Sources */,
 				C93D61DD2145CD0800C8B5E3 /* PyInputHelper.swift in Sources */,
 				C904EB7321445D5800585C28 /* Python.swift in Sources */,
 				C98E2002214F0856002F0178 /* main.m in Sources */,

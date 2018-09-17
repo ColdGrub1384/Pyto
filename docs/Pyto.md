@@ -75,5 +75,5 @@ alert.show()
 
 ### Action extension
 
-## `extensionContext()`
-Returns the extension context if the script is ran from the share sheet. Use it like any `NSExtensionContext`.
+## `extensionItems()`
+Returns the items shared trough the share sheet. Loaded with `NSExtensionContext`.
