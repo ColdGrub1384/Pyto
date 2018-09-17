@@ -10,8 +10,39 @@ import UIKit
 
 class ActionViewController: PyContentViewController, UIDocumentPickerDelegate {
     
+    /// Load extension's items and pass them to the Python API.
+    func loadItems() {
+        
+        PyExtensionContext.items = []
+        
+        // Load items
+        guard let context = extensionContext else {
+            return
+        }
+        
+        guard let items = context.inputItems as? [NSExtensionItem] else {
+            return
+        }
+        
+        for item in items {
+            for attachment in item.attachments ?? [] {
+                if attachment.hasItemConformingToTypeIdentifier("public.item") {
+                    attachment.loadItem(forTypeIdentifier: "public.item", options: nil) { (item, nil) in
+                        if let item = item {
+                            PyExtensionContext.items?.append(item)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: - Content view controller
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        loadItems()
         
         /// The path of the Python home directory.
         guard let pythonHome = Bundle.main.path(forResource: "Library/Python.framework/Resources", ofType: "") else {
