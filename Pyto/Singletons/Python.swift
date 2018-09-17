@@ -21,6 +21,9 @@ import Foundation
     /// The queue running scripts.
     @objc let queue = DispatchQueue.global()
     
+    /// The version catched passed from `"sys.version"`.
+    @objc public var version = ""
+    
     /// Run script at given URL.
     ///
     /// - Parameters:
