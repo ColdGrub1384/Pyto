@@ -3,7 +3,7 @@
 @objc public class PyFilePicker: NSObject, UIDocumentPickerDelegate
 ```
 
-A class for representing an `UIDocumentPickerViewController` settings to be used by the Python API.
+A class for representing an `UIDocumentPickerViewController`'s settings to be used by the Python API.
 
 ```swift
 @objc public var completion: (() -> Void)?

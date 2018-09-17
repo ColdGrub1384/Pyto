@@ -28,7 +28,7 @@ import Foundation
     @objc func runScript(at url: URL) {
         queue.async {
             PyRun_SimpleStringFlags("""
-                import Pyto as __Pyto__
+                import pyto as __Pyto__
                 from importlib.machinery import SourceFileLoader
                 
                 __builtins__.input = __Pyto__.input

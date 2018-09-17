@@ -1,11 +1,11 @@
-import Pyto
+import pyto
 
 # Code here
 
 def filesPicked() -> None:
-  Pyto.shareItems(Pyto.pickedFiles())
+  pyto.shareItems(pyto.pickedFiles())
 
-filePicker = Pyto.FilePicker.new()
+filePicker = pyto.FilePicker.new()
 filePicker.fileTypes = ["public.data"]
 filePicker.completion = filesPicked
-Pyto.pickDocumentsWithFilePicker(filePicker)
+pyto.pickDocumentsWithFilePicker(filePicker)

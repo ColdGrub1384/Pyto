@@ -1,7 +1,5 @@
-import Pyto
-
 from rubicon.objc import *
-import MainThread
+import mainthread
 
 # Code here
 
@@ -11,4 +9,4 @@ UIApplication = ObjCClass("UIApplication")
 def changeTintColor() -> None:
   UIApplication.sharedApplication.keyWindow.tintColor = UIColor.redColor
   
-MainThread.async(changeTintColor)
+mainthread.async(changeTintColor)
