@@ -27,7 +27,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     
     /// Open the documentation or samples.
     @objc func help(_ sender: UIBarButtonItem) {
-        let sheet = UIAlertController(title: "Help", message: "Choose an option below.", preferredStyle: .actionSheet)
+        let sheet = UIAlertController(title: "Pyto", message: Python.shared.version, preferredStyle: .actionSheet)
         
         sheet.addAction(UIAlertAction(title: "Documentation", style: .default, handler: { _ in
             let safari = SFSafariViewController(url: URL(string: "https://coldgrub1384.github.io/Pyto")!)

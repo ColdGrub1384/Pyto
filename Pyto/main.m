@@ -46,6 +46,9 @@ void initializePython() {
         python_argv[i] = Py_DecodeLocale(kArgv[i], NULL);
     }
     PySys_SetArgv(kArgc, python_argv);
+    
+    // Get Python version
+    PyRun_SimpleStringFlags("import sys\nfrom rubicon.objc import *\nObjCClass('Pyto.Python').shared.version = sys.version", NULL);
 }
 
 int main(int argc, char *argv[]) {
