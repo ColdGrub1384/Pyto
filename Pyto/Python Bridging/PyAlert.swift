@@ -41,7 +41,7 @@ import UIKit
             for action in self.actions ?? [] {
                 alert.addAction(action)
             }
-            UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
+            PyContentViewController.shared?.present(alert, animated: true, completion: nil)
         }
     }
     

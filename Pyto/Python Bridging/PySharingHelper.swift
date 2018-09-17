@@ -20,7 +20,7 @@ import UIKit
             let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
             activityVC.popoverPresentationController?.sourceView = PyContentViewController.shared?.tabBarController?.tabBar
             activityVC.popoverPresentationController?.sourceRect = activityVC.popoverPresentationController?.sourceView?.bounds ?? .zero
-            UIApplication.shared.keyWindow?.topViewController?.present(activityVC, animated: true, completion: nil)
+            PyContentViewController.shared?.present(activityVC, animated: true, completion: nil)
         }        
     }
     
@@ -33,7 +33,7 @@ import UIKit
             let picker = UIDocumentPickerViewController(documentTypes: filePicker.fileTypes as [String], in: .open)
             picker.allowsMultipleSelection = filePicker.allowsMultipleSelection
             picker.delegate = filePicker
-            UIApplication.shared.keyWindow?.topViewController?.present(picker, animated: true, completion: nil)
+            PyContentViewController.shared?.present(picker, animated: true, completion: nil)
         }
     }
 }

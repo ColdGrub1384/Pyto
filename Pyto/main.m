@@ -16,7 +16,10 @@ NSString *pythonHome;
 /// The path of the file where errors are printed.
 NSString *pythonStderrPath;
 
-int main(int argc, char *argv[]) {
+int kArgc;
+char **kArgv;
+
+void initializePython() {
     
     pythonHome = [[NSBundle mainBundle] pathForResource:@"Library/Python.framework/Resources" ofType:NULL];
     pythonStderrPath = [[[[NSFileManager defaultManager] URLsForDirectory:NSLibraryDirectory inDomains:NSAllDomainsMask] firstObject] URLByAppendingPathComponent:@"errors"].path;
@@ -37,24 +40,23 @@ int main(int argc, char *argv[]) {
     Py_Initialize();
     
     // Set Python arguments
-    wchar_t** python_argv = PyMem_RawMalloc(sizeof(wchar_t*) * argc);
+    wchar_t** python_argv = PyMem_RawMalloc(sizeof(wchar_t*) * kArgc);
     int i;
-    for (i = 0; i < argc; i++) {
-        python_argv[i] = Py_DecodeLocale(argv[i], NULL);
+    for (i = 0; i < kArgc; i++) {
+        python_argv[i] = Py_DecodeLocale(kArgv[i], NULL);
     }
-    PySys_SetArgv(argc, python_argv);
+    PySys_SetArgv(kArgc, python_argv);
+}
+
+int main(int argc, char *argv[]) {
     
-    // Clear stderr
-    if ([[NSFileManager defaultManager] fileExistsAtPath:pythonStderrPath]) {
-        [[NSFileManager defaultManager] removeItemAtPath:pythonStderrPath error:NULL];
+    kArgc = argc;
+    kArgv = argv;
+    
+    initializePython();
+    
+    @autoreleasepool {
+        return UIApplicationMain(argc, argv, NULL, NSStringFromClass(AppDelegate.class));
     }
-    [[NSFileManager defaultManager] createFileAtPath:pythonStderrPath contents:NULL attributes:NULL];
-    
-    // Observe stderr
-    freopen([pythonStderrPath UTF8String], "a+", stderr);
-    
-    [Python shared].stderrPath = pythonStderrPath;
-    
-    return UIApplicationMain(argc, argv, NULL, NSStringFromClass(AppDelegate.class));
 }
 

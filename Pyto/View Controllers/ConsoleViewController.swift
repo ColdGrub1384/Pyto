@@ -34,6 +34,7 @@ class ConsoleViewController: UIViewController {
     
     /// Closes the View controller.
     @objc func close() {
+        extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
         dismiss(animated: true, completion: nil)
     }
     
