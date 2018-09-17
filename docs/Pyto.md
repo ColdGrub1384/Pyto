@@ -56,7 +56,7 @@ Pick documents with given parameters as a `FilePicker`.
 
 ### Alerts
 
-## Alert
+## `Alert`
 (Wraps [PyAlert](PyAlert))
 
 A class representing an alert.
@@ -72,3 +72,8 @@ alert.addActionWithTitle("Ok", handler=ok)
 alert.addCancelActionWithTitle("Cancel", handler=None)
 alert.show()
 ```
+
+### Action extension
+
+## `extensionContext()`
+Returns the extension context if the script is ran from the share sheet. Use it like any `NSExtensionContext`.
