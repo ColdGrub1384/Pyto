@@ -5,9 +5,12 @@ import PytoClasses as __PytoClassesApp__
 from importlib.machinery import SourceFileLoader
     
 __builtins__.input = __Pyto__.input
-                
+
+oldStdout = sys.stdout
+
 class Reader:
     def write(self, txt):
+        oldStdout.write(txt)
         __Pyto__.print(txt, end="")
 
 reader = Reader()
