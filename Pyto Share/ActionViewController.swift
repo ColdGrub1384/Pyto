@@ -42,6 +42,10 @@ class ActionViewController: PyContentViewController, UIDocumentPickerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        for view in view.subviews {
+            view.isHidden = true
+        }
+        
         loadItems()
         
         /// The path of the Python home directory.
@@ -65,7 +69,11 @@ class ActionViewController: PyContentViewController, UIDocumentPickerDelegate {
         let picker = UIDocumentPickerViewController(documentTypes: ["public.python-script"], in: .import)
         picker.delegate = self
         picker.allowsMultipleSelection = false
-        present(picker, animated: false, completion: nil)
+        present(picker, animated: false, completion: {
+            for view in self.view.subviews {
+                view.isHidden = false
+            }
+        })
     }
     
     // MARK: - Document picker delegate
