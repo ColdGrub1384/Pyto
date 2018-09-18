@@ -2,10 +2,9 @@
 Prints the user pasteboard text.
 """
 
-from rubicon.objc import *
-UIPasteboard = ObjCClass("UIPasteboard")
+import pasteboard
 
 # Code here
 
 print("Your pasteboard is: ")
-print(UIPasteboard.generalPasteboard.string)
+print(pasteboard.string)

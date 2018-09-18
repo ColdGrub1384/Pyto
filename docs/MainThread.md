@@ -10,7 +10,7 @@ import mainthread
 def sayHello() -> None:
     print("Hello World!")
 
-mainthread.async(sayHello)
+mainthread.sync(sayHello)
 ```
 
 ## `async(code)`

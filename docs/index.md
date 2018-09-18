@@ -7,6 +7,8 @@ Pyto is a native Python IDE for iOS that uses the Python C API.
 Pyto has some modules that allows your scripts to interact with the app.
 
 - [appex](Appex)
+- [console](Console)
+- [importing](Importing)
 - [mainthread](MainThread)
 - [pasteboard](Pasteboard)
-- [pyto](Pyto)
+- [rubicon.objc](https://github.com/pybee/rubicon-objc)

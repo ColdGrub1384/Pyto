@@ -2,11 +2,11 @@
 Shares `"Hello Wordl!"` with the share sheet.
 """
 
-import pyto
+import sharing
 
 # Code here
 
 item = "Hello World!"
 print(item)
 
-pyto.shareItems([item])
+sharing.shareItems([item])

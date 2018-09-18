@@ -14,13 +14,13 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     private var prompt = ""
     
     /// The content of the console.
-    var console = ""
+    @objc var console = ""
     
     /// Set to `true` for asking the user for input.
     @objc var isAskingForInput = false
     
     /// The Text view containing the console.
-    var textView: ConsoleTextView!
+    @objc var textView: ConsoleTextView!
     
     /// If set to `true`, the user will not be able to input.
     var ignoresInput = false
@@ -32,13 +32,8 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     @objc func print_(_ notification: Notification) {
         if let output = notification.object as? String {
             DispatchQueue.main.async {
-                if output == "PytoRemoveConsoleContent" {
-                    self.textView?.text = ""
-                    self.textViewDidChange(self.textView)
-                } else {
-                    self.textView?.text.append(output)
-                    self.textViewDidChange(self.textView)
-                }
+                self.textView?.text.append(output)
+                self.textViewDidChange(self.textView)
             }
         }
     }
