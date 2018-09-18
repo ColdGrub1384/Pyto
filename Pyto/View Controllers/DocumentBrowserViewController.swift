@@ -52,6 +52,23 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
             samplesSheet.view.tintColor = UIView().tintColor
             self.present(samplesSheet, animated: true, completion: nil)
         }))
+        sheet.addAction(UIAlertAction(title: "REPL", style: .default, handler: { _ in
+            guard let replURL = Bundle.main.url(forResource: "REPL", withExtension: "py") else {
+                return
+            }
+            if Python.shared.isREPLRunning { // Resume the session
+                let contentVC = PyContentViewController()
+                UIApplication.shared.keyWindow?.topViewController?.present(contentVC, animated: true, completion: {
+                    let consoleVC = (contentVC.viewController as? UINavigationController)?.visibleViewController as? ConsoleViewController
+                    consoleVC?.textView.text = Python.shared.output
+                    consoleVC?.textView?.becomeFirstResponder()
+                    consoleVC?.textView?.scrollToBottom()
+                    
+                })
+            } else { // Start the REPL
+                self.openDocument(replURL, run: true)
+            }
+        }))
         sheet.addAction(UIAlertAction(title: "Acknowledgments", style: .default, handler: { _ in
             let safari = SFSafariViewController(url: URL(string: "https://coldgrub1384.github.io/Pyto/Licenses")!)
             self.present(safari, animated: true, completion: nil)

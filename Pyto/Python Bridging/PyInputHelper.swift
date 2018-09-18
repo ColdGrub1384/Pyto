@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// A helper accessible by Rubicon to request user's input.
+/// A helperaccessible by Rubicon to request user's input.
 @objc class PyInputHelper: NSObject {
     
     /// The user's input. Set its value while Python script is waiting for input to pass the input.
@@ -20,15 +20,7 @@ import UIKit
     ///     - prompt: The title of the alert.
     @objc static func showAlert(prompt: String?) {
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: prompt, message: "The script requested for your input", preferredStyle: .alert)
-            var textField: UITextField?
-            alert.addAction(UIAlertAction(title: "Submit", style: .default, handler: { (_) in
-                self.userInput = textField?.text ?? ""
-            }))
-            alert.addTextField(configurationHandler: { (textField_) in
-                textField = textField_
-            })
-            PyContentViewController.shared?.present(alert, animated: true, completion: nil)
+            ((PyContentViewController.shared?.viewController as? UINavigationController)?.visibleViewController as? ConsoleViewController)?.input(prompt: prompt ?? "")
         }
     }
 }
