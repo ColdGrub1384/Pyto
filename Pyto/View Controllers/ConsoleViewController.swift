@@ -118,6 +118,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
             if text == "\n" {
                 textView.text += "\n"
                 PyInputHelper.userInput = prompt
+                Python.shared.output += prompt
                 prompt = ""
                 askingForInput = false
                 textView.isEditable = false
