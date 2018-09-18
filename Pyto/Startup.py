@@ -8,7 +8,7 @@ __builtins__.input = __Pyto__.input
                 
 class Reader:
     def write(self, txt):
-        __Pyto__.print(txt)
+        __Pyto__.print(txt, end="")
 
 reader = Reader()
 __sys__.stderr = reader
