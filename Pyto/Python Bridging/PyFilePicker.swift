@@ -9,22 +9,22 @@
 import UIKit
 
 /// A class for representing an `UIDocumentPickerViewController` settings to be used by the Python API.
-@objc public class PyFilePicker: NSObject, UIDocumentPickerDelegate {
+@objc class PyFilePicker: NSObject, UIDocumentPickerDelegate {
     
     /// The code to execute when files where picked.
-    @objc public var completion: (() -> Void)?
+    @objc var completion: (() -> Void)?
     
     /// Document types that can be opened.
-    @objc public var fileTypes = [NSString]()
+    @objc var fileTypes = [NSString]()
     
     /// Allow multiple selection or not.
-    @objc public var allowsMultipleSelection = false
+    @objc var allowsMultipleSelection = false
     
-    @objc public static private(set) var urls: [NSURL]?
+    @objc static private(set) var urls: [NSURL]?
     
     // MARK: - Document picker delegate
     
-    public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         
         PyFilePicker.urls = urls as [NSURL]
         self.completion?()

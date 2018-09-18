@@ -9,13 +9,13 @@
 import UIKit
 
 /// A class accessible by Rubicon to share items and pick documents..
-@objc public class PySharingHelper: NSObject {
+@objc class PySharingHelper: NSObject {
     
     /// Presents the share sheet for sharing given items in the main thread.
     ///
     /// - Parameters:
     ///     - items: Items to share with the picker.
-    @objc public static func share(_ items: [Any]) {
+    @objc static func share(_ items: [Any]) {
         DispatchQueue.main.async {
             let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
             activityVC.popoverPresentationController?.sourceView = PyContentViewController.shared?.tabBarController?.tabBar
@@ -28,7 +28,7 @@ import UIKit
     ///
     /// - Parameters:
     ///     - filePicker: Python representation of the file picker.
-    @objc public static func presentFilePicker(_ filePicker: PyFilePicker) {
+    @objc static func presentFilePicker(_ filePicker: PyFilePicker) {
         DispatchQueue.main.async {
             let picker = UIDocumentPickerViewController(documentTypes: filePicker.fileTypes as [String], in: .open)
             picker.allowsMultipleSelection = filePicker.allowsMultipleSelection
