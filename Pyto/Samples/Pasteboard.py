@@ -7,4 +7,4 @@ import pasteboard
 # Code here
 
 print("Your pasteboard is: ")
-print(pasteboard.string)
+print(pasteboard.string())
