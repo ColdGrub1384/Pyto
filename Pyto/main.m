@@ -38,6 +38,7 @@ void initializePython() {
     // Init Python
     Py_SetPythonHome(Py_DecodeLocale([pythonHome UTF8String], NULL));
     Py_Initialize();
+    PyEval_InitThreads();
     
     // Set Python arguments
     wchar_t** python_argv = PyMem_RawMalloc(sizeof(wchar_t*) * kArgc);

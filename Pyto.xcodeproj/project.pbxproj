@@ -47,6 +47,11 @@
 		C9BA42F32150007000FED228 /* PyMainThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A79E5214DC627007A1B90 /* PyMainThread.swift */; };
 		C9BA42F42150007000FED228 /* PyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A79E7214DC9D0007A1B90 /* PyAlert.swift */; };
 		C9BA42F52150008B00FED228 /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DE2145D03200C8B5E3 /* UIWindow.swift */; };
+		C9E4152B21513E3400D64E32 /* ConsoleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E4152A21513E3400D64E32 /* ConsoleTextView.swift */; };
+		C9E4152C21513E7900D64E32 /* ConsoleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E4152A21513E3400D64E32 /* ConsoleTextView.swift */; };
+		C9E4152E21514F9100D64E32 /* Startup.py in Resources */ = {isa = PBXBuildFile; fileRef = C9E4152D21514F9100D64E32 /* Startup.py */; };
+		C9E4152F21514FCB00D64E32 /* Startup.py in Resources */ = {isa = PBXBuildFile; fileRef = C9E4152D21514F9100D64E32 /* Startup.py */; };
+		C9E415312151531B00D64E32 /* REPL.py in Resources */ = {isa = PBXBuildFile; fileRef = C9E415302151531B00D64E32 /* REPL.py */; };
 		C9EDF9A5214461D300382DCC /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A4214461D300382DCC /* libsqlite3.tbd */; };
 		C9EDF9A72144620A00382DCC /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A62144620A00382DCC /* libz.tbd */; };
 		C9EDF9A921446EE600382DCC /* PyContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EDF9A821446EE600382DCC /* PyContentViewController.swift */; };
@@ -131,6 +136,9 @@
 		C9BA42F6215005E700FED228 /* PytoClassesApp.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = PytoClassesApp.py; sourceTree = "<group>"; };
 		C9BA42F72150061900FED228 /* PytoClassesShareExtension.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = PytoClassesShareExtension.py; sourceTree = "<group>"; };
 		C9C57EB40A56344EEB889161 /* Pods-Pyto Share.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Share.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Share/Pods-Pyto Share.release.xcconfig"; sourceTree = "<group>"; };
+		C9E4152A21513E3400D64E32 /* ConsoleTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleTextView.swift; sourceTree = "<group>"; };
+		C9E4152D21514F9100D64E32 /* Startup.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = Startup.py; sourceTree = "<group>"; };
+		C9E415302151531B00D64E32 /* REPL.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = REPL.py; sourceTree = "<group>"; };
 		C9EDF9A4214461D300382DCC /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		C9EDF9A62144620A00382DCC /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C9EDF9A821446EE600382DCC /* PyContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyContentViewController.swift; sourceTree = "<group>"; };
@@ -244,6 +252,8 @@
 				C9FCFD64214428B300A07974 /* Info.plist */,
 				C98E1FFC214EE6EC002F0178 /* Samples */,
 				C9FCFD6C21442FD700A07974 /* Untitled.py */,
+				C9E4152D21514F9100D64E32 /* Startup.py */,
+				C9E415302151531B00D64E32 /* REPL.py */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -258,6 +268,14 @@
 				C98E201E214F2513002F0178 /* Pyto Share-Bridging-Header.h */,
 			);
 			path = "Pyto Share";
+			sourceTree = "<group>";
+		};
+		C9E4152921513E2300D64E32 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C9E4152A21513E3400D64E32 /* ConsoleTextView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		C9FCFD4C214428AE00A07974 = {
@@ -294,6 +312,7 @@
 				C93D61E52145E19300C8B5E3 /* View Controllers */,
 				C93D61E62145E1A500C8B5E3 /* Python Bridging */,
 				C93D61E72145E1BF00C8B5E3 /* Extensions */,
+				C9E4152921513E2300D64E32 /* Views */,
 				C9FCFD6E214452FB00A07974 /* PyDocument.swift */,
 				C98E2001214F0856002F0178 /* main.m */,
 				C904EB6C21445CAE00585C28 /* Pyto-Bridging-Header.h */,
@@ -409,6 +428,7 @@
 			files = (
 				C909AFA521502CA400836C17 /* Assets.xcassets in Resources */,
 				C98E200D214F1F38002F0178 /* MainInterface.storyboard in Resources */,
+				C9E4152F21514FCB00D64E32 /* Startup.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +439,8 @@
 				C98E1FFD214EE6ED002F0178 /* Samples in Resources */,
 				C9FCFD6D21442FD700A07974 /* Untitled.py in Resources */,
 				C9FCFD63214428B300A07974 /* LaunchScreen.storyboard in Resources */,
+				C9E415312151531B00D64E32 /* REPL.py in Resources */,
+				C9E4152E21514F9100D64E32 /* Startup.py in Resources */,
 				C9FCFD60214428B300A07974 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -526,6 +548,7 @@
 				C9BA42EF2150007000FED228 /* PyInputHelper.swift in Sources */,
 				C9B3FDED21504107000FC9A8 /* PyExtensionContext.swift in Sources */,
 				C9BA42F22150007000FED228 /* PyFilePicker.swift in Sources */,
+				C9E4152C21513E7900D64E32 /* ConsoleTextView.swift in Sources */,
 				C98E2023214F2646002F0178 /* PyContentViewController.swift in Sources */,
 				C9BA42F12150007000FED228 /* PySharingHelper.swift in Sources */,
 				C98E2024214F26C0002F0178 /* Python.swift in Sources */,
@@ -550,6 +573,7 @@
 				C93D61E32145D50A00C8B5E3 /* String.swift in Sources */,
 				C9FCFD5B214428AE00A07974 /* EditorViewController.swift in Sources */,
 				C976592721471D23001C96A8 /* PyFilePicker.swift in Sources */,
+				C9E4152B21513E3400D64E32 /* ConsoleTextView.swift in Sources */,
 				C93D61DF2145D03200C8B5E3 /* UIWindow.swift in Sources */,
 				C9FCFD59214428AE00A07974 /* AppDelegate.swift in Sources */,
 				C93D61E12145D46700C8B5E3 /* PyOutputHelper.swift in Sources */,

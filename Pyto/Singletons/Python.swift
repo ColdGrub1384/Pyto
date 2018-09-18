@@ -15,7 +15,6 @@ import Foundation
     /// The shared and unique instance
     @objc static let shared = Python()
     
-    private var output = ""
     private override init() {}
     
     /// The queue running scripts.
@@ -24,24 +23,31 @@ import Foundation
     /// The version catched passed from `"sys.version"`.
     @objc var version = ""
     
+    /// If set to `true`, scripts will not be ran because the app would crash.
+    @objc var isREPLRunning = false
+    
+    /// All the Python output.
+    var output = ""
+    
     /// Run script at given URL.
     ///
     /// - Parameters:
     ///     - url: URL of the Python script to run.
     @objc func runScript(at url: URL) {
         queue.async {
-            PyRun_SimpleStringFlags("""
-                import pyto as __Pyto__
-                from importlib.machinery import SourceFileLoader
-                
-                __builtins__.input = __Pyto__.input
-                __builtins__.print = __Pyto__.print
-                
-                try:
-                    SourceFileLoader("main", "\(url.path)").load_module()
-                except Exception as e:
-                    print(e)
-                """, nil)
+            
+            guard !self.isREPLRunning else {
+                PyOutputHelper.print("An instance of the REPL is already running and two scripts cannot run at the same time, to kill it, quit the app.")
+                return
+            }
+            
+            guard let startupURL = Bundle.main.url(forResource: "Startup", withExtension: "py"), let src = try? String(contentsOf: startupURL) as NSString else {
+                PyOutputHelper.print("Error loading Startup.py")
+                return
+            }
+            
+            let code = NSString(format: src, url.path) as String
+            PyRun_SimpleStringFlags(code.cValue, nil)
         }
     }
 }
