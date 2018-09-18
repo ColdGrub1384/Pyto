@@ -2,14 +2,14 @@
 Asks the user for selecting files and shares them.
 """
 
-import pyto
+import sharing
 
 # Code here
 
 def filesPicked() -> None:
-  pyto.shareItems(pyto.pickedFiles())
+  sharing.shareItems(sharing.pickedFiles())
 
-filePicker = pyto.FilePicker.new()
+filePicker = sharing.FilePicker.new()
 filePicker.fileTypes = ["public.data"]
 filePicker.completion = filesPicked
-pyto.pickDocumentsWithFilePicker(filePicker)
+sharing.pickDocumentsWithFilePicker(filePicker)

@@ -2,57 +2,19 @@
 
 This module allows you to interact with Pyto with a Pythonic API.
 
-### Input
+### I/O
 
 ## `input(prompt)`
 
 Requests input with given prompt.
 
-- prompt: The title of the shown alert.
+- prompt: Text printed before the user's input without a newline.
 
 ### Output
 
 ## `print(*objects, sep, end)`
 
-Prints to the Pyto console, not to the stdout. Works as the builtin `print` function but does not support printing to a custom file.
-
-### Sharing
-
-## `FilePicker`
-(Wraps [PyFIlePicker](PyFilePicker))
-
-A class representing a file picker.
-
-Example:
-
-```python
-filePicker = pyto.FilePicker.new()
-filePicker.fileTypes = ["public.data"]
-filePicker.allowsMultipleSelection = True
-
-def filesPicked() -> None:
-    files = pyto.pickedFiles()
-    pyto.shareItems(files)
-
-filePicker.completion = filesPicked
-pyto.pickDocumentsWithFilePicker(filePicker)
-```
-
-## `shareItems(items)`
-
-Opens a share sheet with given items.
-
-- items: Items to be shared with the sheet.
-
-## `pickedFiles()`
-
-Returns files picked with `pickDocumentsWithFilePicker` as URLs.
-
-## `pickDocumentsWithFilePicker(filePicker)`
-
-Pick documents with given parameters as a `FilePicker`.
-
-- filePicker: The parameters of the file picker to be presented.
+Prints to the Pyto console, not to the stdout. Works as the builtin `print` function but does not support printing to a custom file. Pyto catches by default the stdout and the stderr, so use the builtin function instead. This function is mainly for internal use.
 
 ### Alerts
 
