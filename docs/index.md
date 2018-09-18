@@ -8,4 +8,5 @@ Pyto has some modules that allows your scripts to interact with the app.
 
 - [appex](Appex)
 - [mainthread](MainThread)
+- [pasteboard](Pasteboard)
 - [pyto](Pyto)
