@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import StoreKit
 
 /// The application's delegate.
-@objc class AppDelegate: UIResponder, UIApplicationDelegate {
+@objc class AppDelegate: UIResponder, UIApplicationDelegate, SKStoreProductViewControllerDelegate {
 
     var window: UIWindow?
     
@@ -20,6 +21,24 @@ import UIKit
         window?.accessibilityIgnoresInvertColors = true
         window?.tintColor = #colorLiteral(red: 0.394202292, green: 0.8019036651, blue: 0.3871951401, alpha: 1)
         window?.makeKeyAndVisible()
+        
+        ReviewHelper.shared.launches += 1
+        ReviewHelper.shared.requestReview()
+        if ReviewHelper.shared.launches == 5 && !UserDefaults.standard.bool(forKey: "pisth") {
+            UserDefaults.standard.set(true, forKey: "pisth")
+            UserDefaults.standard.synchronize()
+            if !UIApplication.shared.canOpenURL(URL(string: "pisth://")!) {
+                let alert = UIAlertController(title: "Pisth - SSH Client", message: "Do you want to run your scripts remotely via SSH? You can download Pisth, an SSH client.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "View on the App Store", style: .default, handler: { _ in
+                    let store = SKStoreProductViewController()
+                    store.delegate = self
+                    store.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier: "1331070425"], completionBlock: nil)
+                    self.window?.rootViewController?.present(store, animated: true, completion: nil)
+                }))
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                window?.rootViewController?.present(alert, animated: true, completion: nil)
+            }
+        }
         
         return true
     }
@@ -47,6 +66,12 @@ import UIKit
         }
         
         return true
+    }
+    
+    // MARK: - Store product view controller delegate
+    
+    func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
+        viewController.dismiss(animated: true, completion: nil)
     }
 }
 

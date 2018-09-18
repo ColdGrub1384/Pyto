@@ -70,6 +70,10 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
             let safari = SFSafariViewController(url: URL(string: "https://coldgrub1384.github.io/Pyto/Licenses")!)
             self.present(safari, animated: true, completion: nil)
         }))
+        sheet.addAction(UIAlertAction(title: "Source code", style: .default, handler: { _ in
+            let safari = SFSafariViewController(url: URL(string: "https://github.com/ColdGrub1384/Pyto")!)
+            self.present(safari, animated: true, completion: nil)
+        }))
         sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         sheet.popoverPresentationController?.barButtonItem = sender
         sheet.view.tintColor = UIView().tintColor

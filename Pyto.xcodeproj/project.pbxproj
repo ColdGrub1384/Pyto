@@ -15,6 +15,7 @@
 		C904EB6A21445B6700585C28 /* libxz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6921445B6700585C28 /* libxz.a */; };
 		C904EB7321445D5800585C28 /* Python.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904EB7221445D5800585C28 /* Python.swift */; };
 		C909AFA521502CA400836C17 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C909AFA421502CA400836C17 /* Assets.xcassets */; };
+		C92495C72151A3E3007EB4DB /* ReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92495C62151A3E3007EB4DB /* ReviewHelper.swift */; };
 		C93D61DD2145CD0800C8B5E3 /* PyInputHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DC2145CD0800C8B5E3 /* PyInputHelper.swift */; };
 		C93D61DF2145D03200C8B5E3 /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DE2145D03200C8B5E3 /* UIWindow.swift */; };
 		C93D61E12145D46700C8B5E3 /* PyOutputHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E02145D46700C8B5E3 /* PyOutputHelper.swift */; };
@@ -116,6 +117,7 @@
 		C904EB6C21445CAE00585C28 /* Pyto-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pyto-Bridging-Header.h"; sourceTree = "<group>"; };
 		C904EB7221445D5800585C28 /* Python.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Python.swift; sourceTree = "<group>"; };
 		C909AFA421502CA400836C17 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C92495C62151A3E3007EB4DB /* ReviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewHelper.swift; sourceTree = "<group>"; };
 		C93D61DC2145CD0800C8B5E3 /* PyInputHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PyInputHelper.swift; sourceTree = "<group>"; };
 		C93D61DE2145D03200C8B5E3 /* UIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
 		C93D61E02145D46700C8B5E3 /* PyOutputHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyOutputHelper.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 			children = (
 				C9FCFD58214428AE00A07974 /* AppDelegate.swift */,
 				C904EB7221445D5800585C28 /* Python.swift */,
+				C92495C62151A3E3007EB4DB /* ReviewHelper.swift */,
 			);
 			path = Singletons;
 			sourceTree = "<group>";
@@ -568,6 +571,7 @@
 				C9B3FDEC21503DE7000FC9A8 /* PyExtensionContext.swift in Sources */,
 				C93D61DD2145CD0800C8B5E3 /* PyInputHelper.swift in Sources */,
 				C904EB7321445D5800585C28 /* Python.swift in Sources */,
+				C92495C72151A3E3007EB4DB /* ReviewHelper.swift in Sources */,
 				C98E2002214F0856002F0178 /* main.m in Sources */,
 				C95A79E8214DC9D0007A1B90 /* PyAlert.swift in Sources */,
 				C93D61E32145D50A00C8B5E3 /* String.swift in Sources */,
@@ -627,6 +631,7 @@
 				);
 				IBSC_MODULE = "$(PRODUCT_NAME:c99extidentifier)";
 				INFOPLIST_FILE = "Pyto Share/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -665,6 +670,7 @@
 				);
 				IBSC_MODULE = "$(PRODUCT_NAME:c99extidentifier)";
 				INFOPLIST_FILE = "Pyto Share/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -817,6 +823,7 @@
 					"$(PROJECT_DIR)/Pyto",
 				);
 				INFOPLIST_FILE = Pyto/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -851,6 +858,7 @@
 					"$(PROJECT_DIR)/Pyto",
 				);
 				INFOPLIST_FILE = Pyto/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
