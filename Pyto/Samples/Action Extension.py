@@ -7,11 +7,11 @@ To do that, open the share sheet, select "Run Pyto script" and select the script
 To test this script, click the share button on the editor, save the file somewhere in the Files app and open any item with this script from the share sheet.
 """
 
-import pyto
+import appex
 
 # Code here
 
-items = pyto.extensionItems()
+items = appex.extensionItems()
 if (items != None):
     print("Shared items are:\n")
     for item in items:
