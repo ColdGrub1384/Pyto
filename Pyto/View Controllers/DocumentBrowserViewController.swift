@@ -56,13 +56,10 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
             guard let replURL = Bundle.main.url(forResource: "REPL", withExtension: "py") else {
                 return
             }
-            if Python.shared.isREPLRunning { // Resume the session
+            if Python.shared.isREPLRunning {
                 let contentVC = PyContentViewController()
                 UIApplication.shared.keyWindow?.topViewController?.present(contentVC, animated: true, completion: {
-                    let consoleVC = (contentVC.viewController as? UINavigationController)?.visibleViewController as? ConsoleViewController
-                    consoleVC?.textView.text = Python.shared.output
-                    consoleVC?.textView?.becomeFirstResponder()
-                    consoleVC?.textView?.scrollToBottom()
+                    PyInputHelper.userInput = "import code; code.interact()"
                     
                 })
             } else { // Start the REPL

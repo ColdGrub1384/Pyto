@@ -37,7 +37,7 @@ import Foundation
         queue.async {
             
             guard !self.isREPLRunning else {
-                PyOutputHelper.print("An instance of the REPL is already running and two scripts cannot run at the same time, to kill it, quit the app.")
+                PyOutputHelper.print("An instance of the REPL is already running and two scripts cannot run at the same time, to kill it, quit the app.") // Should not be called. When the REPL is running, run the script inside it.
                 return
             }
             

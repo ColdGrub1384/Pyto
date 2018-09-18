@@ -59,6 +59,9 @@ int main(int argc, char *argv[]) {
     
     initializePython();
     
+    // Start the REPL that will contain all child modules
+    [Python.shared runScriptAt:[[NSBundle mainBundle] URLForResource:@"REPL" withExtension:@"py"]];
+    
     @autoreleasepool {
         return UIApplicationMain(argc, argv, NULL, NSStringFromClass(AppDelegate.class));
     }
