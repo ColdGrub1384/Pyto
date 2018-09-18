@@ -25,7 +25,7 @@
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>NSExtensionActivationRule</key>
-			<string>SUBQUERY(extensionItems, $extensionItem, SUBQUERY($extensionItem.attachments, $attachment, (ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO &quot;public.url&quot; OR ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO &quot;public.image&quot; OR ANY  $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO &quot;public.audio&quot; OR ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO &quot;public.text&quot;)).@count &gt; 0).@count &gt; 0</string>
+			<string>SUBQUERY(extensionItems, $extensionItem, SUBQUERY($extensionItem.attachments, $attachment, (ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.url" OR ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.image" OR ANY  $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.audio" OR ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.text")).@count &gt; 0).@count &gt; 0</string>
 		</dict>
 		<key>NSExtensionMainStoryboard</key>
 		<string>MainInterface</string>

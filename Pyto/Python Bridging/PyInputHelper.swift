@@ -9,16 +9,16 @@
 import UIKit
 
 /// A helper accessible by Rubicon to request user's input.
-@objc public class PyInputHelper: NSObject {
+@objc class PyInputHelper: NSObject {
     
     /// The user's input. Set its value while Python script is waiting for input to pass the input.
-    @objc public static var userInput: String?
+    @objc static var userInput: String?
     
     /// Shows an alert to request input.
     ///
     /// - Parameters:
     ///     - prompt: The title of the alert.
-    @objc public static func showAlert(prompt: String?) {
+    @objc static func showAlert(prompt: String?) {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: prompt, message: "The script requested for your input", preferredStyle: .alert)
             var textField: UITextField?

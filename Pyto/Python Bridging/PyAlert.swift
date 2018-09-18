@@ -9,13 +9,13 @@
 import UIKit
 
 /// A class representing an alert to be used from the Python API.
-@objc public class PyAlert: NSObject {
+@objc class PyAlert: NSObject {
     
     /// The alert's title.
-    @objc public var title: String?
+    @objc var title: String?
     
     /// The alert's message.
-    @objc public var message: String?
+    @objc var message: String?
     
     /// The alert's actions.
     var actions: [UIAlertAction]?
@@ -25,7 +25,7 @@ import UIKit
     /// - Parameters:
     ///     - title: The alert's title.
     ///     - message: The alert's message.
-    @objc public static func initWithTitle(_ title: String?, message: String?) -> PyAlert {
+    @objc static func initWithTitle(_ title: String?, message: String?) -> PyAlert {
         let self_ = PyAlert()
         
         self_.title = title
@@ -35,7 +35,7 @@ import UIKit
     }
     
     /// Show an alert with set parameters.
-    @objc public func show() {
+    @objc func show() {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: self.title, message: self.message, preferredStyle: .alert)
             for action in self.actions ?? [] {
@@ -65,7 +65,7 @@ import UIKit
     /// - Parameters:
     ///     - title: The title of the action.
     ///     - handler: The action's handler.
-    @objc public func addAction(title: String, handler: (() -> Void)?) {
+    @objc func addAction(title: String, handler: (() -> Void)?) {
         addAction(title: title, handler: handler, style: .default)
     }
     
@@ -74,7 +74,7 @@ import UIKit
     /// - Parameters:
     ///     - title: The title of the action.
     ///     - handler: The action's handler.
-    @objc public func addDestructiveAction(title: String, handler: (() -> Void)?) {
+    @objc func addDestructiveAction(title: String, handler: (() -> Void)?) {
         addAction(title: title, handler: handler, style: .destructive)
     }
     
@@ -83,7 +83,7 @@ import UIKit
     /// - Parameters:
     ///     - title: The title of the action.
     ///     - handler: The action's handler.
-    @objc public func addCancelAction(title: String, handler: (() -> Void)?) {
+    @objc func addCancelAction(title: String, handler: (() -> Void)?) {
         addAction(title: title, handler: handler, style: .cancel)
     }
 }

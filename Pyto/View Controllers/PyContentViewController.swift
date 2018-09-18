@@ -9,10 +9,10 @@
 import UIKit
 
 /// A View controller representing the result of the script ran by the user. Change `viewController` property or call `setRootViewController(_:)` to embed a custom View controller. It can be set from Python trough the Rubicon library to access Objective-C runtime, but it's not recommended because of issues subclassing. The default View controller is the console.
-@objc public class PyContentViewController: UIViewController {
+@objc class PyContentViewController: UIViewController {
     
     /// The visible instance.
-    @objc public static var shared: PyContentViewController?
+    @objc static var shared: PyContentViewController?
     
     /// URL of the script to be ran when this View controller will appear.
     static var scriptToRun: URL?
@@ -20,12 +20,12 @@ import UIKit
     // MARK: - Content view controller
     
     /// Calls the setter of `viewController` with given value.
-    @objc public func setRootViewController(_ vc: UIViewController?) {
+    @objc func setRootViewController(_ vc: UIViewController?) {
         viewController = vc
     }
     
     /// The embedded View controller.
-    @objc public var viewController: UIViewController? {
+    @objc var viewController: UIViewController? {
         didSet {
             if let newValue = viewController {
                 addChild(newValue)
@@ -51,13 +51,13 @@ import UIKit
     
     // MARK: - View controller
     
-    override public func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         setDefaultViewController()
     }
     
-    override public func viewDidAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         PyContentViewController.shared = self
@@ -69,17 +69,17 @@ import UIKit
         }
     }
     
-    override public func viewDidDisappear(_ animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         PyContentViewController.shared = nil
     }
     
-    override public var prefersStatusBarHidden: Bool {
+    override var prefersStatusBarHidden: Bool {
         return viewController?.prefersStatusBarHidden ?? false
     }
     
-    override public var preferredStatusBarStyle: UIStatusBarStyle {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
         return viewController?.preferredStatusBarStyle ?? .default
     }
 }

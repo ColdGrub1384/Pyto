@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public class PyExtensionContext: NSObject {
+@objc class PyExtensionContext: NSObject {
     
-    @objc public static var items: [Any]?
+    @objc static var items: [Any]?
 }
