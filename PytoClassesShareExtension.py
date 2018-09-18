@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 This module contains classes from the share extension used by Pyto.
+
+This module is only for private use. Use the `pyto` API instead.
 """
 
 from rubicon.objc import *
