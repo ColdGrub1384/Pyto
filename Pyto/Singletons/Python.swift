@@ -48,6 +48,10 @@ import Foundation
             
             let code = NSString(format: src, url.path) as String
             PyRun_SimpleStringFlags(code.cValue, nil)
+            
+            DispatchQueue.main.async {
+                PyContentViewController.shared?.dismissKeyboard()
+            }
         }
     }
 }
