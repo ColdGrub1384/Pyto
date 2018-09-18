@@ -16,10 +16,7 @@ NSString *pythonHome;
 /// The path of the file where errors are printed.
 NSString *pythonStderrPath;
 
-int kArgc;
-char **kArgv;
-
-void initializePython() {
+int main(int argc, char *argv[]) {
     
     pythonHome = [[NSBundle mainBundle] pathForResource:@"Library/Python.framework/Resources" ofType:NULL];
     pythonStderrPath = [[[[NSFileManager defaultManager] URLsForDirectory:NSLibraryDirectory inDomains:NSAllDomainsMask] firstObject] URLByAppendingPathComponent:@"errors"].path;
@@ -41,23 +38,15 @@ void initializePython() {
     PyEval_InitThreads();
     
     // Set Python arguments
-    wchar_t** python_argv = PyMem_RawMalloc(sizeof(wchar_t*) * kArgc);
+    wchar_t** python_argv = PyMem_RawMalloc(sizeof(wchar_t*) * argc);
     int i;
-    for (i = 0; i < kArgc; i++) {
-        python_argv[i] = Py_DecodeLocale(kArgv[i], NULL);
+    for (i = 0; i < argc; i++) {
+        python_argv[i] = Py_DecodeLocale(argv[i], NULL);
     }
-    PySys_SetArgv(kArgc, python_argv);
+    PySys_SetArgv(argc, python_argv);
     
     // Get Python version
     PyRun_SimpleStringFlags("import sys\nfrom rubicon.objc import *\nObjCClass('Pyto.Python').shared.version = sys.version", NULL);
-}
-
-int main(int argc, char *argv[]) {
-    
-    kArgc = argc;
-    kArgv = argv;
-    
-    initializePython();
     
     // Start the REPL that will contain all child modules
     [Python.shared runScriptAt:[[NSBundle mainBundle] URLForResource:@"REPL" withExtension:@"py"]];

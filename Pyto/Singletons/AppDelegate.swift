@@ -8,9 +8,6 @@
 
 import UIKit
 
-@_silgen_name("initializePython")
-func initializePython() -> Void
-
 /// The application's delegate.
 @objc class AppDelegate: UIResponder, UIApplicationDelegate {
 
