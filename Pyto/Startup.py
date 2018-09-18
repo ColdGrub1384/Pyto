@@ -5,11 +5,10 @@ import PytoClasses as __PytoClassesApp__
 from importlib.machinery import SourceFileLoader
     
 __builtins__.input = __Pyto__.input
-__builtins__.print = __Pyto__.print
                 
 class Reader:
     def write(self, txt):
-        print(txt)
+        __Pyto__.print(txt)
 
 reader = Reader()
 __sys__.stderr = reader
