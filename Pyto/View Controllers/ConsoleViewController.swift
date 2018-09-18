@@ -11,12 +11,19 @@ import UIKit
 /// A View controller containing Python script output.
 class ConsoleViewController: UIViewController, UITextViewDelegate {
     
-    private var console = ""
     private var prompt = ""
-    private var askingForInput = false
+    
+    /// The content of the console.
+    var console = ""
+    
+    /// Set to `true` for asking the user for input.
+    @objc var isAskingForInput = false
     
     /// The Text view containing the console.
     var textView: ConsoleTextView!
+    
+    /// If set to `true`, the user will not be able to input.
+    var ignoresInput = false
     
     /// Add the content of the given notification as `String` to `textView`. Called when the stderr changed or when a script printed from the Pyto module's `print` function`.
     ///
@@ -41,18 +48,27 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     /// - Parameters:
     ///     - prompt: The prompt from the Python function
     func input(prompt: String) {
+        
+        guard !ignoresInput else {
+            return
+        }
+        
         textView.text += prompt
         Python.shared.output += prompt
         textViewDidChange(textView)
-        askingForInput = true
+        isAskingForInput = true
         textView.isEditable = true
         textView.becomeFirstResponder()
     }
     
-    /// Closes the View controller.
+    /// Closes the View controller or dismisses keyboard.
     @objc func close() {
-        extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
-        dismiss(animated: true, completion: nil)        
+        if textView.isFirstResponder {
+            textView.resignFirstResponder()
+        } else {
+            extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+            dismiss(animated: true, completion: nil)
+        }
     }
     
     deinit {        
@@ -84,8 +100,8 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
         var r = d[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
         
         r = textView.convert(r, from:nil)
-        textView.contentInset.bottom = r.size.height+50
-        textView.scrollIndicatorInsets.bottom = r.size.height+50
+        textView.contentInset.bottom = r.size.height
+        textView.scrollIndicatorInsets.bottom = r.size.height
     }
     
     @objc func keyboardWillHide(_ notification:Notification) {
@@ -96,7 +112,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     // MARK: - Text view delegate
     
     func textViewDidChange(_ textView: UITextView) {
-        if !askingForInput {
+        if !isAskingForInput {
             console = textView.text
         }
     }
@@ -115,12 +131,14 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
         if (textView.text as NSString).replacingCharacters(in: range, with: text).count >= console.count {
             
             prompt += text
+            
             if text == "\n" {
-                textView.text += "\n"
+                prompt = String(prompt.dropLast())
                 PyInputHelper.userInput = prompt
                 Python.shared.output += prompt
                 prompt = ""
-                askingForInput = false
+                isAskingForInput = false
+                textView.text += "\n"
                 textView.isEditable = false
                 textView.resignFirstResponder()
                 

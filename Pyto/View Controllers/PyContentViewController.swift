@@ -49,6 +49,17 @@ import UIKit
         viewController = navVC
     }
     
+    /// Dismisses the console's keyboard.
+    @objc func dismissKeyboard() {
+        DispatchQueue.main.async {
+            let console = (self.viewController as? UINavigationController)?.visibleViewController as? ConsoleViewController
+            console?.resignFirstResponder()
+            console?.textView.isEditable = false
+            console?.isAskingForInput = false
+            console?.ignoresInput = true
+        }
+    }
+    
     // MARK: - View controller
     
     override func viewDidLoad() {
@@ -63,8 +74,15 @@ import UIKit
         PyContentViewController.shared = self
         
         if let url = PyContentViewController.scriptToRun {
-            ((viewController as? UINavigationController)?.visibleViewController as? ConsoleViewController)?.textView?.text = ""
-            Python.shared.runScript(at: url)
+            let console = (viewController as? UINavigationController)?.visibleViewController as? ConsoleViewController
+            console?.textView?.text = ""
+            console?.ignoresInput = false
+            if Python.shared.isREPLRunning {
+                // Import the script
+                PyInputHelper.userInput = "from importlib.machinery import SourceFileLoader; import PytoClasses as __pytoclasses__; pyto_running_script = SourceFileLoader('main', '\(url.path)').load_module(); __pytoclasses__.PyContentViewController.shared.dismissKeyboard();"
+            } else {
+                Python.shared.runScript(at: url)
+            }
             PyContentViewController.scriptToRun = nil
         }
     }
