@@ -1,4 +1,4 @@
-import pyto as __Pyto__
+import console as __Pyto__
 import sys as __sys__
 import code as __code__
 import PytoClasses as __PytoClassesApp__
