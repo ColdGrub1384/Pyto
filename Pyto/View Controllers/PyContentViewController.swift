@@ -78,8 +78,13 @@ import UIKit
             console?.textView?.text = ""
             console?.ignoresInput = false
             if Python.shared.isREPLRunning {
+                if Python.shared.isScriptRunning { // A script is already running
+                    PyOutputHelper.print("An instance of a module is already running and two scripts cannot run at the same time, to kill it, quit the app. This can be caused by an inifite loop.")
+                    return
+                }
+                Python.shared.isScriptRunning = true
                 // Import the script
-                PyInputHelper.userInput = "from importlib.machinery import SourceFileLoader; import PytoClasses as __pytoclasses__; pyto_running_script = SourceFileLoader('main', '\(url.path)').load_module(); __pytoclasses__.PyContentViewController.shared.dismissKeyboard();"
+                PyInputHelper.userInput = "from importlib.machinery import SourceFileLoader; import PytoClasses as __pytoclasses__; pyto_running_script = SourceFileLoader('main', '\(url.path)').load_module(); __pytoclasses__.PyContentViewController.shared.dismissKeyboard(); __pytoclasses__.Python.shared.isScriptRunning = False"
             } else {
                 Python.shared.runScript(at: url)
             }

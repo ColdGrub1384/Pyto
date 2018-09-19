@@ -32,8 +32,15 @@ import Foundation
     /// The version catched passed from `"sys.version"`.
     @objc var version = ""
     
-    /// If set to `true`, scripts will not be ran because the app would crash.
+    /// If set to `true`, scripts will run inside the REPL.
     @objc var isREPLRunning = false
+    
+    /// Set to `true` while a script is running to prevent user from running one while another is running.
+    @objc var isScriptRunning = false {
+        didSet {
+            print("isScriptRunning: \(isScriptRunning)")
+        }
+    }
     
     /// All the Python output.
     var output = ""
