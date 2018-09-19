@@ -11,13 +11,3 @@ target 'Pyto' do
 
   pod 'SourceEditor'
 end
-
-target 'Pyto Share' do
-  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-  use_frameworks!
-
-  # Pods for Pyto
-
-  pod 'SourceEditor'
-end
-
