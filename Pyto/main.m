@@ -23,7 +23,6 @@ int main(int argc, char *argv[]) {
     
     // Python env variables
     putenv("PYTHONOPTIMIZE=");
-    putenv((char *)[[NSString stringWithFormat:@"HOME=%@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask] firstObject].path] UTF8String]);
     putenv("PYTHONDONTWRITEBYTECODE=1");
     putenv((char *)[[NSString stringWithFormat:@"TMP=%@", NSTemporaryDirectory()] UTF8String]);
     putenv((char *)[[NSString stringWithFormat:@"PYTHONHOME=%@", pythonHome] UTF8String]);
@@ -33,6 +32,8 @@ int main(int argc, char *argv[]) {
     Py_Initialize();
     PyEval_InitThreads();
     
+    [Python.shared importPytoLib];
+    
     // Set Python arguments
     wchar_t** python_argv = PyMem_RawMalloc(sizeof(wchar_t*) * argc);
     int i;
@@ -40,9 +41,6 @@ int main(int argc, char *argv[]) {
         python_argv[i] = Py_DecodeLocale(argv[i], NULL);
     }
     PySys_SetArgv(argc, python_argv);
-    
-    // Get Python version
-    PyRun_SimpleStringFlags("import sys\nfrom rubicon.objc import *\nObjCClass('Pyto.Python').shared.version = sys.version", NULL);
     
     // Start the REPL that will contain all child modules
     [Python.shared runScriptAt:[[NSBundle mainBundle] URLForResource:@"REPL" withExtension:@"py"]];
