@@ -17,6 +17,15 @@ import Foundation
     
     private override init() {}
     
+    /// The bundle containing all Python resources.
+    @objc var bundle: Bundle {
+        if Bundle.main.bundleIdentifier == "ch.marcela.ada.Pyto" {
+            return Bundle(identifier: "ch.ada.Python")!
+        } else {
+            return Bundle(path: Bundle.main.path(forResource: "Python.framework", ofType: nil)!)!
+        }
+    }
+    
     /// The queue running scripts.
     @objc let queue = DispatchQueue.global()
     
@@ -39,6 +48,10 @@ import Foundation
             guard !self.isREPLRunning else {
                 PyOutputHelper.print("An instance of the REPL is already running and two scripts cannot run at the same time, to kill it, quit the app.") // Should not be called. When the REPL is running, run the script inside it.
                 return
+            }
+            
+            if url.path == Bundle.main.url(forResource: "REPL", withExtension: "py")?.path {
+                self.isREPLRunning = true
             }
             
             guard let startupURL = Bundle.main.url(forResource: "Startup", withExtension: "py"), let src = try? String(contentsOf: startupURL) as NSString else {

@@ -3,7 +3,7 @@ import sys as __sys__
 import code as __code__
 import PytoClasses as __PytoClassesApp__
 from importlib.machinery import SourceFileLoader
-    
+
 __builtins__.input = __Pyto__.input
 
 oldStdout = sys.stdout
