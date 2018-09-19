@@ -68,6 +68,14 @@ import StoreKit
         return true
     }
     
+    func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
+        return true
+    }
+    
+    func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
+        return true
+    }
+    
     // MARK: - Store product view controller delegate
     
     func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {

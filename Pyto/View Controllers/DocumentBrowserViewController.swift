@@ -10,7 +10,7 @@ import UIKit
 import SafariServices
 
 /// The main file browser used to edit scripts.
-class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate {
+class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate, UIViewControllerRestoration {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +23,8 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         })]
         additionalLeadingNavigationBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(help(_:)))]
         delegate = self
+        restorationClass = DocumentBrowserViewController.self
+        restorationIdentifier = "Browser"
     }
     
     /// Open the documentation or samples.
@@ -85,7 +87,8 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     /// - Parameters:
     ///     - document: The URL of the script.
     ///     - run: Set to `true` to run the script inmediately.
-    func openDocument(_ document: URL, run: Bool) {
+    ///     - completion: Code call after presenting the UI.
+    func openDocument(_ document: URL, run: Bool, completion: (() -> Void)? = nil) {
         Py_SetProgramName(document.lastPathComponent.cWchar_t)
         
         let doc = PyDocument(fileURL: document)
@@ -102,6 +105,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
             if run {
                 editor.run()
             }
+            completion?()
         })
     }
     
@@ -119,5 +123,42 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
             return
         }
         importHandler(template, .copy)
+    }
+    
+    // MARK: - State restoration
+    
+    override func encodeRestorableState(with coder: NSCoder) {
+        
+        if let tabBarVC = presentedViewController as? UITabBarController, let editor = (tabBarVC.viewControllers?.first as? UINavigationController)?.viewControllers.first as? EditorViewController, let url = editor.document?.fileURL, let bookmark = try? url.bookmarkData() {
+            
+            editor.save()
+            coder.encode(bookmark, forKey: "bookmark")
+            if let console = (PyContentViewController.shared?.viewController as? UINavigationController)?.viewControllers.first as? ConsoleViewController {
+                coder.encode(console.textView.text, forKey: "console")
+            }
+        }
+        
+        super.encodeRestorableState(with: coder)
+    }
+    
+    override func decodeRestorableState(with coder: NSCoder) {
+        super.decodeRestorableState(with: coder)
+        
+        var bookmarkDataIsStale = false
+        if let bookmark = coder.decodeObject(forKey: "bookmark") as? Data, let url = try? URL(resolvingBookmarkData: bookmark, bookmarkDataIsStale: &bookmarkDataIsStale) {
+            _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in // TODO: Anyway to do it without a timer?
+                self.openDocument(url, run: false, completion: {
+                    ((PyContentViewController.shared?.viewController as? UINavigationController)?.viewControllers.first as? ConsoleViewController)?.textView.text = (coder.decodeObject(forKey: "console") as? String) ?? ""
+                })
+            })
+        }
+        
+        super.decodeRestorableState(with: coder)
+    }
+    
+    // MARK: - View controller restoration
+    
+    static func viewController(withRestorationIdentifierPath identifierComponents: [String], coder: NSCoder) -> UIViewController? {
+        return DocumentBrowserViewController()
     }
 }
