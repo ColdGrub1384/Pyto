@@ -8,50 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		6AB6C68D181C2C686D545A61 /* Pods_Pyto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 296FFAAD958315A38A36E2A4 /* Pods_Pyto.framework */; };
-		8840A4AC24CBE23296DB8147 /* Pods_Pyto_Share.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BC99F252A2A9793B2333BA6 /* Pods_Pyto_Share.framework */; };
 		C904EB6421445B5800585C28 /* libPython.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6321445B5800585C28 /* libPython.a */; };
 		C904EB6621445B5D00585C28 /* libbzip2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6521445B5D00585C28 /* libbzip2.a */; };
 		C904EB6821445B6100585C28 /* libOpenSSL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6721445B6100585C28 /* libOpenSSL.a */; };
 		C904EB6A21445B6700585C28 /* libxz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6921445B6700585C28 /* libxz.a */; };
 		C904EB7321445D5800585C28 /* Python.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904EB7221445D5800585C28 /* Python.swift */; };
-		C909AFA521502CA400836C17 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C909AFA421502CA400836C17 /* Assets.xcassets */; };
 		C92495C72151A3E3007EB4DB /* ReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92495C62151A3E3007EB4DB /* ReviewHelper.swift */; };
 		C93D61DD2145CD0800C8B5E3 /* PyInputHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DC2145CD0800C8B5E3 /* PyInputHelper.swift */; };
 		C93D61DF2145D03200C8B5E3 /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DE2145D03200C8B5E3 /* UIWindow.swift */; };
 		C93D61E12145D46700C8B5E3 /* PyOutputHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E02145D46700C8B5E3 /* PyOutputHelper.swift */; };
 		C93D61E32145D50A00C8B5E3 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E22145D50A00C8B5E3 /* String.swift */; };
+		C943AC44215277A000844368 /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C943AC3D215277A000844368 /* Python.framework */; };
+		C943AC45215277A000844368 /* Python.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C943AC3D215277A000844368 /* Python.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C943AC4E215277E900844368 /* PytoClasses.py in Copy Files */ = {isa = PBXBuildFile; fileRef = C9BA42F6215005E700FED228 /* PytoClasses.py */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C943AC6321527D2A00844368 /* lib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C943AC6221527D2900844368 /* lib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C943AC6521527D3E00844368 /* include in CopyFiles */ = {isa = PBXBuildFile; fileRef = C943AC6421527D3E00844368 /* include */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C95A79E6214DC627007A1B90 /* PyMainThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A79E5214DC627007A1B90 /* PyMainThread.swift */; };
 		C95A79E8214DC9D0007A1B90 /* PyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A79E7214DC9D0007A1B90 /* PyAlert.swift */; };
 		C97659062147192C001C96A8 /* PySharingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97659052147192C001C96A8 /* PySharingHelper.swift */; };
 		C976592721471D23001C96A8 /* PyFilePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C976592621471D23001C96A8 /* PyFilePicker.swift */; };
 		C98E1FFD214EE6ED002F0178 /* Samples in Resources */ = {isa = PBXBuildFile; fileRef = C98E1FFC214EE6EC002F0178 /* Samples */; };
 		C98E2002214F0856002F0178 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C98E2001214F0856002F0178 /* main.m */; };
-		C98E200A214F1F38002F0178 /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98E2009214F1F38002F0178 /* ActionViewController.swift */; };
-		C98E200D214F1F38002F0178 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C98E200B214F1F38002F0178 /* MainInterface.storyboard */; };
-		C98E2011214F1F38002F0178 /* Pyto Share.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C98E2007214F1F38002F0178 /* Pyto Share.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		C98E2016214F2472002F0178 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A62144620A00382DCC /* libz.tbd */; };
-		C98E2017214F2485002F0178 /* libPython.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6321445B5800585C28 /* libPython.a */; };
-		C98E2018214F2485002F0178 /* libbzip2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6521445B5D00585C28 /* libbzip2.a */; };
-		C98E2019214F2485002F0178 /* libOpenSSL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6721445B6100585C28 /* libOpenSSL.a */; };
-		C98E201A214F2485002F0178 /* libxz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6921445B6700585C28 /* libxz.a */; };
-		C98E201B214F24A3002F0178 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A4214461D300382DCC /* libsqlite3.tbd */; };
-		C98E2021214F2568002F0178 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E22145D50A00C8B5E3 /* String.swift */; };
-		C98E2022214F25DC002F0178 /* ConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EDF9AA21446FCA00382DCC /* ConsoleViewController.swift */; };
-		C98E2023214F2646002F0178 /* PyContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EDF9A821446EE600382DCC /* PyContentViewController.swift */; };
-		C98E2024214F26C0002F0178 /* Python.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904EB7221445D5800585C28 /* Python.swift */; };
 		C9B3FDEC21503DE7000FC9A8 /* PyExtensionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */; };
-		C9B3FDED21504107000FC9A8 /* PyExtensionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */; };
-		C9BA42EF2150007000FED228 /* PyInputHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DC2145CD0800C8B5E3 /* PyInputHelper.swift */; };
-		C9BA42F02150007000FED228 /* PyOutputHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E02145D46700C8B5E3 /* PyOutputHelper.swift */; };
-		C9BA42F12150007000FED228 /* PySharingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97659052147192C001C96A8 /* PySharingHelper.swift */; };
-		C9BA42F22150007000FED228 /* PyFilePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C976592621471D23001C96A8 /* PyFilePicker.swift */; };
-		C9BA42F32150007000FED228 /* PyMainThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A79E5214DC627007A1B90 /* PyMainThread.swift */; };
-		C9BA42F42150007000FED228 /* PyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A79E7214DC9D0007A1B90 /* PyAlert.swift */; };
-		C9BA42F52150008B00FED228 /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DE2145D03200C8B5E3 /* UIWindow.swift */; };
 		C9E4152B21513E3400D64E32 /* ConsoleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E4152A21513E3400D64E32 /* ConsoleTextView.swift */; };
-		C9E4152C21513E7900D64E32 /* ConsoleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E4152A21513E3400D64E32 /* ConsoleTextView.swift */; };
 		C9E4152E21514F9100D64E32 /* Startup.py in Resources */ = {isa = PBXBuildFile; fileRef = C9E4152D21514F9100D64E32 /* Startup.py */; };
-		C9E4152F21514FCB00D64E32 /* Startup.py in Resources */ = {isa = PBXBuildFile; fileRef = C9E4152D21514F9100D64E32 /* Startup.py */; };
 		C9E415312151531B00D64E32 /* REPL.py in Resources */ = {isa = PBXBuildFile; fileRef = C9E415302151531B00D64E32 /* REPL.py */; };
 		C9EDF9A5214461D300382DCC /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A4214461D300382DCC /* libsqlite3.tbd */; };
 		C9EDF9A72144620A00382DCC /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A62144620A00382DCC /* libz.tbd */; };
@@ -67,23 +47,44 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C98E200F214F1F38002F0178 /* PBXContainerItemProxy */ = {
+		C943AC42215277A000844368 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C9FCFD4D214428AE00A07974 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = C98E2006214F1F38002F0178;
-			remoteInfo = "Pyto Share";
+			remoteGlobalIDString = C943AC3C215277A000844368;
+			remoteInfo = Python;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		C943AC4D215277E200844368 /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "home/lib/python3.6/site-packages";
+			dstSubfolderSpec = 7;
+			files = (
+				C943AC4E215277E900844368 /* PytoClasses.py in Copy Files */,
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C943AC4F2152781100844368 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = home;
+			dstSubfolderSpec = 7;
+			files = (
+				C943AC6521527D3E00844368 /* include in CopyFiles */,
+				C943AC6321527D2A00844368 /* lib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C98E2015214F1F38002F0178 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				C98E2011214F1F38002F0178 /* Pyto Share.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,6 +95,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C943AC45215277A000844368 /* Python.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -116,31 +118,28 @@
 		C904EB6921445B6700585C28 /* libxz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libxz.a; path = XZ/libxz.a; sourceTree = "<group>"; };
 		C904EB6C21445CAE00585C28 /* Pyto-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pyto-Bridging-Header.h"; sourceTree = "<group>"; };
 		C904EB7221445D5800585C28 /* Python.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Python.swift; sourceTree = "<group>"; };
-		C909AFA421502CA400836C17 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C92495C62151A3E3007EB4DB /* ReviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewHelper.swift; sourceTree = "<group>"; };
 		C93D61DC2145CD0800C8B5E3 /* PyInputHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PyInputHelper.swift; sourceTree = "<group>"; };
 		C93D61DE2145D03200C8B5E3 /* UIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
 		C93D61E02145D46700C8B5E3 /* PyOutputHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyOutputHelper.swift; sourceTree = "<group>"; };
 		C93D61E22145D50A00C8B5E3 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		C95A79E3214DC4AF007A1B90 /* python3.6 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = python3.6; sourceTree = "<group>"; };
+		C943AC3D215277A000844368 /* Python.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Python.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C943AC40215277A000844368 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C943AC6221527D2900844368 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; name = lib; path = Python/Resources/lib; sourceTree = "<group>"; };
+		C943AC6421527D3E00844368 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = Python/Resources/include; sourceTree = "<group>"; };
 		C95A79E5214DC627007A1B90 /* PyMainThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyMainThread.swift; sourceTree = "<group>"; };
 		C95A79E7214DC9D0007A1B90 /* PyAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyAlert.swift; sourceTree = "<group>"; };
 		C97659052147192C001C96A8 /* PySharingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PySharingHelper.swift; sourceTree = "<group>"; };
 		C976592621471D23001C96A8 /* PyFilePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyFilePicker.swift; sourceTree = "<group>"; };
 		C98E1FFC214EE6EC002F0178 /* Samples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Samples; sourceTree = "<group>"; };
 		C98E2001214F0856002F0178 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C98E2007214F1F38002F0178 /* Pyto Share.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Pyto Share.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C98E2009214F1F38002F0178 /* ActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewController.swift; sourceTree = "<group>"; };
-		C98E200C214F1F38002F0178 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		C98E200E214F1F38002F0178 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C98E201E214F2513002F0178 /* Pyto Share-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pyto Share-Bridging-Header.h"; sourceTree = "<group>"; };
 		C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyExtensionContext.swift; sourceTree = "<group>"; };
-		C9BA42F6215005E700FED228 /* PytoClassesApp.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = PytoClassesApp.py; sourceTree = "<group>"; };
-		C9BA42F72150061900FED228 /* PytoClassesShareExtension.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = PytoClassesShareExtension.py; sourceTree = "<group>"; };
+		C9BA42F6215005E700FED228 /* PytoClasses.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = PytoClasses.py; sourceTree = "<group>"; };
 		C9C57EB40A56344EEB889161 /* Pods-Pyto Share.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Share.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Share/Pods-Pyto Share.release.xcconfig"; sourceTree = "<group>"; };
 		C9E4152A21513E3400D64E32 /* ConsoleTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleTextView.swift; sourceTree = "<group>"; };
 		C9E4152D21514F9100D64E32 /* Startup.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = Startup.py; sourceTree = "<group>"; };
 		C9E415302151531B00D64E32 /* REPL.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = REPL.py; sourceTree = "<group>"; };
+		C9E7ABAA2152D0D30007BB87 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		C9EDF9A4214461D300382DCC /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		C9EDF9A62144620A00382DCC /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C9EDF9A821446EE600382DCC /* PyContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyContentViewController.swift; sourceTree = "<group>"; };
@@ -157,17 +156,10 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		C98E2004214F1F38002F0178 /* Frameworks */ = {
+		C943AC3A215277A000844368 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C98E201B214F24A3002F0178 /* libsqlite3.tbd in Frameworks */,
-				C98E2016214F2472002F0178 /* libz.tbd in Frameworks */,
-				C98E2017214F2485002F0178 /* libPython.a in Frameworks */,
-				C98E2018214F2485002F0178 /* libbzip2.a in Frameworks */,
-				C98E2019214F2485002F0178 /* libOpenSSL.a in Frameworks */,
-				C98E201A214F2485002F0178 /* libxz.a in Frameworks */,
-				8840A4AC24CBE23296DB8147 /* Pods_Pyto_Share.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,6 +173,7 @@
 				C904EB6621445B5D00585C28 /* libbzip2.a in Frameworks */,
 				C904EB6821445B6100585C28 /* libOpenSSL.a in Frameworks */,
 				C904EB6A21445B6700585C28 /* libxz.a in Frameworks */,
+				C943AC44215277A000844368 /* Python.framework in Frameworks */,
 				C904EB6421445B5800585C28 /* libPython.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -191,6 +184,7 @@
 		777F5989381586AA988D5FF0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C9E7ABAA2152D0D30007BB87 /* libsqlite3.0.tbd */,
 				C9EDF9A62144620A00382DCC /* libz.tbd */,
 				C9EDF9A4214461D300382DCC /* libsqlite3.tbd */,
 				296FFAAD958315A38A36E2A4 /* Pods_Pyto.framework */,
@@ -261,16 +255,12 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		C98E2008214F1F38002F0178 /* Pyto Share */ = {
+		C943AC3E215277A000844368 /* Python */ = {
 			isa = PBXGroup;
 			children = (
-				C98E2009214F1F38002F0178 /* ActionViewController.swift */,
-				C909AFA421502CA400836C17 /* Assets.xcassets */,
-				C98E200B214F1F38002F0178 /* MainInterface.storyboard */,
-				C98E200E214F1F38002F0178 /* Info.plist */,
-				C98E201E214F2513002F0178 /* Pyto Share-Bridging-Header.h */,
+				C943AC40215277A000844368 /* Info.plist */,
 			);
-			path = "Pyto Share";
+			path = Python;
 			sourceTree = "<group>";
 		};
 		C9E4152921513E2300D64E32 /* Views */ = {
@@ -284,15 +274,14 @@
 		C9FCFD4C214428AE00A07974 = {
 			isa = PBXGroup;
 			children = (
-				C9BA42F6215005E700FED228 /* PytoClassesApp.py */,
-				C9BA42F72150061900FED228 /* PytoClassesShareExtension.py */,
-				C95A79E3214DC4AF007A1B90 /* python3.6 */,
+				C943AC6421527D3E00844368 /* include */,
+				C943AC6221527D2900844368 /* lib */,
 				C904EB6121445B4300585C28 /* Python */,
 				C904EB5D21445AA800585C28 /* BZip2 */,
 				C904EB5B21445AA700585C28 /* OpenSSL */,
 				C904EB5C21445AA800585C28 /* XZ */,
 				C9FCFD57214428AE00A07974 /* Pyto */,
-				C98E2008214F1F38002F0178 /* Pyto Share */,
+				C943AC3E215277A000844368 /* Python */,
 				C9FCFD56214428AE00A07974 /* Products */,
 				E49BBFEA4FF54799EBA99E3A /* Pods */,
 				777F5989381586AA988D5FF0 /* Frameworks */,
@@ -303,7 +292,7 @@
 			isa = PBXGroup;
 			children = (
 				C9FCFD55214428AE00A07974 /* Pyto.app */,
-				C98E2007214F1F38002F0178 /* Pyto Share.appex */,
+				C943AC3D215277A000844368 /* Python.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -311,6 +300,7 @@
 		C9FCFD57214428AE00A07974 /* Pyto */ = {
 			isa = PBXGroup;
 			children = (
+				C9BA42F6215005E700FED228 /* PytoClasses.py */,
 				C93D61E42145E17D00C8B5E3 /* Singletons */,
 				C93D61E52145E19300C8B5E3 /* View Controllers */,
 				C93D61E62145E1A500C8B5E3 /* Python Bridging */,
@@ -337,25 +327,36 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		C943AC38215277A000844368 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		C98E2006214F1F38002F0178 /* Pyto Share */ = {
+		C943AC3C215277A000844368 /* Python */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C98E2012214F1F38002F0178 /* Build configuration list for PBXNativeTarget "Pyto Share" */;
+			buildConfigurationList = C943AC46215277A000844368 /* Build configuration list for PBXNativeTarget "Python" */;
 			buildPhases = (
-				56A67365859FD6962190178A /* [CP] Check Pods Manifest.lock */,
-				C98E2003214F1F38002F0178 /* Sources */,
-				C98E2004214F1F38002F0178 /* Frameworks */,
-				C98E2005214F1F38002F0178 /* Resources */,
-				C98E201D214F24E4002F0178 /* Copy Python Home */,
+				C943AC38215277A000844368 /* Headers */,
+				C943AC39215277A000844368 /* Sources */,
+				C943AC3A215277A000844368 /* Frameworks */,
+				C943AC3B215277A000844368 /* Resources */,
+				C943AC4F2152781100844368 /* CopyFiles */,
+				C943AC4D215277E200844368 /* Copy Files */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "Pyto Share";
-			productName = "Pyto Share";
-			productReference = C98E2007214F1F38002F0178 /* Pyto Share.appex */;
-			productType = "com.apple.product-type.app-extension";
+			name = Python;
+			productName = Python;
+			productReference = C943AC3D215277A000844368 /* Python.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 		C9FCFD54214428AE00A07974 /* Pyto */ = {
 			isa = PBXNativeTarget;
@@ -365,7 +366,6 @@
 				C9FCFD51214428AE00A07974 /* Sources */,
 				C9FCFD52214428AE00A07974 /* Frameworks */,
 				C9FCFD53214428AE00A07974 /* Resources */,
-				C904EB6B21445B7300585C28 /* Copy Python Home */,
 				D910EE956F1871789C77F1DA /* [CP] Embed Pods Frameworks */,
 				C9EAB4CA214D95C500DFC9A4 /* Embed Frameworks */,
 				C98E2015214F1F38002F0178 /* Embed App Extensions */,
@@ -373,7 +373,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				C98E2010214F1F38002F0178 /* PBXTargetDependency */,
+				C943AC43215277A000844368 /* PBXTargetDependency */,
 			);
 			name = Pyto;
 			productName = Pyto;
@@ -390,9 +390,8 @@
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Adrian Labbé";
 				TargetAttributes = {
-					C98E2006214F1F38002F0178 = {
+					C943AC3C215277A000844368 = {
 						CreatedOnToolsVersion = 10.0;
-						LastSwiftMigration = 1000;
 					};
 					C9FCFD54214428AE00A07974 = {
 						CreatedOnToolsVersion = 10.0;
@@ -419,19 +418,16 @@
 			projectRoot = "";
 			targets = (
 				C9FCFD54214428AE00A07974 /* Pyto */,
-				C98E2006214F1F38002F0178 /* Pyto Share */,
+				C943AC3C215277A000844368 /* Python */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		C98E2005214F1F38002F0178 /* Resources */ = {
+		C943AC3B215277A000844368 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C909AFA521502CA400836C17 /* Assets.xcassets in Resources */,
-				C98E200D214F1F38002F0178 /* MainInterface.storyboard in Resources */,
-				C9E4152F21514FCB00D64E32 /* Startup.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,24 +447,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		56A67365859FD6962190178A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Pyto Share-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		8B77444CB27802637BAB7D62 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -487,35 +465,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C904EB6B21445B7300585C28 /* Copy Python Home */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Python Home";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "mkdir -p \"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Library/Python.framework/Resources\"\nrsync -pvtrL --exclude .hg --exclude .svn --exclude .git \"$PROJECT_DIR/Python/Resources/lib\" \"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Library/Python.framework/Resources\"\nrsync -pvtrL --exclude .hg --exclude .svn --exclude .git \"$PROJECT_DIR/Python/Resources/include\" \"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Library/Python.framework/Resources\"\nrsync -pvtrL --exclude .hg --exclude .svn --exclude .git \"$PROJECT_DIR/python3.6\" \"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Library/Python.framework/Resources/lib/\"\ncp \"$PROJECT_DIR/PytoClassesApp.py\" \"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Library/Python.framework/Resources/lib/python3.6/site-packages/PytoClasses.py\"\n";
-		};
-		C98E201D214F24E4002F0178 /* Copy Python Home */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Python Home";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "mkdir -p \"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Library/Python.framework/Resources\"\nrsync -pvtrL --exclude .hg --exclude .svn --exclude .git \"$PROJECT_DIR/Python/Resources/lib\" \"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Library/Python.framework/Resources\"\nrsync -pvtrL --exclude .hg --exclude .svn --exclude .git \"$PROJECT_DIR/Python/Resources/include\" \"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Library/Python.framework/Resources\"\nrsync -pvtrL --exclude .hg --exclude .svn --exclude .git \"$PROJECT_DIR/python3.6\" \"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Library/Python.framework/Resources/lib/\"\ncp \"$PROJECT_DIR/PytoClassesShareExtension.py\" \"$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/Library/Python.framework/Resources/lib/python3.6/site-packages/PytoClasses.py\"\n";
-			showEnvVarsInLog = 0;
-		};
 		D910EE956F1871789C77F1DA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -523,8 +472,10 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Pyto/Pods-Pyto-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/SavannaKit/SavannaKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SourceEditor/SourceEditor.framework",
+				"${BUILT_PRODUCTS_DIR}/SavannaKit-iOS11.0/SavannaKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SourceEditor-iOS11.0/SourceEditor.framework",
+				"${BUILT_PRODUCTS_DIR}/SavannaKit-iOS12.0/SavannaKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SourceEditor-iOS12.0/SourceEditor.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -539,24 +490,10 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		C98E2003214F1F38002F0178 /* Sources */ = {
+		C943AC39215277A000844368 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C98E2022214F25DC002F0178 /* ConsoleViewController.swift in Sources */,
-				C98E2021214F2568002F0178 /* String.swift in Sources */,
-				C9BA42F42150007000FED228 /* PyAlert.swift in Sources */,
-				C9BA42F52150008B00FED228 /* UIWindow.swift in Sources */,
-				C98E200A214F1F38002F0178 /* ActionViewController.swift in Sources */,
-				C9BA42EF2150007000FED228 /* PyInputHelper.swift in Sources */,
-				C9B3FDED21504107000FC9A8 /* PyExtensionContext.swift in Sources */,
-				C9BA42F22150007000FED228 /* PyFilePicker.swift in Sources */,
-				C9E4152C21513E7900D64E32 /* ConsoleTextView.swift in Sources */,
-				C98E2023214F2646002F0178 /* PyContentViewController.swift in Sources */,
-				C9BA42F12150007000FED228 /* PySharingHelper.swift in Sources */,
-				C98E2024214F26C0002F0178 /* Python.swift in Sources */,
-				C9BA42F02150007000FED228 /* PyOutputHelper.swift in Sources */,
-				C9BA42F32150007000FED228 /* PyMainThread.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -589,22 +526,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C98E2010214F1F38002F0178 /* PBXTargetDependency */ = {
+		C943AC43215277A000844368 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C98E2006214F1F38002F0178 /* Pyto Share */;
-			targetProxy = C98E200F214F1F38002F0178 /* PBXContainerItemProxy */;
+			target = C943AC3C215277A000844368 /* Python */;
+			targetProxy = C943AC42215277A000844368 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		C98E200B214F1F38002F0178 /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C98E200C214F1F38002F0178 /* Base */,
-			);
-			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
 		C9FCFD61214428B300A07974 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -616,80 +545,63 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		C98E2013214F1F38002F0178 /* Debug */ = {
+		C943AC47215277A000844368 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2212511F8CE9BF8B16FDB2F9 /* Pods-Pyto Share.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = Icon;
-				CLANG_ENABLE_MODULES = YES;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"IS_APP_EXTENSION=1",
-				);
-				IBSC_MODULE = "$(PRODUCT_NAME:c99extidentifier)";
-				INFOPLIST_FILE = "Pyto Share/Info.plist";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Python/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
+					"@loader_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Python",
-					"$(PROJECT_DIR)/BZip2",
-					"$(PROJECT_DIR)/OpenSSL",
-					"$(PROJECT_DIR)/XZ",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Share";
-				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = ch.ada.Python;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Pyto Share/Pyto Share-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		C98E2014214F1F38002F0178 /* Release */ = {
+		C943AC48215277A000844368 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C9C57EB40A56344EEB889161 /* Pods-Pyto Share.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = Icon;
-				CLANG_ENABLE_MODULES = YES;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"IS_APP_EXTENSION=1",
-				);
-				IBSC_MODULE = "$(PRODUCT_NAME:c99extidentifier)";
-				INFOPLIST_FILE = "Pyto Share/Info.plist";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Python/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
+					"@loader_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Python",
-					"$(PROJECT_DIR)/BZip2",
-					"$(PROJECT_DIR)/OpenSSL",
-					"$(PROJECT_DIR)/XZ",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Share";
-				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = ch.ada.Python;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Pyto Share/Pyto Share-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -881,11 +793,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C98E2012214F1F38002F0178 /* Build configuration list for PBXNativeTarget "Pyto Share" */ = {
+		C943AC46215277A000844368 /* Build configuration list for PBXNativeTarget "Python" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C98E2013214F1F38002F0178 /* Debug */,
-				C98E2014214F1F38002F0178 /* Release */,
+				C943AC47215277A000844368 /* Debug */,
+				C943AC48215277A000844368 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

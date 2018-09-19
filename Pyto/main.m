@@ -13,13 +13,9 @@
 /// The path of the Python home directory.
 NSString *pythonHome;
 
-/// The path of the file where errors are printed.
-NSString *pythonStderrPath;
-
 int main(int argc, char *argv[]) {
     
-    pythonHome = [[NSBundle mainBundle] pathForResource:@"Library/Python.framework/Resources" ofType:NULL];
-    pythonStderrPath = [[[[NSFileManager defaultManager] URLsForDirectory:NSLibraryDirectory inDomains:NSAllDomainsMask] firstObject] URLByAppendingPathComponent:@"errors"].path;
+    pythonHome = [[Python.shared bundle] pathForResource:@"home" ofType:NULL];
     
     if (!pythonHome) {
         Py_FatalError("Python home doesn't exist");
@@ -50,7 +46,6 @@ int main(int argc, char *argv[]) {
     
     // Start the REPL that will contain all child modules
     [Python.shared runScriptAt:[[NSBundle mainBundle] URLForResource:@"REPL" withExtension:@"py"]];
-    Python.shared.isREPLRunning = YES;
     
     @autoreleasepool {
         return UIApplicationMain(argc, argv, NULL, NSStringFromClass(AppDelegate.class));
