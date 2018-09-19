@@ -10,4 +10,5 @@ target 'Pyto' do
   # Pods for Pyto
 
   pod 'SourceEditor'
+  pod 'Zip'
 end
