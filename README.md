@@ -20,3 +20,7 @@ Features:
 1. [Download Python for iOS](https://s3-us-west-2.amazonaws.com/pybee-briefcase-support/Python-Apple-support/3.6/iOS/Python-3.6-iOS-support.b6.tar.gz).
 2. Unarchive the file.
 3. Copy `BZip2`, `OpenSSL` , `XZ` and `Python` to the repo.
+
+## Contributing
+
+If you want to add a package or a module, just add it to the [site-packages](https://github.com/ColdGrub1384/Pyto/tree/master/site-packages) directory. Then remove [PytoLib.zip](https://github.com/ColdGrub1384/Pyto/blob/master/PytoLib.zip) and zip again the [site-packages](https://github.com/ColdGrub1384/Pyto/tree/master/site-packages) directory into [PytoLib.zip](https://github.com/ColdGrub1384/Pyto/blob/master/PytoLib.zip). The packages have to be zipped because Python scripts aren't allowed in an app bundle for App Store submitting, so they are zipped.
