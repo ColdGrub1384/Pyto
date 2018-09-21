@@ -36,4 +36,9 @@ import UIKit
             PyContentViewController.shared?.present(picker, animated: true, completion: nil)
         }
     }
+    
+    /// - Returns: `true` if `url` is an `NSURL`.
+    @objc static func isURL(_ url: Any) -> Bool {
+        return (url is NSURL)
+    }
 }

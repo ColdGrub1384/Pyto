@@ -16,7 +16,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         super.viewDidLoad()
         
         browserUserInterfaceStyle = .dark
-        view.tintColor = UIColor(named: "Tint Color")
+        view.tintColor = UIColor(named: "TintColor")
         allowsDocumentCreation = true
         allowsPickingMultipleItems = false
         customActions = [UIDocumentBrowserAction(identifier: "run", localizedTitle: "Run", availability: .menu, handler: { (urls) in
