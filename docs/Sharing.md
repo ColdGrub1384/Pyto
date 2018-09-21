@@ -38,3 +38,11 @@ Pick documents with given parameters as a `FilePicker`.
 ## `pickedFiles()`
 
 Returns files picked with `pickDocumentsWithFilePicker` as URLs.
+
+### URLs
+
+## `openURL(url)`
+
+Opens the given URL.
+
+- url: URL to open. Can be a String or an Objective-C `NSURL`.
