@@ -55,7 +55,9 @@ import UIKit
             }
             
             self.actions?.append(UIAlertAction(title: title, style: style, handler: { (_) in
-                handler?()
+                Python.shared.queue.async {
+                    handler?()
+                }
             }))
         }
     }
