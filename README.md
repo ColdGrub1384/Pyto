@@ -23,4 +23,4 @@ Features:
 
 ## Contributing
 
-If you want to add a package or a module, just add it to the [site-packages](https://github.com/ColdGrub1384/Pyto/tree/master/site-packages) directory. Then remove [PytoLib.zip](https://github.com/ColdGrub1384/Pyto/blob/master/PytoLib.zip) and zip again the [site-packages](https://github.com/ColdGrub1384/Pyto/tree/master/site-packages) directory into [PytoLib.zip](https://github.com/ColdGrub1384/Pyto/blob/master/PytoLib.zip). The packages have to be zipped because Python scripts aren't allowed in an app bundle for App Store submitting, so they are zipped.
+If you want to add a package or a module, just add it to the [site-packages](https://github.com/ColdGrub1384/Pyto/tree/master/site-packages) directory.

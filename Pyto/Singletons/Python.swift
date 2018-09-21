@@ -48,18 +48,17 @@ import Zip
     
     /// Exposes Pyto modules to Pyhon.
     @objc func importPytoLib() {
-        guard let libURL = FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask).first?.appendingPathComponent("pylib") else {
+        guard let newLibURL = FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask).first?.appendingPathComponent("pylib") else {
             fatalError("WHY IS THAT HAPPENING????!!!!!!! HOW THE LIBRARY DIR CANNOT BE FOUND!!!!???")
         }
-        guard let libZippedURL = Bundle.main.url(forResource: "PytoLib", withExtension: "zip") else {
+        guard let libURL = Bundle.main.url(forResource: "site-packages", withExtension: "") else {
             fatalError("The Pyto library was not found.")
         }
-        if FileManager.default.fileExists(atPath: libURL.path) {
-            try? FileManager.default.removeItem(at: libURL)
-        }
         do {
-            let lib = try Zip.quickUnzipFile(libZippedURL)
-            try FileManager.default.moveItem(at: lib, to: libURL)
+            if FileManager.default.fileExists(atPath: newLibURL.path) {
+                try FileManager.default.removeItem(at: newLibURL)
+            }
+            try FileManager.default.copyItem(at: libURL, to: newLibURL)
         } catch {
             fatalError(error.localizedDescription)
         }
