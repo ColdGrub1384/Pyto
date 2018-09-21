@@ -60,6 +60,8 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
             }
             if Python.shared.isREPLRunning {
                 let contentVC = PyContentViewController()
+                contentVC.modalPresentationStyle = .overCurrentContext
+                contentVC.view.tintColor = UIColor(named: "TintColor")
                 UIApplication.shared.keyWindow?.topViewController?.present(contentVC, animated: true, completion: {
                     PyInputHelper.userInput = "import code; code.interact()"
                     
@@ -101,6 +103,8 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         tabBarVC.viewControllers = [navVC, contentVC]
         tabBarVC.tabBar.barStyle = .black
         tabBarVC.view.tintColor = UIColor(named: "TintColor")
+        tabBarVC.view.backgroundColor = .clear
+        tabBarVC.modalPresentationStyle = .overCurrentContext
         UIApplication.shared.keyWindow?.topViewController?.present(tabBarVC, animated: true, completion: {
             if run {
                 editor.run()
