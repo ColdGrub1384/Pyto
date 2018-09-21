@@ -84,7 +84,7 @@ import UIKit
                 }
                 Python.shared.isScriptRunning = true
                 // Import the script
-                PyInputHelper.userInput = "from importlib.machinery import SourceFileLoader; import PytoClasses as __pytoclasses__; pyto_running_script = SourceFileLoader('main', '\(url.path)').load_module(); __pytoclasses__.PyContentViewController.shared.dismissKeyboard(); __pytoclasses__.Python.shared.isScriptRunning = False"
+                PyInputHelper.userInput = "import console as __console__; __console__.runScriptAtPath('\(url.path)')"
             } else {
                 Python.shared.runScript(at: url)
             }
