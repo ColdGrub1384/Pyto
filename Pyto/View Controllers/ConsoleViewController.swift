@@ -74,8 +74,17 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        edgesForExtendedLayout = []
         
         title = "Console"
+        
+        let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+        effectView.frame = view.frame
+        effectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(effectView)
+        view.backgroundColor = .clear
+        
         textView = ConsoleTextView(frame: view.frame)
         textView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         textView.delegate = self

@@ -7,15 +7,13 @@
 //
 
 import UIKit
-import SavannaKit
-import SourceEditor
 
 /// A text view containing the output of a Python program.
 class ConsoleTextView: UITextView {
 
     private func setupView() {
-        backgroundColor = DefaultSourceCodeTheme().backgroundColor
-        textColor = DefaultSourceCodeTheme().color(for: .plain)
+        backgroundColor = .clear
+        textColor = .white
         font = UIFont(name: "Courier", size: UIFont.systemFontSize)
         smartQuotesType = .no
         autocapitalizationType = .none
