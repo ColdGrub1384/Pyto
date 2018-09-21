@@ -16,6 +16,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         super.viewDidLoad()
         
         browserUserInterfaceStyle = .dark
+        view.tintColor = UIColor(named: "Tint Color")
         allowsDocumentCreation = true
         allowsPickingMultipleItems = false
         customActions = [UIDocumentBrowserAction(identifier: "run", localizedTitle: "Run", availability: .menu, handler: { (urls) in
@@ -51,7 +52,6 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
             }
             samplesSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             samplesSheet.popoverPresentationController?.barButtonItem = sender
-            samplesSheet.view.tintColor = UIView().tintColor
             self.present(samplesSheet, animated: true, completion: nil)
         }))
         sheet.addAction(UIAlertAction(title: "REPL", style: .default, handler: { _ in
@@ -78,7 +78,6 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         }))
         sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         sheet.popoverPresentationController?.barButtonItem = sender
-        sheet.view.tintColor = UIView().tintColor
         present(sheet, animated: true, completion: nil)
     }
     
@@ -87,7 +86,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     /// - Parameters:
     ///     - document: The URL of the script.
     ///     - run: Set to `true` to run the script inmediately.
-    ///     - completion: Code call after presenting the UI.
+    ///     - completion: Code called after presenting the UI.
     func openDocument(_ document: URL, run: Bool, completion: (() -> Void)? = nil) {
         Py_SetProgramName(document.lastPathComponent.cWchar_t)
         
@@ -101,6 +100,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         let tabBarVC = UITabBarController()
         tabBarVC.viewControllers = [navVC, contentVC]
         tabBarVC.tabBar.barStyle = .black
+        tabBarVC.view.tintColor = UIColor(named: "Tint Color")
         UIApplication.shared.keyWindow?.topViewController?.present(tabBarVC, animated: true, completion: {
             if run {
                 editor.run()
