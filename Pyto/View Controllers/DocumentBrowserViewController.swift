@@ -10,7 +10,7 @@ import UIKit
 import SafariServices
 
 /// The main file browser used to edit scripts.
-class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate, UIViewControllerRestoration {
+class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate, UIViewControllerRestoration, UIViewControllerTransitioningDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +27,9 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         restorationClass = DocumentBrowserViewController.self
         restorationIdentifier = "Browser"
     }
+    
+    /// Transition controller for presenting and dismissing View controllers.
+    var transitionController: UIDocumentBrowserTransitionController?
     
     /// Open the documentation or samples.
     @objc func help(_ sender: UIBarButtonItem) {
@@ -93,6 +96,14 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     ///     - run: Set to `true` to run the script inmediately.
     ///     - completion: Code called after presenting the UI.
     func openDocument(_ document: URL, run: Bool, completion: (() -> Void)? = nil) {
+        
+        if presentedViewController != nil {
+            (((presentedViewController as? UITabBarController)?.viewControllers?.first as? UINavigationController)?.viewControllers.first as? EditorViewController)?.save()
+            dismiss(animated: true) {
+                self.openDocument(document, run: run, completion: completion)
+            }
+        }
+        
         Py_SetProgramName(document.lastPathComponent.cWchar_t)
         
         let doc = PyDocument(fileURL: document)
@@ -108,6 +119,13 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         tabBarVC.view.tintColor = UIColor(named: "TintColor")
         tabBarVC.view.backgroundColor = .clear
         tabBarVC.modalPresentationStyle = .overCurrentContext
+        
+        if #available(iOS 12.0, *) {
+            transitionController = transitionController(forDocumentAt: document)
+            transitionController?.targetView = tabBarVC.view
+            tabBarVC.transitioningDelegate = self
+        }
+        
         UIApplication.shared.keyWindow?.topViewController?.present(tabBarVC, animated: true, completion: {
             if run {
                 editor.run()
@@ -167,5 +185,15 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     
     static func viewController(withRestorationIdentifierPath identifierComponents: [String], coder: NSCoder) -> UIViewController? {
         return DocumentBrowserViewController()
+    }
+    
+    // MARK: - View controller transition delegate
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return transitionController
+    }
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return transitionController
     }
 }
