@@ -55,7 +55,7 @@ import UIKit
             }
             
             self.actions?.append(UIAlertAction(title: title, style: style, handler: { (_) in
-                Python.shared.queue.async {
+                DispatchQueue.global().async {
                     handler?()
                 }
             }))
