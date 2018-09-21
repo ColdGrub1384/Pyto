@@ -1,5 +1,7 @@
 # Pyto
 
+[![Download on the App Store](https://pisth.github.io/appstorebadge.svg)](https://itunes.apple.com/us/app/pyto-python-ide/id1436650069?l=fr&ls=1&mt=8)
+
 Pyto is a native Python IDE for iOS that uses the Python C API.
 
 # API
