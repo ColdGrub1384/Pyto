@@ -2,7 +2,7 @@ import sys as __sys__
 import os as __os__
 
 __sys__.path.insert(0, __os__.path.expanduser("~/Library/pylib/site-packages"))
-__sys__.path.insert(0, __os__.path.expanduser("~/Library/Documents"))
+__sys__.path.insert(0, __os__.path.expanduser("~/Documents"))
 
 import console as __Pyto__
 import code as __code__
