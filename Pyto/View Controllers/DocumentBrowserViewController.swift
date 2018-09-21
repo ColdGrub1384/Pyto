@@ -63,8 +63,11 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
                 contentVC.modalPresentationStyle = .overCurrentContext
                 contentVC.view.tintColor = UIColor(named: "TintColor")
                 UIApplication.shared.keyWindow?.topViewController?.present(contentVC, animated: true, completion: {
-                    PyInputHelper.userInput = "import code; code.interact()"
-                    
+                    if !Python.shared.isScriptRunning {
+                        PyInputHelper.userInput = "import code; code.interact()"
+                    } else {
+                        PyOutputHelper.print("An instance of a module is already running and two scripts cannot run at the same time, to kill it, quit the app. This can be caused by an inifite loop.")
+                    }
                 })
             } else { // Start the REPL
                 self.openDocument(replURL, run: true)
