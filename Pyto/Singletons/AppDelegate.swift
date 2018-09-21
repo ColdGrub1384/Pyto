@@ -19,7 +19,6 @@ import StoreKit
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = DocumentBrowserViewController()
         window?.accessibilityIgnoresInvertColors = true
-        window?.tintColor = #colorLiteral(red: 0.394202292, green: 0.8019036651, blue: 0.3871951401, alpha: 1)
         window?.makeKeyAndVisible()
         
         ReviewHelper.shared.launches += 1
