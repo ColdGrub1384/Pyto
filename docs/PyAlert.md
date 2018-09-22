@@ -16,7 +16,7 @@ The alert's title.
 The alert's message.
 
 ```swift
-@objc public static func initWithTitle(_ title: String?, message: String?) -> PyAlert
+@objc public static func alertWithTitle(_ title: String?, message: String?) -> PyAlert
 ```
 Initialize a new alert.
 
@@ -24,14 +24,16 @@ Initialize a new alert.
 - message: The alert's message.
 
 ```swift
-@objc public func show()
+@objc public func show() -> String
 ```
 Show an alert with set parameters.
+
+- Returns: The title of the pressed action.
 
 ## Setters
 
 ```swift
-@objc public func addAction(title: String, handler: (() -> Void)?)
+@objc public func addAction(title: String)
 ```
 Add an action with given tilte and handler.
 
@@ -39,14 +41,14 @@ Add an action with given tilte and handler.
 - handler: The action's handler.
 
 ```swift
-@objc public func addDestructiveAction(title: String, handler: (() -> Void)?)
+@objc public func addDestructiveAction(title: String)
 ```
 Add a destructive action with given tilte and handler.
 
 - title: The title of the action.
 - handler: The action's handler.
 
-```swift@objc public func addCancelAction(title: String, handler: (() -> Void)?)
+```swift@objc public func addCancelAction(title: String)
 ```
 Add a cancel action with given tilte and handler.
 

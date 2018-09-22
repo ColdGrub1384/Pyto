@@ -17,6 +17,8 @@ import UIKit
     /// The alert's message.
     @objc var message: String?
     
+    private var response: String?
+    
     /// The alert's actions.
     var actions: [UIAlertAction]?
     
@@ -25,7 +27,7 @@ import UIKit
     /// - Parameters:
     ///     - title: The alert's title.
     ///     - message: The alert's message.
-    @objc static func initWithTitle(_ title: String?, message: String?) -> PyAlert {
+    @objc static func alertWithTitle(_ title: String?, message: String?) -> PyAlert {
         let self_ = PyAlert()
         
         self_.title = title
@@ -35,7 +37,10 @@ import UIKit
     }
     
     /// Show an alert with set parameters.
-    @objc func show() {
+    ///
+    /// - Returns: The title of the pressed action.
+    @objc func show() -> String {
+        response = nil
         DispatchQueue.main.async {
             let alert = UIAlertController(title: self.title, message: self.message, preferredStyle: .alert)
             for action in self.actions ?? [] {
@@ -43,11 +48,15 @@ import UIKit
             }
             PyContentViewController.shared?.present(alert, animated: true, completion: nil)
         }
+        while response == nil {
+            sleep(UInt32(0.1))
+        }
+        return response!
     }
     
     // MARK: - Setters
     
-    private func addAction(title: String, handler: (() -> Void)?, style: UIAlertAction.Style) {
+    private func addAction(title: String, style: UIAlertAction.Style) {
         DispatchQueue.main.async {
             
             if self.actions == nil {
@@ -55,9 +64,7 @@ import UIKit
             }
             
             self.actions?.append(UIAlertAction(title: title, style: style, handler: { (_) in
-                Python.shared.queue.async {
-                    handler?()
-                }
+                self.response = title
             }))
         }
     }
@@ -66,26 +73,23 @@ import UIKit
     ///
     /// - Parameters:
     ///     - title: The title of the action.
-    ///     - handler: The action's handler.
-    @objc func addAction(title: String, handler: (() -> Void)?) {
-        addAction(title: title, handler: handler, style: .default)
+    @objc func addAction(_ title: String) {
+        addAction(title: title, style: .default)
     }
     
     /// Add a destructive action with given tilte and handler.
     ///
     /// - Parameters:
     ///     - title: The title of the action.
-    ///     - handler: The action's handler.
-    @objc func addDestructiveAction(title: String, handler: (() -> Void)?) {
-        addAction(title: title, handler: handler, style: .destructive)
+    @objc func addDestructiveAction(_ title: String) {
+        addAction(title: title, style: .destructive)
     }
     
     /// Add a cancel action with given tilte and handler.
     ///
     /// - Parameters:
     ///     - title: The title of the action.
-    ///     - handler: The action's handler.
-    @objc func addCancelAction(title: String, handler: (() -> Void)?) {
-        addAction(title: title, handler: handler, style: .cancel)
+    @objc func addCancelAction(_ title: String) {
+        addAction(title: title, style: .cancel)
     }
 }

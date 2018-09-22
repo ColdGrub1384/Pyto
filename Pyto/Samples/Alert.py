@@ -6,10 +6,8 @@ import console
 
 # Code here
 
-def ok() -> None:
-  print("Good Bye!")
-
-alert = console.Alert.initWithTitle("Hello", message="Hello World!")
-alert.addActionWithTitle("Ok", handler=ok)
-alert.addCancelActionWithTitle("Cancel", handler=None)
-alert.show()
+alert = console.Alert.alertWithTitle("Hello", message="Hello World!")
+alert.addAction("Ok")
+alert.addCancelAction("Cancel")
+if (alert.show() == "Ok"):
+    print("Good Bye!")
