@@ -34,6 +34,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
             DispatchQueue.main.async {
                 self.textView?.text.append(output)
                 self.textViewDidChange(self.textView)
+                self.textView?.scrollToBottom()
             }
         }
     }
