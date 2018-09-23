@@ -77,7 +77,7 @@ import SafariServices
                     return GCDWebServerFileResponse(file: path)
                 })
                 server.start(withPort: 8080, bonjourName: nil)
-                if let url = server.serverURL {
+                if let url = URL(string: "http://localhost:8080") {
                     UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: true, completion: {
                         UIApplication.shared.keyWindow?.topViewController?.present(SFSafariViewController(url: url), animated: true, completion: nil)
                     })
