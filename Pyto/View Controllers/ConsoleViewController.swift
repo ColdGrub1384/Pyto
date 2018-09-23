@@ -59,6 +59,11 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     
     /// Closes the View controller or dismisses keyboard.
     @objc func close() {
+        
+        if Python.shared.isAppRunning {
+            exit(0)
+        }
+        
         if textView.isFirstResponder {
             textView.resignFirstResponder()
         } else {

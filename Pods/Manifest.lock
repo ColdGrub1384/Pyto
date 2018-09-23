@@ -1,24 +1,30 @@
 PODS:
+  - GCDWebServer (3.4.2):
+    - GCDWebServer/Core (= 3.4.2)
+  - GCDWebServer/Core (3.4.2)
   - SavannaKit (0.9.0)
   - SourceEditor (1.0.1):
     - SavannaKit (~> 0.9)
   - Zip (1.1.0)
 
 DEPENDENCIES:
+  - GCDWebServer
   - SourceEditor
   - Zip
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - GCDWebServer
     - SavannaKit
     - SourceEditor
     - Zip
 
 SPEC CHECKSUMS:
+  GCDWebServer: 8d67ee9f634b4bb91eb4b8aee440318a5fc6debd
   SavannaKit: 920c240bde011900df8156200a960dad3ee5edfd
   SourceEditor: 4d590385d642c812d08a91941a4bfc90eccf20af
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: fd9ac3fcc7542d2c500aa48c64063cc6283c20b1
+PODFILE CHECKSUM: a8849b9698adc11fb847872a5a9714c131c160f2
 
 COCOAPODS: 1.5.2

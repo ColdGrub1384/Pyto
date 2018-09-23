@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import GCDWebServer
+import SafariServices
 
 /// A class accessible by Rubicon to share items and pick documents..
 @objc class PySharingHelper: NSObject {
@@ -40,5 +42,47 @@ import UIKit
     /// - Returns: `true` if `url` is an `NSURL`.
     @objc static func isURL(_ url: Any) -> Bool {
         return (url is NSURL)
+    }
+    
+    /// Installs a Home Screen shortcut for current editing script.
+    ///
+    /// - Parameters:
+    ///     - name: Name of the icon.
+    ///     - id: ID of the profile.
+    @objc static func installShortcut(name: String, id: String) {
+        DispatchQueue.main.async {
+            guard let mobileconfig = Bundle.main.url(forResource: "Shortcut", withExtension: "mobileconfig"), var xml = try? String(contentsOf: mobileconfig) else {
+                return
+            }
+            guard let editor = ((UIApplication.shared.keyWindow?.rootViewController?.presentedViewController as? UITabBarController)?.viewControllers?.first as? UINavigationController)?.viewControllers.first as? EditorViewController else {
+                return
+            }
+            xml = xml.replacingOccurrences(of: "<Name>", with: name)
+            xml = xml.replacingOccurrences(of: "<ID>", with: id)
+            xml = xml.replacingOccurrences(of: "<Code>", with: editor.textView.text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")
+            
+            let path = NSTemporaryDirectory()+"/Shortcut.mobileconfig"
+            if FileManager.default.fileExists(atPath: path) {
+                try? FileManager.default.removeItem(atPath: path)
+            }
+            
+            if FileManager.default.createFile(atPath: path, contents: xml.data(using: .utf8), attributes: nil) {
+                let server = GCDWebServer()
+                server.addDefaultHandler(forMethod: "GET", request: GCDWebServerRequest.self, processBlock: { (_) -> GCDWebServerResponse? in
+                    
+                    defer {
+                        server.stop()
+                    }
+                    
+                    return GCDWebServerFileResponse(file: path)
+                })
+                server.start(withPort: 8080, bonjourName: nil)
+                if let url = server.serverURL {
+                    UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: true, completion: {
+                        UIApplication.shared.keyWindow?.topViewController?.present(SFSafariViewController(url: url), animated: true, completion: nil)
+                    })
+                }
+            }
+        }
     }
 }

@@ -8,10 +8,11 @@
 
 import UIKit
 import StoreKit
+import SafariServices
 
 /// The application's delegate.
 @objc class AppDelegate: UIResponder, UIApplicationDelegate, SKStoreProductViewControllerDelegate {
-
+    
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -43,11 +44,23 @@ import StoreKit
     }
     
     func application(_ app: UIApplication, open inputURL: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        
+        guard let documentBrowserViewController = window?.rootViewController as? DocumentBrowserViewController else { return false }
+        
         // Ensure the URL is a file URL
-        guard inputURL.isFileURL else { return false }
+        guard inputURL.isFileURL else {
+            
+            guard let query = inputURL.query?.removingPercentEncoding else {
+                return false
+            }
+            
+            // Run code passed to the URL
+            documentBrowserViewController.run(code: query)
+            
+            return true
+        }
         
         // Reveal / import the document at the URL
-        guard let documentBrowserViewController = window?.rootViewController as? DocumentBrowserViewController else { return false }
         
         documentBrowserViewController.revealDocument(at: inputURL, importIfNeeded: true) { (revealedDocumentURL, error) in
             if let error = error {
@@ -65,6 +78,10 @@ import StoreKit
         }
         
         return true
+    }
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+        (window?.topViewController as? SFSafariViewController)?.dismiss(animated: true, completion: nil)
     }
     
     func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
