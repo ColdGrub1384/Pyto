@@ -59,7 +59,12 @@ import SafariServices
             }
             xml = xml.replacingOccurrences(of: "<Name>", with: name)
             xml = xml.replacingOccurrences(of: "<ID>", with: id)
-            xml = xml.replacingOccurrences(of: "<Code>", with: editor.textView.text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")
+            guard let page = Bundle.main.url(forResource: "Shortcut", withExtension: "html"), var pageSource = try? String(contentsOf: page) else {
+                return
+            }
+            pageSource = pageSource.replacingOccurrences(of: "<Name>", with: name)
+            pageSource = pageSource.replacingOccurrences(of: "<Code>", with: editor.textView.text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")
+            xml = xml.replacingOccurrences(of: "<URL>", with: "data:text/html,\(pageSource.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? "")")
             
             let path = NSTemporaryDirectory()+"/Shortcut.mobileconfig"
             if FileManager.default.fileExists(atPath: path) {
