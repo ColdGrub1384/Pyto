@@ -1,15 +1,15 @@
-import sys as sys
-import os as os
+import sys
+import os
 
 sys.path.insert(0, os.path.expanduser("~/Library/pylib"))
 sys.path.insert(0, os.path.expanduser("~/Documents"))
 
 import console as Pyto
-import code as code
-import PytoClasses as PytoClassesApp
+import code
+import PytoClasses
 from importlib.machinery import SourceFileLoader
 
-PytoClassesApp.Python.shared.version = sys.version
+PytoClasses.Python.shared.version = sys.version
 
 __builtins__.input = Pyto.input
 
@@ -26,7 +26,7 @@ sys.stdout = reader
 
 interact = code.interact
 def newInteract():
-    PytoClassesApp.Python.shared.isREPLRunning = True
+    PytoClasses.Python.shared.isREPLRunning = True
     interact()
 code.interact = newInteract
 
