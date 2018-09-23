@@ -1,3 +1,5 @@
+If you are reading this after installing the app from the App Store, firstly, thank you! A bug is making impossible to run another script after getting an errror. I submitted a new update but is Waiting For Review since a long time and I cannot request an expedited review due to a previous rejection. Sorry.
+
 # Pyto
 
 [![Download on the App Store](https://pisth.github.io/appstorebadge.svg)](https://itunes.apple.com/us/app/pyto-python-ide/id1436650069?l=fr&ls=1&mt=8)
