@@ -1,34 +1,34 @@
-import sys as __sys__
-import os as __os__
+import sys as sys
+import os as os
 
-__sys__.path.insert(0, __os__.path.expanduser("~/Library/pylib"))
-__sys__.path.insert(0, __os__.path.expanduser("~/Documents"))
+sys.path.insert(0, os.path.expanduser("~/Library/pylib"))
+sys.path.insert(0, os.path.expanduser("~/Documents"))
 
-import console as __Pyto__
-import code as __code__
-import PytoClasses as __PytoClassesApp__
+import console as Pyto
+import code as code
+import PytoClasses as PytoClassesApp
 from importlib.machinery import SourceFileLoader
 
-__PytoClassesApp__.Python.shared.version = __sys__.version
+PytoClassesApp.Python.shared.version = sys.version
 
-__builtins__.input = __Pyto__.input
+__builtins__.input = Pyto.input
 
-oldStdout = __sys__.stdout
+oldStdout = sys.stdout
 
 class Reader:
     def write(self, txt):
         oldStdout.write(txt)
-        __Pyto__.print(txt, end="")
+        Pyto.print(txt, end="")
 
 reader = Reader()
-__sys__.stderr = reader
-__sys__.stdout = reader
+sys.stderr = reader
+sys.stdout = reader
 
-interact = __code__.interact
+interact = code.interact
 def newInteract():
-    __PytoClassesApp__.Python.shared.isREPLRunning = True
+    PytoClassesApp.Python.shared.isREPLRunning = True
     interact()
-__code__.interact = newInteract
+code.interact = newInteract
 
 try:
     SourceFileLoader("main", "%@").load_module()
