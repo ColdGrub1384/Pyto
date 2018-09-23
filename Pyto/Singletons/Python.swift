@@ -36,6 +36,13 @@ import Zip
     /// If set to `true`, scripts will run inside the REPL.
     @objc var isREPLRunning = false
     
+    /// Set to `true` if the current script is ran from the Home Screen.
+    @objc var isAppRunning = false {
+        didSet {
+            print("isAppRunning: \(isAppRunning)")
+        }
+    }
+    
     /// Set to `true` while a script is running to prevent user from running one while another is running.
     @objc var isScriptRunning = false {
         didSet {

@@ -103,6 +103,11 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate {
     
     /// If the keyboard is shown, the keyboard is dissmiss and if not, the View controller is closed and the document is saved.
     @objc func close() {
+        
+        if Python.shared.isAppRunning {
+            exit(0)
+        }
+        
         if textView.contentTextView.isFirstResponder {
             textView.contentTextView.resignFirstResponder()
         } else {
