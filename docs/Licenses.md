@@ -3,6 +3,7 @@
 This application makes use of the following third party libraries:
 
 - [Cpython](https://github.com/python/cpython)
+- [ios_system](https://github.com/holzschu/ios_system)
 - [Python Apple support](https://github.com/pybee/Python-Apple-support)
 - [Rubicon ObjC](https://github.com/pybee/rubicon-objc)
 - [SourceEditor](https://github.com/louisdh/source-editor)

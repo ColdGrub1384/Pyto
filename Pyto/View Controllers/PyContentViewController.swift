@@ -54,9 +54,9 @@ import UIKit
         DispatchQueue.main.async {
             let console = (self.viewController as? UINavigationController)?.visibleViewController as? ConsoleViewController
             console?.resignFirstResponder()
-            console?.textView.isEditable = false
             console?.isAskingForInput = false
             console?.ignoresInput = true
+            console?.textView.isEditable = false
         }
     }
     

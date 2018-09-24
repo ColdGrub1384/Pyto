@@ -9,6 +9,7 @@
 
 import Foundation
 import Zip
+import ios_system
 
 /// A class for interacting with `Cpython`
 @objc class Python: NSObject {
@@ -52,6 +53,19 @@ import Zip
     
     /// All the Python output.
     var output = ""
+    
+    /// Runs given command with `ios_system`.
+    ///
+    /// - Parameters:
+    ///     - cmd: Command to run.
+    ///
+    /// - Returns: The result code.
+    @objc func system(_ cmd: String) -> Int32 {
+        ios_switchSession(IO.shared.ios_stdout)
+        ios_setDirectoryURL(FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0])
+        ios_setStreams(IO.shared.ios_stdin, IO.shared.ios_stdout, IO.shared.ios_stderr)
+        return ios_system(cmd.cValue)
+    }
     
     /// Exposes Pyto modules to Pyhon.
     @objc func importPytoLib() {
