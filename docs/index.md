@@ -14,6 +14,8 @@ Pyto has some modules that allows your scripts to interact with the app.
 - [pasteboard](Pasteboard)
 - [sharing](Sharing)
 
+You can use `os.system` to run some basic GNU commands.
+
 # Third party packges
 
 - [rubicon.objc](https://github.com/pybee/rubicon-objc)

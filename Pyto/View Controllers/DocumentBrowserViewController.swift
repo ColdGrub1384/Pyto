@@ -67,7 +67,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
                 contentVC.view.tintColor = UIColor(named: "TintColor")
                 UIApplication.shared.keyWindow?.topViewController?.present(contentVC, animated: true, completion: {
                     if !Python.shared.isScriptRunning {
-                        PyInputHelper.userInput = "import code; code.interact()"
+                        PyInputHelper.userInput = "import os; import PytoClasses; os.system = PytoClasses.Python.shared.system; import code; code.interact()"
                     } else {
                         PyOutputHelper.print("An instance of a module is already running and two scripts cannot run at the same time, to kill it, quit the app. This can be caused by an inifite loop.")
                     }

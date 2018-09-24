@@ -8,10 +8,29 @@
 
 /* Begin PBXBuildFile section */
 		6AB6C68D181C2C686D545A61 /* Pods_Pyto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 296FFAAD958315A38A36E2A4 /* Pods_Pyto.framework */; };
+		C903B966215840A6004AAD7F /* libxz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6921445B6700585C28 /* libxz.a */; };
+		C903B968215840CB004AAD7F /* shell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C903B94121584051004AAD7F /* shell.framework */; };
+		C903B969215840CB004AAD7F /* shell.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C903B94121584051004AAD7F /* shell.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C903B96A215840CB004AAD7F /* network_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C903B94221584051004AAD7F /* network_ios.framework */; };
+		C903B96B215840CB004AAD7F /* network_ios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C903B94221584051004AAD7F /* network_ios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C903B970215840CB004AAD7F /* openssl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C903B94621584051004AAD7F /* openssl.framework */; };
+		C903B971215840CB004AAD7F /* openssl.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C903B94621584051004AAD7F /* openssl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C903B977215840CB004AAD7F /* ios_system.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C903B94A21584051004AAD7F /* ios_system.framework */; };
+		C903B978215840CB004AAD7F /* ios_system.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C903B94A21584051004AAD7F /* ios_system.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C903B97B215840CB004AAD7F /* tar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C903B94D21584051004AAD7F /* tar.framework */; };
+		C903B97C215840CB004AAD7F /* tar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C903B94D21584051004AAD7F /* tar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C903B97D215840CB004AAD7F /* awk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C903B94E21584051004AAD7F /* awk.framework */; };
+		C903B97E215840CB004AAD7F /* awk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C903B94E21584051004AAD7F /* awk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C903B97F215840CB004AAD7F /* files.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C903B94F21584051004AAD7F /* files.framework */; };
+		C903B980215840CB004AAD7F /* files.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C903B94F21584051004AAD7F /* files.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C903B983215840CB004AAD7F /* text.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C903B95121584051004AAD7F /* text.framework */; };
+		C903B984215840CB004AAD7F /* text.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C903B95121584051004AAD7F /* text.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C903B98821584367004AAD7F /* commandDictionary.plist in Resources */ = {isa = PBXBuildFile; fileRef = C903B98721584367004AAD7F /* commandDictionary.plist */; };
+		C903B98A215843B4004AAD7F /* extraCommandsDictionary.plist in Resources */ = {isa = PBXBuildFile; fileRef = C903B989215843B4004AAD7F /* extraCommandsDictionary.plist */; };
+		C903B98C21598A63004AAD7F /* IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C903B98B21598A63004AAD7F /* IO.swift */; };
 		C904EB6421445B5800585C28 /* libPython.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6321445B5800585C28 /* libPython.a */; };
 		C904EB6621445B5D00585C28 /* libbzip2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6521445B5D00585C28 /* libbzip2.a */; };
 		C904EB6821445B6100585C28 /* libOpenSSL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6721445B6100585C28 /* libOpenSSL.a */; };
-		C904EB6A21445B6700585C28 /* libxz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6921445B6700585C28 /* libxz.a */; };
 		C904EB7321445D5800585C28 /* Python.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904EB7221445D5800585C28 /* Python.swift */; };
 		C92495C72151A3E3007EB4DB /* ReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92495C62151A3E3007EB4DB /* ReviewHelper.swift */; };
 		C93D61DD2145CD0800C8B5E3 /* PyInputHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DC2145CD0800C8B5E3 /* PyInputHelper.swift */; };
@@ -74,7 +93,15 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C903B97C215840CB004AAD7F /* tar.framework in Embed Frameworks */,
+				C903B971215840CB004AAD7F /* openssl.framework in Embed Frameworks */,
+				C903B984215840CB004AAD7F /* text.framework in Embed Frameworks */,
 				C943AC45215277A000844368 /* Python.framework in Embed Frameworks */,
+				C903B96B215840CB004AAD7F /* network_ios.framework in Embed Frameworks */,
+				C903B97E215840CB004AAD7F /* awk.framework in Embed Frameworks */,
+				C903B969215840CB004AAD7F /* shell.framework in Embed Frameworks */,
+				C903B980215840CB004AAD7F /* files.framework in Embed Frameworks */,
+				C903B978215840CB004AAD7F /* ios_system.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -98,6 +125,28 @@
 		296FFAAD958315A38A36E2A4 /* Pods_Pyto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pyto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BC99F252A2A9793B2333BA6 /* Pods_Pyto_Share.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pyto_Share.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4370DDFAC0113595C1F9BDC5 /* Pods-Pyto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto/Pods-Pyto.release.xcconfig"; sourceTree = "<group>"; };
+		C903B94021584051004AAD7F /* libtexlua52.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libtexlua52.5.dylib; sourceTree = "<group>"; };
+		C903B94121584051004AAD7F /* shell.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = shell.framework; sourceTree = "<group>"; };
+		C903B94221584051004AAD7F /* network_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = network_ios.framework; sourceTree = "<group>"; };
+		C903B94321584051004AAD7F /* libkpathsea.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libkpathsea.6.dylib; sourceTree = "<group>"; };
+		C903B94421584051004AAD7F /* curl_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = curl_ios.framework; sourceTree = "<group>"; };
+		C903B94521584051004AAD7F /* libluatex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libluatex.dylib; sourceTree = "<group>"; };
+		C903B94621584051004AAD7F /* openssl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = openssl.framework; sourceTree = "<group>"; };
+		C903B94721584051004AAD7F /* Python_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Python_ios.framework; sourceTree = "<group>"; };
+		C903B94821584051004AAD7F /* libssh2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libssh2.framework; sourceTree = "<group>"; };
+		C903B94921584051004AAD7F /* libctags.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libctags.dylib; sourceTree = "<group>"; };
+		C903B94A21584051004AAD7F /* ios_system.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ios_system.framework; sourceTree = "<group>"; };
+		C903B94B21584051004AAD7F /* libpdftex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libpdftex.dylib; sourceTree = "<group>"; };
+		C903B94C21584051004AAD7F /* libbibtex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libbibtex.dylib; sourceTree = "<group>"; };
+		C903B94D21584051004AAD7F /* tar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = tar.framework; sourceTree = "<group>"; };
+		C903B94E21584051004AAD7F /* awk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = awk.framework; sourceTree = "<group>"; };
+		C903B94F21584051004AAD7F /* files.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = files.framework; sourceTree = "<group>"; };
+		C903B95021584051004AAD7F /* ssh_cmd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ssh_cmd.framework; sourceTree = "<group>"; };
+		C903B95121584051004AAD7F /* text.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = text.framework; sourceTree = "<group>"; };
+		C903B95221584051004AAD7F /* lua_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = lua_ios.framework; sourceTree = "<group>"; };
+		C903B98721584367004AAD7F /* commandDictionary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = commandDictionary.plist; sourceTree = "<group>"; };
+		C903B989215843B4004AAD7F /* extraCommandsDictionary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = extraCommandsDictionary.plist; sourceTree = "<group>"; };
+		C903B98B21598A63004AAD7F /* IO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IO.swift; sourceTree = "<group>"; };
 		C904EB5B21445AA700585C28 /* OpenSSL */ = {isa = PBXFileReference; lastKnownFileType = folder; path = OpenSSL; sourceTree = "<group>"; };
 		C904EB5C21445AA800585C28 /* XZ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = XZ; sourceTree = "<group>"; };
 		C904EB5D21445AA800585C28 /* BZip2 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BZip2; sourceTree = "<group>"; };
@@ -158,14 +207,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C903B97B215840CB004AAD7F /* tar.framework in Frameworks */,
 				C9EDF9A72144620A00382DCC /* libz.tbd in Frameworks */,
+				C903B968215840CB004AAD7F /* shell.framework in Frameworks */,
+				C903B977215840CB004AAD7F /* ios_system.framework in Frameworks */,
 				C9EDF9A5214461D300382DCC /* libsqlite3.tbd in Frameworks */,
+				C903B97D215840CB004AAD7F /* awk.framework in Frameworks */,
+				C903B97F215840CB004AAD7F /* files.framework in Frameworks */,
 				6AB6C68D181C2C686D545A61 /* Pods_Pyto.framework in Frameworks */,
 				C904EB6621445B5D00585C28 /* libbzip2.a in Frameworks */,
 				C904EB6821445B6100585C28 /* libOpenSSL.a in Frameworks */,
-				C904EB6A21445B6700585C28 /* libxz.a in Frameworks */,
+				C903B966215840A6004AAD7F /* libxz.a in Frameworks */,
 				C943AC44215277A000844368 /* Python.framework in Frameworks */,
+				C903B970215840CB004AAD7F /* openssl.framework in Frameworks */,
 				C904EB6421445B5800585C28 /* libPython.a in Frameworks */,
+				C903B96A215840CB004AAD7F /* network_ios.framework in Frameworks */,
+				C903B983215840CB004AAD7F /* text.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,12 +245,39 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C903B93F21584051004AAD7F /* ios_system */ = {
+			isa = PBXGroup;
+			children = (
+				C903B94021584051004AAD7F /* libtexlua52.5.dylib */,
+				C903B94121584051004AAD7F /* shell.framework */,
+				C903B94221584051004AAD7F /* network_ios.framework */,
+				C903B94321584051004AAD7F /* libkpathsea.6.dylib */,
+				C903B94421584051004AAD7F /* curl_ios.framework */,
+				C903B94521584051004AAD7F /* libluatex.dylib */,
+				C903B94621584051004AAD7F /* openssl.framework */,
+				C903B94721584051004AAD7F /* Python_ios.framework */,
+				C903B94821584051004AAD7F /* libssh2.framework */,
+				C903B94921584051004AAD7F /* libctags.dylib */,
+				C903B94A21584051004AAD7F /* ios_system.framework */,
+				C903B94B21584051004AAD7F /* libpdftex.dylib */,
+				C903B94C21584051004AAD7F /* libbibtex.dylib */,
+				C903B94D21584051004AAD7F /* tar.framework */,
+				C903B94E21584051004AAD7F /* awk.framework */,
+				C903B94F21584051004AAD7F /* files.framework */,
+				C903B95021584051004AAD7F /* ssh_cmd.framework */,
+				C903B95121584051004AAD7F /* text.framework */,
+				C903B95221584051004AAD7F /* lua_ios.framework */,
+			);
+			path = ios_system;
+			sourceTree = "<group>";
+		};
 		C93D61E42145E17D00C8B5E3 /* Singletons */ = {
 			isa = PBXGroup;
 			children = (
 				C9FCFD58214428AE00A07974 /* AppDelegate.swift */,
 				C904EB7221445D5800585C28 /* Python.swift */,
 				C92495C62151A3E3007EB4DB /* ReviewHelper.swift */,
+				C903B98B21598A63004AAD7F /* IO.swift */,
 			);
 			path = Singletons;
 			sourceTree = "<group>";
@@ -235,6 +319,8 @@
 		C93D61E82145E1D300C8B5E3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C903B98721584367004AAD7F /* commandDictionary.plist */,
+				C903B989215843B4004AAD7F /* extraCommandsDictionary.plist */,
 				C976E48F21570B32000EDBD8 /* Shortcut.mobileconfig */,
 				C99C67642158033B00194B18 /* Shortcut.html */,
 				C9FCFD5F214428B300A07974 /* Assets.xcassets */,
@@ -267,6 +353,7 @@
 		C9FCFD4C214428AE00A07974 = {
 			isa = PBXGroup;
 			children = (
+				C903B93F21584051004AAD7F /* ios_system */,
 				C9F06FAC2152FC3F00165D1E /* python36.zip */,
 				C9BE01B021530BAF00A8C825 /* site-packages */,
 				C904EB6121445B4300585C28 /* Python */,
@@ -428,9 +515,11 @@
 			files = (
 				C98E1FFD214EE6ED002F0178 /* Samples in Resources */,
 				C9FCFD6D21442FD700A07974 /* Untitled.py in Resources */,
+				C903B98821584367004AAD7F /* commandDictionary.plist in Resources */,
 				C99C67652158033B00194B18 /* Shortcut.html in Resources */,
 				C9FCFD63214428B300A07974 /* LaunchScreen.storyboard in Resources */,
 				C9E415312151531B00D64E32 /* REPL.py in Resources */,
+				C903B98A215843B4004AAD7F /* extraCommandsDictionary.plist in Resources */,
 				C9E4152E21514F9100D64E32 /* Startup.py in Resources */,
 				C976E49021570B32000EDBD8 /* Shortcut.mobileconfig in Resources */,
 				C9BE01B42154738C00A8C825 /* site-packages in Resources */,
@@ -500,6 +589,7 @@
 				C9EDF9AB21446FCA00382DCC /* ConsoleViewController.swift in Sources */,
 				C9EDF9A921446EE600382DCC /* PyContentViewController.swift in Sources */,
 				C9FCFD6B21442DE700A07974 /* DocumentBrowserViewController.swift in Sources */,
+				C903B98C21598A63004AAD7F /* IO.swift in Sources */,
 				C95A79E6214DC627007A1B90 /* PyMainThread.swift in Sources */,
 				C9B3FDEC21503DE7000FC9A8 /* PyExtensionContext.swift in Sources */,
 				C93D61DD2145CD0800C8B5E3 /* PyInputHelper.swift in Sources */,
@@ -721,7 +811,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 22DCC0F0FEB96078E6CC8111 /* Pods-Pyto.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -729,6 +818,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pyto",
+					"$(PROJECT_DIR)/ios_system",
 				);
 				INFOPLIST_FILE = Pyto/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -742,6 +832,7 @@
 					"$(PROJECT_DIR)/BZip2",
 					"$(PROJECT_DIR)/OpenSSL",
 					"$(PROJECT_DIR)/XZ",
+					"$(PROJECT_DIR)/ios_system",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -756,7 +847,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4370DDFAC0113595C1F9BDC5 /* Pods-Pyto.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -764,6 +854,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pyto",
+					"$(PROJECT_DIR)/ios_system",
 				);
 				INFOPLIST_FILE = Pyto/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -777,6 +868,7 @@
 					"$(PROJECT_DIR)/BZip2",
 					"$(PROJECT_DIR)/OpenSSL",
 					"$(PROJECT_DIR)/XZ",
+					"$(PROJECT_DIR)/ios_system",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto;
 				PRODUCT_NAME = "$(TARGET_NAME)";

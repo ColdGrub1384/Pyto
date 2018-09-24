@@ -14,7 +14,7 @@
 NSString *pythonHome;
 
 int main(int argc, char *argv[]) {
-    
+        
     pythonHome = [[Python.shared bundle] pathForResource:@"home" ofType:NULL];
     
     if (!pythonHome) {
