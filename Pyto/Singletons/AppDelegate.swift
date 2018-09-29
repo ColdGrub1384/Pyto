@@ -40,6 +40,14 @@ import SafariServices
             }
         }
         
+        NSSetUncaughtExceptionHandler { (exception) in
+            PyOutputHelper.print("An Objective-C exception occurred. \(exception.name.rawValue), reason: \(exception.reason ?? "")\n\nThis error is not caught by Python but by the app.\nYou can continue editing scripts but you cannot run scripts anymore until the app is restarted.\n")
+            PyInputHelper.showAlert(prompt: "Press enter to quit the app. ")
+            while PyInputHelper.userInput == nil {
+                sleep(UInt32(0.5))
+            }
+        }
+        
         return true
     }
     
