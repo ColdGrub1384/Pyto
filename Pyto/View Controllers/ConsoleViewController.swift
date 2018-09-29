@@ -63,11 +63,6 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
         if textView.isFirstResponder {
             textView.resignFirstResponder()
         } else {
-            
-            if Python.shared.isAppRunning {
-                exit(0)
-            }
-            
             extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
             dismiss(animated: true, completion: nil)
         }

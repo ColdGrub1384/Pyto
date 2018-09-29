@@ -7,7 +7,6 @@ This application makes use of the following third party libraries:
 - [Python Apple support](https://github.com/pybee/Python-Apple-support)
 - [Rubicon ObjC](https://github.com/pybee/rubicon-objc)
 - [SourceEditor](https://github.com/louisdh/source-editor)
-- [Zip](https://github.com/marmelroy/Zip)
 
 ## Cpython
 

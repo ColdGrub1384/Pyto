@@ -143,16 +143,12 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SavannaKit/SavannaKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SourceEditor/SourceEditor.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Zip/Zip.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SavannaKit/SavannaKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SourceEditor/SourceEditor.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Zip/Zip.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait
