@@ -95,7 +95,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
             try? FileManager.default.removeItem(at: url)
         }
         FileManager.default.createFile(atPath: url.path, contents: code.data(using: .utf8), attributes: nil)
-        openDocument(url, run: true, isApp: true)
+        openDocument(url, run: true)
     }
     
     /// Opens the given script.
@@ -103,12 +103,9 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     /// - Parameters:
     ///     - document: The URL of the script.
     ///     - run: Set to `true` to run the script inmediately.
-    ///     - isApp: Should be set to `true` if the script is ran from the Home Screen.
     ///     - completion: Code called after presenting the UI.
-    func openDocument(_ document: URL, run: Bool, isApp: Bool = false, completion: (() -> Void)? = nil) {
-        
-        Python.shared.isAppRunning = isApp
-        
+    func openDocument(_ document: URL, run: Bool, completion: (() -> Void)? = nil) {
+                
         if presentedViewController != nil {
             (((presentedViewController as? UITabBarController)?.viewControllers?.first as? UINavigationController)?.viewControllers.first as? EditorViewController)?.save()
             dismiss(animated: true) {
@@ -130,9 +127,6 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         tabBarVC.tabBar.barStyle = .black
         tabBarVC.view.tintColor = UIColor(named: "TintColor")
         tabBarVC.view.backgroundColor = .clear
-        if !isApp {
-            tabBarVC.modalPresentationStyle = .overCurrentContext
-        }
         
         if #available(iOS 12.0, *) {
             transitionController = transitionController(forDocumentAt: document)

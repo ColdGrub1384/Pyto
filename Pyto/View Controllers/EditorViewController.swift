@@ -107,11 +107,6 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate {
         if textView.contentTextView.isFirstResponder {
             textView.contentTextView.resignFirstResponder()
         } else {
-            
-            if Python.shared.isAppRunning {
-                exit(0)
-            }
-            
             dismiss(animated: true) {
                 
                 guard !self.isSample else {
