@@ -134,6 +134,8 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
             tabBarVC.transitioningDelegate = self
         }
         
+        tabBarVC.modalPresentationStyle = .overCurrentContext
+        
         UIApplication.shared.keyWindow?.topViewController?.present(tabBarVC, animated: true, completion: {
             if run {
                 editor.run()
