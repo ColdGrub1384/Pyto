@@ -59,7 +59,7 @@ import SafariServices
     
     func application(_ app: UIApplication, open inputURL: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         
-        guard let documentBrowserViewController = window?.rootViewController as? DocumentBrowserViewController else { return false }
+        guard let documentBrowserViewController = DocumentBrowserViewController.visible else { return false }
         
         // Ensure the URL is a file URL
         guard inputURL.isFileURL else {
