@@ -43,8 +43,13 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
                     return
                 }
                 if FileManager.default.createFile(atPath: script.path, contents: try Data(contentsOf: url), attributes: nil) {
-                    if let index = self.scripts.firstIndex(of: script) {
-                        DocumentBrowserViewController.visible?.collectionView.insertItems(at: [IndexPath(row: index, section: 0)])
+                    var i = 0
+                    for file in self.scripts { // For loop needed because the folder is not found with `Array.firstIndex(of:)`
+                        if file.lastPathComponent == script.lastPathComponent {
+                            DocumentBrowserViewController.visible?.collectionView.insertItems(at: [IndexPath(row: i, section: 0)])
+                            break
+                        }
+                        i += 1
                     }
                     self.openDocument(script, run: false)
                 } else {
