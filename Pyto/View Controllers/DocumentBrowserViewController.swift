@@ -10,7 +10,7 @@ import UIKit
 import SafariServices
 
 /// The main file browser used to edit scripts.
-class DocumentBrowserViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIViewControllerRestoration {
+class DocumentBrowserViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDropDelegate, UICollectionViewDragDelegate, UIViewControllerRestoration {
     
     /// The Collection view displaying files.
     @IBOutlet weak var collectionView: UICollectionView!
@@ -194,6 +194,14 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
     
     // MARK: - View controller
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        collectionView.dragDelegate = self
+        collectionView.dropDelegate = self
+        collectionView.dragInteractionEnabled = true
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -285,6 +293,93 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
                 navigationController?.pushViewController(vc, animated: true)
             } else {
                 openDocument(scripts[indexPath.row], run: false)
+            }
+        }
+    }
+    
+    // MARK: - Collection view drag delegate
+    
+    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        
+        guard let cell = collectionView.cellForItem(at: indexPath) as? FileCollectionViewCell else {
+            return []
+        }
+        
+        let files = scripts
+        
+        guard files.indices.contains(indexPath.row) else {
+            return []
+        }
+        
+        let file = files[indexPath.row]
+        
+        let item = UIDragItem(itemProvider: NSItemProvider(item: nil, typeIdentifier: "file"))
+        item.localObject = file
+        item.previewProvider = {
+            
+            guard let iconView = cell.iconView else {
+                return nil
+            }
+            
+            let dragPreview = UIDragPreview(view: iconView)
+            dragPreview.parameters.backgroundColor = .clear
+            
+            return dragPreview
+        }
+        
+        return [item]
+    }
+    
+    // MARK: - Collection view drop delegate
+    
+    func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
+        for item in session.items {
+            if !(item.localObject is URL) {
+                return false
+            }
+        }
+        return true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+        
+        var isDir: ObjCBool = false
+        if let destinationIndexPath = destinationIndexPath, FileManager.default.fileExists(atPath: scripts[destinationIndexPath.row].path, isDirectory: &isDir) {
+            
+            if isDir.boolValue {
+                return UICollectionViewDropProposal(operation: .move, intent: .insertIntoDestinationIndexPath)
+            } else {
+                return UICollectionViewDropProposal(operation: .forbidden, intent: .insertIntoDestinationIndexPath)
+            }
+        }
+        
+        return UICollectionViewDropProposal(operation: .cancel, intent: .insertIntoDestinationIndexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+        guard let indexPath = coordinator.destinationIndexPath else {
+            return
+        }
+        let destination = scripts[indexPath.row]
+        
+        for item in coordinator.items {
+            if let url = item.dragItem.localObject as? URL {
+                do {
+                    try FileManager.default.moveItem(at: url, to: destination.appendingPathComponent(url.lastPathComponent))
+                    var i = 0
+                    for file in self.scripts { // For loop needed because folders are not found with `Array.firstIndex(of:)`
+                        if file.lastPathComponent == url.lastPathComponent {
+                            DocumentBrowserViewController.visible?.collectionView.deleteItems(at: [IndexPath(row: i, section: 0)])
+                            break
+                        }
+                        i += 1
+                    }
+                } catch {
+                    let alert = UIAlertController(title: "Error moving file!", message: error.localizedDescription, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                    UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
+                    break
+                }
             }
         }
     }
