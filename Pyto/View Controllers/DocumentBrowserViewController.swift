@@ -218,7 +218,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         collectionView.dragDelegate = self
         collectionView.dropDelegate = self
         collectionView.dragInteractionEnabled = true
-        //collectionView.reloadData()
+        collectionView.reloadData()
         
         // Directory observer
         DispatchQueue.global(qos: .background).async {
