@@ -194,17 +194,12 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
     
     // MARK: - View controller
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         collectionView.dragDelegate = self
         collectionView.dropDelegate = self
         collectionView.dragInteractionEnabled = true
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
         collectionView.reloadData()
     }
     
