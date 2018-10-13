@@ -2,9 +2,9 @@ If you are reading this after installing the app from the App Store, firstly, th
 
 # Pyto
 
-[![Download on the App Store](https://pisth.github.io/appstorebadge.svg)](https://itunes.apple.com/us/app/pyto-python-ide/id1436650069?l=fr&ls=1&mt=8)
+![Icon](https://raw.githubusercontent.com/ColdGrub1384/Pyto/master/Pyto/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5%402x.png)
 
-Pyto is a Python IDE for iOS that uses the Python C API.
+[![Download on the App Store](https://pisth.github.io/appstorebadge.svg)](https://itunes.apple.com/us/app/pyto-python-ide/id1436650069?l=fr&ls=1&mt=8)
 
 ![screenshots](docs/screenshots.png)
 
