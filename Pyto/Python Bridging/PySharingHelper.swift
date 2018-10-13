@@ -21,7 +21,7 @@ import SafariServices
             let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
             activityVC.popoverPresentationController?.sourceView = PyContentViewController.shared?.tabBarController?.tabBar
             activityVC.popoverPresentationController?.sourceRect = activityVC.popoverPresentationController?.sourceView?.bounds ?? .zero
-            PyContentViewController.shared?.present(activityVC, animated: true, completion: nil)
+            UIApplication.shared.keyWindow?.topViewController?.present(activityVC, animated: true, completion: nil)
         }        
     }
     
@@ -34,7 +34,7 @@ import SafariServices
             let picker = UIDocumentPickerViewController(documentTypes: filePicker.fileTypes as [String], in: .open)
             picker.allowsMultipleSelection = filePicker.allowsMultipleSelection
             picker.delegate = filePicker
-            PyContentViewController.shared?.present(picker, animated: true, completion: nil)
+            UIApplication.shared.keyWindow?.topViewController?.present(picker, animated: true, completion: nil)
         }
     }
     

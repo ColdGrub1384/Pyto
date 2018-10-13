@@ -20,7 +20,7 @@ import UIKit
     ///     - prompt: The title of the alert.
     @objc static func showAlert(prompt: String?) {
         DispatchQueue.main.async {
-            ((PyContentViewController.shared?.viewController as? UINavigationController)?.visibleViewController as? ConsoleViewController)?.input(prompt: prompt ?? "")
+            ((PyContentViewController.shared?.viewController as? UINavigationController)?.visibleViewController as? ConsoleViewController ?? (((UIApplication.shared.keyWindow?.rootViewController) as? UITabBarController)?.viewControllers?.last as? UINavigationController)?.visibleViewController as? REPLViewController)?.input(prompt: prompt ?? "")
         }
     }
 }
