@@ -21,7 +21,9 @@ import SafariServices
             UIMenuItem(title: "Open", action: #selector(FileCollectionViewCell.open(_:))),
             UIMenuItem(title: "Run", action: #selector(FileCollectionViewCell.run(_:))),
             UIMenuItem(title: "Rename", action: #selector(FileCollectionViewCell.rename(_:))),
-            UIMenuItem(title: "Remove", action: #selector(FileCollectionViewCell.remove(_:)))
+            UIMenuItem(title: "Remove", action: #selector(FileCollectionViewCell.remove(_:))),
+            UIMenuItem(title: "Copy", action: #selector(FileCollectionViewCell.copyFile(_:))),
+            UIMenuItem(title: "Move", action: #selector(FileCollectionViewCell.move(_:)))
         ]
         
         window?.accessibilityIgnoresInvertColors = true

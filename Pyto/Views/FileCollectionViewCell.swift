@@ -9,10 +9,13 @@
 import UIKit
 
 /// A cell for displaying a file.
-class FileCollectionViewCell: UICollectionViewCell {
+class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate {
     
-    @IBOutlet weak private var iconView: UIImageView!
-    @IBOutlet weak private var titleView: UILabel!
+    /// The view containing file icon.
+    @IBOutlet weak var iconView: UIImageView!
+    
+    /// The view contaning the filename.
+    @IBOutlet weak var titleView: UILabel!
     
     /// The Document browser view controller containing this Collection view.
     var documentBrowser: DocumentBrowserViewController?
@@ -105,6 +108,24 @@ class FileCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    /// Copies file.
+    @objc func copyFile(_ sender: Any) {
+        if let file = file {
+            let picker = UIDocumentPickerViewController(url: file, in: .exportToService)
+            picker.delegate = self
+            documentBrowser?.present(picker, animated: true, completion: nil)
+        }
+    }
+    
+    /// Moves file.
+    @objc func move(_ sender: Any) {
+        if let file = file {
+            let picker = UIDocumentPickerViewController(url: file, in: .moveToService)
+            picker.delegate = self
+            documentBrowser?.present(picker, animated: true, completion: nil)
+        }
+    }
+    
     // MARK: - Collection view cell
     
     override var canBecomeFirstResponder: Bool {
@@ -112,6 +133,12 @@ class FileCollectionViewCell: UICollectionViewCell {
     }
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        return (action == #selector(remove(_:)) || action == #selector(run(_:)) || action == #selector(open(_:)) || action == #selector(rename(_:)))
+        return (action == #selector(remove(_:)) || action == #selector(run(_:)) || action == #selector(open(_:)) || action == #selector(rename(_:)) || action == #selector(copyFile(_:)) || action == #selector(move(_:)))
+    }
+    
+    // MARK: - Document picker view controller delegate
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        documentBrowser?.collectionView.reloadData()
     }
 }
