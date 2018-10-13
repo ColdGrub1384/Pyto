@@ -15,8 +15,15 @@ Features:
 
   - Python 3.6 with all default libraries like "sys"
   - Pre-installed modules for interacting with the app
-  - Full Python REPL  
-  - Standard file browser
+  - Full Python REPL
+  - Use your own modules on your scripts
+
+Third party libraries:
+  - dropbox
+  - html5lib
+  - numpy
+  - paramiko
+  - rubicon.objc
 ```
 
 ## Building
