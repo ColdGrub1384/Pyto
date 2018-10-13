@@ -11,7 +11,8 @@ import UIKit
 /// A View controller containing Python script output.
 class ConsoleViewController: UIViewController, UITextViewDelegate {
     
-    private var prompt = ""
+    /// The current prompt.
+    var prompt = ""
     
     /// The content of the console.
     @objc var console = ""

@@ -16,11 +16,15 @@ import SafariServices
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-                
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = DocumentBrowserViewController(forOpeningFilesWithContentTypes: ["public.python-script"])
+        
+        UIMenuController.shared.menuItems = [
+            UIMenuItem(title: "Open", action: #selector(FileCollectionViewCell.open(_:))),
+            UIMenuItem(title: "Run", action: #selector(FileCollectionViewCell.run(_:))),
+            UIMenuItem(title: "Rename", action: #selector(FileCollectionViewCell.rename(_:))),
+            UIMenuItem(title: "Remove", action: #selector(FileCollectionViewCell.remove(_:)))
+        ]
+        
         window?.accessibilityIgnoresInvertColors = true
-        window?.makeKeyAndVisible()
         
         ReviewHelper.shared.launches += 1
         ReviewHelper.shared.requestReview()
@@ -70,20 +74,7 @@ import SafariServices
         
         // Reveal / import the document at the URL
         
-        documentBrowserViewController.revealDocument(at: inputURL, importIfNeeded: true) { (revealedDocumentURL, error) in
-            if let error = error {
-                // Handle the error appropriately
-                print("Failed to reveal the document at URL \(inputURL) with error: '\(error)'")
-                return
-            }
-            
-            if revealedDocumentURL != nil {
-                // Present the Document View Controller for the revealed URL
-                documentBrowserViewController.openDocument(revealedDocumentURL!, run: false)
-            } else {
-                documentBrowserViewController.openDocument(inputURL, run: false)
-            }
-        }
+        documentBrowserViewController.openDocument(inputURL, run: false)
         
         return true
     }

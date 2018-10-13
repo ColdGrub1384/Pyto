@@ -10,29 +10,97 @@ import UIKit
 import SafariServices
 
 /// The main file browser used to edit scripts.
-class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate, UIViewControllerRestoration, UIViewControllerTransitioningDelegate {
+class DocumentBrowserViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIViewControllerRestoration {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        browserUserInterfaceStyle = .dark
-        view.tintColor = UIColor(named: "TintColor")
-        allowsDocumentCreation = true
-        allowsPickingMultipleItems = false
-        customActions = [UIDocumentBrowserAction(identifier: "run", localizedTitle: "Run", availability: .menu, handler: { (urls) in
-            self.openDocument(urls[0], run: true)
-        })]
-        additionalLeadingNavigationBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(help(_:)))]
-        delegate = self
-        restorationClass = DocumentBrowserViewController.self
-        restorationIdentifier = "Browser"
+    /// The Collection view displaying files.
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    /// The directory to show files.
+    var directory = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0] {
+        didSet {
+            title = directory.lastPathComponent
+            navigationItem.largeTitleDisplayMode = .never
+            collectionView?.reloadData()
+        }
     }
     
-    /// Transition controller for presenting and dismissing View controllers.
-    var transitionController: UIDocumentBrowserTransitionController?
+    /// Returns all scripts in current directory.
+    var scripts: [URL] {
+        return (try? FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)) ?? []
+    }
+    
+    /// Creates script.
+    @IBAction func create(_ sender: Any) {
+        var textField: UITextField?
+        let alert = UIAlertController(title: "Create script", message: "Please type the new script's name.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Create", style: .default, handler: { (_) in
+            guard let filename = textField?.text else {
+                return
+            }
+            let script = self.directory.appendingPathComponent(filename).appendingPathExtension("py")
+            do {
+                guard let url = Bundle.main.url(forResource: "Untitled", withExtension: "py") else {
+                    return
+                }
+                if FileManager.default.createFile(atPath: script.path, contents: try Data(contentsOf: url), attributes: nil) {
+                    if let index = self.scripts.firstIndex(of: script) {
+                        DocumentBrowserViewController.visible?.collectionView.insertItems(at: [IndexPath(row: index, section: 0)])
+                    }
+                    self.openDocument(script, run: false)
+                } else {
+                    let alert = UIAlertController(title: "Error creating file!", message: nil, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                    UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
+                }
+            } catch {
+                let alert = UIAlertController(title: "Error creating file!", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addTextField { (textField_) in
+            textField = textField_
+            textField?.placeholder = "File name"
+        }
+        present(alert, animated: true, completion: nil)
+    }
+    
+    /// Creates folder.
+    @IBAction func createFolder(_ sender: Any) {
+        var textField: UITextField?
+        let alert = UIAlertController(title: "Create folder", message: "Please type the new folder's name.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Create", style: .default, handler: { (_) in
+            guard let filename = textField?.text else {
+                return
+            }
+            let folder = self.directory.appendingPathComponent(filename)
+            do {
+                try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true, attributes: nil)
+                var i = 0
+                for file in self.scripts { // For loop needed because the folder is not found with `Array.firstIndex(of:)`
+                    if file.lastPathComponent == folder.lastPathComponent {
+                        DocumentBrowserViewController.visible?.collectionView.insertItems(at: [IndexPath(row: i, section: 0)])
+                        break
+                    }
+                    i += 1
+                }
+            } catch {
+                let alert = UIAlertController(title: "Error creating folder!", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addTextField { (textField_) in
+            textField = textField_
+            textField?.placeholder = "File name"
+        }
+        present(alert, animated: true, completion: nil)
+    }
     
     /// Open the documentation or samples.
-    @objc func help(_ sender: UIBarButtonItem) {
+    @IBAction func help(_ sender: UIBarButtonItem) {
         let sheet = UIAlertController(title: "Pyto", message: Python.shared.version, preferredStyle: .actionSheet)
         
         sheet.addAction(UIAlertAction(title: "Documentation", style: .default, handler: { _ in
@@ -56,25 +124,6 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
             samplesSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             samplesSheet.popoverPresentationController?.barButtonItem = sender
             self.present(samplesSheet, animated: true, completion: nil)
-        }))
-        sheet.addAction(UIAlertAction(title: "REPL", style: .default, handler: { _ in
-            guard let replURL = Bundle.main.url(forResource: "REPL", withExtension: "py") else {
-                return
-            }
-            if Python.shared.isREPLRunning {
-                let contentVC = PyContentViewController()
-                contentVC.modalPresentationStyle = .overCurrentContext
-                contentVC.view.tintColor = UIColor(named: "TintColor")
-                UIApplication.shared.keyWindow?.topViewController?.present(contentVC, animated: true, completion: {
-                    if !Python.shared.isScriptRunning {
-                        PyInputHelper.userInput = "import os; import PytoClasses; os.system = PytoClasses.Python.shared.system; import code; code.interact()"
-                    } else {
-                        PyOutputHelper.print("An instance of a module is already running and two scripts cannot run at the same time, to kill it, quit the app. This can be caused by an inifite loop.")
-                    }
-                })
-            } else { // Start the REPL
-                self.openDocument(replURL, run: true)
-            }
         }))
         sheet.addAction(UIAlertAction(title: "Acknowledgments", style: .default, handler: { _ in
             let safari = SFSafariViewController(url: URL(string: "https://coldgrub1384.github.io/Pyto/Licenses")!)
@@ -128,15 +177,9 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         tabBarVC.view.tintColor = UIColor(named: "TintColor")
         tabBarVC.view.backgroundColor = .clear
         
-        if #available(iOS 12.0, *) {
-            transitionController = transitionController(forDocumentAt: document)
-            transitionController?.targetView = tabBarVC.view
-            tabBarVC.transitioningDelegate = self
-        }
-        
         tabBarVC.modalPresentationStyle = .overCurrentContext
         
-        UIApplication.shared.keyWindow?.topViewController?.present(tabBarVC, animated: true, completion: {
+        UIApplication.shared.keyWindow?.rootViewController?.present(tabBarVC, animated: true, completion: {
             if run {
                 editor.run()
             }
@@ -144,20 +187,17 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         })
     }
     
-    // MARK: - Browser
-    
-    func documentBrowser(_ controller: UIDocumentBrowserViewController, didPickDocumentsAt documentURLs: [URL]) {
-        
-        openDocument(documentURLs[0], run: false)
+    /// The visible instance
+    static var visible: DocumentBrowserViewController? {
+        return ((UIApplication.shared.keyWindow?.rootViewController as? UITabBarController)?.viewControllers?.first as? UINavigationController)?.visibleViewController as? DocumentBrowserViewController
     }
     
-    func documentBrowser(_ controller: UIDocumentBrowserViewController, didRequestDocumentCreationWithHandler importHandler: @escaping (URL?, UIDocumentBrowserViewController.ImportMode) -> Void) {
+    // MARK: - View controller
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
-        guard let template = Bundle.main.url(forResource: "Untitled", withExtension: "py") else {
-            importHandler(nil, .none)
-            return
-        }
-        importHandler(template, .copy)
+        collectionView.reloadData()
     }
     
     // MARK: - State restoration
@@ -197,13 +237,55 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         return DocumentBrowserViewController()
     }
     
-    // MARK: - View controller transition delegate
+    // MARK: - Collection view data source
     
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return transitionController
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return scripts.count
     }
     
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return transitionController
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "File", for: indexPath) as! FileCollectionViewCell
+        cell.file = scripts[indexPath.row]
+        cell.documentBrowser = self
+        
+        var isDir: ObjCBool = false
+        _ = FileManager.default.fileExists(atPath: scripts[indexPath.row].path, isDirectory: &isDir)
+        
+        if scripts[indexPath.row].pathExtension.lowercased() == "py" || isDir.boolValue {
+            cell.isUserInteractionEnabled = true
+            cell.alpha = 1
+        } else {
+            cell.isUserInteractionEnabled = false
+            cell.alpha = 0.5
+        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        return collectionView.cellForItem(at: indexPath)?.canPerformAction(action, withSender: sender) ?? false
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {}
+    
+    // MARK: - Collection view delegate
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        var isDir: ObjCBool = false
+        if FileManager.default.fileExists(atPath: scripts[indexPath.row].path, isDirectory: &isDir) {
+            if isDir.boolValue {
+                guard let vc = storyboard?.instantiateViewController(withIdentifier: "Browser") as? DocumentBrowserViewController else {
+                    return
+                }
+                vc.directory = scripts[indexPath.row]
+                navigationController?.pushViewController(vc, animated: true)
+            } else {
+                openDocument(scripts[indexPath.row], run: false)
+            }
+        }
     }
 }

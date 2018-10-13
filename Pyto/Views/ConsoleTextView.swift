@@ -54,4 +54,18 @@ class ConsoleTextView: UITextView {
         
         setupView()
     }
+    
+    @discardableResult override func becomeFirstResponder() -> Bool {
+        defer {
+            (window?.topViewController as? REPLViewController)?.navigationItem.rightBarButtonItem?.isEnabled = true
+        }
+        return super.becomeFirstResponder()
+    }
+    
+    @discardableResult override func resignFirstResponder() -> Bool {
+        defer {
+            (window?.topViewController as? REPLViewController)?.navigationItem.rightBarButtonItem?.isEnabled = false
+        }
+        return super.resignFirstResponder()
+    }
 }
