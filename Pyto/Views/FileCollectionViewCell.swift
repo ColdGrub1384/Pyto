@@ -35,7 +35,11 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate {
                     iconView.image = UIImage(named: "Folder")
                     titleView.text = file!.lastPathComponent
                 } else {
-                    iconView.image = UIDocumentInteractionController(url: file!).icons.last
+                    if file!.pathExtension.lowercased() == "py" {
+                        iconView.image = UIImage(named: "File")
+                    } else {
+                        iconView.image = UIDocumentInteractionController(url: file!).icons.last
+                    }
                     titleView.text = file!.deletingPathExtension().lastPathComponent
                 }
             }

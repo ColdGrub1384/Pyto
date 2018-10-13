@@ -295,12 +295,17 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "File", for: indexPath) as! FileCollectionViewCell
-        cell.file = scripts[indexPath.row]
-        cell.documentBrowser = self
-        
         var isDir: ObjCBool = false
         _ = FileManager.default.fileExists(atPath: scripts[indexPath.row].path, isDirectory: &isDir)
+        
+        var cell: FileCollectionViewCell
+        if isDir.boolValue {
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Folder", for: indexPath) as! FileCollectionViewCell
+        } else {
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "File", for: indexPath) as! FileCollectionViewCell
+        }
+        cell.file = scripts[indexPath.row]
+        cell.documentBrowser = self
         
         if scripts[indexPath.row].pathExtension.lowercased() == "py" || isDir.boolValue {
             cell.isUserInteractionEnabled = true
