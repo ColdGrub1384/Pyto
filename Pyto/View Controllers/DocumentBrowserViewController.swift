@@ -12,6 +12,16 @@ import SafariServices
 /// The main file browser used to edit scripts.
 class DocumentBrowserViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDropDelegate, UICollectionViewDragDelegate, UIViewControllerRestoration {
     
+    /// Stops file observer.
+    func stopObserver() {
+        stopObserver_ = true
+    }
+    
+    private var stopObserver_ = false
+    
+    /// If set to `true`, the files observer will ignore next change.
+    var ignoreObserver = false
+    
     /// The Collection view displaying files.
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -46,7 +56,8 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
                     var i = 0
                     for file in self.scripts { // For loop needed because the folder is not found with `Array.firstIndex(of:)`
                         if file.lastPathComponent == script.lastPathComponent {
-                            DocumentBrowserViewController.visible?.collectionView.insertItems(at: [IndexPath(row: i, section: 0)])
+                            self.ignoreObserver = true
+                            self.collectionView.insertItems(at: [IndexPath(row: i, section: 0)])
                             break
                         }
                         i += 1
@@ -85,7 +96,8 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
                 var i = 0
                 for file in self.scripts { // For loop needed because the folder is not found with `Array.firstIndex(of:)`
                     if file.lastPathComponent == folder.lastPathComponent {
-                        DocumentBrowserViewController.visible?.collectionView.insertItems(at: [IndexPath(row: i, section: 0)])
+                        self.ignoreObserver = true
+                        self.collectionView.insertItems(at: [IndexPath(row: i, section: 0)])
                         break
                     }
                     i += 1
@@ -206,7 +218,36 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         collectionView.dragDelegate = self
         collectionView.dropDelegate = self
         collectionView.dragInteractionEnabled = true
-        collectionView.reloadData()
+        //collectionView.reloadData()
+        
+        // Directory observer
+        DispatchQueue.global(qos: .background).async {
+            var files = self.scripts
+            while true {
+                if self.stopObserver_ {
+                    self.stopObserver_ = false
+                    break
+                }
+                
+                if files != self.scripts {
+                    files = self.scripts
+                    
+                    if self.ignoreObserver {
+                        self.ignoreObserver = false
+                    } else {
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadData()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        stopObserver()
     }
     
     // MARK: - State restoration
@@ -370,6 +411,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
                     var i = 0
                     for file in self.scripts { // For loop needed because folders are not found with `Array.firstIndex(of:)`
                         if file.lastPathComponent == url.lastPathComponent {
+                            ignoreObserver = true
                             DocumentBrowserViewController.visible?.collectionView.deleteItems(at: [IndexPath(row: i, section: 0)])
                             break
                         }

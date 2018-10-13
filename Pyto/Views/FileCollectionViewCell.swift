@@ -49,7 +49,8 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate {
                 let index = documentBrowser?.scripts.firstIndex(of: file)
                 try FileManager.default.removeItem(at: file)
                 if let index = index {
-                    DocumentBrowserViewController.visible?.collectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
+                    documentBrowser?.ignoreObserver = true
+                    documentBrowser?.collectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
                 }
             } catch {
                 let alert = UIAlertController(title: "Error removing file!", message: error.localizedDescription, preferredStyle: .alert)
