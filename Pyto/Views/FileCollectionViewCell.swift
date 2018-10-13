@@ -89,7 +89,7 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate {
         alert.addTextField { (textField_) in
             textField = textField_
             textField?.placeholder = "New file name"
-            textField?.text = self.file?.lastPathComponent
+            textField?.text = self.file?.deletingPathExtension().lastPathComponent
         }
         documentBrowser?.present(alert, animated: true, completion: nil)
     }
