@@ -178,6 +178,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         tabBarVC.view.backgroundColor = .clear
         
         tabBarVC.modalPresentationStyle = .overCurrentContext
+        tabBarVC.modalTransitionStyle = .crossDissolve
         
         UIApplication.shared.keyWindow?.rootViewController?.present(tabBarVC, animated: true, completion: {
             if run {
