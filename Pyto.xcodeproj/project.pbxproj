@@ -26,7 +26,6 @@
 		C976592721471D23001C96A8 /* PyFilePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C976592621471D23001C96A8 /* PyFilePicker.swift */; };
 		C98E1FFD214EE6ED002F0178 /* Samples in Resources */ = {isa = PBXBuildFile; fileRef = C98E1FFC214EE6EC002F0178 /* Samples */; };
 		C98E2002214F0856002F0178 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C98E2001214F0856002F0178 /* main.m */; };
-		C99680DA2171536600BE3D6D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C99680D92171536600BE3D6D /* Main.storyboard */; };
 		C9B3FDEC21503DE7000FC9A8 /* PyExtensionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */; };
 		C9BE01B42154738C00A8C825 /* site-packages in Resources */ = {isa = PBXBuildFile; fileRef = C9BE01B021530BAF00A8C825 /* site-packages */; };
 		C9DF70B821715D3D00981B4F /* FileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DF70B721715D3D00981B4F /* FileCollectionViewCell.swift */; };
@@ -58,6 +57,7 @@
 		C9EDF9AB21446FCA00382DCC /* ConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EDF9AA21446FCA00382DCC /* ConsoleViewController.swift */; };
 		C9F04E832173C33400BDD03E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9F04E852173C33400BDD03E /* Localizable.strings */; };
 		C9F04E872173C81700BDD03E /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F04E862173C81700BDD03E /* Localizable.swift */; };
+		C9F04E882173DD7300BDD03E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9F04E8A2173DD7300BDD03E /* Main.storyboard */; };
 		C9F06FAE2152FC6100165D1E /* python36.zip in Copy Python lib */ = {isa = PBXBuildFile; fileRef = C9F06FAC2152FC3F00165D1E /* python36.zip */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C9FCFD59214428AE00A07974 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCFD58214428AE00A07974 /* AppDelegate.swift */; };
 		C9FCFD5B214428AE00A07974 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCFD5A214428AE00A07974 /* EditorViewController.swift */; };
@@ -172,7 +172,6 @@
 		C976592621471D23001C96A8 /* PyFilePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyFilePicker.swift; sourceTree = "<group>"; };
 		C98E1FFC214EE6EC002F0178 /* Samples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Samples; sourceTree = "<group>"; };
 		C98E2001214F0856002F0178 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C99680D92171536600BE3D6D /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyExtensionContext.swift; sourceTree = "<group>"; };
 		C9BE01B021530BAF00A8C825 /* site-packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "site-packages"; sourceTree = "<group>"; };
 		C9C57EB40A56344EEB889161 /* Pods-Pyto Share.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Share.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Share/Pods-Pyto Share.release.xcconfig"; sourceTree = "<group>"; };
@@ -209,6 +208,8 @@
 		C9EDF9AA21446FCA00382DCC /* ConsoleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleViewController.swift; sourceTree = "<group>"; };
 		C9F04E842173C33400BDD03E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C9F04E862173C81700BDD03E /* Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
+		C9F04E892173DD7300BDD03E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C9F04E8C2173DD7F00BDD03E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		C9F06FAC2152FC3F00165D1E /* python36.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = python36.zip; sourceTree = "<group>"; };
 		C9FCFD55214428AE00A07974 /* Pyto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pyto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9FCFD58214428AE00A07974 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -315,7 +316,7 @@
 			children = (
 				C903B98721584367004AAD7F /* commandDictionary.plist */,
 				C903B989215843B4004AAD7F /* extraCommandsDictionary.plist */,
-				C99680D92171536600BE3D6D /* Main.storyboard */,
+				C9F04E8A2173DD7300BDD03E /* Main.storyboard */,
 				C9FCFD5F214428B300A07974 /* Assets.xcassets */,
 				C9FCFD61214428B300A07974 /* LaunchScreen.storyboard */,
 				C9FCFD64214428B300A07974 /* Info.plist */,
@@ -564,7 +565,7 @@
 			files = (
 				C98E1FFD214EE6ED002F0178 /* Samples in Resources */,
 				C9F04E832173C33400BDD03E /* Localizable.strings in Resources */,
-				C99680DA2171536600BE3D6D /* Main.storyboard in Resources */,
+				C9F04E882173DD7300BDD03E /* Main.storyboard in Resources */,
 				C9FCFD6D21442FD700A07974 /* Untitled.py in Resources */,
 				C903B98821584367004AAD7F /* commandDictionary.plist in Resources */,
 				C9DF70E12171752200981B4F /* .gitignore in Resources */,
@@ -680,6 +681,15 @@
 				C9F04E842173C33400BDD03E /* en */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		C9F04E8A2173DD7300BDD03E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9F04E892173DD7300BDD03E /* Base */,
+				C9F04E8C2173DD7F00BDD03E /* en */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		C9FCFD61214428B300A07974 /* LaunchScreen.storyboard */ = {
