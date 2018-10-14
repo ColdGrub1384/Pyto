@@ -135,6 +135,12 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
             guard let filename = textField?.text else {
                 return
             }
+            guard !filename.hasSuffix(".") && !filename.isEmpty else {
+                let alert = UIAlertController(title: "Error creating file!", message: "Empty names aren't allowed.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                DocumentBrowserViewController.visible?.present(alert, animated: true, completion: nil)
+                return
+            }
             var newFileURL = file.deletingLastPathComponent().appendingPathComponent(filename)
             if !self.isDirectory.boolValue {
                 newFileURL.appendPathExtension(file.pathExtension)
