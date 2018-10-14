@@ -28,7 +28,7 @@ Third party libraries:
 
 ## Building
 
-`$ ./setup.sh`
+`$ ./setup.sh` and build the `Pyto` target from `Pyto.xcworkspace`
 
 ## Contributing
 
