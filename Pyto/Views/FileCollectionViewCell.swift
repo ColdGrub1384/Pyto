@@ -7,15 +7,20 @@
 //
 
 import UIKit
+import SavannaKit
+import SourceEditor
 
 /// A cell for displaying a file.
-class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate {
+class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, SyntaxTextViewDelegate {
     
     /// The view containing file icon.
-    @IBOutlet weak var iconView: UIImageView!
+    @IBOutlet weak var iconView: UIImageView?
     
     /// The view contaning the filename.
     @IBOutlet weak var titleView: UILabel!
+    
+    /// The view containing the code's preview.
+    @IBOutlet weak var previewContainerView: UIView?
     
     /// The Document browser view controller containing this Collection view.
     var documentBrowser: DocumentBrowserViewController?
@@ -32,14 +37,38 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate {
             
             if FileManager.default.fileExists(atPath: file!.path, isDirectory: &isDirectory) {
                 if isDirectory.boolValue {
-                    iconView.image = UIImage(named: "Folder")
+                    iconView?.image = UIImage(named: "Folder")
                     titleView.text = file!.lastPathComponent
-                } else {
-                    if file!.pathExtension.lowercased() == "py" {
-                        iconView.image = UIImage(named: "File")
-                    } else {
-                        iconView.image = UIDocumentInteractionController(url: file!).icons.last
+                } else if file!.pathExtension.lowercased() == "py", let container = previewContainerView {
+                    let textView = SyntaxTextView(frame: container.frame)
+                    textView.delegate = self
+                    if let code = try? String(contentsOf: file!) {
+                        textView.text = code
                     }
+                    
+                    struct ReadonlyTheme: SourceCodeTheme {
+                        let defaultTheme = DefaultSourceCodeTheme()
+                        
+                        var lineNumbersStyle: LineNumbersStyle? {
+                            return nil
+                        }
+                        let gutterStyle = GutterStyle(backgroundColor: .clear, minimumWidth: 0)
+                        var font: Font {
+                            return defaultTheme.font
+                        }
+                        var backgroundColor: Color {
+                            return defaultTheme.backgroundColor
+                        }
+                        func color(for syntaxColorType: SourceCodeTokenType) -> Color {
+                            return defaultTheme.color(for: syntaxColorType)
+                        }
+                    }
+                    textView.theme = ReadonlyTheme()
+                    textView.contentTextView.font = textView.contentTextView.font?.withSize(5)
+                    textView.contentTextView.isEditable = false
+                    textView.contentTextView.isSelectable = false
+                    textView.isUserInteractionEnabled = false
+                    container.addSubview(textView)
                     titleView.text = file!.deletingPathExtension().lastPathComponent
                 }
             }
@@ -145,5 +174,15 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate {
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         documentBrowser?.collectionView.reloadData()
+    }
+    
+    // MARK: - Syntax text view delegate
+    
+    func didChangeText(_ syntaxTextView: SyntaxTextView) {}
+    
+    func didChangeSelectedRange(_ syntaxTextView: SyntaxTextView, selectedRange: NSRange) {}
+    
+    func lexerForSource(_ source: String) -> Lexer {
+        return Python3Lexer()
     }
 }
