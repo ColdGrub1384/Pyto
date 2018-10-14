@@ -79,7 +79,7 @@ import UIKit
             console?.ignoresInput = false
             if Python.shared.isREPLRunning {
                 if Python.shared.isScriptRunning { // A script is already running
-                    PyOutputHelper.print("An instance of a module is already running and two scripts cannot run at the same time, to kill it, quit the app. This can be caused by an inifite loop.")
+                    PyOutputHelper.print(Localizable.Python.alreadyRunning)
                     return
                 }
                 Python.shared.isScriptRunning = true

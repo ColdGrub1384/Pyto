@@ -115,8 +115,8 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
                     documentBrowser?.collectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
                 }
             } catch {
-                let alert = UIAlertController(title: "Error removing file!", message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                let alert = UIAlertController(title: Localizable.Errors.errorRemovingFile, message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
                 UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
             }
         }
@@ -130,14 +130,14 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
         }
         
         var textField: UITextField?
-        let alert = UIAlertController(title: "Rename file", message: "Please type the new file's name.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Rename", style: .default, handler: { (_) in
+        let alert = UIAlertController(title: Localizable.Renaming.title, message: Localizable.Renaming.message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Localizable.Renaming.rename, style: .default, handler: { (_) in
             guard let filename = textField?.text else {
                 return
             }
             guard !filename.hasSuffix(".") && !filename.isEmpty else {
-                let alert = UIAlertController(title: "Error creating file!", message: "Empty names aren't allowed.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                let alert = UIAlertController(title: Localizable.Errors.errorRenamingFile, message: Localizable.Errors.emptyName, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
                 DocumentBrowserViewController.visible?.present(alert, animated: true, completion: nil)
                 return
             }
@@ -149,15 +149,14 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
                 try FileManager.default.moveItem(at: file, to: newFileURL)
                 self.documentBrowser?.collectionView.reloadData()
             } catch {
-                let alert = UIAlertController(title: "Error creating file!", message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                let alert = UIAlertController(title: Localizable.Errors.errorRenamingFile, message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
                 UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
             }
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
         alert.addTextField { (textField_) in
             textField = textField_
-            textField?.placeholder = "New file name"
             textField?.text = self.file?.deletingPathExtension().lastPathComponent
         }
         documentBrowser?.present(alert, animated: true, completion: nil)

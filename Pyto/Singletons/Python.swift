@@ -85,7 +85,7 @@ import ios_system
         queue.async {
             
             guard !self.isREPLRunning else {
-                PyOutputHelper.print("An instance of the REPL is already running and two scripts cannot run at the same time, to kill it, quit the app.") // Should not be called. When the REPL is running, run the script inside it.
+                PyOutputHelper.print(Localizable.Python.alreadyRunning) // Should not be called. When the REPL is running, run the script inside it.
                 return
             }
             
@@ -94,7 +94,7 @@ import ios_system
             }
             
             guard let startupURL = Bundle.main.url(forResource: "Startup", withExtension: "py"), let src = try? String(contentsOf: startupURL) as NSString else {
-                PyOutputHelper.print("Error loading Startup.py")
+                PyOutputHelper.print(Localizable.Python.alreadyRunning)
                 return
             }
             
