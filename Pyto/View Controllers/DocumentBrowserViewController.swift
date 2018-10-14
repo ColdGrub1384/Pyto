@@ -67,6 +67,12 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
             guard let filename = textField?.text else {
                 return
             }
+            guard !filename.hasSuffix(".") && !filename.isEmpty else {
+                let alert = UIAlertController(title: "Error creating file!", message: "Empty names aren't allowed.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
             let script = self.directory.appendingPathComponent(filename).appendingPathExtension("py")
             do {
                 guard let url = Bundle.main.url(forResource: "Untitled", withExtension: "py") else {
@@ -108,6 +114,12 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         let alert = UIAlertController(title: "Create folder", message: "Please type the new folder's name.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Create", style: .default, handler: { (_) in
             guard let filename = textField?.text else {
+                return
+            }
+            guard !filename.hasSuffix(".") && !filename.isEmpty else {
+                let alert = UIAlertController(title: "Error creating file!", message: "Empty names aren't allowed.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
                 return
             }
             let folder = self.directory.appendingPathComponent(filename)
@@ -241,7 +253,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         collectionView.reloadData()
         
         // Directory observer
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global().async {
             var files = self.scripts
             while true {
                 if self.stopObserver_ {
