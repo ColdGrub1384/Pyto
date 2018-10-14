@@ -23,31 +23,31 @@
                                 <rect key="frame" x="20" y="116" width="374" height="571"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="60" minimumInteritemSpacing="0.0" id="soV-Bh-gDx">
-                                    <size key="itemSize" width="288" height="136"/>
+                                    <size key="itemSize" width="288" height="200"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="File" id="t54-hE-Nfk" customClass="FileCollectionViewCell" customModule="Pyto" customModuleProvider="target">
-                                        <rect key="frame" x="43" y="0.0" width="288" height="136"/>
+                                        <rect key="frame" x="43" y="0.0" width="288" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="288" height="136"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="288" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lq3-dS-ccB">
+                                                    <rect key="frame" x="0.0" y="0.0" width="288" height="158"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Script" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QgB-RK-FTn">
-                                                    <rect key="frame" x="-1" y="102" width="289" height="34"/>
+                                                    <rect key="frame" x="-1" y="166" width="289" height="34"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lq3-dS-ccB">
-                                                    <rect key="frame" x="0.0" y="0.0" width="288" height="94"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </view>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" red="0.124133032" green="0.12536207190000001" blue="0.12536207190000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -57,28 +57,71 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Folder" id="Ldw-Ti-VDI" customClass="FileCollectionViewCell" customModule="Pyto" customModuleProvider="target">
-                                        <rect key="frame" x="43" y="196" width="288" height="136"/>
+                                        <rect key="frame" x="43" y="260" width="288" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="288" height="136"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="288" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Folder" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lJC-Gg-hEl">
-                                                    <rect key="frame" x="-1" y="102" width="289" height="34"/>
+                                                    <rect key="frame" x="-1" y="166" width="289" height="34"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Folder" translatesAutoresizingMaskIntoConstraints="NO" id="qYG-7P-VD7">
-                                                    <rect key="frame" x="0.0" y="20" width="288" height="74"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No files in Folder" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x4v-Tr-fD3">
+                                                    <rect key="frame" x="0.0" y="0.0" width="288" height="158"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="X6Z-5W-bGT">
+                                                    <rect key="frame" x="0.0" y="0.0" width="288" height="158"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" red="0.124133032" green="0.12536207190000001" blue="0.12536207190000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="OkS-6q-bPm">
+                                                        <size key="itemSize" width="132" height="110"/>
+                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    </collectionViewFlowLayout>
+                                                    <cells>
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="File" id="Tft-qV-PFw" customClass="FileCollectionViewCell" customModule="Pyto" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="132" height="110"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                                <rect key="frame" x="0.0" y="0.0" width="132" height="110"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Script" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xXX-0j-NKP">
+                                                                        <rect key="frame" x="0.0" y="80" width="132" height="21"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zyw-OU-4Ns">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="132" height="72"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </view>
+                                                                </subviews>
+                                                            </view>
+                                                            <connections>
+                                                                <outlet property="previewContainerView" destination="zyw-OU-4Ns" id="EgX-xQ-HYA"/>
+                                                                <outlet property="titleView" destination="xXX-0j-NKP" id="wNM-VT-EfD"/>
+                                                            </connections>
+                                                        </collectionViewCell>
+                                                    </cells>
+                                                </collectionView>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" red="0.124133032" green="0.12536207190000001" blue="0.12536207190000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
-                                            <outlet property="iconView" destination="qYG-7P-VD7" id="q3h-E0-bD4"/>
+                                            <outlet property="folderContentCollectionView" destination="X6Z-5W-bGT" id="TlM-Qb-KSz"/>
+                                            <outlet property="noFilesView" destination="x4v-Tr-fD3" id="X82-Jy-QID"/>
                                             <outlet property="titleView" destination="lJC-Gg-hEl" id="ugp-ai-dy8"/>
                                         </connections>
                                     </collectionViewCell>
@@ -201,7 +244,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Folder" width="320" height="250"/>
         <image name="NewFolder_Normal" width="34" height="24"/>
         <image name="fileIcon" width="30" height="30"/>
         <namedColor name="TintColor">

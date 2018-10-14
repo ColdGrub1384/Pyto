@@ -345,6 +345,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         return collectionView.cellForItem(at: indexPath)?.canPerformAction(action, withSender: sender) ?? false
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {}
     
     // MARK: - Collection view delegate
@@ -384,7 +385,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         item.localObject = file
         item.previewProvider = {
             
-            guard let view = cell.iconView ?? cell.previewContainerView else {
+            guard let view = cell.folderContentCollectionView ?? cell.previewContainerView else {
                 return nil
             }
             
