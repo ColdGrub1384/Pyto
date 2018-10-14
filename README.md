@@ -28,18 +28,7 @@ Third party libraries:
 
 ## Building
 
-### Integrating Python
-
-1. [Download Python for iOS](https://s3-us-west-2.amazonaws.com/pybee-briefcase-support/Python-Apple-support/3.6/iOS/Python-3.6-iOS-support.b6.tar.gz).
-2. Unarchive the file.
-3. Move `BZip2`, `OpenSSL` , `XZ` and `Python` to the repo.
-
-### Integrating ios_system
-
-1. Download `release.tar.gz` from [ios_system latest release](https://github.com/holzschu/ios_system/releases/latest).
-2. Unarchive the file.
-3. Move ios_system to the repo. 
-4. `$ git submodule update --init --recursive`
+`$ ./setup.sh`
 
 ## Contributing
 
