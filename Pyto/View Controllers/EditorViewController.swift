@@ -119,7 +119,9 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate {
                         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                         UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
                     }
-                    self.document?.close(completionHandler: nil)
+                    self.document?.close(completionHandler: { _ in
+                        DocumentBrowserViewController.visible?.collectionView.reloadData()
+                    })
                 })
             }
         }

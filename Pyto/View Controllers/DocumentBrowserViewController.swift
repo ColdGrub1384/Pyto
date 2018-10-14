@@ -34,8 +34,28 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         }
     }
     
-    /// Returns all scripts in current directory.
+    /// Returns all scripts and directories in current directory.
     var scripts: [URL] {
+        var files = self.files
+        
+        var i = 0
+        for file in files {
+            var isDir: ObjCBool = false
+            if FileManager.default.fileExists(atPath: file.path, isDirectory: &isDir) {
+                if file.pathExtension.lowercased() != "py" && !isDir.boolValue {
+                    files.remove(at: i)
+                } else {
+                    i += 1
+                }
+            } else {
+                files.remove(at: i)
+            }
+        }
+        
+        return files
+    }
+    
+    private var files: [URL] {
         return (try? FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)) ?? []
     }
     
@@ -364,11 +384,11 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         item.localObject = file
         item.previewProvider = {
             
-            guard let iconView = cell.iconView else {
+            guard let view = cell.iconView ?? cell.previewContainerView else {
                 return nil
             }
             
-            let dragPreview = UIDragPreview(view: iconView)
+            let dragPreview = UIDragPreview(view: view)
             dragPreview.parameters.backgroundColor = .clear
             
             return dragPreview
