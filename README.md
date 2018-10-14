@@ -1,6 +1,6 @@
 <p align="center">
-<a href="https://github.com/ColdGrub1384/Pisth">Pisth</a>
-<b>Pyto</b> &bull;
+<a href="https://github.com/ColdGrub1384/Pisth">Pisth</a>&bull;
+<b>Pyto</b>
 </p>
 
 If you are reading this after installing the app from the App Store, firstly, thank you! A bug is making impossible to run another script after getting an errror. I submitted a new update but is Waiting For Review since a long time and I cannot request an expedited review due to a previous rejection. Sorry.
