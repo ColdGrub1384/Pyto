@@ -18,12 +18,12 @@ import SafariServices
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         UIMenuController.shared.menuItems = [
-            UIMenuItem(title: "Open", action: #selector(FileCollectionViewCell.open(_:))),
-            UIMenuItem(title: "Run", action: #selector(FileCollectionViewCell.run(_:))),
-            UIMenuItem(title: "Rename", action: #selector(FileCollectionViewCell.rename(_:))),
-            UIMenuItem(title: "Remove", action: #selector(FileCollectionViewCell.remove(_:))),
-            UIMenuItem(title: "Copy", action: #selector(FileCollectionViewCell.copyFile(_:))),
-            UIMenuItem(title: "Move", action: #selector(FileCollectionViewCell.move(_:)))
+            UIMenuItem(title: Localizable.MenuItems.open, action: #selector(FileCollectionViewCell.open(_:))),
+            UIMenuItem(title: Localizable.MenuItems.run, action: #selector(FileCollectionViewCell.run(_:))),
+            UIMenuItem(title: Localizable.MenuItems.run, action: #selector(FileCollectionViewCell.rename(_:))),
+            UIMenuItem(title: Localizable.MenuItems.rename, action: #selector(FileCollectionViewCell.remove(_:))),
+            UIMenuItem(title: Localizable.MenuItems.copy, action: #selector(FileCollectionViewCell.copyFile(_:))),
+            UIMenuItem(title: Localizable.MenuItems.move, action: #selector(FileCollectionViewCell.move(_:)))
         ]
         
         window?.accessibilityIgnoresInvertColors = true
@@ -34,21 +34,21 @@ import SafariServices
             UserDefaults.standard.set(true, forKey: "pisth")
             UserDefaults.standard.synchronize()
             if !UIApplication.shared.canOpenURL(URL(string: "pisth://")!) {
-                let alert = UIAlertController(title: "Pisth - SSH Client", message: "Do you want to run your scripts remotely via SSH? You can download Pisth, an SSH client.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "View on the App Store", style: .default, handler: { _ in
+                let alert = UIAlertController(title: Localizable.Pisth.title, message: Localizable.Pisth.message, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.Pisth.view, style: .default, handler: { _ in
                     let store = SKStoreProductViewController()
                     store.delegate = self
                     store.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier: "1331070425"], completionBlock: nil)
                     self.window?.rootViewController?.present(store, animated: true, completion: nil)
                 }))
-                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
                 window?.rootViewController?.present(alert, animated: true, completion: nil)
             }
         }
         
         NSSetUncaughtExceptionHandler { (exception) in
-            PyOutputHelper.print("An Objective-C exception occurred. \(exception.name.rawValue), reason: \(exception.reason ?? "")\n\nThis error is not caught by Python but by the app.\nYou can continue editing scripts but you cannot run scripts anymore until the app is restarted.\n")
-            PyInputHelper.showAlert(prompt: "Press enter to quit the app. ")
+            PyOutputHelper.print(NSString(format: Localizable.ObjectiveC.exception as NSString, exception.name.rawValue, exception.reason ?? "") as String)
+            PyInputHelper.showAlert(prompt: Localizable.ObjectiveC.quit)
             while PyInputHelper.userInput == nil {
                 sleep(UInt32(0.5))
             }

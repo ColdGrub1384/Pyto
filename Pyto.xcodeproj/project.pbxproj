@@ -56,6 +56,8 @@
 		C9EDF9A72144620A00382DCC /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A62144620A00382DCC /* libz.tbd */; };
 		C9EDF9A921446EE600382DCC /* PyContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EDF9A821446EE600382DCC /* PyContentViewController.swift */; };
 		C9EDF9AB21446FCA00382DCC /* ConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EDF9AA21446FCA00382DCC /* ConsoleViewController.swift */; };
+		C9F04E832173C33400BDD03E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9F04E852173C33400BDD03E /* Localizable.strings */; };
+		C9F04E872173C81700BDD03E /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F04E862173C81700BDD03E /* Localizable.swift */; };
 		C9F06FAE2152FC6100165D1E /* python36.zip in Copy Python lib */ = {isa = PBXBuildFile; fileRef = C9F06FAC2152FC3F00165D1E /* python36.zip */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C9FCFD59214428AE00A07974 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCFD58214428AE00A07974 /* AppDelegate.swift */; };
 		C9FCFD5B214428AE00A07974 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCFD5A214428AE00A07974 /* EditorViewController.swift */; };
@@ -205,6 +207,8 @@
 		C9EDF9A62144620A00382DCC /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C9EDF9A821446EE600382DCC /* PyContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyContentViewController.swift; sourceTree = "<group>"; };
 		C9EDF9AA21446FCA00382DCC /* ConsoleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleViewController.swift; sourceTree = "<group>"; };
+		C9F04E842173C33400BDD03E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C9F04E862173C81700BDD03E /* Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
 		C9F06FAC2152FC3F00165D1E /* python36.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = python36.zip; sourceTree = "<group>"; };
 		C9FCFD55214428AE00A07974 /* Pyto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pyto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9FCFD58214428AE00A07974 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -319,6 +323,7 @@
 				C9FCFD6C21442FD700A07974 /* Untitled.py */,
 				C9E4152D21514F9100D64E32 /* Startup.py */,
 				C9E415302151531B00D64E32 /* REPL.py */,
+				C9F04E852173C33400BDD03E /* Localizable.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -412,6 +417,7 @@
 				C93D61E72145E1BF00C8B5E3 /* Extensions */,
 				C9E4152921513E2300D64E32 /* Views */,
 				C9FCFD6E214452FB00A07974 /* PyDocument.swift */,
+				C9F04E862173C81700BDD03E /* Localizable.swift */,
 				C98E2001214F0856002F0178 /* main.m */,
 				C904EB6C21445CAE00585C28 /* Pyto-Bridging-Header.h */,
 				C93D61E82145E1D300C8B5E3 /* Resources */,
@@ -557,6 +563,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C98E1FFD214EE6ED002F0178 /* Samples in Resources */,
+				C9F04E832173C33400BDD03E /* Localizable.strings in Resources */,
 				C99680DA2171536600BE3D6D /* Main.storyboard in Resources */,
 				C9FCFD6D21442FD700A07974 /* Untitled.py in Resources */,
 				C903B98821584367004AAD7F /* commandDictionary.plist in Resources */,
@@ -627,6 +634,7 @@
 			files = (
 				C9EDF9AB21446FCA00382DCC /* ConsoleViewController.swift in Sources */,
 				C9DF70B821715D3D00981B4F /* FileCollectionViewCell.swift in Sources */,
+				C9F04E872173C81700BDD03E /* Localizable.swift in Sources */,
 				C9EDF9A921446EE600382DCC /* PyContentViewController.swift in Sources */,
 				C9FCFD6B21442DE700A07974 /* DocumentBrowserViewController.swift in Sources */,
 				C903B98C21598A63004AAD7F /* IO.swift in Sources */,
@@ -666,6 +674,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		C9F04E852173C33400BDD03E /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9F04E842173C33400BDD03E /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		C9FCFD61214428B300A07974 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

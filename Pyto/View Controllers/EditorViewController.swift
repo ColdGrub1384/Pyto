@@ -54,7 +54,7 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate {
         title = document?.fileURL.lastPathComponent
         
         document?.open(completionHandler: { (_) in
-            self.textView.text = self.document?.text ?? "Error reading file"
+            self.textView.text = self.document?.text ?? Localizable.Errors.errorReadingFile
         })
         
         let saveItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
@@ -115,8 +115,8 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate {
                 
                 self.document?.save(to: self.document!.fileURL, for: .forOverwriting, completionHandler: { success in
                     if !success {
-                        let alert = UIAlertController(title: "Error writting to script", message: "Cannot save the contents of '\(self.document!.fileURL.lastPathComponent)'", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                        let alert = UIAlertController(title: Localizable.Errors.errorWrittingToScript, message: nil, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
                         UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
                     }
                     self.document?.close(completionHandler: { _ in

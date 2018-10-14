@@ -61,15 +61,20 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
     
     /// Creates script.
     @IBAction func create(_ sender: Any) {
+        // "Create script"
+        // "Please type the new script's name."
+        // "Create"
+        // "Error creating file!"
+        // "Empty names aren't allowed."
         var textField: UITextField?
-        let alert = UIAlertController(title: "Create script", message: "Please type the new script's name.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Create", style: .default, handler: { (_) in
+        let alert = UIAlertController(title: Localizable.Creation.createScript, message: Localizable.Creation.typeScriptName, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Localizable.create, style: .default, handler: { (_) in
             guard let filename = textField?.text else {
                 return
             }
             guard !filename.hasSuffix(".") && !filename.isEmpty else {
-                let alert = UIAlertController(title: "Error creating file!", message: "Empty names aren't allowed.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: Localizable.Errors.emptyName, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
                 return
             }
@@ -90,20 +95,19 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
                     }
                     self.openDocument(script, run: false)
                 } else {
-                    let alert = UIAlertController(title: "Error creating file!", message: nil, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                    let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: nil, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
                     UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
                 }
             } catch {
-                let alert = UIAlertController(title: "Error creating file!", message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
                 UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
             }
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
         alert.addTextField { (textField_) in
             textField = textField_
-            textField?.placeholder = "File name"
         }
         present(alert, animated: true, completion: nil)
     }
@@ -111,14 +115,14 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
     /// Creates folder.
     @IBAction func createFolder(_ sender: Any) {
         var textField: UITextField?
-        let alert = UIAlertController(title: "Create folder", message: "Please type the new folder's name.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Create", style: .default, handler: { (_) in
+        let alert = UIAlertController(title: Localizable.Creation.createFolder, message: Localizable.Creation.typeFolderName, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Localizable.create, style: .default, handler: { (_) in
             guard let filename = textField?.text else {
                 return
             }
             guard !filename.hasSuffix(".") && !filename.isEmpty else {
-                let alert = UIAlertController(title: "Error creating file!", message: "Empty names aren't allowed.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFolder, message: Localizable.Errors.emptyName, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
                 return
             }
@@ -135,15 +139,14 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
                     i += 1
                 }
             } catch {
-                let alert = UIAlertController(title: "Error creating folder!", message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                let alert = UIAlertController(title: Localizable.Creation.createFolder, message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.create, style: .cancel, handler: nil))
                 UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
             }
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
         alert.addTextField { (textField_) in
             textField = textField_
-            textField?.placeholder = "File name"
         }
         present(alert, animated: true, completion: nil)
     }
@@ -152,12 +155,12 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
     @IBAction func help(_ sender: UIBarButtonItem) {
         let sheet = UIAlertController(title: "Pyto", message: Python.shared.version, preferredStyle: .actionSheet)
         
-        sheet.addAction(UIAlertAction(title: "Documentation", style: .default, handler: { _ in
+        sheet.addAction(UIAlertAction(title: Localizable.Help.documentation, style: .default, handler: { _ in
             let safari = SFSafariViewController(url: URL(string: "https://coldgrub1384.github.io/Pyto")!)
             self.present(safari, animated: true, completion: nil)
         }))
-        sheet.addAction(UIAlertAction(title: "Samples", style: .default, handler: { _ in
-            let samplesSheet = UIAlertController(title: "Samples", message: "Select a sample to preview", preferredStyle: .actionSheet)
+        sheet.addAction(UIAlertAction(title: Localizable.Help.samples, style: .default, handler: { _ in
+            let samplesSheet = UIAlertController(title: Localizable.Help.samples, message: Localizable.Help.selectSample, preferredStyle: .actionSheet)
             if let samplesURL = Bundle.main.url(forResource: "Samples", withExtension: nil) {
                 do {
                     let samples = try FileManager.default.contentsOfDirectory(at: samplesURL, includingPropertiesForKeys: nil, options: .init(rawValue: 0))
@@ -170,19 +173,19 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
                     print(error.localizedDescription)
                 }
             }
-            samplesSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            samplesSheet.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
             samplesSheet.popoverPresentationController?.barButtonItem = sender
             self.present(samplesSheet, animated: true, completion: nil)
         }))
-        sheet.addAction(UIAlertAction(title: "Acknowledgments", style: .default, handler: { _ in
+        sheet.addAction(UIAlertAction(title: Localizable.Help.acknowledgments, style: .default, handler: { _ in
             let safari = SFSafariViewController(url: URL(string: "https://coldgrub1384.github.io/Pyto/Licenses")!)
             self.present(safari, animated: true, completion: nil)
         }))
-        sheet.addAction(UIAlertAction(title: "Source code", style: .default, handler: { _ in
+        sheet.addAction(UIAlertAction(title: Localizable.Help.sourceCode, style: .default, handler: { _ in
             let safari = SFSafariViewController(url: URL(string: "https://github.com/ColdGrub1384/Pyto")!)
             self.present(safari, animated: true, completion: nil)
         }))
-        sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        sheet.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
         sheet.popoverPresentationController?.barButtonItem = sender
         present(sheet, animated: true, completion: nil)
     }
@@ -456,8 +459,8 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
                         i += 1
                     }
                 } catch {
-                    let alert = UIAlertController(title: "Error moving file!", message: error.localizedDescription, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                    let alert = UIAlertController(title: Localizable.Errors.errorMovingFile, message: error.localizedDescription, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
                     UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
                     break
                 }

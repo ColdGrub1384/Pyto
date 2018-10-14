@@ -80,7 +80,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
 
         edgesForExtendedLayout = []
         
-        title = "Console"
+        title = Localizable.console
         
         let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
         effectView.frame = view.frame
