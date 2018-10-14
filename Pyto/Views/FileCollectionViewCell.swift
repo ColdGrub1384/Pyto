@@ -11,10 +11,7 @@ import SavannaKit
 import SourceEditor
 
 /// A cell for displaying a file.
-class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, SyntaxTextViewDelegate {
-    
-    /// The view containing file icon.
-    @IBOutlet weak var iconView: UIImageView?
+class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, SyntaxTextViewDelegate, UICollectionViewDataSource {
     
     /// The view contaning the filename.
     @IBOutlet weak var titleView: UILabel!
@@ -22,10 +19,39 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
     /// The view containing the code's preview.
     @IBOutlet weak var previewContainerView: UIView?
     
+    /// A Collection view displaying folder's content.
+    @IBOutlet weak var folderContentCollectionView: UICollectionView?
+    
+    @IBOutlet weak private var noFilesView: UILabel?
+    
     /// The Document browser view controller containing this Collection view.
     var documentBrowser: DocumentBrowserViewController?
     
     private var isDirectory: ObjCBool = false
+    
+    private var directoryContents: [URL] {
+        guard isDirectory.boolValue, let file = file else {
+            return []
+        }
+        
+        var files = (try? FileManager.default.contentsOfDirectory(at: file, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)) ?? []
+        
+        var i = 0
+        for file in files {
+            var isDir: ObjCBool = false
+            if FileManager.default.fileExists(atPath: file.path, isDirectory: &isDir) {
+                if file.pathExtension.lowercased() != "py" || isDir.boolValue {
+                    files.remove(at: i)
+                } else {
+                    i += 1
+                }
+            } else {
+                files.remove(at: i)
+            }
+        }
+        
+        return files
+    }
     
     /// The URL to represent.
     var file: URL? {
@@ -37,7 +63,10 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
             
             if FileManager.default.fileExists(atPath: file!.path, isDirectory: &isDirectory) {
                 if isDirectory.boolValue {
-                    iconView?.image = UIImage(named: "Folder")
+                    noFilesView?.isHidden = !directoryContents.isEmpty
+                    folderContentCollectionView?.isHidden = !(noFilesView?.isHidden ?? false)
+                    folderContentCollectionView?.dataSource = self
+                    folderContentCollectionView?.reloadData()
                     titleView.text = file!.lastPathComponent
                 } else if file!.pathExtension.lowercased() == "py", let container = previewContainerView {
                     let textView = SyntaxTextView(frame: container.frame)
@@ -184,5 +213,19 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
     
     func lexerForSource(_ source: String) -> Lexer {
         return Python3Lexer()
+    }
+    
+    // MARK: - Collection view data source
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return directoryContents.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "File", for: indexPath) as! FileCollectionViewCell
+        cell.file = directoryContents[indexPath.row]
+        
+        return cell
     }
 }
