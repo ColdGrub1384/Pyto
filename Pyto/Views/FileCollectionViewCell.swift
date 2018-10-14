@@ -202,7 +202,23 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
     }
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        return (action == #selector(remove(_:)) || action == #selector(run(_:)) || action == #selector(open(_:)) || action == #selector(rename(_:)) || action == #selector(copyFile(_:)) || action == #selector(move(_:)))
+        if isDirectory.boolValue {
+            return (
+                action == #selector(remove(_:)) ||
+                    action == #selector(rename(_:)) ||
+                    action == #selector(copyFile(_:)) ||
+                    action == #selector(move(_:))
+            )
+        } else {
+            return (
+                action == #selector(remove(_:)) ||
+                action == #selector(run(_:)) ||
+                action == #selector(open(_:)) ||
+                action == #selector(rename(_:)) ||
+                action == #selector(copyFile(_:)) ||
+                action == #selector(move(_:))
+            )
+        }
     }
     
     // MARK: - Document picker view controller delegate
