@@ -45,11 +45,10 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        textView.frame = view.frame
-        textView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(textView)
         textView.delegate = self
         textView.theme = DefaultSourceCodeTheme()
+        view.backgroundColor = textView.theme?.backgroundColor
         
         title = document?.fileURL.lastPathComponent
         
@@ -68,6 +67,24 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         textView.contentTextView.isEditable = !isSample
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        textView.frame = view.safeAreaLayoutGuide.layoutFrame
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        guard view != nil else {
+            return
+        }
+        
+        _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
+            self.textView.frame = self.view.safeAreaLayoutGuide.layoutFrame
+        }) // TODO: Anyway to to it without a timer?
     }
     
     // MARK: - Actions
