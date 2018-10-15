@@ -88,8 +88,8 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
         view.addSubview(effectView)
         view.backgroundColor = .clear
         
-        textView = ConsoleTextView(frame: view.frame)
-        textView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        textView = ConsoleTextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
         textView.delegate = self
         view.addSubview(textView)
         
@@ -98,6 +98,25 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(print_(_:)), name: .init(rawValue: "DidReceiveOutput"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        print(view.safeAreaLayoutGuide.layoutFrame)
+        textView.frame = view.safeAreaLayoutGuide.layoutFrame
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        guard view != nil else {
+            return
+        }
+        
+        _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
+            self.textView.frame = self.view.safeAreaLayoutGuide.layoutFrame
+        }) // TODO: Anyway to to it without a timer?
     }
     
     // MARK: - Keyboard
