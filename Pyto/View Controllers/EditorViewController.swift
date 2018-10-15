@@ -86,8 +86,13 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate {
             return
         }
         
+        let wasFirstResponder = textView.contentTextView.isFirstResponder
+        textView.contentTextView.resignFirstResponder()
         _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
             self.textView.frame = self.view.safeAreaLayoutGuide.layoutFrame
+            if wasFirstResponder {
+                self.textView.contentTextView.becomeFirstResponder()
+            }
         }) // TODO: Anyway to to it without a timer?
     }
     
