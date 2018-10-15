@@ -114,8 +114,14 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
             return
         }
         
+        let wasFirstResponder = textView.isFirstResponder
+        textView.resignFirstResponder()
+        
         _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
             self.textView.frame = self.view.safeAreaLayoutGuide.layoutFrame
+            if wasFirstResponder {
+                self.textView.becomeFirstResponder()
+            }
         }) // TODO: Anyway to to it without a timer?
     }
     
