@@ -52,10 +52,6 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate {
         
         title = document?.fileURL.lastPathComponent
         
-        document?.open(completionHandler: { (_) in
-            self.textView.text = self.document?.text ?? Localizable.Errors.errorReadingFile
-        })
-        
         let saveItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
         let runItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(run))
         navigationItem.rightBarButtonItems = [saveItem, runItem]
@@ -67,6 +63,14 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         textView.contentTextView.isEditable = !isSample
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        document?.open(completionHandler: { (_) in
+            self.textView.text = self.document?.text ?? Localizable.Errors.errorReadingFile
+        })
     }
     
     override func viewDidAppear(_ animated: Bool) {
