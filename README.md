@@ -4,7 +4,7 @@
 <b>Pyto</b>
 </p>
 
-If you are reading this after installing the app from the App Store, firstly, thank you! A bug is making impossible to run another script after getting an errror. I submitted a new update but is Waiting For Review since a long time and I cannot request an expedited review due to a previous rejection. Sorry.
+If you are reading this after installing the app from the App Store, firstly, thank you! A bug is making impossible to run another script after getting an errror. I submitted a new update but is Waiting For Review since a long time. I requested an expedited review but the app wasn't elegible.
 
 ![Icon](https://raw.githubusercontent.com/ColdGrub1384/Pyto/master/Pyto/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5%402x.png)
 
