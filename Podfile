@@ -11,3 +11,17 @@ target 'Pyto' do
 
   pod 'SourceEditor'
 end
+
+# post install
+post_install do |installer|
+    # Build settings
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings = config.build_settings.dup
+            if config.build_settings['PRODUCT_MODULE_NAME'] == 'SavannaKit' || config.build_settings['PRODUCT_MODULE_NAME'] == 'SourceEditor'
+                puts "Set Swift version"
+                config.build_settings['SWIFT_VERSION'] = '4.0'
+            end
+        end
+    end
+end

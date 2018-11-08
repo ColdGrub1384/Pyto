@@ -26,6 +26,8 @@
 		C976592721471D23001C96A8 /* PyFilePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C976592621471D23001C96A8 /* PyFilePicker.swift */; };
 		C98E1FFD214EE6ED002F0178 /* Samples in Resources */ = {isa = PBXBuildFile; fileRef = C98E1FFC214EE6EC002F0178 /* Samples */; };
 		C98E2002214F0856002F0178 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C98E2001214F0856002F0178 /* main.m */; };
+		C9AAAB492195016D0042E733 /* InputAssistant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9AAAB44219501600042E733 /* InputAssistant.framework */; };
+		C9AAAB4A2195016D0042E733 /* InputAssistant.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AAAB44219501600042E733 /* InputAssistant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9B3FDEC21503DE7000FC9A8 /* PyExtensionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */; };
 		C9BE01B42154738C00A8C825 /* site-packages in Resources */ = {isa = PBXBuildFile; fileRef = C9BE01B021530BAF00A8C825 /* site-packages */; };
 		C9DF70B821715D3D00981B4F /* FileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DF70B721715D3D00981B4F /* FileCollectionViewCell.swift */; };
@@ -68,6 +70,34 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C9AAAB43219501600042E733 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3C2E4347201E7E6C00E4254A;
+			remoteInfo = InputAssistant;
+		};
+		C9AAAB45219501600042E733 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3C2E4379201EFACD00E4254A;
+			remoteInfo = libInputAssistant;
+		};
+		C9AAAB47219501600042E733 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3C2E435B201E883E00E4254A;
+			remoteInfo = "InputAssistant Sample";
+		};
+		C9AAAB4B2195016D0042E733 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 3C2E4346201E7E6C00E4254A;
+			remoteInfo = InputAssistant;
+		};
 		C9DF71082171768A00981B4F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C9FCFD4D214428AE00A07974 /* Project object */;
@@ -114,6 +144,7 @@
 				C9DF70FD217175C400981B4F /* awk.framework in Embed Frameworks */,
 				C9DF70F1217175C400981B4F /* curl_ios.framework in Embed Frameworks */,
 				C9DF711B217176D700981B4F /* ios_system.framework in Embed Frameworks */,
+				C9AAAB4A2195016D0042E733 /* InputAssistant.framework in Embed Frameworks */,
 				C9DF70F5217175C400981B4F /* Python_ios.framework in Embed Frameworks */,
 				C9DF70ED217175C400981B4F /* shell.framework in Embed Frameworks */,
 				C9DF70FF217175C400981B4F /* files.framework in Embed Frameworks */,
@@ -171,6 +202,7 @@
 		C976592621471D23001C96A8 /* PyFilePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyFilePicker.swift; sourceTree = "<group>"; };
 		C98E1FFC214EE6EC002F0178 /* Samples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Samples; sourceTree = "<group>"; };
 		C98E2001214F0856002F0178 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = InputAssistant.xcodeproj; path = InputAssistant/InputAssistant.xcodeproj; sourceTree = "<group>"; };
 		C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyExtensionContext.swift; sourceTree = "<group>"; };
 		C9BE01B021530BAF00A8C825 /* site-packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "site-packages"; sourceTree = "<group>"; };
 		C9C57EB40A56344EEB889161 /* Pods-Pyto Share.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Share.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Share/Pods-Pyto Share.release.xcconfig"; sourceTree = "<group>"; };
@@ -239,6 +271,7 @@
 				C904EB6621445B5D00585C28 /* libbzip2.a in Frameworks */,
 				C904EB6821445B6100585C28 /* libOpenSSL.a in Frameworks */,
 				C9DF70EA2171756C00981B4F /* libxz.a in Frameworks */,
+				C9AAAB492195016D0042E733 /* InputAssistant.framework in Frameworks */,
 				C904EB6421445B5800585C28 /* libPython.a in Frameworks */,
 				C9DF71062171768A00981B4F /* Python.framework in Frameworks */,
 				C9DF711A217176D700981B4F /* ios_system.framework in Frameworks */,
@@ -336,6 +369,16 @@
 			path = Python;
 			sourceTree = "<group>";
 		};
+		C9AAAB3E219501600042E733 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C9AAAB44219501600042E733 /* InputAssistant.framework */,
+				C9AAAB46219501600042E733 /* liblibInputAssistant.a */,
+				C9AAAB48219501600042E733 /* InputAssistant Sample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C9DF70C12171752100981B4F /* ios_system_builds */ = {
 			isa = PBXGroup;
 			children = (
@@ -384,6 +427,7 @@
 			isa = PBXGroup;
 			children = (
 				C9F06FAC2152FC3F00165D1E /* python36.zip */,
+				C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */,
 				C9DF7110217176BE00981B4F /* ios_system.xcodeproj */,
 				C9DF70C12171752100981B4F /* ios_system_builds */,
 				C9BE01B021530BAF00A8C825 /* site-packages */,
@@ -485,6 +529,7 @@
 			dependencies = (
 				C9DF71092171768A00981B4F /* PBXTargetDependency */,
 				C9DF711D217176D700981B4F /* PBXTargetDependency */,
+				C9AAAB4C2195016D0042E733 /* PBXTargetDependency */,
 			);
 			name = Pyto;
 			productName = Pyto;
@@ -528,6 +573,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = C9AAAB3E219501600042E733 /* Products */;
+					ProjectRef = C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */;
+				},
+				{
 					ProductGroup = C9DF7111217176BE00981B4F /* Products */;
 					ProjectRef = C9DF7110217176BE00981B4F /* ios_system.xcodeproj */;
 				},
@@ -541,6 +590,27 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		C9AAAB44219501600042E733 /* InputAssistant.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = InputAssistant.framework;
+			remoteRef = C9AAAB43219501600042E733 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C9AAAB46219501600042E733 /* liblibInputAssistant.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = liblibInputAssistant.a;
+			remoteRef = C9AAAB45219501600042E733 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C9AAAB48219501600042E733 /* InputAssistant Sample.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "InputAssistant Sample.app";
+			remoteRef = C9AAAB47219501600042E733 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		C9DF7115217176BF00981B4F /* ios_system.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -660,6 +730,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		C9AAAB4C2195016D0042E733 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = InputAssistant;
+			targetProxy = C9AAAB4B2195016D0042E733 /* PBXContainerItemProxy */;
+		};
 		C9DF71092171768A00981B4F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C943AC3C215277A000844368 /* Python */;
@@ -881,6 +956,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 22DCC0F0FEB96078E6CC8111 /* Pods-Pyto.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -920,6 +996,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4370DDFAC0113595C1F9BDC5 /* Pods-Pyto.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
