@@ -9,9 +9,10 @@
 import UIKit
 import SourceEditor
 import SavannaKit
+import InputAssistant
 
 /// The View controller used to edit source code.
-class EditorViewController: UIViewController, SyntaxTextViewDelegate {
+class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssistantViewDelegate, InputAssistantViewDataSource, UITextViewDelegate {
     
     /// The `SyntaxTextView` containing the code.
     let textView = SyntaxTextView()
@@ -26,6 +27,9 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate {
         }
         return !FileManager.default.isWritableFile(atPath: document!.fileURL.path)
     }
+    
+    /// The Input assistant view containing `suggestions`.
+    let inputAssistant = InputAssistantView()
     
     /// Initialize with given document.
     ///
@@ -47,8 +51,13 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate {
         
         view.addSubview(textView)
         textView.delegate = self
+        textView.contentTextView.delegate = self
         textView.theme = DefaultSourceCodeTheme()
         view.backgroundColor = textView.theme?.backgroundColor
+        
+        inputAssistant.dataSource = self
+        inputAssistant.delegate = self
+        inputAssistant.attach(to: textView.contentTextView)
         
         title = document?.fileURL.lastPathComponent
         
@@ -171,6 +180,59 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate {
         textView.contentTextView.scrollIndicatorInsets = .zero
     }
     
+    // MARK: - Text view delegate
+    
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        if textView.isFirstResponder {
+            inputAssistant.reloadData()
+        }
+        return self.textView.textViewDidChangeSelection(textView)
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        inputAssistant.reloadData()
+        return self.textView.textViewDidChange(textView)
+    }
+    
+    // MARK: - Suggestions
+    
+    /// All supported suggestions.
+    static var suggestions: [String] {
+        
+        let operators = ["=", "+=", "-=", "/=", "*=", "%=", "**=", "//=", "+", "-", "*", "/", "**", "//", "%", "<", ">", "<=", ">=", "==", "!="]
+        
+        let constants = ["True", "False", "None"]
+        
+        let definitions = ["import", "def", "class", "global", "nonlocal", "del", "as", "from"]
+        
+        let statements = ["while", "for", "lambda", "in", "return", "continue", "pass", "break", "try", "except", "finally", "raise", "assert", "with", "yield"]
+        
+        let conditions = ["if", "else", "elif", "not", "or", "is", "and"]
+        
+        return operators+constants+definitions+statements+conditions
+    }
+    
+    /// Returns suggestions for current word.
+    var suggestions: [String] {
+        guard let selectedWord = textView.contentTextView.currentWord, !selectedWord.isEmpty else {
+            return EditorViewController.suggestions
+        }
+        
+        var suggestions = EditorViewController.suggestions
+        func checkForSuggestions() {
+            for suggestion in suggestions.enumerated() {
+                if !suggestion.element.contains(selectedWord) {
+                    suggestions.remove(at: suggestion.offset)
+                    checkForSuggestions()
+                    break
+                }
+            }
+        }
+        checkForSuggestions()
+        
+        return suggestions
+    }
+    
     // MARK: - Syntax text view delegate
 
     func didChangeText(_ syntaxTextView: SyntaxTextView) {
@@ -181,6 +243,29 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate {
     
     func lexerForSource(_ source: String) -> Lexer {
         return Python3Lexer()
+    }
+    
+    // MARK: - Input assistant view delegate
+    
+    func inputAssistantView(_ inputAssistantView: InputAssistantView, didSelectSuggestionAtIndex index: Int) {
+        
+        if let textRange = textView.contentTextView.currentWordRange {
+            textView.contentTextView.replace(textRange, withText: suggestions[index])
+        }
+    }
+    
+    // MARK: - Input assistant view data source
+    
+    func textForEmptySuggestionsInInputAssistantView() -> String? {
+        return nil
+    }
+    
+    func numberOfSuggestionsInInputAssistantView() -> Int {
+        return suggestions.count
+    }
+    
+    func inputAssistantView(_ inputAssistantView: InputAssistantView, nameForSuggestionAtIndex index: Int) -> String {
+        return suggestions[index]
     }
 }
 
