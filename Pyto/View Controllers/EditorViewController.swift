@@ -209,7 +209,7 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssis
         
         let conditions = ["if", "else", "elif", "not", "or", "is", "and"]
         
-        return operators+constants+definitions+statements+conditions
+        return [":"]+operators+constants+definitions+statements+conditions
     }
     
     /// Returns suggestions for current word.
