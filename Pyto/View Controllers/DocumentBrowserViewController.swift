@@ -190,6 +190,10 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         present(sheet, animated: true, completion: nil)
     }
     
+    /// Runs the given code.
+    ///
+    /// - Parameters:
+    ///     - code: Code to run.
     func run(code: String) {
         let url = URL(fileURLWithPath: NSTemporaryDirectory()+"/Temporary")
         if FileManager.default.fileExists(atPath: url.path) {
