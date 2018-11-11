@@ -184,14 +184,18 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssis
     
     func textViewDidChangeSelection(_ textView: UITextView) {
         if textView.isFirstResponder {
-            inputAssistant.reloadData()
+            updateSuggestions()
         }
         return self.textView.textViewDidChangeSelection(textView)
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        inputAssistant.reloadData()
+        updateSuggestions()
         return self.textView.textViewDidChange(textView)
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        updateSuggestions()
     }
     
     // MARK: - Suggestions
@@ -213,9 +217,14 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssis
     }
     
     /// Returns suggestions for current word.
-    var suggestions: [String] {
+    var suggestions = [String]()
+    
+    /// Updates suggestions.
+    func updateSuggestions() {
+        
         guard let selectedWord = textView.contentTextView.currentWord, !selectedWord.isEmpty else {
-            return EditorViewController.suggestions
+            self.suggestions = []
+            return inputAssistant.reloadData()
         }
         
         var suggestions = EditorViewController.suggestions
@@ -230,7 +239,8 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssis
         }
         checkForSuggestions()
         
-        return suggestions
+        self.suggestions = suggestions
+        inputAssistant.reloadData()
     }
     
     // MARK: - Syntax text view delegate
