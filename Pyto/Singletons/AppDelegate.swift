@@ -93,6 +93,26 @@ import SafariServices
         return true
     }
     
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+        
+        guard let script = userActivity.userInfo?["content"] as? String else {
+            return false
+        }
+        
+        let docBrowser = DocumentBrowserViewController.visible
+        let root = application.keyWindow?.rootViewController
+        
+        if root?.presentedViewController != nil {
+            application.keyWindow?.rootViewController?.dismiss(animated: true, completion: {
+                docBrowser?.run(code: script)
+            })
+        } else {
+            docBrowser?.run(code: script)
+        }
+        
+        return true
+    }
+    
     // MARK: - Store product view controller delegate
     
     func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
