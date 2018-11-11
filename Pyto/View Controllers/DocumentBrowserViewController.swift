@@ -232,10 +232,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         tabBarVC.tabBar.barStyle = .black
         tabBarVC.view.tintColor = UIColor(named: "TintColor")
         tabBarVC.view.backgroundColor = .clear
-        
-        tabBarVC.modalPresentationStyle = .overCurrentContext
-        tabBarVC.modalTransitionStyle = .crossDissolve
-        
+                
         UIApplication.shared.keyWindow?.rootViewController?.present(tabBarVC, animated: true, completion: {
             if run {
                 editor.run()
