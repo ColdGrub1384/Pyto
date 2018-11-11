@@ -223,7 +223,7 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssis
     func updateSuggestions() {
         
         guard let selectedWord = textView.contentTextView.currentWord, !selectedWord.isEmpty else {
-            self.suggestions = []
+            self.suggestions = EditorViewController.suggestions
             return inputAssistant.reloadData()
         }
         
