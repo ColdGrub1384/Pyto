@@ -77,7 +77,7 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssis
         // Siri shortcut
         
         if #available(iOS 12.0, *) {
-            let button = INUIAddVoiceShortcutButton(style: .white)
+            let button = INUIAddVoiceShortcutButton(style: .blackOutline)
             button.addTarget(self, action: #selector(addToSiri), for: .touchUpInside)
             navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
             
