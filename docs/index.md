@@ -1,6 +1,3 @@
-(!) This documentation is contains many things that are not currently available in the App Store app (!)
-
-I'm so sorry for the bugs of the app, but the App Store is taking soooooo many time to review the app. I sent numerous emails but the app still without being reviewed.
 
 # Pyto
 
