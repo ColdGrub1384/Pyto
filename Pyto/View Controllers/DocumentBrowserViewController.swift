@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import CoreSpotlight
 
 /// The main file browser used to edit scripts.
 class DocumentBrowserViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDropDelegate, UICollectionViewDragDelegate, UIViewControllerRestoration {
@@ -268,6 +269,15 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
                 }
                 
                 if files != self.scripts {
+                    
+                    for file in files {
+                        if !FileManager.default.fileExists(atPath: file.path) {
+                            CSSearchableIndex.default().deleteSearchableItems(withDomainIdentifiers: [RelativePathForScript(file)], completionHandler: { error in
+                                print(error?.localizedDescription ?? "")
+                            })
+                        }
+                    }
+                    
                     files = self.scripts
                     
                     if self.ignoreObserver {
@@ -284,6 +294,12 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        
+        stopObserver()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
         
         stopObserver()
     }
