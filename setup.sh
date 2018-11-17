@@ -27,12 +27,13 @@ rm ios_system.tar.gz
 
 # Download and setup Python Apple Support
 
-curl -L "https://s3-us-west-2.amazonaws.com/pybee-briefcase-support/Python-Apple-support/3.6/iOS/Python-3.6-iOS-support.b7.tar.gz" -o python.tar.gz
+curl -L "https://s3-us-west-2.amazonaws.com/pybee-briefcase-support/Python-Apple-support/3.7/iOS/Python-3.7-iOS-support.b1.tar.gz" -o python.tar.gz
 tar -xzf python.tar.gz -C.
 mv Support/* .
 rm VERSIONS
 rm python.tar.gz
 rm -rf Support
+mv Python/Resources/lib/python37.zip .
 
 pod install
 git submodule update --init --recursive
