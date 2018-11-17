@@ -24,6 +24,20 @@
 		C95A79E8214DC9D0007A1B90 /* PyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A79E7214DC9D0007A1B90 /* PyAlert.swift */; };
 		C97659062147192C001C96A8 /* PySharingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97659052147192C001C96A8 /* PySharingHelper.swift */; };
 		C976592721471D23001C96A8 /* PyFilePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C976592621471D23001C96A8 /* PyFilePicker.swift */; };
+		C984729321A05A5E008E16AC /* python37.zip in Copy Python lib */ = {isa = PBXBuildFile; fileRef = C984728E21A05932008E16AC /* python37.zip */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C98472A121A05B41008E16AC /* PyAlert.md in Resources */ = {isa = PBXBuildFile; fileRef = C984729521A05B41008E16AC /* PyAlert.md */; };
+		C98472A221A05B41008E16AC /* Pasteboard.md in Resources */ = {isa = PBXBuildFile; fileRef = C984729621A05B41008E16AC /* Pasteboard.md */; };
+		C98472A321A05B41008E16AC /* PyFilePicker.md in Resources */ = {isa = PBXBuildFile; fileRef = C984729721A05B41008E16AC /* PyFilePicker.md */; };
+		C98472A421A05B41008E16AC /* Licenses.md in Resources */ = {isa = PBXBuildFile; fileRef = C984729821A05B41008E16AC /* Licenses.md */; };
+		C98472A521A05B41008E16AC /* Importing.md in Resources */ = {isa = PBXBuildFile; fileRef = C984729921A05B41008E16AC /* Importing.md */; };
+		C98472A621A05B41008E16AC /* index.md in Resources */ = {isa = PBXBuildFile; fileRef = C984729A21A05B41008E16AC /* index.md */; };
+		C98472A721A05B41008E16AC /* _config.yml in Resources */ = {isa = PBXBuildFile; fileRef = C984729B21A05B41008E16AC /* _config.yml */; };
+		C98472A821A05B41008E16AC /* Appex.md in Resources */ = {isa = PBXBuildFile; fileRef = C984729C21A05B41008E16AC /* Appex.md */; };
+		C98472A921A05B41008E16AC /* Sharing.md in Resources */ = {isa = PBXBuildFile; fileRef = C984729D21A05B41008E16AC /* Sharing.md */; };
+		C98472AA21A05B41008E16AC /* Console.md in Resources */ = {isa = PBXBuildFile; fileRef = C984729E21A05B41008E16AC /* Console.md */; };
+		C98472AB21A05B41008E16AC /* MainThread.md in Resources */ = {isa = PBXBuildFile; fileRef = C984729F21A05B41008E16AC /* MainThread.md */; };
+		C98472AC21A05B41008E16AC /* screenshots.png in Resources */ = {isa = PBXBuildFile; fileRef = C98472A021A05B41008E16AC /* screenshots.png */; };
+		C98472AE21A05CB1008E16AC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C98472AD21A05CB1008E16AC /* README.md */; };
 		C98E1FFD214EE6ED002F0178 /* Samples in Resources */ = {isa = PBXBuildFile; fileRef = C98E1FFC214EE6EC002F0178 /* Samples */; };
 		C98E2002214F0856002F0178 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C98E2001214F0856002F0178 /* main.m */; };
 		C9AAAB492195016D0042E733 /* InputAssistant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9AAAB44219501600042E733 /* InputAssistant.framework */; };
@@ -61,7 +75,6 @@
 		C9F04E832173C33400BDD03E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9F04E852173C33400BDD03E /* Localizable.strings */; };
 		C9F04E872173C81700BDD03E /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F04E862173C81700BDD03E /* Localizable.swift */; };
 		C9F04E882173DD7300BDD03E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9F04E8A2173DD7300BDD03E /* Main.storyboard */; };
-		C9F06FAE2152FC6100165D1E /* python36.zip in Copy Python lib */ = {isa = PBXBuildFile; fileRef = C9F06FAC2152FC3F00165D1E /* python36.zip */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C9FCFD59214428AE00A07974 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCFD58214428AE00A07974 /* AppDelegate.swift */; };
 		C9FCFD5B214428AE00A07974 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCFD5A214428AE00A07974 /* EditorViewController.swift */; };
 		C9FCFD60214428B300A07974 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9FCFD5F214428B300A07974 /* Assets.xcassets */; };
@@ -165,7 +178,7 @@
 			dstPath = home/lib;
 			dstSubfolderSpec = 7;
 			files = (
-				C9F06FAE2152FC6100165D1E /* python36.zip in Copy Python lib */,
+				C984729321A05A5E008E16AC /* python37.zip in Copy Python lib */,
 			);
 			name = "Copy Python lib";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -197,11 +210,25 @@
 		C93D61E02145D46700C8B5E3 /* PyOutputHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyOutputHelper.swift; sourceTree = "<group>"; };
 		C93D61E22145D50A00C8B5E3 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		C943AC3D215277A000844368 /* Python.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Python.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C943AC40215277A000844368 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C95A79E5214DC627007A1B90 /* PyMainThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyMainThread.swift; sourceTree = "<group>"; };
 		C95A79E7214DC9D0007A1B90 /* PyAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyAlert.swift; sourceTree = "<group>"; };
 		C97659052147192C001C96A8 /* PySharingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PySharingHelper.swift; sourceTree = "<group>"; };
 		C976592621471D23001C96A8 /* PyFilePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyFilePicker.swift; sourceTree = "<group>"; };
+		C984728E21A05932008E16AC /* python37.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = python37.zip; sourceTree = "<group>"; };
+		C984729121A05A0E008E16AC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C984729521A05B41008E16AC /* PyAlert.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = PyAlert.md; sourceTree = "<group>"; };
+		C984729621A05B41008E16AC /* Pasteboard.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Pasteboard.md; sourceTree = "<group>"; };
+		C984729721A05B41008E16AC /* PyFilePicker.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = PyFilePicker.md; sourceTree = "<group>"; };
+		C984729821A05B41008E16AC /* Licenses.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Licenses.md; sourceTree = "<group>"; };
+		C984729921A05B41008E16AC /* Importing.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Importing.md; sourceTree = "<group>"; };
+		C984729A21A05B41008E16AC /* index.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = index.md; sourceTree = "<group>"; };
+		C984729B21A05B41008E16AC /* _config.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _config.yml; sourceTree = "<group>"; };
+		C984729C21A05B41008E16AC /* Appex.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Appex.md; sourceTree = "<group>"; };
+		C984729D21A05B41008E16AC /* Sharing.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Sharing.md; sourceTree = "<group>"; };
+		C984729E21A05B41008E16AC /* Console.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Console.md; sourceTree = "<group>"; };
+		C984729F21A05B41008E16AC /* MainThread.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = MainThread.md; sourceTree = "<group>"; };
+		C98472A021A05B41008E16AC /* screenshots.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshots.png; sourceTree = "<group>"; };
+		C98472AD21A05CB1008E16AC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C98E1FFC214EE6EC002F0178 /* Samples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Samples; sourceTree = "<group>"; };
 		C98E2001214F0856002F0178 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = InputAssistant.xcodeproj; path = InputAssistant/InputAssistant.xcodeproj; sourceTree = "<group>"; };
@@ -245,7 +272,6 @@
 		C9F04E862173C81700BDD03E /* Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
 		C9F04E892173DD7300BDD03E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C9F04E8C2173DD7F00BDD03E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
-		C9F06FAC2152FC3F00165D1E /* python36.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = python36.zip; sourceTree = "<group>"; };
 		C9FCFD55214428AE00A07974 /* Pyto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pyto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9FCFD58214428AE00A07974 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9FCFD5A214428AE00A07974 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
@@ -366,12 +392,31 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		C943AC3E215277A000844368 /* Python */ = {
+		C984729021A059F2008E16AC /* Python iOS */ = {
 			isa = PBXGroup;
 			children = (
-				C943AC40215277A000844368 /* Info.plist */,
+				C984729121A05A0E008E16AC /* Info.plist */,
 			);
-			path = Python;
+			path = "Python iOS";
+			sourceTree = "<group>";
+		};
+		C984729421A05B41008E16AC /* docs */ = {
+			isa = PBXGroup;
+			children = (
+				C984729521A05B41008E16AC /* PyAlert.md */,
+				C984729621A05B41008E16AC /* Pasteboard.md */,
+				C984729721A05B41008E16AC /* PyFilePicker.md */,
+				C984729821A05B41008E16AC /* Licenses.md */,
+				C984729921A05B41008E16AC /* Importing.md */,
+				C984729A21A05B41008E16AC /* index.md */,
+				C984729B21A05B41008E16AC /* _config.yml */,
+				C984729C21A05B41008E16AC /* Appex.md */,
+				C984729D21A05B41008E16AC /* Sharing.md */,
+				C984729E21A05B41008E16AC /* Console.md */,
+				C984729F21A05B41008E16AC /* MainThread.md */,
+				C98472A021A05B41008E16AC /* screenshots.png */,
+			);
+			path = docs;
 			sourceTree = "<group>";
 		};
 		C9AAAB3E219501600042E733 /* Products */ = {
@@ -431,7 +476,8 @@
 		C9FCFD4C214428AE00A07974 = {
 			isa = PBXGroup;
 			children = (
-				C9F06FAC2152FC3F00165D1E /* python36.zip */,
+				C98472AD21A05CB1008E16AC /* README.md */,
+				C984728E21A05932008E16AC /* python37.zip */,
 				C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */,
 				C9DF7110217176BE00981B4F /* ios_system.xcodeproj */,
 				C9DF70C12171752100981B4F /* ios_system_builds */,
@@ -440,8 +486,9 @@
 				C904EB5D21445AA800585C28 /* BZip2 */,
 				C904EB5B21445AA700585C28 /* OpenSSL */,
 				C904EB5C21445AA800585C28 /* XZ */,
+				C984729421A05B41008E16AC /* docs */,
 				C9FCFD57214428AE00A07974 /* Pyto */,
-				C943AC3E215277A000844368 /* Python */,
+				C984729021A059F2008E16AC /* Python iOS */,
 				C9FCFD56214428AE00A07974 /* Products */,
 				E49BBFEA4FF54799EBA99E3A /* Pods */,
 				777F5989381586AA988D5FF0 /* Frameworks */,
@@ -639,16 +686,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				C98E1FFD214EE6ED002F0178 /* Samples in Resources */,
+				C98472AC21A05B41008E16AC /* screenshots.png in Resources */,
 				C9F04E832173C33400BDD03E /* Localizable.strings in Resources */,
+				C98472A421A05B41008E16AC /* Licenses.md in Resources */,
+				C98472A121A05B41008E16AC /* PyAlert.md in Resources */,
+				C98472A521A05B41008E16AC /* Importing.md in Resources */,
+				C98472AE21A05CB1008E16AC /* README.md in Resources */,
 				C9F04E882173DD7300BDD03E /* Main.storyboard in Resources */,
 				C9FCFD6D21442FD700A07974 /* Untitled.py in Resources */,
+				C98472A821A05B41008E16AC /* Appex.md in Resources */,
 				C903B98821584367004AAD7F /* commandDictionary.plist in Resources */,
+				C98472A921A05B41008E16AC /* Sharing.md in Resources */,
 				C9FCFD63214428B300A07974 /* LaunchScreen.storyboard in Resources */,
 				C9E415312151531B00D64E32 /* REPL.py in Resources */,
+				C98472A721A05B41008E16AC /* _config.yml in Resources */,
 				C903B98A215843B4004AAD7F /* extraCommandsDictionary.plist in Resources */,
+				C98472A621A05B41008E16AC /* index.md in Resources */,
+				C98472A321A05B41008E16AC /* PyFilePicker.md in Resources */,
+				C98472AA21A05B41008E16AC /* Console.md in Resources */,
 				C9E4152E21514F9100D64E32 /* Startup.py in Resources */,
+				C98472A221A05B41008E16AC /* Pasteboard.md in Resources */,
 				C9BE01B42154738C00A8C825 /* site-packages in Resources */,
 				C9FCFD60214428B300A07974 /* Assets.xcassets in Resources */,
+				C98472AB21A05B41008E16AC /* MainThread.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -796,7 +856,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Python/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Python iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -826,7 +886,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Python/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Python iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (

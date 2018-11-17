@@ -13,4 +13,4 @@ UIApplication = ObjCClass("UIApplication")
 def changeTintColor() -> None:
   UIApplication.sharedApplication.keyWindow.tintColor = UIColor.redColor
   
-mainthread.sync(changeTintColor)
+mainthread.runSync(changeTintColor)
