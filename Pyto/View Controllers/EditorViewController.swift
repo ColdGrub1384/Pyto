@@ -11,9 +11,10 @@ import SourceEditor
 import SavannaKit
 import InputAssistant
 import IntentsUI
+import CoreSpotlight
 
 /// The View controller used to edit source code.
-class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssistantViewDelegate, InputAssistantViewDataSource, UITextViewDelegate, INUIAddVoiceShortcutViewControllerDelegate {
+class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssistantViewDelegate, InputAssistantViewDataSource, UITextViewDelegate, INUIAddVoiceShortcutViewControllerDelegate, INUIAddVoiceShortcutButtonDelegate, INUIEditVoiceShortcutViewControllerDelegate {
     
     /// The `SyntaxTextView` containing the code.
     let textView = SyntaxTextView()
@@ -60,7 +61,11 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssis
         inputAssistant.delegate = self
         inputAssistant.attach(to: textView.contentTextView)
         
-        title = document?.fileURL.lastPathComponent
+        title = document?.fileURL.deletingPathExtension().lastPathComponent
+        
+        if document?.fileURL == URL(fileURLWithPath: NSTemporaryDirectory()+"/Temporary") {
+            title = nil
+        }
         
         let saveItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
         let runItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(run))
@@ -78,10 +83,39 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssis
         
         if #available(iOS 12.0, *) {
             let button = INUIAddVoiceShortcutButton(style: .blackOutline)
-            button.addTarget(self, action: #selector(addToSiri), for: .touchUpInside)
+            
             navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
             
-            button.addConstraints([NSLayoutConstraint(item: button, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 130), NSLayoutConstraint(item: button, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 30)])
+            button.addConstraints([NSLayoutConstraint(item: button, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 130), NSLayoutConstraint(item: button, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 40)])
+            
+            let filePath: String?
+            if let url = document?.fileURL {
+                filePath = RelativePathForScript(url)
+            } else {
+                filePath = nil
+            }
+            
+            let attributes = CSSearchableItemAttributeSet(itemContentType: "public.item")
+            attributes.contentDescription = document?.fileURL.lastPathComponent
+            attributes.kind = "Python Script"
+            let activity = NSUserActivity(activityType: "ch.marcela.ada.Pyto.script")
+            activity.title = "Run \(title ?? "script")"
+            activity.contentAttributeSet = attributes
+            activity.isEligibleForSearch = true
+            activity.isEligibleForPrediction = true
+            activity.keywords = ["python", "pyto", "run", "script", title ?? "Untitled"]
+            activity.requiredUserInfoKeys = ["filePath"]
+            activity.persistentIdentifier = filePath
+            attributes.relatedUniqueIdentifier = filePath
+            attributes.identifier = filePath
+            attributes.domainIdentifier = filePath
+            userActivity = activity
+            if let path = filePath {
+                activity.addUserInfoEntries(from: ["filePath" : path])
+                activity.suggestedInvocationPhrase = document?.fileURL.deletingPathExtension().lastPathComponent
+            }
+            button.shortcut = INShortcut(userActivity: activity)
+            button.delegate = self
         }
     }
     
@@ -117,21 +151,6 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssis
     }
     
     // MARK: - Actions
-    
-    /// Adds this script to Siri.
-    @objc func addToSiri() {
-        if #available(iOS 12.0, *) {
-            let activity = NSUserActivity(activityType: "ch.marcela.ada.Pyto.script")
-            activity.addUserInfoEntries(from: ["content" : textView.text])
-            activity.suggestedInvocationPhrase = document?.fileURL.deletingPathExtension().lastPathComponent
-            let shortcut = INShortcut(userActivity: activity)
-            
-            let viewController = INUIAddVoiceShortcutViewController(shortcut: shortcut)
-            viewController.modalPresentationStyle = .formSheet
-            viewController.delegate = self
-            present(viewController, animated: true, completion: nil)
-        }
-    }
     
     /// Shares the current script.
     @objc func share(_ sender: UIBarButtonItem) {
@@ -304,6 +323,8 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssis
         return suggestions[index]
     }
     
+    // MARK: - Siri shortcuts
+    
     // MARK: - Add voice shortcut view controller delegate
     
     @available(iOS 12.0, *)
@@ -320,6 +341,47 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssis
                 self.present(alert, animated: true, completion: nil)
             }
         }
+    }
+    
+    // MARK: - Add voice shortcut button delegate
+    
+    @available(iOS 12.0, *)
+    func present(_ addVoiceShortcutViewController: INUIAddVoiceShortcutViewController, for addVoiceShortcutButton: INUIAddVoiceShortcutButton) {
+        
+        addVoiceShortcutViewController.delegate = self
+        addVoiceShortcutViewController.modalPresentationStyle = .formSheet
+        present(addVoiceShortcutViewController, animated: true, completion: nil)
+    }
+    
+    @available(iOS 12.0, *)
+    func present(_ editVoiceShortcutViewController: INUIEditVoiceShortcutViewController, for addVoiceShortcutButton: INUIAddVoiceShortcutButton) {
+        
+        editVoiceShortcutViewController.delegate = self
+        editVoiceShortcutViewController.modalPresentationStyle = .formSheet
+        present(editVoiceShortcutViewController, animated: true, completion: nil)
+    }
+    
+    // MARK: - Edit voice shortcut view controller delegetae
+    
+    @available(iOS 12.0, *)
+    func editVoiceShortcutViewController(_ controller: INUIEditVoiceShortcutViewController, didUpdate voiceShortcut: INVoiceShortcut?, error: Error?) {
+        dismiss(animated: true) {
+            if let error = error {
+                let alert = UIAlertController(title: nil, message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    @available(iOS 12.0, *)
+    func editVoiceShortcutViewController(_ controller: INUIEditVoiceShortcutViewController, didDeleteVoiceShortcutWithIdentifier deletedVoiceShortcutIdentifier: UUID) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @available(iOS 12.0, *)
+    func editVoiceShortcutViewControllerDidCancel(_ controller: INUIEditVoiceShortcutViewController) {
+        dismiss(animated: true, completion: nil)
     }
 }
 

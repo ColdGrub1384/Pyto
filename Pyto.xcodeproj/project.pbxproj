@@ -53,6 +53,7 @@
 		C9E4152B21513E3400D64E32 /* ConsoleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E4152A21513E3400D64E32 /* ConsoleTextView.swift */; };
 		C9E4152E21514F9100D64E32 /* Startup.py in Resources */ = {isa = PBXBuildFile; fileRef = C9E4152D21514F9100D64E32 /* Startup.py */; };
 		C9E415312151531B00D64E32 /* REPL.py in Resources */ = {isa = PBXBuildFile; fileRef = C9E415302151531B00D64E32 /* REPL.py */; };
+		C9EA55B3219F752D007546BC /* RelativePathForScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EA55B2219F752D007546BC /* RelativePathForScript.swift */; };
 		C9EDF9A5214461D300382DCC /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A4214461D300382DCC /* libsqlite3.tbd */; };
 		C9EDF9A72144620A00382DCC /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A62144620A00382DCC /* libz.tbd */; };
 		C9EDF9A921446EE600382DCC /* PyContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EDF9A821446EE600382DCC /* PyContentViewController.swift */; };
@@ -235,6 +236,7 @@
 		C9E4152D21514F9100D64E32 /* Startup.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = Startup.py; sourceTree = "<group>"; };
 		C9E415302151531B00D64E32 /* REPL.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = REPL.py; sourceTree = "<group>"; };
 		C9E7ABAA2152D0D30007BB87 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		C9EA55B2219F752D007546BC /* RelativePathForScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativePathForScript.swift; sourceTree = "<group>"; };
 		C9EDF9A4214461D300382DCC /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		C9EDF9A62144620A00382DCC /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C9EDF9A821446EE600382DCC /* PyContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyContentViewController.swift; sourceTree = "<group>"; };
@@ -465,6 +467,7 @@
 				C9E4152921513E2300D64E32 /* Views */,
 				C9FCFD6E214452FB00A07974 /* PyDocument.swift */,
 				C9F04E862173C81700BDD03E /* Localizable.swift */,
+				C9EA55B2219F752D007546BC /* RelativePathForScript.swift */,
 				C98E2001214F0856002F0178 /* main.m */,
 				C904EB6C21445CAE00585C28 /* Pyto-Bridging-Header.h */,
 				C93D61E82145E1D300C8B5E3 /* Resources */,
@@ -720,6 +723,7 @@
 				C93D61E32145D50A00C8B5E3 /* String.swift in Sources */,
 				C9DF70C02171723800981B4F /* REPLViewController.swift in Sources */,
 				C9AAAB5221950E8B0042E733 /* UITextView+currentWord.swift in Sources */,
+				C9EA55B3219F752D007546BC /* RelativePathForScript.swift in Sources */,
 				C9FCFD5B214428AE00A07974 /* EditorViewController.swift in Sources */,
 				C976592721471D23001C96A8 /* PyFilePicker.swift in Sources */,
 				C9E4152B21513E3400D64E32 /* ConsoleTextView.swift in Sources */,
