@@ -3,6 +3,7 @@ import os
 
 sys.path.insert(0, os.path.expanduser("~/Library/pylib"))
 sys.path.insert(0, os.path.expanduser("~/Documents"))
+sys.path.insert(0, os.path.expanduser("~/Documents/modules"))
 
 import console as Pyto
 import code
