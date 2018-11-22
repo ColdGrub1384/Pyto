@@ -43,7 +43,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         for file in files {
             var isDir: ObjCBool = false
             if FileManager.default.fileExists(atPath: file.path, isDirectory: &isDir) {
-                if file.pathExtension.lowercased() != "py" && !isDir.boolValue {
+                if (file.pathExtension.lowercased() != "py" && !isDir.boolValue) || (file.lastPathComponent == "__pycache__") {
                     files.remove(at: i)
                 } else {
                     i += 1
