@@ -160,24 +160,6 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
             let safari = SFSafariViewController(url: URL(string: "https://coldgrub1384.github.io/Pyto")!)
             self.present(safari, animated: true, completion: nil)
         }))
-        sheet.addAction(UIAlertAction(title: Localizable.Help.samples, style: .default, handler: { _ in
-            let samplesSheet = UIAlertController(title: Localizable.Help.samples, message: Localizable.Help.selectSample, preferredStyle: .actionSheet)
-            if let samplesURL = Bundle.main.url(forResource: "Samples", withExtension: nil) {
-                do {
-                    let samples = try FileManager.default.contentsOfDirectory(at: samplesURL, includingPropertiesForKeys: nil, options: .init(rawValue: 0))
-                    for sample in samples {
-                        samplesSheet.addAction(UIAlertAction(title: sample.deletingPathExtension().lastPathComponent, style: .default, handler: { (_) in
-                            self.openDocument(sample, run: false)
-                        }))
-                    }
-                } catch {
-                    print(error.localizedDescription)
-                }
-            }
-            samplesSheet.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
-            samplesSheet.popoverPresentationController?.barButtonItem = sender
-            self.present(samplesSheet, animated: true, completion: nil)
-        }))
         sheet.addAction(UIAlertAction(title: Localizable.Help.acknowledgments, style: .default, handler: { _ in
             let safari = SFSafariViewController(url: URL(string: "https://coldgrub1384.github.io/Pyto/Licenses")!)
             self.present(safari, animated: true, completion: nil)
