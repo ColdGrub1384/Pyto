@@ -18,16 +18,8 @@ Pyto is a Python 3.7 IDE for iPhone an iPad. You can run code directly on your d
 Features:
 
   - Python 3.7 with all default libraries like "sys"
-  - Pre-installed modules for interacting with the app
   - Full Python REPL
   - Use your own modules on your scripts
-
-Third party libraries:
-  - dropbox
-  - html5lib
-  - numpy
-  - paramiko
-  - rubicon.objc
 ```
 
 ## Building
