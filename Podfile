@@ -10,6 +10,7 @@ target 'Pyto' do
   # Pods for Pyto
 
   pod 'SourceEditor'
+  pod 'FloatingPanel'
 end
 
 # post install

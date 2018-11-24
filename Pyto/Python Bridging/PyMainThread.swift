@@ -12,14 +12,14 @@ import Foundation
 @objc class PyMainThread: NSObject {
     
     /// Execute the given code async on the main thread.
-    @objc static func async(_ code: @escaping (() -> Void)) {
+    @objc static func runAsync(_ code: @escaping (() -> Void)) {
         DispatchQueue.main.async {
             code()
         }
     }
     
     /// Execute the given code sync on the main thread.
-    @objc static func sync(_ code: @escaping (() -> Void)) {
+    @objc static func runSync(_ code: @escaping (() -> Void)) {
         DispatchQueue.main.sync {
             code()
         }

@@ -33,6 +33,11 @@ import SafariServices
             try? FileManager.default.createDirectory(at: modulesURL, withIntermediateDirectories: false, attributes: nil)
         }
         
+        let newSamplesURL = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("Examples")
+        if let samplesURL = Bundle.main.url(forResource: "Samples", withExtension: nil), !FileManager.default.fileExists(atPath: newSamplesURL.path) {
+            try? FileManager.default.copyItem(at: samplesURL, to: newSamplesURL)
+        }
+        
         ReviewHelper.shared.launches += 1
         ReviewHelper.shared.requestReview()
         if ReviewHelper.shared.launches == 5 && !UserDefaults.standard.bool(forKey: "pisth") {
