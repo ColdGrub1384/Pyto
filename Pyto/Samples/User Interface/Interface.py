@@ -57,7 +57,7 @@ try:
     # Check if the `ExampleViewController` class is already defined. When an Objective-C class is defined, you cannot redefine it before re-launching the app.
     # So, always use unique class names for your scripts.
     # You should also define external functions and call them from the class so you can modify them. You cannot modifiy a class until re-launching the app.
-    ExampleViewController
+    ExampleViewController = ObjCClass("Pyto.ExampleViewController")
 except:
     class ExampleViewController(UIViewController):
         
