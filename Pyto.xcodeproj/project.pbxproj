@@ -86,6 +86,34 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C93DBA2021AAEC9100E3E222 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C93DBA1721AAEC9000E3E222 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 46D42D5F7BE0B3C20BC4AFAC79CD6773;
+			remoteInfo = FloatingPanel;
+		};
+		C93DBA2221AAEC9100E3E222 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C93DBA1721AAEC9000E3E222 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 04D8FCB9184B0445859221B8D8E3E105;
+			remoteInfo = "Pods-Pyto";
+		};
+		C93DBA2421AAEC9100E3E222 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C93DBA1721AAEC9000E3E222 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5099DF9ECC4DA839460E5EB4C8B3D732;
+			remoteInfo = SavannaKit;
+		};
+		C93DBA2621AAEC9100E3E222 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C93DBA1721AAEC9000E3E222 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4EC0532FF16B86B032177E4F262C2FE1;
+			remoteInfo = SourceEditor;
+		};
 		C9AAAB43219501600042E733 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */;
@@ -210,6 +238,7 @@
 		C93D61DE2145D03200C8B5E3 /* UIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
 		C93D61E02145D46700C8B5E3 /* PyOutputHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyOutputHelper.swift; sourceTree = "<group>"; };
 		C93D61E22145D50A00C8B5E3 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		C93DBA1721AAEC9000E3E222 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
 		C943AC3D215277A000844368 /* Python.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Python.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C95A79E5214DC627007A1B90 /* PyMainThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyMainThread.swift; sourceTree = "<group>"; };
 		C95A79E7214DC9D0007A1B90 /* PyAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyAlert.swift; sourceTree = "<group>"; };
@@ -396,6 +425,17 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		C93DBA1821AAEC9000E3E222 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C93DBA2121AAEC9100E3E222 /* FloatingPanel.framework */,
+				C93DBA2321AAEC9100E3E222 /* Pods_Pyto.framework */,
+				C93DBA2521AAEC9100E3E222 /* SavannaKit.framework */,
+				C93DBA2721AAEC9100E3E222 /* SourceEditor.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C984729021A059F2008E16AC /* Python iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -481,6 +521,7 @@
 		C9FCFD4C214428AE00A07974 = {
 			isa = PBXGroup;
 			children = (
+				C93DBA1721AAEC9000E3E222 /* Pods.xcodeproj */,
 				C98472AD21A05CB1008E16AC /* README.md */,
 				C984728E21A05932008E16AC /* python37.zip */,
 				C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */,
@@ -638,6 +679,10 @@
 					ProductGroup = C9DF7111217176BE00981B4F /* Products */;
 					ProjectRef = C9DF7110217176BE00981B4F /* ios_system.xcodeproj */;
 				},
+				{
+					ProductGroup = C93DBA1821AAEC9000E3E222 /* Products */;
+					ProjectRef = C93DBA1721AAEC9000E3E222 /* Pods.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -648,6 +693,34 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		C93DBA2121AAEC9100E3E222 /* FloatingPanel.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = FloatingPanel.framework;
+			remoteRef = C93DBA2021AAEC9100E3E222 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C93DBA2321AAEC9100E3E222 /* Pods_Pyto.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Pods_Pyto.framework;
+			remoteRef = C93DBA2221AAEC9100E3E222 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C93DBA2521AAEC9100E3E222 /* SavannaKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SavannaKit.framework;
+			remoteRef = C93DBA2421AAEC9100E3E222 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C93DBA2721AAEC9100E3E222 /* SourceEditor.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SourceEditor.framework;
+			remoteRef = C93DBA2621AAEC9100E3E222 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		C9AAAB44219501600042E733 /* InputAssistant.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
