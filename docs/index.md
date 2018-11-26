@@ -10,7 +10,7 @@ Pyto has some modules that allows your scripts to interact with the app.
 - [mainthread](MainThread)
 - [pasteboard](Pasteboard)
 - [sharing](Sharing)
-- [ui](UI)
+- [ui](UI) **COMMING SOON**
 
 You can use `os.system` to run some basic GNU commands.
 
