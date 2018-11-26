@@ -28,14 +28,28 @@ import SafariServices
         
         window?.accessibilityIgnoresInvertColors = true
         
-        let modulesURL = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("modules")
-        if !FileManager.default.fileExists(atPath: modulesURL.path) {
-            try? FileManager.default.createDirectory(at: modulesURL, withIntermediateDirectories: false, attributes: nil)
-        }
+        let docs = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0]
         
-        let newSamplesURL = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("Examples")
-        if let samplesURL = Bundle.main.url(forResource: "Samples", withExtension: nil), !FileManager.default.fileExists(atPath: newSamplesURL.path) {
-            try? FileManager.default.copyItem(at: samplesURL, to: newSamplesURL)
+        do {
+            let modulesURL = docs.appendingPathComponent("modules")
+            if !FileManager.default.fileExists(atPath: modulesURL.path) {
+                try FileManager.default.createDirectory(at: modulesURL, withIntermediateDirectories: false, attributes: nil)
+            }
+            
+            let newSamplesURL = docs.appendingPathComponent("Examples")
+            if FileManager.default.fileExists(atPath: newSamplesURL.path) {
+               try FileManager.default.removeItem(at: newSamplesURL)
+            }
+            if let samplesURL = Bundle.main.url(forResource: "Samples", withExtension: nil) {
+                try FileManager.default.copyItem(at: samplesURL, to: newSamplesURL)
+            }
+            
+            let newREADMEURL = docs.appendingPathComponent("README.py")
+            if let readmeURL = Bundle.main.url(forResource: "README", withExtension: "py"), !FileManager.default.fileExists(atPath: newREADMEURL.path) {
+                try FileManager.default.copyItem(at: readmeURL, to: newREADMEURL)
+            }
+        } catch {
+            print(error.localizedDescription)
         }
         
         ReviewHelper.shared.launches += 1
