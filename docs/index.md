@@ -1,6 +1,6 @@
-# Pyto
+# Pyto 1.0 - 3.0 documentation
 
-Pyto is a native Python IDE for iOS that uses the Python C API.
+For Pyto 3.1 documentation, click [here](3.1).
 
 # API
 
@@ -10,7 +10,6 @@ Pyto has some modules that allows your scripts to interact with the app.
 - [mainthread](MainThread)
 - [pasteboard](Pasteboard)
 - [sharing](Sharing)
-- [ui](UI) **COMMING SOON**
 
 You can use `os.system` to run some basic GNU commands.
 
