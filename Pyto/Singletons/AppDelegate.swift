@@ -70,6 +70,7 @@ import SafariServices
             }
         }
         
+        #if !DEBUG
         NSSetUncaughtExceptionHandler { (exception) in
             PyOutputHelper.print(NSString(format: Localizable.ObjectiveC.exception as NSString, exception.name.rawValue, exception.reason ?? "") as String)
             PyInputHelper.showAlert(prompt: Localizable.ObjectiveC.quit)
@@ -77,6 +78,7 @@ import SafariServices
                 sleep(UInt32(0.5))
             }
         }
+        #endif
         
         return true
     }
