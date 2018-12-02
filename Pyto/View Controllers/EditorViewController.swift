@@ -152,8 +152,8 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssis
     
     override var keyCommands: [UIKeyCommand]? {
         return [
-            UIKeyCommand(input: "r", modifierFlags: .command, action: #selector(run), discoverabilityTitle: "Run"),
-            UIKeyCommand(input: "w", modifierFlags: .command, action: #selector(close), discoverabilityTitle: "Close")
+            UIKeyCommand(input: "r", modifierFlags: .command, action: #selector(run), discoverabilityTitle: Localizable.MenuItems.run),
+            UIKeyCommand(input: "w", modifierFlags: .command, action: #selector(close))
         ]
     }
     

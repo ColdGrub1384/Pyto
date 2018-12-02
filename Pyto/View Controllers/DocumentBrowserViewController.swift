@@ -288,8 +288,8 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
     
     override var keyCommands: [UIKeyCommand]? {
         return [
-            UIKeyCommand(input: "n", modifierFlags: .command, action: #selector(create(_:)), discoverabilityTitle: "Create script"),
-            UIKeyCommand(input: "n", modifierFlags: [.command, .shift], action: #selector(createFolder(_:)), discoverabilityTitle: "Create folder")
+            UIKeyCommand(input: "n", modifierFlags: .command, action: #selector(create(_:)), discoverabilityTitle: Localizable.Creation.createScript),
+            UIKeyCommand(input: "n", modifierFlags: [.command, .shift], action: #selector(createFolder(_:)), discoverabilityTitle: Localizable.Creation.createFolder)
         ]
     }
     
