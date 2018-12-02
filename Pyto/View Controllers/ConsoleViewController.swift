@@ -127,7 +127,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     
     override var keyCommands: [UIKeyCommand]? {
         return [
-            UIKeyCommand(input: "w", modifierFlags: .command, action: #selector(close), discoverabilityTitle: "Close")
+            UIKeyCommand(input: "w", modifierFlags: .command, action: #selector(close))
         ]
     }
     
