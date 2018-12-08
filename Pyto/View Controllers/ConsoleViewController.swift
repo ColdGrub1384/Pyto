@@ -46,7 +46,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     ///     - prompt: The prompt from the Python function
     func input(prompt: String) {
         
-        guard !ignoresInput else {
+        guard !ignoresInput || self is REPLViewController else {
             return
         }
         

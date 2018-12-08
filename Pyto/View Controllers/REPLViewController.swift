@@ -11,6 +11,14 @@ import UIKit
 /// The View controller for the REPL in the Tab bar controller.
 class REPLViewController: ConsoleViewController {
     
+    override var ignoresInput: Bool {
+        get {
+            return false
+        }
+        
+        set {}
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,8 +29,9 @@ class REPLViewController: ConsoleViewController {
         super.viewDidAppear(animated)
         
         prompt = ""
-        isAskingForInput = false
+        console = ""
         textView.text = ""
+        
         if Python.shared.isREPLRunning {
             if !Python.shared.isScriptRunning {
                 PyInputHelper.userInput = "import os; import PytoClasses; os.system = PytoClasses.Python.shared.system; import code; code.interact()"
@@ -38,5 +47,7 @@ class REPLViewController: ConsoleViewController {
         }
         super.input(prompt: prompt)
     }
+    
+    
 }
 
