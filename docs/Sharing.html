@@ -27,15 +27,15 @@
     <pre><code>
     filePicker = sharing.FilePicker.new()
     filePicker.fileTypes = ["public.data"]
-    filePicker.allowsMultipleSelection = True</code></pre>
+    filePicker.allowsMultipleSelection = True
     
-    <p>def filesPicked() -> None:
-    files = sharing.pickedFiles()
-    sharing.shareItems(files)</p>
+    def filesPicked() -> None:
+        files = sharing.pickedFiles()
+        sharing.shareItems(files)
     
-    <p><code>filePicker.completion = filesPicked
+    filePicker.completion = filesPicked
     sharing.pickDocumentsWithFilePicker(filePicker)
-    </code></p>
+    </code></pre>
     
     <h2><code>pickDocumentsWithFilePicker(filePicker)</code></h2>
     
