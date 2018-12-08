@@ -226,7 +226,9 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssis
                         UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
                     }
                     self.document?.close(completionHandler: { _ in
-                        DocumentBrowserViewController.visible?.collectionView.reloadData()
+                        DispatchQueue.main.async {
+                            DocumentBrowserViewController.visible?.collectionView.reloadData()
+                        }
                     })
                 })
             }
