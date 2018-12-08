@@ -192,8 +192,10 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         let sheet = UIAlertController(title: "Pyto", message: Python.shared.version, preferredStyle: .actionSheet)
         
         sheet.addAction(UIAlertAction(title: Localizable.Help.documentation, style: .default, handler: { _ in
-            let safari = SFSafariViewController(url: URL(string: "https://coldgrub1384.github.io/Pyto/3.1")!)
-            self.present(safari, animated: true, completion: nil)
+            let navVC = UINavigationController(rootViewController: DocumentationViewController())
+            navVC.navigationBar.barStyle = .black
+            navVC.toolbar.barStyle = .black
+            self.present(navVC, animated: true, completion: nil)
         }))
         sheet.addAction(UIAlertAction(title: Localizable.Help.acknowledgments, style: .default, handler: { _ in
             let safari = SFSafariViewController(url: URL(string: "https://coldgrub1384.github.io/Pyto/Licenses")!)

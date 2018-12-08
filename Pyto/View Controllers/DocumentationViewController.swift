@@ -41,16 +41,11 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .black
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-        visualEffectView.frame = view.frame
-        visualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.addSubview(visualEffectView)
+        edgesForExtendedLayout = []
         
         webView = WKWebView(frame: view.frame)
+        webView.backgroundColor = .black
         webView.allowsBackForwardNavigationGestures = true
-        webView.backgroundColor = .clear
-        webView.isOpaque = false
         webView.navigationDelegate = self
         webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(webView)
