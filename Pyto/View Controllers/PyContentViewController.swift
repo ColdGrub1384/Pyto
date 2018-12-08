@@ -115,6 +115,7 @@ import FloatingPanel
         super.viewDidDisappear(animated)
         
         isViewVisible = false
+        PyContentViewController.shared = nil
     }
     
     override var prefersStatusBarHidden: Bool {
