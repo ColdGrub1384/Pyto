@@ -89,7 +89,6 @@ import FloatingPanel
         super.viewDidAppear(animated)
         
         isViewVisible = true
-        
         PyContentViewController.shared = self
         
         if let url = PyContentViewController.scriptToRun {
@@ -115,7 +114,10 @@ import FloatingPanel
         super.viewDidDisappear(animated)
         
         isViewVisible = false
-        PyContentViewController.shared = nil
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+            PyContentViewController.shared = nil
+        }
     }
     
     override var prefersStatusBarHidden: Bool {
