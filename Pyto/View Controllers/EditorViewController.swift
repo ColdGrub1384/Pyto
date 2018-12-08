@@ -210,6 +210,7 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssis
     @objc func close() {
         
         if textView.contentTextView.isFirstResponder {
+            save()
             textView.contentTextView.resignFirstResponder()
         } else {
             dismiss(animated: true) {
@@ -218,7 +219,7 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssis
                     return
                 }
                 
-                self.document?.save(to: self.document!.fileURL, for: .forOverwriting, completionHandler: { success in
+                self.save(completion: { (success) in
                     if !success {
                         let alert = UIAlertController(title: Localizable.Errors.errorWrittingToScript, message: nil, preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))

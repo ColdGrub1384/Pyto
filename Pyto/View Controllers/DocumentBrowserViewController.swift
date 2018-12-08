@@ -26,8 +26,14 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
     /// The Collection view displaying files.
     @IBOutlet weak var collectionView: UICollectionView!
     
+    /// Returns the URL for iCloud Drive folder.
+    static let iCloudContainerURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents")
+    
+    /// Returns the URL for local folder.
+    static let localContainerURL = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0]
+    
     /// The directory to show files.
-    var directory = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0] {
+    var directory = localContainerURL {
         didSet {
             title = directory.lastPathComponent
             navigationItem.largeTitleDisplayMode = .never
@@ -43,7 +49,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         for file in files {
             var isDir: ObjCBool = false
             if FileManager.default.fileExists(atPath: file.path, isDirectory: &isDir) {
-                if (file.pathExtension.lowercased() != "py" && !isDir.boolValue) || (file.lastPathComponent == "__pycache__") {
+                if ((file.pathExtension.lowercased() != "py" && !isDir.boolValue) || (file.lastPathComponent == "__pycache__")) || file.lastPathComponent.hasPrefix(".") {
                     files.remove(at: i)
                 } else {
                     i += 1
@@ -51,13 +57,32 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
             } else {
                 files.remove(at: i)
             }
+            
+            if let iCloud = DocumentBrowserViewController.iCloudContainerURL, file.path.hasPrefix(iCloud.path) {
+                do {
+                    try FileManager.default.startDownloadingUbiquitousItem(at: file)
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
         }
         
         return files
     }
     
     private var files: [URL] {
-        return (try? FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)) ?? []
+        var files = (try? FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)) ?? []
+        
+        if let iCloudURL = DocumentBrowserViewController.iCloudContainerURL {
+            
+            if !FileManager.default.fileExists(atPath: iCloudURL.path) {
+                try? FileManager.default.createDirectory(at: iCloudURL, withIntermediateDirectories: true, attributes: nil)
+            }
+            
+            files = ((try? FileManager.default.contentsOfDirectory(at: iCloudURL, includingPropertiesForKeys: nil, options: .init(rawValue: 0))) ?? [])+files
+        }
+        
+        return files
     }
     
     /// Creates script.
@@ -79,7 +104,12 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
                 self.present(alert, animated: true, completion: nil)
                 return
             }
-            let script = self.directory.appendingPathComponent(filename).appendingPathExtension("py")
+            let script: URL
+            if self.directory == DocumentBrowserViewController.localContainerURL {
+                script = (DocumentBrowserViewController.iCloudContainerURL ?? self.directory).appendingPathComponent(filename).appendingPathExtension("py")
+            } else {
+                script = self.directory.appendingPathComponent(filename).appendingPathExtension("py")
+            }
             do {
                 guard let url = Bundle.main.url(forResource: "Untitled", withExtension: "py") else {
                     return
@@ -127,7 +157,12 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
                 self.present(alert, animated: true, completion: nil)
                 return
             }
-            let folder = self.directory.appendingPathComponent(filename)
+            let folder: URL
+            if self.directory == DocumentBrowserViewController.localContainerURL {
+                folder = (DocumentBrowserViewController.iCloudContainerURL ?? self.directory).appendingPathComponent(filename)
+            } else {
+                folder = self.directory.appendingPathComponent(filename)
+            }
             do {
                 try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true, attributes: nil)
                 var i = 0

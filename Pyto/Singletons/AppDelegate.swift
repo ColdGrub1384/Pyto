@@ -28,7 +28,8 @@ import SafariServices
         
         window?.accessibilityIgnoresInvertColors = true
         
-        let docs = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0]
+        let docs = DocumentBrowserViewController.localContainerURL
+        let iCloudDriveContainer = DocumentBrowserViewController.iCloudContainerURL
         
         do {
             let modulesURL = docs.appendingPathComponent("modules")
@@ -47,6 +48,19 @@ import SafariServices
             let newREADMEURL = docs.appendingPathComponent("README.py")
             if let readmeURL = Bundle.main.url(forResource: "README", withExtension: "py"), !FileManager.default.fileExists(atPath: newREADMEURL.path) {
                 try FileManager.default.copyItem(at: readmeURL, to: newREADMEURL)
+            }
+            
+            if let iCloudURL = iCloudDriveContainer {
+                if !FileManager.default.fileExists(atPath: iCloudURL.path) {
+                    try? FileManager.default.createDirectory(at: iCloudURL, withIntermediateDirectories: true, attributes: nil)
+                }
+                
+                for file in ((try? FileManager.default.contentsOfDirectory(at: docs, includingPropertiesForKeys: nil, options: .init(rawValue: 0))) ?? []) {
+                    
+                    if file.lastPathComponent != modulesURL.lastPathComponent && file.lastPathComponent != newSamplesURL.lastPathComponent && file.lastPathComponent != newREADMEURL.lastPathComponent {
+                        try? FileManager.default.moveItem(at: file, to: iCloudURL.appendingPathComponent(file.lastPathComponent))
+                    }
+                }
             }
         } catch {
             print(error.localizedDescription)
@@ -131,9 +145,14 @@ import SafariServices
         func runScript() {
             if let path = userActivity.userInfo?["filePath"] as? String {
                 
-                let url = URL(fileURLWithPath: RelativePathForScript(URL(fileURLWithPath: path)), relativeTo: FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask).first)
+                let url = URL(fileURLWithPath: RelativePathForScript(URL(fileURLWithPath: path)).replacingFirstOccurrence(of: "iCloud/", with: (DocumentBrowserViewController.iCloudContainerURL?.path ?? DocumentBrowserViewController.localContainerURL.path)+"/"), relativeTo: FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask).first)
                 
                 if FileManager.default.fileExists(atPath: url.path) {
+                    
+                    if FileManager.default.isUbiquitousItem(at: url) {
+                        try? FileManager.default.startDownloadingUbiquitousItem(at: url)
+                    }
+                    
                     DocumentBrowserViewController.visible?.openDocument(url, run: true)
                 } else {
                     let alert = UIAlertController(title: Localizable.Errors.errorReadingFile, message: nil, preferredStyle: .alert)

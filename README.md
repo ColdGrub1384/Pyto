@@ -23,6 +23,8 @@ Features:
   - Full Python REPL
   - Use your own modules on your scripts
   - Code an user interface with the same UIKit interface
+  - Store scripts in iCloud Drive
+  - Run scripts with Siri Shortcuts
 ```
 
 ## Building
