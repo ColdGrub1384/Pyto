@@ -37,17 +37,14 @@ import SafariServices
                 try FileManager.default.createDirectory(at: modulesURL, withIntermediateDirectories: false, attributes: nil)
             }
             
-            let newSamplesURL = docs.appendingPathComponent("Examples")
-            if FileManager.default.fileExists(atPath: newSamplesURL.path) {
+            let newSamplesURL = docs.appendingPathComponent("Examples") // Removed since 4.0
+            if FileManager.default.fileExists(atPath: newSamplesURL.path), let samplesURL = Bundle.main.url(forResource: "Samples", withExtension: nil), let contents = (try? FileManager.default.contentsOfDirectory(atPath: newSamplesURL.path)), let defaultContents = (try? FileManager.default.contentsOfDirectory(atPath: samplesURL.path)), contents == defaultContents {
                try FileManager.default.removeItem(at: newSamplesURL)
             }
-            if let samplesURL = Bundle.main.url(forResource: "Samples", withExtension: nil) {
-                try FileManager.default.copyItem(at: samplesURL, to: newSamplesURL)
-            }
             
-            let newREADMEURL = docs.appendingPathComponent("README.py")
-            if let readmeURL = Bundle.main.url(forResource: "README", withExtension: "py"), !FileManager.default.fileExists(atPath: newREADMEURL.path) {
-                try FileManager.default.copyItem(at: readmeURL, to: newREADMEURL)
+            let newREADMEURL = docs.appendingPathComponent("README.py") // Removed since 4.0
+            if let readmeURL = Bundle.main.url(forResource: "Help", withExtension: "py"), FileManager.default.fileExists(atPath: newREADMEURL.path), let defaultData = try? Data(contentsOf: readmeURL), let data = try? Data(contentsOf: newREADMEURL), data == defaultData {
+                try FileManager.default.removeItem(at: newREADMEURL)
             }
             
             if let iCloudURL = iCloudDriveContainer {
@@ -57,7 +54,7 @@ import SafariServices
                 
                 for file in ((try? FileManager.default.contentsOfDirectory(at: docs, includingPropertiesForKeys: nil, options: .init(rawValue: 0))) ?? []) {
                     
-                    if file.lastPathComponent != modulesURL.lastPathComponent && file.lastPathComponent != newSamplesURL.lastPathComponent && file.lastPathComponent != newREADMEURL.lastPathComponent {
+                    if file.lastPathComponent != modulesURL.lastPathComponent {
                         try? FileManager.default.moveItem(at: file, to: iCloudURL.appendingPathComponent(file.lastPathComponent))
                     }
                 }

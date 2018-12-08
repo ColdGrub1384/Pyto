@@ -73,7 +73,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
     private var files: [URL] {
         var files = (try? FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)) ?? []
         
-        if let iCloudURL = DocumentBrowserViewController.iCloudContainerURL {
+        if let iCloudURL = DocumentBrowserViewController.iCloudContainerURL, directory.pathComponents == DocumentBrowserViewController.localContainerURL.pathComponents {
             
             if !FileManager.default.fileExists(atPath: iCloudURL.path) {
                 try? FileManager.default.createDirectory(at: iCloudURL, withIntermediateDirectories: true, attributes: nil)
@@ -190,6 +190,22 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
     /// Open the documentation or samples.
     @IBAction func help(_ sender: UIBarButtonItem) {
         let sheet = UIAlertController(title: "Pyto", message: Python.shared.version, preferredStyle: .actionSheet)
+        
+        sheet.addAction(UIAlertAction(title: Localizable.Help.help, style: .default, handler: { _ in
+            if let helpURL = Bundle.main.url(forResource: "Help", withExtension: "py") {
+                self.openDocument(helpURL, run: false)
+            }
+        }))
+        
+        sheet.addAction(UIAlertAction(title: Localizable.Help.samples, style: .default, handler: { _ in
+            if let url = Bundle.main.url(forResource: "Samples", withExtension: "") {
+                guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "Browser") as? DocumentBrowserViewController else {
+                    return
+                }
+                vc.directory = url
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }))
         
         sheet.addAction(UIAlertAction(title: Localizable.Help.documentation, style: .default, handler: { _ in
             let navVC = UINavigationController(rootViewController: DocumentationViewController())
