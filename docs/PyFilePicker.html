@@ -1,0 +1,30 @@
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h1>PyFilePicker</h1>
+    
+    <p><code>
+        @objc public class PyFilePicker: NSObject, UIDocumentPickerDelegate
+    </code></p>
+    
+    <p>A class for representing an <code>UIDocumentPickerViewController</code>'s settings to be used by the Python API.</p>
+    
+    <p><code>
+    @objc public var completion: (() -> Void)?
+    </code>
+    The code to execute when files where picked.</p>
+    
+    <p><code>
+        @objc public var fileTypes = [NSString]()
+    </code>
+    Document types that can be opened.</p>
+    
+    <p><code>
+        @objc public var allowsMultipleSelection = false
+    </code>
+    Allow multiple selection or not.</p>
+
+</body>

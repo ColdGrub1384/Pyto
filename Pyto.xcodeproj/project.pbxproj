@@ -30,6 +30,7 @@
 		C98472AE21A05CB1008E16AC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C98472AD21A05CB1008E16AC /* README.md */; };
 		C98E1FFD214EE6ED002F0178 /* Samples in Resources */ = {isa = PBXBuildFile; fileRef = C98E1FFC214EE6EC002F0178 /* Samples */; };
 		C98E2002214F0856002F0178 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C98E2001214F0856002F0178 /* main.m */; };
+		C99DDCEC21BBED22002A734E /* DocumentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99DDCEB21BBED22002A734E /* DocumentationViewController.swift */; };
 		C9AAAB492195016D0042E733 /* InputAssistant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9AAAB44219501600042E733 /* InputAssistant.framework */; };
 		C9AAAB4A2195016D0042E733 /* InputAssistant.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AAAB44219501600042E733 /* InputAssistant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9AAAB5221950E8B0042E733 /* UITextView+currentWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* UITextView+currentWord.swift */; };
@@ -57,6 +58,7 @@
 		C9E4152B21513E3400D64E32 /* ConsoleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E4152A21513E3400D64E32 /* ConsoleTextView.swift */; };
 		C9E4152E21514F9100D64E32 /* Startup.py in Resources */ = {isa = PBXBuildFile; fileRef = C9E4152D21514F9100D64E32 /* Startup.py */; };
 		C9E415312151531B00D64E32 /* REPL.py in Resources */ = {isa = PBXBuildFile; fileRef = C9E415302151531B00D64E32 /* REPL.py */; };
+		C9E509A221BC08F900261E3A /* docs in Resources */ = {isa = PBXBuildFile; fileRef = C9E509A121BC08F800261E3A /* docs */; };
 		C9EA55B3219F752D007546BC /* RelativePathForScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EA55B2219F752D007546BC /* RelativePathForScript.swift */; };
 		C9EDF9A5214461D300382DCC /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A4214461D300382DCC /* libsqlite3.tbd */; };
 		C9EDF9A72144620A00382DCC /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A62144620A00382DCC /* libz.tbd */; };
@@ -232,37 +234,15 @@
 		C95A79E5214DC627007A1B90 /* PyMainThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyMainThread.swift; sourceTree = "<group>"; };
 		C95A79E7214DC9D0007A1B90 /* PyAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyAlert.swift; sourceTree = "<group>"; };
 		C9624EF321A9905400DDA9A7 /* PyThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyThread.swift; sourceTree = "<group>"; };
-		C9647FE621AC9C54005765C2 /* UI.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = UI.md; sourceTree = "<group>"; };
-		C9647FE721AC9C54005765C2 /* Appex.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Appex.md; sourceTree = "<group>"; };
-		C9647FE821AC9C54005765C2 /* Sharing.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Sharing.md; sourceTree = "<group>"; };
-		C9647FE921AC9C54005765C2 /* Importing.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Importing.md; sourceTree = "<group>"; };
-		C9647FEA21AC9C54005765C2 /* index.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = index.md; sourceTree = "<group>"; };
-		C9647FEB21AC9C54005765C2 /* Pasteboard.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Pasteboard.md; sourceTree = "<group>"; };
-		C9647FEC21AC9C55005765C2 /* Console.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Console.md; sourceTree = "<group>"; };
-		C9647FED21AC9C55005765C2 /* PyAlert.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = PyAlert.md; sourceTree = "<group>"; };
-		C9647FEE21AC9C55005765C2 /* Licenses.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Licenses.md; sourceTree = "<group>"; };
-		C9647FEF21AC9C55005765C2 /* MainThread.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = MainThread.md; sourceTree = "<group>"; };
-		C9647FF021AC9C55005765C2 /* PyFilePicker.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = PyFilePicker.md; sourceTree = "<group>"; };
 		C9647FFE21ACA00D005765C2 /* README.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = README.py; sourceTree = "<group>"; };
 		C97659052147192C001C96A8 /* PySharingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PySharingHelper.swift; sourceTree = "<group>"; };
 		C976592621471D23001C96A8 /* PyFilePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyFilePicker.swift; sourceTree = "<group>"; };
 		C984728E21A05932008E16AC /* python37.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = python37.zip; sourceTree = "<group>"; };
 		C984729121A05A0E008E16AC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C984729521A05B41008E16AC /* PyAlert.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = PyAlert.md; sourceTree = "<group>"; };
-		C984729621A05B41008E16AC /* Pasteboard.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Pasteboard.md; sourceTree = "<group>"; };
-		C984729721A05B41008E16AC /* PyFilePicker.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = PyFilePicker.md; sourceTree = "<group>"; };
-		C984729821A05B41008E16AC /* Licenses.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Licenses.md; sourceTree = "<group>"; };
-		C984729921A05B41008E16AC /* Importing.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Importing.md; sourceTree = "<group>"; };
-		C984729A21A05B41008E16AC /* index.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = index.md; sourceTree = "<group>"; };
-		C984729B21A05B41008E16AC /* _config.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _config.yml; sourceTree = "<group>"; };
-		C984729C21A05B41008E16AC /* Appex.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Appex.md; sourceTree = "<group>"; };
-		C984729D21A05B41008E16AC /* Sharing.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Sharing.md; sourceTree = "<group>"; };
-		C984729E21A05B41008E16AC /* Console.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Console.md; sourceTree = "<group>"; };
-		C984729F21A05B41008E16AC /* MainThread.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = MainThread.md; sourceTree = "<group>"; };
-		C98472A021A05B41008E16AC /* screenshots.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshots.png; sourceTree = "<group>"; };
 		C98472AD21A05CB1008E16AC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C98E1FFC214EE6EC002F0178 /* Samples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Samples; sourceTree = "<group>"; };
 		C98E2001214F0856002F0178 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C99DDCEB21BBED22002A734E /* DocumentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationViewController.swift; sourceTree = "<group>"; };
 		C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = InputAssistant.xcodeproj; path = InputAssistant/InputAssistant.xcodeproj; sourceTree = "<group>"; };
 		C9AAAB5121950E8B0042E733 /* UITextView+currentWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+currentWord.swift"; sourceTree = "<group>"; };
 		C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyExtensionContext.swift; sourceTree = "<group>"; };
@@ -294,6 +274,7 @@
 		C9E4152A21513E3400D64E32 /* ConsoleTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleTextView.swift; sourceTree = "<group>"; };
 		C9E4152D21514F9100D64E32 /* Startup.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = Startup.py; sourceTree = "<group>"; };
 		C9E415302151531B00D64E32 /* REPL.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = REPL.py; sourceTree = "<group>"; };
+		C9E509A121BC08F800261E3A /* docs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = docs; sourceTree = SOURCE_ROOT; };
 		C9E7ABAA2152D0D30007BB87 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		C9EA55B2219F752D007546BC /* RelativePathForScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativePathForScript.swift; sourceTree = "<group>"; };
 		C9EDF9A4214461D300382DCC /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -378,6 +359,7 @@
 				C9EDF9A821446EE600382DCC /* PyContentViewController.swift */,
 				C9EDF9AA21446FCA00382DCC /* ConsoleViewController.swift */,
 				C9DF70BF2171723800981B4F /* REPLViewController.swift */,
+				C99DDCEB21BBED22002A734E /* DocumentationViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -422,6 +404,7 @@
 				C9E4152D21514F9100D64E32 /* Startup.py */,
 				C9E415302151531B00D64E32 /* REPL.py */,
 				C9F04E852173C33400BDD03E /* Localizable.strings */,
+				C9E509A121BC08F800261E3A /* docs */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -437,50 +420,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C9647FE521AC9C2A005765C2 /* 3.1 */ = {
-			isa = PBXGroup;
-			children = (
-				C9647FE721AC9C54005765C2 /* Appex.md */,
-				C9647FEC21AC9C55005765C2 /* Console.md */,
-				C9647FE921AC9C54005765C2 /* Importing.md */,
-				C9647FEA21AC9C54005765C2 /* index.md */,
-				C9647FEE21AC9C55005765C2 /* Licenses.md */,
-				C9647FEF21AC9C55005765C2 /* MainThread.md */,
-				C9647FEB21AC9C54005765C2 /* Pasteboard.md */,
-				C9647FED21AC9C55005765C2 /* PyAlert.md */,
-				C9647FF021AC9C55005765C2 /* PyFilePicker.md */,
-				C9647FE821AC9C54005765C2 /* Sharing.md */,
-				C9647FE621AC9C54005765C2 /* UI.md */,
-			);
-			path = 3.1;
-			sourceTree = "<group>";
-		};
 		C984729021A059F2008E16AC /* Python iOS */ = {
 			isa = PBXGroup;
 			children = (
 				C984729121A05A0E008E16AC /* Info.plist */,
 			);
 			path = "Python iOS";
-			sourceTree = "<group>";
-		};
-		C984729421A05B41008E16AC /* docs */ = {
-			isa = PBXGroup;
-			children = (
-				C984729521A05B41008E16AC /* PyAlert.md */,
-				C984729621A05B41008E16AC /* Pasteboard.md */,
-				C984729721A05B41008E16AC /* PyFilePicker.md */,
-				C984729821A05B41008E16AC /* Licenses.md */,
-				C984729921A05B41008E16AC /* Importing.md */,
-				C984729A21A05B41008E16AC /* index.md */,
-				C984729B21A05B41008E16AC /* _config.yml */,
-				C984729C21A05B41008E16AC /* Appex.md */,
-				C984729D21A05B41008E16AC /* Sharing.md */,
-				C984729E21A05B41008E16AC /* Console.md */,
-				C984729F21A05B41008E16AC /* MainThread.md */,
-				C98472A021A05B41008E16AC /* screenshots.png */,
-				C9647FE521AC9C2A005765C2 /* 3.1 */,
-			);
-			path = docs;
 			sourceTree = "<group>";
 		};
 		C9AAAB3E219501600042E733 /* Products */ = {
@@ -551,7 +496,6 @@
 				C904EB5D21445AA800585C28 /* BZip2 */,
 				C904EB5B21445AA700585C28 /* OpenSSL */,
 				C904EB5C21445AA800585C28 /* XZ */,
-				C984729421A05B41008E16AC /* docs */,
 				C9FCFD57214428AE00A07974 /* Pyto */,
 				C984729021A059F2008E16AC /* Python iOS */,
 				C9FCFD56214428AE00A07974 /* Products */,
@@ -785,6 +729,7 @@
 				C98E1FFD214EE6ED002F0178 /* Samples in Resources */,
 				C9F04E832173C33400BDD03E /* Localizable.strings in Resources */,
 				C9647FFF21ACA00D005765C2 /* README.py in Resources */,
+				C9E509A221BC08F900261E3A /* docs in Resources */,
 				C98472AE21A05CB1008E16AC /* README.md in Resources */,
 				C9F04E882173DD7300BDD03E /* Main.storyboard in Resources */,
 				C9FCFD6D21442FD700A07974 /* Untitled.py in Resources */,
@@ -879,6 +824,7 @@
 				C93D61DF2145D03200C8B5E3 /* UIWindow.swift in Sources */,
 				C9FCFD59214428AE00A07974 /* AppDelegate.swift in Sources */,
 				C93D61E12145D46700C8B5E3 /* PyOutputHelper.swift in Sources */,
+				C99DDCEC21BBED22002A734E /* DocumentationViewController.swift in Sources */,
 				C97659062147192C001C96A8 /* PySharingHelper.swift in Sources */,
 				C9FCFD6F214452FB00A07974 /* PyDocument.swift in Sources */,
 			);
