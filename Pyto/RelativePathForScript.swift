@@ -16,7 +16,11 @@ import Foundation
 /// - Returns:
 ///     - The relative path.
 func RelativePathForScript(_ url: URL) -> String {
-    var filePath = url.path.replacingFirstOccurrence(of: FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].path, with: "")
+    var filePath = url.path
+    filePath = filePath.replacingFirstOccurrence(of: DocumentBrowserViewController.localContainerURL.path, with: "")
+    if let iCloudPath = DocumentBrowserViewController.iCloudContainerURL?.path {
+        filePath = filePath.replacingFirstOccurrence(of: iCloudPath, with: "iCloud/")
+    }
     
     if filePath.hasPrefix("/private/") {
         filePath = filePath.replacingFirstOccurrence(of: "/private/", with: "")
