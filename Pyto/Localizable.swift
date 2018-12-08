@@ -47,7 +47,8 @@ class Localizable: Static {
     /// Strings used in the help menu.
     class Help: Static {
         
-        // "Select a sample to preview"
+        /// 'Help' button
+        static let help = NSLocalizedString("help.help", comment: "'Help' button")
         
         /// 'Documentation' button
         static let documentation = NSLocalizedString("help.documentation", comment: "'Documentation' button")

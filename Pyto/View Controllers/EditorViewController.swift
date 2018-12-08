@@ -141,7 +141,17 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssis
         super.viewWillAppear(animated)
         
         document?.open(completionHandler: { (_) in
-            self.textView.text = self.document?.text ?? Localizable.Errors.errorReadingFile
+            guard let doc = self.document else {
+                return
+            }
+            
+            self.textView.text = doc.text
+            
+            if !FileManager.default.isWritableFile(atPath: doc.fileURL.path) {
+                self.navigationItem.leftBarButtonItem = nil
+                self.textView.contentTextView.isEditable = false
+                self.textView.contentTextView.inputAccessoryView = nil
+            }
         })
     }
     
