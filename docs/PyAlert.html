@@ -1,0 +1,75 @@
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h1>PyAlert</h1>
+    
+    <p><code>
+        @objc public class PyAlert: NSObject
+    </code></p>
+    
+    <p>A class representing an alert to be used from the Python API.</p>
+    
+    <p><code>
+        @objc public var title: String?
+    </code>
+    The alert's title.</p>
+    
+    <p><code>
+        @objc public var message: String?
+    </code>
+    The alert's message.</p>
+    
+    <p><code>
+        @objc public static func alertWithTitle(_ title: String?, message: String?) -&gt; PyAlert
+    </code>
+    Initialize a new alert.</p>
+    
+    <ul>
+        <li>title: The alert's title.</li>
+        <li>message: The alert's message.</li>
+    </ul>
+    
+    <p><code>
+        @objc public func show() -&gt; String
+    </code>
+    Show an alert with set parameters.</p>
+    
+    <ul>
+        <li>Returns: The title of the pressed action.</li>
+    </ul>
+    
+    <h2>Setters</h2>
+    
+    <p><code>
+        @objc public func addAction(title: String)
+    </code>
+    Add an action with given tilte and handler.</p>
+    
+    <ul>
+        <li>title: The title of the action.</li>
+        <li>handler: The action's handler.</li>
+    </ul>
+    
+    <p><code>
+        @objc public func addDestructiveAction(title: String)
+    </code>
+    Add a destructive action with given tilte and handler.</p>
+    
+    <ul>
+        <li>title: The title of the action.</li>
+        <li>handler: The action's handler.</li>
+    </ul>
+    
+    <p><code>@objc public func addCancelAction(title: String)
+    </code>
+    Add a cancel action with given tilte and handler.</p>
+    
+    <ul>
+        <li>title: The title of the action.</li>
+        <li>handler: The action's handler.</li>
+    </ul>
+
+</body>

@@ -33,6 +33,23 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssis
     /// The Input assistant view containing `suggestions`.
     let inputAssistant = InputAssistantView()
     
+    /// A Navigation controller containing the documentation.
+    var documentationNavigationController: UINavigationController?
+    
+    /// Shows documentation
+    @objc func showDocs(_ sender: UIBarButtonItem) {
+        if documentationNavigationController == nil {
+            documentationNavigationController = UINavigationController(rootViewController: DocumentationViewController())
+        }
+        documentationNavigationController?.view.tintColor = UIColor(named: "Tint Color")
+        documentationNavigationController?.navigationBar.barStyle = .black
+        documentationNavigationController?.toolbar.barStyle = .black
+        documentationNavigationController?.modalPresentationStyle = .popover
+        documentationNavigationController?.popoverPresentationController?.backgroundColor = .black
+        documentationNavigationController?.popoverPresentationController?.barButtonItem = sender
+        present(documentationNavigationController!, animated: true, completion: nil)
+    }
+    
     /// Initialize with given document.
     ///
     /// - Parameters:
@@ -69,7 +86,8 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssis
         
         let saveItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
         let runItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(run))
-        navigationItem.rightBarButtonItems = [saveItem, runItem]
+        let docItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showDocs(_:)))
+        navigationItem.rightBarButtonItems = [saveItem, runItem, docItem]
         if isSample {
             navigationItem.rightBarButtonItems?.append(UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share(_:))))
         }

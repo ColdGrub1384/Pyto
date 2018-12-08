@@ -1,0 +1,38 @@
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h1>mainthread</h1>
+    
+    <p>This module allows you to run code on the main thread easely. This can be used for modifiying the UI.</p>
+    
+    <h2>Example:</h2>
+    
+    <pre><code>
+    import mainthread
+    
+    def sayHello() -> None:
+        print("Hello World!")
+    
+    mainthread.runSync(sayHello)
+    </code></pre>
+    
+    <h2><code>runAsync(code)</code></h2>
+    
+    <p>Runs the given code asynchronously on the main thread.</p>
+    
+    <ul>
+        <li>code: Code to execute in the main thread.</li>
+    </ul>
+    
+    <h2><code>runSync(code)</code></h2>
+    
+    <p>Runs the given code synchronously on the main thread.</p>
+    
+    <ul>
+        <li>code: Code to execute in the main thread.</li>
+    </ul>
+
+</body>
