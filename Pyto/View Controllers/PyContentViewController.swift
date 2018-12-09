@@ -114,10 +114,6 @@ import FloatingPanel
         super.viewDidDisappear(animated)
         
         isViewVisible = false
-        
-        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-            PyContentViewController.shared = nil
-        }
     }
     
     override var prefersStatusBarHidden: Bool {
