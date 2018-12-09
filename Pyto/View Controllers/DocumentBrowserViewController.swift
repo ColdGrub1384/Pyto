@@ -197,16 +197,6 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
             }
         }))
         
-        sheet.addAction(UIAlertAction(title: Localizable.Help.samples, style: .default, handler: { _ in
-            if let url = Bundle.main.url(forResource: "Samples", withExtension: "") {
-                guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "Browser") as? DocumentBrowserViewController else {
-                    return
-                }
-                vc.directory = url
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
-        }))
-        
         sheet.addAction(UIAlertAction(title: Localizable.Help.documentation, style: .default, handler: { _ in
             let navVC = UINavigationController(rootViewController: DocumentationViewController())
             navVC.navigationBar.barStyle = .black
