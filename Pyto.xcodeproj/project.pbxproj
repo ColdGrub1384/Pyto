@@ -35,6 +35,7 @@
 		C9AAAB4A2195016D0042E733 /* InputAssistant.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AAAB44219501600042E733 /* InputAssistant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9AAAB5221950E8B0042E733 /* UITextView+currentWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* UITextView+currentWord.swift */; };
 		C9B3FDEC21503DE7000FC9A8 /* PyExtensionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */; };
+		C9BDF6B921BD9BBA0045DDA3 /* TemplatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BDF6B221BD9BBA0045DDA3 /* TemplatesViewController.swift */; };
 		C9BE01B42154738C00A8C825 /* site-packages in Resources */ = {isa = PBXBuildFile; fileRef = C9BE01B021530BAF00A8C825 /* site-packages */; };
 		C9DF70B821715D3D00981B4F /* FileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DF70B721715D3D00981B4F /* FileCollectionViewCell.swift */; };
 		C9DF70C02171723800981B4F /* REPLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DF70BF2171723800981B4F /* REPLViewController.swift */; };
@@ -247,6 +248,7 @@
 		C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = InputAssistant.xcodeproj; path = InputAssistant/InputAssistant.xcodeproj; sourceTree = "<group>"; };
 		C9AAAB5121950E8B0042E733 /* UITextView+currentWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+currentWord.swift"; sourceTree = "<group>"; };
 		C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyExtensionContext.swift; sourceTree = "<group>"; };
+		C9BDF6B221BD9BBA0045DDA3 /* TemplatesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplatesViewController.swift; sourceTree = "<group>"; };
 		C9BE01B021530BAF00A8C825 /* site-packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "site-packages"; sourceTree = "<group>"; };
 		C9C57EB40A56344EEB889161 /* Pods-Pyto Share.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Share.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Share/Pods-Pyto Share.release.xcconfig"; sourceTree = "<group>"; };
 		C9DF70B721715D3D00981B4F /* FileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 				C9EDF9AA21446FCA00382DCC /* ConsoleViewController.swift */,
 				C9DF70BF2171723800981B4F /* REPLViewController.swift */,
 				C99DDCEB21BBED22002A734E /* DocumentationViewController.swift */,
+				C9BDF6B221BD9BBA0045DDA3 /* TemplatesViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -826,6 +829,7 @@
 				C9E4152B21513E3400D64E32 /* ConsoleTextView.swift in Sources */,
 				C9624EF421A9905400DDA9A7 /* PyThread.swift in Sources */,
 				C93D61DF2145D03200C8B5E3 /* UIWindow.swift in Sources */,
+				C9BDF6B921BD9BBA0045DDA3 /* TemplatesViewController.swift in Sources */,
 				C9FCFD59214428AE00A07974 /* AppDelegate.swift in Sources */,
 				C93D61E12145D46700C8B5E3 /* PyOutputHelper.swift in Sources */,
 				C99DDCEC21BBED22002A734E /* DocumentationViewController.swift in Sources */,
