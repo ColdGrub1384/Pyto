@@ -34,7 +34,17 @@ class REPLViewController: ConsoleViewController {
         
         if Python.shared.isREPLRunning {
             if !Python.shared.isScriptRunning {
-                PyInputHelper.userInput = "import os; import PytoClasses; os.system = PytoClasses.Python.shared.system; import code; code.interact()"
+                PyInputHelper.userInput = [
+                "import os",
+                "import PytoClasses",
+                "import sys",
+                "iCloudDrive = '\(DocumentBrowserViewController.iCloudContainerURL?.path ?? DocumentBrowserViewController.localContainerURL.path)'",
+                "sys.path.insert(0, iCloudDrive)",
+                "os.system = PytoClasses.Python.shared.system",
+                "import code",
+                "code.interact()",
+                "sys.path.remove(iCloudDrive)"
+                ].joined(separator: ";")
             } else {
                 PyOutputHelper.print(Localizable.Python.alreadyRunning)
             }
