@@ -1,13 +1,14 @@
 """
-This script implements the `ExampleViewController` class.
+This script shows an example of how presenting an User Interface.
 """
 
-from UIKit import * # This gives access to all UIKit classes
 import ui
-
 import mainthread
 from rubicon.objc import *
 from rubicon.objc.types import *
+from UIKit import * # This gives access to all UIKit classes
+
+# MARK: ExampleViewController Implementation
 
 button = UIButton.buttonWithType(1)
 label = label = UILabel.new()
@@ -53,6 +54,8 @@ def viewDidLoad(self):
     
     setViewsFrame(self.view.bounds.size)
 
+# MARK: ExampleViewController
+
 try:
     # Check if the `ExampleViewController` class is already defined. When an Objective-C class is defined, you cannot redefine it before re-launching the app.
     # So, always use unique class names for your scripts.
@@ -73,3 +76,17 @@ except:
         def viewDidLayoutSubviews(self):
             setViewsFrame(self.view.size)
 
+# MARK: - Showing the UI
+
+def main() -> None:
+    
+    viewController = ExampleViewController.new()
+    
+    navigationController = UINavigationController.new()
+    navigationController.setViewControllers([viewController])
+    navigationController.navigationBar.barStyle = 1
+    ui.showViewController(navigationController)
+
+mainthread.runSync(main)
+
+ui.mainLoop()
