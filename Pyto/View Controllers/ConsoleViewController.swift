@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import InputAssistant
 
 /// A View controller containing Python script output.
-class ConsoleViewController: UIViewController, UITextViewDelegate {
+class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistantViewDelegate, InputAssistantViewDataSource {
+    
+    /// The Input assistant view for typing module's identifier.
+    let inputAssistant = InputAssistantView()
     
     /// The current prompt.
     var prompt = ""
@@ -92,6 +96,10 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.delegate = self
         view.addSubview(textView)
+        
+        inputAssistant.dataSource = self
+        inputAssistant.delegate = self
+        inputAssistant.attach(to: textView)
         
         navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))]
         
@@ -177,9 +185,6 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
                 prompt = ""
                 isAskingForInput = false
                 textView.text += "\n"
-                textView.isEditable = false
-                textView.resignFirstResponder()
-                
                 return false
             } else if text == "" && range.length == 1 {
                 prompt = String(prompt.dropLast())
@@ -189,5 +194,26 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
         }
         
         return false
+    }
+    
+    // MARK: - Input assistant view delegate
+    
+    func inputAssistantView(_ inputAssistantView: InputAssistantView, didSelectSuggestionAtIndex index: Int) {
+        prompt = "script."+Python.shared.values[index]
+        textView.text = console+prompt
+    }
+    
+    // MARK: - Input assistant view data source
+    
+    func textForEmptySuggestionsInInputAssistantView() -> String? {
+        return nil
+    }
+    
+    func numberOfSuggestionsInInputAssistantView() -> Int {
+        return Python.shared.values.count
+    }
+    
+    func inputAssistantView(_ inputAssistantView: InputAssistantView, nameForSuggestionAtIndex index: Int) -> String {
+        return Python.shared.values[index]
     }
 }

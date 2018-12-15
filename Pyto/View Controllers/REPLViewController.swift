@@ -32,6 +32,8 @@ class REPLViewController: ConsoleViewController {
         console = ""
         textView.text = ""
         
+        Python.shared.values = []
+        
         if Python.shared.isREPLRunning {
             if !Python.shared.isScriptRunning {
                 PyInputHelper.userInput = [
