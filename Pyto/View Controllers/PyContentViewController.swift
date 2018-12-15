@@ -95,14 +95,16 @@ import FloatingPanel
             let console = (viewController as? UINavigationController)?.visibleViewController as? ConsoleViewController
             console?.textView?.text = ""
             console?.ignoresInput = false
+            console?.console = ""
             if Python.shared.isREPLRunning {
                 if Python.shared.isScriptRunning { // A script is already running
                     PyOutputHelper.print(Localizable.Python.alreadyRunning)
                     return
                 }
                 Python.shared.isScriptRunning = true
+                Python.shared.values = []
                 // Import the script
-                PyInputHelper.userInput = "import console as __console__; __console__.runScriptAtPath('\(url.path)')"
+                PyInputHelper.userInput = "import console as __console__; script = __console__.runScriptAtPath('\(url.path)')"
             } else {
                 Python.shared.runScript(at: url)
             }
