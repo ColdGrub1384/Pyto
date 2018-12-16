@@ -63,24 +63,6 @@ import SafariServices
             print(error.localizedDescription)
         }
         
-        ReviewHelper.shared.launches += 1
-        ReviewHelper.shared.requestReview()
-        if ReviewHelper.shared.launches == 5 && !UserDefaults.standard.bool(forKey: "pisth") {
-            UserDefaults.standard.set(true, forKey: "pisth")
-            UserDefaults.standard.synchronize()
-            if !UIApplication.shared.canOpenURL(URL(string: "pisth://")!) {
-                let alert = UIAlertController(title: Localizable.Pisth.title, message: Localizable.Pisth.message, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: Localizable.Pisth.view, style: .default, handler: { _ in
-                    let store = SKStoreProductViewController()
-                    store.delegate = self
-                    store.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier: "1331070425"], completionBlock: nil)
-                    self.window?.rootViewController?.present(store, animated: true, completion: nil)
-                }))
-                alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
-                window?.rootViewController?.present(alert, animated: true, completion: nil)
-            }
-        }
-        
         #if !DEBUG
         NSSetUncaughtExceptionHandler { (exception) in
             PyOutputHelper.print(NSString(format: Localizable.ObjectiveC.exception as NSString, exception.name.rawValue, exception.reason ?? "") as String)

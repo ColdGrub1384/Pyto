@@ -4,18 +4,44 @@
 // Licensed under Apache License v2.0
 //
 // See https://raw.githubusercontent.com/ColdGrub1384/Pisth/master/LICENSE for license information
+
 import Foundation
 import StoreKit
 
 /// Helper used to request app review based on app launches.
-class ReviewHelper {
+@objc class ReviewHelper: NSObject {
     
-    /// Request review, reset points and append current date to `reviewRequests`.
-    func requestReview() {
-        if launches >= minLaunches {
+    /// Request review and reset points.
+    @objc func requestReview() {
+        
+        if minLaunches == nil {
+            minLaunches = 0
+        } else if (minLaunches as! Int) == 0 {
+            minLaunches = 3
+        } else if launches == 3 {
+            minLaunches = 5
+        } else if launches >= 5 {
+            minLaunches = 0
+        }
+        
+        if launches >= (minLaunches as? Int ?? 0) {
             launches = 0
             if #available(iOS 10.3, *) {
                 SKStoreReviewController.requestReview()
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(1 * Double(NSEC_PER_SEC)) / Double(NSEC_PER_SEC), execute: {
+                    if UIApplication.shared.windows.count > 1 {
+                        let pyContentConsole = (PyContentViewController.shared?.viewController as? UINavigationController)?.visibleViewController as? ConsoleViewController
+                        
+                        let console = ((UIApplication.shared.keyWindow?.rootViewController as? UITabBarController)?.viewControllers?.last as? UINavigationController)?.visibleViewController as? REPLViewController
+                        
+                        if PyContentViewController.shared?.isViewVisible == true {
+                            pyContentConsole?.textView.resignFirstResponder()
+                        } else {
+                            console?.textView.resignFirstResponder()
+                        }
+                    }
+                })
             }
         }
     }
@@ -23,15 +49,15 @@ class ReviewHelper {
     // MARK: - Singleton
     
     /// Shared and unique instance.
-    static let shared = ReviewHelper()
-    private init() {}
+    @objc static let shared = ReviewHelper()
+    private override init() {}
     
     // MARK: - Launches tracking
     
     /// App launches incremented in `AppDelegate.application(_:, didFinishLaunchingWithOptions:)`.
     ///
     /// Launches are saved to `UserDefaults`.
-    var launches: Int {
+    @objc var launches: Int {
         
         get {
             return UserDefaults.standard.integer(forKey: "launches")
@@ -43,5 +69,15 @@ class ReviewHelper {
     }
     
     /// Minimum launches for asking for review.
-    var minLaunches = 10
+    var minLaunches: Any? {
+        
+        get {
+            return UserDefaults.standard.value(forKey: "minLaunches")
+        }
+        
+        set {
+            UserDefaults.standard.set(newValue, forKey: "minLaunches")
+            UserDefaults.standard.synchronize()
+        }
+    }
 }
