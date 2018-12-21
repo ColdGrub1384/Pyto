@@ -14,7 +14,7 @@ import IntentsUI
 import CoreSpotlight
 
 /// The View controller used to edit source code.
-class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssistantViewDelegate, InputAssistantViewDataSource, UITextViewDelegate, INUIAddVoiceShortcutViewControllerDelegate, INUIAddVoiceShortcutButtonDelegate, INUIEditVoiceShortcutViewControllerDelegate {
+@objc class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssistantViewDelegate, InputAssistantViewDataSource, UITextViewDelegate, INUIAddVoiceShortcutViewControllerDelegate, INUIAddVoiceShortcutButtonDelegate, INUIEditVoiceShortcutViewControllerDelegate {
     
     /// The `SyntaxTextView` containing the code.
     let textView = SyntaxTextView()
@@ -49,6 +49,9 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssis
         documentationNavigationController?.popoverPresentationController?.barButtonItem = sender
         present(documentationNavigationController!, animated: true, completion: nil)
     }
+    
+    /// The currently visible editor.
+    @objc static var visible: EditorViewController?
     
     /// Initialize with given document.
     ///
@@ -158,7 +161,15 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssis
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        EditorViewController.visible = self
+        
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        EditorViewController.visible = nil
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -283,47 +294,32 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssis
     
     // MARK: - Suggestions
     
-    /// All supported suggestions.
-    static var suggestions: [String] {
-        
-        let operators = ["=", "+=", "-=", "/=", "*=", "%=", "**=", "//=", "+", "-", "*", "/", "**", "//", "%", "<", ">", "<=", ">=", "==", "!="]
-        
-        let constants = ["True", "False", "None"]
-        
-        let definitions = ["import", "def", "class", "global", "nonlocal", "del", "as", "from"]
-        
-        let statements = ["while", "for", "lambda", "in", "return", "continue", "pass", "break", "try", "except", "finally", "raise", "assert", "with", "yield"]
-        
-        let conditions = ["if", "else", "elif", "not", "or", "is", "and"]
-        
-        return [":"]+operators+constants+definitions+statements+conditions
-    }
-    
     /// Returns suggestions for current word.
-    var suggestions = [String]()
+    @objc var suggestions = [String]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.inputAssistant.reloadData()
+            }
+        }
+    }
     
     /// Updates suggestions.
     func updateSuggestions() {
         
-        guard let selectedWord = textView.contentTextView.currentWord, !selectedWord.isEmpty else {
-            self.suggestions = EditorViewController.suggestions
+        let textView = self.textView.contentTextView
+        
+        guard !Python.shared.isScriptRunning, let selectedWord = textView.currentWord, !selectedWord.isEmpty, let range = textView.selectedTextRange, let textRange = textView.textRange(from: textView.beginningOfDocument, to: range.end), let text = textView.text(in: textRange) else {
+            self.suggestions = []
             return inputAssistant.reloadData()
         }
         
-        var suggestions = EditorViewController.suggestions
-        func checkForSuggestions() {
-            for suggestion in suggestions.enumerated() {
-                if !suggestion.element.contains(selectedWord) {
-                    suggestions.remove(at: suggestion.offset)
-                    checkForSuggestions()
-                    break
-                }
-            }
-        }
-        checkForSuggestions()
-        
-        self.suggestions = suggestions
-        inputAssistant.reloadData()
+        PyInputHelper.userInput = [
+            "from _codecompletion import suggestForCode",
+            "source = '''",
+            text,
+            "'''",
+            "suggestForCode(source)"
+        ].joined(separator: ";")
     }
     
     // MARK: - Syntax text view delegate
@@ -343,7 +339,34 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssis
     func inputAssistantView(_ inputAssistantView: InputAssistantView, didSelectSuggestionAtIndex index: Int) {
         
         if let textRange = textView.contentTextView.currentWordRange {
-            textView.contentTextView.replace(textRange, withText: suggestions[index])
+            
+            var suggestion = suggestions[index]
+            
+            /*
+             "print" -> "print()"
+             "print()" -> "print()" NOT "print()" -> "print()()"
+            */
+            if suggestion.hasSuffix("(") {
+                guard
+                    let end = textView.contentTextView.position(from: textRange.end, offset: 1),
+                    let range = textView.contentTextView.textRange(from: textRange.start, to: end)
+                    else {
+                    return
+                }
+                
+                if textView.contentTextView.text(in: range)?.hasSuffix("(") == true {
+                    suggestion.removeLast()
+                }
+                
+            }
+            
+            textView.contentTextView.replace(textRange, withText: suggestion)
+            
+            if suggestion.hasSuffix("(") {
+                let range = textView.contentTextView.selectedTextRange
+                textView.contentTextView.insertText(")")
+                textView.contentTextView.selectedTextRange = range
+            }
         }
     }
     
@@ -358,6 +381,11 @@ class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssis
     }
     
     func inputAssistantView(_ inputAssistantView: InputAssistantView, nameForSuggestionAtIndex index: Int) -> String {
+        
+        if suggestions[index].hasSuffix("(") {
+            return suggestions[index]+")"
+        }
+        
         return suggestions[index]
     }
     
