@@ -256,6 +256,56 @@ import CoreSpotlight
         }
     }
     
+    /// The doc string to display.
+    @objc var docString: String? {
+        didSet {
+            
+            class DocViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
+                
+                func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+                    return .none
+                }
+            }
+            
+            if presentedViewController != nil, presentedViewController! is DocViewController {
+                presentedViewController?.dismiss(animated: false) {
+                    self.docString = self.docString
+                }
+                return
+            }
+            
+            guard docString != nil else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                let docView = UITextView()
+                docView.backgroundColor = .black
+                docView.textColor = .white
+                docView.font = UIFont(name: "Menlo", size: UIFont.systemFontSize)
+                docView.isEditable = false
+                docView.text = self.docString
+                
+                let docVC = DocViewController()
+                docVC.view = docView
+                docVC.preferredContentSize = CGSize(width: 300, height: 100)
+                docVC.modalPresentationStyle = .popover
+                docVC.presentationController?.delegate = docVC
+                docVC.popoverPresentationController?.backgroundColor = .black
+                
+                if let selectedTextRange = self.textView.contentTextView.selectedTextRange {
+                    docVC.popoverPresentationController?.sourceView = self.textView.contentTextView
+                    docVC.popoverPresentationController?.sourceRect = self.textView.contentTextView.caretRect(for: selectedTextRange.end)
+                } else {
+                    docVC.popoverPresentationController?.sourceView = self.textView.contentTextView
+                    docVC.popoverPresentationController?.sourceRect = self.textView.contentTextView.bounds
+                }
+                
+                self.present(docVC, animated: true, completion: nil)
+            }
+        }
+    }
+    
     // MARK: - Keyboard
     
     /// Resize `textView`.
@@ -292,6 +342,13 @@ import CoreSpotlight
         updateSuggestions()
     }
     
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        docString = nil
+        
+        return true
+    }
+    
     // MARK: - Suggestions
     
     /// Returns suggestions for current word.
@@ -303,12 +360,15 @@ import CoreSpotlight
         }
     }
     
+    /// Returns doc strings per suggestions.
+    @objc var docStrings = [String:String]()
+    
     /// Updates suggestions.
     func updateSuggestions() {
         
         let textView = self.textView.contentTextView
         
-        guard !Python.shared.isScriptRunning, let selectedWord = textView.currentWord, !selectedWord.isEmpty, let range = textView.selectedTextRange, let textRange = textView.textRange(from: textView.beginningOfDocument, to: range.end), let text = textView.text(in: textRange) else {
+        guard !Python.shared.isScriptRunning, let range = textView.selectedTextRange, let textRange = textView.textRange(from: textView.beginningOfDocument, to: range.end), let text = textView.text(in: textRange) else {
             self.suggestions = []
             return inputAssistant.reloadData()
         }
@@ -318,7 +378,7 @@ import CoreSpotlight
             "source = '''",
             text,
             "'''",
-            "suggestForCode(source)"
+            "suggestForCode(source, '\(document?.fileURL.path ?? "")')"
         ].joined(separator: ";")
     }
     
@@ -340,7 +400,8 @@ import CoreSpotlight
         
         if let textRange = textView.contentTextView.currentWordRange {
             
-            var suggestion = suggestions[index]
+            let originalSuggestion = suggestions[index]
+            var suggestion = originalSuggestion
             
             /*
              "print" -> "print()"
@@ -367,6 +428,8 @@ import CoreSpotlight
                 textView.contentTextView.insertText(")")
                 textView.contentTextView.selectedTextRange = range
             }
+            
+            docString = docStrings[originalSuggestion]
         }
     }
     
