@@ -30,6 +30,9 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
     /// If set to `true`, the user will not be able to input.
     var ignoresInput = false
     
+    /// If set to `true`, the user will not be able to input.
+    static var ignoresInput = false
+    
     /// Add the content of the given notification as `String` to `textView`. Called when the stderr changed or when a script printed from the Pyto module's `print` function`.
     ///
     /// - Parameters:
@@ -50,7 +53,9 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
     ///     - prompt: The prompt from the Python function
     func input(prompt: String) {
         
-        guard !ignoresInput || self is REPLViewController else {
+        guard (!ignoresInput && !ConsoleViewController.ignoresInput) || self is REPLViewController else {
+            ignoresInput = false
+            ConsoleViewController.ignoresInput = false
             return
         }
         
@@ -72,6 +77,8 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
             dismiss(animated: true, completion: nil)
         }
     }
+    
+    static var visible: ConsoleViewController?
     
     deinit {        
         NotificationCenter.default.removeObserver(self)
@@ -99,9 +106,8 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
         
         inputAssistant.dataSource = self
         inputAssistant.delegate = self
+        inputAssistant.trailingActions = [InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView, action: #selector(textView.resignFirstResponder))]
         inputAssistant.attach(to: textView)
-        
-        navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))]
         
         NotificationCenter.default.addObserver(self, selector: #selector(print_(_:)), name: .init(rawValue: "DidReceiveOutput"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -111,7 +117,9 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        print(view.safeAreaLayoutGuide.layoutFrame)
+        ConsoleViewController.visible = self
+        
+        navigationController?.parent?.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))]
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
     }
     
@@ -122,9 +130,13 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
             return
         }
         
+        guard view.frame.height != size.height else {
+            textView.frame.size.width = self.view.safeAreaLayoutGuide.layoutFrame.width
+            return
+        }
+        
         let wasFirstResponder = textView.isFirstResponder
         textView.resignFirstResponder()
-        
         _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
             self.textView.frame = self.view.safeAreaLayoutGuide.layoutFrame
             if wasFirstResponder {

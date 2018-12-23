@@ -49,16 +49,8 @@ import ios_system
     /// Values caught by a Python script.
     @objc var values = [String]() {
         didSet {
-            let pyContentConsole = (PyContentViewController.shared?.viewController as? UINavigationController)?.visibleViewController as? ConsoleViewController
-            
             DispatchQueue.main.async {
-                let console = ((UIApplication.shared.keyWindow?.rootViewController as? UITabBarController)?.viewControllers?.last as? UINavigationController)?.visibleViewController as? REPLViewController
-                
-                if PyContentViewController.shared?.isViewVisible == true {
-                    pyContentConsole?.inputAssistant.reloadData()
-                } else {
-                    console?.inputAssistant.reloadData()
-                }
+                ConsoleViewController.visible?.inputAssistant.reloadData()
             }
         }
     }

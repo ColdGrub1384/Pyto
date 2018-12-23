@@ -50,6 +50,8 @@ import CoreSpotlight
         present(documentationNavigationController!, animated: true, completion: nil)
     }
     
+    private var isDocOpened = false
+    
     /// The currently visible editor.
     @objc static var visible: EditorViewController?
     
@@ -71,29 +73,36 @@ import CoreSpotlight
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .black
+        
+        let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+        effectView.frame = view.frame
+        effectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(effectView)
+        
         view.addSubview(textView)
         textView.delegate = self
         textView.contentTextView.delegate = self
-        textView.theme = DefaultSourceCodeTheme()
-        view.backgroundColor = textView.theme?.backgroundColor
+        textView.theme = EditorTheme()
+        textView.backgroundColor = .clear
+        textView.contentTextView.backgroundColor = .clear
+        textView.subviews.first?.backgroundColor = .clear
         
         inputAssistant.dataSource = self
         inputAssistant.delegate = self
+        inputAssistant.trailingActions = [InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView.contentTextView, action: #selector(textView.contentTextView.resignFirstResponder))]
         inputAssistant.attach(to: textView.contentTextView)
         
-        title = document?.fileURL.deletingPathExtension().lastPathComponent
+        parent?.title = document?.fileURL.deletingPathExtension().lastPathComponent
         
         if document?.fileURL == URL(fileURLWithPath: NSTemporaryDirectory()+"/Temporary") {
             title = nil
         }
         
-        let saveItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
         let runItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(run))
         let docItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showDocs(_:)))
-        navigationItem.rightBarButtonItems = [saveItem, runItem, docItem]
-        if isSample {
-            navigationItem.rightBarButtonItems?.append(UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share(_:))))
-        }
+        parent?.navigationItem.rightBarButtonItem = docItem
+        parent?.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Grid"), style: .plain, target: self, action: #selector(close))
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -105,7 +114,8 @@ import CoreSpotlight
         if #available(iOS 12.0, *) {
             let button = INUIAddVoiceShortcutButton(style: .blackOutline)
             
-            navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
+            parent?.navigationController?.isToolbarHidden = false
+            parent?.toolbarItems = [UIBarButtonItem(customView: button)]
             
             button.addConstraints([NSLayoutConstraint(item: button, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 130), NSLayoutConstraint(item: button, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 40)])
             
@@ -138,24 +148,29 @@ import CoreSpotlight
             button.shortcut = INShortcut(userActivity: activity)
             button.delegate = self
         }
+        
+        parent?.toolbarItems?.append(contentsOf: [UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), runItem])
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        document?.open(completionHandler: { (_) in
-            guard let doc = self.document else {
-                return
-            }
-            
-            self.textView.text = doc.text
-            
-            if !FileManager.default.isWritableFile(atPath: doc.fileURL.path) {
-                self.navigationItem.leftBarButtonItem = nil
-                self.textView.contentTextView.isEditable = false
-                self.textView.contentTextView.inputAccessoryView = nil
-            }
-        })
+        if !isDocOpened {
+            isDocOpened = true
+            document?.open(completionHandler: { (_) in
+                guard let doc = self.document else {
+                    return
+                }
+                
+                self.textView.text = doc.text
+                
+                if !FileManager.default.isWritableFile(atPath: doc.fileURL.path) {
+                    self.navigationItem.leftBarButtonItem = nil
+                    self.textView.contentTextView.isEditable = false
+                    self.textView.contentTextView.inputAccessoryView = nil
+                }
+            })
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -166,16 +181,15 @@ import CoreSpotlight
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        EditorViewController.visible = nil
-    }
-    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
         guard view != nil else {
+            return
+        }
+        
+        guard view.frame.height != size.height else {
+            textView.frame.size.width = self.view.safeAreaLayoutGuide.layoutFrame.width
             return
         }
         
@@ -210,8 +224,22 @@ import CoreSpotlight
         save { (_) in
             DispatchQueue.main.async {
                 if let url = self.document?.fileURL {
-                    PyContentViewController.scriptToRun = url
-                    self.navigationController?.tabBarController?.selectedIndex = 1
+                    guard PyContentViewController.shared != nil && PyContentViewController.shared?.view.window != nil else {
+                        
+                        if let splitVC = self.parent as? EditorSplitViewController {
+                            
+                            let navVC = UINavigationController(rootViewController: splitVC.console)
+                            navVC.navigationBar.barStyle = .black
+                            navVC.view.tintColor = UIColor(named: "TintColor")
+                            
+                            splitVC.present(navVC, animated: true, completion: {
+                                self.run()
+                            })
+                        }
+                        
+                        return
+                    }
+                    PyContentViewController.shared?.runScript(at: url)
                 }
             }
         }
@@ -227,32 +255,25 @@ import CoreSpotlight
         }
     }
     
-    /// If the keyboard is shown, the keyboard is dissmiss and if not, the View controller is closed and the document is saved.
+    /// The View controller is closed and the document is saved.
     @objc func close() {
-        
-        if textView.contentTextView.isFirstResponder {
-            save()
-            textView.contentTextView.resignFirstResponder()
-        } else {
-            dismiss(animated: true) {
-                
-                guard !self.isSample else {
-                    return
+        guard !self.isSample else {
+            return
+        }
+
+        dismiss(animated: true) {
+            self.save(completion: { (success) in
+                if !success {
+                    let alert = UIAlertController(title: Localizable.Errors.errorWrittingToScript, message: nil, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
+                    UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
                 }
-                
-                self.save(completion: { (success) in
-                    if !success {
-                        let alert = UIAlertController(title: Localizable.Errors.errorWrittingToScript, message: nil, preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
-                        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+                self.document?.close(completionHandler: { _ in
+                    DispatchQueue.main.async {
+                        DocumentBrowserViewController.visible?.collectionView.reloadData()
                     }
-                    self.document?.close(completionHandler: { _ in
-                        DispatchQueue.main.async {
-                            DocumentBrowserViewController.visible?.collectionView.reloadData()
-                        }
-                    })
                 })
-            }
+            })
         }
     }
     
@@ -355,6 +376,7 @@ import CoreSpotlight
     @objc var suggestions = [String]() {
         didSet {
             DispatchQueue.main.async {
+                ConsoleViewController.ignoresInput = false
                 self.inputAssistant.reloadData()
             }
         }
@@ -373,6 +395,7 @@ import CoreSpotlight
             return inputAssistant.reloadData()
         }
         
+        ConsoleViewController.ignoresInput = true
         PyInputHelper.userInput = [
             "from _codecompletion import suggestForCode",
             "source = '''",

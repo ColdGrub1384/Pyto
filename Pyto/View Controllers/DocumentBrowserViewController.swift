@@ -9,6 +9,7 @@
 import UIKit
 import SafariServices
 import CoreSpotlight
+import SplitKit
 
 /// The main file browser used to edit scripts.
 class DocumentBrowserViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDropDelegate, UICollectionViewDragDelegate, UIViewControllerRestoration {
@@ -248,20 +249,33 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         
         let doc = PyDocument(fileURL: document)
         let editor = EditorViewController(document: doc)
-        let navVC = UINavigationController(rootViewController: editor)
-        navVC.navigationBar.barStyle = .black
-        navVC.tabBarItem = UITabBarItem(title: "Code", image: UIImage(named: "fileIcon"), tag: 0)
         let contentVC = PyContentViewController()
-        contentVC.tabBarItem = UITabBarItem(tabBarSystemItem: .more, tag: 1)
-        let tabBarVC = UITabBarController()
-        tabBarVC.viewControllers = [navVC, contentVC]
-        tabBarVC.tabBar.barStyle = .black
-        tabBarVC.view.tintColor = UIColor(named: "TintColor")
-        tabBarVC.view.backgroundColor = .clear
+        contentVC.view.backgroundColor = .black
         
-        tabBarVC.modalTransitionStyle = .crossDissolve
+        let tintColor = UIColor(named: "TintColor") ?? .orange
         
-        UIApplication.shared.keyWindow?.rootViewController?.present(tabBarVC, animated: true, completion: {
+        let splitVC = EditorSplitViewController()
+        let navVC = UINavigationController(rootViewController: splitVC)
+        
+        splitVC.separatorColor = tintColor
+        splitVC.separatorSelectedColor = tintColor
+        splitVC.editor = editor
+        splitVC.console = contentVC
+        splitVC.firstChild = editor
+        splitVC.secondChild = contentVC
+        splitVC.view.backgroundColor = .black
+        
+        navVC.view.tintColor = tintColor
+        navVC.toolbar.barStyle = .black
+        navVC.toolbar.setShadowImage(UIImage(), forToolbarPosition: .any)
+        navVC.navigationBar.barStyle = .black
+        navVC.navigationBar.shadowImage = UIImage()
+        navVC.modalTransitionStyle = .crossDissolve
+        
+        UIApplication.shared.keyWindow?.rootViewController?.present(navVC, animated: true, completion: {
+            
+            NotificationCenter.default.removeObserver(splitVC)
+            
             if run {
                 editor.run()
             }
