@@ -31,15 +31,7 @@ import StoreKit
                 
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(1 * Double(NSEC_PER_SEC)) / Double(NSEC_PER_SEC), execute: {
                     if UIApplication.shared.windows.count > 1 {
-                        let pyContentConsole = (PyContentViewController.shared?.viewController as? UINavigationController)?.visibleViewController as? ConsoleViewController
-                        
-                        let console = ((UIApplication.shared.keyWindow?.rootViewController as? UITabBarController)?.viewControllers?.last as? UINavigationController)?.visibleViewController as? REPLViewController
-                        
-                        if PyContentViewController.shared?.isViewVisible == true {
-                            pyContentConsole?.textView.resignFirstResponder()
-                        } else {
-                            console?.textView.resignFirstResponder()
-                        }
+                        ConsoleViewController.visible?.textView.resignFirstResponder()
                     }
                 })
             }

@@ -15,9 +15,6 @@ import FloatingPanel
     /// The visible instance.
     @objc static var shared: PyContentViewController?
     
-    /// URL of the script to be ran when this View controller will appear.
-    static var scriptToRun: URL?
-    
     // MARK: - Content view controller
     
     /// Calls the setter of `viewController` with given value.
@@ -62,6 +59,7 @@ import FloatingPanel
     func setDefaultViewController() {
         let navVC = UINavigationController(rootViewController: ConsoleViewController())
         navVC.navigationBar.barStyle = .black
+        navVC.isNavigationBarHidden = true
         viewController = navVC
         floatingPanel?.removePanelFromParent(animated: true)
     }
@@ -74,6 +72,29 @@ import FloatingPanel
             console?.isAskingForInput = false
             console?.ignoresInput = true
             console?.textView?.isEditable = false
+        }
+    }
+    
+    /// Runs the script at given URL.
+    ///
+    /// - Parameters:
+    ///     - url: The URL of the script.
+    func runScript(at url: URL) {
+        let console = (viewController as? UINavigationController)?.visibleViewController as? ConsoleViewController
+        console?.textView?.text = ""
+        console?.ignoresInput = false
+        console?.console = ""
+        if Python.shared.isREPLRunning {
+            if Python.shared.isScriptRunning { // A script is already running
+                PyOutputHelper.print(Localizable.Python.alreadyRunning)
+                return
+            }
+            Python.shared.isScriptRunning = true
+            Python.shared.values = []
+            // Import the script
+            PyInputHelper.userInput = "import console as __console__; script = __console__.runScriptAtPath('\(url.path)')"
+        } else {
+            Python.shared.runScript(at: url)
         }
     }
     
@@ -90,26 +111,6 @@ import FloatingPanel
         
         isViewVisible = true
         PyContentViewController.shared = self
-        
-        if let url = PyContentViewController.scriptToRun {
-            let console = (viewController as? UINavigationController)?.visibleViewController as? ConsoleViewController
-            console?.textView?.text = ""
-            console?.ignoresInput = false
-            console?.console = ""
-            if Python.shared.isREPLRunning {
-                if Python.shared.isScriptRunning { // A script is already running
-                    PyOutputHelper.print(Localizable.Python.alreadyRunning)
-                    return
-                }
-                Python.shared.isScriptRunning = true
-                Python.shared.values = []
-                // Import the script
-                PyInputHelper.userInput = "import console as __console__; script = __console__.runScriptAtPath('\(url.path)')"
-            } else {
-                Python.shared.runScript(at: url)
-            }
-            PyContentViewController.scriptToRun = nil
-        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
