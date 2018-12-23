@@ -26,7 +26,6 @@
 		C9647FFF21ACA00D005765C2 /* Help.py in Resources */ = {isa = PBXBuildFile; fileRef = C9647FFE21ACA00D005765C2 /* Help.py */; };
 		C97659062147192C001C96A8 /* PySharingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97659052147192C001C96A8 /* PySharingHelper.swift */; };
 		C976592721471D23001C96A8 /* PyFilePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C976592621471D23001C96A8 /* PyFilePicker.swift */; };
-		C984729321A05A5E008E16AC /* python37.zip in Copy Python lib */ = {isa = PBXBuildFile; fileRef = C984728E21A05932008E16AC /* python37.zip */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C98472AE21A05CB1008E16AC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C98472AD21A05CB1008E16AC /* README.md */; };
 		C98E1FFD214EE6ED002F0178 /* Samples in Resources */ = {isa = PBXBuildFile; fileRef = C98E1FFC214EE6EC002F0178 /* Samples */; };
 		C98E2002214F0856002F0178 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C98E2001214F0856002F0178 /* main.m */; };
@@ -105,6 +104,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 4EC0532FF16B86B032177E4F262C2FE1;
 			remoteInfo = SourceEditor;
+		};
+		C9592D0421D0589A00412CEF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C93DBA1721AAEC9000E3E222 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6C2AD431957F482A16C4A0C2FC65E51A;
+			remoteInfo = SplitKit;
 		};
 		C9AAAB43219501600042E733 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -199,7 +205,6 @@
 			dstPath = home/lib;
 			dstSubfolderSpec = 7;
 			files = (
-				C984729321A05A5E008E16AC /* python37.zip in Copy Python lib */,
 			);
 			name = "Copy Python lib";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -239,7 +244,6 @@
 		C9647FFE21ACA00D005765C2 /* Help.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = Help.py; sourceTree = "<group>"; };
 		C97659052147192C001C96A8 /* PySharingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PySharingHelper.swift; sourceTree = "<group>"; };
 		C976592621471D23001C96A8 /* PyFilePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyFilePicker.swift; sourceTree = "<group>"; };
-		C984728E21A05932008E16AC /* python37.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = python37.zip; sourceTree = "<group>"; };
 		C984729121A05A0E008E16AC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C98472AD21A05CB1008E16AC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C98E1FFC214EE6EC002F0178 /* Samples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Samples; sourceTree = "<group>"; };
@@ -419,6 +423,7 @@
 				C93DBA2321AAEC9100E3E222 /* Pods_Pyto.framework */,
 				C93DBA2521AAEC9100E3E222 /* SavannaKit.framework */,
 				C93DBA2721AAEC9100E3E222 /* SourceEditor.framework */,
+				C9592D0521D0589A00412CEF /* SplitKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -490,7 +495,6 @@
 			children = (
 				C93DBA1721AAEC9000E3E222 /* Pods.xcodeproj */,
 				C98472AD21A05CB1008E16AC /* README.md */,
-				C984728E21A05932008E16AC /* python37.zip */,
 				C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */,
 				C9DF7110217176BE00981B4F /* ios_system.xcodeproj */,
 				C9DF70C12171752100981B4F /* ios_system_builds */,
@@ -691,6 +695,13 @@
 			remoteRef = C93DBA2621AAEC9100E3E222 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		C9592D0521D0589A00412CEF /* SplitKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SplitKit.framework;
+			remoteRef = C9592D0421D0589A00412CEF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		C9AAAB44219501600042E733 /* InputAssistant.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -781,12 +792,14 @@
 				"${BUILT_PRODUCTS_DIR}/FloatingPanel/FloatingPanel.framework",
 				"${BUILT_PRODUCTS_DIR}/SavannaKit/SavannaKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SourceEditor/SourceEditor.framework",
+				"${BUILT_PRODUCTS_DIR}/SplitKit/SplitKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FloatingPanel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SavannaKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SourceEditor.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SplitKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

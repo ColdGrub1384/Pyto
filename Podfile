@@ -9,6 +9,7 @@ target 'Pyto' do
 
   # Pods for Pyto
 
+  pod 'SplitKit'
   pod 'SourceEditor'
   pod 'FloatingPanel'
 end
