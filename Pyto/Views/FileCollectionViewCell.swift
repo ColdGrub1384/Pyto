@@ -76,7 +76,7 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
                     }
                     
                     struct ReadonlyTheme: SourceCodeTheme {
-                        let defaultTheme = DefaultSourceCodeTheme()
+                        let defaultTheme = EditorTheme()
                         
                         var lineNumbersStyle: LineNumbersStyle? {
                             return nil
@@ -97,6 +97,11 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
                     textView.contentTextView.isEditable = false
                     textView.contentTextView.isSelectable = false
                     textView.isUserInteractionEnabled = false
+                    
+                    textView.backgroundColor = .clear
+                    textView.contentTextView.backgroundColor = .clear
+                    textView.subviews.first?.backgroundColor = .clear
+                    
                     container.addSubview(textView)
                     titleView.text = file!.deletingPathExtension().lastPathComponent
                 }
