@@ -376,7 +376,6 @@ import CoreSpotlight
     @objc var suggestions = [String]() {
         didSet {
             DispatchQueue.main.async {
-                ConsoleViewController.ignoresInput = false
                 self.inputAssistant.reloadData()
             }
         }
