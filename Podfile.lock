@@ -6,19 +6,27 @@ PODS:
 
 DEPENDENCIES:
   - SourceEditor
-  - SplitKit
+  - SplitKit (from `https://github.com/ColdGrub1384/SplitKit.git`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - SavannaKit
     - SourceEditor
-    - SplitKit
+
+EXTERNAL SOURCES:
+  SplitKit:
+    :git: https://github.com/ColdGrub1384/SplitKit.git
+
+CHECKOUT OPTIONS:
+  SplitKit:
+    :commit: 6b21a9652b6a807994e5923e581a07e5ea34a37c
+    :git: https://github.com/ColdGrub1384/SplitKit.git
 
 SPEC CHECKSUMS:
   SavannaKit: 920c240bde011900df8156200a960dad3ee5edfd
   SourceEditor: 4d590385d642c812d08a91941a4bfc90eccf20af
-  SplitKit: a7de0577a6528152cd41bc0667ccc78a33abe6e8
+  SplitKit: bf2dd8da644ba04a28acfad398723670541dffd9
 
-PODFILE CHECKSUM: bfd1e396450d32684e449285c609533f4d8389a1
+PODFILE CHECKSUM: 2a82944692309fcbd4cf5bd770f17f5e4ccf80e5
 
 COCOAPODS: 1.5.3

@@ -9,7 +9,7 @@ target 'Pyto' do
 
   # Pods for Pyto
 
-  pod 'SplitKit'
+  pod 'SplitKit', :git => "https://github.com/ColdGrub1384/SplitKit.git"
   pod 'SourceEditor'
 end
 
