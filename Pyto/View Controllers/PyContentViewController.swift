@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FloatingPanel
 
 /// A View controller representing the result of the script ran by the user. Change `viewController` property or call `setRootViewController(_:)` to embed a custom View controller. It can be set from Python trough the Rubicon library to access Objective-C runtime. The default View controller is the console.
 @objc class PyContentViewController: UIViewController {
@@ -23,9 +22,18 @@ import FloatingPanel
     }
     
     /// Returns `true` if this View controller is shown.
-    @objc private(set) var isViewVisible = false
-    
-    private var floatingPanel: FloatingPanelController?
+    @objc var isViewVisible: Bool {
+        var isViewVisible = false
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        DispatchQueue.main.async {
+            isViewVisible = (self.view.window != nil)
+            semaphore.signal()
+        }
+        semaphore.wait()
+        
+        return isViewVisible
+    }
     
     /// The embedded View controller.
     @objc var viewController: UIViewController? {
@@ -35,20 +43,18 @@ import FloatingPanel
                 for view in view.subviews {
                     view.removeFromSuperview()
                 }
-                newValue.view.frame = view.frame
-                newValue.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                
+                if let navVC = newValue as? UINavigationController, navVC.viewControllers.first is ConsoleViewController {
+                    newValue.view.frame = view.frame
+                    newValue.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                } else {
+                    newValue.view.frame = CGRect(x: 0, y: 0, width: 320, height: 420)
+                    newValue.view.center = view.center
+                    newValue.view.autoresizingMask = [.flexibleTopMargin, .flexibleBottomMargin, .flexibleLeftMargin, .flexibleRightMargin]
+                }
+                
                 view.addSubview(newValue.view)
                 setNeedsStatusBarAppearanceUpdate()
-                
-                let console = ConsoleViewController()
-                console.loadViewIfNeeded()
-                console.view.backgroundColor = .black
-                floatingPanel?.removeFromParent()
-                floatingPanel = FloatingPanelController()
-                floatingPanel?.set(contentViewController: console)
-                floatingPanel?.track(scrollView: console.textView)
-                floatingPanel?.addPanel(toParent: self)
-                floatingPanel?.move(to: .tip, animated: true)
             } else {
                 setDefaultViewController()
             }
@@ -61,7 +67,6 @@ import FloatingPanel
         navVC.navigationBar.barStyle = .black
         navVC.isNavigationBarHidden = true
         viewController = navVC
-        floatingPanel?.removePanelFromParent(animated: true)
     }
     
     /// Dismisses the console's keyboard.
@@ -109,14 +114,7 @@ import FloatingPanel
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        isViewVisible = true
         PyContentViewController.shared = self
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        isViewVisible = false
     }
     
     override var prefersStatusBarHidden: Bool {
