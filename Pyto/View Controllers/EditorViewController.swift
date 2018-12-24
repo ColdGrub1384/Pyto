@@ -42,10 +42,7 @@ import CoreSpotlight
             documentationNavigationController = UINavigationController(rootViewController: DocumentationViewController())
         }
         documentationNavigationController?.view.tintColor = UIColor(named: "Tint Color")
-        documentationNavigationController?.navigationBar.barStyle = .black
-        documentationNavigationController?.toolbar.barStyle = .black
         documentationNavigationController?.modalPresentationStyle = .popover
-        documentationNavigationController?.popoverPresentationController?.backgroundColor = .black
         documentationNavigationController?.popoverPresentationController?.barButtonItem = sender
         present(documentationNavigationController!, animated: true, completion: nil)
     }
@@ -73,20 +70,12 @@ import CoreSpotlight
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .black
-        
-        let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-        effectView.frame = view.frame
-        effectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.addSubview(effectView)
-        
         view.addSubview(textView)
         textView.delegate = self
         textView.contentTextView.delegate = self
         textView.theme = EditorTheme()
-        textView.backgroundColor = .clear
-        textView.contentTextView.backgroundColor = .clear
-        textView.subviews.first?.backgroundColor = .clear
+        textView.contentTextView.textColor = .black
+        textView.contentTextView.keyboardAppearance = .default
         
         inputAssistant.dataSource = self
         inputAssistant.delegate = self
@@ -113,7 +102,7 @@ import CoreSpotlight
         // Siri shortcut
         
         if #available(iOS 12.0, *) {
-            let button = INUIAddVoiceShortcutButton(style: .blackOutline)
+            let button = INUIAddVoiceShortcutButton(style: .black)
             
             parent?.navigationController?.isToolbarHidden = false
             parent?.toolbarItems = [UIBarButtonItem(customView: button), UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)]
@@ -221,14 +210,14 @@ import CoreSpotlight
     /// Run the script represented by `document`.
     @objc func run() {
         save { (_) in
-            DispatchQueue.main.async {
+            PyContentViewController.stopMainLoop()
+            DispatchQueue.main.asyncAfter(deadline: .now()+1.5) {
                 if let url = self.document?.fileURL {
                     guard PyContentViewController.shared != nil && PyContentViewController.shared?.view.window != nil else {
                         
                         if let splitVC = self.parent as? EditorSplitViewController {
                             
                             let navVC = UINavigationController(rootViewController: splitVC.console)
-                            navVC.navigationBar.barStyle = .black
                             navVC.view.tintColor = UIColor(named: "TintColor")
                             
                             splitVC.present(navVC, animated: true, completion: {
@@ -256,11 +245,12 @@ import CoreSpotlight
     
     /// The View controller is closed and the document is saved.
     @objc func close() {
-        guard !self.isSample else {
-            return
-        }
-
         dismiss(animated: true) {
+            
+            guard !self.isSample else {
+                return
+            }
+            
             self.save(completion: { (success) in
                 if !success {
                     let alert = UIAlertController(title: Localizable.Errors.errorWrittingToScript, message: nil, preferredStyle: .alert)
@@ -300,7 +290,6 @@ import CoreSpotlight
             
             DispatchQueue.main.async {
                 let docView = UITextView()
-                docView.backgroundColor = .black
                 docView.textColor = .white
                 docView.font = UIFont(name: "Menlo", size: UIFont.systemFontSize)
                 docView.isEditable = false

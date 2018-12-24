@@ -14,6 +14,13 @@ import UIKit
     /// The visible instance.
     @objc static var shared: PyContentViewController?
     
+    /// Stops the UI main loop.
+    @objc static func stopMainLoop() {
+        isMainLoopRunning = false
+    }
+    
+    @objc static private var isMainLoopRunning = true
+    
     // MARK: - Content view controller
     
     /// Calls the setter of `viewController` with given value.
@@ -57,6 +64,9 @@ import UIKit
                 setNeedsStatusBarAppearanceUpdate()
             } else {
                 setDefaultViewController()
+                let semaphore = DispatchSemaphore(value: 0)
+                _ = semaphore.wait(timeout: DispatchTime(uptimeNanoseconds: UInt64(500000000)))
+                print("Ok")
             }
         }
     }
@@ -64,7 +74,6 @@ import UIKit
     /// Show the console.
     func setDefaultViewController() {
         let navVC = UINavigationController(rootViewController: ConsoleViewController())
-        navVC.navigationBar.barStyle = .black
         navVC.isNavigationBarHidden = true
         viewController = navVC
     }

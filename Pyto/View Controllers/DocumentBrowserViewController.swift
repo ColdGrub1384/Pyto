@@ -200,8 +200,6 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         
         sheet.addAction(UIAlertAction(title: Localizable.Help.documentation, style: .default, handler: { _ in
             let navVC = UINavigationController(rootViewController: DocumentationViewController())
-            navVC.navigationBar.barStyle = .black
-            navVC.toolbar.barStyle = .black
             self.present(navVC, animated: true, completion: nil)
         }))
         sheet.addAction(UIAlertAction(title: Localizable.Help.acknowledgments, style: .default, handler: { _ in
@@ -250,7 +248,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         let doc = PyDocument(fileURL: document)
         let editor = EditorViewController(document: doc)
         let contentVC = PyContentViewController()
-        contentVC.view.backgroundColor = .black
+        contentVC.view.backgroundColor = .white
         
         let tintColor = UIColor(named: "TintColor") ?? .orange
         
@@ -263,12 +261,10 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         splitVC.console = contentVC
         splitVC.firstChild = editor
         splitVC.secondChild = contentVC
-        splitVC.view.backgroundColor = .black
+        splitVC.view.backgroundColor = .white
         
         navVC.view.tintColor = tintColor
-        navVC.toolbar.barStyle = .black
         navVC.toolbar.setShadowImage(UIImage(), forToolbarPosition: .any)
-        navVC.navigationBar.barStyle = .black
         navVC.navigationBar.shadowImage = UIImage()
         navVC.modalTransitionStyle = .crossDissolve
         

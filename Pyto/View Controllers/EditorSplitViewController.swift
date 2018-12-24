@@ -83,7 +83,6 @@ class EditorSplitViewController: SplitViewController {
             
             if Python.shared.isScriptRunning {
                 let navVC = UINavigationController(rootViewController: console)
-                navVC.navigationBar.barStyle = .black
                 navVC.view.tintColor = UIColor(named: "TintColor")
                 present(navVC, animated: true, completion: nil)
             }

@@ -17,6 +17,7 @@ def sayHello(self):
     alert = UIAlertController.alertControllerWithTitle("What's your name?", message="Type your name to say hello.", preferredStyle=1)
     
     def ok() -> None:
+        ui.showViewController(None)
         print("Hello "+alert.textFields.firstObject().text+"!")
     
     def setupTextField(textField: ObjCInstance) -> None:
@@ -39,7 +40,7 @@ def setViewsFrame(size):
 def viewDidLoad(self):
     edgesForExtendedLayout = 0
     
-    self.view.backgroundColor = UIColor.blackColor
+    self.view.backgroundColor = UIColor.whiteColor
     
     self.title = "Hello World!"
     
@@ -49,7 +50,7 @@ def viewDidLoad(self):
     
     label.textAlignment = 1
     label.text = "Hello World!"
-    label.textColor = UIColor.whiteColor
+    label.textColor = UIColor.blackColor
     self.view.addSubview(label)
     
     setViewsFrame(self.view.bounds.size)
@@ -84,7 +85,6 @@ def main() -> None:
     
     navigationController = UINavigationController.new()
     navigationController.setViewControllers([viewController])
-    navigationController.navigationBar.barStyle = 1
     ui.showViewController(navigationController)
 
 mainthread.runSync(main)

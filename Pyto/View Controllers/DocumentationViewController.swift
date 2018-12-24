@@ -44,7 +44,6 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         edgesForExtendedLayout = []
         
         webView = WKWebView(frame: view.frame)
-        webView.backgroundColor = .black
         webView.allowsBackForwardNavigationGestures = true
         webView.navigationDelegate = self
         webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
