@@ -36,6 +36,9 @@ class EditorSplitViewController: SplitViewController {
         }).withRenderingMode(.alwaysOriginal)
     }
     
+    /// The shared View controller.
+    static let shared = EditorSplitViewController()
+    
     // MARK: - Split view controller
     
     override func viewDidAppear(_ animated: Bool) {
