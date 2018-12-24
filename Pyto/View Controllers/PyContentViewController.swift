@@ -19,7 +19,8 @@ import UIKit
         isMainLoopRunning = false
     }
     
-    @objc static private var isMainLoopRunning = true
+    /// Returns `true` if the UI main loop is running.
+    @objc static private(set) var isMainLoopRunning = true
     
     // MARK: - Content view controller
     
@@ -82,10 +83,7 @@ import UIKit
     @objc func dismissKeyboard() {
         DispatchQueue.main.async {
             let console = (self.viewController as? UINavigationController)?.visibleViewController as? ConsoleViewController
-            console?.resignFirstResponder()
-            console?.isAskingForInput = false
             console?.ignoresInput = true
-            console?.textView?.isEditable = false
         }
     }
     
@@ -96,8 +94,6 @@ import UIKit
     func runScript(at url: URL) {
         let console = (viewController as? UINavigationController)?.visibleViewController as? ConsoleViewController
         console?.textView?.text = ""
-        console?.ignoresInput = false
-        console?.console = ""
         if Python.shared.isREPLRunning {
             if Python.shared.isScriptRunning { // A script is already running
                 PyOutputHelper.print(Localizable.Python.alreadyRunning)

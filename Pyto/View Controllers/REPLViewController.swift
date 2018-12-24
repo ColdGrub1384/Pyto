@@ -34,8 +34,6 @@ class REPLViewController: ConsoleViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        prompt = ""
-        console = ""
         textView.text = ""
         
         Python.shared.values = []
