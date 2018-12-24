@@ -101,8 +101,9 @@ import CoreSpotlight
         
         let runItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(run))
         let docItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showDocs(_:)))
-        parent?.navigationItem.rightBarButtonItem = docItem
-        parent?.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Grid"), style: .plain, target: self, action: #selector(close))
+        let scriptsItem = UIBarButtonItem(image: UIImage(named: "Grid"), style: .plain, target: self, action: #selector(close))
+        parent?.navigationItem.rightBarButtonItem = runItem
+        parent?.navigationItem.leftBarButtonItems = [scriptsItem, docItem]
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -115,7 +116,7 @@ import CoreSpotlight
             let button = INUIAddVoiceShortcutButton(style: .blackOutline)
             
             parent?.navigationController?.isToolbarHidden = false
-            parent?.toolbarItems = [UIBarButtonItem(customView: button)]
+            parent?.toolbarItems = [UIBarButtonItem(customView: button), UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)]
             
             button.addConstraints([NSLayoutConstraint(item: button, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 130), NSLayoutConstraint(item: button, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 40)])
             
@@ -148,8 +149,6 @@ import CoreSpotlight
             button.shortcut = INShortcut(userActivity: activity)
             button.delegate = self
         }
-        
-        parent?.toolbarItems?.append(contentsOf: [UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), runItem])
     }
     
     override func viewWillAppear(_ animated: Bool) {

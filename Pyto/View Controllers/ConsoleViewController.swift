@@ -119,7 +119,6 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
         
         ConsoleViewController.visible = self
         
-        navigationController?.parent?.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))]
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
     }
     
