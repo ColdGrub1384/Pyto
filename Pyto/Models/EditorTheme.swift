@@ -19,17 +19,41 @@ struct EditorTheme: SourceCodeTheme {
     }
     
     var gutterStyle: GutterStyle {
-        return GutterStyle(backgroundColor: .clear, minimumWidth: defaultTheme.gutterStyle.minimumWidth)
+        return GutterStyle(backgroundColor: .white, minimumWidth: defaultTheme.gutterStyle.minimumWidth)
     }
     
     var font: Font {
         return defaultTheme.font
     }
     
-    let backgroundColor = Color.clear
+    let backgroundColor = Color.white
     
     func color(for syntaxColorType: SourceCodeTokenType) -> Color {
-        return defaultTheme.color(for: syntaxColorType)
+        switch syntaxColorType {
+        case .comment:
+            return Color(red: 83/255, green: 101/255, blue: 121/255, alpha: 1)
+        case .editorPlaceholder:
+            return defaultTheme.color(for: syntaxColorType)
+        case .identifier:
+            return Color(red: 50/255, green: 109/255, blue: 116/255, alpha: 1)
+        case .keyword:
+            return Color(red: 155/255, green: 35/255, blue: 147/255, alpha: 1)
+        case .number:
+            return Color(red: 28/255, green: 0/255, blue: 207/255, alpha: 1)
+        case .plain:
+            return .black
+        case .string:
+            return Color(red: 196/255, green: 26/255, blue: 22/255, alpha: 1)
+        }
     }
     
+    func globalAttributes() -> [NSAttributedString.Key : Any] {
+        
+        var attributes = [NSAttributedString.Key: Any]()
+        
+        attributes[.font] = font
+        attributes[.foregroundColor] = Color.black
+        
+        return attributes
+    }
 }

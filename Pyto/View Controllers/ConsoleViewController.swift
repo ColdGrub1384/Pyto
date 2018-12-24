@@ -93,12 +93,6 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
         
         title = Localizable.console
         
-        let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-        effectView.frame = view.frame
-        effectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.addSubview(effectView)
-        view.backgroundColor = .clear
-        
         textView = ConsoleTextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.delegate = self
@@ -111,7 +105,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
         
         NotificationCenter.default.addObserver(self, selector: #selector(print_(_:)), name: .init(rawValue: "DidReceiveOutput"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)        
     }
     
     override func viewDidAppear(_ animated: Bool) {

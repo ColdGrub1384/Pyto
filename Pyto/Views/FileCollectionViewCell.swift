@@ -91,6 +91,9 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
                         func color(for syntaxColorType: SourceCodeTokenType) -> Color {
                             return defaultTheme.color(for: syntaxColorType)
                         }
+                        func globalAttributes() -> [NSAttributedString.Key : Any] {
+                            return defaultTheme.globalAttributes()
+                        }
                     }
                     textView.theme = ReadonlyTheme()
                     textView.contentTextView.font = textView.contentTextView.font?.withSize(5)

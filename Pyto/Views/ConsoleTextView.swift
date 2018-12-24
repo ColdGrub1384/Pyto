@@ -13,12 +13,11 @@ class ConsoleTextView: UITextView {
 
     private func setupView() {
         backgroundColor = .clear
-        textColor = .white
+        textColor = .black
         font = UIFont(name: "Courier", size: UIFont.systemFontSize)
         smartQuotesType = .no
         autocapitalizationType = .none
         autocorrectionType = .no
-        keyboardAppearance = .dark
     }
     
     /// Scrolls to the bottom of the text view.
