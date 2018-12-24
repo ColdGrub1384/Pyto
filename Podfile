@@ -20,7 +20,7 @@ post_install do |installer|
     installer.pods_project.targets.each do |target|
         target.build_configurations.each do |config|
             config.build_settings = config.build_settings.dup
-            if config.build_settings['PRODUCT_MODULE_NAME'] == 'SavannaKit' || config.build_settings['PRODUCT_MODULE_NAME'] == 'SourceEditor'
+            if config.build_settings['PRODUCT_MODULE_NAME'] == 'SavannaKit' || config.build_settings['PRODUCT_MODULE_NAME'] == 'SourceEditor' || config.build_settings['PRODUCT_MODULE_NAME'] == 'SplitKit'
                 puts "Set Swift version"
                 config.build_settings['SWIFT_VERSION'] = '4.0'
             end
