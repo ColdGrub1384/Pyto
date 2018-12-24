@@ -307,6 +307,7 @@ import CoreSpotlight
                 
                 let docVC = DocViewController()
                 docVC.view = docView
+                docVC.view.backgroundColor = .black
                 docVC.preferredContentSize = CGSize(width: 300, height: 100)
                 docVC.modalPresentationStyle = .popover
                 docVC.presentationController?.delegate = docVC
