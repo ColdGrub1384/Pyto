@@ -11,7 +11,6 @@ target 'Pyto' do
 
   pod 'SplitKit'
   pod 'SourceEditor'
-  pod 'FloatingPanel'
 end
 
 # post install
