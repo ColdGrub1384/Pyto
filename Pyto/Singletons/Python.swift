@@ -47,13 +47,7 @@ import ios_system
     var output = ""
     
     /// Values caught by a Python script.
-    @objc var values = [String]() {
-        didSet {
-            DispatchQueue.main.async {
-                ConsoleViewController.visible?.inputAssistant.reloadData()
-            }
-        }
-    }
+    @objc var values = [String]()
     
     /// Runs given command with `ios_system`.
     ///

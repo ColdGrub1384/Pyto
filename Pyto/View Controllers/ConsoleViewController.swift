@@ -7,28 +7,22 @@
 //
 
 import UIKit
-import InputAssistant
+import TZKeyboardPop
 
 /// A View controller containing Python script output.
-class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistantViewDelegate, InputAssistantViewDataSource {
-    
-    /// The Input assistant view for typing module's identifier.
-    let inputAssistant = InputAssistantView()
-    
-    /// The current prompt.
-    var prompt = ""
-    
-    /// The content of the console.
-    @objc var console = ""
-    
-    /// Set to `true` for asking the user for input.
-    @objc var isAskingForInput = false
-    
+class ConsoleViewController: UIViewController, UITextViewDelegate, TZKeyboardPopDelegate {
+        
     /// The Text view containing the console.
     @objc var textView: ConsoleTextView!
     
     /// If set to `true`, the user will not be able to input.
     var ignoresInput = false
+    
+    /// The keyboard used for sending input.
+    var keyboard: TZKeyboardPop!
+    
+    /// The prompt passed via `input(prompt)`.
+    var prompt: String?
     
     /// If set to `true`, the user will not be able to input.
     static var ignoresInput = false
@@ -41,7 +35,6 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
         if let output = notification.object as? String {
             DispatchQueue.main.async {
                 self.textView?.text.append(output)
-                self.textViewDidChange(self.textView)
                 self.textView?.scrollToBottom()
             }
         }
@@ -59,12 +52,20 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
             return
         }
         
-        textView.text += prompt
-        Python.shared.output += prompt
-        textViewDidChange(textView)
-        isAskingForInput = true
-        textView.isEditable = true
-        textView.becomeFirstResponder()
+        self.prompt = prompt
+        
+        if keyboard == nil {
+            keyboard = TZKeyboardPop(view: UIApplication.shared.keyWindow ?? view)
+        }
+        keyboard.setTextFieldTextViewMode(.never)
+        keyboard.setPlaceholderText(prompt)
+        keyboard.delegate = self
+        keyboard._mytextField.font = textView.font?.withSize(17)
+        keyboard._mytextField.autocapitalizationType = .none
+        keyboard._mytextField.autocorrectionType = .no
+        keyboard._mytextField.smartDashesType = .no
+        keyboard._mytextField.smartQuotesType = .no
+        keyboard.showKeyboard()
     }
     
     /// Closes the View controller or dismisses keyboard.
@@ -94,14 +95,9 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
         title = Localizable.console
         
         textView = ConsoleTextView()
-        textView.translatesAutoresizingMaskIntoConstraints = false
         textView.delegate = self
+        textView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(textView)
-        
-        inputAssistant.dataSource = self
-        inputAssistant.delegate = self
-        inputAssistant.trailingActions = [InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView, action: #selector(textView.resignFirstResponder))]
-        inputAssistant.attach(to: textView)
         
         NotificationCenter.default.addObserver(self, selector: #selector(print_(_:)), name: .init(rawValue: "DidReceiveOutput"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -127,21 +123,23 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
             textView.frame.size.width = self.view.safeAreaLayoutGuide.layoutFrame.width
             return
         }
-        
-        let wasFirstResponder = textView.isFirstResponder
-        textView.resignFirstResponder()
-        _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
-            self.textView.frame = self.view.safeAreaLayoutGuide.layoutFrame
-            if wasFirstResponder {
-                self.textView.becomeFirstResponder()
-            }
-        }) // TODO: Anyway to to it without a timer?
     }
     
     override var keyCommands: [UIKeyCommand]? {
         return [
             UIKeyCommand(input: "w", modifierFlags: .command, action: #selector(close))
         ]
+    }
+    
+    // MARK: - Text view delegate
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        
+        if let prompt = prompt {
+            input(prompt: prompt)
+        }
+        
+        return false
     }
     
     // MARK: - Keyboard
@@ -160,65 +158,10 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
         textView.scrollIndicatorInsets = .zero
     }
     
-    // MARK: - Text view delegate
+    // MARK: - Keyboard pop delegate
     
-    func textViewDidChange(_ textView: UITextView) {
-        if !isAskingForInput {
-            console = textView.text
-        }
-    }
-    
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        
-        let location:Int = textView.offset(from: textView.beginningOfDocument, to: textView.endOfDocument)
-        let length:Int = textView.offset(from: textView.endOfDocument, to: textView.endOfDocument)
-        let end =  NSMakeRange(location, length)
-        
-        if end != range && !(text == "" && range.length == 1 && range.location+1 == end.location) {
-            // Only allow inserting text from the end
-            return false
-        }
-        
-        if (textView.text as NSString).replacingCharacters(in: range, with: text).count >= console.count {
-            
-            prompt += text
-            
-            if text == "\n" {
-                prompt = String(prompt.dropLast())
-                PyInputHelper.userInput = prompt
-                Python.shared.output += prompt
-                prompt = ""
-                isAskingForInput = false
-                textView.text += "\n"
-                return false
-            } else if text == "" && range.length == 1 {
-                prompt = String(prompt.dropLast())
-            }
-            
-            return true
-        }
-        
-        return false
-    }
-    
-    // MARK: - Input assistant view delegate
-    
-    func inputAssistantView(_ inputAssistantView: InputAssistantView, didSelectSuggestionAtIndex index: Int) {
-        prompt = "script."+Python.shared.values[index]
-        textView.text = console+prompt
-    }
-    
-    // MARK: - Input assistant view data source
-    
-    func textForEmptySuggestionsInInputAssistantView() -> String? {
-        return nil
-    }
-    
-    func numberOfSuggestionsInInputAssistantView() -> Int {
-        return Python.shared.values.count
-    }
-    
-    func inputAssistantView(_ inputAssistantView: InputAssistantView, nameForSuggestionAtIndex index: Int) -> String {
-        return Python.shared.values[index]
+    func didReturnKeyPressed(withText str: String!) {
+        PyInputHelper.userInput = str
+        prompt = nil
     }
 }

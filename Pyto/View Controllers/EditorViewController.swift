@@ -210,8 +210,18 @@ import CoreSpotlight
     /// Run the script represented by `document`.
     @objc func run() {
         save { (_) in
+            
+            var delay: Double // A delay is set before running the script if a UI is currently displayed.
+            
+            if PyContentViewController.isMainLoopRunning {
+                delay = 1.5
+            } else {
+                delay = 0
+            }
+            
             PyContentViewController.stopMainLoop()
-            DispatchQueue.main.asyncAfter(deadline: .now()+1.5) {
+            
+            DispatchQueue.main.asyncAfter(deadline: .now()+delay) {
                 if let url = self.document?.fileURL {
                     guard PyContentViewController.shared != nil && PyContentViewController.shared?.view.window != nil else {
                         
