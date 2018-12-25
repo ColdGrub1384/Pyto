@@ -242,6 +242,8 @@ import CoreSpotlight
                     }
                     
                     console.textView?.text = ""
+                    console.console = ""
+                    console.prompt = ""
                     if Python.shared.isREPLRunning {
                         if Python.shared.isScriptRunning { // A script is already running
                             PyOutputHelper.print(Localizable.Python.alreadyRunning)
