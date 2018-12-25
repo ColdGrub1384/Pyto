@@ -34,6 +34,7 @@
 		C98472AE21A05CB1008E16AC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C98472AD21A05CB1008E16AC /* README.md */; };
 		C98E1FFD214EE6ED002F0178 /* Samples in Resources */ = {isa = PBXBuildFile; fileRef = C98E1FFC214EE6EC002F0178 /* Samples */; };
 		C98E2002214F0856002F0178 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C98E2001214F0856002F0178 /* main.m */; };
+		C98E42E321D2CF0300B4D260 /* python37.zip in Resources */ = {isa = PBXBuildFile; fileRef = C98E42E221D2CF0300B4D260 /* python37.zip */; };
 		C99DDCEC21BBED22002A734E /* DocumentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99DDCEB21BBED22002A734E /* DocumentationViewController.swift */; };
 		C9AAAB492195016D0042E733 /* InputAssistant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9AAAB44219501600042E733 /* InputAssistant.framework */; };
 		C9AAAB4A2195016D0042E733 /* InputAssistant.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AAAB44219501600042E733 /* InputAssistant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -67,7 +68,6 @@
 		C9EA55B3219F752D007546BC /* RelativePathForScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EA55B2219F752D007546BC /* RelativePathForScript.swift */; };
 		C9EDF9A5214461D300382DCC /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A4214461D300382DCC /* libsqlite3.tbd */; };
 		C9EDF9A72144620A00382DCC /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A62144620A00382DCC /* libz.tbd */; };
-		C9EDF9A921446EE600382DCC /* PyContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EDF9A821446EE600382DCC /* PyContentViewController.swift */; };
 		C9EDF9AB21446FCA00382DCC /* ConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EDF9AA21446FCA00382DCC /* ConsoleViewController.swift */; };
 		C9F04E832173C33400BDD03E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9F04E852173C33400BDD03E /* Localizable.strings */; };
 		C9F04E882173DD7300BDD03E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9F04E8A2173DD7300BDD03E /* Main.storyboard */; };
@@ -107,13 +107,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 6C2AD431957F482A16C4A0C2FC65E51A;
 			remoteInfo = SplitKit;
-		};
-		C969363C21D1792000D01D76 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C93DBA1721AAEC9000E3E222 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 461EE968F5B299B0A40EFE2F68D05A5F;
-			remoteInfo = TZKeyboardPop;
 		};
 		C9AAAB43219501600042E733 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -202,16 +195,6 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C9F06FAD2152FC5700165D1E /* Copy Python lib */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = home/lib;
-			dstSubfolderSpec = 7;
-			files = (
-			);
-			name = "Copy Python lib";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -256,6 +239,7 @@
 		C98472AD21A05CB1008E16AC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C98E1FFC214EE6EC002F0178 /* Samples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Samples; sourceTree = "<group>"; };
 		C98E2001214F0856002F0178 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C98E42E221D2CF0300B4D260 /* python37.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = python37.zip; sourceTree = "<group>"; };
 		C99DDCEB21BBED22002A734E /* DocumentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationViewController.swift; sourceTree = "<group>"; };
 		C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = InputAssistant.xcodeproj; path = InputAssistant/InputAssistant.xcodeproj; sourceTree = "<group>"; };
 		C9AAAB5121950E8B0042E733 /* UITextView+currentWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+currentWord.swift"; sourceTree = "<group>"; };
@@ -294,7 +278,6 @@
 		C9EA55B2219F752D007546BC /* RelativePathForScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativePathForScript.swift; sourceTree = "<group>"; };
 		C9EDF9A4214461D300382DCC /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		C9EDF9A62144620A00382DCC /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		C9EDF9A821446EE600382DCC /* PyContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyContentViewController.swift; sourceTree = "<group>"; };
 		C9EDF9AA21446FCA00382DCC /* ConsoleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleViewController.swift; sourceTree = "<group>"; };
 		C9F04E842173C33400BDD03E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C9F04E892173DD7300BDD03E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -368,7 +351,6 @@
 			children = (
 				C9FCFD6A21442DE700A07974 /* DocumentBrowserViewController.swift */,
 				C9FCFD5A214428AE00A07974 /* EditorViewController.swift */,
-				C9EDF9A821446EE600382DCC /* PyContentViewController.swift */,
 				C9EDF9AA21446FCA00382DCC /* ConsoleViewController.swift */,
 				C9DF70BF2171723800981B4F /* REPLViewController.swift */,
 				C99DDCEB21BBED22002A734E /* DocumentationViewController.swift */,
@@ -430,7 +412,6 @@
 				C93DBA2521AAEC9100E3E222 /* SavannaKit.framework */,
 				C93DBA2721AAEC9100E3E222 /* SourceEditor.framework */,
 				C9592D0521D0589A00412CEF /* SplitKit.framework */,
-				C969363D21D1792000D01D76 /* TZKeyboardPop.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -521,6 +502,7 @@
 				C904EB5D21445AA800585C28 /* BZip2 */,
 				C904EB5B21445AA700585C28 /* OpenSSL */,
 				C904EB5C21445AA800585C28 /* XZ */,
+				C98E42E221D2CF0300B4D260 /* python37.zip */,
 				C9FCFD57214428AE00A07974 /* Pyto */,
 				C984729021A059F2008E16AC /* Python iOS */,
 				C9FCFD56214428AE00A07974 /* Products */,
@@ -588,7 +570,6 @@
 				C943AC39215277A000844368 /* Sources */,
 				C943AC3A215277A000844368 /* Frameworks */,
 				C943AC3B215277A000844368 /* Resources */,
-				C9F06FAD2152FC5700165D1E /* Copy Python lib */,
 			);
 			buildRules = (
 			);
@@ -712,13 +693,6 @@
 			remoteRef = C9592D0421D0589A00412CEF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C969363D21D1792000D01D76 /* TZKeyboardPop.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = TZKeyboardPop.framework;
-			remoteRef = C969363C21D1792000D01D76 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		C9AAAB44219501600042E733 /* InputAssistant.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -754,6 +728,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C98E42E321D2CF0300B4D260 /* python37.zip in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -809,14 +784,12 @@
 				"${BUILT_PRODUCTS_DIR}/SavannaKit/SavannaKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SourceEditor/SourceEditor.framework",
 				"${BUILT_PRODUCTS_DIR}/SplitKit/SplitKit.framework",
-				"${BUILT_PRODUCTS_DIR}/TZKeyboardPop/TZKeyboardPop.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SavannaKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SourceEditor.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SplitKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TZKeyboardPop.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -839,7 +812,6 @@
 			files = (
 				C9EDF9AB21446FCA00382DCC /* ConsoleViewController.swift in Sources */,
 				C9DF70B821715D3D00981B4F /* FileCollectionViewCell.swift in Sources */,
-				C9EDF9A921446EE600382DCC /* PyContentViewController.swift in Sources */,
 				C9FCFD6B21442DE700A07974 /* DocumentBrowserViewController.swift in Sources */,
 				C9592D2721D059BA00412CEF /* EditorSplitViewController.swift in Sources */,
 				C903B98C21598A63004AAD7F /* IO.swift in Sources */,

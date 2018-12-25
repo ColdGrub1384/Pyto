@@ -19,7 +19,7 @@ import SafariServices
     @objc static func share(_ items: [Any]) {
         DispatchQueue.main.async {
             let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
-            activityVC.popoverPresentationController?.sourceView = PyContentViewController.shared?.tabBarController?.tabBar
+            activityVC.popoverPresentationController?.sourceView = ConsoleViewController.visible?.view
             activityVC.popoverPresentationController?.sourceRect = activityVC.popoverPresentationController?.sourceView?.bounds ?? .zero
             UIApplication.shared.keyWindow?.topViewController?.present(activityVC, animated: true, completion: nil)
         }        

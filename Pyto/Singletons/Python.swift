@@ -28,7 +28,7 @@ import ios_system
     }
     
     /// The queue running scripts.
-    @objc let queue = DispatchQueue.global()
+    @objc let queue = DispatchQueue.global(qos: .userInteractive)
     
     /// The version catched passed from `"sys.version"`.
     @objc var version = ""
@@ -39,16 +39,20 @@ import ios_system
     /// Set to `true` while a script is running to prevent user from running one while another is running.
     @objc var isScriptRunning = false {
         didSet {
-            guard let editor = (PyContentViewController.shared?.parent as? EditorSplitViewController)?.firstChild as? EditorViewController else {
-                return
-            }
-            
-            let item = PyContentViewController.shared?.parent?.navigationItem
-            
-            if isScriptRunning {
-                item?.rightBarButtonItem = editor.stopBarButtonItem
-            } else {
-                item?.rightBarButtonItem = editor.runBarButtonItem
+            DispatchQueue.main.async {
+                let contentVC = ConsoleViewController.visible
+                
+                guard let editor = (contentVC?.parent as? EditorSplitViewController)?.firstChild as? EditorViewController else {
+                    return
+                }
+                
+                let item = contentVC?.parent?.navigationItem
+                
+                if self.isScriptRunning {
+                    item?.rightBarButtonItem = editor.stopBarButtonItem
+                } else {
+                    item?.rightBarButtonItem = editor.runBarButtonItem
+                }
             }
         }
     }
@@ -57,7 +61,13 @@ import ios_system
     var output = ""
     
     /// Values caught by a Python script.
-    @objc var values = [String]()
+    @objc var values = [String]() {
+        didSet {
+            DispatchQueue.main.async {
+                ConsoleViewController.visible?.inputAssistant.reloadData()
+            }
+        }
+    }
     
     /// Runs given command with `ios_system`.
     ///
@@ -113,10 +123,6 @@ import ios_system
             
             let code = NSString(format: src, url.path) as String
             PyRun_SimpleStringFlags(code.cValue, nil)
-            
-            DispatchQueue.main.async {
-                PyContentViewController.shared?.dismissKeyboard()
-            }
         }
     }
 }

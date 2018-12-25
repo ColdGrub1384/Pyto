@@ -16,7 +16,7 @@ class EditorSplitViewController: SplitViewController {
     var editor: EditorViewController!
     
     /// The console.
-    var console: PyContentViewController!
+    var console: ConsoleViewController!
     
     /// A down arrow image for dismissing keyboard.
     static var downArrow: UIImage {
@@ -27,7 +27,7 @@ class EditorSplitViewController: SplitViewController {
             path.addLine(to: CGPoint(x: 11, y: 17))
             path.addLine(to: CGPoint(x: 22, y: 7))
             
-            UIColor.white.setStroke()
+            UIColor.black.setStroke()
             path.lineWidth = 2
             path.stroke()
             

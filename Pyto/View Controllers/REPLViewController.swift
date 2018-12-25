@@ -58,7 +58,6 @@ class REPLViewController: ConsoleViewController {
                 sendInput()
             } else {
                 Python.shared.isScriptRunning = false
-                PyContentViewController.stopMainLoop()
                 
                 DispatchQueue.main.asyncAfter(deadline: .now()+2) {
                     sendInput()
@@ -74,6 +73,8 @@ class REPLViewController: ConsoleViewController {
         super.input(prompt: prompt)
     }
     
-    
+    override func numberOfSuggestionsInInputAssistantView() -> Int {
+        return 0
+    }
 }
 

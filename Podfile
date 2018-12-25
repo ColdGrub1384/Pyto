@@ -10,7 +10,6 @@ target 'Pyto' do
   # Pods for Pyto
 
   pod 'SplitKit', :git => "https://github.com/ColdGrub1384/SplitKit.git"
-  pod 'TZKeyboardPop', :git => 'https://github.com/ColdGrub1384/TZKeyboardPop.git'
   pod 'SourceEditor'
 end
 
