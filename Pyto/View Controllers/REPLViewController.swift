@@ -41,6 +41,8 @@ class REPLViewController: ConsoleViewController {
         if Python.shared.isREPLRunning {
             
             func sendInput() {
+                prompt = ""
+                console = ""
                 PyInputHelper.userInput = [
                     "import os",
                     "import PytoClasses",
