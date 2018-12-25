@@ -10,10 +10,18 @@ import code
 import PytoClasses
 from importlib.machinery import SourceFileLoader
 import importlib
+import threading
 
 PytoClasses.Python.shared.version = sys.version
 
-__builtins__.input = Pyto.input
+def askForInput(prompt=None):
+    if (threading.currentThread() in Pyto.ignoredThreads):
+        return ""
+    else:
+        return Pyto.input(prompt)
+
+
+__builtins__.input = askForInput
 
 oldStdout = sys.stdout
 
@@ -23,6 +31,10 @@ class Reader:
         return False
     
     def write(self, txt):
+        
+        if (threading.currentThread() in Pyto.ignoredThreads):
+            return
+        
         oldStdout.write(txt)
         Pyto.print(txt, end="")
 

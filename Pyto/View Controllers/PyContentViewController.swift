@@ -20,7 +20,7 @@ import UIKit
     }
     
     /// Returns `true` if the UI main loop is running.
-    @objc static private(set) var isMainLoopRunning = true
+    @objc static private(set) var isMainLoopRunning = false
     
     // MARK: - Content view controller
     

@@ -52,6 +52,12 @@ import CoreSpotlight
     /// The currently visible editor.
     @objc static var visible: EditorViewController?
     
+    /// The bar button item for running script.
+    var runBarButtonItem: UIBarButtonItem!
+    
+    /// The bar button item for stopping script.
+    var stopBarButtonItem: UIBarButtonItem!
+    
     /// Initialize with given document.
     ///
     /// - Parameters:
@@ -88,10 +94,16 @@ import CoreSpotlight
             title = nil
         }
         
-        let runItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(run))
+        runBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(run))
+        stopBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(stop))
+        
         let docItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showDocs(_:)))
         let scriptsItem = UIBarButtonItem(image: UIImage(named: "Grid"), style: .plain, target: self, action: #selector(close))
-        parent?.navigationItem.rightBarButtonItem = runItem
+        if Python.shared.isScriptRunning {
+            parent?.navigationItem.rightBarButtonItem = stopBarButtonItem
+        } else {
+            parent?.navigationItem.rightBarButtonItem = runBarButtonItem
+        }
         parent?.navigationItem.leftBarButtonItems = [scriptsItem, docItem]
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -205,6 +217,14 @@ import CoreSpotlight
         let activityVC = UIActivityViewController(activityItems: [document?.fileURL as Any], applicationActivities: nil)
         activityVC.popoverPresentationController?.barButtonItem = sender
         present(activityVC, animated: true, completion: nil)
+    }
+    
+    /// Stops the current running script.
+    @objc func stop() {
+        Python.shared.isScriptRunning = false
+        PyContentViewController.stopMainLoop()
+        ((PyContentViewController.shared?.viewController as? UINavigationController)?.viewControllers.first as? ConsoleViewController)?.prompt = nil
+        PyOutputHelper.print("Moved execution to background")
     }
     
     /// Run the script represented by `document`.

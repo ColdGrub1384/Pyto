@@ -108,6 +108,13 @@
 			remoteGlobalIDString = 6C2AD431957F482A16C4A0C2FC65E51A;
 			remoteInfo = SplitKit;
 		};
+		C969363C21D1792000D01D76 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C93DBA1721AAEC9000E3E222 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 461EE968F5B299B0A40EFE2F68D05A5F;
+			remoteInfo = TZKeyboardPop;
+		};
 		C9AAAB43219501600042E733 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */;
@@ -423,6 +430,7 @@
 				C93DBA2521AAEC9100E3E222 /* SavannaKit.framework */,
 				C93DBA2721AAEC9100E3E222 /* SourceEditor.framework */,
 				C9592D0521D0589A00412CEF /* SplitKit.framework */,
+				C969363D21D1792000D01D76 /* TZKeyboardPop.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -702,6 +710,13 @@
 			fileType = wrapper.framework;
 			path = SplitKit.framework;
 			remoteRef = C9592D0421D0589A00412CEF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C969363D21D1792000D01D76 /* TZKeyboardPop.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = TZKeyboardPop.framework;
+			remoteRef = C969363C21D1792000D01D76 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		C9AAAB44219501600042E733 /* InputAssistant.framework */ = {
