@@ -12,7 +12,7 @@ import CoreSpotlight
 import SplitKit
 
 /// The main file browser used to edit scripts.
-class DocumentBrowserViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDropDelegate, UICollectionViewDragDelegate, UIViewControllerRestoration {
+class DocumentBrowserViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDropDelegate, UICollectionViewDragDelegate {
     
     /// Stops file observer.
     func stopObserver() {
@@ -247,7 +247,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         
         let doc = PyDocument(fileURL: document)
         let editor = EditorViewController(document: doc)
-        let contentVC = PyContentViewController()
+        let contentVC = ConsoleViewController()
         contentVC.view.backgroundColor = .white
         
         let tintColor = UIColor(named: "TintColor") ?? .orange
@@ -259,8 +259,6 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         splitVC.separatorSelectedColor = tintColor
         splitVC.editor = editor
         splitVC.console = contentVC
-        splitVC.firstChild = editor
-        splitVC.secondChild = contentVC
         splitVC.view.backgroundColor = .white
         
         navVC.view.tintColor = tintColor
@@ -271,6 +269,9 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         UIApplication.shared.keyWindow?.rootViewController?.present(navVC, animated: true, completion: {
             
             NotificationCenter.default.removeObserver(splitVC)
+            
+            splitVC.firstChild = editor
+            splitVC.secondChild = contentVC
             
             if run {
                 editor.run()
@@ -344,43 +345,6 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
             UIKeyCommand(input: "n", modifierFlags: .command, action: #selector(create(_:)), discoverabilityTitle: Localizable.Creation.createScript),
             UIKeyCommand(input: "n", modifierFlags: [.command, .shift], action: #selector(createFolder(_:)), discoverabilityTitle: Localizable.Creation.createFolder)
         ]
-    }
-    
-    // MARK: - State restoration
-    
-    override func encodeRestorableState(with coder: NSCoder) {
-        
-        if let tabBarVC = presentedViewController as? UITabBarController, let editor = (tabBarVC.viewControllers?.first as? UINavigationController)?.viewControllers.first as? EditorViewController, let url = editor.document?.fileURL, let bookmark = try? url.bookmarkData() {
-            
-            editor.save()
-            coder.encode(bookmark, forKey: "bookmark")
-            if let console = (PyContentViewController.shared?.viewController as? UINavigationController)?.viewControllers.first as? ConsoleViewController {
-                coder.encode(console.textView.text, forKey: "console")
-            }
-        }
-        
-        super.encodeRestorableState(with: coder)
-    }
-    
-    override func decodeRestorableState(with coder: NSCoder) {
-        super.decodeRestorableState(with: coder)
-        
-        var bookmarkDataIsStale = false
-        if let bookmark = coder.decodeObject(forKey: "bookmark") as? Data, let url = try? URL(resolvingBookmarkData: bookmark, bookmarkDataIsStale: &bookmarkDataIsStale) {
-            _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in // TODO: Anyway to do it without a timer?
-                self.openDocument(url, run: false, completion: {
-                    ((PyContentViewController.shared?.viewController as? UINavigationController)?.viewControllers.first as? ConsoleViewController)?.textView.text = (coder.decodeObject(forKey: "console") as? String) ?? ""
-                })
-            })
-        }
-        
-        super.decodeRestorableState(with: coder)
-    }
-    
-    // MARK: - View controller restoration
-    
-    static func viewController(withRestorationIdentifierPath identifierComponents: [String], coder: NSCoder) -> UIViewController? {
-        return DocumentBrowserViewController()
     }
     
     // MARK: - Collection view data source

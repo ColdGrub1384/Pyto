@@ -222,42 +222,38 @@ import CoreSpotlight
     /// Stops the current running script.
     @objc func stop() {
         Python.shared.isScriptRunning = false
-        PyContentViewController.stopMainLoop()
-        ((PyContentViewController.shared?.viewController as? UINavigationController)?.viewControllers.first as? ConsoleViewController)?.prompt = nil
-        PyOutputHelper.print("Moved execution to background")
+        PyOutputHelper.print("\nMoved execution to background\n")
+        ConsoleViewController.visible?.textView.resignFirstResponder()
+        ConsoleViewController.visible?.textView.isEditable = false
     }
     
     /// Run the script represented by `document`.
     @objc func run() {
         save { (_) in
-            
-            var delay: Double // A delay is set before running the script if a UI is currently displayed.
-            
-            if PyContentViewController.isMainLoopRunning {
-                delay = 1.5
-            } else {
-                delay = 0
-            }
-            
-            PyContentViewController.stopMainLoop()
-            
-            DispatchQueue.main.asyncAfter(deadline: .now()+delay) {
+            DispatchQueue.main.async {
                 if let url = self.document?.fileURL {
-                    guard PyContentViewController.shared != nil && PyContentViewController.shared?.view.window != nil else {
+                    guard let console = ConsoleViewController.visible else {
                         
-                        if let splitVC = self.parent as? EditorSplitViewController {
-                            
-                            let navVC = UINavigationController(rootViewController: splitVC.console)
-                            navVC.view.tintColor = UIColor(named: "TintColor")
-                            
-                            splitVC.present(navVC, animated: true, completion: {
-                                self.run()
-                            })
-                        }
+                        self.present(UINavigationController(rootViewController: ConsoleViewController()), animated: true, completion: {
+                            self.run()
+                        })
                         
                         return
                     }
-                    PyContentViewController.shared?.runScript(at: url)
+                    
+                    console.textView?.text = ""
+                    if Python.shared.isREPLRunning {
+                        if Python.shared.isScriptRunning { // A script is already running
+                            PyOutputHelper.print(Localizable.Python.alreadyRunning)
+                            return
+                        }
+                        Python.shared.isScriptRunning = true
+                        Python.shared.values = []
+                        // Import the script
+                        PyInputHelper.userInput = "import console as __console__; script = __console__.runScriptAtPath('\(url.path)')"
+                    } else {
+                        Python.shared.runScript(at: url)
+                    }
                 }
             }
         }
@@ -275,6 +271,9 @@ import CoreSpotlight
     
     /// The View controller is closed and the document is saved.
     @objc func close() {
+        
+        stop()
+        
         dismiss(animated: true) {
             
             guard !self.isSample else {
