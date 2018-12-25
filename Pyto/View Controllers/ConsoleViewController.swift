@@ -25,7 +25,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, TZKeyboardPop
     var prompt: String?
     
     /// If set to `true`, the user will not be able to input.
-    static var ignoresInput = false
+    @objc static var ignoresInput = false
     
     /// Add the content of the given notification as `String` to `textView`. Called when the stderr changed or when a script printed from the Pyto module's `print` function`.
     ///
@@ -65,6 +65,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, TZKeyboardPop
         keyboard._mytextField.autocorrectionType = .no
         keyboard._mytextField.smartDashesType = .no
         keyboard._mytextField.smartQuotesType = .no
+        keyboard.setTextFieldText("")
         keyboard.showKeyboard()
     }
     
@@ -79,6 +80,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, TZKeyboardPop
         }
     }
     
+    /// The currently visible console.
     static var visible: ConsoleViewController?
     
     deinit {        

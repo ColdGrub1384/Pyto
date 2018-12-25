@@ -39,7 +39,17 @@ import ios_system
     /// Set to `true` while a script is running to prevent user from running one while another is running.
     @objc var isScriptRunning = false {
         didSet {
-            print("isScriptRunning: \(isScriptRunning)")
+            guard let editor = (PyContentViewController.shared?.parent as? EditorSplitViewController)?.firstChild as? EditorViewController else {
+                return
+            }
+            
+            let item = PyContentViewController.shared?.parent?.navigationItem
+            
+            if isScriptRunning {
+                item?.rightBarButtonItem = editor.stopBarButtonItem
+            } else {
+                item?.rightBarButtonItem = editor.runBarButtonItem
+            }
         }
     }
     
