@@ -54,9 +54,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, TZKeyboardPop
         
         self.prompt = prompt
         
-        if keyboard == nil {
-            keyboard = TZKeyboardPop(view: UIApplication.shared.keyWindow ?? view)
-        }
+        keyboard = TZKeyboardPop(view: UIApplication.shared.keyWindow ?? view)
         keyboard.setTextFieldTextViewMode(.never)
         keyboard.setPlaceholderText(prompt)
         keyboard.delegate = self
@@ -124,6 +122,13 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, TZKeyboardPop
         guard view.frame.height != size.height else {
             textView.frame.size.width = self.view.safeAreaLayoutGuide.layoutFrame.width
             return
+        }
+        
+        if let prompt = prompt {
+            self.keyboard?._mytextField.resignFirstResponder()
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                self.input(prompt: prompt)
+            }
         }
     }
     
