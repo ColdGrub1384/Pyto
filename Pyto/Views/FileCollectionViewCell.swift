@@ -106,6 +106,8 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
                     textView.subviews.first?.backgroundColor = .clear
                     
                     container.addSubview(textView)
+                    container.layer.borderColor = UIColor.gray.cgColor
+                    container.layer.borderWidth = 0.25
                     titleView.text = file!.deletingPathExtension().lastPathComponent
                 }
             }
