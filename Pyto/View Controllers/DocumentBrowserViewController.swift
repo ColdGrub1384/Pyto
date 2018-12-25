@@ -296,36 +296,35 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         collectionView.reloadData()
         
         // Directory observer
-        DispatchQueue.global(qos: .background).async {
+        _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (timer) in
             var files = self.scripts
-            while true {
-                if self.stopObserver_ {
-                    self.stopObserver_ = false
-                    break
+            
+            if self.stopObserver_ {
+                self.stopObserver_ = false
+                timer.invalidate()
+            }
+            
+            if files != self.scripts {
+                
+                for file in files {
+                    if !FileManager.default.fileExists(atPath: file.path) {
+                        CSSearchableIndex.default().deleteSearchableItems(withDomainIdentifiers: [RelativePathForScript(file)], completionHandler: { error in
+                            print(error?.localizedDescription ?? "")
+                        })
+                    }
                 }
                 
-                if files != self.scripts {
-                    
-                    for file in files {
-                        if !FileManager.default.fileExists(atPath: file.path) {
-                            CSSearchableIndex.default().deleteSearchableItems(withDomainIdentifiers: [RelativePathForScript(file)], completionHandler: { error in
-                                print(error?.localizedDescription ?? "")
-                            })
-                        }
-                    }
-                    
-                    files = self.scripts
-                    
-                    if self.ignoreObserver {
-                        self.ignoreObserver = false
-                    } else {
-                        DispatchQueue.main.async {
-                            self.collectionView.reloadData()
-                        }
+                files = self.scripts
+                
+                if self.ignoreObserver {
+                    self.ignoreObserver = false
+                } else {
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
                     }
                 }
             }
-        }
+        })
     }
     
     override func viewDidDisappear(_ animated: Bool) {
