@@ -35,6 +35,7 @@ class REPLViewController: ConsoleViewController {
         super.viewWillAppear(animated)
         
         navigationController?.view.backgroundColor = .white
+        navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     override func viewDidAppear(_ animated: Bool) {
