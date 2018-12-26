@@ -25,7 +25,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
     @objc var isAskingForInput = false
     
     /// The Text view containing the console.
-    @objc var textView: ConsoleTextView!
+    @objc var textView = ConsoleTextView()
     
     /// If set to `true`, the user will not be able to input.
     var ignoresInput = false
@@ -43,9 +43,9 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
     @objc func print_(_ notification: Notification) {
         if let output = notification.object as? String {
             DispatchQueue.main.async {
-                self.textView?.text.append(output)
+                self.textView.text.append(output)
                 self.textViewDidChange(self.textView)
-                self.textView?.scrollToBottom()
+                self.textView.scrollToBottom()
             }
         }
     }
@@ -150,9 +150,9 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
         
         title = Localizable.console
         
-        textView = ConsoleTextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.delegate = self
+        textView.isEditable = false
         view.addSubview(textView)
         
         inputAssistant.dataSource = self
@@ -245,6 +245,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
                 Python.shared.output += prompt
                 prompt = ""
                 isAskingForInput = false
+                textView.isEditable = false
                 textView.text += "\n"
                 return false
             } else if text == "" && range.length == 1 {

@@ -73,13 +73,6 @@ class REPLViewController: ConsoleViewController {
         }
     }
     
-    override func input(prompt: String) {
-        guard textView != nil else {
-            return
-        }
-        super.input(prompt: prompt)
-    }
-    
     override func numberOfSuggestionsInInputAssistantView() -> Int {
         return 0
     }
