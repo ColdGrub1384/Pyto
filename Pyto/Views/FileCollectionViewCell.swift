@@ -69,7 +69,15 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
                     folderContentCollectionView?.reloadData()
                     titleView.text = file!.lastPathComponent
                 } else if file!.pathExtension.lowercased() == "py", let container = previewContainerView {
-                    let textView = SyntaxTextView(frame: container.frame)
+                    
+                    var textView = SyntaxTextView(frame: container.frame)
+
+                    for view in (previewContainerView?.subviews ?? []) {
+                        if let syntaxTextView = view as? SyntaxTextView {
+                            textView = syntaxTextView
+                        }
+                    }
+                    
                     textView.delegate = self
                     if let code = try? String(contentsOf: file!) {
                         textView.text = code
@@ -105,7 +113,9 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
                     textView.contentTextView.backgroundColor = .clear
                     textView.subviews.first?.backgroundColor = .clear
                     
-                    container.addSubview(textView)
+                    if textView.window == nil {
+                        container.addSubview(textView)
+                    }
                     container.layer.borderColor = UIColor.gray.cgColor
                     container.layer.borderWidth = 0.25
                     titleView.text = file!.deletingPathExtension().lastPathComponent

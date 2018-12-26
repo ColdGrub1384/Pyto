@@ -76,14 +76,19 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
         textView.becomeFirstResponder()
     }
     
-    /// Closes the View controller or dismisses keyboard.
+    /// Closes the View controller and stops script.
     @objc func close() {
         
-        if textView.isFirstResponder {
-            textView.resignFirstResponder()
-        } else {
-            extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
-            dismiss(animated: true, completion: nil)
+        extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+        
+        EditorViewController.visible?.stop()
+        if navigationController != nil {
+            dismiss(animated: true, completion: {
+                if let line = EditorViewController.visible?.lineNumberError {
+                    EditorViewController.visible?.lineNumberError = nil
+                    EditorViewController.visible?.showErrorAtLine(line)
+                }
+            })
         }
     }
     
@@ -138,6 +143,11 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
         let navVC = PyNavigationController(rootViewController: vc)
         navVC.modalPresentationStyle = .overFullScreen
         
+        if navigationController != nil {
+            view.backgroundColor = UIColor.black.withAlphaComponent(0.25)
+            navigationController?.view.backgroundColor = view.backgroundColor
+        }
+        
         present(navVC, animated: true, completion: nil)
     }
     
@@ -168,8 +178,22 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        navigationController?.parent?.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))]
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(close))]
+        navigationController?.view.backgroundColor = .white
+        navigationController?.navigationBar.shadowImage = UIImage()
+    }
+    
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        super.dismiss(animated: flag, completion: completion)
+        
+        view.backgroundColor = .white
+        navigationController?.view.backgroundColor = .white
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

@@ -301,35 +301,37 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         collectionView.reloadData()
         
         // Directory observer
-        _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (timer) in
-            var files = self.scripts
-            
-            if self.stopObserver_ {
-                self.stopObserver_ = false
-                timer.invalidate()
-            }
-            
-            if files != self.scripts {
+        DispatchQueue.global().async {
+            _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (timer) in
+                var files = self.scripts
                 
-                for file in files {
-                    if !FileManager.default.fileExists(atPath: file.path) {
-                        CSSearchableIndex.default().deleteSearchableItems(withDomainIdentifiers: [RelativePathForScript(file)], completionHandler: { error in
-                            print(error?.localizedDescription ?? "")
-                        })
-                    }
+                if self.stopObserver_ {
+                    self.stopObserver_ = false
+                    timer.invalidate()
                 }
                 
-                files = self.scripts
-                
-                if self.ignoreObserver {
-                    self.ignoreObserver = false
-                } else {
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
+                if files != self.scripts {
+                    
+                    for file in files {
+                        if !FileManager.default.fileExists(atPath: file.path) {
+                            CSSearchableIndex.default().deleteSearchableItems(withDomainIdentifiers: [RelativePathForScript(file)], completionHandler: { error in
+                                print(error?.localizedDescription ?? "")
+                            })
+                        }
+                    }
+                    
+                    files = self.scripts
+                    
+                    if self.ignoreObserver {
+                        self.ignoreObserver = false
+                    } else {
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadData()
+                        }
                     }
                 }
-            }
-        })
+            })
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {

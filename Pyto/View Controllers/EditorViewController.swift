@@ -58,11 +58,20 @@ import CoreSpotlight
     /// The bar button item for stopping script.
     var stopBarButtonItem: UIBarButtonItem!
     
+    /// The line number where an error occurred. If this value is set at `viewDidAppear(_:)`, the error will be shown and the value will be reset to `nil`.
+    var lineNumberError: Int?
+    
     /// Shows an error at given line.
     ///
     /// - Parameters:
     ///     - lineNumber: The number of the line that caused the error.
     @objc func showErrorAtLine(_ lineNumber: Int) {
+        
+        guard parent?.presentedViewController == nil, view.window != nil else {
+            lineNumberError = lineNumber
+            return
+        }
+        
         DispatchQueue.main.async {
             guard lineNumber > 0 else {
                 return
@@ -311,7 +320,10 @@ import CoreSpotlight
                     let console = ConsoleViewController.visible
                     guard console.view.window != nil else {
                         
-                        self.present(UINavigationController(rootViewController: console), animated: true, completion: {
+                        let navVC = UINavigationController(rootViewController: console)
+                        navVC.view.tintColor = UIColor(named: "TintColor")
+                        navVC.modalPresentationStyle = .overFullScreen
+                        self.present(navVC, animated: true, completion: {
                             self.run()
                         })
                         

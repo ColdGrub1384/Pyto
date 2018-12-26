@@ -31,13 +31,6 @@ class REPLViewController: ConsoleViewController {
         title = Localizable.repl
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        navigationController?.view.backgroundColor = .white
-        navigationController?.navigationBar.shadowImage = UIImage()
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
