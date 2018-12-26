@@ -3,7 +3,7 @@ import UIKit
 extension UIWindow {
     
     /// Returns the top View controller of the window usable to present modally a View controller.
-    var topViewController: UIViewController? {
+    @objc var topViewController: UIViewController? {
         var top = self.rootViewController
         while true {
             if let presented = top?.presentedViewController {

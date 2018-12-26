@@ -176,7 +176,9 @@ import CoreSpotlight
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        EditorViewController.visible = self
+        if EditorViewController.visible != self {
+            EditorViewController.visible = self
+        }
         
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
     }
