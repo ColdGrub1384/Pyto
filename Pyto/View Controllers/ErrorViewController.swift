@@ -22,7 +22,45 @@ fileprivate let latestTracebackKey = "latestTraceback" // Stored in User Default
     /// Prints the traceback.
     @IBAction func showTraceback(_ sender: Any) {
         dismiss(animated: true) {
-            PyOutputHelper.print("\n"+(UserDefaults.standard.string(forKey: latestTracebackKey) ?? "")+"\n")
+            
+            var traceback = UserDefaults.standard.string(forKey: latestTracebackKey) ?? ""
+            
+            var relativeLocations: [String] {
+                
+                var paths = [String]()
+                
+                if var iCloudDrive = DocumentBrowserViewController.iCloudContainerURL?.path {
+                    if !iCloudDrive.hasSuffix("/") {
+                        iCloudDrive += "/"
+                    }
+                    paths.append(iCloudDrive)
+                }
+                
+                var docs = URL(fileURLWithPath: "/private").appendingPathComponent(DocumentBrowserViewController.localContainerURL.path).path
+                if !docs.hasSuffix("/") {
+                    docs += "/"
+                }
+                paths.append(docs)
+                
+                if let pytoLib_ = FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask).first?.appendingPathComponent("pylib").path {
+                    
+                    var pytoLib = URL(fileURLWithPath: "/private").appendingPathComponent(pytoLib_).path
+                    
+                    if !pytoLib.hasSuffix("/") {
+                        pytoLib += "/"
+                    }
+                    paths.append(pytoLib)
+                }
+                
+                return paths
+                
+            } // These directories will be removed so only relative paths will be displayed
+            
+            for path in relativeLocations {
+                traceback = traceback.replacingOccurrences(of: path, with: "")
+            }
+            
+            PyOutputHelper.print("\n"+traceback+"\n")
         }
     }
     
