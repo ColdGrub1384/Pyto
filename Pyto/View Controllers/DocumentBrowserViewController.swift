@@ -262,6 +262,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         navVC.view.tintColor = tintColor
         navVC.toolbar.setShadowImage(UIImage(), forToolbarPosition: .any)
         navVC.navigationBar.shadowImage = UIImage()
+        navVC.navigationBar.isTranslucent = false
         navVC.modalTransitionStyle = .crossDissolve
         
         UIApplication.shared.keyWindow?.rootViewController?.present(navVC, animated: true, completion: {
@@ -284,6 +285,12 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
     }
     
     // MARK: - View controller
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.shadowImage = UIImage()
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
