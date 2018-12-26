@@ -242,12 +242,10 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
                 self.openDocument(document, run: run, completion: completion)
             }
         }
-        
-        Py_SetProgramName(document.lastPathComponent.cWchar_t)
-        
+                
         let doc = PyDocument(fileURL: document)
         let editor = EditorViewController(document: doc)
-        let contentVC = ConsoleViewController()
+        let contentVC = ConsoleViewController.visible
         contentVC.view.backgroundColor = .white
         
         let tintColor = UIColor(named: "TintColor") ?? .orange

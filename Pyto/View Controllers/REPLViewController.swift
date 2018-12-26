@@ -11,6 +11,11 @@ import UIKit
 /// The View controller for the REPL in the Tab bar controller.
 class REPLViewController: ConsoleViewController {
     
+    /// The visible instance.
+    static var visibleREPL: REPLViewController?
+    
+    // MARK: - Console view controller
+    
     override var ignoresInput: Bool {
         get {
             return false
@@ -22,6 +27,7 @@ class REPLViewController: ConsoleViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        REPLViewController.visibleREPL = self
         title = Localizable.repl
     }
     
@@ -35,14 +41,12 @@ class REPLViewController: ConsoleViewController {
         super.viewDidAppear(animated)
         
         textView.text = ""
-        
-        Python.shared.values = []
+        prompt = ""
+        console = ""
         
         if Python.shared.isREPLRunning {
             
             func sendInput() {
-                prompt = ""
-                console = ""
                 PyInputHelper.userInput = [
                     "import os",
                     "import PytoClasses",

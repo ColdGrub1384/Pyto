@@ -33,6 +33,9 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
     /// If set to `true`, the user will not be able to input.
     static var ignoresInput = false
     
+    /// Returns `true` if the UI main loop is running.
+    @objc static private(set) var isMainLoopRunning = false
+    
     /// Add the content of the given notification as `String` to `textView`. Called when the stderr changed or when a script printed from the Pyto module's `print` function`.
     ///
     /// - Parameters:
@@ -78,10 +81,58 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
         }
     }
     
-    static var visible: ConsoleViewController?
+    private static let shared = ConsoleViewController()
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
+    /// The visible instance.
+    @objc static var visible: ConsoleViewController {
+        if REPLViewController.visibleREPL?.view.window != nil {
+            return REPLViewController.visibleREPL ?? shared
+        } else {
+            return shared
+        }
+    }
+    
+    /// Closes the View controller presented from Python and stops the UI main loop.
+    @objc func closePresentedViewController() {
+        if presentedViewController != nil && ConsoleViewController.isMainLoopRunning {
+            dismiss(animated: true) {
+                ConsoleViewController.isMainLoopRunning = false
+            }
+        }
+    }
+    
+    /// Shows the given View controller.
+    ///
+    /// - Parameters:
+    ///     - viewController: The View controller to present initialized from Python.
+    @objc func showViewController(_ viewController: UIViewController) {
+        
+        class PyNavigationController: UINavigationController {
+            
+            override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+                if traitCollection.horizontalSizeClass == .compact {
+                    return [.portrait, .portraitUpsideDown]
+                } else {
+                    return super.supportedInterfaceOrientations
+                }
+            }
+        }
+        
+        let vc = UIViewController()
+        vc.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        
+        vc.addChild(viewController)
+        viewController.view.frame = CGRect(x: 0, y: 0, width: 320, height: 420)
+        viewController.view.center = vc.view.center
+        viewController.view.autoresizingMask = [.flexibleTopMargin, .flexibleBottomMargin, .flexibleLeftMargin, .flexibleRightMargin]
+        vc.view.addSubview(viewController.view)
+        
+        vc.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(closePresentedViewController))
+        
+        let navVC = PyNavigationController(rootViewController: vc)
+        navVC.modalPresentationStyle = .overFullScreen
+        
+        present(navVC, animated: true, completion: nil)
     }
     
     // MARK: - View controller
@@ -110,8 +161,6 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        ConsoleViewController.visible = self
         
         navigationController?.parent?.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))]
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
