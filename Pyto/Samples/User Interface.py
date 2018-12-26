@@ -17,7 +17,7 @@ def sayHello(self):
     alert = UIAlertController.alertControllerWithTitle("What's your name?", message="Type your name to say hello.", preferredStyle=1)
     
     def ok() -> None:
-        ui.showViewController(None)
+        ui.closeViewController()
         print("Hello "+alert.textFields.firstObject().text+"!")
     
     def setupTextField(textField: ObjCInstance) -> None:

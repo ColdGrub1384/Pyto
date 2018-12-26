@@ -42,11 +42,11 @@ import ios_system
             DispatchQueue.main.async {
                 let contentVC = ConsoleViewController.visible
                 
-                guard let editor = (contentVC?.parent as? EditorSplitViewController)?.firstChild as? EditorViewController else {
+                guard let editor = (contentVC.parent as? EditorSplitViewController)?.firstChild as? EditorViewController else {
                     return
                 }
                 
-                let item = contentVC?.parent?.navigationItem
+                let item = contentVC.parent?.navigationItem
                 
                 if self.isScriptRunning {
                     item?.rightBarButtonItem = editor.stopBarButtonItem
@@ -64,7 +64,7 @@ import ios_system
     @objc var values = [String]() {
         didSet {
             DispatchQueue.main.async {
-                ConsoleViewController.visible?.inputAssistant.reloadData()
+                ConsoleViewController.visible.inputAssistant.reloadData()
             }
         }
     }

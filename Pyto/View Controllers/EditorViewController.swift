@@ -222,19 +222,20 @@ import CoreSpotlight
     /// Stops the current running script.
     @objc func stop() {
         Python.shared.isScriptRunning = false
-        PyOutputHelper.print("\nMoved execution to background\n")
-        ConsoleViewController.visible?.textView.resignFirstResponder()
-        ConsoleViewController.visible?.textView.isEditable = false
+        ConsoleViewController.visible.textView.resignFirstResponder()
+        ConsoleViewController.visible.textView.isEditable = false
     }
     
     /// Run the script represented by `document`.
     @objc func run() {
         save { (_) in
+            Python.shared.values = []
             DispatchQueue.main.async {
                 if let url = self.document?.fileURL {
-                    guard let console = ConsoleViewController.visible else {
+                    let console = ConsoleViewController.visible
+                    guard console.view.window != nil else {
                         
-                        self.present(UINavigationController(rootViewController: ConsoleViewController()), animated: true, completion: {
+                        self.present(UINavigationController(rootViewController: console), animated: true, completion: {
                             self.run()
                         })
                         
@@ -250,7 +251,6 @@ import CoreSpotlight
                             return
                         }
                         Python.shared.isScriptRunning = true
-                        Python.shared.values = []
                         // Import the script
                         PyInputHelper.userInput = "import console as __console__; script = __console__.runScriptAtPath('\(url.path)')"
                     } else {
