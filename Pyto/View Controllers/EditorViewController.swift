@@ -58,6 +58,80 @@ import CoreSpotlight
     /// The bar button item for stopping script.
     var stopBarButtonItem: UIBarButtonItem!
     
+    /// Shows an error at given line.
+    ///
+    /// - Parameters:
+    ///     - lineNumber: The number of the line that caused the error.
+    @objc func showErrorAtLine(_ lineNumber: Int) {
+        DispatchQueue.main.async {
+            guard lineNumber > 0 else {
+                return
+            }
+            
+            var lines = [String]()
+            let allLines = self.textView.text.components(separatedBy: "\n")
+            
+            for (i, line) in allLines.enumerated() {
+                let currentLineNumber = i+1
+                
+                guard currentLineNumber <= lineNumber else {
+                    break
+                }
+                
+                lines.append(line)
+            }
+            
+            let errorRange = NSRange(location: lines.joined(separator: "\n").count, length: 0)
+            
+            self.textView.contentTextView.becomeFirstResponder()
+            self.textView.contentTextView.selectedRange = errorRange
+            
+            let errorView = UITextView()
+            errorView.textColor = .white
+            errorView.isEditable = false
+            
+            let title = NSAttributedString(string: Python.shared.errorType ?? "", attributes: [
+                .font : UIFont(name: "Menlo-Bold", size: UIFont.systemFontSize) ?? UIFont.systemFont(ofSize: UIFont.systemFontSize),
+                .foregroundColor: UIColor.white
+            ])
+            
+            let message = NSAttributedString(string: Python.shared.errorReason ?? "", attributes: [
+                .font : UIFont(name: "Menlo", size: UIFont.systemFontSize) ?? UIFont.systemFont(ofSize: UIFont.systemFontSize),
+                .foregroundColor: UIColor.white
+            ])
+            
+            let attributedText = NSMutableAttributedString(attributedString: title)
+            attributedText.append(NSAttributedString(string: "\n\n"))
+            attributedText.append(message)
+            errorView.attributedText = attributedText
+            
+            class ErrorViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
+                
+                func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+                    return .none
+                }
+            }
+            
+            let errorVC = ErrorViewController()
+            errorVC.view = errorView
+            errorVC.view.backgroundColor = #colorLiteral(red: 0.6743632277, green: 0.1917540668, blue: 0.1914597603, alpha: 1)
+            errorVC.preferredContentSize = CGSize(width: 300, height: 100)
+            errorVC.modalPresentationStyle = .popover
+            errorVC.presentationController?.delegate = errorVC
+            errorVC.popoverPresentationController?.backgroundColor = #colorLiteral(red: 0.6743632277, green: 0.1917540668, blue: 0.1914597603, alpha: 1)
+            
+            if let selectedTextRange = self.textView.contentTextView.selectedTextRange {
+                errorVC.popoverPresentationController?.sourceView = self.textView.contentTextView
+                errorVC.popoverPresentationController?.sourceRect = self.textView.contentTextView.caretRect(for: selectedTextRange.end)
+            } else {
+                errorVC.popoverPresentationController?.sourceView = self.textView.contentTextView
+                errorVC.popoverPresentationController?.sourceRect = self.textView.contentTextView.bounds
+            }
+            
+            self.present(errorVC, animated: true, completion: nil)
+        }
+    }
+    
     /// Initialize with given document.
     ///
     /// - Parameters:

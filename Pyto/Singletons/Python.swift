@@ -69,6 +69,12 @@ import ios_system
         }
     }
     
+    /// The last error's type.
+    @objc var errorType: String?
+    
+    /// The last error's reason.
+    @objc var errorReason: String?
+    
     /// Runs given command with `ios_system`.
     ///
     /// - Parameters:
