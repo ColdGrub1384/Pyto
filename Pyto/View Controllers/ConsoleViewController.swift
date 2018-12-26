@@ -62,6 +62,12 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
             return
         }
         
+        if !(self is REPLViewController) {
+            guard Python.shared.isScriptRunning else {
+                return
+            }
+        }
+        
         textView.text += prompt
         Python.shared.output += prompt
         textViewDidChange(textView)
