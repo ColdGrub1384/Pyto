@@ -244,7 +244,7 @@ import CoreSpotlight
                         return
                     }
                     
-                    console.textView?.text = ""
+                    console.textView.text = ""
                     console.console = ""
                     console.prompt = ""
                     if Python.shared.isREPLRunning {

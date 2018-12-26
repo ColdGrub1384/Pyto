@@ -43,8 +43,6 @@ int main(int argc, char *argv[]) {
     }
     PySys_SetArgv(argc, python_argv);
     
-    [ConsoleViewController.visible loadViewIfNeeded];
-    
     // Start the REPL that will contain all child modules
     [Python.shared runScriptAt:[[NSBundle mainBundle] URLForResource:@"REPL" withExtension:@"py"]];
     
