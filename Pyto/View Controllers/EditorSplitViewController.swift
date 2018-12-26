@@ -76,15 +76,18 @@ class EditorSplitViewController: SplitViewController {
                 view.removeFromSuperview()
             }
             
-            addChild(editor)
-            editor.view.frame = view.frame
-            editor.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            view.addSubview(editor.view)
-            
-            if Python.shared.isScriptRunning {
-                let navVC = UINavigationController(rootViewController: console)
-                navVC.view.tintColor = UIColor(named: "TintColor")
-                present(navVC, animated: true, completion: nil)
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.25) {
+                self.addChild(self.editor)
+                self.editor.view.frame = self.view.bounds
+                self.editor.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                self.view.addSubview(self.editor.view)
+                
+                if Python.shared.isScriptRunning {
+                    let navVC = UINavigationController(rootViewController: self.console)
+                    navVC.view.tintColor = UIColor(named: "TintColor")
+                    navVC.modalPresentationStyle = .overFullScreen
+                    self.present(navVC, animated: true, completion: nil)
+                }
             }
         } else {
             
