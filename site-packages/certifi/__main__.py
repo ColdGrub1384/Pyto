@@ -1,2 +1,2 @@
-from pip._vendor.certifi import where
+from certifi import where
 print(where())
