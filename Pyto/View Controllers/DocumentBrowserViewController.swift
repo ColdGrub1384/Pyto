@@ -10,6 +10,7 @@ import UIKit
 import SafariServices
 import CoreSpotlight
 import SplitKit
+import SavannaKit
 
 /// The main file browser used to edit scripts.
 class DocumentBrowserViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDropDelegate, UICollectionViewDragDelegate {
@@ -42,8 +43,10 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         }
     }
     
-    /// Returns all scripts and directories in current directory.
-    var scripts: [URL] {
+    /// All scripts and directories in current directory.
+    var scripts = [URL]()
+    
+    private var scripts_: [URL] {
         var files = self.files
         
         var i = 0
@@ -119,7 +122,6 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
                     var i = 0
                     for file in self.scripts { // For loop needed because the folder is not found with `Array.firstIndex(of:)`
                         if file.lastPathComponent == script.lastPathComponent {
-                            self.ignoreObserver = true
                             self.collectionView.insertItems(at: [IndexPath(row: i, section: 0)])
                             break
                         }
@@ -169,7 +171,6 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
                 var i = 0
                 for file in self.scripts { // For loop needed because the folder is not found with `Array.firstIndex(of:)`
                     if file.lastPathComponent == folder.lastPathComponent {
-                        self.ignoreObserver = true
                         self.collectionView.insertItems(at: [IndexPath(row: i, section: 0)])
                         break
                     }
@@ -304,22 +305,25 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        scripts = scripts_
+        
+        navigationController?.view.backgroundColor = .black
+        
         collectionView.dragDelegate = self
         collectionView.dropDelegate = self
         collectionView.dragInteractionEnabled = true
         collectionView.reloadData()
         
         // Directory observer
-        DispatchQueue.global().async {
-            _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (timer) in
-                var files = self.scripts
-                
+        DispatchQueue.global(qos: .background).async {
+            var files = self.scripts_
+            while true {
                 if self.stopObserver_ {
                     self.stopObserver_ = false
-                    timer.invalidate()
+                    break
                 }
                 
-                if files != self.scripts {
+                if files != self.scripts_ {
                     
                     for file in files {
                         if !FileManager.default.fileExists(atPath: file.path) {
@@ -334,12 +338,15 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
                     if self.ignoreObserver {
                         self.ignoreObserver = false
                     } else {
+                        self.scripts = files
                         DispatchQueue.main.async {
                             self.collectionView.reloadData()
                         }
                     }
                 }
-            })
+                
+                Thread.sleep(forTimeInterval: 0.1)
+            }
         }
     }
     
@@ -379,7 +386,27 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         } else {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "File", for: indexPath) as! FileCollectionViewCell
         }
-        cell.file = scripts[indexPath.row]
+        
+        if cell.file != scripts[indexPath.row], let str = try? String(contentsOf: scripts[indexPath.row]), let textView = cell.previewContainerView?.subviews.first as? SyntaxTextView {
+            
+            var smallerCode = ""
+            
+            for (i, line) in str.components(separatedBy: "\n").enumerated() {
+                
+                guard i < 20 else {
+                    break
+                }
+                
+                smallerCode += line+"\n"
+            }
+            
+            if textView.text != smallerCode {
+                cell.file = scripts[indexPath.row]
+            }
+        } else {
+            cell.file = scripts[indexPath.row]
+        }
+        cell.titleView.text = scripts[indexPath.row].deletingPathExtension().lastPathComponent
         cell.documentBrowser = self
         
         if scripts[indexPath.row].pathExtension.lowercased() == "py" || isDir.boolValue {
@@ -492,7 +519,6 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
                     var i = 0
                     for file in self.scripts { // For loop needed because folders are not found with `Array.firstIndex(of:)`
                         if file.lastPathComponent == url.lastPathComponent {
-                            ignoreObserver = true
                             DocumentBrowserViewController.visible?.collectionView.deleteItems(at: [IndexPath(row: i, section: 0)])
                             break
                         }

@@ -29,18 +29,25 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
     
     private var isDirectory: ObjCBool = false
     
-    private var directoryContents: [URL] {
+    private var directoryContents: (Int, [URL]) {
         guard isDirectory.boolValue, let file = file else {
-            return []
+            return (0, [])
         }
         
         var files = (try? FileManager.default.contentsOfDirectory(at: file, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)) ?? []
+        
+        var dirs = 0
         
         var i = 0
         for file in files {
             var isDir: ObjCBool = false
             if FileManager.default.fileExists(atPath: file.path, isDirectory: &isDir) {
                 if file.pathExtension.lowercased() != "py" || isDir.boolValue {
+                    
+                    if isDir.boolValue {
+                        dirs += 1
+                    }
+                    
                     files.remove(at: i)
                 } else {
                     i += 1
@@ -50,7 +57,7 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
             }
         }
         
-        return files
+        return (dirs, files)
     }
     
     /// The URL to represent.
@@ -63,7 +70,12 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
             
             if FileManager.default.fileExists(atPath: file!.path, isDirectory: &isDirectory) {
                 if isDirectory.boolValue {
-                    noFilesView?.isHidden = !directoryContents.isEmpty
+                    noFilesView?.isHidden = !directoryContents.1.isEmpty
+                    if directoryContents.0 > 0 {
+                        noFilesView?.text = Localizable.Folders.noFilesButDirs(countOfDirs: directoryContents.0)
+                    } else {
+                        noFilesView?.text = Localizable.Folders.noFiles
+                    }
                     folderContentCollectionView?.isHidden = !(noFilesView?.isHidden ?? false)
                     folderContentCollectionView?.dataSource = self
                     folderContentCollectionView?.reloadData()
@@ -80,7 +92,18 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
                     
                     textView.delegate = self
                     if let code = try? String(contentsOf: file!) {
-                        textView.text = code
+                        var smallerCode = ""
+                        
+                        for (i, line) in code.components(separatedBy: "\n").enumerated() {
+                            
+                            guard i < 20 else {
+                                break
+                            }
+                            
+                            smallerCode += line+"\n"
+                        }
+                        
+                        textView.text = smallerCode
                     }
                     
                     struct ReadonlyTheme: SourceCodeTheme {
@@ -129,10 +152,12 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
         if let file = file {
             do {
                 let index = documentBrowser?.scripts.firstIndex(of: file)
+                documentBrowser?.ignoreObserver = true
                 try FileManager.default.removeItem(at: file)
                 if let index = index {
-                    documentBrowser?.ignoreObserver = true
-                    documentBrowser?.collectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
+                    documentBrowser?.collectionView.performBatchUpdates({
+                        self.documentBrowser?.collectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
+                    }, completion: nil)
                 }
             } catch {
                 let alert = UIAlertController(title: Localizable.Errors.errorRemovingFile, message: error.localizedDescription, preferredStyle: .alert)
@@ -259,13 +284,19 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
     // MARK: - Collection view data source
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return directoryContents.count
+        
+        let files = directoryContents.1.count
+        if files <= 4 {
+            return files
+        } else {
+            return 4
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "File", for: indexPath) as! FileCollectionViewCell
-        cell.file = directoryContents[indexPath.row]
+        cell.file = directoryContents.1[indexPath.row]
         
         return cell
     }
