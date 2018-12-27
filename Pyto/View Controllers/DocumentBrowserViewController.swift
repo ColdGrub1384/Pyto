@@ -273,10 +273,19 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
             splitVC.secondChild = contentVC
             
             if run {
-                editor.run()
+                DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
+                    editor.run()
+                })
             }
             completion?()
         })
+    }
+    
+    /// Opens pip installer.
+    @IBAction func pip(_ sender: Any) {
+        if let url = Bundle.main.url(forResource: "installer", withExtension: "py") {
+            openDocument(url, run: true)
+        }
     }
     
     /// The visible instance

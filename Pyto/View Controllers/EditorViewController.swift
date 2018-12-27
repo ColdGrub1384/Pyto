@@ -67,12 +67,13 @@ import CoreSpotlight
     ///     - lineNumber: The number of the line that caused the error.
     @objc func showErrorAtLine(_ lineNumber: Int) {
         
-        guard parent?.presentedViewController == nil, view.window != nil else {
-            lineNumberError = lineNumber
-            return
-        }
-        
         DispatchQueue.main.async {
+            
+            guard self.parent?.presentedViewController == nil, self.view.window != nil else {
+                self.lineNumberError = lineNumber
+                return
+            }
+            
             guard lineNumber > 0 else {
                 return
             }
