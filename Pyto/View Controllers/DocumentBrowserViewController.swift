@@ -289,6 +289,12 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         }
     }
     
+    /// Reloads browser.
+    func reloadData() {
+        scrips = scripts_
+        collectionView.reloadData()
+    }
+    
     /// The visible instance
     static var visible: DocumentBrowserViewController? {
         return ((UIApplication.shared.keyWindow?.rootViewController as? UITabBarController)?.viewControllers?.first as? UINavigationController)?.visibleViewController as? DocumentBrowserViewController

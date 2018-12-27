@@ -107,14 +107,6 @@ import SafariServices
         (window?.topViewController as? SFSafariViewController)?.dismiss(animated: true, completion: nil)
     }
     
-    func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
-        return true
-    }
-    
-    func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
-        return true
-    }
-    
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
 
         let root = window?.rootViewController
@@ -150,6 +142,10 @@ import SafariServices
         }
         
         return true
+    }
+    
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        DocumentBrowserViewController.visible?.reloadData()
     }
     
     // MARK: - Store product view controller delegate
