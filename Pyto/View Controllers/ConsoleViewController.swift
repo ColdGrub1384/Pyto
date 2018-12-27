@@ -184,7 +184,9 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(close))]
+        if !(self is REPLViewController) {
+            navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(close))]
+        }
         navigationController?.view.backgroundColor = .white
         navigationController?.navigationBar.shadowImage = UIImage()
     }
