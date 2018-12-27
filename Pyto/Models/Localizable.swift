@@ -29,6 +29,18 @@ class Localizable: Static {
     /// 'REPL' tab
     static let repl = NSLocalizedString("repl", comment: "'REPL' tab")
     
+    /// Strings shown in the folder views.
+    class Folders: Static {
+        
+        /// The text shown when a folder is empty
+        static let noFiles = NSLocalizedString("noFiles", comment: "The text shown when a folder is empty")
+        
+        /// The text shown when a folder has subdirectories but no files
+        static func noFilesButDirs(countOfDirs: Int) -> String {
+            return String(format: NSLocalizedString("noFilesButDirs", comment: "The text shown when a folder has subdirectories but no files"), countOfDirs)
+        }
+    }
+    
     /// Strings used by the dialog for renaming a file.
     class Renaming: Static {
         
