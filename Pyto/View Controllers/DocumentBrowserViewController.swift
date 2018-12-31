@@ -291,7 +291,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
     
     /// Reloads browser.
     func reloadData() {
-        scrips = scripts_
+        scripts = scripts_
         collectionView.reloadData()
     }
     
