@@ -151,14 +151,7 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
     @objc func remove(_ sender: Any) {
         if let file = file {
             do {
-                let index = documentBrowser?.scripts.firstIndex(of: file)
-                documentBrowser?.ignoreObserver = true
                 try FileManager.default.removeItem(at: file)
-                if let index = index {
-                    documentBrowser?.collectionView.performBatchUpdates({
-                        self.documentBrowser?.collectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
-                    }, completion: nil)
-                }
             } catch {
                 let alert = UIAlertController(title: Localizable.Errors.errorRemovingFile, message: error.localizedDescription, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
@@ -192,7 +185,6 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
             }
             do {
                 try FileManager.default.moveItem(at: file, to: newFileURL)
-                self.documentBrowser?.collectionView.reloadData()
             } catch {
                 let alert = UIAlertController(title: Localizable.Errors.errorRenamingFile, message: error.localizedDescription, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
@@ -268,7 +260,7 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
     // MARK: - Document picker view controller delegate
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        documentBrowser?.collectionView.reloadData()
+        //documentBrowser?.collectionView.reloadData()
     }
     
     // MARK: - Syntax text view delegate
