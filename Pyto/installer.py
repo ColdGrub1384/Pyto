@@ -7,11 +7,9 @@ After executing this script, type arguments you want to pass to pip.
 from pip import main
 import os
 
-# Code here
+os.environ["COLUMNS"] = "100" # Sets terminal's horizontal size
 
-os.environ["COLUMNS"] = "100"
+args = input("pip ") # Asks for arguments
 
-args = input("pip ")
-
-main(args.split(" "))
+main(args.split(" ")) # Runs pip with typed arguments
 
