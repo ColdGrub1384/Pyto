@@ -339,12 +339,12 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
                         }
                     }
                     
-                    files = self.scripts
+                    files = self.scripts_
+                    self.scripts = files
                     
                     if self.ignoreObserver {
                         self.ignoreObserver = false
                     } else {
-                        self.scripts = files
                         DispatchQueue.main.async {
                             self.collectionView.reloadData()
                         }
