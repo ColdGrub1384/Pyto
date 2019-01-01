@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import SafariServices
 
 /// A View controller showing offline documentation.
 class DocumentationViewController: UIViewController, WKNavigationDelegate {
@@ -78,6 +79,16 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         goBackButton.isEnabled = webView.canGoBack
         goForwardButton.isEnabled = webView.canGoForward
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        
+        if let url = navigationAction.request.url, url.scheme == "http" || url.scheme == "https" {
+            present(SFSafariViewController(url: url), animated: true, completion: nil)
+            decisionHandler(.cancel)
+        } else {
+            decisionHandler(.allow)
+        }
     }
 }
 

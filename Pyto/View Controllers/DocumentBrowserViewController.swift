@@ -200,12 +200,10 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         }))
         
         sheet.addAction(UIAlertAction(title: Localizable.Help.documentation, style: .default, handler: { _ in
-            let navVC = UINavigationController(rootViewController: DocumentationViewController())
-            self.present(navVC, animated: true, completion: nil)
+            self.present(UINavigationController(rootViewController: DocumentationViewController()), animated: true, completion: nil)
         }))
         sheet.addAction(UIAlertAction(title: Localizable.Help.acknowledgments, style: .default, handler: { _ in
-            let safari = SFSafariViewController(url: URL(string: "https://coldgrub1384.github.io/Pyto/Licenses")!)
-            self.present(safari, animated: true, completion: nil)
+            self.present(UINavigationController(rootViewController: AcknowledgmentsViewController()), animated: true, completion: nil)
         }))
         sheet.addAction(UIAlertAction(title: Localizable.Help.sourceCode, style: .default, handler: { _ in
             let safari = SFSafariViewController(url: URL(string: "https://github.com/ColdGrub1384/Pyto")!)
