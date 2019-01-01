@@ -16,6 +16,20 @@
 		C904EB6821445B6100585C28 /* libOpenSSL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6721445B6100585C28 /* libOpenSSL.a */; };
 		C904EB7321445D5800585C28 /* Python.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904EB7221445D5800585C28 /* Python.swift */; };
 		C904FA2621DA4C7600B70A39 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C904FA1F21DA4C7600B70A39 /* Accelerate.framework */; };
+		C9131FFC21DBE48D00EEE677 /* numpy in Resources */ = {isa = PBXBuildFile; fileRef = C9131FFB21DBE48D00EEE677 /* numpy */; };
+		C913200921DBE57200EEE677 /* _dummy.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C913200821DBE56D00EEE677 /* _dummy.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C913200A21DBE57400EEE677 /* _umath_linalg.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C9131FFD21DBE56B00EEE677 /* _umath_linalg.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C913200B21DBE57600EEE677 /* fftpack_lite.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C913200321DBE56C00EEE677 /* fftpack_lite.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C913200C21DBE57900EEE677 /* lapack_lite.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C913200721DBE56D00EEE677 /* lapack_lite.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C913200D21DBE57C00EEE677 /* mtrand.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C9131FFF21DBE56B00EEE677 /* mtrand.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C913200E21DBE57E00EEE677 /* multiarray_tests.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C913200221DBE56C00EEE677 /* multiarray_tests.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C913200F21DBE58000EEE677 /* multiarray.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C913200021DBE56B00EEE677 /* multiarray.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C913201021DBE58400EEE677 /* operand_flag_tests.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C913200521DBE56C00EEE677 /* operand_flag_tests.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C913201121DBE58700EEE677 /* struct_ufunc_test.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C913200121DBE56B00EEE677 /* struct_ufunc_test.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C913201221DBE58B00EEE677 /* test_rational.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C913200621DBE56C00EEE677 /* test_rational.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C913201321DBE58F00EEE677 /* umath_tests.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C9131FFE21DBE56B00EEE677 /* umath_tests.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C913201421DBE59300EEE677 /* umath.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C913200421DBE56C00EEE677 /* umath.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C913202621DBF88400EEE677 /* pandas in Resources */ = {isa = PBXBuildFile; fileRef = C913202521DBF88400EEE677 /* pandas */; };
 		C92495C72151A3E3007EB4DB /* ReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92495C62151A3E3007EB4DB /* ReviewHelper.swift */; };
 		C93D61DD2145CD0800C8B5E3 /* PyInputHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DC2145CD0800C8B5E3 /* PyInputHelper.swift */; };
 		C93D61DF2145D03200C8B5E3 /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DE2145D03200C8B5E3 /* UIWindow.swift */; };
@@ -46,21 +60,8 @@
 		C9BE01B42154738C00A8C825 /* site-packages in Resources */ = {isa = PBXBuildFile; fileRef = C9BE01B021530BAF00A8C825 /* site-packages */; };
 		C9C14A3D21DA5D5000FD8A28 /* NumPy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C14A3621DA5D5000FD8A28 /* NumPy.framework */; };
 		C9C14A3E21DA5D5000FD8A28 /* NumPy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C14A3621DA5D5000FD8A28 /* NumPy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9C14A5B21DA660300FD8A28 /* _dummy.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C9C14A4B21DA5D6900FD8A28 /* _dummy.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C9C14A5E21DA660E00FD8A28 /* _umath_linalg.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C9C14A4D21DA5D6900FD8A28 /* _umath_linalg.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C9C14A5F21DA661000FD8A28 /* fftpack_lite.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C9C14A4321DA5D6800FD8A28 /* fftpack_lite.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C9C14A6021DA661300FD8A28 /* lapack_lite.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C9C14A4621DA5D6800FD8A28 /* lapack_lite.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C9C14A6121DA661500FD8A28 /* mtrand.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C9C14A4821DA5D6900FD8A28 /* mtrand.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C9C14A6221DA661800FD8A28 /* multiarray_tests.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C9C14A4921DA5D6900FD8A28 /* multiarray_tests.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C9C14A6321DA661A00FD8A28 /* multiarray.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C9C14A4421DA5D6800FD8A28 /* multiarray.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C9C14A6421DA662000FD8A28 /* operand_flag_tests.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C9C14A4A21DA5D6900FD8A28 /* operand_flag_tests.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C9C14A6521DA662300FD8A28 /* struct_ufunc_test.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C9C14A4C21DA5D6900FD8A28 /* struct_ufunc_test.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C9C14A6621DA662500FD8A28 /* test_rational.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C9C14A4221DA5D6800FD8A28 /* test_rational.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C9C14A6721DA663400FD8A28 /* umath_tests.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C9C14A4721DA5D6800FD8A28 /* umath_tests.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C9C14A6821DA663600FD8A28 /* umath.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C9C14A4521DA5D6800FD8A28 /* umath.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C9C1B9F521D939B200971997 /* libnpymath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C1B9F321D939AF00971997 /* libnpymath.a */; };
 		C9C1B9F621D939B500971997 /* libnpysort.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C1B9F421D939B000971997 /* libnpysort.a */; };
-		C9C1BA0721D945D000971997 /* numpy in Resources */ = {isa = PBXBuildFile; fileRef = C9C1B9E321D9376500971997 /* numpy */; };
 		C9DF70B821715D3D00981B4F /* FileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DF70B721715D3D00981B4F /* FileCollectionViewCell.swift */; };
 		C9DF70C02171723800981B4F /* REPLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DF70BF2171723800981B4F /* REPLViewController.swift */; };
 		C9DF70EA2171756C00981B4F /* libxz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6921445B6700585C28 /* libxz.a */; };
@@ -202,18 +203,18 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				C9C14A5B21DA660300FD8A28 /* _dummy.cpython-37m-darwin.so in Copy Libraries */,
-				C9C14A5E21DA660E00FD8A28 /* _umath_linalg.cpython-37m-darwin.so in Copy Libraries */,
-				C9C14A5F21DA661000FD8A28 /* fftpack_lite.cpython-37m-darwin.so in Copy Libraries */,
-				C9C14A6021DA661300FD8A28 /* lapack_lite.cpython-37m-darwin.so in Copy Libraries */,
-				C9C14A6121DA661500FD8A28 /* mtrand.cpython-37m-darwin.so in Copy Libraries */,
-				C9C14A6221DA661800FD8A28 /* multiarray_tests.cpython-37m-darwin.so in Copy Libraries */,
-				C9C14A6321DA661A00FD8A28 /* multiarray.cpython-37m-darwin.so in Copy Libraries */,
-				C9C14A6421DA662000FD8A28 /* operand_flag_tests.cpython-37m-darwin.so in Copy Libraries */,
-				C9C14A6521DA662300FD8A28 /* struct_ufunc_test.cpython-37m-darwin.so in Copy Libraries */,
-				C9C14A6621DA662500FD8A28 /* test_rational.cpython-37m-darwin.so in Copy Libraries */,
-				C9C14A6721DA663400FD8A28 /* umath_tests.cpython-37m-darwin.so in Copy Libraries */,
-				C9C14A6821DA663600FD8A28 /* umath.cpython-37m-darwin.so in Copy Libraries */,
+				C913200921DBE57200EEE677 /* _dummy.cpython-37m-darwin.so in Copy Libraries */,
+				C913200A21DBE57400EEE677 /* _umath_linalg.cpython-37m-darwin.so in Copy Libraries */,
+				C913200B21DBE57600EEE677 /* fftpack_lite.cpython-37m-darwin.so in Copy Libraries */,
+				C913200C21DBE57900EEE677 /* lapack_lite.cpython-37m-darwin.so in Copy Libraries */,
+				C913200D21DBE57C00EEE677 /* mtrand.cpython-37m-darwin.so in Copy Libraries */,
+				C913200E21DBE57E00EEE677 /* multiarray_tests.cpython-37m-darwin.so in Copy Libraries */,
+				C913200F21DBE58000EEE677 /* multiarray.cpython-37m-darwin.so in Copy Libraries */,
+				C913201021DBE58400EEE677 /* operand_flag_tests.cpython-37m-darwin.so in Copy Libraries */,
+				C913201121DBE58700EEE677 /* struct_ufunc_test.cpython-37m-darwin.so in Copy Libraries */,
+				C913201221DBE58B00EEE677 /* test_rational.cpython-37m-darwin.so in Copy Libraries */,
+				C913201321DBE58F00EEE677 /* umath_tests.cpython-37m-darwin.so in Copy Libraries */,
+				C913201421DBE59300EEE677 /* umath.cpython-37m-darwin.so in Copy Libraries */,
 			);
 			name = "Copy Libraries";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -250,7 +251,6 @@
 		2212511F8CE9BF8B16FDB2F9 /* Pods-Pyto Share.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Share.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Share/Pods-Pyto Share.debug.xcconfig"; sourceTree = "<group>"; };
 		22DCC0F0FEB96078E6CC8111 /* Pods-Pyto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto/Pods-Pyto.debug.xcconfig"; sourceTree = "<group>"; };
 		296FFAAD958315A38A36E2A4 /* Pods_Pyto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pyto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3BC99F252A2A9793B2333BA6 /* Pods_Pyto_Share.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pyto_Share.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4370DDFAC0113595C1F9BDC5 /* Pods-Pyto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto/Pods-Pyto.release.xcconfig"; sourceTree = "<group>"; };
 		C903B98721584367004AAD7F /* commandDictionary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = commandDictionary.plist; sourceTree = "<group>"; };
 		C903B989215843B4004AAD7F /* extraCommandsDictionary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = extraCommandsDictionary.plist; sourceTree = "<group>"; };
@@ -266,73 +266,20 @@
 		C904EB6C21445CAE00585C28 /* Pyto-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pyto-Bridging-Header.h"; sourceTree = "<group>"; };
 		C904EB7221445D5800585C28 /* Python.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Python.swift; sourceTree = "<group>"; };
 		C904FA1F21DA4C7600B70A39 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		C90B4EF921D850CF002C3FCC /* _multiarray_tests.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = "_multiarray_tests.cpython-37m-darwin.so"; path = "Pyto/numpy/core/_multiarray_tests.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C90B4EFB21D850EE002C3FCC /* _dummy.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = "_dummy.cpython-37m-darwin.so"; path = "Pyto/numpy/core/_dummy.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C90B4EFD21D8510C002C3FCC /* pocketfft_internal.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = "pocketfft_internal.cpython-37m-darwin.so"; path = "Pyto/numpy/fft/pocketfft_internal.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C90B4EFF21D85124002C3FCC /* mtrand.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = "mtrand.cpython-37m-darwin.so"; path = "Pyto/numpy/random/mtrand.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C90B4F0721D85207002C3FCC /* umath_linalg.o.d */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.dtrace; name = umath_linalg.o.d; path = "Pyto/src.iphoneos-12.1-arm64-3.7/numpy/linalg/umath_linalg.o.d"; sourceTree = "<group>"; };
-		C90B4F0921D85215002C3FCC /* _multiarray_tests.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = _multiarray_tests.o; path = "Pyto/src.iphoneos-12.1-arm64-3.7/numpy/core/src/multiarray/_multiarray_tests.o"; sourceTree = "<group>"; };
-		C90B4F0B21D85215002C3FCC /* _multiarray_tests.o.d */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.dtrace; name = _multiarray_tests.o.d; path = "Pyto/src.iphoneos-12.1-arm64-3.7/numpy/core/src/multiarray/_multiarray_tests.o.d"; sourceTree = "<group>"; };
-		C90B4F0D21D85215002C3FCC /* arraytypes.o.d */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.dtrace; name = arraytypes.o.d; path = "Pyto/src.iphoneos-12.1-arm64-3.7/numpy/core/src/multiarray/arraytypes.o.d"; sourceTree = "<group>"; };
-		C90B4F0F21D85215002C3FCC /* einsum.o.d */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.dtrace; name = einsum.o.d; path = "Pyto/src.iphoneos-12.1-arm64-3.7/numpy/core/src/multiarray/einsum.o.d"; sourceTree = "<group>"; };
-		C90B4F1121D85215002C3FCC /* lowlevel_strided_loops.o.d */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.dtrace; name = lowlevel_strided_loops.o.d; path = "Pyto/src.iphoneos-12.1-arm64-3.7/numpy/core/src/multiarray/lowlevel_strided_loops.o.d"; sourceTree = "<group>"; };
-		C90B4F1321D85215002C3FCC /* nditer_templ.o.d */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.dtrace; name = nditer_templ.o.d; path = "Pyto/src.iphoneos-12.1-arm64-3.7/numpy/core/src/multiarray/nditer_templ.o.d"; sourceTree = "<group>"; };
-		C90B4F1521D85215002C3FCC /* scalartypes.o.d */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.dtrace; name = scalartypes.o.d; path = "Pyto/src.iphoneos-12.1-arm64-3.7/numpy/core/src/multiarray/scalartypes.o.d"; sourceTree = "<group>"; };
-		C90B4F1721D8524F002C3FCC /* binsearch.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = binsearch.o; path = "Pyto/src.iphoneos-12.1-arm64-3.7/numpy/core/src/npysort/binsearch.o"; sourceTree = "<group>"; };
-		C90B4F1921D85253002C3FCC /* heapsort.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = heapsort.o; path = "Pyto/src.iphoneos-12.1-arm64-3.7/numpy/core/src/npysort/heapsort.o"; sourceTree = "<group>"; };
-		C90B4F1B21D85256002C3FCC /* mergesort.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = mergesort.o; path = "Pyto/src.iphoneos-12.1-arm64-3.7/numpy/core/src/npysort/mergesort.o"; sourceTree = "<group>"; };
-		C90B4F1D21D85258002C3FCC /* quicksort.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = quicksort.o; path = "Pyto/src.iphoneos-12.1-arm64-3.7/numpy/core/src/npysort/quicksort.o"; sourceTree = "<group>"; };
-		C90B4F1F21D8525D002C3FCC /* selection.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = selection.o; path = "Pyto/src.iphoneos-12.1-arm64-3.7/numpy/core/src/npysort/selection.o"; sourceTree = "<group>"; };
-		C90B4F2121D85263002C3FCC /* _operand_flag_tests.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = _operand_flag_tests.o; path = "Pyto/src.iphoneos-12.1-arm64-3.7/numpy/core/src/umath/_operand_flag_tests.o"; sourceTree = "<group>"; };
-		C90B4F2321D85267002C3FCC /* _rational_tests.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = _rational_tests.o; path = "Pyto/src.iphoneos-12.1-arm64-3.7/numpy/core/src/umath/_rational_tests.o"; sourceTree = "<group>"; };
-		C90B4F2521D8526B002C3FCC /* _struct_ufunc_tests.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = _struct_ufunc_tests.o; path = "Pyto/src.iphoneos-12.1-arm64-3.7/numpy/core/src/umath/_struct_ufunc_tests.o"; sourceTree = "<group>"; };
-		C90B4F2721D8526E002C3FCC /* _umath_tests.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = _umath_tests.o; path = "Pyto/src.iphoneos-12.1-arm64-3.7/numpy/core/src/umath/_umath_tests.o"; sourceTree = "<group>"; };
-		C90B4F3121D91479002C3FCC /* array_assign.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = array_assign.o; path = multiarray/array_assign.o; sourceTree = "<group>"; };
-		C90B4F3221D91479002C3FCC /* dtype_transfer.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = dtype_transfer.o; path = multiarray/dtype_transfer.o; sourceTree = "<group>"; };
-		C90B4F3321D91479002C3FCC /* nditer_pywrap.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = nditer_pywrap.o; path = multiarray/nditer_pywrap.o; sourceTree = "<group>"; };
-		C90B4F3421D91479002C3FCC /* compiled_base.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = compiled_base.o; path = multiarray/compiled_base.o; sourceTree = "<group>"; };
-		C90B4F3521D91479002C3FCC /* calculation.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = calculation.o; path = multiarray/calculation.o; sourceTree = "<group>"; };
-		C90B4F3621D9147A002C3FCC /* number.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = number.o; path = multiarray/number.o; sourceTree = "<group>"; };
-		C90B4F3721D9147A002C3FCC /* datetime_busdaycal.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = datetime_busdaycal.o; path = multiarray/datetime_busdaycal.o; sourceTree = "<group>"; };
-		C90B4F3821D9147A002C3FCC /* convert.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = convert.o; path = multiarray/convert.o; sourceTree = "<group>"; };
-		C90B4F3921D9147A002C3FCC /* getset.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = getset.o; path = multiarray/getset.o; sourceTree = "<group>"; };
-		C90B4F3A21D9147A002C3FCC /* methods.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = methods.o; path = multiarray/methods.o; sourceTree = "<group>"; };
-		C90B4F3B21D9147A002C3FCC /* convert_datatype.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = convert_datatype.o; path = multiarray/convert_datatype.o; sourceTree = "<group>"; };
-		C90B4F3C21D9147A002C3FCC /* multiarraymodule.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = multiarraymodule.o; path = multiarray/multiarraymodule.o; sourceTree = "<group>"; };
-		C90B4F3D21D9147A002C3FCC /* array_assign_array.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = array_assign_array.o; path = multiarray/array_assign_array.o; sourceTree = "<group>"; };
-		C90B4F3E21D9147A002C3FCC /* datetime_strings.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = datetime_strings.o; path = multiarray/datetime_strings.o; sourceTree = "<group>"; };
-		C90B4F3F21D9147A002C3FCC /* ctors.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ctors.o; path = multiarray/ctors.o; sourceTree = "<group>"; };
-		C90B4F4021D9147A002C3FCC /* hashdescr.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = hashdescr.o; path = multiarray/hashdescr.o; sourceTree = "<group>"; };
-		C90B4F4121D9147A002C3FCC /* datetime.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = datetime.o; path = multiarray/datetime.o; sourceTree = "<group>"; };
-		C90B4F4221D9147A002C3FCC /* nditer_constr.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = nditer_constr.o; path = multiarray/nditer_constr.o; sourceTree = "<group>"; };
-		C90B4F4321D9147A002C3FCC /* iterators.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = iterators.o; path = multiarray/iterators.o; sourceTree = "<group>"; };
-		C90B4F4421D9147A002C3FCC /* numpymemoryview.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = numpymemoryview.o; path = multiarray/numpymemoryview.o; sourceTree = "<group>"; };
-		C90B4F4521D9147A002C3FCC /* alloc.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = alloc.o; path = multiarray/alloc.o; sourceTree = "<group>"; };
-		C90B4F4621D9147A002C3FCC /* refcount.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = refcount.o; path = multiarray/refcount.o; sourceTree = "<group>"; };
-		C90B4F4721D9147A002C3FCC /* shape.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = shape.o; path = multiarray/shape.o; sourceTree = "<group>"; };
-		C90B4F4821D9147A002C3FCC /* item_selection.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = item_selection.o; path = multiarray/item_selection.o; sourceTree = "<group>"; };
-		C90B4F4921D9147B002C3FCC /* ucsnarrow.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ucsnarrow.o; path = multiarray/ucsnarrow.o; sourceTree = "<group>"; };
-		C90B4F4A21D9147B002C3FCC /* mapping.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = mapping.o; path = multiarray/mapping.o; sourceTree = "<group>"; };
-		C90B4F4B21D9147B002C3FCC /* array_assign_scalar.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = array_assign_scalar.o; path = multiarray/array_assign_scalar.o; sourceTree = "<group>"; };
-		C90B4F4C21D9147B002C3FCC /* python_xerbla.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = python_xerbla.o; path = multiarray/python_xerbla.o; sourceTree = "<group>"; };
-		C90B4F4D21D9147B002C3FCC /* scalarapi.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = scalarapi.o; path = multiarray/scalarapi.o; sourceTree = "<group>"; };
-		C90B4F4E21D9147B002C3FCC /* datetime_busday.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = datetime_busday.o; path = multiarray/datetime_busday.o; sourceTree = "<group>"; };
-		C90B4F4F21D9147B002C3FCC /* usertypes.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = usertypes.o; path = multiarray/usertypes.o; sourceTree = "<group>"; };
-		C90B4F5021D9147B002C3FCC /* flagsobject.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = flagsobject.o; path = multiarray/flagsobject.o; sourceTree = "<group>"; };
-		C90B4F5121D9147B002C3FCC /* nditer_api.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = nditer_api.o; path = multiarray/nditer_api.o; sourceTree = "<group>"; };
-		C90B4F5221D9147B002C3FCC /* conversion_utils.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = conversion_utils.o; path = multiarray/conversion_utils.o; sourceTree = "<group>"; };
-		C90B4F5321D9147B002C3FCC /* vdot.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = vdot.o; path = multiarray/vdot.o; sourceTree = "<group>"; };
-		C90B4F5421D9147B002C3FCC /* sequence.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = sequence.o; path = multiarray/sequence.o; sourceTree = "<group>"; };
-		C90B4F5521D9147B002C3FCC /* common.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = common.o; path = multiarray/common.o; sourceTree = "<group>"; };
-		C90B4F5621D9147B002C3FCC /* buffer.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = buffer.o; path = multiarray/buffer.o; sourceTree = "<group>"; };
-		C90B4F5721D9147B002C3FCC /* descriptor.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = descriptor.o; path = multiarray/descriptor.o; sourceTree = "<group>"; };
-		C90B4F5821D9147B002C3FCC /* cblasfuncs.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = cblasfuncs.o; path = multiarray/cblasfuncs.o; sourceTree = "<group>"; };
-		C90B4F5921D9147B002C3FCC /* numpyos.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = numpyos.o; path = multiarray/numpyos.o; sourceTree = "<group>"; };
-		C90B4F8321D91491002C3FCC /* halffloat.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = halffloat.o; path = npymath/halffloat.o; sourceTree = "<group>"; };
-		C90B4F8521D91498002C3FCC /* ufunc_type_resolution.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ufunc_type_resolution.o; path = umath/ufunc_type_resolution.o; sourceTree = "<group>"; };
-		C90B4F8621D91498002C3FCC /* ufunc_object.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ufunc_object.o; path = umath/ufunc_object.o; sourceTree = "<group>"; };
-		C90B4F8721D91498002C3FCC /* reduction.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = reduction.o; path = umath/reduction.o; sourceTree = "<group>"; };
-		C90B4F8821D91498002C3FCC /* umathmodule.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = umathmodule.o; path = umath/umathmodule.o; sourceTree = "<group>"; };
+		C9131FFB21DBE48D00EEE677 /* numpy */ = {isa = PBXFileReference; lastKnownFileType = folder; path = numpy; sourceTree = "<group>"; };
+		C9131FFD21DBE56B00EEE677 /* _umath_linalg.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "_umath_linalg.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C9131FFE21DBE56B00EEE677 /* umath_tests.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "umath_tests.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C9131FFF21DBE56B00EEE677 /* mtrand.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "mtrand.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C913200021DBE56B00EEE677 /* multiarray.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "multiarray.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C913200121DBE56B00EEE677 /* struct_ufunc_test.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "struct_ufunc_test.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C913200221DBE56C00EEE677 /* multiarray_tests.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "multiarray_tests.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C913200321DBE56C00EEE677 /* fftpack_lite.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "fftpack_lite.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C913200421DBE56C00EEE677 /* umath.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "umath.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C913200521DBE56C00EEE677 /* operand_flag_tests.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "operand_flag_tests.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C913200621DBE56C00EEE677 /* test_rational.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "test_rational.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C913200721DBE56D00EEE677 /* lapack_lite.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "lapack_lite.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C913200821DBE56D00EEE677 /* _dummy.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "_dummy.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C913202521DBF88400EEE677 /* pandas */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pandas; sourceTree = "<group>"; };
 		C92495C62151A3E3007EB4DB /* ReviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewHelper.swift; sourceTree = "<group>"; };
 		C93634A521BC137C00785AC8 /* Pyto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pyto.entitlements; sourceTree = "<group>"; };
 		C93D61DC2145CD0800C8B5E3 /* PyInputHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PyInputHelper.swift; sourceTree = "<group>"; };
@@ -366,25 +313,6 @@
 		C9BE01B021530BAF00A8C825 /* site-packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "site-packages"; sourceTree = "<group>"; };
 		C9C14A3621DA5D5000FD8A28 /* NumPy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NumPy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9C14A3921DA5D5000FD8A28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C9C14A4221DA5D6800FD8A28 /* test_rational.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "test_rational.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C9C14A4321DA5D6800FD8A28 /* fftpack_lite.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "fftpack_lite.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C9C14A4421DA5D6800FD8A28 /* multiarray.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "multiarray.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C9C14A4521DA5D6800FD8A28 /* umath.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "umath.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C9C14A4621DA5D6800FD8A28 /* lapack_lite.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "lapack_lite.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C9C14A4721DA5D6800FD8A28 /* umath_tests.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "umath_tests.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C9C14A4821DA5D6900FD8A28 /* mtrand.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "mtrand.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C9C14A4921DA5D6900FD8A28 /* multiarray_tests.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "multiarray_tests.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C9C14A4A21DA5D6900FD8A28 /* operand_flag_tests.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "operand_flag_tests.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C9C14A4B21DA5D6900FD8A28 /* _dummy.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "_dummy.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C9C14A4C21DA5D6900FD8A28 /* struct_ufunc_test.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "struct_ufunc_test.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C9C14A4D21DA5D6900FD8A28 /* _umath_linalg.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "_umath_linalg.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C9C1B9E321D9376500971997 /* numpy */ = {isa = PBXFileReference; lastKnownFileType = folder; path = numpy; sourceTree = "<group>"; };
-		C9C1B9E521D937A400971997 /* multiarray.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = "multiarray.cpython-37m-darwin.so"; path = "Pyto/numpy/core/multiarray.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C9C1B9E821D937B900971997 /* operand_flag_tests.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = "operand_flag_tests.cpython-37m-darwin.so"; path = "Pyto/numpy/core/operand_flag_tests.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C9C1B9EA21D937C000971997 /* umath.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = "umath.cpython-37m-darwin.so"; path = "Pyto/numpy/core/umath.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C9C1B9EC21D937CF00971997 /* fftpack_lite.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = "fftpack_lite.cpython-37m-darwin.so"; path = "Pyto/numpy/fft/fftpack_lite.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C9C1B9EE21D937E700971997 /* _umath_linalg.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = "_umath_linalg.cpython-37m-darwin.so"; path = "Pyto/numpy/linalg/_umath_linalg.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C9C1B9F021D937ED00971997 /* lapack_lite.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = "lapack_lite.cpython-37m-darwin.so"; path = "Pyto/numpy/linalg/lapack_lite.cpython-37m-darwin.so"; sourceTree = "<group>"; };
 		C9C1B9F321D939AF00971997 /* libnpymath.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libnpymath.a; sourceTree = "<group>"; };
 		C9C1B9F421D939B000971997 /* libnpysort.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libnpysort.a; sourceTree = "<group>"; };
 		C9C57EB40A56344EEB889161 /* Pods-Pyto Share.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Share.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Share/Pods-Pyto Share.release.xcconfig"; sourceTree = "<group>"; };
@@ -417,10 +345,6 @@
 		C9E509A121BC08F800261E3A /* docs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = docs; sourceTree = SOURCE_ROOT; };
 		C9E7ABAA2152D0D30007BB87 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		C9EA55B2219F752D007546BC /* RelativePathForScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativePathForScript.swift; sourceTree = "<group>"; };
-		C9EADAB121D6E4BB00BB8C7C /* _dummy.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = _dummy.so; path = Pyto/numpy/core/_dummy.so; sourceTree = "<group>"; };
-		C9EADAB321D6E4C500BB8C7C /* _multiarray_umath.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = _multiarray_umath.so; path = Pyto/numpy/core/_multiarray_umath.so; sourceTree = "<group>"; };
-		C9EADAB521D6E5A400BB8C7C /* _umath_linalg.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = _umath_linalg.so; path = Pyto/numpy/linalg/_umath_linalg.so; sourceTree = "<group>"; };
-		C9EADAB721D6F68900BB8C7C /* umath.cpython-35m-aarch64-linux-gnu.so */ = {isa = PBXFileReference; lastKnownFileType = file; name = "umath.cpython-35m-aarch64-linux-gnu.so"; path = "../../Downloads/numpy-1.14.2-cp35-cp35m-linux_aarch64/numpy/core/umath.cpython-35m-aarch64-linux-gnu.so"; sourceTree = "<group>"; };
 		C9EDF9A4214461D300382DCC /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		C9EDF9A62144620A00382DCC /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C9EDF9AA21446FCA00382DCC /* ConsoleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleViewController.swift; sourceTree = "<group>"; };
@@ -479,92 +403,14 @@
 			isa = PBXGroup;
 			children = (
 				C904FA1F21DA4C7600B70A39 /* Accelerate.framework */,
-				C90B4F8721D91498002C3FCC /* reduction.o */,
-				C90B4F8621D91498002C3FCC /* ufunc_object.o */,
-				C90B4F8521D91498002C3FCC /* ufunc_type_resolution.o */,
-				C90B4F8821D91498002C3FCC /* umathmodule.o */,
-				C90B4F8321D91491002C3FCC /* halffloat.o */,
-				C90B4F4521D9147A002C3FCC /* alloc.o */,
-				C90B4F3D21D9147A002C3FCC /* array_assign_array.o */,
-				C90B4F4B21D9147B002C3FCC /* array_assign_scalar.o */,
-				C90B4F3121D91479002C3FCC /* array_assign.o */,
-				C90B4F5621D9147B002C3FCC /* buffer.o */,
-				C9C1B9E521D937A400971997 /* multiarray.cpython-37m-darwin.so */,
-				C90B4F3521D91479002C3FCC /* calculation.o */,
-				C9C1B9E821D937B900971997 /* operand_flag_tests.cpython-37m-darwin.so */,
-				C9C1B9EA21D937C000971997 /* umath.cpython-37m-darwin.so */,
-				C9C1B9EC21D937CF00971997 /* fftpack_lite.cpython-37m-darwin.so */,
-				C9C1B9EE21D937E700971997 /* _umath_linalg.cpython-37m-darwin.so */,
-				C9C1B9F021D937ED00971997 /* lapack_lite.cpython-37m-darwin.so */,
-				C90B4F5821D9147B002C3FCC /* cblasfuncs.o */,
-				C90B4F5521D9147B002C3FCC /* common.o */,
-				C90B4F3421D91479002C3FCC /* compiled_base.o */,
-				C90B4F5221D9147B002C3FCC /* conversion_utils.o */,
-				C90B4F3B21D9147A002C3FCC /* convert_datatype.o */,
-				C90B4F3821D9147A002C3FCC /* convert.o */,
-				C90B4F3F21D9147A002C3FCC /* ctors.o */,
-				C90B4F4E21D9147B002C3FCC /* datetime_busday.o */,
-				C90B4F3721D9147A002C3FCC /* datetime_busdaycal.o */,
-				C90B4F3E21D9147A002C3FCC /* datetime_strings.o */,
-				C90B4F4121D9147A002C3FCC /* datetime.o */,
-				C90B4F5721D9147B002C3FCC /* descriptor.o */,
-				C90B4F3221D91479002C3FCC /* dtype_transfer.o */,
-				C90B4F5021D9147B002C3FCC /* flagsobject.o */,
-				C90B4F3921D9147A002C3FCC /* getset.o */,
-				C90B4F4021D9147A002C3FCC /* hashdescr.o */,
-				C90B4F4821D9147A002C3FCC /* item_selection.o */,
-				C90B4F4321D9147A002C3FCC /* iterators.o */,
-				C90B4F4A21D9147B002C3FCC /* mapping.o */,
-				C90B4F3A21D9147A002C3FCC /* methods.o */,
-				C90B4F3C21D9147A002C3FCC /* multiarraymodule.o */,
-				C90B4F5121D9147B002C3FCC /* nditer_api.o */,
-				C90B4F4221D9147A002C3FCC /* nditer_constr.o */,
-				C90B4F3321D91479002C3FCC /* nditer_pywrap.o */,
-				C90B4F3621D9147A002C3FCC /* number.o */,
-				C90B4F4421D9147A002C3FCC /* numpymemoryview.o */,
-				C90B4F5921D9147B002C3FCC /* numpyos.o */,
-				C90B4F4C21D9147B002C3FCC /* python_xerbla.o */,
-				C90B4F4621D9147A002C3FCC /* refcount.o */,
-				C90B4F4D21D9147B002C3FCC /* scalarapi.o */,
-				C90B4F5421D9147B002C3FCC /* sequence.o */,
-				C90B4F4721D9147A002C3FCC /* shape.o */,
-				C90B4F4921D9147B002C3FCC /* ucsnarrow.o */,
-				C90B4F4F21D9147B002C3FCC /* usertypes.o */,
-				C90B4F5321D9147B002C3FCC /* vdot.o */,
-				C9EADAB721D6F68900BB8C7C /* umath.cpython-35m-aarch64-linux-gnu.so */,
-				C9EADAB521D6E5A400BB8C7C /* _umath_linalg.so */,
-				C9EADAB121D6E4BB00BB8C7C /* _dummy.so */,
-				C9EADAB321D6E4C500BB8C7C /* _multiarray_umath.so */,
 				C9E7ABAA2152D0D30007BB87 /* libsqlite3.0.tbd */,
 				C9EDF9A62144620A00382DCC /* libz.tbd */,
 				C9EDF9A4214461D300382DCC /* libsqlite3.tbd */,
 				296FFAAD958315A38A36E2A4 /* Pods_Pyto.framework */,
 				C904EB6521445B5D00585C28 /* libbzip2.a */,
-				C90B4F1721D8524F002C3FCC /* binsearch.o */,
-				C90B4F1921D85253002C3FCC /* heapsort.o */,
-				C90B4F1B21D85256002C3FCC /* mergesort.o */,
-				C90B4F1D21D85258002C3FCC /* quicksort.o */,
-				C90B4F1F21D8525D002C3FCC /* selection.o */,
-				C90B4F2121D85263002C3FCC /* _operand_flag_tests.o */,
-				C90B4F2321D85267002C3FCC /* _rational_tests.o */,
-				C90B4F2521D8526B002C3FCC /* _struct_ufunc_tests.o */,
-				C90B4F2721D8526E002C3FCC /* _umath_tests.o */,
-				C90B4EF921D850CF002C3FCC /* _multiarray_tests.cpython-37m-darwin.so */,
-				C90B4F0721D85207002C3FCC /* umath_linalg.o.d */,
-				C90B4F0921D85215002C3FCC /* _multiarray_tests.o */,
-				C90B4F0B21D85215002C3FCC /* _multiarray_tests.o.d */,
-				C90B4F0D21D85215002C3FCC /* arraytypes.o.d */,
-				C90B4F0F21D85215002C3FCC /* einsum.o.d */,
-				C90B4F1121D85215002C3FCC /* lowlevel_strided_loops.o.d */,
-				C90B4F1321D85215002C3FCC /* nditer_templ.o.d */,
-				C90B4F1521D85215002C3FCC /* scalartypes.o.d */,
-				C90B4EFB21D850EE002C3FCC /* _dummy.cpython-37m-darwin.so */,
-				C90B4EFD21D8510C002C3FCC /* pocketfft_internal.cpython-37m-darwin.so */,
-				C90B4EFF21D85124002C3FCC /* mtrand.cpython-37m-darwin.so */,
 				C904EB6721445B6100585C28 /* libOpenSSL.a */,
 				C904EB6321445B5800585C28 /* libPython.a */,
 				C904EB6921445B6700585C28 /* libxz.a */,
-				3BC99F252A2A9793B2333BA6 /* Pods_Pyto_Share.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -630,7 +476,8 @@
 				C9FCFD64214428B300A07974 /* Info.plist */,
 				C9647FFE21ACA00D005765C2 /* Help.py */,
 				C9477BBA21D45D28000680AE /* installer.py */,
-				C9C1B9E321D9376500971997 /* numpy */,
+				C913202521DBF88400EEE677 /* pandas */,
+				C9131FFB21DBE48D00EEE677 /* numpy */,
 				C98E1FFC214EE6EC002F0178 /* Samples */,
 				C9FCFD6C21442FD700A07974 /* Untitled.py */,
 				C9E4152D21514F9100D64E32 /* Startup.py */,
@@ -684,18 +531,18 @@
 		C9C14A3721DA5D5000FD8A28 /* NumPy */ = {
 			isa = PBXGroup;
 			children = (
-				C9C14A4B21DA5D6900FD8A28 /* _dummy.cpython-37m-darwin.so */,
-				C9C14A4D21DA5D6900FD8A28 /* _umath_linalg.cpython-37m-darwin.so */,
-				C9C14A4321DA5D6800FD8A28 /* fftpack_lite.cpython-37m-darwin.so */,
-				C9C14A4621DA5D6800FD8A28 /* lapack_lite.cpython-37m-darwin.so */,
-				C9C14A4821DA5D6900FD8A28 /* mtrand.cpython-37m-darwin.so */,
-				C9C14A4921DA5D6900FD8A28 /* multiarray_tests.cpython-37m-darwin.so */,
-				C9C14A4421DA5D6800FD8A28 /* multiarray.cpython-37m-darwin.so */,
-				C9C14A4A21DA5D6900FD8A28 /* operand_flag_tests.cpython-37m-darwin.so */,
-				C9C14A4C21DA5D6900FD8A28 /* struct_ufunc_test.cpython-37m-darwin.so */,
-				C9C14A4221DA5D6800FD8A28 /* test_rational.cpython-37m-darwin.so */,
-				C9C14A4721DA5D6800FD8A28 /* umath_tests.cpython-37m-darwin.so */,
-				C9C14A4521DA5D6800FD8A28 /* umath.cpython-37m-darwin.so */,
+				C913200821DBE56D00EEE677 /* _dummy.cpython-37m-darwin.so */,
+				C9131FFD21DBE56B00EEE677 /* _umath_linalg.cpython-37m-darwin.so */,
+				C913200321DBE56C00EEE677 /* fftpack_lite.cpython-37m-darwin.so */,
+				C913200721DBE56D00EEE677 /* lapack_lite.cpython-37m-darwin.so */,
+				C9131FFF21DBE56B00EEE677 /* mtrand.cpython-37m-darwin.so */,
+				C913200221DBE56C00EEE677 /* multiarray_tests.cpython-37m-darwin.so */,
+				C913200021DBE56B00EEE677 /* multiarray.cpython-37m-darwin.so */,
+				C913200521DBE56C00EEE677 /* operand_flag_tests.cpython-37m-darwin.so */,
+				C913200121DBE56B00EEE677 /* struct_ufunc_test.cpython-37m-darwin.so */,
+				C913200621DBE56C00EEE677 /* test_rational.cpython-37m-darwin.so */,
+				C9131FFE21DBE56B00EEE677 /* umath_tests.cpython-37m-darwin.so */,
+				C913200421DBE56C00EEE677 /* umath.cpython-37m-darwin.so */,
 				C9C14A3921DA5D5000FD8A28 /* Info.plist */,
 			);
 			path = NumPy;
@@ -1018,7 +865,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9C1BA0721D945D000971997 /* numpy in Resources */,
 				C98E42E321D2CF0300B4D260 /* python37.zip in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1038,6 +884,8 @@
 				C9FCFD63214428B300A07974 /* LaunchScreen.storyboard in Resources */,
 				C9E415312151531B00D64E32 /* REPL.py in Resources */,
 				C903B98A215843B4004AAD7F /* extraCommandsDictionary.plist in Resources */,
+				C9131FFC21DBE48D00EEE677 /* numpy in Resources */,
+				C913202621DBF88400EEE677 /* pandas in Resources */,
 				C9E4152E21514F9100D64E32 /* Startup.py in Resources */,
 				C9BE01B42154738C00A8C825 /* site-packages in Resources */,
 				C9477BBB21D45D29000680AE /* installer.py in Resources */,
