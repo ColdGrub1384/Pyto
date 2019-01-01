@@ -125,12 +125,12 @@ import ios_system
                 self.isREPLRunning = true
             }
             
-            guard let startupURL = Bundle.main.url(forResource: "Startup", withExtension: "py"), let src = try? String(contentsOf: startupURL) as NSString else {
+            guard let startupURL = Bundle.main.url(forResource: "Startup", withExtension: "py"), let src = try? String(contentsOf: startupURL) else {
                 PyOutputHelper.print(Localizable.Python.alreadyRunning)
                 return
             }
             
-            let code = NSString(format: src, url.path) as String
+            let code = String(format: src, url.path)
             PyRun_SimpleStringFlags(code.cValue, nil)
         }
     }
