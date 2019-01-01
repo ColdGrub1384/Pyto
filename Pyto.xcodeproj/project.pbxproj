@@ -28,6 +28,7 @@
 		C913201221DBE58B00EEE677 /* test_rational.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C913200621DBE56C00EEE677 /* test_rational.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C913201321DBE58F00EEE677 /* umath_tests.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C9131FFE21DBE56B00EEE677 /* umath_tests.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C913201421DBE59300EEE677 /* umath.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C913200421DBE56C00EEE677 /* umath.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C913202B21DC12A300EEE677 /* AcknowledgmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C913202A21DC12A300EEE677 /* AcknowledgmentsViewController.swift */; };
 		C92495C72151A3E3007EB4DB /* ReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92495C62151A3E3007EB4DB /* ReviewHelper.swift */; };
 		C93D61DD2145CD0800C8B5E3 /* PyInputHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DC2145CD0800C8B5E3 /* PyInputHelper.swift */; };
 		C93D61DF2145D03200C8B5E3 /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DE2145D03200C8B5E3 /* UIWindow.swift */; };
@@ -276,6 +277,7 @@
 		C913200621DBE56C00EEE677 /* test_rational.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "test_rational.cpython-37m-darwin.so"; sourceTree = "<group>"; };
 		C913200721DBE56D00EEE677 /* lapack_lite.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "lapack_lite.cpython-37m-darwin.so"; sourceTree = "<group>"; };
 		C913200821DBE56D00EEE677 /* _dummy.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "_dummy.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C913202A21DC12A300EEE677 /* AcknowledgmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcknowledgmentsViewController.swift; sourceTree = "<group>"; };
 		C92495C62151A3E3007EB4DB /* ReviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewHelper.swift; sourceTree = "<group>"; };
 		C93634A521BC137C00785AC8 /* Pyto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pyto.entitlements; sourceTree = "<group>"; };
 		C93D61DC2145CD0800C8B5E3 /* PyInputHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PyInputHelper.swift; sourceTree = "<group>"; };
@@ -430,6 +432,7 @@
 				C9EDF9AA21446FCA00382DCC /* ConsoleViewController.swift */,
 				C9DF70BF2171723800981B4F /* REPLViewController.swift */,
 				C99DDCEB21BBED22002A734E /* DocumentationViewController.swift */,
+				C913202A21DC12A300EEE677 /* AcknowledgmentsViewController.swift */,
 				C9BDF6B221BD9BBA0045DDA3 /* TemplatesViewController.swift */,
 				C9592D1F21D059B900412CEF /* EditorSplitViewController.swift */,
 			);
@@ -977,6 +980,7 @@
 				C9BDF6B921BD9BBA0045DDA3 /* TemplatesViewController.swift in Sources */,
 				C9FCFD59214428AE00A07974 /* AppDelegate.swift in Sources */,
 				C93D61E12145D46700C8B5E3 /* PyOutputHelper.swift in Sources */,
+				C913202B21DC12A300EEE677 /* AcknowledgmentsViewController.swift in Sources */,
 				C99DDCEC21BBED22002A734E /* DocumentationViewController.swift in Sources */,
 				C97659062147192C001C96A8 /* PySharingHelper.swift in Sources */,
 			);
