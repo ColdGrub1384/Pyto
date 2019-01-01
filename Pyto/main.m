@@ -15,23 +15,9 @@
 /// The path of the Python home directory.
 NSString *pythonHome;
 
-int main(int argc, char *argv[]) {
-        
-    pythonHome = Python.shared.bundle.bundlePath;
-    
-    if (!pythonHome) {
-        Py_FatalError("Python home doesn't exist");
-    }
-    
-    // MARK: - Python env variables
-    putenv("PYTHONOPTIMIZE=");
-    putenv("PYTHONDONTWRITEBYTECODE=1");
-    putenv((char *)[[NSString stringWithFormat:@"TMP=%@", NSTemporaryDirectory()] UTF8String]);
-    putenv((char *)[[NSString stringWithFormat:@"PYTHONHOME=%@", pythonHome] UTF8String]);
-    putenv((char *)[[NSString stringWithFormat:@"PYTHONPATH=%@:%@", [pythonHome stringByAppendingPathComponent:@"python37.zip"], Python.shared.bundle.bundlePath] UTF8String]);
-    
-    // MARK: - NumPy
-    
+// MARK: - Modules
+
+void init_numpy() {
     void *multiarray = NULL;
     void *umath = NULL;
     void *fftpack_lite = NULL;
@@ -52,7 +38,7 @@ int main(int argc, char *argv[]) {
         if ([file.pathExtension isEqualToString:@"so"]) {
             void *handle = dlopen(file.path.UTF8String, RTLD_LAZY);
             
-            if (!handle) {
+            if (!handle) {
                 fprintf(stderr, "%s", dlerror());
             }
             
@@ -90,6 +76,68 @@ int main(int argc, char *argv[]) {
     PyImport_AppendInittab("__numpy_linalg__umath_linalg", PyInit__umath_linalg);
     PyImport_AppendInittab("__numpy_linalg_lapack_lite", PyInit_lapack_lite);
     PyImport_AppendInittab("__numpy_random_mtrand", PyInit_mtrand);
+}
+
+// TODO: Add Pandas
+/*void init_pandas() {
+    
+    void *hashtable = NULL;
+    void *lib = NULL;
+    
+    PyMODINIT_FUNC (*PyInit_hashtable)(void);
+    PyMODINIT_FUNC (*PyInit_lib)(void);
+    
+    NSError *error;
+    for (NSURL *file in [NSFileManager.defaultManager contentsOfDirectoryAtURL:[[NSBundle.mainBundle privateFrameworksURL] URLByAppendingPathComponent:@"Pandas.framework"] includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:&error]) {
+        
+        if ([file.pathExtension isEqualToString:@"so"]) {
+            void *handle = dlopen(file.path.UTF8String, RTLD_LAZY);
+            
+            if (!handle) {
+                fprintf(stderr, "%s", dlerror());
+            }
+            
+            NSString *name = file.URLByDeletingPathExtension.lastPathComponent;
+            
+            if ([name isEqualToString:@"hashtable.cpython-37m-darwin"]) {
+                hashtable = handle;
+            } else if ([name isEqualToString:@"lib.cpython-37m-darwin"]) {
+                lib = handle;
+            }
+        }
+    }
+    if (error) {
+        NSLog(@"%@", error.localizedDescription);
+    }
+    
+    *(void **) (&PyInit_hashtable) = dlsym(hashtable, "PyInit_hashtable");
+    *(void **) (&PyInit_lib) = dlsym(lib, "PyInit_lib");
+    
+    PyImport_AppendInittab("__pandas_hashtable", PyInit_hashtable);
+    PyImport_AppendInittab("__pandas_lib", PyInit_lib);
+}*/
+
+// MARK: - Main
+
+int main(int argc, char *argv[]) {
+        
+    pythonHome = Python.shared.bundle.bundlePath;
+    
+    if (!pythonHome) {
+        Py_FatalError("Python home doesn't exist");
+    }
+    
+    // MARK: - Python env variables
+    putenv("PYTHONOPTIMIZE=");
+    putenv("PYTHONDONTWRITEBYTECODE=1");
+    putenv((char *)[[NSString stringWithFormat:@"TMP=%@", NSTemporaryDirectory()] UTF8String]);
+    putenv((char *)[[NSString stringWithFormat:@"PYTHONHOME=%@", pythonHome] UTF8String]);
+    putenv((char *)[[NSString stringWithFormat:@"PYTHONPATH=%@:%@", [pythonHome stringByAppendingPathComponent:@"python37.zip"], Python.shared.bundle.bundlePath] UTF8String]);
+    
+    // MARK: - Modules
+    
+    init_numpy();
+    //init_pandas();
     
     // MARK: - Init Python
     Py_SetPythonHome(Py_DecodeLocale([pythonHome UTF8String], NULL));

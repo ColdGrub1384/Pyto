@@ -14,6 +14,8 @@ import threading
 
 PytoClasses.Python.shared.version = sys.version
 
+# MARK: - Input
+
 def askForInput(prompt=None):
     if (threading.currentThread() in Pyto.ignoredThreads):
         return ""
@@ -22,6 +24,8 @@ def askForInput(prompt=None):
 
 
 __builtins__.input = askForInput
+
+# MARK: - Output
 
 oldStdout = sys.stdout
 
@@ -42,13 +46,15 @@ reader = Reader()
 sys.stderr = reader
 sys.stdout = reader
 
+# MARK: - REPL
+
 interact = code.interact
 def newInteract():
     PytoClasses.Python.shared.isREPLRunning = True
     interact()
 code.interact = newInteract
 
-# NumPy
+# MARK: - NumPy
 
 class NumpyImporter(object):
     def find_module(self, fullname, mpath=None):
@@ -67,7 +73,31 @@ class NumpyImporter(object):
 
         return mod
 
+# MARK: - Pandas
+
+# TODO: Add Pandas
+'''class PandasImporter(object):
+    def find_module(self, fullname, mpath=None):
+        if fullname in ('pandas.hashtable', 'pandas.lib'):
+            return self
+        
+        return
+    
+    def load_module(self, fullname):
+        f = '__' + fullname.replace('.', '_')
+        mod = sys.modules.get(f)
+        if mod is None:
+            mod = importlib.__import__(f)
+            sys.modules[fullname] = mod
+            return mod
+        
+        return mod
+'''
+
 sys.meta_path.append(NumpyImporter())
+#sys.meta_path.append(PandasImporter())
+
+# MARK: - Run script
 
 try:
     SourceFileLoader("main", "%@").load_module()
