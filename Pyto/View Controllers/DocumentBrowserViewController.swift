@@ -305,6 +305,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        navigationController?.view.backgroundColor = .white
         navigationController?.navigationBar.shadowImage = UIImage()
     }
     
