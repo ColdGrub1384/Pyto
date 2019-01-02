@@ -29,6 +29,16 @@ class Localizable: Static {
     /// 'REPL' tab
     static let repl = NSLocalizedString("repl", comment: "'REPL' tab")
     
+    /// Strings for the alert for setting arguments.
+    class ArgumentsAlert: Static {
+        
+        /// Message of the alert for setting arguments
+        static let message = NSLocalizedString("argumentsAlert.message", comment: "Message of the alert for setting arguments")
+        
+        /// Title of the alert for setting arguments
+        static let title = NSLocalizedString("argumentsAlert.title", comment: "Title of the alert for setting arguments")
+    }
+    
     /// Strings shown in the folder views.
     class Folders: Static {
         

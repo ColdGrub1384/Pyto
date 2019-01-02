@@ -13,6 +13,75 @@ import InputAssistant
 import IntentsUI
 import CoreSpotlight
 
+fileprivate func parseArgs(_ args: inout [String]) {
+    
+    enum QuoteType: String {
+        case double = "\""
+        case single = "'"
+    }
+    
+    func parseArgs(_ args: inout [String], quoteType: QuoteType) {
+        
+        var parsedArgs = [String]()
+        
+        var currentArg = ""
+        
+        for arg in args {
+            
+            if arg.hasPrefix("\(quoteType.rawValue)") {
+                
+                if currentArg.isEmpty {
+                    
+                    currentArg = arg
+                    currentArg.removeFirst()
+                    
+                } else {
+                    
+                    currentArg.append(" " + arg)
+                    
+                }
+                
+            } else if arg.hasSuffix("\(quoteType.rawValue)") {
+                
+                if currentArg.isEmpty {
+                    
+                    currentArg.append(arg)
+                    
+                } else {
+                    
+                    currentArg.append(" " + arg)
+                    currentArg.removeLast()
+                    parsedArgs.append(currentArg)
+                    currentArg = ""
+                    
+                }
+                
+            } else {
+                
+                if currentArg.isEmpty {
+                    parsedArgs.append(arg)
+                } else {
+                    currentArg.append(" " + arg)
+                }
+                
+            }
+        }
+        
+        if !currentArg.isEmpty {
+            if currentArg.hasSuffix("\(quoteType.rawValue)") {
+                currentArg.removeLast()
+            }
+            parsedArgs.append(currentArg)
+        }
+        
+        args = parsedArgs
+    }
+    
+    parseArgs(&args, quoteType: .single)
+    parseArgs(&args, quoteType: .double)
+}
+
+
 /// The View controller used to edit source code.
 @objc class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssistantViewDelegate, InputAssistantViewDataSource, UITextViewDelegate, INUIAddVoiceShortcutViewControllerDelegate, INUIAddVoiceShortcutButtonDelegate, INUIEditVoiceShortcutViewControllerDelegate {
     
@@ -142,6 +211,9 @@ import CoreSpotlight
         }
     }
     
+    /// Arguments passed to the script.
+    var args = ""
+    
     /// Initialize with given document.
     ///
     /// - Parameters:
@@ -178,6 +250,7 @@ import CoreSpotlight
             title = nil
         }
         
+        let argsItem = UIBarButtonItem(title: "args", style: .plain, target: self, action: #selector(setArgs(_:)))
         runBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(run))
         stopBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(stop))
         
@@ -186,7 +259,10 @@ import CoreSpotlight
         if Python.shared.isScriptRunning {
             parent?.navigationItem.rightBarButtonItem = stopBarButtonItem
         } else {
-            parent?.navigationItem.rightBarButtonItem = runBarButtonItem
+            parent?.navigationItem.rightBarButtonItems = [
+                runBarButtonItem,
+                argsItem
+            ]
         }
         parent?.navigationItem.leftBarButtonItems = [scriptsItem, docItem]
         
@@ -305,6 +381,31 @@ import CoreSpotlight
         present(activityVC, animated: true, completion: nil)
     }
     
+    /// Opens an alert for setting arguments passed to the script.
+    @objc func setArgs(_ sender: Any) {
+        
+        let alert = UIAlertController(title: Localizable.ArgumentsAlert.title, message: Localizable.ArgumentsAlert.message, preferredStyle: .alert)
+        
+        var textField: UITextField?
+        
+        alert.addTextField { (textField_) in
+            textField = textField_
+            textField_.text = self.args
+        }
+        
+        alert.addAction(UIAlertAction(title: Localizable.ok, style: .default, handler: { _ in
+            
+            if let text = textField?.text {
+                self.args = text
+            }
+            
+        }))
+        
+        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
     /// Stops the current running script.
     @objc func stop() {
         Python.shared.isScriptRunning = false
@@ -316,6 +417,11 @@ import CoreSpotlight
     @objc func run() {
         save { (_) in
             Python.shared.values = []
+            
+            var arguments = self.args.components(separatedBy: " ")
+            parseArgs(&arguments)
+            Python.shared.args = arguments
+            
             DispatchQueue.main.async {
                 if let url = self.document?.fileURL {
                     let console = ConsoleViewController.visible
