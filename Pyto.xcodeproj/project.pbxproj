@@ -16,18 +16,6 @@
 		C904EB6821445B6100585C28 /* libOpenSSL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6721445B6100585C28 /* libOpenSSL.a */; };
 		C904EB7321445D5800585C28 /* Python.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904EB7221445D5800585C28 /* Python.swift */; };
 		C904FA2621DA4C7600B70A39 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C904FA1F21DA4C7600B70A39 /* Accelerate.framework */; };
-		C913200921DBE57200EEE677 /* _dummy.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C913200821DBE56D00EEE677 /* _dummy.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C913200A21DBE57400EEE677 /* _umath_linalg.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C9131FFD21DBE56B00EEE677 /* _umath_linalg.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C913200B21DBE57600EEE677 /* fftpack_lite.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C913200321DBE56C00EEE677 /* fftpack_lite.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C913200C21DBE57900EEE677 /* lapack_lite.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C913200721DBE56D00EEE677 /* lapack_lite.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C913200D21DBE57C00EEE677 /* mtrand.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C9131FFF21DBE56B00EEE677 /* mtrand.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C913200E21DBE57E00EEE677 /* multiarray_tests.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C913200221DBE56C00EEE677 /* multiarray_tests.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C913200F21DBE58000EEE677 /* multiarray.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C913200021DBE56B00EEE677 /* multiarray.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C913201021DBE58400EEE677 /* operand_flag_tests.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C913200521DBE56C00EEE677 /* operand_flag_tests.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C913201121DBE58700EEE677 /* struct_ufunc_test.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C913200121DBE56B00EEE677 /* struct_ufunc_test.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C913201221DBE58B00EEE677 /* test_rational.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C913200621DBE56C00EEE677 /* test_rational.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C913201321DBE58F00EEE677 /* umath_tests.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C9131FFE21DBE56B00EEE677 /* umath_tests.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C913201421DBE59300EEE677 /* umath.cpython-37m-darwin.so in Copy Libraries */ = {isa = PBXBuildFile; fileRef = C913200421DBE56C00EEE677 /* umath.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C913202B21DC12A300EEE677 /* AcknowledgmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C913202A21DC12A300EEE677 /* AcknowledgmentsViewController.swift */; };
 		C92495C72151A3E3007EB4DB /* ReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92495C62151A3E3007EB4DB /* ReviewHelper.swift */; };
 		C93D61DD2145CD0800C8B5E3 /* PyInputHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DC2145CD0800C8B5E3 /* PyInputHelper.swift */; };
@@ -44,6 +32,12 @@
 		C95A79E8214DC9D0007A1B90 /* PyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A79E7214DC9D0007A1B90 /* PyAlert.swift */; };
 		C9624EF421A9905400DDA9A7 /* PyThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9624EF321A9905400DDA9A7 /* PyThread.swift */; };
 		C9647FFF21ACA00D005765C2 /* Help.py in Resources */ = {isa = PBXBuildFile; fileRef = C9647FFE21ACA00D005765C2 /* Help.py */; };
+		C96CBC3B21DE6BF0008C508C /* _umath_linalg.cpython-37m-darwin.so in Copy _umath_linalg */ = {isa = PBXBuildFile; fileRef = C96CBC2521DE6A78008C508C /* _umath_linalg.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96CBC3D21DE6C0E008C508C /* fftpack_lite.cpython-37m-darwin.so in Copy fftpack_lite */ = {isa = PBXBuildFile; fileRef = C96CBC2621DE6A78008C508C /* fftpack_lite.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96CBC3F21DE6C22008C508C /* lapack_lite.cpython-37m-darwin.so in Copy lapack_lite */ = {isa = PBXBuildFile; fileRef = C96CBC2721DE6A78008C508C /* lapack_lite.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96CBC4121DE6C36008C508C /* mtrand.cpython-37m-darwin.so in Copy mtrand */ = {isa = PBXBuildFile; fileRef = C96CBC2C21DE6A79008C508C /* mtrand.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96CBC4321DE6C45008C508C /* multiarray.cpython-37m-darwin.so in Copy multiarray */ = {isa = PBXBuildFile; fileRef = C96CBC2821DE6A79008C508C /* multiarray.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96CBC4521DE6C5C008C508C /* umath.cpython-37m-darwin.so in Copy umath */ = {isa = PBXBuildFile; fileRef = C96CBC2A21DE6A79008C508C /* umath.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C97659062147192C001C96A8 /* PySharingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97659052147192C001C96A8 /* PySharingHelper.swift */; };
 		C976592721471D23001C96A8 /* PyFilePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C976592621471D23001C96A8 /* PyFilePicker.swift */; };
 		C98472AE21A05CB1008E16AC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C98472AD21A05CB1008E16AC /* README.md */; };
@@ -54,11 +48,21 @@
 		C9AAAB492195016D0042E733 /* InputAssistant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9AAAB44219501600042E733 /* InputAssistant.framework */; };
 		C9AAAB4A2195016D0042E733 /* InputAssistant.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AAAB44219501600042E733 /* InputAssistant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9AAAB5221950E8B0042E733 /* UITextView+currentWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* UITextView+currentWord.swift */; };
+		C9AED5A921DE7DEC00CC5B43 /* Info.plist in Copy fftpack_lite */ = {isa = PBXBuildFile; fileRef = C9AED5A821DE7DEC00CC5B43 /* Info.plist */; };
+		C9AED5AF21DE7E7100CC5B43 /* Info.plist in Copy _umath_linalg */ = {isa = PBXBuildFile; fileRef = C9AED5AE21DE7E7100CC5B43 /* Info.plist */; };
+		C9AED5B121DE7E9A00CC5B43 /* Info.plist in Copy lapack_lite */ = {isa = PBXBuildFile; fileRef = C9AED5B021DE7E9A00CC5B43 /* Info.plist */; };
+		C9AED5B321DE7EAA00CC5B43 /* Info.plist in Copy mtrand */ = {isa = PBXBuildFile; fileRef = C9AED5B221DE7EAA00CC5B43 /* Info.plist */; };
+		C9AED5B521DE7EBB00CC5B43 /* Info.plist in Copy multiarray */ = {isa = PBXBuildFile; fileRef = C9AED5B421DE7EBB00CC5B43 /* Info.plist */; };
+		C9AED5B721DE7ECC00CC5B43 /* Info.plist in Copy umath */ = {isa = PBXBuildFile; fileRef = C9AED5B621DE7ECB00CC5B43 /* Info.plist */; };
+		C9AED5B921DE808C00CC5B43 /* _umath_linalg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59A21DE771C00CC5B43 /* _umath_linalg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9AED5BA21DE808E00CC5B43 /* fftpack_lite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59E21DE771C00CC5B43 /* fftpack_lite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9AED5BB21DE809000CC5B43 /* lapack_lite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59C21DE771C00CC5B43 /* lapack_lite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9AED5BC21DE809300CC5B43 /* mtrand.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59D21DE771C00CC5B43 /* mtrand.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9AED5BD21DE809600CC5B43 /* multiarray.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59B21DE771C00CC5B43 /* multiarray.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9AED5BE21DE809800CC5B43 /* umath.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59F21DE771D00CC5B43 /* umath.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9B3FDEC21503DE7000FC9A8 /* PyExtensionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */; };
 		C9BDF6B921BD9BBA0045DDA3 /* TemplatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BDF6B221BD9BBA0045DDA3 /* TemplatesViewController.swift */; };
 		C9BE01B42154738C00A8C825 /* site-packages in Resources */ = {isa = PBXBuildFile; fileRef = C9BE01B021530BAF00A8C825 /* site-packages */; };
-		C9C14A3D21DA5D5000FD8A28 /* NumPy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C14A3621DA5D5000FD8A28 /* NumPy.framework */; };
-		C9C14A3E21DA5D5000FD8A28 /* NumPy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C14A3621DA5D5000FD8A28 /* NumPy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9C1B9F521D939B200971997 /* libnpymath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C1B9F321D939AF00971997 /* libnpymath.a */; };
 		C9C1B9F621D939B500971997 /* libnpysort.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C1B9F421D939B000971997 /* libnpysort.a */; };
 		C9DF70B821715D3D00981B4F /* FileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DF70B721715D3D00981B4F /* FileCollectionViewCell.swift */; };
@@ -155,13 +159,6 @@
 			remoteGlobalIDString = 3C2E4346201E7E6C00E4254A;
 			remoteInfo = InputAssistant;
 		};
-		C9C14A3B21DA5D5000FD8A28 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C9FCFD4D214428AE00A07974 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C9C14A3521DA5D5000FD8A28;
-			remoteInfo = NumPy;
-		};
 		C9DF71082171768A00981B4F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C9FCFD4D214428AE00A07974 /* Project object */;
@@ -186,36 +183,76 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		C98E2015214F1F38002F0178 /* Embed App Extensions */ = {
+		C96CBC3A21DE6BDC008C508C /* Copy _umath_linalg */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
+			dstPath = _umath_linalg.framework;
+			dstSubfolderSpec = 10;
 			files = (
+				C96CBC3B21DE6BF0008C508C /* _umath_linalg.cpython-37m-darwin.so in Copy _umath_linalg */,
+				C9AED5AF21DE7E7100CC5B43 /* Info.plist in Copy _umath_linalg */,
 			);
-			name = "Embed App Extensions";
+			name = "Copy _umath_linalg";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C9C14A5A21DA65E200FD8A28 /* Copy Libraries */ = {
+		C96CBC3C21DE6BFC008C508C /* Copy fftpack_lite */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 7;
+			dstPath = fftpack_lite.framework;
+			dstSubfolderSpec = 10;
 			files = (
-				C913200921DBE57200EEE677 /* _dummy.cpython-37m-darwin.so in Copy Libraries */,
-				C913200A21DBE57400EEE677 /* _umath_linalg.cpython-37m-darwin.so in Copy Libraries */,
-				C913200B21DBE57600EEE677 /* fftpack_lite.cpython-37m-darwin.so in Copy Libraries */,
-				C913200C21DBE57900EEE677 /* lapack_lite.cpython-37m-darwin.so in Copy Libraries */,
-				C913200D21DBE57C00EEE677 /* mtrand.cpython-37m-darwin.so in Copy Libraries */,
-				C913200E21DBE57E00EEE677 /* multiarray_tests.cpython-37m-darwin.so in Copy Libraries */,
-				C913200F21DBE58000EEE677 /* multiarray.cpython-37m-darwin.so in Copy Libraries */,
-				C913201021DBE58400EEE677 /* operand_flag_tests.cpython-37m-darwin.so in Copy Libraries */,
-				C913201121DBE58700EEE677 /* struct_ufunc_test.cpython-37m-darwin.so in Copy Libraries */,
-				C913201221DBE58B00EEE677 /* test_rational.cpython-37m-darwin.so in Copy Libraries */,
-				C913201321DBE58F00EEE677 /* umath_tests.cpython-37m-darwin.so in Copy Libraries */,
-				C913201421DBE59300EEE677 /* umath.cpython-37m-darwin.so in Copy Libraries */,
+				C96CBC3D21DE6C0E008C508C /* fftpack_lite.cpython-37m-darwin.so in Copy fftpack_lite */,
+				C9AED5A921DE7DEC00CC5B43 /* Info.plist in Copy fftpack_lite */,
 			);
-			name = "Copy Libraries";
+			name = "Copy fftpack_lite";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96CBC3E21DE6C15008C508C /* Copy lapack_lite */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = lapack_lite.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96CBC3F21DE6C22008C508C /* lapack_lite.cpython-37m-darwin.so in Copy lapack_lite */,
+				C9AED5B121DE7E9A00CC5B43 /* Info.plist in Copy lapack_lite */,
+			);
+			name = "Copy lapack_lite";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96CBC4021DE6C26008C508C /* Copy mtrand */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = mtrand.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96CBC4121DE6C36008C508C /* mtrand.cpython-37m-darwin.so in Copy mtrand */,
+				C9AED5B321DE7EAA00CC5B43 /* Info.plist in Copy mtrand */,
+			);
+			name = "Copy mtrand";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96CBC4221DE6C39008C508C /* Copy multiarray */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = multiarray.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96CBC4321DE6C45008C508C /* multiarray.cpython-37m-darwin.so in Copy multiarray */,
+				C9AED5B521DE7EBB00CC5B43 /* Info.plist in Copy multiarray */,
+			);
+			name = "Copy multiarray";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96CBC4421DE6C52008C508C /* Copy umath */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = umath.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96CBC4521DE6C5C008C508C /* umath.cpython-37m-darwin.so in Copy umath */,
+				C9AED5B721DE7ECC00CC5B43 /* Info.plist in Copy umath */,
+			);
+			name = "Copy umath";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C9EAB4CA214D95C500DFC9A4 /* Embed Frameworks */ = {
@@ -228,7 +265,6 @@
 				C9DF70F3217175C400981B4F /* openssl.framework in Embed Frameworks */,
 				C9DF70EF217175C400981B4F /* network_ios.framework in Embed Frameworks */,
 				C9DF70FD217175C400981B4F /* awk.framework in Embed Frameworks */,
-				C9C14A3E21DA5D5000FD8A28 /* NumPy.framework in Embed Frameworks */,
 				C9DF70F1217175C400981B4F /* curl_ios.framework in Embed Frameworks */,
 				C9DF711B217176D700981B4F /* ios_system.framework in Embed Frameworks */,
 				C9AAAB4A2195016D0042E733 /* InputAssistant.framework in Embed Frameworks */,
@@ -240,6 +276,12 @@
 				C9DF7101217175C500981B4F /* ssh_cmd.framework in Embed Frameworks */,
 				C9DF7103217175C500981B4F /* text.framework in Embed Frameworks */,
 				C9DF70FB217175C400981B4F /* tar.framework in Embed Frameworks */,
+				C9AED5B921DE808C00CC5B43 /* _umath_linalg.framework in Embed Frameworks */,
+				C9AED5BA21DE808E00CC5B43 /* fftpack_lite.framework in Embed Frameworks */,
+				C9AED5BB21DE809000CC5B43 /* lapack_lite.framework in Embed Frameworks */,
+				C9AED5BC21DE809300CC5B43 /* mtrand.framework in Embed Frameworks */,
+				C9AED5BD21DE809600CC5B43 /* multiarray.framework in Embed Frameworks */,
+				C9AED5BE21DE809800CC5B43 /* umath.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,18 +307,6 @@
 		C904EB6C21445CAE00585C28 /* Pyto-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pyto-Bridging-Header.h"; sourceTree = "<group>"; };
 		C904EB7221445D5800585C28 /* Python.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Python.swift; sourceTree = "<group>"; };
 		C904FA1F21DA4C7600B70A39 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		C9131FFD21DBE56B00EEE677 /* _umath_linalg.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "_umath_linalg.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C9131FFE21DBE56B00EEE677 /* umath_tests.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "umath_tests.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C9131FFF21DBE56B00EEE677 /* mtrand.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "mtrand.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C913200021DBE56B00EEE677 /* multiarray.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "multiarray.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C913200121DBE56B00EEE677 /* struct_ufunc_test.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "struct_ufunc_test.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C913200221DBE56C00EEE677 /* multiarray_tests.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "multiarray_tests.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C913200321DBE56C00EEE677 /* fftpack_lite.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "fftpack_lite.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C913200421DBE56C00EEE677 /* umath.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "umath.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C913200521DBE56C00EEE677 /* operand_flag_tests.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "operand_flag_tests.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C913200621DBE56C00EEE677 /* test_rational.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "test_rational.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C913200721DBE56D00EEE677 /* lapack_lite.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "lapack_lite.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C913200821DBE56D00EEE677 /* _dummy.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "_dummy.cpython-37m-darwin.so"; sourceTree = "<group>"; };
 		C913202A21DC12A300EEE677 /* AcknowledgmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcknowledgmentsViewController.swift; sourceTree = "<group>"; };
 		C92495C62151A3E3007EB4DB /* ReviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewHelper.swift; sourceTree = "<group>"; };
 		C93634A521BC137C00785AC8 /* Pyto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pyto.entitlements; sourceTree = "<group>"; };
@@ -296,6 +326,12 @@
 		C95A79E7214DC9D0007A1B90 /* PyAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyAlert.swift; sourceTree = "<group>"; };
 		C9624EF321A9905400DDA9A7 /* PyThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyThread.swift; sourceTree = "<group>"; };
 		C9647FFE21ACA00D005765C2 /* Help.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = Help.py; sourceTree = "<group>"; };
+		C96CBC2521DE6A78008C508C /* _umath_linalg.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "_umath_linalg.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96CBC2621DE6A78008C508C /* fftpack_lite.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "fftpack_lite.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96CBC2721DE6A78008C508C /* lapack_lite.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "lapack_lite.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96CBC2821DE6A79008C508C /* multiarray.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "multiarray.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96CBC2A21DE6A79008C508C /* umath.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "umath.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96CBC2C21DE6A79008C508C /* mtrand.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "mtrand.cpython-37m-darwin.so"; sourceTree = "<group>"; };
 		C97659052147192C001C96A8 /* PySharingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PySharingHelper.swift; sourceTree = "<group>"; };
 		C976592621471D23001C96A8 /* PyFilePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyFilePicker.swift; sourceTree = "<group>"; };
 		C984729121A05A0E008E16AC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -306,11 +342,21 @@
 		C99DDCEB21BBED22002A734E /* DocumentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationViewController.swift; sourceTree = "<group>"; };
 		C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = InputAssistant.xcodeproj; path = InputAssistant/InputAssistant.xcodeproj; sourceTree = "<group>"; };
 		C9AAAB5121950E8B0042E733 /* UITextView+currentWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+currentWord.swift"; sourceTree = "<group>"; };
+		C9AED59A21DE771C00CC5B43 /* _umath_linalg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _umath_linalg.framework; sourceTree = "<group>"; };
+		C9AED59B21DE771C00CC5B43 /* multiarray.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = multiarray.framework; sourceTree = "<group>"; };
+		C9AED59C21DE771C00CC5B43 /* lapack_lite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = lapack_lite.framework; sourceTree = "<group>"; };
+		C9AED59D21DE771C00CC5B43 /* mtrand.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = mtrand.framework; sourceTree = "<group>"; };
+		C9AED59E21DE771C00CC5B43 /* fftpack_lite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = fftpack_lite.framework; sourceTree = "<group>"; };
+		C9AED59F21DE771D00CC5B43 /* umath.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = umath.framework; sourceTree = "<group>"; };
+		C9AED5A821DE7DEC00CC5B43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = fftpack_lite.framework/Info.plist; sourceTree = "<group>"; };
+		C9AED5AE21DE7E7100CC5B43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = _umath_linalg.framework/Info.plist; sourceTree = "<group>"; };
+		C9AED5B021DE7E9A00CC5B43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = lapack_lite.framework/Info.plist; sourceTree = "<group>"; };
+		C9AED5B221DE7EAA00CC5B43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = mtrand.framework/Info.plist; sourceTree = "<group>"; };
+		C9AED5B421DE7EBB00CC5B43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = multiarray.framework/Info.plist; sourceTree = "<group>"; };
+		C9AED5B621DE7ECB00CC5B43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = umath.framework/Info.plist; sourceTree = "<group>"; };
 		C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyExtensionContext.swift; sourceTree = "<group>"; };
 		C9BDF6B221BD9BBA0045DDA3 /* TemplatesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplatesViewController.swift; sourceTree = "<group>"; };
 		C9BE01B021530BAF00A8C825 /* site-packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "site-packages"; sourceTree = "<group>"; };
-		C9C14A3621DA5D5000FD8A28 /* NumPy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NumPy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C9C14A3921DA5D5000FD8A28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9C1B9F321D939AF00971997 /* libnpymath.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libnpymath.a; sourceTree = "<group>"; };
 		C9C1B9F421D939B000971997 /* libnpysort.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libnpysort.a; sourceTree = "<group>"; };
 		C9C57EB40A56344EEB889161 /* Pods-Pyto Share.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Share.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Share/Pods-Pyto Share.release.xcconfig"; sourceTree = "<group>"; };
@@ -366,13 +412,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C9C14A3321DA5D5000FD8A28 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C9FCFD52214428AE00A07974 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -381,7 +420,6 @@
 				C9EADAB921D6F69300BB8C7C /* libz.tbd in Frameworks */,
 				C9EDF9A5214461D300382DCC /* libsqlite3.tbd in Frameworks */,
 				6AB6C68D181C2C686D545A61 /* Pods_Pyto.framework in Frameworks */,
-				C9C14A3D21DA5D5000FD8A28 /* NumPy.framework in Frameworks */,
 				C904EB6621445B5D00585C28 /* libbzip2.a in Frameworks */,
 				C904EB6821445B6100585C28 /* libOpenSSL.a in Frameworks */,
 				C9DF70EA2171756C00981B4F /* libxz.a in Frameworks */,
@@ -528,19 +566,24 @@
 		C9C14A3721DA5D5000FD8A28 /* NumPy */ = {
 			isa = PBXGroup;
 			children = (
-				C913200821DBE56D00EEE677 /* _dummy.cpython-37m-darwin.so */,
-				C9131FFD21DBE56B00EEE677 /* _umath_linalg.cpython-37m-darwin.so */,
-				C913200321DBE56C00EEE677 /* fftpack_lite.cpython-37m-darwin.so */,
-				C913200721DBE56D00EEE677 /* lapack_lite.cpython-37m-darwin.so */,
-				C9131FFF21DBE56B00EEE677 /* mtrand.cpython-37m-darwin.so */,
-				C913200221DBE56C00EEE677 /* multiarray_tests.cpython-37m-darwin.so */,
-				C913200021DBE56B00EEE677 /* multiarray.cpython-37m-darwin.so */,
-				C913200521DBE56C00EEE677 /* operand_flag_tests.cpython-37m-darwin.so */,
-				C913200121DBE56B00EEE677 /* struct_ufunc_test.cpython-37m-darwin.so */,
-				C913200621DBE56C00EEE677 /* test_rational.cpython-37m-darwin.so */,
-				C9131FFE21DBE56B00EEE677 /* umath_tests.cpython-37m-darwin.so */,
-				C913200421DBE56C00EEE677 /* umath.cpython-37m-darwin.so */,
-				C9C14A3921DA5D5000FD8A28 /* Info.plist */,
+				C9AED5A821DE7DEC00CC5B43 /* Info.plist */,
+				C9AED5AE21DE7E7100CC5B43 /* Info.plist */,
+				C9AED5B021DE7E9A00CC5B43 /* Info.plist */,
+				C9AED5B221DE7EAA00CC5B43 /* Info.plist */,
+				C9AED5B421DE7EBB00CC5B43 /* Info.plist */,
+				C9AED5B621DE7ECB00CC5B43 /* Info.plist */,
+				C96CBC2521DE6A78008C508C /* _umath_linalg.cpython-37m-darwin.so */,
+				C96CBC2621DE6A78008C508C /* fftpack_lite.cpython-37m-darwin.so */,
+				C96CBC2721DE6A78008C508C /* lapack_lite.cpython-37m-darwin.so */,
+				C96CBC2C21DE6A79008C508C /* mtrand.cpython-37m-darwin.so */,
+				C96CBC2821DE6A79008C508C /* multiarray.cpython-37m-darwin.so */,
+				C96CBC2A21DE6A79008C508C /* umath.cpython-37m-darwin.so */,
+				C9AED59A21DE771C00CC5B43 /* _umath_linalg.framework */,
+				C9AED59E21DE771C00CC5B43 /* fftpack_lite.framework */,
+				C9AED59C21DE771C00CC5B43 /* lapack_lite.framework */,
+				C9AED59D21DE771C00CC5B43 /* mtrand.framework */,
+				C9AED59B21DE771C00CC5B43 /* multiarray.framework */,
+				C9AED59F21DE771D00CC5B43 /* umath.framework */,
 			);
 			path = NumPy;
 			sourceTree = "<group>";
@@ -619,7 +662,6 @@
 			children = (
 				C9FCFD55214428AE00A07974 /* Pyto.app */,
 				C943AC3D215277A000844368 /* Python.framework */,
-				C9C14A3621DA5D5000FD8A28 /* NumPy.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -663,13 +705,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C9C14A3121DA5D5000FD8A28 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -691,24 +726,6 @@
 			productReference = C943AC3D215277A000844368 /* Python.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		C9C14A3521DA5D5000FD8A28 /* NumPy */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C9C14A3F21DA5D5000FD8A28 /* Build configuration list for PBXNativeTarget "NumPy" */;
-			buildPhases = (
-				C9C14A3121DA5D5000FD8A28 /* Headers */,
-				C9C14A3221DA5D5000FD8A28 /* Sources */,
-				C9C14A3321DA5D5000FD8A28 /* Frameworks */,
-				C9C14A5A21DA65E200FD8A28 /* Copy Libraries */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = NumPy;
-			productName = NumPy;
-			productReference = C9C14A3621DA5D5000FD8A28 /* NumPy.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		C9FCFD54214428AE00A07974 /* Pyto */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C9FCFD67214428B300A07974 /* Build configuration list for PBXNativeTarget "Pyto" */;
@@ -719,7 +736,12 @@
 				C9FCFD53214428AE00A07974 /* Resources */,
 				D910EE956F1871789C77F1DA /* [CP] Embed Pods Frameworks */,
 				C9EAB4CA214D95C500DFC9A4 /* Embed Frameworks */,
-				C98E2015214F1F38002F0178 /* Embed App Extensions */,
+				C96CBC3A21DE6BDC008C508C /* Copy _umath_linalg */,
+				C96CBC3C21DE6BFC008C508C /* Copy fftpack_lite */,
+				C96CBC3E21DE6C15008C508C /* Copy lapack_lite */,
+				C96CBC4021DE6C26008C508C /* Copy mtrand */,
+				C96CBC4221DE6C39008C508C /* Copy multiarray */,
+				C96CBC4421DE6C52008C508C /* Copy umath */,
 			);
 			buildRules = (
 			);
@@ -727,7 +749,6 @@
 				C9DF71092171768A00981B4F /* PBXTargetDependency */,
 				C9DF711D217176D700981B4F /* PBXTargetDependency */,
 				C9AAAB4C2195016D0042E733 /* PBXTargetDependency */,
-				C9C14A3C21DA5D5000FD8A28 /* PBXTargetDependency */,
 			);
 			name = Pyto;
 			productName = Pyto;
@@ -746,9 +767,6 @@
 				TargetAttributes = {
 					C943AC3C215277A000844368 = {
 						CreatedOnToolsVersion = 10.0;
-					};
-					C9C14A3521DA5D5000FD8A28 = {
-						CreatedOnToolsVersion = 10.1;
 					};
 					C9FCFD54214428AE00A07974 = {
 						CreatedOnToolsVersion = 10.0;
@@ -793,7 +811,6 @@
 			targets = (
 				C9FCFD54214428AE00A07974 /* Pyto */,
 				C943AC3C215277A000844368 /* Python */,
-				C9C14A3521DA5D5000FD8A28 /* NumPy */,
 			);
 		};
 /* End PBXProject section */
@@ -941,13 +958,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C9C14A3221DA5D5000FD8A28 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C9FCFD51214428AE00A07974 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -993,11 +1003,6 @@
 			isa = PBXTargetDependency;
 			name = InputAssistant;
 			targetProxy = C9AAAB4B2195016D0042E733 /* PBXContainerItemProxy */;
-		};
-		C9C14A3C21DA5D5000FD8A28 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C9C14A3521DA5D5000FD8A28 /* NumPy */;
-			targetProxy = C9C14A3B21DA5D5000FD8A28 /* PBXContainerItemProxy */;
 		};
 		C9DF71092171768A00981B4F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1093,64 +1098,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		C9C14A4021DA5D5000FD8A28 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = Y96PL6G497;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = NumPy/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = ch.ada.NumPy;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		C9C14A4121DA5D5000FD8A28 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = Y96PL6G497;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = NumPy/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = ch.ada.NumPy;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1289,6 +1236,7 @@
 					"$(PROJECT_DIR)/Pyto",
 					"$(PROJECT_DIR)/ios_system",
 					"$(PROJECT_DIR)/ios_system_builds",
+					"$(PROJECT_DIR)/NumPy",
 				);
 				INFOPLIST_FILE = Pyto/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -1332,6 +1280,7 @@
 					"$(PROJECT_DIR)/Pyto",
 					"$(PROJECT_DIR)/ios_system",
 					"$(PROJECT_DIR)/ios_system_builds",
+					"$(PROJECT_DIR)/NumPy",
 				);
 				INFOPLIST_FILE = Pyto/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -1366,15 +1315,6 @@
 			buildConfigurations = (
 				C943AC47215277A000844368 /* Debug */,
 				C943AC48215277A000844368 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C9C14A3F21DA5D5000FD8A28 /* Build configuration list for PBXNativeTarget "NumPy" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C9C14A4021DA5D5000FD8A28 /* Debug */,
-				C9C14A4121DA5D5000FD8A28 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
