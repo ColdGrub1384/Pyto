@@ -12,6 +12,10 @@
 #import "Pyto-Swift.h"
 #include <dlfcn.h>
 
+#define load(HANDLE) \
+handle = dlopen(file.path.UTF8String, RTLD_LAZY); \
+HANDLE = handle;
+
 /// The path of the Python home directory.
 NSString *pythonHome;
 
@@ -33,30 +37,32 @@ void init_numpy() {
     PyMODINIT_FUNC (*PyInit_mtrand)(void);
     
     NSError *error;
-    for (NSURL *file in [NSFileManager.defaultManager contentsOfDirectoryAtURL:[[NSBundle.mainBundle privateFrameworksURL] URLByAppendingPathComponent:@"NumPy.framework"] includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:&error]) {
+    for (NSURL *bundle in [NSFileManager.defaultManager contentsOfDirectoryAtURL:NSBundle.mainBundle.privateFrameworksURL includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:&error]) {
         
-        if ([file.pathExtension isEqualToString:@"so"]) {
-            void *handle = dlopen(file.path.UTF8String, RTLD_LAZY);
-            
-            if (!handle) {
-                fprintf(stderr, "%s", dlerror());
-            }
-            
-            NSString *name = file.URLByDeletingPathExtension.lastPathComponent;
-            
-            if ([name isEqualToString:@"multiarray.cpython-37m-darwin"]) {
-                multiarray = handle;
-            } else if ([name isEqualToString:@"umath.cpython-37m-darwin"]) {
-                umath = handle;
-            } else if ([name isEqualToString:@"fftpack_lite.cpython-37m-darwin"]) {
-                fftpack_lite = handle;
-            } else if ([name isEqualToString:@"_umath_linalg.cpython-37m-darwin"]) {
-                umath_linalg = handle;
-            } else if ([name isEqualToString:@"lapack_lite.cpython-37m-darwin"]) {
-                lapack_lite = handle;
-            } else if ([name isEqualToString:@"mtrand.cpython-37m-darwin"]) {
-                mtrand = handle;
-            }
+        NSURL *file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"cpython-37m-darwin.so"].lastPathComponent];
+        
+        NSString *name = file.URLByDeletingPathExtension.URLByDeletingPathExtension.lastPathComponent;
+        
+        void *handle;
+        
+        if ([name isEqualToString:@"multiarray"]) {
+            load(multiarray);
+        } else if ([name isEqualToString:@"umath"]) {
+            load(umath);
+        } else if ([name isEqualToString:@"fftpack_lite"]) {
+            load(fftpack_lite);
+        } else if ([name isEqualToString:@"_umath_linalg"]) {
+            load(umath_linalg);
+        } else if ([name isEqualToString:@"lapack_lite"]) {
+            load(lapack_lite);
+        } else if ([name isEqualToString:@"mtrand"]) {
+            load(mtrand);
+        } else {
+            continue;
+        }
+        
+        if (!handle) {
+            fprintf(stderr, "%s", dlerror());
         }
     }
     if (error) {
