@@ -16,6 +16,7 @@ class ConsoleTextView: UITextView {
         textColor = .black
         font = UIFont(name: "Courier", size: UIFont.systemFontSize)
         smartQuotesType = .no
+        smartDashesType = .no
         autocapitalizationType = .none
         autocorrectionType = .no
     }
