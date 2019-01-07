@@ -43,6 +43,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
     @objc func print_(_ notification: Notification) {
         if let output = notification.object as? String {
             DispatchQueue.main.async {
+                self.console += output
                 self.textView.text.append(output)
                 self.textViewDidChange(self.textView)
                 self.textView.scrollToBottom()
