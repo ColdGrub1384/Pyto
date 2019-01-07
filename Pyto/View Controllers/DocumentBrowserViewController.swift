@@ -249,7 +249,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         
         let tintColor = UIColor(named: "TintColor") ?? .orange
         
-        let splitVC = EditorSplitViewController.shared
+        let splitVC = EditorSplitViewController()
         let navVC = UINavigationController(rootViewController: splitVC)
         
         splitVC.separatorColor = tintColor
