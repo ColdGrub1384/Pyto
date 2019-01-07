@@ -23,8 +23,9 @@ Features:
   - Full Python REPL
   - Use your own modules on your scripts
   - Code an user interface with the same UIKit interface
-  - Store scripts in iCloud Drive
-  - Run scripts with Siri Shortcuts
+  - Smart code completion
+  - Numpy 1.14.6 included
+  - Use pip to install pure Python modules from PyPi
 ```
 
 ## Building
