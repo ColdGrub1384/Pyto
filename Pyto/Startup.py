@@ -75,10 +75,9 @@ class NumpyImporter(object):
 
 # MARK: - Pandas
 
-# TODO: Add Pandas
-'''class PandasImporter(object):
+class PandasImporter(object):
     def find_module(self, fullname, mpath=None):
-        if fullname in ('pandas.hashtable', 'pandas.lib'):
+        if fullname in ('pandas.hashtable', 'pandas.lib', 'pandas._libs', 'pandas._libs.tslibs.conversion'):
             return self
         
         return
@@ -92,10 +91,9 @@ class NumpyImporter(object):
             return mod
         
         return mod
-'''
 
 sys.meta_path.append(NumpyImporter())
-#sys.meta_path.append(PandasImporter())
+sys.meta_path.append(PandasImporter())
 
 # MARK: - Run script
 

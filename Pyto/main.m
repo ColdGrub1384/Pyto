@@ -85,16 +85,20 @@ void init_numpy() {
 }
 
 // TODO: Add Pandas
-/*void init_pandas() {
+void init_pandas() {
     
     void *hashtable = NULL;
     void *lib = NULL;
+    void *tslib = NULL;
+    void *conversion = NULL;
     
     PyMODINIT_FUNC (*PyInit_hashtable)(void);
     PyMODINIT_FUNC (*PyInit_lib)(void);
+    PyMODINIT_FUNC (*PyInit_tslib)(void);
+    PyMODINIT_FUNC (*PyInit_conversion)(void);
     
     NSError *error;
-    for (NSURL *file in [NSFileManager.defaultManager contentsOfDirectoryAtURL:[[NSBundle.mainBundle privateFrameworksURL] URLByAppendingPathComponent:@"Pandas.framework"] includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:&error]) {
+    for (NSURL *file in [NSFileManager.defaultManager contentsOfDirectoryAtURL:[[NSBundle.mainBundle privateFrameworksURL] URLByAppendingPathComponent:@"Pandas.framework/Frameworks"] includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:&error]) {
         
         if ([file.pathExtension isEqualToString:@"so"]) {
             void *handle = dlopen(file.path.UTF8String, RTLD_LAZY);
@@ -103,12 +107,16 @@ void init_numpy() {
                 fprintf(stderr, "%s", dlerror());
             }
             
-            NSString *name = file.URLByDeletingPathExtension.lastPathComponent;
+            NSString *name = file.URLByDeletingPathExtension.URLByDeletingPathExtension.lastPathComponent;
             
-            if ([name isEqualToString:@"hashtable.cpython-37m-darwin"]) {
+            if ([name isEqualToString:@"hashtable"]) {
                 hashtable = handle;
-            } else if ([name isEqualToString:@"lib.cpython-37m-darwin"]) {
+            } else if ([name isEqualToString:@"lib"]) {
                 lib = handle;
+            } else if ([name isEqualToString:@"tslib"]) {
+                tslib = handle;
+            } else if ([name isEqualToString:@"conversion"]) {
+                conversion = handle;
             }
         }
     }
@@ -118,10 +126,14 @@ void init_numpy() {
     
     *(void **) (&PyInit_hashtable) = dlsym(hashtable, "PyInit_hashtable");
     *(void **) (&PyInit_lib) = dlsym(lib, "PyInit_lib");
+    *(void **) (&PyInit_tslib) = dlsym(lib, "PyInit_tslib");
+    *(void **) (&PyInit_conversion) = dlsym(lib, "PyInit_conversion");
     
     PyImport_AppendInittab("__pandas_hashtable", PyInit_hashtable);
-    PyImport_AppendInittab("__pandas_lib", PyInit_lib);
-}*/
+    PyImport_AppendInittab("__pandas__libs", PyInit_lib);
+    PyImport_AppendInittab("__pandas__libs_tslibs", PyInit_tslib);
+    PyImport_AppendInittab("__pandas__libs_tslibs_conversion", PyInit_tslib);
+}
 
 // MARK: - Main
 
@@ -143,7 +155,7 @@ int main(int argc, char *argv[]) {
     // MARK: - Modules
     
     init_numpy();
-    //init_pandas();
+    init_pandas();
     
     // MARK: - Init Python
     Py_SetPythonHome(Py_DecodeLocale([pythonHome UTF8String], NULL));
