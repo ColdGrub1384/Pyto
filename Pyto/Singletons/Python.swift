@@ -88,7 +88,9 @@ import ios_system
         ios_switchSession(IO.shared.ios_stdout)
         ios_setDirectoryURL(FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0])
         ios_setStreams(IO.shared.ios_stdin, IO.shared.ios_stdout, IO.shared.ios_stderr)
-        return ios_system(cmd.cValue)
+        let retValue = ios_system(cmd.cValue)
+        sleep(1)
+        return retValue
     }
     
     /// Exposes Pyto modules to Pyhon.
