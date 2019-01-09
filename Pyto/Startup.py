@@ -73,6 +73,8 @@ class NumpyImporter(object):
 
         return mod
 
+sys.meta_path.append(NumpyImporter())
+
 # MARK: - Pandas
 
 # TODO: Add Pandas
@@ -92,10 +94,8 @@ class NumpyImporter(object):
             return mod
         
         return mod
-'''
 
-sys.meta_path.append(NumpyImporter())
-#sys.meta_path.append(PandasImporter())
+sys.meta_path.append(PandasImporter())'''
 
 # MARK: - Run script
 
