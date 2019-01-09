@@ -44,6 +44,12 @@
 		C98E1FFD214EE6ED002F0178 /* Samples in Resources */ = {isa = PBXBuildFile; fileRef = C98E1FFC214EE6EC002F0178 /* Samples */; };
 		C98E2002214F0856002F0178 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C98E2001214F0856002F0178 /* main.m */; };
 		C98E42E321D2CF0300B4D260 /* python37.zip in Resources */ = {isa = PBXBuildFile; fileRef = C98E42E221D2CF0300B4D260 /* python37.zip */; };
+		C990B56621E5260E00ABC0B8 /* _umath_linalg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59A21DE771C00CC5B43 /* _umath_linalg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C990B56821E5261700ABC0B8 /* fftpack_lite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59E21DE771C00CC5B43 /* fftpack_lite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C990B56A21E5261C00ABC0B8 /* lapack_lite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59C21DE771C00CC5B43 /* lapack_lite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C990B56C21E5262100ABC0B8 /* mtrand.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59D21DE771C00CC5B43 /* mtrand.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C990B56E21E5262D00ABC0B8 /* multiarray.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59B21DE771C00CC5B43 /* multiarray.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C990B57021E5263100ABC0B8 /* umath.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59F21DE771D00CC5B43 /* umath.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C99DDCEC21BBED22002A734E /* DocumentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99DDCEB21BBED22002A734E /* DocumentationViewController.swift */; };
 		C9AAAB492195016D0042E733 /* InputAssistant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9AAAB44219501600042E733 /* InputAssistant.framework */; };
 		C9AAAB4A2195016D0042E733 /* InputAssistant.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AAAB44219501600042E733 /* InputAssistant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -54,17 +60,9 @@
 		C9AED5B321DE7EAA00CC5B43 /* Info.plist in Copy mtrand */ = {isa = PBXBuildFile; fileRef = C9AED5B221DE7EAA00CC5B43 /* Info.plist */; };
 		C9AED5B521DE7EBB00CC5B43 /* Info.plist in Copy multiarray */ = {isa = PBXBuildFile; fileRef = C9AED5B421DE7EBB00CC5B43 /* Info.plist */; };
 		C9AED5B721DE7ECC00CC5B43 /* Info.plist in Copy umath */ = {isa = PBXBuildFile; fileRef = C9AED5B621DE7ECB00CC5B43 /* Info.plist */; };
-		C9AED5B921DE808C00CC5B43 /* _umath_linalg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59A21DE771C00CC5B43 /* _umath_linalg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9AED5BA21DE808E00CC5B43 /* fftpack_lite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59E21DE771C00CC5B43 /* fftpack_lite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9AED5BB21DE809000CC5B43 /* lapack_lite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59C21DE771C00CC5B43 /* lapack_lite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9AED5BC21DE809300CC5B43 /* mtrand.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59D21DE771C00CC5B43 /* mtrand.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9AED5BD21DE809600CC5B43 /* multiarray.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59B21DE771C00CC5B43 /* multiarray.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9AED5BE21DE809800CC5B43 /* umath.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59F21DE771D00CC5B43 /* umath.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9B3FDEC21503DE7000FC9A8 /* PyExtensionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */; };
 		C9BDF6B921BD9BBA0045DDA3 /* TemplatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BDF6B221BD9BBA0045DDA3 /* TemplatesViewController.swift */; };
 		C9BE01B42154738C00A8C825 /* site-packages in Resources */ = {isa = PBXBuildFile; fileRef = C9BE01B021530BAF00A8C825 /* site-packages */; };
-		C9C1B9F521D939B200971997 /* libnpymath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C1B9F321D939AF00971997 /* libnpymath.a */; };
-		C9C1B9F621D939B500971997 /* libnpysort.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C1B9F421D939B000971997 /* libnpysort.a */; };
 		C9DF70B821715D3D00981B4F /* FileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DF70B721715D3D00981B4F /* FileCollectionViewCell.swift */; };
 		C9DF70C02171723800981B4F /* REPLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DF70BF2171723800981B4F /* REPLViewController.swift */; };
 		C9DF70EA2171756C00981B4F /* libxz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6921445B6700585C28 /* libxz.a */; };
@@ -72,7 +70,6 @@
 		C9DF70EF217175C400981B4F /* network_ios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70C42171752100981B4F /* network_ios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9DF70F1217175C400981B4F /* curl_ios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70C62171752100981B4F /* curl_ios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9DF70F3217175C400981B4F /* openssl.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70C82171752100981B4F /* openssl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9DF70F5217175C400981B4F /* Python_ios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70C92171752100981B4F /* Python_ios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9DF70F7217175C400981B4F /* libssh2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70CA2171752100981B4F /* libssh2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9DF70FB217175C400981B4F /* tar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70D02171752100981B4F /* tar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9DF70FD217175C400981B4F /* awk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70D12171752100981B4F /* awk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -261,27 +258,26 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C990B57021E5263100ABC0B8 /* umath.framework in Embed Frameworks */,
+				C990B56A21E5261C00ABC0B8 /* lapack_lite.framework in Embed Frameworks */,
 				C9DF71072171768A00981B4F /* Python.framework in Embed Frameworks */,
+				C990B56E21E5262D00ABC0B8 /* multiarray.framework in Embed Frameworks */,
 				C9DF70F3217175C400981B4F /* openssl.framework in Embed Frameworks */,
 				C9DF70EF217175C400981B4F /* network_ios.framework in Embed Frameworks */,
 				C9DF70FD217175C400981B4F /* awk.framework in Embed Frameworks */,
 				C9DF70F1217175C400981B4F /* curl_ios.framework in Embed Frameworks */,
+				C990B56C21E5262100ABC0B8 /* mtrand.framework in Embed Frameworks */,
 				C9DF711B217176D700981B4F /* ios_system.framework in Embed Frameworks */,
 				C9AAAB4A2195016D0042E733 /* InputAssistant.framework in Embed Frameworks */,
-				C9DF70F5217175C400981B4F /* Python_ios.framework in Embed Frameworks */,
+				C990B56621E5260E00ABC0B8 /* _umath_linalg.framework in Embed Frameworks */,
 				C9DF70ED217175C400981B4F /* shell.framework in Embed Frameworks */,
 				C9DF70FF217175C400981B4F /* files.framework in Embed Frameworks */,
 				C9DF70F7217175C400981B4F /* libssh2.framework in Embed Frameworks */,
 				C9DF7105217175C500981B4F /* lua_ios.framework in Embed Frameworks */,
+				C990B56821E5261700ABC0B8 /* fftpack_lite.framework in Embed Frameworks */,
 				C9DF7101217175C500981B4F /* ssh_cmd.framework in Embed Frameworks */,
 				C9DF7103217175C500981B4F /* text.framework in Embed Frameworks */,
 				C9DF70FB217175C400981B4F /* tar.framework in Embed Frameworks */,
-				C9AED5B921DE808C00CC5B43 /* _umath_linalg.framework in Embed Frameworks */,
-				C9AED5BA21DE808E00CC5B43 /* fftpack_lite.framework in Embed Frameworks */,
-				C9AED5BB21DE809000CC5B43 /* lapack_lite.framework in Embed Frameworks */,
-				C9AED5BC21DE809300CC5B43 /* mtrand.framework in Embed Frameworks */,
-				C9AED5BD21DE809600CC5B43 /* multiarray.framework in Embed Frameworks */,
-				C9AED5BE21DE809800CC5B43 /* umath.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -427,8 +423,6 @@
 				C904EB6421445B5800585C28 /* libPython.a in Frameworks */,
 				C9DF71062171768A00981B4F /* Python.framework in Frameworks */,
 				C9DF711A217176D700981B4F /* ios_system.framework in Frameworks */,
-				C9C1B9F521D939B200971997 /* libnpymath.a in Frameworks */,
-				C9C1B9F621D939B500971997 /* libnpysort.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -670,13 +664,13 @@
 			isa = PBXGroup;
 			children = (
 				C93634A521BC137C00785AC8 /* Pyto.entitlements */,
+				C9EA55B2219F752D007546BC /* RelativePathForScript.swift */,
 				C93D61E42145E17D00C8B5E3 /* Singletons */,
 				C93D61E52145E19300C8B5E3 /* View Controllers */,
 				C93D61E62145E1A500C8B5E3 /* Python Bridging */,
 				C93D61E72145E1BF00C8B5E3 /* Extensions */,
 				C9E4152921513E2300D64E32 /* Views */,
 				C9592D1321D0592C00412CEF /* Models */,
-				C9EA55B2219F752D007546BC /* RelativePathForScript.swift */,
 				C98E2001214F0856002F0178 /* main.m */,
 				C904EB6C21445CAE00585C28 /* Pyto-Bridging-Header.h */,
 				C93D61E82145E1D300C8B5E3 /* Resources */,
@@ -732,9 +726,9 @@
 			buildPhases = (
 				8B77444CB27802637BAB7D62 /* [CP] Check Pods Manifest.lock */,
 				C9FCFD51214428AE00A07974 /* Sources */,
-				C9FCFD52214428AE00A07974 /* Frameworks */,
 				C9FCFD53214428AE00A07974 /* Resources */,
 				D910EE956F1871789C77F1DA /* [CP] Embed Pods Frameworks */,
+				C9FCFD52214428AE00A07974 /* Frameworks */,
 				C9EAB4CA214D95C500DFC9A4 /* Embed Frameworks */,
 				C96CBC3A21DE6BDC008C508C /* Copy _umath_linalg */,
 				C96CBC3C21DE6BFC008C508C /* Copy fftpack_lite */,
@@ -1227,8 +1221,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1254,13 +1250,17 @@
 					"$(PROJECT_DIR)/ios_system_builds",
 					"$(PROJECT_DIR)",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = debugging;
+				STRIP_SWIFT_SYMBOLS = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Pyto/Pyto-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = arm64;
+				VALID_ARCHS = "arm64 arm64e";
 			};
 			name = Debug;
 		};
@@ -1271,8 +1271,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1298,12 +1300,16 @@
 					"$(PROJECT_DIR)/ios_system_builds",
 					"$(PROJECT_DIR)",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = debugging;
+				STRIP_SWIFT_SYMBOLS = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Pyto/Pyto-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = arm64;
+				VALID_ARCHS = "arm64 arm64e";
 			};
 			name = Release;
 		};

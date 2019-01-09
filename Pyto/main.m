@@ -7,34 +7,35 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Pyto-Bridging-Header.h"
 #import "../Python/Headers/Python.h"
 #import "Pyto-Swift.h"
 #include <dlfcn.h>
-
-#define load(HANDLE) \
-handle = dlopen(file.path.UTF8String, RTLD_LAZY); \
-HANDLE = handle;
 
 /// The path of the Python home directory.
 NSString *pythonHome;
 
 // MARK: - Modules
 
+#define load(HANDLE) \
+handle = dlopen(file.path.UTF8String, RTLD_NOW); \
+HANDLE = handle;
+
+PyMODINIT_FUNC (*PyInit_multiarray)(void);
+PyMODINIT_FUNC (*PyInit_umath)(void);
+PyMODINIT_FUNC (*PyInit_fftpack_lite)(void);
+PyMODINIT_FUNC (*PyInit__umath_linalg)(void);
+PyMODINIT_FUNC (*PyInit_lapack_lite)(void);
+PyMODINIT_FUNC (*PyInit_mtrand)(void);
+
+void *multiarray = NULL;
+void *umath = NULL;
+void *fftpack_lite = NULL;
+void *umath_linalg = NULL;
+void *lapack_lite = NULL;
+void *mtrand = NULL;
+
+/// Initializes Numpy.
 void init_numpy() {
-    void *multiarray = NULL;
-    void *umath = NULL;
-    void *fftpack_lite = NULL;
-    void *umath_linalg = NULL;
-    void *lapack_lite = NULL;
-    void *mtrand = NULL;
-    
-    PyMODINIT_FUNC (*PyInit_multiarray)(void);
-    PyMODINIT_FUNC (*PyInit_umath)(void);
-    PyMODINIT_FUNC (*PyInit_fftpack_lite)(void);
-    PyMODINIT_FUNC (*PyInit__umath_linalg)(void);
-    PyMODINIT_FUNC (*PyInit_lapack_lite)(void);
-    PyMODINIT_FUNC (*PyInit_mtrand)(void);
     
     NSError *error;
     for (NSURL *bundle in [NSFileManager.defaultManager contentsOfDirectoryAtURL:NSBundle.mainBundle.privateFrameworksURL includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:&error]) {
@@ -65,9 +66,6 @@ void init_numpy() {
             fprintf(stderr, "%s", dlerror());
         }
     }
-    if (error) {
-        NSLog(@"%@", error.localizedDescription);
-    }
     
     *(void **) (&PyInit_multiarray) = dlsym(multiarray, "PyInit_multiarray");
     *(void **) (&PyInit_umath) = dlsym(umath, "PyInit_umath");
@@ -84,49 +82,10 @@ void init_numpy() {
     PyImport_AppendInittab("__numpy_random_mtrand", PyInit_mtrand);
 }
 
-// TODO: Add Pandas
-/*void init_pandas() {
-    
-    void *hashtable = NULL;
-    void *lib = NULL;
-    
-    PyMODINIT_FUNC (*PyInit_hashtable)(void);
-    PyMODINIT_FUNC (*PyInit_lib)(void);
-    
-    NSError *error;
-    for (NSURL *file in [NSFileManager.defaultManager contentsOfDirectoryAtURL:[[NSBundle.mainBundle privateFrameworksURL] URLByAppendingPathComponent:@"Pandas.framework"] includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:&error]) {
-        
-        if ([file.pathExtension isEqualToString:@"so"]) {
-            void *handle = dlopen(file.path.UTF8String, RTLD_LAZY);
-            
-            if (!handle) {
-                fprintf(stderr, "%s", dlerror());
-            }
-            
-            NSString *name = file.URLByDeletingPathExtension.lastPathComponent;
-            
-            if ([name isEqualToString:@"hashtable.cpython-37m-darwin"]) {
-                hashtable = handle;
-            } else if ([name isEqualToString:@"lib.cpython-37m-darwin"]) {
-                lib = handle;
-            }
-        }
-    }
-    if (error) {
-        NSLog(@"%@", error.localizedDescription);
-    }
-    
-    *(void **) (&PyInit_hashtable) = dlsym(hashtable, "PyInit_hashtable");
-    *(void **) (&PyInit_lib) = dlsym(lib, "PyInit_lib");
-    
-    PyImport_AppendInittab("__pandas_hashtable", PyInit_hashtable);
-    PyImport_AppendInittab("__pandas_lib", PyInit_lib);
-}*/
-
 // MARK: - Main
 
 int main(int argc, char *argv[]) {
-        
+    
     pythonHome = Python.shared.bundle.bundlePath;
     
     if (!pythonHome) {
@@ -140,8 +99,7 @@ int main(int argc, char *argv[]) {
     putenv((char *)[[NSString stringWithFormat:@"PYTHONHOME=%@", pythonHome] UTF8String]);
     putenv((char *)[[NSString stringWithFormat:@"PYTHONPATH=%@:%@", [pythonHome stringByAppendingPathComponent:@"python37.zip"], Python.shared.bundle.bundlePath] UTF8String]);
     
-    // MARK: - Modules
-    
+    // MARK: - Init builtins
     init_numpy();
     //init_pandas();
     
