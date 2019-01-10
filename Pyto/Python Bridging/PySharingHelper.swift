@@ -12,6 +12,8 @@ import SafariServices
 /// A class accessible by Rubicon to share items and pick documents..
 @objc class PySharingHelper: NSObject {
     
+    static var semaphore: DispatchSemaphore?
+    
     /// Presents the share sheet for sharing given items in the main thread.
     ///
     /// - Parameters:
@@ -30,12 +32,14 @@ import SafariServices
     /// - Parameters:
     ///     - filePicker: Python representation of the file picker.
     @objc static func presentFilePicker(_ filePicker: PyFilePicker) {
+        semaphore = DispatchSemaphore(value: 0)
         DispatchQueue.main.async {
             let picker = UIDocumentPickerViewController(documentTypes: filePicker.fileTypes as [String], in: .open)
             picker.allowsMultipleSelection = filePicker.allowsMultipleSelection
             picker.delegate = filePicker
             UIApplication.shared.keyWindow?.topViewController?.present(picker, animated: true, completion: nil)
         }
+        semaphore?.wait()
     }
     
     /// - Returns: `true` if `url` is an `NSURL`.
