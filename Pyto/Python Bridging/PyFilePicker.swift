@@ -26,8 +26,13 @@ import UIKit
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         
+        for url in urls {
+            _ = url.startAccessingSecurityScopedResource()
+        }
+        
         PyFilePicker.urls = urls as [NSURL]
         Python.shared.queue.async {
+            PySharingHelper.semaphore?.signal()
             self.completion?()
         }
     }
