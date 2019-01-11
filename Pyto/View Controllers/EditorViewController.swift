@@ -121,12 +121,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// The currently visible editor.
     @objc static var visible: EditorViewController?
     
-    /// The bar button item for running script.
-    var runBarButtonItem: UIBarButtonItem!
-    
-    /// The bar button item for stopping script.
-    var stopBarButtonItem: UIBarButtonItem!
-    
     /// The line number where an error occurred. If this value is set at `viewDidAppear(_:)`, the error will be shown and the value will be reset to `nil`.
     var lineNumberError: Int?
     
@@ -227,6 +221,20 @@ fileprivate func parseArgs(_ args: inout [String]) {
         super.init(coder: aDecoder)
     }
     
+    // MARK: - Bar button items
+    
+    /// The bar button item for running script.
+    var runBarButtonItem: UIBarButtonItem!
+    
+    /// The bar button item for stopping script.
+    var stopBarButtonItem: UIBarButtonItem!
+    
+    /// The bar button item for showing docs.
+    var docItem: UIBarButtonItem!
+    
+    /// The bar button item for setting arguments.
+    var argsItem: UIBarButtonItem!
+    
     // MARK: - View controller
     
     override func viewDidLoad() {
@@ -250,11 +258,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
             title = nil
         }
         
-        let argsItem = UIBarButtonItem(title: "args", style: .plain, target: self, action: #selector(setArgs(_:)))
+        argsItem = UIBarButtonItem(title: "args", style: .plain, target: self, action: #selector(setArgs(_:)))
         runBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(run))
         stopBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(stop))
         
-        let docItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showDocs(_:)))
+        docItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showDocs(_:)))
         let scriptsItem = UIBarButtonItem(image: UIImage(named: "Grid"), style: .plain, target: self, action: #selector(close))
         if Python.shared.isScriptRunning {
             parent?.navigationItem.rightBarButtonItem = stopBarButtonItem

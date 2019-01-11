@@ -48,10 +48,16 @@ class EditorSplitViewController: SplitViewController {
         editor?.close()
     }
     
+    /// Show documentation.
+    @objc func showDocs() {
+        editor?.showDocs(editor!.docItem)
+    }
+    
     override var keyCommands: [UIKeyCommand]? {
         return [
             UIKeyCommand(input: "r", modifierFlags: .command, action: #selector(run), discoverabilityTitle: Localizable.MenuItems.run),
-            UIKeyCommand(input: "w", modifierFlags: .command, action: #selector(close)),
+            UIKeyCommand(input: "d", modifierFlags: .command, action: #selector(showDocs), discoverabilityTitle: Localizable.Help.documentation),
+            UIKeyCommand(input: "w", modifierFlags: .command, action: #selector(close), discoverabilityTitle: Localizable.close),
         ]
     }
         

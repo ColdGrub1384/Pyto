@@ -1,0 +1,475 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>queue — A synchronized queue class &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="_thread — Low-level threading API" href="_thread.html" />
+    <link rel="prev" title="sched — Event scheduler" href="sched.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/library/queue.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="_thread.html" title="_thread — Low-level threading API"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="sched.html" title="sched — Event scheduler"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="concurrency.html" accesskey="U">Concurrent Execution</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-queue">
+<span id="queue-a-synchronized-queue-class"></span><h1><a class="reference internal" href="#module-queue" title="queue: A synchronized queue class."><code class="xref py py-mod docutils literal notranslate"><span class="pre">queue</span></code></a> — A synchronized queue class<a class="headerlink" href="#module-queue" title="Permalink to this headline">¶</a></h1>
+<p><strong>Source code:</strong> <a class="reference external" href="https://github.com/python/cpython/tree/3.7/Lib/queue.py">Lib/queue.py</a></p>
+<hr class="docutils" />
+<p>The <a class="reference internal" href="#module-queue" title="queue: A synchronized queue class."><code class="xref py py-mod docutils literal notranslate"><span class="pre">queue</span></code></a> module implements multi-producer, multi-consumer queues.
+It is especially useful in threaded programming when information must be
+exchanged safely between multiple threads.  The <a class="reference internal" href="#queue.Queue" title="queue.Queue"><code class="xref py py-class docutils literal notranslate"><span class="pre">Queue</span></code></a> class in this
+module implements all the required locking semantics.  It depends on the
+availability of thread support in Python; see the <a class="reference internal" href="threading.html#module-threading" title="threading: Thread-based parallelism."><code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code></a>
+module.</p>
+<p>The module implements three types of queue, which differ only in the order in
+which the entries are retrieved.  In a <abbr title="first-in, first-out">FIFO</abbr>
+queue, the first tasks added are the first retrieved. In a
+<abbr title="last-in, first-out">LIFO</abbr> queue, the most recently added entry is
+the first retrieved (operating like a stack).  With a priority queue,
+the entries are kept sorted (using the <a class="reference internal" href="heapq.html#module-heapq" title="heapq: Heap queue algorithm (a.k.a. priority queue)."><code class="xref py py-mod docutils literal notranslate"><span class="pre">heapq</span></code></a> module) and the
+lowest valued entry is retrieved first.</p>
+<p>Internally, those three types of queues use locks to temporarily block
+competing threads; however, they are not designed to handle reentrancy
+within a thread.</p>
+<p>In addition, the module implements a “simple”
+<abbr title="first-in, first-out">FIFO</abbr> queue type, <a class="reference internal" href="#queue.SimpleQueue" title="queue.SimpleQueue"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleQueue</span></code></a>, whose
+specific implementation provides additional guarantees
+in exchange for the smaller functionality.</p>
+<p>The <a class="reference internal" href="#module-queue" title="queue: A synchronized queue class."><code class="xref py py-mod docutils literal notranslate"><span class="pre">queue</span></code></a> module defines the following classes and exceptions:</p>
+<dl class="class">
+<dt id="queue.Queue">
+<em class="property">class </em><code class="descclassname">queue.</code><code class="descname">Queue</code><span class="sig-paren">(</span><em>maxsize=0</em><span class="sig-paren">)</span><a class="headerlink" href="#queue.Queue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor for a <abbr title="first-in, first-out">FIFO</abbr> queue.  <em>maxsize</em> is
+an integer that sets the upperbound
+limit on the number of items that can be placed in the queue.  Insertion will
+block once this size has been reached, until queue items are consumed.  If
+<em>maxsize</em> is less than or equal to zero, the queue size is infinite.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="queue.LifoQueue">
+<em class="property">class </em><code class="descclassname">queue.</code><code class="descname">LifoQueue</code><span class="sig-paren">(</span><em>maxsize=0</em><span class="sig-paren">)</span><a class="headerlink" href="#queue.LifoQueue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor for a <abbr title="last-in, first-out">LIFO</abbr> queue.  <em>maxsize</em> is
+an integer that sets the upperbound
+limit on the number of items that can be placed in the queue.  Insertion will
+block once this size has been reached, until queue items are consumed.  If
+<em>maxsize</em> is less than or equal to zero, the queue size is infinite.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="queue.PriorityQueue">
+<em class="property">class </em><code class="descclassname">queue.</code><code class="descname">PriorityQueue</code><span class="sig-paren">(</span><em>maxsize=0</em><span class="sig-paren">)</span><a class="headerlink" href="#queue.PriorityQueue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor for a priority queue.  <em>maxsize</em> is an integer that sets the upperbound
+limit on the number of items that can be placed in the queue.  Insertion will
+block once this size has been reached, until queue items are consumed.  If
+<em>maxsize</em> is less than or equal to zero, the queue size is infinite.</p>
+<p>The lowest valued entries are retrieved first (the lowest valued entry is the
+one returned by <code class="docutils literal notranslate"><span class="pre">sorted(list(entries))[0]</span></code>).  A typical pattern for entries
+is a tuple in the form: <code class="docutils literal notranslate"><span class="pre">(priority_number,</span> <span class="pre">data)</span></code>.</p>
+<p>If the <em>data</em> elements are not comparable, the data can be wrapped in a class
+that ignores the data item and only compares the priority number:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="k">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Any</span>
+
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">PrioritizedItem</span><span class="p">:</span>
+    <span class="n">priority</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">item</span><span class="p">:</span> <span class="n">Any</span><span class="o">=</span><span class="n">field</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="queue.SimpleQueue">
+<em class="property">class </em><code class="descclassname">queue.</code><code class="descname">SimpleQueue</code><a class="headerlink" href="#queue.SimpleQueue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor for an unbounded <abbr title="first-in, first-out">FIFO</abbr> queue.
+Simple queues lack advanced functionality such as task tracking.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.7.</span></p>
+</div>
+</dd></dl>
+
+<dl class="exception">
+<dt id="queue.Empty">
+<em class="property">exception </em><code class="descclassname">queue.</code><code class="descname">Empty</code><a class="headerlink" href="#queue.Empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception raised when non-blocking <a class="reference internal" href="#queue.Queue.get" title="queue.Queue.get"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get()</span></code></a> (or
+<a class="reference internal" href="#queue.Queue.get_nowait" title="queue.Queue.get_nowait"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_nowait()</span></code></a>) is called
+on a <a class="reference internal" href="#queue.Queue" title="queue.Queue"><code class="xref py py-class docutils literal notranslate"><span class="pre">Queue</span></code></a> object which is empty.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="queue.Full">
+<em class="property">exception </em><code class="descclassname">queue.</code><code class="descname">Full</code><a class="headerlink" href="#queue.Full" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception raised when non-blocking <a class="reference internal" href="#queue.Queue.put" title="queue.Queue.put"><code class="xref py py-meth docutils literal notranslate"><span class="pre">put()</span></code></a> (or
+<a class="reference internal" href="#queue.Queue.put_nowait" title="queue.Queue.put_nowait"><code class="xref py py-meth docutils literal notranslate"><span class="pre">put_nowait()</span></code></a>) is called
+on a <a class="reference internal" href="#queue.Queue" title="queue.Queue"><code class="xref py py-class docutils literal notranslate"><span class="pre">Queue</span></code></a> object which is full.</p>
+</dd></dl>
+
+<div class="section" id="queue-objects">
+<span id="queueobjects"></span><h2>Queue Objects<a class="headerlink" href="#queue-objects" title="Permalink to this headline">¶</a></h2>
+<p>Queue objects (<a class="reference internal" href="#queue.Queue" title="queue.Queue"><code class="xref py py-class docutils literal notranslate"><span class="pre">Queue</span></code></a>, <a class="reference internal" href="#queue.LifoQueue" title="queue.LifoQueue"><code class="xref py py-class docutils literal notranslate"><span class="pre">LifoQueue</span></code></a>, or <a class="reference internal" href="#queue.PriorityQueue" title="queue.PriorityQueue"><code class="xref py py-class docutils literal notranslate"><span class="pre">PriorityQueue</span></code></a>)
+provide the public methods described below.</p>
+<dl class="method">
+<dt id="queue.Queue.qsize">
+<code class="descclassname">Queue.</code><code class="descname">qsize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#queue.Queue.qsize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the approximate size of the queue.  Note, qsize() &gt; 0 doesn’t
+guarantee that a subsequent get() will not block, nor will qsize() &lt; maxsize
+guarantee that put() will not block.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="queue.Queue.empty">
+<code class="descclassname">Queue.</code><code class="descname">empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#queue.Queue.empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the queue is empty, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.  If empty()
+returns <code class="docutils literal notranslate"><span class="pre">True</span></code> it doesn’t guarantee that a subsequent call to put()
+will not block.  Similarly, if empty() returns <code class="docutils literal notranslate"><span class="pre">False</span></code> it doesn’t
+guarantee that a subsequent call to get() will not block.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="queue.Queue.full">
+<code class="descclassname">Queue.</code><code class="descname">full</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#queue.Queue.full" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the queue is full, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.  If full()
+returns <code class="docutils literal notranslate"><span class="pre">True</span></code> it doesn’t guarantee that a subsequent call to get()
+will not block.  Similarly, if full() returns <code class="docutils literal notranslate"><span class="pre">False</span></code> it doesn’t
+guarantee that a subsequent call to put() will not block.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="queue.Queue.put">
+<code class="descclassname">Queue.</code><code class="descname">put</code><span class="sig-paren">(</span><em>item</em>, <em>block=True</em>, <em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#queue.Queue.put" title="Permalink to this definition">¶</a></dt>
+<dd><p>Put <em>item</em> into the queue. If optional args <em>block</em> is true and <em>timeout</em> is
+<code class="docutils literal notranslate"><span class="pre">None</span></code> (the default), block if necessary until a free slot is available. If
+<em>timeout</em> is a positive number, it blocks at most <em>timeout</em> seconds and raises
+the <a class="reference internal" href="#queue.Full" title="queue.Full"><code class="xref py py-exc docutils literal notranslate"><span class="pre">Full</span></code></a> exception if no free slot was available within that time.
+Otherwise (<em>block</em> is false), put an item on the queue if a free slot is
+immediately available, else raise the <a class="reference internal" href="#queue.Full" title="queue.Full"><code class="xref py py-exc docutils literal notranslate"><span class="pre">Full</span></code></a> exception (<em>timeout</em> is
+ignored in that case).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="queue.Queue.put_nowait">
+<code class="descclassname">Queue.</code><code class="descname">put_nowait</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#queue.Queue.put_nowait" title="Permalink to this definition">¶</a></dt>
+<dd><p>Equivalent to <code class="docutils literal notranslate"><span class="pre">put(item,</span> <span class="pre">False)</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="queue.Queue.get">
+<code class="descclassname">Queue.</code><code class="descname">get</code><span class="sig-paren">(</span><em>block=True</em>, <em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#queue.Queue.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove and return an item from the queue. If optional args <em>block</em> is true and
+<em>timeout</em> is <code class="docutils literal notranslate"><span class="pre">None</span></code> (the default), block if necessary until an item is available.
+If <em>timeout</em> is a positive number, it blocks at most <em>timeout</em> seconds and
+raises the <a class="reference internal" href="#queue.Empty" title="queue.Empty"><code class="xref py py-exc docutils literal notranslate"><span class="pre">Empty</span></code></a> exception if no item was available within that time.
+Otherwise (<em>block</em> is false), return an item if one is immediately available,
+else raise the <a class="reference internal" href="#queue.Empty" title="queue.Empty"><code class="xref py py-exc docutils literal notranslate"><span class="pre">Empty</span></code></a> exception (<em>timeout</em> is ignored in that case).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="queue.Queue.get_nowait">
+<code class="descclassname">Queue.</code><code class="descname">get_nowait</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#queue.Queue.get_nowait" title="Permalink to this definition">¶</a></dt>
+<dd><p>Equivalent to <code class="docutils literal notranslate"><span class="pre">get(False)</span></code>.</p>
+</dd></dl>
+
+<p>Two methods are offered to support tracking whether enqueued tasks have been
+fully processed by daemon consumer threads.</p>
+<dl class="method">
+<dt id="queue.Queue.task_done">
+<code class="descclassname">Queue.</code><code class="descname">task_done</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#queue.Queue.task_done" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicate that a formerly enqueued task is complete.  Used by queue consumer
+threads.  For each <a class="reference internal" href="#queue.Queue.get" title="queue.Queue.get"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get()</span></code></a> used to fetch a task, a subsequent call to
+<a class="reference internal" href="#queue.Queue.task_done" title="queue.Queue.task_done"><code class="xref py py-meth docutils literal notranslate"><span class="pre">task_done()</span></code></a> tells the queue that the processing on the task is complete.</p>
+<p>If a <a class="reference internal" href="#queue.Queue.join" title="queue.Queue.join"><code class="xref py py-meth docutils literal notranslate"><span class="pre">join()</span></code></a> is currently blocking, it will resume when all items have been
+processed (meaning that a <a class="reference internal" href="#queue.Queue.task_done" title="queue.Queue.task_done"><code class="xref py py-meth docutils literal notranslate"><span class="pre">task_done()</span></code></a> call was received for every item
+that had been <a class="reference internal" href="#queue.Queue.put" title="queue.Queue.put"><code class="xref py py-meth docutils literal notranslate"><span class="pre">put()</span></code></a> into the queue).</p>
+<p>Raises a <a class="reference internal" href="exceptions.html#ValueError" title="ValueError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> if called more times than there were items placed in
+the queue.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="queue.Queue.join">
+<code class="descclassname">Queue.</code><code class="descname">join</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#queue.Queue.join" title="Permalink to this definition">¶</a></dt>
+<dd><p>Blocks until all items in the queue have been gotten and processed.</p>
+<p>The count of unfinished tasks goes up whenever an item is added to the queue.
+The count goes down whenever a consumer thread calls <a class="reference internal" href="#queue.Queue.task_done" title="queue.Queue.task_done"><code class="xref py py-meth docutils literal notranslate"><span class="pre">task_done()</span></code></a> to
+indicate that the item was retrieved and all work on it is complete. When the
+count of unfinished tasks drops to zero, <a class="reference internal" href="#queue.Queue.join" title="queue.Queue.join"><code class="xref py py-meth docutils literal notranslate"><span class="pre">join()</span></code></a> unblocks.</p>
+</dd></dl>
+
+<p>Example of how to wait for enqueued tasks to be completed:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">worker</span><span class="p">():</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">item</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">do_work</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="n">q</span><span class="o">.</span><span class="n">task_done</span><span class="p">()</span>
+
+<span class="n">q</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
+<span class="n">threads</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_worker_threads</span><span class="p">):</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">worker</span><span class="p">)</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">threads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">source</span><span class="p">():</span>
+    <span class="n">q</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+<span class="c1"># block until all tasks are done</span>
+<span class="n">q</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+<span class="c1"># stop workers</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_worker_threads</span><span class="p">):</span>
+    <span class="n">q</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">threads</span><span class="p">:</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="simplequeue-objects">
+<h2>SimpleQueue Objects<a class="headerlink" href="#simplequeue-objects" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="#queue.SimpleQueue" title="queue.SimpleQueue"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleQueue</span></code></a> objects provide the public methods described below.</p>
+<dl class="method">
+<dt id="queue.SimpleQueue.qsize">
+<code class="descclassname">SimpleQueue.</code><code class="descname">qsize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#queue.SimpleQueue.qsize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the approximate size of the queue.  Note, qsize() &gt; 0 doesn’t
+guarantee that a subsequent get() will not block.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="queue.SimpleQueue.empty">
+<code class="descclassname">SimpleQueue.</code><code class="descname">empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#queue.SimpleQueue.empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the queue is empty, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise. If empty()
+returns <code class="docutils literal notranslate"><span class="pre">False</span></code> it doesn’t guarantee that a subsequent call to get()
+will not block.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="queue.SimpleQueue.put">
+<code class="descclassname">SimpleQueue.</code><code class="descname">put</code><span class="sig-paren">(</span><em>item</em>, <em>block=True</em>, <em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#queue.SimpleQueue.put" title="Permalink to this definition">¶</a></dt>
+<dd><p>Put <em>item</em> into the queue.  The method never blocks and always succeeds
+(except for potential low-level errors such as failure to allocate memory).
+The optional args <em>block</em> and <em>timeout</em> are ignored and only provided
+for compatibility with <a class="reference internal" href="#queue.Queue.put" title="queue.Queue.put"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Queue.put()</span></code></a>.</p>
+<div class="impl-detail compound">
+<p><strong>CPython implementation detail:</strong> This method has a C implementation which is reentrant.  That is, a
+<code class="docutils literal notranslate"><span class="pre">put()</span></code> or <code class="docutils literal notranslate"><span class="pre">get()</span></code> call can be interrupted by another <code class="docutils literal notranslate"><span class="pre">put()</span></code>
+call in the same thread without deadlocking or corrupting internal
+state inside the queue.  This makes it appropriate for use in
+destructors such as <code class="docutils literal notranslate"><span class="pre">__del__</span></code> methods or <a class="reference internal" href="weakref.html#module-weakref" title="weakref: Support for weak references and weak dictionaries."><code class="xref py py-mod docutils literal notranslate"><span class="pre">weakref</span></code></a> callbacks.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="queue.SimpleQueue.put_nowait">
+<code class="descclassname">SimpleQueue.</code><code class="descname">put_nowait</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#queue.SimpleQueue.put_nowait" title="Permalink to this definition">¶</a></dt>
+<dd><p>Equivalent to <code class="docutils literal notranslate"><span class="pre">put(item)</span></code>, provided for compatibility with
+<a class="reference internal" href="#queue.Queue.put_nowait" title="queue.Queue.put_nowait"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Queue.put_nowait()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="queue.SimpleQueue.get">
+<code class="descclassname">SimpleQueue.</code><code class="descname">get</code><span class="sig-paren">(</span><em>block=True</em>, <em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#queue.SimpleQueue.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove and return an item from the queue.  If optional args <em>block</em> is true and
+<em>timeout</em> is <code class="docutils literal notranslate"><span class="pre">None</span></code> (the default), block if necessary until an item is available.
+If <em>timeout</em> is a positive number, it blocks at most <em>timeout</em> seconds and
+raises the <a class="reference internal" href="#queue.Empty" title="queue.Empty"><code class="xref py py-exc docutils literal notranslate"><span class="pre">Empty</span></code></a> exception if no item was available within that time.
+Otherwise (<em>block</em> is false), return an item if one is immediately available,
+else raise the <a class="reference internal" href="#queue.Empty" title="queue.Empty"><code class="xref py py-exc docutils literal notranslate"><span class="pre">Empty</span></code></a> exception (<em>timeout</em> is ignored in that case).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="queue.SimpleQueue.get_nowait">
+<code class="descclassname">SimpleQueue.</code><code class="descname">get_nowait</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#queue.SimpleQueue.get_nowait" title="Permalink to this definition">¶</a></dt>
+<dd><p>Equivalent to <code class="docutils literal notranslate"><span class="pre">get(False)</span></code>.</p>
+</dd></dl>
+
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="docutils">
+<dt>Class <a class="reference internal" href="multiprocessing.html#multiprocessing.Queue" title="multiprocessing.Queue"><code class="xref py py-class docutils literal notranslate"><span class="pre">multiprocessing.Queue</span></code></a></dt>
+<dd>A queue class for use in a multi-processing (rather than multi-threading)
+context.</dd>
+</dl>
+<p class="last"><a class="reference internal" href="collections.html#collections.deque" title="collections.deque"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.deque</span></code></a> is an alternative implementation of unbounded
+queues with fast atomic <a class="reference internal" href="collections.html#collections.deque.append" title="collections.deque.append"><code class="xref py py-meth docutils literal notranslate"><span class="pre">append()</span></code></a> and
+<a class="reference internal" href="collections.html#collections.deque.popleft" title="collections.deque.popleft"><code class="xref py py-meth docutils literal notranslate"><span class="pre">popleft()</span></code></a> operations that do not require locking.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">queue</span></code> — A synchronized queue class</a><ul>
+<li><a class="reference internal" href="#queue-objects">Queue Objects</a></li>
+<li><a class="reference internal" href="#simplequeue-objects">SimpleQueue Objects</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="sched.html"
+                        title="previous chapter"><code class="docutils literal notranslate"><span class="pre">sched</span></code> — Event scheduler</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="_thread.html"
+                        title="next chapter"><code class="docutils literal notranslate"><span class="pre">_thread</span></code> — Low-level threading API</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/library/queue.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="_thread.html" title="_thread — Low-level threading API"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="sched.html" title="sched — Event scheduler"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="concurrency.html" >Concurrent Execution</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

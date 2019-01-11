@@ -1,0 +1,225 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>14. Interactive Input Editing and History Substitution &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="15. Floating Point Arithmetic: Issues and Limitations" href="floatingpoint.html" />
+    <link rel="prev" title="13. What Now?" href="whatnow.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/tutorial/interactive.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="floatingpoint.html" title="15. Floating Point Arithmetic: Issues and Limitations"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="whatnow.html" title="13. What Now?"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">The Python Tutorial</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="interactive-input-editing-and-history-substitution">
+<span id="tut-interacting"></span><h1>14. Interactive Input Editing and History Substitution<a class="headerlink" href="#interactive-input-editing-and-history-substitution" title="Permalink to this headline">¶</a></h1>
+<p>Some versions of the Python interpreter support editing of the current input
+line and history substitution, similar to facilities found in the Korn shell and
+the GNU Bash shell.  This is implemented using the <a class="reference external" href="https://tiswww.case.edu/php/chet/readline/rltop.html">GNU Readline</a> library,
+which supports various styles of editing.  This library has its own
+documentation which we won’t duplicate here.</p>
+<div class="section" id="tab-completion-and-history-editing">
+<span id="tut-keybindings"></span><h2>14.1. Tab Completion and History Editing<a class="headerlink" href="#tab-completion-and-history-editing" title="Permalink to this headline">¶</a></h2>
+<p>Completion of variable and module names is
+<a class="reference internal" href="../library/site.html#rlcompleter-config"><span class="std std-ref">automatically enabled</span></a> at interpreter startup so
+that the <kbd class="kbd docutils literal notranslate">Tab</kbd> key invokes the completion function; it looks at
+Python statement names, the current local variables, and the available
+module names.  For dotted expressions such as <code class="docutils literal notranslate"><span class="pre">string.a</span></code>, it will evaluate
+the expression up to the final <code class="docutils literal notranslate"><span class="pre">'.'</span></code> and then suggest completions from
+the attributes of the resulting object.  Note that this may execute
+application-defined code if an object with a <a class="reference internal" href="../reference/datamodel.html#object.__getattr__" title="object.__getattr__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__getattr__()</span></code></a> method
+is part of the expression.  The default configuration also saves your
+history into a file named <code class="file docutils literal notranslate"><span class="pre">.python_history</span></code> in your user directory.
+The history will be available again during the next interactive interpreter
+session.</p>
+</div>
+<div class="section" id="alternatives-to-the-interactive-interpreter">
+<span id="tut-commentary"></span><h2>14.2. Alternatives to the Interactive Interpreter<a class="headerlink" href="#alternatives-to-the-interactive-interpreter" title="Permalink to this headline">¶</a></h2>
+<p>This facility is an enormous step forward compared to earlier versions of the
+interpreter; however, some wishes are left: It would be nice if the proper
+indentation were suggested on continuation lines (the parser knows if an indent
+token is required next).  The completion mechanism might use the interpreter’s
+symbol table.  A command to check (or even suggest) matching parentheses,
+quotes, etc., would also be useful.</p>
+<p>One alternative enhanced interactive interpreter that has been around for quite
+some time is <a class="reference external" href="https://ipython.org/">IPython</a>, which features tab completion, object exploration and
+advanced history management.  It can also be thoroughly customized and embedded
+into other applications.  Another similar enhanced interactive environment is
+<a class="reference external" href="https://www.bpython-interpreter.org/">bpython</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">14. Interactive Input Editing and History Substitution</a><ul>
+<li><a class="reference internal" href="#tab-completion-and-history-editing">14.1. Tab Completion and History Editing</a></li>
+<li><a class="reference internal" href="#alternatives-to-the-interactive-interpreter">14.2. Alternatives to the Interactive Interpreter</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="whatnow.html"
+                        title="previous chapter">13. What Now?</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="floatingpoint.html"
+                        title="next chapter">15. Floating Point Arithmetic:  Issues and Limitations</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/tutorial/interactive.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="floatingpoint.html" title="15. Floating Point Arithmetic: Issues and Limitations"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="whatnow.html" title="13. What Now?"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Tutorial</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

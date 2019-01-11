@@ -1,0 +1,252 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>File Objects &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="Module Objects" href="module.html" />
+    <link rel="prev" title="Code Objects" href="code.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/c-api/file.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="module.html" title="Module Objects"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="code.html" title="Code Objects"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Python/C API Reference Manual</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="concrete.html" accesskey="U">Concrete Objects Layer</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="file-objects">
+<span id="fileobjects"></span><h1>File Objects<a class="headerlink" href="#file-objects" title="Permalink to this headline">¶</a></h1>
+<p id="index-0">These APIs are a minimal emulation of the Python 2 C API for built-in file
+objects, which used to rely on the buffered I/O (<code class="xref c c-type docutils literal notranslate"><span class="pre">FILE*</span></code>) support
+from the C standard library.  In Python 3, files and streams use the new
+<a class="reference internal" href="../library/io.html#module-io" title="io: Core tools for working with streams."><code class="xref py py-mod docutils literal notranslate"><span class="pre">io</span></code></a> module, which defines several layers over the low-level unbuffered
+I/O of the operating system.  The functions described below are
+convenience C wrappers over these new APIs, and meant mostly for internal
+error reporting in the interpreter; third-party code is advised to access
+the <a class="reference internal" href="../library/io.html#module-io" title="io: Core tools for working with streams."><code class="xref py py-mod docutils literal notranslate"><span class="pre">io</span></code></a> APIs instead.</p>
+<dl class="function">
+<dt id="c.PyFile_FromFd">
+<code class="descname">PyFile_FromFd</code><span class="sig-paren">(</span>int<em>&nbsp;fd</em>, const char<em>&nbsp;*name</em>, const char<em>&nbsp;*mode</em>, int<em>&nbsp;buffering</em>, const char<em>&nbsp;*encoding</em>, const char<em>&nbsp;*errors</em>, const char<em>&nbsp;*newline</em>, int<em>&nbsp;closefd</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFile_FromFd" title="Permalink to this definition">¶</a></dt>
+<dd><em class="refcount">Return value: New reference.</em><p>Create a Python file object from the file descriptor of an already
+opened file <em>fd</em>.  The arguments <em>name</em>, <em>encoding</em>, <em>errors</em> and <em>newline</em>
+can be <em>NULL</em> to use the defaults; <em>buffering</em> can be <em>-1</em> to use the
+default. <em>name</em> is ignored and kept for backward compatibility. Return
+<em>NULL</em> on failure. For a more comprehensive description of the arguments,
+please refer to the <a class="reference internal" href="../library/io.html#io.open" title="io.open"><code class="xref py py-func docutils literal notranslate"><span class="pre">io.open()</span></code></a> function documentation.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Since Python streams have their own buffering layer, mixing them with
+OS-level file descriptors can produce various issues (such as unexpected
+ordering of data).</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.2: </span>Ignore <em>name</em> attribute.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyObject_AsFileDescriptor">
+int <code class="descname">PyObject_AsFileDescriptor</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*p</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyObject_AsFileDescriptor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the file descriptor associated with <em>p</em> as an <code class="xref c c-type docutils literal notranslate"><span class="pre">int</span></code>.  If the
+object is an integer, its value is returned.  If not, the
+object’s <a class="reference internal" href="../library/io.html#io.IOBase.fileno" title="io.IOBase.fileno"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fileno()</span></code></a> method is called if it exists; the
+method must return an integer, which is returned as the file descriptor
+value.  Sets an exception and returns <code class="docutils literal notranslate"><span class="pre">-1</span></code> on failure.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyFile_GetLine">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a>* <code class="descname">PyFile_GetLine</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*p</em>, int<em>&nbsp;n</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFile_GetLine" title="Permalink to this definition">¶</a></dt>
+<dd><em class="refcount">Return value: New reference.</em><p id="index-1">Equivalent to <code class="docutils literal notranslate"><span class="pre">p.readline([n])</span></code>, this function reads one line from the
+object <em>p</em>.  <em>p</em> may be a file object or any object with a
+<a class="reference internal" href="../library/io.html#io.IOBase.readline" title="io.IOBase.readline"><code class="xref py py-meth docutils literal notranslate"><span class="pre">readline()</span></code></a>
+method.  If <em>n</em> is <code class="docutils literal notranslate"><span class="pre">0</span></code>, exactly one line is read, regardless of the length of
+the line.  If <em>n</em> is greater than <code class="docutils literal notranslate"><span class="pre">0</span></code>, no more than <em>n</em> bytes will be read
+from the file; a partial line can be returned.  In both cases, an empty string
+is returned if the end of the file is reached immediately.  If <em>n</em> is less than
+<code class="docutils literal notranslate"><span class="pre">0</span></code>, however, one line is read regardless of length, but <a class="reference internal" href="../library/exceptions.html#EOFError" title="EOFError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">EOFError</span></code></a> is
+raised if the end of the file is reached immediately.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyFile_WriteObject">
+int <code class="descname">PyFile_WriteObject</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*obj</em>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*p</em>, int<em>&nbsp;flags</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFile_WriteObject" title="Permalink to this definition">¶</a></dt>
+<dd><p id="index-2">Write object <em>obj</em> to file object <em>p</em>.  The only supported flag for <em>flags</em> is
+<code class="xref py py-const docutils literal notranslate"><span class="pre">Py_PRINT_RAW</span></code>; if given, the <a class="reference internal" href="../library/stdtypes.html#str" title="str"><code class="xref py py-func docutils literal notranslate"><span class="pre">str()</span></code></a> of the object is written
+instead of the <a class="reference internal" href="../library/functions.html#repr" title="repr"><code class="xref py py-func docutils literal notranslate"><span class="pre">repr()</span></code></a>.  Return <code class="docutils literal notranslate"><span class="pre">0</span></code> on success or <code class="docutils literal notranslate"><span class="pre">-1</span></code> on failure; the
+appropriate exception will be set.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyFile_WriteString">
+int <code class="descname">PyFile_WriteString</code><span class="sig-paren">(</span>const char<em>&nbsp;*s</em>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*p</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFile_WriteString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write string <em>s</em> to file object <em>p</em>.  Return <code class="docutils literal notranslate"><span class="pre">0</span></code> on success or <code class="docutils literal notranslate"><span class="pre">-1</span></code> on
+failure; the appropriate exception will be set.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="code.html"
+                        title="previous chapter">Code Objects</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="module.html"
+                        title="next chapter">Module Objects</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/c-api/file.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="module.html" title="Module Objects"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="code.html" title="Code Objects"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Python/C API Reference Manual</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="concrete.html" >Concrete Objects Layer</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

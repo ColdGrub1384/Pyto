@@ -1,0 +1,939 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>wsgiref — WSGI Utilities and Reference Implementation &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="urllib — URL handling modules" href="urllib.html" />
+    <link rel="prev" title="cgitb — Traceback manager for CGI scripts" href="cgitb.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/library/wsgiref.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="urllib.html" title="urllib — URL handling modules"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="cgitb.html" title="cgitb — Traceback manager for CGI scripts"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="internet.html" accesskey="U">Internet Protocols and Support</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-wsgiref">
+<span id="wsgiref-wsgi-utilities-and-reference-implementation"></span><h1><a class="reference internal" href="#module-wsgiref" title="wsgiref: WSGI Utilities and Reference Implementation."><code class="xref py py-mod docutils literal notranslate"><span class="pre">wsgiref</span></code></a> — WSGI Utilities and Reference Implementation<a class="headerlink" href="#module-wsgiref" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>The Web Server Gateway Interface (WSGI) is a standard interface between web
+server software and web applications written in Python. Having a standard
+interface makes it easy to use an application that supports WSGI with a number
+of different web servers.</p>
+<p>Only authors of web servers and programming frameworks need to know every detail
+and corner case of the WSGI design.  You don’t need to understand every detail
+of WSGI just to install a WSGI application or to write a web application using
+an existing framework.</p>
+<p><a class="reference internal" href="#module-wsgiref" title="wsgiref: WSGI Utilities and Reference Implementation."><code class="xref py py-mod docutils literal notranslate"><span class="pre">wsgiref</span></code></a> is a reference implementation of the WSGI specification that can
+be used to add WSGI support to a web server or framework.  It provides utilities
+for manipulating WSGI environment variables and response headers, base classes
+for implementing WSGI servers, a demo HTTP server that serves WSGI applications,
+and a validation tool that checks WSGI servers and applications for conformance
+to the WSGI specification (<span class="target" id="index-0"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-3333"><strong>PEP 3333</strong></a>).</p>
+<p>See <a class="reference external" href="https://wsgi.readthedocs.io/">wsgi.readthedocs.io</a> for more information about WSGI, and links
+to tutorials and other resources.</p>
+<div class="section" id="module-wsgiref.util">
+<span id="wsgiref-util-wsgi-environment-utilities"></span><h2><a class="reference internal" href="#module-wsgiref.util" title="wsgiref.util: WSGI environment utilities."><code class="xref py py-mod docutils literal notranslate"><span class="pre">wsgiref.util</span></code></a> – WSGI environment utilities<a class="headerlink" href="#module-wsgiref.util" title="Permalink to this headline">¶</a></h2>
+<p>This module provides a variety of utility functions for working with WSGI
+environments.  A WSGI environment is a dictionary containing HTTP request
+variables as described in <span class="target" id="index-1"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-3333"><strong>PEP 3333</strong></a>.  All of the functions taking an <em>environ</em>
+parameter expect a WSGI-compliant dictionary to be supplied; please see
+<span class="target" id="index-2"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-3333"><strong>PEP 3333</strong></a> for a detailed specification.</p>
+<dl class="function">
+<dt id="wsgiref.util.guess_scheme">
+<code class="descclassname">wsgiref.util.</code><code class="descname">guess_scheme</code><span class="sig-paren">(</span><em>environ</em><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.util.guess_scheme" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a guess for whether <code class="docutils literal notranslate"><span class="pre">wsgi.url_scheme</span></code> should be “http” or “https”, by
+checking for a <code class="docutils literal notranslate"><span class="pre">HTTPS</span></code> environment variable in the <em>environ</em> dictionary.  The
+return value is a string.</p>
+<p>This function is useful when creating a gateway that wraps CGI or a CGI-like
+protocol such as FastCGI.  Typically, servers providing such protocols will
+include a <code class="docutils literal notranslate"><span class="pre">HTTPS</span></code> variable with a value of “1” “yes”, or “on” when a request
+is received via SSL.  So, this function returns “https” if such a value is
+found, and “http” otherwise.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="wsgiref.util.request_uri">
+<code class="descclassname">wsgiref.util.</code><code class="descname">request_uri</code><span class="sig-paren">(</span><em>environ</em>, <em>include_query=True</em><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.util.request_uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the full request URI, optionally including the query string, using the
+algorithm found in the “URL Reconstruction” section of <span class="target" id="index-3"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-3333"><strong>PEP 3333</strong></a>.  If
+<em>include_query</em> is false, the query string is not included in the resulting URI.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="wsgiref.util.application_uri">
+<code class="descclassname">wsgiref.util.</code><code class="descname">application_uri</code><span class="sig-paren">(</span><em>environ</em><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.util.application_uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>Similar to <a class="reference internal" href="#wsgiref.util.request_uri" title="wsgiref.util.request_uri"><code class="xref py py-func docutils literal notranslate"><span class="pre">request_uri()</span></code></a>, except that the <code class="docutils literal notranslate"><span class="pre">PATH_INFO</span></code> and
+<code class="docutils literal notranslate"><span class="pre">QUERY_STRING</span></code> variables are ignored.  The result is the base URI of the
+application object addressed by the request.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="wsgiref.util.shift_path_info">
+<code class="descclassname">wsgiref.util.</code><code class="descname">shift_path_info</code><span class="sig-paren">(</span><em>environ</em><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.util.shift_path_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shift a single name from <code class="docutils literal notranslate"><span class="pre">PATH_INFO</span></code> to <code class="docutils literal notranslate"><span class="pre">SCRIPT_NAME</span></code> and return the name.
+The <em>environ</em> dictionary is <em>modified</em> in-place; use a copy if you need to keep
+the original <code class="docutils literal notranslate"><span class="pre">PATH_INFO</span></code> or <code class="docutils literal notranslate"><span class="pre">SCRIPT_NAME</span></code> intact.</p>
+<p>If there are no remaining path segments in <code class="docutils literal notranslate"><span class="pre">PATH_INFO</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code> is returned.</p>
+<p>Typically, this routine is used to process each portion of a request URI path,
+for example to treat the path as a series of dictionary keys. This routine
+modifies the passed-in environment to make it suitable for invoking another WSGI
+application that is located at the target URI. For example, if there is a WSGI
+application at <code class="docutils literal notranslate"><span class="pre">/foo</span></code>, and the request URI path is <code class="docutils literal notranslate"><span class="pre">/foo/bar/baz</span></code>, and the
+WSGI application at <code class="docutils literal notranslate"><span class="pre">/foo</span></code> calls <a class="reference internal" href="#wsgiref.util.shift_path_info" title="wsgiref.util.shift_path_info"><code class="xref py py-func docutils literal notranslate"><span class="pre">shift_path_info()</span></code></a>, it will receive the
+string “bar”, and the environment will be updated to be suitable for passing to
+a WSGI application at <code class="docutils literal notranslate"><span class="pre">/foo/bar</span></code>.  That is, <code class="docutils literal notranslate"><span class="pre">SCRIPT_NAME</span></code> will change from
+<code class="docutils literal notranslate"><span class="pre">/foo</span></code> to <code class="docutils literal notranslate"><span class="pre">/foo/bar</span></code>, and <code class="docutils literal notranslate"><span class="pre">PATH_INFO</span></code> will change from <code class="docutils literal notranslate"><span class="pre">/bar/baz</span></code> to
+<code class="docutils literal notranslate"><span class="pre">/baz</span></code>.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">PATH_INFO</span></code> is just a “/”, this routine returns an empty string and
+appends a trailing slash to <code class="docutils literal notranslate"><span class="pre">SCRIPT_NAME</span></code>, even though empty path segments are
+normally ignored, and <code class="docutils literal notranslate"><span class="pre">SCRIPT_NAME</span></code> doesn’t normally end in a slash.  This is
+intentional behavior, to ensure that an application can tell the difference
+between URIs ending in <code class="docutils literal notranslate"><span class="pre">/x</span></code> from ones ending in <code class="docutils literal notranslate"><span class="pre">/x/</span></code> when using this
+routine to do object traversal.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="wsgiref.util.setup_testing_defaults">
+<code class="descclassname">wsgiref.util.</code><code class="descname">setup_testing_defaults</code><span class="sig-paren">(</span><em>environ</em><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.util.setup_testing_defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update <em>environ</em> with trivial defaults for testing purposes.</p>
+<p>This routine adds various parameters required for WSGI, including <code class="docutils literal notranslate"><span class="pre">HTTP_HOST</span></code>,
+<code class="docutils literal notranslate"><span class="pre">SERVER_NAME</span></code>, <code class="docutils literal notranslate"><span class="pre">SERVER_PORT</span></code>, <code class="docutils literal notranslate"><span class="pre">REQUEST_METHOD</span></code>, <code class="docutils literal notranslate"><span class="pre">SCRIPT_NAME</span></code>,
+<code class="docutils literal notranslate"><span class="pre">PATH_INFO</span></code>, and all of the <span class="target" id="index-4"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-3333"><strong>PEP 3333</strong></a>-defined <code class="docutils literal notranslate"><span class="pre">wsgi.*</span></code> variables.  It
+only supplies default values, and does not replace any existing settings for
+these variables.</p>
+<p>This routine is intended to make it easier for unit tests of WSGI servers and
+applications to set up dummy environments.  It should NOT be used by actual WSGI
+servers or applications, since the data is fake!</p>
+<p>Example usage:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">wsgiref.util</span> <span class="k">import</span> <span class="n">setup_testing_defaults</span>
+<span class="kn">from</span> <span class="nn">wsgiref.simple_server</span> <span class="k">import</span> <span class="n">make_server</span>
+
+<span class="c1"># A relatively simple WSGI application. It&#39;s going to print out the</span>
+<span class="c1"># environment dictionary after being updated by setup_testing_defaults</span>
+<span class="k">def</span> <span class="nf">simple_app</span><span class="p">(</span><span class="n">environ</span><span class="p">,</span> <span class="n">start_response</span><span class="p">):</span>
+    <span class="n">setup_testing_defaults</span><span class="p">(</span><span class="n">environ</span><span class="p">)</span>
+
+    <span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;200 OK&#39;</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;Content-type&#39;</span><span class="p">,</span> <span class="s1">&#39;text/plain; charset=utf-8&#39;</span><span class="p">)]</span>
+
+    <span class="n">start_response</span><span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="n">headers</span><span class="p">)</span>
+
+    <span class="n">ret</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+           <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">environ</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+    <span class="k">return</span> <span class="n">ret</span>
+
+<span class="k">with</span> <span class="n">make_server</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">8000</span><span class="p">,</span> <span class="n">simple_app</span><span class="p">)</span> <span class="k">as</span> <span class="n">httpd</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Serving on port 8000...&quot;</span><span class="p">)</span>
+    <span class="n">httpd</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p>In addition to the environment functions above, the <a class="reference internal" href="#module-wsgiref.util" title="wsgiref.util: WSGI environment utilities."><code class="xref py py-mod docutils literal notranslate"><span class="pre">wsgiref.util</span></code></a> module
+also provides these miscellaneous utilities:</p>
+<dl class="function">
+<dt id="wsgiref.util.is_hop_by_hop">
+<code class="descclassname">wsgiref.util.</code><code class="descname">is_hop_by_hop</code><span class="sig-paren">(</span><em>header_name</em><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.util.is_hop_by_hop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true if ‘header_name’ is an HTTP/1.1 “Hop-by-Hop” header, as defined by
+<span class="target" id="index-5"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc2616.html"><strong>RFC 2616</strong></a>.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="wsgiref.util.FileWrapper">
+<em class="property">class </em><code class="descclassname">wsgiref.util.</code><code class="descname">FileWrapper</code><span class="sig-paren">(</span><em>filelike</em>, <em>blksize=8192</em><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.util.FileWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper to convert a file-like object to an <a class="reference internal" href="../glossary.html#term-iterator"><span class="xref std std-term">iterator</span></a>.  The resulting objects
+support both <a class="reference internal" href="../reference/datamodel.html#object.__getitem__" title="object.__getitem__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__getitem__()</span></code></a> and <a class="reference internal" href="../reference/datamodel.html#object.__iter__" title="object.__iter__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__iter__()</span></code></a> iteration styles, for
+compatibility with Python 2.1 and Jython. As the object is iterated over, the
+optional <em>blksize</em> parameter will be repeatedly passed to the <em>filelike</em>
+object’s <code class="xref py py-meth docutils literal notranslate"><span class="pre">read()</span></code> method to obtain bytestrings to yield.  When <code class="xref py py-meth docutils literal notranslate"><span class="pre">read()</span></code>
+returns an empty bytestring, iteration is ended and is not resumable.</p>
+<p>If <em>filelike</em> has a <code class="xref py py-meth docutils literal notranslate"><span class="pre">close()</span></code> method, the returned object will also have a
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">close()</span></code> method, and it will invoke the <em>filelike</em> object’s <code class="xref py py-meth docutils literal notranslate"><span class="pre">close()</span></code>
+method when called.</p>
+<p>Example usage:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">io</span> <span class="k">import</span> <span class="n">StringIO</span>
+<span class="kn">from</span> <span class="nn">wsgiref.util</span> <span class="k">import</span> <span class="n">FileWrapper</span>
+
+<span class="c1"># We&#39;re using a StringIO-buffer for as the file-like object</span>
+<span class="n">filelike</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="s2">&quot;This is an example file-like object&quot;</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">wrapper</span> <span class="o">=</span> <span class="n">FileWrapper</span><span class="p">(</span><span class="n">filelike</span><span class="p">,</span> <span class="n">blksize</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">wrapper</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-wsgiref.headers">
+<span id="wsgiref-headers-wsgi-response-header-tools"></span><h2><a class="reference internal" href="#module-wsgiref.headers" title="wsgiref.headers: WSGI response header tools."><code class="xref py py-mod docutils literal notranslate"><span class="pre">wsgiref.headers</span></code></a> – WSGI response header tools<a class="headerlink" href="#module-wsgiref.headers" title="Permalink to this headline">¶</a></h2>
+<p>This module provides a single class, <a class="reference internal" href="#wsgiref.headers.Headers" title="wsgiref.headers.Headers"><code class="xref py py-class docutils literal notranslate"><span class="pre">Headers</span></code></a>, for convenient
+manipulation of WSGI response headers using a mapping-like interface.</p>
+<dl class="class">
+<dt id="wsgiref.headers.Headers">
+<em class="property">class </em><code class="descclassname">wsgiref.headers.</code><code class="descname">Headers</code><span class="sig-paren">(</span><span class="optional">[</span><em>headers</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.headers.Headers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a mapping-like object wrapping <em>headers</em>, which must be a list of header
+name/value tuples as described in <span class="target" id="index-6"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-3333"><strong>PEP 3333</strong></a>. The default value of <em>headers</em> is
+an empty list.</p>
+<p><a class="reference internal" href="#wsgiref.headers.Headers" title="wsgiref.headers.Headers"><code class="xref py py-class docutils literal notranslate"><span class="pre">Headers</span></code></a> objects support typical mapping operations including
+<a class="reference internal" href="../reference/datamodel.html#object.__getitem__" title="object.__getitem__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__getitem__()</span></code></a>, <code class="xref py py-meth docutils literal notranslate"><span class="pre">get()</span></code>, <a class="reference internal" href="../reference/datamodel.html#object.__setitem__" title="object.__setitem__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__setitem__()</span></code></a>, <code class="xref py py-meth docutils literal notranslate"><span class="pre">setdefault()</span></code>,
+<a class="reference internal" href="../reference/datamodel.html#object.__delitem__" title="object.__delitem__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__delitem__()</span></code></a> and <a class="reference internal" href="../reference/datamodel.html#object.__contains__" title="object.__contains__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__contains__()</span></code></a>.  For each of
+these methods, the key is the header name (treated case-insensitively), and the
+value is the first value associated with that header name.  Setting a header
+deletes any existing values for that header, then adds a new value at the end of
+the wrapped header list.  Headers’ existing order is generally maintained, with
+new headers added to the end of the wrapped list.</p>
+<p>Unlike a dictionary, <a class="reference internal" href="#wsgiref.headers.Headers" title="wsgiref.headers.Headers"><code class="xref py py-class docutils literal notranslate"><span class="pre">Headers</span></code></a> objects do not raise an error when you try
+to get or delete a key that isn’t in the wrapped header list. Getting a
+nonexistent header just returns <code class="docutils literal notranslate"><span class="pre">None</span></code>, and deleting a nonexistent header does
+nothing.</p>
+<p><a class="reference internal" href="#wsgiref.headers.Headers" title="wsgiref.headers.Headers"><code class="xref py py-class docutils literal notranslate"><span class="pre">Headers</span></code></a> objects also support <code class="xref py py-meth docutils literal notranslate"><span class="pre">keys()</span></code>, <code class="xref py py-meth docutils literal notranslate"><span class="pre">values()</span></code>, and
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">items()</span></code> methods.  The lists returned by <code class="xref py py-meth docutils literal notranslate"><span class="pre">keys()</span></code> and <code class="xref py py-meth docutils literal notranslate"><span class="pre">items()</span></code> can
+include the same key more than once if there is a multi-valued header.  The
+<code class="docutils literal notranslate"><span class="pre">len()</span></code> of a <a class="reference internal" href="#wsgiref.headers.Headers" title="wsgiref.headers.Headers"><code class="xref py py-class docutils literal notranslate"><span class="pre">Headers</span></code></a> object is the same as the length of its
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">items()</span></code>, which is the same as the length of the wrapped header list.  In
+fact, the <code class="xref py py-meth docutils literal notranslate"><span class="pre">items()</span></code> method just returns a copy of the wrapped header list.</p>
+<p>Calling <code class="docutils literal notranslate"><span class="pre">bytes()</span></code> on a <a class="reference internal" href="#wsgiref.headers.Headers" title="wsgiref.headers.Headers"><code class="xref py py-class docutils literal notranslate"><span class="pre">Headers</span></code></a> object returns a formatted bytestring
+suitable for transmission as HTTP response headers.  Each header is placed on a
+line with its value, separated by a colon and a space. Each line is terminated
+by a carriage return and line feed, and the bytestring is terminated with a
+blank line.</p>
+<p>In addition to their mapping interface and formatting features, <a class="reference internal" href="#wsgiref.headers.Headers" title="wsgiref.headers.Headers"><code class="xref py py-class docutils literal notranslate"><span class="pre">Headers</span></code></a>
+objects also have the following methods for querying and adding multi-valued
+headers, and for adding headers with MIME parameters:</p>
+<dl class="method">
+<dt id="wsgiref.headers.Headers.get_all">
+<code class="descname">get_all</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.headers.Headers.get_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of all the values for the named header.</p>
+<p>The returned list will be sorted in the order they appeared in the original
+header list or were added to this instance, and may contain duplicates.  Any
+fields deleted and re-inserted are always appended to the header list.  If no
+fields exist with the given name, returns an empty list.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wsgiref.headers.Headers.add_header">
+<code class="descname">add_header</code><span class="sig-paren">(</span><em>name</em>, <em>value</em>, <em>**_params</em><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.headers.Headers.add_header" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a (possibly multi-valued) header, with optional MIME parameters specified
+via keyword arguments.</p>
+<p><em>name</em> is the header field to add.  Keyword arguments can be used to set MIME
+parameters for the header field.  Each parameter must be a string or <code class="docutils literal notranslate"><span class="pre">None</span></code>.
+Underscores in parameter names are converted to dashes, since dashes are illegal
+in Python identifiers, but many MIME parameter names include dashes.  If the
+parameter value is a string, it is added to the header value parameters in the
+form <code class="docutils literal notranslate"><span class="pre">name=&quot;value&quot;</span></code>. If it is <code class="docutils literal notranslate"><span class="pre">None</span></code>, only the parameter name is added.
+(This is used for MIME parameters without a value.)  Example usage:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">h</span><span class="o">.</span><span class="n">add_header</span><span class="p">(</span><span class="s1">&#39;content-disposition&#39;</span><span class="p">,</span> <span class="s1">&#39;attachment&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;bud.gif&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The above will add a header that looks like this:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">Content</span><span class="o">-</span><span class="n">Disposition</span><span class="p">:</span> <span class="n">attachment</span><span class="p">;</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;bud.gif&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.5: </span><em>headers</em> parameter is optional.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-wsgiref.simple_server">
+<span id="wsgiref-simple-server-a-simple-wsgi-http-server"></span><h2><a class="reference internal" href="#module-wsgiref.simple_server" title="wsgiref.simple_server: A simple WSGI HTTP server."><code class="xref py py-mod docutils literal notranslate"><span class="pre">wsgiref.simple_server</span></code></a> – a simple WSGI HTTP server<a class="headerlink" href="#module-wsgiref.simple_server" title="Permalink to this headline">¶</a></h2>
+<p>This module implements a simple HTTP server (based on <a class="reference internal" href="http.server.html#module-http.server" title="http.server: HTTP server and request handlers."><code class="xref py py-mod docutils literal notranslate"><span class="pre">http.server</span></code></a>)
+that serves WSGI applications.  Each server instance serves a single WSGI
+application on a given host and port.  If you want to serve multiple
+applications on a single host and port, you should create a WSGI application
+that parses <code class="docutils literal notranslate"><span class="pre">PATH_INFO</span></code> to select which application to invoke for each
+request.  (E.g., using the <code class="xref py py-func docutils literal notranslate"><span class="pre">shift_path_info()</span></code> function from
+<a class="reference internal" href="#module-wsgiref.util" title="wsgiref.util: WSGI environment utilities."><code class="xref py py-mod docutils literal notranslate"><span class="pre">wsgiref.util</span></code></a>.)</p>
+<dl class="function">
+<dt id="wsgiref.simple_server.make_server">
+<code class="descclassname">wsgiref.simple_server.</code><code class="descname">make_server</code><span class="sig-paren">(</span><em>host</em>, <em>port</em>, <em>app</em>, <em>server_class=WSGIServer</em>, <em>handler_class=WSGIRequestHandler</em><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.simple_server.make_server" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new WSGI server listening on <em>host</em> and <em>port</em>, accepting connections
+for <em>app</em>.  The return value is an instance of the supplied <em>server_class</em>, and
+will process requests using the specified <em>handler_class</em>.  <em>app</em> must be a WSGI
+application object, as defined by <span class="target" id="index-7"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-3333"><strong>PEP 3333</strong></a>.</p>
+<p>Example usage:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">wsgiref.simple_server</span> <span class="k">import</span> <span class="n">make_server</span><span class="p">,</span> <span class="n">demo_app</span>
+
+<span class="k">with</span> <span class="n">make_server</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">8000</span><span class="p">,</span> <span class="n">demo_app</span><span class="p">)</span> <span class="k">as</span> <span class="n">httpd</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Serving HTTP on port 8000...&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Respond to requests until process is killed</span>
+    <span class="n">httpd</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span>
+
+    <span class="c1"># Alternative: serve one request, then exit</span>
+    <span class="n">httpd</span><span class="o">.</span><span class="n">handle_request</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="wsgiref.simple_server.demo_app">
+<code class="descclassname">wsgiref.simple_server.</code><code class="descname">demo_app</code><span class="sig-paren">(</span><em>environ</em>, <em>start_response</em><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.simple_server.demo_app" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is a small but complete WSGI application that returns a text page
+containing the message “Hello world!” and a list of the key/value pairs provided
+in the <em>environ</em> parameter.  It’s useful for verifying that a WSGI server (such
+as <a class="reference internal" href="#module-wsgiref.simple_server" title="wsgiref.simple_server: A simple WSGI HTTP server."><code class="xref py py-mod docutils literal notranslate"><span class="pre">wsgiref.simple_server</span></code></a>) is able to run a simple WSGI application
+correctly.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="wsgiref.simple_server.WSGIServer">
+<em class="property">class </em><code class="descclassname">wsgiref.simple_server.</code><code class="descname">WSGIServer</code><span class="sig-paren">(</span><em>server_address</em>, <em>RequestHandlerClass</em><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.simple_server.WSGIServer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a <a class="reference internal" href="#wsgiref.simple_server.WSGIServer" title="wsgiref.simple_server.WSGIServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">WSGIServer</span></code></a> instance.  <em>server_address</em> should be a
+<code class="docutils literal notranslate"><span class="pre">(host,port)</span></code> tuple, and <em>RequestHandlerClass</em> should be the subclass of
+<a class="reference internal" href="http.server.html#http.server.BaseHTTPRequestHandler" title="http.server.BaseHTTPRequestHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">http.server.BaseHTTPRequestHandler</span></code></a> that will be used to process
+requests.</p>
+<p>You do not normally need to call this constructor, as the <a class="reference internal" href="#wsgiref.simple_server.make_server" title="wsgiref.simple_server.make_server"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_server()</span></code></a>
+function can handle all the details for you.</p>
+<p><a class="reference internal" href="#wsgiref.simple_server.WSGIServer" title="wsgiref.simple_server.WSGIServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">WSGIServer</span></code></a> is a subclass of <a class="reference internal" href="http.server.html#http.server.HTTPServer" title="http.server.HTTPServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">http.server.HTTPServer</span></code></a>, so all
+of its methods (such as <code class="xref py py-meth docutils literal notranslate"><span class="pre">serve_forever()</span></code> and <code class="xref py py-meth docutils literal notranslate"><span class="pre">handle_request()</span></code>) are
+available. <a class="reference internal" href="#wsgiref.simple_server.WSGIServer" title="wsgiref.simple_server.WSGIServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">WSGIServer</span></code></a> also provides these WSGI-specific methods:</p>
+<dl class="method">
+<dt id="wsgiref.simple_server.WSGIServer.set_app">
+<code class="descname">set_app</code><span class="sig-paren">(</span><em>application</em><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.simple_server.WSGIServer.set_app" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the callable <em>application</em> as the WSGI application that will receive
+requests.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wsgiref.simple_server.WSGIServer.get_app">
+<code class="descname">get_app</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.simple_server.WSGIServer.get_app" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the currently-set application callable.</p>
+</dd></dl>
+
+<p>Normally, however, you do not need to use these additional methods, as
+<a class="reference internal" href="#wsgiref.simple_server.WSGIServer.set_app" title="wsgiref.simple_server.WSGIServer.set_app"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_app()</span></code></a> is normally called by <a class="reference internal" href="#wsgiref.simple_server.make_server" title="wsgiref.simple_server.make_server"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_server()</span></code></a>, and the
+<a class="reference internal" href="#wsgiref.simple_server.WSGIServer.get_app" title="wsgiref.simple_server.WSGIServer.get_app"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_app()</span></code></a> exists mainly for the benefit of request handler instances.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="wsgiref.simple_server.WSGIRequestHandler">
+<em class="property">class </em><code class="descclassname">wsgiref.simple_server.</code><code class="descname">WSGIRequestHandler</code><span class="sig-paren">(</span><em>request</em>, <em>client_address</em>, <em>server</em><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.simple_server.WSGIRequestHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an HTTP handler for the given <em>request</em> (i.e. a socket), <em>client_address</em>
+(a <code class="docutils literal notranslate"><span class="pre">(host,port)</span></code> tuple), and <em>server</em> (<a class="reference internal" href="#wsgiref.simple_server.WSGIServer" title="wsgiref.simple_server.WSGIServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">WSGIServer</span></code></a> instance).</p>
+<p>You do not need to create instances of this class directly; they are
+automatically created as needed by <a class="reference internal" href="#wsgiref.simple_server.WSGIServer" title="wsgiref.simple_server.WSGIServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">WSGIServer</span></code></a> objects.  You can,
+however, subclass this class and supply it as a <em>handler_class</em> to the
+<a class="reference internal" href="#wsgiref.simple_server.make_server" title="wsgiref.simple_server.make_server"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_server()</span></code></a> function.  Some possibly relevant methods for overriding in
+subclasses:</p>
+<dl class="method">
+<dt id="wsgiref.simple_server.WSGIRequestHandler.get_environ">
+<code class="descname">get_environ</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.simple_server.WSGIRequestHandler.get_environ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary containing the WSGI environment for a request.  The default
+implementation copies the contents of the <a class="reference internal" href="#wsgiref.simple_server.WSGIServer" title="wsgiref.simple_server.WSGIServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">WSGIServer</span></code></a> object’s
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">base_environ</span></code> dictionary attribute and then adds various headers derived
+from the HTTP request.  Each call to this method should return a new dictionary
+containing all of the relevant CGI environment variables as specified in
+<span class="target" id="index-8"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-3333"><strong>PEP 3333</strong></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wsgiref.simple_server.WSGIRequestHandler.get_stderr">
+<code class="descname">get_stderr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.simple_server.WSGIRequestHandler.get_stderr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the object that should be used as the <code class="docutils literal notranslate"><span class="pre">wsgi.errors</span></code> stream. The default
+implementation just returns <code class="docutils literal notranslate"><span class="pre">sys.stderr</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wsgiref.simple_server.WSGIRequestHandler.handle">
+<code class="descname">handle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.simple_server.WSGIRequestHandler.handle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process the HTTP request.  The default implementation creates a handler instance
+using a <a class="reference internal" href="#module-wsgiref.handlers" title="wsgiref.handlers: WSGI server/gateway base classes."><code class="xref py py-mod docutils literal notranslate"><span class="pre">wsgiref.handlers</span></code></a> class to implement the actual WSGI application
+interface.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-wsgiref.validate">
+<span id="wsgiref-validate-wsgi-conformance-checker"></span><h2><a class="reference internal" href="#module-wsgiref.validate" title="wsgiref.validate: WSGI conformance checker."><code class="xref py py-mod docutils literal notranslate"><span class="pre">wsgiref.validate</span></code></a> — WSGI conformance checker<a class="headerlink" href="#module-wsgiref.validate" title="Permalink to this headline">¶</a></h2>
+<p>When creating new WSGI application objects, frameworks, servers, or middleware,
+it can be useful to validate the new code’s conformance using
+<a class="reference internal" href="#module-wsgiref.validate" title="wsgiref.validate: WSGI conformance checker."><code class="xref py py-mod docutils literal notranslate"><span class="pre">wsgiref.validate</span></code></a>.  This module provides a function that creates WSGI
+application objects that validate communications between a WSGI server or
+gateway and a WSGI application object, to check both sides for protocol
+conformance.</p>
+<p>Note that this utility does not guarantee complete <span class="target" id="index-9"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-3333"><strong>PEP 3333</strong></a> compliance; an
+absence of errors from this module does not necessarily mean that errors do not
+exist.  However, if this module does produce an error, then it is virtually
+certain that either the server or application is not 100% compliant.</p>
+<p>This module is based on the <code class="xref py py-mod docutils literal notranslate"><span class="pre">paste.lint</span></code> module from Ian Bicking’s “Python
+Paste” library.</p>
+<dl class="function">
+<dt id="wsgiref.validate.validator">
+<code class="descclassname">wsgiref.validate.</code><code class="descname">validator</code><span class="sig-paren">(</span><em>application</em><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.validate.validator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrap <em>application</em> and return a new WSGI application object.  The returned
+application will forward all requests to the original <em>application</em>, and will
+check that both the <em>application</em> and the server invoking it are conforming to
+the WSGI specification and to <span class="target" id="index-10"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc2616.html"><strong>RFC 2616</strong></a>.</p>
+<p>Any detected nonconformance results in an <a class="reference internal" href="exceptions.html#AssertionError" title="AssertionError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">AssertionError</span></code></a> being raised;
+note, however, that how these errors are handled is server-dependent.  For
+example, <a class="reference internal" href="#module-wsgiref.simple_server" title="wsgiref.simple_server: A simple WSGI HTTP server."><code class="xref py py-mod docutils literal notranslate"><span class="pre">wsgiref.simple_server</span></code></a> and other servers based on
+<a class="reference internal" href="#module-wsgiref.handlers" title="wsgiref.handlers: WSGI server/gateway base classes."><code class="xref py py-mod docutils literal notranslate"><span class="pre">wsgiref.handlers</span></code></a> (that don’t override the error handling methods to do
+something else) will simply output a message that an error has occurred, and
+dump the traceback to <code class="docutils literal notranslate"><span class="pre">sys.stderr</span></code> or some other error stream.</p>
+<p>This wrapper may also generate output using the <a class="reference internal" href="warnings.html#module-warnings" title="warnings: Issue warning messages and control their disposition."><code class="xref py py-mod docutils literal notranslate"><span class="pre">warnings</span></code></a> module to
+indicate behaviors that are questionable but which may not actually be
+prohibited by <span class="target" id="index-11"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-3333"><strong>PEP 3333</strong></a>.  Unless they are suppressed using Python command-line
+options or the <a class="reference internal" href="warnings.html#module-warnings" title="warnings: Issue warning messages and control their disposition."><code class="xref py py-mod docutils literal notranslate"><span class="pre">warnings</span></code></a> API, any such warnings will be written to
+<code class="docutils literal notranslate"><span class="pre">sys.stderr</span></code> (<em>not</em> <code class="docutils literal notranslate"><span class="pre">wsgi.errors</span></code>, unless they happen to be the same
+object).</p>
+<p>Example usage:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">wsgiref.validate</span> <span class="k">import</span> <span class="n">validator</span>
+<span class="kn">from</span> <span class="nn">wsgiref.simple_server</span> <span class="k">import</span> <span class="n">make_server</span>
+
+<span class="c1"># Our callable object which is intentionally not compliant to the</span>
+<span class="c1"># standard, so the validator is going to break</span>
+<span class="k">def</span> <span class="nf">simple_app</span><span class="p">(</span><span class="n">environ</span><span class="p">,</span> <span class="n">start_response</span><span class="p">):</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;200 OK&#39;</span>  <span class="c1"># HTTP Status</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;Content-type&#39;</span><span class="p">,</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">)]</span>  <span class="c1"># HTTP Headers</span>
+    <span class="n">start_response</span><span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="n">headers</span><span class="p">)</span>
+
+    <span class="c1"># This is going to break because we need to return a list, and</span>
+    <span class="c1"># the validator is going to inform us</span>
+    <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;Hello World&quot;</span>
+
+<span class="c1"># This is the application wrapped in a validator</span>
+<span class="n">validator_app</span> <span class="o">=</span> <span class="n">validator</span><span class="p">(</span><span class="n">simple_app</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">make_server</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">8000</span><span class="p">,</span> <span class="n">validator_app</span><span class="p">)</span> <span class="k">as</span> <span class="n">httpd</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Listening on port 8000....&quot;</span><span class="p">)</span>
+    <span class="n">httpd</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-wsgiref.handlers">
+<span id="wsgiref-handlers-server-gateway-base-classes"></span><h2><a class="reference internal" href="#module-wsgiref.handlers" title="wsgiref.handlers: WSGI server/gateway base classes."><code class="xref py py-mod docutils literal notranslate"><span class="pre">wsgiref.handlers</span></code></a> – server/gateway base classes<a class="headerlink" href="#module-wsgiref.handlers" title="Permalink to this headline">¶</a></h2>
+<p>This module provides base handler classes for implementing WSGI servers and
+gateways.  These base classes handle most of the work of communicating with a
+WSGI application, as long as they are given a CGI-like environment, along with
+input, output, and error streams.</p>
+<dl class="class">
+<dt id="wsgiref.handlers.CGIHandler">
+<em class="property">class </em><code class="descclassname">wsgiref.handlers.</code><code class="descname">CGIHandler</code><a class="headerlink" href="#wsgiref.handlers.CGIHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>CGI-based invocation via <code class="docutils literal notranslate"><span class="pre">sys.stdin</span></code>, <code class="docutils literal notranslate"><span class="pre">sys.stdout</span></code>, <code class="docutils literal notranslate"><span class="pre">sys.stderr</span></code> and
+<code class="docutils literal notranslate"><span class="pre">os.environ</span></code>.  This is useful when you have a WSGI application and want to run
+it as a CGI script.  Simply invoke <code class="docutils literal notranslate"><span class="pre">CGIHandler().run(app)</span></code>, where <code class="docutils literal notranslate"><span class="pre">app</span></code> is
+the WSGI application object you wish to invoke.</p>
+<p>This class is a subclass of <a class="reference internal" href="#wsgiref.handlers.BaseCGIHandler" title="wsgiref.handlers.BaseCGIHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseCGIHandler</span></code></a> that sets <code class="docutils literal notranslate"><span class="pre">wsgi.run_once</span></code>
+to true, <code class="docutils literal notranslate"><span class="pre">wsgi.multithread</span></code> to false, and <code class="docutils literal notranslate"><span class="pre">wsgi.multiprocess</span></code> to true, and
+always uses <a class="reference internal" href="sys.html#module-sys" title="sys: Access system-specific parameters and functions."><code class="xref py py-mod docutils literal notranslate"><span class="pre">sys</span></code></a> and <a class="reference internal" href="os.html#module-os" title="os: Miscellaneous operating system interfaces."><code class="xref py py-mod docutils literal notranslate"><span class="pre">os</span></code></a> to obtain the necessary CGI streams and
+environment.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="wsgiref.handlers.IISCGIHandler">
+<em class="property">class </em><code class="descclassname">wsgiref.handlers.</code><code class="descname">IISCGIHandler</code><a class="headerlink" href="#wsgiref.handlers.IISCGIHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>A specialized alternative to <a class="reference internal" href="#wsgiref.handlers.CGIHandler" title="wsgiref.handlers.CGIHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">CGIHandler</span></code></a>, for use when deploying on
+Microsoft’s IIS web server, without having set the config allowPathInfo
+option (IIS&gt;=7) or metabase allowPathInfoForScriptMappings (IIS&lt;7).</p>
+<p>By default, IIS gives a <code class="docutils literal notranslate"><span class="pre">PATH_INFO</span></code> that duplicates the <code class="docutils literal notranslate"><span class="pre">SCRIPT_NAME</span></code> at
+the front, causing problems for WSGI applications that wish to implement
+routing. This handler strips any such duplicated path.</p>
+<p>IIS can be configured to pass the correct <code class="docutils literal notranslate"><span class="pre">PATH_INFO</span></code>, but this causes
+another bug where <code class="docutils literal notranslate"><span class="pre">PATH_TRANSLATED</span></code> is wrong. Luckily this variable is
+rarely used and is not guaranteed by WSGI. On IIS&lt;7, though, the
+setting can only be made on a vhost level, affecting all other script
+mappings, many of which break when exposed to the <code class="docutils literal notranslate"><span class="pre">PATH_TRANSLATED</span></code> bug.
+For this reason IIS&lt;7 is almost never deployed with the fix. (Even IIS7
+rarely uses it because there is still no UI for it.)</p>
+<p>There is no way for CGI code to tell whether the option was set, so a
+separate handler class is provided.  It is used in the same way as
+<a class="reference internal" href="#wsgiref.handlers.CGIHandler" title="wsgiref.handlers.CGIHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">CGIHandler</span></code></a>, i.e., by calling <code class="docutils literal notranslate"><span class="pre">IISCGIHandler().run(app)</span></code>, where
+<code class="docutils literal notranslate"><span class="pre">app</span></code> is the WSGI application object you wish to invoke.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.2.</span></p>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="wsgiref.handlers.BaseCGIHandler">
+<em class="property">class </em><code class="descclassname">wsgiref.handlers.</code><code class="descname">BaseCGIHandler</code><span class="sig-paren">(</span><em>stdin</em>, <em>stdout</em>, <em>stderr</em>, <em>environ</em>, <em>multithread=True</em>, <em>multiprocess=False</em><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.handlers.BaseCGIHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Similar to <a class="reference internal" href="#wsgiref.handlers.CGIHandler" title="wsgiref.handlers.CGIHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">CGIHandler</span></code></a>, but instead of using the <a class="reference internal" href="sys.html#module-sys" title="sys: Access system-specific parameters and functions."><code class="xref py py-mod docutils literal notranslate"><span class="pre">sys</span></code></a> and
+<a class="reference internal" href="os.html#module-os" title="os: Miscellaneous operating system interfaces."><code class="xref py py-mod docutils literal notranslate"><span class="pre">os</span></code></a> modules, the CGI environment and I/O streams are specified explicitly.
+The <em>multithread</em> and <em>multiprocess</em> values are used to set the
+<code class="docutils literal notranslate"><span class="pre">wsgi.multithread</span></code> and <code class="docutils literal notranslate"><span class="pre">wsgi.multiprocess</span></code> flags for any applications run by
+the handler instance.</p>
+<p>This class is a subclass of <a class="reference internal" href="#wsgiref.handlers.SimpleHandler" title="wsgiref.handlers.SimpleHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleHandler</span></code></a> intended for use with
+software other than HTTP “origin servers”.  If you are writing a gateway
+protocol implementation (such as CGI, FastCGI, SCGI, etc.) that uses a
+<code class="docutils literal notranslate"><span class="pre">Status:</span></code> header to send an HTTP status, you probably want to subclass this
+instead of <a class="reference internal" href="#wsgiref.handlers.SimpleHandler" title="wsgiref.handlers.SimpleHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleHandler</span></code></a>.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="wsgiref.handlers.SimpleHandler">
+<em class="property">class </em><code class="descclassname">wsgiref.handlers.</code><code class="descname">SimpleHandler</code><span class="sig-paren">(</span><em>stdin</em>, <em>stdout</em>, <em>stderr</em>, <em>environ</em>, <em>multithread=True</em>, <em>multiprocess=False</em><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.handlers.SimpleHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Similar to <a class="reference internal" href="#wsgiref.handlers.BaseCGIHandler" title="wsgiref.handlers.BaseCGIHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseCGIHandler</span></code></a>, but designed for use with HTTP origin
+servers.  If you are writing an HTTP server implementation, you will probably
+want to subclass this instead of <a class="reference internal" href="#wsgiref.handlers.BaseCGIHandler" title="wsgiref.handlers.BaseCGIHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseCGIHandler</span></code></a>.</p>
+<p>This class is a subclass of <a class="reference internal" href="#wsgiref.handlers.BaseHandler" title="wsgiref.handlers.BaseHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseHandler</span></code></a>.  It overrides the
+<a class="reference internal" href="../reference/datamodel.html#object.__init__" title="object.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__init__()</span></code></a>, <code class="xref py py-meth docutils literal notranslate"><span class="pre">get_stdin()</span></code>, <code class="xref py py-meth docutils literal notranslate"><span class="pre">get_stderr()</span></code>, <code class="xref py py-meth docutils literal notranslate"><span class="pre">add_cgi_vars()</span></code>,
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">_write()</span></code>, and <code class="xref py py-meth docutils literal notranslate"><span class="pre">_flush()</span></code> methods to support explicitly setting the
+environment and streams via the constructor.  The supplied environment and
+streams are stored in the <code class="xref py py-attr docutils literal notranslate"><span class="pre">stdin</span></code>, <code class="xref py py-attr docutils literal notranslate"><span class="pre">stdout</span></code>, <code class="xref py py-attr docutils literal notranslate"><span class="pre">stderr</span></code>, and
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">environ</span></code> attributes.</p>
+<p>The <a class="reference internal" href="io.html#io.BufferedIOBase.write" title="io.BufferedIOBase.write"><code class="xref py py-meth docutils literal notranslate"><span class="pre">write()</span></code></a> method of <em>stdout</em> should write
+each chunk in full, like <a class="reference internal" href="io.html#io.BufferedIOBase" title="io.BufferedIOBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">io.BufferedIOBase</span></code></a>.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="wsgiref.handlers.BaseHandler">
+<em class="property">class </em><code class="descclassname">wsgiref.handlers.</code><code class="descname">BaseHandler</code><a class="headerlink" href="#wsgiref.handlers.BaseHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is an abstract base class for running WSGI applications.  Each instance
+will handle a single HTTP request, although in principle you could create a
+subclass that was reusable for multiple requests.</p>
+<p><a class="reference internal" href="#wsgiref.handlers.BaseHandler" title="wsgiref.handlers.BaseHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseHandler</span></code></a> instances have only one method intended for external use:</p>
+<dl class="method">
+<dt id="wsgiref.handlers.BaseHandler.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>app</em><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.handlers.BaseHandler.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the specified WSGI application, <em>app</em>.</p>
+</dd></dl>
+
+<p>All of the other <a class="reference internal" href="#wsgiref.handlers.BaseHandler" title="wsgiref.handlers.BaseHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseHandler</span></code></a> methods are invoked by this method in the
+process of running the application, and thus exist primarily to allow
+customizing the process.</p>
+<p>The following methods MUST be overridden in a subclass:</p>
+<dl class="method">
+<dt id="wsgiref.handlers.BaseHandler._write">
+<code class="descname">_write</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.handlers.BaseHandler._write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Buffer the bytes <em>data</em> for transmission to the client.  It’s okay if this
+method actually transmits the data; <a class="reference internal" href="#wsgiref.handlers.BaseHandler" title="wsgiref.handlers.BaseHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseHandler</span></code></a> just separates write
+and flush operations for greater efficiency when the underlying system actually
+has such a distinction.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wsgiref.handlers.BaseHandler._flush">
+<code class="descname">_flush</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.handlers.BaseHandler._flush" title="Permalink to this definition">¶</a></dt>
+<dd><p>Force buffered data to be transmitted to the client.  It’s okay if this method
+is a no-op (i.e., if <a class="reference internal" href="#wsgiref.handlers.BaseHandler._write" title="wsgiref.handlers.BaseHandler._write"><code class="xref py py-meth docutils literal notranslate"><span class="pre">_write()</span></code></a> actually sends the data).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wsgiref.handlers.BaseHandler.get_stdin">
+<code class="descname">get_stdin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.handlers.BaseHandler.get_stdin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an input stream object suitable for use as the <code class="docutils literal notranslate"><span class="pre">wsgi.input</span></code> of the
+request currently being processed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wsgiref.handlers.BaseHandler.get_stderr">
+<code class="descname">get_stderr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.handlers.BaseHandler.get_stderr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an output stream object suitable for use as the <code class="docutils literal notranslate"><span class="pre">wsgi.errors</span></code> of the
+request currently being processed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wsgiref.handlers.BaseHandler.add_cgi_vars">
+<code class="descname">add_cgi_vars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.handlers.BaseHandler.add_cgi_vars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert CGI variables for the current request into the <code class="xref py py-attr docutils literal notranslate"><span class="pre">environ</span></code> attribute.</p>
+</dd></dl>
+
+<p>Here are some other methods and attributes you may wish to override. This list
+is only a summary, however, and does not include every method that can be
+overridden.  You should consult the docstrings and source code for additional
+information before attempting to create a customized <a class="reference internal" href="#wsgiref.handlers.BaseHandler" title="wsgiref.handlers.BaseHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseHandler</span></code></a>
+subclass.</p>
+<p>Attributes and methods for customizing the WSGI environment:</p>
+<dl class="attribute">
+<dt id="wsgiref.handlers.BaseHandler.wsgi_multithread">
+<code class="descname">wsgi_multithread</code><a class="headerlink" href="#wsgiref.handlers.BaseHandler.wsgi_multithread" title="Permalink to this definition">¶</a></dt>
+<dd><p>The value to be used for the <code class="docutils literal notranslate"><span class="pre">wsgi.multithread</span></code> environment variable.  It
+defaults to true in <a class="reference internal" href="#wsgiref.handlers.BaseHandler" title="wsgiref.handlers.BaseHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseHandler</span></code></a>, but may have a different default (or
+be set by the constructor) in the other subclasses.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="wsgiref.handlers.BaseHandler.wsgi_multiprocess">
+<code class="descname">wsgi_multiprocess</code><a class="headerlink" href="#wsgiref.handlers.BaseHandler.wsgi_multiprocess" title="Permalink to this definition">¶</a></dt>
+<dd><p>The value to be used for the <code class="docutils literal notranslate"><span class="pre">wsgi.multiprocess</span></code> environment variable.  It
+defaults to true in <a class="reference internal" href="#wsgiref.handlers.BaseHandler" title="wsgiref.handlers.BaseHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseHandler</span></code></a>, but may have a different default (or
+be set by the constructor) in the other subclasses.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="wsgiref.handlers.BaseHandler.wsgi_run_once">
+<code class="descname">wsgi_run_once</code><a class="headerlink" href="#wsgiref.handlers.BaseHandler.wsgi_run_once" title="Permalink to this definition">¶</a></dt>
+<dd><p>The value to be used for the <code class="docutils literal notranslate"><span class="pre">wsgi.run_once</span></code> environment variable.  It
+defaults to false in <a class="reference internal" href="#wsgiref.handlers.BaseHandler" title="wsgiref.handlers.BaseHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseHandler</span></code></a>, but <a class="reference internal" href="#wsgiref.handlers.CGIHandler" title="wsgiref.handlers.CGIHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">CGIHandler</span></code></a> sets it to
+true by default.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="wsgiref.handlers.BaseHandler.os_environ">
+<code class="descname">os_environ</code><a class="headerlink" href="#wsgiref.handlers.BaseHandler.os_environ" title="Permalink to this definition">¶</a></dt>
+<dd><p>The default environment variables to be included in every request’s WSGI
+environment.  By default, this is a copy of <code class="docutils literal notranslate"><span class="pre">os.environ</span></code> at the time that
+<a class="reference internal" href="#module-wsgiref.handlers" title="wsgiref.handlers: WSGI server/gateway base classes."><code class="xref py py-mod docutils literal notranslate"><span class="pre">wsgiref.handlers</span></code></a> was imported, but subclasses can either create their own
+at the class or instance level.  Note that the dictionary should be considered
+read-only, since the default value is shared between multiple classes and
+instances.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="wsgiref.handlers.BaseHandler.server_software">
+<code class="descname">server_software</code><a class="headerlink" href="#wsgiref.handlers.BaseHandler.server_software" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the <a class="reference internal" href="#wsgiref.handlers.BaseHandler.origin_server" title="wsgiref.handlers.BaseHandler.origin_server"><code class="xref py py-attr docutils literal notranslate"><span class="pre">origin_server</span></code></a> attribute is set, this attribute’s value is used to
+set the default <code class="docutils literal notranslate"><span class="pre">SERVER_SOFTWARE</span></code> WSGI environment variable, and also to set a
+default <code class="docutils literal notranslate"><span class="pre">Server:</span></code> header in HTTP responses.  It is ignored for handlers (such
+as <a class="reference internal" href="#wsgiref.handlers.BaseCGIHandler" title="wsgiref.handlers.BaseCGIHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseCGIHandler</span></code></a> and <a class="reference internal" href="#wsgiref.handlers.CGIHandler" title="wsgiref.handlers.CGIHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">CGIHandler</span></code></a>) that are not HTTP origin
+servers.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.3: </span>The term “Python” is replaced with implementation specific term like
+“CPython”, “Jython” etc.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="wsgiref.handlers.BaseHandler.get_scheme">
+<code class="descname">get_scheme</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.handlers.BaseHandler.get_scheme" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the URL scheme being used for the current request.  The default
+implementation uses the <code class="xref py py-func docutils literal notranslate"><span class="pre">guess_scheme()</span></code> function from <a class="reference internal" href="#module-wsgiref.util" title="wsgiref.util: WSGI environment utilities."><code class="xref py py-mod docutils literal notranslate"><span class="pre">wsgiref.util</span></code></a>
+to guess whether the scheme should be “http” or “https”, based on the current
+request’s <code class="xref py py-attr docutils literal notranslate"><span class="pre">environ</span></code> variables.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wsgiref.handlers.BaseHandler.setup_environ">
+<code class="descname">setup_environ</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.handlers.BaseHandler.setup_environ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the <code class="xref py py-attr docutils literal notranslate"><span class="pre">environ</span></code> attribute to a fully-populated WSGI environment.  The
+default implementation uses all of the above methods and attributes, plus the
+<a class="reference internal" href="#wsgiref.handlers.BaseHandler.get_stdin" title="wsgiref.handlers.BaseHandler.get_stdin"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_stdin()</span></code></a>, <a class="reference internal" href="#wsgiref.handlers.BaseHandler.get_stderr" title="wsgiref.handlers.BaseHandler.get_stderr"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_stderr()</span></code></a>, and <a class="reference internal" href="#wsgiref.handlers.BaseHandler.add_cgi_vars" title="wsgiref.handlers.BaseHandler.add_cgi_vars"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_cgi_vars()</span></code></a> methods and the
+<a class="reference internal" href="#wsgiref.handlers.BaseHandler.wsgi_file_wrapper" title="wsgiref.handlers.BaseHandler.wsgi_file_wrapper"><code class="xref py py-attr docutils literal notranslate"><span class="pre">wsgi_file_wrapper</span></code></a> attribute.  It also inserts a <code class="docutils literal notranslate"><span class="pre">SERVER_SOFTWARE</span></code> key
+if not present, as long as the <a class="reference internal" href="#wsgiref.handlers.BaseHandler.origin_server" title="wsgiref.handlers.BaseHandler.origin_server"><code class="xref py py-attr docutils literal notranslate"><span class="pre">origin_server</span></code></a> attribute is a true value
+and the <a class="reference internal" href="#wsgiref.handlers.BaseHandler.server_software" title="wsgiref.handlers.BaseHandler.server_software"><code class="xref py py-attr docutils literal notranslate"><span class="pre">server_software</span></code></a> attribute is set.</p>
+</dd></dl>
+
+<p>Methods and attributes for customizing exception handling:</p>
+<dl class="method">
+<dt id="wsgiref.handlers.BaseHandler.log_exception">
+<code class="descname">log_exception</code><span class="sig-paren">(</span><em>exc_info</em><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.handlers.BaseHandler.log_exception" title="Permalink to this definition">¶</a></dt>
+<dd><p>Log the <em>exc_info</em> tuple in the server log.  <em>exc_info</em> is a <code class="docutils literal notranslate"><span class="pre">(type,</span> <span class="pre">value,</span>
+<span class="pre">traceback)</span></code> tuple.  The default implementation simply writes the traceback to
+the request’s <code class="docutils literal notranslate"><span class="pre">wsgi.errors</span></code> stream and flushes it.  Subclasses can override
+this method to change the format or retarget the output, mail the traceback to
+an administrator, or whatever other action may be deemed suitable.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="wsgiref.handlers.BaseHandler.traceback_limit">
+<code class="descname">traceback_limit</code><a class="headerlink" href="#wsgiref.handlers.BaseHandler.traceback_limit" title="Permalink to this definition">¶</a></dt>
+<dd><p>The maximum number of frames to include in tracebacks output by the default
+<a class="reference internal" href="#wsgiref.handlers.BaseHandler.log_exception" title="wsgiref.handlers.BaseHandler.log_exception"><code class="xref py py-meth docutils literal notranslate"><span class="pre">log_exception()</span></code></a> method.  If <code class="docutils literal notranslate"><span class="pre">None</span></code>, all frames are included.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wsgiref.handlers.BaseHandler.error_output">
+<code class="descname">error_output</code><span class="sig-paren">(</span><em>environ</em>, <em>start_response</em><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.handlers.BaseHandler.error_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is a WSGI application to generate an error page for the user.  It is
+only invoked if an error occurs before headers are sent to the client.</p>
+<p>This method can access the current error information using <code class="docutils literal notranslate"><span class="pre">sys.exc_info()</span></code>,
+and should pass that information to <em>start_response</em> when calling it (as
+described in the “Error Handling” section of <span class="target" id="index-12"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-3333"><strong>PEP 3333</strong></a>).</p>
+<p>The default implementation just uses the <a class="reference internal" href="#wsgiref.handlers.BaseHandler.error_status" title="wsgiref.handlers.BaseHandler.error_status"><code class="xref py py-attr docutils literal notranslate"><span class="pre">error_status</span></code></a>,
+<a class="reference internal" href="#wsgiref.handlers.BaseHandler.error_headers" title="wsgiref.handlers.BaseHandler.error_headers"><code class="xref py py-attr docutils literal notranslate"><span class="pre">error_headers</span></code></a>, and <a class="reference internal" href="#wsgiref.handlers.BaseHandler.error_body" title="wsgiref.handlers.BaseHandler.error_body"><code class="xref py py-attr docutils literal notranslate"><span class="pre">error_body</span></code></a> attributes to generate an output
+page.  Subclasses can override this to produce more dynamic error output.</p>
+<p>Note, however, that it’s not recommended from a security perspective to spit out
+diagnostics to any old user; ideally, you should have to do something special to
+enable diagnostic output, which is why the default implementation doesn’t
+include any.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="wsgiref.handlers.BaseHandler.error_status">
+<code class="descname">error_status</code><a class="headerlink" href="#wsgiref.handlers.BaseHandler.error_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HTTP status used for error responses.  This should be a status string as
+defined in <span class="target" id="index-13"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-3333"><strong>PEP 3333</strong></a>; it defaults to a 500 code and message.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="wsgiref.handlers.BaseHandler.error_headers">
+<code class="descname">error_headers</code><a class="headerlink" href="#wsgiref.handlers.BaseHandler.error_headers" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HTTP headers used for error responses.  This should be a list of WSGI
+response headers (<code class="docutils literal notranslate"><span class="pre">(name,</span> <span class="pre">value)</span></code> tuples), as described in <span class="target" id="index-14"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-3333"><strong>PEP 3333</strong></a>.  The
+default list just sets the content type to <code class="docutils literal notranslate"><span class="pre">text/plain</span></code>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="wsgiref.handlers.BaseHandler.error_body">
+<code class="descname">error_body</code><a class="headerlink" href="#wsgiref.handlers.BaseHandler.error_body" title="Permalink to this definition">¶</a></dt>
+<dd><p>The error response body.  This should be an HTTP response body bytestring. It
+defaults to the plain text, “A server error occurred.  Please contact the
+administrator.”</p>
+</dd></dl>
+
+<p>Methods and attributes for <span class="target" id="index-15"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-3333"><strong>PEP 3333</strong></a>’s “Optional Platform-Specific File
+Handling” feature:</p>
+<dl class="attribute">
+<dt id="wsgiref.handlers.BaseHandler.wsgi_file_wrapper">
+<code class="descname">wsgi_file_wrapper</code><a class="headerlink" href="#wsgiref.handlers.BaseHandler.wsgi_file_wrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <code class="docutils literal notranslate"><span class="pre">wsgi.file_wrapper</span></code> factory, or <code class="docutils literal notranslate"><span class="pre">None</span></code>.  The default value of this
+attribute is the <a class="reference internal" href="#wsgiref.util.FileWrapper" title="wsgiref.util.FileWrapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">wsgiref.util.FileWrapper</span></code></a> class.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wsgiref.handlers.BaseHandler.sendfile">
+<code class="descname">sendfile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.handlers.BaseHandler.sendfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override to implement platform-specific file transmission.  This method is
+called only if the application’s return value is an instance of the class
+specified by the <a class="reference internal" href="#wsgiref.handlers.BaseHandler.wsgi_file_wrapper" title="wsgiref.handlers.BaseHandler.wsgi_file_wrapper"><code class="xref py py-attr docutils literal notranslate"><span class="pre">wsgi_file_wrapper</span></code></a> attribute.  It should return a true
+value if it was able to successfully transmit the file, so that the default
+transmission code will not be executed. The default implementation of this
+method just returns a false value.</p>
+</dd></dl>
+
+<p>Miscellaneous methods and attributes:</p>
+<dl class="attribute">
+<dt id="wsgiref.handlers.BaseHandler.origin_server">
+<code class="descname">origin_server</code><a class="headerlink" href="#wsgiref.handlers.BaseHandler.origin_server" title="Permalink to this definition">¶</a></dt>
+<dd><p>This attribute should be set to a true value if the handler’s <a class="reference internal" href="#wsgiref.handlers.BaseHandler._write" title="wsgiref.handlers.BaseHandler._write"><code class="xref py py-meth docutils literal notranslate"><span class="pre">_write()</span></code></a> and
+<a class="reference internal" href="#wsgiref.handlers.BaseHandler._flush" title="wsgiref.handlers.BaseHandler._flush"><code class="xref py py-meth docutils literal notranslate"><span class="pre">_flush()</span></code></a> are being used to communicate directly to the client, rather than
+via a CGI-like gateway protocol that wants the HTTP status in a special
+<code class="docutils literal notranslate"><span class="pre">Status:</span></code> header.</p>
+<p>This attribute’s default value is true in <a class="reference internal" href="#wsgiref.handlers.BaseHandler" title="wsgiref.handlers.BaseHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseHandler</span></code></a>, but false in
+<a class="reference internal" href="#wsgiref.handlers.BaseCGIHandler" title="wsgiref.handlers.BaseCGIHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseCGIHandler</span></code></a> and <a class="reference internal" href="#wsgiref.handlers.CGIHandler" title="wsgiref.handlers.CGIHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">CGIHandler</span></code></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="wsgiref.handlers.BaseHandler.http_version">
+<code class="descname">http_version</code><a class="headerlink" href="#wsgiref.handlers.BaseHandler.http_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>If <a class="reference internal" href="#wsgiref.handlers.BaseHandler.origin_server" title="wsgiref.handlers.BaseHandler.origin_server"><code class="xref py py-attr docutils literal notranslate"><span class="pre">origin_server</span></code></a> is true, this string attribute is used to set the HTTP
+version of the response set to the client.  It defaults to <code class="docutils literal notranslate"><span class="pre">&quot;1.0&quot;</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="wsgiref.handlers.read_environ">
+<code class="descclassname">wsgiref.handlers.</code><code class="descname">read_environ</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wsgiref.handlers.read_environ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transcode CGI variables from <code class="docutils literal notranslate"><span class="pre">os.environ</span></code> to PEP 3333 “bytes in unicode”
+strings, returning a new dictionary.  This function is used by
+<a class="reference internal" href="#wsgiref.handlers.CGIHandler" title="wsgiref.handlers.CGIHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">CGIHandler</span></code></a> and <a class="reference internal" href="#wsgiref.handlers.IISCGIHandler" title="wsgiref.handlers.IISCGIHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">IISCGIHandler</span></code></a> in place of directly using
+<code class="docutils literal notranslate"><span class="pre">os.environ</span></code>, which is not necessarily WSGI-compliant on all platforms
+and web servers using Python 3 – specifically, ones where the OS’s
+actual environment is Unicode (i.e. Windows), or ones where the environment
+is bytes, but the system encoding used by Python to decode it is anything
+other than ISO-8859-1 (e.g. Unix systems using UTF-8).</p>
+<p>If you are implementing a CGI-based handler of your own, you probably want
+to use this routine instead of just copying values out of <code class="docutils literal notranslate"><span class="pre">os.environ</span></code>
+directly.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.2.</span></p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>This is a working “Hello World” WSGI application:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">wsgiref.simple_server</span> <span class="k">import</span> <span class="n">make_server</span>
+
+<span class="c1"># Every WSGI application must have an application object - a callable</span>
+<span class="c1"># object that accepts two arguments. For that purpose, we&#39;re going to</span>
+<span class="c1"># use a function (note that you&#39;re not limited to a function, you can</span>
+<span class="c1"># use a class for example). The first argument passed to the function</span>
+<span class="c1"># is a dictionary containing CGI-style environment variables and the</span>
+<span class="c1"># second variable is the callable object (see PEP 333).</span>
+<span class="k">def</span> <span class="nf">hello_world_app</span><span class="p">(</span><span class="n">environ</span><span class="p">,</span> <span class="n">start_response</span><span class="p">):</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;200 OK&#39;</span>  <span class="c1"># HTTP Status</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;Content-type&#39;</span><span class="p">,</span> <span class="s1">&#39;text/plain; charset=utf-8&#39;</span><span class="p">)]</span>  <span class="c1"># HTTP Headers</span>
+    <span class="n">start_response</span><span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="n">headers</span><span class="p">)</span>
+
+    <span class="c1"># The returned object is going to be printed</span>
+    <span class="k">return</span> <span class="p">[</span><span class="sa">b</span><span class="s2">&quot;Hello World&quot;</span><span class="p">]</span>
+
+<span class="k">with</span> <span class="n">make_server</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">8000</span><span class="p">,</span> <span class="n">hello_world_app</span><span class="p">)</span> <span class="k">as</span> <span class="n">httpd</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Serving on port 8000...&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Serve until process is killed</span>
+    <span class="n">httpd</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">wsgiref</span></code> — WSGI Utilities and Reference Implementation</a><ul>
+<li><a class="reference internal" href="#module-wsgiref.util"><code class="docutils literal notranslate"><span class="pre">wsgiref.util</span></code> – WSGI environment utilities</a></li>
+<li><a class="reference internal" href="#module-wsgiref.headers"><code class="docutils literal notranslate"><span class="pre">wsgiref.headers</span></code> – WSGI response header tools</a></li>
+<li><a class="reference internal" href="#module-wsgiref.simple_server"><code class="docutils literal notranslate"><span class="pre">wsgiref.simple_server</span></code> – a simple WSGI HTTP server</a></li>
+<li><a class="reference internal" href="#module-wsgiref.validate"><code class="docutils literal notranslate"><span class="pre">wsgiref.validate</span></code> — WSGI conformance checker</a></li>
+<li><a class="reference internal" href="#module-wsgiref.handlers"><code class="docutils literal notranslate"><span class="pre">wsgiref.handlers</span></code> – server/gateway base classes</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="cgitb.html"
+                        title="previous chapter"><code class="docutils literal notranslate"><span class="pre">cgitb</span></code> — Traceback manager for CGI scripts</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="urllib.html"
+                        title="next chapter"><code class="docutils literal notranslate"><span class="pre">urllib</span></code> — URL handling modules</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/library/wsgiref.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="urllib.html" title="urllib — URL handling modules"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="cgitb.html" title="cgitb — Traceback manager for CGI scripts"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="internet.html" >Internet Protocols and Support</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

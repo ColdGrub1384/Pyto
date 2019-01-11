@@ -1,0 +1,438 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>trace — Trace or track Python statement execution &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="tracemalloc — Trace memory allocations" href="tracemalloc.html" />
+    <link rel="prev" title="timeit — Measure execution time of small code snippets" href="timeit.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/library/trace.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tracemalloc.html" title="tracemalloc — Trace memory allocations"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="timeit.html" title="timeit — Measure execution time of small code snippets"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="debug.html" accesskey="U">Debugging and Profiling</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-trace">
+<span id="trace-trace-or-track-python-statement-execution"></span><h1><a class="reference internal" href="#module-trace" title="trace: Trace or track Python statement execution."><code class="xref py py-mod docutils literal notranslate"><span class="pre">trace</span></code></a> — Trace or track Python statement execution<a class="headerlink" href="#module-trace" title="Permalink to this headline">¶</a></h1>
+<p><strong>Source code:</strong> <a class="reference external" href="https://github.com/python/cpython/tree/3.7/Lib/trace.py">Lib/trace.py</a></p>
+<hr class="docutils" />
+<p>The <a class="reference internal" href="#module-trace" title="trace: Trace or track Python statement execution."><code class="xref py py-mod docutils literal notranslate"><span class="pre">trace</span></code></a> module allows you to trace program execution, generate
+annotated statement coverage listings, print caller/callee relationships and
+list functions executed during a program run.  It can be used in another program
+or from the command line.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference external" href="https://coverage.readthedocs.io/">Coverage.py</a></dt>
+<dd>A popular third-party coverage tool that provides HTML
+output along with advanced features such as branch coverage.</dd>
+</dl>
+</div>
+<div class="section" id="command-line-usage">
+<span id="trace-cli"></span><h2>Command-Line Usage<a class="headerlink" href="#command-line-usage" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="#module-trace" title="trace: Trace or track Python statement execution."><code class="xref py py-mod docutils literal notranslate"><span class="pre">trace</span></code></a> module can be invoked from the command line.  It can be as
+simple as</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">trace</span> <span class="o">--</span><span class="n">count</span> <span class="o">-</span><span class="n">C</span> <span class="o">.</span> <span class="n">somefile</span><span class="o">.</span><span class="n">py</span> <span class="o">...</span>
+</pre></div>
+</div>
+<p>The above will execute <code class="file docutils literal notranslate"><span class="pre">somefile.py</span></code> and generate annotated listings of
+all Python modules imported during the execution into the current directory.</p>
+<dl class="cmdoption">
+<dt id="cmdoption-trace-help">
+<code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-trace-help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display usage and exit.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-trace-version">
+<code class="descname">--version</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-trace-version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the version of the module and exit.</p>
+</dd></dl>
+
+<div class="section" id="main-options">
+<h3>Main options<a class="headerlink" href="#main-options" title="Permalink to this headline">¶</a></h3>
+<p>At least one of the following options must be specified when invoking
+<a class="reference internal" href="#module-trace" title="trace: Trace or track Python statement execution."><code class="xref py py-mod docutils literal notranslate"><span class="pre">trace</span></code></a>.  The <a class="reference internal" href="#cmdoption-trace-l"><code class="xref std std-option docutils literal notranslate"><span class="pre">--listfuncs</span></code></a> option is mutually exclusive with
+the <a class="reference internal" href="#cmdoption-trace-t"><code class="xref std std-option docutils literal notranslate"><span class="pre">--trace</span></code></a> and <a class="reference internal" href="#cmdoption-trace-c"><code class="xref std std-option docutils literal notranslate"><span class="pre">--count</span></code></a> options. When
+<a class="reference internal" href="#cmdoption-trace-l"><code class="xref std std-option docutils literal notranslate"><span class="pre">--listfuncs</span></code></a> is provided, neither <a class="reference internal" href="#cmdoption-trace-c"><code class="xref std std-option docutils literal notranslate"><span class="pre">--count</span></code></a> nor
+<a class="reference internal" href="#cmdoption-trace-t"><code class="xref std std-option docutils literal notranslate"><span class="pre">--trace</span></code></a> are accepted, and vice versa.</p>
+<dl class="cmdoption">
+<dt id="cmdoption-trace-c">
+<code class="descname">-c</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--count</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-trace-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produce a set of annotated listing files upon program completion that shows
+how many times each statement was executed.  See also
+<a class="reference internal" href="#cmdoption-trace-coverdir"><code class="xref std std-option docutils literal notranslate"><span class="pre">--coverdir</span></code></a>, <a class="reference internal" href="#cmdoption-trace-f"><code class="xref std std-option docutils literal notranslate"><span class="pre">--file</span></code></a> and
+<a class="reference internal" href="#cmdoption-trace-no-report"><code class="xref std std-option docutils literal notranslate"><span class="pre">--no-report</span></code></a> below.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-trace-t">
+<code class="descname">-t</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--trace</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-trace-t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display lines as they are executed.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-trace-l">
+<code class="descname">-l</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--listfuncs</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-trace-l" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the functions executed by running the program.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-trace-r">
+<code class="descname">-r</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--report</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-trace-r" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produce an annotated list from an earlier program run that used the
+<a class="reference internal" href="#cmdoption-trace-c"><code class="xref std std-option docutils literal notranslate"><span class="pre">--count</span></code></a> and <a class="reference internal" href="#cmdoption-trace-f"><code class="xref std std-option docutils literal notranslate"><span class="pre">--file</span></code></a> option.  This does not
+execute any code.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-trace-trackcalls">
+<code class="descname">-T</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--trackcalls</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-trace-trackcalls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the calling relationships exposed by running the program.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="modifiers">
+<h3>Modifiers<a class="headerlink" href="#modifiers" title="Permalink to this headline">¶</a></h3>
+<dl class="cmdoption">
+<dt id="cmdoption-trace-f">
+<code class="descname">-f</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--file</code><code class="descclassname">=&lt;file&gt;</code><a class="headerlink" href="#cmdoption-trace-f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of a file to accumulate counts over several tracing runs.  Should be
+used with the <a class="reference internal" href="#cmdoption-trace-c"><code class="xref std std-option docutils literal notranslate"><span class="pre">--count</span></code></a> option.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-trace-coverdir">
+<code class="descname">-C</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--coverdir</code><code class="descclassname">=&lt;dir&gt;</code><a class="headerlink" href="#cmdoption-trace-coverdir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Directory where the report files go.  The coverage report for
+<code class="docutils literal notranslate"><span class="pre">package.module</span></code> is written to file <code class="file docutils literal notranslate"><em><span class="pre">dir</span></em><span class="pre">/</span><em><span class="pre">package</span></em><span class="pre">/</span><em><span class="pre">module</span></em><span class="pre">.cover</span></code>.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-trace-m">
+<code class="descname">-m</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--missing</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-trace-m" title="Permalink to this definition">¶</a></dt>
+<dd><p>When generating annotated listings, mark lines which were not executed with
+<code class="docutils literal notranslate"><span class="pre">&gt;&gt;&gt;&gt;&gt;&gt;</span></code>.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-trace-s">
+<code class="descname">-s</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--summary</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-trace-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>When using <a class="reference internal" href="#cmdoption-trace-c"><code class="xref std std-option docutils literal notranslate"><span class="pre">--count</span></code></a> or <a class="reference internal" href="#cmdoption-trace-r"><code class="xref std std-option docutils literal notranslate"><span class="pre">--report</span></code></a>, write a brief
+summary to stdout for each file processed.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-trace-no-report">
+<code class="descname">-R</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--no-report</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-trace-no-report" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not generate annotated listings.  This is useful if you intend to make
+several runs with <a class="reference internal" href="#cmdoption-trace-c"><code class="xref std std-option docutils literal notranslate"><span class="pre">--count</span></code></a>, and then produce a single set of
+annotated listings at the end.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-trace-g">
+<code class="descname">-g</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--timing</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-trace-g" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prefix each line with the time since the program started.  Only used while
+tracing.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="filters">
+<h3>Filters<a class="headerlink" href="#filters" title="Permalink to this headline">¶</a></h3>
+<p>These options may be repeated multiple times.</p>
+<dl class="cmdoption">
+<dt id="cmdoption-trace-ignore-module">
+<code class="descname">--ignore-module</code><code class="descclassname">=&lt;mod&gt;</code><a class="headerlink" href="#cmdoption-trace-ignore-module" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ignore each of the given module names and its submodules (if it is a
+package).  The argument can be a list of names separated by a comma.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-trace-ignore-dir">
+<code class="descname">--ignore-dir</code><code class="descclassname">=&lt;dir&gt;</code><a class="headerlink" href="#cmdoption-trace-ignore-dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ignore all modules and packages in the named directory and subdirectories.
+The argument can be a list of directories separated by <a class="reference internal" href="os.html#os.pathsep" title="os.pathsep"><code class="xref py py-data docutils literal notranslate"><span class="pre">os.pathsep</span></code></a>.</p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="programmatic-interface">
+<span id="trace-api"></span><h2>Programmatic Interface<a class="headerlink" href="#programmatic-interface" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="trace.Trace">
+<em class="property">class </em><code class="descclassname">trace.</code><code class="descname">Trace</code><span class="sig-paren">(</span><em>count=1</em>, <em>trace=1</em>, <em>countfuncs=0</em>, <em>countcallers=0</em>, <em>ignoremods=()</em>, <em>ignoredirs=()</em>, <em>infile=None</em>, <em>outfile=None</em>, <em>timing=False</em><span class="sig-paren">)</span><a class="headerlink" href="#trace.Trace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an object to trace execution of a single statement or expression.  All
+parameters are optional.  <em>count</em> enables counting of line numbers.  <em>trace</em>
+enables line execution tracing.  <em>countfuncs</em> enables listing of the
+functions called during the run.  <em>countcallers</em> enables call relationship
+tracking.  <em>ignoremods</em> is a list of modules or packages to ignore.
+<em>ignoredirs</em> is a list of directories whose modules or packages should be
+ignored.  <em>infile</em> is the name of the file from which to read stored count
+information.  <em>outfile</em> is the name of the file in which to write updated
+count information.  <em>timing</em> enables a timestamp relative to when tracing was
+started to be displayed.</p>
+<blockquote>
+<div><dl class="method">
+<dt id="trace.Trace.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>cmd</em><span class="sig-paren">)</span><a class="headerlink" href="#trace.Trace.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute the command and gather statistics from the execution with
+the current tracing parameters.  <em>cmd</em> must be a string or code object,
+suitable for passing into <a class="reference internal" href="functions.html#exec" title="exec"><code class="xref py py-func docutils literal notranslate"><span class="pre">exec()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trace.Trace.runctx">
+<code class="descname">runctx</code><span class="sig-paren">(</span><em>cmd</em>, <em>globals=None</em>, <em>locals=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trace.Trace.runctx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute the command and gather statistics from the execution with the
+current tracing parameters, in the defined global and local
+environments.  If not defined, <em>globals</em> and <em>locals</em> default to empty
+dictionaries.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trace.Trace.runfunc">
+<code class="descname">runfunc</code><span class="sig-paren">(</span><em>func</em>, <em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#trace.Trace.runfunc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call <em>func</em> with the given arguments under control of the <a class="reference internal" href="#trace.Trace" title="trace.Trace"><code class="xref py py-class docutils literal notranslate"><span class="pre">Trace</span></code></a>
+object with the current tracing parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trace.Trace.results">
+<code class="descname">results</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#trace.Trace.results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a <a class="reference internal" href="#trace.CoverageResults" title="trace.CoverageResults"><code class="xref py py-class docutils literal notranslate"><span class="pre">CoverageResults</span></code></a> object that contains the cumulative
+results of all previous calls to <code class="docutils literal notranslate"><span class="pre">run</span></code>, <code class="docutils literal notranslate"><span class="pre">runctx</span></code> and <code class="docutils literal notranslate"><span class="pre">runfunc</span></code>
+for the given <a class="reference internal" href="#trace.Trace" title="trace.Trace"><code class="xref py py-class docutils literal notranslate"><span class="pre">Trace</span></code></a> instance.  Does not reset the accumulated
+trace results.</p>
+</dd></dl>
+
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="trace.CoverageResults">
+<em class="property">class </em><code class="descclassname">trace.</code><code class="descname">CoverageResults</code><a class="headerlink" href="#trace.CoverageResults" title="Permalink to this definition">¶</a></dt>
+<dd><p>A container for coverage results, created by <a class="reference internal" href="#trace.Trace.results" title="trace.Trace.results"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Trace.results()</span></code></a>.  Should
+not be created directly by the user.</p>
+<blockquote>
+<div><dl class="method">
+<dt id="trace.CoverageResults.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#trace.CoverageResults.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge in data from another <a class="reference internal" href="#trace.CoverageResults" title="trace.CoverageResults"><code class="xref py py-class docutils literal notranslate"><span class="pre">CoverageResults</span></code></a> object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trace.CoverageResults.write_results">
+<code class="descname">write_results</code><span class="sig-paren">(</span><em>show_missing=True</em>, <em>summary=False</em>, <em>coverdir=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trace.CoverageResults.write_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write coverage results.  Set <em>show_missing</em> to show lines that had no
+hits.  Set <em>summary</em> to include in the output the coverage summary per
+module.  <em>coverdir</em> specifies the directory into which the coverage
+result files will be output.  If <code class="docutils literal notranslate"><span class="pre">None</span></code>, the results for each source
+file are placed in its directory.</p>
+</dd></dl>
+
+</div></blockquote>
+</dd></dl>
+
+<p>A simple example demonstrating the use of the programmatic interface:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">trace</span>
+
+<span class="c1"># create a Trace object, telling it what to ignore, and whether to</span>
+<span class="c1"># do tracing or line-counting or both.</span>
+<span class="n">tracer</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">Trace</span><span class="p">(</span>
+    <span class="n">ignoredirs</span><span class="o">=</span><span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">prefix</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">exec_prefix</span><span class="p">],</span>
+    <span class="n">trace</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># run the new command using the given tracer</span>
+<span class="n">tracer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;main()&#39;</span><span class="p">)</span>
+
+<span class="c1"># make a report, placing output in the current directory</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">tracer</span><span class="o">.</span><span class="n">results</span><span class="p">()</span>
+<span class="n">r</span><span class="o">.</span><span class="n">write_results</span><span class="p">(</span><span class="n">show_missing</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">coverdir</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">trace</span></code> — Trace or track Python statement execution</a><ul>
+<li><a class="reference internal" href="#command-line-usage">Command-Line Usage</a><ul>
+<li><a class="reference internal" href="#main-options">Main options</a></li>
+<li><a class="reference internal" href="#modifiers">Modifiers</a></li>
+<li><a class="reference internal" href="#filters">Filters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#programmatic-interface">Programmatic Interface</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="timeit.html"
+                        title="previous chapter"><code class="docutils literal notranslate"><span class="pre">timeit</span></code> — Measure execution time of small code snippets</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tracemalloc.html"
+                        title="next chapter"><code class="docutils literal notranslate"><span class="pre">tracemalloc</span></code> — Trace memory allocations</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/library/trace.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tracemalloc.html" title="tracemalloc — Trace memory allocations"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="timeit.html" title="timeit — Measure execution time of small code snippets"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="debug.html" >Debugging and Profiling</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

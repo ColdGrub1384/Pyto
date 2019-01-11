@@ -1,0 +1,201 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Networking and Interprocess Communication &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="asyncio — Asynchronous I/O" href="asyncio.html" />
+    <link rel="prev" title="contextvars — Context Variables" href="contextvars.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/library/ipc.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="asyncio.html" title="asyncio — Asynchronous I/O"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="contextvars.html" title="contextvars — Context Variables"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">The Python Standard Library</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="networking-and-interprocess-communication">
+<span id="ipc"></span><h1>Networking and Interprocess Communication<a class="headerlink" href="#networking-and-interprocess-communication" title="Permalink to this headline">¶</a></h1>
+<p>The modules described in this chapter provide mechanisms for
+networking and inter-processes communication.</p>
+<p>Some modules only work for two processes that are on the same machine, e.g.
+<a class="reference internal" href="signal.html#module-signal" title="signal: Set handlers for asynchronous events."><code class="xref py py-mod docutils literal notranslate"><span class="pre">signal</span></code></a> and <a class="reference internal" href="mmap.html#module-mmap" title="mmap: Interface to memory-mapped files for Unix and Windows."><code class="xref py py-mod docutils literal notranslate"><span class="pre">mmap</span></code></a>.  Other modules support networking protocols
+that two or more processes can use to communicate across machines.</p>
+<p>The list of modules described in this chapter is:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="asyncio.html"><code class="docutils literal notranslate"><span class="pre">asyncio</span></code> — Asynchronous I/O</a></li>
+<li class="toctree-l1"><a class="reference internal" href="socket.html"><code class="docutils literal notranslate"><span class="pre">socket</span></code> — Low-level networking interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ssl.html"><code class="docutils literal notranslate"><span class="pre">ssl</span></code> — TLS/SSL wrapper for socket objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="select.html"><code class="docutils literal notranslate"><span class="pre">select</span></code> — Waiting for I/O completion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors.html"><code class="docutils literal notranslate"><span class="pre">selectors</span></code> — High-level I/O multiplexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asyncore.html"><code class="docutils literal notranslate"><span class="pre">asyncore</span></code> — Asynchronous socket handler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asynchat.html"><code class="docutils literal notranslate"><span class="pre">asynchat</span></code> — Asynchronous socket command/response handler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal.html"><code class="docutils literal notranslate"><span class="pre">signal</span></code> — Set handlers for asynchronous events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mmap.html"><code class="docutils literal notranslate"><span class="pre">mmap</span></code> — Memory-mapped file support</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="contextvars.html"
+                        title="previous chapter"><code class="docutils literal notranslate"><span class="pre">contextvars</span></code> — Context Variables</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="asyncio.html"
+                        title="next chapter"><code class="docutils literal notranslate"><span class="pre">asyncio</span></code> — Asynchronous I/O</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/library/ipc.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="asyncio.html" title="asyncio — Asynchronous I/O"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="contextvars.html" title="contextvars — Context Variables"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

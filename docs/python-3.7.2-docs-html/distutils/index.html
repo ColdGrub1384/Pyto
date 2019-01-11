@@ -1,0 +1,318 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Distributing Python Modules (Legacy version) &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="1. An Introduction to Distutils" href="introduction.html" />
+    <link rel="prev" title="History and License" href="../license.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/distutils/index.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="introduction.html" title="1. An Introduction to Distutils"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../license.html" title="History and License"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="distributing-python-modules-legacy-version">
+<span id="distutils-index"></span><h1>Distributing Python Modules (Legacy version)<a class="headerlink" href="#distributing-python-modules-legacy-version" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Authors:</th><td class="field-body">Greg Ward, Anthony Baxter</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Email:</th><td class="field-body"><a class="reference external" href="mailto:distutils-sig&#37;&#52;&#48;python&#46;org">distutils-sig<span>&#64;</span>python<span>&#46;</span>org</a></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="../distributing/index.html#distributing-index"><span class="std std-ref">Distributing Python Modules</span></a></dt>
+<dd>The up to date module distribution documentations</dd>
+</dl>
+</div>
+<p>This document describes the Python Distribution Utilities (“Distutils”) from
+the module developer’s point of view, describing how to use the Distutils to
+make Python modules and extensions easily available to a wider audience with
+very little overhead for build/release/install mechanics.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This guide only covers the basic tools for building and distributing
+extensions that are provided as part of this version of Python. Third party
+tools offer easier to use and more secure alternatives. Refer to the <a class="reference external" href="https://packaging.python.org/guides/tool-recommendations/">quick
+recommendations section</a>
+in the Python Packaging User Guide for more information.</p>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. An Introduction to Distutils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#concepts-terminology">1.1. Concepts &amp; Terminology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#a-simple-example">1.2. A Simple Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#general-python-terminology">1.3. General Python terminology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#distutils-specific-terminology">1.4. Distutils-specific terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="setupscript.html">2. Writing the Setup Script</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="setupscript.html#listing-whole-packages">2.1. Listing whole packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setupscript.html#listing-individual-modules">2.2. Listing individual modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setupscript.html#describing-extension-modules">2.3. Describing extension modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setupscript.html#relationships-between-distributions-and-packages">2.4. Relationships between Distributions and Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setupscript.html#installing-scripts">2.5. Installing Scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setupscript.html#installing-package-data">2.6. Installing Package Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setupscript.html#installing-additional-files">2.7. Installing Additional Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setupscript.html#additional-meta-data">2.8. Additional meta-data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setupscript.html#debugging-the-setup-script">2.9. Debugging the setup script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configfile.html">3. Writing the Setup Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sourcedist.html">4. Creating a Source Distribution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sourcedist.html#specifying-the-files-to-distribute">4.1. Specifying the files to distribute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sourcedist.html#manifest-related-options">4.2. Manifest-related options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="builtdist.html">5. Creating Built Distributions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="builtdist.html#creating-rpm-packages">5.1. Creating RPM packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="builtdist.html#creating-windows-installers">5.2. Creating Windows Installers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="builtdist.html#cross-compiling-on-windows">5.3. Cross-compiling on Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="builtdist.html#vista-user-access-control-uac">5.4. Vista User Access Control (UAC)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="packageindex.html">6. The Python Package Index (PyPI)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="packageindex.html#pypi-overview">6.1. PyPI overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packageindex.html#distutils-commands">6.2. Distutils commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packageindex.html#pypi-package-display">6.3. PyPI package display</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">7. Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#pure-python-distribution-by-module">7.1. Pure Python distribution (by module)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#pure-python-distribution-by-package">7.2. Pure Python distribution (by package)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#single-extension-module">7.3. Single extension module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#checking-a-package">7.4. Checking a package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#reading-the-metadata">7.5. Reading the metadata</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="extending.html">8. Extending Distutils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="extending.html#integrating-new-commands">8.1. Integrating new commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extending.html#adding-new-distribution-types">8.2. Adding new distribution types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="commandref.html">9. Command Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="commandref.html#installing-modules-the-install-command-family">9.1. Installing modules: the <strong class="command">install</strong> command family</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commandref.html#creating-a-source-distribution-the-sdist-command">9.2. Creating a source distribution: the <strong class="command">sdist</strong> command</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="apiref.html">10. API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.core">10.1. <code class="docutils literal notranslate"><span class="pre">distutils.core</span></code> — Core Distutils functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.ccompiler">10.2. <code class="docutils literal notranslate"><span class="pre">distutils.ccompiler</span></code> — CCompiler base class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.unixccompiler">10.3. <code class="docutils literal notranslate"><span class="pre">distutils.unixccompiler</span></code> — Unix C Compiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.msvccompiler">10.4. <code class="docutils literal notranslate"><span class="pre">distutils.msvccompiler</span></code> — Microsoft Compiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.bcppcompiler">10.5. <code class="docutils literal notranslate"><span class="pre">distutils.bcppcompiler</span></code> — Borland Compiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.cygwinccompiler">10.6. <code class="docutils literal notranslate"><span class="pre">distutils.cygwincompiler</span></code> — Cygwin Compiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.archive_util">10.7. <code class="docutils literal notranslate"><span class="pre">distutils.archive_util</span></code> —  Archiving utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.dep_util">10.8. <code class="docutils literal notranslate"><span class="pre">distutils.dep_util</span></code> — Dependency checking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.dir_util">10.9. <code class="docutils literal notranslate"><span class="pre">distutils.dir_util</span></code> — Directory tree operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.file_util">10.10. <code class="docutils literal notranslate"><span class="pre">distutils.file_util</span></code> — Single file operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.util">10.11. <code class="docutils literal notranslate"><span class="pre">distutils.util</span></code> — Miscellaneous other utility functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.dist">10.12. <code class="docutils literal notranslate"><span class="pre">distutils.dist</span></code> — The Distribution class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.extension">10.13. <code class="docutils literal notranslate"><span class="pre">distutils.extension</span></code> — The Extension class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.debug">10.14. <code class="docutils literal notranslate"><span class="pre">distutils.debug</span></code> — Distutils debug mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.errors">10.15. <code class="docutils literal notranslate"><span class="pre">distutils.errors</span></code> — Distutils exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.fancy_getopt">10.16. <code class="docutils literal notranslate"><span class="pre">distutils.fancy_getopt</span></code> — Wrapper around the standard getopt module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.filelist">10.17. <code class="docutils literal notranslate"><span class="pre">distutils.filelist</span></code> — The FileList class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.log">10.18. <code class="docutils literal notranslate"><span class="pre">distutils.log</span></code> — Simple PEP 282-style logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.spawn">10.19. <code class="docutils literal notranslate"><span class="pre">distutils.spawn</span></code> — Spawn a sub-process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.sysconfig">10.20. <code class="docutils literal notranslate"><span class="pre">distutils.sysconfig</span></code> — System configuration information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.text_file">10.21. <code class="docutils literal notranslate"><span class="pre">distutils.text_file</span></code> — The TextFile class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.version">10.22. <code class="docutils literal notranslate"><span class="pre">distutils.version</span></code> — Version number classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.cmd">10.23. <code class="docutils literal notranslate"><span class="pre">distutils.cmd</span></code> — Abstract base class for Distutils commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#creating-a-new-distutils-command">10.24. Creating a new Distutils command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.command">10.25. <code class="docutils literal notranslate"><span class="pre">distutils.command</span></code> — Individual Distutils commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.command.bdist">10.26. <code class="docutils literal notranslate"><span class="pre">distutils.command.bdist</span></code> — Build a binary installer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.command.bdist_packager">10.27. <code class="docutils literal notranslate"><span class="pre">distutils.command.bdist_packager</span></code> — Abstract base class for packagers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.command.bdist_dumb">10.28. <code class="docutils literal notranslate"><span class="pre">distutils.command.bdist_dumb</span></code> — Build a “dumb” installer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.command.bdist_msi">10.29. <code class="docutils literal notranslate"><span class="pre">distutils.command.bdist_msi</span></code> — Build a Microsoft Installer binary package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.command.bdist_rpm">10.30. <code class="docutils literal notranslate"><span class="pre">distutils.command.bdist_rpm</span></code> — Build a binary distribution as a Redhat RPM and SRPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.command.bdist_wininst">10.31. <code class="docutils literal notranslate"><span class="pre">distutils.command.bdist_wininst</span></code> — Build a Windows installer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.command.sdist">10.32. <code class="docutils literal notranslate"><span class="pre">distutils.command.sdist</span></code> — Build a source distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.command.build">10.33. <code class="docutils literal notranslate"><span class="pre">distutils.command.build</span></code> — Build all files of a package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.command.build_clib">10.34. <code class="docutils literal notranslate"><span class="pre">distutils.command.build_clib</span></code> — Build any C libraries in a package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.command.build_ext">10.35. <code class="docutils literal notranslate"><span class="pre">distutils.command.build_ext</span></code> — Build any extensions in a package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.command.build_py">10.36. <code class="docutils literal notranslate"><span class="pre">distutils.command.build_py</span></code> — Build the .py/.pyc files of a package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.command.build_scripts">10.37. <code class="docutils literal notranslate"><span class="pre">distutils.command.build_scripts</span></code> — Build the scripts of a package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.command.clean">10.38. <code class="docutils literal notranslate"><span class="pre">distutils.command.clean</span></code> — Clean a package build area</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.command.config">10.39. <code class="docutils literal notranslate"><span class="pre">distutils.command.config</span></code> — Perform package configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.command.install">10.40. <code class="docutils literal notranslate"><span class="pre">distutils.command.install</span></code> — Install a package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.command.install_data">10.41. <code class="docutils literal notranslate"><span class="pre">distutils.command.install_data</span></code> — Install data files from a package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.command.install_headers">10.42. <code class="docutils literal notranslate"><span class="pre">distutils.command.install_headers</span></code> — Install C/C++ header files from a package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.command.install_lib">10.43. <code class="docutils literal notranslate"><span class="pre">distutils.command.install_lib</span></code> — Install library files from a package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.command.install_scripts">10.44. <code class="docutils literal notranslate"><span class="pre">distutils.command.install_scripts</span></code> — Install script files from a package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.command.register">10.45. <code class="docutils literal notranslate"><span class="pre">distutils.command.register</span></code> — Register a module with the Python Package Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#module-distutils.command.check">10.46. <code class="docutils literal notranslate"><span class="pre">distutils.command.check</span></code> — Check the meta-data of a package</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../license.html"
+                        title="previous chapter">History and License</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="introduction.html"
+                        title="next chapter">1. An Introduction to Distutils</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/distutils/index.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="introduction.html" title="1. An Introduction to Distutils"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../license.html" title="History and License"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

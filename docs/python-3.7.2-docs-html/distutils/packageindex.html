@@ -1,0 +1,389 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>6. The Python Package Index (PyPI) &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="7. Examples" href="examples.html" />
+    <link rel="prev" title="5. Creating Built Distributions" href="builtdist.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/distutils/packageindex.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="examples.html" title="7. Examples"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="builtdist.html" title="5. Creating Built Distributions"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Distributing Python Modules (Legacy version)</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="the-python-package-index-pypi">
+<span id="package-index"></span><span id="index-0"></span><h1>6. The Python Package Index (PyPI)<a class="headerlink" href="#the-python-package-index-pypi" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference external" href="https://pypi.org">Python Package Index (PyPI)</a> stores <a class="reference internal" href="setupscript.html#meta-data"><span class="std std-ref">meta-data</span></a>
+describing distributions packaged with distutils, as well as package data like
+distribution files if a package author wishes.</p>
+<p>Distutils provides the <strong class="command">register</strong> and <strong class="command">upload</strong> commands for
+pushing meta-data and distribution files to PyPI, respectively.  See
+<a class="reference internal" href="#package-commands"><span class="std std-ref">Distutils commands</span></a> for information on these commands.</p>
+<div class="section" id="pypi-overview">
+<h2>6.1. PyPI overview<a class="headerlink" href="#pypi-overview" title="Permalink to this headline">¶</a></h2>
+<p>PyPI lets you submit any number of versions of your distribution to the index.
+If you alter the meta-data for a particular version, you can submit it again
+and the index will be updated.</p>
+<p>PyPI holds a record for each (name, version) combination submitted.  The first
+user to submit information for a given name is designated the Owner of that
+name.  Changes can be submitted through the <strong class="command">register</strong> command or
+through the web interface.  Owners can designate other users as Owners or
+Maintainers.  Maintainers can edit the package information, but not designate
+new Owners or Maintainers.</p>
+<p>By default PyPI displays only the newest version of a given package.  The web
+interface lets one change this default behavior and manually select which
+versions to display and hide.</p>
+<p>For each version, PyPI displays a home page.  The home page is created from
+the <code class="docutils literal notranslate"><span class="pre">long_description</span></code> which can be submitted via the <strong class="command">register</strong>
+command.  See <a class="reference internal" href="#package-display"><span class="std std-ref">PyPI package display</span></a> for more information.</p>
+</div>
+<div class="section" id="distutils-commands">
+<span id="package-commands"></span><h2>6.2. Distutils commands<a class="headerlink" href="#distutils-commands" title="Permalink to this headline">¶</a></h2>
+<p>Distutils exposes two commands for submitting package data to PyPI: the
+<a class="reference internal" href="#package-register"><span class="std std-ref">register</span></a> command for submitting meta-data to PyPI
+and the <a class="reference internal" href="#package-upload"><span class="std std-ref">upload</span></a> command for submitting distribution
+files.  Both commands read configuration data from a special file called a
+<a class="reference internal" href="#pypirc"><span class="std std-ref">.pypirc file</span></a>.</p>
+<div class="section" id="the-register-command">
+<span id="package-register"></span><h3>6.2.1. The <code class="docutils literal notranslate"><span class="pre">register</span></code> command<a class="headerlink" href="#the-register-command" title="Permalink to this headline">¶</a></h3>
+<p>The distutils command <strong class="command">register</strong> is used to submit your distribution’s
+meta-data to an index server. It is invoked as follows:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">register</span>
+</pre></div>
+</div>
+<p>Distutils will respond with the following prompt:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">running</span> <span class="n">register</span>
+<span class="n">We</span> <span class="n">need</span> <span class="n">to</span> <span class="n">know</span> <span class="n">who</span> <span class="n">you</span> <span class="n">are</span><span class="p">,</span> <span class="n">so</span> <span class="n">please</span> <span class="n">choose</span> <span class="n">either</span><span class="p">:</span>
+    <span class="mf">1.</span> <span class="n">use</span> <span class="n">your</span> <span class="n">existing</span> <span class="n">login</span><span class="p">,</span>
+    <span class="mf">2.</span> <span class="n">register</span> <span class="k">as</span> <span class="n">a</span> <span class="n">new</span> <span class="n">user</span><span class="p">,</span>
+    <span class="mf">3.</span> <span class="n">have</span> <span class="n">the</span> <span class="n">server</span> <span class="n">generate</span> <span class="n">a</span> <span class="n">new</span> <span class="n">password</span> <span class="k">for</span> <span class="n">you</span> <span class="p">(</span><span class="ow">and</span> <span class="n">email</span> <span class="n">it</span> <span class="n">to</span> <span class="n">you</span><span class="p">),</span> <span class="ow">or</span>
+    <span class="mf">4.</span> <span class="n">quit</span>
+<span class="n">Your</span> <span class="n">selection</span> <span class="p">[</span><span class="n">default</span> <span class="mi">1</span><span class="p">]:</span>
+</pre></div>
+</div>
+<p>Note: if your username and password are saved locally, you will not see this
+menu.  Also, refer to <a class="reference internal" href="#pypirc"><span class="std std-ref">The .pypirc file</span></a> for how to store your credentials in a
+<code class="file docutils literal notranslate"><span class="pre">.pypirc</span></code> file.</p>
+<p>If you have not registered with PyPI, then you will need to do so now. You
+should choose option 2, and enter your details as required. Soon after
+submitting your details, you will receive an email which will be used to confirm
+your registration.</p>
+<p>Once you are registered, you may choose option 1 from the menu. You will be
+prompted for your PyPI username and password, and <strong class="command">register</strong> will then
+submit your meta-data to the index.</p>
+<p>See <a class="reference internal" href="#package-cmdoptions"><span class="std std-ref">Additional command options</span></a> for options to the <strong class="command">register</strong> command.</p>
+</div>
+<div class="section" id="the-upload-command">
+<span id="package-upload"></span><h3>6.2.2. The <code class="docutils literal notranslate"><span class="pre">upload</span></code> command<a class="headerlink" href="#the-upload-command" title="Permalink to this headline">¶</a></h3>
+<p>The distutils command <strong class="command">upload</strong> pushes the distribution files to PyPI.</p>
+<p>The command is invoked immediately after building one or more distribution
+files.  For example, the command</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">sdist</span> <span class="n">bdist_wininst</span> <span class="n">upload</span>
+</pre></div>
+</div>
+<p>will cause the source distribution and the Windows installer to be uploaded to
+PyPI.  Note that these will be uploaded even if they are built using an earlier
+invocation of <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code>, but that only distributions named on the command
+line for the invocation including the <strong class="command">upload</strong> command are uploaded.</p>
+<p>If a <strong class="command">register</strong> command was previously called in the same command,
+and if the password was entered in the prompt, <strong class="command">upload</strong> will reuse the
+entered password.  This is useful if you do not want to store a password in
+clear text in a <code class="file docutils literal notranslate"><span class="pre">.pypirc</span></code> file.</p>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">--sign</span></code> option to tell <strong class="command">upload</strong> to sign each
+uploaded file using GPG (GNU Privacy Guard).  The  <strong class="program">gpg</strong> program must
+be available for execution on the system <span class="target" id="index-1"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PATH</span></code>.  You can also specify
+which key to use for signing using the <code class="docutils literal notranslate"><span class="pre">--identity=name</span></code> option.</p>
+<p>See <a class="reference internal" href="#package-cmdoptions"><span class="std std-ref">Additional command options</span></a> for additional options to the <strong class="command">upload</strong>
+command.</p>
+</div>
+<div class="section" id="additional-command-options">
+<span id="package-cmdoptions"></span><h3>6.2.3. Additional command options<a class="headerlink" href="#additional-command-options" title="Permalink to this headline">¶</a></h3>
+<p>This section describes options common to both the <strong class="command">register</strong> and
+<strong class="command">upload</strong> commands.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">--repository</span></code> or <code class="docutils literal notranslate"><span class="pre">-r</span></code> option lets you specify a PyPI server
+different from the default.  For example:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">sdist</span> <span class="n">bdist_wininst</span> <span class="n">upload</span> <span class="o">-</span><span class="n">r</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">example</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">pypi</span>
+</pre></div>
+</div>
+<p>For convenience, a name can be used in place of the URL when the
+<code class="file docutils literal notranslate"><span class="pre">.pypirc</span></code> file is configured to do so.  For example:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">register</span> <span class="o">-</span><span class="n">r</span> <span class="n">other</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="#pypirc"><span class="std std-ref">The .pypirc file</span></a> for more information on defining alternate servers.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">--show-response</span></code> option displays the full response text from the PyPI
+server, which is useful when debugging problems with registering and uploading.</p>
+</div>
+<div class="section" id="the-pypirc-file">
+<span id="pypirc"></span><span id="index-2"></span><h3>6.2.4. The <code class="docutils literal notranslate"><span class="pre">.pypirc</span></code> file<a class="headerlink" href="#the-pypirc-file" title="Permalink to this headline">¶</a></h3>
+<p>The <strong class="command">register</strong> and <strong class="command">upload</strong> commands both check for the
+existence of a <code class="file docutils literal notranslate"><span class="pre">.pypirc</span></code> file at the location <code class="file docutils literal notranslate"><span class="pre">$HOME/.pypirc</span></code>.
+If this file exists, the command uses the username, password, and repository
+URL configured in the file.  The format of a <code class="file docutils literal notranslate"><span class="pre">.pypirc</span></code> file is as
+follows:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[distutils]</span>
+<span class="na">index-servers</span> <span class="o">=</span><span class="s"></span>
+<span class="s">    pypi</span>
+
+<span class="k">[pypi]</span>
+<span class="na">repository: &lt;repository-url&gt;</span>
+<span class="na">username: &lt;username&gt;</span>
+<span class="na">password: &lt;password&gt;</span>
+</pre></div>
+</div>
+<p>The <em>distutils</em> section defines an <em>index-servers</em> variable that lists the
+name of all sections describing a repository.</p>
+<p>Each section describing a repository defines three variables:</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><em>repository</em>, that defines the url of the PyPI server. Defaults to</dt>
+<dd><code class="docutils literal notranslate"><span class="pre">https://upload.pypi.org/legacy/</span></code>.</dd>
+</dl>
+</li>
+<li><em>username</em>, which is the registered username on the PyPI server.</li>
+<li><dl class="first docutils">
+<dt><em>password</em>, that will be used to authenticate. If omitted the user</dt>
+<dd>will be prompt to type it when needed.</dd>
+</dl>
+</li>
+</ul>
+<p>If you want to define another server a new section can be created and
+listed in the <em>index-servers</em> variable:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[distutils]</span>
+<span class="na">index-servers</span> <span class="o">=</span><span class="s"></span>
+<span class="s">    pypi</span>
+<span class="s">    other</span>
+
+<span class="k">[pypi]</span>
+<span class="na">repository: &lt;repository-url&gt;</span>
+<span class="na">username: &lt;username&gt;</span>
+<span class="na">password: &lt;password&gt;</span>
+
+<span class="k">[other]</span>
+<span class="na">repository: https://example.com/pypi</span>
+<span class="na">username: &lt;username&gt;</span>
+<span class="na">password: &lt;password&gt;</span>
+</pre></div>
+</div>
+<p>This allows the <strong class="command">register</strong> and <strong class="command">upload</strong> commands to be
+called with the <code class="docutils literal notranslate"><span class="pre">--repository</span></code> option as described in
+<a class="reference internal" href="#package-cmdoptions"><span class="std std-ref">Additional command options</span></a>.</p>
+<p>Specifically, you might want to add the <a class="reference external" href="https://wiki.python.org/moin/TestPyPI">PyPI Test Repository</a> to your <code class="docutils literal notranslate"><span class="pre">.pypirc</span></code> to facilitate
+testing before doing your first upload to <code class="docutils literal notranslate"><span class="pre">PyPI</span></code> itself.</p>
+</div>
+</div>
+<div class="section" id="pypi-package-display">
+<span id="package-display"></span><h2>6.3. PyPI package display<a class="headerlink" href="#pypi-package-display" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">long_description</span></code> field plays a special role at PyPI. It is used by
+the server to display a home page for the registered package.</p>
+<p>If you use the <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a>
+syntax for this field, PyPI will parse it and display an HTML output for
+the package home page.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">long_description</span></code> field can be attached to a text file located
+in the package:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="k">import</span> <span class="n">setup</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;README.txt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">long_description</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Distutils&#39;</span><span class="p">,</span>
+      <span class="n">long_description</span><span class="o">=</span><span class="n">long_description</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In that case, <code class="file docutils literal notranslate"><span class="pre">README.txt</span></code> is a regular reStructuredText text file located
+in the root of the package besides <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code>.</p>
+<p>To prevent registering broken reStructuredText content, you can use the
+<strong class="program">rst2html</strong> program that is provided by the <code class="xref py py-mod docutils literal notranslate"><span class="pre">docutils</span></code> package and
+check the <code class="docutils literal notranslate"><span class="pre">long_description</span></code> from the command line:</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python setup.py --long-description <span class="p">|</span> rst2html.py &gt; output.html
+</pre></div>
+</div>
+<p><code class="xref py py-mod docutils literal notranslate"><span class="pre">docutils</span></code> will display a warning if there’s something wrong with your
+syntax.  Because PyPI applies additional checks (e.g. by passing <code class="docutils literal notranslate"><span class="pre">--no-raw</span></code>
+to <code class="docutils literal notranslate"><span class="pre">rst2html.py</span></code> in the command above), being able to run the command above
+without warnings does not guarantee that PyPI will convert the content
+successfully.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">6. The Python Package Index (PyPI)</a><ul>
+<li><a class="reference internal" href="#pypi-overview">6.1. PyPI overview</a></li>
+<li><a class="reference internal" href="#distutils-commands">6.2. Distutils commands</a><ul>
+<li><a class="reference internal" href="#the-register-command">6.2.1. The <code class="docutils literal notranslate"><span class="pre">register</span></code> command</a></li>
+<li><a class="reference internal" href="#the-upload-command">6.2.2. The <code class="docutils literal notranslate"><span class="pre">upload</span></code> command</a></li>
+<li><a class="reference internal" href="#additional-command-options">6.2.3. Additional command options</a></li>
+<li><a class="reference internal" href="#the-pypirc-file">6.2.4. The <code class="docutils literal notranslate"><span class="pre">.pypirc</span></code> file</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pypi-package-display">6.3. PyPI package display</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="builtdist.html"
+                        title="previous chapter">5. Creating Built Distributions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="examples.html"
+                        title="next chapter">7. Examples</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/distutils/packageindex.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="examples.html" title="7. Examples"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="builtdist.html" title="5. Creating Built Distributions"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Distributing Python Modules (Legacy version)</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

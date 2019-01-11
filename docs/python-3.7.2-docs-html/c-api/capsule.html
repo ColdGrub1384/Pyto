@@ -1,0 +1,332 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Capsules &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="Generator Objects" href="gen.html" />
+    <link rel="prev" title="Weak Reference Objects" href="weakref.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/c-api/capsule.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gen.html" title="Generator Objects"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="weakref.html" title="Weak Reference Objects"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Python/C API Reference Manual</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="concrete.html" accesskey="U">Concrete Objects Layer</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="capsules">
+<span id="id1"></span><h1>Capsules<a class="headerlink" href="#capsules" title="Permalink to this headline">¶</a></h1>
+<p id="index-0">Refer to <a class="reference internal" href="../extending/extending.html#using-capsules"><span class="std std-ref">Providing a C API for an Extension Module</span></a> for more information on using these objects.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.1.</span></p>
+</div>
+<dl class="type">
+<dt id="c.PyCapsule">
+<code class="descname">PyCapsule</code><a class="headerlink" href="#c.PyCapsule" title="Permalink to this definition">¶</a></dt>
+<dd><p>This subtype of <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyObject</span></code></a> represents an opaque value, useful for C
+extension modules who need to pass an opaque value (as a <code class="xref c c-type docutils literal notranslate"><span class="pre">void*</span></code>
+pointer) through Python code to other C code.  It is often used to make a C
+function pointer defined in one module available to other modules, so the
+regular import mechanism can be used to access C APIs defined in dynamically
+loaded modules.</p>
+</dd></dl>
+
+<dl class="type">
+<dt id="c.PyCapsule_Destructor">
+<code class="descname">PyCapsule_Destructor</code><a class="headerlink" href="#c.PyCapsule_Destructor" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of a destructor callback for a capsule.  Defined as:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="nf">void</span> <span class="p">(</span><span class="o">*</span><span class="n">PyCapsule_Destructor</span><span class="p">)(</span><span class="n">PyObject</span> <span class="o">*</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="#c.PyCapsule_New" title="PyCapsule_New"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyCapsule_New()</span></code></a> for the semantics of PyCapsule_Destructor
+callbacks.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyCapsule_CheckExact">
+int <code class="descname">PyCapsule_CheckExact</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*p</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyCapsule_CheckExact" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true if its argument is a <a class="reference internal" href="#c.PyCapsule" title="PyCapsule"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyCapsule</span></code></a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyCapsule_New">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a>* <code class="descname">PyCapsule_New</code><span class="sig-paren">(</span>void<em>&nbsp;*pointer</em>, const char<em>&nbsp;*name</em>, <a class="reference internal" href="#c.PyCapsule_Destructor" title="PyCapsule_Destructor">PyCapsule_Destructor</a><em>&nbsp;destructor</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyCapsule_New" title="Permalink to this definition">¶</a></dt>
+<dd><em class="refcount">Return value: New reference.</em><p>Create a <a class="reference internal" href="#c.PyCapsule" title="PyCapsule"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyCapsule</span></code></a> encapsulating the <em>pointer</em>.  The <em>pointer</em>
+argument may not be <em>NULL</em>.</p>
+<p>On failure, set an exception and return <em>NULL</em>.</p>
+<p>The <em>name</em> string may either be <em>NULL</em> or a pointer to a valid C string.  If
+non-<em>NULL</em>, this string must outlive the capsule.  (Though it is permitted to
+free it inside the <em>destructor</em>.)</p>
+<p>If the <em>destructor</em> argument is not <em>NULL</em>, it will be called with the
+capsule as its argument when it is destroyed.</p>
+<p>If this capsule will be stored as an attribute of a module, the <em>name</em> should
+be specified as <code class="docutils literal notranslate"><span class="pre">modulename.attributename</span></code>.  This will enable other modules
+to import the capsule using <a class="reference internal" href="#c.PyCapsule_Import" title="PyCapsule_Import"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyCapsule_Import()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyCapsule_GetPointer">
+void* <code class="descname">PyCapsule_GetPointer</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*capsule</em>, const char<em>&nbsp;*name</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyCapsule_GetPointer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the <em>pointer</em> stored in the capsule.  On failure, set an exception
+and return <em>NULL</em>.</p>
+<p>The <em>name</em> parameter must compare exactly to the name stored in the capsule.
+If the name stored in the capsule is <em>NULL</em>, the <em>name</em> passed in must also
+be <em>NULL</em>.  Python uses the C function <code class="xref c c-func docutils literal notranslate"><span class="pre">strcmp()</span></code> to compare capsule
+names.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyCapsule_GetDestructor">
+<a class="reference internal" href="#c.PyCapsule_Destructor" title="PyCapsule_Destructor">PyCapsule_Destructor</a> <code class="descname">PyCapsule_GetDestructor</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*capsule</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyCapsule_GetDestructor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the current destructor stored in the capsule.  On failure, set an
+exception and return <em>NULL</em>.</p>
+<p>It is legal for a capsule to have a <em>NULL</em> destructor.  This makes a <em>NULL</em>
+return code somewhat ambiguous; use <a class="reference internal" href="#c.PyCapsule_IsValid" title="PyCapsule_IsValid"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyCapsule_IsValid()</span></code></a> or
+<a class="reference internal" href="exceptions.html#c.PyErr_Occurred" title="PyErr_Occurred"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyErr_Occurred()</span></code></a> to disambiguate.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyCapsule_GetContext">
+void* <code class="descname">PyCapsule_GetContext</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*capsule</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyCapsule_GetContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the current context stored in the capsule.  On failure, set an
+exception and return <em>NULL</em>.</p>
+<p>It is legal for a capsule to have a <em>NULL</em> context.  This makes a <em>NULL</em>
+return code somewhat ambiguous; use <a class="reference internal" href="#c.PyCapsule_IsValid" title="PyCapsule_IsValid"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyCapsule_IsValid()</span></code></a> or
+<a class="reference internal" href="exceptions.html#c.PyErr_Occurred" title="PyErr_Occurred"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyErr_Occurred()</span></code></a> to disambiguate.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyCapsule_GetName">
+const char* <code class="descname">PyCapsule_GetName</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*capsule</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyCapsule_GetName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the current name stored in the capsule.  On failure, set an exception
+and return <em>NULL</em>.</p>
+<p>It is legal for a capsule to have a <em>NULL</em> name.  This makes a <em>NULL</em> return
+code somewhat ambiguous; use <a class="reference internal" href="#c.PyCapsule_IsValid" title="PyCapsule_IsValid"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyCapsule_IsValid()</span></code></a> or
+<a class="reference internal" href="exceptions.html#c.PyErr_Occurred" title="PyErr_Occurred"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyErr_Occurred()</span></code></a> to disambiguate.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyCapsule_Import">
+void* <code class="descname">PyCapsule_Import</code><span class="sig-paren">(</span>const char<em>&nbsp;*name</em>, int<em>&nbsp;no_block</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyCapsule_Import" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import a pointer to a C object from a capsule attribute in a module.  The
+<em>name</em> parameter should specify the full name to the attribute, as in
+<code class="docutils literal notranslate"><span class="pre">module.attribute</span></code>.  The <em>name</em> stored in the capsule must match this
+string exactly.  If <em>no_block</em> is true, import the module without blocking
+(using <a class="reference internal" href="import.html#c.PyImport_ImportModuleNoBlock" title="PyImport_ImportModuleNoBlock"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyImport_ImportModuleNoBlock()</span></code></a>).  If <em>no_block</em> is false,
+import the module conventionally (using <a class="reference internal" href="import.html#c.PyImport_ImportModule" title="PyImport_ImportModule"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyImport_ImportModule()</span></code></a>).</p>
+<p>Return the capsule’s internal <em>pointer</em> on success.  On failure, set an
+exception and return <em>NULL</em>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyCapsule_IsValid">
+int <code class="descname">PyCapsule_IsValid</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*capsule</em>, const char<em>&nbsp;*name</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyCapsule_IsValid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines whether or not <em>capsule</em> is a valid capsule.  A valid capsule is
+non-<em>NULL</em>, passes <a class="reference internal" href="#c.PyCapsule_CheckExact" title="PyCapsule_CheckExact"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyCapsule_CheckExact()</span></code></a>, has a non-<em>NULL</em> pointer
+stored in it, and its internal name matches the <em>name</em> parameter.  (See
+<a class="reference internal" href="#c.PyCapsule_GetPointer" title="PyCapsule_GetPointer"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyCapsule_GetPointer()</span></code></a> for information on how capsule names are
+compared.)</p>
+<p>In other words, if <a class="reference internal" href="#c.PyCapsule_IsValid" title="PyCapsule_IsValid"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyCapsule_IsValid()</span></code></a> returns a true value, calls to
+any of the accessors (any function starting with <code class="xref c c-func docutils literal notranslate"><span class="pre">PyCapsule_Get()</span></code>) are
+guaranteed to succeed.</p>
+<p>Return a nonzero value if the object is valid and matches the name passed in.
+Return <code class="docutils literal notranslate"><span class="pre">0</span></code> otherwise.  This function will not fail.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyCapsule_SetContext">
+int <code class="descname">PyCapsule_SetContext</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*capsule</em>, void<em>&nbsp;*context</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyCapsule_SetContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the context pointer inside <em>capsule</em> to <em>context</em>.</p>
+<p>Return <code class="docutils literal notranslate"><span class="pre">0</span></code> on success.  Return nonzero and set an exception on failure.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyCapsule_SetDestructor">
+int <code class="descname">PyCapsule_SetDestructor</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*capsule</em>, <a class="reference internal" href="#c.PyCapsule_Destructor" title="PyCapsule_Destructor">PyCapsule_Destructor</a><em>&nbsp;destructor</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyCapsule_SetDestructor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the destructor inside <em>capsule</em> to <em>destructor</em>.</p>
+<p>Return <code class="docutils literal notranslate"><span class="pre">0</span></code> on success.  Return nonzero and set an exception on failure.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyCapsule_SetName">
+int <code class="descname">PyCapsule_SetName</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*capsule</em>, const char<em>&nbsp;*name</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyCapsule_SetName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the name inside <em>capsule</em> to <em>name</em>.  If non-<em>NULL</em>, the name must
+outlive the capsule.  If the previous <em>name</em> stored in the capsule was not
+<em>NULL</em>, no attempt is made to free it.</p>
+<p>Return <code class="docutils literal notranslate"><span class="pre">0</span></code> on success.  Return nonzero and set an exception on failure.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyCapsule_SetPointer">
+int <code class="descname">PyCapsule_SetPointer</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*capsule</em>, void<em>&nbsp;*pointer</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyCapsule_SetPointer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the void pointer inside <em>capsule</em> to <em>pointer</em>.  The pointer may not be
+<em>NULL</em>.</p>
+<p>Return <code class="docutils literal notranslate"><span class="pre">0</span></code> on success.  Return nonzero and set an exception on failure.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="weakref.html"
+                        title="previous chapter">Weak Reference Objects</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="gen.html"
+                        title="next chapter">Generator Objects</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/c-api/capsule.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gen.html" title="Generator Objects"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="weakref.html" title="Weak Reference Objects"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Python/C API Reference Manual</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="concrete.html" >Concrete Objects Layer</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

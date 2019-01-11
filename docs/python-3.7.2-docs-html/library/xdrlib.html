@@ -1,0 +1,471 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>xdrlib — Encode and decode XDR data &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="plistlib — Generate and parse Mac OS X .plist files" href="plistlib.html" />
+    <link rel="prev" title="netrc — netrc file processing" href="netrc.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/library/xdrlib.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="plistlib.html" title="plistlib — Generate and parse Mac OS X .plist files"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="netrc.html" title="netrc — netrc file processing"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="fileformats.html" accesskey="U">File Formats</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-xdrlib">
+<span id="xdrlib-encode-and-decode-xdr-data"></span><h1><a class="reference internal" href="#module-xdrlib" title="xdrlib: Encoders and decoders for the External Data Representation (XDR)."><code class="xref py py-mod docutils literal notranslate"><span class="pre">xdrlib</span></code></a> — Encode and decode XDR data<a class="headerlink" href="#module-xdrlib" title="Permalink to this headline">¶</a></h1>
+<p><strong>Source code:</strong> <a class="reference external" href="https://github.com/python/cpython/tree/3.7/Lib/xdrlib.py">Lib/xdrlib.py</a></p>
+<hr class="docutils" id="index-0" />
+<p>The <a class="reference internal" href="#module-xdrlib" title="xdrlib: Encoders and decoders for the External Data Representation (XDR)."><code class="xref py py-mod docutils literal notranslate"><span class="pre">xdrlib</span></code></a> module supports the External Data Representation Standard as
+described in <span class="target" id="index-1"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc1014.html"><strong>RFC 1014</strong></a>, written by Sun Microsystems, Inc. June 1987.  It
+supports most of the data types described in the RFC.</p>
+<p>The <a class="reference internal" href="#module-xdrlib" title="xdrlib: Encoders and decoders for the External Data Representation (XDR)."><code class="xref py py-mod docutils literal notranslate"><span class="pre">xdrlib</span></code></a> module defines two classes, one for packing variables into XDR
+representation, and another for unpacking from XDR representation.  There are
+also two exception classes.</p>
+<dl class="class">
+<dt id="xdrlib.Packer">
+<em class="property">class </em><code class="descclassname">xdrlib.</code><code class="descname">Packer</code><a class="headerlink" href="#xdrlib.Packer" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#xdrlib.Packer" title="xdrlib.Packer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packer</span></code></a> is the class for packing data into XDR representation. The
+<a class="reference internal" href="#xdrlib.Packer" title="xdrlib.Packer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packer</span></code></a> class is instantiated with no arguments.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="xdrlib.Unpacker">
+<em class="property">class </em><code class="descclassname">xdrlib.</code><code class="descname">Unpacker</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Unpacker" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">Unpacker</span></code> is the complementary class which unpacks XDR data values from a
+string buffer.  The input buffer is given as <em>data</em>.</p>
+</dd></dl>
+
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><span class="target" id="index-2"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc1014.html"><strong>RFC 1014</strong></a> - XDR: External Data Representation Standard</dt>
+<dd>This RFC defined the encoding of data which was XDR at the time this module was
+originally written.  It has apparently been obsoleted by <span class="target" id="index-3"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc1832.html"><strong>RFC 1832</strong></a>.</dd>
+<dt><span class="target" id="index-4"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc1832.html"><strong>RFC 1832</strong></a> - XDR: External Data Representation Standard</dt>
+<dd>Newer RFC that provides a revised definition of XDR.</dd>
+</dl>
+</div>
+<div class="section" id="packer-objects">
+<span id="xdr-packer-objects"></span><h2>Packer Objects<a class="headerlink" href="#packer-objects" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="#xdrlib.Packer" title="xdrlib.Packer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packer</span></code></a> instances have the following methods:</p>
+<dl class="method">
+<dt id="xdrlib.Packer.get_buffer">
+<code class="descclassname">Packer.</code><code class="descname">get_buffer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Packer.get_buffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current pack buffer as a string.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="xdrlib.Packer.reset">
+<code class="descclassname">Packer.</code><code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Packer.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the pack buffer to the empty string.</p>
+</dd></dl>
+
+<p>In general, you can pack any of the most common XDR data types by calling the
+appropriate <code class="docutils literal notranslate"><span class="pre">pack_type()</span></code> method.  Each method takes a single argument, the
+value to pack.  The following simple data type packing methods are supported:
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">pack_uint()</span></code>, <code class="xref py py-meth docutils literal notranslate"><span class="pre">pack_int()</span></code>, <code class="xref py py-meth docutils literal notranslate"><span class="pre">pack_enum()</span></code>, <code class="xref py py-meth docutils literal notranslate"><span class="pre">pack_bool()</span></code>,
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">pack_uhyper()</span></code>, and <code class="xref py py-meth docutils literal notranslate"><span class="pre">pack_hyper()</span></code>.</p>
+<dl class="method">
+<dt id="xdrlib.Packer.pack_float">
+<code class="descclassname">Packer.</code><code class="descname">pack_float</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Packer.pack_float" title="Permalink to this definition">¶</a></dt>
+<dd><p>Packs the single-precision floating point number <em>value</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="xdrlib.Packer.pack_double">
+<code class="descclassname">Packer.</code><code class="descname">pack_double</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Packer.pack_double" title="Permalink to this definition">¶</a></dt>
+<dd><p>Packs the double-precision floating point number <em>value</em>.</p>
+</dd></dl>
+
+<p>The following methods support packing strings, bytes, and opaque data:</p>
+<dl class="method">
+<dt id="xdrlib.Packer.pack_fstring">
+<code class="descclassname">Packer.</code><code class="descname">pack_fstring</code><span class="sig-paren">(</span><em>n</em>, <em>s</em><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Packer.pack_fstring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Packs a fixed length string, <em>s</em>.  <em>n</em> is the length of the string but it is
+<em>not</em> packed into the data buffer.  The string is padded with null bytes if
+necessary to guaranteed 4 byte alignment.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="xdrlib.Packer.pack_fopaque">
+<code class="descclassname">Packer.</code><code class="descname">pack_fopaque</code><span class="sig-paren">(</span><em>n</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Packer.pack_fopaque" title="Permalink to this definition">¶</a></dt>
+<dd><p>Packs a fixed length opaque data stream, similarly to <a class="reference internal" href="#xdrlib.Packer.pack_fstring" title="xdrlib.Packer.pack_fstring"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pack_fstring()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="xdrlib.Packer.pack_string">
+<code class="descclassname">Packer.</code><code class="descname">pack_string</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Packer.pack_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Packs a variable length string, <em>s</em>.  The length of the string is first packed
+as an unsigned integer, then the string data is packed with
+<a class="reference internal" href="#xdrlib.Packer.pack_fstring" title="xdrlib.Packer.pack_fstring"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pack_fstring()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="xdrlib.Packer.pack_opaque">
+<code class="descclassname">Packer.</code><code class="descname">pack_opaque</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Packer.pack_opaque" title="Permalink to this definition">¶</a></dt>
+<dd><p>Packs a variable length opaque data string, similarly to <a class="reference internal" href="#xdrlib.Packer.pack_string" title="xdrlib.Packer.pack_string"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pack_string()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="xdrlib.Packer.pack_bytes">
+<code class="descclassname">Packer.</code><code class="descname">pack_bytes</code><span class="sig-paren">(</span><em>bytes</em><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Packer.pack_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Packs a variable length byte stream, similarly to <a class="reference internal" href="#xdrlib.Packer.pack_string" title="xdrlib.Packer.pack_string"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pack_string()</span></code></a>.</p>
+</dd></dl>
+
+<p>The following methods support packing arrays and lists:</p>
+<dl class="method">
+<dt id="xdrlib.Packer.pack_list">
+<code class="descclassname">Packer.</code><code class="descname">pack_list</code><span class="sig-paren">(</span><em>list</em>, <em>pack_item</em><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Packer.pack_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Packs a <em>list</em> of homogeneous items.  This method is useful for lists with an
+indeterminate size; i.e. the size is not available until the entire list has
+been walked.  For each item in the list, an unsigned integer <code class="docutils literal notranslate"><span class="pre">1</span></code> is packed
+first, followed by the data value from the list.  <em>pack_item</em> is the function
+that is called to pack the individual item.  At the end of the list, an unsigned
+integer <code class="docutils literal notranslate"><span class="pre">0</span></code> is packed.</p>
+<p>For example, to pack a list of integers, the code might appear like this:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xdrlib</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">xdrlib</span><span class="o">.</span><span class="n">Packer</span><span class="p">()</span>
+<span class="n">p</span><span class="o">.</span><span class="n">pack_list</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">p</span><span class="o">.</span><span class="n">pack_int</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="xdrlib.Packer.pack_farray">
+<code class="descclassname">Packer.</code><code class="descname">pack_farray</code><span class="sig-paren">(</span><em>n</em>, <em>array</em>, <em>pack_item</em><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Packer.pack_farray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Packs a fixed length list (<em>array</em>) of homogeneous items.  <em>n</em> is the length of
+the list; it is <em>not</em> packed into the buffer, but a <a class="reference internal" href="exceptions.html#ValueError" title="ValueError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> exception
+is raised if <code class="docutils literal notranslate"><span class="pre">len(array)</span></code> is not equal to <em>n</em>.  As above, <em>pack_item</em> is the
+function used to pack each element.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="xdrlib.Packer.pack_array">
+<code class="descclassname">Packer.</code><code class="descname">pack_array</code><span class="sig-paren">(</span><em>list</em>, <em>pack_item</em><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Packer.pack_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Packs a variable length <em>list</em> of homogeneous items.  First, the length of the
+list is packed as an unsigned integer, then each element is packed as in
+<a class="reference internal" href="#xdrlib.Packer.pack_farray" title="xdrlib.Packer.pack_farray"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pack_farray()</span></code></a> above.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="unpacker-objects">
+<span id="xdr-unpacker-objects"></span><h2>Unpacker Objects<a class="headerlink" href="#unpacker-objects" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="#xdrlib.Unpacker" title="xdrlib.Unpacker"><code class="xref py py-class docutils literal notranslate"><span class="pre">Unpacker</span></code></a> class offers the following methods:</p>
+<dl class="method">
+<dt id="xdrlib.Unpacker.reset">
+<code class="descclassname">Unpacker.</code><code class="descname">reset</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Unpacker.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the string buffer with the given <em>data</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="xdrlib.Unpacker.get_position">
+<code class="descclassname">Unpacker.</code><code class="descname">get_position</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Unpacker.get_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current unpack position in the data buffer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="xdrlib.Unpacker.set_position">
+<code class="descclassname">Unpacker.</code><code class="descname">set_position</code><span class="sig-paren">(</span><em>position</em><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Unpacker.set_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the data buffer unpack position to <em>position</em>.  You should be careful about
+using <a class="reference internal" href="#xdrlib.Unpacker.get_position" title="xdrlib.Unpacker.get_position"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_position()</span></code></a> and <a class="reference internal" href="#xdrlib.Unpacker.set_position" title="xdrlib.Unpacker.set_position"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_position()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="xdrlib.Unpacker.get_buffer">
+<code class="descclassname">Unpacker.</code><code class="descname">get_buffer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Unpacker.get_buffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current unpack data buffer as a string.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="xdrlib.Unpacker.done">
+<code class="descclassname">Unpacker.</code><code class="descname">done</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Unpacker.done" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates unpack completion.  Raises an <a class="reference internal" href="#xdrlib.Error" title="xdrlib.Error"><code class="xref py py-exc docutils literal notranslate"><span class="pre">Error</span></code></a> exception if all of the
+data has not been unpacked.</p>
+</dd></dl>
+
+<p>In addition, every data type that can be packed with a <a class="reference internal" href="#xdrlib.Packer" title="xdrlib.Packer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Packer</span></code></a>, can be
+unpacked with an <a class="reference internal" href="#xdrlib.Unpacker" title="xdrlib.Unpacker"><code class="xref py py-class docutils literal notranslate"><span class="pre">Unpacker</span></code></a>.  Unpacking methods are of the form
+<code class="docutils literal notranslate"><span class="pre">unpack_type()</span></code>, and take no arguments.  They return the unpacked object.</p>
+<dl class="method">
+<dt id="xdrlib.Unpacker.unpack_float">
+<code class="descclassname">Unpacker.</code><code class="descname">unpack_float</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Unpacker.unpack_float" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpacks a single-precision floating point number.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="xdrlib.Unpacker.unpack_double">
+<code class="descclassname">Unpacker.</code><code class="descname">unpack_double</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Unpacker.unpack_double" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpacks a double-precision floating point number, similarly to
+<a class="reference internal" href="#xdrlib.Unpacker.unpack_float" title="xdrlib.Unpacker.unpack_float"><code class="xref py py-meth docutils literal notranslate"><span class="pre">unpack_float()</span></code></a>.</p>
+</dd></dl>
+
+<p>In addition, the following methods unpack strings, bytes, and opaque data:</p>
+<dl class="method">
+<dt id="xdrlib.Unpacker.unpack_fstring">
+<code class="descclassname">Unpacker.</code><code class="descname">unpack_fstring</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Unpacker.unpack_fstring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpacks and returns a fixed length string.  <em>n</em> is the number of characters
+expected.  Padding with null bytes to guaranteed 4 byte alignment is assumed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="xdrlib.Unpacker.unpack_fopaque">
+<code class="descclassname">Unpacker.</code><code class="descname">unpack_fopaque</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Unpacker.unpack_fopaque" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpacks and returns a fixed length opaque data stream, similarly to
+<a class="reference internal" href="#xdrlib.Unpacker.unpack_fstring" title="xdrlib.Unpacker.unpack_fstring"><code class="xref py py-meth docutils literal notranslate"><span class="pre">unpack_fstring()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="xdrlib.Unpacker.unpack_string">
+<code class="descclassname">Unpacker.</code><code class="descname">unpack_string</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Unpacker.unpack_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpacks and returns a variable length string.  The length of the string is first
+unpacked as an unsigned integer, then the string data is unpacked with
+<a class="reference internal" href="#xdrlib.Unpacker.unpack_fstring" title="xdrlib.Unpacker.unpack_fstring"><code class="xref py py-meth docutils literal notranslate"><span class="pre">unpack_fstring()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="xdrlib.Unpacker.unpack_opaque">
+<code class="descclassname">Unpacker.</code><code class="descname">unpack_opaque</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Unpacker.unpack_opaque" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpacks and returns a variable length opaque data string, similarly to
+<a class="reference internal" href="#xdrlib.Unpacker.unpack_string" title="xdrlib.Unpacker.unpack_string"><code class="xref py py-meth docutils literal notranslate"><span class="pre">unpack_string()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="xdrlib.Unpacker.unpack_bytes">
+<code class="descclassname">Unpacker.</code><code class="descname">unpack_bytes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Unpacker.unpack_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpacks and returns a variable length byte stream, similarly to
+<a class="reference internal" href="#xdrlib.Unpacker.unpack_string" title="xdrlib.Unpacker.unpack_string"><code class="xref py py-meth docutils literal notranslate"><span class="pre">unpack_string()</span></code></a>.</p>
+</dd></dl>
+
+<p>The following methods support unpacking arrays and lists:</p>
+<dl class="method">
+<dt id="xdrlib.Unpacker.unpack_list">
+<code class="descclassname">Unpacker.</code><code class="descname">unpack_list</code><span class="sig-paren">(</span><em>unpack_item</em><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Unpacker.unpack_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpacks and returns a list of homogeneous items.  The list is unpacked one
+element at a time by first unpacking an unsigned integer flag.  If the flag is
+<code class="docutils literal notranslate"><span class="pre">1</span></code>, then the item is unpacked and appended to the list.  A flag of <code class="docutils literal notranslate"><span class="pre">0</span></code>
+indicates the end of the list.  <em>unpack_item</em> is the function that is called to
+unpack the items.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="xdrlib.Unpacker.unpack_farray">
+<code class="descclassname">Unpacker.</code><code class="descname">unpack_farray</code><span class="sig-paren">(</span><em>n</em>, <em>unpack_item</em><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Unpacker.unpack_farray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpacks and returns (as a list) a fixed length array of homogeneous items.  <em>n</em>
+is number of list elements to expect in the buffer. As above, <em>unpack_item</em> is
+the function used to unpack each element.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="xdrlib.Unpacker.unpack_array">
+<code class="descclassname">Unpacker.</code><code class="descname">unpack_array</code><span class="sig-paren">(</span><em>unpack_item</em><span class="sig-paren">)</span><a class="headerlink" href="#xdrlib.Unpacker.unpack_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpacks and returns a variable length <em>list</em> of homogeneous items. First, the
+length of the list is unpacked as an unsigned integer, then each element is
+unpacked as in <a class="reference internal" href="#xdrlib.Unpacker.unpack_farray" title="xdrlib.Unpacker.unpack_farray"><code class="xref py py-meth docutils literal notranslate"><span class="pre">unpack_farray()</span></code></a> above.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="exceptions">
+<span id="xdr-exceptions"></span><h2>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
+<p>Exceptions in this module are coded as class instances:</p>
+<dl class="exception">
+<dt id="xdrlib.Error">
+<em class="property">exception </em><code class="descclassname">xdrlib.</code><code class="descname">Error</code><a class="headerlink" href="#xdrlib.Error" title="Permalink to this definition">¶</a></dt>
+<dd><p>The base exception class.  <a class="reference internal" href="#xdrlib.Error" title="xdrlib.Error"><code class="xref py py-exc docutils literal notranslate"><span class="pre">Error</span></code></a> has a single public attribute
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">msg</span></code> containing the description of the error.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="xdrlib.ConversionError">
+<em class="property">exception </em><code class="descclassname">xdrlib.</code><code class="descname">ConversionError</code><a class="headerlink" href="#xdrlib.ConversionError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class derived from <a class="reference internal" href="#xdrlib.Error" title="xdrlib.Error"><code class="xref py py-exc docutils literal notranslate"><span class="pre">Error</span></code></a>.  Contains no additional instance variables.</p>
+</dd></dl>
+
+<p>Here is an example of how you would catch one of these exceptions:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xdrlib</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">xdrlib</span><span class="o">.</span><span class="n">Packer</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">pack_double</span><span class="p">(</span><span class="mf">8.01</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">xdrlib</span><span class="o">.</span><span class="n">ConversionError</span> <span class="k">as</span> <span class="n">instance</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;packing the double failed:&#39;</span><span class="p">,</span> <span class="n">instance</span><span class="o">.</span><span class="n">msg</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">xdrlib</span></code> — Encode and decode XDR data</a><ul>
+<li><a class="reference internal" href="#packer-objects">Packer Objects</a></li>
+<li><a class="reference internal" href="#unpacker-objects">Unpacker Objects</a></li>
+<li><a class="reference internal" href="#exceptions">Exceptions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="netrc.html"
+                        title="previous chapter"><code class="docutils literal notranslate"><span class="pre">netrc</span></code> — netrc file processing</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="plistlib.html"
+                        title="next chapter"><code class="docutils literal notranslate"><span class="pre">plistlib</span></code> — Generate and parse Mac OS X <code class="docutils literal notranslate"><span class="pre">.plist</span></code> files</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/library/xdrlib.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="plistlib.html" title="plistlib — Generate and parse Mac OS X .plist files"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="netrc.html" title="netrc — netrc file processing"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="fileformats.html" >File Formats</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

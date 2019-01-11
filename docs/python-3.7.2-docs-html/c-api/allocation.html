@@ -1,0 +1,259 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Allocating Objects on the Heap &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="Common Object Structures" href="structures.html" />
+    <link rel="prev" title="Object Implementation Support" href="objimpl.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/c-api/allocation.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="structures.html" title="Common Object Structures"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="objimpl.html" title="Object Implementation Support"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Python/C API Reference Manual</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="objimpl.html" accesskey="U">Object Implementation Support</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="allocating-objects-on-the-heap">
+<span id="allocating-objects"></span><h1>Allocating Objects on the Heap<a class="headerlink" href="#allocating-objects-on-the-heap" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="c._PyObject_New">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a>* <code class="descname">_PyObject_New</code><span class="sig-paren">(</span><a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject">PyTypeObject</a><em>&nbsp;*type</em><span class="sig-paren">)</span><a class="headerlink" href="#c._PyObject_New" title="Permalink to this definition">¶</a></dt>
+<dd><em class="refcount">Return value: New reference.</em></dd></dl>
+
+<dl class="function">
+<dt id="c._PyObject_NewVar">
+<a class="reference internal" href="structures.html#c.PyVarObject" title="PyVarObject">PyVarObject</a>* <code class="descname">_PyObject_NewVar</code><span class="sig-paren">(</span><a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject">PyTypeObject</a><em>&nbsp;*type</em>, Py_ssize_t<em>&nbsp;size</em><span class="sig-paren">)</span><a class="headerlink" href="#c._PyObject_NewVar" title="Permalink to this definition">¶</a></dt>
+<dd><em class="refcount">Return value: New reference.</em></dd></dl>
+
+<dl class="function">
+<dt id="c.PyObject_Init">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a>* <code class="descname">PyObject_Init</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*op</em>, <a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject">PyTypeObject</a><em>&nbsp;*type</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyObject_Init" title="Permalink to this definition">¶</a></dt>
+<dd><em class="refcount">Return value: Borrowed reference.</em><p>Initialize a newly-allocated object <em>op</em> with its type and initial
+reference.  Returns the initialized object.  If <em>type</em> indicates that the
+object participates in the cyclic garbage detector, it is added to the
+detector’s set of observed objects. Other fields of the object are not
+affected.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyObject_InitVar">
+<a class="reference internal" href="structures.html#c.PyVarObject" title="PyVarObject">PyVarObject</a>* <code class="descname">PyObject_InitVar</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyVarObject" title="PyVarObject">PyVarObject</a><em>&nbsp;*op</em>, <a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject">PyTypeObject</a><em>&nbsp;*type</em>, Py_ssize_t<em>&nbsp;size</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyObject_InitVar" title="Permalink to this definition">¶</a></dt>
+<dd><em class="refcount">Return value: Borrowed reference.</em><p>This does everything <a class="reference internal" href="#c.PyObject_Init" title="PyObject_Init"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyObject_Init()</span></code></a> does, and also initializes the
+length information for a variable-size object.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyObject_New">
+TYPE* <code class="descname">PyObject_New</code><span class="sig-paren">(</span>TYPE, <a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject">PyTypeObject</a><em>&nbsp;*type</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyObject_New" title="Permalink to this definition">¶</a></dt>
+<dd><em class="refcount">Return value: New reference.</em><p>Allocate a new Python object using the C structure type <em>TYPE</em> and the
+Python type object <em>type</em>.  Fields not defined by the Python object header
+are not initialized; the object’s reference count will be one.  The size of
+the memory allocation is determined from the <a class="reference internal" href="typeobj.html#c.PyTypeObject.tp_basicsize" title="PyTypeObject.tp_basicsize"><code class="xref c c-member docutils literal notranslate"><span class="pre">tp_basicsize</span></code></a> field of
+the type object.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyObject_NewVar">
+TYPE* <code class="descname">PyObject_NewVar</code><span class="sig-paren">(</span>TYPE, <a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject">PyTypeObject</a><em>&nbsp;*type</em>, Py_ssize_t<em>&nbsp;size</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyObject_NewVar" title="Permalink to this definition">¶</a></dt>
+<dd><em class="refcount">Return value: New reference.</em><p>Allocate a new Python object using the C structure type <em>TYPE</em> and the
+Python type object <em>type</em>.  Fields not defined by the Python object header
+are not initialized.  The allocated memory allows for the <em>TYPE</em> structure
+plus <em>size</em> fields of the size given by the <a class="reference internal" href="typeobj.html#c.PyTypeObject.tp_itemsize" title="PyTypeObject.tp_itemsize"><code class="xref c c-member docutils literal notranslate"><span class="pre">tp_itemsize</span></code></a> field of
+<em>type</em>.  This is useful for implementing objects like tuples, which are
+able to determine their size at construction time.  Embedding the array of
+fields into the same allocation decreases the number of allocations,
+improving the memory management efficiency.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyObject_Del">
+void <code class="descname">PyObject_Del</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*op</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyObject_Del" title="Permalink to this definition">¶</a></dt>
+<dd><p>Releases memory allocated to an object using <a class="reference internal" href="#c.PyObject_New" title="PyObject_New"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyObject_New()</span></code></a> or
+<a class="reference internal" href="#c.PyObject_NewVar" title="PyObject_NewVar"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyObject_NewVar()</span></code></a>.  This is normally called from the
+<a class="reference internal" href="typeobj.html#c.PyTypeObject.tp_dealloc" title="PyTypeObject.tp_dealloc"><code class="xref c c-member docutils literal notranslate"><span class="pre">tp_dealloc</span></code></a> handler specified in the object’s type.  The fields of
+the object should not be accessed after this call as the memory is no
+longer a valid Python object.</p>
+</dd></dl>
+
+<dl class="var">
+<dt id="c._Py_NoneStruct">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> <code class="descname">_Py_NoneStruct</code><a class="headerlink" href="#c._Py_NoneStruct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object which is visible in Python as <code class="docutils literal notranslate"><span class="pre">None</span></code>.  This should only be accessed
+using the <a class="reference internal" href="none.html#c.Py_None" title="Py_None"><code class="xref c c-macro docutils literal notranslate"><span class="pre">Py_None</span></code></a> macro, which evaluates to a pointer to this
+object.</p>
+</dd></dl>
+
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="module.html#c.PyModule_Create" title="PyModule_Create"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyModule_Create()</span></code></a></dt>
+<dd>To allocate and create extension modules.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="objimpl.html"
+                        title="previous chapter">Object Implementation Support</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="structures.html"
+                        title="next chapter">Common Object Structures</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/c-api/allocation.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="structures.html" title="Common Object Structures"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="objimpl.html" title="Object Implementation Support"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Python/C API Reference Manual</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="objimpl.html" >Object Implementation Support</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,229 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Other Graphical User Interface Packages &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="Development Tools" href="development.html" />
+    <link rel="prev" title="IDLE" href="idle.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/library/othergui.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="development.html" title="Development Tools"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="idle.html" title="IDLE"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="tk.html" accesskey="U">Graphical User Interfaces with Tk</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="other-graphical-user-interface-packages">
+<span id="other-gui-packages"></span><h1>Other Graphical User Interface Packages<a class="headerlink" href="#other-graphical-user-interface-packages" title="Permalink to this headline">¶</a></h1>
+<p>Major cross-platform (Windows, Mac OS X, Unix-like) GUI toolkits are
+available for Python:</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference external" href="https://wiki.gnome.org/Projects/PyGObject">PyGObject</a></dt>
+<dd>PyGObject provides introspection bindings for C libraries using
+<a class="reference external" href="https://developer.gnome.org/gobject/stable/">GObject</a>.  One of
+these libraries is the <a class="reference external" href="https://www.gtk.org/">GTK+ 3</a> widget set.
+GTK+ comes with many more widgets than Tkinter provides.  An online
+<a class="reference external" href="https://python-gtk-3-tutorial.readthedocs.io/">Python GTK+ 3 Tutorial</a>
+is available.</dd>
+<dt><a class="reference external" href="http://www.pygtk.org/">PyGTK</a></dt>
+<dd>PyGTK provides bindings for an older version
+of the library, GTK+ 2.  It provides an object oriented interface that
+is slightly higher level than the C one.  There are also bindings to
+<a class="reference external" href="https://www.gnome.org/">GNOME</a>.  An online <a class="reference external" href="http://www.pygtk.org/pygtk2tutorial/index.html">tutorial</a> is available.</dd>
+<dt><a class="reference external" href="https://riverbankcomputing.com/software/pyqt/intro">PyQt</a></dt>
+<dd>PyQt is a <strong class="program">sip</strong>-wrapped binding to the Qt toolkit.  Qt is an
+extensive C++ GUI application development framework that is
+available for Unix, Windows and Mac OS X. <strong class="program">sip</strong> is a tool
+for generating bindings for C++ libraries as Python classes, and
+is specifically designed for Python.</dd>
+<dt><a class="reference external" href="https://wiki.qt.io/PySide">PySide</a></dt>
+<dd>PySide is a newer binding to the Qt toolkit, provided by Nokia.
+Compared to PyQt, its licensing scheme is friendlier to non-open source
+applications.</dd>
+<dt><a class="reference external" href="https://www.wxpython.org">wxPython</a></dt>
+<dd>wxPython is a cross-platform GUI toolkit for Python that is built around
+the popular <a class="reference external" href="https://www.wxwidgets.org/">wxWidgets</a> (formerly wxWindows)
+C++ toolkit.  It provides a native look and feel for applications on
+Windows, Mac OS X, and Unix systems by using each platform’s native
+widgets where ever possible, (GTK+ on Unix-like systems).  In addition to
+an extensive set of widgets, wxPython provides classes for online
+documentation and context sensitive help, printing, HTML viewing,
+low-level device context drawing, drag and drop, system clipboard access,
+an XML-based resource format and more, including an ever growing library
+of user-contributed modules.</dd>
+</dl>
+</div>
+<p>PyGTK, PyQt, and wxPython, all have a modern look and feel and more
+widgets than Tkinter. In addition, there are many other GUI toolkits for
+Python, both cross-platform, and platform-specific. See the <a class="reference external" href="https://wiki.python.org/moin/GuiProgramming">GUI Programming</a> page in the Python Wiki for a
+much more complete list, and also for links to documents where the
+different GUI toolkits are compared.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="idle.html"
+                        title="previous chapter">IDLE</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="development.html"
+                        title="next chapter">Development Tools</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/library/othergui.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="development.html" title="Development Tools"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="idle.html" title="IDLE"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="tk.html" >Graphical User Interfaces with Tk</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

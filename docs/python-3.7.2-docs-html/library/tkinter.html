@@ -1,0 +1,1009 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>tkinter — Python interface to Tcl/Tk &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="tkinter.ttk — Tk themed widgets" href="tkinter.ttk.html" />
+    <link rel="prev" title="Graphical User Interfaces with Tk" href="tk.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/library/tkinter.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tkinter.ttk.html" title="tkinter.ttk — Tk themed widgets"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tk.html" title="Graphical User Interfaces with Tk"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="tk.html" accesskey="U">Graphical User Interfaces with Tk</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-tkinter">
+<span id="tkinter-python-interface-to-tcl-tk"></span><h1><a class="reference internal" href="#module-tkinter" title="tkinter: Interface to Tcl/Tk for graphical user interfaces"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter</span></code></a> — Python interface to Tcl/Tk<a class="headerlink" href="#module-tkinter" title="Permalink to this headline">¶</a></h1>
+<p><strong>Source code:</strong> <a class="reference external" href="https://github.com/python/cpython/tree/3.7/Lib/tkinter/__init__.py">Lib/tkinter/__init__.py</a></p>
+<hr class="docutils" />
+<p>The <a class="reference internal" href="#module-tkinter" title="tkinter: Interface to Tcl/Tk for graphical user interfaces"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter</span></code></a> package (“Tk interface”) is the standard Python interface to
+the Tk GUI toolkit.  Both Tk and <a class="reference internal" href="#module-tkinter" title="tkinter: Interface to Tcl/Tk for graphical user interfaces"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter</span></code></a> are available on most Unix
+platforms, as well as on Windows systems.  (Tk itself is not part of Python; it
+is maintained at ActiveState.)</p>
+<p>Running <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">tkinter</span></code> from the command line should open a window
+demonstrating a simple Tk interface, letting you know that <a class="reference internal" href="#module-tkinter" title="tkinter: Interface to Tcl/Tk for graphical user interfaces"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter</span></code></a> is
+properly installed on your system, and also showing what version of Tcl/Tk is
+installed, so you can read the Tcl/Tk documentation specific to that version.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p>Tkinter documentation:</p>
+<dl class="docutils">
+<dt><a class="reference external" href="https://wiki.python.org/moin/TkInter">Python Tkinter Resources</a></dt>
+<dd>The Python Tkinter Topic Guide provides a great deal of information on using Tk
+from Python and links to other sources of information on Tk.</dd>
+<dt><a class="reference external" href="http://www.tkdocs.com/">TKDocs</a></dt>
+<dd>Extensive tutorial plus friendlier widget pages for some of the widgets.</dd>
+<dt><a class="reference external" href="https://infohost.nmt.edu/tcc/help/pubs/tkinter/web/index.html">Tkinter reference: a GUI for Python</a></dt>
+<dd>On-line reference material.</dd>
+<dt><a class="reference external" href="http://effbot.org/tkinterbook/">Tkinter docs from effbot</a></dt>
+<dd>Online reference for tkinter supported by effbot.org.</dd>
+<dt><a class="reference external" href="http://learning-python.com/about-pp4e.html">Programming Python</a></dt>
+<dd>Book by Mark Lutz, has excellent coverage of Tkinter.</dd>
+<dt><a class="reference external" href="https://www.amazon.com/Modern-Tkinter-Python-Developers-ebook/dp/B0071QDNLO/">Modern Tkinter for Busy Python Developers</a></dt>
+<dd>Book by Mark Rozerman about building attractive and modern graphical user interfaces with Python and Tkinter.</dd>
+<dt><a class="reference external" href="https://www.manning.com/books/python-and-tkinter-programming">Python and Tkinter Programming</a></dt>
+<dd>Book by John Grayson (ISBN 1-884777-81-3).</dd>
+</dl>
+<p>Tcl/Tk documentation:</p>
+<dl class="last docutils">
+<dt><a class="reference external" href="https://www.tcl.tk/man/tcl8.6/TkCmd/contents.htm">Tk commands</a></dt>
+<dd>Most commands are available as <a class="reference internal" href="#module-tkinter" title="tkinter: Interface to Tcl/Tk for graphical user interfaces"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter</span></code></a> or <a class="reference internal" href="tkinter.ttk.html#module-tkinter.ttk" title="tkinter.ttk: Tk themed widget set"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.ttk</span></code></a> classes.
+Change ‘8.6’ to match the version of your Tcl/Tk installation.</dd>
+<dt><a class="reference external" href="https://www.tcl.tk/doc/">Tcl/Tk recent man pages</a></dt>
+<dd>Recent Tcl/Tk manuals on www.tcl.tk.</dd>
+<dt><a class="reference external" href="http://tcl.activestate.com/">ActiveState Tcl Home Page</a></dt>
+<dd>The Tk/Tcl development is largely taking place at ActiveState.</dd>
+<dt><a class="reference external" href="https://www.amazon.com/exec/obidos/ASIN/020163337X">Tcl and the Tk Toolkit</a></dt>
+<dd>Book by John Ousterhout, the inventor of Tcl.</dd>
+<dt><a class="reference external" href="http://www.beedub.com/book/">Practical Programming in Tcl and Tk</a></dt>
+<dd>Brent Welch’s encyclopedic book.</dd>
+</dl>
+</div>
+<div class="section" id="tkinter-modules">
+<h2>Tkinter Modules<a class="headerlink" href="#tkinter-modules" title="Permalink to this headline">¶</a></h2>
+<p>Most of the time, <a class="reference internal" href="#module-tkinter" title="tkinter: Interface to Tcl/Tk for graphical user interfaces"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter</span></code></a> is all you really need, but a number of
+additional modules are available as well.  The Tk interface is located in a
+binary module named <code class="xref py py-mod docutils literal notranslate"><span class="pre">_tkinter</span></code>. This module contains the low-level
+interface to Tk, and should never be used directly by application programmers.
+It is usually a shared library (or DLL), but might in some cases be statically
+linked with the Python interpreter.</p>
+<p>In addition to the Tk interface module, <a class="reference internal" href="#module-tkinter" title="tkinter: Interface to Tcl/Tk for graphical user interfaces"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter</span></code></a> includes a number of
+Python modules, <code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.constants</span></code> being one of the most important.
+Importing <a class="reference internal" href="#module-tkinter" title="tkinter: Interface to Tcl/Tk for graphical user interfaces"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter</span></code></a> will automatically import <code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.constants</span></code>,
+so, usually, to use Tkinter all you need is a simple import statement:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tkinter</span>
+</pre></div>
+</div>
+<p>Or, more often:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tkinter</span> <span class="k">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<dl class="class">
+<dt id="tkinter.Tk">
+<em class="property">class </em><code class="descclassname">tkinter.</code><code class="descname">Tk</code><span class="sig-paren">(</span><em>screenName=None</em>, <em>baseName=None</em>, <em>className='Tk'</em>, <em>useTk=1</em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.Tk" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <a class="reference internal" href="#tkinter.Tk" title="tkinter.Tk"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tk</span></code></a> class is instantiated without arguments. This creates a toplevel
+widget of Tk which usually is the main window of an application. Each instance
+has its own associated Tcl interpreter.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tkinter.Tcl">
+<code class="descclassname">tkinter.</code><code class="descname">Tcl</code><span class="sig-paren">(</span><em>screenName=None</em>, <em>baseName=None</em>, <em>className='Tk'</em>, <em>useTk=0</em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.Tcl" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <a class="reference internal" href="#tkinter.Tcl" title="tkinter.Tcl"><code class="xref py py-func docutils literal notranslate"><span class="pre">Tcl()</span></code></a> function is a factory function which creates an object much like
+that created by the <a class="reference internal" href="#tkinter.Tk" title="tkinter.Tk"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tk</span></code></a> class, except that it does not initialize the Tk
+subsystem.  This is most often useful when driving the Tcl interpreter in an
+environment where one doesn’t want to create extraneous toplevel windows, or
+where one cannot (such as Unix/Linux systems without an X server).  An object
+created by the <a class="reference internal" href="#tkinter.Tcl" title="tkinter.Tcl"><code class="xref py py-func docutils literal notranslate"><span class="pre">Tcl()</span></code></a> object can have a Toplevel window created (and the Tk
+subsystem initialized) by calling its <code class="xref py py-meth docutils literal notranslate"><span class="pre">loadtk()</span></code> method.</p>
+</dd></dl>
+
+<p>Other modules that provide Tk support include:</p>
+<dl class="docutils">
+<dt><a class="reference internal" href="tkinter.scrolledtext.html#module-tkinter.scrolledtext" title="tkinter.scrolledtext: Text widget with a vertical scroll bar. (Tk)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.scrolledtext</span></code></a></dt>
+<dd>Text widget with a vertical scroll bar built in.</dd>
+<dt><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.colorchooser</span></code></dt>
+<dd>Dialog to let the user choose a color.</dd>
+<dt><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.commondialog</span></code></dt>
+<dd>Base class for the dialogs defined in the other modules listed here.</dd>
+<dt><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.filedialog</span></code></dt>
+<dd>Common dialogs to allow the user to specify a file to open or save.</dd>
+<dt><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.font</span></code></dt>
+<dd>Utilities to help work with fonts.</dd>
+<dt><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.messagebox</span></code></dt>
+<dd>Access to standard Tk dialog boxes.</dd>
+<dt><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.simpledialog</span></code></dt>
+<dd>Basic dialogs and convenience functions.</dd>
+<dt><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.dnd</span></code></dt>
+<dd>Drag-and-drop support for <a class="reference internal" href="#module-tkinter" title="tkinter: Interface to Tcl/Tk for graphical user interfaces"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter</span></code></a>. This is experimental and should
+become deprecated when it is replaced  with the Tk DND.</dd>
+<dt><a class="reference internal" href="turtle.html#module-turtle" title="turtle: An educational framework for simple graphics applications"><code class="xref py py-mod docutils literal notranslate"><span class="pre">turtle</span></code></a></dt>
+<dd>Turtle graphics in a Tk window.</dd>
+</dl>
+</div>
+<div class="section" id="tkinter-life-preserver">
+<h2>Tkinter Life Preserver<a class="headerlink" href="#tkinter-life-preserver" title="Permalink to this headline">¶</a></h2>
+<p>This section is not designed to be an exhaustive tutorial on either Tk or
+Tkinter.  Rather, it is intended as a stop gap, providing some introductory
+orientation on the system.</p>
+<p>Credits:</p>
+<ul class="simple">
+<li>Tk was written by John Ousterhout while at Berkeley.</li>
+<li>Tkinter was written by Steen Lumholt and Guido van Rossum.</li>
+<li>This Life Preserver was written by Matt Conway at the University of Virginia.</li>
+<li>The HTML rendering, and some liberal editing, was produced from a FrameMaker
+version by Ken Manheimer.</li>
+<li>Fredrik Lundh elaborated and revised the class interface descriptions, to get
+them current with Tk 4.2.</li>
+<li>Mike Clarkson converted the documentation to LaTeX, and compiled the  User
+Interface chapter of the reference manual.</li>
+</ul>
+<div class="section" id="how-to-use-this-section">
+<h3>How To Use This Section<a class="headerlink" href="#how-to-use-this-section" title="Permalink to this headline">¶</a></h3>
+<p>This section is designed in two parts: the first half (roughly) covers
+background material, while the second half can be taken to the keyboard as a
+handy reference.</p>
+<p>When trying to answer questions of the form “how do I do blah”, it is often best
+to find out how to do “blah” in straight Tk, and then convert this back into the
+corresponding <a class="reference internal" href="#module-tkinter" title="tkinter: Interface to Tcl/Tk for graphical user interfaces"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter</span></code></a> call. Python programmers can often guess at the
+correct Python command by looking at the Tk documentation. This means that in
+order to use Tkinter, you will have to know a little bit about Tk. This document
+can’t fulfill that role, so the best we can do is point you to the best
+documentation that exists. Here are some hints:</p>
+<ul class="simple">
+<li>The authors strongly suggest getting a copy of the Tk man pages.
+Specifically, the man pages in the <code class="docutils literal notranslate"><span class="pre">manN</span></code> directory are most useful.
+The <code class="docutils literal notranslate"><span class="pre">man3</span></code> man pages describe the C interface to the Tk library and thus
+are not especially helpful for script writers.</li>
+<li>Addison-Wesley publishes a book called Tcl and the Tk Toolkit by John
+Ousterhout (ISBN 0-201-63337-X) which is a good introduction to Tcl and Tk for
+the novice.  The book is not exhaustive, and for many details it defers to the
+man pages.</li>
+<li><code class="file docutils literal notranslate"><span class="pre">tkinter/__init__.py</span></code> is a last resort for most, but can be a good
+place to go when nothing else makes sense.</li>
+</ul>
+</div>
+<div class="section" id="a-simple-hello-world-program">
+<h3>A Simple Hello World Program<a class="headerlink" href="#a-simple-hello-world-program" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
+
+<span class="k">class</span> <span class="nc">Application</span><span class="p">(</span><span class="n">tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">master</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">master</span> <span class="o">=</span> <span class="n">master</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_widgets</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">create_widgets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hi_there</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hi_there</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Hello World</span><span class="se">\n</span><span class="s2">(click me)&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hi_there</span><span class="p">[</span><span class="s2">&quot;command&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">say_hi</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hi_there</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s2">&quot;top&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">quit</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;QUIT&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+                              <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">destroy</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quit</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">say_hi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hi there, everyone!&quot;</span><span class="p">)</span>
+
+<span class="n">root</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Application</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">root</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="a-very-quick-look-at-tcl-tk">
+<h2>A (Very) Quick Look at Tcl/Tk<a class="headerlink" href="#a-very-quick-look-at-tcl-tk" title="Permalink to this headline">¶</a></h2>
+<p>The class hierarchy looks complicated, but in actual practice, application
+programmers almost always refer to the classes at the very bottom of the
+hierarchy.</p>
+<p>Notes:</p>
+<ul class="simple">
+<li>These classes are provided for the purposes of organizing certain functions
+under one namespace. They aren’t meant to be instantiated independently.</li>
+<li>The <a class="reference internal" href="#tkinter.Tk" title="tkinter.Tk"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tk</span></code></a> class is meant to be instantiated only once in an application.
+Application programmers need not instantiate one explicitly, the system creates
+one whenever any of the other classes are instantiated.</li>
+<li>The <code class="xref py py-class docutils literal notranslate"><span class="pre">Widget</span></code> class is not meant to be instantiated, it is meant only
+for subclassing to make “real” widgets (in C++, this is called an ‘abstract
+class’).</li>
+</ul>
+<p>To make use of this reference material, there will be times when you will need
+to know how to read short passages of Tk and how to identify the various parts
+of a Tk command.   (See section <a class="reference internal" href="#tkinter-basic-mapping"><span class="std std-ref">Mapping Basic Tk into Tkinter</span></a> for the
+<a class="reference internal" href="#module-tkinter" title="tkinter: Interface to Tcl/Tk for graphical user interfaces"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter</span></code></a> equivalents of what’s below.)</p>
+<p>Tk scripts are Tcl programs.  Like all Tcl programs, Tk scripts are just lists
+of tokens separated by spaces.  A Tk widget is just its <em>class</em>, the <em>options</em>
+that help configure it, and the <em>actions</em> that make it do useful things.</p>
+<p>To make a widget in Tk, the command is always of the form:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">classCommand</span> <span class="n">newPathname</span> <span class="n">options</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt><em>classCommand</em></dt>
+<dd>denotes which kind of widget to make (a button, a label, a menu…)</dd>
+</dl>
+<dl class="docutils" id="index-0">
+<dt><em>newPathname</em></dt>
+<dd>is the new name for this widget.  All names in Tk must be unique.  To help
+enforce this, widgets in Tk are named with <em>pathnames</em>, just like files in a
+file system.  The top level widget, the <em>root</em>, is called <code class="docutils literal notranslate"><span class="pre">.</span></code> (period) and
+children are delimited by more periods.  For example,
+<code class="docutils literal notranslate"><span class="pre">.myApp.controlPanel.okButton</span></code> might be the name of a widget.</dd>
+<dt><em>options</em></dt>
+<dd>configure the widget’s appearance and in some cases, its behavior.  The options
+come in the form of a list of flags and values. Flags are preceded by a ‘-‘,
+like Unix shell command flags, and values are put in quotes if they are more
+than one word.</dd>
+</dl>
+<p>For example:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">button</span>   <span class="o">.</span><span class="n">fred</span>   <span class="o">-</span><span class="n">fg</span> <span class="n">red</span> <span class="o">-</span><span class="n">text</span> <span class="s2">&quot;hi there&quot;</span>
+   <span class="o">^</span>       <span class="o">^</span>     \<span class="n">______________________</span><span class="o">/</span>
+   <span class="o">|</span>       <span class="o">|</span>                <span class="o">|</span>
+ <span class="k">class</span>    <span class="nc">new</span>            <span class="n">options</span>
+<span class="n">command</span>  <span class="n">widget</span>  <span class="p">(</span><span class="o">-</span><span class="n">opt</span> <span class="n">val</span> <span class="o">-</span><span class="n">opt</span> <span class="n">val</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Once created, the pathname to the widget becomes a new command.  This new
+<em>widget command</em> is the programmer’s handle for getting the new widget to
+perform some <em>action</em>.  In C, you’d express this as someAction(fred,
+someOptions), in C++, you would express this as fred.someAction(someOptions),
+and in Tk, you say:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="o">.</span><span class="n">fred</span> <span class="n">someAction</span> <span class="n">someOptions</span>
+</pre></div>
+</div>
+<p>Note that the object name, <code class="docutils literal notranslate"><span class="pre">.fred</span></code>, starts with a dot.</p>
+<p>As you’d expect, the legal values for <em>someAction</em> will depend on the widget’s
+class: <code class="docutils literal notranslate"><span class="pre">.fred</span> <span class="pre">disable</span></code> works if fred is a button (fred gets greyed out), but
+does not work if fred is a label (disabling of labels is not supported in Tk).</p>
+<p>The legal values of <em>someOptions</em> is action dependent.  Some actions, like
+<code class="docutils literal notranslate"><span class="pre">disable</span></code>, require no arguments, others, like a text-entry box’s <code class="docutils literal notranslate"><span class="pre">delete</span></code>
+command, would need arguments to specify what range of text to delete.</p>
+</div>
+<div class="section" id="mapping-basic-tk-into-tkinter">
+<span id="tkinter-basic-mapping"></span><h2>Mapping Basic Tk into Tkinter<a class="headerlink" href="#mapping-basic-tk-into-tkinter" title="Permalink to this headline">¶</a></h2>
+<p>Class commands in Tk correspond to class constructors in Tkinter.</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">button</span> <span class="o">.</span><span class="n">fred</span>                <span class="o">=====&gt;</span>  <span class="n">fred</span> <span class="o">=</span> <span class="n">Button</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The master of an object is implicit in the new name given to it at creation
+time.  In Tkinter, masters are specified explicitly.</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">button</span> <span class="o">.</span><span class="n">panel</span><span class="o">.</span><span class="n">fred</span>          <span class="o">=====&gt;</span>  <span class="n">fred</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">panel</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The configuration options in Tk are given in lists of hyphened tags followed by
+values.  In Tkinter, options are specified as keyword-arguments in the instance
+constructor, and keyword-args for configure calls or as instance indices, in
+dictionary style, for established instances.  See section
+<a class="reference internal" href="#tkinter-setting-options"><span class="std std-ref">Setting Options</span></a> on setting options.</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">button</span> <span class="o">.</span><span class="n">fred</span> <span class="o">-</span><span class="n">fg</span> <span class="n">red</span>        <span class="o">=====&gt;</span>  <span class="n">fred</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="o">.</span><span class="n">fred</span> <span class="n">configure</span> <span class="o">-</span><span class="n">fg</span> <span class="n">red</span>     <span class="o">=====&gt;</span>  <span class="n">fred</span><span class="p">[</span><span class="s2">&quot;fg&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">red</span>
+                            <span class="n">OR</span> <span class="o">==&gt;</span>  <span class="n">fred</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">fg</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In Tk, to perform an action on a widget, use the widget name as a command, and
+follow it with an action name, possibly with arguments (options).  In Tkinter,
+you call methods on the class instance to invoke actions on the widget.  The
+actions (methods) that a given widget can perform are listed in
+<code class="file docutils literal notranslate"><span class="pre">tkinter/__init__.py</span></code>.</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="o">.</span><span class="n">fred</span> <span class="n">invoke</span>                <span class="o">=====&gt;</span>  <span class="n">fred</span><span class="o">.</span><span class="n">invoke</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To give a widget to the packer (geometry manager), you call pack with optional
+arguments.  In Tkinter, the Pack class holds all this functionality, and the
+various forms of the pack command are implemented as methods.  All widgets in
+<a class="reference internal" href="#module-tkinter" title="tkinter: Interface to Tcl/Tk for graphical user interfaces"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter</span></code></a> are subclassed from the Packer, and so inherit all the packing
+methods. See the <a class="reference internal" href="tkinter.tix.html#module-tkinter.tix" title="tkinter.tix: Tk Extension Widgets for Tkinter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.tix</span></code></a> module documentation for additional
+information on the Form geometry manager.</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">pack</span> <span class="o">.</span><span class="n">fred</span> <span class="o">-</span><span class="n">side</span> <span class="n">left</span>       <span class="o">=====&gt;</span>  <span class="n">fred</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="how-tk-and-tkinter-are-related">
+<h2>How Tk and Tkinter are Related<a class="headerlink" href="#how-tk-and-tkinter-are-related" title="Permalink to this headline">¶</a></h2>
+<p>From the top down:</p>
+<dl class="docutils">
+<dt>Your App Here (Python)</dt>
+<dd>A Python application makes a <a class="reference internal" href="#module-tkinter" title="tkinter: Interface to Tcl/Tk for graphical user interfaces"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter</span></code></a> call.</dd>
+<dt>tkinter (Python Package)</dt>
+<dd>This call (say, for example, creating a button widget), is implemented in
+the <a class="reference internal" href="#module-tkinter" title="tkinter: Interface to Tcl/Tk for graphical user interfaces"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter</span></code></a> package, which is written in Python.  This Python
+function will parse the commands and the arguments and convert them into a
+form that makes them look as if they had come from a Tk script instead of
+a Python script.</dd>
+<dt>_tkinter (C)</dt>
+<dd>These commands and their arguments will be passed to a C function in the
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">_tkinter</span></code> - note the underscore - extension module.</dd>
+<dt>Tk Widgets (C and Tcl)</dt>
+<dd>This C function is able to make calls into other C modules, including the C
+functions that make up the Tk library.  Tk is implemented in C and some Tcl.
+The Tcl part of the Tk widgets is used to bind certain default behaviors to
+widgets, and is executed once at the point where the Python <a class="reference internal" href="#module-tkinter" title="tkinter: Interface to Tcl/Tk for graphical user interfaces"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter</span></code></a>
+package is imported. (The user never sees this stage).</dd>
+<dt>Tk (C)</dt>
+<dd>The Tk part of the Tk Widgets implement the final mapping to …</dd>
+<dt>Xlib (C)</dt>
+<dd>the Xlib library to draw graphics on the screen.</dd>
+</dl>
+</div>
+<div class="section" id="handy-reference">
+<h2>Handy Reference<a class="headerlink" href="#handy-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="setting-options">
+<span id="tkinter-setting-options"></span><h3>Setting Options<a class="headerlink" href="#setting-options" title="Permalink to this headline">¶</a></h3>
+<p>Options control things like the color and border width of a widget. Options can
+be set in three ways:</p>
+<dl class="docutils">
+<dt>At object creation time, using keyword arguments</dt>
+<dd><div class="first last highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">fred</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt>After object creation, treating the option name like a dictionary index</dt>
+<dd><div class="first last highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">fred</span><span class="p">[</span><span class="s2">&quot;fg&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span>
+<span class="n">fred</span><span class="p">[</span><span class="s2">&quot;bg&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;blue&quot;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Use the config() method to update multiple attrs subsequent to object creation</dt>
+<dd><div class="first last highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">fred</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">fg</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>For a complete explanation of a given option and its behavior, see the Tk man
+pages for the widget in question.</p>
+<p>Note that the man pages list “STANDARD OPTIONS” and “WIDGET SPECIFIC OPTIONS”
+for each widget.  The former is a list of options that are common to many
+widgets, the latter are the options that are idiosyncratic to that particular
+widget.  The Standard Options are documented on the <em class="manpage">options(3)</em> man
+page.</p>
+<p>No distinction between standard and widget-specific options is made in this
+document.  Some options don’t apply to some kinds of widgets. Whether a given
+widget responds to a particular option depends on the class of the widget;
+buttons have a <code class="docutils literal notranslate"><span class="pre">command</span></code> option, labels do not.</p>
+<p>The options supported by a given widget are listed in that widget’s man page, or
+can be queried at runtime by calling the <code class="xref py py-meth docutils literal notranslate"><span class="pre">config()</span></code> method without
+arguments, or by calling the <code class="xref py py-meth docutils literal notranslate"><span class="pre">keys()</span></code> method on that widget.  The return
+value of these calls is a dictionary whose key is the name of the option as a
+string (for example, <code class="docutils literal notranslate"><span class="pre">'relief'</span></code>) and whose values are 5-tuples.</p>
+<p>Some options, like <code class="docutils literal notranslate"><span class="pre">bg</span></code> are synonyms for common options with long names
+(<code class="docutils literal notranslate"><span class="pre">bg</span></code> is shorthand for “background”). Passing the <code class="docutils literal notranslate"><span class="pre">config()</span></code> method the name
+of a shorthand option will return a 2-tuple, not 5-tuple. The 2-tuple passed
+back will contain the name of the synonym and the “real” option (such as
+<code class="docutils literal notranslate"><span class="pre">('bg',</span> <span class="pre">'background')</span></code>).</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="61%" />
+<col width="26%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Index</th>
+<th class="head">Meaning</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>0</td>
+<td>option name</td>
+<td><code class="docutils literal notranslate"><span class="pre">'relief'</span></code></td>
+</tr>
+<tr class="row-odd"><td>1</td>
+<td>option name for database lookup</td>
+<td><code class="docutils literal notranslate"><span class="pre">'relief'</span></code></td>
+</tr>
+<tr class="row-even"><td>2</td>
+<td>option class for database
+lookup</td>
+<td><code class="docutils literal notranslate"><span class="pre">'Relief'</span></code></td>
+</tr>
+<tr class="row-odd"><td>3</td>
+<td>default value</td>
+<td><code class="docutils literal notranslate"><span class="pre">'raised'</span></code></td>
+</tr>
+<tr class="row-even"><td>4</td>
+<td>current value</td>
+<td><code class="docutils literal notranslate"><span class="pre">'groove'</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">fred</span><span class="o">.</span><span class="n">config</span><span class="p">())</span>
+<span class="go">{&#39;relief&#39;: (&#39;relief&#39;, &#39;relief&#39;, &#39;Relief&#39;, &#39;raised&#39;, &#39;groove&#39;)}</span>
+</pre></div>
+</div>
+<p>Of course, the dictionary printed will include all the options available and
+their values.  This is meant only as an example.</p>
+</div>
+<div class="section" id="the-packer">
+<h3>The Packer<a class="headerlink" href="#the-packer" title="Permalink to this headline">¶</a></h3>
+<p id="index-1">The packer is one of Tk’s geometry-management mechanisms.    Geometry managers
+are used to specify the relative positioning of the positioning of widgets
+within their container - their mutual <em>master</em>.  In contrast to the more
+cumbersome <em>placer</em> (which is used less commonly, and we do not cover here), the
+packer takes qualitative relationship specification - <em>above</em>, <em>to the left of</em>,
+<em>filling</em>, etc - and works everything out to determine the exact placement
+coordinates for you.</p>
+<p>The size of any <em>master</em> widget is determined by the size of the “slave widgets”
+inside.  The packer is used to control where slave widgets appear inside the
+master into which they are packed.  You can pack widgets into frames, and frames
+into other frames, in order to achieve the kind of layout you desire.
+Additionally, the arrangement is dynamically adjusted to accommodate incremental
+changes to the configuration, once it is packed.</p>
+<p>Note that widgets do not appear until they have had their geometry specified
+with a geometry manager.  It’s a common early mistake to leave out the geometry
+specification, and then be surprised when the widget is created but nothing
+appears.  A widget will appear only after it has had, for example, the packer’s
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">pack()</span></code> method applied to it.</p>
+<p>The pack() method can be called with keyword-option/value pairs that control
+where the widget is to appear within its container, and how it is to behave when
+the main application window is resized.  Here are some examples:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">fred</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>                     <span class="c1"># defaults to side = &quot;top&quot;</span>
+<span class="n">fred</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+<span class="n">fred</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">expand</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="packer-options">
+<h3>Packer Options<a class="headerlink" href="#packer-options" title="Permalink to this headline">¶</a></h3>
+<p>For more extensive information on the packer and the options that it can take,
+see the man pages and page 183 of John Ousterhout’s book.</p>
+<dl class="docutils">
+<dt>anchor</dt>
+<dd>Anchor type.  Denotes where the packer is to place each slave in its parcel.</dd>
+<dt>expand</dt>
+<dd>Boolean, <code class="docutils literal notranslate"><span class="pre">0</span></code> or <code class="docutils literal notranslate"><span class="pre">1</span></code>.</dd>
+<dt>fill</dt>
+<dd>Legal values: <code class="docutils literal notranslate"><span class="pre">'x'</span></code>, <code class="docutils literal notranslate"><span class="pre">'y'</span></code>, <code class="docutils literal notranslate"><span class="pre">'both'</span></code>, <code class="docutils literal notranslate"><span class="pre">'none'</span></code>.</dd>
+<dt>ipadx and ipady</dt>
+<dd>A distance - designating internal padding on each side of the slave widget.</dd>
+<dt>padx and pady</dt>
+<dd>A distance - designating external padding on each side of the slave widget.</dd>
+<dt>side</dt>
+<dd>Legal values are: <code class="docutils literal notranslate"><span class="pre">'left'</span></code>, <code class="docutils literal notranslate"><span class="pre">'right'</span></code>, <code class="docutils literal notranslate"><span class="pre">'top'</span></code>, <code class="docutils literal notranslate"><span class="pre">'bottom'</span></code>.</dd>
+</dl>
+</div>
+<div class="section" id="coupling-widget-variables">
+<h3>Coupling Widget Variables<a class="headerlink" href="#coupling-widget-variables" title="Permalink to this headline">¶</a></h3>
+<p>The current-value setting of some widgets (like text entry widgets) can be
+connected directly to application variables by using special options.  These
+options are <code class="docutils literal notranslate"><span class="pre">variable</span></code>, <code class="docutils literal notranslate"><span class="pre">textvariable</span></code>, <code class="docutils literal notranslate"><span class="pre">onvalue</span></code>, <code class="docutils literal notranslate"><span class="pre">offvalue</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">value</span></code>.  This connection works both ways: if the variable changes for any
+reason, the widget it’s connected to will be updated to reflect the new value.</p>
+<p>Unfortunately, in the current implementation of <a class="reference internal" href="#module-tkinter" title="tkinter: Interface to Tcl/Tk for graphical user interfaces"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter</span></code></a> it is not
+possible to hand over an arbitrary Python variable to a widget through a
+<code class="docutils literal notranslate"><span class="pre">variable</span></code> or <code class="docutils literal notranslate"><span class="pre">textvariable</span></code> option.  The only kinds of variables for which
+this works are variables that are subclassed from a class called Variable,
+defined in <a class="reference internal" href="#module-tkinter" title="tkinter: Interface to Tcl/Tk for graphical user interfaces"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter</span></code></a>.</p>
+<p>There are many useful subclasses of Variable already defined:
+<code class="xref py py-class docutils literal notranslate"><span class="pre">StringVar</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">IntVar</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">DoubleVar</span></code>, and
+<code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanVar</span></code>.  To read the current value of such a variable, call the
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">get()</span></code> method on it, and to change its value you call the <code class="xref py py-meth docutils literal notranslate"><span class="pre">set()</span></code>
+method.  If you follow this protocol, the widget will always track the value of
+the variable, with no further intervention on your part.</p>
+<p>For example:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">App</span><span class="p">(</span><span class="n">Frame</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">master</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">entrythingy</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entrythingy</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+        <span class="c1"># here is the application variable</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">contents</span> <span class="o">=</span> <span class="n">StringVar</span><span class="p">()</span>
+        <span class="c1"># set it to some value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">contents</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;this is a variable&quot;</span><span class="p">)</span>
+        <span class="c1"># tell the entry widget to watch this variable</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entrythingy</span><span class="p">[</span><span class="s2">&quot;textvariable&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contents</span>
+
+        <span class="c1"># and here we get a callback when the user hits return.</span>
+        <span class="c1"># we will have the program print out the value of the</span>
+        <span class="c1"># application variable when the user hits return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entrythingy</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Key-Return&gt;&#39;</span><span class="p">,</span>
+                              <span class="bp">self</span><span class="o">.</span><span class="n">print_contents</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">print_contents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hi. contents of entry is now ----&gt;&quot;</span><span class="p">,</span>
+              <span class="bp">self</span><span class="o">.</span><span class="n">contents</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-window-manager">
+<h3>The Window Manager<a class="headerlink" href="#the-window-manager" title="Permalink to this headline">¶</a></h3>
+<p id="index-2">In Tk, there is a utility command, <code class="docutils literal notranslate"><span class="pre">wm</span></code>, for interacting with the window
+manager.  Options to the <code class="docutils literal notranslate"><span class="pre">wm</span></code> command allow you to control things like titles,
+placement, icon bitmaps, and the like.  In <a class="reference internal" href="#module-tkinter" title="tkinter: Interface to Tcl/Tk for graphical user interfaces"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter</span></code></a>, these commands have
+been implemented as methods on the <code class="xref py py-class docutils literal notranslate"><span class="pre">Wm</span></code> class.  Toplevel widgets are
+subclassed from the <code class="xref py py-class docutils literal notranslate"><span class="pre">Wm</span></code> class, and so can call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Wm</span></code> methods
+directly.</p>
+<p>To get at the toplevel window that contains a given widget, you can often just
+refer to the widget’s master.  Of course if the widget has been packed inside of
+a frame, the master won’t represent a toplevel window.  To get at the toplevel
+window that contains an arbitrary widget, you can call the <code class="xref py py-meth docutils literal notranslate"><span class="pre">_root()</span></code> method.
+This method begins with an underscore to denote the fact that this function is
+part of the implementation, and not an interface to Tk functionality.</p>
+<p>Here are some examples of typical usage:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
+
+<span class="k">class</span> <span class="nc">App</span><span class="p">(</span><span class="n">tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">master</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+<span class="c1"># create the application</span>
+<span class="n">myapp</span> <span class="o">=</span> <span class="n">App</span><span class="p">()</span>
+
+<span class="c1">#</span>
+<span class="c1"># here are method calls to the window manager class</span>
+<span class="c1">#</span>
+<span class="n">myapp</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;My Do-Nothing Application&quot;</span><span class="p">)</span>
+<span class="n">myapp</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">maxsize</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+
+<span class="c1"># start the program</span>
+<span class="n">myapp</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tk-option-data-types">
+<h3>Tk Option Data Types<a class="headerlink" href="#tk-option-data-types" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils" id="index-3">
+<dt>anchor</dt>
+<dd>Legal values are points of the compass: <code class="docutils literal notranslate"><span class="pre">&quot;n&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;ne&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;e&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;se&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;s&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;sw&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;w&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;nw&quot;</span></code>, and also <code class="docutils literal notranslate"><span class="pre">&quot;center&quot;</span></code>.</dd>
+<dt>bitmap</dt>
+<dd>There are eight built-in, named bitmaps: <code class="docutils literal notranslate"><span class="pre">'error'</span></code>, <code class="docutils literal notranslate"><span class="pre">'gray25'</span></code>,
+<code class="docutils literal notranslate"><span class="pre">'gray50'</span></code>, <code class="docutils literal notranslate"><span class="pre">'hourglass'</span></code>, <code class="docutils literal notranslate"><span class="pre">'info'</span></code>, <code class="docutils literal notranslate"><span class="pre">'questhead'</span></code>, <code class="docutils literal notranslate"><span class="pre">'question'</span></code>,
+<code class="docutils literal notranslate"><span class="pre">'warning'</span></code>.  To specify an X bitmap filename, give the full path to the file,
+preceded with an <code class="docutils literal notranslate"><span class="pre">&#64;</span></code>, as in <code class="docutils literal notranslate"><span class="pre">&quot;&#64;/usr/contrib/bitmap/gumby.bit&quot;</span></code>.</dd>
+<dt>boolean</dt>
+<dd>You can pass integers 0 or 1 or the strings <code class="docutils literal notranslate"><span class="pre">&quot;yes&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;no&quot;</span></code>.</dd>
+<dt>callback</dt>
+<dd><p class="first">This is any Python function that takes no arguments.  For example:</p>
+<div class="last highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_it</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hi there&quot;</span><span class="p">)</span>
+<span class="n">fred</span><span class="p">[</span><span class="s2">&quot;command&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">print_it</span>
+</pre></div>
+</div>
+</dd>
+<dt>color</dt>
+<dd>Colors can be given as the names of X colors in the rgb.txt file, or as strings
+representing RGB values in 4 bit: <code class="docutils literal notranslate"><span class="pre">&quot;#RGB&quot;</span></code>, 8 bit: <code class="docutils literal notranslate"><span class="pre">&quot;#RRGGBB&quot;</span></code>, 12 bit”
+<code class="docutils literal notranslate"><span class="pre">&quot;#RRRGGGBBB&quot;</span></code>, or 16 bit <code class="docutils literal notranslate"><span class="pre">&quot;#RRRRGGGGBBBB&quot;</span></code> ranges, where R,G,B here
+represent any legal hex digit.  See page 160 of Ousterhout’s book for details.</dd>
+<dt>cursor</dt>
+<dd>The standard X cursor names from <code class="file docutils literal notranslate"><span class="pre">cursorfont.h</span></code> can be used, without the
+<code class="docutils literal notranslate"><span class="pre">XC_</span></code> prefix.  For example to get a hand cursor (<code class="xref py py-const docutils literal notranslate"><span class="pre">XC_hand2</span></code>), use the
+string <code class="docutils literal notranslate"><span class="pre">&quot;hand2&quot;</span></code>.  You can also specify a bitmap and mask file of your own.
+See page 179 of Ousterhout’s book.</dd>
+<dt>distance</dt>
+<dd>Screen distances can be specified in either pixels or absolute distances.
+Pixels are given as numbers and absolute distances as strings, with the trailing
+character denoting units: <code class="docutils literal notranslate"><span class="pre">c</span></code> for centimetres, <code class="docutils literal notranslate"><span class="pre">i</span></code> for inches, <code class="docutils literal notranslate"><span class="pre">m</span></code> for
+millimetres, <code class="docutils literal notranslate"><span class="pre">p</span></code> for printer’s points.  For example, 3.5 inches is expressed
+as <code class="docutils literal notranslate"><span class="pre">&quot;3.5i&quot;</span></code>.</dd>
+<dt>font</dt>
+<dd>Tk uses a list font name format, such as <code class="docutils literal notranslate"><span class="pre">{courier</span> <span class="pre">10</span> <span class="pre">bold}</span></code>. Font sizes with
+positive numbers are measured in points; sizes with negative numbers are
+measured in pixels.</dd>
+<dt>geometry</dt>
+<dd>This is a string of the form <code class="docutils literal notranslate"><span class="pre">widthxheight</span></code>, where width and height are
+measured in pixels for most widgets (in characters for widgets displaying text).
+For example: <code class="docutils literal notranslate"><span class="pre">fred[&quot;geometry&quot;]</span> <span class="pre">=</span> <span class="pre">&quot;200x100&quot;</span></code>.</dd>
+<dt>justify</dt>
+<dd>Legal values are the strings: <code class="docutils literal notranslate"><span class="pre">&quot;left&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;center&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;right&quot;</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">&quot;fill&quot;</span></code>.</dd>
+<dt>region</dt>
+<dd>This is a string with four space-delimited elements, each of which is a legal
+distance (see above).  For example: <code class="docutils literal notranslate"><span class="pre">&quot;2</span> <span class="pre">3</span> <span class="pre">4</span> <span class="pre">5&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;3i</span> <span class="pre">2i</span> <span class="pre">4.5i</span> <span class="pre">2i&quot;</span></code> and
+<code class="docutils literal notranslate"><span class="pre">&quot;3c</span> <span class="pre">2c</span> <span class="pre">4c</span> <span class="pre">10.43c&quot;</span></code>  are all legal regions.</dd>
+<dt>relief</dt>
+<dd>Determines what the border style of a widget will be.  Legal values are:
+<code class="docutils literal notranslate"><span class="pre">&quot;raised&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;sunken&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;flat&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;groove&quot;</span></code>, and <code class="docutils literal notranslate"><span class="pre">&quot;ridge&quot;</span></code>.</dd>
+<dt>scrollcommand</dt>
+<dd>This is almost always the <code class="xref py py-meth docutils literal notranslate"><span class="pre">set()</span></code> method of some scrollbar widget, but can
+be any widget method that takes a single argument.</dd>
+<dt>wrap:</dt>
+<dd>Must be one of: <code class="docutils literal notranslate"><span class="pre">&quot;none&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;char&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;word&quot;</span></code>.</dd>
+</dl>
+</div>
+<div class="section" id="bindings-and-events">
+<h3>Bindings and Events<a class="headerlink" href="#bindings-and-events" title="Permalink to this headline">¶</a></h3>
+<p id="index-4">The bind method from the widget command allows you to watch for certain events
+and to have a callback function trigger when that event type occurs.  The form
+of the bind method is:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sequence</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">add</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>where:</p>
+<dl class="docutils">
+<dt>sequence</dt>
+<dd>is a string that denotes the target kind of event.  (See the bind man page and
+page 201 of John Ousterhout’s book for details).</dd>
+<dt>func</dt>
+<dd>is a Python function, taking one argument, to be invoked when the event occurs.
+An Event instance will be passed as the argument. (Functions deployed this way
+are commonly known as <em>callbacks</em>.)</dd>
+<dt>add</dt>
+<dd>is optional, either <code class="docutils literal notranslate"><span class="pre">''</span></code> or <code class="docutils literal notranslate"><span class="pre">'+'</span></code>.  Passing an empty string denotes that
+this binding is to replace any other bindings that this event is associated
+with.  Passing a <code class="docutils literal notranslate"><span class="pre">'+'</span></code> means that this function is to be added to the list
+of functions bound to this event type.</dd>
+</dl>
+<p>For example:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">turn_red</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+    <span class="n">event</span><span class="o">.</span><span class="n">widget</span><span class="p">[</span><span class="s2">&quot;activeforeground&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">button</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Enter&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">turn_red</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Notice how the widget field of the event is being accessed in the
+<code class="docutils literal notranslate"><span class="pre">turn_red()</span></code> callback.  This field contains the widget that caught the X
+event.  The following table lists the other event fields you can access, and how
+they are denoted in Tk, which can be useful when referring to the Tk man pages.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="8%" />
+<col width="42%" />
+<col width="8%" />
+<col width="42%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Tk</th>
+<th class="head">Tkinter Event Field</th>
+<th class="head">Tk</th>
+<th class="head">Tkinter Event Field</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>%f</td>
+<td>focus</td>
+<td>%A</td>
+<td>char</td>
+</tr>
+<tr class="row-odd"><td>%h</td>
+<td>height</td>
+<td>%E</td>
+<td>send_event</td>
+</tr>
+<tr class="row-even"><td>%k</td>
+<td>keycode</td>
+<td>%K</td>
+<td>keysym</td>
+</tr>
+<tr class="row-odd"><td>%s</td>
+<td>state</td>
+<td>%N</td>
+<td>keysym_num</td>
+</tr>
+<tr class="row-even"><td>%t</td>
+<td>time</td>
+<td>%T</td>
+<td>type</td>
+</tr>
+<tr class="row-odd"><td>%w</td>
+<td>width</td>
+<td>%W</td>
+<td>widget</td>
+</tr>
+<tr class="row-even"><td>%x</td>
+<td>x</td>
+<td>%X</td>
+<td>x_root</td>
+</tr>
+<tr class="row-odd"><td>%y</td>
+<td>y</td>
+<td>%Y</td>
+<td>y_root</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="the-index-parameter">
+<h3>The index Parameter<a class="headerlink" href="#the-index-parameter" title="Permalink to this headline">¶</a></h3>
+<p>A number of widgets require “index” parameters to be passed.  These are used to
+point at a specific place in a Text widget, or to particular characters in an
+Entry widget, or to particular menu items in a Menu widget.</p>
+<dl class="docutils">
+<dt>Entry widget indexes (index, view index, etc.)</dt>
+<dd>Entry widgets have options that refer to character positions in the text being
+displayed.  You can use these <a class="reference internal" href="#module-tkinter" title="tkinter: Interface to Tcl/Tk for graphical user interfaces"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter</span></code></a> functions to access these special
+points in text widgets:</dd>
+<dt>Text widget indexes</dt>
+<dd>The index notation for Text widgets is very rich and is best described in the Tk
+man pages.</dd>
+<dt>Menu indexes (menu.invoke(), menu.entryconfig(), etc.)</dt>
+<dd><p class="first">Some options and methods for menus manipulate specific menu entries. Anytime a
+menu index is needed for an option or a parameter, you may pass in:</p>
+<ul class="last simple">
+<li>an integer which refers to the numeric position of the entry in the widget,
+counted from the top, starting with 0;</li>
+<li>the string <code class="docutils literal notranslate"><span class="pre">&quot;active&quot;</span></code>, which refers to the menu position that is currently
+under the cursor;</li>
+<li>the string <code class="docutils literal notranslate"><span class="pre">&quot;last&quot;</span></code> which refers to the last menu item;</li>
+<li>An integer preceded by <code class="docutils literal notranslate"><span class="pre">&#64;</span></code>, as in <code class="docutils literal notranslate"><span class="pre">&#64;6</span></code>, where the integer is interpreted
+as a y pixel coordinate in the menu’s coordinate system;</li>
+<li>the string <code class="docutils literal notranslate"><span class="pre">&quot;none&quot;</span></code>, which indicates no menu entry at all, most often used
+with menu.activate() to deactivate all entries, and finally,</li>
+<li>a text string that is pattern matched against the label of the menu entry, as
+scanned from the top of the menu to the bottom.  Note that this index type is
+considered after all the others, which means that matches for menu items
+labelled <code class="docutils literal notranslate"><span class="pre">last</span></code>, <code class="docutils literal notranslate"><span class="pre">active</span></code>, or <code class="docutils literal notranslate"><span class="pre">none</span></code> may be interpreted as the above
+literals, instead.</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="images">
+<h3>Images<a class="headerlink" href="#images" title="Permalink to this headline">¶</a></h3>
+<p>Images of different formats can be created through the corresponding subclass
+of <code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.Image</span></code>:</p>
+<ul class="simple">
+<li><code class="xref py py-class docutils literal notranslate"><span class="pre">BitmapImage</span></code> for images in XBM format.</li>
+<li><code class="xref py py-class docutils literal notranslate"><span class="pre">PhotoImage</span></code> for images in PGM, PPM, GIF and PNG formats. The latter
+is supported starting with Tk 8.6.</li>
+</ul>
+<p>Either type of image is created through either the <code class="docutils literal notranslate"><span class="pre">file</span></code> or the <code class="docutils literal notranslate"><span class="pre">data</span></code>
+option (other options are available as well).</p>
+<p>The image object can then be used wherever an <code class="docutils literal notranslate"><span class="pre">image</span></code> option is supported by
+some widget (e.g. labels, buttons, menus). In these cases, Tk will not keep a
+reference to the image. When the last Python reference to the image object is
+deleted, the image data is deleted as well, and Tk will display an empty box
+wherever the image was used.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">The <a class="reference external" href="http://python-pillow.org/">Pillow</a> package adds support for
+formats such as BMP, JPEG, TIFF, and WebP, among others.</p>
+</div>
+</div>
+</div>
+<div class="section" id="file-handlers">
+<span id="tkinter-file-handlers"></span><h2>File Handlers<a class="headerlink" href="#file-handlers" title="Permalink to this headline">¶</a></h2>
+<p>Tk allows you to register and unregister a callback function which will be
+called from the Tk mainloop when I/O is possible on a file descriptor.
+Only one handler may be registered per file descriptor. Example code:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tkinter</span>
+<span class="n">widget</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">READABLE</span> <span class="o">|</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">WRITABLE</span>
+<span class="n">widget</span><span class="o">.</span><span class="n">tk</span><span class="o">.</span><span class="n">createfilehandler</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">widget</span><span class="o">.</span><span class="n">tk</span><span class="o">.</span><span class="n">deletefilehandler</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This feature is not available on Windows.</p>
+<p>Since you don’t know how many bytes are available for reading, you may not
+want to use the <a class="reference internal" href="io.html#io.BufferedIOBase" title="io.BufferedIOBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">BufferedIOBase</span></code></a> or <a class="reference internal" href="io.html#io.TextIOBase" title="io.TextIOBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextIOBase</span></code></a>
+<a class="reference internal" href="io.html#io.BufferedIOBase.read" title="io.BufferedIOBase.read"><code class="xref py py-meth docutils literal notranslate"><span class="pre">read()</span></code></a> or <a class="reference internal" href="io.html#io.IOBase.readline" title="io.IOBase.readline"><code class="xref py py-meth docutils literal notranslate"><span class="pre">readline()</span></code></a> methods,
+since these will insist on reading a predefined number of bytes.
+For sockets, the <a class="reference internal" href="socket.html#socket.socket.recv" title="socket.socket.recv"><code class="xref py py-meth docutils literal notranslate"><span class="pre">recv()</span></code></a> or
+<a class="reference internal" href="socket.html#socket.socket.recvfrom" title="socket.socket.recvfrom"><code class="xref py py-meth docutils literal notranslate"><span class="pre">recvfrom()</span></code></a> methods will work fine; for other files,
+use raw reads or <code class="docutils literal notranslate"><span class="pre">os.read(file.fileno(),</span> <span class="pre">maxbytecount)</span></code>.</p>
+<dl class="method">
+<dt id="tkinter.Widget.tk.createfilehandler">
+<code class="descclassname">Widget.tk.</code><code class="descname">createfilehandler</code><span class="sig-paren">(</span><em>file</em>, <em>mask</em>, <em>func</em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.Widget.tk.createfilehandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Registers the file handler callback function <em>func</em>. The <em>file</em> argument
+may either be an object with a <a class="reference internal" href="io.html#io.IOBase.fileno" title="io.IOBase.fileno"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fileno()</span></code></a> method (such as
+a file or socket object), or an integer file descriptor. The <em>mask</em>
+argument is an ORed combination of any of the three constants below.
+The callback is called as follows:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">callback</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="tkinter.Widget.tk.deletefilehandler">
+<code class="descclassname">Widget.tk.</code><code class="descname">deletefilehandler</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.Widget.tk.deletefilehandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unregisters a file handler.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="tkinter.READABLE">
+<code class="descclassname">tkinter.</code><code class="descname">READABLE</code><a class="headerlink" href="#tkinter.READABLE" title="Permalink to this definition">¶</a></dt>
+<dt id="tkinter.WRITABLE">
+<code class="descclassname">tkinter.</code><code class="descname">WRITABLE</code><a class="headerlink" href="#tkinter.WRITABLE" title="Permalink to this definition">¶</a></dt>
+<dt id="tkinter.EXCEPTION">
+<code class="descclassname">tkinter.</code><code class="descname">EXCEPTION</code><a class="headerlink" href="#tkinter.EXCEPTION" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constants used in the <em>mask</em> arguments.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">tkinter</span></code> — Python interface to Tcl/Tk</a><ul>
+<li><a class="reference internal" href="#tkinter-modules">Tkinter Modules</a></li>
+<li><a class="reference internal" href="#tkinter-life-preserver">Tkinter Life Preserver</a><ul>
+<li><a class="reference internal" href="#how-to-use-this-section">How To Use This Section</a></li>
+<li><a class="reference internal" href="#a-simple-hello-world-program">A Simple Hello World Program</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#a-very-quick-look-at-tcl-tk">A (Very) Quick Look at Tcl/Tk</a></li>
+<li><a class="reference internal" href="#mapping-basic-tk-into-tkinter">Mapping Basic Tk into Tkinter</a></li>
+<li><a class="reference internal" href="#how-tk-and-tkinter-are-related">How Tk and Tkinter are Related</a></li>
+<li><a class="reference internal" href="#handy-reference">Handy Reference</a><ul>
+<li><a class="reference internal" href="#setting-options">Setting Options</a></li>
+<li><a class="reference internal" href="#the-packer">The Packer</a></li>
+<li><a class="reference internal" href="#packer-options">Packer Options</a></li>
+<li><a class="reference internal" href="#coupling-widget-variables">Coupling Widget Variables</a></li>
+<li><a class="reference internal" href="#the-window-manager">The Window Manager</a></li>
+<li><a class="reference internal" href="#tk-option-data-types">Tk Option Data Types</a></li>
+<li><a class="reference internal" href="#bindings-and-events">Bindings and Events</a></li>
+<li><a class="reference internal" href="#the-index-parameter">The index Parameter</a></li>
+<li><a class="reference internal" href="#images">Images</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#file-handlers">File Handlers</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tk.html"
+                        title="previous chapter">Graphical User Interfaces with Tk</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tkinter.ttk.html"
+                        title="next chapter"><code class="docutils literal notranslate"><span class="pre">tkinter.ttk</span></code> — Tk themed widgets</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/library/tkinter.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tkinter.ttk.html" title="tkinter.ttk — Tk themed widgets"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tk.html" title="Graphical User Interfaces with Tk"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="tk.html" >Graphical User Interfaces with Tk</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

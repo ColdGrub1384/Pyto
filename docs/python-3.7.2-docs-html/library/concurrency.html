@@ -1,0 +1,317 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Concurrent Execution &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="threading — Thread-based parallelism" href="threading.html" />
+    <link rel="prev" title="ctypes — A foreign function library for Python" href="ctypes.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/library/concurrency.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="threading.html" title="threading — Thread-based parallelism"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ctypes.html" title="ctypes — A foreign function library for Python"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">The Python Standard Library</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="concurrent-execution">
+<span id="concurrency"></span><h1>Concurrent Execution<a class="headerlink" href="#concurrent-execution" title="Permalink to this headline">¶</a></h1>
+<p>The modules described in this chapter provide support for concurrent
+execution of code. The appropriate choice of tool will depend on the
+task to be executed (CPU bound vs IO bound) and preferred style of
+development (event driven cooperative multitasking vs preemptive
+multitasking). Here’s an overview:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="threading.html"><code class="docutils literal notranslate"><span class="pre">threading</span></code> — Thread-based parallelism</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="threading.html#thread-local-data">Thread-Local Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="threading.html#thread-objects">Thread Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="threading.html#lock-objects">Lock Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="threading.html#rlock-objects">RLock Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="threading.html#condition-objects">Condition Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="threading.html#semaphore-objects">Semaphore Objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="threading.html#semaphore-example"><code class="docutils literal notranslate"><span class="pre">Semaphore</span></code> Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="threading.html#event-objects">Event Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="threading.html#timer-objects">Timer Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="threading.html#barrier-objects">Barrier Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="threading.html#using-locks-conditions-and-semaphores-in-the-with-statement">Using locks, conditions, and semaphores in the <code class="xref std std-keyword docutils literal notranslate"><span class="pre">with</span></code> statement</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="multiprocessing.html"><code class="docutils literal notranslate"><span class="pre">multiprocessing</span></code> — Process-based parallelism</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="multiprocessing.html#introduction">Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="multiprocessing.html#the-process-class">The <code class="docutils literal notranslate"><span class="pre">Process</span></code> class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multiprocessing.html#contexts-and-start-methods">Contexts and start methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multiprocessing.html#exchanging-objects-between-processes">Exchanging objects between processes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multiprocessing.html#synchronization-between-processes">Synchronization between processes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multiprocessing.html#sharing-state-between-processes">Sharing state between processes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multiprocessing.html#using-a-pool-of-workers">Using a pool of workers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="multiprocessing.html#reference">Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="multiprocessing.html#process-and-exceptions"><code class="docutils literal notranslate"><span class="pre">Process</span></code> and exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multiprocessing.html#pipes-and-queues">Pipes and Queues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multiprocessing.html#miscellaneous">Miscellaneous</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multiprocessing.html#connection-objects">Connection Objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multiprocessing.html#synchronization-primitives">Synchronization primitives</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multiprocessing.html#shared-ctypes-objects">Shared <code class="docutils literal notranslate"><span class="pre">ctypes</span></code> Objects</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="multiprocessing.html#module-multiprocessing.sharedctypes">The <code class="docutils literal notranslate"><span class="pre">multiprocessing.sharedctypes</span></code> module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="multiprocessing.html#managers">Managers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="multiprocessing.html#customized-managers">Customized managers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="multiprocessing.html#using-a-remote-manager">Using a remote manager</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="multiprocessing.html#proxy-objects">Proxy Objects</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="multiprocessing.html#cleanup">Cleanup</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="multiprocessing.html#module-multiprocessing.pool">Process Pools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multiprocessing.html#module-multiprocessing.connection">Listeners and Clients</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="multiprocessing.html#address-formats">Address Formats</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="multiprocessing.html#authentication-keys">Authentication keys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multiprocessing.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multiprocessing.html#module-multiprocessing.dummy">The <code class="docutils literal notranslate"><span class="pre">multiprocessing.dummy</span></code> module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="multiprocessing.html#programming-guidelines">Programming guidelines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="multiprocessing.html#all-start-methods">All start methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multiprocessing.html#the-spawn-and-forkserver-start-methods">The <em>spawn</em> and <em>forkserver</em> start methods</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="multiprocessing.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="concurrent.html">The <code class="docutils literal notranslate"><span class="pre">concurrent</span></code> package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concurrent.futures.html"><code class="docutils literal notranslate"><span class="pre">concurrent.futures</span></code> — Launching parallel tasks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="concurrent.futures.html#executor-objects">Executor Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="concurrent.futures.html#threadpoolexecutor">ThreadPoolExecutor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="concurrent.futures.html#threadpoolexecutor-example">ThreadPoolExecutor Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="concurrent.futures.html#processpoolexecutor">ProcessPoolExecutor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="concurrent.futures.html#processpoolexecutor-example">ProcessPoolExecutor Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="concurrent.futures.html#future-objects">Future Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="concurrent.futures.html#module-functions">Module Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="concurrent.futures.html#exception-classes">Exception classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subprocess.html"><code class="docutils literal notranslate"><span class="pre">subprocess</span></code> — Subprocess management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="subprocess.html#using-the-subprocess-module">Using the <code class="docutils literal notranslate"><span class="pre">subprocess</span></code> Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subprocess.html#frequently-used-arguments">Frequently Used Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subprocess.html#popen-constructor">Popen Constructor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subprocess.html#exceptions">Exceptions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subprocess.html#security-considerations">Security Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subprocess.html#popen-objects">Popen Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subprocess.html#windows-popen-helpers">Windows Popen Helpers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subprocess.html#windows-constants">Windows Constants</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subprocess.html#older-high-level-api">Older high-level API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subprocess.html#replacing-older-functions-with-the-subprocess-module">Replacing Older Functions with the <code class="docutils literal notranslate"><span class="pre">subprocess</span></code> Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subprocess.html#replacing-bin-sh-shell-backquote">Replacing /bin/sh shell backquote</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subprocess.html#replacing-shell-pipeline">Replacing shell pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subprocess.html#replacing-os-system">Replacing <code class="docutils literal notranslate"><span class="pre">os.system()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="subprocess.html#replacing-the-os-spawn-family">Replacing the <code class="docutils literal notranslate"><span class="pre">os.spawn</span></code> family</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subprocess.html#replacing-os-popen-os-popen2-os-popen3">Replacing <code class="docutils literal notranslate"><span class="pre">os.popen()</span></code>, <code class="docutils literal notranslate"><span class="pre">os.popen2()</span></code>, <code class="docutils literal notranslate"><span class="pre">os.popen3()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="subprocess.html#replacing-functions-from-the-popen2-module">Replacing functions from the <code class="docutils literal notranslate"><span class="pre">popen2</span></code> module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subprocess.html#legacy-shell-invocation-functions">Legacy Shell Invocation Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subprocess.html#notes">Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subprocess.html#converting-an-argument-sequence-to-a-string-on-windows">Converting an argument sequence to a string on Windows</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sched.html"><code class="docutils literal notranslate"><span class="pre">sched</span></code> — Event scheduler</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sched.html#scheduler-objects">Scheduler Objects</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="queue.html"><code class="docutils literal notranslate"><span class="pre">queue</span></code> — A synchronized queue class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="queue.html#queue-objects">Queue Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="queue.html#simplequeue-objects">SimpleQueue Objects</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>The following are support modules for some of the above services:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="_thread.html"><code class="docutils literal notranslate"><span class="pre">_thread</span></code> — Low-level threading API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_dummy_thread.html"><code class="docutils literal notranslate"><span class="pre">_dummy_thread</span></code> — Drop-in replacement for the <code class="docutils literal notranslate"><span class="pre">_thread</span></code> module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dummy_threading.html"><code class="docutils literal notranslate"><span class="pre">dummy_threading</span></code> — Drop-in replacement for the <code class="docutils literal notranslate"><span class="pre">threading</span></code> module</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ctypes.html"
+                        title="previous chapter"><code class="docutils literal notranslate"><span class="pre">ctypes</span></code> — A foreign function library for Python</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="threading.html"
+                        title="next chapter"><code class="docutils literal notranslate"><span class="pre">threading</span></code> — Thread-based parallelism</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/library/concurrency.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="threading.html" title="threading — Thread-based parallelism"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ctypes.html" title="ctypes — A foreign function library for Python"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

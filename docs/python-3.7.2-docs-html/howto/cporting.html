@@ -1,0 +1,568 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Porting Extension Modules to Python 3 &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="Curses Programming with Python" href="curses.html" />
+    <link rel="prev" title="Porting Python 2 Code to Python 3" href="pyporting.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/howto/cporting.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="curses.html" title="Curses Programming with Python"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyporting.html" title="Porting Python 2 Code to Python 3"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Python HOWTOs</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="porting-extension-modules-to-python-3">
+<span id="cporting-howto"></span><h1>Porting Extension Modules to Python 3<a class="headerlink" href="#porting-extension-modules-to-python-3" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">author:</th><td class="field-body">Benjamin Peterson</td>
+</tr>
+</tbody>
+</table>
+<div class="topic">
+<p class="topic-title first">Abstract</p>
+<p>Although changing the C-API was not one of Python 3’s objectives,
+the many Python-level changes made leaving Python 2’s API intact
+impossible.  In fact, some changes such as <a class="reference internal" href="../library/functions.html#int" title="int"><code class="xref py py-func docutils literal notranslate"><span class="pre">int()</span></code></a> and
+<code class="xref py py-func docutils literal notranslate"><span class="pre">long()</span></code> unification are more obvious on the C level.  This
+document endeavors to document incompatibilities and how they can
+be worked around.</p>
+</div>
+<div class="section" id="conditional-compilation">
+<h2>Conditional compilation<a class="headerlink" href="#conditional-compilation" title="Permalink to this headline">¶</a></h2>
+<p>The easiest way to compile only some code for Python 3 is to check
+if <code class="xref c c-macro docutils literal notranslate"><span class="pre">PY_MAJOR_VERSION</span></code> is greater than or equal to 3.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if PY_MAJOR_VERSION &gt;= 3</span>
+<span class="cp">#define IS_PY3K</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+<p>API functions that are not present can be aliased to their equivalents within
+conditional blocks.</p>
+</div>
+<div class="section" id="changes-to-object-apis">
+<h2>Changes to Object APIs<a class="headerlink" href="#changes-to-object-apis" title="Permalink to this headline">¶</a></h2>
+<p>Python 3 merged together some types with similar functions while cleanly
+separating others.</p>
+<div class="section" id="str-unicode-unification">
+<h3>str/unicode Unification<a class="headerlink" href="#str-unicode-unification" title="Permalink to this headline">¶</a></h3>
+<p>Python 3’s <a class="reference internal" href="../library/stdtypes.html#str" title="str"><code class="xref py py-func docutils literal notranslate"><span class="pre">str()</span></code></a> type is equivalent to Python 2’s <code class="xref py py-func docutils literal notranslate"><span class="pre">unicode()</span></code>; the C
+functions are called <code class="docutils literal notranslate"><span class="pre">PyUnicode_*</span></code> for both.  The old 8-bit string type has become
+<a class="reference internal" href="../library/stdtypes.html#bytes" title="bytes"><code class="xref py py-func docutils literal notranslate"><span class="pre">bytes()</span></code></a>, with C functions called <code class="docutils literal notranslate"><span class="pre">PyBytes_*</span></code>.  Python 2.6 and later provide a compatibility header,
+<code class="file docutils literal notranslate"><span class="pre">bytesobject.h</span></code>, mapping <code class="docutils literal notranslate"><span class="pre">PyBytes</span></code> names to <code class="docutils literal notranslate"><span class="pre">PyString</span></code> ones.  For best
+compatibility with Python 3, <code class="xref c c-type docutils literal notranslate"><span class="pre">PyUnicode</span></code> should be used for textual data and
+<code class="xref c c-type docutils literal notranslate"><span class="pre">PyBytes</span></code> for binary data.  It’s also important to remember that
+<code class="xref c c-type docutils literal notranslate"><span class="pre">PyBytes</span></code> and <code class="xref c c-type docutils literal notranslate"><span class="pre">PyUnicode</span></code> in Python 3 are not interchangeable like
+<code class="xref c c-type docutils literal notranslate"><span class="pre">PyString</span></code> and <code class="xref c c-type docutils literal notranslate"><span class="pre">PyUnicode</span></code> are in Python 2.  The following example
+shows best practices with regards to <code class="xref c c-type docutils literal notranslate"><span class="pre">PyUnicode</span></code>, <code class="xref c c-type docutils literal notranslate"><span class="pre">PyString</span></code>,
+and <code class="xref c c-type docutils literal notranslate"><span class="pre">PyBytes</span></code>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;stdlib.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;Python.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;bytesobject.h&quot;</span><span class="cp"></span>
+
+<span class="cm">/* text example */</span>
+<span class="k">static</span> <span class="n">PyObject</span> <span class="o">*</span>
+<span class="nf">say_hello</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">self</span><span class="p">,</span> <span class="n">PyObject</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">PyObject</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">result</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">PyArg_ParseTuple</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="s">&quot;U:say_hello&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">name</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">PyUnicode_FromFormat</span><span class="p">(</span><span class="s">&quot;Hello, %S!&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/* just a forward */</span>
+<span class="k">static</span> <span class="kt">char</span> <span class="o">*</span> <span class="nf">do_encode</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="p">);</span>
+
+<span class="cm">/* bytes example */</span>
+<span class="k">static</span> <span class="n">PyObject</span> <span class="o">*</span>
+<span class="nf">encode_object</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">self</span><span class="p">,</span> <span class="n">PyObject</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">encoded</span><span class="p">;</span>
+    <span class="n">PyObject</span> <span class="o">*</span><span class="n">result</span><span class="p">,</span> <span class="o">*</span><span class="n">myobj</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">PyArg_ParseTuple</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="s">&quot;O:encode_object&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">myobj</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+
+    <span class="n">encoded</span> <span class="o">=</span> <span class="n">do_encode</span><span class="p">(</span><span class="n">myobj</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">encoded</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">PyBytes_FromString</span><span class="p">(</span><span class="n">encoded</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">encoded</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="long-int-unification">
+<h3>long/int Unification<a class="headerlink" href="#long-int-unification" title="Permalink to this headline">¶</a></h3>
+<p>Python 3 has only one integer type, <a class="reference internal" href="../library/functions.html#int" title="int"><code class="xref py py-func docutils literal notranslate"><span class="pre">int()</span></code></a>.  But it actually
+corresponds to Python 2’s <code class="xref py py-func docutils literal notranslate"><span class="pre">long()</span></code> type—the <a class="reference internal" href="../library/functions.html#int" title="int"><code class="xref py py-func docutils literal notranslate"><span class="pre">int()</span></code></a> type
+used in Python 2 was removed.  In the C-API, <code class="docutils literal notranslate"><span class="pre">PyInt_*</span></code> functions
+are replaced by their <code class="docutils literal notranslate"><span class="pre">PyLong_*</span></code> equivalents.</p>
+</div>
+</div>
+<div class="section" id="module-initialization-and-state">
+<h2>Module initialization and state<a class="headerlink" href="#module-initialization-and-state" title="Permalink to this headline">¶</a></h2>
+<p>Python 3 has a revamped extension module initialization system.  (See
+<span class="target" id="index-0"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-3121"><strong>PEP 3121</strong></a>.)  Instead of storing module state in globals, they should
+be stored in an interpreter specific structure.  Creating modules that
+act correctly in both Python 2 and Python 3 is tricky.  The following
+simple example demonstrates how.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;Python.h&quot;</span><span class="cp"></span>
+
+<span class="k">struct</span> <span class="n">module_state</span> <span class="p">{</span>
+    <span class="n">PyObject</span> <span class="o">*</span><span class="n">error</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="cp">#if PY_MAJOR_VERSION &gt;= 3</span>
+<span class="cp">#define GETSTATE(m) ((struct module_state*)PyModule_GetState(m))</span>
+<span class="cp">#else</span>
+<span class="cp">#define GETSTATE(m) (&amp;_state)</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">module_state</span> <span class="n">_state</span><span class="p">;</span>
+<span class="cp">#endif</span>
+
+<span class="k">static</span> <span class="n">PyObject</span> <span class="o">*</span>
+<span class="nf">error_out</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">m</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">module_state</span> <span class="o">*</span><span class="n">st</span> <span class="o">=</span> <span class="n">GETSTATE</span><span class="p">(</span><span class="n">m</span><span class="p">);</span>
+    <span class="n">PyErr_SetString</span><span class="p">(</span><span class="n">st</span><span class="o">-&gt;</span><span class="n">error</span><span class="p">,</span> <span class="s">&quot;something bad happened&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="n">PyMethodDef</span> <span class="n">myextension_methods</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">{</span><span class="s">&quot;error_out&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">PyCFunction</span><span class="p">)</span><span class="n">error_out</span><span class="p">,</span> <span class="n">METH_NOARGS</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">},</span>
+    <span class="p">{</span><span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="cp">#if PY_MAJOR_VERSION &gt;= 3</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">myextension_traverse</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">m</span><span class="p">,</span> <span class="n">visitproc</span> <span class="n">visit</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Py_VISIT</span><span class="p">(</span><span class="n">GETSTATE</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">error</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">myextension_clear</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">m</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Py_CLEAR</span><span class="p">(</span><span class="n">GETSTATE</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">error</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="k">static</span> <span class="k">struct</span> <span class="n">PyModuleDef</span> <span class="n">moduledef</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">PyModuleDef_HEAD_INIT</span><span class="p">,</span>
+        <span class="s">&quot;myextension&quot;</span><span class="p">,</span>
+        <span class="nb">NULL</span><span class="p">,</span>
+        <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">module_state</span><span class="p">),</span>
+        <span class="n">myextension_methods</span><span class="p">,</span>
+        <span class="nb">NULL</span><span class="p">,</span>
+        <span class="n">myextension_traverse</span><span class="p">,</span>
+        <span class="n">myextension_clear</span><span class="p">,</span>
+        <span class="nb">NULL</span>
+<span class="p">};</span>
+
+<span class="cp">#define INITERROR return NULL</span>
+
+<span class="n">PyMODINIT_FUNC</span>
+<span class="nf">PyInit_myextension</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+
+<span class="cp">#else</span>
+<span class="cp">#define INITERROR return</span>
+
+<span class="kt">void</span>
+<span class="n">initmyextension</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="cp">#endif</span>
+<span class="p">{</span>
+<span class="cp">#if PY_MAJOR_VERSION &gt;= 3</span>
+    <span class="n">PyObject</span> <span class="o">*</span><span class="n">module</span> <span class="o">=</span> <span class="n">PyModule_Create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">moduledef</span><span class="p">);</span>
+<span class="cp">#else</span>
+    <span class="n">PyObject</span> <span class="o">*</span><span class="n">module</span> <span class="o">=</span> <span class="n">Py_InitModule</span><span class="p">(</span><span class="s">&quot;myextension&quot;</span><span class="p">,</span> <span class="n">myextension_methods</span><span class="p">);</span>
+<span class="cp">#endif</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">module</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+        <span class="n">INITERROR</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">module_state</span> <span class="o">*</span><span class="n">st</span> <span class="o">=</span> <span class="n">GETSTATE</span><span class="p">(</span><span class="n">module</span><span class="p">);</span>
+
+    <span class="n">st</span><span class="o">-&gt;</span><span class="n">error</span> <span class="o">=</span> <span class="n">PyErr_NewException</span><span class="p">(</span><span class="s">&quot;myextension.Error&quot;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">st</span><span class="o">-&gt;</span><span class="n">error</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Py_DECREF</span><span class="p">(</span><span class="n">module</span><span class="p">);</span>
+        <span class="n">INITERROR</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="cp">#if PY_MAJOR_VERSION &gt;= 3</span>
+    <span class="k">return</span> <span class="n">module</span><span class="p">;</span>
+<span class="cp">#endif</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cobject-replaced-with-capsule">
+<h2>CObject replaced with Capsule<a class="headerlink" href="#cobject-replaced-with-capsule" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="xref c c-type docutils literal notranslate"><span class="pre">Capsule</span></code> object was introduced in Python 3.1 and 2.7 to replace
+<code class="xref c c-type docutils literal notranslate"><span class="pre">CObject</span></code>.  CObjects were useful,
+but the <code class="xref c c-type docutils literal notranslate"><span class="pre">CObject</span></code> API was problematic: it didn’t permit distinguishing
+between valid CObjects, which allowed mismatched CObjects to crash the
+interpreter, and some of its APIs relied on undefined behavior in C.
+(For further reading on the rationale behind Capsules, please see <a class="reference external" href="https://bugs.python.org/issue5630">bpo-5630</a>.)</p>
+<p>If you’re currently using CObjects, and you want to migrate to 3.1 or newer,
+you’ll need to switch to Capsules.
+<code class="xref c c-type docutils literal notranslate"><span class="pre">CObject</span></code> was deprecated in 3.1 and 2.7 and completely removed in
+Python 3.2.  If you only support 2.7, or 3.1 and above, you
+can simply switch to <code class="xref c c-type docutils literal notranslate"><span class="pre">Capsule</span></code>.  If you need to support Python 3.0,
+or versions of Python earlier than 2.7,
+you’ll have to support both CObjects and Capsules.
+(Note that Python 3.0 is no longer supported, and it is not recommended
+for production use.)</p>
+<p>The following example header file <code class="file docutils literal notranslate"><span class="pre">capsulethunk.h</span></code> may
+solve the problem for you.  Simply write your code against the
+<code class="xref c c-type docutils literal notranslate"><span class="pre">Capsule</span></code> API and include this header file after
+<code class="file docutils literal notranslate"><span class="pre">Python.h</span></code>.  Your code will automatically use Capsules
+in versions of Python with Capsules, and switch to CObjects
+when Capsules are unavailable.</p>
+<p><code class="file docutils literal notranslate"><span class="pre">capsulethunk.h</span></code> simulates Capsules using CObjects.  However,
+<code class="xref c c-type docutils literal notranslate"><span class="pre">CObject</span></code> provides no place to store the capsule’s “name”.  As a
+result the simulated <code class="xref c c-type docutils literal notranslate"><span class="pre">Capsule</span></code> objects created by <code class="file docutils literal notranslate"><span class="pre">capsulethunk.h</span></code>
+behave slightly differently from real Capsules.  Specifically:</p>
+<blockquote>
+<div><ul class="simple">
+<li>The name parameter passed in to <a class="reference internal" href="../c-api/capsule.html#c.PyCapsule_New" title="PyCapsule_New"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyCapsule_New()</span></code></a> is ignored.</li>
+<li>The name parameter passed in to <a class="reference internal" href="../c-api/capsule.html#c.PyCapsule_IsValid" title="PyCapsule_IsValid"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyCapsule_IsValid()</span></code></a> and
+<a class="reference internal" href="../c-api/capsule.html#c.PyCapsule_GetPointer" title="PyCapsule_GetPointer"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyCapsule_GetPointer()</span></code></a> is ignored, and no error checking
+of the name is performed.</li>
+<li><a class="reference internal" href="../c-api/capsule.html#c.PyCapsule_GetName" title="PyCapsule_GetName"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyCapsule_GetName()</span></code></a> always returns NULL.</li>
+<li><a class="reference internal" href="../c-api/capsule.html#c.PyCapsule_SetName" title="PyCapsule_SetName"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyCapsule_SetName()</span></code></a> always raises an exception and
+returns failure.  (Since there’s no way to store a name
+in a CObject, noisy failure of <a class="reference internal" href="../c-api/capsule.html#c.PyCapsule_SetName" title="PyCapsule_SetName"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyCapsule_SetName()</span></code></a>
+was deemed preferable to silent failure here.  If this is
+inconvenient, feel free to modify your local
+copy as you see fit.)</li>
+</ul>
+</div></blockquote>
+<p>You can find <code class="file docutils literal notranslate"><span class="pre">capsulethunk.h</span></code> in the Python source distribution
+as <a class="reference external" href="https://github.com/python/cpython/tree/3.7/Doc/includes/capsulethunk.h">Doc/includes/capsulethunk.h</a>.  We also include it here for
+your convenience:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifndef __CAPSULETHUNK_H</span>
+<span class="cp">#define __CAPSULETHUNK_H</span>
+
+<span class="cp">#if (    (PY_VERSION_HEX &lt;  0x02070000) \</span>
+<span class="cp">     || ((PY_VERSION_HEX &gt;= 0x03000000) \</span>
+<span class="cp">      &amp;&amp; (PY_VERSION_HEX &lt;  0x03010000)) )</span>
+
+<span class="cp">#define __PyCapsule_GetField(capsule, field, default_value) \</span>
+<span class="cp">    ( PyCapsule_CheckExact(capsule) \</span>
+<span class="cp">        ? (((PyCObject *)capsule)-&gt;field) \</span>
+<span class="cp">        : (default_value) \</span>
+<span class="cp">    ) \</span>
+
+<span class="cp">#define __PyCapsule_SetField(capsule, field, value) \</span>
+<span class="cp">    ( PyCapsule_CheckExact(capsule) \</span>
+<span class="cp">        ? (((PyCObject *)capsule)-&gt;field = value), 1 \</span>
+<span class="cp">        : 0 \</span>
+<span class="cp">    ) \</span>
+
+
+<span class="cp">#define PyCapsule_Type PyCObject_Type</span>
+
+<span class="cp">#define PyCapsule_CheckExact(capsule) (PyCObject_Check(capsule))</span>
+<span class="cp">#define PyCapsule_IsValid(capsule, name) (PyCObject_Check(capsule))</span>
+
+
+<span class="cp">#define PyCapsule_New(pointer, name, destructor) \</span>
+<span class="cp">    (PyCObject_FromVoidPtr(pointer, destructor))</span>
+
+
+<span class="cp">#define PyCapsule_GetPointer(capsule, name) \</span>
+<span class="cp">    (PyCObject_AsVoidPtr(capsule))</span>
+
+<span class="cm">/* Don&#39;t call PyCObject_SetPointer here, it fails if there&#39;s a destructor */</span>
+<span class="cp">#define PyCapsule_SetPointer(capsule, pointer) \</span>
+<span class="cp">    __PyCapsule_SetField(capsule, cobject, pointer)</span>
+
+
+<span class="cp">#define PyCapsule_GetDestructor(capsule) \</span>
+<span class="cp">    __PyCapsule_GetField(capsule, destructor)</span>
+
+<span class="cp">#define PyCapsule_SetDestructor(capsule, dtor) \</span>
+<span class="cp">    __PyCapsule_SetField(capsule, destructor, dtor)</span>
+
+
+<span class="cm">/*</span>
+<span class="cm"> * Sorry, there&#39;s simply no place</span>
+<span class="cm"> * to store a Capsule &quot;name&quot; in a CObject.</span>
+<span class="cm"> */</span>
+<span class="cp">#define PyCapsule_GetName(capsule) NULL</span>
+
+<span class="k">static</span> <span class="kt">int</span>
+<span class="nf">PyCapsule_SetName</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">capsule</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">unused</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">unused</span> <span class="o">=</span> <span class="n">unused</span><span class="p">;</span>
+    <span class="n">PyErr_SetString</span><span class="p">(</span><span class="n">PyExc_NotImplementedError</span><span class="p">,</span>
+        <span class="s">&quot;can&#39;t use PyCapsule_SetName with CObjects&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+
+<span class="cp">#define PyCapsule_GetContext(capsule) \</span>
+<span class="cp">    __PyCapsule_GetField(capsule, descr)</span>
+
+<span class="cp">#define PyCapsule_SetContext(capsule, context) \</span>
+<span class="cp">    __PyCapsule_SetField(capsule, descr, context)</span>
+
+
+<span class="k">static</span> <span class="kt">void</span> <span class="o">*</span>
+<span class="nf">PyCapsule_Import</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="kt">int</span> <span class="n">no_block</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">PyObject</span> <span class="o">*</span><span class="n">object</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="o">*</span><span class="n">return_value</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">trace</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">name_length</span> <span class="o">=</span> <span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">);</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">name_dup</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">PyMem_MALLOC</span><span class="p">(</span><span class="n">name_length</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">name_dup</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">memcpy</span><span class="p">(</span><span class="n">name_dup</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">name_length</span><span class="p">);</span>
+
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">name_dup</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">trace</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">char</span> <span class="o">*</span><span class="n">dot</span> <span class="o">=</span> <span class="n">strchr</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="sc">&#39;.&#39;</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">dot</span><span class="p">)</span> <span class="p">{</span>
+            <span class="o">*</span><span class="n">dot</span><span class="o">++</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">object</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">no_block</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">object</span> <span class="o">=</span> <span class="n">PyImport_ImportModuleNoBlock</span><span class="p">(</span><span class="n">trace</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="n">object</span> <span class="o">=</span> <span class="n">PyImport_ImportModule</span><span class="p">(</span><span class="n">trace</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">object</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">PyErr_Format</span><span class="p">(</span><span class="n">PyExc_ImportError</span><span class="p">,</span>
+                        <span class="s">&quot;PyCapsule_Import could not &quot;</span>
+                        <span class="s">&quot;import module </span><span class="se">\&quot;</span><span class="s">%s</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">trace</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">PyObject</span> <span class="o">*</span><span class="n">object2</span> <span class="o">=</span> <span class="n">PyObject_GetAttrString</span><span class="p">(</span><span class="n">object</span><span class="p">,</span> <span class="n">trace</span><span class="p">);</span>
+            <span class="n">Py_DECREF</span><span class="p">(</span><span class="n">object</span><span class="p">);</span>
+            <span class="n">object</span> <span class="o">=</span> <span class="n">object2</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">object</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">goto</span> <span class="n">EXIT</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">trace</span> <span class="o">=</span> <span class="n">dot</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">PyCObject_Check</span><span class="p">(</span><span class="n">object</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">PyCObject</span> <span class="o">*</span><span class="n">cobject</span> <span class="o">=</span> <span class="p">(</span><span class="n">PyCObject</span> <span class="o">*</span><span class="p">)</span><span class="n">object</span><span class="p">;</span>
+        <span class="n">return_value</span> <span class="o">=</span> <span class="n">cobject</span><span class="o">-&gt;</span><span class="n">cobject</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">PyErr_Format</span><span class="p">(</span><span class="n">PyExc_AttributeError</span><span class="p">,</span>
+            <span class="s">&quot;PyCapsule_Import </span><span class="se">\&quot;</span><span class="s">%s</span><span class="se">\&quot;</span><span class="s"> is not valid&quot;</span><span class="p">,</span>
+            <span class="n">name</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="nl">EXIT</span><span class="p">:</span>
+    <span class="n">Py_XDECREF</span><span class="p">(</span><span class="n">object</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">name_dup</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">PyMem_FREE</span><span class="p">(</span><span class="n">name_dup</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">return_value</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cp">#endif </span><span class="cm">/* #if PY_VERSION_HEX &lt; 0x02070000 */</span><span class="cp"></span>
+
+<span class="cp">#endif </span><span class="cm">/* __CAPSULETHUNK_H */</span><span class="cp"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="other-options">
+<h2>Other options<a class="headerlink" href="#other-options" title="Permalink to this headline">¶</a></h2>
+<p>If you are writing a new extension module, you might consider <a class="reference external" href="http://cython.org/">Cython</a>.  It translates a Python-like language to C.  The
+extension modules it creates are compatible with Python 3 and Python 2.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Porting Extension Modules to Python 3</a><ul>
+<li><a class="reference internal" href="#conditional-compilation">Conditional compilation</a></li>
+<li><a class="reference internal" href="#changes-to-object-apis">Changes to Object APIs</a><ul>
+<li><a class="reference internal" href="#str-unicode-unification">str/unicode Unification</a></li>
+<li><a class="reference internal" href="#long-int-unification">long/int Unification</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-initialization-and-state">Module initialization and state</a></li>
+<li><a class="reference internal" href="#cobject-replaced-with-capsule">CObject replaced with Capsule</a></li>
+<li><a class="reference internal" href="#other-options">Other options</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyporting.html"
+                        title="previous chapter">Porting Python 2 Code to Python 3</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="curses.html"
+                        title="next chapter">Curses Programming with Python</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/howto/cporting.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="curses.html" title="Curses Programming with Python"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyporting.html" title="Porting Python 2 Code to Python 3"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Python HOWTOs</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>
