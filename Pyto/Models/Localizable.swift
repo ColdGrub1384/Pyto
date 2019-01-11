@@ -14,6 +14,9 @@ class Static { private init(){} }
 /// A class containing localizable strings.
 class Localizable: Static {
     
+    /// Description for key command for running and setting arguments.
+    static let runAndSetArguments = NSLocalizedString("runAndSetArguments", comment: "Description for key command for running and setting arguments.")
+    
     /// 'Close'
     static let close = NSLocalizedString("close", comment: "'Close'")
     

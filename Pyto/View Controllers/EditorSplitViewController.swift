@@ -53,9 +53,15 @@ class EditorSplitViewController: SplitViewController {
         editor?.showDocs(editor!.docItem)
     }
     
+    /// Runs code with arguments.
+    @objc func runWithArguments() {
+        editor?.setArgs(true)
+    }
+    
     override var keyCommands: [UIKeyCommand]? {
         return [
             UIKeyCommand(input: "r", modifierFlags: .command, action: #selector(run), discoverabilityTitle: Localizable.MenuItems.run),
+            UIKeyCommand(input: "r", modifierFlags: [.command, .shift], action: #selector(runWithArguments), discoverabilityTitle: Localizable.runAndSetArguments),
             UIKeyCommand(input: "d", modifierFlags: .command, action: #selector(showDocs), discoverabilityTitle: Localizable.Help.documentation),
             UIKeyCommand(input: "w", modifierFlags: .command, action: #selector(close), discoverabilityTitle: Localizable.close),
         ]
