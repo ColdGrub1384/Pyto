@@ -383,6 +383,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
     }
     
     /// Opens an alert for setting arguments passed to the script.
+    ///
+    /// - Parameters:
+    ///     - sender: The sender object. If called programatically with `sender` set to `true`, will run code after setting arguments.
     @objc func setArgs(_ sender: Any) {
         
         let alert = UIAlertController(title: Localizable.ArgumentsAlert.title, message: Localizable.ArgumentsAlert.message, preferredStyle: .alert)
@@ -394,13 +397,25 @@ fileprivate func parseArgs(_ args: inout [String]) {
             textField_.text = self.args
         }
         
-        alert.addAction(UIAlertAction(title: Localizable.ok, style: .default, handler: { _ in
-            
-            if let text = textField?.text {
-                self.args = text
-            }
-            
-        }))
+        if (sender as? Bool) == true {
+            alert.addAction(UIAlertAction(title: Localizable.MenuItems.run, style: .default, handler: { _ in
+                
+                if let text = textField?.text {
+                    self.args = text
+                }
+                
+                self.run()
+                
+            }))
+        } else {
+            alert.addAction(UIAlertAction(title: Localizable.ok, style: .default, handler: { _ in
+                
+                if let text = textField?.text {
+                    self.args = text
+                }
+                
+            }))
+        }
         
         alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
         
