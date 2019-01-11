@@ -13,9 +13,23 @@ import SafariServices
 /// The application's delegate.
 @objc class AppDelegate: UIResponder, UIApplicationDelegate, SKStoreProductViewControllerDelegate {
     
+    /// Suspends app. Set from Python.
+    @objc var suspendApp_: (() -> Void)?
+    
+    /// Suspends the app.
+    @objc func suspendApp() {
+        DispatchQueue.main.async {
+            self.suspendApp_?()
+        }
+    }
+    
+    // MARK: - Application delegate
+    
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        window?.rootViewController?.addKeyCommand(UIKeyCommand(input: "h", modifierFlags: .command, action: #selector(suspendApp)))
         
         UIMenuController.shared.menuItems = [
             UIMenuItem(title: Localizable.MenuItems.open, action: #selector(FileCollectionViewCell.open(_:))),
@@ -70,6 +84,15 @@ import SafariServices
                 sleep(UInt32(0.5))
             }
         }
+        
+        PyInputHelper.userInput = [
+            "from UIKit import *",
+            "from rubicon.objc import *",
+            "delegate = UIApplication.sharedApplication.delegate",
+            "def suspend() -> None:",
+            "   UIApplication.sharedApplication.suspend()",
+            "delegate.suspendApp_ = Block(suspend)",
+        ].joined(separator: ";")
         
         return true
     }
