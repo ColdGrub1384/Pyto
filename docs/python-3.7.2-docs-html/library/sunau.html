@@ -1,0 +1,496 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>sunau — Read and write Sun AU files &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="wave — Read and write WAV files" href="wave.html" />
+    <link rel="prev" title="aifc — Read and write AIFF and AIFC files" href="aifc.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/library/sunau.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="wave.html" title="wave — Read and write WAV files"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="aifc.html" title="aifc — Read and write AIFF and AIFC files"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="mm.html" accesskey="U">Multimedia Services</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-sunau">
+<span id="sunau-read-and-write-sun-au-files"></span><h1><a class="reference internal" href="#module-sunau" title="sunau: Provide an interface to the Sun AU sound format."><code class="xref py py-mod docutils literal notranslate"><span class="pre">sunau</span></code></a> — Read and write Sun AU files<a class="headerlink" href="#module-sunau" title="Permalink to this headline">¶</a></h1>
+<p><strong>Source code:</strong> <a class="reference external" href="https://github.com/python/cpython/tree/3.7/Lib/sunau.py">Lib/sunau.py</a></p>
+<hr class="docutils" />
+<p>The <a class="reference internal" href="#module-sunau" title="sunau: Provide an interface to the Sun AU sound format."><code class="xref py py-mod docutils literal notranslate"><span class="pre">sunau</span></code></a> module provides a convenient interface to the Sun AU sound
+format.  Note that this module is interface-compatible with the modules
+<a class="reference internal" href="aifc.html#module-aifc" title="aifc: Read and write audio files in AIFF or AIFC format."><code class="xref py py-mod docutils literal notranslate"><span class="pre">aifc</span></code></a> and <a class="reference internal" href="wave.html#module-wave" title="wave: Provide an interface to the WAV sound format."><code class="xref py py-mod docutils literal notranslate"><span class="pre">wave</span></code></a>.</p>
+<p>An audio file consists of a header followed by the data.  The fields of the
+header are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field</th>
+<th class="head">Contents</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>magic word</td>
+<td>The four bytes <code class="docutils literal notranslate"><span class="pre">.snd</span></code>.</td>
+</tr>
+<tr class="row-odd"><td>header size</td>
+<td>Size of the header, including info, in bytes.</td>
+</tr>
+<tr class="row-even"><td>data size</td>
+<td>Physical size of the data, in bytes.</td>
+</tr>
+<tr class="row-odd"><td>encoding</td>
+<td>Indicates how the audio samples are encoded.</td>
+</tr>
+<tr class="row-even"><td>sample rate</td>
+<td>The sampling rate.</td>
+</tr>
+<tr class="row-odd"><td># of channels</td>
+<td>The number of channels in the samples.</td>
+</tr>
+<tr class="row-even"><td>info</td>
+<td>ASCII string giving a description of the
+audio file (padded with null bytes).</td>
+</tr>
+</tbody>
+</table>
+<p>Apart from the info field, all header fields are 4 bytes in size. They are all
+32-bit unsigned integers encoded in big-endian byte order.</p>
+<p>The <a class="reference internal" href="#module-sunau" title="sunau: Provide an interface to the Sun AU sound format."><code class="xref py py-mod docutils literal notranslate"><span class="pre">sunau</span></code></a> module defines the following functions:</p>
+<dl class="function">
+<dt id="sunau.open">
+<code class="descclassname">sunau.</code><code class="descname">open</code><span class="sig-paren">(</span><em>file</em>, <em>mode</em><span class="sig-paren">)</span><a class="headerlink" href="#sunau.open" title="Permalink to this definition">¶</a></dt>
+<dd><p>If <em>file</em> is a string, open the file by that name, otherwise treat it as a
+seekable file-like object. <em>mode</em> can be any of</p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">'r'</span></code></dt>
+<dd>Read only mode.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">'w'</span></code></dt>
+<dd>Write only mode.</dd>
+</dl>
+<p>Note that it does not allow read/write files.</p>
+<p>A <em>mode</em> of <code class="docutils literal notranslate"><span class="pre">'r'</span></code> returns an <code class="xref py py-class docutils literal notranslate"><span class="pre">AU_read</span></code> object, while a <em>mode</em> of <code class="docutils literal notranslate"><span class="pre">'w'</span></code>
+or <code class="docutils literal notranslate"><span class="pre">'wb'</span></code> returns an <code class="xref py py-class docutils literal notranslate"><span class="pre">AU_write</span></code> object.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sunau.openfp">
+<code class="descclassname">sunau.</code><code class="descname">openfp</code><span class="sig-paren">(</span><em>file</em>, <em>mode</em><span class="sig-paren">)</span><a class="headerlink" href="#sunau.openfp" title="Permalink to this definition">¶</a></dt>
+<dd><p>A synonym for <a class="reference internal" href="#sunau.open" title="sunau.open"><code class="xref py py-func docutils literal notranslate"><span class="pre">open()</span></code></a>, maintained for backwards compatibility.</p>
+<div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 3.7, will be removed in version 3.9.</span></p>
+</div>
+</dd></dl>
+
+<p>The <a class="reference internal" href="#module-sunau" title="sunau: Provide an interface to the Sun AU sound format."><code class="xref py py-mod docutils literal notranslate"><span class="pre">sunau</span></code></a> module defines the following exception:</p>
+<dl class="exception">
+<dt id="sunau.Error">
+<em class="property">exception </em><code class="descclassname">sunau.</code><code class="descname">Error</code><a class="headerlink" href="#sunau.Error" title="Permalink to this definition">¶</a></dt>
+<dd><p>An error raised when something is impossible because of Sun AU specs or
+implementation deficiency.</p>
+</dd></dl>
+
+<p>The <a class="reference internal" href="#module-sunau" title="sunau: Provide an interface to the Sun AU sound format."><code class="xref py py-mod docutils literal notranslate"><span class="pre">sunau</span></code></a> module defines the following data items:</p>
+<dl class="data">
+<dt id="sunau.AUDIO_FILE_MAGIC">
+<code class="descclassname">sunau.</code><code class="descname">AUDIO_FILE_MAGIC</code><a class="headerlink" href="#sunau.AUDIO_FILE_MAGIC" title="Permalink to this definition">¶</a></dt>
+<dd><p>An integer every valid Sun AU file begins with, stored in big-endian form.  This
+is the string <code class="docutils literal notranslate"><span class="pre">.snd</span></code> interpreted as an integer.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="sunau.AUDIO_FILE_ENCODING_MULAW_8">
+<code class="descclassname">sunau.</code><code class="descname">AUDIO_FILE_ENCODING_MULAW_8</code><a class="headerlink" href="#sunau.AUDIO_FILE_ENCODING_MULAW_8" title="Permalink to this definition">¶</a></dt>
+<dt id="sunau.AUDIO_FILE_ENCODING_LINEAR_8">
+<code class="descclassname">sunau.</code><code class="descname">AUDIO_FILE_ENCODING_LINEAR_8</code><a class="headerlink" href="#sunau.AUDIO_FILE_ENCODING_LINEAR_8" title="Permalink to this definition">¶</a></dt>
+<dt id="sunau.AUDIO_FILE_ENCODING_LINEAR_16">
+<code class="descclassname">sunau.</code><code class="descname">AUDIO_FILE_ENCODING_LINEAR_16</code><a class="headerlink" href="#sunau.AUDIO_FILE_ENCODING_LINEAR_16" title="Permalink to this definition">¶</a></dt>
+<dt id="sunau.AUDIO_FILE_ENCODING_LINEAR_24">
+<code class="descclassname">sunau.</code><code class="descname">AUDIO_FILE_ENCODING_LINEAR_24</code><a class="headerlink" href="#sunau.AUDIO_FILE_ENCODING_LINEAR_24" title="Permalink to this definition">¶</a></dt>
+<dt id="sunau.AUDIO_FILE_ENCODING_LINEAR_32">
+<code class="descclassname">sunau.</code><code class="descname">AUDIO_FILE_ENCODING_LINEAR_32</code><a class="headerlink" href="#sunau.AUDIO_FILE_ENCODING_LINEAR_32" title="Permalink to this definition">¶</a></dt>
+<dt id="sunau.AUDIO_FILE_ENCODING_ALAW_8">
+<code class="descclassname">sunau.</code><code class="descname">AUDIO_FILE_ENCODING_ALAW_8</code><a class="headerlink" href="#sunau.AUDIO_FILE_ENCODING_ALAW_8" title="Permalink to this definition">¶</a></dt>
+<dd><p>Values of the encoding field from the AU header which are supported by this
+module.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="sunau.AUDIO_FILE_ENCODING_FLOAT">
+<code class="descclassname">sunau.</code><code class="descname">AUDIO_FILE_ENCODING_FLOAT</code><a class="headerlink" href="#sunau.AUDIO_FILE_ENCODING_FLOAT" title="Permalink to this definition">¶</a></dt>
+<dt id="sunau.AUDIO_FILE_ENCODING_DOUBLE">
+<code class="descclassname">sunau.</code><code class="descname">AUDIO_FILE_ENCODING_DOUBLE</code><a class="headerlink" href="#sunau.AUDIO_FILE_ENCODING_DOUBLE" title="Permalink to this definition">¶</a></dt>
+<dt id="sunau.AUDIO_FILE_ENCODING_ADPCM_G721">
+<code class="descclassname">sunau.</code><code class="descname">AUDIO_FILE_ENCODING_ADPCM_G721</code><a class="headerlink" href="#sunau.AUDIO_FILE_ENCODING_ADPCM_G721" title="Permalink to this definition">¶</a></dt>
+<dt id="sunau.AUDIO_FILE_ENCODING_ADPCM_G722">
+<code class="descclassname">sunau.</code><code class="descname">AUDIO_FILE_ENCODING_ADPCM_G722</code><a class="headerlink" href="#sunau.AUDIO_FILE_ENCODING_ADPCM_G722" title="Permalink to this definition">¶</a></dt>
+<dt id="sunau.AUDIO_FILE_ENCODING_ADPCM_G723_3">
+<code class="descclassname">sunau.</code><code class="descname">AUDIO_FILE_ENCODING_ADPCM_G723_3</code><a class="headerlink" href="#sunau.AUDIO_FILE_ENCODING_ADPCM_G723_3" title="Permalink to this definition">¶</a></dt>
+<dt id="sunau.AUDIO_FILE_ENCODING_ADPCM_G723_5">
+<code class="descclassname">sunau.</code><code class="descname">AUDIO_FILE_ENCODING_ADPCM_G723_5</code><a class="headerlink" href="#sunau.AUDIO_FILE_ENCODING_ADPCM_G723_5" title="Permalink to this definition">¶</a></dt>
+<dd><p>Additional known values of the encoding field from the AU header, but which are
+not supported by this module.</p>
+</dd></dl>
+
+<div class="section" id="au-read-objects">
+<span id="id1"></span><h2>AU_read Objects<a class="headerlink" href="#au-read-objects" title="Permalink to this headline">¶</a></h2>
+<p>AU_read objects, as returned by <a class="reference internal" href="#sunau.open" title="sunau.open"><code class="xref py py-func docutils literal notranslate"><span class="pre">open()</span></code></a> above, have the following methods:</p>
+<dl class="method">
+<dt id="sunau.AU_read.close">
+<code class="descclassname">AU_read.</code><code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sunau.AU_read.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the stream, and make the instance unusable. (This is  called automatically
+on deletion.)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sunau.AU_read.getnchannels">
+<code class="descclassname">AU_read.</code><code class="descname">getnchannels</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sunau.AU_read.getnchannels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns number of audio channels (1 for mono, 2 for stereo).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sunau.AU_read.getsampwidth">
+<code class="descclassname">AU_read.</code><code class="descname">getsampwidth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sunau.AU_read.getsampwidth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns sample width in bytes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sunau.AU_read.getframerate">
+<code class="descclassname">AU_read.</code><code class="descname">getframerate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sunau.AU_read.getframerate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns sampling frequency.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sunau.AU_read.getnframes">
+<code class="descclassname">AU_read.</code><code class="descname">getnframes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sunau.AU_read.getnframes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns number of audio frames.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sunau.AU_read.getcomptype">
+<code class="descclassname">AU_read.</code><code class="descname">getcomptype</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sunau.AU_read.getcomptype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns compression type. Supported compression types are <code class="docutils literal notranslate"><span class="pre">'ULAW'</span></code>, <code class="docutils literal notranslate"><span class="pre">'ALAW'</span></code>
+and <code class="docutils literal notranslate"><span class="pre">'NONE'</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sunau.AU_read.getcompname">
+<code class="descclassname">AU_read.</code><code class="descname">getcompname</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sunau.AU_read.getcompname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Human-readable version of <a class="reference internal" href="#sunau.AU_read.getcomptype" title="sunau.AU_read.getcomptype"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getcomptype()</span></code></a>.  The supported types have the
+respective names <code class="docutils literal notranslate"><span class="pre">'CCITT</span> <span class="pre">G.711</span> <span class="pre">u-law'</span></code>, <code class="docutils literal notranslate"><span class="pre">'CCITT</span> <span class="pre">G.711</span> <span class="pre">A-law'</span></code> and <code class="docutils literal notranslate"><span class="pre">'not</span>
+<span class="pre">compressed'</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sunau.AU_read.getparams">
+<code class="descclassname">AU_read.</code><code class="descname">getparams</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sunau.AU_read.getparams" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a <a class="reference internal" href="collections.html#collections.namedtuple" title="collections.namedtuple"><code class="xref py py-func docutils literal notranslate"><span class="pre">namedtuple()</span></code></a> <code class="docutils literal notranslate"><span class="pre">(nchannels,</span> <span class="pre">sampwidth,</span>
+<span class="pre">framerate,</span> <span class="pre">nframes,</span> <span class="pre">comptype,</span> <span class="pre">compname)</span></code>, equivalent to output of the
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">get*()</span></code> methods.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sunau.AU_read.readframes">
+<code class="descclassname">AU_read.</code><code class="descname">readframes</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#sunau.AU_read.readframes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads and returns at most <em>n</em> frames of audio, as a <a class="reference internal" href="stdtypes.html#bytes" title="bytes"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></a> object.  The data
+will be returned in linear format.  If the original data is in u-LAW format, it
+will be converted.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sunau.AU_read.rewind">
+<code class="descclassname">AU_read.</code><code class="descname">rewind</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sunau.AU_read.rewind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rewind the file pointer to the beginning of the audio stream.</p>
+</dd></dl>
+
+<p>The following two methods define a term “position” which is compatible between
+them, and is otherwise implementation dependent.</p>
+<dl class="method">
+<dt id="sunau.AU_read.setpos">
+<code class="descclassname">AU_read.</code><code class="descname">setpos</code><span class="sig-paren">(</span><em>pos</em><span class="sig-paren">)</span><a class="headerlink" href="#sunau.AU_read.setpos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the file pointer to the specified position.  Only values returned from
+<a class="reference internal" href="#sunau.AU_read.tell" title="sunau.AU_read.tell"><code class="xref py py-meth docutils literal notranslate"><span class="pre">tell()</span></code></a> should be used for <em>pos</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sunau.AU_read.tell">
+<code class="descclassname">AU_read.</code><code class="descname">tell</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sunau.AU_read.tell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return current file pointer position.  Note that the returned value has nothing
+to do with the actual position in the file.</p>
+</dd></dl>
+
+<p>The following two functions are defined for compatibility with the  <a class="reference internal" href="aifc.html#module-aifc" title="aifc: Read and write audio files in AIFF or AIFC format."><code class="xref py py-mod docutils literal notranslate"><span class="pre">aifc</span></code></a>,
+and don’t do anything interesting.</p>
+<dl class="method">
+<dt id="sunau.AU_read.getmarkers">
+<code class="descclassname">AU_read.</code><code class="descname">getmarkers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sunau.AU_read.getmarkers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sunau.AU_read.getmark">
+<code class="descclassname">AU_read.</code><code class="descname">getmark</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#sunau.AU_read.getmark" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raise an error.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="au-write-objects">
+<span id="id2"></span><h2>AU_write Objects<a class="headerlink" href="#au-write-objects" title="Permalink to this headline">¶</a></h2>
+<p>AU_write objects, as returned by <a class="reference internal" href="#sunau.open" title="sunau.open"><code class="xref py py-func docutils literal notranslate"><span class="pre">open()</span></code></a> above, have the following methods:</p>
+<dl class="method">
+<dt id="sunau.AU_write.setnchannels">
+<code class="descclassname">AU_write.</code><code class="descname">setnchannels</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#sunau.AU_write.setnchannels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the number of channels.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sunau.AU_write.setsampwidth">
+<code class="descclassname">AU_write.</code><code class="descname">setsampwidth</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#sunau.AU_write.setsampwidth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the sample width (in bytes.)</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.4: </span>Added support for 24-bit samples.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="sunau.AU_write.setframerate">
+<code class="descclassname">AU_write.</code><code class="descname">setframerate</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#sunau.AU_write.setframerate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the frame rate.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sunau.AU_write.setnframes">
+<code class="descclassname">AU_write.</code><code class="descname">setnframes</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#sunau.AU_write.setnframes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the number of frames. This can be later changed, when and if more  frames
+are written.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sunau.AU_write.setcomptype">
+<code class="descclassname">AU_write.</code><code class="descname">setcomptype</code><span class="sig-paren">(</span><em>type</em>, <em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#sunau.AU_write.setcomptype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the compression type and description. Only <code class="docutils literal notranslate"><span class="pre">'NONE'</span></code> and <code class="docutils literal notranslate"><span class="pre">'ULAW'</span></code> are
+supported on output.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sunau.AU_write.setparams">
+<code class="descclassname">AU_write.</code><code class="descname">setparams</code><span class="sig-paren">(</span><em>tuple</em><span class="sig-paren">)</span><a class="headerlink" href="#sunau.AU_write.setparams" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <em>tuple</em> should be <code class="docutils literal notranslate"><span class="pre">(nchannels,</span> <span class="pre">sampwidth,</span> <span class="pre">framerate,</span> <span class="pre">nframes,</span> <span class="pre">comptype,</span>
+<span class="pre">compname)</span></code>, with values valid for the <code class="xref py py-meth docutils literal notranslate"><span class="pre">set*()</span></code> methods.  Set all
+parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sunau.AU_write.tell">
+<code class="descclassname">AU_write.</code><code class="descname">tell</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sunau.AU_write.tell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return current position in the file, with the same disclaimer for the
+<a class="reference internal" href="#sunau.AU_read.tell" title="sunau.AU_read.tell"><code class="xref py py-meth docutils literal notranslate"><span class="pre">AU_read.tell()</span></code></a> and <a class="reference internal" href="#sunau.AU_read.setpos" title="sunau.AU_read.setpos"><code class="xref py py-meth docutils literal notranslate"><span class="pre">AU_read.setpos()</span></code></a> methods.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sunau.AU_write.writeframesraw">
+<code class="descclassname">AU_write.</code><code class="descname">writeframesraw</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#sunau.AU_write.writeframesraw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write audio frames, without correcting <em>nframes</em>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.4: </span>Any <a class="reference internal" href="../glossary.html#term-bytes-like-object"><span class="xref std std-term">bytes-like object</span></a> is now accepted.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="sunau.AU_write.writeframes">
+<code class="descclassname">AU_write.</code><code class="descname">writeframes</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#sunau.AU_write.writeframes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write audio frames and make sure <em>nframes</em> is correct.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.4: </span>Any <a class="reference internal" href="../glossary.html#term-bytes-like-object"><span class="xref std std-term">bytes-like object</span></a> is now accepted.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="sunau.AU_write.close">
+<code class="descclassname">AU_write.</code><code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sunau.AU_write.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make sure <em>nframes</em> is correct, and close the file.</p>
+<p>This method is called upon deletion.</p>
+</dd></dl>
+
+<p>Note that it is invalid to set any parameters after calling  <code class="xref py py-meth docutils literal notranslate"><span class="pre">writeframes()</span></code>
+or <code class="xref py py-meth docutils literal notranslate"><span class="pre">writeframesraw()</span></code>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">sunau</span></code> — Read and write Sun AU files</a><ul>
+<li><a class="reference internal" href="#au-read-objects">AU_read Objects</a></li>
+<li><a class="reference internal" href="#au-write-objects">AU_write Objects</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="aifc.html"
+                        title="previous chapter"><code class="docutils literal notranslate"><span class="pre">aifc</span></code> — Read and write AIFF and AIFC files</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="wave.html"
+                        title="next chapter"><code class="docutils literal notranslate"><span class="pre">wave</span></code> — Read and write WAV files</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/library/sunau.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="wave.html" title="wave — Read and write WAV files"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="aifc.html" title="aifc — Read and write AIFF and AIFC files"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="mm.html" >Multimedia Services</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

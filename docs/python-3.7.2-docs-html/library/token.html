@@ -1,0 +1,372 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>token — Constants used with Python parse trees &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="keyword — Testing for Python keywords" href="keyword.html" />
+    <link rel="prev" title="symbol — Constants used with Python parse trees" href="symbol.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/library/token.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="keyword.html" title="keyword — Testing for Python keywords"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="symbol.html" title="symbol — Constants used with Python parse trees"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="language.html" accesskey="U">Python Language Services</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-token">
+<span id="token-constants-used-with-python-parse-trees"></span><h1><a class="reference internal" href="#module-token" title="token: Constants representing terminal nodes of the parse tree."><code class="xref py py-mod docutils literal notranslate"><span class="pre">token</span></code></a> — Constants used with Python parse trees<a class="headerlink" href="#module-token" title="Permalink to this headline">¶</a></h1>
+<p><strong>Source code:</strong> <a class="reference external" href="https://github.com/python/cpython/tree/3.7/Lib/token.py">Lib/token.py</a></p>
+<hr class="docutils" />
+<p>This module provides constants which represent the numeric values of leaf nodes
+of the parse tree (terminal tokens).  Refer to the file <code class="file docutils literal notranslate"><span class="pre">Grammar/Grammar</span></code>
+in the Python distribution for the definitions of the names in the context of
+the language grammar.  The specific numeric values which the names map to may
+change between Python versions.</p>
+<p>The module also provides a mapping from numeric codes to names and some
+functions.  The functions mirror definitions in the Python C header files.</p>
+<dl class="data">
+<dt id="token.tok_name">
+<code class="descclassname">token.</code><code class="descname">tok_name</code><a class="headerlink" href="#token.tok_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary mapping the numeric values of the constants defined in this module
+back to name strings, allowing more human-readable representation of parse trees
+to be generated.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="token.ISTERMINAL">
+<code class="descclassname">token.</code><code class="descname">ISTERMINAL</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#token.ISTERMINAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true for terminal token values.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="token.ISNONTERMINAL">
+<code class="descclassname">token.</code><code class="descname">ISNONTERMINAL</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#token.ISNONTERMINAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true for non-terminal token values.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="token.ISEOF">
+<code class="descclassname">token.</code><code class="descname">ISEOF</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#token.ISEOF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true if <em>x</em> is the marker indicating the end of input.</p>
+</dd></dl>
+
+<p>The token constants are:</p>
+<dl class="data">
+<dt id="token.ENDMARKER">
+<code class="descclassname">token.</code><code class="descname">ENDMARKER</code><a class="headerlink" href="#token.ENDMARKER" title="Permalink to this definition">¶</a></dt>
+<dt id="token.NAME">
+<code class="descclassname">token.</code><code class="descname">NAME</code><a class="headerlink" href="#token.NAME" title="Permalink to this definition">¶</a></dt>
+<dt id="token.NUMBER">
+<code class="descclassname">token.</code><code class="descname">NUMBER</code><a class="headerlink" href="#token.NUMBER" title="Permalink to this definition">¶</a></dt>
+<dt id="token.STRING">
+<code class="descclassname">token.</code><code class="descname">STRING</code><a class="headerlink" href="#token.STRING" title="Permalink to this definition">¶</a></dt>
+<dt id="token.NEWLINE">
+<code class="descclassname">token.</code><code class="descname">NEWLINE</code><a class="headerlink" href="#token.NEWLINE" title="Permalink to this definition">¶</a></dt>
+<dt id="token.INDENT">
+<code class="descclassname">token.</code><code class="descname">INDENT</code><a class="headerlink" href="#token.INDENT" title="Permalink to this definition">¶</a></dt>
+<dt id="token.DEDENT">
+<code class="descclassname">token.</code><code class="descname">DEDENT</code><a class="headerlink" href="#token.DEDENT" title="Permalink to this definition">¶</a></dt>
+<dt id="token.LPAR">
+<code class="descclassname">token.</code><code class="descname">LPAR</code><a class="headerlink" href="#token.LPAR" title="Permalink to this definition">¶</a></dt>
+<dt id="token.RPAR">
+<code class="descclassname">token.</code><code class="descname">RPAR</code><a class="headerlink" href="#token.RPAR" title="Permalink to this definition">¶</a></dt>
+<dt id="token.LSQB">
+<code class="descclassname">token.</code><code class="descname">LSQB</code><a class="headerlink" href="#token.LSQB" title="Permalink to this definition">¶</a></dt>
+<dt id="token.RSQB">
+<code class="descclassname">token.</code><code class="descname">RSQB</code><a class="headerlink" href="#token.RSQB" title="Permalink to this definition">¶</a></dt>
+<dt id="token.COLON">
+<code class="descclassname">token.</code><code class="descname">COLON</code><a class="headerlink" href="#token.COLON" title="Permalink to this definition">¶</a></dt>
+<dt id="token.COMMA">
+<code class="descclassname">token.</code><code class="descname">COMMA</code><a class="headerlink" href="#token.COMMA" title="Permalink to this definition">¶</a></dt>
+<dt id="token.SEMI">
+<code class="descclassname">token.</code><code class="descname">SEMI</code><a class="headerlink" href="#token.SEMI" title="Permalink to this definition">¶</a></dt>
+<dt id="token.PLUS">
+<code class="descclassname">token.</code><code class="descname">PLUS</code><a class="headerlink" href="#token.PLUS" title="Permalink to this definition">¶</a></dt>
+<dt id="token.MINUS">
+<code class="descclassname">token.</code><code class="descname">MINUS</code><a class="headerlink" href="#token.MINUS" title="Permalink to this definition">¶</a></dt>
+<dt id="token.STAR">
+<code class="descclassname">token.</code><code class="descname">STAR</code><a class="headerlink" href="#token.STAR" title="Permalink to this definition">¶</a></dt>
+<dt id="token.SLASH">
+<code class="descclassname">token.</code><code class="descname">SLASH</code><a class="headerlink" href="#token.SLASH" title="Permalink to this definition">¶</a></dt>
+<dt id="token.VBAR">
+<code class="descclassname">token.</code><code class="descname">VBAR</code><a class="headerlink" href="#token.VBAR" title="Permalink to this definition">¶</a></dt>
+<dt id="token.AMPER">
+<code class="descclassname">token.</code><code class="descname">AMPER</code><a class="headerlink" href="#token.AMPER" title="Permalink to this definition">¶</a></dt>
+<dt id="token.LESS">
+<code class="descclassname">token.</code><code class="descname">LESS</code><a class="headerlink" href="#token.LESS" title="Permalink to this definition">¶</a></dt>
+<dt id="token.GREATER">
+<code class="descclassname">token.</code><code class="descname">GREATER</code><a class="headerlink" href="#token.GREATER" title="Permalink to this definition">¶</a></dt>
+<dt id="token.EQUAL">
+<code class="descclassname">token.</code><code class="descname">EQUAL</code><a class="headerlink" href="#token.EQUAL" title="Permalink to this definition">¶</a></dt>
+<dt id="token.DOT">
+<code class="descclassname">token.</code><code class="descname">DOT</code><a class="headerlink" href="#token.DOT" title="Permalink to this definition">¶</a></dt>
+<dt id="token.PERCENT">
+<code class="descclassname">token.</code><code class="descname">PERCENT</code><a class="headerlink" href="#token.PERCENT" title="Permalink to this definition">¶</a></dt>
+<dt id="token.LBRACE">
+<code class="descclassname">token.</code><code class="descname">LBRACE</code><a class="headerlink" href="#token.LBRACE" title="Permalink to this definition">¶</a></dt>
+<dt id="token.RBRACE">
+<code class="descclassname">token.</code><code class="descname">RBRACE</code><a class="headerlink" href="#token.RBRACE" title="Permalink to this definition">¶</a></dt>
+<dt id="token.EQEQUAL">
+<code class="descclassname">token.</code><code class="descname">EQEQUAL</code><a class="headerlink" href="#token.EQEQUAL" title="Permalink to this definition">¶</a></dt>
+<dt id="token.NOTEQUAL">
+<code class="descclassname">token.</code><code class="descname">NOTEQUAL</code><a class="headerlink" href="#token.NOTEQUAL" title="Permalink to this definition">¶</a></dt>
+<dt id="token.LESSEQUAL">
+<code class="descclassname">token.</code><code class="descname">LESSEQUAL</code><a class="headerlink" href="#token.LESSEQUAL" title="Permalink to this definition">¶</a></dt>
+<dt id="token.GREATEREQUAL">
+<code class="descclassname">token.</code><code class="descname">GREATEREQUAL</code><a class="headerlink" href="#token.GREATEREQUAL" title="Permalink to this definition">¶</a></dt>
+<dt id="token.TILDE">
+<code class="descclassname">token.</code><code class="descname">TILDE</code><a class="headerlink" href="#token.TILDE" title="Permalink to this definition">¶</a></dt>
+<dt id="token.CIRCUMFLEX">
+<code class="descclassname">token.</code><code class="descname">CIRCUMFLEX</code><a class="headerlink" href="#token.CIRCUMFLEX" title="Permalink to this definition">¶</a></dt>
+<dt id="token.LEFTSHIFT">
+<code class="descclassname">token.</code><code class="descname">LEFTSHIFT</code><a class="headerlink" href="#token.LEFTSHIFT" title="Permalink to this definition">¶</a></dt>
+<dt id="token.RIGHTSHIFT">
+<code class="descclassname">token.</code><code class="descname">RIGHTSHIFT</code><a class="headerlink" href="#token.RIGHTSHIFT" title="Permalink to this definition">¶</a></dt>
+<dt id="token.DOUBLESTAR">
+<code class="descclassname">token.</code><code class="descname">DOUBLESTAR</code><a class="headerlink" href="#token.DOUBLESTAR" title="Permalink to this definition">¶</a></dt>
+<dt id="token.PLUSEQUAL">
+<code class="descclassname">token.</code><code class="descname">PLUSEQUAL</code><a class="headerlink" href="#token.PLUSEQUAL" title="Permalink to this definition">¶</a></dt>
+<dt id="token.MINEQUAL">
+<code class="descclassname">token.</code><code class="descname">MINEQUAL</code><a class="headerlink" href="#token.MINEQUAL" title="Permalink to this definition">¶</a></dt>
+<dt id="token.STAREQUAL">
+<code class="descclassname">token.</code><code class="descname">STAREQUAL</code><a class="headerlink" href="#token.STAREQUAL" title="Permalink to this definition">¶</a></dt>
+<dt id="token.SLASHEQUAL">
+<code class="descclassname">token.</code><code class="descname">SLASHEQUAL</code><a class="headerlink" href="#token.SLASHEQUAL" title="Permalink to this definition">¶</a></dt>
+<dt id="token.PERCENTEQUAL">
+<code class="descclassname">token.</code><code class="descname">PERCENTEQUAL</code><a class="headerlink" href="#token.PERCENTEQUAL" title="Permalink to this definition">¶</a></dt>
+<dt id="token.AMPEREQUAL">
+<code class="descclassname">token.</code><code class="descname">AMPEREQUAL</code><a class="headerlink" href="#token.AMPEREQUAL" title="Permalink to this definition">¶</a></dt>
+<dt id="token.VBAREQUAL">
+<code class="descclassname">token.</code><code class="descname">VBAREQUAL</code><a class="headerlink" href="#token.VBAREQUAL" title="Permalink to this definition">¶</a></dt>
+<dt id="token.CIRCUMFLEXEQUAL">
+<code class="descclassname">token.</code><code class="descname">CIRCUMFLEXEQUAL</code><a class="headerlink" href="#token.CIRCUMFLEXEQUAL" title="Permalink to this definition">¶</a></dt>
+<dt id="token.LEFTSHIFTEQUAL">
+<code class="descclassname">token.</code><code class="descname">LEFTSHIFTEQUAL</code><a class="headerlink" href="#token.LEFTSHIFTEQUAL" title="Permalink to this definition">¶</a></dt>
+<dt id="token.RIGHTSHIFTEQUAL">
+<code class="descclassname">token.</code><code class="descname">RIGHTSHIFTEQUAL</code><a class="headerlink" href="#token.RIGHTSHIFTEQUAL" title="Permalink to this definition">¶</a></dt>
+<dt id="token.DOUBLESTAREQUAL">
+<code class="descclassname">token.</code><code class="descname">DOUBLESTAREQUAL</code><a class="headerlink" href="#token.DOUBLESTAREQUAL" title="Permalink to this definition">¶</a></dt>
+<dt id="token.DOUBLESLASH">
+<code class="descclassname">token.</code><code class="descname">DOUBLESLASH</code><a class="headerlink" href="#token.DOUBLESLASH" title="Permalink to this definition">¶</a></dt>
+<dt id="token.DOUBLESLASHEQUAL">
+<code class="descclassname">token.</code><code class="descname">DOUBLESLASHEQUAL</code><a class="headerlink" href="#token.DOUBLESLASHEQUAL" title="Permalink to this definition">¶</a></dt>
+<dt id="token.AT">
+<code class="descclassname">token.</code><code class="descname">AT</code><a class="headerlink" href="#token.AT" title="Permalink to this definition">¶</a></dt>
+<dt id="token.ATEQUAL">
+<code class="descclassname">token.</code><code class="descname">ATEQUAL</code><a class="headerlink" href="#token.ATEQUAL" title="Permalink to this definition">¶</a></dt>
+<dt id="token.RARROW">
+<code class="descclassname">token.</code><code class="descname">RARROW</code><a class="headerlink" href="#token.RARROW" title="Permalink to this definition">¶</a></dt>
+<dt id="token.ELLIPSIS">
+<code class="descclassname">token.</code><code class="descname">ELLIPSIS</code><a class="headerlink" href="#token.ELLIPSIS" title="Permalink to this definition">¶</a></dt>
+<dt id="token.OP">
+<code class="descclassname">token.</code><code class="descname">OP</code><a class="headerlink" href="#token.OP" title="Permalink to this definition">¶</a></dt>
+<dt id="token.ERRORTOKEN">
+<code class="descclassname">token.</code><code class="descname">ERRORTOKEN</code><a class="headerlink" href="#token.ERRORTOKEN" title="Permalink to this definition">¶</a></dt>
+<dt id="token.N_TOKENS">
+<code class="descclassname">token.</code><code class="descname">N_TOKENS</code><a class="headerlink" href="#token.N_TOKENS" title="Permalink to this definition">¶</a></dt>
+<dt id="token.NT_OFFSET">
+<code class="descclassname">token.</code><code class="descname">NT_OFFSET</code><a class="headerlink" href="#token.NT_OFFSET" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>The following token type values aren’t used by the C tokenizer but are needed for
+the <a class="reference internal" href="tokenize.html#module-tokenize" title="tokenize: Lexical scanner for Python source code."><code class="xref py py-mod docutils literal notranslate"><span class="pre">tokenize</span></code></a> module.</p>
+<dl class="data">
+<dt id="token.COMMENT">
+<code class="descclassname">token.</code><code class="descname">COMMENT</code><a class="headerlink" href="#token.COMMENT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value used to indicate a comment.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="token.NL">
+<code class="descclassname">token.</code><code class="descname">NL</code><a class="headerlink" href="#token.NL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value used to indicate a non-terminating newline.  The
+<a class="reference internal" href="#token.NEWLINE" title="token.NEWLINE"><code class="xref py py-data docutils literal notranslate"><span class="pre">NEWLINE</span></code></a> token indicates the end of a logical line of Python code;
+<code class="docutils literal notranslate"><span class="pre">NL</span></code> tokens are generated when a logical line of code is continued over
+multiple physical lines.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="token.ENCODING">
+<code class="descclassname">token.</code><code class="descname">ENCODING</code><a class="headerlink" href="#token.ENCODING" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value that indicates the encoding used to decode the source bytes
+into text. The first token returned by <a class="reference internal" href="tokenize.html#tokenize.tokenize" title="tokenize.tokenize"><code class="xref py py-func docutils literal notranslate"><span class="pre">tokenize.tokenize()</span></code></a> will
+always be an <code class="docutils literal notranslate"><span class="pre">ENCODING</span></code> token.</p>
+</dd></dl>
+
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.5: </span>Added <code class="xref py py-data docutils literal notranslate"><span class="pre">AWAIT</span></code> and <code class="xref py py-data docutils literal notranslate"><span class="pre">ASYNC</span></code> tokens.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.7: </span>Added <a class="reference internal" href="#token.COMMENT" title="token.COMMENT"><code class="xref py py-data docutils literal notranslate"><span class="pre">COMMENT</span></code></a>, <a class="reference internal" href="#token.NL" title="token.NL"><code class="xref py py-data docutils literal notranslate"><span class="pre">NL</span></code></a> and <a class="reference internal" href="#token.ENCODING" title="token.ENCODING"><code class="xref py py-data docutils literal notranslate"><span class="pre">ENCODING</span></code></a> tokens.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.7: </span>Removed <code class="xref py py-data docutils literal notranslate"><span class="pre">AWAIT</span></code> and <code class="xref py py-data docutils literal notranslate"><span class="pre">ASYNC</span></code> tokens. “async” and “await” are
+now tokenized as <a class="reference internal" href="#token.NAME" title="token.NAME"><code class="xref py py-data docutils literal notranslate"><span class="pre">NAME</span></code></a> tokens.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="symbol.html"
+                        title="previous chapter"><code class="docutils literal notranslate"><span class="pre">symbol</span></code> — Constants used with Python parse trees</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="keyword.html"
+                        title="next chapter"><code class="docutils literal notranslate"><span class="pre">keyword</span></code> — Testing for Python keywords</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/library/token.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="keyword.html" title="keyword — Testing for Python keywords"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="symbol.html" title="symbol — Constants used with Python parse trees"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="language.html" >Python Language Services</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,330 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>bisect — Array bisection algorithm &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="array — Efficient arrays of numeric values" href="array.html" />
+    <link rel="prev" title="heapq — Heap queue algorithm" href="heapq.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/library/bisect.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="array.html" title="array — Efficient arrays of numeric values"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="heapq.html" title="heapq — Heap queue algorithm"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="datatypes.html" accesskey="U">Data Types</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-bisect">
+<span id="bisect-array-bisection-algorithm"></span><h1><a class="reference internal" href="#module-bisect" title="bisect: Array bisection algorithms for binary searching."><code class="xref py py-mod docutils literal notranslate"><span class="pre">bisect</span></code></a> — Array bisection algorithm<a class="headerlink" href="#module-bisect" title="Permalink to this headline">¶</a></h1>
+<p><strong>Source code:</strong> <a class="reference external" href="https://github.com/python/cpython/tree/3.7/Lib/bisect.py">Lib/bisect.py</a></p>
+<hr class="docutils" />
+<p>This module provides support for maintaining a list in sorted order without
+having to sort the list after each insertion.  For long lists of items with
+expensive comparison operations, this can be an improvement over the more common
+approach.  The module is called <a class="reference internal" href="#module-bisect" title="bisect: Array bisection algorithms for binary searching."><code class="xref py py-mod docutils literal notranslate"><span class="pre">bisect</span></code></a> because it uses a basic bisection
+algorithm to do its work.  The source code may be most useful as a working
+example of the algorithm (the boundary conditions are already right!).</p>
+<p>The following functions are provided:</p>
+<dl class="function">
+<dt id="bisect.bisect_left">
+<code class="descclassname">bisect.</code><code class="descname">bisect_left</code><span class="sig-paren">(</span><em>a</em>, <em>x</em>, <em>lo=0</em>, <em>hi=len(a)</em><span class="sig-paren">)</span><a class="headerlink" href="#bisect.bisect_left" title="Permalink to this definition">¶</a></dt>
+<dd><p>Locate the insertion point for <em>x</em> in <em>a</em> to maintain sorted order.
+The parameters <em>lo</em> and <em>hi</em> may be used to specify a subset of the list
+which should be considered; by default the entire list is used.  If <em>x</em> is
+already present in <em>a</em>, the insertion point will be before (to the left of)
+any existing entries.  The return value is suitable for use as the first
+parameter to <code class="docutils literal notranslate"><span class="pre">list.insert()</span></code> assuming that <em>a</em> is already sorted.</p>
+<p>The returned insertion point <em>i</em> partitions the array <em>a</em> into two halves so
+that <code class="docutils literal notranslate"><span class="pre">all(val</span> <span class="pre">&lt;</span> <span class="pre">x</span> <span class="pre">for</span> <span class="pre">val</span> <span class="pre">in</span> <span class="pre">a[lo:i])</span></code> for the left side and
+<code class="docutils literal notranslate"><span class="pre">all(val</span> <span class="pre">&gt;=</span> <span class="pre">x</span> <span class="pre">for</span> <span class="pre">val</span> <span class="pre">in</span> <span class="pre">a[i:hi])</span></code> for the right side.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bisect.bisect_right">
+<code class="descclassname">bisect.</code><code class="descname">bisect_right</code><span class="sig-paren">(</span><em>a</em>, <em>x</em>, <em>lo=0</em>, <em>hi=len(a)</em><span class="sig-paren">)</span><a class="headerlink" href="#bisect.bisect_right" title="Permalink to this definition">¶</a></dt>
+<dt id="bisect.bisect">
+<code class="descclassname">bisect.</code><code class="descname">bisect</code><span class="sig-paren">(</span><em>a</em>, <em>x</em>, <em>lo=0</em>, <em>hi=len(a)</em><span class="sig-paren">)</span><a class="headerlink" href="#bisect.bisect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Similar to <a class="reference internal" href="#bisect.bisect_left" title="bisect.bisect_left"><code class="xref py py-func docutils literal notranslate"><span class="pre">bisect_left()</span></code></a>, but returns an insertion point which comes
+after (to the right of) any existing entries of <em>x</em> in <em>a</em>.</p>
+<p>The returned insertion point <em>i</em> partitions the array <em>a</em> into two halves so
+that <code class="docutils literal notranslate"><span class="pre">all(val</span> <span class="pre">&lt;=</span> <span class="pre">x</span> <span class="pre">for</span> <span class="pre">val</span> <span class="pre">in</span> <span class="pre">a[lo:i])</span></code> for the left side and
+<code class="docutils literal notranslate"><span class="pre">all(val</span> <span class="pre">&gt;</span> <span class="pre">x</span> <span class="pre">for</span> <span class="pre">val</span> <span class="pre">in</span> <span class="pre">a[i:hi])</span></code> for the right side.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bisect.insort_left">
+<code class="descclassname">bisect.</code><code class="descname">insort_left</code><span class="sig-paren">(</span><em>a</em>, <em>x</em>, <em>lo=0</em>, <em>hi=len(a)</em><span class="sig-paren">)</span><a class="headerlink" href="#bisect.insort_left" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert <em>x</em> in <em>a</em> in sorted order.  This is equivalent to
+<code class="docutils literal notranslate"><span class="pre">a.insert(bisect.bisect_left(a,</span> <span class="pre">x,</span> <span class="pre">lo,</span> <span class="pre">hi),</span> <span class="pre">x)</span></code> assuming that <em>a</em> is
+already sorted.  Keep in mind that the O(log n) search is dominated by
+the slow O(n) insertion step.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bisect.insort_right">
+<code class="descclassname">bisect.</code><code class="descname">insort_right</code><span class="sig-paren">(</span><em>a</em>, <em>x</em>, <em>lo=0</em>, <em>hi=len(a)</em><span class="sig-paren">)</span><a class="headerlink" href="#bisect.insort_right" title="Permalink to this definition">¶</a></dt>
+<dt id="bisect.insort">
+<code class="descclassname">bisect.</code><code class="descname">insort</code><span class="sig-paren">(</span><em>a</em>, <em>x</em>, <em>lo=0</em>, <em>hi=len(a)</em><span class="sig-paren">)</span><a class="headerlink" href="#bisect.insort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Similar to <a class="reference internal" href="#bisect.insort_left" title="bisect.insort_left"><code class="xref py py-func docutils literal notranslate"><span class="pre">insort_left()</span></code></a>, but inserting <em>x</em> in <em>a</em> after any existing
+entries of <em>x</em>.</p>
+</dd></dl>
+
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="https://code.activestate.com/recipes/577197-sortedcollection/">SortedCollection recipe</a> that uses
+bisect to build a full-featured collection class with straight-forward search
+methods and support for a key-function.  The keys are precomputed to save
+unnecessary calls to the key function during searches.</p>
+</div>
+<div class="section" id="searching-sorted-lists">
+<h2>Searching Sorted Lists<a class="headerlink" href="#searching-sorted-lists" title="Permalink to this headline">¶</a></h2>
+<p>The above <a class="reference internal" href="#module-bisect" title="bisect: Array bisection algorithms for binary searching."><code class="xref py py-func docutils literal notranslate"><span class="pre">bisect()</span></code></a> functions are useful for finding insertion points but
+can be tricky or awkward to use for common searching tasks. The following five
+functions show how to transform them into the standard lookups for sorted
+lists:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="s1">&#39;Locate the leftmost value exactly equal to x&#39;</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">bisect_left</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="ow">and</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">x</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">i</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span>
+
+<span class="k">def</span> <span class="nf">find_lt</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="s1">&#39;Find rightmost value less than x&#39;</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">bisect_left</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span>
+
+<span class="k">def</span> <span class="nf">find_le</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="s1">&#39;Find rightmost value less than or equal to x&#39;</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">bisect_right</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span>
+
+<span class="k">def</span> <span class="nf">find_gt</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="s1">&#39;Find leftmost value greater than x&#39;</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">bisect_right</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span>
+
+<span class="k">def</span> <span class="nf">find_ge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="s1">&#39;Find leftmost item greater than or equal to x&#39;</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">bisect_left</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="other-examples">
+<h2>Other Examples<a class="headerlink" href="#other-examples" title="Permalink to this headline">¶</a></h2>
+<p id="bisect-example">The <a class="reference internal" href="#module-bisect" title="bisect: Array bisection algorithms for binary searching."><code class="xref py py-func docutils literal notranslate"><span class="pre">bisect()</span></code></a> function can be useful for numeric table lookups. This
+example uses <a class="reference internal" href="#module-bisect" title="bisect: Array bisection algorithms for binary searching."><code class="xref py py-func docutils literal notranslate"><span class="pre">bisect()</span></code></a> to look up a letter grade for an exam score (say)
+based on a set of ordered numeric breakpoints: 90 and up is an ‘A’, 80 to 89 is
+a ‘B’, and so on:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">grade</span><span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="n">breakpoints</span><span class="o">=</span><span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span> <span class="n">grades</span><span class="o">=</span><span class="s1">&#39;FDCBA&#39;</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">i</span> <span class="o">=</span> <span class="n">bisect</span><span class="p">(</span><span class="n">breakpoints</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">grades</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">grade</span><span class="p">(</span><span class="n">score</span><span class="p">)</span> <span class="k">for</span> <span class="n">score</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">33</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">89</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">100</span><span class="p">]]</span>
+<span class="go">[&#39;F&#39;, &#39;A&#39;, &#39;C&#39;, &#39;C&#39;, &#39;B&#39;, &#39;A&#39;, &#39;A&#39;]</span>
+</pre></div>
+</div>
+<p>Unlike the <a class="reference internal" href="functions.html#sorted" title="sorted"><code class="xref py py-func docutils literal notranslate"><span class="pre">sorted()</span></code></a> function, it does not make sense for the <a class="reference internal" href="#module-bisect" title="bisect: Array bisection algorithms for binary searching."><code class="xref py py-func docutils literal notranslate"><span class="pre">bisect()</span></code></a>
+functions to have <em>key</em> or <em>reversed</em> arguments because that would lead to an
+inefficient design (successive calls to bisect functions would not “remember”
+all of the previous key lookups).</p>
+<p>Instead, it is better to search a list of precomputed keys to find the index
+of the record in question:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>         <span class="c1"># precomputed list of keys</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">[</span><span class="n">bisect_left</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
+<span class="go">(&#39;black&#39;, 0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">[</span><span class="n">bisect_left</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
+<span class="go">(&#39;blue&#39;, 1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">[</span><span class="n">bisect_left</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="mi">5</span><span class="p">)]</span>
+<span class="go">(&#39;red&#39;, 5)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">[</span><span class="n">bisect_left</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="mi">8</span><span class="p">)]</span>
+<span class="go">(&#39;yellow&#39;, 8)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">bisect</span></code> — Array bisection algorithm</a><ul>
+<li><a class="reference internal" href="#searching-sorted-lists">Searching Sorted Lists</a></li>
+<li><a class="reference internal" href="#other-examples">Other Examples</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="heapq.html"
+                        title="previous chapter"><code class="docutils literal notranslate"><span class="pre">heapq</span></code> — Heap queue algorithm</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="array.html"
+                        title="next chapter"><code class="docutils literal notranslate"><span class="pre">array</span></code> — Efficient arrays of numeric values</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/library/bisect.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="array.html" title="array — Efficient arrays of numeric values"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="heapq.html" title="heapq — Heap queue algorithm"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="datatypes.html" >Data Types</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

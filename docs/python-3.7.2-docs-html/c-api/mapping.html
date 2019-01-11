@@ -1,0 +1,288 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Mapping Protocol &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="Iterator Protocol" href="iter.html" />
+    <link rel="prev" title="Sequence Protocol" href="sequence.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/c-api/mapping.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="iter.html" title="Iterator Protocol"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="sequence.html" title="Sequence Protocol"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Python/C API Reference Manual</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="abstract.html" accesskey="U">Abstract Objects Layer</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="mapping-protocol">
+<span id="mapping"></span><h1>Mapping Protocol<a class="headerlink" href="#mapping-protocol" title="Permalink to this headline">¶</a></h1>
+<p>See also <a class="reference internal" href="object.html#c.PyObject_GetItem" title="PyObject_GetItem"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyObject_GetItem()</span></code></a>, <a class="reference internal" href="object.html#c.PyObject_SetItem" title="PyObject_SetItem"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyObject_SetItem()</span></code></a> and
+<a class="reference internal" href="object.html#c.PyObject_DelItem" title="PyObject_DelItem"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyObject_DelItem()</span></code></a>.</p>
+<dl class="function">
+<dt id="c.PyMapping_Check">
+int <code class="descname">PyMapping_Check</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*o</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyMapping_Check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">1</span></code> if the object provides mapping protocol or supports slicing,
+and <code class="docutils literal notranslate"><span class="pre">0</span></code> otherwise.  Note that it returns <code class="docutils literal notranslate"><span class="pre">1</span></code> for Python classes with
+a <a class="reference internal" href="../reference/datamodel.html#object.__getitem__" title="object.__getitem__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__getitem__()</span></code></a> method since in general case it is impossible to
+determine what the type of keys it supports.  This function always
+succeeds.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyMapping_Size">
+Py_ssize_t <code class="descname">PyMapping_Size</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*o</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyMapping_Size" title="Permalink to this definition">¶</a></dt>
+<dt id="c.PyMapping_Length">
+Py_ssize_t <code class="descname">PyMapping_Length</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*o</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyMapping_Length" title="Permalink to this definition">¶</a></dt>
+<dd><p id="index-0">Returns the number of keys in object <em>o</em> on success, and <code class="docutils literal notranslate"><span class="pre">-1</span></code> on failure.
+This is equivalent to the Python expression <code class="docutils literal notranslate"><span class="pre">len(o)</span></code>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyMapping_GetItemString">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a>* <code class="descname">PyMapping_GetItemString</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*o</em>, const char<em>&nbsp;*key</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyMapping_GetItemString" title="Permalink to this definition">¶</a></dt>
+<dd><em class="refcount">Return value: New reference.</em><p>Return element of <em>o</em> corresponding to the string <em>key</em> or <em>NULL</em> on failure.
+This is the equivalent of the Python expression <code class="docutils literal notranslate"><span class="pre">o[key]</span></code>.
+See also <a class="reference internal" href="object.html#c.PyObject_GetItem" title="PyObject_GetItem"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyObject_GetItem()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyMapping_SetItemString">
+int <code class="descname">PyMapping_SetItemString</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*o</em>, const char<em>&nbsp;*key</em>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*v</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyMapping_SetItemString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Map the string <em>key</em> to the value <em>v</em> in object <em>o</em>.  Returns <code class="docutils literal notranslate"><span class="pre">-1</span></code> on
+failure.  This is the equivalent of the Python statement <code class="docutils literal notranslate"><span class="pre">o[key]</span> <span class="pre">=</span> <span class="pre">v</span></code>.
+See also <a class="reference internal" href="object.html#c.PyObject_SetItem" title="PyObject_SetItem"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyObject_SetItem()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyMapping_DelItem">
+int <code class="descname">PyMapping_DelItem</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*o</em>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*key</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyMapping_DelItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the mapping for the object <em>key</em> from the object <em>o</em>.  Return <code class="docutils literal notranslate"><span class="pre">-1</span></code>
+on failure.  This is equivalent to the Python statement <code class="docutils literal notranslate"><span class="pre">del</span> <span class="pre">o[key]</span></code>.
+This is an alias of <a class="reference internal" href="object.html#c.PyObject_DelItem" title="PyObject_DelItem"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyObject_DelItem()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyMapping_DelItemString">
+int <code class="descname">PyMapping_DelItemString</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*o</em>, const char<em>&nbsp;*key</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyMapping_DelItemString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the mapping for the string <em>key</em> from the object <em>o</em>.  Return <code class="docutils literal notranslate"><span class="pre">-1</span></code>
+on failure.  This is equivalent to the Python statement <code class="docutils literal notranslate"><span class="pre">del</span> <span class="pre">o[key]</span></code>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyMapping_HasKey">
+int <code class="descname">PyMapping_HasKey</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*o</em>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*key</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyMapping_HasKey" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">1</span></code> if the mapping object has the key <em>key</em> and <code class="docutils literal notranslate"><span class="pre">0</span></code> otherwise.
+This is equivalent to the Python expression <code class="docutils literal notranslate"><span class="pre">key</span> <span class="pre">in</span> <span class="pre">o</span></code>.
+This function always succeeds.</p>
+<p>Note that exceptions which occur while calling the <a class="reference internal" href="../reference/datamodel.html#object.__getitem__" title="object.__getitem__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__getitem__()</span></code></a>
+method will get suppressed.
+To get error reporting use <a class="reference internal" href="object.html#c.PyObject_GetItem" title="PyObject_GetItem"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyObject_GetItem()</span></code></a> instead.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyMapping_HasKeyString">
+int <code class="descname">PyMapping_HasKeyString</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*o</em>, const char<em>&nbsp;*key</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyMapping_HasKeyString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">1</span></code> if the mapping object has the key <em>key</em> and <code class="docutils literal notranslate"><span class="pre">0</span></code> otherwise.
+This is equivalent to the Python expression <code class="docutils literal notranslate"><span class="pre">key</span> <span class="pre">in</span> <span class="pre">o</span></code>.
+This function always succeeds.</p>
+<p>Note that exceptions which occur while calling the <a class="reference internal" href="../reference/datamodel.html#object.__getitem__" title="object.__getitem__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__getitem__()</span></code></a>
+method and creating a temporary string object will get suppressed.
+To get error reporting use <a class="reference internal" href="#c.PyMapping_GetItemString" title="PyMapping_GetItemString"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyMapping_GetItemString()</span></code></a> instead.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyMapping_Keys">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a>* <code class="descname">PyMapping_Keys</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*o</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyMapping_Keys" title="Permalink to this definition">¶</a></dt>
+<dd><em class="refcount">Return value: New reference.</em><p>On success, return a list of the keys in object <em>o</em>.  On failure, return
+<em>NULL</em>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.7: </span>Previously, the function returned a list or a tuple.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyMapping_Values">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a>* <code class="descname">PyMapping_Values</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*o</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyMapping_Values" title="Permalink to this definition">¶</a></dt>
+<dd><em class="refcount">Return value: New reference.</em><p>On success, return a list of the values in object <em>o</em>.  On failure, return
+<em>NULL</em>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.7: </span>Previously, the function returned a list or a tuple.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="c.PyMapping_Items">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a>* <code class="descname">PyMapping_Items</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a><em>&nbsp;*o</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyMapping_Items" title="Permalink to this definition">¶</a></dt>
+<dd><em class="refcount">Return value: New reference.</em><p>On success, return a list of the items in object <em>o</em>, where each item is a
+tuple containing a key-value pair.  On failure, return <em>NULL</em>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.7: </span>Previously, the function returned a list or a tuple.</p>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="sequence.html"
+                        title="previous chapter">Sequence Protocol</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="iter.html"
+                        title="next chapter">Iterator Protocol</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/c-api/mapping.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="iter.html" title="Iterator Protocol"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="sequence.html" title="Sequence Protocol"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Python/C API Reference Manual</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="abstract.html" >Abstract Objects Layer</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

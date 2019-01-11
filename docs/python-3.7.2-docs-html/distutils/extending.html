@@ -1,0 +1,263 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>8. Extending Distutils &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="9. Command Reference" href="commandref.html" />
+    <link rel="prev" title="7. Examples" href="examples.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/distutils/extending.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="commandref.html" title="9. Command Reference"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="examples.html" title="7. Examples"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Distributing Python Modules (Legacy version)</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="extending-distutils">
+<span id="id1"></span><h1>8. Extending Distutils<a class="headerlink" href="#extending-distutils" title="Permalink to this headline">¶</a></h1>
+<p>Distutils can be extended in various ways.  Most extensions take the form of new
+commands or replacements for existing commands.  New commands may be written to
+support new types of platform-specific packaging, for example, while
+replacements for existing commands may be made to modify details of how the
+command operates on a package.</p>
+<p>Most extensions of the distutils are made within <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code> scripts that
+want to modify existing commands; many simply add a few file extensions that
+should be copied into packages in addition to <code class="file docutils literal notranslate"><span class="pre">.py</span></code> files as a
+convenience.</p>
+<p>Most distutils command implementations are subclasses of the
+<a class="reference internal" href="apiref.html#distutils.cmd.Command" title="distutils.cmd.Command"><code class="xref py py-class docutils literal notranslate"><span class="pre">distutils.cmd.Command</span></code></a> class.  New commands may directly inherit from
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Command</span></code>, while replacements often derive from <code class="xref py py-class docutils literal notranslate"><span class="pre">Command</span></code>
+indirectly, directly subclassing the command they are replacing.  Commands are
+required to derive from <code class="xref py py-class docutils literal notranslate"><span class="pre">Command</span></code>.</p>
+<div class="section" id="integrating-new-commands">
+<h2>8.1. Integrating new commands<a class="headerlink" href="#integrating-new-commands" title="Permalink to this headline">¶</a></h2>
+<p>There are different ways to integrate new command implementations into
+distutils.  The most difficult is to lobby for the inclusion of the new features
+in distutils itself, and wait for (and require) a version of Python that
+provides that support.  This is really hard for many reasons.</p>
+<p>The most common, and possibly the most reasonable for most needs, is to include
+the new implementations with your <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code> script, and cause the
+<a class="reference internal" href="apiref.html#distutils.core.setup" title="distutils.core.setup"><code class="xref py py-func docutils literal notranslate"><span class="pre">distutils.core.setup()</span></code></a> function use them:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distutils.command.build_py</span> <span class="k">import</span> <span class="n">build_py</span> <span class="k">as</span> <span class="n">_build_py</span>
+<span class="kn">from</span> <span class="nn">distutils.core</span> <span class="k">import</span> <span class="n">setup</span>
+
+<span class="k">class</span> <span class="nc">build_py</span><span class="p">(</span><span class="n">_build_py</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Specialized Python source builder.&quot;&quot;&quot;</span>
+
+    <span class="c1"># implement whatever needs to be different...</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">cmdclass</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;build_py&#39;</span><span class="p">:</span> <span class="n">build_py</span><span class="p">},</span>
+      <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This approach is most valuable if the new implementations must be used to use a
+particular package, as everyone interested in the package will need to have the
+new command implementation.</p>
+<p>Beginning with Python 2.4, a third option is available, intended to allow new
+commands to be added which can support existing <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code> scripts without
+requiring modifications to the Python installation.  This is expected to allow
+third-party extensions to provide support for additional packaging systems, but
+the commands can be used for anything distutils commands can be used for.  A new
+configuration option, <code class="docutils literal notranslate"><span class="pre">command_packages</span></code> (command-line option
+<code class="xref std std-option docutils literal notranslate"><span class="pre">--command-packages</span></code>), can be used to specify additional packages to be
+searched for modules implementing commands.  Like all distutils options, this
+can be specified on the command line or in a configuration file.  This option
+can only be set in the <code class="docutils literal notranslate"><span class="pre">[global]</span></code> section of a configuration file, or before
+any commands on the command line.  If set in a configuration file, it can be
+overridden from the command line; setting it to an empty string on the command
+line causes the default to be used.  This should never be set in a configuration
+file provided with a package.</p>
+<p>This new option can be used to add any number of packages to the list of
+packages searched for command implementations; multiple package names should be
+separated by commas.  When not specified, the search is only performed in the
+<a class="reference internal" href="apiref.html#module-distutils.command" title="distutils.command: This subpackage contains one module for each standard Distutils command."><code class="xref py py-mod docutils literal notranslate"><span class="pre">distutils.command</span></code></a> package.  When <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code> is run with the option
+<code class="docutils literal notranslate"><span class="pre">--command-packages</span> <span class="pre">distcmds,buildcmds</span></code>, however, the packages
+<a class="reference internal" href="apiref.html#module-distutils.command" title="distutils.command: This subpackage contains one module for each standard Distutils command."><code class="xref py py-mod docutils literal notranslate"><span class="pre">distutils.command</span></code></a>, <code class="xref py py-mod docutils literal notranslate"><span class="pre">distcmds</span></code>, and <code class="xref py py-mod docutils literal notranslate"><span class="pre">buildcmds</span></code> will be searched
+in that order.  New commands are expected to be implemented in modules of the
+same name as the command by classes sharing the same name.  Given the example
+command line option above, the command <strong class="command">bdist_openpkg</strong> could be
+implemented by the class <code class="xref py py-class docutils literal notranslate"><span class="pre">distcmds.bdist_openpkg.bdist_openpkg</span></code> or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">buildcmds.bdist_openpkg.bdist_openpkg</span></code>.</p>
+</div>
+<div class="section" id="adding-new-distribution-types">
+<h2>8.2. Adding new distribution types<a class="headerlink" href="#adding-new-distribution-types" title="Permalink to this headline">¶</a></h2>
+<p>Commands that create distributions (files in the <code class="file docutils literal notranslate"><span class="pre">dist/</span></code> directory) need
+to add <code class="docutils literal notranslate"><span class="pre">(command,</span> <span class="pre">filename)</span></code> pairs to <code class="docutils literal notranslate"><span class="pre">self.distribution.dist_files</span></code> so that
+<strong class="command">upload</strong> can upload it to PyPI.  The <em>filename</em> in the pair contains no
+path information, only the name of the file itself.  In dry-run mode, pairs
+should still be added to represent what would have been created.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">8. Extending Distutils</a><ul>
+<li><a class="reference internal" href="#integrating-new-commands">8.1. Integrating new commands</a></li>
+<li><a class="reference internal" href="#adding-new-distribution-types">8.2. Adding new distribution types</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="examples.html"
+                        title="previous chapter">7. Examples</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="commandref.html"
+                        title="next chapter">9. Command Reference</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/distutils/extending.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="commandref.html" title="9. Command Reference"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="examples.html" title="7. Examples"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Distributing Python Modules (Legacy version)</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,511 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>parser — Access Python parse trees &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="ast — Abstract Syntax Trees" href="ast.html" />
+    <link rel="prev" title="Python Language Services" href="language.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/library/parser.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ast.html" title="ast — Abstract Syntax Trees"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="language.html" title="Python Language Services"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="language.html" accesskey="U">Python Language Services</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-parser">
+<span id="parser-access-python-parse-trees"></span><h1><a class="reference internal" href="#module-parser" title="parser: Access parse trees for Python source code."><code class="xref py py-mod docutils literal notranslate"><span class="pre">parser</span></code></a> — Access Python parse trees<a class="headerlink" href="#module-parser" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" id="index-0" />
+<p>The <a class="reference internal" href="#module-parser" title="parser: Access parse trees for Python source code."><code class="xref py py-mod docutils literal notranslate"><span class="pre">parser</span></code></a> module provides an interface to Python’s internal parser and
+byte-code compiler.  The primary purpose for this interface is to allow Python
+code to edit the parse tree of a Python expression and create executable code
+from this.  This is better than trying to parse and modify an arbitrary Python
+code fragment as a string because parsing is performed in a manner identical to
+the code forming the application.  It is also faster.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">From Python 2.5 onward, it’s much more convenient to cut in at the Abstract
+Syntax Tree (AST) generation and compilation stage, using the <a class="reference internal" href="ast.html#module-ast" title="ast: Abstract Syntax Tree classes and manipulation."><code class="xref py py-mod docutils literal notranslate"><span class="pre">ast</span></code></a>
+module.</p>
+</div>
+<p>There are a few things to note about this module which are important to making
+use of the data structures created.  This is not a tutorial on editing the parse
+trees for Python code, but some examples of using the <a class="reference internal" href="#module-parser" title="parser: Access parse trees for Python source code."><code class="xref py py-mod docutils literal notranslate"><span class="pre">parser</span></code></a> module are
+presented.</p>
+<p>Most importantly, a good understanding of the Python grammar processed by the
+internal parser is required.  For full information on the language syntax, refer
+to <a class="reference internal" href="../reference/index.html#reference-index"><span class="std std-ref">The Python Language Reference</span></a>.  The parser
+itself is created from a grammar specification defined in the file
+<code class="file docutils literal notranslate"><span class="pre">Grammar/Grammar</span></code> in the standard Python distribution.  The parse trees
+stored in the ST objects created by this module are the actual output from the
+internal parser when created by the <a class="reference internal" href="#parser.expr" title="parser.expr"><code class="xref py py-func docutils literal notranslate"><span class="pre">expr()</span></code></a> or <a class="reference internal" href="#parser.suite" title="parser.suite"><code class="xref py py-func docutils literal notranslate"><span class="pre">suite()</span></code></a> functions,
+described below.  The ST objects created by <a class="reference internal" href="#parser.sequence2st" title="parser.sequence2st"><code class="xref py py-func docutils literal notranslate"><span class="pre">sequence2st()</span></code></a> faithfully
+simulate those structures.  Be aware that the values of the sequences which are
+considered “correct” will vary from one version of Python to another as the
+formal grammar for the language is revised.  However, transporting code from one
+Python version to another as source text will always allow correct parse trees
+to be created in the target version, with the only restriction being that
+migrating to an older version of the interpreter will not support more recent
+language constructs.  The parse trees are not typically compatible from one
+version to another, whereas source code has always been forward-compatible.</p>
+<p>Each element of the sequences returned by <a class="reference internal" href="#parser.st2list" title="parser.st2list"><code class="xref py py-func docutils literal notranslate"><span class="pre">st2list()</span></code></a> or <a class="reference internal" href="#parser.st2tuple" title="parser.st2tuple"><code class="xref py py-func docutils literal notranslate"><span class="pre">st2tuple()</span></code></a>
+has a simple form.  Sequences representing non-terminal elements in the grammar
+always have a length greater than one.  The first element is an integer which
+identifies a production in the grammar.  These integers are given symbolic names
+in the C header file <code class="file docutils literal notranslate"><span class="pre">Include/graminit.h</span></code> and the Python module
+<a class="reference internal" href="symbol.html#module-symbol" title="symbol: Constants representing internal nodes of the parse tree."><code class="xref py py-mod docutils literal notranslate"><span class="pre">symbol</span></code></a>.  Each additional element of the sequence represents a component
+of the production as recognized in the input string: these are always sequences
+which have the same form as the parent.  An important aspect of this structure
+which should be noted is that keywords used to identify the parent node type,
+such as the keyword <a class="reference internal" href="../reference/compound_stmts.html#if"><code class="xref std std-keyword docutils literal notranslate"><span class="pre">if</span></code></a> in an <code class="xref py py-const docutils literal notranslate"><span class="pre">if_stmt</span></code>, are included in the
+node tree without any special treatment.  For example, the <code class="xref std std-keyword docutils literal notranslate"><span class="pre">if</span></code> keyword
+is represented by the tuple <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">'if')</span></code>, where <code class="docutils literal notranslate"><span class="pre">1</span></code> is the numeric value
+associated with all <code class="xref py py-const docutils literal notranslate"><span class="pre">NAME</span></code> tokens, including variable and function names
+defined by the user.  In an alternate form returned when line number information
+is requested, the same token might be represented as <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">'if',</span> <span class="pre">12)</span></code>, where
+the <code class="docutils literal notranslate"><span class="pre">12</span></code> represents the line number at which the terminal symbol was found.</p>
+<p>Terminal elements are represented in much the same way, but without any child
+elements and the addition of the source text which was identified.  The example
+of the <a class="reference internal" href="../reference/compound_stmts.html#if"><code class="xref std std-keyword docutils literal notranslate"><span class="pre">if</span></code></a> keyword above is representative.  The various types of
+terminal symbols are defined in the C header file <code class="file docutils literal notranslate"><span class="pre">Include/token.h</span></code> and
+the Python module <a class="reference internal" href="token.html#module-token" title="token: Constants representing terminal nodes of the parse tree."><code class="xref py py-mod docutils literal notranslate"><span class="pre">token</span></code></a>.</p>
+<p>The ST objects are not required to support the functionality of this module,
+but are provided for three purposes: to allow an application to amortize the
+cost of processing complex parse trees, to provide a parse tree representation
+which conserves memory space when compared to the Python list or tuple
+representation, and to ease the creation of additional modules in C which
+manipulate parse trees.  A simple “wrapper” class may be created in Python to
+hide the use of ST objects.</p>
+<p>The <a class="reference internal" href="#module-parser" title="parser: Access parse trees for Python source code."><code class="xref py py-mod docutils literal notranslate"><span class="pre">parser</span></code></a> module defines functions for a few distinct purposes.  The
+most important purposes are to create ST objects and to convert ST objects to
+other representations such as parse trees and compiled code objects, but there
+are also functions which serve to query the type of parse tree represented by an
+ST object.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt>Module <a class="reference internal" href="symbol.html#module-symbol" title="symbol: Constants representing internal nodes of the parse tree."><code class="xref py py-mod docutils literal notranslate"><span class="pre">symbol</span></code></a></dt>
+<dd>Useful constants representing internal nodes of the parse tree.</dd>
+<dt>Module <a class="reference internal" href="token.html#module-token" title="token: Constants representing terminal nodes of the parse tree."><code class="xref py py-mod docutils literal notranslate"><span class="pre">token</span></code></a></dt>
+<dd>Useful constants representing leaf nodes of the parse tree and functions for
+testing node values.</dd>
+</dl>
+</div>
+<div class="section" id="creating-st-objects">
+<span id="creating-sts"></span><h2>Creating ST Objects<a class="headerlink" href="#creating-st-objects" title="Permalink to this headline">¶</a></h2>
+<p>ST objects may be created from source code or from a parse tree. When creating
+an ST object from source, different functions are used to create the <code class="docutils literal notranslate"><span class="pre">'eval'</span></code>
+and <code class="docutils literal notranslate"><span class="pre">'exec'</span></code> forms.</p>
+<dl class="function">
+<dt id="parser.expr">
+<code class="descclassname">parser.</code><code class="descname">expr</code><span class="sig-paren">(</span><em>source</em><span class="sig-paren">)</span><a class="headerlink" href="#parser.expr" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <a class="reference internal" href="#parser.expr" title="parser.expr"><code class="xref py py-func docutils literal notranslate"><span class="pre">expr()</span></code></a> function parses the parameter <em>source</em> as if it were an input
+to <code class="docutils literal notranslate"><span class="pre">compile(source,</span> <span class="pre">'file.py',</span> <span class="pre">'eval')</span></code>.  If the parse succeeds, an ST object
+is created to hold the internal parse tree representation, otherwise an
+appropriate exception is raised.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="parser.suite">
+<code class="descclassname">parser.</code><code class="descname">suite</code><span class="sig-paren">(</span><em>source</em><span class="sig-paren">)</span><a class="headerlink" href="#parser.suite" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <a class="reference internal" href="#parser.suite" title="parser.suite"><code class="xref py py-func docutils literal notranslate"><span class="pre">suite()</span></code></a> function parses the parameter <em>source</em> as if it were an input
+to <code class="docutils literal notranslate"><span class="pre">compile(source,</span> <span class="pre">'file.py',</span> <span class="pre">'exec')</span></code>.  If the parse succeeds, an ST object
+is created to hold the internal parse tree representation, otherwise an
+appropriate exception is raised.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="parser.sequence2st">
+<code class="descclassname">parser.</code><code class="descname">sequence2st</code><span class="sig-paren">(</span><em>sequence</em><span class="sig-paren">)</span><a class="headerlink" href="#parser.sequence2st" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function accepts a parse tree represented as a sequence and builds an
+internal representation if possible.  If it can validate that the tree conforms
+to the Python grammar and all nodes are valid node types in the host version of
+Python, an ST object is created from the internal representation and returned
+to the called.  If there is a problem creating the internal representation, or
+if the tree cannot be validated, a <a class="reference internal" href="#parser.ParserError" title="parser.ParserError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ParserError</span></code></a> exception is raised.  An
+ST object created this way should not be assumed to compile correctly; normal
+exceptions raised by compilation may still be initiated when the ST object is
+passed to <a class="reference internal" href="#parser.compilest" title="parser.compilest"><code class="xref py py-func docutils literal notranslate"><span class="pre">compilest()</span></code></a>.  This may indicate problems not related to syntax
+(such as a <a class="reference internal" href="exceptions.html#MemoryError" title="MemoryError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">MemoryError</span></code></a> exception), but may also be due to constructs such
+as the result of parsing <code class="docutils literal notranslate"><span class="pre">del</span> <span class="pre">f(0)</span></code>, which escapes the Python parser but is
+checked by the bytecode compiler.</p>
+<p>Sequences representing terminal tokens may be represented as either two-element
+lists of the form <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">'name')</span></code> or as three-element lists of the form <code class="docutils literal notranslate"><span class="pre">(1,</span>
+<span class="pre">'name',</span> <span class="pre">56)</span></code>.  If the third element is present, it is assumed to be a valid
+line number.  The line number may be specified for any subset of the terminal
+symbols in the input tree.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="parser.tuple2st">
+<code class="descclassname">parser.</code><code class="descname">tuple2st</code><span class="sig-paren">(</span><em>sequence</em><span class="sig-paren">)</span><a class="headerlink" href="#parser.tuple2st" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the same function as <a class="reference internal" href="#parser.sequence2st" title="parser.sequence2st"><code class="xref py py-func docutils literal notranslate"><span class="pre">sequence2st()</span></code></a>.  This entry point is
+maintained for backward compatibility.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="converting-st-objects">
+<span id="converting-sts"></span><h2>Converting ST Objects<a class="headerlink" href="#converting-st-objects" title="Permalink to this headline">¶</a></h2>
+<p>ST objects, regardless of the input used to create them, may be converted to
+parse trees represented as list- or tuple- trees, or may be compiled into
+executable code objects.  Parse trees may be extracted with or without line
+numbering information.</p>
+<dl class="function">
+<dt id="parser.st2list">
+<code class="descclassname">parser.</code><code class="descname">st2list</code><span class="sig-paren">(</span><em>st</em>, <em>line_info=False</em>, <em>col_info=False</em><span class="sig-paren">)</span><a class="headerlink" href="#parser.st2list" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function accepts an ST object from the caller in <em>st</em> and returns a
+Python list representing the equivalent parse tree.  The resulting list
+representation can be used for inspection or the creation of a new parse tree in
+list form.  This function does not fail so long as memory is available to build
+the list representation.  If the parse tree will only be used for inspection,
+<a class="reference internal" href="#parser.st2tuple" title="parser.st2tuple"><code class="xref py py-func docutils literal notranslate"><span class="pre">st2tuple()</span></code></a> should be used instead to reduce memory consumption and
+fragmentation.  When the list representation is required, this function is
+significantly faster than retrieving a tuple representation and converting that
+to nested lists.</p>
+<p>If <em>line_info</em> is true, line number information will be included for all
+terminal tokens as a third element of the list representing the token.  Note
+that the line number provided specifies the line on which the token <em>ends</em>.
+This information is omitted if the flag is false or omitted.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="parser.st2tuple">
+<code class="descclassname">parser.</code><code class="descname">st2tuple</code><span class="sig-paren">(</span><em>st</em>, <em>line_info=False</em>, <em>col_info=False</em><span class="sig-paren">)</span><a class="headerlink" href="#parser.st2tuple" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function accepts an ST object from the caller in <em>st</em> and returns a
+Python tuple representing the equivalent parse tree.  Other than returning a
+tuple instead of a list, this function is identical to <a class="reference internal" href="#parser.st2list" title="parser.st2list"><code class="xref py py-func docutils literal notranslate"><span class="pre">st2list()</span></code></a>.</p>
+<p>If <em>line_info</em> is true, line number information will be included for all
+terminal tokens as a third element of the list representing the token.  This
+information is omitted if the flag is false or omitted.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="parser.compilest">
+<code class="descclassname">parser.</code><code class="descname">compilest</code><span class="sig-paren">(</span><em>st</em>, <em>filename='&lt;syntax-tree&gt;'</em><span class="sig-paren">)</span><a class="headerlink" href="#parser.compilest" title="Permalink to this definition">¶</a></dt>
+<dd><p id="index-1">The Python byte compiler can be invoked on an ST object to produce code objects
+which can be used as part of a call to the built-in <a class="reference internal" href="functions.html#exec" title="exec"><code class="xref py py-func docutils literal notranslate"><span class="pre">exec()</span></code></a> or <a class="reference internal" href="functions.html#eval" title="eval"><code class="xref py py-func docutils literal notranslate"><span class="pre">eval()</span></code></a>
+functions. This function provides the interface to the compiler, passing the
+internal parse tree from <em>st</em> to the parser, using the source file name
+specified by the <em>filename</em> parameter. The default value supplied for <em>filename</em>
+indicates that the source was an ST object.</p>
+<p>Compiling an ST object may result in exceptions related to compilation; an
+example would be a <a class="reference internal" href="exceptions.html#SyntaxError" title="SyntaxError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">SyntaxError</span></code></a> caused by the parse tree for <code class="docutils literal notranslate"><span class="pre">del</span> <span class="pre">f(0)</span></code>:
+this statement is considered legal within the formal grammar for Python but is
+not a legal language construct.  The <a class="reference internal" href="exceptions.html#SyntaxError" title="SyntaxError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">SyntaxError</span></code></a> raised for this
+condition is actually generated by the Python byte-compiler normally, which is
+why it can be raised at this point by the <a class="reference internal" href="#module-parser" title="parser: Access parse trees for Python source code."><code class="xref py py-mod docutils literal notranslate"><span class="pre">parser</span></code></a> module.  Most causes of
+compilation failure can be diagnosed programmatically by inspection of the parse
+tree.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="queries-on-st-objects">
+<span id="querying-sts"></span><h2>Queries on ST Objects<a class="headerlink" href="#queries-on-st-objects" title="Permalink to this headline">¶</a></h2>
+<p>Two functions are provided which allow an application to determine if an ST was
+created as an expression or a suite.  Neither of these functions can be used to
+determine if an ST was created from source code via <a class="reference internal" href="#parser.expr" title="parser.expr"><code class="xref py py-func docutils literal notranslate"><span class="pre">expr()</span></code></a> or
+<a class="reference internal" href="#parser.suite" title="parser.suite"><code class="xref py py-func docutils literal notranslate"><span class="pre">suite()</span></code></a> or from a parse tree via <a class="reference internal" href="#parser.sequence2st" title="parser.sequence2st"><code class="xref py py-func docutils literal notranslate"><span class="pre">sequence2st()</span></code></a>.</p>
+<dl class="function">
+<dt id="parser.isexpr">
+<code class="descclassname">parser.</code><code class="descname">isexpr</code><span class="sig-paren">(</span><em>st</em><span class="sig-paren">)</span><a class="headerlink" href="#parser.isexpr" title="Permalink to this definition">¶</a></dt>
+<dd><p id="index-2">When <em>st</em> represents an <code class="docutils literal notranslate"><span class="pre">'eval'</span></code> form, this function returns true, otherwise
+it returns false.  This is useful, since code objects normally cannot be queried
+for this information using existing built-in functions.  Note that the code
+objects created by <a class="reference internal" href="#parser.compilest" title="parser.compilest"><code class="xref py py-func docutils literal notranslate"><span class="pre">compilest()</span></code></a> cannot be queried like this either, and
+are identical to those created by the built-in <a class="reference internal" href="functions.html#compile" title="compile"><code class="xref py py-func docutils literal notranslate"><span class="pre">compile()</span></code></a> function.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="parser.issuite">
+<code class="descclassname">parser.</code><code class="descname">issuite</code><span class="sig-paren">(</span><em>st</em><span class="sig-paren">)</span><a class="headerlink" href="#parser.issuite" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function mirrors <a class="reference internal" href="#parser.isexpr" title="parser.isexpr"><code class="xref py py-func docutils literal notranslate"><span class="pre">isexpr()</span></code></a> in that it reports whether an ST object
+represents an <code class="docutils literal notranslate"><span class="pre">'exec'</span></code> form, commonly known as a “suite.”  It is not safe to
+assume that this function is equivalent to <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">isexpr(st)</span></code>, as additional
+syntactic fragments may be supported in the future.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="exceptions-and-error-handling">
+<span id="st-errors"></span><h2>Exceptions and Error Handling<a class="headerlink" href="#exceptions-and-error-handling" title="Permalink to this headline">¶</a></h2>
+<p>The parser module defines a single exception, but may also pass other built-in
+exceptions from other portions of the Python runtime environment.  See each
+function for information about the exceptions it can raise.</p>
+<dl class="exception">
+<dt id="parser.ParserError">
+<em class="property">exception </em><code class="descclassname">parser.</code><code class="descname">ParserError</code><a class="headerlink" href="#parser.ParserError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception raised when a failure occurs within the parser module.  This is
+generally produced for validation failures rather than the built-in
+<a class="reference internal" href="exceptions.html#SyntaxError" title="SyntaxError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">SyntaxError</span></code></a> raised during normal parsing. The exception argument is
+either a string describing the reason of the failure or a tuple containing a
+sequence causing the failure from a parse tree passed to <a class="reference internal" href="#parser.sequence2st" title="parser.sequence2st"><code class="xref py py-func docutils literal notranslate"><span class="pre">sequence2st()</span></code></a>
+and an explanatory string.  Calls to <a class="reference internal" href="#parser.sequence2st" title="parser.sequence2st"><code class="xref py py-func docutils literal notranslate"><span class="pre">sequence2st()</span></code></a> need to be able to
+handle either type of exception, while calls to other functions in the module
+will only need to be aware of the simple string values.</p>
+</dd></dl>
+
+<p>Note that the functions <a class="reference internal" href="#parser.compilest" title="parser.compilest"><code class="xref py py-func docutils literal notranslate"><span class="pre">compilest()</span></code></a>, <a class="reference internal" href="#parser.expr" title="parser.expr"><code class="xref py py-func docutils literal notranslate"><span class="pre">expr()</span></code></a>, and <a class="reference internal" href="#parser.suite" title="parser.suite"><code class="xref py py-func docutils literal notranslate"><span class="pre">suite()</span></code></a> may
+raise exceptions which are normally raised by the parsing and compilation
+process.  These include the built in exceptions <a class="reference internal" href="exceptions.html#MemoryError" title="MemoryError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">MemoryError</span></code></a>,
+<a class="reference internal" href="exceptions.html#OverflowError" title="OverflowError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">OverflowError</span></code></a>, <a class="reference internal" href="exceptions.html#SyntaxError" title="SyntaxError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">SyntaxError</span></code></a>, and <a class="reference internal" href="exceptions.html#SystemError" title="SystemError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">SystemError</span></code></a>.  In these
+cases, these exceptions carry all the meaning normally associated with them.
+Refer to the descriptions of each function for detailed information.</p>
+</div>
+<div class="section" id="st-objects">
+<span id="id1"></span><h2>ST Objects<a class="headerlink" href="#st-objects" title="Permalink to this headline">¶</a></h2>
+<p>Ordered and equality comparisons are supported between ST objects. Pickling of
+ST objects (using the <a class="reference internal" href="pickle.html#module-pickle" title="pickle: Convert Python objects to streams of bytes and back."><code class="xref py py-mod docutils literal notranslate"><span class="pre">pickle</span></code></a> module) is also supported.</p>
+<dl class="data">
+<dt id="parser.STType">
+<code class="descclassname">parser.</code><code class="descname">STType</code><a class="headerlink" href="#parser.STType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of the objects returned by <a class="reference internal" href="#parser.expr" title="parser.expr"><code class="xref py py-func docutils literal notranslate"><span class="pre">expr()</span></code></a>, <a class="reference internal" href="#parser.suite" title="parser.suite"><code class="xref py py-func docutils literal notranslate"><span class="pre">suite()</span></code></a> and
+<a class="reference internal" href="#parser.sequence2st" title="parser.sequence2st"><code class="xref py py-func docutils literal notranslate"><span class="pre">sequence2st()</span></code></a>.</p>
+</dd></dl>
+
+<p>ST objects have the following methods:</p>
+<dl class="method">
+<dt id="parser.ST.compile">
+<code class="descclassname">ST.</code><code class="descname">compile</code><span class="sig-paren">(</span><em>filename='&lt;syntax-tree&gt;'</em><span class="sig-paren">)</span><a class="headerlink" href="#parser.ST.compile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as <code class="docutils literal notranslate"><span class="pre">compilest(st,</span> <span class="pre">filename)</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="parser.ST.isexpr">
+<code class="descclassname">ST.</code><code class="descname">isexpr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#parser.ST.isexpr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as <code class="docutils literal notranslate"><span class="pre">isexpr(st)</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="parser.ST.issuite">
+<code class="descclassname">ST.</code><code class="descname">issuite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#parser.ST.issuite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as <code class="docutils literal notranslate"><span class="pre">issuite(st)</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="parser.ST.tolist">
+<code class="descclassname">ST.</code><code class="descname">tolist</code><span class="sig-paren">(</span><em>line_info=False</em>, <em>col_info=False</em><span class="sig-paren">)</span><a class="headerlink" href="#parser.ST.tolist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as <code class="docutils literal notranslate"><span class="pre">st2list(st,</span> <span class="pre">line_info,</span> <span class="pre">col_info)</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="parser.ST.totuple">
+<code class="descclassname">ST.</code><code class="descname">totuple</code><span class="sig-paren">(</span><em>line_info=False</em>, <em>col_info=False</em><span class="sig-paren">)</span><a class="headerlink" href="#parser.ST.totuple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as <code class="docutils literal notranslate"><span class="pre">st2tuple(st,</span> <span class="pre">line_info,</span> <span class="pre">col_info)</span></code>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="example-emulation-of-compile">
+<h2>Example: Emulation of <a class="reference internal" href="functions.html#compile" title="compile"><code class="xref py py-func docutils literal notranslate"><span class="pre">compile()</span></code></a><a class="headerlink" href="#example-emulation-of-compile" title="Permalink to this headline">¶</a></h2>
+<p>While many useful operations may take place between parsing and bytecode
+generation, the simplest operation is to do nothing.  For this purpose, using
+the <a class="reference internal" href="#module-parser" title="parser: Access parse trees for Python source code."><code class="xref py py-mod docutils literal notranslate"><span class="pre">parser</span></code></a> module to produce an intermediate data structure is equivalent
+to the code</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">code</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span><span class="s1">&#39;a + 5&#39;</span><span class="p">,</span> <span class="s1">&#39;file.py&#39;</span><span class="p">,</span> <span class="s1">&#39;eval&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">eval</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+<span class="go">10</span>
+</pre></div>
+</div>
+<p>The equivalent operation using the <a class="reference internal" href="#module-parser" title="parser: Access parse trees for Python source code."><code class="xref py py-mod docutils literal notranslate"><span class="pre">parser</span></code></a> module is somewhat longer, and
+allows the intermediate internal parse tree to be retained as an ST object:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">parser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">expr</span><span class="p">(</span><span class="s1">&#39;a + 5&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">code</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;file.py&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">eval</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+<span class="go">10</span>
+</pre></div>
+</div>
+<p>An application which needs both ST and code objects can package this code into
+readily available functions:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">parser</span>
+
+<span class="k">def</span> <span class="nf">load_suite</span><span class="p">(</span><span class="n">source_string</span><span class="p">):</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">suite</span><span class="p">(</span><span class="n">source_string</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">st</span><span class="p">,</span> <span class="n">st</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">load_expression</span><span class="p">(</span><span class="n">source_string</span><span class="p">):</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">expr</span><span class="p">(</span><span class="n">source_string</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">st</span><span class="p">,</span> <span class="n">st</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">parser</span></code> — Access Python parse trees</a><ul>
+<li><a class="reference internal" href="#creating-st-objects">Creating ST Objects</a></li>
+<li><a class="reference internal" href="#converting-st-objects">Converting ST Objects</a></li>
+<li><a class="reference internal" href="#queries-on-st-objects">Queries on ST Objects</a></li>
+<li><a class="reference internal" href="#exceptions-and-error-handling">Exceptions and Error Handling</a></li>
+<li><a class="reference internal" href="#st-objects">ST Objects</a></li>
+<li><a class="reference internal" href="#example-emulation-of-compile">Example: Emulation of <code class="docutils literal notranslate"><span class="pre">compile()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="language.html"
+                        title="previous chapter">Python Language Services</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ast.html"
+                        title="next chapter"><code class="docutils literal notranslate"><span class="pre">ast</span></code> — Abstract Syntax Trees</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/library/parser.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ast.html" title="ast — Abstract Syntax Trees"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="language.html" title="Python Language Services"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="language.html" >Python Language Services</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

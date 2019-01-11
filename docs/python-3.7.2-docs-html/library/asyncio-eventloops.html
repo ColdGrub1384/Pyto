@@ -1,0 +1,425 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Event loops &#8212; Python 3.7.0 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="Tasks and coroutines" href="asyncio-task.html" />
+    <link rel="prev" title="Base Event Loop" href="asyncio-eventloop.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/library/asyncio-eventloops.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="asyncio-task.html" title="Tasks and coroutines"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="asyncio-eventloop.html" title="Base Event Loop"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.0</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="ipc.html" >Interprocess Communication and Networking</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="asyncio.html" accesskey="U"><code class="docutils literal notranslate"><span class="pre">asyncio</span></code> — Asynchronous I/O, event loop, coroutines and tasks</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="event-loops">
+<h1>Event loops<a class="headerlink" href="#event-loops" title="Permalink to this headline">¶</a></h1>
+<p><strong>Source code:</strong> <a class="reference external" href="https://github.com/python/cpython/tree/3.7/Lib/asyncio/events.py">Lib/asyncio/events.py</a></p>
+<div class="section" id="event-loop-functions">
+<h2>Event loop functions<a class="headerlink" href="#event-loop-functions" title="Permalink to this headline">¶</a></h2>
+<p>The following functions are convenient shortcuts to accessing the methods of the
+global policy. Note that this provides access to the default policy, unless an
+alternative policy was set by calling <a class="reference internal" href="#asyncio.set_event_loop_policy" title="asyncio.set_event_loop_policy"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_event_loop_policy()</span></code></a> earlier in
+the execution of the process.</p>
+<dl class="function">
+<dt id="asyncio.get_event_loop">
+<code class="descclassname">asyncio.</code><code class="descname">get_event_loop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#asyncio.get_event_loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Equivalent to calling <code class="docutils literal notranslate"><span class="pre">get_event_loop_policy().get_event_loop()</span></code>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="asyncio.set_event_loop">
+<code class="descclassname">asyncio.</code><code class="descname">set_event_loop</code><span class="sig-paren">(</span><em>loop</em><span class="sig-paren">)</span><a class="headerlink" href="#asyncio.set_event_loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Equivalent to calling <code class="docutils literal notranslate"><span class="pre">get_event_loop_policy().set_event_loop(loop)</span></code>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="asyncio.new_event_loop">
+<code class="descclassname">asyncio.</code><code class="descname">new_event_loop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#asyncio.new_event_loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Equivalent to calling <code class="docutils literal notranslate"><span class="pre">get_event_loop_policy().new_event_loop()</span></code>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="asyncio.get_running_loop">
+<code class="descclassname">asyncio.</code><code class="descname">get_running_loop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#asyncio.get_running_loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the running event loop in the current OS thread.  If there
+is no running event loop a <a class="reference internal" href="exceptions.html#RuntimeError" title="RuntimeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">RuntimeError</span></code></a> is raised.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.7.</span></p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="available-event-loops">
+<span id="asyncio-event-loops"></span><h2>Available event loops<a class="headerlink" href="#available-event-loops" title="Permalink to this headline">¶</a></h2>
+<p>asyncio currently provides two implementations of event loops:
+<a class="reference internal" href="#asyncio.SelectorEventLoop" title="asyncio.SelectorEventLoop"><code class="xref py py-class docutils literal notranslate"><span class="pre">SelectorEventLoop</span></code></a> and <a class="reference internal" href="#asyncio.ProactorEventLoop" title="asyncio.ProactorEventLoop"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProactorEventLoop</span></code></a>.</p>
+<dl class="class">
+<dt id="asyncio.SelectorEventLoop">
+<em class="property">class </em><code class="descclassname">asyncio.</code><code class="descname">SelectorEventLoop</code><a class="headerlink" href="#asyncio.SelectorEventLoop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event loop based on the <a class="reference internal" href="selectors.html#module-selectors" title="selectors: High-level I/O multiplexing."><code class="xref py py-mod docutils literal notranslate"><span class="pre">selectors</span></code></a> module. Subclass of
+<a class="reference internal" href="asyncio-eventloop.html#asyncio.AbstractEventLoop" title="asyncio.AbstractEventLoop"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractEventLoop</span></code></a>.</p>
+<p>Use the most efficient selector available on the platform.</p>
+<p>On Windows, only sockets are supported (ex: pipes are not supported):
+see the <a class="reference external" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms740141%28v=vs.85%29.aspx">MSDN documentation of select</a>.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="asyncio.ProactorEventLoop">
+<em class="property">class </em><code class="descclassname">asyncio.</code><code class="descname">ProactorEventLoop</code><a class="headerlink" href="#asyncio.ProactorEventLoop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proactor event loop for Windows using “I/O Completion Ports” aka IOCP.
+Subclass of <a class="reference internal" href="asyncio-eventloop.html#asyncio.AbstractEventLoop" title="asyncio.AbstractEventLoop"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractEventLoop</span></code></a>.</p>
+<p>Availability: Windows.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa365198%28v=vs.85%29.aspx">MSDN documentation on I/O Completion Ports</a>.</p>
+</div>
+</dd></dl>
+
+<p>Example to use a <a class="reference internal" href="#asyncio.ProactorEventLoop" title="asyncio.ProactorEventLoop"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProactorEventLoop</span></code></a> on Windows:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span><span class="o">,</span> <span class="nn">sys</span>
+
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;win32&#39;</span><span class="p">:</span>
+    <span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">ProactorEventLoop</span><span class="p">()</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">set_event_loop</span><span class="p">(</span><span class="n">loop</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="platform-support">
+<span id="asyncio-platform-support"></span><h2>Platform support<a class="headerlink" href="#platform-support" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="asyncio.html#module-asyncio" title="asyncio: Asynchronous I/O, event loop, coroutines and tasks."><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> module has been designed to be portable, but each platform
+still has subtle differences and may not support all <a class="reference internal" href="asyncio.html#module-asyncio" title="asyncio: Asynchronous I/O, event loop, coroutines and tasks."><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> features.</p>
+<div class="section" id="windows">
+<h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<p>Common limits of Windows event loops:</p>
+<ul class="simple">
+<li><a class="reference internal" href="asyncio-eventloop.html#asyncio.AbstractEventLoop.create_unix_connection" title="asyncio.AbstractEventLoop.create_unix_connection"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_unix_connection()</span></code></a> and
+<a class="reference internal" href="asyncio-eventloop.html#asyncio.AbstractEventLoop.create_unix_server" title="asyncio.AbstractEventLoop.create_unix_server"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_unix_server()</span></code></a> are not supported: the socket
+family <a class="reference internal" href="socket.html#socket.AF_UNIX" title="socket.AF_UNIX"><code class="xref py py-data docutils literal notranslate"><span class="pre">socket.AF_UNIX</span></code></a> is specific to UNIX</li>
+<li><a class="reference internal" href="asyncio-eventloop.html#asyncio.AbstractEventLoop.add_signal_handler" title="asyncio.AbstractEventLoop.add_signal_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_signal_handler()</span></code></a> and
+<a class="reference internal" href="asyncio-eventloop.html#asyncio.AbstractEventLoop.remove_signal_handler" title="asyncio.AbstractEventLoop.remove_signal_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">remove_signal_handler()</span></code></a> are not supported</li>
+<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">EventLoopPolicy.set_child_watcher()</span></code> is not supported.
+<a class="reference internal" href="#asyncio.ProactorEventLoop" title="asyncio.ProactorEventLoop"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProactorEventLoop</span></code></a> supports subprocesses. It has only one
+implementation to watch child processes, there is no need to configure it.</li>
+</ul>
+<p><a class="reference internal" href="#asyncio.SelectorEventLoop" title="asyncio.SelectorEventLoop"><code class="xref py py-class docutils literal notranslate"><span class="pre">SelectorEventLoop</span></code></a> specific limits:</p>
+<ul class="simple">
+<li><a class="reference internal" href="selectors.html#selectors.SelectSelector" title="selectors.SelectSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">SelectSelector</span></code></a> is used which only supports sockets
+and is limited to 512 sockets.</li>
+<li><a class="reference internal" href="asyncio-eventloop.html#asyncio.AbstractEventLoop.add_reader" title="asyncio.AbstractEventLoop.add_reader"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_reader()</span></code></a> and <a class="reference internal" href="asyncio-eventloop.html#asyncio.AbstractEventLoop.add_writer" title="asyncio.AbstractEventLoop.add_writer"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_writer()</span></code></a> only
+accept file descriptors of sockets</li>
+<li>Pipes are not supported
+(ex: <a class="reference internal" href="asyncio-eventloop.html#asyncio.AbstractEventLoop.connect_read_pipe" title="asyncio.AbstractEventLoop.connect_read_pipe"><code class="xref py py-meth docutils literal notranslate"><span class="pre">connect_read_pipe()</span></code></a>,
+<a class="reference internal" href="asyncio-eventloop.html#asyncio.AbstractEventLoop.connect_write_pipe" title="asyncio.AbstractEventLoop.connect_write_pipe"><code class="xref py py-meth docutils literal notranslate"><span class="pre">connect_write_pipe()</span></code></a>)</li>
+<li><a class="reference internal" href="asyncio-subprocess.html#asyncio-subprocess"><span class="std std-ref">Subprocesses</span></a> are not supported
+(ex: <a class="reference internal" href="asyncio-subprocess.html#asyncio.AbstractEventLoop.subprocess_exec" title="asyncio.AbstractEventLoop.subprocess_exec"><code class="xref py py-meth docutils literal notranslate"><span class="pre">subprocess_exec()</span></code></a>,
+<a class="reference internal" href="asyncio-subprocess.html#asyncio.AbstractEventLoop.subprocess_shell" title="asyncio.AbstractEventLoop.subprocess_shell"><code class="xref py py-meth docutils literal notranslate"><span class="pre">subprocess_shell()</span></code></a>)</li>
+</ul>
+<p><a class="reference internal" href="#asyncio.ProactorEventLoop" title="asyncio.ProactorEventLoop"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProactorEventLoop</span></code></a> specific limits:</p>
+<ul class="simple">
+<li><a class="reference internal" href="asyncio-eventloop.html#asyncio.AbstractEventLoop.create_datagram_endpoint" title="asyncio.AbstractEventLoop.create_datagram_endpoint"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_datagram_endpoint()</span></code></a> (UDP) is not supported</li>
+<li><a class="reference internal" href="asyncio-eventloop.html#asyncio.AbstractEventLoop.add_reader" title="asyncio.AbstractEventLoop.add_reader"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_reader()</span></code></a> and <a class="reference internal" href="asyncio-eventloop.html#asyncio.AbstractEventLoop.add_writer" title="asyncio.AbstractEventLoop.add_writer"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_writer()</span></code></a> are
+not supported</li>
+</ul>
+<p>The resolution of the monotonic clock on Windows is usually around 15.6 msec.
+The best resolution is 0.5 msec. The resolution depends on the hardware
+(availability of <a class="reference external" href="https://en.wikipedia.org/wiki/High_Precision_Event_Timer">HPET</a>) and on the Windows
+configuration. See <a class="reference internal" href="asyncio-eventloop.html#asyncio-delayed-calls"><span class="std std-ref">asyncio delayed calls</span></a>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.5: </span><a class="reference internal" href="#asyncio.ProactorEventLoop" title="asyncio.ProactorEventLoop"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProactorEventLoop</span></code></a> now supports SSL.</p>
+</div>
+</div>
+<div class="section" id="mac-os-x">
+<h3>Mac OS X<a class="headerlink" href="#mac-os-x" title="Permalink to this headline">¶</a></h3>
+<p>Character devices like PTY are only well supported since Mavericks (Mac OS
+10.9). They are not supported at all on Mac OS 10.5 and older.</p>
+<p>On Mac OS 10.6, 10.7 and 10.8, the default event loop is
+<a class="reference internal" href="#asyncio.SelectorEventLoop" title="asyncio.SelectorEventLoop"><code class="xref py py-class docutils literal notranslate"><span class="pre">SelectorEventLoop</span></code></a> which uses <a class="reference internal" href="selectors.html#selectors.KqueueSelector" title="selectors.KqueueSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">selectors.KqueueSelector</span></code></a>.
+<a class="reference internal" href="selectors.html#selectors.KqueueSelector" title="selectors.KqueueSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">selectors.KqueueSelector</span></code></a> does not support character devices on these
+versions.  The <a class="reference internal" href="#asyncio.SelectorEventLoop" title="asyncio.SelectorEventLoop"><code class="xref py py-class docutils literal notranslate"><span class="pre">SelectorEventLoop</span></code></a> can be used with
+<a class="reference internal" href="selectors.html#selectors.SelectSelector" title="selectors.SelectSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">SelectSelector</span></code></a> or <a class="reference internal" href="selectors.html#selectors.PollSelector" title="selectors.PollSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">PollSelector</span></code></a> to
+support character devices on these versions of Mac OS X. Example:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">selectors</span>
+
+<span class="n">selector</span> <span class="o">=</span> <span class="n">selectors</span><span class="o">.</span><span class="n">SelectSelector</span><span class="p">()</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">SelectorEventLoop</span><span class="p">(</span><span class="n">selector</span><span class="p">)</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">set_event_loop</span><span class="p">(</span><span class="n">loop</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="event-loop-policies-and-the-default-policy">
+<h2>Event loop policies and the default policy<a class="headerlink" href="#event-loop-policies-and-the-default-policy" title="Permalink to this headline">¶</a></h2>
+<p>Event loop management is abstracted with a <em>policy</em> pattern, to provide maximal
+flexibility for custom platforms and frameworks. Throughout the execution of a
+process, a single global policy object manages the event loops available to the
+process based on the calling context. A policy is an object implementing the
+<a class="reference internal" href="#asyncio.AbstractEventLoopPolicy" title="asyncio.AbstractEventLoopPolicy"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractEventLoopPolicy</span></code></a> interface.</p>
+<p>For most users of <a class="reference internal" href="asyncio.html#module-asyncio" title="asyncio: Asynchronous I/O, event loop, coroutines and tasks."><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a>, policies never have to be dealt with
+explicitly, since the default global policy is sufficient (see below).</p>
+<p>The module-level functions
+<a class="reference internal" href="#asyncio.get_event_loop" title="asyncio.get_event_loop"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_event_loop()</span></code></a> and <a class="reference internal" href="#asyncio.set_event_loop" title="asyncio.set_event_loop"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_event_loop()</span></code></a> provide convenient access to
+event loops managed by the default policy.</p>
+</div>
+<div class="section" id="event-loop-policy-interface">
+<h2>Event loop policy interface<a class="headerlink" href="#event-loop-policy-interface" title="Permalink to this headline">¶</a></h2>
+<p>An event loop policy must implement the following interface:</p>
+<dl class="class">
+<dt id="asyncio.AbstractEventLoopPolicy">
+<em class="property">class </em><code class="descclassname">asyncio.</code><code class="descname">AbstractEventLoopPolicy</code><a class="headerlink" href="#asyncio.AbstractEventLoopPolicy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event loop policy.</p>
+<dl class="method">
+<dt id="asyncio.AbstractEventLoopPolicy.get_event_loop">
+<code class="descname">get_event_loop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#asyncio.AbstractEventLoopPolicy.get_event_loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the event loop for the current context.</p>
+<p>Returns an event loop object implementing the <a class="reference internal" href="asyncio-eventloop.html#asyncio.AbstractEventLoop" title="asyncio.AbstractEventLoop"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractEventLoop</span></code></a>
+interface. In case called from coroutine, it returns the currently
+running event loop.</p>
+<p>Raises an exception in case no event loop has been set for the current
+context and the current policy does not specify to create one. It must
+never return <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.6.</span></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="asyncio.AbstractEventLoopPolicy.set_event_loop">
+<code class="descname">set_event_loop</code><span class="sig-paren">(</span><em>loop</em><span class="sig-paren">)</span><a class="headerlink" href="#asyncio.AbstractEventLoopPolicy.set_event_loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the event loop for the current context to <em>loop</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="asyncio.AbstractEventLoopPolicy.new_event_loop">
+<code class="descname">new_event_loop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#asyncio.AbstractEventLoopPolicy.new_event_loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return a new event loop object according to this policy’s
+rules.</p>
+<p>If there’s need to set this loop as the event loop for the current
+context, <a class="reference internal" href="#asyncio.set_event_loop" title="asyncio.set_event_loop"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_event_loop()</span></code></a> must be called explicitly.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>The default policy defines context as the current thread, and manages an event
+loop per thread that interacts with <a class="reference internal" href="asyncio.html#module-asyncio" title="asyncio: Asynchronous I/O, event loop, coroutines and tasks."><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a>. An exception to this rule
+happens when <a class="reference internal" href="#asyncio.AbstractEventLoopPolicy.get_event_loop" title="asyncio.AbstractEventLoopPolicy.get_event_loop"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_event_loop()</span></code></a> is called from a
+running future/coroutine, in which case it will return the current loop
+running that future/coroutine.</p>
+<p>If the current thread doesn’t already have an event loop associated with it,
+the default policy’s <a class="reference internal" href="#asyncio.AbstractEventLoopPolicy.get_event_loop" title="asyncio.AbstractEventLoopPolicy.get_event_loop"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_event_loop()</span></code></a> method
+creates one when called from the main thread, but raises <a class="reference internal" href="exceptions.html#RuntimeError" title="RuntimeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">RuntimeError</span></code></a>
+otherwise.</p>
+</div>
+<div class="section" id="access-to-the-global-loop-policy">
+<h2>Access to the global loop policy<a class="headerlink" href="#access-to-the-global-loop-policy" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="asyncio.get_event_loop_policy">
+<code class="descclassname">asyncio.</code><code class="descname">get_event_loop_policy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#asyncio.get_event_loop_policy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the current event loop policy.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="asyncio.set_event_loop_policy">
+<code class="descclassname">asyncio.</code><code class="descname">set_event_loop_policy</code><span class="sig-paren">(</span><em>policy</em><span class="sig-paren">)</span><a class="headerlink" href="#asyncio.set_event_loop_policy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the current event loop policy. If <em>policy</em> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, the default
+policy is restored.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="customizing-the-event-loop-policy">
+<h2>Customizing the event loop policy<a class="headerlink" href="#customizing-the-event-loop-policy" title="Permalink to this headline">¶</a></h2>
+<p>To implement a new event loop policy, it is recommended you subclass the
+concrete default event loop policy <code class="xref py py-class docutils literal notranslate"><span class="pre">DefaultEventLoopPolicy</span></code>
+and override the methods for which you want to change behavior, for example:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyEventLoopPolicy</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">DefaultEventLoopPolicy</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_event_loop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the event loop.</span>
+
+<span class="sd">        This may be None or an instance of EventLoop.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">loop</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+        <span class="c1"># Do something with loop ...</span>
+        <span class="k">return</span> <span class="n">loop</span>
+
+<span class="n">asyncio</span><span class="o">.</span><span class="n">set_event_loop_policy</span><span class="p">(</span><span class="n">MyEventLoopPolicy</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Event loops</a><ul>
+<li><a class="reference internal" href="#event-loop-functions">Event loop functions</a></li>
+<li><a class="reference internal" href="#available-event-loops">Available event loops</a></li>
+<li><a class="reference internal" href="#platform-support">Platform support</a><ul>
+<li><a class="reference internal" href="#windows">Windows</a></li>
+<li><a class="reference internal" href="#mac-os-x">Mac OS X</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#event-loop-policies-and-the-default-policy">Event loop policies and the default policy</a></li>
+<li><a class="reference internal" href="#event-loop-policy-interface">Event loop policy interface</a></li>
+<li><a class="reference internal" href="#access-to-the-global-loop-policy">Access to the global loop policy</a></li>
+<li><a class="reference internal" href="#customizing-the-event-loop-policy">Customizing the event loop policy</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="asyncio-eventloop.html"
+                        title="previous chapter">Base Event Loop</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="asyncio-task.html"
+                        title="next chapter">Tasks and coroutines</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/library/asyncio-eventloops.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="asyncio-task.html" title="Tasks and coroutines"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="asyncio-eventloop.html" title="Base Event Loop"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.0</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="ipc.html" >Interprocess Communication and Networking</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="asyncio.html" ><code class="docutils literal notranslate"><span class="pre">asyncio</span></code> — Asynchronous I/O, event loop, coroutines and tasks</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2018, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Sep 17, 2018.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.7.6.
+    </div>
+
+  </body>
+</html>

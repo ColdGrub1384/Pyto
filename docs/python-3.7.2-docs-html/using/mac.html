@@ -1,0 +1,338 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>4. Using Python on a Macintosh &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="The Python Language Reference" href="../reference/index.html" />
+    <link rel="prev" title="3. Using Python on Windows" href="windows.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/using/mac.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../reference/index.html" title="The Python Language Reference"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="windows.html" title="3. Using Python on Windows"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Python Setup and Usage</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="using-python-on-a-macintosh">
+<span id="using-on-mac"></span><h1>4. Using Python on a Macintosh<a class="headerlink" href="#using-python-on-a-macintosh" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Bob Savage &lt;<a class="reference external" href="mailto:bobsavage&#37;&#52;&#48;mac&#46;com">bobsavage<span>&#64;</span>mac<span>&#46;</span>com</a>&gt;</td>
+</tr>
+</tbody>
+</table>
+<p>Python on a Macintosh running Mac OS X is in principle very similar to Python on
+any other Unix platform, but there are a number of additional features such as
+the IDE and the Package Manager that are worth pointing out.</p>
+<div class="section" id="getting-and-installing-macpython">
+<span id="getting-osx"></span><h2>4.1. Getting and Installing MacPython<a class="headerlink" href="#getting-and-installing-macpython" title="Permalink to this headline">¶</a></h2>
+<p>Mac OS X 10.8 comes with Python 2.7 pre-installed by Apple.  If you wish, you
+are invited to install the most recent version of Python 3 from the Python
+website (<a class="reference external" href="https://www.python.org">https://www.python.org</a>).  A current “universal binary” build of Python,
+which runs natively on the Mac’s new Intel and legacy PPC CPU’s, is available
+there.</p>
+<p>What you get after installing is a number of things:</p>
+<ul class="simple">
+<li>A <code class="file docutils literal notranslate"><span class="pre">MacPython</span> <span class="pre">3.6</span></code> folder in your <code class="file docutils literal notranslate"><span class="pre">Applications</span></code> folder. In here
+you find IDLE, the development environment that is a standard part of official
+Python distributions; PythonLauncher, which handles double-clicking Python
+scripts from the Finder; and the “Build Applet” tool, which allows you to
+package Python scripts as standalone applications on your system.</li>
+<li>A framework <code class="file docutils literal notranslate"><span class="pre">/Library/Frameworks/Python.framework</span></code>, which includes the
+Python executable and libraries. The installer adds this location to your shell
+path. To uninstall MacPython, you can simply remove these three things. A
+symlink to the Python executable is placed in /usr/local/bin/.</li>
+</ul>
+<p>The Apple-provided build of Python is installed in
+<code class="file docutils literal notranslate"><span class="pre">/System/Library/Frameworks/Python.framework</span></code> and <code class="file docutils literal notranslate"><span class="pre">/usr/bin/python</span></code>,
+respectively. You should never modify or delete these, as they are
+Apple-controlled and are used by Apple- or third-party software.  Remember that
+if you choose to install a newer Python version from python.org, you will have
+two different but functional Python installations on your computer, so it will
+be important that your paths and usages are consistent with what you want to do.</p>
+<p>IDLE includes a help menu that allows you to access Python documentation. If you
+are completely new to Python you should start reading the tutorial introduction
+in that document.</p>
+<p>If you are familiar with Python on other Unix platforms you should read the
+section on running Python scripts from the Unix shell.</p>
+<div class="section" id="how-to-run-a-python-script">
+<h3>4.1.1. How to run a Python script<a class="headerlink" href="#how-to-run-a-python-script" title="Permalink to this headline">¶</a></h3>
+<p>Your best way to get started with Python on Mac OS X is through the IDLE
+integrated development environment, see section <a class="reference internal" href="#ide"><span class="std std-ref">The IDE</span></a> and use the Help menu
+when the IDE is running.</p>
+<p>If you want to run Python scripts from the Terminal window command line or from
+the Finder you first need an editor to create your script. Mac OS X comes with a
+number of standard Unix command line editors, <strong class="program">vim</strong> and
+<strong class="program">emacs</strong> among them. If you want a more Mac-like editor,
+<strong class="program">BBEdit</strong> or <strong class="program">TextWrangler</strong> from Bare Bones Software (see
+<a class="reference external" href="http://www.barebones.com/products/bbedit/index.html">http://www.barebones.com/products/bbedit/index.html</a>) are good choices, as is
+<strong class="program">TextMate</strong> (see <a class="reference external" href="https://macromates.com/">https://macromates.com/</a>). Other editors include
+<strong class="program">Gvim</strong> (<a class="reference external" href="http://macvim-dev.github.io/macvim/">http://macvim-dev.github.io/macvim/</a>) and <strong class="program">Aquamacs</strong>
+(<a class="reference external" href="http://aquamacs.org/">http://aquamacs.org/</a>).</p>
+<p>To run your script from the Terminal window you must make sure that
+<code class="file docutils literal notranslate"><span class="pre">/usr/local/bin</span></code> is in your shell search path.</p>
+<p>To run your script from the Finder you have two options:</p>
+<ul class="simple">
+<li>Drag it to <strong class="program">PythonLauncher</strong></li>
+<li>Select <strong class="program">PythonLauncher</strong> as the default application to open your
+script (or any .py script) through the finder Info window and double-click it.
+<strong class="program">PythonLauncher</strong> has various preferences to control how your script is
+launched. Option-dragging allows you to change these for one invocation, or use
+its Preferences menu to change things globally.</li>
+</ul>
+</div>
+<div class="section" id="running-scripts-with-a-gui">
+<span id="osx-gui-scripts"></span><h3>4.1.2. Running scripts with a GUI<a class="headerlink" href="#running-scripts-with-a-gui" title="Permalink to this headline">¶</a></h3>
+<p>With older versions of Python, there is one Mac OS X quirk that you need to be
+aware of: programs that talk to the Aqua window manager (in other words,
+anything that has a GUI) need to be run in a special way. Use <strong class="program">pythonw</strong>
+instead of <strong class="program">python</strong> to start such scripts.</p>
+<p>With Python 3.6, you can use either <strong class="program">python</strong> or <strong class="program">pythonw</strong>.</p>
+</div>
+<div class="section" id="configuration">
+<h3>4.1.3. Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
+<p>Python on OS X honors all standard Unix environment variables such as
+<span class="target" id="index-0"></span><a class="reference internal" href="cmdline.html#envvar-PYTHONPATH"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PYTHONPATH</span></code></a>, but setting these variables for programs started from the
+Finder is non-standard as the Finder does not read your <code class="file docutils literal notranslate"><span class="pre">.profile</span></code> or
+<code class="file docutils literal notranslate"><span class="pre">.cshrc</span></code> at startup. You need to create a file
+<code class="file docutils literal notranslate"><span class="pre">~/.MacOSX/environment.plist</span></code>. See Apple’s Technical Document QA1067 for
+details.</p>
+<p>For more information on installation Python packages in MacPython, see section
+<a class="reference internal" href="#mac-package-manager"><span class="std std-ref">Installing Additional Python Packages</span></a>.</p>
+</div>
+</div>
+<div class="section" id="the-ide">
+<span id="ide"></span><h2>4.2. The IDE<a class="headerlink" href="#the-ide" title="Permalink to this headline">¶</a></h2>
+<p>MacPython ships with the standard IDLE development environment. A good
+introduction to using IDLE can be found at
+<a class="reference external" href="http://www.hashcollision.org/hkn/python/idle_intro/index.html">http://www.hashcollision.org/hkn/python/idle_intro/index.html</a>.</p>
+</div>
+<div class="section" id="installing-additional-python-packages">
+<span id="mac-package-manager"></span><h2>4.3. Installing Additional Python Packages<a class="headerlink" href="#installing-additional-python-packages" title="Permalink to this headline">¶</a></h2>
+<p>There are several methods to install additional Python packages:</p>
+<ul class="simple">
+<li>Packages can be installed via the standard Python distutils mode (<code class="docutils literal notranslate"><span class="pre">python</span>
+<span class="pre">setup.py</span> <span class="pre">install</span></code>).</li>
+<li>Many packages can also be installed via the <strong class="program">setuptools</strong> extension
+or <strong class="program">pip</strong> wrapper, see <a class="reference external" href="https://pip.pypa.io/">https://pip.pypa.io/</a>.</li>
+</ul>
+</div>
+<div class="section" id="gui-programming-on-the-mac">
+<h2>4.4. GUI Programming on the Mac<a class="headerlink" href="#gui-programming-on-the-mac" title="Permalink to this headline">¶</a></h2>
+<p>There are several options for building GUI applications on the Mac with Python.</p>
+<p><em>PyObjC</em> is a Python binding to Apple’s Objective-C/Cocoa framework, which is
+the foundation of most modern Mac development. Information on PyObjC is
+available from <a class="reference external" href="https://pythonhosted.org/pyobjc/">https://pythonhosted.org/pyobjc/</a>.</p>
+<p>The standard Python GUI toolkit is <a class="reference internal" href="../library/tkinter.html#module-tkinter" title="tkinter: Interface to Tcl/Tk for graphical user interfaces"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter</span></code></a>, based on the cross-platform
+Tk toolkit (<a class="reference external" href="https://www.tcl.tk">https://www.tcl.tk</a>). An Aqua-native version of Tk is bundled with OS
+X by Apple, and the latest version can be downloaded and installed from
+<a class="reference external" href="https://www.activestate.com">https://www.activestate.com</a>; it can also be built from source.</p>
+<p><em>wxPython</em> is another popular cross-platform GUI toolkit that runs natively on
+Mac OS X. Packages and documentation are available from <a class="reference external" href="https://www.wxpython.org">https://www.wxpython.org</a>.</p>
+<p><em>PyQt</em> is another popular cross-platform GUI toolkit that runs natively on Mac
+OS X. More information can be found at
+<a class="reference external" href="https://riverbankcomputing.com/software/pyqt/intro">https://riverbankcomputing.com/software/pyqt/intro</a>.</p>
+</div>
+<div class="section" id="distributing-python-applications-on-the-mac">
+<h2>4.5. Distributing Python Applications on the Mac<a class="headerlink" href="#distributing-python-applications-on-the-mac" title="Permalink to this headline">¶</a></h2>
+<p>The “Build Applet” tool that is placed in the MacPython 3.6 folder is fine for
+packaging small Python scripts on your own machine to run as a standard Mac
+application. This tool, however, is not robust enough to distribute Python
+applications to other users.</p>
+<p>The standard tool for deploying standalone Python applications on the Mac is
+<strong class="program">py2app</strong>. More information on installing and using py2app can be found
+at <a class="reference external" href="http://undefined.org/python/#py2app">http://undefined.org/python/#py2app</a>.</p>
+</div>
+<div class="section" id="other-resources">
+<h2>4.6. Other Resources<a class="headerlink" href="#other-resources" title="Permalink to this headline">¶</a></h2>
+<p>The MacPython mailing list is an excellent support resource for Python users and
+developers on the Mac:</p>
+<p><a class="reference external" href="https://www.python.org/community/sigs/current/pythonmac-sig/">https://www.python.org/community/sigs/current/pythonmac-sig/</a></p>
+<p>Another useful resource is the MacPython wiki:</p>
+<p><a class="reference external" href="https://wiki.python.org/moin/MacPython">https://wiki.python.org/moin/MacPython</a></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">4. Using Python on a Macintosh</a><ul>
+<li><a class="reference internal" href="#getting-and-installing-macpython">4.1. Getting and Installing MacPython</a><ul>
+<li><a class="reference internal" href="#how-to-run-a-python-script">4.1.1. How to run a Python script</a></li>
+<li><a class="reference internal" href="#running-scripts-with-a-gui">4.1.2. Running scripts with a GUI</a></li>
+<li><a class="reference internal" href="#configuration">4.1.3. Configuration</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-ide">4.2. The IDE</a></li>
+<li><a class="reference internal" href="#installing-additional-python-packages">4.3. Installing Additional Python Packages</a></li>
+<li><a class="reference internal" href="#gui-programming-on-the-mac">4.4. GUI Programming on the Mac</a></li>
+<li><a class="reference internal" href="#distributing-python-applications-on-the-mac">4.5. Distributing Python Applications on the Mac</a></li>
+<li><a class="reference internal" href="#other-resources">4.6. Other Resources</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="windows.html"
+                        title="previous chapter">3. Using Python on Windows</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../reference/index.html"
+                        title="next chapter">The Python Language Reference</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/using/mac.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../reference/index.html" title="The Python Language Reference"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="windows.html" title="3. Using Python on Windows"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Python Setup and Usage</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

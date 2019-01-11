@@ -1,0 +1,971 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>difflib — Helpers for computing deltas &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="textwrap — Text wrapping and filling" href="textwrap.html" />
+    <link rel="prev" title="re — Regular expression operations" href="re.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/library/difflib.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="textwrap.html" title="textwrap — Text wrapping and filling"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="re.html" title="re — Regular expression operations"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="text.html" accesskey="U">Text Processing Services</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-difflib">
+<span id="difflib-helpers-for-computing-deltas"></span><h1><a class="reference internal" href="#module-difflib" title="difflib: Helpers for computing differences between objects."><code class="xref py py-mod docutils literal notranslate"><span class="pre">difflib</span></code></a> — Helpers for computing deltas<a class="headerlink" href="#module-difflib" title="Permalink to this headline">¶</a></h1>
+<p><strong>Source code:</strong> <a class="reference external" href="https://github.com/python/cpython/tree/3.7/Lib/difflib.py">Lib/difflib.py</a></p>
+<hr class="docutils" />
+<p>This module provides classes and functions for comparing sequences. It
+can be used for example, for comparing files, and can produce difference
+information in various formats, including HTML and context and unified
+diffs. For comparing directories and files, see also, the <a class="reference internal" href="filecmp.html#module-filecmp" title="filecmp: Compare files efficiently."><code class="xref py py-mod docutils literal notranslate"><span class="pre">filecmp</span></code></a> module.</p>
+<dl class="class">
+<dt id="difflib.SequenceMatcher">
+<em class="property">class </em><code class="descclassname">difflib.</code><code class="descname">SequenceMatcher</code><a class="headerlink" href="#difflib.SequenceMatcher" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a flexible class for comparing pairs of sequences of any type, so long
+as the sequence elements are <a class="reference internal" href="../glossary.html#term-hashable"><span class="xref std std-term">hashable</span></a>.  The basic algorithm predates, and is a
+little fancier than, an algorithm published in the late 1980’s by Ratcliff and
+Obershelp under the hyperbolic name “gestalt pattern matching.”  The idea is to
+find the longest contiguous matching subsequence that contains no “junk”
+elements; these “junk” elements are ones that are uninteresting in some
+sense, such as blank lines or whitespace.  (Handling junk is an
+extension to the Ratcliff and Obershelp algorithm.) The same
+idea is then applied recursively to the pieces of the sequences to the left and
+to the right of the matching subsequence.  This does not yield minimal edit
+sequences, but does tend to yield matches that “look right” to people.</p>
+<p><strong>Timing:</strong> The basic Ratcliff-Obershelp algorithm is cubic time in the worst
+case and quadratic time in the expected case. <a class="reference internal" href="#difflib.SequenceMatcher" title="difflib.SequenceMatcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">SequenceMatcher</span></code></a> is
+quadratic time for the worst case and has expected-case behavior dependent in a
+complicated way on how many elements the sequences have in common; best case
+time is linear.</p>
+<p><strong>Automatic junk heuristic:</strong> <a class="reference internal" href="#difflib.SequenceMatcher" title="difflib.SequenceMatcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">SequenceMatcher</span></code></a> supports a heuristic that
+automatically treats certain sequence items as junk. The heuristic counts how many
+times each individual item appears in the sequence. If an item’s duplicates (after
+the first one) account for more than 1% of the sequence and the sequence is at least
+200 items long, this item is marked as “popular” and is treated as junk for
+the purpose of sequence matching. This heuristic can be turned off by setting
+the <code class="docutils literal notranslate"><span class="pre">autojunk</span></code> argument to <code class="docutils literal notranslate"><span class="pre">False</span></code> when creating the <a class="reference internal" href="#difflib.SequenceMatcher" title="difflib.SequenceMatcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">SequenceMatcher</span></code></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.2: </span>The <em>autojunk</em> parameter.</p>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="difflib.Differ">
+<em class="property">class </em><code class="descclassname">difflib.</code><code class="descname">Differ</code><a class="headerlink" href="#difflib.Differ" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a class for comparing sequences of lines of text, and producing
+human-readable differences or deltas.  Differ uses <a class="reference internal" href="#difflib.SequenceMatcher" title="difflib.SequenceMatcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">SequenceMatcher</span></code></a>
+both to compare sequences of lines, and to compare sequences of characters
+within similar (near-matching) lines.</p>
+<p>Each line of a <a class="reference internal" href="#difflib.Differ" title="difflib.Differ"><code class="xref py py-class docutils literal notranslate"><span class="pre">Differ</span></code></a> delta begins with a two-letter code:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Code</th>
+<th class="head">Meaning</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">'-</span> <span class="pre">'</span></code></td>
+<td>line unique to sequence 1</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">'+</span> <span class="pre">'</span></code></td>
+<td>line unique to sequence 2</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">'</span>&#160; <span class="pre">'</span></code></td>
+<td>line common to both sequences</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">'?</span> <span class="pre">'</span></code></td>
+<td>line not present in either input sequence</td>
+</tr>
+</tbody>
+</table>
+<p>Lines beginning with ‘<code class="docutils literal notranslate"><span class="pre">?</span></code>’ attempt to guide the eye to intraline differences,
+and were not present in either input sequence. These lines can be confusing if
+the sequences contain tab characters.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="difflib.HtmlDiff">
+<em class="property">class </em><code class="descclassname">difflib.</code><code class="descname">HtmlDiff</code><a class="headerlink" href="#difflib.HtmlDiff" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class can be used to create an HTML table (or a complete HTML file
+containing the table) showing a side by side, line by line comparison of text
+with inter-line and intra-line change highlights.  The table can be generated in
+either full or contextual difference mode.</p>
+<p>The constructor for this class is:</p>
+<dl class="method">
+<dt id="difflib.HtmlDiff.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>tabsize=8</em>, <em>wrapcolumn=None</em>, <em>linejunk=None</em>, <em>charjunk=IS_CHARACTER_JUNK</em><span class="sig-paren">)</span><a class="headerlink" href="#difflib.HtmlDiff.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes instance of <a class="reference internal" href="#difflib.HtmlDiff" title="difflib.HtmlDiff"><code class="xref py py-class docutils literal notranslate"><span class="pre">HtmlDiff</span></code></a>.</p>
+<p><em>tabsize</em> is an optional keyword argument to specify tab stop spacing and
+defaults to <code class="docutils literal notranslate"><span class="pre">8</span></code>.</p>
+<p><em>wrapcolumn</em> is an optional keyword to specify column number where lines are
+broken and wrapped, defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code> where lines are not wrapped.</p>
+<p><em>linejunk</em> and <em>charjunk</em> are optional keyword arguments passed into <a class="reference internal" href="#difflib.ndiff" title="difflib.ndiff"><code class="xref py py-func docutils literal notranslate"><span class="pre">ndiff()</span></code></a>
+(used by <a class="reference internal" href="#difflib.HtmlDiff" title="difflib.HtmlDiff"><code class="xref py py-class docutils literal notranslate"><span class="pre">HtmlDiff</span></code></a> to generate the side by side HTML differences).  See
+<a class="reference internal" href="#difflib.ndiff" title="difflib.ndiff"><code class="xref py py-func docutils literal notranslate"><span class="pre">ndiff()</span></code></a> documentation for argument default values and descriptions.</p>
+</dd></dl>
+
+<p>The following methods are public:</p>
+<dl class="method">
+<dt id="difflib.HtmlDiff.make_file">
+<code class="descname">make_file</code><span class="sig-paren">(</span><em>fromlines</em>, <em>tolines</em>, <em>fromdesc=''</em>, <em>todesc=''</em>, <em>context=False</em>, <em>numlines=5</em>, <em>*</em>, <em>charset='utf-8'</em><span class="sig-paren">)</span><a class="headerlink" href="#difflib.HtmlDiff.make_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compares <em>fromlines</em> and <em>tolines</em> (lists of strings) and returns a string which
+is a complete HTML file containing a table showing line by line differences with
+inter-line and intra-line changes highlighted.</p>
+<p><em>fromdesc</em> and <em>todesc</em> are optional keyword arguments to specify from/to file
+column header strings (both default to an empty string).</p>
+<p><em>context</em> and <em>numlines</em> are both optional keyword arguments. Set <em>context</em> to
+<code class="docutils literal notranslate"><span class="pre">True</span></code> when contextual differences are to be shown, else the default is
+<code class="docutils literal notranslate"><span class="pre">False</span></code> to show the full files. <em>numlines</em> defaults to <code class="docutils literal notranslate"><span class="pre">5</span></code>.  When <em>context</em>
+is <code class="docutils literal notranslate"><span class="pre">True</span></code> <em>numlines</em> controls the number of context lines which surround the
+difference highlights.  When <em>context</em> is <code class="docutils literal notranslate"><span class="pre">False</span></code> <em>numlines</em> controls the
+number of lines which are shown before a difference highlight when using the
+“next” hyperlinks (setting to zero would cause the “next” hyperlinks to place
+the next difference highlight at the top of the browser without any leading
+context).</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.5: </span><em>charset</em> keyword-only argument was added.  The default charset of
+HTML document changed from <code class="docutils literal notranslate"><span class="pre">'ISO-8859-1'</span></code> to <code class="docutils literal notranslate"><span class="pre">'utf-8'</span></code>.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="difflib.HtmlDiff.make_table">
+<code class="descname">make_table</code><span class="sig-paren">(</span><em>fromlines</em>, <em>tolines</em>, <em>fromdesc=''</em>, <em>todesc=''</em>, <em>context=False</em>, <em>numlines=5</em><span class="sig-paren">)</span><a class="headerlink" href="#difflib.HtmlDiff.make_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compares <em>fromlines</em> and <em>tolines</em> (lists of strings) and returns a string which
+is a complete HTML table showing line by line differences with inter-line and
+intra-line changes highlighted.</p>
+<p>The arguments for this method are the same as those for the <a class="reference internal" href="#difflib.HtmlDiff.make_file" title="difflib.HtmlDiff.make_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">make_file()</span></code></a>
+method.</p>
+</dd></dl>
+
+<p><code class="file docutils literal notranslate"><span class="pre">Tools/scripts/diff.py</span></code> is a command-line front-end to this class and
+contains a good example of its use.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="difflib.context_diff">
+<code class="descclassname">difflib.</code><code class="descname">context_diff</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>fromfile=''</em>, <em>tofile=''</em>, <em>fromfiledate=''</em>, <em>tofiledate=''</em>, <em>n=3</em>, <em>lineterm='\n'</em><span class="sig-paren">)</span><a class="headerlink" href="#difflib.context_diff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compare <em>a</em> and <em>b</em> (lists of strings); return a delta (a <a class="reference internal" href="../glossary.html#term-generator"><span class="xref std std-term">generator</span></a>
+generating the delta lines) in context diff format.</p>
+<p>Context diffs are a compact way of showing just the lines that have changed plus
+a few lines of context.  The changes are shown in a before/after style.  The
+number of context lines is set by <em>n</em> which defaults to three.</p>
+<p>By default, the diff control lines (those with <code class="docutils literal notranslate"><span class="pre">***</span></code> or <code class="docutils literal notranslate"><span class="pre">---</span></code>) are created
+with a trailing newline.  This is helpful so that inputs created from
+<a class="reference internal" href="io.html#io.IOBase.readlines" title="io.IOBase.readlines"><code class="xref py py-func docutils literal notranslate"><span class="pre">io.IOBase.readlines()</span></code></a> result in diffs that are suitable for use with
+<a class="reference internal" href="io.html#io.IOBase.writelines" title="io.IOBase.writelines"><code class="xref py py-func docutils literal notranslate"><span class="pre">io.IOBase.writelines()</span></code></a> since both the inputs and outputs have trailing
+newlines.</p>
+<p>For inputs that do not have trailing newlines, set the <em>lineterm</em> argument to
+<code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code> so that the output will be uniformly newline free.</p>
+<p>The context diff format normally has a header for filenames and modification
+times.  Any or all of these may be specified using strings for <em>fromfile</em>,
+<em>tofile</em>, <em>fromfiledate</em>, and <em>tofiledate</em>.  The modification times are normally
+expressed in the ISO 8601 format. If not specified, the
+strings default to blanks.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bacon</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;eggs</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;ham</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;guido</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;python</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;eggy</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;hamster</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;guido</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">context_diff</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">fromfile</span><span class="o">=</span><span class="s1">&#39;before.py&#39;</span><span class="p">,</span> <span class="n">tofile</span><span class="o">=</span><span class="s1">&#39;after.py&#39;</span><span class="p">))</span>
+<span class="go">*** before.py</span>
+<span class="go">--- after.py</span>
+<span class="go">***************</span>
+<span class="go">*** 1,4 ****</span>
+<span class="go">! bacon</span>
+<span class="go">! eggs</span>
+<span class="go">! ham</span>
+<span class="go">  guido</span>
+<span class="go">--- 1,4 ----</span>
+<span class="go">! python</span>
+<span class="go">! eggy</span>
+<span class="go">! hamster</span>
+<span class="go">  guido</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="#difflib-interface"><span class="std std-ref">A command-line interface to difflib</span></a> for a more detailed example.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="difflib.get_close_matches">
+<code class="descclassname">difflib.</code><code class="descname">get_close_matches</code><span class="sig-paren">(</span><em>word</em>, <em>possibilities</em>, <em>n=3</em>, <em>cutoff=0.6</em><span class="sig-paren">)</span><a class="headerlink" href="#difflib.get_close_matches" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of the best “good enough” matches.  <em>word</em> is a sequence for which
+close matches are desired (typically a string), and <em>possibilities</em> is a list of
+sequences against which to match <em>word</em> (typically a list of strings).</p>
+<p>Optional argument <em>n</em> (default <code class="docutils literal notranslate"><span class="pre">3</span></code>) is the maximum number of close matches to
+return; <em>n</em> must be greater than <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<p>Optional argument <em>cutoff</em> (default <code class="docutils literal notranslate"><span class="pre">0.6</span></code>) is a float in the range [0, 1].
+Possibilities that don’t score at least that similar to <em>word</em> are ignored.</p>
+<p>The best (no more than <em>n</em>) matches among the possibilities are returned in a
+list, sorted by similarity score, most similar first.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_close_matches</span><span class="p">(</span><span class="s1">&#39;appel&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;ape&#39;</span><span class="p">,</span> <span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="s1">&#39;peach&#39;</span><span class="p">,</span> <span class="s1">&#39;puppy&#39;</span><span class="p">])</span>
+<span class="go">[&#39;apple&#39;, &#39;ape&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">keyword</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_close_matches</span><span class="p">(</span><span class="s1">&#39;wheel&#39;</span><span class="p">,</span> <span class="n">keyword</span><span class="o">.</span><span class="n">kwlist</span><span class="p">)</span>
+<span class="go">[&#39;while&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_close_matches</span><span class="p">(</span><span class="s1">&#39;pineapple&#39;</span><span class="p">,</span> <span class="n">keyword</span><span class="o">.</span><span class="n">kwlist</span><span class="p">)</span>
+<span class="go">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_close_matches</span><span class="p">(</span><span class="s1">&#39;accept&#39;</span><span class="p">,</span> <span class="n">keyword</span><span class="o">.</span><span class="n">kwlist</span><span class="p">)</span>
+<span class="go">[&#39;except&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="difflib.ndiff">
+<code class="descclassname">difflib.</code><code class="descname">ndiff</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>linejunk=None</em>, <em>charjunk=IS_CHARACTER_JUNK</em><span class="sig-paren">)</span><a class="headerlink" href="#difflib.ndiff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compare <em>a</em> and <em>b</em> (lists of strings); return a <a class="reference internal" href="#difflib.Differ" title="difflib.Differ"><code class="xref py py-class docutils literal notranslate"><span class="pre">Differ</span></code></a>-style
+delta (a <a class="reference internal" href="../glossary.html#term-generator"><span class="xref std std-term">generator</span></a> generating the delta lines).</p>
+<p>Optional keyword parameters <em>linejunk</em> and <em>charjunk</em> are filtering functions
+(or <code class="docutils literal notranslate"><span class="pre">None</span></code>):</p>
+<p><em>linejunk</em>: A function that accepts a single string argument, and returns
+true if the string is junk, or false if not. The default is <code class="docutils literal notranslate"><span class="pre">None</span></code>. There
+is also a module-level function <a class="reference internal" href="#difflib.IS_LINE_JUNK" title="difflib.IS_LINE_JUNK"><code class="xref py py-func docutils literal notranslate"><span class="pre">IS_LINE_JUNK()</span></code></a>, which filters out lines
+without visible characters, except for at most one pound character (<code class="docutils literal notranslate"><span class="pre">'#'</span></code>)
+– however the underlying <a class="reference internal" href="#difflib.SequenceMatcher" title="difflib.SequenceMatcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">SequenceMatcher</span></code></a> class does a dynamic
+analysis of which lines are so frequent as to constitute noise, and this
+usually works better than using this function.</p>
+<p><em>charjunk</em>: A function that accepts a character (a string of length 1), and
+returns if the character is junk, or false if not. The default is module-level
+function <a class="reference internal" href="#difflib.IS_CHARACTER_JUNK" title="difflib.IS_CHARACTER_JUNK"><code class="xref py py-func docutils literal notranslate"><span class="pre">IS_CHARACTER_JUNK()</span></code></a>, which filters out whitespace characters (a
+blank or tab; it’s a bad idea to include newline in this!).</p>
+<p><code class="file docutils literal notranslate"><span class="pre">Tools/scripts/ndiff.py</span></code> is a command-line front-end to this function.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">diff</span> <span class="o">=</span> <span class="n">ndiff</span><span class="p">(</span><span class="s1">&#39;one</span><span class="se">\n</span><span class="s1">two</span><span class="se">\n</span><span class="s1">three</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="n">keepends</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+<span class="gp">... </span>             <span class="s1">&#39;ore</span><span class="se">\n</span><span class="s1">tree</span><span class="se">\n</span><span class="s1">emu</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="n">keepends</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">diff</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="go">- one</span>
+<span class="go">?  ^</span>
+<span class="go">+ ore</span>
+<span class="go">?  ^</span>
+<span class="go">- two</span>
+<span class="go">- three</span>
+<span class="go">?  -</span>
+<span class="go">+ tree</span>
+<span class="go">+ emu</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="difflib.restore">
+<code class="descclassname">difflib.</code><code class="descname">restore</code><span class="sig-paren">(</span><em>sequence</em>, <em>which</em><span class="sig-paren">)</span><a class="headerlink" href="#difflib.restore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return one of the two sequences that generated a delta.</p>
+<p>Given a <em>sequence</em> produced by <a class="reference internal" href="#difflib.Differ.compare" title="difflib.Differ.compare"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Differ.compare()</span></code></a> or <a class="reference internal" href="#difflib.ndiff" title="difflib.ndiff"><code class="xref py py-func docutils literal notranslate"><span class="pre">ndiff()</span></code></a>, extract
+lines originating from file 1 or 2 (parameter <em>which</em>), stripping off line
+prefixes.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">diff</span> <span class="o">=</span> <span class="n">ndiff</span><span class="p">(</span><span class="s1">&#39;one</span><span class="se">\n</span><span class="s1">two</span><span class="se">\n</span><span class="s1">three</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="n">keepends</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+<span class="gp">... </span>             <span class="s1">&#39;ore</span><span class="se">\n</span><span class="s1">tree</span><span class="se">\n</span><span class="s1">emu</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="n">keepends</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">diff</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span> <span class="c1"># materialize the generated delta into a list</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">restore</span><span class="p">(</span><span class="n">diff</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="go">one</span>
+<span class="go">two</span>
+<span class="go">three</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">restore</span><span class="p">(</span><span class="n">diff</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="go">ore</span>
+<span class="go">tree</span>
+<span class="go">emu</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="difflib.unified_diff">
+<code class="descclassname">difflib.</code><code class="descname">unified_diff</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>fromfile=''</em>, <em>tofile=''</em>, <em>fromfiledate=''</em>, <em>tofiledate=''</em>, <em>n=3</em>, <em>lineterm='\n'</em><span class="sig-paren">)</span><a class="headerlink" href="#difflib.unified_diff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compare <em>a</em> and <em>b</em> (lists of strings); return a delta (a <a class="reference internal" href="../glossary.html#term-generator"><span class="xref std std-term">generator</span></a>
+generating the delta lines) in unified diff format.</p>
+<p>Unified diffs are a compact way of showing just the lines that have changed plus
+a few lines of context.  The changes are shown in an inline style (instead of
+separate before/after blocks).  The number of context lines is set by <em>n</em> which
+defaults to three.</p>
+<p>By default, the diff control lines (those with <code class="docutils literal notranslate"><span class="pre">---</span></code>, <code class="docutils literal notranslate"><span class="pre">+++</span></code>, or <code class="docutils literal notranslate"><span class="pre">&#64;&#64;</span></code>) are
+created with a trailing newline.  This is helpful so that inputs created from
+<a class="reference internal" href="io.html#io.IOBase.readlines" title="io.IOBase.readlines"><code class="xref py py-func docutils literal notranslate"><span class="pre">io.IOBase.readlines()</span></code></a> result in diffs that are suitable for use with
+<a class="reference internal" href="io.html#io.IOBase.writelines" title="io.IOBase.writelines"><code class="xref py py-func docutils literal notranslate"><span class="pre">io.IOBase.writelines()</span></code></a> since both the inputs and outputs have trailing
+newlines.</p>
+<p>For inputs that do not have trailing newlines, set the <em>lineterm</em> argument to
+<code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code> so that the output will be uniformly newline free.</p>
+<p>The context diff format normally has a header for filenames and modification
+times.  Any or all of these may be specified using strings for <em>fromfile</em>,
+<em>tofile</em>, <em>fromfiledate</em>, and <em>tofiledate</em>.  The modification times are normally
+expressed in the ISO 8601 format. If not specified, the
+strings default to blanks.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bacon</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;eggs</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;ham</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;guido</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;python</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;eggy</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;hamster</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;guido</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">unified_diff</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">fromfile</span><span class="o">=</span><span class="s1">&#39;before.py&#39;</span><span class="p">,</span> <span class="n">tofile</span><span class="o">=</span><span class="s1">&#39;after.py&#39;</span><span class="p">))</span>
+<span class="go">--- before.py</span>
+<span class="go">+++ after.py</span>
+<span class="go">@@ -1,4 +1,4 @@</span>
+<span class="go">-bacon</span>
+<span class="go">-eggs</span>
+<span class="go">-ham</span>
+<span class="go">+python</span>
+<span class="go">+eggy</span>
+<span class="go">+hamster</span>
+<span class="go"> guido</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="#difflib-interface"><span class="std std-ref">A command-line interface to difflib</span></a> for a more detailed example.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="difflib.diff_bytes">
+<code class="descclassname">difflib.</code><code class="descname">diff_bytes</code><span class="sig-paren">(</span><em>dfunc</em>, <em>a</em>, <em>b</em>, <em>fromfile=b''</em>, <em>tofile=b''</em>, <em>fromfiledate=b''</em>, <em>tofiledate=b''</em>, <em>n=3</em>, <em>lineterm=b'\n'</em><span class="sig-paren">)</span><a class="headerlink" href="#difflib.diff_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compare <em>a</em> and <em>b</em> (lists of bytes objects) using <em>dfunc</em>; yield a
+sequence of delta lines (also bytes) in the format returned by <em>dfunc</em>.
+<em>dfunc</em> must be a callable, typically either <a class="reference internal" href="#difflib.unified_diff" title="difflib.unified_diff"><code class="xref py py-func docutils literal notranslate"><span class="pre">unified_diff()</span></code></a> or
+<a class="reference internal" href="#difflib.context_diff" title="difflib.context_diff"><code class="xref py py-func docutils literal notranslate"><span class="pre">context_diff()</span></code></a>.</p>
+<p>Allows you to compare data with unknown or inconsistent encoding. All
+inputs except <em>n</em> must be bytes objects, not str. Works by losslessly
+converting all inputs (except <em>n</em>) to str, and calling <code class="docutils literal notranslate"><span class="pre">dfunc(a,</span> <span class="pre">b,</span>
+<span class="pre">fromfile,</span> <span class="pre">tofile,</span> <span class="pre">fromfiledate,</span> <span class="pre">tofiledate,</span> <span class="pre">n,</span> <span class="pre">lineterm)</span></code>. The output of
+<em>dfunc</em> is then converted back to bytes, so the delta lines that you
+receive have the same unknown/inconsistent encodings as <em>a</em> and <em>b</em>.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.5.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="difflib.IS_LINE_JUNK">
+<code class="descclassname">difflib.</code><code class="descname">IS_LINE_JUNK</code><span class="sig-paren">(</span><em>line</em><span class="sig-paren">)</span><a class="headerlink" href="#difflib.IS_LINE_JUNK" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true for ignorable lines.  The line <em>line</em> is ignorable if <em>line</em> is
+blank or contains a single <code class="docutils literal notranslate"><span class="pre">'#'</span></code>, otherwise it is not ignorable.  Used as a
+default for parameter <em>linejunk</em> in <a class="reference internal" href="#difflib.ndiff" title="difflib.ndiff"><code class="xref py py-func docutils literal notranslate"><span class="pre">ndiff()</span></code></a> in older versions.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="difflib.IS_CHARACTER_JUNK">
+<code class="descclassname">difflib.</code><code class="descname">IS_CHARACTER_JUNK</code><span class="sig-paren">(</span><em>ch</em><span class="sig-paren">)</span><a class="headerlink" href="#difflib.IS_CHARACTER_JUNK" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true for ignorable characters.  The character <em>ch</em> is ignorable if <em>ch</em>
+is a space or tab, otherwise it is not ignorable.  Used as a default for
+parameter <em>charjunk</em> in <a class="reference internal" href="#difflib.ndiff" title="difflib.ndiff"><code class="xref py py-func docutils literal notranslate"><span class="pre">ndiff()</span></code></a>.</p>
+</dd></dl>
+
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference external" href="http://www.drdobbs.com/database/pattern-matching-the-gestalt-approach/184407970">Pattern Matching: The Gestalt Approach</a></dt>
+<dd>Discussion of a similar algorithm by John W. Ratcliff and D. E. Metzener. This
+was published in <a class="reference external" href="http://www.drdobbs.com/">Dr. Dobb’s Journal</a> in July, 1988.</dd>
+</dl>
+</div>
+<div class="section" id="sequencematcher-objects">
+<span id="sequence-matcher"></span><h2>SequenceMatcher Objects<a class="headerlink" href="#sequencematcher-objects" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="#difflib.SequenceMatcher" title="difflib.SequenceMatcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">SequenceMatcher</span></code></a> class has this constructor:</p>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">difflib.</code><code class="descname">SequenceMatcher</code><span class="sig-paren">(</span><em>isjunk=None</em>, <em>a=''</em>, <em>b=''</em>, <em>autojunk=True</em><span class="sig-paren">)</span></dt>
+<dd><p>Optional argument <em>isjunk</em> must be <code class="docutils literal notranslate"><span class="pre">None</span></code> (the default) or a one-argument
+function that takes a sequence element and returns true if and only if the
+element is “junk” and should be ignored. Passing <code class="docutils literal notranslate"><span class="pre">None</span></code> for <em>isjunk</em> is
+equivalent to passing <code class="docutils literal notranslate"><span class="pre">lambda</span> <span class="pre">x:</span> <span class="pre">0</span></code>; in other words, no elements are ignored.
+For example, pass:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">in</span> <span class="s2">&quot; </span><span class="se">\t</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>if you’re comparing lines as sequences of characters, and don’t want to synch up
+on blanks or hard tabs.</p>
+<p>The optional arguments <em>a</em> and <em>b</em> are sequences to be compared; both default to
+empty strings.  The elements of both sequences must be <a class="reference internal" href="../glossary.html#term-hashable"><span class="xref std std-term">hashable</span></a>.</p>
+<p>The optional argument <em>autojunk</em> can be used to disable the automatic junk
+heuristic.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.2: </span>The <em>autojunk</em> parameter.</p>
+</div>
+<p>SequenceMatcher objects get three data attributes: <em>bjunk</em> is the
+set of elements of <em>b</em> for which <em>isjunk</em> is <code class="docutils literal notranslate"><span class="pre">True</span></code>; <em>bpopular</em> is the set of
+non-junk elements considered popular by the heuristic (if it is not
+disabled); <em>b2j</em> is a dict mapping the remaining elements of <em>b</em> to a list
+of positions where they occur. All three are reset whenever <em>b</em> is reset
+with <a class="reference internal" href="#difflib.SequenceMatcher.set_seqs" title="difflib.SequenceMatcher.set_seqs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_seqs()</span></code></a> or <a class="reference internal" href="#difflib.SequenceMatcher.set_seq2" title="difflib.SequenceMatcher.set_seq2"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_seq2()</span></code></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.2: </span>The <em>bjunk</em> and <em>bpopular</em> attributes.</p>
+</div>
+<p><a class="reference internal" href="#difflib.SequenceMatcher" title="difflib.SequenceMatcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">SequenceMatcher</span></code></a> objects have the following methods:</p>
+<dl class="method">
+<dt id="difflib.SequenceMatcher.set_seqs">
+<code class="descname">set_seqs</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#difflib.SequenceMatcher.set_seqs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the two sequences to be compared.</p>
+</dd></dl>
+
+<p><a class="reference internal" href="#difflib.SequenceMatcher" title="difflib.SequenceMatcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">SequenceMatcher</span></code></a> computes and caches detailed information about the
+second sequence, so if you want to compare one sequence against many
+sequences, use <a class="reference internal" href="#difflib.SequenceMatcher.set_seq2" title="difflib.SequenceMatcher.set_seq2"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_seq2()</span></code></a> to set the commonly used sequence once and
+call <a class="reference internal" href="#difflib.SequenceMatcher.set_seq1" title="difflib.SequenceMatcher.set_seq1"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_seq1()</span></code></a> repeatedly, once for each of the other sequences.</p>
+<dl class="method">
+<dt id="difflib.SequenceMatcher.set_seq1">
+<code class="descname">set_seq1</code><span class="sig-paren">(</span><em>a</em><span class="sig-paren">)</span><a class="headerlink" href="#difflib.SequenceMatcher.set_seq1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the first sequence to be compared.  The second sequence to be compared
+is not changed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="difflib.SequenceMatcher.set_seq2">
+<code class="descname">set_seq2</code><span class="sig-paren">(</span><em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#difflib.SequenceMatcher.set_seq2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the second sequence to be compared.  The first sequence to be compared
+is not changed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="difflib.SequenceMatcher.find_longest_match">
+<code class="descname">find_longest_match</code><span class="sig-paren">(</span><em>alo</em>, <em>ahi</em>, <em>blo</em>, <em>bhi</em><span class="sig-paren">)</span><a class="headerlink" href="#difflib.SequenceMatcher.find_longest_match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find longest matching block in <code class="docutils literal notranslate"><span class="pre">a[alo:ahi]</span></code> and <code class="docutils literal notranslate"><span class="pre">b[blo:bhi]</span></code>.</p>
+<p>If <em>isjunk</em> was omitted or <code class="docutils literal notranslate"><span class="pre">None</span></code>, <a class="reference internal" href="#difflib.SequenceMatcher.find_longest_match" title="difflib.SequenceMatcher.find_longest_match"><code class="xref py py-meth docutils literal notranslate"><span class="pre">find_longest_match()</span></code></a> returns
+<code class="docutils literal notranslate"><span class="pre">(i,</span> <span class="pre">j,</span> <span class="pre">k)</span></code> such that <code class="docutils literal notranslate"><span class="pre">a[i:i+k]</span></code> is equal to <code class="docutils literal notranslate"><span class="pre">b[j:j+k]</span></code>, where <code class="docutils literal notranslate"><span class="pre">alo</span>
+<span class="pre">&lt;=</span> <span class="pre">i</span> <span class="pre">&lt;=</span> <span class="pre">i+k</span> <span class="pre">&lt;=</span> <span class="pre">ahi</span></code> and <code class="docutils literal notranslate"><span class="pre">blo</span> <span class="pre">&lt;=</span> <span class="pre">j</span> <span class="pre">&lt;=</span> <span class="pre">j+k</span> <span class="pre">&lt;=</span> <span class="pre">bhi</span></code>. For all <code class="docutils literal notranslate"><span class="pre">(i',</span> <span class="pre">j',</span>
+<span class="pre">k')</span></code> meeting those conditions, the additional conditions <code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">&gt;=</span> <span class="pre">k'</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span>
+<span class="pre">&lt;=</span> <span class="pre">i'</span></code>, and if <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">==</span> <span class="pre">i'</span></code>, <code class="docutils literal notranslate"><span class="pre">j</span> <span class="pre">&lt;=</span> <span class="pre">j'</span></code> are also met. In other words, of
+all maximal matching blocks, return one that starts earliest in <em>a</em>, and
+of all those maximal matching blocks that start earliest in <em>a</em>, return
+the one that starts earliest in <em>b</em>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">SequenceMatcher</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot; abcd&quot;</span><span class="p">,</span> <span class="s2">&quot;abcd abcd&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">find_longest_match</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+<span class="go">Match(a=0, b=4, size=5)</span>
+</pre></div>
+</div>
+<p>If <em>isjunk</em> was provided, first the longest matching block is determined
+as above, but with the additional restriction that no junk element appears
+in the block.  Then that block is extended as far as possible by matching
+(only) junk elements on both sides. So the resulting block never matches
+on junk except as identical junk happens to be adjacent to an interesting
+match.</p>
+<p>Here’s the same example as before, but considering blanks to be junk. That
+prevents <code class="docutils literal notranslate"><span class="pre">'</span> <span class="pre">abcd'</span></code> from matching the <code class="docutils literal notranslate"><span class="pre">'</span> <span class="pre">abcd'</span></code> at the tail end of the
+second sequence directly.  Instead only the <code class="docutils literal notranslate"><span class="pre">'abcd'</span></code> can match, and
+matches the leftmost <code class="docutils literal notranslate"><span class="pre">'abcd'</span></code> in the second sequence:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">SequenceMatcher</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">==</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot; abcd&quot;</span><span class="p">,</span> <span class="s2">&quot;abcd abcd&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">find_longest_match</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+<span class="go">Match(a=1, b=0, size=4)</span>
+</pre></div>
+</div>
+<p>If no blocks match, this returns <code class="docutils literal notranslate"><span class="pre">(alo,</span> <span class="pre">blo,</span> <span class="pre">0)</span></code>.</p>
+<p>This method returns a <a class="reference internal" href="../glossary.html#term-named-tuple"><span class="xref std std-term">named tuple</span></a> <code class="docutils literal notranslate"><span class="pre">Match(a,</span> <span class="pre">b,</span> <span class="pre">size)</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="difflib.SequenceMatcher.get_matching_blocks">
+<code class="descname">get_matching_blocks</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#difflib.SequenceMatcher.get_matching_blocks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of triples describing non-overlapping matching subsequences.
+Each triple is of the form <code class="docutils literal notranslate"><span class="pre">(i,</span> <span class="pre">j,</span> <span class="pre">n)</span></code>,
+and means that <code class="docutils literal notranslate"><span class="pre">a[i:i+n]</span> <span class="pre">==</span> <span class="pre">b[j:j+n]</span></code>.  The
+triples are monotonically increasing in <em>i</em> and <em>j</em>.</p>
+<p>The last triple is a dummy, and has the value <code class="docutils literal notranslate"><span class="pre">(len(a),</span> <span class="pre">len(b),</span> <span class="pre">0)</span></code>.  It
+is the only triple with <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">==</span> <span class="pre">0</span></code>.  If <code class="docutils literal notranslate"><span class="pre">(i,</span> <span class="pre">j,</span> <span class="pre">n)</span></code> and <code class="docutils literal notranslate"><span class="pre">(i',</span> <span class="pre">j',</span> <span class="pre">n')</span></code>
+are adjacent triples in the list, and the second is not the last triple in
+the list, then <code class="docutils literal notranslate"><span class="pre">i+n</span> <span class="pre">&lt;</span> <span class="pre">i'</span></code> or <code class="docutils literal notranslate"><span class="pre">j+n</span> <span class="pre">&lt;</span> <span class="pre">j'</span></code>; in other words, adjacent
+triples always describe non-adjacent equal blocks.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">SequenceMatcher</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="s2">&quot;abxcd&quot;</span><span class="p">,</span> <span class="s2">&quot;abcd&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">get_matching_blocks</span><span class="p">()</span>
+<span class="go">[Match(a=0, b=0, size=2), Match(a=3, b=2, size=2), Match(a=5, b=4, size=0)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="difflib.SequenceMatcher.get_opcodes">
+<code class="descname">get_opcodes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#difflib.SequenceMatcher.get_opcodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of 5-tuples describing how to turn <em>a</em> into <em>b</em>. Each tuple is
+of the form <code class="docutils literal notranslate"><span class="pre">(tag,</span> <span class="pre">i1,</span> <span class="pre">i2,</span> <span class="pre">j1,</span> <span class="pre">j2)</span></code>.  The first tuple has <code class="docutils literal notranslate"><span class="pre">i1</span> <span class="pre">==</span> <span class="pre">j1</span> <span class="pre">==</span>
+<span class="pre">0</span></code>, and remaining tuples have <em>i1</em> equal to the <em>i2</em> from the preceding
+tuple, and, likewise, <em>j1</em> equal to the previous <em>j2</em>.</p>
+<p>The <em>tag</em> values are strings, with these meanings:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Value</th>
+<th class="head">Meaning</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">'replace'</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">a[i1:i2]</span></code> should be replaced by
+<code class="docutils literal notranslate"><span class="pre">b[j1:j2]</span></code>.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">'delete'</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">a[i1:i2]</span></code> should be deleted.  Note that
+<code class="docutils literal notranslate"><span class="pre">j1</span> <span class="pre">==</span> <span class="pre">j2</span></code> in this case.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">'insert'</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">b[j1:j2]</span></code> should be inserted at
+<code class="docutils literal notranslate"><span class="pre">a[i1:i1]</span></code>. Note that <code class="docutils literal notranslate"><span class="pre">i1</span> <span class="pre">==</span> <span class="pre">i2</span></code> in
+this case.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">'equal'</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">a[i1:i2]</span> <span class="pre">==</span> <span class="pre">b[j1:j2]</span></code> (the sub-sequences
+are equal).</td>
+</tr>
+</tbody>
+</table>
+<p>For example:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;qabxcd&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="s2">&quot;abycdf&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">SequenceMatcher</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">j1</span><span class="p">,</span> <span class="n">j2</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">get_opcodes</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:7}</span><span class="s1">   a[</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">] --&gt; b[</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">] </span><span class="si">{!r:&gt;8}</span><span class="s1"> --&gt; </span><span class="si">{!r}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">tag</span><span class="p">,</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">j1</span><span class="p">,</span> <span class="n">j2</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="n">i1</span><span class="p">:</span><span class="n">i2</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="n">j1</span><span class="p">:</span><span class="n">j2</span><span class="p">]))</span>
+<span class="go">delete    a[0:1] --&gt; b[0:0]      &#39;q&#39; --&gt; &#39;&#39;</span>
+<span class="go">equal     a[1:3] --&gt; b[0:2]     &#39;ab&#39; --&gt; &#39;ab&#39;</span>
+<span class="go">replace   a[3:4] --&gt; b[2:3]      &#39;x&#39; --&gt; &#39;y&#39;</span>
+<span class="go">equal     a[4:6] --&gt; b[3:5]     &#39;cd&#39; --&gt; &#39;cd&#39;</span>
+<span class="go">insert    a[6:6] --&gt; b[5:6]       &#39;&#39; --&gt; &#39;f&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="difflib.SequenceMatcher.get_grouped_opcodes">
+<code class="descname">get_grouped_opcodes</code><span class="sig-paren">(</span><em>n=3</em><span class="sig-paren">)</span><a class="headerlink" href="#difflib.SequenceMatcher.get_grouped_opcodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a <a class="reference internal" href="../glossary.html#term-generator"><span class="xref std std-term">generator</span></a> of groups with up to <em>n</em> lines of context.</p>
+<p>Starting with the groups returned by <a class="reference internal" href="#difflib.SequenceMatcher.get_opcodes" title="difflib.SequenceMatcher.get_opcodes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_opcodes()</span></code></a>, this method
+splits out smaller change clusters and eliminates intervening ranges which
+have no changes.</p>
+<p>The groups are returned in the same format as <a class="reference internal" href="#difflib.SequenceMatcher.get_opcodes" title="difflib.SequenceMatcher.get_opcodes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_opcodes()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="difflib.SequenceMatcher.ratio">
+<code class="descname">ratio</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#difflib.SequenceMatcher.ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a measure of the sequences’ similarity as a float in the range [0,
+1].</p>
+<p>Where T is the total number of elements in both sequences, and M is the
+number of matches, this is 2.0*M / T. Note that this is <code class="docutils literal notranslate"><span class="pre">1.0</span></code> if the
+sequences are identical, and <code class="docutils literal notranslate"><span class="pre">0.0</span></code> if they have nothing in common.</p>
+<p>This is expensive to compute if <a class="reference internal" href="#difflib.SequenceMatcher.get_matching_blocks" title="difflib.SequenceMatcher.get_matching_blocks"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_matching_blocks()</span></code></a> or
+<a class="reference internal" href="#difflib.SequenceMatcher.get_opcodes" title="difflib.SequenceMatcher.get_opcodes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_opcodes()</span></code></a> hasn’t already been called, in which case you may want
+to try <a class="reference internal" href="#difflib.SequenceMatcher.quick_ratio" title="difflib.SequenceMatcher.quick_ratio"><code class="xref py py-meth docutils literal notranslate"><span class="pre">quick_ratio()</span></code></a> or <a class="reference internal" href="#difflib.SequenceMatcher.real_quick_ratio" title="difflib.SequenceMatcher.real_quick_ratio"><code class="xref py py-meth docutils literal notranslate"><span class="pre">real_quick_ratio()</span></code></a> first to get an
+upper bound.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="difflib.SequenceMatcher.quick_ratio">
+<code class="descname">quick_ratio</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#difflib.SequenceMatcher.quick_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an upper bound on <a class="reference internal" href="#difflib.SequenceMatcher.ratio" title="difflib.SequenceMatcher.ratio"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ratio()</span></code></a> relatively quickly.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="difflib.SequenceMatcher.real_quick_ratio">
+<code class="descname">real_quick_ratio</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#difflib.SequenceMatcher.real_quick_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an upper bound on <a class="reference internal" href="#difflib.SequenceMatcher.ratio" title="difflib.SequenceMatcher.ratio"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ratio()</span></code></a> very quickly.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>The three methods that return the ratio of matching to total characters can give
+different results due to differing levels of approximation, although
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">quick_ratio()</span></code> and <code class="xref py py-meth docutils literal notranslate"><span class="pre">real_quick_ratio()</span></code> are always at least as large as
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">ratio()</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">SequenceMatcher</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;abcd&quot;</span><span class="p">,</span> <span class="s2">&quot;bcde&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">ratio</span><span class="p">()</span>
+<span class="go">0.75</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">quick_ratio</span><span class="p">()</span>
+<span class="go">0.75</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">real_quick_ratio</span><span class="p">()</span>
+<span class="go">1.0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sequencematcher-examples">
+<span id="id1"></span><h2>SequenceMatcher Examples<a class="headerlink" href="#sequencematcher-examples" title="Permalink to this headline">¶</a></h2>
+<p>This example compares two strings, considering blanks to be “junk”:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">SequenceMatcher</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">==</span> <span class="s2">&quot; &quot;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="s2">&quot;private Thread currentThread;&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="s2">&quot;private volatile Thread currentThread;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="xref py py-meth docutils literal notranslate"><span class="pre">ratio()</span></code> returns a float in [0, 1], measuring the similarity of the
+sequences.  As a rule of thumb, a <code class="xref py py-meth docutils literal notranslate"><span class="pre">ratio()</span></code> value over 0.6 means the
+sequences are close matches:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">ratio</span><span class="p">(),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="go">0.866</span>
+</pre></div>
+</div>
+<p>If you’re only interested in where the sequences match,
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">get_matching_blocks()</span></code> is handy:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">get_matching_blocks</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a[</span><span class="si">%d</span><span class="s2">] and b[</span><span class="si">%d</span><span class="s2">] match for </span><span class="si">%d</span><span class="s2"> elements&quot;</span> <span class="o">%</span> <span class="n">block</span><span class="p">)</span>
+<span class="go">a[0] and b[0] match for 8 elements</span>
+<span class="go">a[8] and b[17] match for 21 elements</span>
+<span class="go">a[29] and b[38] match for 0 elements</span>
+</pre></div>
+</div>
+<p>Note that the last tuple returned by <code class="xref py py-meth docutils literal notranslate"><span class="pre">get_matching_blocks()</span></code> is always a
+dummy, <code class="docutils literal notranslate"><span class="pre">(len(a),</span> <span class="pre">len(b),</span> <span class="pre">0)</span></code>, and this is the only case in which the last
+tuple element (number of elements matched) is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<p>If you want to know how to change the first sequence into the second, use
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">get_opcodes()</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">opcode</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">get_opcodes</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%6s</span><span class="s2"> a[</span><span class="si">%d</span><span class="s2">:</span><span class="si">%d</span><span class="s2">] b[</span><span class="si">%d</span><span class="s2">:</span><span class="si">%d</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="n">opcode</span><span class="p">)</span>
+<span class="go"> equal a[0:8] b[0:8]</span>
+<span class="go">insert a[8:8] b[8:17]</span>
+<span class="go"> equal a[8:29] b[17:38]</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<ul class="last simple">
+<li>The <a class="reference internal" href="#difflib.get_close_matches" title="difflib.get_close_matches"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_close_matches()</span></code></a> function in this module which shows how
+simple code building on <a class="reference internal" href="#difflib.SequenceMatcher" title="difflib.SequenceMatcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">SequenceMatcher</span></code></a> can be used to do useful
+work.</li>
+<li><a class="reference external" href="https://code.activestate.com/recipes/576729/">Simple version control recipe</a> for a small application
+built with <a class="reference internal" href="#difflib.SequenceMatcher" title="difflib.SequenceMatcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">SequenceMatcher</span></code></a>.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="differ-objects">
+<span id="id2"></span><h2>Differ Objects<a class="headerlink" href="#differ-objects" title="Permalink to this headline">¶</a></h2>
+<p>Note that <a class="reference internal" href="#difflib.Differ" title="difflib.Differ"><code class="xref py py-class docutils literal notranslate"><span class="pre">Differ</span></code></a>-generated deltas make no claim to be <strong>minimal</strong>
+diffs. To the contrary, minimal diffs are often counter-intuitive, because they
+synch up anywhere possible, sometimes accidental matches 100 pages apart.
+Restricting synch points to contiguous matches preserves some notion of
+locality, at the occasional cost of producing a longer diff.</p>
+<p>The <a class="reference internal" href="#difflib.Differ" title="difflib.Differ"><code class="xref py py-class docutils literal notranslate"><span class="pre">Differ</span></code></a> class has this constructor:</p>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">difflib.</code><code class="descname">Differ</code><span class="sig-paren">(</span><em>linejunk=None</em>, <em>charjunk=None</em><span class="sig-paren">)</span></dt>
+<dd><p>Optional keyword parameters <em>linejunk</em> and <em>charjunk</em> are for filter functions
+(or <code class="docutils literal notranslate"><span class="pre">None</span></code>):</p>
+<p><em>linejunk</em>: A function that accepts a single string argument, and returns true
+if the string is junk.  The default is <code class="docutils literal notranslate"><span class="pre">None</span></code>, meaning that no line is
+considered junk.</p>
+<p><em>charjunk</em>: A function that accepts a single character argument (a string of
+length 1), and returns true if the character is junk. The default is <code class="docutils literal notranslate"><span class="pre">None</span></code>,
+meaning that no character is considered junk.</p>
+<p>These junk-filtering functions speed up matching to find
+differences and do not cause any differing lines or characters to
+be ignored.  Read the description of the
+<a class="reference internal" href="#difflib.SequenceMatcher.find_longest_match" title="difflib.SequenceMatcher.find_longest_match"><code class="xref py py-meth docutils literal notranslate"><span class="pre">find_longest_match()</span></code></a> method’s <em>isjunk</em>
+parameter for an explanation.</p>
+<p><a class="reference internal" href="#difflib.Differ" title="difflib.Differ"><code class="xref py py-class docutils literal notranslate"><span class="pre">Differ</span></code></a> objects are used (deltas generated) via a single method:</p>
+<dl class="method">
+<dt id="difflib.Differ.compare">
+<code class="descname">compare</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#difflib.Differ.compare" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compare two sequences of lines, and generate the delta (a sequence of lines).</p>
+<p>Each sequence must contain individual single-line strings ending with
+newlines.  Such sequences can be obtained from the
+<a class="reference internal" href="io.html#io.IOBase.readlines" title="io.IOBase.readlines"><code class="xref py py-meth docutils literal notranslate"><span class="pre">readlines()</span></code></a> method of file-like objects.  The delta
+generated also consists of newline-terminated strings, ready to be
+printed as-is via the <a class="reference internal" href="io.html#io.IOBase.writelines" title="io.IOBase.writelines"><code class="xref py py-meth docutils literal notranslate"><span class="pre">writelines()</span></code></a> method of a
+file-like object.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="differ-example">
+<span id="differ-examples"></span><h2>Differ Example<a class="headerlink" href="#differ-example" title="Permalink to this headline">¶</a></h2>
+<p>This example compares two texts. First we set up the texts, sequences of
+individual single-line strings ending with newlines (such sequences can also be
+obtained from the <code class="xref py py-meth docutils literal notranslate"><span class="pre">readlines()</span></code> method of file-like objects):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">text1</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;  1. Beautiful is better than ugly.</span>
+<span class="gp">... </span><span class="s1">  2. Explicit is better than implicit.</span>
+<span class="gp">... </span><span class="s1">  3. Simple is better than complex.</span>
+<span class="gp">... </span><span class="s1">  4. Complex is better than complicated.</span>
+<span class="gp">... </span><span class="s1">&#39;&#39;&#39;</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="n">keepends</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">text1</span><span class="p">)</span>
+<span class="go">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text1</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">&#39;\n&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text2</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;  1. Beautiful is better than ugly.</span>
+<span class="gp">... </span><span class="s1">  3.   Simple is better than complex.</span>
+<span class="gp">... </span><span class="s1">  4. Complicated is better than complex.</span>
+<span class="gp">... </span><span class="s1">  5. Flat is better than nested.</span>
+<span class="gp">... </span><span class="s1">&#39;&#39;&#39;</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="n">keepends</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Next we instantiate a Differ object:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">Differ</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Note that when instantiating a <a class="reference internal" href="#difflib.Differ" title="difflib.Differ"><code class="xref py py-class docutils literal notranslate"><span class="pre">Differ</span></code></a> object we may pass functions to
+filter out line and character “junk.”  See the <a class="reference internal" href="#difflib.Differ" title="difflib.Differ"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Differ()</span></code></a> constructor for
+details.</p>
+<p>Finally, we compare the two:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">text1</span><span class="p">,</span> <span class="n">text2</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">result</span></code> is a list of strings, so let’s pretty-print it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="go">[&#39;    1. Beautiful is better than ugly.\n&#39;,</span>
+<span class="go"> &#39;-   2. Explicit is better than implicit.\n&#39;,</span>
+<span class="go"> &#39;-   3. Simple is better than complex.\n&#39;,</span>
+<span class="go"> &#39;+   3.   Simple is better than complex.\n&#39;,</span>
+<span class="go"> &#39;?     ++\n&#39;,</span>
+<span class="go"> &#39;-   4. Complex is better than complicated.\n&#39;,</span>
+<span class="go"> &#39;?            ^                     ---- ^\n&#39;,</span>
+<span class="go"> &#39;+   4. Complicated is better than complex.\n&#39;,</span>
+<span class="go"> &#39;?           ++++ ^                      ^\n&#39;,</span>
+<span class="go"> &#39;+   5. Flat is better than nested.\n&#39;]</span>
+</pre></div>
+</div>
+<p>As a single multi-line string it looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="go">    1. Beautiful is better than ugly.</span>
+<span class="go">-   2. Explicit is better than implicit.</span>
+<span class="go">-   3. Simple is better than complex.</span>
+<span class="go">+   3.   Simple is better than complex.</span>
+<span class="go">?     ++</span>
+<span class="go">-   4. Complex is better than complicated.</span>
+<span class="go">?            ^                     ---- ^</span>
+<span class="go">+   4. Complicated is better than complex.</span>
+<span class="go">?           ++++ ^                      ^</span>
+<span class="go">+   5. Flat is better than nested.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="a-command-line-interface-to-difflib">
+<span id="difflib-interface"></span><h2>A command-line interface to difflib<a class="headerlink" href="#a-command-line-interface-to-difflib" title="Permalink to this headline">¶</a></h2>
+<p>This example shows how to use difflib to create a <code class="docutils literal notranslate"><span class="pre">diff</span></code>-like utility.
+It is also contained in the Python source distribution, as
+<code class="file docutils literal notranslate"><span class="pre">Tools/scripts/diff.py</span></code>.</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="sd">&quot;&quot;&quot; Command line interface to difflib.py providing diffs in four formats:</span>
+
+<span class="sd">* ndiff:    lists every line and highlights interline changes.</span>
+<span class="sd">* context:  highlights clusters of changes in a before/after format.</span>
+<span class="sd">* unified:  highlights clusters of changes in an inline format.</span>
+<span class="sd">* html:     generates side by side comparison with change highlights.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">difflib</span><span class="o">,</span> <span class="nn">argparse</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timezone</span>
+
+<span class="k">def</span> <span class="nf">file_mtime</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">st_mtime</span><span class="p">,</span>
+                               <span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">t</span><span class="o">.</span><span class="n">astimezone</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Produce a context format diff (default)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-u&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Produce a unified format diff&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Produce HTML side by side diff &#39;</span>
+                             <span class="s1">&#39;(can use -c and -l in conjunction)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-n&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Produce a ndiff format diff&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-l&#39;</span><span class="p">,</span> <span class="s1">&#39;--lines&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Set number of context lines (default 3)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;fromfile&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;tofile&#39;</span><span class="p">)</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">lines</span>
+    <span class="n">fromfile</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">fromfile</span>
+    <span class="n">tofile</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">tofile</span>
+
+    <span class="n">fromdate</span> <span class="o">=</span> <span class="n">file_mtime</span><span class="p">(</span><span class="n">fromfile</span><span class="p">)</span>
+    <span class="n">todate</span> <span class="o">=</span> <span class="n">file_mtime</span><span class="p">(</span><span class="n">tofile</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fromfile</span><span class="p">)</span> <span class="k">as</span> <span class="n">ff</span><span class="p">:</span>
+        <span class="n">fromlines</span> <span class="o">=</span> <span class="n">ff</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">tofile</span><span class="p">)</span> <span class="k">as</span> <span class="n">tf</span><span class="p">:</span>
+        <span class="n">tolines</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">u</span><span class="p">:</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">difflib</span><span class="o">.</span><span class="n">unified_diff</span><span class="p">(</span><span class="n">fromlines</span><span class="p">,</span> <span class="n">tolines</span><span class="p">,</span> <span class="n">fromfile</span><span class="p">,</span> <span class="n">tofile</span><span class="p">,</span> <span class="n">fromdate</span><span class="p">,</span> <span class="n">todate</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">options</span><span class="o">.</span><span class="n">n</span><span class="p">:</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">difflib</span><span class="o">.</span><span class="n">ndiff</span><span class="p">(</span><span class="n">fromlines</span><span class="p">,</span> <span class="n">tolines</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">options</span><span class="o">.</span><span class="n">m</span><span class="p">:</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">difflib</span><span class="o">.</span><span class="n">HtmlDiff</span><span class="p">()</span><span class="o">.</span><span class="n">make_file</span><span class="p">(</span><span class="n">fromlines</span><span class="p">,</span><span class="n">tolines</span><span class="p">,</span><span class="n">fromfile</span><span class="p">,</span><span class="n">tofile</span><span class="p">,</span><span class="n">context</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">c</span><span class="p">,</span><span class="n">numlines</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">difflib</span><span class="o">.</span><span class="n">context_diff</span><span class="p">(</span><span class="n">fromlines</span><span class="p">,</span> <span class="n">tolines</span><span class="p">,</span> <span class="n">fromfile</span><span class="p">,</span> <span class="n">tofile</span><span class="p">,</span> <span class="n">fromdate</span><span class="p">,</span> <span class="n">todate</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+
+    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">difflib</span></code> — Helpers for computing deltas</a><ul>
+<li><a class="reference internal" href="#sequencematcher-objects">SequenceMatcher Objects</a></li>
+<li><a class="reference internal" href="#sequencematcher-examples">SequenceMatcher Examples</a></li>
+<li><a class="reference internal" href="#differ-objects">Differ Objects</a></li>
+<li><a class="reference internal" href="#differ-example">Differ Example</a></li>
+<li><a class="reference internal" href="#a-command-line-interface-to-difflib">A command-line interface to difflib</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="re.html"
+                        title="previous chapter"><code class="docutils literal notranslate"><span class="pre">re</span></code> — Regular expression operations</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="textwrap.html"
+                        title="next chapter"><code class="docutils literal notranslate"><span class="pre">textwrap</span></code> — Text wrapping and filling</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/library/difflib.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="textwrap.html" title="textwrap — Text wrapping and filling"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="re.html" title="re — Regular expression operations"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="text.html" >Text Processing Services</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,278 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>spwd — The shadow password database &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="grp — The group database" href="grp.html" />
+    <link rel="prev" title="pwd — The password database" href="pwd.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/library/spwd.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="grp.html" title="grp — The group database"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pwd.html" title="pwd — The password database"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="unix.html" accesskey="U">Unix Specific Services</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-spwd">
+<span id="spwd-the-shadow-password-database"></span><h1><a class="reference internal" href="#module-spwd" title="spwd: The shadow password database (getspnam() and friends). (Unix)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">spwd</span></code></a> — The shadow password database<a class="headerlink" href="#module-spwd" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>This module provides access to the Unix shadow password database. It is
+available on various Unix versions.</p>
+<p>You must have enough privileges to access the shadow password database (this
+usually means you have to be root).</p>
+<p>Shadow password database entries are reported as a tuple-like object, whose
+attributes correspond to the members of the <code class="docutils literal notranslate"><span class="pre">spwd</span></code> structure (Attribute field
+below, see <code class="docutils literal notranslate"><span class="pre">&lt;shadow.h&gt;</span></code>):</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="27%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Index</th>
+<th class="head">Attribute</th>
+<th class="head">Meaning</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>0</td>
+<td><code class="docutils literal notranslate"><span class="pre">sp_namp</span></code></td>
+<td>Login name</td>
+</tr>
+<tr class="row-odd"><td>1</td>
+<td><code class="docutils literal notranslate"><span class="pre">sp_pwdp</span></code></td>
+<td>Encrypted password</td>
+</tr>
+<tr class="row-even"><td>2</td>
+<td><code class="docutils literal notranslate"><span class="pre">sp_lstchg</span></code></td>
+<td>Date of last change</td>
+</tr>
+<tr class="row-odd"><td>3</td>
+<td><code class="docutils literal notranslate"><span class="pre">sp_min</span></code></td>
+<td>Minimal number of days between
+changes</td>
+</tr>
+<tr class="row-even"><td>4</td>
+<td><code class="docutils literal notranslate"><span class="pre">sp_max</span></code></td>
+<td>Maximum number of days between
+changes</td>
+</tr>
+<tr class="row-odd"><td>5</td>
+<td><code class="docutils literal notranslate"><span class="pre">sp_warn</span></code></td>
+<td>Number of days before password
+expires to warn user about it</td>
+</tr>
+<tr class="row-even"><td>6</td>
+<td><code class="docutils literal notranslate"><span class="pre">sp_inact</span></code></td>
+<td>Number of days after password
+expires until account is
+disabled</td>
+</tr>
+<tr class="row-odd"><td>7</td>
+<td><code class="docutils literal notranslate"><span class="pre">sp_expire</span></code></td>
+<td>Number of days since 1970-01-01
+when account expires</td>
+</tr>
+<tr class="row-even"><td>8</td>
+<td><code class="docutils literal notranslate"><span class="pre">sp_flag</span></code></td>
+<td>Reserved</td>
+</tr>
+</tbody>
+</table>
+<p>The sp_namp and sp_pwdp items are strings, all others are integers.
+<a class="reference internal" href="exceptions.html#KeyError" title="KeyError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">KeyError</span></code></a> is raised if the entry asked for cannot be found.</p>
+<p>The following functions are defined:</p>
+<dl class="function">
+<dt id="spwd.getspnam">
+<code class="descclassname">spwd.</code><code class="descname">getspnam</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#spwd.getspnam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the shadow password database entry for the given user name.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.6: </span>Raises a <a class="reference internal" href="exceptions.html#PermissionError" title="PermissionError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">PermissionError</span></code></a> instead of <a class="reference internal" href="exceptions.html#KeyError" title="KeyError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">KeyError</span></code></a> if the user
+doesn’t have privileges.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="spwd.getspall">
+<code class="descclassname">spwd.</code><code class="descname">getspall</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spwd.getspall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of all available shadow password database entries, in arbitrary
+order.</p>
+</dd></dl>
+
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt>Module <a class="reference internal" href="grp.html#module-grp" title="grp: The group database (getgrnam() and friends). (Unix)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">grp</span></code></a></dt>
+<dd>An interface to the group database, similar to this.</dd>
+<dt>Module <a class="reference internal" href="pwd.html#module-pwd" title="pwd: The password database (getpwnam() and friends). (Unix)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pwd</span></code></a></dt>
+<dd>An interface to the normal password database, similar to this.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pwd.html"
+                        title="previous chapter"><code class="docutils literal notranslate"><span class="pre">pwd</span></code> — The password database</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="grp.html"
+                        title="next chapter"><code class="docutils literal notranslate"><span class="pre">grp</span></code> — The group database</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/library/spwd.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="grp.html" title="grp — The group database"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pwd.html" title="pwd — The password database"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="unix.html" >Unix Specific Services</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,456 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>15. Floating Point Arithmetic: Issues and Limitations &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="16. Appendix" href="appendix.html" />
+    <link rel="prev" title="14. Interactive Input Editing and History Substitution" href="interactive.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/tutorial/floatingpoint.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="appendix.html" title="16. Appendix"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="interactive.html" title="14. Interactive Input Editing and History Substitution"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">The Python Tutorial</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="floating-point-arithmetic-issues-and-limitations">
+<span id="tut-fp-issues"></span><h1>15. Floating Point Arithmetic:  Issues and Limitations<a class="headerlink" href="#floating-point-arithmetic-issues-and-limitations" title="Permalink to this headline">¶</a></h1>
+<p>Floating-point numbers are represented in computer hardware as base 2 (binary)
+fractions.  For example, the decimal fraction</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="mf">0.125</span>
+</pre></div>
+</div>
+<p>has value 1/10 + 2/100 + 5/1000, and in the same way the binary fraction</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="mf">0.001</span>
+</pre></div>
+</div>
+<p>has value 0/2 + 0/4 + 1/8.  These two fractions have identical values, the only
+real difference being that the first is written in base 10 fractional notation,
+and the second in base 2.</p>
+<p>Unfortunately, most decimal fractions cannot be represented exactly as binary
+fractions.  A consequence is that, in general, the decimal floating-point
+numbers you enter are only approximated by the binary floating-point numbers
+actually stored in the machine.</p>
+<p>The problem is easier to understand at first in base 10.  Consider the fraction
+1/3.  You can approximate that as a base 10 fraction:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="mf">0.3</span>
+</pre></div>
+</div>
+<p>or, better,</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="mf">0.33</span>
+</pre></div>
+</div>
+<p>or, better,</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="mf">0.333</span>
+</pre></div>
+</div>
+<p>and so on.  No matter how many digits you’re willing to write down, the result
+will never be exactly 1/3, but will be an increasingly better approximation of
+1/3.</p>
+<p>In the same way, no matter how many base 2 digits you’re willing to use, the
+decimal value 0.1 cannot be represented exactly as a base 2 fraction.  In base
+2, 1/10 is the infinitely repeating fraction</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="mf">0.0001100110011001100110011001100110011001100110011</span><span class="o">...</span>
+</pre></div>
+</div>
+<p>Stop at any finite number of bits, and you get an approximation.  On most
+machines today, floats are approximated using a binary fraction with
+the numerator using the first 53 bits starting with the most significant bit and
+with the denominator as a power of two.  In the case of 1/10, the binary fraction
+is <code class="docutils literal notranslate"><span class="pre">3602879701896397</span> <span class="pre">/</span> <span class="pre">2</span> <span class="pre">**</span> <span class="pre">55</span></code> which is close to but not exactly
+equal to the true value of 1/10.</p>
+<p>Many users are not aware of the approximation because of the way values are
+displayed.  Python only prints a decimal approximation to the true decimal
+value of the binary approximation stored by the machine.  On most machines, if
+Python were to print the true decimal value of the binary approximation stored
+for 0.1, it would have to display</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mf">0.1</span>
+<span class="go">0.1000000000000000055511151231257827021181583404541015625</span>
+</pre></div>
+</div>
+<p>That is more digits than most people find useful, so Python keeps the number
+of digits manageable by displaying a rounded value instead</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="o">/</span> <span class="mi">10</span>
+<span class="go">0.1</span>
+</pre></div>
+</div>
+<p>Just remember, even though the printed result looks like the exact value
+of 1/10, the actual stored value is the nearest representable binary fraction.</p>
+<p>Interestingly, there are many different decimal numbers that share the same
+nearest approximate binary fraction.  For example, the numbers <code class="docutils literal notranslate"><span class="pre">0.1</span></code> and
+<code class="docutils literal notranslate"><span class="pre">0.10000000000000001</span></code> and
+<code class="docutils literal notranslate"><span class="pre">0.1000000000000000055511151231257827021181583404541015625</span></code> are all
+approximated by <code class="docutils literal notranslate"><span class="pre">3602879701896397</span> <span class="pre">/</span> <span class="pre">2</span> <span class="pre">**</span> <span class="pre">55</span></code>.  Since all of these decimal
+values share the same approximation, any one of them could be displayed
+while still preserving the invariant <code class="docutils literal notranslate"><span class="pre">eval(repr(x))</span> <span class="pre">==</span> <span class="pre">x</span></code>.</p>
+<p>Historically, the Python prompt and built-in <a class="reference internal" href="../library/functions.html#repr" title="repr"><code class="xref py py-func docutils literal notranslate"><span class="pre">repr()</span></code></a> function would choose
+the one with 17 significant digits, <code class="docutils literal notranslate"><span class="pre">0.10000000000000001</span></code>.   Starting with
+Python 3.1, Python (on most systems) is now able to choose the shortest of
+these and simply display <code class="docutils literal notranslate"><span class="pre">0.1</span></code>.</p>
+<p>Note that this is in the very nature of binary floating-point: this is not a bug
+in Python, and it is not a bug in your code either.  You’ll see the same kind of
+thing in all languages that support your hardware’s floating-point arithmetic
+(although some languages may not <em>display</em> the difference by default, or in all
+output modes).</p>
+<p>For more pleasant output, you may wish to use string formatting to produce a limited number of significant digits:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">format</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="s1">&#39;.12g&#39;</span><span class="p">)</span>  <span class="c1"># give 12 significant digits</span>
+<span class="go">&#39;3.14159265359&#39;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">format</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="s1">&#39;.2f&#39;</span><span class="p">)</span>   <span class="c1"># give 2 digits after the point</span>
+<span class="go">&#39;3.14&#39;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">repr</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<span class="go">&#39;3.141592653589793&#39;</span>
+</pre></div>
+</div>
+<p>It’s important to realize that this is, in a real sense, an illusion: you’re
+simply rounding the <em>display</em> of the true machine value.</p>
+<p>One illusion may beget another.  For example, since 0.1 is not exactly 1/10,
+summing three values of 0.1 may not yield exactly 0.3, either:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="o">.</span><span class="mi">1</span> <span class="o">+</span> <span class="o">.</span><span class="mi">1</span> <span class="o">+</span> <span class="o">.</span><span class="mi">1</span> <span class="o">==</span> <span class="o">.</span><span class="mi">3</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>Also, since the 0.1 cannot get any closer to the exact value of 1/10 and
+0.3 cannot get any closer to the exact value of 3/10, then pre-rounding with
+<a class="reference internal" href="../library/functions.html#round" title="round"><code class="xref py py-func docutils literal notranslate"><span class="pre">round()</span></code></a> function cannot help:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">round</span><span class="p">(</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">round</span><span class="p">(</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">round</span><span class="p">(</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">round</span><span class="p">(</span><span class="o">.</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>Though the numbers cannot be made closer to their intended exact values,
+the <a class="reference internal" href="../library/functions.html#round" title="round"><code class="xref py py-func docutils literal notranslate"><span class="pre">round()</span></code></a> function can be useful for post-rounding so that results
+with inexact values become comparable to one another:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">round</span><span class="p">(</span><span class="o">.</span><span class="mi">1</span> <span class="o">+</span> <span class="o">.</span><span class="mi">1</span> <span class="o">+</span> <span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="o">==</span> <span class="nb">round</span><span class="p">(</span><span class="o">.</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Binary floating-point arithmetic holds many surprises like this.  The problem
+with “0.1” is explained in precise detail below, in the “Representation Error”
+section.  See <a class="reference external" href="http://www.lahey.com/float.htm">The Perils of Floating Point</a>
+for a more complete account of other common surprises.</p>
+<p>As that says near the end, “there are no easy answers.”  Still, don’t be unduly
+wary of floating-point!  The errors in Python float operations are inherited
+from the floating-point hardware, and on most machines are on the order of no
+more than 1 part in 2**53 per operation.  That’s more than adequate for most
+tasks, but you do need to keep in mind that it’s not decimal arithmetic and
+that every float operation can suffer a new rounding error.</p>
+<p>While pathological cases do exist, for most casual use of floating-point
+arithmetic you’ll see the result you expect in the end if you simply round the
+display of your final results to the number of decimal digits you expect.
+<a class="reference internal" href="../library/stdtypes.html#str" title="str"><code class="xref py py-func docutils literal notranslate"><span class="pre">str()</span></code></a> usually suffices, and for finer control see the <a class="reference internal" href="../library/stdtypes.html#str.format" title="str.format"><code class="xref py py-meth docutils literal notranslate"><span class="pre">str.format()</span></code></a>
+method’s format specifiers in <a class="reference internal" href="../library/string.html#formatstrings"><span class="std std-ref">Format String Syntax</span></a>.</p>
+<p>For use cases which require exact decimal representation, try using the
+<a class="reference internal" href="../library/decimal.html#module-decimal" title="decimal: Implementation of the General Decimal Arithmetic  Specification."><code class="xref py py-mod docutils literal notranslate"><span class="pre">decimal</span></code></a> module which implements decimal arithmetic suitable for
+accounting applications and high-precision applications.</p>
+<p>Another form of exact arithmetic is supported by the <a class="reference internal" href="../library/fractions.html#module-fractions" title="fractions: Rational numbers."><code class="xref py py-mod docutils literal notranslate"><span class="pre">fractions</span></code></a> module
+which implements arithmetic based on rational numbers (so the numbers like
+1/3 can be represented exactly).</p>
+<p>If you are a heavy user of floating point operations you should take a look
+at the Numerical Python package and many other packages for mathematical and
+statistical operations supplied by the SciPy project. See &lt;<a class="reference external" href="https://scipy.org">https://scipy.org</a>&gt;.</p>
+<p>Python provides tools that may help on those rare occasions when you really
+<em>do</em> want to know the exact value of a float.  The
+<a class="reference internal" href="../library/stdtypes.html#float.as_integer_ratio" title="float.as_integer_ratio"><code class="xref py py-meth docutils literal notranslate"><span class="pre">float.as_integer_ratio()</span></code></a> method expresses the value of a float as a
+fraction:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="mf">3.14159</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">as_integer_ratio</span><span class="p">()</span>
+<span class="go">(3537115888337719, 1125899906842624)</span>
+</pre></div>
+</div>
+<p>Since the ratio is exact, it can be used to losslessly recreate the
+original value:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">==</span> <span class="mi">3537115888337719</span> <span class="o">/</span> <span class="mi">1125899906842624</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="../library/stdtypes.html#float.hex" title="float.hex"><code class="xref py py-meth docutils literal notranslate"><span class="pre">float.hex()</span></code></a> method expresses a float in hexadecimal (base
+16), again giving the exact value stored by your computer:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span>
+<span class="go">&#39;0x1.921f9f01b866ep+1&#39;</span>
+</pre></div>
+</div>
+<p>This precise hexadecimal representation can be used to reconstruct
+the float value exactly:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">==</span> <span class="nb">float</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="s1">&#39;0x1.921f9f01b866ep+1&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Since the representation is exact, it is useful for reliably porting values
+across different versions of Python (platform independence) and exchanging
+data with other languages that support the same format (such as Java and C99).</p>
+<p>Another helpful tool is the <a class="reference internal" href="../library/math.html#math.fsum" title="math.fsum"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.fsum()</span></code></a> function which helps mitigate
+loss-of-precision during summation.  It tracks “lost digits” as values are
+added onto a running total.  That can make a difference in overall accuracy
+so that the errors do not accumulate to the point where they affect the
+final total:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">sum</span><span class="p">([</span><span class="mf">0.1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span> <span class="o">==</span> <span class="mf">1.0</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">math</span><span class="o">.</span><span class="n">fsum</span><span class="p">([</span><span class="mf">0.1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span> <span class="o">==</span> <span class="mf">1.0</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="section" id="representation-error">
+<span id="tut-fp-error"></span><h2>15.1. Representation Error<a class="headerlink" href="#representation-error" title="Permalink to this headline">¶</a></h2>
+<p>This section explains the “0.1” example in detail, and shows how you can perform
+an exact analysis of cases like this yourself.  Basic familiarity with binary
+floating-point representation is assumed.</p>
+<p><em class="dfn">Representation error</em> refers to the fact that some (most, actually)
+decimal fractions cannot be represented exactly as binary (base 2) fractions.
+This is the chief reason why Python (or Perl, C, C++, Java, Fortran, and many
+others) often won’t display the exact decimal number you expect.</p>
+<p>Why is that?  1/10 is not exactly representable as a binary fraction. Almost all
+machines today (November 2000) use IEEE-754 floating point arithmetic, and
+almost all platforms map Python floats to IEEE-754 “double precision”.  754
+doubles contain 53 bits of precision, so on input the computer strives to
+convert 0.1 to the closest fraction it can of the form <em>J</em>/2**<em>N</em> where <em>J</em> is
+an integer containing exactly 53 bits.  Rewriting</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">~=</span> <span class="n">J</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">N</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>as</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">J</span> <span class="o">~=</span> <span class="mi">2</span><span class="o">**</span><span class="n">N</span> <span class="o">/</span> <span class="mi">10</span>
+</pre></div>
+</div>
+<p>and recalling that <em>J</em> has exactly 53 bits (is <code class="docutils literal notranslate"><span class="pre">&gt;=</span> <span class="pre">2**52</span></code> but <code class="docutils literal notranslate"><span class="pre">&lt;</span> <span class="pre">2**53</span></code>),
+the best value for <em>N</em> is 56:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mi">2</span><span class="o">**</span><span class="mi">52</span> <span class="o">&lt;=</span>  <span class="mi">2</span><span class="o">**</span><span class="mi">56</span> <span class="o">//</span> <span class="mi">10</span>  <span class="o">&lt;</span> <span class="mi">2</span><span class="o">**</span><span class="mi">53</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>That is, 56 is the only value for <em>N</em> that leaves <em>J</em> with exactly 53 bits.  The
+best possible value for <em>J</em> is then that quotient rounded:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">q</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">56</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span>
+<span class="go">6</span>
+</pre></div>
+</div>
+<p>Since the remainder is more than half of 10, the best approximation is obtained
+by rounding up:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">q</span><span class="o">+</span><span class="mi">1</span>
+<span class="go">7205759403792794</span>
+</pre></div>
+</div>
+<p>Therefore the best possible approximation to 1/10 in 754 double precision is:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="mi">7205759403792794</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">**</span> <span class="mi">56</span>
+</pre></div>
+</div>
+<p>Dividing both the numerator and denominator by two reduces the fraction to:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="mi">3602879701896397</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">**</span> <span class="mi">55</span>
+</pre></div>
+</div>
+<p>Note that since we rounded up, this is actually a little bit larger than 1/10;
+if we had not rounded up, the quotient would have been a little bit smaller than
+1/10.  But in no case can it be <em>exactly</em> 1/10!</p>
+<p>So the computer never “sees” 1/10:  what it sees is the exact fraction given
+above, the best 754 double approximation it can get:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mf">0.1</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">**</span> <span class="mi">55</span>
+<span class="go">3602879701896397.0</span>
+</pre></div>
+</div>
+<p>If we multiply that fraction by 10**55, we can see the value out to
+55 decimal digits:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mi">3602879701896397</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">**</span> <span class="mi">55</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">**</span> <span class="mi">55</span>
+<span class="go">1000000000000000055511151231257827021181583404541015625</span>
+</pre></div>
+</div>
+<p>meaning that the exact number stored in the computer is equal to
+the decimal value 0.1000000000000000055511151231257827021181583404541015625.
+Instead of displaying the full decimal value, many languages (including
+older versions of Python), round the result to 17 significant digits:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">format</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;.17f&#39;</span><span class="p">)</span>
+<span class="go">&#39;0.10000000000000001&#39;</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="../library/fractions.html#module-fractions" title="fractions: Rational numbers."><code class="xref py py-mod docutils literal notranslate"><span class="pre">fractions</span></code></a> and <a class="reference internal" href="../library/decimal.html#module-decimal" title="decimal: Implementation of the General Decimal Arithmetic  Specification."><code class="xref py py-mod docutils literal notranslate"><span class="pre">decimal</span></code></a> modules make these calculations
+easy:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">decimal</span> <span class="k">import</span> <span class="n">Decimal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fractions</span> <span class="k">import</span> <span class="n">Fraction</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Fraction</span><span class="o">.</span><span class="n">from_float</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="go">Fraction(3602879701896397, 36028797018963968)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span><span class="o">.</span><span class="n">as_integer_ratio</span><span class="p">()</span>
+<span class="go">(3602879701896397, 36028797018963968)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Decimal</span><span class="o">.</span><span class="n">from_float</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="go">Decimal(&#39;0.1000000000000000055511151231257827021181583404541015625&#39;)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">format</span><span class="p">(</span><span class="n">Decimal</span><span class="o">.</span><span class="n">from_float</span><span class="p">(</span><span class="mf">0.1</span><span class="p">),</span> <span class="s1">&#39;.17&#39;</span><span class="p">)</span>
+<span class="go">&#39;0.10000000000000001&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">15. Floating Point Arithmetic:  Issues and Limitations</a><ul>
+<li><a class="reference internal" href="#representation-error">15.1. Representation Error</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="interactive.html"
+                        title="previous chapter">14. Interactive Input Editing and History Substitution</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="appendix.html"
+                        title="next chapter">16. Appendix</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/tutorial/floatingpoint.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="appendix.html" title="16. Appendix"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="interactive.html" title="14. Interactive Input Editing and History Substitution"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Tutorial</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

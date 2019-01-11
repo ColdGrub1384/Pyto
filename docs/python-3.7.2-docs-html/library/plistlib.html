@@ -1,0 +1,404 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>plistlib — Generate and parse Mac OS X .plist files &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="Cryptographic Services" href="crypto.html" />
+    <link rel="prev" title="xdrlib — Encode and decode XDR data" href="xdrlib.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/library/plistlib.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="crypto.html" title="Cryptographic Services"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="xdrlib.html" title="xdrlib — Encode and decode XDR data"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="fileformats.html" accesskey="U">File Formats</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-plistlib">
+<span id="plistlib-generate-and-parse-mac-os-x-plist-files"></span><h1><a class="reference internal" href="#module-plistlib" title="plistlib: Generate and parse Mac OS X plist files."><code class="xref py py-mod docutils literal notranslate"><span class="pre">plistlib</span></code></a> — Generate and parse Mac OS X <code class="docutils literal notranslate"><span class="pre">.plist</span></code> files<a class="headerlink" href="#module-plistlib" title="Permalink to this headline">¶</a></h1>
+<p><strong>Source code:</strong> <a class="reference external" href="https://github.com/python/cpython/tree/3.7/Lib/plistlib.py">Lib/plistlib.py</a></p>
+<hr class="docutils" id="index-0" />
+<p>This module provides an interface for reading and writing the “property list”
+files used mainly by Mac OS X and supports both binary and XML plist files.</p>
+<p>The property list (<code class="docutils literal notranslate"><span class="pre">.plist</span></code>) file format is a simple serialization supporting
+basic object types, like dictionaries, lists, numbers and strings.  Usually the
+top level object is a dictionary.</p>
+<p>To write out and to parse a plist file, use the <a class="reference internal" href="#plistlib.dump" title="plistlib.dump"><code class="xref py py-func docutils literal notranslate"><span class="pre">dump()</span></code></a> and
+<a class="reference internal" href="#plistlib.load" title="plistlib.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">load()</span></code></a> functions.</p>
+<p>To work with plist data in bytes objects, use <a class="reference internal" href="#plistlib.dumps" title="plistlib.dumps"><code class="xref py py-func docutils literal notranslate"><span class="pre">dumps()</span></code></a>
+and <a class="reference internal" href="#plistlib.loads" title="plistlib.loads"><code class="xref py py-func docutils literal notranslate"><span class="pre">loads()</span></code></a>.</p>
+<p>Values can be strings, integers, floats, booleans, tuples, lists, dictionaries
+(but only with string keys), <a class="reference internal" href="#plistlib.Data" title="plistlib.Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code></a>, <a class="reference internal" href="stdtypes.html#bytes" title="bytes"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">bytesarray</span></code>
+or <a class="reference internal" href="datetime.html#datetime.datetime" title="datetime.datetime"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> objects.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.4: </span>New API, old API deprecated.  Support for binary format plists added.</p>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference external" href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/PropertyLists/">PList manual page</a></dt>
+<dd>Apple’s documentation of the file format.</dd>
+</dl>
+</div>
+<p>This module defines the following functions:</p>
+<dl class="function">
+<dt id="plistlib.load">
+<code class="descclassname">plistlib.</code><code class="descname">load</code><span class="sig-paren">(</span><em>fp</em>, <em>*</em>, <em>fmt=None</em>, <em>use_builtin_types=True</em>, <em>dict_type=dict</em><span class="sig-paren">)</span><a class="headerlink" href="#plistlib.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a plist file. <em>fp</em> should be a readable and binary file object.
+Return the unpacked root object (which usually is a
+dictionary).</p>
+<p>The <em>fmt</em> is the format of the file and the following values are valid:</p>
+<ul class="simple">
+<li><a class="reference internal" href="constants.html#None" title="None"><code class="xref py py-data docutils literal notranslate"><span class="pre">None</span></code></a>: Autodetect the file format</li>
+<li><a class="reference internal" href="#plistlib.FMT_XML" title="plistlib.FMT_XML"><code class="xref py py-data docutils literal notranslate"><span class="pre">FMT_XML</span></code></a>: XML file format</li>
+<li><a class="reference internal" href="#plistlib.FMT_BINARY" title="plistlib.FMT_BINARY"><code class="xref py py-data docutils literal notranslate"><span class="pre">FMT_BINARY</span></code></a>: Binary plist format</li>
+</ul>
+<p>If <em>use_builtin_types</em> is true (the default) binary data will be returned
+as instances of <a class="reference internal" href="stdtypes.html#bytes" title="bytes"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></a>, otherwise it is returned as instances of
+<a class="reference internal" href="#plistlib.Data" title="plistlib.Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code></a>.</p>
+<p>The <em>dict_type</em> is the type used for dictionaries that are read from the
+plist file.</p>
+<p>XML data for the <a class="reference internal" href="#plistlib.FMT_XML" title="plistlib.FMT_XML"><code class="xref py py-data docutils literal notranslate"><span class="pre">FMT_XML</span></code></a> format is parsed using the Expat parser
+from <a class="reference internal" href="pyexpat.html#module-xml.parsers.expat" title="xml.parsers.expat: An interface to the Expat non-validating XML parser."><code class="xref py py-mod docutils literal notranslate"><span class="pre">xml.parsers.expat</span></code></a> – see its documentation for possible
+exceptions on ill-formed XML.  Unknown elements will simply be ignored
+by the plist parser.</p>
+<p>The parser for the binary format raises <code class="xref py py-exc docutils literal notranslate"><span class="pre">InvalidFileException</span></code>
+when the file cannot be parsed.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.4.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="plistlib.loads">
+<code class="descclassname">plistlib.</code><code class="descname">loads</code><span class="sig-paren">(</span><em>data</em>, <em>*</em>, <em>fmt=None</em>, <em>use_builtin_types=True</em>, <em>dict_type=dict</em><span class="sig-paren">)</span><a class="headerlink" href="#plistlib.loads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a plist from a bytes object. See <a class="reference internal" href="#plistlib.load" title="plistlib.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">load()</span></code></a> for an explanation of
+the keyword arguments.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.4.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="plistlib.dump">
+<code class="descclassname">plistlib.</code><code class="descname">dump</code><span class="sig-paren">(</span><em>value</em>, <em>fp</em>, <em>*</em>, <em>fmt=FMT_XML</em>, <em>sort_keys=True</em>, <em>skipkeys=False</em><span class="sig-paren">)</span><a class="headerlink" href="#plistlib.dump" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write <em>value</em> to a plist file. <em>Fp</em> should be a writable, binary
+file object.</p>
+<p>The <em>fmt</em> argument specifies the format of the plist file and can be
+one of the following values:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#plistlib.FMT_XML" title="plistlib.FMT_XML"><code class="xref py py-data docutils literal notranslate"><span class="pre">FMT_XML</span></code></a>: XML formatted plist file</li>
+<li><a class="reference internal" href="#plistlib.FMT_BINARY" title="plistlib.FMT_BINARY"><code class="xref py py-data docutils literal notranslate"><span class="pre">FMT_BINARY</span></code></a>: Binary formatted plist file</li>
+</ul>
+<p>When <em>sort_keys</em> is true (the default) the keys for dictionaries will be
+written to the plist in sorted order, otherwise they will be written in
+the iteration order of the dictionary.</p>
+<p>When <em>skipkeys</em> is false (the default) the function raises <a class="reference internal" href="exceptions.html#TypeError" title="TypeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TypeError</span></code></a>
+when a key of a dictionary is not a string, otherwise such keys are skipped.</p>
+<p>A <a class="reference internal" href="exceptions.html#TypeError" title="TypeError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TypeError</span></code></a> will be raised if the object is of an unsupported type or
+a container that contains objects of unsupported types.</p>
+<p>An <a class="reference internal" href="exceptions.html#OverflowError" title="OverflowError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">OverflowError</span></code></a> will be raised for integer values that cannot
+be represented in (binary) plist files.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.4.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="plistlib.dumps">
+<code class="descclassname">plistlib.</code><code class="descname">dumps</code><span class="sig-paren">(</span><em>value</em>, <em>*</em>, <em>fmt=FMT_XML</em>, <em>sort_keys=True</em>, <em>skipkeys=False</em><span class="sig-paren">)</span><a class="headerlink" href="#plistlib.dumps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <em>value</em> as a plist-formatted bytes object. See
+the documentation for <a class="reference internal" href="#plistlib.dump" title="plistlib.dump"><code class="xref py py-func docutils literal notranslate"><span class="pre">dump()</span></code></a> for an explanation of the keyword
+arguments of this function.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.4.</span></p>
+</div>
+</dd></dl>
+
+<p>The following functions are deprecated:</p>
+<dl class="function">
+<dt id="plistlib.readPlist">
+<code class="descclassname">plistlib.</code><code class="descname">readPlist</code><span class="sig-paren">(</span><em>pathOrFile</em><span class="sig-paren">)</span><a class="headerlink" href="#plistlib.readPlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a plist file. <em>pathOrFile</em> may be either a file name or a (readable
+and binary) file object. Returns the unpacked root object (which usually
+is a dictionary).</p>
+<p>This function calls <a class="reference internal" href="#plistlib.load" title="plistlib.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">load()</span></code></a> to do the actual work, see the documentation
+of <a class="reference internal" href="#plistlib.load" title="plistlib.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">that</span> <span class="pre">function</span></code></a> for an explanation of the keyword arguments.</p>
+<div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 3.4: </span>Use <a class="reference internal" href="#plistlib.load" title="plistlib.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">load()</span></code></a> instead.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.7: </span>Dict values in the result are now normal dicts.  You no longer can use
+attribute access to access items of these dictionaries.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="plistlib.writePlist">
+<code class="descclassname">plistlib.</code><code class="descname">writePlist</code><span class="sig-paren">(</span><em>rootObject</em>, <em>pathOrFile</em><span class="sig-paren">)</span><a class="headerlink" href="#plistlib.writePlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write <em>rootObject</em> to an XML plist file. <em>pathOrFile</em> may be either a file name
+or a (writable and binary) file object</p>
+<div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 3.4: </span>Use <a class="reference internal" href="#plistlib.dump" title="plistlib.dump"><code class="xref py py-func docutils literal notranslate"><span class="pre">dump()</span></code></a> instead.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="plistlib.readPlistFromBytes">
+<code class="descclassname">plistlib.</code><code class="descname">readPlistFromBytes</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#plistlib.readPlistFromBytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a plist data from a bytes object.  Return the root object.</p>
+<p>See <a class="reference internal" href="#plistlib.load" title="plistlib.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">load()</span></code></a> for a description of the keyword arguments.</p>
+<div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 3.4: </span>Use <a class="reference internal" href="#plistlib.loads" title="plistlib.loads"><code class="xref py py-func docutils literal notranslate"><span class="pre">loads()</span></code></a> instead.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.7: </span>Dict values in the result are now normal dicts.  You no longer can use
+attribute access to access items of these dictionaries.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="plistlib.writePlistToBytes">
+<code class="descclassname">plistlib.</code><code class="descname">writePlistToBytes</code><span class="sig-paren">(</span><em>rootObject</em><span class="sig-paren">)</span><a class="headerlink" href="#plistlib.writePlistToBytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <em>rootObject</em> as an XML plist-formatted bytes object.</p>
+<div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 3.4: </span>Use <a class="reference internal" href="#plistlib.dumps" title="plistlib.dumps"><code class="xref py py-func docutils literal notranslate"><span class="pre">dumps()</span></code></a> instead.</p>
+</div>
+</dd></dl>
+
+<p>The following classes are available:</p>
+<dl class="class">
+<dt id="plistlib.Data">
+<em class="property">class </em><code class="descclassname">plistlib.</code><code class="descname">Data</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#plistlib.Data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a “data” wrapper object around the bytes object <em>data</em>.  This is used
+in functions converting from/to plists to represent the <code class="docutils literal notranslate"><span class="pre">&lt;data&gt;</span></code> type
+available in plists.</p>
+<p>It has one attribute, <code class="xref py py-attr docutils literal notranslate"><span class="pre">data</span></code>, that can be used to retrieve the Python
+bytes object stored in it.</p>
+<div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 3.4: </span>Use a <a class="reference internal" href="stdtypes.html#bytes" title="bytes"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></a> object instead.</p>
+</div>
+</dd></dl>
+
+<p>The following constants are available:</p>
+<dl class="data">
+<dt id="plistlib.FMT_XML">
+<code class="descclassname">plistlib.</code><code class="descname">FMT_XML</code><a class="headerlink" href="#plistlib.FMT_XML" title="Permalink to this definition">¶</a></dt>
+<dd><p>The XML format for plist files.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.4.</span></p>
+</div>
+</dd></dl>
+
+<dl class="data">
+<dt id="plistlib.FMT_BINARY">
+<code class="descclassname">plistlib.</code><code class="descname">FMT_BINARY</code><a class="headerlink" href="#plistlib.FMT_BINARY" title="Permalink to this definition">¶</a></dt>
+<dd><p>The binary format for plist files</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.4.</span></p>
+</div>
+</dd></dl>
+
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>Generating a plist:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">pl</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">aString</span> <span class="o">=</span> <span class="s2">&quot;Doodah&quot;</span><span class="p">,</span>
+    <span class="n">aList</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mf">32.1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]],</span>
+    <span class="n">aFloat</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">anInt</span> <span class="o">=</span> <span class="mi">728</span><span class="p">,</span>
+    <span class="n">aDict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">anotherString</span> <span class="o">=</span> <span class="s2">&quot;&lt;hello &amp; hi there!&gt;&quot;</span><span class="p">,</span>
+        <span class="n">aThirdString</span> <span class="o">=</span> <span class="s2">&quot;M</span><span class="se">\xe4</span><span class="s2">ssig, Ma</span><span class="se">\xdf</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">aTrueValue</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">aFalseValue</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">someData</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&lt;binary gunk&gt;&quot;</span><span class="p">,</span>
+    <span class="n">someMoreData</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&lt;lots of binary gunk&gt;&quot;</span> <span class="o">*</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="n">aDate</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">gmtime</span><span class="p">())),</span>
+<span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="n">dump</span><span class="p">(</span><span class="n">pl</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Parsing a plist:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="n">pl</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pl</span><span class="p">[</span><span class="s2">&quot;aKey&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">plistlib</span></code> — Generate and parse Mac OS X <code class="docutils literal notranslate"><span class="pre">.plist</span></code> files</a><ul>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="xdrlib.html"
+                        title="previous chapter"><code class="docutils literal notranslate"><span class="pre">xdrlib</span></code> — Encode and decode XDR data</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="crypto.html"
+                        title="next chapter">Cryptographic Services</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/library/plistlib.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="crypto.html" title="Cryptographic Services"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="xdrlib.html" title="xdrlib — Encode and decode XDR data"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="fileformats.html" >File Formats</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

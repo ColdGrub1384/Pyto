@@ -1,0 +1,492 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>zlib — Compression compatible with gzip &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="gzip — Support for gzip files" href="gzip.html" />
+    <link rel="prev" title="Data Compression and Archiving" href="archiving.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/library/zlib.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gzip.html" title="gzip — Support for gzip files"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="archiving.html" title="Data Compression and Archiving"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="archiving.html" accesskey="U">Data Compression and Archiving</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-zlib">
+<span id="zlib-compression-compatible-with-gzip"></span><h1><a class="reference internal" href="#module-zlib" title="zlib: Low-level interface to compression and decompression routines compatible with gzip."><code class="xref py py-mod docutils literal notranslate"><span class="pre">zlib</span></code></a> — Compression compatible with <strong class="program">gzip</strong><a class="headerlink" href="#module-zlib" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>For applications that require data compression, the functions in this module
+allow compression and decompression, using the zlib library. The zlib library
+has its own home page at <a class="reference external" href="http://www.zlib.net">http://www.zlib.net</a>.   There are known
+incompatibilities between the Python module and versions of the zlib library
+earlier than 1.1.3; 1.1.3 has a security vulnerability, so we recommend using
+1.1.4 or later.</p>
+<p>zlib’s functions have many options and often need to be used in a particular
+order.  This documentation doesn’t attempt to cover all of the permutations;
+consult the zlib manual at <a class="reference external" href="http://www.zlib.net/manual.html">http://www.zlib.net/manual.html</a> for authoritative
+information.</p>
+<p>For reading and writing <code class="docutils literal notranslate"><span class="pre">.gz</span></code> files see the <a class="reference internal" href="gzip.html#module-gzip" title="gzip: Interfaces for gzip compression and decompression using file objects."><code class="xref py py-mod docutils literal notranslate"><span class="pre">gzip</span></code></a> module.</p>
+<p>The available exception and functions in this module are:</p>
+<dl class="exception">
+<dt id="zlib.error">
+<em class="property">exception </em><code class="descclassname">zlib.</code><code class="descname">error</code><a class="headerlink" href="#zlib.error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception raised on compression and decompression errors.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="zlib.adler32">
+<code class="descclassname">zlib.</code><code class="descname">adler32</code><span class="sig-paren">(</span><em>data</em><span class="optional">[</span>, <em>value</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#zlib.adler32" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes an Adler-32 checksum of <em>data</em>.  (An Adler-32 checksum is almost as
+reliable as a CRC32 but can be computed much more quickly.)  The result
+is an unsigned 32-bit integer.  If <em>value</em> is present, it is used as
+the starting value of the checksum; otherwise, a default value of 1
+is used.  Passing in <em>value</em> allows computing a running checksum over the
+concatenation of several inputs.  The algorithm is not cryptographically
+strong, and should not be used for authentication or digital signatures.  Since
+the algorithm is designed for use as a checksum algorithm, it is not suitable
+for use as a general hash algorithm.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.0: </span>Always returns an unsigned value.
+To generate the same numeric value across all Python versions and
+platforms, use <code class="docutils literal notranslate"><span class="pre">adler32(data)</span> <span class="pre">&amp;</span> <span class="pre">0xffffffff</span></code>.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="zlib.compress">
+<code class="descclassname">zlib.</code><code class="descname">compress</code><span class="sig-paren">(</span><em>data</em>, <em>level=-1</em><span class="sig-paren">)</span><a class="headerlink" href="#zlib.compress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compresses the bytes in <em>data</em>, returning a bytes object containing compressed data.
+<em>level</em> is an integer from <code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">9</span></code> or <code class="docutils literal notranslate"><span class="pre">-1</span></code> controlling the level of compression;
+<code class="docutils literal notranslate"><span class="pre">1</span></code> (Z_BEST_SPEED) is fastest and produces the least compression, <code class="docutils literal notranslate"><span class="pre">9</span></code> (Z_BEST_COMPRESSION)
+is slowest and produces the most.  <code class="docutils literal notranslate"><span class="pre">0</span></code> (Z_NO_COMPRESSION) is no compression.
+The default value is <code class="docutils literal notranslate"><span class="pre">-1</span></code> (Z_DEFAULT_COMPRESSION).  Z_DEFAULT_COMPRESSION represents a default
+compromise between speed and compression (currently equivalent to level 6).
+Raises the <a class="reference internal" href="#zlib.error" title="zlib.error"><code class="xref py py-exc docutils literal notranslate"><span class="pre">error</span></code></a> exception if any error occurs.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.6: </span><em>level</em> can now be used as a keyword parameter.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="zlib.compressobj">
+<code class="descclassname">zlib.</code><code class="descname">compressobj</code><span class="sig-paren">(</span><em>level=-1</em>, <em>method=DEFLATED</em>, <em>wbits=MAX_WBITS</em>, <em>memLevel=DEF_MEM_LEVEL</em>, <em>strategy=Z_DEFAULT_STRATEGY</em><span class="optional">[</span>, <em>zdict</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#zlib.compressobj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a compression object, to be used for compressing data streams that won’t
+fit into memory at once.</p>
+<p><em>level</em> is the compression level – an integer from <code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">9</span></code> or <code class="docutils literal notranslate"><span class="pre">-1</span></code>.
+A value of <code class="docutils literal notranslate"><span class="pre">1</span></code> (Z_BEST_SPEED) is fastest and produces the least compression,
+while a value of <code class="docutils literal notranslate"><span class="pre">9</span></code> (Z_BEST_COMPRESSION) is slowest and produces the most.
+<code class="docutils literal notranslate"><span class="pre">0</span></code> (Z_NO_COMPRESSION) is no compression.  The default value is <code class="docutils literal notranslate"><span class="pre">-1</span></code> (Z_DEFAULT_COMPRESSION).
+Z_DEFAULT_COMPRESSION represents a default compromise between speed and compression
+(currently equivalent to level 6).</p>
+<p><em>method</em> is the compression algorithm. Currently, the only supported value is
+<code class="xref py py-const docutils literal notranslate"><span class="pre">DEFLATED</span></code>.</p>
+<p>The <em>wbits</em> argument controls the size of the history buffer (or the
+“window size”) used when compressing data, and whether a header and
+trailer is included in the output.  It can take several ranges of values,
+defaulting to <code class="docutils literal notranslate"><span class="pre">15</span></code> (MAX_WBITS):</p>
+<ul class="simple">
+<li>+9 to +15: The base-two logarithm of the window size, which
+therefore ranges between 512 and 32768.  Larger values produce
+better compression at the expense of greater memory usage.  The
+resulting output will include a zlib-specific header and trailer.</li>
+<li>−9 to −15: Uses the absolute value of <em>wbits</em> as the
+window size logarithm, while producing a raw output stream with no
+header or trailing checksum.</li>
+<li>+25 to +31 = 16 + (9 to 15): Uses the low 4 bits of the value as the
+window size logarithm, while including a basic <strong class="program">gzip</strong> header
+and trailing checksum in the output.</li>
+</ul>
+<p>The <em>memLevel</em> argument controls the amount of memory used for the
+internal compression state. Valid values range from <code class="docutils literal notranslate"><span class="pre">1</span></code> to <code class="docutils literal notranslate"><span class="pre">9</span></code>.
+Higher values use more memory, but are faster and produce smaller output.</p>
+<p><em>strategy</em> is used to tune the compression algorithm. Possible values are
+<code class="xref py py-const docutils literal notranslate"><span class="pre">Z_DEFAULT_STRATEGY</span></code>, <code class="xref py py-const docutils literal notranslate"><span class="pre">Z_FILTERED</span></code>, <code class="xref py py-const docutils literal notranslate"><span class="pre">Z_HUFFMAN_ONLY</span></code>,
+<code class="xref py py-const docutils literal notranslate"><span class="pre">Z_RLE</span></code> (zlib 1.2.0.1) and <code class="xref py py-const docutils literal notranslate"><span class="pre">Z_FIXED</span></code> (zlib 1.2.2.2).</p>
+<p><em>zdict</em> is a predefined compression dictionary. This is a sequence of bytes
+(such as a <a class="reference internal" href="stdtypes.html#bytes" title="bytes"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></a> object) containing subsequences that are expected
+to occur frequently in the data that is to be compressed. Those subsequences
+that are expected to be most common should come at the end of the dictionary.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.3: </span>Added the <em>zdict</em> parameter and keyword argument support.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="zlib.crc32">
+<code class="descclassname">zlib.</code><code class="descname">crc32</code><span class="sig-paren">(</span><em>data</em><span class="optional">[</span>, <em>value</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#zlib.crc32" title="Permalink to this definition">¶</a></dt>
+<dd><p id="index-0">Computes a CRC (Cyclic Redundancy Check) checksum of <em>data</em>. The
+result is an unsigned 32-bit integer. If <em>value</em> is present, it is used
+as the starting value of the checksum; otherwise, a default value of 0
+is used.  Passing in <em>value</em> allows computing a running checksum over the
+concatenation of several inputs.  The algorithm is not cryptographically
+strong, and should not be used for authentication or digital signatures.  Since
+the algorithm is designed for use as a checksum algorithm, it is not suitable
+for use as a general hash algorithm.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.0: </span>Always returns an unsigned value.
+To generate the same numeric value across all Python versions and
+platforms, use <code class="docutils literal notranslate"><span class="pre">crc32(data)</span> <span class="pre">&amp;</span> <span class="pre">0xffffffff</span></code>.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="zlib.decompress">
+<code class="descclassname">zlib.</code><code class="descname">decompress</code><span class="sig-paren">(</span><em>data</em>, <em>wbits=MAX_WBITS</em>, <em>bufsize=DEF_BUF_SIZE</em><span class="sig-paren">)</span><a class="headerlink" href="#zlib.decompress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decompresses the bytes in <em>data</em>, returning a bytes object containing the
+uncompressed data.  The <em>wbits</em> parameter depends on
+the format of <em>data</em>, and is discussed further below.
+If <em>bufsize</em> is given, it is used as the initial size of the output
+buffer.  Raises the <a class="reference internal" href="#zlib.error" title="zlib.error"><code class="xref py py-exc docutils literal notranslate"><span class="pre">error</span></code></a> exception if any error occurs.</p>
+<p id="decompress-wbits">The <em>wbits</em> parameter controls the size of the history buffer
+(or “window size”), and what header and trailer format is expected.
+It is similar to the parameter for <a class="reference internal" href="#zlib.compressobj" title="zlib.compressobj"><code class="xref py py-func docutils literal notranslate"><span class="pre">compressobj()</span></code></a>, but accepts
+more ranges of values:</p>
+<ul class="simple">
+<li>+8 to +15: The base-two logarithm of the window size.  The input
+must include a zlib header and trailer.</li>
+<li>0: Automatically determine the window size from the zlib header.
+Only supported since zlib 1.2.3.5.</li>
+<li>−8 to −15: Uses the absolute value of <em>wbits</em> as the window size
+logarithm.  The input must be a raw stream with no header or trailer.</li>
+<li>+24 to +31 = 16 + (8 to 15): Uses the low 4 bits of the value as
+the window size logarithm.  The input must include a gzip header and
+trailer.</li>
+<li>+40 to +47 = 32 + (8 to 15): Uses the low 4 bits of the value as
+the window size logarithm, and automatically accepts either
+the zlib or gzip format.</li>
+</ul>
+<p>When decompressing a stream, the window size must not be smaller
+than the size originally used to compress the stream; using a too-small
+value may result in an <a class="reference internal" href="#zlib.error" title="zlib.error"><code class="xref py py-exc docutils literal notranslate"><span class="pre">error</span></code></a> exception. The default <em>wbits</em> value
+corresponds to the largest window size and requires a zlib header and
+trailer to be included.</p>
+<p><em>bufsize</em> is the initial size of the buffer used to hold decompressed data.  If
+more space is required, the buffer size will be increased as needed, so you
+don’t have to get this value exactly right; tuning it will only save a few calls
+to <code class="xref c c-func docutils literal notranslate"><span class="pre">malloc()</span></code>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.6: </span><em>wbits</em> and <em>bufsize</em> can be used as keyword arguments.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="zlib.decompressobj">
+<code class="descclassname">zlib.</code><code class="descname">decompressobj</code><span class="sig-paren">(</span><em>wbits=MAX_WBITS</em><span class="optional">[</span>, <em>zdict</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#zlib.decompressobj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a decompression object, to be used for decompressing data streams that
+won’t fit into memory at once.</p>
+<p>The <em>wbits</em> parameter controls the size of the history buffer (or the
+“window size”), and what header and trailer format is expected.  It has
+the same meaning as <a class="reference external" href="#decompress-wbits">described for decompress()</a>.</p>
+<p>The <em>zdict</em> parameter specifies a predefined compression dictionary. If
+provided, this must be the same dictionary as was used by the compressor that
+produced the data that is to be decompressed.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If <em>zdict</em> is a mutable object (such as a <a class="reference internal" href="stdtypes.html#bytearray" title="bytearray"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytearray</span></code></a>), you must not
+modify its contents between the call to <a class="reference internal" href="#zlib.decompressobj" title="zlib.decompressobj"><code class="xref py py-func docutils literal notranslate"><span class="pre">decompressobj()</span></code></a> and the first
+call to the decompressor’s <code class="docutils literal notranslate"><span class="pre">decompress()</span></code> method.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.3: </span>Added the <em>zdict</em> parameter.</p>
+</div>
+</dd></dl>
+
+<p>Compression objects support the following methods:</p>
+<dl class="method">
+<dt id="zlib.Compress.compress">
+<code class="descclassname">Compress.</code><code class="descname">compress</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#zlib.Compress.compress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compress <em>data</em>, returning a bytes object containing compressed data for at least
+part of the data in <em>data</em>.  This data should be concatenated to the output
+produced by any preceding calls to the <a class="reference internal" href="#zlib.compress" title="zlib.compress"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compress()</span></code></a> method.  Some input may
+be kept in internal buffers for later processing.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="zlib.Compress.flush">
+<code class="descclassname">Compress.</code><code class="descname">flush</code><span class="sig-paren">(</span><span class="optional">[</span><em>mode</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#zlib.Compress.flush" title="Permalink to this definition">¶</a></dt>
+<dd><p>All pending input is processed, and a bytes object containing the remaining compressed
+output is returned.  <em>mode</em> can be selected from the constants
+<code class="xref py py-const docutils literal notranslate"><span class="pre">Z_NO_FLUSH</span></code>, <code class="xref py py-const docutils literal notranslate"><span class="pre">Z_PARTIAL_FLUSH</span></code>, <code class="xref py py-const docutils literal notranslate"><span class="pre">Z_SYNC_FLUSH</span></code>,
+<code class="xref py py-const docutils literal notranslate"><span class="pre">Z_FULL_FLUSH</span></code>, <code class="xref py py-const docutils literal notranslate"><span class="pre">Z_BLOCK</span></code> (zlib 1.2.3.4), or <code class="xref py py-const docutils literal notranslate"><span class="pre">Z_FINISH</span></code>,
+defaulting to <code class="xref py py-const docutils literal notranslate"><span class="pre">Z_FINISH</span></code>.  Except <code class="xref py py-const docutils literal notranslate"><span class="pre">Z_FINISH</span></code>, all constants
+allow compressing further bytestrings of data, while <code class="xref py py-const docutils literal notranslate"><span class="pre">Z_FINISH</span></code> finishes the
+compressed stream and prevents compressing any more data.  After calling <a class="reference internal" href="#zlib.Compress.flush" title="zlib.Compress.flush"><code class="xref py py-meth docutils literal notranslate"><span class="pre">flush()</span></code></a>
+with <em>mode</em> set to <code class="xref py py-const docutils literal notranslate"><span class="pre">Z_FINISH</span></code>, the <a class="reference internal" href="#zlib.compress" title="zlib.compress"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compress()</span></code></a> method cannot be called again;
+the only realistic action is to delete the object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="zlib.Compress.copy">
+<code class="descclassname">Compress.</code><code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zlib.Compress.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a copy of the compression object.  This can be used to efficiently
+compress a set of data that share a common initial prefix.</p>
+</dd></dl>
+
+<p>Decompression objects support the following methods and attributes:</p>
+<dl class="attribute">
+<dt id="zlib.Decompress.unused_data">
+<code class="descclassname">Decompress.</code><code class="descname">unused_data</code><a class="headerlink" href="#zlib.Decompress.unused_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>A bytes object which contains any bytes past the end of the compressed data. That is,
+this remains <code class="docutils literal notranslate"><span class="pre">b&quot;&quot;</span></code> until the last byte that contains compression data is
+available.  If the whole bytestring turned out to contain compressed data, this is
+<code class="docutils literal notranslate"><span class="pre">b&quot;&quot;</span></code>, an empty bytes object.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="zlib.Decompress.unconsumed_tail">
+<code class="descclassname">Decompress.</code><code class="descname">unconsumed_tail</code><a class="headerlink" href="#zlib.Decompress.unconsumed_tail" title="Permalink to this definition">¶</a></dt>
+<dd><p>A bytes object that contains any data that was not consumed by the last
+<a class="reference internal" href="#zlib.decompress" title="zlib.decompress"><code class="xref py py-meth docutils literal notranslate"><span class="pre">decompress()</span></code></a> call because it exceeded the limit for the uncompressed data
+buffer.  This data has not yet been seen by the zlib machinery, so you must feed
+it (possibly with further data concatenated to it) back to a subsequent
+<a class="reference internal" href="#zlib.decompress" title="zlib.decompress"><code class="xref py py-meth docutils literal notranslate"><span class="pre">decompress()</span></code></a> method call in order to get correct output.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="zlib.Decompress.eof">
+<code class="descclassname">Decompress.</code><code class="descname">eof</code><a class="headerlink" href="#zlib.Decompress.eof" title="Permalink to this definition">¶</a></dt>
+<dd><p>A boolean indicating whether the end of the compressed data stream has been
+reached.</p>
+<p>This makes it possible to distinguish between a properly-formed compressed
+stream, and an incomplete or truncated one.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.3.</span></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="zlib.Decompress.decompress">
+<code class="descclassname">Decompress.</code><code class="descname">decompress</code><span class="sig-paren">(</span><em>data</em>, <em>max_length=0</em><span class="sig-paren">)</span><a class="headerlink" href="#zlib.Decompress.decompress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decompress <em>data</em>, returning a bytes object containing the uncompressed data
+corresponding to at least part of the data in <em>string</em>.  This data should be
+concatenated to the output produced by any preceding calls to the
+<a class="reference internal" href="#zlib.decompress" title="zlib.decompress"><code class="xref py py-meth docutils literal notranslate"><span class="pre">decompress()</span></code></a> method.  Some of the input data may be preserved in internal
+buffers for later processing.</p>
+<p>If the optional parameter <em>max_length</em> is non-zero then the return value will be
+no longer than <em>max_length</em>. This may mean that not all of the compressed input
+can be processed; and unconsumed data will be stored in the attribute
+<a class="reference internal" href="#zlib.Decompress.unconsumed_tail" title="zlib.Decompress.unconsumed_tail"><code class="xref py py-attr docutils literal notranslate"><span class="pre">unconsumed_tail</span></code></a>. This bytestring must be passed to a subsequent call to
+<a class="reference internal" href="#zlib.decompress" title="zlib.decompress"><code class="xref py py-meth docutils literal notranslate"><span class="pre">decompress()</span></code></a> if decompression is to continue.  If <em>max_length</em> is zero
+then the whole input is decompressed, and <a class="reference internal" href="#zlib.Decompress.unconsumed_tail" title="zlib.Decompress.unconsumed_tail"><code class="xref py py-attr docutils literal notranslate"><span class="pre">unconsumed_tail</span></code></a> is empty.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.6: </span><em>max_length</em> can be used as a keyword argument.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="zlib.Decompress.flush">
+<code class="descclassname">Decompress.</code><code class="descname">flush</code><span class="sig-paren">(</span><span class="optional">[</span><em>length</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#zlib.Decompress.flush" title="Permalink to this definition">¶</a></dt>
+<dd><p>All pending input is processed, and a bytes object containing the remaining
+uncompressed output is returned.  After calling <a class="reference internal" href="#zlib.Decompress.flush" title="zlib.Decompress.flush"><code class="xref py py-meth docutils literal notranslate"><span class="pre">flush()</span></code></a>, the
+<a class="reference internal" href="#zlib.decompress" title="zlib.decompress"><code class="xref py py-meth docutils literal notranslate"><span class="pre">decompress()</span></code></a> method cannot be called again; the only realistic action is
+to delete the object.</p>
+<p>The optional parameter <em>length</em> sets the initial size of the output buffer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="zlib.Decompress.copy">
+<code class="descclassname">Decompress.</code><code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zlib.Decompress.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a copy of the decompression object.  This can be used to save the state
+of the decompressor midway through the data stream in order to speed up random
+seeks into the stream at a future point.</p>
+</dd></dl>
+
+<p>Information about the version of the zlib library in use is available through
+the following constants:</p>
+<dl class="data">
+<dt id="zlib.ZLIB_VERSION">
+<code class="descclassname">zlib.</code><code class="descname">ZLIB_VERSION</code><a class="headerlink" href="#zlib.ZLIB_VERSION" title="Permalink to this definition">¶</a></dt>
+<dd><p>The version string of the zlib library that was used for building the module.
+This may be different from the zlib library actually used at runtime, which
+is available as <a class="reference internal" href="#zlib.ZLIB_RUNTIME_VERSION" title="zlib.ZLIB_RUNTIME_VERSION"><code class="xref py py-const docutils literal notranslate"><span class="pre">ZLIB_RUNTIME_VERSION</span></code></a>.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="zlib.ZLIB_RUNTIME_VERSION">
+<code class="descclassname">zlib.</code><code class="descname">ZLIB_RUNTIME_VERSION</code><a class="headerlink" href="#zlib.ZLIB_RUNTIME_VERSION" title="Permalink to this definition">¶</a></dt>
+<dd><p>The version string of the zlib library actually loaded by the interpreter.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.3.</span></p>
+</div>
+</dd></dl>
+
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt>Module <a class="reference internal" href="gzip.html#module-gzip" title="gzip: Interfaces for gzip compression and decompression using file objects."><code class="xref py py-mod docutils literal notranslate"><span class="pre">gzip</span></code></a></dt>
+<dd>Reading and writing <strong class="program">gzip</strong>-format files.</dd>
+<dt><a class="reference external" href="http://www.zlib.net">http://www.zlib.net</a></dt>
+<dd>The zlib library home page.</dd>
+<dt><a class="reference external" href="http://www.zlib.net/manual.html">http://www.zlib.net/manual.html</a></dt>
+<dd>The zlib manual explains  the semantics and usage of the library’s many
+functions.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="archiving.html"
+                        title="previous chapter">Data Compression and Archiving</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="gzip.html"
+                        title="next chapter"><code class="docutils literal notranslate"><span class="pre">gzip</span></code> — Support for <strong class="program">gzip</strong> files</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/library/zlib.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gzip.html" title="gzip — Support for gzip files"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="archiving.html" title="Data Compression and Archiving"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="archiving.html" >Data Compression and Archiving</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

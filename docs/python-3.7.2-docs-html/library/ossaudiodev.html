@@ -1,0 +1,639 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ossaudiodev — Access to OSS-compatible audio devices &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="Internationalization" href="i18n.html" />
+    <link rel="prev" title="sndhdr — Determine type of sound file" href="sndhdr.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/library/ossaudiodev.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="i18n.html" title="Internationalization"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="sndhdr.html" title="sndhdr — Determine type of sound file"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="mm.html" accesskey="U">Multimedia Services</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-ossaudiodev">
+<span id="ossaudiodev-access-to-oss-compatible-audio-devices"></span><h1><a class="reference internal" href="#module-ossaudiodev" title="ossaudiodev: Access to OSS-compatible audio devices. (Linux, FreeBSD)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ossaudiodev</span></code></a> — Access to OSS-compatible audio devices<a class="headerlink" href="#module-ossaudiodev" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>This module allows you to access the OSS (Open Sound System) audio interface.
+OSS is available for a wide range of open-source and commercial Unices, and is
+the standard audio interface for Linux and recent versions of FreeBSD.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.3: </span>Operations in this module now raise <a class="reference internal" href="exceptions.html#OSError" title="OSError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">OSError</span></code></a> where <a class="reference internal" href="exceptions.html#IOError" title="IOError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">IOError</span></code></a>
+was raised.</p>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="docutils">
+<dt><a class="reference external" href="http://www.opensound.com/pguide/oss.pdf">Open Sound System Programmer’s Guide</a></dt>
+<dd>the official documentation for the OSS C API</dd>
+</dl>
+<p class="last">The module defines a large number of constants supplied by the OSS device
+driver; see <code class="docutils literal notranslate"><span class="pre">&lt;sys/soundcard.h&gt;</span></code> on either Linux or FreeBSD for a listing.</p>
+</div>
+<p><a class="reference internal" href="#module-ossaudiodev" title="ossaudiodev: Access to OSS-compatible audio devices. (Linux, FreeBSD)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ossaudiodev</span></code></a> defines the following variables and functions:</p>
+<dl class="exception">
+<dt id="ossaudiodev.OSSAudioError">
+<em class="property">exception </em><code class="descclassname">ossaudiodev.</code><code class="descname">OSSAudioError</code><a class="headerlink" href="#ossaudiodev.OSSAudioError" title="Permalink to this definition">¶</a></dt>
+<dd><p>This exception is raised on certain errors.  The argument is a string describing
+what went wrong.</p>
+<p>(If <a class="reference internal" href="#module-ossaudiodev" title="ossaudiodev: Access to OSS-compatible audio devices. (Linux, FreeBSD)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ossaudiodev</span></code></a> receives an error from a system call such as
+<code class="xref c c-func docutils literal notranslate"><span class="pre">open()</span></code>, <code class="xref c c-func docutils literal notranslate"><span class="pre">write()</span></code>, or <code class="xref c c-func docutils literal notranslate"><span class="pre">ioctl()</span></code>, it raises <a class="reference internal" href="exceptions.html#OSError" title="OSError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">OSError</span></code></a>.
+Errors detected directly by <a class="reference internal" href="#module-ossaudiodev" title="ossaudiodev: Access to OSS-compatible audio devices. (Linux, FreeBSD)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ossaudiodev</span></code></a> result in <a class="reference internal" href="#ossaudiodev.OSSAudioError" title="ossaudiodev.OSSAudioError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">OSSAudioError</span></code></a>.)</p>
+<p>(For backwards compatibility, the exception class is also available as
+<code class="docutils literal notranslate"><span class="pre">ossaudiodev.error</span></code>.)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ossaudiodev.open">
+<code class="descclassname">ossaudiodev.</code><code class="descname">open</code><span class="sig-paren">(</span><em>mode</em><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.open" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">ossaudiodev.</code><code class="descname">open</code><span class="sig-paren">(</span><em>device</em>, <em>mode</em><span class="sig-paren">)</span></dt>
+<dd><p>Open an audio device and return an OSS audio device object.  This object
+supports many file-like methods, such as <code class="xref py py-meth docutils literal notranslate"><span class="pre">read()</span></code>, <code class="xref py py-meth docutils literal notranslate"><span class="pre">write()</span></code>, and
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">fileno()</span></code> (although there are subtle differences between conventional Unix
+read/write semantics and those of OSS audio devices).  It also supports a number
+of audio-specific methods; see below for the complete list of methods.</p>
+<p><em>device</em> is the audio device filename to use.  If it is not specified, this
+module first looks in the environment variable <span class="target" id="index-0"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">AUDIODEV</span></code> for a device
+to use.  If not found, it falls back to <code class="file docutils literal notranslate"><span class="pre">/dev/dsp</span></code>.</p>
+<p><em>mode</em> is one of <code class="docutils literal notranslate"><span class="pre">'r'</span></code> for read-only (record) access, <code class="docutils literal notranslate"><span class="pre">'w'</span></code> for
+write-only (playback) access and <code class="docutils literal notranslate"><span class="pre">'rw'</span></code> for both. Since many sound cards
+only allow one process to have the recorder or player open at a time, it is a
+good idea to open the device only for the activity needed.  Further, some
+sound cards are half-duplex: they can be opened for reading or writing, but
+not both at once.</p>
+<p>Note the unusual calling syntax: the <em>first</em> argument is optional, and the
+second is required.  This is a historical artifact for compatibility with the
+older <code class="xref py py-mod docutils literal notranslate"><span class="pre">linuxaudiodev</span></code> module which <a class="reference internal" href="#module-ossaudiodev" title="ossaudiodev: Access to OSS-compatible audio devices. (Linux, FreeBSD)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ossaudiodev</span></code></a> supersedes.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ossaudiodev.openmixer">
+<code class="descclassname">ossaudiodev.</code><code class="descname">openmixer</code><span class="sig-paren">(</span><span class="optional">[</span><em>device</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.openmixer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open a mixer device and return an OSS mixer device object.   <em>device</em> is the
+mixer device filename to use.  If it is not specified, this module first looks
+in the environment variable <span class="target" id="index-1"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">MIXERDEV</span></code> for a device to use.  If not
+found, it falls back to <code class="file docutils literal notranslate"><span class="pre">/dev/mixer</span></code>.</p>
+</dd></dl>
+
+<div class="section" id="audio-device-objects">
+<span id="ossaudio-device-objects"></span><h2>Audio Device Objects<a class="headerlink" href="#audio-device-objects" title="Permalink to this headline">¶</a></h2>
+<p>Before you can write to or read from an audio device, you must call three
+methods in the correct order:</p>
+<ol class="arabic simple">
+<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">setfmt()</span></code> to set the output format</li>
+<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">channels()</span></code> to set the number of channels</li>
+<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">speed()</span></code> to set the sample rate</li>
+</ol>
+<p>Alternately, you can use the <code class="xref py py-meth docutils literal notranslate"><span class="pre">setparameters()</span></code> method to set all three audio
+parameters at once.  This is more convenient, but may not be as flexible in all
+cases.</p>
+<p>The audio device objects returned by <a class="reference internal" href="#ossaudiodev.open" title="ossaudiodev.open"><code class="xref py py-func docutils literal notranslate"><span class="pre">open()</span></code></a> define the following methods
+and (read-only) attributes:</p>
+<dl class="method">
+<dt id="ossaudiodev.oss_audio_device.close">
+<code class="descclassname">oss_audio_device.</code><code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_audio_device.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Explicitly close the audio device.  When you are done writing to or reading from
+an audio device, you should explicitly close it.  A closed device cannot be used
+again.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ossaudiodev.oss_audio_device.fileno">
+<code class="descclassname">oss_audio_device.</code><code class="descname">fileno</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_audio_device.fileno" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the file descriptor associated with the device.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ossaudiodev.oss_audio_device.read">
+<code class="descclassname">oss_audio_device.</code><code class="descname">read</code><span class="sig-paren">(</span><em>size</em><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_audio_device.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read <em>size</em> bytes from the audio input and return them as a Python string.
+Unlike most Unix device drivers, OSS audio devices in blocking mode (the
+default) will block <a class="reference internal" href="#ossaudiodev.oss_audio_device.read" title="ossaudiodev.oss_audio_device.read"><code class="xref py py-func docutils literal notranslate"><span class="pre">read()</span></code></a> until the entire requested amount of data is
+available.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ossaudiodev.oss_audio_device.write">
+<code class="descclassname">oss_audio_device.</code><code class="descname">write</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_audio_device.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a <a class="reference internal" href="../glossary.html#term-bytes-like-object"><span class="xref std std-term">bytes-like object</span></a> <em>data</em> to the audio device and return the
+number of bytes written.  If the audio device is in blocking mode (the
+default), the entire data is always written (again, this is different from
+usual Unix device semantics).  If the device is in non-blocking mode, some
+data may not be written—see <a class="reference internal" href="#ossaudiodev.oss_audio_device.writeall" title="ossaudiodev.oss_audio_device.writeall"><code class="xref py py-meth docutils literal notranslate"><span class="pre">writeall()</span></code></a>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.5: </span>Writable <a class="reference internal" href="../glossary.html#term-bytes-like-object"><span class="xref std std-term">bytes-like object</span></a> is now accepted.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="ossaudiodev.oss_audio_device.writeall">
+<code class="descclassname">oss_audio_device.</code><code class="descname">writeall</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_audio_device.writeall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a <a class="reference internal" href="../glossary.html#term-bytes-like-object"><span class="xref std std-term">bytes-like object</span></a> <em>data</em> to the audio device: waits until
+the audio device is able to accept data, writes as much data as it will
+accept, and repeats until <em>data</em> has been completely written. If the device
+is in blocking mode (the default), this has the same effect as
+<a class="reference internal" href="#ossaudiodev.oss_audio_device.write" title="ossaudiodev.oss_audio_device.write"><code class="xref py py-meth docutils literal notranslate"><span class="pre">write()</span></code></a>; <a class="reference internal" href="#ossaudiodev.oss_audio_device.writeall" title="ossaudiodev.oss_audio_device.writeall"><code class="xref py py-meth docutils literal notranslate"><span class="pre">writeall()</span></code></a> is only useful in non-blocking mode.  Has
+no return value, since the amount of data written is always equal to the
+amount of data supplied.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.5: </span>Writable <a class="reference internal" href="../glossary.html#term-bytes-like-object"><span class="xref std std-term">bytes-like object</span></a> is now accepted.</p>
+</div>
+</dd></dl>
+
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.2: </span>Audio device objects also support the context management protocol, i.e. they can
+be used in a <a class="reference internal" href="../reference/compound_stmts.html#with"><code class="xref std std-keyword docutils literal notranslate"><span class="pre">with</span></code></a> statement.</p>
+</div>
+<p>The following methods each map to exactly one <code class="xref c c-func docutils literal notranslate"><span class="pre">ioctl()</span></code> system call.  The
+correspondence is obvious: for example, <code class="xref py py-meth docutils literal notranslate"><span class="pre">setfmt()</span></code> corresponds to the
+<code class="docutils literal notranslate"><span class="pre">SNDCTL_DSP_SETFMT</span></code> ioctl, and <code class="xref py py-meth docutils literal notranslate"><span class="pre">sync()</span></code> to <code class="docutils literal notranslate"><span class="pre">SNDCTL_DSP_SYNC</span></code> (this can
+be useful when consulting the OSS documentation).  If the underlying
+<code class="xref c c-func docutils literal notranslate"><span class="pre">ioctl()</span></code> fails, they all raise <a class="reference internal" href="exceptions.html#OSError" title="OSError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">OSError</span></code></a>.</p>
+<dl class="method">
+<dt id="ossaudiodev.oss_audio_device.nonblock">
+<code class="descclassname">oss_audio_device.</code><code class="descname">nonblock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_audio_device.nonblock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Put the device into non-blocking mode.  Once in non-blocking mode, there is no
+way to return it to blocking mode.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ossaudiodev.oss_audio_device.getfmts">
+<code class="descclassname">oss_audio_device.</code><code class="descname">getfmts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_audio_device.getfmts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a bitmask of the audio output formats supported by the soundcard.  Some
+of the formats supported by OSS are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="36%" />
+<col width="64%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Format</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="xref py py-const docutils literal notranslate"><span class="pre">AFMT_MU_LAW</span></code></td>
+<td>a logarithmic encoding (used by Sun <code class="docutils literal notranslate"><span class="pre">.au</span></code>
+files and <code class="file docutils literal notranslate"><span class="pre">/dev/audio</span></code>)</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-const docutils literal notranslate"><span class="pre">AFMT_A_LAW</span></code></td>
+<td>a logarithmic encoding</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-const docutils literal notranslate"><span class="pre">AFMT_IMA_ADPCM</span></code></td>
+<td>a 4:1 compressed format defined by the
+Interactive Multimedia Association</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-const docutils literal notranslate"><span class="pre">AFMT_U8</span></code></td>
+<td>Unsigned, 8-bit audio</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-const docutils literal notranslate"><span class="pre">AFMT_S16_LE</span></code></td>
+<td>Signed, 16-bit audio, little-endian byte
+order (as used by Intel processors)</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-const docutils literal notranslate"><span class="pre">AFMT_S16_BE</span></code></td>
+<td>Signed, 16-bit audio, big-endian byte order
+(as used by 68k, PowerPC, Sparc)</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-const docutils literal notranslate"><span class="pre">AFMT_S8</span></code></td>
+<td>Signed, 8 bit audio</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-const docutils literal notranslate"><span class="pre">AFMT_U16_LE</span></code></td>
+<td>Unsigned, 16-bit little-endian audio</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-const docutils literal notranslate"><span class="pre">AFMT_U16_BE</span></code></td>
+<td>Unsigned, 16-bit big-endian audio</td>
+</tr>
+</tbody>
+</table>
+<p>Consult the OSS documentation for a full list of audio formats, and note that
+most devices support only a subset of these formats.  Some older devices only
+support <code class="xref py py-const docutils literal notranslate"><span class="pre">AFMT_U8</span></code>; the most common format used today is
+<code class="xref py py-const docutils literal notranslate"><span class="pre">AFMT_S16_LE</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ossaudiodev.oss_audio_device.setfmt">
+<code class="descclassname">oss_audio_device.</code><code class="descname">setfmt</code><span class="sig-paren">(</span><em>format</em><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_audio_device.setfmt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Try to set the current audio format to <em>format</em>—see <a class="reference internal" href="#ossaudiodev.oss_audio_device.getfmts" title="ossaudiodev.oss_audio_device.getfmts"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getfmts()</span></code></a> for a
+list.  Returns the audio format that the device was set to, which may not be the
+requested format.  May also be used to return the current audio format—do this
+by passing an “audio format” of <code class="xref py py-const docutils literal notranslate"><span class="pre">AFMT_QUERY</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ossaudiodev.oss_audio_device.channels">
+<code class="descclassname">oss_audio_device.</code><code class="descname">channels</code><span class="sig-paren">(</span><em>nchannels</em><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_audio_device.channels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the number of output channels to <em>nchannels</em>.  A value of 1 indicates
+monophonic sound, 2 stereophonic.  Some devices may have more than 2 channels,
+and some high-end devices may not support mono. Returns the number of channels
+the device was set to.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ossaudiodev.oss_audio_device.speed">
+<code class="descclassname">oss_audio_device.</code><code class="descname">speed</code><span class="sig-paren">(</span><em>samplerate</em><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_audio_device.speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Try to set the audio sampling rate to <em>samplerate</em> samples per second.  Returns
+the rate actually set.  Most sound devices don’t support arbitrary sampling
+rates.  Common rates are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="86%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Rate</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>8000</td>
+<td>default rate for <code class="file docutils literal notranslate"><span class="pre">/dev/audio</span></code></td>
+</tr>
+<tr class="row-odd"><td>11025</td>
+<td>speech recording</td>
+</tr>
+<tr class="row-even"><td>22050</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>44100</td>
+<td>CD quality audio (at 16 bits/sample and 2
+channels)</td>
+</tr>
+<tr class="row-even"><td>96000</td>
+<td>DVD quality audio (at 24 bits/sample)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ossaudiodev.oss_audio_device.sync">
+<code class="descclassname">oss_audio_device.</code><code class="descname">sync</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_audio_device.sync" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wait until the sound device has played every byte in its buffer.  (This happens
+implicitly when the device is closed.)  The OSS documentation recommends closing
+and re-opening the device rather than using <a class="reference internal" href="#ossaudiodev.oss_audio_device.sync" title="ossaudiodev.oss_audio_device.sync"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sync()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ossaudiodev.oss_audio_device.reset">
+<code class="descclassname">oss_audio_device.</code><code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_audio_device.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Immediately stop playing or recording and return the device to a state where it
+can accept commands.  The OSS documentation recommends closing and re-opening
+the device after calling <a class="reference internal" href="#ossaudiodev.oss_audio_device.reset" title="ossaudiodev.oss_audio_device.reset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reset()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ossaudiodev.oss_audio_device.post">
+<code class="descclassname">oss_audio_device.</code><code class="descname">post</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_audio_device.post" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tell the driver that there is likely to be a pause in the output, making it
+possible for the device to handle the pause more intelligently.  You might use
+this after playing a spot sound effect, before waiting for user input, or before
+doing disk I/O.</p>
+</dd></dl>
+
+<p>The following convenience methods combine several ioctls, or one ioctl and some
+simple calculations.</p>
+<dl class="method">
+<dt id="ossaudiodev.oss_audio_device.setparameters">
+<code class="descclassname">oss_audio_device.</code><code class="descname">setparameters</code><span class="sig-paren">(</span><em>format</em>, <em>nchannels</em>, <em>samplerate</em><span class="optional">[</span>, <em>strict=False</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_audio_device.setparameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the key audio sampling parameters—sample format, number of channels, and
+sampling rate—in one method call.  <em>format</em>,  <em>nchannels</em>, and <em>samplerate</em>
+should be as specified in the <a class="reference internal" href="#ossaudiodev.oss_audio_device.setfmt" title="ossaudiodev.oss_audio_device.setfmt"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setfmt()</span></code></a>, <a class="reference internal" href="#ossaudiodev.oss_audio_device.channels" title="ossaudiodev.oss_audio_device.channels"><code class="xref py py-meth docutils literal notranslate"><span class="pre">channels()</span></code></a>, and
+<a class="reference internal" href="#ossaudiodev.oss_audio_device.speed" title="ossaudiodev.oss_audio_device.speed"><code class="xref py py-meth docutils literal notranslate"><span class="pre">speed()</span></code></a>  methods.  If <em>strict</em> is true, <a class="reference internal" href="#ossaudiodev.oss_audio_device.setparameters" title="ossaudiodev.oss_audio_device.setparameters"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setparameters()</span></code></a> checks to
+see if each parameter was actually set to the requested value, and raises
+<a class="reference internal" href="#ossaudiodev.OSSAudioError" title="ossaudiodev.OSSAudioError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">OSSAudioError</span></code></a> if not.  Returns a tuple (<em>format</em>, <em>nchannels</em>,
+<em>samplerate</em>) indicating the parameter values that were actually set by the
+device driver (i.e., the same as the return values of <a class="reference internal" href="#ossaudiodev.oss_audio_device.setfmt" title="ossaudiodev.oss_audio_device.setfmt"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setfmt()</span></code></a>,
+<a class="reference internal" href="#ossaudiodev.oss_audio_device.channels" title="ossaudiodev.oss_audio_device.channels"><code class="xref py py-meth docutils literal notranslate"><span class="pre">channels()</span></code></a>, and <a class="reference internal" href="#ossaudiodev.oss_audio_device.speed" title="ossaudiodev.oss_audio_device.speed"><code class="xref py py-meth docutils literal notranslate"><span class="pre">speed()</span></code></a>).</p>
+<p>For example,</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">rate</span><span class="p">)</span> <span class="o">=</span> <span class="n">dsp</span><span class="o">.</span><span class="n">setparameters</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">rate</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>is equivalent to</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">fmt</span> <span class="o">=</span> <span class="n">dsp</span><span class="o">.</span><span class="n">setfmt</span><span class="p">(</span><span class="n">fmt</span><span class="p">)</span>
+<span class="n">channels</span> <span class="o">=</span> <span class="n">dsp</span><span class="o">.</span><span class="n">channels</span><span class="p">(</span><span class="n">channels</span><span class="p">)</span>
+<span class="n">rate</span> <span class="o">=</span> <span class="n">dsp</span><span class="o">.</span><span class="n">rate</span><span class="p">(</span><span class="n">rate</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="ossaudiodev.oss_audio_device.bufsize">
+<code class="descclassname">oss_audio_device.</code><code class="descname">bufsize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_audio_device.bufsize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the size of the hardware buffer, in samples.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ossaudiodev.oss_audio_device.obufcount">
+<code class="descclassname">oss_audio_device.</code><code class="descname">obufcount</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_audio_device.obufcount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of samples that are in the hardware buffer yet to be played.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ossaudiodev.oss_audio_device.obuffree">
+<code class="descclassname">oss_audio_device.</code><code class="descname">obuffree</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_audio_device.obuffree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of samples that could be queued into the hardware buffer to
+be played without blocking.</p>
+</dd></dl>
+
+<p>Audio device objects also support several read-only attributes:</p>
+<dl class="attribute">
+<dt id="ossaudiodev.oss_audio_device.closed">
+<code class="descclassname">oss_audio_device.</code><code class="descname">closed</code><a class="headerlink" href="#ossaudiodev.oss_audio_device.closed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Boolean indicating whether the device has been closed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ossaudiodev.oss_audio_device.name">
+<code class="descclassname">oss_audio_device.</code><code class="descname">name</code><a class="headerlink" href="#ossaudiodev.oss_audio_device.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>String containing the name of the device file.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ossaudiodev.oss_audio_device.mode">
+<code class="descclassname">oss_audio_device.</code><code class="descname">mode</code><a class="headerlink" href="#ossaudiodev.oss_audio_device.mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>The I/O mode for the file, either <code class="docutils literal notranslate"><span class="pre">&quot;r&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;rw&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;w&quot;</span></code>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="mixer-device-objects">
+<span id="id1"></span><h2>Mixer Device Objects<a class="headerlink" href="#mixer-device-objects" title="Permalink to this headline">¶</a></h2>
+<p>The mixer object provides two file-like methods:</p>
+<dl class="method">
+<dt id="ossaudiodev.oss_mixer_device.close">
+<code class="descclassname">oss_mixer_device.</code><code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_mixer_device.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method closes the open mixer device file.  Any further attempts to use the
+mixer after this file is closed will raise an <a class="reference internal" href="exceptions.html#OSError" title="OSError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">OSError</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ossaudiodev.oss_mixer_device.fileno">
+<code class="descclassname">oss_mixer_device.</code><code class="descname">fileno</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_mixer_device.fileno" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the file handle number of the open mixer device file.</p>
+</dd></dl>
+
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.2: </span>Mixer objects also support the context management protocol.</p>
+</div>
+<p>The remaining methods are specific to audio mixing:</p>
+<dl class="method">
+<dt id="ossaudiodev.oss_mixer_device.controls">
+<code class="descclassname">oss_mixer_device.</code><code class="descname">controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_mixer_device.controls" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns a bitmask specifying the available mixer controls (“Control”
+being a specific mixable “channel”, such as <code class="xref py py-const docutils literal notranslate"><span class="pre">SOUND_MIXER_PCM</span></code> or
+<code class="xref py py-const docutils literal notranslate"><span class="pre">SOUND_MIXER_SYNTH</span></code>).  This bitmask indicates a subset of all available
+mixer controls—the <code class="xref py py-const docutils literal notranslate"><span class="pre">SOUND_MIXER_*</span></code> constants defined at module level.
+To determine if, for example, the current mixer object supports a PCM mixer, use
+the following Python code:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">mixer</span><span class="o">=</span><span class="n">ossaudiodev</span><span class="o">.</span><span class="n">openmixer</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">mixer</span><span class="o">.</span><span class="n">controls</span><span class="p">()</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">ossaudiodev</span><span class="o">.</span><span class="n">SOUND_MIXER_PCM</span><span class="p">):</span>
+    <span class="c1"># PCM is supported</span>
+    <span class="o">...</span> <span class="n">code</span> <span class="o">...</span>
+</pre></div>
+</div>
+<p>For most purposes, the <code class="xref py py-const docutils literal notranslate"><span class="pre">SOUND_MIXER_VOLUME</span></code> (master volume) and
+<code class="xref py py-const docutils literal notranslate"><span class="pre">SOUND_MIXER_PCM</span></code> controls should suffice—but code that uses the mixer
+should be flexible when it comes to choosing mixer controls.  On the Gravis
+Ultrasound, for example, <code class="xref py py-const docutils literal notranslate"><span class="pre">SOUND_MIXER_VOLUME</span></code> does not exist.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ossaudiodev.oss_mixer_device.stereocontrols">
+<code class="descclassname">oss_mixer_device.</code><code class="descname">stereocontrols</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_mixer_device.stereocontrols" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a bitmask indicating stereo mixer controls.  If a bit is set, the
+corresponding control is stereo; if it is unset, the control is either
+monophonic or not supported by the mixer (use in combination with
+<a class="reference internal" href="#ossaudiodev.oss_mixer_device.controls" title="ossaudiodev.oss_mixer_device.controls"><code class="xref py py-meth docutils literal notranslate"><span class="pre">controls()</span></code></a> to determine which).</p>
+<p>See the code example for the <a class="reference internal" href="#ossaudiodev.oss_mixer_device.controls" title="ossaudiodev.oss_mixer_device.controls"><code class="xref py py-meth docutils literal notranslate"><span class="pre">controls()</span></code></a> function for an example of getting
+data from a bitmask.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ossaudiodev.oss_mixer_device.reccontrols">
+<code class="descclassname">oss_mixer_device.</code><code class="descname">reccontrols</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_mixer_device.reccontrols" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a bitmask specifying the mixer controls that may be used to record.  See
+the code example for <a class="reference internal" href="#ossaudiodev.oss_mixer_device.controls" title="ossaudiodev.oss_mixer_device.controls"><code class="xref py py-meth docutils literal notranslate"><span class="pre">controls()</span></code></a> for an example of reading from a bitmask.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ossaudiodev.oss_mixer_device.get">
+<code class="descclassname">oss_mixer_device.</code><code class="descname">get</code><span class="sig-paren">(</span><em>control</em><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_mixer_device.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the volume of a given mixer control.  The returned volume is a 2-tuple
+<code class="docutils literal notranslate"><span class="pre">(left_volume,right_volume)</span></code>.  Volumes are specified as numbers from 0
+(silent) to 100 (full volume).  If the control is monophonic, a 2-tuple is still
+returned, but both volumes are the same.</p>
+<p>Raises <a class="reference internal" href="#ossaudiodev.OSSAudioError" title="ossaudiodev.OSSAudioError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">OSSAudioError</span></code></a> if an invalid control is specified, or
+<a class="reference internal" href="exceptions.html#OSError" title="OSError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">OSError</span></code></a> if an unsupported control is specified.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ossaudiodev.oss_mixer_device.set">
+<code class="descclassname">oss_mixer_device.</code><code class="descname">set</code><span class="sig-paren">(</span><em>control</em>, <em>(left</em>, <em>right)</em><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_mixer_device.set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the volume for a given mixer control to <code class="docutils literal notranslate"><span class="pre">(left,right)</span></code>. <code class="docutils literal notranslate"><span class="pre">left</span></code> and
+<code class="docutils literal notranslate"><span class="pre">right</span></code> must be ints and between 0 (silent) and 100 (full volume).  On
+success, the new volume is returned as a 2-tuple. Note that this may not be
+exactly the same as the volume specified, because of the limited resolution of
+some soundcard’s mixers.</p>
+<p>Raises <a class="reference internal" href="#ossaudiodev.OSSAudioError" title="ossaudiodev.OSSAudioError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">OSSAudioError</span></code></a> if an invalid mixer control was specified, or if the
+specified volumes were out-of-range.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ossaudiodev.oss_mixer_device.get_recsrc">
+<code class="descclassname">oss_mixer_device.</code><code class="descname">get_recsrc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_mixer_device.get_recsrc" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns a bitmask indicating which control(s) are currently being
+used as a recording source.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ossaudiodev.oss_mixer_device.set_recsrc">
+<code class="descclassname">oss_mixer_device.</code><code class="descname">set_recsrc</code><span class="sig-paren">(</span><em>bitmask</em><span class="sig-paren">)</span><a class="headerlink" href="#ossaudiodev.oss_mixer_device.set_recsrc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call this function to specify a recording source.  Returns a bitmask indicating
+the new recording source (or sources) if successful; raises <a class="reference internal" href="exceptions.html#OSError" title="OSError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">OSError</span></code></a> if an
+invalid source was specified.  To set the current recording source to the
+microphone input:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">mixer</span><span class="o">.</span><span class="n">setrecsrc</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">ossaudiodev</span><span class="o">.</span><span class="n">SOUND_MIXER_MIC</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">ossaudiodev</span></code> — Access to OSS-compatible audio devices</a><ul>
+<li><a class="reference internal" href="#audio-device-objects">Audio Device Objects</a></li>
+<li><a class="reference internal" href="#mixer-device-objects">Mixer Device Objects</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="sndhdr.html"
+                        title="previous chapter"><code class="docutils literal notranslate"><span class="pre">sndhdr</span></code> — Determine type of sound file</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="i18n.html"
+                        title="next chapter">Internationalization</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/library/ossaudiodev.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="i18n.html" title="Internationalization"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="sndhdr.html" title="sndhdr — Determine type of sound file"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="mm.html" >Multimedia Services</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

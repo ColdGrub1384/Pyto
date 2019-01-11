@@ -1,0 +1,1333 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>enum — Support for enumerations &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="Numeric and Mathematical Modules" href="numeric.html" />
+    <link rel="prev" title="reprlib — Alternate repr() implementation" href="reprlib.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/library/enum.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="numeric.html" title="Numeric and Mathematical Modules"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="reprlib.html" title="reprlib — Alternate repr() implementation"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="datatypes.html" accesskey="U">Data Types</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-enum">
+<span id="enum-support-for-enumerations"></span><h1><a class="reference internal" href="#module-enum" title="enum: Implementation of an enumeration class."><code class="xref py py-mod docutils literal notranslate"><span class="pre">enum</span></code></a> — Support for enumerations<a class="headerlink" href="#module-enum" title="Permalink to this headline">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.4.</span></p>
+</div>
+<p><strong>Source code:</strong> <a class="reference external" href="https://github.com/python/cpython/tree/3.7/Lib/enum.py">Lib/enum.py</a></p>
+<hr class="docutils" />
+<p>An enumeration is a set of symbolic names (members) bound to unique,
+constant values.  Within an enumeration, the members can be compared
+by identity, and the enumeration itself can be iterated over.</p>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<p>This module defines four enumeration classes that can be used to define unique
+sets of names and values: <a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a>, <a class="reference internal" href="#enum.IntEnum" title="enum.IntEnum"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></a>, <a class="reference internal" href="#enum.Flag" title="enum.Flag"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flag</span></code></a>, and
+<a class="reference internal" href="#enum.IntFlag" title="enum.IntFlag"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntFlag</span></code></a>.  It also defines one decorator, <a class="reference internal" href="#enum.unique" title="enum.unique"><code class="xref py py-func docutils literal notranslate"><span class="pre">unique()</span></code></a>, and one
+helper, <a class="reference internal" href="#enum.auto" title="enum.auto"><code class="xref py py-class docutils literal notranslate"><span class="pre">auto</span></code></a>.</p>
+<dl class="class">
+<dt id="enum.Enum">
+<em class="property">class </em><code class="descclassname">enum.</code><code class="descname">Enum</code><a class="headerlink" href="#enum.Enum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for creating enumerated constants.  See section
+<a class="reference internal" href="#functional-api">Functional API</a> for an alternate construction syntax.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="enum.IntEnum">
+<em class="property">class </em><code class="descclassname">enum.</code><code class="descname">IntEnum</code><a class="headerlink" href="#enum.IntEnum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for creating enumerated constants that are also
+subclasses of <a class="reference internal" href="functions.html#int" title="int"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="enum.IntFlag">
+<em class="property">class </em><code class="descclassname">enum.</code><code class="descname">IntFlag</code><a class="headerlink" href="#enum.IntFlag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for creating enumerated constants that can be combined using
+the bitwise operators without losing their <a class="reference internal" href="#enum.IntFlag" title="enum.IntFlag"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntFlag</span></code></a> membership.
+<a class="reference internal" href="#enum.IntFlag" title="enum.IntFlag"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntFlag</span></code></a> members are also subclasses of <a class="reference internal" href="functions.html#int" title="int"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="enum.Flag">
+<em class="property">class </em><code class="descclassname">enum.</code><code class="descname">Flag</code><a class="headerlink" href="#enum.Flag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for creating enumerated constants that can be combined using
+the bitwise operations without losing their <a class="reference internal" href="#enum.Flag" title="enum.Flag"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flag</span></code></a> membership.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="enum.unique">
+<code class="descclassname">enum.</code><code class="descname">unique</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#enum.unique" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enum class decorator that ensures only one name is bound to any one value.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="enum.auto">
+<em class="property">class </em><code class="descclassname">enum.</code><code class="descname">auto</code><a class="headerlink" href="#enum.auto" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instances are replaced with an appropriate value for Enum members.</p>
+</dd></dl>
+
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.6: </span><code class="docutils literal notranslate"><span class="pre">Flag</span></code>, <code class="docutils literal notranslate"><span class="pre">IntFlag</span></code>, <code class="docutils literal notranslate"><span class="pre">auto</span></code></p>
+</div>
+</div>
+<div class="section" id="creating-an-enum">
+<h2>Creating an Enum<a class="headerlink" href="#creating-an-enum" title="Permalink to this headline">¶</a></h2>
+<p>Enumerations are created using the <a class="reference internal" href="../reference/compound_stmts.html#class"><code class="xref std std-keyword docutils literal notranslate"><span class="pre">class</span></code></a> syntax, which makes them
+easy to read and write.  An alternative creation method is described in
+<a class="reference internal" href="#functional-api">Functional API</a>.  To define an enumeration, subclass <a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a> as
+follows:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">enum</span> <span class="k">import</span> <span class="n">Enum</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Color</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">RED</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">... </span>    <span class="n">GREEN</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">... </span>    <span class="n">BLUE</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Enum member values</p>
+<p class="last">Member values can be anything: <a class="reference internal" href="functions.html#int" title="int"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference internal" href="stdtypes.html#str" title="str"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, etc..  If
+the exact value is unimportant you may use <a class="reference internal" href="#enum.auto" title="enum.auto"><code class="xref py py-class docutils literal notranslate"><span class="pre">auto</span></code></a> instances and an
+appropriate value will be chosen for you.  Care must be taken if you mix
+<a class="reference internal" href="#enum.auto" title="enum.auto"><code class="xref py py-class docutils literal notranslate"><span class="pre">auto</span></code></a> with other values.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Nomenclature</p>
+<ul class="last simple">
+<li>The class <code class="xref py py-class docutils literal notranslate"><span class="pre">Color</span></code> is an <em>enumeration</em> (or <em>enum</em>)</li>
+<li>The attributes <code class="xref py py-attr docutils literal notranslate"><span class="pre">Color.RED</span></code>, <code class="xref py py-attr docutils literal notranslate"><span class="pre">Color.GREEN</span></code>, etc., are
+<em>enumeration members</em> (or <em>enum members</em>) and are functionally constants.</li>
+<li>The enum members have <em>names</em> and <em>values</em> (the name of
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">Color.RED</span></code> is <code class="docutils literal notranslate"><span class="pre">RED</span></code>, the value of <code class="xref py py-attr docutils literal notranslate"><span class="pre">Color.BLUE</span></code> is
+<code class="docutils literal notranslate"><span class="pre">3</span></code>, etc.)</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Even though we use the <a class="reference internal" href="../reference/compound_stmts.html#class"><code class="xref std std-keyword docutils literal notranslate"><span class="pre">class</span></code></a> syntax to create Enums, Enums
+are not normal Python classes.  See <a class="reference internal" href="#how-are-enums-different">How are Enums different?</a> for
+more details.</p>
+</div>
+<p>Enumeration members have human readable string representations:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">Color</span><span class="o">.</span><span class="n">RED</span><span class="p">)</span>
+<span class="go">Color.RED</span>
+</pre></div>
+</div>
+<p>…while their <code class="docutils literal notranslate"><span class="pre">repr</span></code> has more information:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">Color</span><span class="o">.</span><span class="n">RED</span><span class="p">))</span>
+<span class="go">&lt;Color.RED: 1&gt;</span>
+</pre></div>
+</div>
+<p>The <em>type</em> of an enumeration member is the enumeration it belongs to:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">Color</span><span class="o">.</span><span class="n">RED</span><span class="p">)</span>
+<span class="go">&lt;enum &#39;Color&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">Color</span><span class="o">.</span><span class="n">GREEN</span><span class="p">,</span> <span class="n">Color</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>Enum members also have a property that contains just their item name:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">Color</span><span class="o">.</span><span class="n">RED</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="go">RED</span>
+</pre></div>
+</div>
+<p>Enumerations support iteration, in definition order:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Shake</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">VANILLA</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="gp">... </span>    <span class="n">CHOCOLATE</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="gp">... </span>    <span class="n">COOKIES</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="gp">... </span>    <span class="n">MINT</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">shake</span> <span class="ow">in</span> <span class="n">Shake</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">shake</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">Shake.VANILLA</span>
+<span class="go">Shake.CHOCOLATE</span>
+<span class="go">Shake.COOKIES</span>
+<span class="go">Shake.MINT</span>
+</pre></div>
+</div>
+<p>Enumeration members are hashable, so they can be used in dictionaries and sets:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">apples</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">apples</span><span class="p">[</span><span class="n">Color</span><span class="o">.</span><span class="n">RED</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;red delicious&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">apples</span><span class="p">[</span><span class="n">Color</span><span class="o">.</span><span class="n">GREEN</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;granny smith&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">apples</span> <span class="o">==</span> <span class="p">{</span><span class="n">Color</span><span class="o">.</span><span class="n">RED</span><span class="p">:</span> <span class="s1">&#39;red delicious&#39;</span><span class="p">,</span> <span class="n">Color</span><span class="o">.</span><span class="n">GREEN</span><span class="p">:</span> <span class="s1">&#39;granny smith&#39;</span><span class="p">}</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="programmatic-access-to-enumeration-members-and-their-attributes">
+<h2>Programmatic access to enumeration members and their attributes<a class="headerlink" href="#programmatic-access-to-enumeration-members-and-their-attributes" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes it’s useful to access members in enumerations programmatically (i.e.
+situations where <code class="docutils literal notranslate"><span class="pre">Color.RED</span></code> won’t do because the exact color is not known
+at program-writing time).  <code class="docutils literal notranslate"><span class="pre">Enum</span></code> allows such access:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Color</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">&lt;Color.RED: 1&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Color</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">&lt;Color.BLUE: 3&gt;</span>
+</pre></div>
+</div>
+<p>If you want to access enum members by <em>name</em>, use item access:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Color</span><span class="p">[</span><span class="s1">&#39;RED&#39;</span><span class="p">]</span>
+<span class="go">&lt;Color.RED: 1&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Color</span><span class="p">[</span><span class="s1">&#39;GREEN&#39;</span><span class="p">]</span>
+<span class="go">&lt;Color.GREEN: 2&gt;</span>
+</pre></div>
+</div>
+<p>If you have an enum member and need its <code class="xref py py-attr docutils literal notranslate"><span class="pre">name</span></code> or <code class="xref py py-attr docutils literal notranslate"><span class="pre">value</span></code>:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">member</span> <span class="o">=</span> <span class="n">Color</span><span class="o">.</span><span class="n">RED</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">member</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;RED&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">member</span><span class="o">.</span><span class="n">value</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="duplicating-enum-members-and-values">
+<h2>Duplicating enum members and values<a class="headerlink" href="#duplicating-enum-members-and-values" title="Permalink to this headline">¶</a></h2>
+<p>Having two enum members with the same name is invalid:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Shape</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">SQUARE</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">... </span>    <span class="n">SQUARE</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">...</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">TypeError</span>: <span class="n">Attempted to reuse key: &#39;SQUARE&#39;</span>
+</pre></div>
+</div>
+<p>However, two enum members are allowed to have the same value.  Given two members
+A and B with the same value (and A defined first), B is an alias to A.  By-value
+lookup of the value of A and B will return A.  By-name lookup of B will also
+return A:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Shape</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">SQUARE</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">... </span>    <span class="n">DIAMOND</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">... </span>    <span class="n">CIRCLE</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">... </span>    <span class="n">ALIAS_FOR_SQUARE</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Shape</span><span class="o">.</span><span class="n">SQUARE</span>
+<span class="go">&lt;Shape.SQUARE: 2&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Shape</span><span class="o">.</span><span class="n">ALIAS_FOR_SQUARE</span>
+<span class="go">&lt;Shape.SQUARE: 2&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Shape</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">&lt;Shape.SQUARE: 2&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Attempting to create a member with the same name as an already
+defined attribute (another member, a method, etc.) or attempting to create
+an attribute with the same name as a member is not allowed.</p>
+</div>
+</div>
+<div class="section" id="ensuring-unique-enumeration-values">
+<h2>Ensuring unique enumeration values<a class="headerlink" href="#ensuring-unique-enumeration-values" title="Permalink to this headline">¶</a></h2>
+<p>By default, enumerations allow multiple names as aliases for the same value.
+When this behavior isn’t desired, the following decorator can be used to
+ensure each value is used only once in the enumeration:</p>
+<dl class="function">
+<dt>
+<code class="descclassname">&#64;</code><code class="descclassname">enum.</code><code class="descname">unique</code></dt>
+<dd></dd></dl>
+
+<p>A <a class="reference internal" href="../reference/compound_stmts.html#class"><code class="xref std std-keyword docutils literal notranslate"><span class="pre">class</span></code></a> decorator specifically for enumerations.  It searches an
+enumeration’s <code class="xref py py-attr docutils literal notranslate"><span class="pre">__members__</span></code> gathering any aliases it finds; if any are
+found <a class="reference internal" href="exceptions.html#ValueError" title="ValueError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> is raised with the details:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">enum</span> <span class="k">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">unique</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@unique</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">Mistake</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">ONE</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">... </span>    <span class="n">TWO</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">... </span>    <span class="n">THREE</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">... </span>    <span class="n">FOUR</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">...</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">ValueError</span>: <span class="n">duplicate values found in &lt;enum &#39;Mistake&#39;&gt;: FOUR -&gt; THREE</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-automatic-values">
+<h2>Using automatic values<a class="headerlink" href="#using-automatic-values" title="Permalink to this headline">¶</a></h2>
+<p>If the exact value is unimportant you can use <a class="reference internal" href="#enum.auto" title="enum.auto"><code class="xref py py-class docutils literal notranslate"><span class="pre">auto</span></code></a>:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">enum</span> <span class="k">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">auto</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Color</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">RED</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">BLUE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">GREEN</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">Color</span><span class="p">)</span>
+<span class="go">[&lt;Color.RED: 1&gt;, &lt;Color.BLUE: 2&gt;, &lt;Color.GREEN: 3&gt;]</span>
+</pre></div>
+</div>
+<p>The values are chosen by <code class="xref py py-func docutils literal notranslate"><span class="pre">_generate_next_value_()</span></code>, which can be
+overridden:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">AutoName</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">_generate_next_value_</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">last_values</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">name</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Ordinal</span><span class="p">(</span><span class="n">AutoName</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">NORTH</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">SOUTH</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">EAST</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">WEST</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">Ordinal</span><span class="p">)</span>
+<span class="go">[&lt;Ordinal.NORTH: &#39;NORTH&#39;&gt;, &lt;Ordinal.SOUTH: &#39;SOUTH&#39;&gt;, &lt;Ordinal.EAST: &#39;EAST&#39;&gt;, &lt;Ordinal.WEST: &#39;WEST&#39;&gt;]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The goal of the default <code class="xref py py-meth docutils literal notranslate"><span class="pre">_generate_next_value_()</span></code> methods is to provide
+the next <a class="reference internal" href="functions.html#int" title="int"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> in sequence with the last <a class="reference internal" href="functions.html#int" title="int"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> provided, but
+the way it does this is an implementation detail and may change.</p>
+</div>
+</div>
+<div class="section" id="iteration">
+<h2>Iteration<a class="headerlink" href="#iteration" title="Permalink to this headline">¶</a></h2>
+<p>Iterating over the members of an enum does not provide the aliases:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">Shape</span><span class="p">)</span>
+<span class="go">[&lt;Shape.SQUARE: 2&gt;, &lt;Shape.DIAMOND: 1&gt;, &lt;Shape.CIRCLE: 3&gt;]</span>
+</pre></div>
+</div>
+<p>The special attribute <code class="docutils literal notranslate"><span class="pre">__members__</span></code> is an ordered dictionary mapping names
+to members.  It includes all names defined in the enumeration, including the
+aliases:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">Shape</span><span class="o">.</span><span class="n">__members__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="n">name</span><span class="p">,</span> <span class="n">member</span>
+<span class="gp">...</span>
+<span class="go">(&#39;SQUARE&#39;, &lt;Shape.SQUARE: 2&gt;)</span>
+<span class="go">(&#39;DIAMOND&#39;, &lt;Shape.DIAMOND: 1&gt;)</span>
+<span class="go">(&#39;CIRCLE&#39;, &lt;Shape.CIRCLE: 3&gt;)</span>
+<span class="go">(&#39;ALIAS_FOR_SQUARE&#39;, &lt;Shape.SQUARE: 2&gt;)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">__members__</span></code> attribute can be used for detailed programmatic access to
+the enumeration members.  For example, finding all the aliases:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">Shape</span><span class="o">.</span><span class="n">__members__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">member</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">name</span><span class="p">]</span>
+<span class="go">[&#39;ALIAS_FOR_SQUARE&#39;]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="comparisons">
+<h2>Comparisons<a class="headerlink" href="#comparisons" title="Permalink to this headline">¶</a></h2>
+<p>Enumeration members are compared by identity:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Color</span><span class="o">.</span><span class="n">RED</span> <span class="ow">is</span> <span class="n">Color</span><span class="o">.</span><span class="n">RED</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Color</span><span class="o">.</span><span class="n">RED</span> <span class="ow">is</span> <span class="n">Color</span><span class="o">.</span><span class="n">BLUE</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Color</span><span class="o">.</span><span class="n">RED</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Color</span><span class="o">.</span><span class="n">BLUE</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Ordered comparisons between enumeration values are <em>not</em> supported.  Enum
+members are not integers (but see <a class="reference internal" href="#intenum">IntEnum</a> below):</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Color</span><span class="o">.</span><span class="n">RED</span> <span class="o">&lt;</span> <span class="n">Color</span><span class="o">.</span><span class="n">BLUE</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+<span class="gr">TypeError</span>: <span class="n">&#39;&lt;&#39; not supported between instances of &#39;Color&#39; and &#39;Color&#39;</span>
+</pre></div>
+</div>
+<p>Equality comparisons are defined though:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Color</span><span class="o">.</span><span class="n">BLUE</span> <span class="o">==</span> <span class="n">Color</span><span class="o">.</span><span class="n">RED</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Color</span><span class="o">.</span><span class="n">BLUE</span> <span class="o">!=</span> <span class="n">Color</span><span class="o">.</span><span class="n">RED</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Color</span><span class="o">.</span><span class="n">BLUE</span> <span class="o">==</span> <span class="n">Color</span><span class="o">.</span><span class="n">BLUE</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Comparisons against non-enumeration values will always compare not equal
+(again, <a class="reference internal" href="#enum.IntEnum" title="enum.IntEnum"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></a> was explicitly designed to behave differently, see
+below):</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Color</span><span class="o">.</span><span class="n">BLUE</span> <span class="o">==</span> <span class="mi">2</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="allowed-members-and-attributes-of-enumerations">
+<h2>Allowed members and attributes of enumerations<a class="headerlink" href="#allowed-members-and-attributes-of-enumerations" title="Permalink to this headline">¶</a></h2>
+<p>The examples above use integers for enumeration values.  Using integers is
+short and handy (and provided by default by the <a class="reference internal" href="#functional-api">Functional API</a>), but not
+strictly enforced.  In the vast majority of use-cases, one doesn’t care what
+the actual value of an enumeration is.  But if the value <em>is</em> important,
+enumerations can have arbitrary values.</p>
+<p>Enumerations are Python classes, and can have methods and special methods as
+usual.  If we have this enumeration:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Mood</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">FUNKY</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">... </span>    <span class="n">HAPPY</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">describe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="c1"># self is the member here</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="s1">&#39;my custom str! </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="nd">@classmethod</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">favorite_mood</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="c1"># cls here is the enumeration</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">HAPPY</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<p>Then:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Mood</span><span class="o">.</span><span class="n">favorite_mood</span><span class="p">()</span>
+<span class="go">&lt;Mood.HAPPY: 3&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Mood</span><span class="o">.</span><span class="n">HAPPY</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<span class="go">(&#39;HAPPY&#39;, 3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">Mood</span><span class="o">.</span><span class="n">FUNKY</span><span class="p">)</span>
+<span class="go">&#39;my custom str! 1&#39;</span>
+</pre></div>
+</div>
+<p>The rules for what is allowed are as follows: names that start and end with
+a single underscore are reserved by enum and cannot be used; all other
+attributes defined within an enumeration will become members of this
+enumeration, with the exception of special methods (<a class="reference internal" href="../reference/datamodel.html#object.__str__" title="object.__str__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__str__()</span></code></a>,
+<a class="reference internal" href="../reference/datamodel.html#object.__add__" title="object.__add__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__add__()</span></code></a>, etc.), descriptors (methods are also descriptors), and
+variable names listed in <code class="xref py py-attr docutils literal notranslate"><span class="pre">_ignore_</span></code>.</p>
+<p>Note:  if your enumeration defines <a class="reference internal" href="../reference/datamodel.html#object.__new__" title="object.__new__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__new__()</span></code></a> and/or <a class="reference internal" href="../reference/datamodel.html#object.__init__" title="object.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__init__()</span></code></a> then
+whatever value(s) were given to the enum member will be passed into those
+methods.  See <a class="reference internal" href="#planet">Planet</a> for an example.</p>
+</div>
+<div class="section" id="restricted-enum-subclassing">
+<h2>Restricted Enum subclassing<a class="headerlink" href="#restricted-enum-subclassing" title="Permalink to this headline">¶</a></h2>
+<p>A new <a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a> class must have one base Enum class, up to one concrete
+data type, and as many <a class="reference internal" href="functions.html#object" title="object"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a>-based mixin classes as needed.  The
+order of these base classes is:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">EnumName</span><span class="p">([</span><span class="n">mix</span><span class="o">-</span><span class="ow">in</span><span class="p">,</span> <span class="o">...</span><span class="p">,]</span> <span class="p">[</span><span class="n">data</span><span class="o">-</span><span class="nb">type</span><span class="p">,]</span> <span class="n">base</span><span class="o">-</span><span class="n">enum</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>Also, subclassing an enumeration is allowed only if the enumeration does not define
+any members.  So this is forbidden:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">MoreColor</span><span class="p">(</span><span class="n">Color</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">PINK</span> <span class="o">=</span> <span class="mi">17</span>
+<span class="gp">...</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">TypeError</span>: <span class="n">Cannot extend enumerations</span>
+</pre></div>
+</div>
+<p>But this is allowed:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">some_behavior</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Bar</span><span class="p">(</span><span class="n">Foo</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">HAPPY</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">... </span>    <span class="n">SAD</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<p>Allowing subclassing of enums that define members would lead to a violation of
+some important invariants of types and instances.  On the other hand, it makes
+sense to allow sharing some common behavior between a group of enumerations.
+(See <a class="reference internal" href="#orderedenum">OrderedEnum</a> for an example.)</p>
+</div>
+<div class="section" id="pickling">
+<h2>Pickling<a class="headerlink" href="#pickling" title="Permalink to this headline">¶</a></h2>
+<p>Enumerations can be pickled and unpickled:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">test.test_enum</span> <span class="k">import</span> <span class="n">Fruit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pickle</span> <span class="k">import</span> <span class="n">dumps</span><span class="p">,</span> <span class="n">loads</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Fruit</span><span class="o">.</span><span class="n">TOMATO</span> <span class="ow">is</span> <span class="n">loads</span><span class="p">(</span><span class="n">dumps</span><span class="p">(</span><span class="n">Fruit</span><span class="o">.</span><span class="n">TOMATO</span><span class="p">))</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>The usual restrictions for pickling apply: picklable enums must be defined in
+the top level of a module, since unpickling requires them to be importable
+from that module.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">With pickle protocol version 4 it is possible to easily pickle enums
+nested in other classes.</p>
+</div>
+<p>It is possible to modify how Enum members are pickled/unpickled by defining
+<a class="reference internal" href="pickle.html#object.__reduce_ex__" title="object.__reduce_ex__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__reduce_ex__()</span></code></a> in the enumeration class.</p>
+</div>
+<div class="section" id="functional-api">
+<h2>Functional API<a class="headerlink" href="#functional-api" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a> class is callable, providing the following functional API:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Animal</span> <span class="o">=</span> <span class="n">Enum</span><span class="p">(</span><span class="s1">&#39;Animal&#39;</span><span class="p">,</span> <span class="s1">&#39;ANT BEE CAT DOG&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Animal</span>
+<span class="go">&lt;enum &#39;Animal&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Animal</span><span class="o">.</span><span class="n">ANT</span>
+<span class="go">&lt;Animal.ANT: 1&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Animal</span><span class="o">.</span><span class="n">ANT</span><span class="o">.</span><span class="n">value</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">Animal</span><span class="p">)</span>
+<span class="go">[&lt;Animal.ANT: 1&gt;, &lt;Animal.BEE: 2&gt;, &lt;Animal.CAT: 3&gt;, &lt;Animal.DOG: 4&gt;]</span>
+</pre></div>
+</div>
+<p>The semantics of this API resemble <a class="reference internal" href="collections.html#collections.namedtuple" title="collections.namedtuple"><code class="xref py py-class docutils literal notranslate"><span class="pre">namedtuple</span></code></a>. The first
+argument of the call to <a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a> is the name of the enumeration.</p>
+<p>The second argument is the <em>source</em> of enumeration member names.  It can be a
+whitespace-separated string of names, a sequence of names, a sequence of
+2-tuples with key/value pairs, or a mapping (e.g. dictionary) of names to
+values.  The last two options enable assigning arbitrary values to
+enumerations; the others auto-assign increasing integers starting with 1 (use
+the <code class="docutils literal notranslate"><span class="pre">start</span></code> parameter to specify a different starting value).  A
+new class derived from <a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a> is returned.  In other words, the above
+assignment to <code class="xref py py-class docutils literal notranslate"><span class="pre">Animal</span></code> is equivalent to:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Animal</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">ANT</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">... </span>    <span class="n">BEE</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">... </span>    <span class="n">CAT</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">... </span>    <span class="n">DOG</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<p>The reason for defaulting to <code class="docutils literal notranslate"><span class="pre">1</span></code> as the starting number and not <code class="docutils literal notranslate"><span class="pre">0</span></code> is
+that <code class="docutils literal notranslate"><span class="pre">0</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code> in a boolean sense, but enum members all evaluate
+to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<p>Pickling enums created with the functional API can be tricky as frame stack
+implementation details are used to try and figure out which module the
+enumeration is being created in (e.g. it will fail if you use a utility
+function in separate module, and also may not work on IronPython or Jython).
+The solution is to specify the module name explicitly as follows:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Animal</span> <span class="o">=</span> <span class="n">Enum</span><span class="p">(</span><span class="s1">&#39;Animal&#39;</span><span class="p">,</span> <span class="s1">&#39;ANT BEE CAT DOG&#39;</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="vm">__name__</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If <code class="docutils literal notranslate"><span class="pre">module</span></code> is not supplied, and Enum cannot determine what it is,
+the new Enum members will not be unpicklable; to keep errors closer to
+the source, pickling will be disabled.</p>
+</div>
+<p>The new pickle protocol 4 also, in some circumstances, relies on
+<a class="reference internal" href="stdtypes.html#definition.__qualname__" title="definition.__qualname__"><code class="xref py py-attr docutils literal notranslate"><span class="pre">__qualname__</span></code></a> being set to the location where pickle will be able
+to find the class.  For example, if the class was made available in class
+SomeData in the global scope:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Animal</span> <span class="o">=</span> <span class="n">Enum</span><span class="p">(</span><span class="s1">&#39;Animal&#39;</span><span class="p">,</span> <span class="s1">&#39;ANT BEE CAT DOG&#39;</span><span class="p">,</span> <span class="n">qualname</span><span class="o">=</span><span class="s1">&#39;SomeData.Animal&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The complete signature is:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">Enum</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;NewEnumName&#39;</span><span class="p">,</span> <span class="n">names</span><span class="o">=&lt;...&gt;</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="n">qualname</span><span class="o">=</span><span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=&lt;</span><span class="n">mixed</span><span class="o">-</span><span class="ow">in</span> <span class="n">class</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">value:</th><td class="field-body"><p class="first">What the new Enum class will record as its name.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">names:</th><td class="field-body"><p class="first">The Enum members.  This can be a whitespace or comma separated string
+(values will start at 1 unless otherwise specified):</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;RED GREEN BLUE&#39;</span> <span class="o">|</span> <span class="s1">&#39;RED,GREEN,BLUE&#39;</span> <span class="o">|</span> <span class="s1">&#39;RED, GREEN, BLUE&#39;</span>
+</pre></div>
+</div>
+<p>or an iterator of names:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;RED&#39;</span><span class="p">,</span> <span class="s1">&#39;GREEN&#39;</span><span class="p">,</span> <span class="s1">&#39;BLUE&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>or an iterator of (name, value) pairs:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="p">[(</span><span class="s1">&#39;CYAN&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;MAGENTA&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;YELLOW&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>or a mapping:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;CHARTREUSE&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;SEA_GREEN&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="s1">&#39;ROSEMARY&#39;</span><span class="p">:</span> <span class="mi">42</span><span class="p">}</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">module:</th><td class="field-body"><p class="first">name of module where new Enum class can be found.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">qualname:</th><td class="field-body"><p class="first">where in module new Enum class can be found.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body"><p class="first">type to mix in to new Enum class.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">start:</th><td class="field-body"><p class="first last">number to start counting at if only names are passed in.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.5: </span>The <em>start</em> parameter was added.</p>
+</div>
+</div>
+<div class="section" id="derived-enumerations">
+<h2>Derived Enumerations<a class="headerlink" href="#derived-enumerations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="intenum">
+<h3>IntEnum<a class="headerlink" href="#intenum" title="Permalink to this headline">¶</a></h3>
+<p>The first variation of <a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a> that is provided is also a subclass of
+<a class="reference internal" href="functions.html#int" title="int"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>.  Members of an <a class="reference internal" href="#enum.IntEnum" title="enum.IntEnum"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></a> can be compared to integers;
+by extension, integer enumerations of different types can also be compared
+to each other:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">enum</span> <span class="k">import</span> <span class="n">IntEnum</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Shape</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">CIRCLE</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">... </span>    <span class="n">SQUARE</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Request</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">POST</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">... </span>    <span class="n">GET</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Shape</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Shape</span><span class="o">.</span><span class="n">CIRCLE</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Shape</span><span class="o">.</span><span class="n">CIRCLE</span> <span class="o">==</span> <span class="n">Request</span><span class="o">.</span><span class="n">POST</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>However, they still can’t be compared to standard <a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a> enumerations:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Shape</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">CIRCLE</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">... </span>    <span class="n">SQUARE</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Color</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">RED</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">... </span>    <span class="n">GREEN</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Shape</span><span class="o">.</span><span class="n">CIRCLE</span> <span class="o">==</span> <span class="n">Color</span><span class="o">.</span><span class="n">RED</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#enum.IntEnum" title="enum.IntEnum"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></a> values behave like integers in other ways you’d expect:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">Shape</span><span class="o">.</span><span class="n">CIRCLE</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">][</span><span class="n">Shape</span><span class="o">.</span><span class="n">CIRCLE</span><span class="p">]</span>
+<span class="go">&#39;b&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Shape</span><span class="o">.</span><span class="n">SQUARE</span><span class="p">)]</span>
+<span class="go">[0, 1]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="intflag">
+<h3>IntFlag<a class="headerlink" href="#intflag" title="Permalink to this headline">¶</a></h3>
+<p>The next variation of <a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a> provided, <a class="reference internal" href="#enum.IntFlag" title="enum.IntFlag"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntFlag</span></code></a>, is also based
+on <a class="reference internal" href="functions.html#int" title="int"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>.  The difference being <a class="reference internal" href="#enum.IntFlag" title="enum.IntFlag"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntFlag</span></code></a> members can be combined
+using the bitwise operators (&amp;, |, ^, ~) and the result is still an
+<a class="reference internal" href="#enum.IntFlag" title="enum.IntFlag"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntFlag</span></code></a> member.  However, as the name implies, <a class="reference internal" href="#enum.IntFlag" title="enum.IntFlag"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntFlag</span></code></a>
+members also subclass <a class="reference internal" href="functions.html#int" title="int"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> and can be used wherever an <a class="reference internal" href="functions.html#int" title="int"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> is
+used.  Any operation on an <a class="reference internal" href="#enum.IntFlag" title="enum.IntFlag"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntFlag</span></code></a> member besides the bit-wise
+operations will lose the <a class="reference internal" href="#enum.IntFlag" title="enum.IntFlag"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntFlag</span></code></a> membership.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.6.</span></p>
+</div>
+<p>Sample <a class="reference internal" href="#enum.IntFlag" title="enum.IntFlag"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntFlag</span></code></a> class:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">enum</span> <span class="k">import</span> <span class="n">IntFlag</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Perm</span><span class="p">(</span><span class="n">IntFlag</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">R</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="gp">... </span>    <span class="n">W</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">... </span>    <span class="n">X</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Perm</span><span class="o">.</span><span class="n">R</span> <span class="o">|</span> <span class="n">Perm</span><span class="o">.</span><span class="n">W</span>
+<span class="go">&lt;Perm.R|W: 6&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Perm</span><span class="o">.</span><span class="n">R</span> <span class="o">+</span> <span class="n">Perm</span><span class="o">.</span><span class="n">W</span>
+<span class="go">6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">RW</span> <span class="o">=</span> <span class="n">Perm</span><span class="o">.</span><span class="n">R</span> <span class="o">|</span> <span class="n">Perm</span><span class="o">.</span><span class="n">W</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Perm</span><span class="o">.</span><span class="n">R</span> <span class="ow">in</span> <span class="n">RW</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>It is also possible to name the combinations:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Perm</span><span class="p">(</span><span class="n">IntFlag</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">R</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="gp">... </span>    <span class="n">W</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">... </span>    <span class="n">X</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">... </span>    <span class="n">RWX</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Perm</span><span class="o">.</span><span class="n">RWX</span>
+<span class="go">&lt;Perm.RWX: 7&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="o">~</span><span class="n">Perm</span><span class="o">.</span><span class="n">RWX</span>
+<span class="go">&lt;Perm.-8: -8&gt;</span>
+</pre></div>
+</div>
+<p>Another important difference between <a class="reference internal" href="#enum.IntFlag" title="enum.IntFlag"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntFlag</span></code></a> and <a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a> is that
+if no flags are set (the value is 0), its boolean evaluation is <a class="reference internal" href="constants.html#False" title="False"><code class="xref py py-data docutils literal notranslate"><span class="pre">False</span></code></a>:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Perm</span><span class="o">.</span><span class="n">R</span> <span class="o">&amp;</span> <span class="n">Perm</span><span class="o">.</span><span class="n">X</span>
+<span class="go">&lt;Perm.0: 0&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">bool</span><span class="p">(</span><span class="n">Perm</span><span class="o">.</span><span class="n">R</span> <span class="o">&amp;</span> <span class="n">Perm</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>Because <a class="reference internal" href="#enum.IntFlag" title="enum.IntFlag"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntFlag</span></code></a> members are also subclasses of <a class="reference internal" href="functions.html#int" title="int"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> they can
+be combined with them:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Perm</span><span class="o">.</span><span class="n">X</span> <span class="o">|</span> <span class="mi">8</span>
+<span class="go">&lt;Perm.8|X: 9&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="flag">
+<h3>Flag<a class="headerlink" href="#flag" title="Permalink to this headline">¶</a></h3>
+<p>The last variation is <a class="reference internal" href="#enum.Flag" title="enum.Flag"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flag</span></code></a>.  Like <a class="reference internal" href="#enum.IntFlag" title="enum.IntFlag"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntFlag</span></code></a>, <a class="reference internal" href="#enum.Flag" title="enum.Flag"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flag</span></code></a>
+members can be combined using the bitwise operators (&amp;, |, ^, ~).  Unlike
+<a class="reference internal" href="#enum.IntFlag" title="enum.IntFlag"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntFlag</span></code></a>, they cannot be combined with, nor compared against, any
+other <a class="reference internal" href="#enum.Flag" title="enum.Flag"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flag</span></code></a> enumeration, nor <a class="reference internal" href="functions.html#int" title="int"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>.  While it is possible to
+specify the values directly it is recommended to use <a class="reference internal" href="#enum.auto" title="enum.auto"><code class="xref py py-class docutils literal notranslate"><span class="pre">auto</span></code></a> as the
+value and let <a class="reference internal" href="#enum.Flag" title="enum.Flag"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flag</span></code></a> select an appropriate value.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.6.</span></p>
+</div>
+<p>Like <a class="reference internal" href="#enum.IntFlag" title="enum.IntFlag"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntFlag</span></code></a>, if a combination of <a class="reference internal" href="#enum.Flag" title="enum.Flag"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flag</span></code></a> members results in no
+flags being set, the boolean evaluation is <a class="reference internal" href="constants.html#False" title="False"><code class="xref py py-data docutils literal notranslate"><span class="pre">False</span></code></a>:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">enum</span> <span class="k">import</span> <span class="n">Flag</span><span class="p">,</span> <span class="n">auto</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Color</span><span class="p">(</span><span class="n">Flag</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">RED</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">BLUE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">GREEN</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Color</span><span class="o">.</span><span class="n">RED</span> <span class="o">&amp;</span> <span class="n">Color</span><span class="o">.</span><span class="n">GREEN</span>
+<span class="go">&lt;Color.0: 0&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">bool</span><span class="p">(</span><span class="n">Color</span><span class="o">.</span><span class="n">RED</span> <span class="o">&amp;</span> <span class="n">Color</span><span class="o">.</span><span class="n">GREEN</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>Individual flags should have values that are powers of two (1, 2, 4, 8, …),
+while combinations of flags won’t:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Color</span><span class="p">(</span><span class="n">Flag</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">RED</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">BLUE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">GREEN</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">WHITE</span> <span class="o">=</span> <span class="n">RED</span> <span class="o">|</span> <span class="n">BLUE</span> <span class="o">|</span> <span class="n">GREEN</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Color</span><span class="o">.</span><span class="n">WHITE</span>
+<span class="go">&lt;Color.WHITE: 7&gt;</span>
+</pre></div>
+</div>
+<p>Giving a name to the “no flags set” condition does not change its boolean
+value:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Color</span><span class="p">(</span><span class="n">Flag</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">BLACK</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="gp">... </span>    <span class="n">RED</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">BLUE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">GREEN</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Color</span><span class="o">.</span><span class="n">BLACK</span>
+<span class="go">&lt;Color.BLACK: 0&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">bool</span><span class="p">(</span><span class="n">Color</span><span class="o">.</span><span class="n">BLACK</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For the majority of new code, <a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a> and <a class="reference internal" href="#enum.Flag" title="enum.Flag"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flag</span></code></a> are strongly
+recommended, since <a class="reference internal" href="#enum.IntEnum" title="enum.IntEnum"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></a> and <a class="reference internal" href="#enum.IntFlag" title="enum.IntFlag"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntFlag</span></code></a> break some
+semantic promises of an enumeration (by being comparable to integers, and
+thus by transitivity to other unrelated enumerations).  <a class="reference internal" href="#enum.IntEnum" title="enum.IntEnum"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></a>
+and <a class="reference internal" href="#enum.IntFlag" title="enum.IntFlag"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntFlag</span></code></a> should be used only in cases where <a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a> and
+<a class="reference internal" href="#enum.Flag" title="enum.Flag"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flag</span></code></a> will not do; for example, when integer constants are replaced
+with enumerations, or for interoperability with other systems.</p>
+</div>
+</div>
+<div class="section" id="others">
+<h3>Others<a class="headerlink" href="#others" title="Permalink to this headline">¶</a></h3>
+<p>While <a class="reference internal" href="#enum.IntEnum" title="enum.IntEnum"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></a> is part of the <a class="reference internal" href="#module-enum" title="enum: Implementation of an enumeration class."><code class="xref py py-mod docutils literal notranslate"><span class="pre">enum</span></code></a> module, it would be very
+simple to implement independently:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IntEnum</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>This demonstrates how similar derived enumerations can be defined; for example
+a <code class="xref py py-class docutils literal notranslate"><span class="pre">StrEnum</span></code> that mixes in <a class="reference internal" href="stdtypes.html#str" title="str"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> instead of <a class="reference internal" href="functions.html#int" title="int"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>.</p>
+<p>Some rules:</p>
+<ol class="arabic simple">
+<li>When subclassing <a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a>, mix-in types must appear before
+<a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a> itself in the sequence of bases, as in the <a class="reference internal" href="#enum.IntEnum" title="enum.IntEnum"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></a>
+example above.</li>
+<li>While <a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a> can have members of any type, once you mix in an
+additional type, all the members must have values of that type, e.g.
+<a class="reference internal" href="functions.html#int" title="int"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> above.  This restriction does not apply to mix-ins which only
+add methods and don’t specify another data type such as <a class="reference internal" href="functions.html#int" title="int"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> or
+<a class="reference internal" href="stdtypes.html#str" title="str"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>.</li>
+<li>When another data type is mixed in, the <code class="xref py py-attr docutils literal notranslate"><span class="pre">value</span></code> attribute is <em>not the
+same</em> as the enum member itself, although it is equivalent and will compare
+equal.</li>
+<li>%-style formatting:  <cite>%s</cite> and <cite>%r</cite> call the <a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a> class’s
+<a class="reference internal" href="../reference/datamodel.html#object.__str__" title="object.__str__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__str__()</span></code></a> and <a class="reference internal" href="../reference/datamodel.html#object.__repr__" title="object.__repr__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__repr__()</span></code></a> respectively; other codes (such as
+<cite>%i</cite> or <cite>%h</cite> for IntEnum) treat the enum member as its mixed-in type.</li>
+<li><a class="reference internal" href="../reference/lexical_analysis.html#f-strings"><span class="std std-ref">Formatted string literals</span></a>, <a class="reference internal" href="stdtypes.html#str.format" title="str.format"><code class="xref py py-meth docutils literal notranslate"><span class="pre">str.format()</span></code></a>,
+and <a class="reference internal" href="functions.html#format" title="format"><code class="xref py py-func docutils literal notranslate"><span class="pre">format()</span></code></a> will use the mixed-in
+type’s <a class="reference internal" href="../reference/datamodel.html#object.__format__" title="object.__format__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__format__()</span></code></a>.  If the <a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a> class’s <a class="reference internal" href="stdtypes.html#str" title="str"><code class="xref py py-func docutils literal notranslate"><span class="pre">str()</span></code></a> or
+<a class="reference internal" href="functions.html#repr" title="repr"><code class="xref py py-func docutils literal notranslate"><span class="pre">repr()</span></code></a> is desired, use the <cite>!s</cite> or <cite>!r</cite> format codes.</li>
+</ol>
+</div>
+</div>
+<div class="section" id="interesting-examples">
+<h2>Interesting examples<a class="headerlink" href="#interesting-examples" title="Permalink to this headline">¶</a></h2>
+<p>While <a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a>, <a class="reference internal" href="#enum.IntEnum" title="enum.IntEnum"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></a>, <a class="reference internal" href="#enum.IntFlag" title="enum.IntFlag"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntFlag</span></code></a>, and <a class="reference internal" href="#enum.Flag" title="enum.Flag"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flag</span></code></a> are
+expected to cover the majority of use-cases, they cannot cover them all.  Here
+are recipes for some different types of enumerations that can be used directly,
+or as examples for creating one’s own.</p>
+<div class="section" id="omitting-values">
+<h3>Omitting values<a class="headerlink" href="#omitting-values" title="Permalink to this headline">¶</a></h3>
+<p>In many use-cases one doesn’t care what the actual value of an enumeration
+is. There are several ways to define this type of simple enumeration:</p>
+<ul class="simple">
+<li>use instances of <a class="reference internal" href="#enum.auto" title="enum.auto"><code class="xref py py-class docutils literal notranslate"><span class="pre">auto</span></code></a> for the value</li>
+<li>use instances of <a class="reference internal" href="functions.html#object" title="object"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a> as the value</li>
+<li>use a descriptive string as the value</li>
+<li>use a tuple as the value and a custom <a class="reference internal" href="../reference/datamodel.html#object.__new__" title="object.__new__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__new__()</span></code></a> to replace the
+tuple with an <a class="reference internal" href="functions.html#int" title="int"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> value</li>
+</ul>
+<p>Using any of these methods signifies to the user that these values are not
+important, and also enables one to add, remove, or reorder members without
+having to renumber the remaining members.</p>
+<p>Whichever method you choose, you should provide a <a class="reference internal" href="functions.html#repr" title="repr"><code class="xref py py-meth docutils literal notranslate"><span class="pre">repr()</span></code></a> that also hides
+the (unimportant) value:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">NoValue</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="s1">&#39;&lt;</span><span class="si">%s</span><span class="s1">.</span><span class="si">%s</span><span class="s1">&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<div class="section" id="using-auto">
+<h4>Using <a class="reference internal" href="#enum.auto" title="enum.auto"><code class="xref py py-class docutils literal notranslate"><span class="pre">auto</span></code></a><a class="headerlink" href="#using-auto" title="Permalink to this headline">¶</a></h4>
+<p>Using <a class="reference internal" href="#enum.auto" title="enum.auto"><code class="xref py py-class docutils literal notranslate"><span class="pre">auto</span></code></a> would look like:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Color</span><span class="p">(</span><span class="n">NoValue</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">RED</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">BLUE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">GREEN</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Color</span><span class="o">.</span><span class="n">GREEN</span>
+<span class="go">&lt;Color.GREEN&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-object">
+<h4>Using <a class="reference internal" href="functions.html#object" title="object"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a><a class="headerlink" href="#using-object" title="Permalink to this headline">¶</a></h4>
+<p>Using <a class="reference internal" href="functions.html#object" title="object"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a> would look like:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Color</span><span class="p">(</span><span class="n">NoValue</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">RED</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">GREEN</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">BLUE</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Color</span><span class="o">.</span><span class="n">GREEN</span>
+<span class="go">&lt;Color.GREEN&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-a-descriptive-string">
+<h4>Using a descriptive string<a class="headerlink" href="#using-a-descriptive-string" title="Permalink to this headline">¶</a></h4>
+<p>Using a string as the value would look like:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Color</span><span class="p">(</span><span class="n">NoValue</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">RED</span> <span class="o">=</span> <span class="s1">&#39;stop&#39;</span>
+<span class="gp">... </span>    <span class="n">GREEN</span> <span class="o">=</span> <span class="s1">&#39;go&#39;</span>
+<span class="gp">... </span>    <span class="n">BLUE</span> <span class="o">=</span> <span class="s1">&#39;too fast!&#39;</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Color</span><span class="o">.</span><span class="n">GREEN</span>
+<span class="go">&lt;Color.GREEN&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Color</span><span class="o">.</span><span class="n">GREEN</span><span class="o">.</span><span class="n">value</span>
+<span class="go">&#39;go&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-a-custom-new">
+<h4>Using a custom <a class="reference internal" href="../reference/datamodel.html#object.__new__" title="object.__new__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__new__()</span></code></a><a class="headerlink" href="#using-a-custom-new" title="Permalink to this headline">¶</a></h4>
+<p>Using an auto-numbering <a class="reference internal" href="../reference/datamodel.html#object.__new__" title="object.__new__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__new__()</span></code></a> would look like:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">AutoNumber</span><span class="p">(</span><span class="n">NoValue</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="n">value</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">__members__</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="gp">... </span>        <span class="n">obj</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">obj</span><span class="o">.</span><span class="n">_value_</span> <span class="o">=</span> <span class="n">value</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">obj</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Color</span><span class="p">(</span><span class="n">AutoNumber</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">RED</span> <span class="o">=</span> <span class="p">()</span>
+<span class="gp">... </span>    <span class="n">GREEN</span> <span class="o">=</span> <span class="p">()</span>
+<span class="gp">... </span>    <span class="n">BLUE</span> <span class="o">=</span> <span class="p">()</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Color</span><span class="o">.</span><span class="n">GREEN</span>
+<span class="go">&lt;Color.GREEN&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Color</span><span class="o">.</span><span class="n">GREEN</span><span class="o">.</span><span class="n">value</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <a class="reference internal" href="../reference/datamodel.html#object.__new__" title="object.__new__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__new__()</span></code></a> method, if defined, is used during creation of the Enum
+members; it is then replaced by Enum’s <a class="reference internal" href="../reference/datamodel.html#object.__new__" title="object.__new__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__new__()</span></code></a> which is used after
+class creation for lookup of existing members.</p>
+</div>
+</div>
+</div>
+<div class="section" id="orderedenum">
+<h3>OrderedEnum<a class="headerlink" href="#orderedenum" title="Permalink to this headline">¶</a></h3>
+<p>An ordered enumeration that is not based on <a class="reference internal" href="#enum.IntEnum" title="enum.IntEnum"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></a> and so maintains
+the normal <a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a> invariants (such as not being comparable to other
+enumerations):</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">OrderedEnum</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="bp">NotImplemented</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="bp">NotImplemented</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="bp">NotImplemented</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="bp">NotImplemented</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Grade</span><span class="p">(</span><span class="n">OrderedEnum</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">A</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="gp">... </span>    <span class="n">B</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="gp">... </span>    <span class="n">C</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">... </span>    <span class="n">D</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">... </span>    <span class="n">F</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Grade</span><span class="o">.</span><span class="n">C</span> <span class="o">&lt;</span> <span class="n">Grade</span><span class="o">.</span><span class="n">A</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="duplicatefreeenum">
+<h3>DuplicateFreeEnum<a class="headerlink" href="#duplicatefreeenum" title="Permalink to this headline">¶</a></h3>
+<p>Raises an error if a duplicate member name is found instead of creating an
+alias:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">DuplicateFreeEnum</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">cls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">e</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">cls</span><span class="p">):</span>
+<span class="gp">... </span>            <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+<span class="gp">... </span>            <span class="n">e</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
+<span class="gp">... </span>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="gp">... </span>                <span class="s2">&quot;aliases not allowed in DuplicateFreeEnum:  </span><span class="si">%r</span><span class="s2"> --&gt; </span><span class="si">%r</span><span class="s2">&quot;</span>
+<span class="gp">... </span>                <span class="o">%</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Color</span><span class="p">(</span><span class="n">DuplicateFreeEnum</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">RED</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">... </span>    <span class="n">GREEN</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">... </span>    <span class="n">BLUE</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">... </span>    <span class="n">GRENE</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">...</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">ValueError</span>: <span class="n">aliases not allowed in DuplicateFreeEnum:  &#39;GRENE&#39; --&gt; &#39;GREEN&#39;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is a useful example for subclassing Enum to add or change other
+behaviors as well as disallowing aliases.  If the only desired change is
+disallowing aliases, the <a class="reference internal" href="#enum.unique" title="enum.unique"><code class="xref py py-func docutils literal notranslate"><span class="pre">unique()</span></code></a> decorator can be used instead.</p>
+</div>
+</div>
+<div class="section" id="planet">
+<h3>Planet<a class="headerlink" href="#planet" title="Permalink to this headline">¶</a></h3>
+<p>If <a class="reference internal" href="../reference/datamodel.html#object.__new__" title="object.__new__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__new__()</span></code></a> or <a class="reference internal" href="../reference/datamodel.html#object.__init__" title="object.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__init__()</span></code></a> is defined the value of the enum member
+will be passed to those methods:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Planet</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">MERCURY</span> <span class="o">=</span> <span class="p">(</span><span class="mf">3.303e+23</span><span class="p">,</span> <span class="mf">2.4397e6</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">VENUS</span>   <span class="o">=</span> <span class="p">(</span><span class="mf">4.869e+24</span><span class="p">,</span> <span class="mf">6.0518e6</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">EARTH</span>   <span class="o">=</span> <span class="p">(</span><span class="mf">5.976e+24</span><span class="p">,</span> <span class="mf">6.37814e6</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">MARS</span>    <span class="o">=</span> <span class="p">(</span><span class="mf">6.421e+23</span><span class="p">,</span> <span class="mf">3.3972e6</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">JUPITER</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.9e+27</span><span class="p">,</span>   <span class="mf">7.1492e7</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">SATURN</span>  <span class="o">=</span> <span class="p">(</span><span class="mf">5.688e+26</span><span class="p">,</span> <span class="mf">6.0268e7</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">URANUS</span>  <span class="o">=</span> <span class="p">(</span><span class="mf">8.686e+25</span><span class="p">,</span> <span class="mf">2.5559e7</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">NEPTUNE</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.024e+26</span><span class="p">,</span> <span class="mf">2.4746e7</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">radius</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">mass</span> <span class="o">=</span> <span class="n">mass</span>       <span class="c1"># in kilograms</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span>   <span class="c1"># in meters</span>
+<span class="gp">... </span>    <span class="nd">@property</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">surface_gravity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="c1"># universal gravitational constant  (m3 kg-1 s-2)</span>
+<span class="gp">... </span>        <span class="n">G</span> <span class="o">=</span> <span class="mf">6.67300E-11</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">G</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">mass</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Planet</span><span class="o">.</span><span class="n">EARTH</span><span class="o">.</span><span class="n">value</span>
+<span class="go">(5.976e+24, 6378140.0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Planet</span><span class="o">.</span><span class="n">EARTH</span><span class="o">.</span><span class="n">surface_gravity</span>
+<span class="go">9.802652743337129</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="timeperiod">
+<h3>TimePeriod<a class="headerlink" href="#timeperiod" title="Permalink to this headline">¶</a></h3>
+<p>An example to show the <code class="xref py py-attr docutils literal notranslate"><span class="pre">_ignore_</span></code> attribute in use:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">timedelta</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Period</span><span class="p">(</span><span class="n">timedelta</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="s2">&quot;different lengths of time&quot;</span>
+<span class="gp">... </span>    <span class="n">_ignore_</span> <span class="o">=</span> <span class="s1">&#39;Period i&#39;</span>
+<span class="gp">... </span>    <span class="n">Period</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">367</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="n">Period</span><span class="p">[</span><span class="s1">&#39;day_</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">Period</span><span class="p">)[:</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">[&lt;Period.day_0: datetime.timedelta(0)&gt;, &lt;Period.day_1: datetime.timedelta(days=1)&gt;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">Period</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+<span class="go">[&lt;Period.day_365: datetime.timedelta(days=365)&gt;, &lt;Period.day_366: datetime.timedelta(days=366)&gt;]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="how-are-enums-different">
+<h2>How are Enums different?<a class="headerlink" href="#how-are-enums-different" title="Permalink to this headline">¶</a></h2>
+<p>Enums have a custom metaclass that affects many aspects of both derived Enum
+classes and their instances (members).</p>
+<div class="section" id="enum-classes">
+<h3>Enum Classes<a class="headerlink" href="#enum-classes" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">EnumMeta</span></code> metaclass is responsible for providing the
+<a class="reference internal" href="../reference/datamodel.html#object.__contains__" title="object.__contains__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__contains__()</span></code></a>, <a class="reference internal" href="../reference/datamodel.html#object.__dir__" title="object.__dir__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__dir__()</span></code></a>, <a class="reference internal" href="../reference/datamodel.html#object.__iter__" title="object.__iter__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__iter__()</span></code></a> and other methods that
+allow one to do things with an <a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a> class that fail on a typical
+class, such as <cite>list(Color)</cite> or <cite>some_enum_var in Color</cite>.  <code class="xref py py-class docutils literal notranslate"><span class="pre">EnumMeta</span></code> is
+responsible for ensuring that various other methods on the final <a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a>
+class are correct (such as <a class="reference internal" href="../reference/datamodel.html#object.__new__" title="object.__new__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__new__()</span></code></a>, <a class="reference internal" href="pickle.html#object.__getnewargs__" title="object.__getnewargs__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__getnewargs__()</span></code></a>,
+<a class="reference internal" href="../reference/datamodel.html#object.__str__" title="object.__str__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__str__()</span></code></a> and <a class="reference internal" href="../reference/datamodel.html#object.__repr__" title="object.__repr__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__repr__()</span></code></a>).</p>
+</div>
+<div class="section" id="enum-members-aka-instances">
+<h3>Enum Members (aka instances)<a class="headerlink" href="#enum-members-aka-instances" title="Permalink to this headline">¶</a></h3>
+<p>The most interesting thing about Enum members is that they are singletons.
+<code class="xref py py-class docutils literal notranslate"><span class="pre">EnumMeta</span></code> creates them all while it is creating the <a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a>
+class itself, and then puts a custom <a class="reference internal" href="../reference/datamodel.html#object.__new__" title="object.__new__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__new__()</span></code></a> in place to ensure
+that no new ones are ever instantiated by returning only the existing
+member instances.</p>
+</div>
+<div class="section" id="finer-points">
+<h3>Finer Points<a class="headerlink" href="#finer-points" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="supported-dunder-names">
+<h4>Supported <code class="docutils literal notranslate"><span class="pre">__dunder__</span></code> names<a class="headerlink" href="#supported-dunder-names" title="Permalink to this headline">¶</a></h4>
+<p><code class="xref py py-attr docutils literal notranslate"><span class="pre">__members__</span></code> is an <code class="xref py py-class docutils literal notranslate"><span class="pre">OrderedDict</span></code> of <code class="docutils literal notranslate"><span class="pre">member_name</span></code>:<code class="docutils literal notranslate"><span class="pre">member</span></code>
+items.  It is only available on the class.</p>
+<p><a class="reference internal" href="../reference/datamodel.html#object.__new__" title="object.__new__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__new__()</span></code></a>, if specified, must create and return the enum members; it is
+also a very good idea to set the member’s <code class="xref py py-attr docutils literal notranslate"><span class="pre">_value_</span></code> appropriately.  Once
+all the members are created it is no longer used.</p>
+</div>
+<div class="section" id="supported-sunder-names">
+<h4>Supported <code class="docutils literal notranslate"><span class="pre">_sunder_</span></code> names<a class="headerlink" href="#supported-sunder-names" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">_name_</span></code> – name of the member</li>
+<li><code class="docutils literal notranslate"><span class="pre">_value_</span></code> – value of the member; can be set / modified in <code class="docutils literal notranslate"><span class="pre">__new__</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">_missing_</span></code> – a lookup function used when a value is not found; may be
+overridden</li>
+<li><code class="docutils literal notranslate"><span class="pre">_ignore_</span></code> – a list of names, either as a <a class="reference internal" href="stdtypes.html#list" title="list"><code class="xref py py-func docutils literal notranslate"><span class="pre">list()</span></code></a> or a <a class="reference internal" href="stdtypes.html#str" title="str"><code class="xref py py-func docutils literal notranslate"><span class="pre">str()</span></code></a>,
+that will not be transformed into members, and will be removed from the final
+class</li>
+<li><code class="docutils literal notranslate"><span class="pre">_order_</span></code> – used in Python 2/3 code to ensure member order is consistent
+(class attribute, removed during class creation)</li>
+<li><code class="docutils literal notranslate"><span class="pre">_generate_next_value_</span></code> – used by the <a class="reference internal" href="#functional-api">Functional API</a> and by
+<a class="reference internal" href="#enum.auto" title="enum.auto"><code class="xref py py-class docutils literal notranslate"><span class="pre">auto</span></code></a> to get an appropriate value for an enum member; may be
+overridden</li>
+</ul>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.6: </span><code class="docutils literal notranslate"><span class="pre">_missing_</span></code>, <code class="docutils literal notranslate"><span class="pre">_order_</span></code>, <code class="docutils literal notranslate"><span class="pre">_generate_next_value_</span></code></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.7: </span><code class="docutils literal notranslate"><span class="pre">_ignore_</span></code></p>
+</div>
+<p>To help keep Python 2 / Python 3 code in sync an <code class="xref py py-attr docutils literal notranslate"><span class="pre">_order_</span></code> attribute can
+be provided.  It will be checked against the actual order of the enumeration
+and raise an error if the two do not match:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Color</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">_order_</span> <span class="o">=</span> <span class="s1">&#39;RED GREEN BLUE&#39;</span>
+<span class="gp">... </span>    <span class="n">RED</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">... </span>    <span class="n">BLUE</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">... </span>    <span class="n">GREEN</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">...</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">TypeError</span>: <span class="n">member order does not match _order_</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In Python 2 code the <code class="xref py py-attr docutils literal notranslate"><span class="pre">_order_</span></code> attribute is necessary as definition
+order is lost before it can be recorded.</p>
+</div>
+</div>
+<div class="section" id="enum-member-type">
+<h4><code class="docutils literal notranslate"><span class="pre">Enum</span></code> member type<a class="headerlink" href="#enum-member-type" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a> members are instances of their <a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a> class, and are
+normally accessed as <code class="docutils literal notranslate"><span class="pre">EnumClass.member</span></code>.  Under certain circumstances they
+can also be accessed as <code class="docutils literal notranslate"><span class="pre">EnumClass.member.member</span></code>, but you should never do
+this as that lookup may fail or, worse, return something besides the
+<a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a> member you are looking for (this is another good reason to use
+all-uppercase names for members):</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">FieldTypes</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">name</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="gp">... </span>    <span class="n">value</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">... </span>    <span class="n">size</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">FieldTypes</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">size</span>
+<span class="go">&lt;FieldTypes.size: 2&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">FieldTypes</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">value</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.5.</span></p>
+</div>
+</div>
+<div class="section" id="boolean-value-of-enum-classes-and-members">
+<h4>Boolean value of <code class="docutils literal notranslate"><span class="pre">Enum</span></code> classes and members<a class="headerlink" href="#boolean-value-of-enum-classes-and-members" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a> members that are mixed with non-<a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a> types (such as
+<a class="reference internal" href="functions.html#int" title="int"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference internal" href="stdtypes.html#str" title="str"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, etc.) are evaluated according to the mixed-in
+type’s rules; otherwise, all members evaluate as <a class="reference internal" href="constants.html#True" title="True"><code class="xref py py-data docutils literal notranslate"><span class="pre">True</span></code></a>.  To make your
+own Enum’s boolean evaluation depend on the member’s value add the following to
+your class:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a> classes always evaluate as <a class="reference internal" href="constants.html#True" title="True"><code class="xref py py-data docutils literal notranslate"><span class="pre">True</span></code></a>.</p>
+</div>
+<div class="section" id="enum-classes-with-methods">
+<h4><code class="docutils literal notranslate"><span class="pre">Enum</span></code> classes with methods<a class="headerlink" href="#enum-classes-with-methods" title="Permalink to this headline">¶</a></h4>
+<p>If you give your <a class="reference internal" href="#enum.Enum" title="enum.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a> subclass extra methods, like the <a class="reference internal" href="#planet">Planet</a>
+class above, those methods will show up in a <a class="reference internal" href="functions.html#dir" title="dir"><code class="xref py py-func docutils literal notranslate"><span class="pre">dir()</span></code></a> of the member,
+but not of the class:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">dir</span><span class="p">(</span><span class="n">Planet</span><span class="p">)</span>
+<span class="go">[&#39;EARTH&#39;, &#39;JUPITER&#39;, &#39;MARS&#39;, &#39;MERCURY&#39;, &#39;NEPTUNE&#39;, &#39;SATURN&#39;, &#39;URANUS&#39;, &#39;VENUS&#39;, &#39;__class__&#39;, &#39;__doc__&#39;, &#39;__members__&#39;, &#39;__module__&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">dir</span><span class="p">(</span><span class="n">Planet</span><span class="o">.</span><span class="n">EARTH</span><span class="p">)</span>
+<span class="go">[&#39;__class__&#39;, &#39;__doc__&#39;, &#39;__module__&#39;, &#39;name&#39;, &#39;surface_gravity&#39;, &#39;value&#39;]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="combining-members-of-flag">
+<h4>Combining members of <code class="docutils literal notranslate"><span class="pre">Flag</span></code><a class="headerlink" href="#combining-members-of-flag" title="Permalink to this headline">¶</a></h4>
+<p>If a combination of Flag members is not named, the <a class="reference internal" href="functions.html#repr" title="repr"><code class="xref py py-func docutils literal notranslate"><span class="pre">repr()</span></code></a> will include
+all named flags and all named combinations of flags that are in the value:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Color</span><span class="p">(</span><span class="n">Flag</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">RED</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">GREEN</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">BLUE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">MAGENTA</span> <span class="o">=</span> <span class="n">RED</span> <span class="o">|</span> <span class="n">BLUE</span>
+<span class="gp">... </span>    <span class="n">YELLOW</span> <span class="o">=</span> <span class="n">RED</span> <span class="o">|</span> <span class="n">GREEN</span>
+<span class="gp">... </span>    <span class="n">CYAN</span> <span class="o">=</span> <span class="n">GREEN</span> <span class="o">|</span> <span class="n">BLUE</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Color</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># named combination</span>
+<span class="go">&lt;Color.YELLOW: 3&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Color</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>      <span class="c1"># not named combination</span>
+<span class="go">&lt;Color.CYAN|MAGENTA|BLUE|YELLOW|GREEN|RED: 7&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">enum</span></code> — Support for enumerations</a><ul>
+<li><a class="reference internal" href="#module-contents">Module Contents</a></li>
+<li><a class="reference internal" href="#creating-an-enum">Creating an Enum</a></li>
+<li><a class="reference internal" href="#programmatic-access-to-enumeration-members-and-their-attributes">Programmatic access to enumeration members and their attributes</a></li>
+<li><a class="reference internal" href="#duplicating-enum-members-and-values">Duplicating enum members and values</a></li>
+<li><a class="reference internal" href="#ensuring-unique-enumeration-values">Ensuring unique enumeration values</a></li>
+<li><a class="reference internal" href="#using-automatic-values">Using automatic values</a></li>
+<li><a class="reference internal" href="#iteration">Iteration</a></li>
+<li><a class="reference internal" href="#comparisons">Comparisons</a></li>
+<li><a class="reference internal" href="#allowed-members-and-attributes-of-enumerations">Allowed members and attributes of enumerations</a></li>
+<li><a class="reference internal" href="#restricted-enum-subclassing">Restricted Enum subclassing</a></li>
+<li><a class="reference internal" href="#pickling">Pickling</a></li>
+<li><a class="reference internal" href="#functional-api">Functional API</a></li>
+<li><a class="reference internal" href="#derived-enumerations">Derived Enumerations</a><ul>
+<li><a class="reference internal" href="#intenum">IntEnum</a></li>
+<li><a class="reference internal" href="#intflag">IntFlag</a></li>
+<li><a class="reference internal" href="#flag">Flag</a></li>
+<li><a class="reference internal" href="#others">Others</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#interesting-examples">Interesting examples</a><ul>
+<li><a class="reference internal" href="#omitting-values">Omitting values</a><ul>
+<li><a class="reference internal" href="#using-auto">Using <code class="docutils literal notranslate"><span class="pre">auto</span></code></a></li>
+<li><a class="reference internal" href="#using-object">Using <code class="docutils literal notranslate"><span class="pre">object</span></code></a></li>
+<li><a class="reference internal" href="#using-a-descriptive-string">Using a descriptive string</a></li>
+<li><a class="reference internal" href="#using-a-custom-new">Using a custom <code class="docutils literal notranslate"><span class="pre">__new__()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#orderedenum">OrderedEnum</a></li>
+<li><a class="reference internal" href="#duplicatefreeenum">DuplicateFreeEnum</a></li>
+<li><a class="reference internal" href="#planet">Planet</a></li>
+<li><a class="reference internal" href="#timeperiod">TimePeriod</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#how-are-enums-different">How are Enums different?</a><ul>
+<li><a class="reference internal" href="#enum-classes">Enum Classes</a></li>
+<li><a class="reference internal" href="#enum-members-aka-instances">Enum Members (aka instances)</a></li>
+<li><a class="reference internal" href="#finer-points">Finer Points</a><ul>
+<li><a class="reference internal" href="#supported-dunder-names">Supported <code class="docutils literal notranslate"><span class="pre">__dunder__</span></code> names</a></li>
+<li><a class="reference internal" href="#supported-sunder-names">Supported <code class="docutils literal notranslate"><span class="pre">_sunder_</span></code> names</a></li>
+<li><a class="reference internal" href="#enum-member-type"><code class="docutils literal notranslate"><span class="pre">Enum</span></code> member type</a></li>
+<li><a class="reference internal" href="#boolean-value-of-enum-classes-and-members">Boolean value of <code class="docutils literal notranslate"><span class="pre">Enum</span></code> classes and members</a></li>
+<li><a class="reference internal" href="#enum-classes-with-methods"><code class="docutils literal notranslate"><span class="pre">Enum</span></code> classes with methods</a></li>
+<li><a class="reference internal" href="#combining-members-of-flag">Combining members of <code class="docutils literal notranslate"><span class="pre">Flag</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="reprlib.html"
+                        title="previous chapter"><code class="docutils literal notranslate"><span class="pre">reprlib</span></code> — Alternate <code class="docutils literal notranslate"><span class="pre">repr()</span></code> implementation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="numeric.html"
+                        title="next chapter">Numeric and Mathematical Modules</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/library/enum.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="numeric.html" title="Numeric and Mathematical Modules"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="reprlib.html" title="reprlib — Alternate repr() implementation"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="datatypes.html" >Data Types</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

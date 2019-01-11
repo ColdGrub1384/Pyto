@@ -1,0 +1,501 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>smtpd — SMTP Server &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="telnetlib — Telnet client" href="telnetlib.html" />
+    <link rel="prev" title="smtplib — SMTP protocol client" href="smtplib.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/library/smtpd.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="telnetlib.html" title="telnetlib — Telnet client"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="smtplib.html" title="smtplib — SMTP protocol client"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="internet.html" accesskey="U">Internet Protocols and Support</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-smtpd">
+<span id="smtpd-smtp-server"></span><h1><a class="reference internal" href="#module-smtpd" title="smtpd: A SMTP server implementation in Python."><code class="xref py py-mod docutils literal notranslate"><span class="pre">smtpd</span></code></a> — SMTP Server<a class="headerlink" href="#module-smtpd" title="Permalink to this headline">¶</a></h1>
+<p><strong>Source code:</strong> <a class="reference external" href="https://github.com/python/cpython/tree/3.7/Lib/smtpd.py">Lib/smtpd.py</a></p>
+<hr class="docutils" />
+<p>This module offers several classes to implement SMTP (email) servers.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">The <a class="reference external" href="http://aiosmtpd.readthedocs.io/">aiosmtpd</a> package is a recommended
+replacement for this module.  It is based on <a class="reference internal" href="asyncio.html#module-asyncio" title="asyncio: Asynchronous I/O."><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> and provides a
+more straightforward API.  <a class="reference internal" href="#module-smtpd" title="smtpd: A SMTP server implementation in Python."><code class="xref py py-mod docutils literal notranslate"><span class="pre">smtpd</span></code></a> should be considered deprecated.</p>
+</div>
+<p>Several server implementations are present; one is a generic
+do-nothing implementation, which can be overridden, while the other two offer
+specific mail-sending strategies.</p>
+<p>Additionally the SMTPChannel may be extended to implement very specific
+interaction behaviour with SMTP clients.</p>
+<p>The code supports <span class="target" id="index-0"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc5321.html"><strong>RFC 5321</strong></a>, plus the <span class="target" id="index-1"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc1870.html"><strong>RFC 1870</strong></a> SIZE and <span class="target" id="index-2"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc6531.html"><strong>RFC 6531</strong></a>
+SMTPUTF8 extensions.</p>
+<div class="section" id="smtpserver-objects">
+<h2>SMTPServer Objects<a class="headerlink" href="#smtpserver-objects" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="smtpd.SMTPServer">
+<em class="property">class </em><code class="descclassname">smtpd.</code><code class="descname">SMTPServer</code><span class="sig-paren">(</span><em>localaddr</em>, <em>remoteaddr</em>, <em>data_size_limit=33554432</em>, <em>map=None</em>, <em>enable_SMTPUTF8=False</em>, <em>decode_data=False</em><span class="sig-paren">)</span><a class="headerlink" href="#smtpd.SMTPServer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new <a class="reference internal" href="#smtpd.SMTPServer" title="smtpd.SMTPServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMTPServer</span></code></a> object, which binds to local address
+<em>localaddr</em>.  It will treat <em>remoteaddr</em> as an upstream SMTP relayer.  Both
+<em>localaddr</em> and <em>remoteaddr</em> should be a <a class="reference internal" href="socket.html#host-port"><span class="std std-ref">(host, port)</span></a>
+tuple.  The object inherits from <a class="reference internal" href="asyncore.html#asyncore.dispatcher" title="asyncore.dispatcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">asyncore.dispatcher</span></code></a>, and so will
+insert itself into <a class="reference internal" href="asyncore.html#module-asyncore" title="asyncore: A base class for developing asynchronous socket handling services."><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncore</span></code></a>’s event loop on instantiation.</p>
+<p><em>data_size_limit</em> specifies the maximum number of bytes that will be
+accepted in a <code class="docutils literal notranslate"><span class="pre">DATA</span></code> command.  A value of <code class="docutils literal notranslate"><span class="pre">None</span></code> or <code class="docutils literal notranslate"><span class="pre">0</span></code> means no
+limit.</p>
+<p><em>map</em> is the socket map to use for connections (an initially empty
+dictionary is a suitable value).  If not specified the <a class="reference internal" href="asyncore.html#module-asyncore" title="asyncore: A base class for developing asynchronous socket handling services."><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncore</span></code></a>
+global socket map is used.</p>
+<p><em>enable_SMTPUTF8</em> determines whether the <code class="docutils literal notranslate"><span class="pre">SMTPUTF8</span></code> extension (as defined
+in <span class="target" id="index-3"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc6531.html"><strong>RFC 6531</strong></a>) should be enabled.  The default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.
+When <code class="docutils literal notranslate"><span class="pre">True</span></code>, <code class="docutils literal notranslate"><span class="pre">SMTPUTF8</span></code> is accepted as a parameter to the <code class="docutils literal notranslate"><span class="pre">MAIL</span></code>
+command and when present is passed to <a class="reference internal" href="#smtpd.SMTPServer.process_message" title="smtpd.SMTPServer.process_message"><code class="xref py py-meth docutils literal notranslate"><span class="pre">process_message()</span></code></a> in the
+<code class="docutils literal notranslate"><span class="pre">kwargs['mail_options']</span></code> list.  <em>decode_data</em> and <em>enable_SMTPUTF8</em>
+cannot be set to <code class="docutils literal notranslate"><span class="pre">True</span></code> at the same time.</p>
+<p><em>decode_data</em> specifies whether the data portion of the SMTP transaction
+should be decoded using UTF-8.  When <em>decode_data</em> is <code class="docutils literal notranslate"><span class="pre">False</span></code> (the
+default), the server advertises the <code class="docutils literal notranslate"><span class="pre">8BITMIME</span></code>
+extension (<span class="target" id="index-4"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc6152.html"><strong>RFC 6152</strong></a>), accepts the <code class="docutils literal notranslate"><span class="pre">BODY=8BITMIME</span></code> parameter to
+the <code class="docutils literal notranslate"><span class="pre">MAIL</span></code> command, and when present passes it to <a class="reference internal" href="#smtpd.SMTPServer.process_message" title="smtpd.SMTPServer.process_message"><code class="xref py py-meth docutils literal notranslate"><span class="pre">process_message()</span></code></a>
+in the <code class="docutils literal notranslate"><span class="pre">kwargs['mail_options']</span></code> list. <em>decode_data</em> and <em>enable_SMTPUTF8</em>
+cannot be set to <code class="docutils literal notranslate"><span class="pre">True</span></code> at the same time.</p>
+<dl class="method">
+<dt id="smtpd.SMTPServer.process_message">
+<code class="descname">process_message</code><span class="sig-paren">(</span><em>peer</em>, <em>mailfrom</em>, <em>rcpttos</em>, <em>data</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#smtpd.SMTPServer.process_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raise a <a class="reference internal" href="exceptions.html#NotImplementedError" title="NotImplementedError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">NotImplementedError</span></code></a> exception. Override this in subclasses to
+do something useful with this message. Whatever was passed in the
+constructor as <em>remoteaddr</em> will be available as the <code class="xref py py-attr docutils literal notranslate"><span class="pre">_remoteaddr</span></code>
+attribute. <em>peer</em> is the remote host’s address, <em>mailfrom</em> is the envelope
+originator, <em>rcpttos</em> are the envelope recipients and <em>data</em> is a string
+containing the contents of the e-mail (which should be in <span class="target" id="index-5"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc5321.html"><strong>RFC 5321</strong></a>
+format).</p>
+<p>If the <em>decode_data</em> constructor keyword is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the <em>data</em>
+argument will be a unicode string.  If it is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, it
+will be a bytes object.</p>
+<p><em>kwargs</em> is a dictionary containing additional information. It is empty
+if <code class="docutils literal notranslate"><span class="pre">decode_data=True</span></code> was given as an init argument, otherwise
+it contains the following keys:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><em>mail_options</em>:</dt>
+<dd>a list of all received parameters to the <code class="docutils literal notranslate"><span class="pre">MAIL</span></code>
+command (the elements are uppercase strings; example:
+<code class="docutils literal notranslate"><span class="pre">['BODY=8BITMIME',</span> <span class="pre">'SMTPUTF8']</span></code>).</dd>
+<dt><em>rcpt_options</em>:</dt>
+<dd>same as <em>mail_options</em> but for the <code class="docutils literal notranslate"><span class="pre">RCPT</span></code> command.
+Currently no <code class="docutils literal notranslate"><span class="pre">RCPT</span> <span class="pre">TO</span></code> options are supported, so for now
+this will always be an empty list.</dd>
+</dl>
+</div></blockquote>
+<p>Implementations of <code class="docutils literal notranslate"><span class="pre">process_message</span></code> should use the <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code>
+signature to accept arbitrary keyword arguments, since future feature
+enhancements may add keys to the kwargs dictionary.</p>
+<p>Return <code class="docutils literal notranslate"><span class="pre">None</span></code> to request a normal <code class="docutils literal notranslate"><span class="pre">250</span> <span class="pre">Ok</span></code> response; otherwise
+return the desired response string in <span class="target" id="index-6"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc5321.html"><strong>RFC 5321</strong></a> format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="smtpd.SMTPServer.channel_class">
+<code class="descname">channel_class</code><a class="headerlink" href="#smtpd.SMTPServer.channel_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override this in subclasses to use a custom <a class="reference internal" href="#smtpd.SMTPChannel" title="smtpd.SMTPChannel"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMTPChannel</span></code></a> for
+managing SMTP clients.</p>
+</dd></dl>
+
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.4: </span>The <em>map</em> constructor argument.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.5: </span><em>localaddr</em> and <em>remoteaddr</em> may now contain IPv6 addresses.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.5: </span>The <em>decode_data</em> and <em>enable_SMTPUTF8</em> constructor parameters, and the
+<em>kwargs</em> parameter to <a class="reference internal" href="#smtpd.SMTPServer.process_message" title="smtpd.SMTPServer.process_message"><code class="xref py py-meth docutils literal notranslate"><span class="pre">process_message()</span></code></a> when <em>decode_data</em> is
+<code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.6: </span><em>decode_data</em> is now <code class="docutils literal notranslate"><span class="pre">False</span></code> by default.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="debuggingserver-objects">
+<h2>DebuggingServer Objects<a class="headerlink" href="#debuggingserver-objects" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="smtpd.DebuggingServer">
+<em class="property">class </em><code class="descclassname">smtpd.</code><code class="descname">DebuggingServer</code><span class="sig-paren">(</span><em>localaddr</em>, <em>remoteaddr</em><span class="sig-paren">)</span><a class="headerlink" href="#smtpd.DebuggingServer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new debugging server.  Arguments are as per <a class="reference internal" href="#smtpd.SMTPServer" title="smtpd.SMTPServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMTPServer</span></code></a>.
+Messages will be discarded, and printed on stdout.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pureproxy-objects">
+<h2>PureProxy Objects<a class="headerlink" href="#pureproxy-objects" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="smtpd.PureProxy">
+<em class="property">class </em><code class="descclassname">smtpd.</code><code class="descname">PureProxy</code><span class="sig-paren">(</span><em>localaddr</em>, <em>remoteaddr</em><span class="sig-paren">)</span><a class="headerlink" href="#smtpd.PureProxy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new pure proxy server. Arguments are as per <a class="reference internal" href="#smtpd.SMTPServer" title="smtpd.SMTPServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMTPServer</span></code></a>.
+Everything will be relayed to <em>remoteaddr</em>.  Note that running this has a good
+chance to make you into an open relay, so please be careful.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="mailmanproxy-objects">
+<h2>MailmanProxy Objects<a class="headerlink" href="#mailmanproxy-objects" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="smtpd.MailmanProxy">
+<em class="property">class </em><code class="descclassname">smtpd.</code><code class="descname">MailmanProxy</code><span class="sig-paren">(</span><em>localaddr</em>, <em>remoteaddr</em><span class="sig-paren">)</span><a class="headerlink" href="#smtpd.MailmanProxy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new pure proxy server. Arguments are as per <a class="reference internal" href="#smtpd.SMTPServer" title="smtpd.SMTPServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMTPServer</span></code></a>.
+Everything will be relayed to <em>remoteaddr</em>, unless local mailman configurations
+knows about an address, in which case it will be handled via mailman.  Note that
+running this has a good chance to make you into an open relay, so please be
+careful.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="smtpchannel-objects">
+<h2>SMTPChannel Objects<a class="headerlink" href="#smtpchannel-objects" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="smtpd.SMTPChannel">
+<em class="property">class </em><code class="descclassname">smtpd.</code><code class="descname">SMTPChannel</code><span class="sig-paren">(</span><em>server</em>, <em>conn</em>, <em>addr</em>, <em>data_size_limit=33554432</em>, <em>map=None</em>, <em>enable_SMTPUTF8=False</em>, <em>decode_data=False</em><span class="sig-paren">)</span><a class="headerlink" href="#smtpd.SMTPChannel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new <a class="reference internal" href="#smtpd.SMTPChannel" title="smtpd.SMTPChannel"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMTPChannel</span></code></a> object which manages the communication
+between the server and a single SMTP client.</p>
+<p><em>conn</em> and <em>addr</em> are as per the instance variables described below.</p>
+<p><em>data_size_limit</em> specifies the maximum number of bytes that will be
+accepted in a <code class="docutils literal notranslate"><span class="pre">DATA</span></code> command.  A value of <code class="docutils literal notranslate"><span class="pre">None</span></code> or <code class="docutils literal notranslate"><span class="pre">0</span></code> means no
+limit.</p>
+<p><em>enable_SMTPUTF8</em> determines whether the <code class="docutils literal notranslate"><span class="pre">SMTPUTF8</span></code> extension (as defined
+in <span class="target" id="index-7"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc6531.html"><strong>RFC 6531</strong></a>) should be enabled.  The default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.
+<em>decode_data</em> and <em>enable_SMTPUTF8</em> cannot be set to <code class="docutils literal notranslate"><span class="pre">True</span></code> at the same
+time.</p>
+<p>A dictionary can be specified in <em>map</em> to avoid using a global socket map.</p>
+<p><em>decode_data</em> specifies whether the data portion of the SMTP transaction
+should be decoded using UTF-8.  The default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.
+<em>decode_data</em> and <em>enable_SMTPUTF8</em> cannot be set to <code class="docutils literal notranslate"><span class="pre">True</span></code> at the same
+time.</p>
+<p>To use a custom SMTPChannel implementation you need to override the
+<a class="reference internal" href="#smtpd.SMTPServer.channel_class" title="smtpd.SMTPServer.channel_class"><code class="xref py py-attr docutils literal notranslate"><span class="pre">SMTPServer.channel_class</span></code></a> of your <a class="reference internal" href="#smtpd.SMTPServer" title="smtpd.SMTPServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMTPServer</span></code></a>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.5: </span>The <em>decode_data</em> and <em>enable_SMTPUTF8</em> parameters were added.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.6: </span><em>decode_data</em> is now <code class="docutils literal notranslate"><span class="pre">False</span></code> by default.</p>
+</div>
+<p>The <a class="reference internal" href="#smtpd.SMTPChannel" title="smtpd.SMTPChannel"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMTPChannel</span></code></a> has the following instance variables:</p>
+<dl class="attribute">
+<dt id="smtpd.SMTPChannel.smtp_server">
+<code class="descname">smtp_server</code><a class="headerlink" href="#smtpd.SMTPChannel.smtp_server" title="Permalink to this definition">¶</a></dt>
+<dd><p>Holds the <a class="reference internal" href="#smtpd.SMTPServer" title="smtpd.SMTPServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMTPServer</span></code></a> that spawned this channel.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="smtpd.SMTPChannel.conn">
+<code class="descname">conn</code><a class="headerlink" href="#smtpd.SMTPChannel.conn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Holds the socket object connecting to the client.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="smtpd.SMTPChannel.addr">
+<code class="descname">addr</code><a class="headerlink" href="#smtpd.SMTPChannel.addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Holds the address of the client, the second value returned by
+<a class="reference internal" href="socket.html#socket.socket.accept" title="socket.socket.accept"><code class="xref py py-func docutils literal notranslate"><span class="pre">socket.accept</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="smtpd.SMTPChannel.received_lines">
+<code class="descname">received_lines</code><a class="headerlink" href="#smtpd.SMTPChannel.received_lines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Holds a list of the line strings (decoded using UTF-8) received from
+the client. The lines have their <code class="docutils literal notranslate"><span class="pre">&quot;\r\n&quot;</span></code> line ending translated to
+<code class="docutils literal notranslate"><span class="pre">&quot;\n&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="smtpd.SMTPChannel.smtp_state">
+<code class="descname">smtp_state</code><a class="headerlink" href="#smtpd.SMTPChannel.smtp_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Holds the current state of the channel. This will be either
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">COMMAND</span></code> initially and then <code class="xref py py-attr docutils literal notranslate"><span class="pre">DATA</span></code> after the client sends
+a “DATA” line.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="smtpd.SMTPChannel.seen_greeting">
+<code class="descname">seen_greeting</code><a class="headerlink" href="#smtpd.SMTPChannel.seen_greeting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Holds a string containing the greeting sent by the client in its “HELO”.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="smtpd.SMTPChannel.mailfrom">
+<code class="descname">mailfrom</code><a class="headerlink" href="#smtpd.SMTPChannel.mailfrom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Holds a string containing the address identified in the “MAIL FROM:” line
+from the client.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="smtpd.SMTPChannel.rcpttos">
+<code class="descname">rcpttos</code><a class="headerlink" href="#smtpd.SMTPChannel.rcpttos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Holds a list of strings containing the addresses identified in the
+“RCPT TO:” lines from the client.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="smtpd.SMTPChannel.received_data">
+<code class="descname">received_data</code><a class="headerlink" href="#smtpd.SMTPChannel.received_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Holds a string containing all of the data sent by the client during the
+DATA state, up to but not including the terminating <code class="docutils literal notranslate"><span class="pre">&quot;\r\n.\r\n&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="smtpd.SMTPChannel.fqdn">
+<code class="descname">fqdn</code><a class="headerlink" href="#smtpd.SMTPChannel.fqdn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Holds the fully-qualified domain name of the server as returned by
+<a class="reference internal" href="socket.html#socket.getfqdn" title="socket.getfqdn"><code class="xref py py-func docutils literal notranslate"><span class="pre">socket.getfqdn()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="smtpd.SMTPChannel.peer">
+<code class="descname">peer</code><a class="headerlink" href="#smtpd.SMTPChannel.peer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Holds the name of the client peer as returned by <code class="docutils literal notranslate"><span class="pre">conn.getpeername()</span></code>
+where <code class="docutils literal notranslate"><span class="pre">conn</span></code> is <a class="reference internal" href="#smtpd.SMTPChannel.conn" title="smtpd.SMTPChannel.conn"><code class="xref py py-attr docutils literal notranslate"><span class="pre">conn</span></code></a>.</p>
+</dd></dl>
+
+<p>The <a class="reference internal" href="#smtpd.SMTPChannel" title="smtpd.SMTPChannel"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMTPChannel</span></code></a> operates by invoking methods named <code class="docutils literal notranslate"><span class="pre">smtp_&lt;command&gt;</span></code>
+upon reception of a command line from the client. Built into the base
+<a class="reference internal" href="#smtpd.SMTPChannel" title="smtpd.SMTPChannel"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMTPChannel</span></code></a> class are methods for handling the following commands
+(and responding to them appropriately):</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="89%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Command</th>
+<th class="head">Action taken</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>HELO</td>
+<td>Accepts the greeting from the client and stores it in
+<a class="reference internal" href="#smtpd.SMTPChannel.seen_greeting" title="smtpd.SMTPChannel.seen_greeting"><code class="xref py py-attr docutils literal notranslate"><span class="pre">seen_greeting</span></code></a>.  Sets server to base command mode.</td>
+</tr>
+<tr class="row-odd"><td>EHLO</td>
+<td>Accepts the greeting from the client and stores it in
+<a class="reference internal" href="#smtpd.SMTPChannel.seen_greeting" title="smtpd.SMTPChannel.seen_greeting"><code class="xref py py-attr docutils literal notranslate"><span class="pre">seen_greeting</span></code></a>.  Sets server to extended command mode.</td>
+</tr>
+<tr class="row-even"><td>NOOP</td>
+<td>Takes no action.</td>
+</tr>
+<tr class="row-odd"><td>QUIT</td>
+<td>Closes the connection cleanly.</td>
+</tr>
+<tr class="row-even"><td>MAIL</td>
+<td>Accepts the “MAIL FROM:” syntax and stores the supplied address as
+<a class="reference internal" href="#smtpd.SMTPChannel.mailfrom" title="smtpd.SMTPChannel.mailfrom"><code class="xref py py-attr docutils literal notranslate"><span class="pre">mailfrom</span></code></a>.  In extended command mode, accepts the
+<span class="target" id="index-8"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc1870.html"><strong>RFC 1870</strong></a> SIZE attribute and responds appropriately based on the
+value of <em>data_size_limit</em>.</td>
+</tr>
+<tr class="row-odd"><td>RCPT</td>
+<td>Accepts the “RCPT TO:” syntax and stores the supplied addresses in
+the <a class="reference internal" href="#smtpd.SMTPChannel.rcpttos" title="smtpd.SMTPChannel.rcpttos"><code class="xref py py-attr docutils literal notranslate"><span class="pre">rcpttos</span></code></a> list.</td>
+</tr>
+<tr class="row-even"><td>RSET</td>
+<td>Resets the <a class="reference internal" href="#smtpd.SMTPChannel.mailfrom" title="smtpd.SMTPChannel.mailfrom"><code class="xref py py-attr docutils literal notranslate"><span class="pre">mailfrom</span></code></a>, <a class="reference internal" href="#smtpd.SMTPChannel.rcpttos" title="smtpd.SMTPChannel.rcpttos"><code class="xref py py-attr docutils literal notranslate"><span class="pre">rcpttos</span></code></a>, and
+<a class="reference internal" href="#smtpd.SMTPChannel.received_data" title="smtpd.SMTPChannel.received_data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">received_data</span></code></a>, but not the greeting.</td>
+</tr>
+<tr class="row-odd"><td>DATA</td>
+<td>Sets the internal state to <code class="xref py py-attr docutils literal notranslate"><span class="pre">DATA</span></code> and stores remaining lines
+from the client in <a class="reference internal" href="#smtpd.SMTPChannel.received_data" title="smtpd.SMTPChannel.received_data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">received_data</span></code></a> until the terminator
+<code class="docutils literal notranslate"><span class="pre">&quot;\r\n.\r\n&quot;</span></code> is received.</td>
+</tr>
+<tr class="row-even"><td>HELP</td>
+<td>Returns minimal information on command syntax</td>
+</tr>
+<tr class="row-odd"><td>VRFY</td>
+<td>Returns code 252 (the server doesn’t know if the address is valid)</td>
+</tr>
+<tr class="row-even"><td>EXPN</td>
+<td>Reports that the command is not implemented.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">smtpd</span></code> — SMTP Server</a><ul>
+<li><a class="reference internal" href="#smtpserver-objects">SMTPServer Objects</a></li>
+<li><a class="reference internal" href="#debuggingserver-objects">DebuggingServer Objects</a></li>
+<li><a class="reference internal" href="#pureproxy-objects">PureProxy Objects</a></li>
+<li><a class="reference internal" href="#mailmanproxy-objects">MailmanProxy Objects</a></li>
+<li><a class="reference internal" href="#smtpchannel-objects">SMTPChannel Objects</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="smtplib.html"
+                        title="previous chapter"><code class="docutils literal notranslate"><span class="pre">smtplib</span></code> — SMTP protocol client</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="telnetlib.html"
+                        title="next chapter"><code class="docutils literal notranslate"><span class="pre">telnetlib</span></code> — Telnet client</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/library/smtpd.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="telnetlib.html" title="telnetlib — Telnet client"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="smtplib.html" title="smtplib — SMTP protocol client"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="internet.html" >Internet Protocols and Support</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

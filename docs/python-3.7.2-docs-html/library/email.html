@@ -1,0 +1,317 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>email — An email and MIME handling package &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="email.message: Representing an email message" href="email.message.html" />
+    <link rel="prev" title="Internet Data Handling" href="netdata.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/library/email.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="email.message.html" title="email.message: Representing an email message"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="netdata.html" title="Internet Data Handling"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="netdata.html" accesskey="U">Internet Data Handling</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-email">
+<span id="email-an-email-and-mime-handling-package"></span><h1><a class="reference internal" href="#module-email" title="email: Package supporting the parsing, manipulating, and generating email messages."><code class="xref py py-mod docutils literal notranslate"><span class="pre">email</span></code></a> — An email and MIME handling package<a class="headerlink" href="#module-email" title="Permalink to this headline">¶</a></h1>
+<p><strong>Source code:</strong> <a class="reference external" href="https://github.com/python/cpython/tree/3.7/Lib/email/__init__.py">Lib/email/__init__.py</a></p>
+<hr class="docutils" />
+<p>The <a class="reference internal" href="#module-email" title="email: Package supporting the parsing, manipulating, and generating email messages."><code class="xref py py-mod docutils literal notranslate"><span class="pre">email</span></code></a> package is a library for managing email messages.  It is
+specifically <em>not</em> designed to do any sending of email messages to SMTP
+(<span class="target" id="index-0"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc2821.html"><strong>RFC 2821</strong></a>), NNTP, or other servers; those are functions of modules such as
+<a class="reference internal" href="smtplib.html#module-smtplib" title="smtplib: SMTP protocol client (requires sockets)."><code class="xref py py-mod docutils literal notranslate"><span class="pre">smtplib</span></code></a> and <a class="reference internal" href="nntplib.html#module-nntplib" title="nntplib: NNTP protocol client (requires sockets)."><code class="xref py py-mod docutils literal notranslate"><span class="pre">nntplib</span></code></a>.  The <a class="reference internal" href="#module-email" title="email: Package supporting the parsing, manipulating, and generating email messages."><code class="xref py py-mod docutils literal notranslate"><span class="pre">email</span></code></a> package attempts to be as
+RFC-compliant as possible, supporting <span class="target" id="index-1"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc5233.html"><strong>RFC 5233</strong></a> and <span class="target" id="index-2"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc6532.html"><strong>RFC 6532</strong></a>, as well as
+such MIME-related RFCs as <span class="target" id="index-3"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc2045.html"><strong>RFC 2045</strong></a>, <span class="target" id="index-4"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc2046.html"><strong>RFC 2046</strong></a>, <span class="target" id="index-5"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc2047.html"><strong>RFC 2047</strong></a>, <span class="target" id="index-6"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc2183.html"><strong>RFC 2183</strong></a>,
+and <span class="target" id="index-7"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc2231.html"><strong>RFC 2231</strong></a>.</p>
+<p>The overall structure of the email package can be divided into three major
+components, plus a fourth component that controls the behavior of the other
+components.</p>
+<p>The central component of the package is an “object model” that represents email
+messages.  An application interacts with the package primarily through the
+object model interface defined in the <a class="reference internal" href="email.compat32-message.html#module-email.message" title="email.message: The base class representing email messages in a fashion backward compatible with Python 3.2"><code class="xref py py-mod docutils literal notranslate"><span class="pre">message</span></code></a> sub-module.  The
+application can use this API to ask questions about an existing email, to
+construct a new email, or to add or remove email subcomponents that themselves
+use the same object model interface.  That is, following the nature of email
+messages and their MIME subcomponents, the email object model is a tree
+structure of objects that all provide the <a class="reference internal" href="email.message.html#email.message.EmailMessage" title="email.message.EmailMessage"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmailMessage</span></code></a>
+API.</p>
+<p>The other two major components of the package are the <a class="reference internal" href="email.parser.html#module-email.parser" title="email.parser: Parse flat text email messages to produce a message object structure."><code class="xref py py-mod docutils literal notranslate"><span class="pre">parser</span></code></a> and
+the <a class="reference internal" href="email.generator.html#module-email.generator" title="email.generator: Generate flat text email messages from a message structure."><code class="xref py py-mod docutils literal notranslate"><span class="pre">generator</span></code></a>.  The parser takes the serialized version of an
+email message (a stream of bytes) and converts it into a tree of
+<a class="reference internal" href="email.message.html#email.message.EmailMessage" title="email.message.EmailMessage"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmailMessage</span></code></a> objects.  The generator takes an
+<a class="reference internal" href="email.message.html#email.message.EmailMessage" title="email.message.EmailMessage"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmailMessage</span></code></a> and turns it back into a serialized byte
+stream.  (The parser and generator also handle streams of text characters, but
+this usage is discouraged as it is too easy to end up with messages that are
+not valid in one way or another.)</p>
+<p>The control component is the <a class="reference internal" href="email.policy.html#module-email.policy" title="email.policy: Controlling the parsing and generating of messages"><code class="xref py py-mod docutils literal notranslate"><span class="pre">policy</span></code></a> module.  Every
+<a class="reference internal" href="email.message.html#email.message.EmailMessage" title="email.message.EmailMessage"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmailMessage</span></code></a>, every <a class="reference internal" href="email.generator.html#module-email.generator" title="email.generator: Generate flat text email messages from a message structure."><code class="xref py py-mod docutils literal notranslate"><span class="pre">generator</span></code></a>, and every
+<a class="reference internal" href="email.parser.html#module-email.parser" title="email.parser: Parse flat text email messages to produce a message object structure."><code class="xref py py-mod docutils literal notranslate"><span class="pre">parser</span></code></a> has an associated <a class="reference internal" href="email.policy.html#module-email.policy" title="email.policy: Controlling the parsing and generating of messages"><code class="xref py py-mod docutils literal notranslate"><span class="pre">policy</span></code></a> object that
+controls its behavior.  Usually an application only needs to specify the policy
+when an <a class="reference internal" href="email.message.html#email.message.EmailMessage" title="email.message.EmailMessage"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmailMessage</span></code></a> is created, either by directly
+instantiating an <a class="reference internal" href="email.message.html#email.message.EmailMessage" title="email.message.EmailMessage"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmailMessage</span></code></a>  to create a new email,
+or by parsing an input stream using a <a class="reference internal" href="email.parser.html#module-email.parser" title="email.parser: Parse flat text email messages to produce a message object structure."><code class="xref py py-mod docutils literal notranslate"><span class="pre">parser</span></code></a>.  But the policy can
+be changed when the message is serialized using a <a class="reference internal" href="email.generator.html#module-email.generator" title="email.generator: Generate flat text email messages from a message structure."><code class="xref py py-mod docutils literal notranslate"><span class="pre">generator</span></code></a>.
+This allows, for example, a generic email message to be parsed from disk, but
+to serialize it using standard SMTP settings when sending it to an email
+server.</p>
+<p>The email package does its best to hide the details of the various governing
+RFCs from the application.  Conceptually the application should be able to
+treat the email message as a structured tree of unicode text and binary
+attachments, without having to worry about how these are represented when
+serialized.  In practice, however, it is often necessary to be aware of at
+least some of the rules governing MIME messages and their structure,
+specifically the names and nature of the MIME “content types” and how they
+identify multipart documents.  For the most part this knowledge should only be
+required for more complex applications, and even then it should only be the
+high level structure in question, and not the details of how those structures
+are represented.  Since MIME content types are used widely in modern internet
+software (not just email), this will be a familiar concept to many programmers.</p>
+<p>The following sections describe the functionality of the <a class="reference internal" href="#module-email" title="email: Package supporting the parsing, manipulating, and generating email messages."><code class="xref py py-mod docutils literal notranslate"><span class="pre">email</span></code></a> package.
+We start with the <a class="reference internal" href="email.compat32-message.html#module-email.message" title="email.message: The base class representing email messages in a fashion backward compatible with Python 3.2"><code class="xref py py-mod docutils literal notranslate"><span class="pre">message</span></code></a> object model, which is the primary
+interface an application will use, and follow that with the
+<a class="reference internal" href="email.parser.html#module-email.parser" title="email.parser: Parse flat text email messages to produce a message object structure."><code class="xref py py-mod docutils literal notranslate"><span class="pre">parser</span></code></a> and <a class="reference internal" href="email.generator.html#module-email.generator" title="email.generator: Generate flat text email messages from a message structure."><code class="xref py py-mod docutils literal notranslate"><span class="pre">generator</span></code></a> components.  Then we cover the
+<a class="reference internal" href="email.policy.html#module-email.policy" title="email.policy: Controlling the parsing and generating of messages"><code class="xref py py-mod docutils literal notranslate"><span class="pre">policy</span></code></a> controls, which completes the treatment of the main
+components of the library.</p>
+<p>The next three sections cover the exceptions the package may raise and the
+defects (non-compliance with the RFCs) that the <a class="reference internal" href="email.parser.html#module-email.parser" title="email.parser: Parse flat text email messages to produce a message object structure."><code class="xref py py-mod docutils literal notranslate"><span class="pre">parser</span></code></a> may
+detect.  Then we cover the <a class="reference internal" href="email.headerregistry.html#module-email.headerregistry" title="email.headerregistry: Automatic Parsing of headers based on the field name"><code class="xref py py-mod docutils literal notranslate"><span class="pre">headerregistry</span></code></a> and the
+<a class="reference internal" href="email.contentmanager.html#module-email.contentmanager" title="email.contentmanager: Storing and Retrieving Content from MIME Parts"><code class="xref py py-mod docutils literal notranslate"><span class="pre">contentmanager</span></code></a> sub-components, which provide tools for doing more
+detailed manipulation of headers and payloads, respectively.  Both of these
+components contain features relevant to consuming and producing non-trivial
+messages, but also document their extensibility APIs, which will be of interest
+to advanced applications.</p>
+<p>Following those is a set of examples of using the fundamental parts of the APIs
+covered in the preceding sections.</p>
+<p>The foregoing represent the modern (unicode friendly) API of the email package.
+The remaining sections, starting with the <a class="reference internal" href="email.compat32-message.html#email.message.Message" title="email.message.Message"><code class="xref py py-class docutils literal notranslate"><span class="pre">Message</span></code></a>
+class, cover the legacy <a class="reference internal" href="email.policy.html#email.policy.compat32" title="email.policy.compat32"><code class="xref py py-data docutils literal notranslate"><span class="pre">compat32</span></code></a> API that deals much more
+directly with the details of how email messages are represented.  The
+<a class="reference internal" href="email.policy.html#email.policy.compat32" title="email.policy.compat32"><code class="xref py py-data docutils literal notranslate"><span class="pre">compat32</span></code></a> API does <em>not</em> hide the details of the RFCs from
+the application, but for applications that need to operate at that level, they
+can be useful tools.  This documentation is also relevant for applications that
+are still using the <a class="reference internal" href="email.policy.html#email.policy.compat32" title="email.policy.compat32"><code class="xref py py-mod docutils literal notranslate"><span class="pre">compat32</span></code></a> API for backward
+compatibility reasons.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.6: </span>Docs reorganized and rewritten to promote the new
+<a class="reference internal" href="email.message.html#email.message.EmailMessage" title="email.message.EmailMessage"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmailMessage</span></code></a>/<a class="reference internal" href="email.policy.html#email.policy.EmailPolicy" title="email.policy.EmailPolicy"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmailPolicy</span></code></a>
+API.</p>
+</div>
+<p>Contents of the <a class="reference internal" href="#module-email" title="email: Package supporting the parsing, manipulating, and generating email messages."><code class="xref py py-mod docutils literal notranslate"><span class="pre">email</span></code></a> package documentation:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="email.message.html"><code class="docutils literal notranslate"><span class="pre">email.message</span></code>: Representing an email message</a></li>
+<li class="toctree-l1"><a class="reference internal" href="email.parser.html"><code class="docutils literal notranslate"><span class="pre">email.parser</span></code>: Parsing email messages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="email.parser.html#feedparser-api">FeedParser API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="email.parser.html#parser-api">Parser API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="email.parser.html#additional-notes">Additional notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="email.generator.html"><code class="docutils literal notranslate"><span class="pre">email.generator</span></code>: Generating MIME documents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="email.policy.html"><code class="docutils literal notranslate"><span class="pre">email.policy</span></code>: Policy Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="email.errors.html"><code class="docutils literal notranslate"><span class="pre">email.errors</span></code>: Exception and Defect classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="email.headerregistry.html"><code class="docutils literal notranslate"><span class="pre">email.headerregistry</span></code>: Custom Header Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="email.contentmanager.html"><code class="docutils literal notranslate"><span class="pre">email.contentmanager</span></code>: Managing MIME Content</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="email.contentmanager.html#content-manager-instances">Content Manager Instances</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="email.examples.html"><code class="docutils literal notranslate"><span class="pre">email</span></code>: Examples</a></li>
+</ul>
+</div>
+<p>Legacy API:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="email.compat32-message.html"><code class="docutils literal notranslate"><span class="pre">email.message.Message</span></code>: Representing an email message using the <code class="docutils literal notranslate"><span class="pre">compat32</span></code> API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="email.mime.html"><code class="docutils literal notranslate"><span class="pre">email.mime</span></code>: Creating email and MIME objects from scratch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="email.header.html"><code class="docutils literal notranslate"><span class="pre">email.header</span></code>: Internationalized headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="email.charset.html"><code class="docutils literal notranslate"><span class="pre">email.charset</span></code>: Representing character sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="email.encoders.html"><code class="docutils literal notranslate"><span class="pre">email.encoders</span></code>: Encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="email.utils.html"><code class="docutils literal notranslate"><span class="pre">email.utils</span></code>: Miscellaneous utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="email.iterators.html"><code class="docutils literal notranslate"><span class="pre">email.iterators</span></code>: Iterators</a></li>
+</ul>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt>Module <a class="reference internal" href="smtplib.html#module-smtplib" title="smtplib: SMTP protocol client (requires sockets)."><code class="xref py py-mod docutils literal notranslate"><span class="pre">smtplib</span></code></a></dt>
+<dd>SMTP (Simple Mail Transport Protocol) client</dd>
+<dt>Module <a class="reference internal" href="poplib.html#module-poplib" title="poplib: POP3 protocol client (requires sockets)."><code class="xref py py-mod docutils literal notranslate"><span class="pre">poplib</span></code></a></dt>
+<dd>POP (Post Office Protocol) client</dd>
+<dt>Module <a class="reference internal" href="imaplib.html#module-imaplib" title="imaplib: IMAP4 protocol client (requires sockets)."><code class="xref py py-mod docutils literal notranslate"><span class="pre">imaplib</span></code></a></dt>
+<dd>IMAP (Internet Message Access Protocol) client</dd>
+<dt>Module <a class="reference internal" href="nntplib.html#module-nntplib" title="nntplib: NNTP protocol client (requires sockets)."><code class="xref py py-mod docutils literal notranslate"><span class="pre">nntplib</span></code></a></dt>
+<dd>NNTP (Net News Transport Protocol) client</dd>
+<dt>Module <a class="reference internal" href="mailbox.html#module-mailbox" title="mailbox: Manipulate mailboxes in various formats"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mailbox</span></code></a></dt>
+<dd>Tools for creating, reading, and managing collections of messages on disk
+using a variety standard formats.</dd>
+<dt>Module <a class="reference internal" href="smtpd.html#module-smtpd" title="smtpd: A SMTP server implementation in Python."><code class="xref py py-mod docutils literal notranslate"><span class="pre">smtpd</span></code></a></dt>
+<dd>SMTP server framework (primarily useful for testing)</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="netdata.html"
+                        title="previous chapter">Internet Data Handling</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="email.message.html"
+                        title="next chapter"><code class="docutils literal notranslate"><span class="pre">email.message</span></code>: Representing an email message</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/library/email.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="email.message.html" title="email.message: Representing an email message"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="netdata.html" title="Internet Data Handling"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="netdata.html" >Internet Data Handling</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

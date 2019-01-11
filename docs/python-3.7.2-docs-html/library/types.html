@@ -1,0 +1,607 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>types — Dynamic type creation and names for built-in types &#8212; Python 3.7.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.7.2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="copy — Shallow and deep copy operations" href="copy.html" />
+    <link rel="prev" title="weakref — Weak references" href="weakref.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/library/types.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/switchers.js"></script>
+    
+    
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+ 
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="copy.html" title="copy — Shallow and deep copy operations"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="weakref.html" title="weakref — Weak references"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="datatypes.html" accesskey="U">Data Types</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-types">
+<span id="types-dynamic-type-creation-and-names-for-built-in-types"></span><h1><a class="reference internal" href="#module-types" title="types: Names for built-in types."><code class="xref py py-mod docutils literal notranslate"><span class="pre">types</span></code></a> — Dynamic type creation and names for built-in types<a class="headerlink" href="#module-types" title="Permalink to this headline">¶</a></h1>
+<p><strong>Source code:</strong> <a class="reference external" href="https://github.com/python/cpython/tree/3.7/Lib/types.py">Lib/types.py</a></p>
+<hr class="docutils" />
+<p>This module defines utility functions to assist in dynamic creation of
+new types.</p>
+<p>It also defines names for some object types that are used by the standard
+Python interpreter, but not exposed as builtins like <a class="reference internal" href="functions.html#int" title="int"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> or
+<a class="reference internal" href="stdtypes.html#str" title="str"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> are.</p>
+<p>Finally, it provides some additional type-related utility classes and functions
+that are not fundamental enough to be builtins.</p>
+<div class="section" id="dynamic-type-creation">
+<h2>Dynamic Type Creation<a class="headerlink" href="#dynamic-type-creation" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="types.new_class">
+<code class="descclassname">types.</code><code class="descname">new_class</code><span class="sig-paren">(</span><em>name</em>, <em>bases=()</em>, <em>kwds=None</em>, <em>exec_body=None</em><span class="sig-paren">)</span><a class="headerlink" href="#types.new_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a class object dynamically using the appropriate metaclass.</p>
+<p>The first three arguments are the components that make up a class
+definition header: the class name, the base classes (in order), the
+keyword arguments (such as <code class="docutils literal notranslate"><span class="pre">metaclass</span></code>).</p>
+<p>The <em>exec_body</em> argument is a callback that is used to populate the
+freshly created class namespace. It should accept the class namespace
+as its sole argument and update the namespace directly with the class
+contents. If no callback is provided, it has the same effect as passing
+in <code class="docutils literal notranslate"><span class="pre">lambda</span> <span class="pre">ns:</span> <span class="pre">ns</span></code>.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.3.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="types.prepare_class">
+<code class="descclassname">types.</code><code class="descname">prepare_class</code><span class="sig-paren">(</span><em>name</em>, <em>bases=()</em>, <em>kwds=None</em><span class="sig-paren">)</span><a class="headerlink" href="#types.prepare_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the appropriate metaclass and creates the class namespace.</p>
+<p>The arguments are the components that make up a class definition header:
+the class name, the base classes (in order) and the keyword arguments
+(such as <code class="docutils literal notranslate"><span class="pre">metaclass</span></code>).</p>
+<p>The return value is a 3-tuple: <code class="docutils literal notranslate"><span class="pre">metaclass,</span> <span class="pre">namespace,</span> <span class="pre">kwds</span></code></p>
+<p><em>metaclass</em> is the appropriate metaclass, <em>namespace</em> is the
+prepared class namespace and <em>kwds</em> is an updated copy of the passed
+in <em>kwds</em> argument with any <code class="docutils literal notranslate"><span class="pre">'metaclass'</span></code> entry removed. If no <em>kwds</em>
+argument is passed in, this will be an empty dict.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.3.</span></p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.6: </span>The default value for the <code class="docutils literal notranslate"><span class="pre">namespace</span></code> element of the returned
+tuple has changed.  Now an insertion-order-preserving mapping is
+used when the metaclass does not have a <code class="docutils literal notranslate"><span class="pre">__prepare__</span></code> method.</p>
+</div>
+</dd></dl>
+
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="../reference/datamodel.html#metaclasses"><span class="std std-ref">Metaclasses</span></a></dt>
+<dd>Full details of the class creation process supported by these functions</dd>
+<dt><span class="target" id="index-0"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-3115"><strong>PEP 3115</strong></a> - Metaclasses in Python 3000</dt>
+<dd>Introduced the <code class="docutils literal notranslate"><span class="pre">__prepare__</span></code> namespace hook</dd>
+</dl>
+</div>
+<dl class="function">
+<dt id="types.resolve_bases">
+<code class="descclassname">types.</code><code class="descname">resolve_bases</code><span class="sig-paren">(</span><em>bases</em><span class="sig-paren">)</span><a class="headerlink" href="#types.resolve_bases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resolve MRO entries dynamically as specified by <span class="target" id="index-1"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0560"><strong>PEP 560</strong></a>.</p>
+<p>This function looks for items in <em>bases</em> that are not instances of
+<a class="reference internal" href="functions.html#type" title="type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></a>, and returns a tuple where each such object that has
+an <code class="docutils literal notranslate"><span class="pre">__mro_entries__</span></code> method is replaced with an unpacked result of
+calling this method.  If a <em>bases</em> item is an instance of <a class="reference internal" href="functions.html#type" title="type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></a>,
+or it doesn’t have an <code class="docutils literal notranslate"><span class="pre">__mro_entries__</span></code> method, then it is included in
+the return tuple unchanged.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.7.</span></p>
+</div>
+</dd></dl>
+
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><span class="target" id="index-2"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0560"><strong>PEP 560</strong></a> - Core support for typing module and generic types</p>
+</div>
+</div>
+<div class="section" id="standard-interpreter-types">
+<h2>Standard Interpreter Types<a class="headerlink" href="#standard-interpreter-types" title="Permalink to this headline">¶</a></h2>
+<p>This module provides names for many of the types that are required to
+implement a Python interpreter. It deliberately avoids including some of
+the types that arise only incidentally during processing such as the
+<code class="docutils literal notranslate"><span class="pre">listiterator</span></code> type.</p>
+<p>Typical use of these names is for <a class="reference internal" href="functions.html#isinstance" title="isinstance"><code class="xref py py-func docutils literal notranslate"><span class="pre">isinstance()</span></code></a> or
+<a class="reference internal" href="functions.html#issubclass" title="issubclass"><code class="xref py py-func docutils literal notranslate"><span class="pre">issubclass()</span></code></a> checks.</p>
+<p>Standard names are defined for the following types:</p>
+<dl class="data">
+<dt id="types.FunctionType">
+<code class="descclassname">types.</code><code class="descname">FunctionType</code><a class="headerlink" href="#types.FunctionType" title="Permalink to this definition">¶</a></dt>
+<dt id="types.LambdaType">
+<code class="descclassname">types.</code><code class="descname">LambdaType</code><a class="headerlink" href="#types.LambdaType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of user-defined functions and functions created by
+<a class="reference internal" href="../reference/expressions.html#lambda"><code class="xref std std-keyword docutils literal notranslate"><span class="pre">lambda</span></code></a>  expressions.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="types.GeneratorType">
+<code class="descclassname">types.</code><code class="descname">GeneratorType</code><a class="headerlink" href="#types.GeneratorType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of <a class="reference internal" href="../glossary.html#term-generator"><span class="xref std std-term">generator</span></a>-iterator objects, created by
+generator functions.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="types.CoroutineType">
+<code class="descclassname">types.</code><code class="descname">CoroutineType</code><a class="headerlink" href="#types.CoroutineType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of <a class="reference internal" href="../glossary.html#term-coroutine"><span class="xref std std-term">coroutine</span></a> objects, created by
+<a class="reference internal" href="../reference/compound_stmts.html#async-def"><code class="xref std std-keyword docutils literal notranslate"><span class="pre">async</span> <span class="pre">def</span></code></a> functions.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.5.</span></p>
+</div>
+</dd></dl>
+
+<dl class="data">
+<dt id="types.AsyncGeneratorType">
+<code class="descclassname">types.</code><code class="descname">AsyncGeneratorType</code><a class="headerlink" href="#types.AsyncGeneratorType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of <a class="reference internal" href="../glossary.html#term-asynchronous-generator"><span class="xref std std-term">asynchronous generator</span></a>-iterator objects, created by
+asynchronous generator functions.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.6.</span></p>
+</div>
+</dd></dl>
+
+<dl class="data">
+<dt id="types.CodeType">
+<code class="descclassname">types.</code><code class="descname">CodeType</code><a class="headerlink" href="#types.CodeType" title="Permalink to this definition">¶</a></dt>
+<dd><p id="index-3">The type for code objects such as returned by <a class="reference internal" href="functions.html#compile" title="compile"><code class="xref py py-func docutils literal notranslate"><span class="pre">compile()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="types.MethodType">
+<code class="descclassname">types.</code><code class="descname">MethodType</code><a class="headerlink" href="#types.MethodType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of methods of user-defined class instances.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="types.BuiltinFunctionType">
+<code class="descclassname">types.</code><code class="descname">BuiltinFunctionType</code><a class="headerlink" href="#types.BuiltinFunctionType" title="Permalink to this definition">¶</a></dt>
+<dt id="types.BuiltinMethodType">
+<code class="descclassname">types.</code><code class="descname">BuiltinMethodType</code><a class="headerlink" href="#types.BuiltinMethodType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of built-in functions like <a class="reference internal" href="functions.html#len" title="len"><code class="xref py py-func docutils literal notranslate"><span class="pre">len()</span></code></a> or <a class="reference internal" href="sys.html#sys.exit" title="sys.exit"><code class="xref py py-func docutils literal notranslate"><span class="pre">sys.exit()</span></code></a>, and
+methods of built-in classes.  (Here, the term “built-in” means “written in
+C”.)</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="types.WrapperDescriptorType">
+<code class="descclassname">types.</code><code class="descname">WrapperDescriptorType</code><a class="headerlink" href="#types.WrapperDescriptorType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of methods of some built-in data types and base classes such as
+<a class="reference internal" href="../reference/datamodel.html#object.__init__" title="object.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">object.__init__()</span></code></a> or <a class="reference internal" href="../reference/datamodel.html#object.__lt__" title="object.__lt__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">object.__lt__()</span></code></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.7.</span></p>
+</div>
+</dd></dl>
+
+<dl class="data">
+<dt id="types.MethodWrapperType">
+<code class="descclassname">types.</code><code class="descname">MethodWrapperType</code><a class="headerlink" href="#types.MethodWrapperType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of <em>bound</em> methods of some built-in data types and base classes.
+For example it is the type of <code class="code docutils literal notranslate"><span class="pre">object().__str__</span></code>.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.7.</span></p>
+</div>
+</dd></dl>
+
+<dl class="data">
+<dt id="types.MethodDescriptorType">
+<code class="descclassname">types.</code><code class="descname">MethodDescriptorType</code><a class="headerlink" href="#types.MethodDescriptorType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of methods of some built-in data types such as <a class="reference internal" href="stdtypes.html#str.join" title="str.join"><code class="xref py py-meth docutils literal notranslate"><span class="pre">str.join()</span></code></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.7.</span></p>
+</div>
+</dd></dl>
+
+<dl class="data">
+<dt id="types.ClassMethodDescriptorType">
+<code class="descclassname">types.</code><code class="descname">ClassMethodDescriptorType</code><a class="headerlink" href="#types.ClassMethodDescriptorType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of <em>unbound</em> class methods of some built-in data types such as
+<code class="docutils literal notranslate"><span class="pre">dict.__dict__['fromkeys']</span></code>.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.7.</span></p>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="types.ModuleType">
+<em class="property">class </em><code class="descclassname">types.</code><code class="descname">ModuleType</code><span class="sig-paren">(</span><em>name</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#types.ModuleType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of <a class="reference internal" href="../glossary.html#term-module"><span class="xref std std-term">modules</span></a>. Constructor takes the name of the
+module to be created and optionally its <a class="reference internal" href="../glossary.html#term-docstring"><span class="xref std std-term">docstring</span></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Use <a class="reference internal" href="importlib.html#importlib.util.module_from_spec" title="importlib.util.module_from_spec"><code class="xref py py-func docutils literal notranslate"><span class="pre">importlib.util.module_from_spec()</span></code></a> to create a new module if you
+wish to set the various import-controlled attributes.</p>
+</div>
+<dl class="attribute">
+<dt id="types.ModuleType.__doc__">
+<code class="descname">__doc__</code><a class="headerlink" href="#types.ModuleType.__doc__" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <a class="reference internal" href="../glossary.html#term-docstring"><span class="xref std std-term">docstring</span></a> of the module. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="types.ModuleType.__loader__">
+<code class="descname">__loader__</code><a class="headerlink" href="#types.ModuleType.__loader__" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <a class="reference internal" href="../glossary.html#term-loader"><span class="xref std std-term">loader</span></a> which loaded the module. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.4: </span>Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>. Previously the attribute was optional.</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="types.ModuleType.__name__">
+<code class="descname">__name__</code><a class="headerlink" href="#types.ModuleType.__name__" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the module.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="types.ModuleType.__package__">
+<code class="descname">__package__</code><a class="headerlink" href="#types.ModuleType.__package__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Which <a class="reference internal" href="../glossary.html#term-package"><span class="xref std std-term">package</span></a> a module belongs to. If the module is top-level
+(i.e. not a part of any specific package) then the attribute should be set
+to <code class="docutils literal notranslate"><span class="pre">''</span></code>, else it should be set to the name of the package (which can be
+<a class="reference internal" href="../reference/import.html#__name__" title="__name__"><code class="xref py py-attr docutils literal notranslate"><span class="pre">__name__</span></code></a> if the module is a package itself). Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.4: </span>Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>. Previously the attribute was optional.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="types.TracebackType">
+<em class="property">class </em><code class="descclassname">types.</code><code class="descname">TracebackType</code><span class="sig-paren">(</span><em>tb_next</em>, <em>tb_frame</em>, <em>tb_lasti</em>, <em>tb_lineno</em><span class="sig-paren">)</span><a class="headerlink" href="#types.TracebackType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of traceback objects such as found in <code class="docutils literal notranslate"><span class="pre">sys.exc_info()[2]</span></code>.</p>
+<p>See <a class="reference internal" href="../reference/datamodel.html#traceback-objects"><span class="std std-ref">the language reference</span></a> for details of the
+available attributes and operations, and guidance on creating tracebacks
+dynamically.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="types.FrameType">
+<code class="descclassname">types.</code><code class="descname">FrameType</code><a class="headerlink" href="#types.FrameType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of frame objects such as found in <code class="docutils literal notranslate"><span class="pre">tb.tb_frame</span></code> if <code class="docutils literal notranslate"><span class="pre">tb</span></code> is a
+traceback object.</p>
+<p>See <a class="reference internal" href="../reference/datamodel.html#frame-objects"><span class="std std-ref">the language reference</span></a> for details of the
+available attributes and operations.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="types.GetSetDescriptorType">
+<code class="descclassname">types.</code><code class="descname">GetSetDescriptorType</code><a class="headerlink" href="#types.GetSetDescriptorType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of objects defined in extension modules with <code class="docutils literal notranslate"><span class="pre">PyGetSetDef</span></code>, such
+as <code class="docutils literal notranslate"><span class="pre">FrameType.f_locals</span></code> or <code class="docutils literal notranslate"><span class="pre">array.array.typecode</span></code>.  This type is used as
+descriptor for object attributes; it has the same purpose as the
+<a class="reference internal" href="functions.html#property" title="property"><code class="xref py py-class docutils literal notranslate"><span class="pre">property</span></code></a> type, but for classes defined in extension modules.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="types.MemberDescriptorType">
+<code class="descclassname">types.</code><code class="descname">MemberDescriptorType</code><a class="headerlink" href="#types.MemberDescriptorType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of objects defined in extension modules with <code class="docutils literal notranslate"><span class="pre">PyMemberDef</span></code>, such
+as <code class="docutils literal notranslate"><span class="pre">datetime.timedelta.days</span></code>.  This type is used as descriptor for simple C
+data members which use standard conversion functions; it has the same purpose
+as the <a class="reference internal" href="functions.html#property" title="property"><code class="xref py py-class docutils literal notranslate"><span class="pre">property</span></code></a> type, but for classes defined in extension modules.</p>
+<div class="impl-detail compound">
+<p><strong>CPython implementation detail:</strong> In other implementations of Python, this type may be identical to
+<code class="docutils literal notranslate"><span class="pre">GetSetDescriptorType</span></code>.</p>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="types.MappingProxyType">
+<em class="property">class </em><code class="descclassname">types.</code><code class="descname">MappingProxyType</code><span class="sig-paren">(</span><em>mapping</em><span class="sig-paren">)</span><a class="headerlink" href="#types.MappingProxyType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read-only proxy of a mapping. It provides a dynamic view on the mapping’s
+entries, which means that when the mapping changes, the view reflects these
+changes.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.3.</span></p>
+</div>
+<dl class="describe">
+<dt>
+<code class="descname">key in proxy</code></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the underlying mapping has a key <em>key</em>, else
+<code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+</dd></dl>
+
+<dl class="describe">
+<dt>
+<code class="descname">proxy[key]</code></dt>
+<dd><p>Return the item of the underlying mapping with key <em>key</em>.  Raises a
+<a class="reference internal" href="exceptions.html#KeyError" title="KeyError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">KeyError</span></code></a> if <em>key</em> is not in the underlying mapping.</p>
+</dd></dl>
+
+<dl class="describe">
+<dt>
+<code class="descname">iter(proxy)</code></dt>
+<dd><p>Return an iterator over the keys of the underlying mapping.  This is a
+shortcut for <code class="docutils literal notranslate"><span class="pre">iter(proxy.keys())</span></code>.</p>
+</dd></dl>
+
+<dl class="describe">
+<dt>
+<code class="descname">len(proxy)</code></dt>
+<dd><p>Return the number of items in the underlying mapping.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="types.MappingProxyType.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#types.MappingProxyType.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a shallow copy of the underlying mapping.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="types.MappingProxyType.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>key</em><span class="optional">[</span>, <em>default</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#types.MappingProxyType.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the value for <em>key</em> if <em>key</em> is in the underlying mapping, else
+<em>default</em>.  If <em>default</em> is not given, it defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>, so that
+this method never raises a <a class="reference internal" href="exceptions.html#KeyError" title="KeyError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">KeyError</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="types.MappingProxyType.items">
+<code class="descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#types.MappingProxyType.items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new view of the underlying mapping’s items (<code class="docutils literal notranslate"><span class="pre">(key,</span> <span class="pre">value)</span></code>
+pairs).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="types.MappingProxyType.keys">
+<code class="descname">keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#types.MappingProxyType.keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new view of the underlying mapping’s keys.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="types.MappingProxyType.values">
+<code class="descname">values</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#types.MappingProxyType.values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new view of the underlying mapping’s values.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="additional-utility-classes-and-functions">
+<h2>Additional Utility Classes and Functions<a class="headerlink" href="#additional-utility-classes-and-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="types.SimpleNamespace">
+<em class="property">class </em><code class="descclassname">types.</code><code class="descname">SimpleNamespace</code><a class="headerlink" href="#types.SimpleNamespace" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple <a class="reference internal" href="functions.html#object" title="object"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a> subclass that provides attribute access to its
+namespace, as well as a meaningful repr.</p>
+<p>Unlike <a class="reference internal" href="functions.html#object" title="object"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a>, with <code class="docutils literal notranslate"><span class="pre">SimpleNamespace</span></code> you can add and remove
+attributes.  If a <code class="docutils literal notranslate"><span class="pre">SimpleNamespace</span></code> object is initialized with keyword
+arguments, those are directly added to the underlying namespace.</p>
+<p>The type is roughly equivalent to the following code:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SimpleNamespace</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">=</span><span class="si">{!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">(</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">items</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="vm">__dict__</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">SimpleNamespace</span></code> may be useful as a replacement for <code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">NS:</span> <span class="pre">pass</span></code>.
+However, for a structured record type use <a class="reference internal" href="collections.html#collections.namedtuple" title="collections.namedtuple"><code class="xref py py-func docutils literal notranslate"><span class="pre">namedtuple()</span></code></a>
+instead.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.3.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="types.DynamicClassAttribute">
+<code class="descclassname">types.</code><code class="descname">DynamicClassAttribute</code><span class="sig-paren">(</span><em>fget=None</em>, <em>fset=None</em>, <em>fdel=None</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#types.DynamicClassAttribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Route attribute access on a class to __getattr__.</p>
+<p>This is a descriptor, used to define attributes that act differently when
+accessed through an instance and through a class.  Instance access remains
+normal, but access to an attribute through a class will be routed to the
+class’s __getattr__ method; this is done by raising AttributeError.</p>
+<p>This allows one to have properties active on an instance, and have virtual
+attributes on the class with the same name (see Enum for an example).</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.4.</span></p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="coroutine-utility-functions">
+<h2>Coroutine Utility Functions<a class="headerlink" href="#coroutine-utility-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="types.coroutine">
+<code class="descclassname">types.</code><code class="descname">coroutine</code><span class="sig-paren">(</span><em>gen_func</em><span class="sig-paren">)</span><a class="headerlink" href="#types.coroutine" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function transforms a <a class="reference internal" href="../glossary.html#term-generator"><span class="xref std std-term">generator</span></a> function into a
+<a class="reference internal" href="../glossary.html#term-coroutine-function"><span class="xref std std-term">coroutine function</span></a> which returns a generator-based coroutine.
+The generator-based coroutine is still a <a class="reference internal" href="../glossary.html#term-generator-iterator"><span class="xref std std-term">generator iterator</span></a>,
+but is also considered to be a <a class="reference internal" href="../glossary.html#term-coroutine"><span class="xref std std-term">coroutine</span></a> object and is
+<a class="reference internal" href="../glossary.html#term-awaitable"><span class="xref std std-term">awaitable</span></a>.  However, it may not necessarily implement
+the <a class="reference internal" href="../reference/datamodel.html#object.__await__" title="object.__await__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__await__()</span></code></a> method.</p>
+<p>If <em>gen_func</em> is a generator function, it will be modified in-place.</p>
+<p>If <em>gen_func</em> is not a generator function, it will be wrapped. If it
+returns an instance of <a class="reference internal" href="collections.abc.html#collections.abc.Generator" title="collections.abc.Generator"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.abc.Generator</span></code></a>, the instance
+will be wrapped in an <em>awaitable</em> proxy object.  All other types
+of objects will be returned as is.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.5.</span></p>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">types</span></code> — Dynamic type creation and names for built-in types</a><ul>
+<li><a class="reference internal" href="#dynamic-type-creation">Dynamic Type Creation</a></li>
+<li><a class="reference internal" href="#standard-interpreter-types">Standard Interpreter Types</a></li>
+<li><a class="reference internal" href="#additional-utility-classes-and-functions">Additional Utility Classes and Functions</a></li>
+<li><a class="reference internal" href="#coroutine-utility-functions">Coroutine Utility Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="weakref.html"
+                        title="previous chapter"><code class="docutils literal notranslate"><span class="pre">weakref</span></code> — Weak references</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="copy.html"
+                        title="next chapter"><code class="docutils literal notranslate"><span class="pre">copy</span></code> — Shallow and deep copy operations</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.7/Doc/library/types.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="copy.html" title="copy — Shallow and deep copy operations"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="weakref.html" title="weakref — Weak references"
+             >previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &#187;</li>
+        <li>
+          <span class="language_switcher_placeholder">en</span>
+          <span class="version_switcher_placeholder">3.7.2</span>
+          <a href="../index.html">Documentation </a> &#187;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="datatypes.html" >Data Types</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2019, Python Software Foundation.
+    <br />
+    The Python Software Foundation is a non-profit corporation.
+    <a href="https://www.python.org/psf/donations/">Please donate.</a>
+    <br />
+    Last updated on Jan 11, 2019.
+    <a href="../bugs.html">Found a bug</a>?
+    <br />
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.1.
+    </div>
+
+  </body>
+</html>

@@ -39,6 +39,10 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
     
     // MARK: - View controller
     
+    override var keyCommands: [UIKeyCommand]? {
+        return [UIKeyCommand(input: "w", modifierFlags: .command, action: #selector(close), discoverabilityTitle: Localizable.close)]
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
