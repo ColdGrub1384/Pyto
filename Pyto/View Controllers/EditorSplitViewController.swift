@@ -35,6 +35,25 @@ class EditorSplitViewController: SplitViewController {
             
         }).withRenderingMode(.alwaysOriginal)
     }
+    
+    // MARK: - Key commands
+    
+    /// Runs the code
+    @objc func run() {
+        editor?.run()
+    }
+    
+    /// Closes the controller.
+    @objc func close() {
+        editor?.close()
+    }
+    
+    override var keyCommands: [UIKeyCommand]? {
+        return [
+            UIKeyCommand(input: "r", modifierFlags: .command, action: #selector(run), discoverabilityTitle: Localizable.MenuItems.run),
+            UIKeyCommand(input: "w", modifierFlags: .command, action: #selector(close)),
+        ]
+    }
         
     // MARK: - Split view controller
     
