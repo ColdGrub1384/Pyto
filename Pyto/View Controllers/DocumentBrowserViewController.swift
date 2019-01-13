@@ -521,14 +521,6 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
             if let url = item.dragItem.localObject as? URL {
                 do {
                     try FileManager.default.moveItem(at: url, to: destination.appendingPathComponent(url.lastPathComponent))
-                    var i = 0
-                    for file in self.scripts { // For loop needed because folders are not found with `Array.firstIndex(of:)`
-                        if file.lastPathComponent == url.lastPathComponent {
-                            DocumentBrowserViewController.visible?.collectionView.deleteItems(at: [IndexPath(row: i, section: 0)])
-                            break
-                        }
-                        i += 1
-                    }
                 } catch {
                     let alert = UIAlertController(title: Localizable.Errors.errorMovingFile, message: error.localizedDescription, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
