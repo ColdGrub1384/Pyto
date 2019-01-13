@@ -8,13 +8,31 @@
 //
 
 import Foundation
+#if MAIN
 import ios_system
+#else
+@_silgen_name("PyRun_SimpleStringFlags")
+func PyRun_SimpleStringFlags(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Any>!)
+
+@_silgen_name("Py_DecodeLocale")
+func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> UnsafeMutablePointer<wchar_t>
+#endif
 
 /// A class for interacting with `Cpython`
-@objc class Python: NSObject {
+@objc public class Python: NSObject {
+    
+    #if !MAIN
+    /// Throws a fatal error.
+    ///
+    /// - Parameters:
+    ///     - message: Message describing error.
+    @objc func fatalError(_ message: String) -> Never {
+        return Swift.fatalError(message)
+    }
+    #endif
     
     /// The shared and unique instance
-    @objc static let shared = Python()
+    @objc public static let shared = Python()
     
     private override init() {}
     
@@ -28,17 +46,18 @@ import ios_system
     }
     
     /// The queue running scripts.
-    @objc let queue = DispatchQueue.global(qos: .userInteractive)
+    @objc public let queue = DispatchQueue.global(qos: .userInteractive)
     
     /// The version catched passed from `"sys.version"`.
-    @objc var version = ""
+    @objc public var version = ""
     
     /// If set to `true`, scripts will run inside the REPL.
-    @objc var isREPLRunning = false
+    @objc public var isREPLRunning = false
     
     /// Set to `true` while a script is running to prevent user from running one while another is running.
-    @objc var isScriptRunning = false {
+    @objc public var isScriptRunning = false {
         didSet {
+            #if MAIN
             DispatchQueue.main.async {
                 let contentVC = ConsoleViewController.visible
                 
@@ -54,29 +73,32 @@ import ios_system
                     item?.rightBarButtonItem = editor.runBarButtonItem
                 }
             }
+            #endif
         }
     }
     
     /// All the Python output.
-    var output = ""
+    public var output = ""
     
     /// Values caught by a Python script.
-    @objc var values = [String]() {
+    @objc public var values = [String]() {
         didSet {
+            #if MAIN
             DispatchQueue.main.async {
                 ConsoleViewController.visible.inputAssistant.reloadData()
             }
+            #endif
         }
     }
     
     /// The last error's type.
-    @objc var errorType: String?
+    @objc public var errorType: String?
     
     /// The last error's reason.
-    @objc var errorReason: String?
+    @objc public var errorReason: String?
     
     /// The arguments to pass to scripts.
-    @objc var args = [String]()
+    @objc public var args = [String]()
     
     /// Runs given command with `ios_system`.
     ///
@@ -85,16 +107,21 @@ import ios_system
     ///
     /// - Returns: The result code.
     @objc func system(_ cmd: String) -> Int32 {
+        #if MAIN
         ios_switchSession(IO.shared.ios_stdout)
         ios_setDirectoryURL(FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0])
         ios_setStreams(IO.shared.ios_stdin, IO.shared.ios_stdout, IO.shared.ios_stderr)
         let retValue = ios_system(cmd.cValue)
         sleep(1)
         return retValue
+        #else
+        PyOutputHelper.print("Unsupported on native app.")
+        return 1
+        #endif
     }
     
     /// Exposes Pyto modules to Pyhon.
-    @objc func importPytoLib() {
+    @objc public func importPytoLib() {
         guard let newLibURL = FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask).first?.appendingPathComponent("pylib") else {
             fatalError("WHY IS THAT HAPPENING????!!!!!!! HOW THE LIBRARY DIR CANNOT BE FOUND!!!!???")
         }
@@ -115,7 +142,7 @@ import ios_system
     ///
     /// - Parameters:
     ///     - url: URL of the Python script to run.
-    @objc func runScript(at url: URL) {
+    @objc public func runScript(at url: URL) {
         queue.async {
             
             guard !self.isREPLRunning else {
@@ -127,7 +154,7 @@ import ios_system
                 self.isREPLRunning = true
             }
             
-            guard let startupURL = Bundle.main.url(forResource: "Startup", withExtension: "py"), let src = try? String(contentsOf: startupURL) else {
+            guard let startupURL = Bundle(for: Python.self).url(forResource: "Startup", withExtension: "py"), let src = try? String(contentsOf: startupURL) else {
                 PyOutputHelper.print(Localizable.Python.alreadyRunning)
                 return
             }

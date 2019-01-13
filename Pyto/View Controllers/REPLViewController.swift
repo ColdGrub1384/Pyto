@@ -38,6 +38,7 @@ class REPLViewController: ConsoleViewController {
         prompt = ""
         console = ""
         
+        #if MAIN
         if Python.shared.isREPLRunning {
             
             func sendInput() {
@@ -64,10 +65,7 @@ class REPLViewController: ConsoleViewController {
                 }
             }
         }
-    }
-    
-    override func numberOfSuggestionsInInputAssistantView() -> Int {
-        return 0
+        #endif
     }
 }
 

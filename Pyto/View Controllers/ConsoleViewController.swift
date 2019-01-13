@@ -7,13 +7,17 @@
 //
 
 import UIKit
+#if MAIN
 import InputAssistant
+#endif
 
 /// A View controller containing Python script output.
-class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistantViewDelegate, InputAssistantViewDataSource {
+class ConsoleViewController: UIViewController, UITextViewDelegate {
     
+    #if MAIN
     /// The Input assistant view for typing module's identifier.
     let inputAssistant = InputAssistantView()
+    #endif
     
     /// The current prompt.
     var prompt = ""
@@ -80,6 +84,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
     /// Closes the View controller and stops script.
     @objc func close() {
         
+        #if MAIN
         extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
         
         EditorViewController.visible?.stop()
@@ -91,6 +96,9 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
                 }
             })
         }
+        #else
+        (UIApplication.shared.delegate as? AppDelegate)?.suspendApp()
+        #endif
     }
     
     private static let shared = ConsoleViewController()
@@ -119,6 +127,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
     ///     - viewController: The View controller to present initialized from Python.
     @objc func showViewController(_ viewController: UIViewController) {
         
+        #if MAIN
         class PyNavigationController: UINavigationController {
             
             override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -150,6 +159,9 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
         }
         
         present(navVC, animated: true, completion: nil)
+        #else
+        present(viewController, animated: true, completion: nil)
+        #endif
     }
     
     // MARK: - View controller
@@ -166,10 +178,12 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
         textView.isEditable = false
         view.addSubview(textView)
         
+        #if MAIN
         inputAssistant.dataSource = self
         inputAssistant.delegate = self
         inputAssistant.trailingActions = [InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView, action: #selector(textView.resignFirstResponder))]
         inputAssistant.attach(to: textView)
+        #endif
         
         NotificationCenter.default.addObserver(self, selector: #selector(print_(_:)), name: .init(rawValue: "DidReceiveOutput"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -278,6 +292,10 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
         
         return false
     }
+}
+
+#if MAIN
+extension ConsoleViewController: InputAssistantViewDelegate, InputAssistantViewDataSource {
     
     // MARK: - Input assistant view delegate
     
@@ -298,7 +316,11 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
     }
     
     func numberOfSuggestionsInInputAssistantView() -> Int {
-        return Python.shared.values.count
+        if self is REPLViewController {
+            return 0
+        } else {
+            return Python.shared.values.count
+        }
     }
     
     func inputAssistantView(_ inputAssistantView: InputAssistantView, nameForSuggestionAtIndex index: Int) -> String {
@@ -310,3 +332,4 @@ class ConsoleViewController: UIViewController, UITextViewDelegate, InputAssistan
         return Python.shared.values[index]
     }
 }
+#endif

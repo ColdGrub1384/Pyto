@@ -7,11 +7,15 @@
 //
 
 import UIKit
-import StoreKit
 import SafariServices
 
 /// The application's delegate.
-@objc class AppDelegate: UIResponder, UIApplicationDelegate, SKStoreProductViewControllerDelegate {
+@objc public class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    #if !MAIN
+    /// Script to run at startup passed by `PythonApplicationMain`.
+    @objc public static var scriptToRun: String?
+    #endif
     
     /// Suspends app. Set from Python.
     @objc var suspendApp_: (() -> Void)?
@@ -27,10 +31,13 @@ import SafariServices
     
     var window: UIWindow?
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    @objc public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window?.rootViewController?.addKeyCommand(UIKeyCommand(input: "h", modifierFlags: .command, action: #selector(suspendApp)))
         
+        window?.accessibilityIgnoresInvertColors = true
+        
+        #if MAIN
         UIMenuController.shared.menuItems = [
             UIMenuItem(title: Localizable.MenuItems.open, action: #selector(FileCollectionViewCell.open(_:))),
             UIMenuItem(title: Localizable.MenuItems.run, action: #selector(FileCollectionViewCell.run(_:))),
@@ -39,8 +46,6 @@ import SafariServices
             UIMenuItem(title: Localizable.MenuItems.copy, action: #selector(FileCollectionViewCell.copyFile(_:))),
             UIMenuItem(title: Localizable.MenuItems.move, action: #selector(FileCollectionViewCell.move(_:))),
         ]
-        
-        window?.accessibilityIgnoresInvertColors = true
         
         let docs = DocumentBrowserViewController.localContainerURL
         let iCloudDriveContainer = DocumentBrowserViewController.iCloudContainerURL
@@ -84,6 +89,21 @@ import SafariServices
                 sleep(UInt32(0.5))
             }
         }
+        #else
+        window = UIWindow()
+        window?.backgroundColor = .white
+        window?.rootViewController = UIStoryboard(name: "Splash Screen", bundle: Bundle(for: Python.self)).instantiateInitialViewController()
+        window?.makeKeyAndVisible()
+        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+            
+            ConsoleViewController.visible.modalTransitionStyle = .crossDissolve
+            self.window?.rootViewController?.present(ConsoleViewController.visible, animated: true, completion: {
+                ConsoleViewController.visible.textView.text = ""
+                Python.shared.isScriptRunning = true
+                PyInputHelper.userInput = "import console as __console__; script = __console__.runScriptAtPath('\(AppDelegate.scriptToRun!)'); from suspend import suspend; suspend(); from time import sleep; sleep(0.5); exit(0)"
+            })
+        }
+        #endif
         
         PyInputHelper.userInput = [
             "from UIKit import *",
@@ -97,7 +117,9 @@ import SafariServices
         return true
     }
     
-    func application(_ app: UIApplication, open inputURL: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+    #if MAIN
+    
+    @objc public func application(_ app: UIApplication, open inputURL: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         
         guard let documentBrowserViewController = DocumentBrowserViewController.visible else {
             window?.rootViewController?.dismiss(animated: true, completion: {
@@ -126,11 +148,11 @@ import SafariServices
         return true
     }
     
-    func applicationWillResignActive(_ application: UIApplication) {
+    @objc public func applicationWillResignActive(_ application: UIApplication) {
         (window?.topViewController as? SFSafariViewController)?.dismiss(animated: true, completion: nil)
     }
     
-    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+    @objc public func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
 
         let root = window?.rootViewController
         
@@ -167,14 +189,10 @@ import SafariServices
         return true
     }
     
-    func applicationWillEnterForeground(_ application: UIApplication) {
+    @objc public func applicationWillEnterForeground(_ application: UIApplication) {
         DocumentBrowserViewController.visible?.reloadData()
     }
     
-    // MARK: - Store product view controller delegate
-    
-    func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
-        viewController.dismiss(animated: true, completion: nil)
-    }
+    #endif
 }
 

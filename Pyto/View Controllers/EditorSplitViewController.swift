@@ -130,5 +130,5 @@ class EditorSplitViewController: SplitViewController {
             firstChild = editor
             secondChild = console
         }
-    }
+    }    
 }
