@@ -1,0 +1,44 @@
+//
+//  PythonApplicationMain.m
+//  PytoCore
+//
+//  Created by Adrian Labbé on 1/13/19.
+//  Copyright © 2019 Adrian Labbé. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import <PytoCore/PytoCore-Swift.h>
+#import "../Python/Headers/Python.h"
+
+int PythonApplicationMain(NSString * scriptPath, int argc, char * _Nullable * _Nonnull argv) {
+    
+    NSBundle *bundle = [NSBundle bundleForClass:[Python self]];
+    
+    // MARK: - Python env variables
+    putenv("PYTHONOPTIMIZE=");
+    putenv("PYTHONDONTWRITEBYTECODE=1");
+    putenv((char *)[[NSString stringWithFormat:@"TMP=%@", NSTemporaryDirectory()] UTF8String]);
+    putenv((char *)[[NSString stringWithFormat:@"PYTHONHOME=%@", bundle.bundlePath] UTF8String]);
+    putenv((char *)[[NSString stringWithFormat:@"PYTHONPATH=%@:%@:%@", [bundle.bundlePath stringByAppendingPathComponent:@"python37.zip"], [bundle.bundlePath stringByAppendingPathComponent:@"site-packages"], bundle.bundlePath] UTF8String]);
+    
+    // MARK: - Init Python
+    Py_SetPythonHome(Py_DecodeLocale([bundle.bundlePath UTF8String], NULL));
+    Py_Initialize();
+    PyEval_InitThreads();
+    
+    // MARK: - Set Python arguments
+    wchar_t** python_argv = PyMem_RawMalloc(sizeof(wchar_t*) * argc);
+    int i;
+    for (i = 0; i < argc; i++) {
+        python_argv[i] = Py_DecodeLocale(argv[i], NULL);
+    }
+    PySys_SetArgv(argc, python_argv);
+    
+    // MARK: - Start the REPL that will contain all child modules
+    [Python.shared runScriptAt:[bundle URLForResource:@"REPL" withExtension:@"py"]];
+    
+    // MARK: - Start UI app
+    AppDelegate.scriptToRun = scriptPath;
+    return UIApplicationMain(argc, argv, NULL, NSStringFromClass(AppDelegate.self));
+}
+
