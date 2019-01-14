@@ -29,7 +29,7 @@ import SafariServices
     
     // MARK: - Application delegate
     
-    var window: UIWindow?
+    @objc public var window: UIWindow?
     
     @objc public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         

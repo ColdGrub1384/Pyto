@@ -4,4 +4,4 @@
 
 import PytoCore
 
-PythonApplicationMain(Bundle.main.path(forResource: "main", ofType: "py")!, CommandLine.argc, CommandLine.unsafeArgv)
+PythonApplicationMain(Bundle.main.path(forResource: "app/main", ofType: "py")!, CommandLine.argc, CommandLine.unsafeArgv)
