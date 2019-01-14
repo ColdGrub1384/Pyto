@@ -11,6 +11,7 @@ target 'Pyto' do
 
   pod 'SplitKit', :git => "https://github.com/ColdGrub1384/SplitKit.git"
   pod 'SourceEditor'
+  pod 'Zip'
 end
 
 # post install

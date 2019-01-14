@@ -7,39 +7,42 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C921EF5E21EC0CFB004C750D /* app in Resources */ = {isa = PBXBuildFile; fileRef = C921EF5D21EC0CFB004C750D /* app */; };
+		C921EF6021EC0D0B004C750D /* modules in Resources */ = {isa = PBXBuildFile; fileRef = C921EF5F21EC0D0B004C750D /* modules */; };
+		C921EF6221EC0D10004C750D /* iCloudDrive in Resources */ = {isa = PBXBuildFile; fileRef = C921EF6121EC0D10004C750D /* iCloudDrive */; };
+		C921EF6C21ECAFA1004C750D /* site-packages in Resources */ = {isa = PBXBuildFile; fileRef = C921EF6B21ECAFA1004C750D /* site-packages */; };
+		C93AE16521EC017E00B588B6 /* PytoCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C93AE16421EC017700B588B6 /* PytoCore.framework */; };
+		C93AE16621EC017E00B588B6 /* PytoCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C93AE16421EC017700B588B6 /* PytoCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9CEE23321EBA6C100316D3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9CEE23221EBA6C100316D3C /* Assets.xcassets */; };
 		C9CEE23621EBA6C100316D3C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9CEE23421EBA6C100316D3C /* LaunchScreen.storyboard */; };
-		C9CEE24D21EBA71900316D3C /* PytoCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9CEE24C21EBA71300316D3C /* PytoCore.framework */; };
-		C9CEE24E21EBA71900316D3C /* PytoCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9CEE24C21EBA71300316D3C /* PytoCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9CEE25521EBA89400316D3C /* main.py in Resources */ = {isa = PBXBuildFile; fileRef = C9CEE25421EBA89400316D3C /* main.py */; };
 		C9CEE26C21EBDD9100316D3C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CEE26B21EBDD9100316D3C /* main.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C9CEE24721EBA71300316D3C /* PBXContainerItemProxy */ = {
+		C93AE15F21EC017700B588B6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C9CEE23F21EBA71300316D3C /* Pyto.xcodeproj */;
+			containerPortal = C93AE15721EC017700B588B6 /* Pyto.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = C9FCFD55214428AE00A07974;
 			remoteInfo = Pyto;
 		};
-		C9CEE24921EBA71300316D3C /* PBXContainerItemProxy */ = {
+		C93AE16121EC017700B588B6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C9CEE23F21EBA71300316D3C /* Pyto.xcodeproj */;
+			containerPortal = C93AE15721EC017700B588B6 /* Pyto.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = C943AC3D215277A000844368;
 			remoteInfo = Python;
 		};
-		C9CEE24B21EBA71300316D3C /* PBXContainerItemProxy */ = {
+		C93AE16321EC017700B588B6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C9CEE23F21EBA71300316D3C /* Pyto.xcodeproj */;
+			containerPortal = C93AE15721EC017700B588B6 /* Pyto.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = C9CEE1E721EB8D5200316D3C;
 			remoteInfo = PytoCore;
 		};
-		C9CEE24F21EBA71900316D3C /* PBXContainerItemProxy */ = {
+		C93AE16721EC017E00B588B6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C9CEE23F21EBA71300316D3C /* Pyto.xcodeproj */;
+			containerPortal = C93AE15721EC017700B588B6 /* Pyto.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = C9CEE1E621EB8D5200316D3C;
 			remoteInfo = PytoCore;
@@ -53,7 +56,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C9CEE24E21EBA71900316D3C /* PytoCore.framework in Embed Frameworks */,
+				C93AE16621EC017E00B588B6 /* PytoCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -61,12 +64,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C921EF5D21EC0CFB004C750D /* app */ = {isa = PBXFileReference; lastKnownFileType = folder; path = app; sourceTree = "<group>"; };
+		C921EF5F21EC0D0B004C750D /* modules */ = {isa = PBXFileReference; lastKnownFileType = folder; path = modules; sourceTree = "<group>"; };
+		C921EF6121EC0D10004C750D /* iCloudDrive */ = {isa = PBXFileReference; lastKnownFileType = folder; path = iCloudDrive; sourceTree = "<group>"; };
+		C921EF6B21ECAFA1004C750D /* site-packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "site-packages"; sourceTree = "<group>"; };
+		C93AE15721EC017700B588B6 /* Pyto.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pyto.xcodeproj; path = Pyto/Pyto.xcodeproj; sourceTree = "<group>"; };
 		C9CEE22621EBA6BB00316D3C /* Python App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Python App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9CEE23221EBA6C100316D3C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9CEE23521EBA6C100316D3C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9CEE23721EBA6C100316D3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C9CEE23F21EBA71300316D3C /* Pyto.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pyto.xcodeproj; path = ../Pyto.xcodeproj; sourceTree = "<group>"; };
-		C9CEE25421EBA89400316D3C /* main.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = main.py; sourceTree = "<group>"; };
 		C9CEE26B21EBDD9100316D3C /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,17 +81,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9CEE24D21EBA71900316D3C /* PytoCore.framework in Frameworks */,
+				C93AE16521EC017E00B588B6 /* PytoCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C93AE15821EC017700B588B6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C93AE16021EC017700B588B6 /* Pyto.app */,
+				C93AE16221EC017700B588B6 /* Python.framework */,
+				C93AE16421EC017700B588B6 /* PytoCore.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C9CEE21D21EBA6BA00316D3C = {
 			isa = PBXGroup;
 			children = (
-				C9CEE23F21EBA71300316D3C /* Pyto.xcodeproj */,
+				C93AE15721EC017700B588B6 /* Pyto.xcodeproj */,
 				C9CEE22821EBA6BB00316D3C /* Python App */,
 				C9CEE22721EBA6BB00316D3C /* Products */,
 			);
@@ -102,23 +118,16 @@
 		C9CEE22821EBA6BB00316D3C /* Python App */ = {
 			isa = PBXGroup;
 			children = (
-				C9CEE25421EBA89400316D3C /* main.py */,
 				C9CEE26B21EBDD9100316D3C /* main.swift */,
+				C921EF5D21EC0CFB004C750D /* app */,
+				C921EF5F21EC0D0B004C750D /* modules */,
+				C921EF6121EC0D10004C750D /* iCloudDrive */,
+				C921EF6B21ECAFA1004C750D /* site-packages */,
 				C9CEE23221EBA6C100316D3C /* Assets.xcassets */,
 				C9CEE23421EBA6C100316D3C /* LaunchScreen.storyboard */,
 				C9CEE23721EBA6C100316D3C /* Info.plist */,
 			);
 			path = "Python App";
-			sourceTree = "<group>";
-		};
-		C9CEE24021EBA71300316D3C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C9CEE24821EBA71300316D3C /* Pyto.app */,
-				C9CEE24A21EBA71300316D3C /* Python.framework */,
-				C9CEE24C21EBA71300316D3C /* PytoCore.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,7 +145,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				C9CEE25021EBA71900316D3C /* PBXTargetDependency */,
+				C93AE16821EC017E00B588B6 /* PBXTargetDependency */,
 			);
 			name = "Python App";
 			productName = "Python App";
@@ -171,8 +180,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = C9CEE24021EBA71300316D3C /* Products */;
-					ProjectRef = C9CEE23F21EBA71300316D3C /* Pyto.xcodeproj */;
+					ProductGroup = C93AE15821EC017700B588B6 /* Products */;
+					ProjectRef = C93AE15721EC017700B588B6 /* Pyto.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -183,25 +192,25 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		C9CEE24821EBA71300316D3C /* Pyto.app */ = {
+		C93AE16021EC017700B588B6 /* Pyto.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = Pyto.app;
-			remoteRef = C9CEE24721EBA71300316D3C /* PBXContainerItemProxy */;
+			remoteRef = C93AE15F21EC017700B588B6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C9CEE24A21EBA71300316D3C /* Python.framework */ = {
+		C93AE16221EC017700B588B6 /* Python.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Python.framework;
-			remoteRef = C9CEE24921EBA71300316D3C /* PBXContainerItemProxy */;
+			remoteRef = C93AE16121EC017700B588B6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C9CEE24C21EBA71300316D3C /* PytoCore.framework */ = {
+		C93AE16421EC017700B588B6 /* PytoCore.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = PytoCore.framework;
-			remoteRef = C9CEE24B21EBA71300316D3C /* PBXContainerItemProxy */;
+			remoteRef = C93AE16321EC017700B588B6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -211,8 +220,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9CEE25521EBA89400316D3C /* main.py in Resources */,
+				C921EF6021EC0D0B004C750D /* modules in Resources */,
+				C921EF6221EC0D10004C750D /* iCloudDrive in Resources */,
+				C921EF5E21EC0CFB004C750D /* app in Resources */,
 				C9CEE23621EBA6C100316D3C /* LaunchScreen.storyboard in Resources */,
+				C921EF6C21ECAFA1004C750D /* site-packages in Resources */,
 				C9CEE23321EBA6C100316D3C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -231,10 +243,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C9CEE25021EBA71900316D3C /* PBXTargetDependency */ = {
+		C93AE16821EC017E00B588B6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = PytoCore;
-			targetProxy = C9CEE24F21EBA71900316D3C /* PBXContainerItemProxy */;
+			targetProxy = C93AE16721EC017E00B588B6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

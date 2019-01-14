@@ -235,6 +235,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// The bar button item for setting arguments.
     var argsItem: UIBarButtonItem!
     
+    /// The bar button item for sharing the script.
+    var shareItem: UIBarButtonItem!
+    
     // MARK: - View controller
     
     override func viewDidLoad() {
@@ -263,16 +266,20 @@ fileprivate func parseArgs(_ args: inout [String]) {
         stopBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(stop))
         
         docItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showDocs(_:)))
+        shareItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share(_:)))
         let scriptsItem = UIBarButtonItem(image: UIImage(named: "Grid"), style: .plain, target: self, action: #selector(close))
         if Python.shared.isScriptRunning {
-            parent?.navigationItem.rightBarButtonItem = stopBarButtonItem
+            parent?.navigationItem.rightBarButtonItems = [
+                stopBarButtonItem,
+                argsItem,
+            ]
         } else {
             parent?.navigationItem.rightBarButtonItems = [
                 runBarButtonItem,
-                argsItem
+                argsItem,
             ]
         }
-        parent?.navigationItem.leftBarButtonItems = [scriptsItem, docItem]
+        parent?.navigationItem.leftBarButtonItems = [scriptsItem, docItem, shareItem]
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -377,7 +384,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     /// Shares the current script.
     @objc func share(_ sender: UIBarButtonItem) {
-        let activityVC = UIActivityViewController(activityItems: [document?.fileURL as Any], applicationActivities: nil)
+        let activityVC = UIActivityViewController(activityItems: [document?.fileURL as Any], applicationActivities: [XcodeActivity()])
         activityVC.popoverPresentationController?.barButtonItem = sender
         present(activityVC, animated: true, completion: nil)
     }
