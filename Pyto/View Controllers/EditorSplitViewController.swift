@@ -58,13 +58,26 @@ class EditorSplitViewController: SplitViewController {
         editor?.setArgs(true)
     }
     
+    /// Interrupts current running script.
+    @objc func interrupt() {
+        editor.stop()
+    }
+    
     override var keyCommands: [UIKeyCommand]? {
-        return [
+        var commands = [
             UIKeyCommand(input: "r", modifierFlags: .command, action: #selector(run), discoverabilityTitle: Localizable.MenuItems.run),
             UIKeyCommand(input: "r", modifierFlags: [.command, .shift], action: #selector(runWithArguments), discoverabilityTitle: Localizable.runAndSetArguments),
             UIKeyCommand(input: "d", modifierFlags: .command, action: #selector(showDocs), discoverabilityTitle: Localizable.Help.documentation),
             UIKeyCommand(input: "w", modifierFlags: .command, action: #selector(close), discoverabilityTitle: Localizable.close),
         ]
+        
+        if Python.shared.isScriptRunning {
+            commands.append(
+                UIKeyCommand(input: "c", modifierFlags: .control, action: #selector(interrupt), discoverabilityTitle: Localizable.interrupt)
+            )
+        }
+        
+        return commands
     }
         
     // MARK: - Split view controller
