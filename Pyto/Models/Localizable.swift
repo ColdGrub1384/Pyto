@@ -17,6 +17,9 @@ class Localizable: Static {
     /// Description for key command for running and setting arguments.
     static let runAndSetArguments = NSLocalizedString("runAndSetArguments", comment: "Description for key command for running and setting arguments.")
     
+    /// Description for CTRL+C key command.
+    static let interrupt = NSLocalizedString("interrupt", comment: "Description for CTRL+C key command.")
+    
     /// 'Close'
     static let close = NSLocalizedString("close", comment: "'Close'")
     
