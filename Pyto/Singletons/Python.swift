@@ -121,20 +121,13 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     }
     
     /// Exposes Pyto modules to Pyhon.
+    @available(*, deprecated, message: "The Library is now located on framework.")
     @objc public func importPytoLib() {
         guard let newLibURL = FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask).first?.appendingPathComponent("pylib") else {
             fatalError("WHY IS THAT HAPPENING????!!!!!!! HOW THE LIBRARY DIR CANNOT BE FOUND!!!!???")
         }
-        guard let libURL = Bundle.main.url(forResource: "site-packages", withExtension: "") else {
-            fatalError("The Pyto library was not found.")
-        }
-        do {
-            if FileManager.default.fileExists(atPath: newLibURL.path) {
-                try FileManager.default.removeItem(at: newLibURL)
-            }
-            try FileManager.default.copyItem(at: libURL, to: newLibURL)
-        } catch {
-            fatalError(error.localizedDescription)
+        if FileManager.default.fileExists(atPath: newLibURL.path) {
+            try? FileManager.default.removeItem(at: newLibURL)
         }
     }
     

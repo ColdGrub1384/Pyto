@@ -11,9 +11,6 @@
 		C903B98821584367004AAD7F /* commandDictionary.plist in Resources */ = {isa = PBXBuildFile; fileRef = C903B98721584367004AAD7F /* commandDictionary.plist */; };
 		C903B98A215843B4004AAD7F /* extraCommandsDictionary.plist in Resources */ = {isa = PBXBuildFile; fileRef = C903B989215843B4004AAD7F /* extraCommandsDictionary.plist */; };
 		C903B98C21598A63004AAD7F /* IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C903B98B21598A63004AAD7F /* IO.swift */; };
-		C904EB6421445B5800585C28 /* libPython.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6321445B5800585C28 /* libPython.a */; };
-		C904EB6621445B5D00585C28 /* libbzip2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6521445B5D00585C28 /* libbzip2.a */; };
-		C904EB6821445B6100585C28 /* libOpenSSL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6721445B6100585C28 /* libOpenSSL.a */; };
 		C904EB7321445D5800585C28 /* Python.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904EB7221445D5800585C28 /* Python.swift */; };
 		C904FA2621DA4C7600B70A39 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C904FA1F21DA4C7600B70A39 /* Accelerate.framework */; };
 		C913202B21DC12A300EEE677 /* AcknowledgmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C913202A21DC12A300EEE677 /* AcknowledgmentsViewController.swift */; };
@@ -64,7 +61,6 @@
 		C9AED5B721DE7ECC00CC5B43 /* Info.plist in Copy umath */ = {isa = PBXBuildFile; fileRef = C9AED5B621DE7ECB00CC5B43 /* Info.plist */; };
 		C9B3FDEC21503DE7000FC9A8 /* PyExtensionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */; };
 		C9BDF6B921BD9BBA0045DDA3 /* TemplatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BDF6B221BD9BBA0045DDA3 /* TemplatesViewController.swift */; };
-		C9BE01B42154738C00A8C825 /* site-packages in Resources */ = {isa = PBXBuildFile; fileRef = C9BE01B021530BAF00A8C825 /* site-packages */; };
 		C9CEE1EB21EB8D5300316D3C /* PytoCore.h in Headers */ = {isa = PBXBuildFile; fileRef = C9CEE1E921EB8D5300316D3C /* PytoCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C9CEE1F121EB8D6C00316D3C /* site-packages in Resources */ = {isa = PBXBuildFile; fileRef = C9BE01B021530BAF00A8C825 /* site-packages */; };
 		C9CEE1F221EB8D8A00316D3C /* libPython.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6321445B5800585C28 /* libPython.a */; };
@@ -103,7 +99,6 @@
 		C9CEE26621EBD21000316D3C /* RoundedIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C9CEE26521EBD21000316D3C /* RoundedIcon.png */; };
 		C9DF70B821715D3D00981B4F /* FileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DF70B721715D3D00981B4F /* FileCollectionViewCell.swift */; };
 		C9DF70C02171723800981B4F /* REPLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DF70BF2171723800981B4F /* REPLViewController.swift */; };
-		C9DF70EA2171756C00981B4F /* libxz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6921445B6700585C28 /* libxz.a */; };
 		C9DF70ED217175C400981B4F /* shell.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70C32171752100981B4F /* shell.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9DF70EF217175C400981B4F /* network_ios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70C42171752100981B4F /* network_ios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9DF70F1217175C400981B4F /* curl_ios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70C62171752100981B4F /* curl_ios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -124,11 +119,16 @@
 		C9E415312151531B00D64E32 /* REPL.py in Resources */ = {isa = PBXBuildFile; fileRef = C9E415302151531B00D64E32 /* REPL.py */; };
 		C9E509A221BC08F900261E3A /* docs in Resources */ = {isa = PBXBuildFile; fileRef = C9E509A121BC08F800261E3A /* docs */; };
 		C9EA55B3219F752D007546BC /* RelativePathForScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EA55B2219F752D007546BC /* RelativePathForScript.swift */; };
-		C9EADAB921D6F69300BB8C7C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A62144620A00382DCC /* libz.tbd */; };
-		C9EDF9A5214461D300382DCC /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A4214461D300382DCC /* libsqlite3.tbd */; };
 		C9EDF9AB21446FCA00382DCC /* ConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EDF9AA21446FCA00382DCC /* ConsoleViewController.swift */; };
 		C9F04E832173C33400BDD03E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9F04E852173C33400BDD03E /* Localizable.strings */; };
 		C9F04E882173DD7300BDD03E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9F04E8A2173DD7300BDD03E /* Main.storyboard */; };
+		C9F8660621ECD3360062D1C1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A62144620A00382DCC /* libz.tbd */; };
+		C9F8660721ECD3480062D1C1 /* libPython.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6321445B5800585C28 /* libPython.a */; };
+		C9F8660821ECD34A0062D1C1 /* libbzip2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6521445B5D00585C28 /* libbzip2.a */; };
+		C9F8660921ECD34C0062D1C1 /* libOpenSSL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6721445B6100585C28 /* libOpenSSL.a */; };
+		C9F8660A21ECD34F0062D1C1 /* libxz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6921445B6700585C28 /* libxz.a */; };
+		C9F8660B21ECD3600062D1C1 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A4214461D300382DCC /* libsqlite3.tbd */; };
+		C9F8660C21ECD3F90062D1C1 /* site-packages in Resources */ = {isa = PBXBuildFile; fileRef = C9BE01B021530BAF00A8C825 /* site-packages */; };
 		C9FCFD59214428AE00A07974 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCFD58214428AE00A07974 /* AppDelegate.swift */; };
 		C9FCFD5B214428AE00A07974 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCFD5A214428AE00A07974 /* EditorViewController.swift */; };
 		C9FCFD60214428B300A07974 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9FCFD5F214428B300A07974 /* Assets.xcassets */; };
@@ -442,15 +442,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9F8660B21ECD3600062D1C1 /* libsqlite3.tbd in Frameworks */,
+				C9F8660621ECD3360062D1C1 /* libz.tbd in Frameworks */,
+				C9F8660721ECD3480062D1C1 /* libPython.a in Frameworks */,
+				C9F8660821ECD34A0062D1C1 /* libbzip2.a in Frameworks */,
+				C9F8660921ECD34C0062D1C1 /* libOpenSSL.a in Frameworks */,
+				C9F8660A21ECD34F0062D1C1 /* libxz.a in Frameworks */,
 				C904FA2621DA4C7600B70A39 /* Accelerate.framework in Frameworks */,
-				C9EADAB921D6F69300BB8C7C /* libz.tbd in Frameworks */,
-				C9EDF9A5214461D300382DCC /* libsqlite3.tbd in Frameworks */,
 				6AB6C68D181C2C686D545A61 /* Pods_Pyto.framework in Frameworks */,
-				C904EB6621445B5D00585C28 /* libbzip2.a in Frameworks */,
-				C904EB6821445B6100585C28 /* libOpenSSL.a in Frameworks */,
-				C9DF70EA2171756C00981B4F /* libxz.a in Frameworks */,
 				C9AAAB492195016D0042E733 /* InputAssistant.framework in Frameworks */,
-				C904EB6421445B5800585C28 /* libPython.a in Frameworks */,
 				C9DF71062171768A00981B4F /* Python.framework in Frameworks */,
 				C9DF711A217176D700981B4F /* ios_system.framework in Frameworks */,
 			);
@@ -907,6 +907,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9F8660C21ECD3F90062D1C1 /* site-packages in Resources */,
 				C98E42E321D2CF0300B4D260 /* python37.zip in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -942,7 +943,6 @@
 				C9E415312151531B00D64E32 /* REPL.py in Resources */,
 				C903B98A215843B4004AAD7F /* extraCommandsDictionary.plist in Resources */,
 				C9E4152E21514F9100D64E32 /* Startup.py in Resources */,
-				C9BE01B42154738C00A8C825 /* site-packages in Resources */,
 				C9477BBB21D45D29000680AE /* installer.py in Resources */,
 				C9FCFD60214428B300A07974 /* Assets.xcassets in Resources */,
 			);
@@ -1157,6 +1157,13 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Python",
+					"$(PROJECT_DIR)/BZip2",
+					"$(PROJECT_DIR)/OpenSSL",
+					"$(PROJECT_DIR)/XZ",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = ch.ada.Python;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -1186,6 +1193,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Python",
+					"$(PROJECT_DIR)/BZip2",
+					"$(PROJECT_DIR)/OpenSSL",
+					"$(PROJECT_DIR)/XZ",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ch.ada.Python;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
