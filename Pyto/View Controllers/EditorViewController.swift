@@ -301,20 +301,22 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 argsItem,
             ]
         }
-        parent?.navigationItem.leftBarButtonItems = [scriptsItem, docItem, shareItem]
+        parent?.navigationItem.leftBarButtonItems = [scriptsItem, docItem]
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         textView.contentTextView.isEditable = !isSample
         
+        parent?.navigationController?.isToolbarHidden = false
+        parent?.toolbarItems = [shareItem]
+        
         // Siri shortcut
         
         if #available(iOS 12.0, *) {
             let button = INUIAddVoiceShortcutButton(style: .black)
             
-            parent?.navigationController?.isToolbarHidden = false
-            parent?.toolbarItems = [UIBarButtonItem(customView: button), UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)]
+            parent?.toolbarItems! = [UIBarButtonItem(customView: button), UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)]+parent!.toolbarItems!
             
             button.addConstraints([NSLayoutConstraint(item: button, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 130), NSLayoutConstraint(item: button, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 40)])
             
