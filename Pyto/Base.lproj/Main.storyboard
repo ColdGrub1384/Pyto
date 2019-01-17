@@ -199,7 +199,7 @@
         <!--Scripts-->
         <scene sceneID="EqA-wd-TLQ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pj0-1q-KfL" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pj0-1q-KfL" customClass="ThemableNavigationController" customModule="Pyto" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Scripts" image="fileIcon" selectedImage="fileIcon" id="GTE-xS-4Yz"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" largeTitles="YES" id="Lbw-FE-7ua">
@@ -231,10 +231,10 @@
             </objects>
             <point key="canvasLocation" x="2130" y="843"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Themable Tab Bar Controller-->
         <scene sceneID="t9T-tk-Rs6">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="yJn-ps-7sH" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="yJn-ps-7sH" customClass="ThemableTabBarController" customModule="Pyto" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Sd4-XW-BgL">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -253,7 +253,7 @@
         <!--REPL-->
         <scene sceneID="l1p-Hi-3ck">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BaJ-ba-aO8" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BaJ-ba-aO8" customClass="ThemableNavigationController" customModule="Pyto" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="REPL" image="play" selectedImage="play" id="SCw-AR-fio"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" largeTitles="YES" id="5NA-pS-qVt">
@@ -351,5 +351,4 @@
             <color red="0.396078431372549" green="0.80000000000000004" blue="0.38823529411764707" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
-    <color key="tintColor" name="TintColor"/>
 </document>

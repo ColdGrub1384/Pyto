@@ -97,7 +97,7 @@ int main(int argc, char *argv[]) {
     putenv("PYTHONDONTWRITEBYTECODE=1");
     putenv((char *)[[NSString stringWithFormat:@"TMP=%@", NSTemporaryDirectory()] UTF8String]);
     putenv((char *)[[NSString stringWithFormat:@"PYTHONHOME=%@", pythonHome] UTF8String]);
-    putenv((char *)[[NSString stringWithFormat:@"PYTHONPATH=%@:%@", [pythonHome stringByAppendingPathComponent:@"python37.zip"], [NSBundle.mainBundle pathForResource:@"site-packages" ofType:NULL]] UTF8String]);
+    putenv((char *)[[NSString stringWithFormat:@"PYTHONPATH=%@:%@", [NSBundle.mainBundle pathForResource:@"site-packages" ofType:NULL], [pythonHome stringByAppendingPathComponent:@"python37.zip"]] UTF8String]);
     
     // MARK: - Init builtins
     init_numpy();

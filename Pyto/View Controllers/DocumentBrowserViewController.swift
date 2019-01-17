@@ -34,12 +34,28 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
     /// Returns the URL for local folder.
     static let localContainerURL = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0]
     
+    /// Sets directory without affecting navigation bar.
+    ///
+    /// - Parameters:
+    ///     - directory: The directory to show files.
+    func setDirectory(_ directory: URL) {
+        callDirectorySetter = false
+        self.directory = directory
+        collectionView?.reloadData()
+    }
+    
+    private var callDirectorySetter = true
+    
     /// The directory to show files.
     var directory = localContainerURL {
         didSet {
-            title = directory.lastPathComponent
-            navigationItem.largeTitleDisplayMode = .never
-            collectionView?.reloadData()
+            if callDirectorySetter {
+                title = directory.lastPathComponent
+                navigationItem.largeTitleDisplayMode = .never
+                collectionView?.reloadData()
+            } else {
+                callDirectorySetter = true
+            }
         }
     }
     
@@ -193,6 +209,14 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
     @IBAction func help(_ sender: UIBarButtonItem) {
         let sheet = UIAlertController(title: "Pyto", message: Python.shared.version, preferredStyle: .actionSheet)
         
+        sheet.view.tintColor = UIView().tintColor
+        
+        sheet.addAction(UIAlertAction(title: Localizable.Help.theme, style: .default, handler: { (_) in
+            if let vc = UIStoryboard(name: "Theme Chooser", bundle: Bundle.main).instantiateInitialViewController() {
+                self.present(vc, animated: true, completion: nil)
+            }
+        }))
+                
         sheet.addAction(UIAlertAction(title: Localizable.Help.help, style: .default, handler: { _ in
             if let helpURL = Bundle.main.url(forResource: "Help", withExtension: "py") {
                 self.openDocument(helpURL, run: false)
@@ -247,10 +271,10 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         let contentVC = ConsoleViewController.visible
         contentVC.view.backgroundColor = .white
         
-        let tintColor = UIColor(named: "TintColor") ?? .orange
+        let tintColor = ConsoleViewController.choosenTheme.tintColor ?? UIColor(named: "TintColor") ?? .orange
         
         let splitVC = EditorSplitViewController()
-        let navVC = UINavigationController(rootViewController: splitVC)
+        let navVC = ThemableNavigationController(rootViewController: splitVC)
         
         splitVC.separatorColor = tintColor
         splitVC.separatorSelectedColor = tintColor
@@ -258,7 +282,6 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         splitVC.console = contentVC
         splitVC.view.backgroundColor = .white
         
-        navVC.view.tintColor = tintColor
         navVC.toolbar.setShadowImage(UIImage(), forToolbarPosition: .any)
         navVC.navigationBar.shadowImage = UIImage()
         navVC.navigationBar.isTranslucent = false

@@ -82,14 +82,21 @@ class EditorSplitViewController: SplitViewController {
         
     // MARK: - Split view controller
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        view.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
+        for view in self.view.subviews {
+            if view.backgroundColor == .white {
+                view.backgroundColor = self.view.backgroundColor
+            }
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         willTransition(to: traitCollection, with: ViewControllerTransitionCoordinator())
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
     }
     
     override func viewDidLayoutSubviews() {
@@ -124,8 +131,7 @@ class EditorSplitViewController: SplitViewController {
                 self.view.addSubview(self.editor.view)
                 
                 if Python.shared.isScriptRunning {
-                    let navVC = UINavigationController(rootViewController: self.console)
-                    navVC.view.tintColor = UIColor(named: "TintColor")
+                    let navVC = ThemableNavigationController(rootViewController: self.console)
                     navVC.modalPresentationStyle = .overFullScreen
                     self.present(navVC, animated: true, completion: nil)
                 }

@@ -14,6 +14,77 @@ import InputAssistant
 /// A View controller containing Python script output.
 class ConsoleViewController: UIViewController, UITextViewDelegate {
     
+    /// The theme the user choosed.
+    static var choosenTheme: Theme {
+        set {
+            
+            let themeID: Int
+            
+            switch newValue {
+            case is XcodeTheme:
+                themeID = 0
+            case is XcodeDarkTheme:
+                themeID = 1
+            case is BasicTheme:
+                themeID = 2
+            case is DuskTheme:
+                themeID = 3
+            case is LowKeyTheme:
+                themeID = 4
+            case is MidnightTheme:
+                themeID = 5
+            case is SunsetTheme:
+                themeID = 6
+            case is WWDC16Theme:
+                themeID = 7
+            case is CoolGlowTheme:
+                themeID = 8
+            case is SolarizedLightTheme:
+                themeID = 9
+            case is SolarizedDarkTheme:
+                themeID = 10
+            default:
+                themeID = 0
+            }
+            
+            UserDefaults.standard.set(themeID, forKey: "theme")
+            UserDefaults.standard.synchronize()
+            
+            UIApplication.shared.keyWindow?.tintColor = newValue.tintColor
+            
+            NotificationCenter.default.post(name: ThemeDidChangedNotification, object: newValue)
+        }
+        
+        get {
+            switch UserDefaults.standard.integer(forKey: "theme") {
+            case 0:
+                return XcodeTheme()
+            case 1:
+                return XcodeDarkTheme()
+            case 2:
+                return BasicTheme()
+            case 3:
+                return DuskTheme()
+            case 4:
+                return LowKeyTheme()
+            case 5:
+                return MidnightTheme()
+            case 6:
+                return SunsetTheme()
+            case 7:
+                return WWDC16Theme()
+            case 8:
+                return CoolGlowTheme()
+            case 9:
+                return SolarizedLightTheme()
+            case 10:
+                return SolarizedDarkTheme()
+            default:
+                return XcodeTheme()
+            }
+        }
+    }
+    
     #if MAIN
     /// The Input assistant view for typing module's identifier.
     let inputAssistant = InputAssistantView()
@@ -130,6 +201,13 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
         #if MAIN
         class PyNavigationController: UINavigationController {
             
+            override func viewWillAppear(_ animated: Bool) {
+                super.viewWillAppear(animated)
+                
+                navigationBar.barStyle = ConsoleViewController.choosenTheme.barStyle
+                navigationBar.barTintColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
+            }
+            
             override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
                 if traitCollection.horizontalSizeClass == .compact {
                     return [.portrait, .portraitUpsideDown]
@@ -141,7 +219,6 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
         
         let vc = UIViewController()
         vc.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        
         vc.addChild(viewController)
         viewController.view.frame = CGRect(x: 0, y: 0, width: 320, height: 420)
         viewController.view.center = vc.view.center
@@ -164,10 +241,33 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
         #endif
     }
     
+    // MARK: - Theme
+    
+    /// Setups the View controller interface for given theme.
+    ///
+    /// - Parameters:
+    ///     - theme: The theme to apply.
+    func setup(theme: Theme) {
+        textView.keyboardAppearance = theme.keyboardAppearance
+        textView.backgroundColor = theme.sourceCodeTheme.backgroundColor
+        textView.textColor = theme.sourceCodeTheme.color(for: .plain)
+    }
+    
+    /// Called when the user choosed a theme.
+    @objc func themeDidChanged(_ notification: Notification) {
+        setup(theme: ConsoleViewController.choosenTheme)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     // MARK: - View controller
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChanged(_:)), name: ThemeDidChangedNotification, object: nil)
         
         edgesForExtendedLayout = []
         
@@ -202,8 +302,8 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
         if !(self is REPLViewController) {
             navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(close))]
         }
-        navigationController?.view.backgroundColor = .white
-        navigationController?.navigationBar.shadowImage = UIImage()
+        
+        setup(theme: ConsoleViewController.choosenTheme)
     }
     
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {

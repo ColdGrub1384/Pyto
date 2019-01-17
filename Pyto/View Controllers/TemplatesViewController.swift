@@ -27,6 +27,28 @@ class TemplatesViewController: UIViewController, UICollectionViewDataSource, UIC
         return scripts
     }()
     
+    // MARK: - Theme
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    /// Called when user selected a theme.
+    @objc func themeDidChanged(_ notification: Notification?) {
+        for view in self.view.subviews {
+            (view as? UILabel)?.textColor = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
+        }
+    }
+    
+    // MARK: - View controller
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChanged(_:)), name: ThemeDidChangedNotification, object: nil)
+        themeDidChanged(nil)
+    }
+    
     // MARK: - Collection view data source
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

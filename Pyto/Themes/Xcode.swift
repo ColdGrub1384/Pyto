@@ -9,8 +9,10 @@
 import SavannaKit
 import SourceEditor
 
-/// The theme used by the code editor.
-struct EditorTheme: SourceCodeTheme {
+// MARK: - Source code theme
+
+/// The Xcode source code theme.
+struct XcodeSourceCodeTheme: SourceCodeTheme {
     
     let defaultTheme = DefaultSourceCodeTheme()
     
@@ -52,8 +54,20 @@ struct EditorTheme: SourceCodeTheme {
         var attributes = [NSAttributedString.Key: Any]()
         
         attributes[.font] = font
-        attributes[.foregroundColor] = Color.black
+        attributes[.foregroundColor] = color(for: .plain)
         
         return attributes
     }
+}
+
+// MARK: - Theme
+
+/// The Xcode theme.
+struct XcodeTheme: Theme {
+    
+    let keyboardAppearance: UIKeyboardAppearance = .default
+    
+    let barStyle: UIBarStyle = .default
+    
+    let sourceCodeTheme: SourceCodeTheme = XcodeSourceCodeTheme()
 }
