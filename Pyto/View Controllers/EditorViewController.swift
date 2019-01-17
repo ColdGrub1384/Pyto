@@ -110,7 +110,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
         if documentationNavigationController == nil {
             documentationNavigationController = UINavigationController(rootViewController: DocumentationViewController())
         }
-        documentationNavigationController?.view.tintColor = UIColor(named: "Tint Color")
         documentationNavigationController?.modalPresentationStyle = .popover
         documentationNavigationController?.popoverPresentationController?.barButtonItem = sender
         present(documentationNavigationController!, animated: true, completion: nil)
@@ -238,17 +237,40 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// The bar button item for sharing the script.
     var shareItem: UIBarButtonItem!
     
+    // MARK: - Theme
+    
+    /// Setups the View controller interface for given theme.
+    ///
+    /// - Parameters:
+    ///     - theme: The theme to apply.
+    func setup(theme: Theme) {
+        let text = textView.text
+        textView.text = ""
+        textView.theme = theme.sourceCodeTheme
+        textView.contentTextView.textColor = theme.sourceCodeTheme.color(for: .plain)
+        textView.contentTextView.keyboardAppearance = theme.keyboardAppearance
+        textView.text = text
+    }
+    
+    /// Called when the user choosed a theme.
+    @objc func themeDidChanged(_ notification: Notification) {
+        setup(theme: ConsoleViewController.choosenTheme)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     // MARK: - View controller
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChanged(_:)), name: ThemeDidChangedNotification, object: nil)
+        
         view.addSubview(textView)
         textView.delegate = self
         textView.contentTextView.delegate = self
-        textView.theme = EditorTheme()
-        textView.contentTextView.textColor = .black
-        textView.contentTextView.keyboardAppearance = .default
         
         inputAssistant.dataSource = self
         inputAssistant.delegate = self
@@ -329,6 +351,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        setup(theme: ConsoleViewController.choosenTheme)
         
         if !isDocOpened {
             isDocOpened = true
@@ -449,9 +473,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 if let url = self.document?.fileURL {
                     let console = ConsoleViewController.visible
                     guard console.view.window != nil else {
-                        
-                        let navVC = UINavigationController(rootViewController: console)
-                        navVC.view.tintColor = UIColor(named: "TintColor")
+                        let navVC = ThemableNavigationController(rootViewController: console)
                         navVC.modalPresentationStyle = .overFullScreen
                         self.present(navVC, animated: true, completion: {
                             self.run()

@@ -35,8 +35,9 @@ import SafariServices
         
         window?.rootViewController?.addKeyCommand(UIKeyCommand(input: "h", modifierFlags: .command, action: #selector(suspendApp)))
         
+        window?.tintColor = ConsoleViewController.choosenTheme.tintColor
         window?.accessibilityIgnoresInvertColors = true
-        
+                
         #if MAIN
         UIMenuController.shared.menuItems = [
             UIMenuItem(title: Localizable.MenuItems.open, action: #selector(FileCollectionViewCell.open(_:))),

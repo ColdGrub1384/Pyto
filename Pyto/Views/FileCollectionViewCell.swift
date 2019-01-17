@@ -106,27 +106,7 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
                         textView.text = smallerCode
                     }
                     
-                    struct ReadonlyTheme: SourceCodeTheme {
-                        let defaultTheme = EditorTheme()
-                        
-                        var lineNumbersStyle: LineNumbersStyle? {
-                            return nil
-                        }
-                        let gutterStyle = GutterStyle(backgroundColor: .clear, minimumWidth: 0)
-                        var font: Font {
-                            return defaultTheme.font
-                        }
-                        var backgroundColor: Color {
-                            return defaultTheme.backgroundColor
-                        }
-                        func color(for syntaxColorType: SourceCodeTokenType) -> Color {
-                            return defaultTheme.color(for: syntaxColorType)
-                        }
-                        func globalAttributes() -> [NSAttributedString.Key : Any] {
-                            return defaultTheme.globalAttributes()
-                        }
-                    }
-                    textView.theme = ReadonlyTheme()
+                    textView.theme = ReadonlyTheme(ConsoleViewController.choosenTheme.sourceCodeTheme)
                     textView.contentTextView.font = textView.contentTextView.font?.withSize(5)
                     textView.contentTextView.isEditable = false
                     textView.contentTextView.isSelectable = false
@@ -232,6 +212,16 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
     }
     
     // MARK: - Collection view cell
+    
+    override func willMove(toWindow newWindow: UIWindow?) {
+        super.willMove(toWindow: newWindow)
+        
+        let theme = ConsoleViewController.choosenTheme
+        backgroundColor = theme.sourceCodeTheme.backgroundColor
+        titleView.textColor = theme.sourceCodeTheme.color(for: .plain)
+        folderContentCollectionView?.backgroundColor = backgroundColor
+        previewContainerView?.backgroundColor = backgroundColor
+    }
     
     override var canBecomeFirstResponder: Bool {
         return true

@@ -95,6 +95,9 @@ class Localizable: Static {
         
         /// 'Source code' button
         static let sourceCode = NSLocalizedString("help.sourceCode", comment: "'Source code' button")
+        
+        /// 'Theme' button
+        static let theme = NSLocalizedString("help.theme", comment: "'Theme' button")
     }
     
     /// Strings for errors.
