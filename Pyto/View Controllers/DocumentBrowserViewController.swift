@@ -205,37 +205,11 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         present(alert, animated: true, completion: nil)
     }
     
-    /// Open the documentation or samples.
-    @IBAction func help(_ sender: UIBarButtonItem) {
-        let sheet = UIAlertController(title: "Pyto", message: Python.shared.version, preferredStyle: .actionSheet)
-        
-        sheet.view.tintColor = UIView().tintColor
-        
-        sheet.addAction(UIAlertAction(title: Localizable.Help.theme, style: .default, handler: { (_) in
-            if let vc = UIStoryboard(name: "Theme Chooser", bundle: Bundle.main).instantiateInitialViewController() {
-                self.present(vc, animated: true, completion: nil)
-            }
-        }))
-                
-        sheet.addAction(UIAlertAction(title: Localizable.Help.help, style: .default, handler: { _ in
-            if let helpURL = Bundle.main.url(forResource: "Help", withExtension: "py") {
-                self.openDocument(helpURL, run: false)
-            }
-        }))
-        
-        sheet.addAction(UIAlertAction(title: Localizable.Help.documentation, style: .default, handler: { _ in
-            self.present(UINavigationController(rootViewController: DocumentationViewController()), animated: true, completion: nil)
-        }))
-        sheet.addAction(UIAlertAction(title: Localizable.Help.acknowledgments, style: .default, handler: { _ in
-            self.present(UINavigationController(rootViewController: AcknowledgmentsViewController()), animated: true, completion: nil)
-        }))
-        sheet.addAction(UIAlertAction(title: Localizable.Help.sourceCode, style: .default, handler: { _ in
-            let safari = SFSafariViewController(url: URL(string: "https://github.com/ColdGrub1384/Pyto")!)
-            self.present(safari, animated: true, completion: nil)
-        }))
-        sheet.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
-        sheet.popoverPresentationController?.barButtonItem = sender
-        present(sheet, animated: true, completion: nil)
+    /// Opens information sheet.
+    @IBAction func showInfo(_ sender: Any) {
+        if let vc = UIStoryboard(name: "About", bundle: Bundle.main).instantiateInitialViewController() {
+            present(vc, animated: true, completion: nil)
+        }
     }
     
     /// Runs the given code.

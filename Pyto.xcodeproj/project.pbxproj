@@ -64,6 +64,8 @@
 		C9AED5B521DE7EBB00CC5B43 /* Info.plist in Copy multiarray */ = {isa = PBXBuildFile; fileRef = C9AED5B421DE7EBB00CC5B43 /* Info.plist */; };
 		C9AED5B721DE7ECC00CC5B43 /* Info.plist in Copy umath */ = {isa = PBXBuildFile; fileRef = C9AED5B621DE7ECB00CC5B43 /* Info.plist */; };
 		C9B3FDEC21503DE7000FC9A8 /* PyExtensionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */; };
+		C9B5D84B21F119B100E980BA /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B5D84A21F119B100E980BA /* About.storyboard */; };
+		C9B5D84F21F11AAE00E980BA /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5D84E21F11AAE00E980BA /* AboutTableViewController.swift */; };
 		C9BDF6B921BD9BBA0045DDA3 /* TemplatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BDF6B221BD9BBA0045DDA3 /* TemplatesViewController.swift */; };
 		C9C0E77221EE9F4B0057C63E /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E77121EE9F4B0057C63E /* Theme.swift */; };
 		C9C0E77521EEA5AA0057C63E /* Xcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1621D0592C00412CEF /* Xcode.swift */; };
@@ -385,6 +387,8 @@
 		C9AED5B421DE7EBB00CC5B43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = multiarray.framework/Info.plist; sourceTree = "<group>"; };
 		C9AED5B621DE7ECB00CC5B43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = umath.framework/Info.plist; sourceTree = "<group>"; };
 		C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyExtensionContext.swift; sourceTree = "<group>"; };
+		C9B5D84A21F119B100E980BA /* About.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = About.storyboard; sourceTree = "<group>"; };
+		C9B5D84E21F11AAE00E980BA /* AboutTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTableViewController.swift; sourceTree = "<group>"; };
 		C9BDF6B221BD9BBA0045DDA3 /* TemplatesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplatesViewController.swift; sourceTree = "<group>"; };
 		C9BE01B021530BAF00A8C825 /* site-packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "site-packages"; sourceTree = "<group>"; };
 		C9C0E77121EE9F4B0057C63E /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -534,6 +538,7 @@
 				C9592D1F21D059B900412CEF /* EditorSplitViewController.swift */,
 				C9C0E77921EF65BE0057C63E /* ThemableNavigationController.swift */,
 				C9C0E77C21EF66C40057C63E /* ThemableTabBarController.swift */,
+				C9B5D84E21F11AAE00E980BA /* AboutTableViewController.swift */,
 				C921EF7721ECC388004C750D /* ActivityViewController.swift */,
 				C9C0E78C21F0B7FA0057C63E /* ThemeChooserTableViewController.swift */,
 			);
@@ -572,6 +577,7 @@
 				C903B989215843B4004AAD7F /* extraCommandsDictionary.plist */,
 				C9F04E8A2173DD7300BDD03E /* Main.storyboard */,
 				C9C0E78A21F0B5770057C63E /* Theme Chooser.storyboard */,
+				C9B5D84A21F119B100E980BA /* About.storyboard */,
 				C9FCFD5F214428B300A07974 /* Assets.xcassets */,
 				C9FCFD61214428B300A07974 /* LaunchScreen.storyboard */,
 				C9FCFD64214428B300A07974 /* Info.plist */,
@@ -993,6 +999,7 @@
 				C9F8661A21ED059F0062D1C1 /* site-packages in Resources */,
 				C9F04E832173C33400BDD03E /* Localizable.strings in Resources */,
 				C9647FFF21ACA00D005765C2 /* Help.py in Resources */,
+				C9B5D84B21F119B100E980BA /* About.storyboard in Resources */,
 				C9E509A221BC08F900261E3A /* docs in Resources */,
 				C9C0E78B21F0B5770057C63E /* Theme Chooser.storyboard in Resources */,
 				C98472AE21A05CB1008E16AC /* README.md in Resources */,
@@ -1134,6 +1141,7 @@
 				C99E8D7021F0D03400C71884 /* CoolGlow.swift in Sources */,
 				C9C0E78121EF735F0057C63E /* LowKey.swift in Sources */,
 				C921EF7821ECC388004C750D /* ActivityViewController.swift in Sources */,
+				C9B5D84F21F11AAE00E980BA /* AboutTableViewController.swift in Sources */,
 				C98E2002214F0856002F0178 /* main.m in Sources */,
 				C9592D1821D0592C00412CEF /* PyDocument.swift in Sources */,
 				C95A79E8214DC9D0007A1B90 /* PyAlert.swift in Sources */,
