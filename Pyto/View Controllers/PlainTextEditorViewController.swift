@@ -25,17 +25,23 @@ class PlainTextEditorViewController: UIViewController, UITextViewDelegate {
                 parent?.title = title
                 textView.text = (try? String(contentsOf: url)) ?? ""
                 
+                textView.contentTextView.isEditable = !isBundled
+                
                 (parent as? MarkdownSplitViewController)?.previewer.load(markdown: textView.text, baseURL: url.deletingLastPathComponent())
             }
         }
     }
     
+    /// Returns `true` if the file is in the app's bundle.
+    var isBundled: Bool {
+        return (url != nil && url!.path.hasPrefix(Bundle.main.bundlePath))
+    }
+    
     /// Closes this View controller and saves.
     @objc func close() {
         dismiss(animated: true) {
-            
             do {
-                if let url = self.url {
+                if let url = self.url, !self.isBundled {
                     try self.textView.text.write(to: url, atomically: true, encoding: .utf8)
                 }
                 DispatchQueue.main.async {
