@@ -207,6 +207,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// Arguments passed to the script.
     var args = ""
     
+    /// Set to `true` before presenting to run the code.
+    var shouldRun = false
+    
     /// Initialize with given document.
     ///
     /// - Parameters:
@@ -369,6 +372,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
                     self.navigationItem.leftBarButtonItem = nil
                     self.textView.contentTextView.isEditable = false
                     self.textView.contentTextView.inputAccessoryView = nil
+                }
+                
+                if self.shouldRun {
+                    self.shouldRun = false
+                    self.run()
                 }
             })
         }
