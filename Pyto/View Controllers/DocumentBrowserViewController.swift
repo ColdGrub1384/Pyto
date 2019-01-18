@@ -313,11 +313,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
             splitVC.firstChild = editor
             splitVC.secondChild = contentVC
             
-            if run {
-                DispatchQueue.main.asyncAfter(deadline: .now()+0.2, execute: {
-                    editor.run()
-                })
-            }
+            editor.shouldRun = true
             completion?()
         })
     }
