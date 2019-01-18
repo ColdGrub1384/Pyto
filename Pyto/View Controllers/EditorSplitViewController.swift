@@ -21,13 +21,17 @@ class EditorSplitViewController: SplitViewController {
     /// A down arrow image for dismissing keyboard.
     static var downArrow: UIImage {
         return UIGraphicsImageRenderer(size: .init(width: 24, height: 24)).image(actions: { context in
-            
+         
             let path = UIBezierPath()
             path.move(to: CGPoint(x: 1, y: 7))
             path.addLine(to: CGPoint(x: 11, y: 17))
             path.addLine(to: CGPoint(x: 22, y: 7))
             
-            UIColor.black.setStroke()
+            if ConsoleViewController.choosenTheme.keyboardAppearance == .dark {
+                UIColor.white.setStroke()
+            } else {
+                UIColor.black.setStroke()
+            }
             path.lineWidth = 2
             path.stroke()
             

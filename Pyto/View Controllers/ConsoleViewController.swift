@@ -14,6 +14,7 @@ import InputAssistant
 /// A View controller containing Python script output.
 class ConsoleViewController: UIViewController, UITextViewDelegate {
     
+    #if MAIN
     /// The theme the user choosed.
     static var choosenTheme: Theme {
         set {
@@ -85,7 +86,6 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
         }
     }
     
-    #if MAIN
     /// The Input assistant view for typing module's identifier.
     let inputAssistant = InputAssistantView()
     #endif
@@ -243,6 +243,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     
     // MARK: - Theme
     
+    #if MAIN
     /// Setups the View controller interface for given theme.
     ///
     /// - Parameters:
@@ -251,6 +252,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
         textView.keyboardAppearance = theme.keyboardAppearance
         textView.backgroundColor = theme.sourceCodeTheme.backgroundColor
         textView.textColor = theme.sourceCodeTheme.color(for: .plain)
+        inputAssistant.trailingActions = [InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView, action: #selector(textView.resignFirstResponder))]
     }
     
     /// Called when the user choosed a theme.
@@ -261,13 +263,16 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+    #endif
     
     // MARK: - View controller
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        #if MAIN
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChanged(_:)), name: ThemeDidChangedNotification, object: nil)
+        #endif
         
         edgesForExtendedLayout = []
         
@@ -303,7 +308,9 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
             navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(close))]
         }
         
+        #if MAIN
         setup(theme: ConsoleViewController.choosenTheme)
+        #endif
     }
     
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {

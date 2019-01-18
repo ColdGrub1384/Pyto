@@ -9,6 +9,7 @@
 import UIKit
 import SavannaKit
 import SourceEditor
+import WebKit
 
 /// A cell for displaying a file.
 class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, SyntaxTextViewDelegate, UICollectionViewDataSource {
@@ -80,7 +81,7 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
                     folderContentCollectionView?.dataSource = self
                     folderContentCollectionView?.reloadData()
                     titleView.text = file!.lastPathComponent
-                } else if file!.pathExtension.lowercased() == "py", let container = previewContainerView {
+                } else if file!.pathExtension.lowercased() == "py" || file!.pathExtension.lowercased() == "md" || file!.pathExtension.lowercased() == "markdown", let container = previewContainerView {
                     
                     var textView = SyntaxTextView(frame: container.frame)
 

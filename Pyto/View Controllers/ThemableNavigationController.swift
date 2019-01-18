@@ -61,6 +61,7 @@ class ThemableNavigationController: UINavigationController, UINavigationControll
         
         setup(theme: ConsoleViewController.choosenTheme)
         
+        navigationBar.isTranslucent = false
         navigationBar.shadowImage = UIImage()
         toolbar.setShadowImage(UIImage(), forToolbarPosition: .any)
         toolbar.isTranslucent = false
