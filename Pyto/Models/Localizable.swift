@@ -132,7 +132,13 @@ class Localizable: Static {
     class Creation: Static {
         
         /// The title of the alert shown for creating a script
-        static let createScript = NSLocalizedString("creation.createScript", comment: "The title of the alert shown for creating a script")
+        static let createFileTitle = NSLocalizedString("creation.createFileTitle", comment: "The title of the button shown for creating a file")
+        
+        /// The title of the button for creating a markdown file
+        static let createMarkdown = NSLocalizedString("creation.createMarkdown", comment: "The title of the button for creating a markdown file")
+        
+        /// The title of the button for creating a script
+        static let createScript = NSLocalizedString("creation.createScript", comment: "The title of the button for creating a script")
         
         /// The message of the alert shown for creating a script
         static let typeScriptName = NSLocalizedString("creation.typeScriptName", comment: "The message of the alert shown for creating a script")

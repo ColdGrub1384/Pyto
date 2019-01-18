@@ -11,6 +11,7 @@ import SafariServices
 import CoreSpotlight
 import SplitKit
 import SavannaKit
+import WebKit
 
 /// The main file browser used to edit scripts.
 class DocumentBrowserViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDropDelegate, UICollectionViewDragDelegate {
@@ -59,7 +60,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         }
     }
     
-    /// All scripts and directories in current directory.
+    /// All scripts, directories and Markdown files in current directory.
     var scripts = [URL]()
     
     private var scripts_: [URL] {
@@ -69,7 +70,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         for file in files {
             var isDir: ObjCBool = false
             if FileManager.default.fileExists(atPath: file.path, isDirectory: &isDir) {
-                if ((file.pathExtension.lowercased() != "py" && !isDir.boolValue) || (file.lastPathComponent == "__pycache__")) || file.lastPathComponent.hasPrefix(".") {
+                if ((file.pathExtension.lowercased() != "py" && file.pathExtension.lowercased() != "md" && !isDir.boolValue) || (file.lastPathComponent == "__pycache__")) || file.lastPathComponent.hasPrefix(".") {
                     files.remove(at: i)
                 } else {
                     i += 1
@@ -107,14 +108,9 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
     
     /// Creates script.
     @IBAction func create(_ sender: Any) {
-        // "Create script"
-        // "Please type the new script's name."
-        // "Create"
-        // "Error creating file!"
-        // "Empty names aren't allowed."
         var textField: UITextField?
-        let alert = UIAlertController(title: Localizable.Creation.createScript, message: Localizable.Creation.typeScriptName, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: Localizable.create, style: .default, handler: { (_) in
+        let alert = UIAlertController(title: Localizable.Creation.createFileTitle, message: Localizable.Creation.typeScriptName, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Localizable.Creation.createScript, style: .default, handler: { (_) in
             guard let filename = textField?.text else {
                 return
             }
@@ -135,15 +131,40 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
                     return
                 }
                 if FileManager.default.createFile(atPath: script.path, contents: try Data(contentsOf: url), attributes: nil) {
-                    var i = 0
-                    for file in self.scripts { // For loop needed because the folder is not found with `Array.firstIndex(of:)`
-                        if file.lastPathComponent == script.lastPathComponent {
-                            self.collectionView.insertItems(at: [IndexPath(row: i, section: 0)])
-                            break
-                        }
-                        i += 1
-                    }
                     self.openDocument(script, run: false)
+                } else {
+                    let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: nil, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
+                    UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
+                }
+            } catch {
+                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
+                UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: Localizable.Creation.createMarkdown, style: .default, handler: { (_) in
+            guard let filename = textField?.text else {
+                return
+            }
+            guard !filename.hasSuffix(".") && !filename.isEmpty else {
+                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: Localizable.Errors.emptyName, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+            let file: URL
+            if self.directory == DocumentBrowserViewController.localContainerURL {
+                file = (DocumentBrowserViewController.iCloudContainerURL ?? self.directory).appendingPathComponent(filename).appendingPathExtension("md")
+            } else {
+                file = self.directory.appendingPathComponent(filename).appendingPathExtension("md")
+            }
+            do {
+                guard let url = Bundle.main.url(forResource: "Untitled", withExtension: "md") else {
+                    return
+                }
+                if FileManager.default.createFile(atPath: file.path, contents: try Data(contentsOf: url), attributes: nil) {
+                    self.openDocument(file, run: false)
                 } else {
                     let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: nil, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
@@ -232,7 +253,29 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
     ///     - run: Set to `true` to run the script inmediately.
     ///     - completion: Code called after presenting the UI.
     func openDocument(_ document: URL, run: Bool, completion: (() -> Void)? = nil) {
+        
+        let tintColor = ConsoleViewController.choosenTheme.tintColor ?? UIColor(named: "TintColor") ?? .orange
+        
+        guard document.pathExtension.lowercased() == "py" else {
+            
+            _ = document.startAccessingSecurityScopedResource()
+            
+            let splitVC = MarkdownSplitViewController()
+            splitVC.modalTransitionStyle = .crossDissolve
+            splitVC.separatorColor = tintColor
+            splitVC.separatorSelectedColor = tintColor
+            splitVC.editor = PlainTextEditorViewController()
+            splitVC.previewer = MarkdownPreviewController()
+            splitVC.arrangement = .horizontal
+            UIApplication.shared.keyWindow?.rootViewController?.present(ThemableNavigationController(rootViewController: splitVC), animated: true, completion: {
                 
+                NotificationCenter.default.removeObserver(splitVC)
+                splitVC.editor.url = document
+            })
+            
+            return
+        }
+        
         if presentedViewController != nil {
             (((presentedViewController as? UITabBarController)?.viewControllers?.first as? UINavigationController)?.viewControllers.first as? EditorViewController)?.save()
             dismiss(animated: true) {
@@ -244,8 +287,6 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         let editor = EditorViewController(document: doc)
         let contentVC = ConsoleViewController.visible
         contentVC.view.backgroundColor = .white
-        
-        let tintColor = ConsoleViewController.choosenTheme.tintColor ?? UIColor(named: "TintColor") ?? .orange
         
         let splitVC = EditorSplitViewController()
         let navVC = ThemableNavigationController(rootViewController: splitVC)
@@ -411,7 +452,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         cell.titleView.text = scripts[indexPath.row].deletingPathExtension().lastPathComponent
         cell.documentBrowser = self
         
-        if scripts[indexPath.row].pathExtension.lowercased() == "py" || isDir.boolValue {
+        if scripts[indexPath.row].pathExtension.lowercased() == "py" || scripts[indexPath.row].pathExtension.lowercased() == "md" || scripts[indexPath.row].pathExtension.lowercased() == "markdown" || isDir.boolValue {
             cell.isUserInteractionEnabled = true
             cell.alpha = 1
         } else {

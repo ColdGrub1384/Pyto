@@ -66,13 +66,15 @@
 		C9B3FDEC21503DE7000FC9A8 /* PyExtensionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */; };
 		C9B5D84B21F119B100E980BA /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B5D84A21F119B100E980BA /* About.storyboard */; };
 		C9B5D84F21F11AAE00E980BA /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5D84E21F11AAE00E980BA /* AboutTableViewController.swift */; };
+		C9B5D85E21F12E4000E980BA /* PlainTextEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5D85D21F12E4000E980BA /* PlainTextEditorViewController.swift */; };
+		C9B5D86221F144E400E980BA /* Untitled.md in Resources */ = {isa = PBXBuildFile; fileRef = C9B5D86121F144D900E980BA /* Untitled.md */; };
+		C9B5D87021F20ECC00E980BA /* MarkdownSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5D86F21F20ECC00E980BA /* MarkdownSplitViewController.swift */; };
+		C9B5D87221F20F2A00E980BA /* MarkdownPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5D87121F20F2A00E980BA /* MarkdownPreviewController.swift */; };
+		C9B5D87621F214DC00E980BA /* body.html in Resources */ = {isa = PBXBuildFile; fileRef = C9B5D87521F214DC00E980BA /* body.html */; };
 		C9BDF6B921BD9BBA0045DDA3 /* TemplatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BDF6B221BD9BBA0045DDA3 /* TemplatesViewController.swift */; };
 		C9C0E77221EE9F4B0057C63E /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E77121EE9F4B0057C63E /* Theme.swift */; };
-		C9C0E77521EEA5AA0057C63E /* Xcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1621D0592C00412CEF /* Xcode.swift */; };
-		C9C0E77621EEA5B40057C63E /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E77121EE9F4B0057C63E /* Theme.swift */; };
 		C9C0E77821EEA9BE0057C63E /* XcodeDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E77721EEA9BE0057C63E /* XcodeDark.swift */; };
 		C9C0E77A21EF65BE0057C63E /* ThemableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E77921EF65BE0057C63E /* ThemableNavigationController.swift */; };
-		C9C0E77B21EF65E90057C63E /* ThemableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E77921EF65BE0057C63E /* ThemableNavigationController.swift */; };
 		C9C0E77D21EF66C40057C63E /* ThemableTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E77C21EF66C40057C63E /* ThemableTabBarController.swift */; };
 		C9C0E77F21EF71E30057C63E /* Dusk.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E77E21EF71E30057C63E /* Dusk.swift */; };
 		C9C0E78121EF735F0057C63E /* LowKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E78021EF735F0057C63E /* LowKey.swift */; };
@@ -389,6 +391,11 @@
 		C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyExtensionContext.swift; sourceTree = "<group>"; };
 		C9B5D84A21F119B100E980BA /* About.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = About.storyboard; sourceTree = "<group>"; };
 		C9B5D84E21F11AAE00E980BA /* AboutTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTableViewController.swift; sourceTree = "<group>"; };
+		C9B5D85D21F12E4000E980BA /* PlainTextEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainTextEditorViewController.swift; sourceTree = "<group>"; };
+		C9B5D86121F144D900E980BA /* Untitled.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Untitled.md; sourceTree = "<group>"; };
+		C9B5D86F21F20ECC00E980BA /* MarkdownSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownSplitViewController.swift; sourceTree = "<group>"; };
+		C9B5D87121F20F2A00E980BA /* MarkdownPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownPreviewController.swift; sourceTree = "<group>"; };
+		C9B5D87521F214DC00E980BA /* body.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = body.html; sourceTree = "<group>"; };
 		C9BDF6B221BD9BBA0045DDA3 /* TemplatesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplatesViewController.swift; sourceTree = "<group>"; };
 		C9BE01B021530BAF00A8C825 /* site-packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "site-packages"; sourceTree = "<group>"; };
 		C9C0E77121EE9F4B0057C63E /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -530,6 +537,9 @@
 			children = (
 				C9FCFD6A21442DE700A07974 /* DocumentBrowserViewController.swift */,
 				C9FCFD5A214428AE00A07974 /* EditorViewController.swift */,
+				C9B5D85D21F12E4000E980BA /* PlainTextEditorViewController.swift */,
+				C9B5D87121F20F2A00E980BA /* MarkdownPreviewController.swift */,
+				C9B5D86F21F20ECC00E980BA /* MarkdownSplitViewController.swift */,
 				C9EDF9AA21446FCA00382DCC /* ConsoleViewController.swift */,
 				C9DF70BF2171723800981B4F /* REPLViewController.swift */,
 				C99DDCEB21BBED22002A734E /* DocumentationViewController.swift */,
@@ -585,8 +595,10 @@
 				C9477BBA21D45D28000680AE /* installer.py */,
 				C98E1FFC214EE6EC002F0178 /* Samples */,
 				C9FCFD6C21442FD700A07974 /* Untitled.py */,
+				C9B5D86121F144D900E980BA /* Untitled.md */,
 				C9E4152D21514F9100D64E32 /* Startup.py */,
 				C9E415302151531B00D64E32 /* REPL.py */,
+				C9B5D87521F214DC00E980BA /* body.html */,
 				C9F04E852173C33400BDD03E /* Localizable.strings */,
 				C9E509A121BC08F800261E3A /* docs */,
 			);
@@ -998,6 +1010,7 @@
 				C98E1FFD214EE6ED002F0178 /* Samples in Resources */,
 				C9F8661A21ED059F0062D1C1 /* site-packages in Resources */,
 				C9F04E832173C33400BDD03E /* Localizable.strings in Resources */,
+				C9B5D86221F144E400E980BA /* Untitled.md in Resources */,
 				C9647FFF21ACA00D005765C2 /* Help.py in Resources */,
 				C9B5D84B21F119B100E980BA /* About.storyboard in Resources */,
 				C9E509A221BC08F900261E3A /* docs in Resources */,
@@ -1007,6 +1020,7 @@
 				C9FCFD6D21442FD700A07974 /* Untitled.py in Resources */,
 				C903B98821584367004AAD7F /* commandDictionary.plist in Resources */,
 				C9FCFD63214428B300A07974 /* LaunchScreen.storyboard in Resources */,
+				C9B5D87621F214DC00E980BA /* body.html in Resources */,
 				C9E415312151531B00D64E32 /* REPL.py in Resources */,
 				C903B98A215843B4004AAD7F /* extraCommandsDictionary.plist in Resources */,
 				C9E4152E21514F9100D64E32 /* Startup.py in Resources */,
@@ -1061,6 +1075,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Pyto/Pods-Pyto-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Down/Down.framework",
 				"${BUILT_PRODUCTS_DIR}/SavannaKit/SavannaKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SourceEditor/SourceEditor.framework",
 				"${BUILT_PRODUCTS_DIR}/SplitKit/SplitKit.framework",
@@ -1068,6 +1083,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Down.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SavannaKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SourceEditor.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SplitKit.framework",
@@ -1093,16 +1109,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9CEE1FB21EB8FEF00316D3C /* PyInputHelper.swift in Sources */,
-				C9C0E77521EEA5AA0057C63E /* Xcode.swift in Sources */,
 				C9CEE20921EB960200316D3C /* PyDocument.swift in Sources */,
 				C9CEE20C21EB960900316D3C /* Localizable.swift in Sources */,
 				C9CEE20521EB95C100316D3C /* String.swift in Sources */,
 				C9CEE1FF21EB8FF800316D3C /* PyMainThread.swift in Sources */,
 				C9CEE20121EB8FFD00316D3C /* PyAlert.swift in Sources */,
-				C9C0E77B21EF65E90057C63E /* ThemableNavigationController.swift in Sources */,
 				C9CEE20421EB95BE00316D3C /* UIWindow.swift in Sources */,
 				C9CEE20821EB95D600316D3C /* REPLViewController.swift in Sources */,
-				C9C0E77621EEA5B40057C63E /* Theme.swift in Sources */,
 				C9CEE21021EB96D300316D3C /* AppDelegate.swift in Sources */,
 				C9CEE20021EB8FFB00316D3C /* PyThread.swift in Sources */,
 				C9CEE1FC21EB8FF100316D3C /* PyOutputHelper.swift in Sources */,
@@ -1125,6 +1138,7 @@
 			files = (
 				C9EDF9AB21446FCA00382DCC /* ConsoleViewController.swift in Sources */,
 				C9C0E77D21EF66C40057C63E /* ThemableTabBarController.swift in Sources */,
+				C9B5D85E21F12E4000E980BA /* PlainTextEditorViewController.swift in Sources */,
 				C9C0E78721EF781F0057C63E /* Basic.swift in Sources */,
 				C9DF70B821715D3D00981B4F /* FileCollectionViewCell.swift in Sources */,
 				C9FCFD6B21442DE700A07974 /* DocumentBrowserViewController.swift in Sources */,
@@ -1140,10 +1154,12 @@
 				C92495C72151A3E3007EB4DB /* ReviewHelper.swift in Sources */,
 				C99E8D7021F0D03400C71884 /* CoolGlow.swift in Sources */,
 				C9C0E78121EF735F0057C63E /* LowKey.swift in Sources */,
+				C9B5D87021F20ECC00E980BA /* MarkdownSplitViewController.swift in Sources */,
 				C921EF7821ECC388004C750D /* ActivityViewController.swift in Sources */,
 				C9B5D84F21F11AAE00E980BA /* AboutTableViewController.swift in Sources */,
 				C98E2002214F0856002F0178 /* main.m in Sources */,
 				C9592D1821D0592C00412CEF /* PyDocument.swift in Sources */,
+				C9B5D87221F20F2A00E980BA /* MarkdownPreviewController.swift in Sources */,
 				C95A79E8214DC9D0007A1B90 /* PyAlert.swift in Sources */,
 				C9C0E77221EE9F4B0057C63E /* Theme.swift in Sources */,
 				C93D61E32145D50A00C8B5E3 /* String.swift in Sources */,
