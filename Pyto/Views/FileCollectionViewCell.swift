@@ -229,12 +229,14 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
     }
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        if isDirectory.boolValue {
+        if file?.path.hasPrefix(Bundle.main.bundlePath) == true {
+            return (action == #selector(open(_:)))
+        } else if isDirectory.boolValue || file?.pathExtension.lowercased() == "md" || file?.pathExtension.lowercased() == "markdown" {
             return (
                 action == #selector(remove(_:)) ||
-                    action == #selector(rename(_:)) ||
-                    action == #selector(copyFile(_:)) ||
-                    action == #selector(move(_:))
+                action == #selector(rename(_:)) ||
+                action == #selector(copyFile(_:)) ||
+                action == #selector(move(_:))
             )
         } else {
             return (
@@ -261,7 +263,17 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
     func didChangeSelectedRange(_ syntaxTextView: SyntaxTextView, selectedRange: NSRange) {}
     
     func lexerForSource(_ source: String) -> Lexer {
-        return Python3Lexer()
+        if file?.pathExtension.lowercased() == "py" {
+            return Python3Lexer()
+        } else {
+            struct PlainTextLexer: SourceCodeRegexLexer {
+                func generators(source: String) -> [TokenGenerator] {
+                    return []
+                }
+            }
+            
+            return PlainTextLexer()
+        }
     }
     
     // MARK: - Collection view data source

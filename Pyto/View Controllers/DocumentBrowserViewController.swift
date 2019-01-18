@@ -96,6 +96,10 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         
         if let iCloudURL = DocumentBrowserViewController.iCloudContainerURL, directory.pathComponents == DocumentBrowserViewController.localContainerURL.pathComponents {
             
+            if let welcome = Bundle.main.url(forResource: "Welcome to Pyto", withExtension: "md") {
+                files.append(welcome)
+            }
+            
             if !FileManager.default.fileExists(atPath: iCloudURL.path) {
                 try? FileManager.default.createDirectory(at: iCloudURL, withIntermediateDirectories: true, attributes: nil)
             }
