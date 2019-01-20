@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import ios_system
 
 /// The application's delegate.
 @objc public class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -36,7 +37,10 @@ import SafariServices
         window?.rootViewController?.addKeyCommand(UIKeyCommand(input: "h", modifierFlags: .command, action: #selector(suspendApp)))
         
         window?.accessibilityIgnoresInvertColors = true
-                
+        
+        initializeEnvironment()
+        setenv("SSL_CERT_FILE", Bundle.main.path(forResource: "cacert", ofType: "pem"), 1)
+        
         #if MAIN
         window?.tintColor = ConsoleViewController.choosenTheme.tintColor
         

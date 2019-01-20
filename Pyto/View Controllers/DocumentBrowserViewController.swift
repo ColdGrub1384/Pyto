@@ -313,7 +313,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
             splitVC.firstChild = editor
             splitVC.secondChild = contentVC
             
-            editor.shouldRun = true
+            editor.shouldRun = run
             completion?()
         })
     }
