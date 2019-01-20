@@ -666,7 +666,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         PyInputHelper.userInput = [
             "from _codecompletion import suggestForCode",
             "source = '''",
-            text,
+            text.replacingOccurrences(of: "'", with: "\\'"),
             "'''",
             "suggestForCode(source, '\(document?.fileURL.path ?? "")')"
         ].joined(separator: ";")
