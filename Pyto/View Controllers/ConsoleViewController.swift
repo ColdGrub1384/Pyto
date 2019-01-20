@@ -196,7 +196,8 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     ///
     /// - Parameters:
     ///     - viewController: The View controller to present initialized from Python.
-    @objc func showViewController(_ viewController: UIViewController) {
+    ///     - completion: Code to call as completion.
+    @objc func showViewController(_ viewController: UIViewController, completion: (() -> Void)? = nil) {
         
         #if MAIN
         class PyNavigationController: UINavigationController {
@@ -235,9 +236,9 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
             navigationController?.view.backgroundColor = view.backgroundColor
         }
         
-        present(navVC, animated: true, completion: nil)
+        present(navVC, animated: true, completion: completion)
         #else
-        present(viewController, animated: true, completion: nil)
+        present(viewController, animated: true, completion: completion)
         #endif
     }
     
