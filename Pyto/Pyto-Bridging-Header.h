@@ -3,6 +3,7 @@
 //
 
 #import "../Python/Headers/Python.h"
+#import "Python Bridging/Selectors/BlockBasedSelector.h"
 
 PyMODINIT_FUNC (*PyInit_multiarray)(void);
 PyMODINIT_FUNC (*PyInit_umath)(void);

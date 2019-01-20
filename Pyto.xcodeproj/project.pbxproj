@@ -24,6 +24,9 @@
 		C93D61E12145D46700C8B5E3 /* PyOutputHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E02145D46700C8B5E3 /* PyOutputHelper.swift */; };
 		C93D61E32145D50A00C8B5E3 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E22145D50A00C8B5E3 /* String.swift */; };
 		C9425A7121F48F1600E7CC35 /* cacert.pem in Resources */ = {isa = PBXBuildFile; fileRef = C9425A6E21F48F1600E7CC35 /* cacert.pem */; };
+		C9425A7721F49B1300E7CC35 /* BlockBasedSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7421F49B1200E7CC35 /* BlockBasedSelector.m */; };
+		C9425A7821F49B1300E7CC35 /* BlockBasedSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7521F49B1200E7CC35 /* BlockBasedSelector.swift */; };
+		C9425A7B21F49B8400E7CC35 /* PySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7A21F49B8400E7CC35 /* PySelector.swift */; };
 		C9477BBB21D45D29000680AE /* installer.py in Resources */ = {isa = PBXBuildFile; fileRef = C9477BBA21D45D28000680AE /* installer.py */; };
 		C9592D1821D0592C00412CEF /* PyDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1421D0592C00412CEF /* PyDocument.swift */; };
 		C9592D1921D0592C00412CEF /* ViewControllerTransitionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1521D0592C00412CEF /* ViewControllerTransitionCoordinator.swift */; };
@@ -350,6 +353,10 @@
 		C93D61E02145D46700C8B5E3 /* PyOutputHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyOutputHelper.swift; sourceTree = "<group>"; };
 		C93D61E22145D50A00C8B5E3 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		C9425A6E21F48F1600E7CC35 /* cacert.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cacert.pem; sourceTree = "<group>"; };
+		C9425A7421F49B1200E7CC35 /* BlockBasedSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockBasedSelector.m; sourceTree = "<group>"; };
+		C9425A7521F49B1200E7CC35 /* BlockBasedSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockBasedSelector.swift; sourceTree = "<group>"; };
+		C9425A7621F49B1300E7CC35 /* BlockBasedSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockBasedSelector.h; sourceTree = "<group>"; };
+		C9425A7A21F49B8400E7CC35 /* PySelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PySelector.swift; sourceTree = "<group>"; };
 		C943AC3D215277A000844368 /* Python.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Python.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9477BBA21D45D28000680AE /* installer.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = installer.py; sourceTree = "<group>"; };
 		C9592D1421D0592C00412CEF /* PyDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PyDocument.swift; sourceTree = "<group>"; };
@@ -569,6 +576,7 @@
 				C95A79E5214DC627007A1B90 /* PyMainThread.swift */,
 				C9624EF321A9905400DDA9A7 /* PyThread.swift */,
 				C95A79E7214DC9D0007A1B90 /* PyAlert.swift */,
+				C9425A7921F49B5A00E7CC35 /* Selectors */,
 				C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */,
 			);
 			path = "Python Bridging";
@@ -609,6 +617,17 @@
 				C9E509A121BC08F800261E3A /* docs */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		C9425A7921F49B5A00E7CC35 /* Selectors */ = {
+			isa = PBXGroup;
+			children = (
+				C9425A7621F49B1300E7CC35 /* BlockBasedSelector.h */,
+				C9425A7421F49B1200E7CC35 /* BlockBasedSelector.m */,
+				C9425A7521F49B1200E7CC35 /* BlockBasedSelector.swift */,
+				C9425A7A21F49B8400E7CC35 /* PySelector.swift */,
+			);
+			path = Selectors;
 			sourceTree = "<group>";
 		};
 		C9592D1321D0592C00412CEF /* Models */ = {
@@ -1160,10 +1179,12 @@
 				C9C0E78F21F0BC640057C63E /* ReadOnlyTheme.swift in Sources */,
 				C904EB7321445D5800585C28 /* Python.swift in Sources */,
 				C92495C72151A3E3007EB4DB /* ReviewHelper.swift in Sources */,
+				C9425A7821F49B1300E7CC35 /* BlockBasedSelector.swift in Sources */,
 				C99E8D7021F0D03400C71884 /* CoolGlow.swift in Sources */,
 				C9C0E78121EF735F0057C63E /* LowKey.swift in Sources */,
 				C9B5D87021F20ECC00E980BA /* MarkdownSplitViewController.swift in Sources */,
 				C921EF7821ECC388004C750D /* ActivityViewController.swift in Sources */,
+				C9425A7B21F49B8400E7CC35 /* PySelector.swift in Sources */,
 				C9B5D84F21F11AAE00E980BA /* AboutTableViewController.swift in Sources */,
 				C98E2002214F0856002F0178 /* main.m in Sources */,
 				C9592D1821D0592C00412CEF /* PyDocument.swift in Sources */,
@@ -1194,6 +1215,7 @@
 				C93D61E12145D46700C8B5E3 /* PyOutputHelper.swift in Sources */,
 				C913202B21DC12A300EEE677 /* AcknowledgmentsViewController.swift in Sources */,
 				C92ACE3721F0DBF600FA8904 /* SolarizedDark.swift in Sources */,
+				C9425A7721F49B1300E7CC35 /* BlockBasedSelector.m in Sources */,
 				C99DDCEC21BBED22002A734E /* DocumentationViewController.swift in Sources */,
 				C97659062147192C001C96A8 /* PySharingHelper.swift in Sources */,
 			);

@@ -129,6 +129,15 @@ sys.meta_path.append(NumpyImporter())
 
 sys.meta_path.append(PandasImporter())'''
 
+# MARK: - Selector
+
+"""
+Create a Selector without class.
+"""
+
+__builtins__.Selector = PytoClasses.PySelector.makeSelector
+__builtins__.Target = PytoClasses.SelectorTarget.shared
+
 # MARK: - Run script
 
 try:
