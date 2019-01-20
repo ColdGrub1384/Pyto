@@ -5,6 +5,7 @@ sys.path.insert(0, os.path.expanduser("~/Library/pylib"))
 sys.path.insert(0, os.path.expanduser("~/Documents"))
 sys.path.insert(0, os.path.expanduser("~/Documents/modules"))
 
+import io
 import console as Pyto
 import code
 import PytoClasses
@@ -27,24 +28,55 @@ __builtins__.input = askForInput
 
 # MARK: - Output
 
-oldStdout = sys.stdout
+oldStdout = sys.__stdout__
 
 class Reader:
     
+    @property
+    def buffer(self):
+        return self._buffer
+    
+    @property
+    def encoding(self):
+        return "utf-8"
+    
+    @property
+    def closed(self):
+        return False
+    
+    def __init__(self):
+        pass
+    
     def isatty(self):
         return False
+    
+    def writable(self):
+        return True
+    
+    def flush(self):
+        pass
     
     def write(self, txt):
         
         if (threading.currentThread() in Pyto.ignoredThreads):
             return
         
-        oldStdout.write(txt)
-        Pyto.print(txt, end="")
+        if txt.__class__.__name__ == 'str':
+            oldStdout.write(txt)
+            Pyto.print(txt, end="")
+        elif txt.__class__.__name__ == 'bytes':
+            text = txt.decode()
+            oldStdout.write(text)
+            Pyto.print(text, end="")
 
-reader = Reader()
-sys.stderr = reader
-sys.stdout = reader
+standardOutput = Reader()
+standardOutput._buffer = io.BufferedWriter(standardOutput)
+
+standardError = Reader()
+standardError._buffer = io.BufferedWriter(standardError)
+
+sys.stdout = standardOutput
+sys.stderr = standardError
 
 # MARK: - REPL
 

@@ -260,10 +260,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
         setup(theme: ConsoleViewController.choosenTheme)
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
     // MARK: - View controller
     
     override func viewDidLoad() {
@@ -386,7 +382,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
         super.viewDidAppear(animated)
         
         if EditorViewController.visible != self {
-            EditorViewController.visible = self
+            DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                EditorViewController.visible = self
+            }
         }
         
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
