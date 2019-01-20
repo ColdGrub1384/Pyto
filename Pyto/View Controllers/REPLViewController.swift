@@ -37,6 +37,7 @@ class REPLViewController: ConsoleViewController {
         textView.text = ""
         prompt = ""
         console = ""
+        isAskingForInput = false
         
         #if MAIN
         if Python.shared.isREPLRunning {

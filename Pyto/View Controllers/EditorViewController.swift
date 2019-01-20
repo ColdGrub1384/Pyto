@@ -493,6 +493,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                     console.textView.text = ""
                     console.console = ""
                     console.prompt = ""
+                    console.isAskingForInput = false
                     if Python.shared.isREPLRunning {
                         if Python.shared.isScriptRunning {
                             return
