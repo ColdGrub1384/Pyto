@@ -12,6 +12,8 @@ import PytoClasses
 from importlib.machinery import SourceFileLoader
 import importlib
 import threading
+from time import sleep
+from _thread import interrupt_main
 
 PytoClasses.Python.shared.version = sys.version
 
@@ -22,7 +24,6 @@ def askForInput(prompt=None):
         return ""
     else:
         return Pyto.input(prompt)
-
 
 __builtins__.input = askForInput
 
@@ -78,14 +79,6 @@ standardError._buffer = io.BufferedWriter(standardError)
 sys.stdout = standardOutput
 sys.stderr = standardError
 
-# MARK: - REPL
-
-interact = code.interact
-def newInteract():
-    PytoClasses.Python.shared.isREPLRunning = True
-    interact()
-code.interact = newInteract
-
 # MARK: - NumPy
 
 class NumpyImporter(object):
@@ -140,7 +133,8 @@ __builtins__.Target = PytoClasses.SelectorTarget.shared
 
 # MARK: - Run script
 
-try:
-    SourceFileLoader("main", "%@").load_module()
-except Exception as e:
-    print(e)
+while True:
+    try:
+        SourceFileLoader("main", "%@").load_module()
+    except Exception as e:
+        print(e)

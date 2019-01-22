@@ -132,13 +132,13 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     ///     - prompt: The prompt from the Python function
     func input(prompt: String) {
         
-        guard (!ignoresInput && !ConsoleViewController.ignoresInput) || self is REPLViewController else {
+        guard (!ignoresInput && !ConsoleViewController.ignoresInput) || parent is REPLViewController else {
             ignoresInput = false
             ConsoleViewController.ignoresInput = false
             return
         }
         
-        if !(self is REPLViewController) {
+        if !(parent is REPLViewController) {
             guard Python.shared.isScriptRunning else {
                 return
             }
@@ -176,8 +176,8 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     
     /// The visible instance.
     @objc static var visible: ConsoleViewController {
-        if REPLViewController.visibleREPL?.view.window != nil {
-            return REPLViewController.visibleREPL ?? shared
+        if REPLViewController.shared?.view.window != nil {
+            return REPLViewController.shared?.console ?? shared
         } else {
             return shared
         }
@@ -285,8 +285,6 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
         view.addSubview(textView)
         
         #if MAIN
-        inputAssistant.dataSource = self
-        inputAssistant.delegate = self
         inputAssistant.trailingActions = [InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView, action: #selector(textView.resignFirstResponder))]
         inputAssistant.attach(to: textView)
         #endif
@@ -305,7 +303,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if !(self is REPLViewController) {
+        if !(parent is REPLViewController) {
             navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(close))]
         }
         
@@ -401,43 +399,3 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
         return false
     }
 }
-
-#if MAIN
-extension ConsoleViewController: InputAssistantViewDelegate, InputAssistantViewDataSource {
-    
-    // MARK: - Input assistant view delegate
-    
-    func inputAssistantView(_ inputAssistantView: InputAssistantView, didSelectSuggestionAtIndex index: Int) {
-        
-        guard Python.shared.values.indices.contains(index) else {
-            return
-        }
-        
-        prompt = "script."+Python.shared.values[index]
-        textView.text = console+prompt
-    }
-    
-    // MARK: - Input assistant view data source
-    
-    func textForEmptySuggestionsInInputAssistantView() -> String? {
-        return nil
-    }
-    
-    func numberOfSuggestionsInInputAssistantView() -> Int {
-        if self is REPLViewController {
-            return 0
-        } else {
-            return Python.shared.values.count
-        }
-    }
-    
-    func inputAssistantView(_ inputAssistantView: InputAssistantView, nameForSuggestionAtIndex index: Int) -> String {
-        
-        guard Python.shared.values.indices.contains(index) else {
-            return ""
-        }
-        
-        return Python.shared.values[index]
-    }
-}
-#endif

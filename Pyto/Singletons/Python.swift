@@ -80,17 +80,6 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// All the Python output.
     public var output = ""
     
-    /// Values caught by a Python script.
-    @objc public var values = [String]() {
-        didSet {
-            #if MAIN
-            DispatchQueue.main.async {
-                ConsoleViewController.visible.inputAssistant.reloadData()
-            }
-            #endif
-        }
-    }
-    
     /// The last error's type.
     @objc public var errorType: String?
     
@@ -131,12 +120,17 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         }
     }
     
+    /// The thread running script.
+    @objc public var thread: Thread?
+    
     /// Run script at given URL.
     ///
     /// - Parameters:
     ///     - url: URL of the Python script to run.
     @objc public func runScript(at url: URL) {
         queue.async {
+            
+            self.thread = Thread.current
             
             guard !self.isREPLRunning else {
                 PyOutputHelper.print(Localizable.Python.alreadyRunning) // Should not be called. When the REPL is running, run the script inside it.

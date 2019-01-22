@@ -1,72 +1,52 @@
 //
-//  REPLViewController.swift
+//  REPLSplitViewController.swift
 //  Pyto
 //
-//  Created by Adrian Labbe on 10/12/18.
-//  Copyright © 2018 Adrian Labbé. All rights reserved.
+//  Created by Adrian Labbé on 1/21/19.
+//  Copyright © 2019 Adrian Labbé. All rights reserved.
 //
 
 import UIKit
 
-/// The View controller for the REPL in the Tab bar controller.
-class REPLViewController: ConsoleViewController {
+/// A View controller with the REPL.
+class REPLViewController: EditorSplitViewController {
     
-    /// The visible instance.
-    static var visibleREPL: REPLViewController?
+    /// The shared instance.
+    static var shared: REPLViewController?
     
-    // MARK: - Console view controller
+    // MARK: - Editor split view controller
     
-    override var ignoresInput: Bool {
-        get {
-            return false
-        }
+    override func loadView() {
+        super.loadView()
         
-        set {}
+        if let repl = Bundle.main.url(forResource: "REPL", withExtension: "py") {
+            editor = EditorViewController(document: PyDocument(fileURL: repl))
+        }
+        console = ConsoleViewController()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        REPLViewController.visibleREPL = self
-        title = Localizable.repl
+        REPLViewController.shared = self
+        
+        addChild(console)
+        view.addSubview(console.view)
+        console.view.frame = view.frame
+        console.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        editor.close()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        textView.text = ""
-        prompt = ""
-        console = ""
-        isAskingForInput = false
-        
-        #if MAIN
-        if Python.shared.isREPLRunning {
-            
-            func sendInput() {
-                PyInputHelper.userInput = [
-                    "import os",
-                    "import PytoClasses",
-                    "import sys",
-                    "iCloudDrive = '\(DocumentBrowserViewController.iCloudContainerURL?.path ?? DocumentBrowserViewController.localContainerURL.path)'",
-                    "sys.path.insert(0, iCloudDrive)",
-                    "os.system = PytoClasses.Python.shared.system",
-                    "import code",
-                    "code.interact()",
-                    "sys.path.remove(iCloudDrive)"
-                ].joined(separator: ";")
-            }
-            
-            if !Python.shared.isScriptRunning {
-                sendInput()
-            } else {
-                Python.shared.isScriptRunning = false
-                
-                DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-                    sendInput()
-                }
-            }
-        }
-        #endif
+        editor.run()
     }
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {}
 }
-

@@ -470,9 +470,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     /// Run the script represented by `document`.
     @objc func run() {
-        save { (_) in
-            Python.shared.values = []
-            
+        save { (_) in            
             var arguments = self.args.components(separatedBy: " ")
             parseArgs(&arguments)
             Python.shared.args = arguments
@@ -500,7 +498,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                         }
                         Python.shared.isScriptRunning = true
                         // Import the script
-                        PyInputHelper.userInput = "import console as __console__; script = __console__.runScriptAtPath('\(url.path)')"
+                        PyInputHelper.userInput = "import console as __console__; __console__.runScriptAtPath('\(url.path)')"
                     } else {
                         Python.shared.runScript(at: url)
                     }
