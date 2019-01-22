@@ -1,5 +1,3 @@
-// Taken 
-
 import UIKit
 
 extension UITextView {
