@@ -695,18 +695,12 @@ fileprivate func parseArgs(_ args: inout [String]) {
              "print" -> "print()"
              "print()" -> "print()" NOT "print()" -> "print()()"
             */
-            if suggestion.hasSuffix("(") {
-                guard
-                    let end = textView.contentTextView.position(from: textRange.end, offset: 1),
-                    let range = textView.contentTextView.textRange(from: textRange.start, to: end)
-                    else {
-                    return
-                }
-                
-                if textView.contentTextView.text(in: range)?.hasSuffix("(") == true {
-                    suggestion.removeLast()
-                }
-                
+            if
+                suggestion.hasSuffix("("),
+                let end = textView.contentTextView.position(from: textRange.end, offset: 1),
+                let range = textView.contentTextView.textRange(from: textRange.start, to: end),
+                textView.contentTextView.text(in: range)?.hasSuffix("(") == true {
+                suggestion.removeLast()
             }
             
             textView.contentTextView.replace(textRange, withText: suggestion)
