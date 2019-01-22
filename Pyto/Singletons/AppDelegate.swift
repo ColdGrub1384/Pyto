@@ -38,11 +38,13 @@ import ios_system
         
         window?.accessibilityIgnoresInvertColors = true
         
+        #if MAIN
         initializeEnvironment()
         setenv("SSL_CERT_FILE", Bundle.main.path(forResource: "cacert", ofType: "pem"), 1)
         
-        #if MAIN
         window?.tintColor = ConsoleViewController.choosenTheme.tintColor
+        
+        ((window?.rootViewController as? UITabBarController)?.viewControllers?.last as? UINavigationController)?.viewControllers.first?.loadViewIfNeeded()
         
         UIMenuController.shared.menuItems = [
             UIMenuItem(title: Localizable.MenuItems.open, action: #selector(FileCollectionViewCell.open(_:))),
