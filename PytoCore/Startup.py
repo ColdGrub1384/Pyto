@@ -3,12 +3,12 @@ print("Startup script called")
 import sys
 import console as Pyto
 import code
-import PytoClasses
+import pyto
 from importlib.machinery import SourceFileLoader
 import importlib
 import threading
 
-PytoClasses.Python.shared.version = sys.version
+pyto.Python.shared.version = sys.version
 
 # MARK: - Input
 
@@ -46,7 +46,7 @@ sys.stdout = reader
 
 interact = code.interact
 def newInteract():
-    PytoClasses.Python.shared.isREPLRunning = True
+    pyto.Python.shared.isREPLRunning = True
     interact()
 code.interact = newInteract
 
