@@ -92,6 +92,12 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     /// Code completion suggestions for the REPL.
     @objc var suggestions = [String]() {
         didSet {
+            
+            if suggestions != [] && !Python.shared.isREPLAskingForInput {
+                suggestions = []
+                return
+            }
+            
             DispatchQueue.main.async {
                 self.inputAssistant.reloadData()
             }
@@ -448,11 +454,17 @@ extension ConsoleViewController: InputAssistantViewDelegate, InputAssistantViewD
     
     func inputAssistantView(_ inputAssistantView: InputAssistantView, nameForSuggestionAtIndex index: Int) -> String {
         
-        if suggestions[index].hasSuffix("(") {
-            return suggestions[index]+")"
+        guard suggestions.indices.contains(index) else {
+            return ""
         }
         
-        return suggestions[index]
+        let suggestion = suggestions[index]
+        
+        if suggestion.hasSuffix("(") {
+            return suggestion+")"
+        }
+        
+        return suggestion
     }
     
 }

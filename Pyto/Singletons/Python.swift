@@ -54,6 +54,9 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// If set to `true`, scripts will run inside the REPL.
     @objc public var isREPLRunning = false
     
+    /// Set to `true` while the REPL is asking for input.
+    @objc public var isREPLAskingForInput = false
+    
     /// Set to `true` while a script is running to prevent user from running one while another is running.
     @objc public var isScriptRunning = false {
         didSet {
