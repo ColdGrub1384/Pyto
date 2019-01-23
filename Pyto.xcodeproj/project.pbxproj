@@ -30,6 +30,7 @@
 		C9425A7821F49B1300E7CC35 /* BlockBasedSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7521F49B1200E7CC35 /* BlockBasedSelector.swift */; };
 		C9425A7B21F49B8400E7CC35 /* PySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7A21F49B8400E7CC35 /* PySelector.swift */; };
 		C9477BBB21D45D29000680AE /* installer.py in Resources */ = {isa = PBXBuildFile; fileRef = C9477BBA21D45D28000680AE /* installer.py */; };
+		C949D39B21F8A00C005AF481 /* NSRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C949D39A21F8A00C005AF481 /* NSRange.swift */; };
 		C9592D1821D0592C00412CEF /* PyDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1421D0592C00412CEF /* PyDocument.swift */; };
 		C9592D1921D0592C00412CEF /* ViewControllerTransitionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1521D0592C00412CEF /* ViewControllerTransitionCoordinator.swift */; };
 		C9592D1A21D0592C00412CEF /* Xcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1621D0592C00412CEF /* Xcode.swift */; };
@@ -360,6 +361,7 @@
 		C9425A7A21F49B8400E7CC35 /* PySelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PySelector.swift; sourceTree = "<group>"; };
 		C943AC3D215277A000844368 /* Python.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Python.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9477BBA21D45D28000680AE /* installer.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = installer.py; sourceTree = "<group>"; };
+		C949D39A21F8A00C005AF481 /* NSRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSRange.swift; sourceTree = "<group>"; };
 		C9592D1421D0592C00412CEF /* PyDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PyDocument.swift; sourceTree = "<group>"; };
 		C9592D1521D0592C00412CEF /* ViewControllerTransitionCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerTransitionCoordinator.swift; sourceTree = "<group>"; };
 		C9592D1621D0592C00412CEF /* Xcode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Xcode.swift; sourceTree = "<group>"; };
@@ -586,6 +588,7 @@
 			isa = PBXGroup;
 			children = (
 				C93D61DE2145D03200C8B5E3 /* UIWindow.swift */,
+				C949D39A21F8A00C005AF481 /* NSRange.swift */,
 				C93D61E22145D50A00C8B5E3 /* String.swift */,
 				C9AAAB5121950E8B0042E733 /* UITextView+currentWord.swift */,
 			);
@@ -1201,6 +1204,7 @@
 				C9C0E78521EF764F0057C63E /* Sunset.swift in Sources */,
 				C9EA55B3219F752D007546BC /* RelativePathForScript.swift in Sources */,
 				C92ACE3321F0D8CB00FA8904 /* SolarizedLight.swift in Sources */,
+				C949D39B21F8A00C005AF481 /* NSRange.swift in Sources */,
 				C9C0E77F21EF71E30057C63E /* Dusk.swift in Sources */,
 				C9592D1A21D0592C00412CEF /* Xcode.swift in Sources */,
 				C9FCFD5B214428AE00A07974 /* EditorViewController.swift in Sources */,
