@@ -638,6 +638,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         docString = nil
         
+        if text == "\t", let textRange = range.toTextRange(textInput: textView) {
+            textView.replace(textRange, withText: "  ")
+            return false
+        }
+        
         return true
     }
     
