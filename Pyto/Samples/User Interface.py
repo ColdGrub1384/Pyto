@@ -42,7 +42,7 @@ def sayHello(sender: ObjCInstance) -> None:
     alert = UIAlertController.alertControllerWithTitle("What's your name?", message="Type your name to say hello.", preferredStyle=1)
     
     def ok() -> None:
-        ui.closeViewController()
+        ui.close_view_controller()
         print("Hello "+alert.textFields.firstObject().text+"!")
     
     def setupTextField(textField: ObjCInstance) -> None:
@@ -105,11 +105,11 @@ def main() -> None:
     
     navigationController = UINavigationController.new()
     navigationController.setViewControllers([viewController])
-    ui.showViewController(navigationController, setupView)
+    ui.show_view_controller(navigationController, setupView)
 
 # Runs `main` on main thread.
-mainthread.runSync(main)
+mainthread.run_sync(main)
 
 # This will stop the current thread until the View controller is hidden. Very important to avoid crashes on actions!
-ui.mainLoop()
+ui.main_loop()
 

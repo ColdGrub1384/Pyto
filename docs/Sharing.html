@@ -8,7 +8,7 @@
     
     <p>This module allows you to share items and to import files.</p>
     
-    <h2><code>shareItems()</code></h2>
+    <h2><code>share_items()</code></h2>
     
     <p>Opens a share sheet with given items.</p>
     
@@ -29,15 +29,15 @@
     filePicker.fileTypes = ["public.data"]
     filePicker.allowsMultipleSelection = True
     
-    def filesPicked() -> None:
-        files = sharing.pickedFiles()
-        sharing.shareItems(files)
+    def files_picked() -> None:
+        files = sharing.picked_files()
+        sharing.share_items(files)
     
-    filePicker.completion = filesPicked
-    sharing.pickDocumentsWithFilePicker(filePicker)
+    filePicker.completion = files_picked
+    sharing.pick_documents(filePicker)
     </code></pre>
     
-    <h2><code>pickDocumentsWithFilePicker(filePicker)</code></h2>
+    <h2><code>pick_documents(filePicker)</code></h2>
     
     <p>Pick documents with given parameters as a <code>FilePicker</code>.</p>
     
@@ -45,13 +45,13 @@
         <li>filePicker: The parameters of the file picker to be presented.</li>
     </ul>
     
-    <h2><code>pickedFiles()</code></h2>
+    <h2><code>picked_files()</code></h2>
     
-    <p>Returns files picked with <code>pickDocumentsWithFilePicker</code> as URLs.</p>
+    <p>Returns files picked with <code>pick_documents</code> as URLs.</p>
     
     <h3>URLs</h3>
     
-    <h2><code>openURL(url)</code></h2>
+    <h2><code>open_url(url)</code></h2>
     
     <p>Opens the given URL.</p>
     

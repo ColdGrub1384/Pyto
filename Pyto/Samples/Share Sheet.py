@@ -9,4 +9,4 @@ import sharing
 item = "Hello World!"
 print(item)
 
-sharing.shareItems([item])
+sharing.share_items([item])

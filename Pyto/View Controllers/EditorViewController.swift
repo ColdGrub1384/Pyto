@@ -508,7 +508,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                         }
                         Python.shared.isScriptRunning = true
                         // Import the script
-                        PyInputHelper.userInput = "import console as __console__; __console__.runScriptAtPath('\(url.path)')"
+                        PyInputHelper.userInput = "import console as __console__; __console__.run_script('\(url.path)')"
                     } else {
                         Python.shared.runScript(at: url)
                     }

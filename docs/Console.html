@@ -8,11 +8,28 @@
     
     <p>This module gives access to the console.</p>
     
+    <h2><code>Alert</code></h2>
+    
+    <p>
+    A class representing an alert.
+    <br/>
+    <br/>
+    Example:
+    
+    <pre>
+    alert = console.Alert.alertWithTitle("Hello", message="Hello World!")
+    alert.addAction("Ok")
+    alert.addCancelAction("Cancel")
+    if (alert.show() == "Ok"):
+        print("Good Bye!")
+    </pre>
+    <p/>
+    
+    <h3>I/O</h3>
+    
     <h2><code>clear()</code></h2>
     
     <p>Clears the console.</p>
-    
-    <h3>I/O</h3>
     
     <h2><code>input(prompt)</code></h2>
     

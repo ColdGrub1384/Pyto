@@ -18,23 +18,11 @@ import ios_system
     @objc public static var scriptToRun: String?
     #endif
     
-    /// Suspends app. Set from Python.
-    @objc var suspendApp_: (() -> Void)?
-    
-    /// Suspends the app.
-    @objc func suspendApp() {
-        DispatchQueue.main.async {
-            self.suspendApp_?()
-        }
-    }
-    
     // MARK: - Application delegate
     
     @objc public var window: UIWindow?
     
     @objc public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        window?.rootViewController?.addKeyCommand(UIKeyCommand(input: "h", modifierFlags: .command, action: #selector(suspendApp)))
         
         window?.accessibilityIgnoresInvertColors = true
         
@@ -109,19 +97,10 @@ import ios_system
             self.window?.rootViewController?.present(ConsoleViewController.visible, animated: true, completion: {
                 ConsoleViewController.visible.textView.text = ""
                 Python.shared.isScriptRunning = true
-                PyInputHelper.userInput = "import console as __console__; script = __console__.runScriptAtPath('\(AppDelegate.scriptToRun!)'); from suspend import suspend; suspend(); from time import sleep; sleep(0.5); exit(0)"
+                PyInputHelper.userInput = "import console as __console__; script = __console__.run_script('\(AppDelegate.scriptToRun!)'); from suspend import suspend; suspend(); from time import sleep; sleep(0.5); exit(0)"
             })
         }
         #endif
-        
-        PyInputHelper.userInput = [
-            "from UIKit import *",
-            "from rubicon.objc import *",
-            "delegate = UIApplication.sharedApplication.delegate",
-            "def suspend() -> None:",
-            "   UIApplication.sharedApplication.suspend()",
-            "delegate.suspendApp_ = Block(suspend)",
-        ].joined(separator: ";")
         
         return true
     }

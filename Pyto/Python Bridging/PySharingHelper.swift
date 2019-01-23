@@ -19,12 +19,23 @@ import SafariServices
     /// - Parameters:
     ///     - items: Items to share with the picker.
     @objc static func share(_ items: [Any]) {
-        DispatchQueue.main.async {
-            let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        
+        let itemsToShare = items
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        DispatchQueue.main.sync {
+            let activityVC = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
             activityVC.popoverPresentationController?.sourceView = ConsoleViewController.visible.view
             activityVC.popoverPresentationController?.sourceRect = activityVC.popoverPresentationController?.sourceView?.bounds ?? .zero
-            UIApplication.shared.keyWindow?.topViewController?.present(activityVC, animated: true, completion: nil)
-        }        
+            UIApplication.shared.keyWindow?.topViewController?.present(activityVC, animated: true, completion: {
+                semaphore.signal()
+            })
+        }
+        
+        if !Thread.current.isMainThread {
+            semaphore.wait()
+        }
     }
     
     /// Presents a file picker with given settings in the main thread.
