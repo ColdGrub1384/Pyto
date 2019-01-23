@@ -19,7 +19,7 @@ class REPLViewController: EditorSplitViewController {
     override func loadView() {
         super.loadView()
         
-        if let repl = Bundle.main.url(forResource: "REPL", withExtension: "py") {
+        if let repl = Bundle.main.url(forResource: "UserREPL", withExtension: "py") {
             editor = EditorViewController(document: PyDocument(fileURL: repl))
         }
         console = ConsoleViewController()
@@ -39,6 +39,8 @@ class REPLViewController: EditorSplitViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
+        console.completions = []
+        console.suggestions = []
         editor.close()
     }
     

@@ -88,10 +88,22 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     
     /// The Input assistant view for typing module's identifier.
     let inputAssistant = InputAssistantView()
+    
+    /// Code completion suggestions for the REPL.
+    @objc var suggestions = [String]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.inputAssistant.reloadData()
+            }
+        }
+    }
+    
+    /// Code completion suggestions values for the REPL.
+    @objc var completions = [String]()
     #endif
     
     /// The current prompt.
-    var prompt = ""
+    @objc var prompt = ""
     
     /// The content of the console.
     @objc var console = ""
@@ -176,10 +188,18 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     
     /// The visible instance.
     @objc static var visible: ConsoleViewController {
-        if REPLViewController.shared?.view.window != nil {
-            return REPLViewController.shared?.console ?? shared
+        if Thread.current.isMainThread {
+            if REPLViewController.shared?.view.window != nil {
+                return REPLViewController.shared?.console ?? shared
+            } else {
+                return shared
+            }
         } else {
-            return shared
+            var console: ConsoleViewController?
+            DispatchQueue.main.sync {
+                console = ConsoleViewController.visible
+            }
+            return console ?? shared
         }
     }
     
@@ -250,9 +270,14 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     /// - Parameters:
     ///     - theme: The theme to apply.
     func setup(theme: Theme) {
+        
+        textView.inputAccessoryView = nil
+        
         textView.keyboardAppearance = theme.keyboardAppearance
         textView.backgroundColor = theme.sourceCodeTheme.backgroundColor
         textView.textColor = theme.sourceCodeTheme.color(for: .plain)
+        
+        inputAssistant.attach(to: textView)
         inputAssistant.trailingActions = [InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView, action: #selector(textView.resignFirstResponder))]
     }
     
@@ -285,8 +310,9 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
         view.addSubview(textView)
         
         #if MAIN
+        inputAssistant.delegate = self
+        inputAssistant.dataSource = self
         inputAssistant.trailingActions = [InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView, action: #selector(textView.resignFirstResponder))]
-        inputAssistant.attach(to: textView)
         #endif
         
         NotificationCenter.default.addObserver(self, selector: #selector(print_(_:)), name: .init(rawValue: "DidReceiveOutput"), object: nil)
@@ -399,3 +425,35 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
         return false
     }
 }
+
+#if MAIN
+extension ConsoleViewController: InputAssistantViewDelegate, InputAssistantViewDataSource {
+    
+    func inputAssistantView(_ inputAssistantView: InputAssistantView, didSelectSuggestionAtIndex index: Int) {
+        
+        let completion = completions[index]
+        prompt += completion
+        textView.text += completion
+        
+        inputAssistantView.reloadData()
+    }
+    
+    func textForEmptySuggestionsInInputAssistantView() -> String? {
+        return nil
+    }
+    
+    func numberOfSuggestionsInInputAssistantView() -> Int {
+        return suggestions.count
+    }
+    
+    func inputAssistantView(_ inputAssistantView: InputAssistantView, nameForSuggestionAtIndex index: Int) -> String {
+        
+        if suggestions[index].hasSuffix("(") {
+            return suggestions[index]+")"
+        }
+        
+        return suggestions[index]
+    }
+    
+}
+#endif
