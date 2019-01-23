@@ -16,6 +16,14 @@ class REPLViewController: EditorSplitViewController {
     
     // MARK: - Editor split view controller
     
+    override func interrupt() {
+        PyInputHelper.userInput = "\u{003}"
+    }
+    
+    override var keyCommands: [UIKeyCommand]? {
+        return [UIKeyCommand(input: "C", modifierFlags: .control, action: #selector(interrupt), discoverabilityTitle: Localizable.interrupt)]
+    }
+    
     override func loadView() {
         super.loadView()
         
