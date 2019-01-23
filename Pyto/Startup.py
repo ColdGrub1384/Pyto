@@ -130,6 +130,7 @@ Create a Selector without class.
 
 __builtins__.Selector = PytoClasses.PySelector.makeSelector
 __builtins__.Target = PytoClasses.SelectorTarget.shared
+__builtins__.deprecated = ["runAsync", "runSync", "generalPasteboard", "setString", "setStrings", "setImage", "setImages", "setURL", "setURLs", "showViewController", "closeViewController", "mainLoop", "openURL", "shareItems", "pickDocumentsWithFilePicker"]
 
 # MARK: - Run script
 
