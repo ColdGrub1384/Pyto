@@ -40,6 +40,7 @@ import ios_system
         
         #if MAIN
         initializeEnvironment()
+        setenv("PWD", FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].path, 1)
         setenv("SSL_CERT_FILE", Bundle.main.path(forResource: "cacert", ofType: "pem"), 1)
         
         window?.tintColor = ConsoleViewController.choosenTheme.tintColor

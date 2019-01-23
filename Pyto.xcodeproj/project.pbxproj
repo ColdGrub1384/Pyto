@@ -140,6 +140,7 @@
 		C9DF71072171768A00981B4F /* Python.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C943AC3D215277A000844368 /* Python.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9DF711A217176D700981B4F /* ios_system.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF7115217176BF00981B4F /* ios_system.framework */; };
 		C9DF711B217176D700981B4F /* ios_system.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF7115217176BF00981B4F /* ios_system.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E116E021F773EB00FB5DD2 /* UserREPL.py in Resources */ = {isa = PBXBuildFile; fileRef = C9E116DF21F773EB00FB5DD2 /* UserREPL.py */; };
 		C9E4152B21513E3400D64E32 /* ConsoleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E4152A21513E3400D64E32 /* ConsoleTextView.swift */; };
 		C9E4152E21514F9100D64E32 /* Startup.py in Resources */ = {isa = PBXBuildFile; fileRef = C9E4152D21514F9100D64E32 /* Startup.py */; };
 		C9E509A221BC08F900261E3A /* docs in Resources */ = {isa = PBXBuildFile; fileRef = C9E509A121BC08F800261E3A /* docs */; };
@@ -451,6 +452,7 @@
 		C9DF70D42171752100981B4F /* text.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = text.framework; sourceTree = "<group>"; };
 		C9DF70D52171752100981B4F /* lua_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = lua_ios.framework; sourceTree = "<group>"; };
 		C9DF7110217176BE00981B4F /* ios_system.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ios_system.xcodeproj; path = ios_system/ios_system.xcodeproj; sourceTree = "<group>"; };
+		C9E116DF21F773EB00FB5DD2 /* UserREPL.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = UserREPL.py; sourceTree = "<group>"; };
 		C9E4152A21513E3400D64E32 /* ConsoleTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleTextView.swift; sourceTree = "<group>"; };
 		C9E4152D21514F9100D64E32 /* Startup.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = Startup.py; sourceTree = "<group>"; };
 		C9E509A121BC08F800261E3A /* docs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = docs; sourceTree = SOURCE_ROOT; };
@@ -609,6 +611,7 @@
 				C9B5D86121F144D900E980BA /* Untitled.md */,
 				C9E4152D21514F9100D64E32 /* Startup.py */,
 				C92DBD7F21F67B9C0098BE43 /* REPL.py */,
+				C9E116DF21F773EB00FB5DD2 /* UserREPL.py */,
 				C9B5D87521F214DC00E980BA /* body.html */,
 				C9F04E852173C33400BDD03E /* Localizable.strings */,
 				C9EA5C7C21F23024000F7FA7 /* Welcome to Pyto.md */,
@@ -1040,6 +1043,7 @@
 				C9EA5C7D21F23558000F7FA7 /* Welcome to Pyto.md in Resources */,
 				C98472AE21A05CB1008E16AC /* README.md in Resources */,
 				C9F04E882173DD7300BDD03E /* Main.storyboard in Resources */,
+				C9E116E021F773EB00FB5DD2 /* UserREPL.py in Resources */,
 				C9FCFD6D21442FD700A07974 /* Untitled.py in Resources */,
 				C903B98821584367004AAD7F /* commandDictionary.plist in Resources */,
 				C9FCFD63214428B300A07974 /* LaunchScreen.storyboard in Resources */,

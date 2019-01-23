@@ -247,12 +247,17 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// - Parameters:
     ///     - theme: The theme to apply.
     func setup(theme: Theme) {
+        
+        textView.contentTextView.inputAccessoryView = nil
+        
         let text = textView.text
         textView.text = ""
         textView.theme = theme.sourceCodeTheme
         textView.contentTextView.textColor = theme.sourceCodeTheme.color(for: .plain)
         textView.contentTextView.keyboardAppearance = theme.keyboardAppearance
         textView.text = text
+        
+        inputAssistant.attach(to: textView.contentTextView)
     }
     
     /// Called when the user choosed a theme.
@@ -274,7 +279,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
         inputAssistant.dataSource = self
         inputAssistant.delegate = self
         inputAssistant.trailingActions = [InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView.contentTextView, action: #selector(textView.contentTextView.resignFirstResponder))]
-        inputAssistant.attach(to: textView.contentTextView)
         
         parent?.title = document?.fileURL.deletingPathExtension().lastPathComponent
         
@@ -579,6 +583,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 docVC.modalPresentationStyle = .popover
                 docVC.presentationController?.delegate = docVC
                 docVC.popoverPresentationController?.backgroundColor = .black
+                docVC.popoverPresentationController?.permittedArrowDirections = .up
                 
                 if let selectedTextRange = self.textView.contentTextView.selectedTextRange {
                     docVC.popoverPresentationController?.sourceView = self.textView.contentTextView
@@ -661,13 +666,14 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
         
         ConsoleViewController.ignoresInput = true
-        PyInputHelper.userInput = [
+        let input = [
             "from _codecompletion import suggestForCode",
             "source = '''",
             text.replacingOccurrences(of: "'", with: "\\'"),
             "'''",
             "suggestForCode(source, '\(document?.fileURL.path ?? "")')"
         ].joined(separator: ";")
+        PyInputHelper.userInput = input
     }
     
     // MARK: - Syntax text view delegate
