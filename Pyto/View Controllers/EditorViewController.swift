@@ -115,6 +115,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
         present(documentationNavigationController!, animated: true, completion: nil)
     }
     
+    /// Inserts two spaces.
+    @objc func insertTab() {
+        textView.contentTextView.insertText("  ")
+    }
+    
     private var isDocOpened = false
     
     /// The currently visible editor.
@@ -257,6 +262,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         textView.contentTextView.keyboardAppearance = theme.keyboardAppearance
         textView.text = text
         
+        inputAssistant.leadingActions = [InputAssistantAction(image: "⇥".image() ?? UIImage(), target: self, action: #selector(insertTab))]
         inputAssistant.attach(to: textView.contentTextView)
     }
     
