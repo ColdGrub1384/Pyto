@@ -120,6 +120,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
         textView.contentTextView.insertText("  ")
     }
     
+    private var isSaving = false
+    
     private var isDocOpened = false
     
     /// The currently visible editor.
@@ -691,6 +693,12 @@ fileprivate func parseArgs(_ args: inout [String]) {
 
     func didChangeText(_ syntaxTextView: SyntaxTextView) {
         document?.text = textView.text
+        if !isSaving {
+            isSaving = true
+            save { (_) in
+                self.isSaving = false
+            }
+        }
     }
     
     func didChangeSelectedRange(_ syntaxTextView: SyntaxTextView, selectedRange: NSRange) {}
