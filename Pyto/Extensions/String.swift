@@ -6,7 +6,7 @@
 //  Copyright © 2018 Adrian Labbé. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 @objc extension NSString {
     
@@ -53,5 +53,18 @@ extension String {
         memcpy(buffer, cString, cString.count)
         
         return buffer
+    }
+    
+    /// Taken from https://stackoverflow.com/a/38809531/7515957
+    func image() -> UIImage? {
+        let size = CGSize(width: 40, height: 40)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        UIColor.clear.set()
+        let rect = CGRect(origin: .zero, size: size)
+        UIRectFill(CGRect(origin: .zero, size: size))
+        (self as AnyObject).draw(in: rect, withAttributes: [.font: UIFont.systemFont(ofSize: 40), .foregroundColor: ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)])
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
     }
 }
