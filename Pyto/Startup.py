@@ -8,14 +8,14 @@ sys.path.insert(0, os.path.expanduser("~/Documents/modules"))
 import io
 import console as Pyto
 import code
-import PytoClasses
+import pyto
 from importlib.machinery import SourceFileLoader
 import importlib
 import threading
 from time import sleep
 from _thread import interrupt_main
 
-PytoClasses.Python.shared.version = sys.version
+pyto.Python.shared.version = sys.version
 
 # MARK: - Input
 
@@ -128,8 +128,8 @@ sys.meta_path.append(PandasImporter())'''
 Create a Selector without class.
 """
 
-__builtins__.Selector = PytoClasses.PySelector.makeSelector
-__builtins__.Target = PytoClasses.SelectorTarget.shared
+__builtins__.Selector = pyto.PySelector.makeSelector
+__builtins__.Target = pyto.SelectorTarget.shared
 __builtins__.deprecated = ["runAsync", "runSync", "generalPasteboard", "setString", "setStrings", "setImage", "setImages", "setURL", "setURLs", "showViewController", "closeViewController", "mainLoop", "openURL", "shareItems", "pickDocumentsWithFilePicker"]
 
 # MARK: - Run script
