@@ -679,6 +679,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
     }
     
+    /// Completions corresponding to `suggestions`.
+    @objc var completions = [String]()
+    
     /// Returns doc strings per suggestions.
     @objc var docStrings = [String:String]()
     
@@ -727,33 +730,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     func inputAssistantView(_ inputAssistantView: InputAssistantView, didSelectSuggestionAtIndex index: Int) {
         
-        if let textRange = textView.contentTextView.currentWordRange {
-            
-            let originalSuggestion = suggestions[index]
-            var suggestion = originalSuggestion
-            
-            /*
-             "print" -> "print()"
-             "print()" -> "print()" NOT "print()" -> "print()()"
-            */
-            if
-                suggestion.hasSuffix("("),
-                let end = textView.contentTextView.position(from: textRange.end, offset: 1),
-                let range = textView.contentTextView.textRange(from: textRange.start, to: end),
-                textView.contentTextView.text(in: range)?.hasSuffix("(") == true {
-                suggestion.removeLast()
-            }
-            
-            textView.contentTextView.replace(textRange, withText: suggestion)
-            
-            if suggestion.hasSuffix("(") {
-                let range = textView.contentTextView.selectedTextRange
-                textView.contentTextView.insertText(")")
-                textView.contentTextView.selectedTextRange = range
-            }
-            
-            docString = docStrings[originalSuggestion]
-        }
+        textView.insertText(completions[index])
+        docString = docStrings[suggestions[index]]
     }
     
     // MARK: - Input assistant view data source
@@ -763,6 +741,35 @@ fileprivate func parseArgs(_ args: inout [String]) {
     }
     
     func numberOfSuggestionsInInputAssistantView() -> Int {
+        
+        if let currentTextRange = textView.contentTextView.selectedTextRange {
+            
+            var range = textView.contentTextView.selectedRange
+            
+            if range.length > 1 {
+                return 0
+            }
+            
+            if textView.contentTextView.text(in: currentTextRange) == "" {
+                
+                range.length += 1
+                
+                if let textRange = range.toTextRange(textInput: textView.contentTextView), textView.contentTextView.text(in: textRange) == "_" {
+                    return 0
+                }
+                
+                range.location -= 1
+                if let textRange = range.toTextRange(textInput: textView.contentTextView), let word = textView.contentTextView.word(in: range), let last = word.last, String(last) != textView.contentTextView.text(in: textRange) {
+                    return 0
+                }
+                
+                range.location += 2
+                if let textRange = range.toTextRange(textInput: textView.contentTextView), let word = textView.contentTextView.word(in: range), let first = word.first, String(first) != textView.contentTextView.text(in: textRange) {
+                    return 0
+                }
+            }
+        }
+        
         return suggestions.count
     }
     
