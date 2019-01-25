@@ -67,7 +67,7 @@
 		C99E8D7021F0D03400C71884 /* CoolGlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99E8D6F21F0D03400C71884 /* CoolGlow.swift */; };
 		C9AAAB492195016D0042E733 /* InputAssistant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9AAAB44219501600042E733 /* InputAssistant.framework */; };
 		C9AAAB4A2195016D0042E733 /* InputAssistant.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AAAB44219501600042E733 /* InputAssistant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9AAAB5221950E8B0042E733 /* UITextView+currentWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* UITextView+currentWord.swift */; };
+		C9AAAB5221950E8B0042E733 /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* UITextView.swift */; };
 		C9AED5A921DE7DEC00CC5B43 /* Info.plist in Copy fftpack_lite */ = {isa = PBXBuildFile; fileRef = C9AED5A821DE7DEC00CC5B43 /* Info.plist */; };
 		C9AED5AF21DE7E7100CC5B43 /* Info.plist in Copy _umath_linalg */ = {isa = PBXBuildFile; fileRef = C9AED5AE21DE7E7100CC5B43 /* Info.plist */; };
 		C9AED5B121DE7E9A00CC5B43 /* Info.plist in Copy lapack_lite */ = {isa = PBXBuildFile; fileRef = C9AED5B021DE7E9A00CC5B43 /* Info.plist */; };
@@ -115,7 +115,7 @@
 		C9CEE20321EB95BA00316D3C /* ReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92495C62151A3E3007EB4DB /* ReviewHelper.swift */; };
 		C9CEE20421EB95BE00316D3C /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DE2145D03200C8B5E3 /* UIWindow.swift */; };
 		C9CEE20521EB95C100316D3C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E22145D50A00C8B5E3 /* String.swift */; };
-		C9CEE20621EB95C400316D3C /* UITextView+currentWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* UITextView+currentWord.swift */; };
+		C9CEE20621EB95C400316D3C /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* UITextView.swift */; };
 		C9CEE20721EB95C900316D3C /* ConsoleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E4152A21513E3400D64E32 /* ConsoleTextView.swift */; };
 		C9CEE20921EB960200316D3C /* PyDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1421D0592C00412CEF /* PyDocument.swift */; };
 		C9CEE20A21EB960400316D3C /* ViewControllerTransitionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1521D0592C00412CEF /* ViewControllerTransitionCoordinator.swift */; };
@@ -395,7 +395,7 @@
 		C99E8D6B21F0CC7800C71884 /* WWDC16.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WWDC16.swift; sourceTree = "<group>"; };
 		C99E8D6F21F0D03400C71884 /* CoolGlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoolGlow.swift; sourceTree = "<group>"; };
 		C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = InputAssistant.xcodeproj; path = InputAssistant/InputAssistant.xcodeproj; sourceTree = "<group>"; };
-		C9AAAB5121950E8B0042E733 /* UITextView+currentWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+currentWord.swift"; sourceTree = "<group>"; };
+		C9AAAB5121950E8B0042E733 /* UITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextView.swift; sourceTree = "<group>"; };
 		C9AED59A21DE771C00CC5B43 /* _umath_linalg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _umath_linalg.framework; sourceTree = "<group>"; };
 		C9AED59B21DE771C00CC5B43 /* multiarray.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = multiarray.framework; sourceTree = "<group>"; };
 		C9AED59C21DE771C00CC5B43 /* lapack_lite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = lapack_lite.framework; sourceTree = "<group>"; };
@@ -600,7 +600,7 @@
 				C93D61DE2145D03200C8B5E3 /* UIWindow.swift */,
 				C949D39A21F8A00C005AF481 /* NSRange.swift */,
 				C93D61E22145D50A00C8B5E3 /* String.swift */,
-				C9AAAB5121950E8B0042E733 /* UITextView+currentWord.swift */,
+				C9AAAB5121950E8B0042E733 /* UITextView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1164,7 +1164,7 @@
 				C9CEE20321EB95BA00316D3C /* ReviewHelper.swift in Sources */,
 				C9CEE1FD21EB8FF300316D3C /* PySharingHelper.swift in Sources */,
 				C9CEE20721EB95C900316D3C /* ConsoleTextView.swift in Sources */,
-				C9CEE20621EB95C400316D3C /* UITextView+currentWord.swift in Sources */,
+				C9CEE20621EB95C400316D3C /* UITextView.swift in Sources */,
 				C9CEE20221EB8FFF00316D3C /* PyExtensionContext.swift in Sources */,
 				C9CEE20A21EB960400316D3C /* ViewControllerTransitionCoordinator.swift in Sources */,
 				C9CEE1F921EB8FC800316D3C /* ConsoleViewController.swift in Sources */,
@@ -1212,7 +1212,7 @@
 				C921EF6721ECA02E004C750D /* XcodeActivity.swift in Sources */,
 				C9592D1921D0592C00412CEF /* ViewControllerTransitionCoordinator.swift in Sources */,
 				C9C0E77A21EF65BE0057C63E /* ThemableNavigationController.swift in Sources */,
-				C9AAAB5221950E8B0042E733 /* UITextView+currentWord.swift in Sources */,
+				C9AAAB5221950E8B0042E733 /* UITextView.swift in Sources */,
 				C9C0E77821EEA9BE0057C63E /* XcodeDark.swift in Sources */,
 				C9C0E78521EF764F0057C63E /* Sunset.swift in Sources */,
 				C9EA55B3219F752D007546BC /* RelativePathForScript.swift in Sources */,
