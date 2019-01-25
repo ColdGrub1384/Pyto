@@ -49,6 +49,7 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         edgesForExtendedLayout = []
         
         webView = WKWebView(frame: view.frame)
+        webView.isHidden = true
         webView.allowsBackForwardNavigationGestures = true
         webView.navigationDelegate = self
         webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -66,12 +67,6 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(close))
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        navigationController?.view.backgroundColor = .white
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -83,6 +78,12 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         goBackButton.isEnabled = webView.canGoBack
         goForwardButton.isEnabled = webView.canGoForward
+        
+        webView.evaluateJavaScript("document.body.style.backgroundColor = '\(ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor.hexString)'; document.body.style.color = '\(ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain).hexString)'") { (_, _) in
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: {
+                webView.isHidden = false
+            })
+        }
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
