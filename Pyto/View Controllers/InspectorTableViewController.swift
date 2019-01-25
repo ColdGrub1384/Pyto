@@ -78,7 +78,7 @@ class InspectorTableViewController: UITableViewController {
                 }
                 str += type+"\n\n"
             }
-            var doc = String(describing: dict["__doc__"] ?? "")
+            var doc = String(describing: dict["__doc__"] ?? "").replacingOccurrences(of: "\\n", with: "\n").replacingOccurrences(of: "\\'", with: "''")
             if doc.hasPrefix("'") && doc.hasSuffix("'") {
                 doc.removeFirst()
                 doc.removeLast()
