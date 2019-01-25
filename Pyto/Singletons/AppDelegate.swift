@@ -8,7 +8,9 @@
 
 import UIKit
 import SafariServices
+#if MAIN
 import ios_system
+#endif
 
 /// The application's delegate.
 @objc public class AppDelegate: UIResponder, UIApplicationDelegate {

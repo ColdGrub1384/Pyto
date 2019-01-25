@@ -8,6 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+@interface BlockBasedSelector : NSObject
+    
+@end
+
+typedef void (^OBJCBlock)(id _Selector);
+typedef void (^OBJCBlockWithSender)(id _Selector, id sender);
+
+void class_addMethodWithBlock(Class class, SEL newSelector, OBJCBlock block);
+void class_addMethodWithBlockAndSender(Class class, SEL newSelector, OBJCBlockWithSender block);
+
 /// Should be called instead of `UIApplicationMain` to run the application main loop for a Python script.
 ///
 /// @param scriptPath The path of the script to run.
