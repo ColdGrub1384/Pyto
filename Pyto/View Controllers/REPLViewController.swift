@@ -54,10 +54,6 @@ import UIKit
         console.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
