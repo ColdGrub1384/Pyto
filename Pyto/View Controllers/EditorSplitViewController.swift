@@ -18,6 +18,9 @@ class EditorSplitViewController: SplitViewController {
     /// The console.
     var console: ConsoleViewController!
     
+    /// Set to `true` if this View controller was just shown.
+    var justShown = true
+    
     /// A down arrow image for dismissing keyboard.
     static var downArrow: UIImage {
         return UIGraphicsImageRenderer(size: .init(width: 24, height: 24)).image(actions: { context in
@@ -101,6 +104,7 @@ class EditorSplitViewController: SplitViewController {
         super.viewDidAppear(animated)
         
         willTransition(to: traitCollection, with: ViewControllerTransitionCoordinator())
+        justShown = false
     }
     
     override func viewDidLayoutSubviews() {
@@ -131,13 +135,14 @@ class EditorSplitViewController: SplitViewController {
                 view.removeFromSuperview()
             }
             
+            let justShown = self.justShown
             DispatchQueue.main.asyncAfter(deadline: .now()+0.25) {
                 self.addChild(self.editor)
                 self.editor.view.frame = self.view.bounds
                 self.editor.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
                 self.view.addSubview(self.editor.view)
                 
-                if Python.shared.isScriptRunning {
+                if Python.shared.isScriptRunning && !justShown {
                     let navVC = ThemableNavigationController(rootViewController: self.console)
                     navVC.modalPresentationStyle = .overFullScreen
                     self.present(navVC, animated: true, completion: nil)
