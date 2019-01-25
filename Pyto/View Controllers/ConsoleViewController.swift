@@ -105,6 +105,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     @objc var completions = [String]()
     #endif
     
+    #if MAIN
     /// Variables from running scripts.
     @objc static var variables = [String:Any]()
     
@@ -117,6 +118,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
             present(vc, animated: true, completion: nil)
         }
     }
+    #endif
     
     /// The current prompt.
     @objc var prompt = ""
@@ -160,17 +162,25 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     ///     - prompt: The prompt from the Python function
     func input(prompt: String) {
         
-        guard (!ignoresInput && !ConsoleViewController.ignoresInput) || parent is REPLViewController else {
+        #if MAIN
+        let condition = (!ignoresInput && !ConsoleViewController.ignoresInput || parent is REPLViewController)
+        #else
+        let condition = (!ignoresInput && !ConsoleViewController.ignoresInput)
+        #endif
+        
+        guard condition else {
             ignoresInput = false
             ConsoleViewController.ignoresInput = false
             return
         }
         
+        #if MAIN
         if !(parent is REPLViewController) {
             guard Python.shared.isScriptRunning else {
                 return
             }
         }
+        #endif
         
         textView.text += prompt
         Python.shared.output += prompt
@@ -196,7 +206,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
             })
         }
         #else
-        (UIApplication.shared.delegate as? AppDelegate)?.suspendApp()
+        exit(0)
         #endif
     }
     
@@ -205,11 +215,15 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     /// The visible instance.
     @objc static var visible: ConsoleViewController {
         if Thread.current.isMainThread {
+            #if MAIN
             if REPLViewController.shared?.view.window != nil {
                 return REPLViewController.shared?.console ?? shared
             } else {
                 return shared
             }
+            #else
+            return shared
+            #endif
         } else {
             var console: ConsoleViewController?
             DispatchQueue.main.sync {
@@ -342,9 +356,11 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        #if MAIN
         if (parent as? REPLViewController)?.reloadREPL == false {
             (parent as? REPLViewController)?.reloadREPL = true
         }
+        #endif
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
     }
     
@@ -352,9 +368,17 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
         super.viewWillAppear(animated)
         
         var items = [UIBarButtonItem]()
-        if !(parent is REPLViewController) {
+        func appendStop() {
             items.append(UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(close)))
         }
+        #if MAIN
+        if !(parent is REPLViewController) {
+            appendStop()
+        }
+        #else
+        appendStop()
+        #endif
+        
         #if MAIN
         let inspectorButton = UIButton(type: .infoDark)
         inspectorButton.addTarget(self, action: #selector(showInspector), for: .touchUpInside)

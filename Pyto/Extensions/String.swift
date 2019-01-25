@@ -62,7 +62,14 @@ extension String {
         UIColor.clear.set()
         let rect = CGRect(origin: .zero, size: size)
         UIRectFill(CGRect(origin: .zero, size: size))
-        (self as AnyObject).draw(in: rect, withAttributes: [.font: UIFont.systemFont(ofSize: 40), .foregroundColor: ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)])
+        
+        #if MAIN
+        let color = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
+        #else
+        let color = UIColor.black
+        #endif
+        
+        (self as AnyObject).draw(in: rect, withAttributes: [.font: UIFont.systemFont(ofSize: 40), .foregroundColor: color])
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image

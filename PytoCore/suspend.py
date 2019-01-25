@@ -6,4 +6,4 @@ def suspend():
     def runSuspend() -> None:
         UIApplication.sharedApplication.suspend()
 
-    mainthread.runSync(runSuspend)
+    mainthread.run_sync(runSuspend)

@@ -17,14 +17,10 @@ import UIKit
     /// The alert's message.
     @objc var message: String?
     
-    /// Response sent by the user.
-    @objc var response: String?
+    private var response: String?
     
     /// The alert's actions.
-    @objc var actions: [UIAlertAction]?
-    
-    /// A semaphore used for actions.
-    @objc var semaphore = DispatchSemaphore(value: 0)
+    var actions: [UIAlertAction]?
     
     /// Initialize a new alert.
     ///
@@ -40,6 +36,24 @@ import UIKit
         return self_
     }
     
+    /// Show an alert with set parameters.
+    ///
+    /// - Returns: The title of the pressed action.
+    @objc func show() -> String {
+        response = nil
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: self.title, message: self.message, preferredStyle: .alert)
+            for action in self.actions ?? [] {
+                alert.addAction(action)
+            }
+            UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
+        }
+        while response == nil {
+            sleep(UInt32(0.1))
+        }
+        return response!
+    }
+    
     // MARK: - Setters
     
     private func addAction(title: String, style: UIAlertAction.Style) {
@@ -51,7 +65,6 @@ import UIKit
             
             self.actions?.append(UIAlertAction(title: title, style: style, handler: { (_) in
                 self.response = title
-                self.semaphore.signal()
             }))
         }
     }

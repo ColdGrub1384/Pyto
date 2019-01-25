@@ -16,8 +16,12 @@
 		C913202B21DC12A300EEE677 /* AcknowledgmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C913202A21DC12A300EEE677 /* AcknowledgmentsViewController.swift */; };
 		C91321BF21FA934300437845 /* PyMainThread.m in Sources */ = {isa = PBXBuildFile; fileRef = C91321BE21FA934300437845 /* PyMainThread.m */; };
 		C91321C421FB31C700437845 /* ConsoleViewController+showViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C91321C321FB31C700437845 /* ConsoleViewController+showViewController.m */; };
-		C91321C721FB374B00437845 /* PyAlert+show.m in Sources */ = {isa = PBXBuildFile; fileRef = C91321C621FB374B00437845 /* PyAlert+show.m */; };
 		C91321C921FB500300437845 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91321C821FB500300437845 /* UIColor.swift */; };
+		C91321D421FB664F00437845 /* REPL.py in Resources */ = {isa = PBXBuildFile; fileRef = C92DBD7F21F67B9C0098BE43 /* REPL.py */; };
+		C91321D521FB678B00437845 /* PyMainThread.m in Sources */ = {isa = PBXBuildFile; fileRef = C91321BE21FA934300437845 /* PyMainThread.m */; };
+		C91321D721FB684900437845 /* BlockBasedSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7421F49B1200E7CC35 /* BlockBasedSelector.m */; };
+		C91321D821FB684C00437845 /* BlockBasedSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7521F49B1200E7CC35 /* BlockBasedSelector.swift */; };
+		C91321D921FB684E00437845 /* PySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7A21F49B8400E7CC35 /* PySelector.swift */; };
 		C921EF6721ECA02E004C750D /* XcodeActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C921EF6621ECA02E004C750D /* XcodeActivity.swift */; };
 		C921EF7821ECC388004C750D /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C921EF7721ECC388004C750D /* ActivityViewController.swift */; };
 		C92495C72151A3E3007EB4DB /* ReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92495C62151A3E3007EB4DB /* ReviewHelper.swift */; };
@@ -348,7 +352,6 @@
 		C913202A21DC12A300EEE677 /* AcknowledgmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcknowledgmentsViewController.swift; sourceTree = "<group>"; };
 		C91321BE21FA934300437845 /* PyMainThread.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PyMainThread.m; sourceTree = "<group>"; };
 		C91321C321FB31C700437845 /* ConsoleViewController+showViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ConsoleViewController+showViewController.m"; sourceTree = "<group>"; };
-		C91321C621FB374B00437845 /* PyAlert+show.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "PyAlert+show.m"; sourceTree = "<group>"; };
 		C91321C821FB500300437845 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		C921EF6621ECA02E004C750D /* XcodeActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeActivity.swift; sourceTree = "<group>"; };
 		C921EF7721ECC388004C750D /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
@@ -587,7 +590,6 @@
 				C976592621471D23001C96A8 /* PyFilePicker.swift */,
 				C91321C321FB31C700437845 /* ConsoleViewController+showViewController.m */,
 				C91321BE21FA934300437845 /* PyMainThread.m */,
-				C91321C621FB374B00437845 /* PyAlert+show.m */,
 				C9624EF321A9905400DDA9A7 /* PyThread.swift */,
 				C95A79E7214DC9D0007A1B90 /* PyAlert.swift */,
 				C9425A7921F49B5A00E7CC35 /* Selectors */,
@@ -1036,6 +1038,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9CEE25A21EBADD200316D3C /* Localizable.strings in Resources */,
+				C91321D421FB664F00437845 /* REPL.py in Resources */,
 				C9CEE25921EBAB9B00316D3C /* Startup.py in Resources */,
 				C9CEE26221EBD06700316D3C /* Splash Screen.storyboard in Resources */,
 				C9CEE26621EBD21000316D3C /* RoundedIcon.png in Resources */,
@@ -1154,9 +1157,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C91321D721FB684900437845 /* BlockBasedSelector.m in Sources */,
 				C9CEE1FB21EB8FEF00316D3C /* PyInputHelper.swift in Sources */,
 				C9CEE20921EB960200316D3C /* PyDocument.swift in Sources */,
 				C9CEE20C21EB960900316D3C /* Localizable.swift in Sources */,
+				C91321D521FB678B00437845 /* PyMainThread.m in Sources */,
+				C91321D921FB684E00437845 /* PySelector.swift in Sources */,
 				C9CEE20521EB95C100316D3C /* String.swift in Sources */,
 				C9CEE20121EB8FFD00316D3C /* PyAlert.swift in Sources */,
 				C9CEE20421EB95BE00316D3C /* UIWindow.swift in Sources */,
@@ -1170,6 +1176,7 @@
 				C9CEE20621EB95C400316D3C /* UITextView.swift in Sources */,
 				C9CEE20221EB8FFF00316D3C /* PyExtensionContext.swift in Sources */,
 				C9CEE20A21EB960400316D3C /* ViewControllerTransitionCoordinator.swift in Sources */,
+				C91321D821FB684C00437845 /* BlockBasedSelector.swift in Sources */,
 				C9CEE1F921EB8FC800316D3C /* ConsoleViewController.swift in Sources */,
 				C9CEE1FE21EB8FF500316D3C /* PyFilePicker.swift in Sources */,
 				C9CEE1F821EB8FC400316D3C /* Python.swift in Sources */,
@@ -1189,7 +1196,6 @@
 				C91321C421FB31C700437845 /* ConsoleViewController+showViewController.m in Sources */,
 				C9592D2721D059BA00412CEF /* EditorSplitViewController.swift in Sources */,
 				C945EB2221F8D3A100F6D5B3 /* InspectorTableViewController.swift in Sources */,
-				C91321C721FB374B00437845 /* PyAlert+show.m in Sources */,
 				C9C0E78321EF75080057C63E /* Midnight.swift in Sources */,
 				C903B98C21598A63004AAD7F /* IO.swift in Sources */,
 				C9B3FDEC21503DE7000FC9A8 /* PyExtensionContext.swift in Sources */,
