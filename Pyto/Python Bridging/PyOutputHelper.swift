@@ -16,7 +16,8 @@ import Foundation
     /// - Parameters:
     ///     - text: Text to print.
     @objc static func print(_ text: String) {
-        Python.shared.output += text
-        NotificationCenter.default.post(name: .init("DidReceiveOutput"), object: text)
+        let text_ = text
+        Python.shared.output += text_
+        NotificationCenter.default.post(name: .init("DidReceiveOutput"), object: text_)
     }
 }

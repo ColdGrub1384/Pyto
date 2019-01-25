@@ -475,9 +475,23 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     /// Stops the current running script.
     @objc func stop() {
-        Python.shared.isScriptRunning = false
-        ConsoleViewController.visible.textView.resignFirstResponder()
-        ConsoleViewController.visible.textView.isEditable = false
+        
+        func stop_() {
+            Python.shared.isScriptRunning = false
+            ConsoleViewController.visible.textView.resignFirstResponder()
+            ConsoleViewController.visible.textView.isEditable = false
+        }
+        
+        if ConsoleViewController.isMainLoopRunning {
+            ConsoleViewController.visible.closePresentedViewController()
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                Python.shared.isScriptRunning = false
+                ConsoleViewController.visible.textView.resignFirstResponder()
+                ConsoleViewController.visible.textView.isEditable = false
+            }
+        } else {
+            stop_()
+        }
     }
     
     /// Run the script represented by `document`.
@@ -510,7 +524,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                         }
                         Python.shared.isScriptRunning = true
                         // Import the script
-                        PyInputHelper.userInput = "import console as __console__; __console__.run_script('\(url.path)')"
+                        PyInputHelper.userInput = "import console as c; s = c.run_script('\(url.path)')"
                     } else {
                         Python.shared.runScript(at: url)
                     }
@@ -695,8 +709,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
         document?.text = textView.text
         if !isSaving {
             isSaving = true
-            save { (_) in
-                self.isSaving = false
+            DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                self.save { (_) in
+                    self.isSaving = false
+                }
             }
         }
     }

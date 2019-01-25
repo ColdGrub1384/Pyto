@@ -89,24 +89,34 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     /// The Input assistant view for typing module's identifier.
     let inputAssistant = InputAssistantView()
     
-    /// Code completion suggestions for the REPL.
-    @objc var suggestions = [String]() {
-        didSet {
-            
-            if suggestions != [] && !Python.shared.isREPLAskingForInput {
-                suggestions = []
-                return
-            }
-            
-            DispatchQueue.main.async {
-                self.inputAssistant.reloadData()
-            }
+    /// Reloads suggestions.
+    @objc func reloadSuggestions() {
+        DispatchQueue.main.async {
+            self.inputAssistant.reloadData()
         }
     }
+    
+    private var willReloadSuggestion = false
+    
+    /// Code completion suggestions for the REPL.
+    @objc var suggestions = [String]()
     
     /// Code completion suggestions values for the REPL.
     @objc var completions = [String]()
     #endif
+    
+    /// Variables from running scripts.
+    @objc static var variables = [String:Any]()
+    
+    /// Shows the variables inspector.
+    @objc func showInspector() {
+        if let vc = UIStoryboard(name: "Inspector", bundle: Bundle.main).instantiateInitialViewController() {
+            ((vc as? UINavigationController)?.viewControllers.first as? InspectorTableViewController)?.hierarchy = ConsoleViewController.variables
+            (parent as? REPLViewController)?.reloadREPL = false
+            
+            present(vc, animated: true, completion: nil)
+        }
+    }
     
     /// The current prompt.
     @objc var prompt = ""
@@ -176,9 +186,9 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
         #if MAIN
         extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
         
-        EditorViewController.visible?.stop()
         if navigationController != nil {
             dismiss(animated: true, completion: {
+                EditorViewController.visible?.stop()
                 if let line = EditorViewController.visible?.lineNumberError {
                     EditorViewController.visible?.lineNumberError = nil
                     EditorViewController.visible?.showErrorAtLine(line)
@@ -190,7 +200,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
         #endif
     }
     
-    private static let shared = ConsoleViewController()
+    private static var shared = ConsoleViewController()
     
     /// The visible instance.
     @objc static var visible: ConsoleViewController {
@@ -218,12 +228,13 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
         }
     }
     
-    /// Shows the given View controller.
+    /// Creates a View controller to present
     ///
     /// - Parameters:
     ///     - viewController: The View controller to present initialized from Python.
-    ///     - completion: Code to call as completion.
-    @objc func showViewController(_ viewController: UIViewController, completion: (() -> Void)? = nil) {
+    ///
+    /// - Returns: A ready to present View controller.
+    @objc func viewController(_ viewController: UIViewController) -> UIViewController {
         
         #if MAIN
         class PyNavigationController: UINavigationController {
@@ -231,6 +242,8 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
             override func viewWillAppear(_ animated: Bool) {
                 super.viewWillAppear(animated)
                 
+                navigationBar.isTranslucent = false
+                navigationBar.shadowImage = UIImage()
                 navigationBar.barStyle = ConsoleViewController.choosenTheme.barStyle
                 navigationBar.barTintColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
             }
@@ -262,9 +275,9 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
             navigationController?.view.backgroundColor = view.backgroundColor
         }
         
-        present(navVC, animated: true, completion: completion)
+        return navVC
         #else
-        present(viewController, animated: true, completion: completion)
+        return viewController
         #endif
     }
     
@@ -302,6 +315,8 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        ConsoleViewController.shared = self
+        
         #if MAIN
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChanged(_:)), name: ThemeDidChangedNotification, object: nil)
         #endif
@@ -329,15 +344,39 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        if (parent as? REPLViewController)?.reloadREPL == false {
+            (parent as? REPLViewController)?.reloadREPL = true
+        }
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        var items = [UIBarButtonItem]()
         if !(parent is REPLViewController) {
-            navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(close))]
+            items.append(UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(close)))
         }
+        #if MAIN
+        let inspectorButton = UIButton(type: .infoDark)
+        inspectorButton.addTarget(self, action: #selector(showInspector), for: .touchUpInside)
+        let inspectorItem = UIBarButtonItem(customView: inspectorButton)
+        items.append(inspectorItem)
+        if parent?.navigationItem.rightBarButtonItems == nil {
+            //parent?.navigationItem.rightBarButtonItem = inspectorItem
+        } else {
+            var continue_ = true
+            for item in parent?.navigationItem.rightBarButtonItems ?? [] {
+                if (item.customView as? UIButton)?.buttonType == .infoDark {
+                    continue_ = false
+                }
+            }
+            if continue_ {
+                parent?.navigationItem.rightBarButtonItems?.append(inspectorItem)
+            }
+        }
+        #endif
+        navigationItem.rightBarButtonItems = items
         
         #if MAIN
         setup(theme: ConsoleViewController.choosenTheme)

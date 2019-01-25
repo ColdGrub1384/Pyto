@@ -1,10 +1,8 @@
-#
-# This script shows an example of how presenting an User Interface.
-#
+'''
+This script shows an example of how presenting an User Interface.
 
-#
-# Important: You should not subclass `UIViewController` because you would have to relaunch Pyto to modify the class. Pyto has now APIs for creating selectors from Python functions.
-#
+Important: You should not subclass `UIViewController` because you would have to relaunch Pyto to modify the class. Pyto has now APIs for creating selectors from Python functions.
+'''
 
 #
 # Pyto uses UIKit for presenting UI.
@@ -25,20 +23,22 @@ from rubicon.objc.types import *
 
 # MARK: - Implementation
 
-button = UIButton.buttonWithType(1)
-label = label = UILabel.new()
-
+label = None
+button = None
 viewController = None
 
-# This function is called when the "Say Hello" button is pressed.
-
-# IMPORTANT: All functions that will be sent to Objective-C must be fully annotated. For example, this function returns `None`, so add "-> None" at the end. For parameters, write ": ObjCInstance" to represent any Objective-C instance.
-
-# Args:
-#    sender: The sender button.
-#
-# Returns: `None`
 def sayHello(sender: ObjCInstance) -> None:
+    '''
+    This function is called when the "Say Hello" button is pressed.
+    
+     IMPORTANT: All functions that will be sent to Objective-C must be fully annotated. For example, this function returns `None`, so add "-> None" at the end. For parameters, write ": ObjCInstance" to represent any Objective-C instance.
+    
+     Args:
+        sender: The sender button.
+    
+    Returns: `None`
+    '''
+    
     alert = UIAlertController.alertControllerWithTitle("What's your name?", message="Type your name to say hello.", preferredStyle=1)
     
     def ok() -> None:
@@ -55,12 +55,21 @@ def sayHello(sender: ObjCInstance) -> None:
     
     viewController.presentViewController(alert, animated=True, completion=None)
 
-# Setups views.
-#
-# IMPORTANT: All functions that will be sent to Objective-C must be fully annotated. For example, this function returns `None`, so add "-> None" at the end. For parameters, write ": ObjCInstance" to represent any Objective-C instance.
-#
-# Returns: `None`
 def setupView() -> None:
+    '''
+    Setups views.
+    
+     IMPORTANT: All functions that will be sent to Objective-C must be fully annotated. For example, this function returns `None`, so add "-> None" at the end. For parameters, write ": ObjCInstance" to represent any Objective-C instance.
+    
+    Returns: `None`
+    '''
+    
+    global label
+    global button
+    
+    label = UILabel.new()
+    button = UIButton.buttonWithType(1)
+    
     edgesForExtendedLayout = 0
     
     viewController.view.backgroundColor = UIColor.whiteColor
@@ -70,11 +79,11 @@ def setupView() -> None:
     button.setTitle("Say Hello", forState=0)
     viewController.view.addSubview(button)
     
-    """
+    '''
     Pyto provides APIs for creating selectors without classes.
     
     Pass `Target` as target and `Selector(Your_Function)` as action.
-    """
+    '''
     button.addTarget(Target, action=Selector(sayHello), forControlEvents=1)
     
     label.textAlignment = 1
@@ -92,13 +101,14 @@ def setupView() -> None:
 
 # MARK: - Showing the UI
 
-
-# Ran on main thread for presenting the View controller.
-#
-# IMPORTANT: All functions that will be sent to Objective-C must be fully annotated. For example, this function returns `None`, so add "-> None" at the end. For parameters, write ": ObjCInstance" to represent any Objective-C instance.
-#
-# Returns: `None`
 def main() -> None:
+    '''
+    Ran on main thread for presenting the View controller.
+        
+    IMPORTANT: All functions that will be sent to Objective-C must be fully annotated. For example, this function returns `None`, so add "-> None" at the end. For parameters, write ": ObjCInstance" to represent any Objective-C instance.
+        
+    Returns: `None`
+    '''
     
     global viewController
     viewController = UIViewController.new()

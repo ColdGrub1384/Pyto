@@ -110,6 +110,9 @@ class EditorSplitViewController: SplitViewController {
             return
         }
         
+        firstChild.view.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
+        secondChild.view.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
+        
         firstChild.viewWillTransition(to: firstChild.view.frame.size, with: ViewControllerTransitionCoordinator())
         secondChild.viewWillTransition(to: firstChild.view.frame.size, with: ViewControllerTransitionCoordinator())
     }

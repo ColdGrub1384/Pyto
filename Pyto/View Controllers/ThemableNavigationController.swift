@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SplitKit
 
 /// A themable Navigation controller.
 class ThemableNavigationController: UINavigationController, UINavigationControllerDelegate {

@@ -9,10 +9,20 @@
 import UIKit
 
 /// A View controller with the REPL.
-class REPLViewController: EditorSplitViewController {
+@objc class REPLViewController: EditorSplitViewController {
     
     /// The shared instance.
-    static var shared: REPLViewController?
+    @objc static var shared: REPLViewController?
+    
+    /// Set to `false` to don't reload the REPL.
+    var reloadREPL = true
+    
+    /// Goes back to the file browser
+    @objc static func goToFileBrowser() {
+        DispatchQueue.main.async {
+            (UIApplication.shared.keyWindow?.rootViewController as? UITabBarController)?.selectedIndex = 0
+        }
+    }
     
     // MARK: - Editor split view controller
     
@@ -46,16 +56,14 @@ class REPLViewController: EditorSplitViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
-        console.completions = []
-        console.suggestions = []
-        editor.close()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        editor.run()
+        if !Python.shared.isScriptRunning {
+            editor.run()
+        }
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {}
