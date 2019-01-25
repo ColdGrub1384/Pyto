@@ -314,9 +314,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        ConsoleViewController.shared = self
-        
+                
         #if MAIN
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChanged(_:)), name: ThemeDidChangedNotification, object: nil)
         #endif
