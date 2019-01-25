@@ -79,7 +79,7 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         goBackButton.isEnabled = webView.canGoBack
         goForwardButton.isEnabled = webView.canGoForward
         
-        webView.evaluateJavaScript("document.body.style.backgroundColor = '\(ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor.hexString)'; document.body.style.color = '\(ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain).hexString)'") { (_, _) in
+        webView.evaluateJavaScript("document.body.style.backgroundColor = '\(ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor.hexString ?? "white")'; document.body.style.color = '\(ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain).hexString ?? "black")'") { (_, _) in
             DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: {
                 webView.isHidden = false
             })

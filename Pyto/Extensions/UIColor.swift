@@ -11,24 +11,34 @@ import UIKit
 extension UIColor {
     
     /// Returns an hexadecimal color representation as String.
-    var hexString: String {
-        let colorRef = cgColor.components
-        let r = colorRef?[0] ?? 0
-        let g = colorRef?[1] ?? 0
-        let b = ((colorRef?.count ?? 0) > 2 ? colorRef?[2] : g) ?? 0
-        let a = cgColor.alpha
+    var hexString: String? {
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
         
-        var color = String(
-            format: "#%02lX%02lX%02lX",
-            lroundf(Float(r * 255)),
-            lroundf(Float(g * 255)),
-            lroundf(Float(b * 255))
-        )
+        let multiplier = CGFloat(255.999999)
         
-        if a < 1 {
-            color += String(format: "%02lX", lroundf(Float(a)))
+        guard self.getRed(&red, green: &green, blue: &blue, alpha: &alpha) else {
+            return nil
         }
         
-        return color
+        if alpha == 1.0 {
+            return String(
+                format: "#%02lX%02lX%02lX",
+                Int(red * multiplier),
+                Int(green * multiplier),
+                Int(blue * multiplier)
+            )
+        }
+        else {
+            return String(
+                format: "#%02lX%02lX%02lX%02lX",
+                Int(red * multiplier),
+                Int(green * multiplier),
+                Int(blue * multiplier),
+                Int(alpha * multiplier)
+            )
+        }
     }
 }
