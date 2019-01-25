@@ -13,16 +13,14 @@ import Foundation
     
     /// Execute the given code async on the Python thread.
     @objc static func runAsync(_ code: @escaping (() -> Void)) {
-        Python.shared.queue.async {
-            code()
-        }
+        let code_ = code
+        Python.shared.queue.async(execute: code_)
     }
     
     /// Execute the given code sync on the Python thread.
     @objc static func runSync(_ code: @escaping (() -> Void)) {
-        Python.shared.queue.sync {
-            code()
-        }
+        let code_ = code
+        Python.shared.queue.sync(execute: code_)
     }
 }
 

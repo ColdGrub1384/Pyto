@@ -19,8 +19,9 @@ import UIKit
     /// - Parameters:
     ///     - prompt: The title of the alert.
     @objc static func showAlert(prompt: String?) {
+        let prompt_ = prompt
         DispatchQueue.main.sync {
-            ConsoleViewController.visible.input(prompt: prompt ?? "")
+            ConsoleViewController.visible.input(prompt: prompt_ ?? "")
         }
     }
 }
