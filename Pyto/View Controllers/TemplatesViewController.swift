@@ -76,10 +76,10 @@ class TemplatesViewController: UIViewController, UICollectionViewDataSource, UIC
         let templateURL = templates[indexPath.row]
         
         var newURL: URL
-        if let iCloudDrive = DocumentBrowserViewController.iCloudContainerURL {
+        if DocumentBrowserViewController.visible?.directory == DocumentBrowserViewController.localContainerURL, let iCloudDrive = DocumentBrowserViewController.iCloudContainerURL {
             newURL = iCloudDrive.appendingPathComponent(templateURL.lastPathComponent)
         } else {
-            newURL = DocumentBrowserViewController.localContainerURL.appendingPathComponent(templateURL.lastPathComponent)
+            newURL = (DocumentBrowserViewController.visible?.directory ?? DocumentBrowserViewController.localContainerURL).appendingPathComponent(templateURL.lastPathComponent)
         }
         
         var i = 2
