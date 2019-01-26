@@ -107,7 +107,16 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     
     #if MAIN
     /// Variables from running scripts.
-    @objc static var variables = [String:Any]()
+    @objc static var variables = [String:Any]() {
+        didSet {
+            DispatchQueue.main.async {
+                if let inspector = (self.visible.presentedViewController as? UINavigationController)?.viewControllers.first as? InspectorTableViewController, String(describing: inspector.hierarchy) != String(describing: variables) {
+                    inspector.hierarchy = variables
+                    inspector.tableView.reloadData()
+                }
+            }
+        }
+    }
     
     /// Shows the variables inspector.
     @objc func showInspector() {
