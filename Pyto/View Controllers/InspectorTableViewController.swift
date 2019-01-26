@@ -90,6 +90,16 @@ class InspectorTableViewController: UITableViewController {
             str += "\(NSDictionary(dictionary: dict))"
             
             textView.text = str
+        } else {
+            let undescore = "_"
+            let method = "method"
+            let description = "Description"
+            let methodDescription = NSSelectorFromString(undescore+method+description)
+            if (item as? NSObject)?.responds(to: methodDescription) == true, let description = (item as? NSObject)?.perform(methodDescription)?.takeUnretainedValue() as? String {
+                textView.text += "\(description)"
+            } else {
+                textView.text = "\(item)"
+            }
         }
         
         navigationController?.pushViewController(vc, animated: true)
