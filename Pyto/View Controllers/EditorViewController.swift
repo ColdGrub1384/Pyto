@@ -218,6 +218,14 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// Set to `true` before presenting to run the code.
     var shouldRun = false
     
+    /// Updates line numbers.
+    func updateLineNumbers() {
+        textView.theme = ReadonlyTheme(ConsoleViewController.choosenTheme.sourceCodeTheme)
+        DispatchQueue.main.async {
+            self.textView.theme = ConsoleViewController.choosenTheme.sourceCodeTheme
+        }
+    }
+    
     /// Initialize with given document.
     ///
     /// - Parameters:
@@ -633,10 +641,20 @@ fileprivate func parseArgs(_ args: inout [String]) {
         textView.contentTextView.scrollIndicatorInsets.bottom = r.size.height
     }
     
+    /// Update line numbers.
+    @objc func keyboardDidShow(_ notification:Notification) {
+        updateLineNumbers()
+    }
+    
     /// Set `textView` to the default size.
     @objc func keyboardWillHide(_ notification:Notification) {
         textView.contentInset = .zero
         textView.contentTextView.scrollIndicatorInsets = .zero
+    }
+    
+    /// Update line numbers.
+    @objc func keyboardDidHide(_ notification:Notification) {
+        updateLineNumbers()
     }
     
     // MARK: - Text view delegate
@@ -667,6 +685,27 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
         
         return true
+    }
+    
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        scrollViewDidEndDecelerating(scrollView)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset
+        textView.theme = ReadonlyTheme(ConsoleViewController.choosenTheme.sourceCodeTheme)
+        DispatchQueue.main.async {
+            self.textView.theme = ConsoleViewController.choosenTheme.sourceCodeTheme
+            DispatchQueue.main.async {
+                scrollView.setContentOffset(offset, animated: false)
+            }
+        }
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            scrollViewDidEndDecelerating(scrollView)
+        }
     }
     
     // MARK: - Suggestions
