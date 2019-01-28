@@ -17,7 +17,7 @@ struct CoolGlowSourceCodeTheme: SourceCodeTheme {
     let defaultTheme = DefaultSourceCodeTheme()
     
     var lineNumbersStyle: LineNumbersStyle? {
-        return defaultTheme.lineNumbersStyle
+        return nil
     }
     
     var gutterStyle: GutterStyle {
@@ -62,6 +62,8 @@ struct CoolGlowSourceCodeTheme: SourceCodeTheme {
 
 // MARK: - Theme
 
+#if os(iOS)
+
 /// The Cool Glow theme.
 struct CoolGlowTheme: Theme {
     
@@ -76,3 +78,4 @@ struct CoolGlowTheme: Theme {
     }
 }
 
+#endif

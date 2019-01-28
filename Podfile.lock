@@ -1,5 +1,6 @@
 PODS:
   - Down (0.6.2)
+  - OpenSSL-Static (1.0.2.c1)
   - SavannaKit (0.9.0)
   - SourceEditor (1.0.1):
     - SavannaKit (~> 0.9)
@@ -8,37 +9,40 @@ PODS:
 
 DEPENDENCIES:
   - Down
-  - SourceEditor (from `https://github.com/ronaldmannak/source-editor.git`)
+  - OpenSSL-Static (= 1.0.2.c1)
+  - SourceEditor (from `https://github.com/ColdGrub1384/source-editor.git`)
   - SplitKit (from `https://github.com/ColdGrub1384/SplitKit.git`)
   - Zip
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Down
+    - OpenSSL-Static
     - SavannaKit
     - Zip
 
 EXTERNAL SOURCES:
   SourceEditor:
-    :git: https://github.com/ronaldmannak/source-editor.git
+    :git: https://github.com/ColdGrub1384/source-editor.git
   SplitKit:
     :git: https://github.com/ColdGrub1384/SplitKit.git
 
 CHECKOUT OPTIONS:
   SourceEditor:
-    :commit: 49c0a432c156ab7867d52e209971db4df3806b02
-    :git: https://github.com/ronaldmannak/source-editor.git
+    :commit: 7be90d45b01ff125986807bc187ba2d7f4e1f3aa
+    :git: https://github.com/ColdGrub1384/source-editor.git
   SplitKit:
     :commit: 6b21a9652b6a807994e5923e581a07e5ea34a37c
     :git: https://github.com/ColdGrub1384/SplitKit.git
 
 SPEC CHECKSUMS:
   Down: 8c59a03cb229ef28dfa774b2132da860f3dee0ac
+  OpenSSL-Static: bd17e34564a8591ad76b740318683a6caa19a13e
   SavannaKit: 920c240bde011900df8156200a960dad3ee5edfd
   SourceEditor: 4d590385d642c812d08a91941a4bfc90eccf20af
   SplitKit: bf2dd8da644ba04a28acfad398723670541dffd9
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 1fd600898427a06ac01c81e3467d0bee034ca7ca
+PODFILE CHECKSUM: 0fefbfa593dc9fd9e7d1f21de1e0125aac7d5562
 
 COCOAPODS: 1.5.3

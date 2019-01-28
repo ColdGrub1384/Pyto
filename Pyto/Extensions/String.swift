@@ -6,7 +6,11 @@
 //  Copyright © 2018 Adrian Labbé. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
+#else
+import Foundation
+#endif
 
 @objc extension NSString {
     
@@ -37,10 +41,12 @@ extension String {
         return replacingCharacters(in: range, with: replacement)
     }
     
+    #if os(iOS)
     /// Returns a `wchar_t` pointer from this String to be used with CPython.
     var cWchar_t: UnsafeMutablePointer<wchar_t> {
         return Py_DecodeLocale(cValue, nil)
     }
+    #endif
     
     /// Returns a C pointer to pass this `String` to C functions.
     var cValue: UnsafeMutablePointer<Int8> {
@@ -55,6 +61,7 @@ extension String {
         return buffer
     }
     
+    #if os(iOS)
     /// Taken from https://stackoverflow.com/a/38809531/7515957
     func image() -> UIImage? {
         let size = CGSize(width: 40, height: 40)
@@ -74,4 +81,5 @@ extension String {
         UIGraphicsEndImageContext()
         return image
     }
+    #endif
 }

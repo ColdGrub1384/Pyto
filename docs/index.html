@@ -20,9 +20,22 @@
         <li><a href="UI.html">ui</a></li>
     </ul>
     
-    <p>You can use <code>os.system</code> to run some basic BSD commands.</p>
+    <h3> Platforms </h3>
+    <p>
+    Pyto supports iOS and macOS. If you want to check for platform, use the global `__platform__` variable.
     
-    <p>If you want to import modules or packages you have locally, put the sources on the <code>modules</code> directory.</p>
+    Example:
+    
+    <pre>
+    if __platform__ is iOS:
+        print("Running on iOS")
+    elif __platform__ is macOS:
+        print("Running on Mac")
+    else:
+        print("Unknown platform")
+    </pre>
+    
+    </p>
     
     <h2>Included modules</h2>
     Pyto has some bundled modules:
