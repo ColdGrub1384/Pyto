@@ -17,11 +17,19 @@ struct WWDC16SourceCodeTheme: SourceCodeTheme {
     let defaultTheme = DefaultSourceCodeTheme()
     
     var lineNumbersStyle: LineNumbersStyle? {
+        #if os(iOS)
+        return nil
+        #else
         return defaultTheme.lineNumbersStyle
+        #endif
     }
     
     var gutterStyle: GutterStyle {
+        #if os(iOS)
+        return GutterStyle(backgroundColor: .clear, minimumWidth: 0)
+        #else
         return GutterStyle(backgroundColor: backgroundColor, minimumWidth: defaultTheme.gutterStyle.minimumWidth)
+        #endif
     }
     
     var font: Font {
@@ -62,6 +70,8 @@ struct WWDC16SourceCodeTheme: SourceCodeTheme {
 
 // MARK: - Theme
 
+#if os(iOS)
+
 /// The WWDC16 theme.
 struct WWDC16Theme: Theme {
     
@@ -75,3 +85,5 @@ struct WWDC16Theme: Theme {
         return sourceCodeTheme.color(for: .identifier)
     }
 }
+
+#endif

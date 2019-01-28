@@ -6,7 +6,7 @@
 //  Copyright © 2018 Adrian Labbé. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 /// A helperaccessible by Rubicon to request user's input.
 @objc class PyInputHelper: NSObject {

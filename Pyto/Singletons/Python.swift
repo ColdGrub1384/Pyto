@@ -8,20 +8,22 @@
 //
 
 import Foundation
-#if MAIN
+#if MAIN && os(iOS)
 import ios_system
-#else
+#elseif os(iOS)
 @_silgen_name("PyRun_SimpleStringFlags")
 func PyRun_SimpleStringFlags(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Any>!)
 
 @_silgen_name("Py_DecodeLocale")
 func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> UnsafeMutablePointer<wchar_t>
+#elseif os(macOS)
+import Cocoa
 #endif
 
 /// A class for interacting with `Cpython`
 @objc public class Python: NSObject {
     
-    #if !MAIN
+    #if !MAIN && os(iOS)
     /// Throws a fatal error.
     ///
     /// - Parameters:
@@ -36,6 +38,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     
     private override init() {}
     
+    #if os(iOS)
     /// The bundle containing all Python resources.
     @objc var bundle: Bundle {
         if Bundle.main.bundleIdentifier == "ch.marcela.ada.Pyto" {
@@ -57,28 +60,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// Set to `true` while the REPL is asking for input.
     @objc public var isREPLAskingForInput = false
     
-    /// Set to `true` while a script is running to prevent user from running one while another is running.
-    @objc public var isScriptRunning = false {
-        didSet {
-            #if MAIN
-            DispatchQueue.main.async {
-                let contentVC = ConsoleViewController.visible
-                
-                guard let editor = (contentVC.parent as? EditorSplitViewController)?.firstChild as? EditorViewController else {
-                    return
-                }
-                
-                let item = contentVC.parent?.navigationItem
-                
-                if self.isScriptRunning {
-                    item?.rightBarButtonItem = editor.stopBarButtonItem
-                } else {
-                    item?.rightBarButtonItem = editor.runBarButtonItem
-                }
-            }
-            #endif
-        }
-    }
+    #endif
     
     /// All the Python output.
     public var output = ""
@@ -92,6 +74,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// The arguments to pass to scripts.
     @objc public var args = [String]()
     
+    #if os(iOS)
     /// Runs given command with `ios_system`.
     ///
     /// - Parameters:
@@ -153,4 +136,130 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
             PyRun_SimpleStringFlags(code.cValue, nil)
         }
     }
+    #endif
+    
+    #if os(macOS)
+    
+    /// Pipe used for standard input.
+    var inputPipe = Pipe()
+    
+    /// The process running Python.
+    var process: Process?
+    
+    /// Run script at given URL.
+    ///
+    /// - Parameters:
+    ///     - url: URL of the Python script to run.
+    @objc public func runScript(at url: URL) {
+        
+        guard let startupURL = Bundle(for: Python.self).url(forResource: "Startup", withExtension: "py"), let src = try? String(contentsOf: startupURL) else {
+            return
+        }
+        
+        guard let code = String(format: src, url.path).data(using: .utf8) else {
+            return
+        }
+        
+        guard let pythonExecutble = Bundle.main.url(forResource: "python3", withExtension: nil) else {
+            return
+        }
+        
+        let tmpFile = NSTemporaryDirectory()+"/script.py"
+        
+        if FileManager.default.fileExists(atPath: tmpFile) {
+            try? FileManager.default.removeItem(atPath: tmpFile)
+        }
+        
+        FileManager.default.createFile(atPath: tmpFile, contents: code, attributes: [:])
+        
+        if process?.isRunning == true {
+            process?.terminate()
+            process?.standardOutput = nil
+            process?.standardError = nil
+            process?.standardInput = nil
+        }
+        
+        let pythonPath = [
+            Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
+            Bundle.main.path(forResource: "site-packages", ofType: nil) ?? "",
+            Bundle.main.path(forResource: "PyObjc", ofType: nil) ?? "",
+            Bundle.main.resourcePath ?? "",
+            url.deletingLastPathComponent().path,
+            "/usr/local/lib/python3.7/site-packages"
+            ].joined(separator: ":")
+        
+        let readabilityHandler: ((FileHandle) -> Void) = { handle in
+            if let str = String(data: handle.availableData, encoding: .utf8), str != "" {
+                NotificationCenter.default.post(name: .init(rawValue: "DidReceiveOutput"), object: str)
+            }
+        }
+        
+        inputPipe = Pipe()
+        
+        let stdout_ = Pipe()
+        stdout_.fileHandleForReading.readabilityHandler = readabilityHandler
+        
+        let stderr_ = Pipe()
+        stderr_.fileHandleForReading.readabilityHandler = readabilityHandler
+        
+        process = Process()
+        process?.executableURL = pythonExecutble
+        process?.arguments = [tmpFile]
+        process?.environment = [
+            "TMP"        : NSTemporaryDirectory(),
+            "PYTHONHOME" : Bundle.main.resourcePath ?? "",
+            "PYTHONPATH" : pythonPath,
+            "MPLBACKEND" : "TkAgg",
+        ]
+        process?.terminationHandler = { _ in
+            self.isScriptRunning = false
+        }
+        process?.standardOutput = stdout_
+        process?.standardError = stderr_
+        process?.standardInput = inputPipe
+        isScriptRunning = true
+        
+        EditorViewController.clear()
+        
+        DispatchQueue.global().async {
+            do {
+                try self.process?.run()
+                self.process?.waitUntilExit()
+            } catch {
+                self.isScriptRunning = false
+                NSApp.presentError(error)
+            }
+        }
+    }
+    
+    /// Set to `true` while a script is running to prevent user from running one while another is running.
+    @objc public var isScriptRunning = false {
+        didSet {
+            #if MAIN && os(iOS)
+            DispatchQueue.main.async {
+                let contentVC = ConsoleViewController.visible
+                
+                guard let editor = (contentVC.parent as? EditorSplitViewController)?.editor ?? EditorViewController.visible else {
+                    return
+                }
+                
+                let item = editor.parent?.navigationItem
+                
+                if self.isScriptRunning {
+                    item?.rightBarButtonItem = editor.stopBarButtonItem
+                } else {
+                    item?.rightBarButtonItem = editor.runBarButtonItem
+                }
+            }
+            #elseif os(macOS)
+            if !isScriptRunning && process?.isRunning == true {
+                process?.terminate()
+            }
+            
+            EditorViewController.toggleStopButton()
+            #endif
+        }
+    }
+    
+    #endif
 }

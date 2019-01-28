@@ -17,11 +17,19 @@ struct XcodeSourceCodeTheme: SourceCodeTheme {
     let defaultTheme = DefaultSourceCodeTheme()
     
     var lineNumbersStyle: LineNumbersStyle? {
+        #if os(iOS)
+        return nil
+        #else
         return defaultTheme.lineNumbersStyle
+        #endif
     }
     
     var gutterStyle: GutterStyle {
-        return GutterStyle(backgroundColor: .white, minimumWidth: defaultTheme.gutterStyle.minimumWidth)
+        #if os(iOS)
+        return GutterStyle(backgroundColor: .clear, minimumWidth: 0)
+        #else
+        return defaultTheme.gutterStyle
+        #endif
     }
     
     var font: Font {
@@ -62,6 +70,8 @@ struct XcodeSourceCodeTheme: SourceCodeTheme {
 
 // MARK: - Theme
 
+#if os(iOS)
+
 /// The Xcode theme.
 struct XcodeTheme: Theme {
     
@@ -71,3 +81,5 @@ struct XcodeTheme: Theme {
     
     let sourceCodeTheme: SourceCodeTheme = XcodeSourceCodeTheme()
 }
+
+#endif

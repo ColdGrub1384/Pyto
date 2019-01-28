@@ -403,7 +403,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         super.viewDidAppear(animated)
         
         if EditorViewController.visible != self {
-            DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
                 EditorViewController.visible = self
             }
         }
@@ -641,20 +641,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
         textView.contentTextView.scrollIndicatorInsets.bottom = r.size.height
     }
     
-    /// Update line numbers.
-    @objc func keyboardDidShow(_ notification:Notification) {
-        updateLineNumbers()
-    }
-    
     /// Set `textView` to the default size.
     @objc func keyboardWillHide(_ notification:Notification) {
         textView.contentInset = .zero
         textView.contentTextView.scrollIndicatorInsets = .zero
-    }
-    
-    /// Update line numbers.
-    @objc func keyboardDidHide(_ notification:Notification) {
-        updateLineNumbers()
     }
     
     // MARK: - Text view delegate
@@ -687,32 +677,25 @@ fileprivate func parseArgs(_ args: inout [String]) {
         return true
     }
     
-    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-        scrollViewDidEndDecelerating(scrollView)
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let offset = scrollView.contentOffset
-        textView.theme = ReadonlyTheme(ConsoleViewController.choosenTheme.sourceCodeTheme)
-        DispatchQueue.main.async {
-            self.textView.theme = ConsoleViewController.choosenTheme.sourceCodeTheme
-            DispatchQueue.main.async {
-                scrollView.setContentOffset(offset, animated: false)
-            }
-        }
-    }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if !decelerate {
-            scrollViewDidEndDecelerating(scrollView)
-        }
-    }
-    
     // MARK: - Suggestions
     
     /// Returns suggestions for current word.
     @objc var suggestions = [String]() {
         didSet {
+            
+            var i = 0
+            for suggestion in suggestions {
+                if suggestion.contains("_") && suggestion.lowercased() != suggestion {
+                    suggestions.remove(at: i)
+                    break
+                }
+                i += 1
+            }
+            
+            guard !Thread.current.isMainThread else {
+                return
+            }
+            
             DispatchQueue.main.async {
                 self.inputAssistant.reloadData()
             }
@@ -770,8 +753,12 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     func inputAssistantView(_ inputAssistantView: InputAssistantView, didSelectSuggestionAtIndex index: Int) {
         
-        textView.insertText(completions[index])
-        docString = docStrings[suggestions[index]]
+        if let currentWord = textView.contentTextView.currentWord, !suggestions[index].hasPrefix(currentWord), !suggestions[index].contains("_"), let currentWordRange = textView.contentTextView.currentWordRange {
+            textView.contentTextView.replace(currentWordRange, withText: suggestions[index])
+        } else {
+            textView.insertText(completions[index])
+            docString = docStrings[suggestions[index]]
+        }
     }
     
     // MARK: - Input assistant view data source
