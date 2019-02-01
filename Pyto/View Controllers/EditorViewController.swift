@@ -193,13 +193,15 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 }
             }
             
+            let errorColor = #colorLiteral(red: 0.6743632277, green: 0.1917540668, blue: 0.1914597603, alpha: 1)
+            
             let errorVC = ErrorViewController()
             errorVC.view = errorView
-            errorVC.view.backgroundColor = #colorLiteral(red: 0.6743632277, green: 0.1917540668, blue: 0.1914597603, alpha: 1)
+            errorVC.view.backgroundColor = errorColor
             errorVC.preferredContentSize = CGSize(width: 300, height: 100)
             errorVC.modalPresentationStyle = .popover
             errorVC.presentationController?.delegate = errorVC
-            errorVC.popoverPresentationController?.backgroundColor = #colorLiteral(red: 0.6743632277, green: 0.1917540668, blue: 0.1914597603, alpha: 1)
+            errorVC.popoverPresentationController?.backgroundColor = errorColor
             
             if let selectedTextRange = self.textView.contentTextView.selectedTextRange {
                 errorVC.popoverPresentationController?.sourceView = self.textView.contentTextView
@@ -210,6 +212,28 @@ fileprivate func parseArgs(_ args: inout [String]) {
             }
             
             self.present(errorVC, animated: true, completion: nil)
+            
+            // Taken from https://stackoverflow.com/a/49332122/7515957
+            
+            let textStorage = self.textView.contentTextView.textStorage
+            
+            // Use NSString here because textStorage expects the kind of ranges returned by NSString,
+            // not the kind of ranges returned by String.
+            let storageString = textStorage.string as NSString
+            var lineRanges = [NSRange]()
+            storageString.enumerateSubstrings(in: NSMakeRange(0, storageString.length), options: .byLines, using: { (_, lineRange, _, _) in
+                lineRanges.append(lineRange)
+            })
+            
+            func setBackgroundColor(_ color: UIColor?, forLine line: Int) {
+                if let color = color {
+                    textStorage.addAttribute(.backgroundColor, value: color, range: lineRanges[line])
+                } else {
+                    textStorage.removeAttribute(.backgroundColor, range: lineRanges[line])
+                }
+            }
+            
+            setBackgroundColor(errorColor, forLine: lineNumber-1)
         }
     }
     
@@ -512,6 +536,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     /// Run the script represented by `document`.
     @objc func run() {
+        
+        // For error handling
+        textView.delegate = nil
+        textView.delegate = self
+        
         save { (_) in            
             var arguments = self.args.components(separatedBy: " ")
             parseArgs(&arguments)
