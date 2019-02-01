@@ -233,10 +233,22 @@ import Cocoa
     }
     #endif
     
+    #if os(iOS)
+    
+    /// Set to `false` to stop a script.
+    @objc private var _isScriptRunning = false
+    
+    /// Stops running script.
+    @objc public func stop() {
+        _isScriptRunning = false
+    }
+    
+    #endif
+    
     /// Set to `true` while a script is running to prevent user from running one while another is running.
     @objc public var isScriptRunning = false {
         didSet {
-            #if MAIN && os(iOS)
+            #if os(iOS)
             DispatchQueue.main.async {
                 let contentVC = ConsoleViewController.visible
                 
@@ -251,6 +263,7 @@ import Cocoa
                 } else {
                     item?.rightBarButtonItem = editor.runBarButtonItem
                 }
+                item?.rightBarButtonItem?.isEnabled = (self.isScriptRunning == self.isScriptRunning)
                 
                 QuickLookHelper.visible = nil
             }

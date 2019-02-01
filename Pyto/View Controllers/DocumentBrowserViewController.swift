@@ -313,7 +313,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         let splitVC = EditorSplitViewController()
         let navVC = ThemableNavigationController(rootViewController: splitVC)
         
-        splitVC.separatorColor = tintColor
+        splitVC.separatorColor = .clear
         splitVC.separatorSelectedColor = tintColor
         splitVC.editor = editor
         splitVC.console = contentVC
