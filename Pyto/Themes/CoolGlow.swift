@@ -21,7 +21,11 @@ struct CoolGlowSourceCodeTheme: SourceCodeTheme {
     }
     
     var gutterStyle: GutterStyle {
+        #if os(iOS)
+        return GutterStyle(backgroundColor: .clear, minimumWidth: 0)
+        #else
         return GutterStyle(backgroundColor: backgroundColor, minimumWidth: defaultTheme.gutterStyle.minimumWidth)
+        #endif
     }
     
     var font: Font {
