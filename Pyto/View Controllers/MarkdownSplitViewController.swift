@@ -28,6 +28,13 @@ class MarkdownSplitViewController: SplitViewController {
     
     // MARK: - Split view controller
     
+    override func viewDidLoad() {
+        
+        ratio = 0
+        
+        super.viewDidLoad()
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         

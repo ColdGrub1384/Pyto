@@ -381,7 +381,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             isDocOpened = true
             
             if Python.shared.isScriptRunning {
-                Python.shared.isScriptRunning = false
+                Python.shared.stop()
             }
             
             document?.open(completionHandler: { (_) in
@@ -493,7 +493,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     @objc func stop() {
         
         func stop_() {
-            Python.shared.isScriptRunning = false
+            Python.shared.stop()
             ConsoleViewController.visible.textView.resignFirstResponder()
             ConsoleViewController.visible.textView.isEditable = false
         }
@@ -501,7 +501,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         if ConsoleViewController.isMainLoopRunning {
             ConsoleViewController.visible.closePresentedViewController()
             DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-                Python.shared.isScriptRunning = false
+                Python.shared.stop()
                 ConsoleViewController.visible.textView.resignFirstResponder()
                 ConsoleViewController.visible.textView.isEditable = false
             }
@@ -538,7 +538,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
                         if Python.shared.isScriptRunning {
                             return
                         }
-                        Python.shared.isScriptRunning = true
                         // Import the script
                         PyInputHelper.userInput = "import console as c; s = c.run_script('\(url.path)')"
                     } else {
