@@ -650,7 +650,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 docVC.modalPresentationStyle = .popover
                 docVC.presentationController?.delegate = docVC
                 docVC.popoverPresentationController?.backgroundColor = .black
-                docVC.popoverPresentationController?.permittedArrowDirections = .up
+                docVC.popoverPresentationController?.permittedArrowDirections = [.up, .down]
                 
                 if let selectedTextRange = self.textView.contentTextView.selectedTextRange {
                     docVC.popoverPresentationController?.sourceView = self.textView.contentTextView
