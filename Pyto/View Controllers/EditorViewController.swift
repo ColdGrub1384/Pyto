@@ -380,6 +380,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             activity.contentAttributeSet = attributes
             activity.isEligibleForSearch = true
             activity.isEligibleForPrediction = true
+            activity.isEligibleForHandoff = false
             activity.keywords = ["python", "pyto", "run", "script", title ?? "Untitled"]
             activity.requiredUserInfoKeys = ["filePath"]
             activity.persistentIdentifier = filePath
