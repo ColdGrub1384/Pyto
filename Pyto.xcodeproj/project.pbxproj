@@ -138,6 +138,7 @@
 		C970283A21FFAFF000159E54 /* _tri.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9317F0A21FF69E60016E422 /* _tri.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C970283B21FFAFF400159E54 /* ft2font.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9317F0C21FF69E60016E422 /* ft2font.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C970283C21FFAFF600159E54 /* ttconv.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9317F0B21FF69E60016E422 /* ttconv.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9727C472204D7F100B7AC32 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9727C452204D7F100B7AC32 /* LaunchScreen.storyboard */; };
 		C974193521FD23B700E3924C /* Basic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E78621EF781F0057C63E /* Basic.swift */; };
 		C974193821FD23B900E3924C /* Xcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1621D0592C00412CEF /* Xcode.swift */; };
 		C974193921FD23D100E3924C /* XcodeDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E77721EEA9BE0057C63E /* XcodeDark.swift */; };
@@ -320,7 +321,6 @@
 		C9FCFD59214428AE00A07974 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCFD58214428AE00A07974 /* AppDelegate.swift */; };
 		C9FCFD5B214428AE00A07974 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCFD5A214428AE00A07974 /* EditorViewController.swift */; };
 		C9FCFD60214428B300A07974 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9FCFD5F214428B300A07974 /* Assets.xcassets */; };
-		C9FCFD63214428B300A07974 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9FCFD61214428B300A07974 /* LaunchScreen.storyboard */; };
 		C9FCFD6B21442DE700A07974 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCFD6A21442DE700A07974 /* DocumentBrowserViewController.swift */; };
 		C9FCFD6D21442FD700A07974 /* Untitled.py in Resources */ = {isa = PBXBuildFile; fileRef = C9FCFD6C21442FD700A07974 /* Untitled.py */; };
 /* End PBXBuildFile section */
@@ -753,6 +753,7 @@
 		C97027FA21FFAC6600159E54 /* _cntr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _cntr.framework; sourceTree = "<group>"; };
 		C97027FD21FFAC7200159E54 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = _cntr.framework/Info.plist; sourceTree = "<group>"; };
 		C97027FF21FFAC7C00159E54 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = _delaunay.framework/Info.plist; sourceTree = "<group>"; };
+		C9727C462204D7F100B7AC32 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C974194621FDECD400E3924C /* 2to3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 2to3; sourceTree = "<group>"; };
 		C974194721FDECD400E3924C /* python3 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = python3; sourceTree = "<group>"; };
 		C974194821FDECD400E3924C /* python3.7-config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "python3.7-config"; sourceTree = "<group>"; };
@@ -1037,7 +1038,6 @@
 		C9FCFD58214428AE00A07974 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9FCFD5A214428AE00A07974 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		C9FCFD5F214428B300A07974 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C9FCFD62214428B300A07974 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9FCFD64214428B300A07974 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9FCFD6A21442DE700A07974 /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
 		C9FCFD6C21442FD700A07974 /* Untitled.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = Untitled.py; sourceTree = "<group>"; };
@@ -1295,11 +1295,11 @@
 				C9530C3D21F8B7BD007B24F3 /* Inspector.storyboard */,
 				C9B5D84A21F119B100E980BA /* About.storyboard */,
 				C9FCFD5F214428B300A07974 /* Assets.xcassets */,
-				C9FCFD61214428B300A07974 /* LaunchScreen.storyboard */,
 				C9425A6E21F48F1600E7CC35 /* cacert.pem */,
 				C9FCFD64214428B300A07974 /* Info.plist */,
 				C9647FFE21ACA00D005765C2 /* Help.py */,
 				C9477BBA21D45D28000680AE /* installer.py */,
+				C9727C452204D7F100B7AC32 /* LaunchScreen.storyboard */,
 				C98E1FFC214EE6EC002F0178 /* Samples */,
 				C9FCFD6C21442FD700A07974 /* Untitled.py */,
 				C9B5D86121F144D900E980BA /* Untitled.md */,
@@ -2107,13 +2107,13 @@
 				C9B5D84B21F119B100E980BA /* About.storyboard in Resources */,
 				C9E509A221BC08F900261E3A /* docs in Resources */,
 				C9C0E78B21F0B5770057C63E /* Theme Chooser.storyboard in Resources */,
+				C9727C472204D7F100B7AC32 /* LaunchScreen.storyboard in Resources */,
 				C9EA5C7D21F23558000F7FA7 /* Welcome to Pyto.md in Resources */,
 				C98472AE21A05CB1008E16AC /* README.md in Resources */,
 				C9F04E882173DD7300BDD03E /* Main.storyboard in Resources */,
 				C9E116E021F773EB00FB5DD2 /* UserREPL.py in Resources */,
 				C9FCFD6D21442FD700A07974 /* Untitled.py in Resources */,
 				C903B98821584367004AAD7F /* commandDictionary.plist in Resources */,
-				C9FCFD63214428B300A07974 /* LaunchScreen.storyboard in Resources */,
 				C9B5D87621F214DC00E980BA /* body.html in Resources */,
 				C9425A7121F48F1600E7CC35 /* cacert.pem in Resources */,
 				C903B98A215843B4004AAD7F /* extraCommandsDictionary.plist in Resources */,
@@ -2434,6 +2434,14 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
+		C9727C452204D7F100B7AC32 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9727C462204D7F100B7AC32 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 		C9F04E852173C33400BDD03E /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2448,14 +2456,6 @@
 				C9F04E892173DD7300BDD03E /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		C9FCFD61214428B300A07974 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C9FCFD62214428B300A07974 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
