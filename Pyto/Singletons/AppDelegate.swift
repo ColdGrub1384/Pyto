@@ -27,15 +27,21 @@ import ios_system
     @objc public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window?.accessibilityIgnoresInvertColors = true
-        
+                
         #if MAIN
         initializeEnvironment()
+        putenv("TERM=".cValue)
+        putenv("LSCOLORS=".cValue)
         setenv("PWD", FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].path, 1)
         setenv("SSL_CERT_FILE", Bundle.main.path(forResource: "cacert", ofType: "pem"), 1)
         
         window?.tintColor = ConsoleViewController.choosenTheme.tintColor
         
         ((window?.rootViewController as? UITabBarController)?.viewControllers?.last as? UINavigationController)?.viewControllers.first?.loadViewIfNeeded()
+        
+        for file in ((try? FileManager.default.contentsOfDirectory(at: URL(fileURLWithPath: NSTemporaryDirectory()), includingPropertiesForKeys: nil, options: .skipsHiddenFiles)) ?? []) {
+            try? FileManager.default.removeItem(at: file)
+        }
         
         UIMenuController.shared.menuItems = [
             UIMenuItem(title: Localizable.MenuItems.open, action: #selector(FileCollectionViewCell.open(_:))),

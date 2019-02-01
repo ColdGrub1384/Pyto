@@ -231,6 +231,7 @@ import Cocoa
             }
         }
     }
+    #endif
     
     /// Set to `true` while a script is running to prevent user from running one while another is running.
     @objc public var isScriptRunning = false {
@@ -250,6 +251,8 @@ import Cocoa
                 } else {
                     item?.rightBarButtonItem = editor.runBarButtonItem
                 }
+                
+                QuickLookHelper.visible = nil
             }
             #elseif os(macOS)
             if !isScriptRunning && process?.isRunning == true {
@@ -260,6 +263,4 @@ import Cocoa
             #endif
         }
     }
-    
-    #endif
 }

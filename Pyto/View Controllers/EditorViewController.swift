@@ -113,6 +113,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         documentationNavigationController?.modalPresentationStyle = .popover
         documentationNavigationController?.popoverPresentationController?.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
         documentationNavigationController?.popoverPresentationController?.barButtonItem = sender
+        documentationNavigationController?.preferredContentSize = CGSize(width: 400, height: 400)
         present(documentationNavigationController!, animated: true, completion: nil)
     }
     
@@ -378,6 +379,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         if !isDocOpened {
             isDocOpened = true
+            
+            if Python.shared.isScriptRunning {
+                Python.shared.isScriptRunning = false
+            }
+            
             document?.open(completionHandler: { (_) in
                 guard let doc = self.document else {
                     return
@@ -404,6 +410,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         if EditorViewController.visible != self {
             DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                // TODO: Fix crash
                 EditorViewController.visible = self
             }
         }
@@ -657,13 +664,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        updateSuggestions()
         return self.textView.textViewDidChange(textView)
     }
     
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        updateSuggestions()
-    }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         

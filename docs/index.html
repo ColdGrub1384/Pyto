@@ -22,7 +22,7 @@
     
     <h3> Platforms </h3>
     <p>
-    Pyto supports iOS and macOS. If you want to check for platform, use the global `__platform__` variable.
+    Pyto supports iOS and macOS (in the future). If you want to check for platform, use the global `__platform__` variable.
     
     Example:
     
@@ -37,17 +37,16 @@
     
     </p>
     
-    <h2>Included modules</h2>
-    Pyto has some bundled modules:
+    <h2> Third party modules </h2>
     
+    Pyto has some bundled modules:
+    <br/>
     <ul>
         <li><a href="https://github.com/chardet/chardet">chardet</a></li>
         <li><a href="https://github.com/tartley/colorama">colorama</a></li>
         <li><a href="https://github.com/dateutil/dateutil">dateutil</a></li>
         <li><a href="https://bitbucket.org/pypa/distlib">distlib</a></li>
         <li><a href="https://github.com/kjd/idna">idna</a></li>
-        <li><a href="https://github.com/davidhalter/jedi">jedi</a></li>
-        <li><a href="https://github.com/numpy/numpy">numpy</a></li>
         <li><a href="https://github.com/ywangd/stash/blob/master/bin/pip.py">pip</a></li>
         <li><a href="https://github.com/verigak/progress">progress</a></li>
         <li><a href="https://github.com/benediktschmitt/py-filelock">py-filelock</a></li>
@@ -55,10 +54,30 @@
         <li><a href="https://pythonhosted.org/pytz/">pytz</a></li>
         <li><a href="https://github.com/gsnedders/python-webencodings">python-webencodings</a></li>
         <li><a href="https://github.com/requests/requests">requests</a></li>
-        <li><a href="https://github.com/pybee/rubicon-objc">rubicon-objc</a></li>
+        
         <li><a href="https://github.com/urllib3/urllib3">urllib3</a></li>
     </ul>
 
+    Including three compiled C extensions:
+    <br/>
+    <ul>
+        <li><a href="https://github.com/numpy/numpy">numpy</a></li>
+        <li><a href="https://github.com/matplotlib/matplotlib">matplotlib</a></li>
+        <li><a href="https://pypi.org/project/kiwisolver">kiwisolver</a></li>
+    </ul>
+    <br/>
+    This library is used internally for accessing Objective-C classes:
+    <br/>
+    <ul>
+        <li><a href="https://github.com/pybee/rubicon-objc">rubicon-objc</a></li>
+    </ul>
+    <br/>
+    This library is used internally for code completion:
+    <br/>
+    <ul>
+        <li><a href="https://github.com/davidhalter/jedi">jedi</a></li>
+    </ul>
+    
     <p>
     You can install other pure Python modules from PyPi. For that, press the "pip" button on the main screen and write arguments you want to pass. For example, for installing a package, type "install 'package_name'".
     </p>

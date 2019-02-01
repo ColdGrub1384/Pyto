@@ -12,9 +12,10 @@ import CoreSpotlight
 import SplitKit
 import SavannaKit
 import WebKit
+import QuickLook
 
 /// The main file browser used to edit scripts.
-class DocumentBrowserViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDropDelegate, UICollectionViewDragDelegate {
+class DocumentBrowserViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDropDelegate, UICollectionViewDragDelegate, QLPreviewControllerDataSource {
     
     /// Stops file observer.
     func stopObserver() {
@@ -70,7 +71,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         for file in files {
             var isDir: ObjCBool = false
             if FileManager.default.fileExists(atPath: file.path, isDirectory: &isDir) {
-                if ((file.pathExtension.lowercased() != "py" && file.pathExtension.lowercased() != "md" && !isDir.boolValue) || (file.lastPathComponent == "__pycache__")) || file.lastPathComponent.hasPrefix(".") {
+                if file.lastPathComponent == "__pycache__" || file.lastPathComponent == "mpl-data" || file.lastPathComponent.hasPrefix(".") {
                     files.remove(at: i)
                 } else {
                     i += 1
@@ -250,32 +251,49 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         openDocument(url, run: true)
     }
     
-    /// Opens the given script.
+    /// Opens the given file.
     ///
     /// - Parameters:
-    ///     - document: The URL of the script.
+    ///     - document: The URL of the file or directory..
     ///     - run: Set to `true` to run the script inmediately.
     ///     - completion: Code called after presenting the UI.
     func openDocument(_ document: URL, run: Bool, completion: (() -> Void)? = nil) {
         
         let tintColor = ConsoleViewController.choosenTheme.tintColor ?? UIColor(named: "TintColor") ?? .orange
         
+        var isDir: ObjCBool = false
+        
         guard document.pathExtension.lowercased() == "py" else {
             
-            _ = document.startAccessingSecurityScopedResource()
-            
-            let splitVC = MarkdownSplitViewController()
-            splitVC.modalTransitionStyle = .crossDissolve
-            splitVC.separatorColor = tintColor
-            splitVC.separatorSelectedColor = tintColor
-            splitVC.editor = PlainTextEditorViewController()
-            splitVC.previewer = MarkdownPreviewController()
-            splitVC.arrangement = .horizontal
-            UIApplication.shared.keyWindow?.rootViewController?.present(ThemableNavigationController(rootViewController: splitVC), animated: true, completion: {
+            if document.pathExtension.lowercased() == "md" || document.pathExtension.lowercased() == "markdown" {
+                _ = document.startAccessingSecurityScopedResource()
                 
-                NotificationCenter.default.removeObserver(splitVC)
-                splitVC.editor.url = document
-            })
+                let splitVC = MarkdownSplitViewController()
+                splitVC.modalTransitionStyle = .crossDissolve
+                splitVC.separatorColor = tintColor
+                splitVC.separatorSelectedColor = tintColor
+                splitVC.editor = PlainTextEditorViewController()
+                splitVC.previewer = MarkdownPreviewController()
+                splitVC.arrangement = .horizontal
+                UIApplication.shared.keyWindow?.rootViewController?.present(ThemableNavigationController(rootViewController: splitVC), animated: true, completion: {
+                    
+                    NotificationCenter.default.removeObserver(splitVC)
+                    splitVC.editor.url = document
+                    completion?()
+                })
+            } else if FileManager.default.fileExists(atPath: document.path, isDirectory: &isDir) && isDir.boolValue {
+                guard let vc = storyboard?.instantiateViewController(withIdentifier: "Browser") as? DocumentBrowserViewController else {
+                    return
+                }
+                vc.directory = document
+                navigationController?.pushViewController(vc, animated: true)
+                completion?()
+            } else {
+                previewingFile = document
+                let controller = QLPreviewController()
+                controller.dataSource = self
+                present(controller, animated: true, completion: completion)
+            }
             
             return
         }
@@ -436,7 +454,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
             
             for (i, line) in str.components(separatedBy: "\n").enumerated() {
                 
-                guard i < 20 else {
+                guard i < 9 else {
                     break
                 }
                 
@@ -446,19 +464,12 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
             if textView.text != smallerCode {
                 cell.file = scripts[indexPath.row]
             }
-        } else {
+        } else if cell.file != scripts[indexPath.row] {
             cell.file = scripts[indexPath.row]
         }
         cell.titleView.text = scripts[indexPath.row].deletingPathExtension().lastPathComponent
         cell.documentBrowser = self
         
-        if scripts[indexPath.row].pathExtension.lowercased() == "py" || scripts[indexPath.row].pathExtension.lowercased() == "md" || scripts[indexPath.row].pathExtension.lowercased() == "markdown" || isDir.boolValue {
-            cell.isUserInteractionEnabled = true
-            cell.alpha = 1
-        } else {
-            cell.isUserInteractionEnabled = false
-            cell.alpha = 0.5
-        }
         return cell
     }
     
@@ -476,18 +487,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
     // MARK: - Collection view delegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        var isDir: ObjCBool = false
-        if FileManager.default.fileExists(atPath: scripts[indexPath.row].path, isDirectory: &isDir) {
-            if isDir.boolValue {
-                guard let vc = storyboard?.instantiateViewController(withIdentifier: "Browser") as? DocumentBrowserViewController else {
-                    return
-                }
-                vc.directory = scripts[indexPath.row]
-                navigationController?.pushViewController(vc, animated: true)
-            } else {
-                openDocument(scripts[indexPath.row], run: false)
-            }
-        }
+        openDocument(scripts[indexPath.row], run: false)
     }
     
     // MARK: - Collection view drag delegate
@@ -567,5 +567,18 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
                 }
             }
         }
+    }
+    
+    // MARK: - Quick look
+    
+    /// The file to preview with quick look.
+    var previewingFile: URL?
+    
+    func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
+        return (previewingFile ?? URL(fileURLWithPath: "/")) as QLPreviewItem
+    }
+    
+    func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
+        return 1
     }
 }

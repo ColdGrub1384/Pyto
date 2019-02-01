@@ -17,14 +17,7 @@ class TemplatesViewController: UIViewController, UICollectionViewDataSource, UIC
             return []
         }
         
-        var scripts = [URL]()
-        for file in files {
-            if file.pathExtension.lowercased() == "py" {
-                scripts.append(file)
-            }
-        }
-        
-        return scripts
+        return files
     }()
     
     // MARK: - Theme
@@ -57,7 +50,20 @@ class TemplatesViewController: UIViewController, UICollectionViewDataSource, UIC
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "file", for: indexPath) as? FileCollectionViewCell else {
+        var isDir: ObjCBool = false
+        
+        let id: String
+        guard FileManager.default.fileExists(atPath: templates[indexPath.row].path, isDirectory: &isDir) else {
+            return UICollectionViewCell()
+        }
+        
+        if isDir.boolValue {
+            id = "folder"
+        } else {
+            id = "file"
+        }
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: id, for: indexPath) as? FileCollectionViewCell else {
             return UICollectionViewCell()
         }
         
@@ -85,7 +91,7 @@ class TemplatesViewController: UIViewController, UICollectionViewDataSource, UIC
         var i = 2
         let name = newURL.deletingPathExtension().lastPathComponent
         while FileManager.default.fileExists(atPath: newURL.path) {
-            newURL = newURL.deletingLastPathComponent().appendingPathComponent("\(name) \(i).py")
+            newURL = newURL.deletingLastPathComponent().appendingPathComponent("\(name) \(i)").appendingPathExtension(templateURL.pathExtension)
             
             i += 1
         }

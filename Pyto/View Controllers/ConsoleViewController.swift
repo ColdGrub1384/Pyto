@@ -507,6 +507,10 @@ extension ConsoleViewController: InputAssistantViewDelegate, InputAssistantViewD
     
     func inputAssistantView(_ inputAssistantView: InputAssistantView, didSelectSuggestionAtIndex index: Int) {
         
+        guard completions.indices.contains(index) else {
+            return
+        }
+        
         let completion = completions[index]
         prompt += completion
         textView.text += completion
