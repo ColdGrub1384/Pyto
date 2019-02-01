@@ -106,12 +106,11 @@ class NumpyImporter(object):
 
 sys.meta_path.append(NumpyImporter())
 
-# MARK: - Pandas
+# MARK: - Matplotlib
 
-# TODO: Add Pandas
-'''class PandasImporter(object):
+class MatplotlibImporter(object):
     def find_module(self, fullname, mpath=None):
-        if fullname in ('pandas.hashtable', 'pandas.lib'):
+        if fullname in ('matplotlib.backends._backend_agg', 'matplotlib._path', 'matplotlib._image', 'matplotlib._png', 'matplotlib.ft2font', 'matplotlib._contour', 'matplotlib._qhull', 'matplotlib._tri', 'matplotlib.ttconv', 'matplotlib._cntr', 'matplotlib._delaunay'):
             return self
         
         return
@@ -126,9 +125,7 @@ sys.meta_path.append(NumpyImporter())
         
         return mod
 
-sys.meta_path.append(PandasImporter())'''
-
-# MARK: - Selector
+sys.meta_path.append(MatplotlibImporter())
 
 """
 Create a Selector without class.

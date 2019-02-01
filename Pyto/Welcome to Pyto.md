@@ -20,4 +20,6 @@ Pyto has a minimal version of pip.
 
 For installing a module, tap `pip` button on the file browser. Arguments will be asked. If you want to install a module, write `install <module_name>` and if you want to uninstall a module, then write `uninstall <module_name>`.
 
-Pyto cannot compile modules and cannot link shared libraries from outside the app bundle. So `pip` will fail for packages like `pandas`, `scipy` or `numpy`. `numpy` is already included. I'm trying to include `pandas`, but it's not easy. 
+Pyto cannot compile modules and cannot link shared libraries from outside the app bundle. So `pip` will fail for packages like `pandas`, `scipy` or `numpy`.
+
+`numpy` and `matplotlib` are included in the app.

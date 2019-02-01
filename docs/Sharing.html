@@ -16,6 +16,16 @@
         <li>items: Items to be shared with the sheet.</li>
     </ul>
     
+    <h2><code>quick_look(path)</code></h2>
+    
+    Previews given file.
+    
+    This function doesn't block the current thread. You can call this function multiple times and the file path will be appended to the current Preview controller. Thread safe.
+    
+    <ul>
+        <li>path: Path to preview.</li>
+    </ul>
+    
     <h2><code>FilePicker</code></h2>
     
     <p>(Wraps <a href="PyFilePicker.html">PyFilePicker</a>)</p>

@@ -70,6 +70,19 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
             }
             
             if FileManager.default.fileExists(atPath: file!.path, isDirectory: &isDirectory) {
+                
+                for view in previewContainerView?.subviews ?? [] {
+                    if view is UIImageView {
+                        view.removeFromSuperview()
+                    }
+                }
+                
+                previewContainerView?.layer.borderColor = UIColor.gray.cgColor
+                previewContainerView?.layer.borderWidth = 0.25
+                
+                folderContentCollectionView?.layer.borderColor = UIColor.gray.cgColor
+                folderContentCollectionView?.layer.borderWidth = 0.25
+                
                 if isDirectory.boolValue {
                     noFilesView?.isHidden = !directoryContents.1.isEmpty
                     if directoryContents.0 > 0 {
@@ -83,12 +96,16 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
                     titleView.text = file!.lastPathComponent
                 } else if file!.pathExtension.lowercased() == "py" || file!.pathExtension.lowercased() == "md" || file!.pathExtension.lowercased() == "markdown", let container = previewContainerView {
                     
-                    var textView = SyntaxTextView(frame: container.frame)
+                    var textView: SyntaxTextView!
 
                     for view in (previewContainerView?.subviews ?? []) {
                         if let syntaxTextView = view as? SyntaxTextView {
                             textView = syntaxTextView
                         }
+                    }
+                    
+                    if textView == nil {
+                        textView = SyntaxTextView(frame: container.frame)
                     }
                     
                     textView.delegate = self
@@ -120,8 +137,40 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
                     if textView.window == nil {
                         container.addSubview(textView)
                     }
-                    container.layer.borderColor = UIColor.gray.cgColor
-                    container.layer.borderWidth = 0.25
+                    titleView.text = file!.deletingPathExtension().lastPathComponent
+                } else if let container = previewContainerView {
+                    
+                    let image: UIImage?
+                    if let data = try? Data(contentsOf: file!), let preview = UIImage(data: data) {
+                        image = preview
+                    } else {
+                        image = UIDocumentInteractionController(url: file!).icons.last
+                    }
+                    
+                    var imageView: UIImageView!
+                    
+                    for view in container.subviews {
+                        if !(view is UIImageView) {
+                            view.removeFromSuperview()
+                        } else {
+                            imageView = view as? UIImageView
+                            imageView.image = image
+                        }
+                    }
+                    
+                    if imageView == nil {
+                        imageView = UIImageView(image: image)
+                    }
+                    
+                    imageView.frame = container.frame
+                    imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                    
+                    imageView.contentMode = .scaleAspectFit
+                    
+                    if imageView.window == nil {
+                        container.addSubview(imageView)
+                    }
+                    
                     titleView.text = file!.deletingPathExtension().lastPathComponent
                 }
             }
@@ -231,19 +280,20 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if file?.path.hasPrefix(Bundle.main.bundlePath) == true {
             return (action == #selector(open(_:)))
-        } else if isDirectory.boolValue || file?.pathExtension.lowercased() == "md" || file?.pathExtension.lowercased() == "markdown" {
+        } else if isDirectory.boolValue || file?.pathExtension.lowercased() != "py" {
             return (
-                action == #selector(remove(_:)) ||
-                action == #selector(rename(_:)) ||
+                action == #selector(open(_:))     ||
+                action == #selector(remove(_:))   ||
+                action == #selector(rename(_:))   ||
                 action == #selector(copyFile(_:)) ||
                 action == #selector(move(_:))
             )
         } else {
             return (
-                action == #selector(remove(_:)) ||
-                action == #selector(run(_:)) ||
-                action == #selector(open(_:)) ||
-                action == #selector(rename(_:)) ||
+                action == #selector(remove(_:))   ||
+                action == #selector(run(_:))      ||
+                action == #selector(open(_:))     ||
+                action == #selector(rename(_:))   ||
                 action == #selector(copyFile(_:)) ||
                 action == #selector(move(_:))
             )
@@ -281,10 +331,10 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         let files = directoryContents.1.count
-        if files <= 4 {
+        if files <= 2 {
             return files
         } else {
-            return 4
+            return 2
         }
     }
     
