@@ -6,7 +6,11 @@
 //  Copyright © 2019 Adrian Labbé. All rights reserved.
 //
 
+#if MAIN
 #import <Pyto-Swift.h>
+#else
+#import <PytoCore/PytoCore-Swift.h>
+#endif
 #import <UIKit/UIKit.h>
 
 @implementation ConsoleViewController (showViewController)

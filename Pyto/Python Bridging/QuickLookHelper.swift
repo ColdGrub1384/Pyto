@@ -57,7 +57,8 @@ import QuickLook
         let controller = QLPreviewController()
         controller.dataSource = dataSource
         
-        let vc: UIViewController
+        #if MAIN
+        let vc: UIViewController?
         if ConsoleViewController.visible.view.window != nil {
             vc = ConsoleViewController.visible
         } else if let browser = DocumentBrowserViewController.visible {
@@ -65,11 +66,13 @@ import QuickLook
         } else {
             return
         }
+        #else
+        let vc = UIApplication.shared.keyWindow?.topViewController
+        #endif
         
         visible = dataSource
         
-        vc.present(controller, animated: true, completion: nil)
-        
+        vc?.present(controller, animated: true, completion: nil)
     }
     
     // MARK: - Preview controller data source

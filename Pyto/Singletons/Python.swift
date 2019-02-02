@@ -250,6 +250,7 @@ import Cocoa
         didSet {
             #if os(iOS)
             DispatchQueue.main.async {
+                #if MAIN
                 let contentVC = ConsoleViewController.visible
                 
                 guard let editor = (contentVC.parent as? EditorSplitViewController)?.editor ?? EditorViewController.visible else {
@@ -264,6 +265,7 @@ import Cocoa
                     item?.rightBarButtonItem = editor.runBarButtonItem
                 }
                 item?.rightBarButtonItem?.isEnabled = (self.isScriptRunning == self.isScriptRunning)
+                #endif
                 
                 QuickLookHelper.visible = nil
             }

@@ -12,7 +12,7 @@ import InputAssistant
 #endif
 
 /// A View controller containing Python script output.
-class ConsoleViewController: UIViewController, UITextViewDelegate {
+@objc open class ConsoleViewController: UIViewController, UITextViewDelegate {
     
     #if MAIN
     /// The theme the user choosed.
@@ -257,7 +257,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     ///     - viewController: The View controller to present initialized from Python.
     ///
     /// - Returns: A ready to present View controller.
-    @objc func viewController(_ viewController: UIViewController) -> UIViewController {
+    @objc public func viewController(_ viewController: UIViewController) -> UIViewController {
         
         #if MAIN
         class PyNavigationController: UINavigationController {
@@ -335,7 +335,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     
     // MARK: - View controller
     
-    override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
                 
         #if MAIN
@@ -362,7 +362,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         #if MAIN
@@ -373,7 +373,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         var items = [UIBarButtonItem]()
@@ -414,14 +414,14 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
         #endif
     }
     
-    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+    override open func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         super.dismiss(animated: flag, completion: completion)
         
         view.backgroundColor = .white
         navigationController?.view.backgroundColor = .white
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
         guard view != nil else {
@@ -461,13 +461,13 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
     
     // MARK: - Text view delegate
     
-    func textViewDidChange(_ textView: UITextView) {
+    public func textViewDidChange(_ textView: UITextView) {
         if !isAskingForInput {
             console = textView.text
         }
     }
     
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
         let location:Int = textView.offset(from: textView.beginningOfDocument, to: textView.endOfDocument)
         let length:Int = textView.offset(from: textView.endOfDocument, to: textView.endOfDocument)
@@ -505,7 +505,7 @@ class ConsoleViewController: UIViewController, UITextViewDelegate {
 #if MAIN
 extension ConsoleViewController: InputAssistantViewDelegate, InputAssistantViewDataSource {
     
-    func inputAssistantView(_ inputAssistantView: InputAssistantView, didSelectSuggestionAtIndex index: Int) {
+    public func inputAssistantView(_ inputAssistantView: InputAssistantView, didSelectSuggestionAtIndex index: Int) {
         
         guard completions.indices.contains(index) else {
             return
@@ -518,15 +518,15 @@ extension ConsoleViewController: InputAssistantViewDelegate, InputAssistantViewD
         inputAssistantView.reloadData()
     }
     
-    func textForEmptySuggestionsInInputAssistantView() -> String? {
+    public func textForEmptySuggestionsInInputAssistantView() -> String? {
         return nil
     }
     
-    func numberOfSuggestionsInInputAssistantView() -> Int {
+    public func numberOfSuggestionsInInputAssistantView() -> Int {
         return suggestions.count
     }
     
-    func inputAssistantView(_ inputAssistantView: InputAssistantView, nameForSuggestionAtIndex index: Int) -> String {
+    public func inputAssistantView(_ inputAssistantView: InputAssistantView, nameForSuggestionAtIndex index: Int) -> String {
         
         guard suggestions.indices.contains(index) else {
             return ""

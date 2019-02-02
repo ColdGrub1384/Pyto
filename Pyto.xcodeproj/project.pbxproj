@@ -139,6 +139,7 @@
 		C970283B21FFAFF400159E54 /* ft2font.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9317F0C21FF69E60016E422 /* ft2font.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C970283C21FFAFF600159E54 /* ttconv.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9317F0B21FF69E60016E422 /* ttconv.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9727C472204D7F100B7AC32 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9727C452204D7F100B7AC32 /* LaunchScreen.storyboard */; };
+		C9727C752205D64500B7AC32 /* ConsoleViewController+showViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C91321C321FB31C700437845 /* ConsoleViewController+showViewController.m */; };
 		C974193521FD23B700E3924C /* Basic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E78621EF781F0057C63E /* Basic.swift */; };
 		C974193821FD23B900E3924C /* Xcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1621D0592C00412CEF /* Xcode.swift */; };
 		C974193921FD23D100E3924C /* XcodeDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E77721EEA9BE0057C63E /* XcodeDark.swift */; };
@@ -2227,7 +2228,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "ZIPFILE=\"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/repo.zip\"\n\nif [ -f \"$ZIPFILE\" ]\nthen\nexit 0\nelse\necho \"Doesn't exist\"\nfi\n\nTMPSRC=\"${SRCROOT}/../PytoTmpCopy\"\ncp -r \"${SRCROOT}/Python App\" \"$TMPSRC\"\ncp -r \"${SRCROOT}\" \"$TMPSRC/Pyto\"\n\npushd \"$TMPSRC\"\n\nls\n\nrm -rf Pods\nrm -rf NumPy\nrm -rf Matplotlib\nrm -rf Pyto\\ Mac\nrm -rf Pyto/Samples\nrm -rf Pyto/docs\nrm -rf InputAssistant\nrm -rf ios_system\nrm -rf ios_system_builds\nrm -rf .git\nzip -r \"$ZIPFILE\" *\npopd\n\nrm -rf \"$TMPSRC\"\n";
+			shellScript = "ZIPFILE=\"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/repo.zip\"\n\nif [ -f \"$ZIPFILE\" ]\nthen\nexit 0\nelse\necho \"Doesn't exist\"\nfi\n\nTMPSRC=\"${SRCROOT}/../PytoTmpCopy\"\ncp -r \"${SRCROOT}/Python App\" \"$TMPSRC\"\ncp -r \"${SRCROOT}\" \"$TMPSRC/Pyto\"\n\npushd \"$TMPSRC\"\n\nls\n\nrm -rf Pyto/Pods\nrm -rf Pyto/NumPy\nrm -rf Pyto/Matplotlib\nrm -rf Pyto/Pyto\\ Mac/python\nrm -rf Pyto/Pyto\\ Mac/*.so\nrm -rf Pyto/Pyto/Samples\nrm -rf Pyto/Pyto/docs\nrm -rf Pyto/InputAssistant\nrm -rf Pyto/ios_system\nrm -rf Pyto/ios_system_builds\nrm -rf Pyto/.git\nzip -r \"$ZIPFILE\" *\npopd\n\nrm -rf \"$TMPSRC\"\n";
 		};
 		D910EE956F1871789C77F1DA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2321,6 +2322,7 @@
 				C9CEE1F921EB8FC800316D3C /* ConsoleViewController.swift in Sources */,
 				C9CEE1FE21EB8FF500316D3C /* PyFilePicker.swift in Sources */,
 				C9CEE1F821EB8FC400316D3C /* Python.swift in Sources */,
+				C9727C752205D64500B7AC32 /* ConsoleViewController+showViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
