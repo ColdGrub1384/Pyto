@@ -713,16 +713,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// Returns suggestions for current word.
     @objc var suggestions = [String]() {
         didSet {
-            
-            var i = 0
-            for suggestion in suggestions {
-                if suggestion.contains("_") && suggestion.lowercased() != suggestion {
-                    suggestions.remove(at: i)
-                    break
-                }
-                i += 1
-            }
-            
             guard !Thread.current.isMainThread else {
                 return
             }
