@@ -24,7 +24,7 @@ Features:
   - Use your own modules on your scripts
   - Code an user interface with the same UIKit interface
   - Smart code completion
-  - Numpy 1.14.6 included
+  - Numpy 1.14.6 and Matplotlib 3.0.2 included
   - Use pip to install pure Python modules from PyPi
 ```
 
