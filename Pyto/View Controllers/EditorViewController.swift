@@ -292,7 +292,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
         textView.contentTextView.inputAccessoryView = nil
         
         let text = textView.text
+        textView.delegate = nil
         textView.text = ""
+        textView.delegate = self
         textView.theme = theme.sourceCodeTheme
         textView.contentTextView.textColor = theme.sourceCodeTheme.color(for: .plain)
         textView.contentTextView.keyboardAppearance = theme.keyboardAppearance
@@ -737,6 +739,13 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// Returns doc strings per suggestions.
     @objc var docStrings = [String:String]()
     
+    /// Reloads `inputAssistant` data.
+    @objc func reloadInputAssistantData() {
+        DispatchQueue.main.async {
+            self.inputAssistant.reloadData()
+        }
+    }
+    
     /// Updates suggestions.
     func updateSuggestions() {
         
@@ -744,6 +753,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         guard !Python.shared.isScriptRunning, let range = textView.selectedTextRange, let textRange = textView.textRange(from: textView.beginningOfDocument, to: range.end), let text = textView.text(in: textRange) else {
             self.suggestions = []
+            self.completions = []
             return inputAssistant.reloadData()
         }
         
@@ -788,7 +798,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         if let currentWord = textView.contentTextView.currentWord, !suggestions[index].hasPrefix(currentWord), !suggestions[index].contains("_"), let currentWordRange = textView.contentTextView.currentWordRange {
             textView.contentTextView.replace(currentWordRange, withText: suggestions[index])
-        } else if completions[index] == "" {
+        } else if completions[index] != "" {
             textView.insertText(completions[index])
             docString = docStrings[suggestions[index]]
         }
