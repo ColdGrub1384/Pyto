@@ -739,13 +739,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// Returns doc strings per suggestions.
     @objc var docStrings = [String:String]()
     
-    /// Reloads `inputAssistant` data.
-    @objc func reloadInputAssistantData() {
-        DispatchQueue.main.async {
-            self.inputAssistant.reloadData()
-        }
-    }
-    
     /// Updates suggestions.
     func updateSuggestions() {
         
