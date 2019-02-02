@@ -223,6 +223,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
             })
             
             func setBackgroundColor(_ color: UIColor?, forLine line: Int) {
+                guard lineRanges.indices.contains(line) else {
+                    return
+                }
                 if let color = color {
                     textStorage.addAttribute(.backgroundColor, value: color, range: lineRanges[line])
                 } else {
@@ -779,9 +782,13 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     func inputAssistantView(_ inputAssistantView: InputAssistantView, didSelectSuggestionAtIndex index: Int) {
         
+        guard completions.indices.contains(index), suggestions.indices.contains(index), docStrings.keys.contains(suggestions[index]) else {
+            return
+        }
+        
         if let currentWord = textView.contentTextView.currentWord, !suggestions[index].hasPrefix(currentWord), !suggestions[index].contains("_"), let currentWordRange = textView.contentTextView.currentWordRange {
             textView.contentTextView.replace(currentWordRange, withText: suggestions[index])
-        } else {
+        } else if completions[index] == "" {
             textView.insertText(completions[index])
             docString = docStrings[suggestions[index]]
         }
