@@ -13,10 +13,10 @@ import SplitKit
 class EditorSplitViewController: SplitViewController {
     
     /// The View controller for editing code.
-    var editor: EditorViewController!
+    @objc var editor: EditorViewController!
     
     /// The console.
-    var console: ConsoleViewController!
+    @objc var console: ConsoleViewController!
     
     /// Set to `true` if this View controller was just shown.
     var justShown = true
@@ -42,6 +42,9 @@ class EditorSplitViewController: SplitViewController {
             
         }).withRenderingMode(.alwaysOriginal)
     }
+    
+    /// Last visible controller.
+    @objc static var visible: EditorSplitViewController?
     
     // MARK: - Key commands
     

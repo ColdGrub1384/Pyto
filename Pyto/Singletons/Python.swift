@@ -253,7 +253,7 @@ import Cocoa
                 #if MAIN
                 let contentVC = ConsoleViewController.visible
                 
-                guard let editor = (contentVC.parent as? EditorSplitViewController)?.editor ?? EditorViewController.visible else {
+                guard let editor = (contentVC.parent as? EditorSplitViewController)?.editor ?? EditorSplitViewController.visible?.editor else {
                     return
                 }
                 

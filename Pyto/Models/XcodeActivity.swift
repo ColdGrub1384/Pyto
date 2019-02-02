@@ -150,7 +150,7 @@ class XcodeActivity: UIActivity {
                         DispatchQueue.main.async {
                             activityAlert.dismiss(animated: true, completion: {
                                 let activityVC = UIActivityViewController(activityItems: [destURL], applicationActivities: nil)
-                                activityVC.popoverPresentationController?.barButtonItem = EditorViewController.visible?.shareItem
+                                activityVC.popoverPresentationController?.barButtonItem = EditorSplitViewController.visible?.editor.shareItem
                                 UIApplication.shared.keyWindow?.topViewController?.present(activityVC, animated: true, completion: nil)
                             })
                         }
