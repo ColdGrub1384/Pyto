@@ -207,10 +207,10 @@ import InputAssistant
         
         if navigationController != nil {
             dismiss(animated: true, completion: {
-                EditorViewController.visible?.stop()
-                if let line = EditorViewController.visible?.lineNumberError {
-                    EditorViewController.visible?.lineNumberError = nil
-                    EditorViewController.visible?.showErrorAtLine(line)
+                EditorSplitViewController.visible?.editor.stop()
+                if let line = EditorSplitViewController.visible?.editor.lineNumberError {
+                    EditorSplitViewController.visible?.editor.lineNumberError = nil
+                    EditorSplitViewController.visible?.editor.showErrorAtLine(line)
                 }
             })
         }

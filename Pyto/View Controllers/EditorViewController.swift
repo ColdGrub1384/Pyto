@@ -126,9 +126,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     private var isDocOpened = false
     
-    /// The currently visible editor.
-    @objc static var visible: EditorViewController?
-    
     /// The line number where an error occurred. If this value is set at `viewDidAppear(_:)`, the error will be shown and the value will be reset to `nil`.
     var lineNumberError: Int?
     
@@ -427,18 +424,15 @@ fileprivate func parseArgs(_ args: inout [String]) {
                     self.run()
                 }
             })
+            
+            if Python.shared.isScriptRunning {
+                Python.shared.stop()
+            }
         }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if EditorViewController.visible != self {
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-                // TODO: Fix crash
-                EditorViewController.visible = self
-            }
-        }
         
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
     }

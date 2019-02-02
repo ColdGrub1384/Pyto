@@ -24,6 +24,9 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
     
     private var stopObserver_ = false
     
+    /// Store here `EditorSplitViewController`s because it crashes on dealloc. RIP memory
+    private static var splitVCs = [UIViewController?]()
+    
     /// If set to `true`, the files observer will ignore next change.
     var ignoreObserver = false
     
@@ -311,6 +314,8 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         contentVC.view.backgroundColor = .white
         
         let splitVC = EditorSplitViewController()
+        DocumentBrowserViewController.splitVCs.append(EditorSplitViewController.visible)
+        EditorSplitViewController.visible = splitVC
         let navVC = ThemableNavigationController(rootViewController: splitVC)
         
         splitVC.separatorColor = .clear
