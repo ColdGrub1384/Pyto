@@ -1,0 +1,394 @@
+<?xml version='1.0'?>
+<!DOCTYPE signatures SYSTEM "file://localhost/System/Library/DTDs/BridgeSupport.dtd">
+<signatures verison='1.0'>
+  <cftype gettypeid_func='CGImageDestinationGetTypeID' name='CGImageDestinationRef' type='^{CGImageDestination=}' type64='^{CGImageDestination=}' />
+  <cftype gettypeid_func='CGImageSourceGetTypeID' name='CGImageSourceRef' type='^{CGImageSource=}' type64='^{CGImageSource=}' />
+  <constant name='kCGImageDestinationBackgroundColor' type='^{__CFString=}' />
+  <constant name='kCGImageDestinationLossyCompressionQuality' type='^{__CFString=}' />
+  <constant name='kCGImageProperty8BIMDictionary' type='^{__CFString=}' />
+  <constant name='kCGImageProperty8BIMLayerNames' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyCIFFCameraSerialNumber' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyCIFFContinuousDrive' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyCIFFDescription' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyCIFFDictionary' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyCIFFFirmware' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyCIFFFlashExposureComp' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyCIFFFocusMode' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyCIFFImageFileName' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyCIFFImageName' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyCIFFImageSerialNumber' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyCIFFLensMaxMM' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyCIFFLensMinMM' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyCIFFMeasuredEV' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyCIFFMeteringMode' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyCIFFOwnerName' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyCIFFRecordID' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyCIFFReleaseMethod' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyCIFFReleaseTiming' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyCIFFSelfTimingTime' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyCIFFShootingMode' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyCIFFWhiteBalanceIndex' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyColorModel' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyColorModelCMYK' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyColorModelGray' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyColorModelLab' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyColorModelRGB' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyDNGBackwardVersion' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyDNGCameraSerialNumber' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyDNGDictionary' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyDNGLensInfo' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyDNGLocalizedCameraModel' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyDNGUniqueCameraModel' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyDNGVersion' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyDPIHeight' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyDPIWidth' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyDepth' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifApertureValue' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifBrightnessValue' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifCFAPattern' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifColorSpace' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifComponentsConfiguration' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifCompressedBitsPerPixel' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifContrast' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifCustomRendered' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifDateTimeDigitized' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifDateTimeOriginal' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifDeviceSettingDescription' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifDictionary' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifDigitalZoomRatio' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifExposureBiasValue' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifExposureIndex' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifExposureMode' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifExposureProgram' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifExposureTime' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifFNumber' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifFileSource' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifFlash' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifFlashEnergy' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifFlashPixVersion' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifFocalLenIn35mmFilm' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifFocalLength' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifFocalPlaneResolutionUnit' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifFocalPlaneXResolution' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifFocalPlaneYResolution' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifGainControl' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifGamma' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifISOSpeedRatings' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifImageUniqueID' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifLightSource' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifMakerNote' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifMaxApertureValue' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifMeteringMode' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifOECF' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifPixelXDimension' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifPixelYDimension' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifRelatedSoundFile' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifSaturation' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifSceneCaptureType' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifSceneType' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifSensingMethod' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifSharpness' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifShutterSpeedValue' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifSpatialFrequencyResponse' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifSpectralSensitivity' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifSubjectArea' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifSubjectDistRange' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifSubjectDistance' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifSubjectLocation' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifSubsecTime' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifSubsecTimeDigitized' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifSubsecTimeOrginal' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifUserComment' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifVersion' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyExifWhiteBalance' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyFileSize' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGIFDelayTime' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGIFDictionary' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGIFHasGlobalColorMap' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGIFImageColorMap' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGIFLoopCount' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSAltitude' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSAltitudeRef' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSAreaInformation' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSDOP' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSDateStamp' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSDestBearing' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSDestBearingRef' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSDestDistance' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSDestDistanceRef' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSDestLatitude' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSDestLatitudeRef' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSDestLongitude' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSDestLongitudeRef' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSDictionary' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSDifferental' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSImgDirection' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSImgDirectionRef' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSLatitude' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSLatitudeRef' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSLongitude' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSLongitudeRef' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSMapDatum' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSMeasureMode' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSProcessingMethod' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSSatellites' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSSpeed' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSSpeedRef' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSStatus' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSTimeStamp' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSTrack' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSTrackRef' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyGPSVersion' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyHasAlpha' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCActionAdvised' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCByline' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCBylineTitle' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCCaptionAbstract' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCCategory' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCCity' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCContact' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCContentLocationCode' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCContentLocationName' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCCopyrightNotice' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCCountryPrimaryLocationCode' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCCountryPrimaryLocationName' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCCredit' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCDateCreated' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCDictionary' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCDigitalCreationDate' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCDigitalCreationTime' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCEditStatus' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCEditorialUpdate' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCExpirationDate' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCExpirationTime' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCFixtureIdentifier' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCHeadline' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCImageOrientation' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCImageType' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCKeywords' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCLanguageIdentifier' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCObjectAttributeReference' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCObjectCycle' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCObjectName' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCObjectTypeReference' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCOriginalTransmissionReference' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCOriginatingProgram' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCProgramVersion' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCProvinceState' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCReferenceDate' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCReferenceNumber' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCReferenceService' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCReleaseDate' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCReleaseTime' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCSource' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCSpecialInstructions' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCStarRating' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCSubLocation' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCSubjectReference' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCSupplementalCategory' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCTimeCreated' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCUrgency' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIPTCWriterEditor' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIsFloat' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyIsIndexed' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyJFIFDensityUnit' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyJFIFDictionary' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyJFIFIsProgressive' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyJFIFVersion' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyJFIFXDensity' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyJFIFYDensity' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyMakerCanonCameraSerialNumber' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyMakerCanonContinuousDrive' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyMakerCanonDictionary' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyMakerCanonFlashExposureComp' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyMakerCanonImageSerialNumber' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyMakerCanonLensModel' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyMakerCanonOwnerName' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyMakerNikonCameraSerialNumber' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyMakerNikonColorMode' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyMakerNikonDictionary' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyMakerNikonDigitalZoom' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyMakerNikonFlashExposureComp' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyMakerNikonFlashSetting' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyMakerNikonFocusDistance' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyMakerNikonFocusMode' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyMakerNikonISOSelection' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyMakerNikonISOSetting' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyMakerNikonImageAdjustment' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyMakerNikonLensAdapter' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyMakerNikonQuality' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyMakerNikonSharpenMode' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyMakerNikonShootingMode' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyMakerNikonWhiteBalanceMode' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyOrientation' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyPNGChromaticities' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyPNGDictionary' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyPNGGamma' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyPNGInterlaceType' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyPNGXPixelsPerMeter' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyPNGYPixelsPerMeter' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyPNGsRGBIntent' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyPixelHeight' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyPixelWidth' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyProfileName' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyRawDictionary' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyTIFFArtist' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyTIFFCompression' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyTIFFCopyright' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyTIFFDateTime' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyTIFFDictionary' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyTIFFDocumentName' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyTIFFHostComputer' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyTIFFImageDescription' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyTIFFMake' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyTIFFModel' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyTIFFOrientation' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyTIFFPhotometricInterpretation' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyTIFFPrimaryChromaticities' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyTIFFResolutionUnit' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyTIFFSoftware' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyTIFFTransferFunction' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyTIFFWhitePoint' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyTIFFXResolution' type='^{__CFString=}' />
+  <constant name='kCGImagePropertyTIFFYResolution' type='^{__CFString=}' />
+  <constant name='kCGImageSourceCreateThumbnailFromImageAlways' type='^{__CFString=}' />
+  <constant name='kCGImageSourceCreateThumbnailFromImageIfAbsent' type='^{__CFString=}' />
+  <constant name='kCGImageSourceCreateThumbnailWithTransform' type='^{__CFString=}' />
+  <constant name='kCGImageSourceShouldAllowFloat' type='^{__CFString=}' />
+  <constant name='kCGImageSourceShouldCache' type='^{__CFString=}' />
+  <constant name='kCGImageSourceThumbnailMaxPixelSize' type='^{__CFString=}' />
+  <constant name='kCGImageSourceTypeIdentifierHint' type='^{__CFString=}' />
+  <enum name='kCGImageStatusComplete' value='0' />
+  <enum name='kCGImageStatusIncomplete' value='-1' />
+  <enum name='kCGImageStatusInvalidData' value='-4' />
+  <enum name='kCGImageStatusReadingHeader' value='-2' />
+  <enum name='kCGImageStatusUnexpectedEOF' value='-5' />
+  <enum name='kCGImageStatusUnknownType' value='-3' />
+  <function name='CGImageDestinationAddImage'>
+    <retval type='v' />
+    <arg type='^{CGImageDestination=}' />
+    <arg type='^{CGImage=}' />
+    <arg type='^{__CFDictionary=}' />
+  </function>
+  <function name='CGImageDestinationAddImageFromSource'>
+    <retval type='v' />
+    <arg type='^{CGImageDestination=}' />
+    <arg type='^{CGImageSource=}' />
+    <arg type='L' type64='L' />
+    <arg type='^{__CFDictionary=}' />
+  </function>
+  <function name='CGImageDestinationCopyTypeIdentifiers'>
+    <retval already_retained='true' type='^{__CFArray=}' />
+  </function>
+  <function name='CGImageDestinationCreateWithData'>
+    <retval already_retained='true' type='^{CGImageDestination=}' />
+    <arg type='^{__CFData=}' />
+    <arg type='^{__CFString=}' />
+    <arg type='L' type64='L' />
+    <arg type='^{__CFDictionary=}' />
+  </function>
+  <function name='CGImageDestinationCreateWithDataConsumer'>
+    <retval already_retained='true' type='^{CGImageDestination=}' />
+    <arg type='^{CGDataConsumer=}' />
+    <arg type='^{__CFString=}' />
+    <arg type='L' type64='L' />
+    <arg type='^{__CFDictionary=}' />
+  </function>
+  <function name='CGImageDestinationCreateWithURL'>
+    <retval already_retained='true' type='^{CGImageDestination=}' />
+    <arg type='^{__CFURL=}' />
+    <arg type='^{__CFString=}' />
+    <arg type='L' type64='L' />
+    <arg type='^{__CFDictionary=}' />
+  </function>
+  <function name='CGImageDestinationFinalize'>
+    <retval type='B' />
+    <arg type='^{CGImageDestination=}' />
+  </function>
+  <function name='CGImageDestinationGetTypeID'>
+    <retval type='L' type64='Q' />
+  </function>
+  <function name='CGImageDestinationSetProperties'>
+    <retval type='v' />
+    <arg type='^{CGImageDestination=}' />
+    <arg type='^{__CFDictionary=}' />
+  </function>
+  <function name='CGImageSourceCopyProperties'>
+    <retval already_retained='true' type='^{__CFDictionary=}' />
+    <arg type='^{CGImageSource=}' />
+    <arg type='^{__CFDictionary=}' />
+  </function>
+  <function name='CGImageSourceCopyPropertiesAtIndex'>
+    <retval already_retained='true' type='^{__CFDictionary=}' />
+    <arg type='^{CGImageSource=}' />
+    <arg type='L' type64='L' />
+    <arg type='^{__CFDictionary=}' />
+  </function>
+  <function name='CGImageSourceCopyTypeIdentifiers'>
+    <retval already_retained='true' type='^{__CFArray=}' />
+  </function>
+  <function name='CGImageSourceCreateImageAtIndex'>
+    <retval already_retained='true' type='^{CGImage=}' />
+    <arg type='^{CGImageSource=}' />
+    <arg type='L' type64='L' />
+    <arg type='^{__CFDictionary=}' />
+  </function>
+  <function name='CGImageSourceCreateIncremental'>
+    <retval already_retained='true' type='^{CGImageSource=}' />
+    <arg type='^{__CFDictionary=}' />
+  </function>
+  <function name='CGImageSourceCreateThumbnailAtIndex'>
+    <retval already_retained='true' type='^{CGImage=}' />
+    <arg type='^{CGImageSource=}' />
+    <arg type='L' type64='L' />
+    <arg type='^{__CFDictionary=}' />
+  </function>
+  <function name='CGImageSourceCreateWithData'>
+    <retval already_retained='true' type='^{CGImageSource=}' />
+    <arg type='^{__CFData=}' />
+    <arg type='^{__CFDictionary=}' />
+  </function>
+  <function name='CGImageSourceCreateWithDataProvider'>
+    <retval already_retained='true' type='^{CGImageSource=}' />
+    <arg type='^{CGDataProvider=}' />
+    <arg type='^{__CFDictionary=}' />
+  </function>
+  <function name='CGImageSourceCreateWithURL'>
+    <retval already_retained='true' type='^{CGImageSource=}' />
+    <arg type='^{__CFURL=}' />
+    <arg type='^{__CFDictionary=}' />
+  </function>
+  <function name='CGImageSourceGetCount'>
+    <retval type='L' type64='Q' />
+    <arg type='^{CGImageSource=}' />
+  </function>
+  <function name='CGImageSourceGetStatus'>
+    <retval type='i' />
+    <arg type='^{CGImageSource=}' />
+  </function>
+  <function name='CGImageSourceGetStatusAtIndex'>
+    <retval type='i' />
+    <arg type='^{CGImageSource=}' />
+    <arg type='L' type64='L' />
+  </function>
+  <function name='CGImageSourceGetType'>
+    <retval type='^{__CFString=}' />
+    <arg type='^{CGImageSource=}' />
+  </function>
+  <function name='CGImageSourceGetTypeID'>
+    <retval type='L' type64='Q' />
+  </function>
+  <function name='CGImageSourceUpdateData'>
+    <retval type='v' />
+    <arg type='^{CGImageSource=}' />
+    <arg type='^{__CFData=}' />
+    <arg type='B' />
+  </function>
+  <function name='CGImageSourceUpdateDataProvider'>
+    <retval type='v' />
+    <arg type='^{CGImageSource=}' />
+    <arg type='^{CGDataProvider=}' />
+    <arg type='B' />
+  </function>
+</signatures>
+
