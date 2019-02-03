@@ -233,7 +233,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 }
             }
             
-            setBackgroundColor(errorColor, forLine: lineNumber-1)
+            setBackgroundColor(errorColor.withAlphaComponent(0.5), forLine: lineNumber-1)
         }
     }
     
