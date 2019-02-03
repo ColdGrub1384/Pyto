@@ -357,38 +357,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         parent?.navigationController?.isToolbarHidden = false
         parent?.toolbarItems = [shareItem]
-        
-        // Siri shortcut
-        
-        if #available(iOS 12.0, *) {
-            let filePath: String?
-            if let url = document?.fileURL {
-                filePath = RelativePathForScript(url)
-            } else {
-                filePath = nil
-            }
-            
-            let attributes = CSSearchableItemAttributeSet(itemContentType: "public.item")
-            attributes.contentDescription = document?.fileURL.lastPathComponent
-            attributes.kind = "Python Script"
-            let activity = NSUserActivity(activityType: "ch.marcela.ada.Pyto.script")
-            activity.title = "Run \(title ?? "script")"
-            activity.contentAttributeSet = attributes
-            activity.isEligibleForSearch = true
-            activity.isEligibleForPrediction = true
-            activity.isEligibleForHandoff = false
-            activity.keywords = ["python", "pyto", "run", "script", title ?? "Untitled"]
-            activity.requiredUserInfoKeys = ["filePath"]
-            activity.persistentIdentifier = filePath
-            attributes.relatedUniqueIdentifier = filePath
-            attributes.identifier = filePath
-            attributes.domainIdentifier = filePath
-            userActivity = activity
-            if let path = filePath {
-                activity.addUserInfoEntries(from: ["filePath" : path])
-                activity.suggestedInvocationPhrase = document?.fileURL.deletingPathExtension().lastPathComponent
-            }
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -421,6 +389,38 @@ fileprivate func parseArgs(_ args: inout [String]) {
                     self.run()
                 }
             })
+            
+            // Siri shortcut
+            
+            if #available(iOS 12.0, *) {
+                let filePath: String?
+                if let url = document?.fileURL {
+                    filePath = RelativePathForScript(url)
+                } else {
+                    filePath = nil
+                }
+                
+                let attributes = CSSearchableItemAttributeSet(itemContentType: "public.item")
+                attributes.contentDescription = document?.fileURL.lastPathComponent
+                attributes.kind = "Python Script"
+                let activity = NSUserActivity(activityType: "ch.marcela.ada.Pyto.script")
+                activity.title = "Run \(title ?? document?.fileURL.deletingPathExtension().lastPathComponent ?? "script")"
+                activity.contentAttributeSet = attributes
+                activity.isEligibleForSearch = true
+                activity.isEligibleForPrediction = true
+                activity.isEligibleForHandoff = false
+                activity.keywords = ["python", "pyto", "run", "script", title ?? "Untitled"]
+                activity.requiredUserInfoKeys = ["filePath"]
+                activity.persistentIdentifier = filePath
+                attributes.relatedUniqueIdentifier = filePath
+                attributes.identifier = filePath
+                attributes.domainIdentifier = filePath
+                userActivity = activity
+                if let path = filePath {
+                    activity.addUserInfoEntries(from: ["filePath" : path])
+                    activity.suggestedInvocationPhrase = document?.fileURL.deletingPathExtension().lastPathComponent
+                }
+            }
             
             if Python.shared.isScriptRunning {
                 Python.shared.stop()
