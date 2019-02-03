@@ -14,6 +14,9 @@ class Static { private init(){} }
 /// A class containing localizable strings.
 class Localizable: Static {
     
+    /// Button to add script to Siri.
+    static let addToSiri = NSLocalizedString("addToSiri", comment: "Button to add script to Siri.")
+    
     /// Description for key command for running and setting arguments.
     static let runAndSetArguments = NSLocalizedString("runAndSetArguments", comment: "Description for key command for running and setting arguments.")
     
