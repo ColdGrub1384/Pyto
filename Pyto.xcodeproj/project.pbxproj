@@ -96,6 +96,22 @@
 		C9592D1B21D0592C00412CEF /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1721D0592C00412CEF /* Localizable.swift */; };
 		C9592D2721D059BA00412CEF /* EditorSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1F21D059B900412CEF /* EditorSplitViewController.swift */; };
 		C95A79E8214DC9D0007A1B90 /* PyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A79E7214DC9D0007A1B90 /* PyAlert.swift */; };
+		C95EE4E622070224006611CB /* libpng.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE4DF22070224006611CB /* libpng.framework */; };
+		C95EE4E722070224006611CB /* libpng.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE4DF22070224006611CB /* libpng.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C95EE4ED22070275006611CB /* png.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BA62202590E0085E1AA /* png.c */; };
+		C95EE4EE22070277006611CB /* pngerror.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BA72202590E0085E1AA /* pngerror.c */; };
+		C95EE4EF22070279006611CB /* pngget.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5B9C2202590D0085E1AA /* pngget.c */; };
+		C95EE4F02207027D006611CB /* pngmem.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BA92202590E0085E1AA /* pngmem.c */; };
+		C95EE4F122070280006611CB /* pngread.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BAC2202590E0085E1AA /* pngread.c */; };
+		C95EE4F222070288006611CB /* pngrio.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BA22202590D0085E1AA /* pngrio.c */; };
+		C95EE4F32207028B006611CB /* pngrtran.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5B9E2202590D0085E1AA /* pngrtran.c */; };
+		C95EE4F42207028E006611CB /* pngrutil.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BA12202590D0085E1AA /* pngrutil.c */; };
+		C95EE4F522070291006611CB /* pngset.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BAD2202590E0085E1AA /* pngset.c */; };
+		C95EE4F622070296006611CB /* pngtrans.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BA82202590E0085E1AA /* pngtrans.c */; };
+		C95EE4F72207029B006611CB /* pngwio.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BA32202590D0085E1AA /* pngwio.c */; };
+		C95EE4F82207029E006611CB /* pngwrite.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BAF2202590F0085E1AA /* pngwrite.c */; };
+		C95EE4F9220702A0006611CB /* pngwtran.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BB02202590F0085E1AA /* pngwtran.c */; };
+		C95EE4FA220702A2006611CB /* pngwutil.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5B9F2202590D0085E1AA /* pngwutil.c */; };
 		C9624EF421A9905400DDA9A7 /* PyThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9624EF321A9905400DDA9A7 /* PyThread.swift */; };
 		C9647FFF21ACA00D005765C2 /* Help.py in Resources */ = {isa = PBXBuildFile; fileRef = C9647FFE21ACA00D005765C2 /* Help.py */; };
 		C96CBC3B21DE6BF0008C508C /* _umath_linalg.cpython-37m-darwin.so in Copy _umath_linalg */ = {isa = PBXBuildFile; fileRef = C96CBC2521DE6A78008C508C /* _umath_linalg.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -265,20 +281,6 @@
 		C9F8660A21ECD34F0062D1C1 /* libxz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6921445B6700585C28 /* libxz.a */; };
 		C9F8660B21ECD3600062D1C1 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A4214461D300382DCC /* libsqlite3.tbd */; };
 		C9F8661A21ED059F0062D1C1 /* site-packages in Resources */ = {isa = PBXBuildFile; fileRef = C9BE01B021530BAF00A8C825 /* site-packages */; };
-		C9FB5BB12202590F0085E1AA /* pngget.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5B9C2202590D0085E1AA /* pngget.c */; };
-		C9FB5BB22202590F0085E1AA /* pngrtran.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5B9E2202590D0085E1AA /* pngrtran.c */; };
-		C9FB5BB32202590F0085E1AA /* pngwutil.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5B9F2202590D0085E1AA /* pngwutil.c */; };
-		C9FB5BB42202590F0085E1AA /* pngrutil.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BA12202590D0085E1AA /* pngrutil.c */; };
-		C9FB5BB52202590F0085E1AA /* pngrio.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BA22202590D0085E1AA /* pngrio.c */; };
-		C9FB5BB62202590F0085E1AA /* pngwio.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BA32202590D0085E1AA /* pngwio.c */; };
-		C9FB5BB72202590F0085E1AA /* png.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BA62202590E0085E1AA /* png.c */; };
-		C9FB5BB82202590F0085E1AA /* pngerror.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BA72202590E0085E1AA /* pngerror.c */; };
-		C9FB5BB92202590F0085E1AA /* pngtrans.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BA82202590E0085E1AA /* pngtrans.c */; };
-		C9FB5BBA2202590F0085E1AA /* pngmem.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BA92202590E0085E1AA /* pngmem.c */; };
-		C9FB5BBB2202590F0085E1AA /* pngread.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BAC2202590E0085E1AA /* pngread.c */; };
-		C9FB5BBC2202590F0085E1AA /* pngset.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BAD2202590E0085E1AA /* pngset.c */; };
-		C9FB5BBD2202590F0085E1AA /* pngwrite.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BAF2202590F0085E1AA /* pngwrite.c */; };
-		C9FB5BBE2202590F0085E1AA /* pngwtran.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BB02202590F0085E1AA /* pngwtran.c */; };
 		C9FB5BE822025B040085E1AA /* pcf.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9FB5BC022025AFE0085E1AA /* pcf.o */; };
 		C9FB5BE922025B040085E1AA /* winfnt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9FB5BC122025AFE0085E1AA /* winfnt.o */; };
 		C9FB5BEA22025B040085E1AA /* fttype1.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9FB5BC222025AFE0085E1AA /* fttype1.o */; };
@@ -327,6 +329,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C95EE4E422070224006611CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9FCFD4D214428AE00A07974 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C95EE4DE22070224006611CB;
+			remoteInfo = libpng;
+		};
 		C9AAAB43219501600042E733 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */;
@@ -616,6 +625,7 @@
 				C9DF70ED217175C400981B4F /* shell.framework in Embed Frameworks */,
 				C9DF70FF217175C400981B4F /* files.framework in Embed Frameworks */,
 				C9DF70F7217175C400981B4F /* libssh2.framework in Embed Frameworks */,
+				C95EE4E722070224006611CB /* libpng.framework in Embed Frameworks */,
 				C9DF7105217175C500981B4F /* lua_ios.framework in Embed Frameworks */,
 				C990B56821E5261700ABC0B8 /* fftpack_lite.framework in Embed Frameworks */,
 				C9DF7101217175C500981B4F /* ssh_cmd.framework in Embed Frameworks */,
@@ -740,6 +750,8 @@
 		C9592D1721D0592C00412CEF /* Localizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
 		C9592D1F21D059B900412CEF /* EditorSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSplitViewController.swift; sourceTree = "<group>"; };
 		C95A79E7214DC9D0007A1B90 /* PyAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyAlert.swift; sourceTree = "<group>"; };
+		C95EE4DF22070224006611CB /* libpng.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = libpng.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C95EE4EB2207025B006611CB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9624EF321A9905400DDA9A7 /* PyThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyThread.swift; sourceTree = "<group>"; };
 		C9647FFE21ACA00D005765C2 /* Help.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = Help.py; sourceTree = "<group>"; };
 		C96CBC2521DE6A78008C508C /* _umath_linalg.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "_umath_linalg.cpython-37m-darwin.so"; sourceTree = "<group>"; };
@@ -1078,6 +1090,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C95EE4DC22070224006611CB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9CEE1E421EB8D5200316D3C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1099,6 +1118,7 @@
 				C9FB5C0722025B040085E1AA /* ftlzw.o in Frameworks */,
 				C9F8660B21ECD3600062D1C1 /* libsqlite3.tbd in Frameworks */,
 				C9FB5BFF22025B040085E1AA /* ftstroke.o in Frameworks */,
+				C95EE4E622070224006611CB /* libpng.framework in Frameworks */,
 				C9FB5BF322025B040085E1AA /* ftmm.o in Frameworks */,
 				C9FB5BF822025B040085E1AA /* ftbbox.o in Frameworks */,
 				C9FB5C0622025B040085E1AA /* ftbase.o in Frameworks */,
@@ -1683,6 +1703,7 @@
 		C9FB5B99220258EC0085E1AA /* libpng */ = {
 			isa = PBXGroup;
 			children = (
+				C95EE4EB2207025B006611CB /* Info.plist */,
 				C9FB5BA62202590E0085E1AA /* png.c */,
 				C9FB5BA52202590E0085E1AA /* png.h */,
 				C9FB5BA42202590E0085E1AA /* pngconf.h */,
@@ -1790,6 +1811,7 @@
 				C943AC3D215277A000844368 /* Python.framework */,
 				C9CEE1E721EB8D5200316D3C /* PytoCore.framework */,
 				C94CC2B921FCEF6C005E9556 /* Pyto.app */,
+				C95EE4DF22070224006611CB /* libpng.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1830,6 +1852,13 @@
 
 /* Begin PBXHeadersBuildPhase section */
 		C943AC38215277A000844368 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C95EE4DA22070224006611CB /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1885,6 +1914,24 @@
 			productReference = C94CC2B921FCEF6C005E9556 /* Pyto.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C95EE4DE22070224006611CB /* libpng */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C95EE4E822070224006611CB /* Build configuration list for PBXNativeTarget "libpng" */;
+			buildPhases = (
+				C95EE4DA22070224006611CB /* Headers */,
+				C95EE4DB22070224006611CB /* Sources */,
+				C95EE4DC22070224006611CB /* Frameworks */,
+				C95EE4DD22070224006611CB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libpng;
+			productName = libpng;
+			productReference = C95EE4DF22070224006611CB /* libpng.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		C9CEE1E621EB8D5200316D3C /* PytoCore */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C9CEE1F021EB8D5300316D3C /* Build configuration list for PBXNativeTarget "PytoCore" */;
@@ -1939,6 +1986,7 @@
 				C9DF71092171768A00981B4F /* PBXTargetDependency */,
 				C9DF711D217176D700981B4F /* PBXTargetDependency */,
 				C9AAAB4C2195016D0042E733 /* PBXTargetDependency */,
+				C95EE4E522070224006611CB /* PBXTargetDependency */,
 			);
 			name = Pyto;
 			productName = Pyto;
@@ -1961,6 +2009,9 @@
 					C94CC2B821FCEF6C005E9556 = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1010;
+					};
+					C95EE4DE22070224006611CB = {
+						CreatedOnToolsVersion = 10.1;
 					};
 					C9CEE1E621EB8D5200316D3C = {
 						CreatedOnToolsVersion = 10.1;
@@ -2007,6 +2058,7 @@
 				C943AC3C215277A000844368 /* Python */,
 				C9CEE1E621EB8D5200316D3C /* PytoCore */,
 				C94CC2B821FCEF6C005E9556 /* Pyto Mac */,
+				C95EE4DE22070224006611CB /* libpng */,
 			);
 		};
 /* End PBXProject section */
@@ -2077,6 +2129,13 @@
 				C9317EEB21FF2D310016E422 /* python3 in Resources */,
 				C90FB06F21FDF10600DF66DB /* docs in Resources */,
 				C9317F2621FF6A7F0016E422 /* Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C95EE4DD22070224006611CB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2242,7 +2301,6 @@
 				"${BUILT_PRODUCTS_DIR}/SourceEditor-iOS/SourceEditor.framework",
 				"${BUILT_PRODUCTS_DIR}/SplitKit/SplitKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Zip/Zip.framework",
-				"${BUILT_PRODUCTS_DIR}/libpng/libpng.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -2251,7 +2309,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SourceEditor.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SplitKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zip.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libpng.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2294,6 +2351,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C95EE4DB22070224006611CB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C95EE4ED22070275006611CB /* png.c in Sources */,
+				C95EE4EE22070277006611CB /* pngerror.c in Sources */,
+				C95EE4EF22070279006611CB /* pngget.c in Sources */,
+				C95EE4F02207027D006611CB /* pngmem.c in Sources */,
+				C95EE4F122070280006611CB /* pngread.c in Sources */,
+				C95EE4F222070288006611CB /* pngrio.c in Sources */,
+				C95EE4F32207028B006611CB /* pngrtran.c in Sources */,
+				C95EE4F42207028E006611CB /* pngrutil.c in Sources */,
+				C95EE4F522070291006611CB /* pngset.c in Sources */,
+				C95EE4F622070296006611CB /* pngtrans.c in Sources */,
+				C95EE4F72207029B006611CB /* pngwio.c in Sources */,
+				C95EE4F82207029E006611CB /* pngwrite.c in Sources */,
+				C95EE4F9220702A0006611CB /* pngwtran.c in Sources */,
+				C95EE4FA220702A2006611CB /* pngwutil.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9CEE1E321EB8D5200316D3C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2332,26 +2410,20 @@
 			files = (
 				C9EDF9AB21446FCA00382DCC /* ConsoleViewController.swift in Sources */,
 				C9C0E77D21EF66C40057C63E /* ThemableTabBarController.swift in Sources */,
-				C9FB5BBC2202590F0085E1AA /* pngset.c in Sources */,
 				C9B5D85E21F12E4000E980BA /* PlainTextEditorViewController.swift in Sources */,
-				C9FB5BBE2202590F0085E1AA /* pngwtran.c in Sources */,
 				C9C0E78721EF781F0057C63E /* Basic.swift in Sources */,
 				C9DF70B821715D3D00981B4F /* FileCollectionViewCell.swift in Sources */,
 				C9FCFD6B21442DE700A07974 /* DocumentBrowserViewController.swift in Sources */,
-				C9FB5BB92202590F0085E1AA /* pngtrans.c in Sources */,
 				C91321C421FB31C700437845 /* ConsoleViewController+showViewController.m in Sources */,
 				C9592D2721D059BA00412CEF /* EditorSplitViewController.swift in Sources */,
-				C9FB5BBB2202590F0085E1AA /* pngread.c in Sources */,
 				C945EB2221F8D3A100F6D5B3 /* InspectorTableViewController.swift in Sources */,
 				C9C0E78321EF75080057C63E /* Midnight.swift in Sources */,
 				C903B98C21598A63004AAD7F /* IO.swift in Sources */,
 				C9B3FDEC21503DE7000FC9A8 /* PyExtensionContext.swift in Sources */,
 				C99E8D6C21F0CC7800C71884 /* WWDC16.swift in Sources */,
 				C93D61DD2145CD0800C8B5E3 /* PyInputHelper.swift in Sources */,
-				C9FB5BB72202590F0085E1AA /* png.c in Sources */,
 				C9C0E78F21F0BC640057C63E /* ReadOnlyTheme.swift in Sources */,
 				C904EB7321445D5800585C28 /* Python.swift in Sources */,
-				C9FB5BB42202590F0085E1AA /* pngrutil.c in Sources */,
 				C92495C72151A3E3007EB4DB /* ReviewHelper.swift in Sources */,
 				C9425A7821F49B1300E7CC35 /* BlockBasedSelector.swift in Sources */,
 				C99E8D7021F0D03400C71884 /* CoolGlow.swift in Sources */,
@@ -2371,12 +2443,10 @@
 				C9592D1921D0592C00412CEF /* ViewControllerTransitionCoordinator.swift in Sources */,
 				C9C0E77A21EF65BE0057C63E /* ThemableNavigationController.swift in Sources */,
 				C93CA8B522022E67008DD049 /* QuickLookHelper.swift in Sources */,
-				C9FB5BB22202590F0085E1AA /* pngrtran.c in Sources */,
 				C9AAAB5221950E8B0042E733 /* UITextView.swift in Sources */,
 				C9C0E77821EEA9BE0057C63E /* XcodeDark.swift in Sources */,
 				C9C0E78521EF764F0057C63E /* Sunset.swift in Sources */,
 				C9EA55B3219F752D007546BC /* RelativePathForScript.swift in Sources */,
-				C9FB5BB62202590F0085E1AA /* pngwio.c in Sources */,
 				C92ACE3321F0D8CB00FA8904 /* SolarizedLight.swift in Sources */,
 				C949D39B21F8A00C005AF481 /* NSRange.swift in Sources */,
 				C9C0E77F21EF71E30057C63E /* Dusk.swift in Sources */,
@@ -2386,18 +2456,12 @@
 				C976592721471D23001C96A8 /* PyFilePicker.swift in Sources */,
 				C9C0E78D21F0B7FA0057C63E /* ThemeChooserTableViewController.swift in Sources */,
 				C9E4152B21513E3400D64E32 /* ConsoleTextView.swift in Sources */,
-				C9FB5BBA2202590F0085E1AA /* pngmem.c in Sources */,
-				C9FB5BBD2202590F0085E1AA /* pngwrite.c in Sources */,
 				C9592D1B21D0592C00412CEF /* Localizable.swift in Sources */,
 				C91321C921FB500300437845 /* UIColor.swift in Sources */,
 				C9624EF421A9905400DDA9A7 /* PyThread.swift in Sources */,
-				C9FB5BB32202590F0085E1AA /* pngwutil.c in Sources */,
 				C93D61DF2145D03200C8B5E3 /* UIWindow.swift in Sources */,
 				C9BDF6B921BD9BBA0045DDA3 /* TemplatesViewController.swift in Sources */,
-				C9FB5BB82202590F0085E1AA /* pngerror.c in Sources */,
 				C9FCFD59214428AE00A07974 /* AppDelegate.swift in Sources */,
-				C9FB5BB12202590F0085E1AA /* pngget.c in Sources */,
-				C9FB5BB52202590F0085E1AA /* pngrio.c in Sources */,
 				C93D61E12145D46700C8B5E3 /* PyOutputHelper.swift in Sources */,
 				C913202B21DC12A300EEE677 /* AcknowledgmentsViewController.swift in Sources */,
 				C92ACE3721F0DBF600FA8904 /* SolarizedDark.swift in Sources */,
@@ -2410,6 +2474,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		C95EE4E522070224006611CB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C95EE4DE22070224006611CB /* libpng */;
+			targetProxy = C95EE4E422070224006611CB /* PBXContainerItemProxy */;
+		};
 		C9AAAB4C2195016D0042E733 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = InputAssistant;
@@ -2641,6 +2710,62 @@
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "Pyto Mac/Pyto Mac-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
+		C95EE4E922070224006611CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = libpng/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.libpng;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		C95EE4EA22070224006611CB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = libpng/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.libpng;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -2899,8 +3024,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRIP_INSTALLED_PRODUCT = YES;
-				STRIP_STYLE = debugging;
+				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_STYLE = "non-global";
 				STRIP_SWIFT_SYMBOLS = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "MAIN DEBUG";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pyto/Pyto-Bridging-Header.h";
@@ -2975,8 +3100,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRIP_INSTALLED_PRODUCT = YES;
-				STRIP_STYLE = debugging;
+				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_STYLE = "non-global";
 				STRIP_SWIFT_SYMBOLS = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = MAIN;
 				SWIFT_OBJC_BRIDGING_HEADER = "Pyto/Pyto-Bridging-Header.h";
@@ -3003,6 +3128,15 @@
 			buildConfigurations = (
 				C94CC2C921FCEF70005E9556 /* Debug */,
 				C94CC2CA21FCEF70005E9556 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C95EE4E822070224006611CB /* Build configuration list for PBXNativeTarget "libpng" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C95EE4E922070224006611CB /* Debug */,
+				C95EE4EA22070224006611CB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
