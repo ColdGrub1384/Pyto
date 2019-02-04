@@ -543,7 +543,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                     let console = ConsoleViewController.visible
                     guard console.view.window != nil else {
                         let navVC = ThemableNavigationController(rootViewController: console)
-                        navVC.modalPresentationStyle = .overFullScreen
+                        navVC.modalPresentationStyle = .overCurrentContext
                         self.present(navVC, animated: true, completion: {
                             self.run()
                         })

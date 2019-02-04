@@ -8,6 +8,8 @@
 
 #if MAIN
 #import <Pyto-Swift.h>
+#elif WIDGET
+#import <Pyto_Widget-Swift.h>
 #else
 #import <PytoCore/PytoCore-Swift.h>
 #endif
@@ -16,7 +18,11 @@
 @implementation ConsoleViewController (showViewController)
 
     - (void) showViewController:(UIViewController *)vc completion:(void (^)(void))completion {
+        #if WIDGET
+        [self presentViewController:vc animated:NO completion:completion];
+        #else
         [self presentViewController:[self viewController:vc] animated:NO completion:completion];
+        #endif
     }
     
 @end

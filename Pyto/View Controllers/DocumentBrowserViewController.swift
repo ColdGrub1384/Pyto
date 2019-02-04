@@ -14,6 +14,16 @@ import SavannaKit
 import WebKit
 import QuickLook
 
+/// A protocol to set as `DocumentBrowserViewController.delegate`. Used if you want to pick a script.
+protocol DocumentBrowserViewControllerDelegate {
+    
+    /// Called when a Python script is picked. Will not be called for other file types.
+    ///
+    /// - Parameters:
+    ///     - path: The path of the script picked.
+    func documentBrowserViewController(_ documentBrowserViewController: DocumentBrowserViewController, didPickScriptAtPath path: String)
+}
+
 /// The main file browser used to edit scripts.
 class DocumentBrowserViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDropDelegate, UICollectionViewDragDelegate, QLPreviewControllerDataSource {
     
@@ -26,6 +36,18 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
     
     /// Store here `EditorSplitViewController`s because it crashes on dealloc. RIP memory
     private static var splitVCs = [UIViewController?]()
+    
+    /// Set it if you want to implement a custom file picker.
+    var delegate: DocumentBrowserViewControllerDelegate? {
+        didSet {
+            if delegate != nil {
+                navigationItem.leftBarButtonItems = []
+                navigationItem.rightBarButtonItems = []
+                view.viewWithTag(2)?.alpha = 0.5
+                view.viewWithTag(2)?.isUserInteractionEnabled = false
+            }
+        }
+    }
     
     /// If set to `true`, the files observer will ignore next change.
     var ignoreObserver = false
@@ -234,9 +256,9 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         present(alert, animated: true, completion: nil)
     }
     
-    /// Opens information sheet.
-    @IBAction func showInfo(_ sender: Any) {
-        if let vc = UIStoryboard(name: "About", bundle: Bundle.main).instantiateInitialViewController() {
+    /// Opens settings sheet.
+    @IBAction func showSettings(_ sender: Any) {
+        if let vc = UIStoryboard(name: "Settings", bundle: Bundle.main).instantiateInitialViewController() {
             present(vc, animated: true, completion: nil)
         }
     }
@@ -278,7 +300,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
                 splitVC.editor = PlainTextEditorViewController()
                 splitVC.previewer = MarkdownPreviewController()
                 splitVC.arrangement = .horizontal
-                UIApplication.shared.keyWindow?.rootViewController?.present(ThemableNavigationController(rootViewController: splitVC), animated: true, completion: {
+                UIApplication.shared.keyWindow?.topViewController?.present(ThemableNavigationController(rootViewController: splitVC), animated: true, completion: {
                     
                     NotificationCenter.default.removeObserver(splitVC)
                     splitVC.editor.url = document
@@ -289,15 +311,22 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
                     return
                 }
                 vc.directory = document
+                vc.delegate = delegate
                 navigationController?.pushViewController(vc, animated: true)
                 completion?()
             } else {
                 previewingFile = document
                 let controller = QLPreviewController()
                 controller.dataSource = self
-                present(controller, animated: true, completion: completion)
+                UIApplication.shared.keyWindow?.topViewController?.present(controller, animated: true, completion: completion)
             }
             
+            return
+        }
+        
+        guard delegate == nil else {
+            delegate?.documentBrowserViewController(self, didPickScriptAtPath: document.path)
+            completion?()
             return
         }
         
@@ -329,7 +358,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         navVC.navigationBar.isTranslucent = false
         navVC.modalTransitionStyle = .crossDissolve
         
-        UIApplication.shared.keyWindow?.rootViewController?.present(navVC, animated: true, completion: {
+        UIApplication.shared.keyWindow?.topViewController?.present(navVC, animated: true, completion: {
             
             NotificationCenter.default.removeObserver(splitVC)
             
@@ -366,6 +395,8 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         
         navigationController?.view.backgroundColor = .white
         navigationController?.navigationBar.shadowImage = UIImage()
+        
+        (UIApplication.shared.delegate as? AppDelegate)?.copyModules()
     }
     
     override func viewDidAppear(_ animated: Bool) {

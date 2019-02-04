@@ -1,8 +1,10 @@
-print("Startup script called")
-
 __builtins__.iOS = 'iOS'
 __builtins__.macOS = 'macOS'
 __builtins__.__platform__ = iOS
+
+__builtins__.widget = 'widget'
+__builtins__.app = 'app'
+__builtins__.__host__ = None
 
 import sys
 import console as Pyto
@@ -11,6 +13,7 @@ import pyto
 from importlib.machinery import SourceFileLoader
 import importlib
 import threading
+from outputredirector import *
 
 pyto.Python.shared.version = sys.version
 
@@ -27,24 +30,17 @@ __builtins__.input = askForInput
 
 # MARK: - Output
 
-oldStdout = sys.stdout
+def read(text):
+    pyto.ConsoleViewController.visible.print(text)
 
-class Reader:
-    
-    def isatty(self):
-        return False
-    
-    def write(self, txt):
-        
-        if (threading.currentThread() in Pyto.ignoredThreads):
-            return
-        
-        oldStdout.write(txt)
-        Pyto.print(txt, end="")
+standardOutput = Reader(read)
+standardOutput._buffer = io.BufferedWriter(standardOutput)
 
-reader = Reader()
-sys.stderr = reader
-sys.stdout = reader
+standardError = Reader(read)
+standardError._buffer = io.BufferedWriter(standardError)
+
+sys.stdout = standardOutput
+sys.stderr = standardError
 
 # MARK: - REPL
 
