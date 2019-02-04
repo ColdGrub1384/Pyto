@@ -105,6 +105,14 @@ import InputAssistant
     @objc var completions = [String]()
     #endif
     
+    /// Clears screen.
+    @objc func clear() {
+        DispatchQueue.main.sync {
+            textView.text = ""
+            console = ""
+        }
+    }
+    
     #if MAIN
     /// Variables from running scripts.
     @objc static var variables = [String:Any]() {
@@ -417,8 +425,8 @@ import InputAssistant
     override open func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         super.dismiss(animated: flag, completion: completion)
         
-        view.backgroundColor = .white
-        navigationController?.view.backgroundColor = .white
+        view.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
+        navigationController?.view.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
     }
     
     override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

@@ -21,7 +21,9 @@ import Foundation
     @objc static func showAlert(prompt: String?) {
         let prompt_ = prompt
         DispatchQueue.main.sync {
+            #if !WIDGET
             ConsoleViewController.visible.input(prompt: prompt_ ?? "")
+            #endif
         }
     }
 }

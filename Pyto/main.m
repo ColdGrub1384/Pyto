@@ -8,9 +8,29 @@
 
 #import <Foundation/Foundation.h>
 #import "../Python/Headers/Python.h"
+#if MAIN
 #import "Pyto-Swift.h"
-//#import "../Matplotlib/matplotlib.h"
+#elif WIDGET
+#import "Pyto_Widget-Swift.h"
+#endif
 #include <dlfcn.h>
+
+/// Returns the main bundle.
+NSBundle* mainBundle() {
+    #if MAIN
+    return [NSBundle mainBundle];
+    #elif WIDGET
+    // Taken from https://stackoverflow.com/a/27849695/7515957
+    NSBundle *bundle = [NSBundle mainBundle];
+    if ([[bundle.bundleURL pathExtension] isEqualToString:@"appex"]) {
+        // Peel off two directory levels - MY_APP.app/PlugIns/MY_APP_EXTENSION.appex
+        bundle = [NSBundle bundleWithURL:[[bundle.bundleURL URLByDeletingLastPathComponent] URLByDeletingLastPathComponent]];
+    }
+    return bundle;
+    #else
+    return NULL;
+    #endif
+}
 
 /// The path of the Python home directory.
 NSString *pythonHome;
@@ -41,7 +61,7 @@ void *mtrand = NULL;
 void init_numpy() {
     
     NSError *error;
-    for (NSURL *bundle in [NSFileManager.defaultManager contentsOfDirectoryAtURL:NSBundle.mainBundle.privateFrameworksURL includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:&error]) {
+    for (NSURL *bundle in [NSFileManager.defaultManager contentsOfDirectoryAtURL:mainBundle().privateFrameworksURL includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:&error]) {
         
         NSURL *file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"cpython-37m-darwin.so"].lastPathComponent];
         
@@ -122,7 +142,7 @@ void init_matplotlib() {
     
     putenv((char *)[[NSString stringWithFormat:@"MATPLOTLIBDATA=%@", mpl_data.path] UTF8String]);
     
-    for (NSURL *fileURL in [NSFileManager.defaultManager contentsOfDirectoryAtURL:[NSBundle.mainBundle URLForResource:@"site-packages/matplotlib/mpl-data" withExtension:NULL] includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:NULL]) {
+    for (NSURL *fileURL in [NSFileManager.defaultManager contentsOfDirectoryAtURL:[mainBundle() URLForResource:@"site-packages/matplotlib/mpl-data" withExtension:NULL] includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:NULL]) {
         NSURL *newURL = [mpl_data URLByAppendingPathComponent:fileURL.lastPathComponent];
         if (![NSFileManager.defaultManager fileExistsAtPath:newURL.path]) {
             [NSFileManager.defaultManager copyItemAtURL:fileURL toURL:newURL error:NULL];
@@ -130,7 +150,7 @@ void init_matplotlib() {
     }
     
     NSError *error;
-    for (NSURL *bundle in [NSFileManager.defaultManager contentsOfDirectoryAtURL:NSBundle.mainBundle.privateFrameworksURL includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:&error]) {
+    for (NSURL *bundle in [NSFileManager.defaultManager contentsOfDirectoryAtURL:mainBundle().privateFrameworksURL includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:&error]) {
         
         NSURL *file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"cpython-37m-darwin.so"].lastPathComponent];
         
@@ -191,7 +211,11 @@ void init_matplotlib() {
 
 // MARK: - Main
 
+#if MAIN
 int main(int argc, char *argv[]) {
+#else
+void init_python(int argc, char *argv[]) {
+#endif
     
     pythonHome = Python.shared.bundle.bundlePath;
     
@@ -204,18 +228,18 @@ int main(int argc, char *argv[]) {
     putenv("PYTHONDONTWRITEBYTECODE=1");
     putenv((char *)[[NSString stringWithFormat:@"TMP=%@", NSTemporaryDirectory()] UTF8String]);
     putenv((char *)[[NSString stringWithFormat:@"PYTHONHOME=%@", pythonHome] UTF8String]);
-    putenv((char *)[[NSString stringWithFormat:@"PYTHONPATH=%@:%@", [NSBundle.mainBundle pathForResource:@"site-packages" ofType:NULL], [pythonHome stringByAppendingPathComponent:@"python37.zip"]] UTF8String]);
+    putenv((char *)[[NSString stringWithFormat:@"PYTHONPATH=%@:%@", [mainBundle() pathForResource:@"site-packages" ofType:NULL], [pythonHome stringByAppendingPathComponent:@"python37.zip"]] UTF8String]);
     
     // MARK: - Init builtins
+    #if MAIN
     init_numpy();
     init_matplotlib();
+    #endif
     
     // MARK: - Init Python
     Py_SetPythonHome(Py_DecodeLocale([pythonHome UTF8String], NULL));
     Py_Initialize();
     PyEval_InitThreads();
-    
-    [Python.shared importPytoLib];
     
     // MARK: - Set Python arguments
     wchar_t** python_argv = PyMem_RawMalloc(sizeof(wchar_t*) * argc);
@@ -225,11 +249,18 @@ int main(int argc, char *argv[]) {
     }
     PySys_SetArgv(argc, python_argv);
     
+    #if MAIN
+    
+    [Python.shared importPytoLib];
+    
     // MARK: - Start the REPL that will contain all child modules
     [Python.shared runScriptAt:[[NSBundle mainBundle] URLForResource:@"REPL" withExtension:@"py"]];
     
     @autoreleasepool {
         return UIApplicationMain(argc, argv, NULL, NSStringFromClass(AppDelegate.class));
     }
+    #else
+    NSString *certPath = [mainBundle() pathForResource:@"cacert.pem" ofType:NULL];
+    putenv((char *)[[NSString stringWithFormat:@"SSL_CERT_FILE=%@", certPath] UTF8String]);
+    #endif
 }
-

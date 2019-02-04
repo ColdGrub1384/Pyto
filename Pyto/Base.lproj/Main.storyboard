@@ -141,7 +141,7 @@
                                     <outlet property="delegate" destination="yhA-FB-rLN" id="8I8-qH-xvv"/>
                                 </connections>
                             </collectionView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ToJ-u5-nXo">
+                            <containerView opaque="NO" tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ToJ-u5-nXo">
                                 <rect key="frame" x="0.0" y="442" width="414" height="130"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="130" id="uAh-jz-ibR"/>
@@ -165,14 +165,10 @@
                         <viewLayoutGuide key="safeArea" id="Ogs-uM-J6M"/>
                     </view>
                     <navigationItem key="navigationItem" title="My Scripts" leftItemsSupplementBackButton="YES" id="fIx-hF-Ofw">
-                        <barButtonItem key="leftBarButtonItem" id="hCH-JI-C3f">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="SV4-9t-z2v">
-                                <rect key="frame" x="20" y="11" width="22" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="showInfo:" destination="yhA-FB-rLN" eventType="touchUpInside" id="RX1-jE-pmh"/>
-                                </connections>
-                            </button>
+                        <barButtonItem key="leftBarButtonItem" image="gear" id="31W-Bf-NHK">
+                            <connections>
+                                <action selector="showSettings:" destination="yhA-FB-rLN" id="Dgw-Mq-LAW"/>
+                            </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="Wvr-P3-atf">
@@ -418,6 +414,7 @@
     <resources>
         <image name="NewFolder_Normal" width="34" height="24"/>
         <image name="fileIcon" width="30" height="30"/>
+        <image name="gear" width="28" height="28"/>
         <image name="play" width="30" height="30"/>
         <namedColor name="TintColor">
             <color red="0.396078431372549" green="0.80000000000000004" blue="0.38823529411764707" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

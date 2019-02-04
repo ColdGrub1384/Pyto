@@ -28,9 +28,13 @@ import SafariServices
             let activityVC = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
             activityVC.popoverPresentationController?.sourceView = ConsoleViewController.visible.view
             activityVC.popoverPresentationController?.sourceRect = activityVC.popoverPresentationController?.sourceView?.bounds ?? .zero
+            #if WIDGET
+            ConsoleViewController.visible.present(activityVC, animated: true, completion: nil)
+            #else
             UIApplication.shared.keyWindow?.topViewController?.present(activityVC, animated: true, completion: {
                 semaphore.signal()
             })
+            #endif
         }
         
         if !Thread.current.isMainThread {
@@ -48,7 +52,11 @@ import SafariServices
             let picker = UIDocumentPickerViewController(documentTypes: filePicker.fileTypes as [String], in: .open)
             picker.allowsMultipleSelection = filePicker.allowsMultipleSelection
             picker.delegate = filePicker
+            #if WIDGET
+            ConsoleViewController.visible.present(picker, animated: true, completion: nil)
+            #else
             UIApplication.shared.keyWindow?.topViewController?.present(picker, animated: true, completion: nil)
+            #endif
         }
         semaphore?.wait()
     }

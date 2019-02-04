@@ -10,7 +10,7 @@
 import Foundation
 #if MAIN && os(iOS)
 import ios_system
-#elseif os(iOS)
+#elseif os(iOS) && !WIDGET
 @_silgen_name("PyRun_SimpleStringFlags")
 func PyRun_SimpleStringFlags(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Any>!)
 
@@ -41,7 +41,7 @@ import Cocoa
     #if os(iOS)
     /// The bundle containing all Python resources.
     @objc var bundle: Bundle {
-        if Bundle.main.bundleIdentifier == "ch.marcela.ada.Pyto" {
+        if Bundle.main.bundleIdentifier?.hasSuffix(".ada.Pyto") == true || Bundle.main.bundleIdentifier?.hasSuffix(".ada.Pyto.Pyto-Widget") == true {
             return Bundle(identifier: "ch.ada.Python")!
         } else {
             return Bundle(path: Bundle.main.path(forResource: "Python.framework", ofType: nil)!)!
@@ -90,7 +90,7 @@ import Cocoa
         sleep(1)
         return retValue
         #else
-        PyOutputHelper.print("Unsupported on native app.")
+        PyOutputHelper.print("Only supported on main app.")
         return 1
         #endif
     }
@@ -127,6 +127,7 @@ import Cocoa
                 self.isREPLRunning = true
             }
             
+            #if MAIN
             guard let startupURL = Bundle(for: Python.self).url(forResource: "Startup", withExtension: "py"), let src = try? String(contentsOf: startupURL) else {
                 PyOutputHelper.print(Localizable.Python.alreadyRunning)
                 return
@@ -134,6 +135,10 @@ import Cocoa
             
             let code = String(format: src, url.path)
             PyRun_SimpleStringFlags(code.cValue, nil)
+            #elseif WIDGET
+            self.isScriptRunning = true
+            PyRun_SimpleFileExFlags(fopen(url.path.cValue, "r"), url.lastPathComponent.cValue, 0, nil)
+            #endif
         }
     }
     #endif

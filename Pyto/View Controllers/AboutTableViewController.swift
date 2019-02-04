@@ -11,17 +11,23 @@ import SafariServices
 
 fileprivate extension IndexPath {
     
+    //
+    // If you modify this, you should chnage `AppDelegate.application(_:open:options:)` function.
+    //
+    
     static let theme = IndexPath(row: 0, section: 0)
     
-    static let help = IndexPath(row: 0, section: 1)
-    static let documentation = IndexPath(row: 1, section: 1)
+    static let todayWidget = IndexPath(row: 0, section: 1)
     
-    static let acknowledgments = IndexPath(row: 0, section: 2)
-    static let sourceCode = IndexPath(row: 1, section: 2)
+    static let help = IndexPath(row: 0, section: 2)
+    static let documentation = IndexPath(row: 1, section: 2)
+    
+    static let acknowledgments = IndexPath(row: 0, section: 3)
+    static let sourceCode = IndexPath(row: 1, section: 3)
 }
 
 /// A View controller with settings and info.
-class AboutTableViewController: UITableViewController {
+class AboutTableViewController: UITableViewController, DocumentBrowserViewControllerDelegate {
     
     /// The date of the build.
     var buildDate: Date {
@@ -45,6 +51,10 @@ class AboutTableViewController: UITableViewController {
         cell.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
         cell.textLabel?.textColor = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
         
+        if indexPath == IndexPath.todayWidget {
+            cell.detailTextLabel?.text = (UserDefaults.standard.string(forKey: "todayWidgetScriptPath") as NSString?)?.lastPathComponent
+        }
+        
         return cell
     }
     
@@ -55,6 +65,12 @@ class AboutTableViewController: UITableViewController {
         switch indexPath {
         case .theme:
             viewControllerToPresent = UIStoryboard(name: "Theme Chooser", bundle: Bundle.main).instantiateInitialViewController()
+        case .todayWidget:
+            guard let browser = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Browser") as? DocumentBrowserViewController else {
+                return
+            }
+            browser.delegate = self
+            viewControllerToPresent = browser
         case .help:
             dismiss(animated: true) {
                 if let help = Bundle.main.url(forResource: "Help", withExtension: "py") {
@@ -78,7 +94,7 @@ class AboutTableViewController: UITableViewController {
             return
         }
         
-        if indexPath == .theme {
+        if indexPath == .theme || indexPath == .todayWidget {
             navigationController?.pushViewController(vc, animated: true)
         } else {
             present(vc, animated: true, completion: nil)
@@ -87,7 +103,7 @@ class AboutTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         
-        if section == 3, let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, let build = Bundle.main.infoDictionary?[kCFBundleVersionKey as String] as? String {
+        if section == 4, let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, let build = Bundle.main.infoDictionary?[kCFBundleVersionKey as String] as? String {
             
             let formatter = DateFormatter()
             formatter.dateStyle = .medium
@@ -99,7 +115,20 @@ class AboutTableViewController: UITableViewController {
             Python \(Python.shared.version)
             """
         } else {
-            return nil
+            return super.tableView(tableView, titleForFooterInSection: section)
         }
+    }
+    
+    // MARK: - Document browser view controller delegate
+    
+    func documentBrowserViewController(_ documentBrowserViewController: DocumentBrowserViewController, didPickScriptAtPath path: String) {
+        
+        navigationController?.popToRootViewController(animated: true)
+        
+        UserDefaults.standard.set(RelativePathForScript(URL(fileURLWithPath: path)), forKey: "todayWidgetScriptPath")
+        UserDefaults.standard.synchronize()
+        (UIApplication.shared.delegate as? AppDelegate)?.copyModules()
+        
+        tableView.reloadData()
     }
 }

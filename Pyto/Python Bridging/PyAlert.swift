@@ -46,7 +46,11 @@ import UIKit
             for action in self.actions ?? [] {
                 alert.addAction(action)
             }
+            #if WIDGET
+            ConsoleViewController.visible.present(alert, animated: true, completion: nil)
+            #else
             UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
+            #endif
         }
         while response == nil {
             sleep(UInt32(0.1))

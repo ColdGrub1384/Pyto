@@ -18,6 +18,45 @@ import ios_system
     #if !MAIN
     /// Script to run at startup passed by `PythonApplicationMain`.
     @objc public static var scriptToRun: String?
+    #else
+    /// Copies modules to shared container.
+    func copyModules() {
+        
+        if Thread.current.isMainThread {
+            return DispatchQueue.global().async {
+                self.copyModules()
+            }
+        }
+        
+        do {
+            guard let sharedDir = FileManager.default.sharedDirectory else {
+                return
+            }
+            
+            if let widgetPath = UserDefaults.standard.string(forKey: "todayWidgetScriptPath") {
+                
+                let widgetURL = URL(fileURLWithPath: widgetPath.replacingFirstOccurrence(of: "iCloud/", with: (DocumentBrowserViewController.iCloudContainerURL?.path ?? DocumentBrowserViewController.localContainerURL.path)+"/"), relativeTo: DocumentBrowserViewController.localContainerURL)
+                
+                let newWidgetURL = sharedDir.appendingPathComponent("main.py")
+                
+                if FileManager.default.fileExists(atPath: newWidgetURL.path) {
+                    try FileManager.default.removeItem(at: newWidgetURL)
+                }
+                
+                try FileManager.default.copyItem(at: widgetURL, to: newWidgetURL)
+            }
+            
+            let sharedModulesDir = sharedDir.appendingPathComponent("modules")
+            
+            if FileManager.default.fileExists(atPath: sharedModulesDir.path) {
+                try FileManager.default.removeItem(at: sharedModulesDir)
+            }
+            
+            try FileManager.default.copyItem(at: DocumentBrowserViewController.localContainerURL.appendingPathComponent("modules"), to: sharedModulesDir)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
     #endif
     
     // MARK: - Application delegate
@@ -27,7 +66,7 @@ import ios_system
     @objc public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window?.accessibilityIgnoresInvertColors = true
-                
+        
         #if MAIN
         initializeEnvironment()
         putenv("TERM=".cValue)
@@ -57,8 +96,12 @@ import ios_system
         
         do {
             let modulesURL = docs.appendingPathComponent("modules")
+            let readmeURL = Bundle.main.url(forResource: "modules_README", withExtension: "md")
             if !FileManager.default.fileExists(atPath: modulesURL.path) {
                 try FileManager.default.createDirectory(at: modulesURL, withIntermediateDirectories: false, attributes: nil)
+            }
+            if let readme = readmeURL, !FileManager.default.fileExists(atPath: readme.path) {
+                try FileManager.default.copyItem(at: readme, to: modulesURL.appendingPathComponent("README.md"))
             }
             
             let newSamplesURL = docs.appendingPathComponent("Examples") // Removed since 4.0
@@ -117,6 +160,26 @@ import ios_system
     
     @objc public func application(_ app: UIApplication, open inputURL: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         
+        if inputURL.scheme == "pyto" { // Select script for Today widget
+            
+            if inputURL.host == "select-script", let vc = UIStoryboard(name: "Settings", bundle: Bundle.main).instantiateInitialViewController() {
+                window?.topViewController?.present(vc, animated: true, completion: {
+                    let settingsVC = (vc as? UINavigationController)?.visibleViewController as? AboutTableViewController
+                    
+                    let indexPath = IndexPath(row: 0, section: 1)
+                    settingsVC?.tableView?.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
+                    _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
+                        settingsVC?.tableView(settingsVC!.tableView, didSelectRowAt: indexPath)
+                    })
+                })
+                return true
+            }
+            
+            return false
+        }
+      
+        // Open script
+        
         guard let documentBrowserViewController = DocumentBrowserViewController.visible else {
             window?.rootViewController?.dismiss(animated: true, completion: {
                 _ = self.application(app, open: inputURL, options: options)
@@ -145,17 +208,19 @@ import ios_system
     }
     
     @objc public func applicationWillResignActive(_ application: UIApplication) {
-        (window?.topViewController as? SFSafariViewController)?.dismiss(animated: true, completion: nil)
+        #if MAIN
+        copyModules()
+        #endif
     }
     
     @objc public func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-
+        
         let root = window?.rootViewController
         
         func runScript() {
             if let path = userActivity.userInfo?["filePath"] as? String {
                 
-                let url = URL(fileURLWithPath: path.replacingFirstOccurrence(of: "iCloud/", with: (DocumentBrowserViewController.iCloudContainerURL?.path ?? DocumentBrowserViewController.localContainerURL.path)+"/"), relativeTo: FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask).first)
+                let url = URL(fileURLWithPath: path.replacingFirstOccurrence(of: "iCloud/", with: (DocumentBrowserViewController.iCloudContainerURL?.path ?? DocumentBrowserViewController.localContainerURL.path)+"/"), relativeTo: DocumentBrowserViewController.localContainerURL)
                 
                 if FileManager.default.fileExists(atPath: url.path) {
                     

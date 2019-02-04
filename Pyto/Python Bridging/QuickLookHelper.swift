@@ -57,15 +57,20 @@ import QuickLook
         let controller = QLPreviewController()
         controller.dataSource = dataSource
         
-        #if MAIN
-        let vc: UIViewController?
+        #if MAIN || WIDGET
+        var vc: UIViewController?
         if ConsoleViewController.visible.view.window != nil {
             vc = ConsoleViewController.visible
-        } else if let browser = DocumentBrowserViewController.visible {
+        }
+        #if MAIN
+        if vc == nil, let browser = DocumentBrowserViewController.visible {
             vc = browser
-        } else {
+        }
+        
+        if vc == nil {
             return
         }
+        #endif
         #else
         let vc = UIApplication.shared.keyWindow?.topViewController
         #endif
