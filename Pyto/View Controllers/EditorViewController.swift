@@ -88,15 +88,15 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// The `SyntaxTextView` containing the code.
     let textView = SyntaxTextView()
     
-    /// The document to be edited.
-    var document: PyDocument?
+    /// The document URL to be edited.
+    var document: URL?
     
     /// Returns `true` if the opened file is a sample.
     var isSample: Bool {
         guard document != nil else {
             return true
         }
-        return !FileManager.default.isWritableFile(atPath: document!.fileURL.path)
+        return !FileManager.default.isWritableFile(atPath: document!.path)
     }
     
     /// The Input assistant view containing `suggestions`.
@@ -254,8 +254,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// Initialize with given document.
     ///
     /// - Parameters:
-    ///     - document: The document to be edited.
-    init(document: PyDocument) {
+    ///     - document: The document URL to be edited.
+    init(document: URL) {
         super.init(nibName: nil, bundle: nil)
         self.document = document
     }
@@ -330,9 +330,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
         inputAssistant.delegate = self
         inputAssistant.trailingActions = [InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView.contentTextView, action: #selector(textView.contentTextView.resignFirstResponder))]
         
-        parent?.title = document?.fileURL.deletingPathExtension().lastPathComponent
+        parent?.title = document?.deletingPathExtension().lastPathComponent
         
-        if document?.fileURL == URL(fileURLWithPath: NSTemporaryDirectory()+"/Temporary") {
+        if document == URL(fileURLWithPath: NSTemporaryDirectory()+"/Temporary") {
             title = nil
         }
         
@@ -383,53 +383,47 @@ fileprivate func parseArgs(_ args: inout [String]) {
         if !isDocOpened {
             isDocOpened = true
             
-            if Python.shared.isScriptRunning {
-                Python.shared.stop()
+            guard let doc = self.document else {
+                return
             }
             
-            document?.open(completionHandler: { (_) in
-                guard let doc = self.document else {
-                    return
+            self.textView.text = (try? String(contentsOf: doc)) ?? ""
+            
+            if !FileManager.default.isWritableFile(atPath: doc.path) {
+                self.navigationItem.leftBarButtonItem = nil
+                self.textView.contentTextView.isEditable = false
+                self.textView.contentTextView.inputAccessoryView = nil
+            }
+            
+            if self.shouldRun {
+                self.shouldRun = false
+                self.run()
+            }
+            
+            if doc.path == Bundle.main.path(forResource: "installer", ofType: "py") {
+                self.parent?.navigationItem.leftBarButtonItems = [self.scriptsItem]
+                if Python.shared.isScriptRunning {
+                    self.parent?.navigationItem.rightBarButtonItems = [self.stopBarButtonItem]
+                } else {
+                    self.parent?.navigationItem.rightBarButtonItems = [self.runBarButtonItem]
                 }
-                
-                self.textView.text = doc.text
-                
-                if !FileManager.default.isWritableFile(atPath: doc.fileURL.path) {
-                    self.navigationItem.leftBarButtonItem = nil
-                    self.textView.contentTextView.isEditable = false
-                    self.textView.contentTextView.inputAccessoryView = nil
-                }
-                
-                if self.shouldRun {
-                    self.shouldRun = false
-                    self.run()
-                }
-                
-                if self.document?.fileURL.path == Bundle.main.path(forResource: "installer", ofType: "py") {
-                    self.parent?.navigationItem.leftBarButtonItems = [self.scriptsItem]
-                    if Python.shared.isScriptRunning {
-                        self.parent?.navigationItem.rightBarButtonItems = [self.stopBarButtonItem]
-                    } else {
-                        self.parent?.navigationItem.rightBarButtonItems = [self.runBarButtonItem]
-                    }
-                }
-            })
+            }
             
             // Siri shortcut
             
             if #available(iOS 12.0, *) {
                 let filePath: String?
-                if let url = document?.fileURL {
+                if let url = document {
                     filePath = RelativePathForScript(url)
                 } else {
                     filePath = nil
                 }
                 
                 let attributes = CSSearchableItemAttributeSet(itemContentType: "public.item")
-                attributes.contentDescription = document?.fileURL.lastPathComponent
+                attributes.contentDescription = document?.lastPathComponent
                 attributes.kind = "Python Script"
                 let activity = NSUserActivity(activityType: "ch.marcela.ada.Pyto.script")
-                activity.title = "Run \(title ?? document?.fileURL.deletingPathExtension().lastPathComponent ?? "script")"
+                activity.title = "Run \(title ?? document?.deletingPathExtension().lastPathComponent ?? "script")"
                 activity.contentAttributeSet = attributes
                 activity.isEligibleForSearch = true
                 activity.isEligibleForPrediction = true
@@ -443,7 +437,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 userActivity = activity
                 if let path = filePath {
                     activity.addUserInfoEntries(from: ["filePath" : path])
-                    activity.suggestedInvocationPhrase = document?.fileURL.deletingPathExtension().lastPathComponent
+                    activity.suggestedInvocationPhrase = document?.deletingPathExtension().lastPathComponent
                 }
             }
             
@@ -705,7 +699,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     /// Shares the current script.
     @objc func share(_ sender: UIBarButtonItem) {
-        let activityVC = UIActivityViewController(activityItems: [document?.fileURL as Any], applicationActivities: [XcodeActivity()])
+        let activityVC = UIActivityViewController(activityItems: [document as Any], applicationActivities: [XcodeActivity()])
         activityVC.popoverPresentationController?.barButtonItem = sender
         present(activityVC, animated: true, completion: nil)
     }
@@ -784,7 +778,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             Python.shared.args = arguments
             
             DispatchQueue.main.async {
-                if let url = self.document?.fileURL {
+                if let url = self.document {
                     let console = ConsoleViewController.visible
                     guard console.view.window != nil else {
                         let navVC = ThemableNavigationController(rootViewController: console)
@@ -819,8 +813,21 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// - Parameters:
     ///     - completion: The code executed when the file was saved. A boolean indicated if the file was successfully saved is passed.
     @objc func save(completion: ((Bool) -> Void)? = nil) {
+        
+        guard document != nil else {
+            completion?(false)
+            return
+        }
+        
+        let text = textView.text
+        
         DispatchQueue.global().async {
-            self.document?.save(to: self.document!.fileURL, for: .forOverwriting, completionHandler: completion)
+            do {
+                try text.write(to: self.document!, atomically: true, encoding: .utf8)
+                completion?(true)
+            } catch {
+                completion?(false)
+            }
         }
     }
     
@@ -841,11 +848,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
                     alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
                     UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
                 }
-                self.document?.close(completionHandler: { _ in
-                    DispatchQueue.main.async {
-                        DocumentBrowserViewController.visible?.collectionView.reloadData()
-                    }
-                })
+                DispatchQueue.main.async {
+                    DocumentBrowserViewController.visible?.collectionView.reloadData()
+                }
             })
         }
     }
@@ -993,7 +998,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             "source = '''",
             text.replacingOccurrences(of: "'", with: "\\'"),
             "'''",
-            "suggestForCode(source, '\(document?.fileURL.path ?? "")')"
+            "suggestForCode(source, '\(document?.path ?? "")')"
         ].joined(separator: ";")
         PyInputHelper.userInput = input
     }
@@ -1001,7 +1006,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
     // MARK: - Syntax text view delegate
 
     func didChangeText(_ syntaxTextView: SyntaxTextView) {
-        document?.text = textView.text
         if !isSaving {
             isSaving = true
             DispatchQueue.main.asyncAfter(deadline: .now()+1) {
