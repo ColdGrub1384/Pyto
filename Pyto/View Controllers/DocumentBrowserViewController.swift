@@ -337,8 +337,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
             }
         }
                 
-        let doc = PyDocument(fileURL: document)
-        let editor = EditorViewController(document: doc)
+        let editor = EditorViewController(document: document)
         let contentVC = ConsoleViewController.visible
         contentVC.view.backgroundColor = .white
         
@@ -362,6 +361,8 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         navVC.navigationBar.shadowImage = UIImage()
         navVC.navigationBar.isTranslucent = false
         navVC.modalTransitionStyle = .crossDissolve
+        
+        stopObserver()
         
         UIApplication.shared.keyWindow?.topViewController?.present(navVC, animated: true, completion: {
             

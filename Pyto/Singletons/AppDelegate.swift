@@ -200,6 +200,8 @@ import ios_system
             return true
         }
         
+        _ = inputURL.startAccessingSecurityScopedResource()
+        
         // Reveal / import the document at the URL
         
         documentBrowserViewController.openDocument(inputURL, run: false)
