@@ -343,6 +343,11 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         contentVC.view.backgroundColor = .white
         
         let splitVC = EditorSplitViewController()
+        
+        if document.path == Bundle.main.path(forResource: "installer", ofType: "py") {
+            splitVC.ratio = 0
+        }
+        
         DocumentBrowserViewController.splitVCs.append(EditorSplitViewController.visible)
         EditorSplitViewController.visible = splitVC
         let navVC = ThemableNavigationController(rootViewController: splitVC)

@@ -83,7 +83,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
 
 
 /// The View controller used to edit source code.
-@objc class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssistantViewDelegate, InputAssistantViewDataSource, UITextViewDelegate {
+@objc class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssistantViewDelegate, InputAssistantViewDataSource, UITextViewDelegate, UISearchBarDelegate {
     
     /// The `SyntaxTextView` containing the code.
     let textView = SyntaxTextView()
@@ -281,6 +281,12 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// The bar button item for sharing the script.
     var shareItem: UIBarButtonItem!
     
+    /// Button for searching for text in the editor.
+    var searchItem: UIBarButtonItem!
+    
+    /// Button for going back to scripts.
+    var scriptsItem: UIBarButtonItem!
+    
     // MARK: - Theme
     
     /// Setups the View controller interface for given theme.
@@ -334,9 +340,19 @@ fileprivate func parseArgs(_ args: inout [String]) {
         runBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(run))
         stopBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(stop))
         
+        let scriptsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        scriptsButton.setImage(UIImage(named: "Grid"), for: .normal)
+        scriptsButton.addTarget(self, action: #selector(close), for: .touchUpInside)
+        scriptsItem = UIBarButtonItem(customView: scriptsButton)
+        
+        let searchButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        searchButton.setImage(UIImage(imageLiteralResourceName: "search"), for: .normal)
+        searchButton.addTarget(self, action: #selector(search), for: .touchUpInside)
+        searchItem = UIBarButtonItem(customView: searchButton)
+        
         docItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showDocs(_:)))
         shareItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share(_:)))
-        let scriptsItem = UIBarButtonItem(image: UIImage(named: "Grid"), style: .plain, target: self, action: #selector(close))
+        
         if Python.shared.isScriptRunning {
             parent?.navigationItem.rightBarButtonItems = [
                 stopBarButtonItem,
@@ -348,7 +364,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 argsItem,
             ]
         }
-        parent?.navigationItem.leftBarButtonItems = [scriptsItem, docItem]
+        parent?.navigationItem.leftBarButtonItems = [scriptsItem, searchItem]
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -356,7 +372,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         textView.contentTextView.isEditable = !isSample
         
         parent?.navigationController?.isToolbarHidden = false
-        parent?.toolbarItems = [shareItem]
+        parent?.toolbarItems = [shareItem, UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), docItem]
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -387,6 +403,15 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 if self.shouldRun {
                     self.shouldRun = false
                     self.run()
+                }
+                
+                if self.document?.fileURL.path == Bundle.main.path(forResource: "installer", ofType: "py") {
+                    self.parent?.navigationItem.leftBarButtonItems = [self.scriptsItem]
+                    if Python.shared.isScriptRunning {
+                        self.parent?.navigationItem.rightBarButtonItems = [self.stopBarButtonItem]
+                    } else {
+                        self.parent?.navigationItem.rightBarButtonItems = [self.runBarButtonItem]
+                    }
                 }
             })
             
@@ -454,6 +479,226 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 self.textView.contentTextView.becomeFirstResponder()
             }
         }) // TODO: Anyway to to it without a timer?
+    }
+    
+    // MARK: - Searching
+    
+    /// Search bar used for searching for code.
+    var searchBar: UISearchBar!
+    
+    /// The height of the find bar.
+    var findBarHeight: CGFloat {
+        var height = searchBar.frame.height
+        if replace {
+            height += 30
+        }
+        return height
+    }
+    
+    /// Set to `true` for replacing text.
+    var replace = false {
+        didSet {
+            
+            textView.contentInset.top = findBarHeight
+            textView.contentTextView.scrollIndicatorInsets.top = findBarHeight
+            
+            if replace {
+                if let replaceView = Bundle.main.loadNibNamed("Replace", owner: nil, options: nil)?.first as? ReplaceView {
+                    replaceView.frame.size.width = view.frame.width
+                    replaceView.frame.origin.y = searchBar.frame.height
+                    
+                    
+                    replaceView.replaceHandler = { searchText in
+                        if let range = self.ranges.first {
+                            
+                            var text = self.textView.text
+                            text = (text as NSString).replacingCharacters(in: range, with: searchText)
+                            self.textView.text = text
+                            
+                            self.performSearch()
+                        }
+                    }
+                    
+                    replaceView.replaceAllHandler = { searchText in
+                        while let range = self.ranges.first {
+                            
+                            var text = self.textView.text
+                            text = (text as NSString).replacingCharacters(in: range, with: searchText)
+                            self.textView.text = text
+                            
+                            self.performSearch()
+                        }
+                    }
+                    
+                    replaceView.autoresizingMask = [.flexibleWidth]
+                    
+                    view.addSubview(replaceView)
+                }
+                textView.contentTextView.setContentOffset(CGPoint(x: 0, y: textView.contentTextView.contentOffset.y-30), animated: true)
+            } else {
+                for view in view.subviews {
+                    if let replaceView = view as? ReplaceView {
+                        replaceView.removeFromSuperview()
+                    }
+                }
+                textView.contentTextView.setContentOffset(CGPoint(x: 0, y: textView.contentTextView.contentOffset.y+30), animated: true)
+            }
+        }
+    }
+    
+    /// Set to `true` for ignoring case.
+    var ignoreCase = true
+    
+    /// Search mode.
+    enum SearchMode {
+        
+        /// Contains typed text.
+        case contains
+        
+        /// Starts with typed text.
+        case startsWith
+        
+        /// Full word.
+        case fullWord
+    }
+    
+    /// Applied search mode.
+    var searchMode = SearchMode.contains
+    
+    /// Found ranges.
+    var ranges = [NSRange]()
+    
+    /// Searches for text in code.
+    @objc func search() {
+        
+        guard searchBar?.window == nil else {
+            
+            
+            replace = false
+            
+            searchBar.removeFromSuperview()
+            textView.contentInset.top = 0
+            textView.contentTextView.scrollIndicatorInsets.top = 0
+            
+            let text = textView.text
+            textView.delegate = nil
+            textView.text = text
+            textView.delegate = self
+            
+            return
+        }
+        
+        searchBar = UISearchBar()
+        
+        searchBar.barTintColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
+        searchBar.frame.size.width = view.frame.width
+        searchBar.autoresizingMask = [.flexibleWidth]
+        
+        view.addSubview(searchBar)
+        
+        searchBar.setShowsCancelButton(true, animated: true)
+        searchBar.showsScopeBar = true
+        searchBar.showsBookmarkButton = true
+        searchBar.setImage(UIImage(imageLiteralResourceName: "gear"), for: .bookmark, state: .normal)
+        searchBar.scopeButtonTitles = ["Find", "Replace"]
+        searchBar.delegate = self
+        
+        func findTextField(_ containerView: UIView) {
+            for view in containerView.subviews {
+                if let textField = view as? UITextField {
+                    textField.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
+                    textField.textColor = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
+                    textField.keyboardAppearance = ConsoleViewController.choosenTheme.keyboardAppearance
+                    textField.autocorrectionType = .no
+                    textField.autocapitalizationType = .none
+                    textField.smartDashesType = .no
+                    textField.smartQuotesType = .no
+                    break
+                } else {
+                    findTextField(view)
+                }
+            }
+        }
+        
+        findTextField(searchBar)
+        
+        searchBar.becomeFirstResponder()
+        
+        textView.contentInset.top = findBarHeight
+        textView.contentTextView.scrollIndicatorInsets.top = findBarHeight
+    }
+    
+    /// Highlights search results.
+    func performSearch() {
+        
+        ranges = []
+        
+        guard searchBar.text != nil && !searchBar.text!.isEmpty else {
+            return
+        }
+        
+        let searchString = searchBar.text!
+        let baseString = textView.text
+        
+        let attributed = NSMutableAttributedString(attributedString: textView.contentTextView.attributedText)
+        
+        guard let regex = try? NSRegularExpression(pattern: searchString, options: .caseInsensitive) else {
+            return
+        }
+        
+        for match in regex.matches(in: baseString, options: [], range: NSRange(location: 0, length: baseString.utf16.count)) as [NSTextCheckingResult] {
+            ranges.append(match.range)
+            attributed.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.yellow.withAlphaComponent(0.5), range: match.range)
+        }
+        
+        textView.contentTextView.attributedText = attributed
+    }
+    
+    // MARK: - Search bar delegate
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.removeFromSuperview()
+        
+        replace = false
+        
+        textView.contentInset.top = 0
+        textView.contentTextView.scrollIndicatorInsets.top = 0
+        
+        let text = textView.text
+        textView.delegate = nil
+        textView.text = text
+        textView.delegate = self
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        let text = textView.text
+        textView.delegate = nil
+        textView.text = text
+        textView.delegate = self
+        
+        performSearch()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        if text == "\n" {
+            searchBar.resignFirstResponder()
+        }
+        
+        return true
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        if selectedScope == 0 {
+            replace = false
+        } else {
+            replace = true
+        }
+    }
+    
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        
     }
     
     // MARK: - Actions
@@ -664,14 +909,24 @@ fileprivate func parseArgs(_ args: inout [String]) {
         var r = d[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
         
         r = textView.convert(r, from:nil)
-        textView.contentInset.bottom = r.size.height
-        textView.contentTextView.scrollIndicatorInsets.bottom = r.size.height
+        textView.contentInset.bottom = r.height
+        textView.contentTextView.scrollIndicatorInsets.bottom = r.height
+        
+        if searchBar?.window != nil {
+            textView.contentInset.top = findBarHeight
+            textView.contentTextView.scrollIndicatorInsets.top = findBarHeight
+        }
     }
     
     /// Set `textView` to the default size.
     @objc func keyboardWillHide(_ notification:Notification) {
         textView.contentInset = .zero
         textView.contentTextView.scrollIndicatorInsets = .zero
+        
+        if searchBar?.window != nil {
+            textView.contentInset.top = findBarHeight
+            textView.contentTextView.scrollIndicatorInsets.top = findBarHeight
+        }
     }
     
     // MARK: - Text view delegate

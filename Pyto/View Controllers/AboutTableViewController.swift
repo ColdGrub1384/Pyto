@@ -50,6 +50,7 @@ class AboutTableViewController: UITableViewController, DocumentBrowserViewContro
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         cell.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
         cell.textLabel?.textColor = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
+        cell.detailTextLabel?.textColor = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
         
         if indexPath == IndexPath.todayWidget {
             cell.detailTextLabel?.text = (UserDefaults.standard.string(forKey: "todayWidgetScriptPath") as NSString?)?.lastPathComponent

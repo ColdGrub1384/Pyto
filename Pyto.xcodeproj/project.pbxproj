@@ -98,6 +98,8 @@
 		C94CC2CB21FCF17F005E9556 /* PyDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1421D0592C00412CEF /* PyDocument.swift */; };
 		C94CC2D121FCF59D005E9556 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94CC2D021FCF59D005E9556 /* EditorViewController.swift */; };
 		C9530C3E21F8B7BD007B24F3 /* Inspector.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9530C3D21F8B7BD007B24F3 /* Inspector.storyboard */; };
+		C954FAB5220A165E0060C488 /* Replace.xib in Resources */ = {isa = PBXBuildFile; fileRef = C954FAB4220A165E0060C488 /* Replace.xib */; };
+		C954FAB9220A2BB00060C488 /* ReplaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C954FAB8220A2BB00060C488 /* ReplaceView.swift */; };
 		C9592D1821D0592C00412CEF /* PyDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1421D0592C00412CEF /* PyDocument.swift */; };
 		C9592D1921D0592C00412CEF /* ViewControllerTransitionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1521D0592C00412CEF /* ViewControllerTransitionCoordinator.swift */; };
 		C9592D1A21D0592C00412CEF /* Xcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1621D0592C00412CEF /* Xcode.swift */; };
@@ -847,6 +849,8 @@
 		C94CC2C721FCEF70005E9556 /* Pyto_Mac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pyto_Mac.entitlements; sourceTree = "<group>"; };
 		C94CC2D021FCF59D005E9556 /* EditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		C9530C3D21F8B7BD007B24F3 /* Inspector.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Inspector.storyboard; sourceTree = "<group>"; };
+		C954FAB4220A165E0060C488 /* Replace.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Replace.xib; sourceTree = "<group>"; };
+		C954FAB8220A2BB00060C488 /* ReplaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplaceView.swift; sourceTree = "<group>"; };
 		C9592D1421D0592C00412CEF /* PyDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PyDocument.swift; sourceTree = "<group>"; };
 		C9592D1521D0592C00412CEF /* ViewControllerTransitionCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerTransitionCoordinator.swift; sourceTree = "<group>"; };
 		C9592D1621D0592C00412CEF /* Xcode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Xcode.swift; sourceTree = "<group>"; };
@@ -1881,6 +1885,8 @@
 			children = (
 				C9E4152A21513E3400D64E32 /* ConsoleTextView.swift */,
 				C9DF70B721715D3D00981B4F /* FileCollectionViewCell.swift */,
+				C954FAB8220A2BB00060C488 /* ReplaceView.swift */,
+				C954FAB4220A165E0060C488 /* Replace.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2395,6 +2401,7 @@
 				C9B5D86221F144E400E980BA /* Untitled.md in Resources */,
 				C9647FFF21ACA00D005765C2 /* Help.py in Resources */,
 				C9530C3E21F8B7BD007B24F3 /* Inspector.storyboard in Resources */,
+				C954FAB5220A165E0060C488 /* Replace.xib in Resources */,
 				C9B5D84B21F119B100E980BA /* Settings.storyboard in Resources */,
 				C9E509A221BC08F900261E3A /* docs in Resources */,
 				C9C0E78B21F0B5770057C63E /* Theme Chooser.storyboard in Resources */,
@@ -2691,6 +2698,7 @@
 				C9B5D87021F20ECC00E980BA /* MarkdownSplitViewController.swift in Sources */,
 				C921EF7821ECC388004C750D /* ActivityViewController.swift in Sources */,
 				C9425A7B21F49B8400E7CC35 /* PySelector.swift in Sources */,
+				C954FAB9220A2BB00060C488 /* ReplaceView.swift in Sources */,
 				C92DBD8221F687480098BE43 /* REPLViewController.swift in Sources */,
 				C9B5D84F21F11AAE00E980BA /* AboutTableViewController.swift in Sources */,
 				C98E2002214F0856002F0178 /* main.m in Sources */,
