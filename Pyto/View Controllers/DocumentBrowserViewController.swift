@@ -417,7 +417,7 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
         collectionView.reloadData()
         
         // Directory observer
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global().async {
             var files = self.scripts_
             while true {
                 if self.stopObserver_ {
