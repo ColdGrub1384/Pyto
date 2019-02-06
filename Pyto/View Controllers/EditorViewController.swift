@@ -592,8 +592,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         searchBar.setShowsCancelButton(true, animated: true)
         searchBar.showsScopeBar = true
-        searchBar.showsBookmarkButton = true
-        searchBar.setImage(UIImage(imageLiteralResourceName: "gear"), for: .bookmark, state: .normal)
         searchBar.scopeButtonTitles = ["Find", "Replace"]
         searchBar.delegate = self
         
@@ -689,10 +687,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
         } else {
             replace = true
         }
-    }
-    
-    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
-        
     }
     
     // MARK: - Actions
