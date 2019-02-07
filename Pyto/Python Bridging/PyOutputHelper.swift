@@ -16,7 +16,17 @@ import UIKit
     /// - Parameters:
     ///     - text: Text to print.
     @objc static func print(_ text: String) {
-        let text_ = text
+        var text_ = text
+        
+        #if MAIN
+        text_ = text_.replacingOccurrences(of: DocumentBrowserViewController.localContainerURL.path, with: "Documents")
+        if let iCloudDrive = DocumentBrowserViewController.iCloudContainerURL?.path {
+            text_ = text_.replacingOccurrences(of: iCloudDrive, with: "iCloud")
+        }
+        
+        text_ = text_.replacingOccurrences(of: Bundle.main.bundlePath, with: "Pyto.app")
+        #endif
+        
         Python.shared.output += text_
         NotificationCenter.default.post(name: .init("DidReceiveOutput"), object: text_)
     }
@@ -26,7 +36,16 @@ import UIKit
     /// - Parameters:
     ///     - text: Text to print.
     @objc static func printError(_ text: String) {
-        let text_ = text
+        var text_ = text
+        
+        #if MAIN
+        text_ = text_.replacingOccurrences(of: DocumentBrowserViewController.localContainerURL.path, with: "Documents")
+        if let iCloudDrive = DocumentBrowserViewController.iCloudContainerURL?.path {
+            text_ = text_.replacingOccurrences(of: iCloudDrive, with: "iCloud")
+        }
+        text_ = text_.replacingOccurrences(of: Bundle.main.bundlePath, with: "Pyto.app")
+        #endif
+        
         Python.shared.output += text_
         
         DispatchQueue.main.async {
