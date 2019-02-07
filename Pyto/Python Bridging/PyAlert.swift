@@ -39,7 +39,7 @@ import UIKit
     /// Show an alert with set parameters.
     ///
     /// - Returns: The title of the pressed action.
-    @objc func show() -> String {
+    @objc func _show() -> String {
         response = nil
         DispatchQueue.main.async {
             let alert = UIAlertController(title: self.title, message: self.message, preferredStyle: .alert)
