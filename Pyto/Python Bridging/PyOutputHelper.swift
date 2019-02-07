@@ -6,7 +6,7 @@
 //  Copyright © 2018 Adrian Labbé. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 /// A class accessible by Rubicon to print without writting to the stdout.
 @objc class PyOutputHelper: NSObject {
@@ -19,5 +19,22 @@ import Foundation
         let text_ = text
         Python.shared.output += text_
         NotificationCenter.default.post(name: .init("DidReceiveOutput"), object: text_)
+    }
+    
+    /// Shows error on visible console.
+    ///
+    /// - Parameters:
+    ///     - text: Text to print.
+    @objc static func printError(_ text: String) {
+        let text_ = text
+        Python.shared.output += text_
+        
+        DispatchQueue.main.async {
+            if let attrStr = ConsoleViewController.visible.textView.attributedText {
+                let mutable = NSMutableAttributedString(attributedString: attrStr)
+                mutable.append(NSAttributedString(string: text_, attributes: [.font : UIFont(name: "Menlo", size: 13) ?? UIFont.systemFont(ofSize: 12), .foregroundColor : #colorLiteral(red: 0.6743632277, green: 0.1917540668, blue: 0.1914597603, alpha: 1)]))
+                ConsoleViewController.visible.textView.attributedText = mutable
+            }
+        }
     }
 }

@@ -25,7 +25,7 @@ protocol DocumentBrowserViewControllerDelegate {
 }
 
 /// The main file browser used to edit scripts.
-class DocumentBrowserViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDropDelegate, UICollectionViewDragDelegate, QLPreviewControllerDataSource {
+@objc class DocumentBrowserViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDropDelegate, UICollectionViewDragDelegate, QLPreviewControllerDataSource {
     
     /// Stops file observer.
     func stopObserver() {
@@ -56,10 +56,10 @@ class DocumentBrowserViewController: UIViewController, UICollectionViewDataSourc
     @IBOutlet weak var collectionView: UICollectionView!
     
     /// Returns the URL for iCloud Drive folder.
-    static let iCloudContainerURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents")
+    @objc static let iCloudContainerURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents")
     
     /// Returns the URL for local folder.
-    static let localContainerURL = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0]
+    @objc static let localContainerURL = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0]
     
     /// Sets directory without affecting navigation bar.
     ///
