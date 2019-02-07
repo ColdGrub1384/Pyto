@@ -282,6 +282,7 @@
 		C9E116E021F773EB00FB5DD2 /* UserREPL.py in Resources */ = {isa = PBXBuildFile; fileRef = C9E116DF21F773EB00FB5DD2 /* UserREPL.py */; };
 		C9E4152B21513E3400D64E32 /* ConsoleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E4152A21513E3400D64E32 /* ConsoleTextView.swift */; };
 		C9E4152E21514F9100D64E32 /* Startup.py in Resources */ = {isa = PBXBuildFile; fileRef = C9E4152D21514F9100D64E32 /* Startup.py */; };
+		C9E501AE220C85B1002719CE /* PyMainThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E501AD220C85B1002719CE /* PyMainThread.swift */; };
 		C9E509A221BC08F900261E3A /* docs in Resources */ = {isa = PBXBuildFile; fileRef = C9E509A121BC08F800261E3A /* docs */; };
 		C9E7060B220793A40003DA61 /* NoScriptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E7060A220793A40003DA61 /* NoScriptViewController.swift */; };
 		C9E7060D220798790003DA61 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E7060C220798790003DA61 /* TodayViewController.swift */; };
@@ -1080,6 +1081,7 @@
 		C9E4152A21513E3400D64E32 /* ConsoleTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleTextView.swift; sourceTree = "<group>"; };
 		C9E4152D21514F9100D64E32 /* Startup.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = Startup.py; sourceTree = "<group>"; };
 		C9E49CF121FDF5A900D30931 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/lib/libbz2.tbd; sourceTree = DEVELOPER_DIR; };
+		C9E501AD220C85B1002719CE /* PyMainThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyMainThread.swift; sourceTree = "<group>"; };
 		C9E509A121BC08F800261E3A /* docs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = docs; sourceTree = SOURCE_ROOT; };
 		C9E7060A220793A40003DA61 /* NoScriptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoScriptViewController.swift; sourceTree = "<group>"; };
 		C9E7060C220798790003DA61 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -1455,6 +1457,7 @@
 				C93CA8B422022E67008DD049 /* QuickLookHelper.swift */,
 				C91321C321FB31C700437845 /* ConsoleViewController+showViewController.m */,
 				C91321BE21FA934300437845 /* PyMainThread.m */,
+				C9E501AD220C85B1002719CE /* PyMainThread.swift */,
 				C9624EF321A9905400DDA9A7 /* PyThread.swift */,
 				C95A79E7214DC9D0007A1B90 /* PyAlert.swift */,
 				C9425A7921F49B5A00E7CC35 /* Selectors */,
@@ -2690,6 +2693,7 @@
 				C9C0E78F21F0BC640057C63E /* ReadOnlyTheme.swift in Sources */,
 				C904EB7321445D5800585C28 /* Python.swift in Sources */,
 				C92495C72151A3E3007EB4DB /* ReviewHelper.swift in Sources */,
+				C9E501AE220C85B1002719CE /* PyMainThread.swift in Sources */,
 				C9425A7821F49B1300E7CC35 /* BlockBasedSelector.swift in Sources */,
 				C99E8D7021F0D03400C71884 /* CoolGlow.swift in Sources */,
 				C9C0E78121EF735F0057C63E /* LowKey.swift in Sources */,

@@ -745,9 +745,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         if ConsoleViewController.isMainLoopRunning {
             ConsoleViewController.visible.closePresentedViewController()
             DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-                Python.shared.stop()
-                ConsoleViewController.visible.textView.resignFirstResponder()
-                ConsoleViewController.visible.textView.isEditable = false
+                stop_()
             }
         } else {
             stop_()
