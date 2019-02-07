@@ -2,6 +2,8 @@ import UIKit
 
 extension UITextView {
     
+    // MARK: - Words
+    
     /// Returns the range of the selected word.
     var currentWordRange: UITextRange? {
         let beginning = beginningOfDocument
@@ -51,5 +53,30 @@ extension UITextView {
         }
         
         return nil
+    }
+    
+    // MARK: - Lines
+    
+    /// Returns the range of the selected line.
+    var currentLineRange: UITextRange? {
+        let beginning = beginningOfDocument
+        
+        if let start = position(from: beginning, offset: selectedRange.location),
+            let end = position(from: start, offset: selectedRange.length) {
+            
+            let textRange = tokenizer.rangeEnclosingPosition(end, with: .line, inDirection: UITextDirection(rawValue: 1))
+            
+            return textRange ?? selectedTextRange
+        }
+        return selectedTextRange
+    }
+    
+    /// Returns the current selected line.
+    var currentLine : String? {
+        if let textRange = currentLineRange {
+            return text(in: textRange)
+        } else {
+            return nil
+        }
     }
 }
