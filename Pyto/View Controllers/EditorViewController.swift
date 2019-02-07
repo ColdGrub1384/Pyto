@@ -571,6 +571,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             replace = false
             
             searchBar.removeFromSuperview()
+            searchBar.resignFirstResponder()
             textView.contentInset.top = 0
             textView.contentTextView.scrollIndicatorInsets.top = 0
             
@@ -578,6 +579,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
             textView.delegate = nil
             textView.text = text
             textView.delegate = self
+            
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                self.textView.contentTextView.becomeFirstResponder()
+            }
             
             return
         }
@@ -649,17 +654,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     // MARK: - Search bar delegate
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.removeFromSuperview()
-        
-        replace = false
-        
-        textView.contentInset.top = 0
-        textView.contentTextView.scrollIndicatorInsets.top = 0
-        
-        let text = textView.text
-        textView.delegate = nil
-        textView.text = text
-        textView.delegate = self
+        search()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
