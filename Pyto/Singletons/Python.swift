@@ -270,9 +270,7 @@ import Cocoa
                     item?.rightBarButtonItem = editor.runBarButtonItem
                 }
                 item?.rightBarButtonItem?.isEnabled = (self.isScriptRunning == self.isScriptRunning)
-                #endif
-                
-                QuickLookHelper.visible = nil
+                #endif                
             }
             #elseif os(macOS)
             if !isScriptRunning && process?.isRunning == true {
