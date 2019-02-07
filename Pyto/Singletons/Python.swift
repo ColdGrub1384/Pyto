@@ -240,12 +240,19 @@ import Cocoa
     
     #if os(iOS)
     
-    /// Set to `false` to stop a script.
+    /// Set to `false` to send `SystemExit`.
     @objc private var _isScriptRunning = false
     
-    /// Stops running script.
+    /// Set to `true` to send `KeyboardInterrupt`.
+    @objc private var _interrupt = false
+    
+    /// Sends `SystemExit`.
     @objc public func stop() {
         _isScriptRunning = false
+    }
+    
+    @objc public func interrupt() {
+        _interrupt = true
     }
     
     #endif
