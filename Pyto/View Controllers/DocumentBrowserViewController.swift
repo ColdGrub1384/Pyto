@@ -338,6 +338,7 @@ protocol DocumentBrowserViewControllerDelegate {
         }
                 
         let editor = EditorViewController(document: document)
+        editor.shouldRun = run
         let contentVC = ConsoleViewController.visible
         contentVC.view.backgroundColor = .white
         
@@ -371,7 +372,6 @@ protocol DocumentBrowserViewControllerDelegate {
             splitVC.firstChild = editor
             splitVC.secondChild = contentVC
             
-            editor.shouldRun = run
             completion?()
         })
     }
