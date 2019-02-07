@@ -70,7 +70,7 @@ class EditorSplitViewController: SplitViewController {
     
     /// Interrupts current running script.
     @objc func interrupt() {
-        editor.stop()
+        Python.shared.interrupt()
     }
     
     override var keyCommands: [UIKeyCommand]? {
