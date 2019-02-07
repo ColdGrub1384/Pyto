@@ -166,7 +166,11 @@ import InputAssistant
         if let output = notification.object as? String {
             DispatchQueue.main.async {
                 self.console += output
-                self.textView.text.append(output)
+                
+                let attrStr = NSMutableAttributedString(attributedString: self.textView.attributedText)
+                attrStr.append(NSAttributedString(string: output, attributes: [.font : UIFont(name: "Menlo", size: 12) ?? UIFont.systemFont(ofSize: 12)]))
+                self.textView.attributedText = attrStr
+                
                 self.textViewDidChange(self.textView)
                 self.textView.scrollToBottom()
             }
