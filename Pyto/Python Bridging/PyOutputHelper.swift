@@ -31,7 +31,11 @@ import UIKit
         DispatchQueue.main.async {
             if let attrStr = ConsoleViewController.visible.textView.attributedText {
                 let mutable = NSMutableAttributedString(attributedString: attrStr)
-                mutable.append(NSAttributedString(string: text_, attributes: [.font : UIFont(name: "Menlo", size: 13) ?? UIFont.systemFont(ofSize: 12)]))
+                var attributes: [NSAttributedString.Key : AnyHashable] = [.font : UIFont(name: "Menlo", size: 13) ?? UIFont.systemFont(ofSize: 12)]
+                #if MAIN
+                attributes[.foregroundColor] = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
+                #endif
+                mutable.append(NSAttributedString(string: text_, attributes: attributes))
                 ConsoleViewController.visible.textView.attributedText = mutable
             }
         }
