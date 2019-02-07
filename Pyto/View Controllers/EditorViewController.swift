@@ -944,6 +944,27 @@ fileprivate func parseArgs(_ args: inout [String]) {
             return false
         }
         
+        if text == "\n", var currentLine = textView.currentLine {
+            
+            var spaces = ""
+            while currentLine.hasPrefix(" ") {
+                currentLine.removeFirst()
+                spaces += " "
+            }
+            
+            if currentLine.replacingOccurrences(of: " ", with: "").hasSuffix(":") {
+                if spaces.isEmpty {
+                    spaces = "  "
+                } else {
+                    spaces += spaces
+                }
+            }
+            
+            textView.insertText("\n"+spaces)
+            
+            return false
+        }
+        
         return true
     }
     
