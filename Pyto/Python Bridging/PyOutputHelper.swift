@@ -11,8 +11,7 @@ import UIKit
 /// A class accessible by Rubicon to print without writting to the stdout.
 @objc class PyOutputHelper: NSObject {
     
-    /// Appends text to all `ConsoleViewController`s instances. Sends `"DidReceiveOutput"` notification with given parameter.
-    ///
+    /// Shows output on visible console.
     /// - Parameters:
     ///     - text: Text to print.
     @objc static func print(_ text: String) {
@@ -28,7 +27,14 @@ import UIKit
         #endif
         
         Python.shared.output += text_
-        NotificationCenter.default.post(name: .init("DidReceiveOutput"), object: text_)
+        
+        DispatchQueue.main.async {
+            if let attrStr = ConsoleViewController.visible.textView.attributedText {
+                let mutable = NSMutableAttributedString(attributedString: attrStr)
+                mutable.append(NSAttributedString(string: text_, attributes: [.font : UIFont(name: "Menlo", size: 13) ?? UIFont.systemFont(ofSize: 12)]))
+                ConsoleViewController.visible.textView.attributedText = mutable
+            }
+        }
     }
     
     /// Shows error on visible console.
