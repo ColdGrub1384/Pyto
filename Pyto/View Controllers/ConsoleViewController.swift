@@ -98,8 +98,29 @@ import InputAssistant
     
     private var willReloadSuggestion = false
     
+    private var _suggestions = [String]()
+    
     /// Code completion suggestions for the REPL.
-    @objc var suggestions = [String]()
+    @objc var suggestions: [String] {
+        set {
+            
+            _suggestions = []
+            
+            // Here I'm trying to fix a EXC_BAD_ACCESS crash
+            
+            for suggestion in newValue {
+                _suggestions.append(suggestion)
+            }
+            // Disabled due to multiple crashes
+            /*DispatchQueue.main.async {
+                self.inputAssistant.reloadData()
+            }*/
+        }
+        
+        get {
+            return _suggestions
+        }
+    }
     
     /// Code completion suggestions values for the REPL.
     @objc var completions = [String]()
