@@ -450,8 +450,13 @@ import InputAssistant
     override open func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         super.dismiss(animated: flag, completion: completion)
         
+        #if MAIN
         view.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
         navigationController?.view.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
+        #else
+        view.backgroundColor = .white
+        navigationController?.view.backgroundColor = .white
+        #endif
     }
     
     override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
