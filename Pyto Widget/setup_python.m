@@ -10,9 +10,5 @@
 #import "../Pyto/main.m"
 
 void setup_python() {
-    
-    init_python(0, NULL);
-    
-    init_numpy();
-    init_matplotlib();
+    init_python();
 }

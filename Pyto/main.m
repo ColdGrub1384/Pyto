@@ -214,7 +214,7 @@ void init_matplotlib() {
 #if MAIN
 int main(int argc, char *argv[]) {
 #else
-void init_python(int argc, char *argv[]) {
+void init_python() {
 #endif
     
     pythonHome = Python.shared.bundle.bundlePath;
@@ -242,6 +242,12 @@ void init_python(int argc, char *argv[]) {
     PyEval_InitThreads();
     
     // MARK: - Set Python arguments
+    
+    #if !MAIN
+    int argc = 0;
+    const char *argv[0] = {};
+    #endif
+    
     wchar_t** python_argv = PyMem_RawMalloc(sizeof(wchar_t*) * argc);
     int i;
     for (i = 0; i < argc; i++) {
