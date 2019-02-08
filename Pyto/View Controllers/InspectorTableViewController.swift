@@ -11,6 +11,14 @@ import UIKit
 /// A View controller for inspecting variables.
 class InspectorTableViewController: UITableViewController {
     
+    private func replacePaths(description: inout String) {
+        description = description.replacingOccurrences(of: DocumentBrowserViewController.localContainerURL.path, with: "Documents")
+        if let iCloudDrive = DocumentBrowserViewController.iCloudContainerURL?.path {
+            description = description.replacingOccurrences(of: iCloudDrive, with: "iCloud")
+        }
+        description = description.replacingOccurrences(of: Bundle.main.bundlePath, with: "Pyto.app")
+    }
+    
     /// The hierarchy.
     var hierarchy = [String:Any]() {
         didSet {
@@ -87,7 +95,9 @@ class InspectorTableViewController: UITableViewController {
                 str += "\n"+doc+"\n\n"
             }
             
-            str += "\(NSDictionary(dictionary: dict))"
+            var description_ = "\(NSDictionary(dictionary: dict))"
+            replacePaths(description: &description_)
+            str += description_
             
             textView.text = str
         } else {
@@ -125,6 +135,7 @@ class InspectorTableViewController: UITableViewController {
         let key = keys[indexPath.row]
         
         var value = (hierarchy[key] as? String) ?? ((hierarchy[key] as? [String:Any])?["__name__"] as? String) ?? String(describing: hierarchy[key] ?? "")
+        replacePaths(description: &value)
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "variable", for: indexPath)
         cell.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
