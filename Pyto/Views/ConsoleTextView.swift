@@ -21,12 +21,6 @@ class ConsoleTextView: UITextView {
         autocorrectionType = .no
     }
     
-    /// Scrolls to the bottom of the text view.
-    func scrollToBottom() {
-        let range = NSMakeRange((text as NSString).length - 1, 1)
-        scrollRangeToVisible(range)
-    }
-    
     override func caretRect(for position: UITextPosition) -> CGRect {
         
         if position != endOfDocument {

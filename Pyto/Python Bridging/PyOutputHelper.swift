@@ -37,6 +37,7 @@ import UIKit
                 #endif
                 mutable.append(NSAttributedString(string: text_, attributes: attributes))
                 ConsoleViewController.visible.textView.attributedText = mutable
+                ConsoleViewController.visible.textView.scrollToBottom()
             }
         }
     }
@@ -63,6 +64,7 @@ import UIKit
                 let mutable = NSMutableAttributedString(attributedString: attrStr)
                 mutable.append(NSAttributedString(string: text_, attributes: [.font : UIFont(name: "Menlo", size: 13) ?? UIFont.systemFont(ofSize: 12), .foregroundColor : #colorLiteral(red: 0.6743632277, green: 0.1917540668, blue: 0.1914597603, alpha: 1)]))
                 ConsoleViewController.visible.textView.attributedText = mutable
+                ConsoleViewController.visible.textView.scrollToBottom()
             }
         }
     }
