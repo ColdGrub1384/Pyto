@@ -6,13 +6,19 @@ __builtins__.widget = "widget"
 __builtins__.app = "app"
 __builtins__.__host__ = widget
 
-import importlib.util
-from time import sleep
-import sys
-from outputredirector import *
-from extensionsimporter import *
-import pyto
-import io
+import traceback
+
+try:
+    import importlib.util
+    from time import sleep
+    import sys
+    from outputredirector import *
+    from extensionsimporter import *
+    import pyto
+    import io
+except Exception as e:
+    ex_type, ex, tb = sys.exc_info()
+    traceback.print_tb(tb)
     
 # MARK: - Create selector without class
     
