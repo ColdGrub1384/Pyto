@@ -17,6 +17,7 @@
 		C90A8029220CFE2200C9A5A1 /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* UITextView.swift */; };
 		C90A803E220D0E0300C9A5A1 /* PyMainThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E501AD220C85B1002719CE /* PyMainThread.swift */; };
 		C90A803F220D0E0400C9A5A1 /* PyMainThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E501AD220C85B1002719CE /* PyMainThread.swift */; };
+		C90A8061220D25CD00C9A5A1 /* main.py in Copy main.py */ = {isa = PBXBuildFile; fileRef = C9E706232207A3320003DA61 /* main.py */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C90FB05F21FDEE7300DF66DB /* python3.7 in Resources */ = {isa = PBXBuildFile; fileRef = C90FB05E21FDEE7300DF66DB /* python3.7 */; };
 		C90FB06421FDEF1100DF66DB /* site-packages in Resources */ = {isa = PBXBuildFile; fileRef = C9BE01B021530BAF00A8C825 /* site-packages */; };
 		C90FB06F21FDF10600DF66DB /* docs in Resources */ = {isa = PBXBuildFile; fileRef = C9E509A121BC08F800261E3A /* docs */; };
@@ -301,7 +302,6 @@
 		C9E7061E2207A06F0003DA61 /* PyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A79E7214DC9D0007A1B90 /* PyAlert.swift */; };
 		C9E7061F2207A0760003DA61 /* Python.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904EB7221445D5800585C28 /* Python.swift */; };
 		C9E706202207A1460003DA61 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E22145D50A00C8B5E3 /* String.swift */; };
-		C9E706242207A3320003DA61 /* main.py in Resources */ = {isa = PBXBuildFile; fileRef = C9E706232207A3320003DA61 /* main.py */; };
 		C9E706272207A56B0003DA61 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1721D0592C00412CEF /* Localizable.swift */; };
 		C9E7062A2207A5700003DA61 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9F04E852173C33400BDD03E /* Localizable.strings */; };
 		C9E7062B2207A5CF0003DA61 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A62144620A00382DCC /* libz.tbd */; };
@@ -474,6 +474,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		C90A8060220D25BF00C9A5A1 /* Copy main.py */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				C90A8061220D25CD00C9A5A1 /* main.py in Copy main.py */,
+			);
+			name = "Copy main.py";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C946A5BA22074EAA00F78C5C /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2094,6 +2105,7 @@
 				C946A5A422074EA900F78C5C /* Sources */,
 				C946A5A522074EA900F78C5C /* Frameworks */,
 				C946A5A622074EA900F78C5C /* Resources */,
+				C90A8060220D25BF00C9A5A1 /* Copy main.py */,
 			);
 			buildRules = (
 			);
@@ -2334,7 +2346,6 @@
 			files = (
 				C9E7062A2207A5700003DA61 /* Localizable.strings in Resources */,
 				C946A5CC22078C1D00F78C5C /* Assets.xcassets in Resources */,
-				C9E706242207A3320003DA61 /* main.py in Resources */,
 				C946A5B022074EAA00F78C5C /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
