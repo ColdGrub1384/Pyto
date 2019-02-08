@@ -15,6 +15,7 @@ import importlib
 import threading
 from outputredirector import *
 import io
+import traceback
 
 pyto.Python.shared.version = sys.version
 
@@ -32,7 +33,7 @@ __builtins__.input = askForInput
 # MARK: - Output
 
 def read(text):
-    pyto.ConsoleViewController.visible.print(text)
+    Pyto.print(text, end="")
 
 standardOutput = Reader(read)
 standardOutput._buffer = io.BufferedWriter(standardOutput)
@@ -59,8 +60,12 @@ __builtins__.deprecated = ["runAsync", "runSync", "generalPasteboard", "setStrin
 
 # MARK: - Run script
 
-try:
-    SourceFileLoader("main", "%@").load_module()
-except Exception as e:
-    print(e)
+script = "%@"
 
+print("Will run "+script+"\n")
+
+try:
+    SourceFileLoader("main", script).load_module()
+except Exception as e:
+    ex_type, ex, tb = sys.exc_info()
+    traceback.print_tb(tb)
