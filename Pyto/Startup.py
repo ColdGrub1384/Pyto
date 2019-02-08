@@ -1,45 +1,39 @@
-__builtins__.iOS = "iOS"
-__builtins__.macOS = "macOS"
-__builtins__.__platform__ = __builtins__.iOS
+__builtins__.iOS = 'iOS'
+__builtins__.macOS = 'macOS'
+__builtins__.__platform__ = iOS
 
-__builtins__.widget = "widget"
-__builtins__.app = "app"
-__builtins__.__host__ = app
+__builtins__.widget = 'widget'
+__builtins__.app = 'app'
+__builtins__.__host__ = None
 
 import sys
-import os
-
-sys.path.insert(0, os.path.expanduser("~/Library/pylib"))
-sys.path.insert(0, os.path.expanduser("~/Documents"))
-sys.path.insert(0, os.path.expanduser("~/Documents/modules"))
-
-import io
-import console
+import console as Pyto
 import code
 import pyto
 from importlib.machinery import SourceFileLoader
 import importlib
 import threading
-from time import sleep
-from outputredirector import Reader
-from extensionsimporter import *
+from outputredirector import *
+import io
+import traceback
 
 pyto.Python.shared.version = sys.version
 
 # MARK: - Input
 
 def askForInput(prompt=None):
-    if (threading.currentThread() in console.ignoredThreads):
+    if (threading.currentThread() in Pyto.ignoredThreads):
         return ""
     else:
-        return console.input(prompt)
+        return Pyto.input(prompt)
+
 
 __builtins__.input = askForInput
 
 # MARK: - Output
 
 def read(text):
-    console.print(text, end="")
+    Pyto.print(text, end="")
 
 standardOutput = Reader(read)
 standardOutput._buffer = io.BufferedWriter(standardOutput)
@@ -50,24 +44,28 @@ standardError._buffer = io.BufferedWriter(standardError)
 sys.stdout = standardOutput
 sys.stderr = standardError
 
-# MARK: - Modules
+# MARK: - REPL
 
-sys.meta_path.append(NumpyImporter())
-sys.meta_path.append(MatplotlibImporter())
+interact = code.interact
+def newInteract():
+    pyto.Python.shared.isREPLRunning = True
+    interact()
+code.interact = newInteract
 
 # MARK: - Create a Selector without class.
 
 __builtins__.Selector = pyto.PySelector.makeSelector
 __builtins__.Target = pyto.SelectorTarget.shared
-
-# MARK: - Deprecations
-
 __builtins__.deprecated = ["runAsync", "runSync", "generalPasteboard", "setString", "setStrings", "setImage", "setImages", "setURL", "setURLs", "showViewController", "closeViewController", "mainLoop", "openURL", "shareItems", "pickDocumentsWithFilePicker"]
 
 # MARK: - Run script
 
-while True:
-    try:
-        SourceFileLoader("main", "%@").load_module()
-    except Exception as e:
-        print(e)
+script = "%@"
+
+print("Will run "+script+"\n")
+
+try:
+    SourceFileLoader("main", script).load_module()
+except Exception as e:
+    ex_type, ex, tb = sys.exc_info()
+    traceback.print_tb(tb)

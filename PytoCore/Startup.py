@@ -14,6 +14,7 @@ from importlib.machinery import SourceFileLoader
 import importlib
 import threading
 from outputredirector import *
+import io
 
 pyto.Python.shared.version = sys.version
 

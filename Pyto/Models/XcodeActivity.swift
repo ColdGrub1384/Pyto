@@ -147,9 +147,11 @@ class XcodeActivity: UIActivity {
                         
                         try info.write(to: destURL.appendingPathComponent("Python App").appendingPathComponent("Info.plist"))
                         
+                        let zipURL = try Zip.quickZipFiles([destURL], fileName: destURL.lastPathComponent)
+                        
                         DispatchQueue.main.async {
                             activityAlert.dismiss(animated: true, completion: {
-                                let activityVC = UIActivityViewController(activityItems: [destURL], applicationActivities: nil)
+                                let activityVC = UIActivityViewController(activityItems: [zipURL], applicationActivities: nil)
                                 activityVC.popoverPresentationController?.barButtonItem = EditorSplitViewController.visible?.editor.shareItem
                                 UIApplication.shared.keyWindow?.topViewController?.present(activityVC, animated: true, completion: nil)
                             })
