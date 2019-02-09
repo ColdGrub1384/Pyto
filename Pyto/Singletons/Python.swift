@@ -148,10 +148,16 @@ import Cocoa
     /// Pipe used for standard input.
     var inputPipe = Pipe()
     
+    /// Pipe used for standard output.
+    var outputPipe = Pipe()
+    
+    /// Pipe used for standard error.
+    var errorPipe = Pipe()
+    
     /// The process running Python.
     var process: Process?
     
-    /// Run script at given URL.
+    /// Run script at given URL in a subprocess.
     ///
     /// - Parameters:
     ///     - url: URL of the Python script to run.
@@ -193,47 +199,59 @@ import Cocoa
             "/usr/local/lib/python3.7/site-packages"
             ].joined(separator: ":")
         
-        let readabilityHandler: ((FileHandle) -> Void) = { handle in
-            if let str = String(data: handle.availableData, encoding: .utf8), str != "" {
-                NotificationCenter.default.post(name: .init(rawValue: "DidReceiveOutput"), object: str)
+        inputPipe = Pipe()
+        outputPipe = Pipe()
+        errorPipe = Pipe()
+        
+        func read(handle: FileHandle) {
+            guard let str = String(data: handle.availableData, encoding: .utf8), !str.isEmpty else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                for window in NSApp.windows {
+                    if let editor = window.contentViewController as? EditorViewController {
+                        if str != "Pyto.console.clear" && str != "Pyto.console.clear\n" {
+                            editor.consoleTextView.string += str
+                            editor.console += str
+                        } else {
+                            editor.consoleTextView.string = ""
+                            editor.console = ""
+                        }
+                    }
+                }
             }
         }
         
-        inputPipe = Pipe()
-        
-        let stdout_ = Pipe()
-        stdout_.fileHandleForReading.readabilityHandler = readabilityHandler
-        
-        let stderr_ = Pipe()
-        stderr_.fileHandleForReading.readabilityHandler = readabilityHandler
+        outputPipe.fileHandleForReading.readabilityHandler = read
+        errorPipe.fileHandleForReading.readabilityHandler = read
         
         process = Process()
         process?.executableURL = pythonExecutble
-        process?.arguments = [tmpFile]
-        process?.environment = [
-            "TMP"        : NSTemporaryDirectory(),
-            "PYTHONHOME" : Bundle.main.resourcePath ?? "",
-            "PYTHONPATH" : pythonPath,
-            "MPLBACKEND" : "TkAgg",
-        ]
+        process?.arguments = ["-u", tmpFile]
+        
+        var environment               = ProcessInfo.processInfo.environment
+        environment["TMP"]            = NSTemporaryDirectory()
+        environment["PYTHONHOME"]     = Bundle.main.resourcePath ?? ""
+        environment["PYTHONPATH"]     = pythonPath
+        environment["MPLBACKEND"]     = "TkAgg"
+        environment["NSUnbufferedIO"] = "YES"
+        process?.environment          = environment
+        
         process?.terminationHandler = { _ in
             self.isScriptRunning = false
         }
-        process?.standardOutput = stdout_
-        process?.standardError = stderr_
+        process?.standardOutput = outputPipe
+        process?.standardError = errorPipe
         process?.standardInput = inputPipe
         isScriptRunning = true
         
         EditorViewController.clear()
         
-        DispatchQueue.global().async {
-            do {
-                try self.process?.run()
-                self.process?.waitUntilExit()
-            } catch {
-                self.isScriptRunning = false
-                NSApp.presentError(error)
-            }
+        do {
+            try process?.run()
+        } catch {
+            NSApp.presentError(error)
         }
     }
     #endif

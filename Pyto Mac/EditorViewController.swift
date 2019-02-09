@@ -28,21 +28,6 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
     /// Console content.
     @objc var console = ""
     
-    /// Prints text when notification is called.
-    @objc static func print(_ notification: Notification) {
-        if let str = notification.object as? String {
-            
-            DispatchQueue.main.async {
-                for window in NSApp.windows {
-                    if let editor = window.contentViewController as? EditorViewController {
-                        editor.consoleTextView.string += str
-                        editor.console += str
-                    }
-                }
-            }
-        }
-    }
-    
     /// Toggles stop and play button.
     @objc static func toggleStopButton() {
         DispatchQueue.main.async {
@@ -198,7 +183,9 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
             } else if replacementString == "\n", let data = (prompt+"\n").data(using: .utf8) {
                 console += prompt+"\n"
                 prompt = ""
-                Python.shared.inputPipe.fileHandleForWriting.write(data)
+                if Python.shared.isScriptRunning {
+                    Python.shared.inputPipe.fileHandleForWriting.write(data)
+                }
             } else {
                 prompt += replacementString ?? ""
             }

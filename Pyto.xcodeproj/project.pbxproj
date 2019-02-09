@@ -17,7 +17,6 @@
 		C90A8029220CFE2200C9A5A1 /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* UITextView.swift */; };
 		C90A803E220D0E0300C9A5A1 /* PyMainThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E501AD220C85B1002719CE /* PyMainThread.swift */; };
 		C90A803F220D0E0400C9A5A1 /* PyMainThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E501AD220C85B1002719CE /* PyMainThread.swift */; };
-		C90A8061220D25CD00C9A5A1 /* main.py in Copy main.py */ = {isa = PBXBuildFile; fileRef = C9E706232207A3320003DA61 /* main.py */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C90FB05F21FDEE7300DF66DB /* python3.7 in Resources */ = {isa = PBXBuildFile; fileRef = C90FB05E21FDEE7300DF66DB /* python3.7 */; };
 		C90FB06421FDEF1100DF66DB /* site-packages in Resources */ = {isa = PBXBuildFile; fileRef = C9BE01B021530BAF00A8C825 /* site-packages */; };
 		C90FB06F21FDF10600DF66DB /* docs in Resources */ = {isa = PBXBuildFile; fileRef = C9E509A121BC08F800261E3A /* docs */; };
@@ -46,33 +45,6 @@
 		C9317EEC21FF2DD00016E422 /* Python.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904EB7221445D5800585C28 /* Python.swift */; };
 		C9317EEE21FF35EB0016E422 /* _tkinter.cpython-37m-darwin.so in Resources */ = {isa = PBXBuildFile; fileRef = C9317EED21FF35EB0016E422 /* _tkinter.cpython-37m-darwin.so */; };
 		C9317EF121FF59CD0016E422 /* PyObjC in Resources */ = {isa = PBXBuildFile; fileRef = C9317EF021FF59CC0016E422 /* PyObjC */; };
-		C9317EF421FF67B40016E422 /* ft2font.cpython-37m-darwin.so in Frameworks */ = {isa = PBXBuildFile; fileRef = C9317EF321FF67B40016E422 /* ft2font.cpython-37m-darwin.so */; };
-		C9317EF921FF67C30016E422 /* _tri.cpython-37m-darwin.so in Frameworks */ = {isa = PBXBuildFile; fileRef = C9317EF521FF67C20016E422 /* _tri.cpython-37m-darwin.so */; };
-		C9317EFA21FF67C30016E422 /* _contour.cpython-37m-darwin.so in Frameworks */ = {isa = PBXBuildFile; fileRef = C9317EF621FF67C20016E422 /* _contour.cpython-37m-darwin.so */; };
-		C9317EFB21FF67C30016E422 /* _qhull.cpython-37m-darwin.so in Frameworks */ = {isa = PBXBuildFile; fileRef = C9317EF721FF67C20016E422 /* _qhull.cpython-37m-darwin.so */; };
-		C9317EFC21FF67C30016E422 /* ttconv.cpython-37m-darwin.so in Frameworks */ = {isa = PBXBuildFile; fileRef = C9317EF821FF67C30016E422 /* ttconv.cpython-37m-darwin.so */; };
-		C9317F0021FF67FD0016E422 /* _image.cpython-37m-darwin.so in Frameworks */ = {isa = PBXBuildFile; fileRef = C9317EFD21FF67FB0016E422 /* _image.cpython-37m-darwin.so */; };
-		C9317F0121FF67FD0016E422 /* _path.cpython-37m-darwin.so in Frameworks */ = {isa = PBXBuildFile; fileRef = C9317EFE21FF67FB0016E422 /* _path.cpython-37m-darwin.so */; };
-		C9317F0221FF67FD0016E422 /* _png.cpython-37m-darwin.so in Frameworks */ = {isa = PBXBuildFile; fileRef = C9317EFF21FF67FC0016E422 /* _png.cpython-37m-darwin.so */; };
-		C9317F0421FF680E0016E422 /* _backend_agg.cpython-37m-darwin.so in Frameworks */ = {isa = PBXBuildFile; fileRef = C9317F0321FF680E0016E422 /* _backend_agg.cpython-37m-darwin.so */; };
-		C9317F0E21FF69E60016E422 /* _png.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9317F0521FF69E50016E422 /* _png.framework */; };
-		C9317F0F21FF69E60016E422 /* _qhull.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9317F0621FF69E50016E422 /* _qhull.framework */; };
-		C9317F1021FF69E60016E422 /* _path.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9317F0721FF69E50016E422 /* _path.framework */; };
-		C9317F1121FF69E60016E422 /* _backend_agg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9317F0821FF69E50016E422 /* _backend_agg.framework */; };
-		C9317F1221FF69E60016E422 /* _image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9317F0921FF69E60016E422 /* _image.framework */; };
-		C9317F1321FF69E60016E422 /* _tri.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9317F0A21FF69E60016E422 /* _tri.framework */; };
-		C9317F1421FF69E60016E422 /* ttconv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9317F0B21FF69E60016E422 /* ttconv.framework */; };
-		C9317F1521FF69E60016E422 /* ft2font.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9317F0C21FF69E60016E422 /* ft2font.framework */; };
-		C9317F1621FF69E60016E422 /* _contour.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9317F0D21FF69E60016E422 /* _contour.framework */; };
-		C9317F1821FF69F60016E422 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9317F1721FF69F60016E422 /* Info.plist */; };
-		C9317F1A21FF69FE0016E422 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9317F1921FF69FD0016E422 /* Info.plist */; };
-		C9317F1C21FF6A070016E422 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9317F1B21FF6A070016E422 /* Info.plist */; };
-		C9317F1E21FF6A0E0016E422 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9317F1D21FF6A0D0016E422 /* Info.plist */; };
-		C9317F2021FF6A150016E422 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9317F1F21FF6A150016E422 /* Info.plist */; };
-		C9317F2221FF6A1C0016E422 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9317F2121FF6A1C0016E422 /* Info.plist */; };
-		C9317F2421FF6A780016E422 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9317F2321FF6A770016E422 /* Info.plist */; };
-		C9317F2621FF6A7F0016E422 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9317F2521FF6A7F0016E422 /* Info.plist */; };
-		C9317F2821FF6A860016E422 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9317F2721FF6A860016E422 /* Info.plist */; };
 		C93CA8B522022E67008DD049 /* QuickLookHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93CA8B422022E67008DD049 /* QuickLookHelper.swift */; };
 		C93CA8B822022E6E008DD049 /* QuickLookHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93CA8B422022E67008DD049 /* QuickLookHelper.swift */; };
 		C93D61DD2145CD0800C8B5E3 /* PyInputHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DC2145CD0800C8B5E3 /* PyInputHelper.swift */; };
@@ -474,17 +446,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		C90A8060220D25BF00C9A5A1 /* Copy main.py */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 7;
-			files = (
-				C90A8061220D25CD00C9A5A1 /* main.py in Copy main.py */,
-			);
-			name = "Copy main.py";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C946A5BA22074EAA00F78C5C /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1096,7 +1057,6 @@
 		C9E7060A220793A40003DA61 /* NoScriptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoScriptViewController.swift; sourceTree = "<group>"; };
 		C9E7060C220798790003DA61 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		C9E7061322079EE10003DA61 /* Pyto Widget-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pyto Widget-Bridging-Header.h"; sourceTree = "<group>"; };
-		C9E706232207A3320003DA61 /* main.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = main.py; sourceTree = "<group>"; };
 		C9E7062C2207A6FD0003DA61 /* setup_python.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = setup_python.m; sourceTree = "<group>"; };
 		C9E7ABAA2152D0D30007BB87 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		C9E98D932200BF5100C60946 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -1248,25 +1208,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9317F1621FF69E60016E422 /* _contour.framework in Frameworks */,
-				C9317F1421FF69E60016E422 /* ttconv.framework in Frameworks */,
-				C9317F0121FF67FD0016E422 /* _path.cpython-37m-darwin.so in Frameworks */,
-				C9317EFA21FF67C30016E422 /* _contour.cpython-37m-darwin.so in Frameworks */,
 				3482C17AEEF15F7B57213707 /* Pods_Pyto_Mac.framework in Frameworks */,
-				C9317EF921FF67C30016E422 /* _tri.cpython-37m-darwin.so in Frameworks */,
-				C9317F0E21FF69E60016E422 /* _png.framework in Frameworks */,
-				C9317F0F21FF69E60016E422 /* _qhull.framework in Frameworks */,
-				C9317EFC21FF67C30016E422 /* ttconv.cpython-37m-darwin.so in Frameworks */,
-				C9317F1521FF69E60016E422 /* ft2font.framework in Frameworks */,
-				C9317F0021FF67FD0016E422 /* _image.cpython-37m-darwin.so in Frameworks */,
-				C9317F1321FF69E60016E422 /* _tri.framework in Frameworks */,
-				C9317EF421FF67B40016E422 /* ft2font.cpython-37m-darwin.so in Frameworks */,
-				C9317EFB21FF67C30016E422 /* _qhull.cpython-37m-darwin.so in Frameworks */,
-				C9317F0421FF680E0016E422 /* _backend_agg.cpython-37m-darwin.so in Frameworks */,
-				C9317F1221FF69E60016E422 /* _image.framework in Frameworks */,
-				C9317F1121FF69E60016E422 /* _backend_agg.framework in Frameworks */,
-				C9317F1021FF69E60016E422 /* _path.framework in Frameworks */,
-				C9317F0221FF67FD0016E422 /* _png.cpython-37m-darwin.so in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1538,7 +1480,6 @@
 				C946A5AC22074EAA00F78C5C /* ConsoleViewController.swift */,
 				C9E7060A220793A40003DA61 /* NoScriptViewController.swift */,
 				C9E7060C220798790003DA61 /* TodayViewController.swift */,
-				C9E706232207A3320003DA61 /* main.py */,
 				C946A5AE22074EAA00F78C5C /* MainInterface.storyboard */,
 				C946A5B122074EAA00F78C5C /* Info.plist */,
 				C9E7061322079EE10003DA61 /* Pyto Widget-Bridging-Header.h */,
@@ -2105,7 +2046,6 @@
 				C946A5A422074EA900F78C5C /* Sources */,
 				C946A5A522074EA900F78C5C /* Frameworks */,
 				C946A5A622074EA900F78C5C /* Resources */,
-				C90A8060220D25BF00C9A5A1 /* Copy main.py */,
 			);
 			buildRules = (
 			);
@@ -2125,7 +2065,7 @@
 				C94CC2B621FCEF6C005E9556 /* Frameworks */,
 				C94CC2B721FCEF6C005E9556 /* Resources */,
 				06F1472A199D0ADBF99FE1D1 /* [CP] Embed Pods Frameworks */,
-				C9317EE721FE6ACD0016E422 /* Remove NumPy */,
+				C9317EE721FE6ACD0016E422 /* Remove NumPy and Matplotlib */,
 			);
 			buildRules = (
 			);
@@ -2354,28 +2294,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9317F1C21FF6A070016E422 /* Info.plist in Resources */,
 				C9317EF121FF59CD0016E422 /* PyObjC in Resources */,
-				C9317F2021FF6A150016E422 /* Info.plist in Resources */,
 				C94CC2C221FCEF70005E9556 /* Assets Mac.xcassets in Resources */,
 				C9317EDD21FDF85A0016E422 /* REPL.py in Resources */,
 				C9317EE921FE7B9F0016E422 /* _scproxy.cpython-37m-darwin.so in Resources */,
 				C9317EEE21FF35EB0016E422 /* _tkinter.cpython-37m-darwin.so in Resources */,
 				C90FB05F21FDEE7300DF66DB /* python3.7 in Resources */,
-				C9317F2821FF6A860016E422 /* Info.plist in Resources */,
-				C9317F2421FF6A780016E422 /* Info.plist in Resources */,
-				C9317F1821FF69F60016E422 /* Info.plist in Resources */,
-				C9317F2221FF6A1C0016E422 /* Info.plist in Resources */,
 				C90FB07121FDF25300DF66DB /* Startup.py in Resources */,
-				C9317F1A21FF69FE0016E422 /* Info.plist in Resources */,
-				C9317F1E21FF6A0E0016E422 /* Info.plist in Resources */,
 				C90FB07321FDF4A400DF66DB /* Localizable.strings in Resources */,
 				C90FB06421FDEF1100DF66DB /* site-packages in Resources */,
 				C9317EE421FE15F20016E422 /* PyIcon.png in Resources */,
 				C94CC2C521FCEF70005E9556 /* Main.storyboard in Resources */,
 				C9317EEB21FF2D310016E422 /* python3 in Resources */,
 				C90FB06F21FDF10600DF66DB /* docs in Resources */,
-				C9317F2621FF6A7F0016E422 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2501,7 +2432,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C9317EE721FE6ACD0016E422 /* Remove NumPy */ = {
+		C9317EE721FE6ACD0016E422 /* Remove NumPy and Matplotlib */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2510,14 +2441,14 @@
 			);
 			inputPaths = (
 			);
-			name = "Remove NumPy";
+			name = "Remove NumPy and Matplotlib";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/numpy\"\n";
+			shellScript = "rm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/numpy\"\n\nrm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/matplotlib\"\n";
 		};
 		C9CEE26F21EBEEA700316D3C /* Archive app template */ = {
 			isa = PBXShellScriptBuildPhase;
