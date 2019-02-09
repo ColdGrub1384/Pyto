@@ -20,12 +20,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     // MARK: - Application delegate
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        
-        NotificationCenter.default.addObserver(EditorViewController.self, selector: #selector(EditorViewController.print(_:)), name: .init(rawValue: "DidReceiveOutput"), object: nil)        
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
     }
     
     // MARK: - Menu delegate
