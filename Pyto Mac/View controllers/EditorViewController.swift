@@ -11,7 +11,7 @@ import SavannaKit
 import SourceEditor
 
 /// A View controller for editing and running scripts.
-class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextViewDelegate {
+class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextViewDelegate, NSCollectionViewDataSource, NSCollectionViewDelegateFlowLayout {
     
     /// Clears console.
     @objc static func clear() {
@@ -24,9 +24,6 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
             }
         }
     }
-    
-    /// Console content.
-    @objc var console = ""
     
     /// Toggles stop and play button.
     @objc static func toggleStopButton() {
@@ -41,6 +38,23 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
     }
     
     // MARK: - Instance
+    
+    /// Console content.
+    @objc var console = ""
+    
+    // MARK: - Code completion
+    
+    /// Collection view displaying suggestions.
+    @IBOutlet weak var suggestionsCollectionView: NSCollectionView!
+    
+    /// Completions corresponding to `suggestions`.
+    @objc var completions = [String]()
+    
+    /// Suggestions shown on the suggestions bar.
+    @objc var suggestions = [String]()
+    
+    /// The identifier of the cell with the completion. Set to `nil` before the cell is registered.
+    var codeCompletionCellID: NSUserInterfaceItemIdentifier!
     
     // MARK: - Running
     
@@ -117,7 +131,9 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
         
         splitView.removeArrangedSubview(splitView.arrangedSubviews[0])
         splitView.insertArrangedSubview(textView, at: 0)
-        textView.frame.size = textEditorSize        
+        textView.frame.size = textEditorSize
+        
+        suggestionsCollectionView.enclosingScrollView?.scrollerInsets = NSEdgeInsets(top: 0, left: 0, bottom: 100, right: 0)
     }
     
     override func viewDidAppear() {
@@ -205,7 +221,88 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
     func textViewDidChangeSelection(_ notification: Notification) {
         if (notification.object as? TextView) == textView.contentTextView {
             textView.textViewDidChangeSelection(notification)
+            completeCode()
         }
+    }
+    
+    // MARK: - Collection view data source
+    
+    func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        func rangeExists(_ range: NSRange, inString string: String) -> Bool {
+            return range.location != NSNotFound && range.location + range.length <= (string as NSString).length
+        }
+     
+        func substring(with range: NSRange, in string: String) -> String? {
+            if rangeExists(range, inString: string) {
+                return (string as NSString).substring(with: range)
+            } else {
+                return nil
+            }
+        }
+        
+        var range = textView.contentTextView.selectedRange()
+        
+        if range.length > 1 {
+            return 0
+        }
+        
+        if substring(with: range, in: textView.text) == "" {
+            
+            range.length += 1
+            
+            if substring(with: range, in: textView.text) == "_" {
+                return 0
+            }
+            
+            range.location -= 1
+            if let word = textView.contentTextView.word(in: range), let last = word.last, String(last) != substring(with: range, in: textView.text) {
+                return 0
+            }
+            
+            range.location += 2
+            if let word = textView.contentTextView.word(in: range), let first = word.first, String(first) != substring(with: range, in: textView.text) {
+                return 0
+            }
+        }
+        
+        return suggestions.count
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
+        
+        if codeCompletionCellID == nil {
+            codeCompletionCellID = NSUserInterfaceItemIdentifier("CodeCompletionViewItem")
+            collectionView.register(NSNib(nibNamed: "CodeCompletionViewItem", bundle: nil), forItemWithIdentifier: codeCompletionCellID)
+        }
+        
+        let item = collectionView.makeItem(withIdentifier: codeCompletionCellID, for: indexPath)
+        (item as? CodeCompletionViewItem)?.titleLabel?.stringValue = suggestions[indexPath.item]
+        (item as? CodeCompletionViewItem)?.selectionHandler = {
+                        
+            let index = indexPath.item
+            
+            guard self.completions.indices.contains(index), self.suggestions.indices.contains(index) else {
+                return
+            }
+            
+            if self.completions[index] != "" {
+                self.textView.insertText(self.completions[index])
+            }
+        }
+        
+        return item
+    }
+    
+    // MARK: - Collection view delegate flow layout
+    
+    func collectionView( _ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
+        var width = CGFloat(suggestions[indexPath.item].count)*(NSFont(name: "Menlo", size: 17)?.pointSize ?? 17)
+        if width <= 80 {
+            width = 100
+        }
+        
+        return CGSize(width: width, height: 30)
     }
 }
 
