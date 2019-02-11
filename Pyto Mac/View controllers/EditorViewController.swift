@@ -99,8 +99,15 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
                     Python.shared.runScript(at: fileURL)
                 }
             })
-        } else if !(sender is PyDocument) {
-            document?.save(withDelegate: self, didSave: #selector(run(_:)), contextInfo: nil)
+        } else {
+            let tmpURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("tmp_script.py")
+            if FileManager.default.fileExists(atPath: tmpURL.path) {
+                try? FileManager.default.removeItem(at: tmpURL)
+            }
+            
+            FileManager.default.createFile(atPath: tmpURL.path, contents: textView.text.data(using: .utf8), attributes: nil)
+            
+            Python.shared.runScript(at: tmpURL)
         }
     }
     
