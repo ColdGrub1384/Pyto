@@ -14,7 +14,7 @@
 		C903B98C21598A63004AAD7F /* IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C903B98B21598A63004AAD7F /* IO.swift */; };
 		C904EB7321445D5800585C28 /* Python.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904EB7221445D5800585C28 /* Python.swift */; };
 		C904FA2621DA4C7600B70A39 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C904FA1F21DA4C7600B70A39 /* Accelerate.framework */; };
-		C90A8029220CFE2200C9A5A1 /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* UITextView.swift */; };
+		C90A8029220CFE2200C9A5A1 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* TextView.swift */; };
 		C90A803E220D0E0300C9A5A1 /* PyMainThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E501AD220C85B1002719CE /* PyMainThread.swift */; };
 		C90A803F220D0E0400C9A5A1 /* PyMainThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E501AD220C85B1002719CE /* PyMainThread.swift */; };
 		C90FB05F21FDEE7300DF66DB /* python3.7 in Resources */ = {isa = PBXBuildFile; fileRef = C90FB05E21FDEE7300DF66DB /* python3.7 */; };
@@ -177,7 +177,7 @@
 		C99E8D7021F0D03400C71884 /* CoolGlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99E8D6F21F0D03400C71884 /* CoolGlow.swift */; };
 		C9AAAB492195016D0042E733 /* InputAssistant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9AAAB44219501600042E733 /* InputAssistant.framework */; };
 		C9AAAB4A2195016D0042E733 /* InputAssistant.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AAAB44219501600042E733 /* InputAssistant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9AAAB5221950E8B0042E733 /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* UITextView.swift */; };
+		C9AAAB5221950E8B0042E733 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* TextView.swift */; };
 		C9AED5A921DE7DEC00CC5B43 /* Info.plist in Copy fftpack_lite */ = {isa = PBXBuildFile; fileRef = C9AED5A821DE7DEC00CC5B43 /* Info.plist */; };
 		C9AED5AF21DE7E7100CC5B43 /* Info.plist in Copy _umath_linalg */ = {isa = PBXBuildFile; fileRef = C9AED5AE21DE7E7100CC5B43 /* Info.plist */; };
 		C9AED5B121DE7E9A00CC5B43 /* Info.plist in Copy lapack_lite */ = {isa = PBXBuildFile; fileRef = C9AED5B021DE7E9A00CC5B43 /* Info.plist */; };
@@ -191,6 +191,7 @@
 		C9B5D87021F20ECC00E980BA /* MarkdownSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5D86F21F20ECC00E980BA /* MarkdownSplitViewController.swift */; };
 		C9B5D87221F20F2A00E980BA /* MarkdownPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5D87121F20F2A00E980BA /* MarkdownPreviewController.swift */; };
 		C9B5D87621F214DC00E980BA /* body.html in Resources */ = {isa = PBXBuildFile; fileRef = C9B5D87521F214DC00E980BA /* body.html */; };
+		C9BB353E220F83E600C38C17 /* Code Completion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BB353D220F83E600C38C17 /* Code Completion.swift */; };
 		C9BDF6B921BD9BBA0045DDA3 /* TemplatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BDF6B221BD9BBA0045DDA3 /* TemplatesViewController.swift */; };
 		C9C0E77221EE9F4B0057C63E /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E77121EE9F4B0057C63E /* Theme.swift */; };
 		C9C0E77821EEA9BE0057C63E /* XcodeDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E77721EEA9BE0057C63E /* XcodeDark.swift */; };
@@ -224,7 +225,7 @@
 		C9CEE20321EB95BA00316D3C /* ReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92495C62151A3E3007EB4DB /* ReviewHelper.swift */; };
 		C9CEE20421EB95BE00316D3C /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DE2145D03200C8B5E3 /* UIWindow.swift */; };
 		C9CEE20521EB95C100316D3C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E22145D50A00C8B5E3 /* String.swift */; };
-		C9CEE20621EB95C400316D3C /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* UITextView.swift */; };
+		C9CEE20621EB95C400316D3C /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* TextView.swift */; };
 		C9CEE20721EB95C900316D3C /* ConsoleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E4152A21513E3400D64E32 /* ConsoleTextView.swift */; };
 		C9CEE20921EB960200316D3C /* PyDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1421D0592C00412CEF /* PyDocument.swift */; };
 		C9CEE20A21EB960400316D3C /* ViewControllerTransitionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1521D0592C00412CEF /* ViewControllerTransitionCoordinator.swift */; };
@@ -237,6 +238,10 @@
 		C9CEE25C21EBC52E00316D3C /* suspend.py in Resources */ = {isa = PBXBuildFile; fileRef = C9CEE25B21EBC52E00316D3C /* suspend.py */; };
 		C9CEE26221EBD06700316D3C /* Splash Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9CEE26121EBD06700316D3C /* Splash Screen.storyboard */; };
 		C9CEE26621EBD21000316D3C /* RoundedIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C9CEE26521EBD21000316D3C /* RoundedIcon.png */; };
+		C9D6DEFF221059F900D7EF55 /* CodeCompletionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6DEFD221059F900D7EF55 /* CodeCompletionViewItem.swift */; };
+		C9D6DF00221059F900D7EF55 /* CodeCompletionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9D6DEFE221059F900D7EF55 /* CodeCompletionViewItem.xib */; };
+		C9D6DF012210DC8700D7EF55 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* TextView.swift */; };
+		C9D6DF052211B24900D7EF55 /* ObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D6DF042211B24900D7EF55 /* ObjC.m */; };
 		C9DF70B821715D3D00981B4F /* FileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DF70B721715D3D00981B4F /* FileCollectionViewCell.swift */; };
 		C9DF70ED217175C400981B4F /* shell.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70C32171752100981B4F /* shell.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9DF70EF217175C400981B4F /* network_ios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70C42171752100981B4F /* network_ios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -982,7 +987,7 @@
 		C99E8D6B21F0CC7800C71884 /* WWDC16.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WWDC16.swift; sourceTree = "<group>"; };
 		C99E8D6F21F0D03400C71884 /* CoolGlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoolGlow.swift; sourceTree = "<group>"; };
 		C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = InputAssistant.xcodeproj; path = InputAssistant/InputAssistant.xcodeproj; sourceTree = "<group>"; };
-		C9AAAB5121950E8B0042E733 /* UITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextView.swift; sourceTree = "<group>"; };
+		C9AAAB5121950E8B0042E733 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		C9AED59A21DE771C00CC5B43 /* _umath_linalg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _umath_linalg.framework; sourceTree = "<group>"; };
 		C9AED59B21DE771C00CC5B43 /* multiarray.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = multiarray.framework; sourceTree = "<group>"; };
 		C9AED59C21DE771C00CC5B43 /* lapack_lite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = lapack_lite.framework; sourceTree = "<group>"; };
@@ -1003,6 +1008,7 @@
 		C9B5D86F21F20ECC00E980BA /* MarkdownSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownSplitViewController.swift; sourceTree = "<group>"; };
 		C9B5D87121F20F2A00E980BA /* MarkdownPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownPreviewController.swift; sourceTree = "<group>"; };
 		C9B5D87521F214DC00E980BA /* body.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = body.html; sourceTree = "<group>"; };
+		C9BB353D220F83E600C38C17 /* Code Completion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Code Completion.swift"; sourceTree = "<group>"; };
 		C9BDF6B221BD9BBA0045DDA3 /* TemplatesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplatesViewController.swift; sourceTree = "<group>"; };
 		C9BE01B021530BAF00A8C825 /* site-packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "site-packages"; sourceTree = "<group>"; };
 		C9C0E77121EE9F4B0057C63E /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -1026,6 +1032,10 @@
 		C9CEE25B21EBC52E00316D3C /* suspend.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = suspend.py; sourceTree = "<group>"; };
 		C9CEE26121EBD06700316D3C /* Splash Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Splash Screen.storyboard"; sourceTree = "<group>"; };
 		C9CEE26521EBD21000316D3C /* RoundedIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RoundedIcon.png; sourceTree = "<group>"; };
+		C9D6DEFD221059F900D7EF55 /* CodeCompletionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeCompletionViewItem.swift; sourceTree = "<group>"; };
+		C9D6DEFE221059F900D7EF55 /* CodeCompletionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CodeCompletionViewItem.xib; sourceTree = "<group>"; };
+		C9D6DF032211B20A00D7EF55 /* ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjC.h; sourceTree = "<group>"; };
+		C9D6DF042211B24900D7EF55 /* ObjC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjC.m; sourceTree = "<group>"; };
 		C9DF70B721715D3D00981B4F /* FileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCollectionViewCell.swift; sourceTree = "<group>"; };
 		C9DF70C22171752100981B4F /* libtexlua52.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libtexlua52.5.dylib; sourceTree = "<group>"; };
 		C9DF70C32171752100981B4F /* shell.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = shell.framework; sourceTree = "<group>"; };
@@ -1423,7 +1433,7 @@
 				C93D61DE2145D03200C8B5E3 /* UIWindow.swift */,
 				C949D39A21F8A00C005AF481 /* NSRange.swift */,
 				C93D61E22145D50A00C8B5E3 /* String.swift */,
-				C9AAAB5121950E8B0042E733 /* UITextView.swift */,
+				C9AAAB5121950E8B0042E733 /* TextView.swift */,
 				C91321C821FB500300437845 /* UIColor.swift */,
 				C946A5C622077F9800F78C5C /* UserDefaults.swift */,
 				C946A5C92207809700F78C5C /* FileManager.swift */,
@@ -1491,17 +1501,12 @@
 			isa = PBXGroup;
 			children = (
 				C974194421FDECD400E3924C /* python */,
-				C94CC2BB21FCEF6C005E9556 /* AppDelegate.swift */,
-				C94CC2D021FCF59D005E9556 /* EditorViewController.swift */,
-				C90FB07021FDF25300DF66DB /* Startup.py */,
-				C9317EE321FE15F20016E422 /* PyIcon.png */,
-				C94CC2C121FCEF70005E9556 /* Assets Mac.xcassets */,
-				C94CC2C321FCEF70005E9556 /* Main.storyboard */,
-				C94CC2C621FCEF70005E9556 /* Info.plist */,
-				C9317EF021FF59CC0016E422 /* PyObjC */,
-				C9317EE821FE7B9E0016E422 /* _scproxy.cpython-37m-darwin.so */,
-				C9317EED21FF35EB0016E422 /* _tkinter.cpython-37m-darwin.so */,
-				C94CC2C721FCEF70005E9556 /* Pyto_Mac.entitlements */,
+				C9D6DEFA221059C500D7EF55 /* Singletons */,
+				C9D6DEFB221059D000D7EF55 /* View controllers */,
+				C9D6DEFC221059D900D7EF55 /* Views */,
+				C9D6DF022211B1E900D7EF55 /* Models */,
+				C9BB353D220F83E600C38C17 /* Code Completion.swift */,
+				C9D6DEF9221059A800D7EF55 /* Resources */,
 				C90FB06021FDEE9200DF66DB /* Pyto Mac-Bridging-Header.h */,
 			);
 			path = "Pyto Mac";
@@ -1795,6 +1800,56 @@
 				C9CEE1EA21EB8D5300316D3C /* Info.plist */,
 			);
 			path = PytoCore;
+			sourceTree = "<group>";
+		};
+		C9D6DEF9221059A800D7EF55 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C90FB07021FDF25300DF66DB /* Startup.py */,
+				C9317EE321FE15F20016E422 /* PyIcon.png */,
+				C94CC2C121FCEF70005E9556 /* Assets Mac.xcassets */,
+				C94CC2C321FCEF70005E9556 /* Main.storyboard */,
+				C94CC2C621FCEF70005E9556 /* Info.plist */,
+				C9317EF021FF59CC0016E422 /* PyObjC */,
+				C9317EE821FE7B9E0016E422 /* _scproxy.cpython-37m-darwin.so */,
+				C9317EED21FF35EB0016E422 /* _tkinter.cpython-37m-darwin.so */,
+				C94CC2C721FCEF70005E9556 /* Pyto_Mac.entitlements */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		C9D6DEFA221059C500D7EF55 /* Singletons */ = {
+			isa = PBXGroup;
+			children = (
+				C94CC2BB21FCEF6C005E9556 /* AppDelegate.swift */,
+			);
+			path = Singletons;
+			sourceTree = "<group>";
+		};
+		C9D6DEFB221059D000D7EF55 /* View controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C94CC2D021FCF59D005E9556 /* EditorViewController.swift */,
+			);
+			path = "View controllers";
+			sourceTree = "<group>";
+		};
+		C9D6DEFC221059D900D7EF55 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C9D6DEFD221059F900D7EF55 /* CodeCompletionViewItem.swift */,
+				C9D6DEFE221059F900D7EF55 /* CodeCompletionViewItem.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C9D6DF022211B1E900D7EF55 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C9D6DF032211B20A00D7EF55 /* ObjC.h */,
+				C9D6DF042211B24900D7EF55 /* ObjC.m */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		C9DF70C12171752100981B4F /* ios_system_builds */ = {
@@ -2306,6 +2361,7 @@
 				C9317EE421FE15F20016E422 /* PyIcon.png in Resources */,
 				C94CC2C521FCEF70005E9556 /* Main.storyboard in Resources */,
 				C9317EEB21FF2D310016E422 /* python3 in Resources */,
+				C9D6DF00221059F900D7EF55 /* CodeCompletionViewItem.xib in Resources */,
 				C90FB06F21FDF10600DF66DB /* docs in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2526,7 +2582,7 @@
 				C99DEFC4220865EE00B0BDAB /* BlockBasedSelector.swift in Sources */,
 				C9E706182207A06F0003DA61 /* PySharingHelper.swift in Sources */,
 				C946A5AD22074EAA00F78C5C /* ConsoleViewController.swift in Sources */,
-				C90A8029220CFE2200C9A5A1 /* UITextView.swift in Sources */,
+				C90A8029220CFE2200C9A5A1 /* TextView.swift in Sources */,
 				C9E706172207A06F0003DA61 /* PyOutputHelper.swift in Sources */,
 				C9E706202207A1460003DA61 /* String.swift in Sources */,
 			);
@@ -2537,6 +2593,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C974194021FD242B00E3924C /* SolarizedDark.swift in Sources */,
+				C9D6DF052211B24900D7EF55 /* ObjC.m in Sources */,
+				C9D6DF012210DC8700D7EF55 /* TextView.swift in Sources */,
 				C974193521FD23B700E3924C /* Basic.swift in Sources */,
 				C90FB07221FDF4A100DF66DB /* Localizable.swift in Sources */,
 				C974193D21FD240100E3924C /* Sunset.swift in Sources */,
@@ -2545,7 +2603,9 @@
 				C90FB07421FDF4B700DF66DB /* String.swift in Sources */,
 				C974193F21FD241800E3924C /* CoolGlow.swift in Sources */,
 				C974193B21FD23E100E3924C /* LowKey.swift in Sources */,
+				C9BB353E220F83E600C38C17 /* Code Completion.swift in Sources */,
 				C94CC2BC21FCEF6C005E9556 /* AppDelegate.swift in Sources */,
+				C9D6DEFF221059F900D7EF55 /* CodeCompletionViewItem.swift in Sources */,
 				C974194121FD243200E3924C /* ReadOnlyTheme.swift in Sources */,
 				C974193E21FD240900E3924C /* WWDC16.swift in Sources */,
 				C94CC2D121FCF59D005E9556 /* EditorViewController.swift in Sources */,
@@ -2599,7 +2659,7 @@
 				C9CEE20321EB95BA00316D3C /* ReviewHelper.swift in Sources */,
 				C9CEE1FD21EB8FF300316D3C /* PySharingHelper.swift in Sources */,
 				C9CEE20721EB95C900316D3C /* ConsoleTextView.swift in Sources */,
-				C9CEE20621EB95C400316D3C /* UITextView.swift in Sources */,
+				C9CEE20621EB95C400316D3C /* TextView.swift in Sources */,
 				C9CEE20221EB8FFF00316D3C /* PyExtensionContext.swift in Sources */,
 				C9CEE20A21EB960400316D3C /* ViewControllerTransitionCoordinator.swift in Sources */,
 				C90A803E220D0E0300C9A5A1 /* PyMainThread.swift in Sources */,
@@ -2654,7 +2714,7 @@
 				C9592D1921D0592C00412CEF /* ViewControllerTransitionCoordinator.swift in Sources */,
 				C9C0E77A21EF65BE0057C63E /* ThemableNavigationController.swift in Sources */,
 				C93CA8B522022E67008DD049 /* QuickLookHelper.swift in Sources */,
-				C9AAAB5221950E8B0042E733 /* UITextView.swift in Sources */,
+				C9AAAB5221950E8B0042E733 /* TextView.swift in Sources */,
 				C9C0E77821EEA9BE0057C63E /* XcodeDark.swift in Sources */,
 				C9C0E78521EF764F0057C63E /* Sunset.swift in Sources */,
 				C9EA55B3219F752D007546BC /* RelativePathForScript.swift in Sources */,
