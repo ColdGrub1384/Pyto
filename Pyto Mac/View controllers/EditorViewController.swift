@@ -10,8 +10,20 @@ import Cocoa
 import SavannaKit
 import SourceEditor
 
+fileprivate extension NSTouchBar.CustomizationIdentifier {
+    static let candidateListBar = NSTouchBar.CustomizationIdentifier("Pyto.TouchBar.candidateListBar")
+}
+
+fileprivate extension NSTouchBarItem.Identifier {
+    static let candidateList = NSTouchBarItem.Identifier("Pyto.TouchBar.TouchBarItem.candidateList")
+    
+    static let run = NSTouchBarItem.Identifier("Pyto.TouchBar.TouchBarItem.run")
+    
+    static let stop = NSTouchBarItem.Identifier("Pyto.TouchBar.TouchBarItem.stop")
+}
+
 /// A View controller for editing and running scripts.
-class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextViewDelegate, NSCollectionViewDataSource, NSCollectionViewDelegateFlowLayout {
+class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextViewDelegate, NSCollectionViewDataSource, NSCollectionViewDelegateFlowLayout, NSTouchBarDelegate, NSCandidateListTouchBarItemDelegate {
     
     /// Clears console.
     @objc static func clear() {
@@ -32,6 +44,8 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
                 if let editor = window.contentViewController as? EditorViewController {
                     editor.stopButton.isEnabled = Python.shared.isScriptRunning
                     editor.runButton.isEnabled = !Python.shared.isScriptRunning
+                    editor.touchBarStopButton.isEnabled = Python.shared.isScriptRunning
+                    editor.touchBarRunButton.isEnabled = !Python.shared.isScriptRunning
                 }
             }
         }
@@ -44,6 +58,9 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
     
     // MARK: - Code completion
     
+    /// The touch bar item with suggestions.
+    var candidateListItem: NSCandidateListTouchBarItem<NSString>!
+    
     /// Collection view displaying suggestions.
     @IBOutlet weak var suggestionsCollectionView: NSCollectionView!
     
@@ -51,7 +68,17 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
     @objc var completions = [String]()
     
     /// Suggestions shown on the suggestions bar.
-    @objc var suggestions = [String]()
+    @objc var suggestions = [String]() {
+        didSet {
+            DispatchQueue.main.async {
+                if self.collectionView(self.suggestionsCollectionView, numberOfItemsInSection: 0) > 0 {
+                    self.candidateListItem.setCandidates(self.suggestions as [NSString], forSelectedRange: self.textView.contentTextView.selectedRange(), in: nil)
+                } else {
+                    self.candidateListItem.setCandidates([], forSelectedRange: self.textView.contentTextView.selectedRange(), in: nil)
+                }
+            }
+        }
+    }
     
     /// The identifier of the cell with the completion. Set to `nil` before the cell is registered.
     var codeCompletionCellID: NSUserInterfaceItemIdentifier!
@@ -89,6 +116,12 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
     
     /// Button for running script.
     var runButton: NSButton!
+    
+    /// Button for stopping script from the Touch Bar.
+    var touchBarStopButton: NSButton!
+    
+    /// Button for running script from the Touch Bar.
+    var touchBarRunButton: NSButton!
     
     /// A Split view containing the code editor and the console.
     @IBOutlet weak var splitView: NSSplitView!
@@ -134,6 +167,17 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
         textView.frame.size = textEditorSize
         
         suggestionsCollectionView.enclosingScrollView?.scrollerInsets = NSEdgeInsets(top: 0, left: 0, bottom: 100, right: 0)
+    }
+    
+    override func viewWillAppear() {
+        super.viewWillAppear()
+                
+        let touchBar = view.window?.windowController?.touchBar
+        textView.contentTextView.touchBar = touchBar
+        touchBar?.delegate = self
+        touchBar?.customizationIdentifier = .candidateListBar
+        touchBar?.defaultItemIdentifiers = [.run , .stop, .candidateList]
+        touchBar?.customizationAllowedItemIdentifiers = [.candidateList]
     }
     
     override func viewDidAppear() {
@@ -304,5 +348,48 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
         
         return CGSize(width: width, height: 30)
     }
+    
+    // MARK: - Touch bar delegate
+    
+    func touchBar(_ touchBar: NSTouchBar, makeItemForIdentifier identifier: NSTouchBarItem.Identifier) -> NSTouchBarItem? {
+        
+        if identifier == .candidateList {
+            candidateListItem = NSCandidateListTouchBarItem<NSString>(identifier: identifier)
+            candidateListItem.delegate = self
+            candidateListItem.customizationLabel = "Completions"
+            
+            candidateListItem.attributedStringForCandidate = { (candidate, index) -> NSAttributedString in
+                return NSAttributedString(string: candidate as String)
+            }
+            
+            return candidateListItem
+        } else if identifier == .run {
+            let runItem = NSCustomTouchBarItem(identifier: identifier)
+            touchBarRunButton = NSButton(image: NSImage(named: "NSTouchBarPlayTemplate") ?? NSImage(), target: self, action: #selector(run(_:)))
+            touchBarRunButton.isEnabled = !Python.shared.isScriptRunning
+            runItem.view = touchBarRunButton
+            return runItem
+        } else if identifier == .stop {
+            let stopItem = NSCustomTouchBarItem(identifier: identifier)
+            touchBarStopButton = NSButton(image: NSImage(named: "NSTouchBarRecordStopTemplate") ?? NSImage(), target: self, action: #selector(stop(_:)))
+            touchBarStopButton.isEnabled = Python.shared.isScriptRunning
+            stopItem.view = touchBarStopButton
+            return stopItem
+        }
+        
+        return nil
+    }
+    
+    // MARK: - Candidate list touch bar item delegate
+    
+    func candidateListTouchBarItem(_ anItem: NSCandidateListTouchBarItem<AnyObject>, endSelectingCandidateAt index: Int) {
+        
+        guard completions.indices.contains(index), suggestions.indices.contains(index) else {
+            return
+        }
+        
+        if completions[index] != "" {
+            textView.insertText(self.completions[index])
+        }
+    }
 }
-

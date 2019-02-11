@@ -73,7 +73,10 @@ class PyDocument: Document {
         // Returns the Storyboard that contains your Document window.
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
         let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Document Window Controller")) as! NSWindowController
-        (windowController.window?.contentViewController as? EditorViewController)?.document = self
+        if !windowController.isWindowLoaded {
+            windowController.loadWindow()
+        }
+        (windowController.contentViewController as? EditorViewController)?.document = self
         self.addWindowController(windowController)
     }
     
