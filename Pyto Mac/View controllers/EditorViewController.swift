@@ -168,7 +168,7 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
         console = consoleTextView?.string ?? ""
         consoleTextView?.delegate = self
         consoleTextView?.font = NSFont(name: "Menlo", size: 12)
-        consoleTextView?.textColor = ChoosenTheme.color(for: .plain)
+        //consoleTextView?.textColor = ChoosenTheme.color(for: .plain)
         consoleTextView?.isAutomaticQuoteSubstitutionEnabled = false
         consoleTextView?.isAutomaticDashSubstitutionEnabled = false
         consoleTextView?.isAutomaticDataDetectionEnabled = false
