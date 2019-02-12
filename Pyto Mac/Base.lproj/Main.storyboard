@@ -321,8 +321,7 @@
                 <windowController storyboardIdentifier="repl" id="Y5I-hh-BBr" sceneMemberID="viewController">
                     <window key="window" title="REPL" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" id="VTo-c1-lMV">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="181" y="186" width="480" height="270"/>
+                        <rect key="contentRect" x="678" y="475" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1366" height="745"/>
                         <connections>
                             <outlet property="delegate" destination="Y5I-hh-BBr" id="Y7M-OO-Ce8"/>
@@ -344,39 +343,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Vj-pq-xd3">
+                            <visualEffectView appearanceType="inheritedVibrantLight" blendingMode="behindWindow" material="underWindowBackground" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="5sz-gx-ohP">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="vde-qB-uMp">
+                            </visualEffectView>
+                            <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uim-fM-CJf">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="0df-Gn-caB">
                                     <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="qvE-9o-BBi">
+                                        <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="UwT-OO-eKT">
                                             <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                             <size key="minSize" width="480" height="270"/>
                                             <size key="maxSize" width="480" height="10000000"/>
                                             <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         </textView>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 </clipView>
-                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="g2C-oL-i3P">
+                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="veP-52-AJW">
                                     <rect key="frame" x="464" y="0.0" width="16" height="270"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="6Vj-pq-xd3" firstAttribute="leading" secondItem="2Qy-oi-v9a" secondAttribute="leading" id="SLe-CY-UHK"/>
-                            <constraint firstAttribute="bottom" secondItem="6Vj-pq-xd3" secondAttribute="bottom" id="tvC-1a-HOP"/>
-                            <constraint firstItem="6Vj-pq-xd3" firstAttribute="top" secondItem="2Qy-oi-v9a" secondAttribute="top" id="xf6-fe-DKx"/>
-                            <constraint firstAttribute="trailing" secondItem="6Vj-pq-xd3" secondAttribute="trailing" id="xvZ-XG-NWU"/>
+                            <constraint firstAttribute="trailing" secondItem="5sz-gx-ohP" secondAttribute="trailing" id="1Ut-qH-Uab"/>
+                            <constraint firstAttribute="bottom" secondItem="Uim-fM-CJf" secondAttribute="bottom" id="6aA-sp-JsT"/>
+                            <constraint firstItem="5sz-gx-ohP" firstAttribute="leading" secondItem="Uim-fM-CJf" secondAttribute="leading" id="7c0-C4-VE9"/>
+                            <constraint firstItem="Uim-fM-CJf" firstAttribute="bottom" secondItem="5sz-gx-ohP" secondAttribute="bottom" id="7eu-FH-Za7"/>
+                            <constraint firstItem="Uim-fM-CJf" firstAttribute="top" secondItem="2Qy-oi-v9a" secondAttribute="top" id="G82-Y5-Unz"/>
+                            <constraint firstItem="Uim-fM-CJf" firstAttribute="trailing" secondItem="5sz-gx-ohP" secondAttribute="trailing" id="U7y-pe-YRq"/>
+                            <constraint firstItem="Uim-fM-CJf" firstAttribute="top" secondItem="5sz-gx-ohP" secondAttribute="top" id="eJP-MN-nbP"/>
+                            <constraint firstItem="Uim-fM-CJf" firstAttribute="leading" secondItem="2Qy-oi-v9a" secondAttribute="leading" id="m4n-hs-bSn"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="consoleTextView" destination="qvE-9o-BBi" id="xht-rm-PZF"/>
+                        <outlet property="consoleTextView" destination="UwT-OO-eKT" id="giU-nm-chY"/>
                     </connections>
                 </viewController>
                 <customObject id="fay-i5-Sus" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
