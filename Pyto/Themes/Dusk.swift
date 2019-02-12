@@ -17,19 +17,11 @@ struct DuskSourceCodeTheme: SourceCodeTheme {
     let defaultTheme = DefaultSourceCodeTheme()
     
     var lineNumbersStyle: LineNumbersStyle? {
-        #if os(iOS)
         return nil
-        #else
-        return defaultTheme.lineNumbersStyle
-        #endif
     }
     
     var gutterStyle: GutterStyle {
-        #if os(iOS)
         return GutterStyle(backgroundColor: .clear, minimumWidth: 0)
-        #else
-        return GutterStyle(backgroundColor: backgroundColor, minimumWidth: defaultTheme.gutterStyle.minimumWidth)
-        #endif
     }
     
     var font: Font {
