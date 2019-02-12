@@ -67,6 +67,7 @@ class REPLViewController: EditorViewController, NSWindowDelegate {
                 if str != "Pyto.console.clear" && str != "Pyto.console.clear\n" {
                     self.consoleTextView?.string += str
                     self.console += str
+                    self.consoleTextView?.scrollToBottom()
                 } else {
                     self.consoleTextView?.string = ""
                     self.console = ""

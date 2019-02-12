@@ -273,7 +273,7 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
             } else if replacementString == "\n", let data = (prompt+"\n").data(using: .utf8) {
                 console += prompt+"\n"
                 prompt = ""
-                if Python.shared.isScriptRunning && self is REPLViewController {
+                if Python.shared.isScriptRunning && !(self is REPLViewController) {
                     Python.shared.inputPipe.fileHandleForWriting.write(data)
                 } else {
                     (self as? REPLViewController)?.inputPipe.fileHandleForWriting.write(data)

@@ -211,6 +211,7 @@ import Cocoa
                         if str != "Pyto.console.clear" && str != "Pyto.console.clear\n" {
                             editor.consoleTextView?.string += str
                             editor.console += str
+                            editor.consoleTextView?.scrollToBottom()
                         } else {
                             editor.consoleTextView?.string = ""
                             editor.console = ""
