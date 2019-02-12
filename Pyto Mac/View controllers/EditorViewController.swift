@@ -273,6 +273,9 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
         if (notification.object as? TextView) == textView.contentTextView {
             textView.textViewDidChangeSelection(notification)
             completeCode()
+        } else if (notification.object as? NSTextView) == consoleTextView {
+            completions = []
+            suggestions = []
         }
     }
     
