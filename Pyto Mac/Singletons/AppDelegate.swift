@@ -28,6 +28,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         Python.shared.isScriptRunning = false
     }
     
+    /// Saves current editing document.
+    @IBAction func saveDoc(_ sender: Any) {
+        (NSApp.keyWindow?.contentViewController as? EditorViewController)?.document?.save(self)
+    }
+    
     // MARK: - Application delegate
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
