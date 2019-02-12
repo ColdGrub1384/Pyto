@@ -44,8 +44,8 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
                 if let editor = window.contentViewController as? EditorViewController {
                     editor.stopButton.isEnabled = Python.shared.isScriptRunning
                     editor.runButton.isEnabled = !Python.shared.isScriptRunning
-                    editor.touchBarStopButton.isEnabled = Python.shared.isScriptRunning
-                    editor.touchBarRunButton.isEnabled = !Python.shared.isScriptRunning
+                    editor.touchBarStopButton?.isEnabled = Python.shared.isScriptRunning
+                    editor.touchBarRunButton?.isEnabled = !Python.shared.isScriptRunning
                 }
             }
         }
@@ -281,7 +281,7 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
         
         func rangeExists(_ range: NSRange, inString string: String) -> Bool {
-            return range.location != NSNotFound && range.location + range.length <= (string as NSString).length
+            return range.location >= 0 && range.location != NSNotFound && range.location + range.length <= (string as NSString).length
         }
      
         func substring(with range: NSRange, in string: String) -> String? {
@@ -307,12 +307,12 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
             }
             
             range.location -= 1
-            if let word = textView.contentTextView.word(in: range), let last = word.last, String(last) != substring(with: range, in: textView.text) {
+            if rangeExists(range, inString: textView.text), let word = textView.contentTextView.word(in: range), let last = word.last, String(last) != substring(with: range, in: textView.text) {
                 return 0
             }
             
             range.location += 2
-            if let word = textView.contentTextView.word(in: range), let first = word.first, String(first) != substring(with: range, in: textView.text) {
+            if rangeExists(range, inString: textView.text), let word = textView.contentTextView.word(in: range), let first = word.first, String(first) != substring(with: range, in: textView.text) {
                 return 0
             }
         }

@@ -48,7 +48,12 @@ func completeCode() {
     DispatchQueue.main.async {
         for window in NSApp.windows {
             if window.isKeyWindow, let editor = window.contentViewController as? EditorViewController {
-                text = (editor.textView.text as NSString).substring(with: NSRange(location: 0, length: editor.textView.contentTextView.selectedRange().location))
+                let range = NSRange(location: 0, length: editor.textView.contentTextView.selectedRange().location)
+                if editor.textView.contentTextView.rangeExists(range) {
+                    text = (editor.textView.text as NSString).substring(with: range)
+                } else {
+                    text = ""
+                }
                 filePath = editor.document?.fileURL?.path ?? ""
                 editor.suggestions = []
                 editor.completions = []
