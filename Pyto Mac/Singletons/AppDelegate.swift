@@ -34,9 +34,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         runMenuItem.isEnabled = (!Python.shared.isScriptRunning && NSApp.keyWindow?.contentViewController is EditorViewController && !(NSApp.keyWindow?.contentViewController is REPLViewController))
         stopMenuItem.isEnabled = Python.shared.isScriptRunning
     }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-    }
     
     // MARK: - Menu delegate
     
