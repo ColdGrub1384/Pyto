@@ -151,9 +151,6 @@ import Cocoa
     /// Pipe used for standard output.
     var outputPipe = Pipe()
     
-    /// Pipe used for standard error.
-    var errorPipe = Pipe()
-    
     /// The process running Python.
     var process: Process?
     
@@ -201,7 +198,6 @@ import Cocoa
         
         inputPipe = Pipe()
         outputPipe = Pipe()
-        errorPipe = Pipe()
         
         func read(handle: FileHandle) {
             guard let str = String(data: handle.availableData, encoding: .utf8), !str.isEmpty else {
@@ -210,12 +206,13 @@ import Cocoa
             
             DispatchQueue.main.async {
                 for window in NSApp.windows {
-                    if let editor = window.contentViewController as? EditorViewController {
+                    if let editor = window.contentViewController as? EditorViewController, !(editor is REPLViewController) {
+                                                
                         if str != "Pyto.console.clear" && str != "Pyto.console.clear\n" {
-                            editor.consoleTextView.string += str
+                            editor.consoleTextView?.string += str
                             editor.console += str
                         } else {
-                            editor.consoleTextView.string = ""
+                            editor.consoleTextView?.string = ""
                             editor.console = ""
                         }
                     }
@@ -224,7 +221,6 @@ import Cocoa
         }
         
         outputPipe.fileHandleForReading.readabilityHandler = read
-        errorPipe.fileHandleForReading.readabilityHandler = read
         
         process = Process()
         process?.executableURL = pythonExecutble
@@ -242,7 +238,7 @@ import Cocoa
             self.isScriptRunning = false
         }
         process?.standardOutput = outputPipe
-        process?.standardError = errorPipe
+        process?.standardError = outputPipe
         process?.standardInput = inputPipe
         isScriptRunning = true
         

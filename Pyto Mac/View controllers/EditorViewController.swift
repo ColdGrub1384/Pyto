@@ -29,8 +29,8 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
     @objc static func clear() {
         DispatchQueue.main.async {
             for window in NSApp.windows {
-                if let editor = window.contentViewController as? EditorViewController {
-                    editor.consoleTextView.string = ""
+                if let editor = window.contentViewController as? EditorViewController, !(editor is REPLViewController) {
+                    editor.consoleTextView?.string = ""
                     editor.console = ""
                 }
             }
@@ -41,13 +41,16 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
     @objc static func toggleStopButton() {
         DispatchQueue.main.async {
             for window in NSApp.windows {
-                if let editor = window.contentViewController as? EditorViewController {
-                    editor.stopButton.isEnabled = Python.shared.isScriptRunning
-                    editor.runButton.isEnabled = !Python.shared.isScriptRunning
+                if let editor = window.contentViewController as? EditorViewController, !(editor is REPLViewController) {
+                    editor.stopButton?.isEnabled = Python.shared.isScriptRunning
+                    editor.runButton?.isEnabled = !Python.shared.isScriptRunning
                     editor.touchBarStopButton?.isEnabled = Python.shared.isScriptRunning
                     editor.touchBarRunButton?.isEnabled = !Python.shared.isScriptRunning
                 }
             }
+            
+            (NSApp.delegate as? AppDelegate)?.runMenuItem.isEnabled = (!Python.shared.isScriptRunning && NSApp.keyWindow?.contentViewController is EditorViewController && !(NSApp.keyWindow?.contentViewController is REPLViewController))
+            (NSApp.delegate as? AppDelegate)?.stopMenuItem.isEnabled = Python.shared.isScriptRunning
         }
     }
     
@@ -62,7 +65,7 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
     var candidateListItem: NSCandidateListTouchBarItem<NSString>!
     
     /// Collection view displaying suggestions.
-    @IBOutlet weak var suggestionsCollectionView: NSCollectionView!
+    @IBOutlet weak var suggestionsCollectionView: NSCollectionView?
     
     /// Completions corresponding to `suggestions`.
     @objc var completions = [String]()
@@ -71,7 +74,10 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
     @objc var suggestions = [String]() {
         didSet {
             DispatchQueue.main.async {
-                if self.collectionView(self.suggestionsCollectionView, numberOfItemsInSection: 0) > 0 {
+                guard let suggestionsView = self.suggestionsCollectionView else {
+                    return
+                }
+                if self.collectionView(suggestionsView, numberOfItemsInSection: 0) > 0 {
                     self.candidateListItem?.setCandidates(self.suggestions as [NSString], forSelectedRange: self.textView.contentTextView.selectedRange(), in: nil)
                 } else {
                     self.candidateListItem?.setCandidates([], forSelectedRange: self.textView.contentTextView.selectedRange(), in: nil)
@@ -94,7 +100,7 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
         if let fileURL = document?.fileURL {
             document?.save(to: fileURL, ofType: "py", for: .autosaveAsOperation, completionHandler: { (error) in
                 if let error = error {
-                    self.consoleTextView.string += "\(error.localizedDescription)\n"
+                    self.consoleTextView?.string += "\(error.localizedDescription)\n"
                 } else {
                     Python.shared.runScript(at: fileURL)
                 }
@@ -119,22 +125,22 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
     // MARK: - UI
     
     /// Button for stopping script.
-    var stopButton: NSButton!
+    var stopButton: NSButton?
     
     /// Button for running script.
-    var runButton: NSButton!
+    var runButton: NSButton?
     
     /// Button for stopping script from the Touch Bar.
-    var touchBarStopButton: NSButton!
+    var touchBarStopButton: NSButton?
     
     /// Button for running script from the Touch Bar.
-    var touchBarRunButton: NSButton!
+    var touchBarRunButton: NSButton?
     
     /// A Split view containing the code editor and the console.
-    @IBOutlet weak var splitView: NSSplitView!
+    @IBOutlet weak var splitView: NSSplitView?
     
     /// The text view containing the console.
-    @IBOutlet var consoleTextView: NSTextView!
+    @IBOutlet var consoleTextView: NSTextView?
     
     // MARK: - Document
     
@@ -159,21 +165,26 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
         textView.contentTextView.usesFindBar = true
         textView.contentTextView.delegate = self
         
-        consoleTextView.delegate = self
-        consoleTextView.font = NSFont(name: "Menlo", size: 12)
-        consoleTextView.isAutomaticQuoteSubstitutionEnabled = false
-        consoleTextView.isAutomaticDashSubstitutionEnabled = false
-        consoleTextView.isAutomaticDataDetectionEnabled = false
-        consoleTextView.isAutomaticTextCompletionEnabled = false
-        consoleTextView.isAutomaticSpellingCorrectionEnabled = false
+        console = consoleTextView?.string ?? ""
+        consoleTextView?.delegate = self
+        consoleTextView?.font = NSFont(name: "Menlo", size: 12)
+        consoleTextView?.textColor = ChoosenTheme.color(for: .plain)
+        consoleTextView?.isAutomaticQuoteSubstitutionEnabled = false
+        consoleTextView?.isAutomaticDashSubstitutionEnabled = false
+        consoleTextView?.isAutomaticDataDetectionEnabled = false
+        consoleTextView?.isAutomaticTextCompletionEnabled = false
+        consoleTextView?.isAutomaticSpellingCorrectionEnabled = false
         
-        let textEditorSize = splitView.arrangedSubviews[0].frame.size
+        if let splitView = splitView {
+            
+            let textEditorSize = splitView.arrangedSubviews[0].frame.size
+            
+            splitView.removeArrangedSubview(splitView.arrangedSubviews[0])
+            splitView.insertArrangedSubview(textView, at: 0)
+            textView.frame.size = textEditorSize
         
-        splitView.removeArrangedSubview(splitView.arrangedSubviews[0])
-        splitView.insertArrangedSubview(textView, at: 0)
-        textView.frame.size = textEditorSize
-        
-        suggestionsCollectionView.enclosingScrollView?.scrollerInsets = NSEdgeInsets(top: 0, left: 0, bottom: 100, right: 0)
+            suggestionsCollectionView?.enclosingScrollView?.scrollerInsets = NSEdgeInsets(top: 0, left: 0, bottom: 100, right: 0)
+        }
     }
     
     override func viewWillAppear() {
@@ -195,15 +206,21 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
             if item.tag == 1 {
                 button?.action = #selector(run(_:))
                 button?.target = self
-                button?.isEnabled = !Python.shared.isScriptRunning
                 runButton = button
             } else if item.tag == 2 {
                 button?.action = #selector(stop(_:))
                 button?.target = self
-                button?.isEnabled = Python.shared.isScriptRunning
                 stopButton = button
             }
         }
+        
+        EditorViewController.toggleStopButton()
+    }
+    
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        
+        EditorViewController.toggleStopButton()
     }
     
     // MARK: - Syntax text view
@@ -238,9 +255,15 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
             }
         } else if textView == consoleTextView {
             
-            if let swiftRange = console.range(of: console), affectedCharRange.location < NSRange(swiftRange, in: console).length {
+            let allConsoleRange = ((console+prompt) as NSString).range(of: (console+prompt))
+            if affectedCharRange.location < allConsoleRange.length {
                 // Only allow inserting text from the end
-                return false
+                if prompt.isEmpty {
+                    return false
+                }
+                if !((replacementString == "" || replacementString == nil) && affectedCharRange.length == 1 && affectedCharRange.location+1 == allConsoleRange.length) { // Is not backspace
+                    return false
+                }
             }
             
             if (replacementString == "" || replacementString == nil) && affectedCharRange.length > 0 {
@@ -250,8 +273,10 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
             } else if replacementString == "\n", let data = (prompt+"\n").data(using: .utf8) {
                 console += prompt+"\n"
                 prompt = ""
-                if Python.shared.isScriptRunning {
+                if Python.shared.isScriptRunning && self is REPLViewController {
                     Python.shared.inputPipe.fileHandleForWriting.write(data)
+                } else {
+                    (self as? REPLViewController)?.inputPipe.fileHandleForWriting.write(data)
                 }
             } else {
                 prompt += replacementString ?? ""
@@ -376,14 +401,14 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
         } else if identifier == .run {
             let runItem = NSCustomTouchBarItem(identifier: identifier)
             touchBarRunButton = NSButton(image: NSImage(named: "NSTouchBarPlayTemplate") ?? NSImage(), target: self, action: #selector(run(_:)))
-            touchBarRunButton.isEnabled = !Python.shared.isScriptRunning
-            runItem.view = touchBarRunButton
+            touchBarRunButton?.isEnabled = !Python.shared.isScriptRunning
+            runItem.view = touchBarRunButton ?? runItem.view
             return runItem
         } else if identifier == .stop {
             let stopItem = NSCustomTouchBarItem(identifier: identifier)
             touchBarStopButton = NSButton(image: NSImage(named: "NSTouchBarRecordStopTemplate") ?? NSImage(), target: self, action: #selector(stop(_:)))
-            touchBarStopButton.isEnabled = Python.shared.isScriptRunning
-            stopItem.view = touchBarStopButton
+            touchBarStopButton?.isEnabled = Python.shared.isScriptRunning
+            stopItem.view = touchBarStopButton ?? stopItem.view
             return stopItem
         }
         
