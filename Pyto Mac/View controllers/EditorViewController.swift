@@ -72,9 +72,9 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
         didSet {
             DispatchQueue.main.async {
                 if self.collectionView(self.suggestionsCollectionView, numberOfItemsInSection: 0) > 0 {
-                    self.candidateListItem.setCandidates(self.suggestions as [NSString], forSelectedRange: self.textView.contentTextView.selectedRange(), in: nil)
+                    self.candidateListItem?.setCandidates(self.suggestions as [NSString], forSelectedRange: self.textView.contentTextView.selectedRange(), in: nil)
                 } else {
-                    self.candidateListItem.setCandidates([], forSelectedRange: self.textView.contentTextView.selectedRange(), in: nil)
+                    self.candidateListItem?.setCandidates([], forSelectedRange: self.textView.contentTextView.selectedRange(), in: nil)
                 }
             }
         }
