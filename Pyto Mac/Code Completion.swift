@@ -47,7 +47,7 @@ func completeCode() {
     let semaphore = DispatchSemaphore(value: 0)
     DispatchQueue.main.async {
         for window in NSApp.windows {
-            if window.isKeyWindow, let editor = window.contentViewController as? EditorViewController {
+            if window.isKeyWindow, let editor = window.contentViewController as? EditorViewController, !(editor is REPLViewController) {
                 let range = NSRange(location: 0, length: editor.textView.contentTextView.selectedRange().location)
                 if editor.textView.contentTextView.rangeExists(range) {
                     text = (editor.textView.text as NSString).substring(with: range)
@@ -57,7 +57,7 @@ func completeCode() {
                 filePath = editor.document?.fileURL?.path ?? ""
                 editor.suggestions = []
                 editor.completions = []
-                editor.suggestionsCollectionView.reloadData()
+                editor.suggestionsCollectionView?.reloadData()
             }
         }
         semaphore.signal()
@@ -112,14 +112,14 @@ func completeCode() {
     if let str = String(data: outputPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8), let dict = convertToDictionary(text: str) as? [String:String] {
         DispatchQueue.main.async {
             for window in NSApp.windows {
-                if window.isKeyWindow, let editor = window.contentViewController as? EditorViewController {
+                if window.isKeyWindow, let editor = window.contentViewController as? EditorViewController, !(editor is REPLViewController) {
                     editor.completions = []
                     editor.suggestions = []
                     for (key, value) in dict {
                         editor.suggestions.append(key)
                         editor.completions.append(value)
                     }
-                    editor.suggestionsCollectionView.reloadData()
+                    editor.suggestionsCollectionView?.reloadData()
                 }
             }
         }

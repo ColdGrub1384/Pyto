@@ -12,14 +12,27 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     
-    /// Opens find panel.
-    @IBAction func find(_ sender: Any) {
-        NSApp.sendAction(#selector(NSResponder.performTextFinderAction(_:)), to: nil, from: sender)
+    /// The menu item for running script.
+    @IBOutlet weak var runMenuItem: NSMenuItem!
+    
+    /// Runs current editing script.
+    @IBAction func run(_ sender: Any) {
+        (NSApp.keyWindow?.contentViewController as? EditorViewController)?.run(self)
+    }
+    
+    /// The menu item for stopping current running script.
+    @IBOutlet weak var stopMenuItem: NSMenuItem!
+    
+    /// Stops current running script.
+    @IBAction func stop(_ sender: Any) {
+        Python.shared.isScriptRunning = false
     }
     
     // MARK: - Application delegate
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        runMenuItem.isEnabled = (!Python.shared.isScriptRunning && NSApp.keyWindow?.contentViewController is EditorViewController && !(NSApp.keyWindow?.contentViewController is REPLViewController))
+        stopMenuItem.isEnabled = Python.shared.isScriptRunning
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

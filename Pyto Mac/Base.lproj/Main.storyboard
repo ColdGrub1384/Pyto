@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="Y5I-hh-BBr">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="14460.1"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
@@ -66,6 +66,11 @@
                                                 <action selector="newDocument:" target="Ady-hI-5gd" id="4Si-XN-c54"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="New REPL" keyEquivalent="R" id="PM6-Lm-Njl">
+                                            <connections>
+                                                <segue destination="Y5I-hh-BBr" kind="show" id="Gd1-RR-OKI"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Open…" keyEquivalent="o" id="IAo-SY-fd9">
                                             <connections>
                                                 <action selector="openDocument:" target="Ady-hI-5gd" id="bVn-NM-KNZ"/>
@@ -100,7 +105,8 @@
                                                 <action selector="saveDocumentAs:" target="Ady-hI-5gd" id="mDf-zr-I0C"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Revert to Saved" keyEquivalent="r" id="KaW-ft-85H">
+                                        <menuItem title="Revert to Saved" id="KaW-ft-85H">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="revertDocumentToSaved:" target="Ady-hI-5gd" id="iJ3-Pv-kwq"/>
                                             </connections>
@@ -168,33 +174,33 @@
                                                 <items>
                                                     <menuItem title="Find…" tag="1" keyEquivalent="f" id="Xz5-n4-O0W">
                                                         <connections>
-                                                            <action selector="find:" target="Voe-Tx-rLC" id="AVb-CH-gOu"/>
+                                                            <action selector="performFindPanelAction:" target="Ady-hI-5gd" id="oqJ-yL-ywJ"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Find and Replace…" tag="12" keyEquivalent="f" id="YEy-JH-Tfz">
                                                         <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                                         <connections>
-                                                            <action selector="find:" target="Voe-Tx-rLC" id="ym2-Ud-R2f"/>
+                                                            <action selector="performFindPanelAction:" target="Ady-hI-5gd" id="as7-Tk-CDU"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Find Next" tag="2" keyEquivalent="g" id="q09-fT-Sye">
                                                         <connections>
-                                                            <action selector="find:" target="Voe-Tx-rLC" id="V5M-1I-VWf"/>
+                                                            <action selector="performFindPanelAction:" target="Ady-hI-5gd" id="q01-3k-HdU"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Find Previous" tag="3" keyEquivalent="G" id="OwM-mh-QMV">
                                                         <connections>
-                                                            <action selector="find:" target="Voe-Tx-rLC" id="kM2-pE-Cca"/>
+                                                            <action selector="performFindPanelAction:" target="Ady-hI-5gd" id="Get-Um-FIA"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Use Selection for Find" tag="7" keyEquivalent="e" id="buJ-ug-pKt">
                                                         <connections>
-                                                            <action selector="find:" target="Voe-Tx-rLC" id="yoS-uF-o1N"/>
+                                                            <action selector="performFindPanelAction:" target="Ady-hI-5gd" id="X1C-nO-BKZ"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Jump to Selection" keyEquivalent="j" id="S0p-oC-mLd">
                                                         <connections>
-                                                            <action selector="find:" target="Voe-Tx-rLC" id="fSn-ts-cZi"/>
+                                                            <action selector="performFindPanelAction:" target="Ady-hI-5gd" id="g3c-Xx-FQE"/>
                                                         </connections>
                                                     </menuItem>
                                                 </items>
@@ -202,6 +208,23 @@
                                                     <outlet property="delegate" destination="Voe-Tx-rLC" id="hIJ-Ws-Yeg"/>
                                                 </connections>
                                             </menu>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Editor" id="l9z-3A-bXO">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Editor" autoenablesItems="NO" id="7nP-Zb-fcC">
+                                    <items>
+                                        <menuItem title="Run" keyEquivalent="r" id="U8o-ae-RqG" userLabel="Run">
+                                            <connections>
+                                                <action selector="run:" target="Voe-Tx-rLC" id="rof-K1-9xj"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Stop" keyEquivalent="." id="ORE-qn-8RB" userLabel="Stop">
+                                            <connections>
+                                                <action selector="stop:" target="Voe-Tx-rLC" id="dMj-LH-D18"/>
+                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
@@ -281,11 +304,84 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Pyto_Mac" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Pyto_Mac" customModuleProvider="target">
+                    <connections>
+                        <outlet property="runMenuItem" destination="U8o-ae-RqG" id="hAy-Wu-nxl"/>
+                        <outlet property="stopMenuItem" destination="ORE-qn-8RB" id="NzW-rc-hv1"/>
+                    </connections>
+                </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-29" y="-140"/>
+        </scene>
+        <!--Window Controller-->
+        <scene sceneID="7YH-ro-0Ol">
+            <objects>
+                <windowController id="Y5I-hh-BBr" sceneMemberID="viewController">
+                    <window key="window" title="REPL" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" id="VTo-c1-lMV">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="181" y="186" width="480" height="270"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1366" height="745"/>
+                        <connections>
+                            <outlet property="delegate" destination="Y5I-hh-BBr" id="Y7M-OO-Ce8"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="9g5-mT-UG4" kind="relationship" relationship="window.shadowedContentViewController" id="b3X-lB-cuC"/>
+                    </connections>
+                </windowController>
+                <customObject id="H50-2s-H0Q" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-654" y="180"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="XEK-Uu-GbF">
+            <objects>
+                <viewController id="9g5-mT-UG4" customClass="REPLViewController" customModule="Pyto_Mac" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="2Qy-oi-v9a">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Vj-pq-xd3">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="vde-qB-uMp">
+                                    <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="qvE-9o-BBi">
+                                            <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <size key="minSize" width="480" height="270"/>
+                                            <size key="maxSize" width="480" height="10000000"/>
+                                            <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        </textView>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                </clipView>
+                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="g2C-oL-i3P">
+                                    <rect key="frame" x="464" y="0.0" width="16" height="270"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="6Vj-pq-xd3" firstAttribute="leading" secondItem="2Qy-oi-v9a" secondAttribute="leading" id="SLe-CY-UHK"/>
+                            <constraint firstAttribute="bottom" secondItem="6Vj-pq-xd3" secondAttribute="bottom" id="tvC-1a-HOP"/>
+                            <constraint firstItem="6Vj-pq-xd3" firstAttribute="top" secondItem="2Qy-oi-v9a" secondAttribute="top" id="xf6-fe-DKx"/>
+                            <constraint firstAttribute="trailing" secondItem="6Vj-pq-xd3" secondAttribute="trailing" id="xvZ-XG-NWU"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="consoleTextView" destination="qvE-9o-BBi" id="xht-rm-PZF"/>
+                    </connections>
+                </viewController>
+                <customObject id="fay-i5-Sus" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-654" y="595"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">

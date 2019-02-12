@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3482C17AEEF15F7B57213707 /* Pods_Pyto_Mac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8F8D2B8DAB35A84F3DD8B0 /* Pods_Pyto_Mac.framework */; };
 		6AB6C68D181C2C686D545A61 /* Pods_Pyto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 296FFAAD958315A38A36E2A4 /* Pods_Pyto.framework */; };
+		C9014B5822131262003A326E /* REPLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9014B5722131262003A326E /* REPLViewController.swift */; };
 		C903B98821584367004AAD7F /* commandDictionary.plist in Resources */ = {isa = PBXBuildFile; fileRef = C903B98721584367004AAD7F /* commandDictionary.plist */; };
 		C903B98A215843B4004AAD7F /* extraCommandsDictionary.plist in Resources */ = {isa = PBXBuildFile; fileRef = C903B989215843B4004AAD7F /* extraCommandsDictionary.plist */; };
 		C903B98C21598A63004AAD7F /* IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C903B98B21598A63004AAD7F /* IO.swift */; };
@@ -159,6 +160,7 @@
 		C97B760822046CF100A05C8D /* kiwisolver.cpython-37m-darwin.so in Copy kiwisolver */ = {isa = PBXBuildFile; fileRef = C97B760422046CB700A05C8D /* kiwisolver.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C97B760A22046CFA00A05C8D /* Info.plist in Copy kiwisolver */ = {isa = PBXBuildFile; fileRef = C97B760222046C8700A05C8D /* Info.plist */; };
 		C97B760C22046DFB00A05C8D /* kiwisolver.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C97B760022046C7500A05C8D /* kiwisolver.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C97E49C92213515000ACB42C /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94CC2D021FCF59D005E9556 /* EditorViewController.swift */; };
 		C98472AE21A05CB1008E16AC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C98472AD21A05CB1008E16AC /* README.md */; };
 		C98E1FFD214EE6ED002F0178 /* Samples in Resources */ = {isa = PBXBuildFile; fileRef = C98E1FFC214EE6EC002F0178 /* Samples */; };
 		C98E2002214F0856002F0178 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C98E2001214F0856002F0178 /* main.m */; };
@@ -731,6 +733,7 @@
 		4370DDFAC0113595C1F9BDC5 /* Pods-Pyto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto/Pods-Pyto.release.xcconfig"; sourceTree = "<group>"; };
 		486497B57E25E63492329299 /* Pods-Pyto Mac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Mac.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Mac/Pods-Pyto Mac.release.xcconfig"; sourceTree = "<group>"; };
 		BDF906F857A60D2FF55BE403 /* Pods-Pyto Mac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Mac.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Mac/Pods-Pyto Mac.debug.xcconfig"; sourceTree = "<group>"; };
+		C9014B5722131262003A326E /* REPLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REPLViewController.swift; sourceTree = "<group>"; };
 		C903B98721584367004AAD7F /* commandDictionary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = commandDictionary.plist; sourceTree = "<group>"; };
 		C903B989215843B4004AAD7F /* extraCommandsDictionary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = extraCommandsDictionary.plist; sourceTree = "<group>"; };
 		C903B98B21598A63004AAD7F /* IO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IO.swift; sourceTree = "<group>"; };
@@ -1830,6 +1833,7 @@
 			isa = PBXGroup;
 			children = (
 				C94CC2D021FCF59D005E9556 /* EditorViewController.swift */,
+				C9014B5722131262003A326E /* REPLViewController.swift */,
 			);
 			path = "View controllers";
 			sourceTree = "<group>";
@@ -2605,6 +2609,7 @@
 				C974193B21FD23E100E3924C /* LowKey.swift in Sources */,
 				C9BB353E220F83E600C38C17 /* Code Completion.swift in Sources */,
 				C94CC2BC21FCEF6C005E9556 /* AppDelegate.swift in Sources */,
+				C9014B5822131262003A326E /* REPLViewController.swift in Sources */,
 				C9D6DEFF221059F900D7EF55 /* CodeCompletionViewItem.swift in Sources */,
 				C974194121FD243200E3924C /* ReadOnlyTheme.swift in Sources */,
 				C974193E21FD240900E3924C /* WWDC16.swift in Sources */,
@@ -2650,6 +2655,7 @@
 				C91321D921FB684E00437845 /* PySelector.swift in Sources */,
 				C9CEE20521EB95C100316D3C /* String.swift in Sources */,
 				C9CEE20121EB8FFD00316D3C /* PyAlert.swift in Sources */,
+				C97E49C92213515000ACB42C /* EditorViewController.swift in Sources */,
 				C9CEE20421EB95BE00316D3C /* UIWindow.swift in Sources */,
 				C9CEE21021EB96D300316D3C /* AppDelegate.swift in Sources */,
 				C93CA8B822022E6E008DD049 /* QuickLookHelper.swift in Sources */,
