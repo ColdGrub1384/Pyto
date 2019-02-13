@@ -30,7 +30,12 @@ struct ReadonlyTheme: SourceCodeTheme {
         return defaultTheme.font
     }
     var backgroundColor: Color {
-        return defaultTheme.backgroundColor
+        
+        if defaultTheme.backgroundColor != .white {
+            return defaultTheme.backgroundColor
+        } else {
+            return NSColor(deviceWhite: 0.9, alpha: 1)
+        }
     }
     func color(for syntaxColorType: SourceCodeTokenType) -> Color {
         return defaultTheme.color(for: syntaxColorType)

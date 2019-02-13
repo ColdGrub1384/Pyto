@@ -320,7 +320,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChanged(_:)), name: ThemeDidChangedNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChanged(_:)), name: ThemeDidChangeNotification, object: nil)
         
         view.addSubview(textView)
         textView.delegate = self

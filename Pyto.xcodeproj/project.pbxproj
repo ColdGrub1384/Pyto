@@ -161,7 +161,9 @@
 		C97B760A22046CFA00A05C8D /* Info.plist in Copy kiwisolver */ = {isa = PBXBuildFile; fileRef = C97B760222046C8700A05C8D /* Info.plist */; };
 		C97B760C22046DFB00A05C8D /* kiwisolver.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C97B760022046C7500A05C8D /* kiwisolver.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C97E49C92213515000ACB42C /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94CC2D021FCF59D005E9556 /* EditorViewController.swift */; };
+		C97E49CF2213840800ACB42C /* NSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97E49CE2213840800ACB42C /* NSImage.swift */; };
 		C98472AE21A05CB1008E16AC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C98472AD21A05CB1008E16AC /* README.md */; };
+		C98E12DF22139739005CE20C /* NSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98E12DE22139739005CE20C /* NSView.swift */; };
 		C98E1FFD214EE6ED002F0178 /* Samples in Resources */ = {isa = PBXBuildFile; fileRef = C98E1FFC214EE6EC002F0178 /* Samples */; };
 		C98E2002214F0856002F0178 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C98E2001214F0856002F0178 /* main.m */; };
 		C98E42E321D2CF0300B4D260 /* python37.zip in Resources */ = {isa = PBXBuildFile; fileRef = C98E42E221D2CF0300B4D260 /* python37.zip */; };
@@ -979,8 +981,10 @@
 		C97B760022046C7500A05C8D /* kiwisolver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = kiwisolver.framework; sourceTree = "<group>"; };
 		C97B760222046C8700A05C8D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = kiwisolver.framework/Info.plist; sourceTree = "<group>"; };
 		C97B760422046CB700A05C8D /* kiwisolver.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "kiwisolver.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C97E49CE2213840800ACB42C /* NSImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImage.swift; sourceTree = "<group>"; };
 		C984729121A05A0E008E16AC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C98472AD21A05CB1008E16AC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C98E12DE22139739005CE20C /* NSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSView.swift; sourceTree = "<group>"; };
 		C98E1FFC214EE6EC002F0178 /* Samples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Samples; sourceTree = "<group>"; };
 		C98E2001214F0856002F0178 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C98E42E221D2CF0300B4D260 /* python37.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = python37.zip; sourceTree = "<group>"; };
@@ -1508,6 +1512,7 @@
 				C9D6DEFB221059D000D7EF55 /* View controllers */,
 				C9D6DEFC221059D900D7EF55 /* Views */,
 				C9D6DF022211B1E900D7EF55 /* Models */,
+				C97E49D02213841600ACB42C /* Extensions */,
 				C9BB353D220F83E600C38C17 /* Code Completion.swift */,
 				C9D6DEF9221059A800D7EF55 /* Resources */,
 				C90FB06021FDEE9200DF66DB /* Pyto Mac-Bridging-Header.h */,
@@ -1726,6 +1731,15 @@
 				C97B760022046C7500A05C8D /* kiwisolver.framework */,
 			);
 			path = Kiwisolver;
+			sourceTree = "<group>";
+		};
+		C97E49D02213841600ACB42C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C97E49CE2213840800ACB42C /* NSImage.swift */,
+				C98E12DE22139739005CE20C /* NSView.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		C984729021A059F2008E16AC /* Python iOS */ = {
@@ -2599,6 +2613,7 @@
 				C974194021FD242B00E3924C /* SolarizedDark.swift in Sources */,
 				C9D6DF052211B24900D7EF55 /* ObjC.m in Sources */,
 				C9D6DF012210DC8700D7EF55 /* TextView.swift in Sources */,
+				C98E12DF22139739005CE20C /* NSView.swift in Sources */,
 				C974193521FD23B700E3924C /* Basic.swift in Sources */,
 				C90FB07221FDF4A100DF66DB /* Localizable.swift in Sources */,
 				C974193D21FD240100E3924C /* Sunset.swift in Sources */,
@@ -2614,6 +2629,7 @@
 				C974194121FD243200E3924C /* ReadOnlyTheme.swift in Sources */,
 				C974193E21FD240900E3924C /* WWDC16.swift in Sources */,
 				C94CC2D121FCF59D005E9556 /* EditorViewController.swift in Sources */,
+				C97E49CF2213840800ACB42C /* NSImage.swift in Sources */,
 				C974193821FD23B900E3924C /* Xcode.swift in Sources */,
 				C9317EEC21FF2DD00016E422 /* Python.swift in Sources */,
 				C94CC2CB21FCF17F005E9556 /* PyDocument.swift in Sources */,

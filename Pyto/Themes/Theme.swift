@@ -105,13 +105,13 @@ var ChoosenTheme: SourceCodeTheme {
         UserDefaults.standard.set(themeID, forKey: "theme")
         UserDefaults.standard.synchronize()
         
-        NotificationCenter.default.post(name: ThemeDidChangedNotification, object: newValue)
+        NotificationCenter.default.post(name: ThemeDidChangeNotification, object: newValue)
     }
     
     get {
         switch UserDefaults.standard.integer(forKey: "theme") {
         case 0:
-            if NSAppearance.current.name == .darkAqua || NSAppearance.current.name == .vibrantDark {
+            if NSView().isDarkMode {
                 return XcodeDarkSourceCodeTheme()
             } else {
                 return XcodeSourceCodeTheme()
@@ -143,4 +143,4 @@ var ChoosenTheme: SourceCodeTheme {
 #endif
 
 /// A notification sent when the user choosed theme.
-let ThemeDidChangedNotification = Notification.Name("ThemeDidChangedNotification")
+let ThemeDidChangeNotification = Notification.Name("ThemeDidChangeNotification")
