@@ -12,6 +12,12 @@ import SavannaKit
 /// A View controller for interacting with the REPL.
 class REPLViewController: EditorViewController, NSWindowDelegate {
     
+    /// Set to `true` for running pip.
+    var pip = false
+    
+    /// Set to `true` when Python is started.
+    private(set) var startedPython = false
+    
     // MARK: - Process
     
     /// The process running the REPL.
@@ -23,13 +29,16 @@ class REPLViewController: EditorViewController, NSWindowDelegate {
     /// The pipe used for input.
     let inputPipe = Pipe()
     
-    /// Starts the REPL.
-    func startREPL() {
+    /// Starts Python.
+    ///
+    /// - Parameters:
+    ///     - script: The script to run. Default is the REPL.
+    func startPython(script: URL? = nil) {
         guard let startupURL = Bundle(for: Python.self).url(forResource: "Startup", withExtension: "py"), let src = try? String(contentsOf: startupURL) else {
             return
         }
         
-        guard let url = Bundle.main.url(forResource: "REPL", withExtension: "py") else {
+        guard let url = script ?? Bundle.main.url(forResource: "REPL", withExtension: "py") else {
             return
         }
         
@@ -50,10 +59,11 @@ class REPLViewController: EditorViewController, NSWindowDelegate {
         FileManager.default.createFile(atPath: tmpFile, contents: code, attributes: [:])
         
         let pythonPath = [
-            Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
-            Bundle.main.path(forResource: "site-packages", ofType: nil) ?? "",
-            Bundle.main.path(forResource: "PyObjc", ofType: nil) ?? "",
             Bundle.main.resourcePath ?? "",
+            Bundle.main.path(forResource: "site-packages", ofType: nil) ?? "",
+            Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
+            Bundle.main.path(forResource: "lib/python3.7/site-packages", ofType: nil) ?? "",
+            Bundle.main.path(forResource: "PyObjc", ofType: nil) ?? "",
             url.deletingLastPathComponent().path,
             "/usr/local/lib/python3.7/site-packages"
             ].joined(separator: ":")
@@ -89,8 +99,10 @@ class REPLViewController: EditorViewController, NSWindowDelegate {
         process.environment          = environment
         
         process.terminationHandler = { _ in
-            DispatchQueue.main.async {
-                self.view.window?.close()
+            if !self.pip {
+                DispatchQueue.main.async {
+                    self.view.window?.close()
+                }
             }
         }
         process.standardOutput = outputPipe
@@ -116,12 +128,19 @@ class REPLViewController: EditorViewController, NSWindowDelegate {
             self.inputPipe.fileHandleForReading.closeFile()
             self.inputPipe.fileHandleForWriting.closeFile()
         }
-        
-        startREPL()
     }
     
     override func viewWillAppear() {
         super.viewWillAppear()
+        
+        if !startedPython {
+            if pip, let installer = Bundle.main.url(forResource: "installer", withExtension: "py") {
+                startPython(script: installer)
+            } else {
+                startPython()
+            }
+            startedPython = true
+        }
         
         view.window?.delegate = self
     }

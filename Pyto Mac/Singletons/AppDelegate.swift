@@ -37,9 +37,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, SyntaxTextVi
         (NSApp.keyWindow?.contentViewController as? EditorViewController)?.document?.save(self)
     }
     
+    /// Show pip installer.
+    @IBAction func showPip(_ sender: Any) {
+        let repl = (NSStoryboard(name: "Main", bundle: nil).instantiateController(withIdentifier: "repl") as? NSWindowController)
+        (repl?.contentViewController as? REPLViewController)?.pip = true
+        repl?.showWindow(nil)
+    }
+    
     // MARK: - Application delegate
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        
+        setenv("SSL_CERT_FILE", Bundle.main.path(forResource: "cacert", ofType: "pem"), 1)
         
         themeMenu.delegate = self
         themeMenu.autoenablesItems = false
