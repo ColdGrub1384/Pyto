@@ -84,10 +84,11 @@ func completeCode() {
     let outputPipe = Pipe()
     
     let pythonPath = [
-        Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
-        Bundle.main.path(forResource: "site-packages", ofType: nil) ?? "",
-        Bundle.main.path(forResource: "PyObjc", ofType: nil) ?? "",
         Bundle.main.resourcePath ?? "",
+        Bundle.main.path(forResource: "site-packages", ofType: nil) ?? "",
+        Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
+        Bundle.main.path(forResource: "lib/python3.7/site-packages", ofType: nil) ?? "",
+        Bundle.main.path(forResource: "PyObjc", ofType: nil) ?? "",
         "/usr/local/lib/python3.7/site-packages"
         ].joined(separator: ":")
     
