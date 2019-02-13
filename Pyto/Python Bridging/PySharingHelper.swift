@@ -14,27 +14,25 @@ import SafariServices
     
     static var semaphore: DispatchSemaphore?
     
+    private static var itemsToShare = [Any]()
+    
     /// Presents the share sheet for sharing given items in the main thread.
     ///
     /// - Parameters:
     ///     - items: Items to share with the picker.
     @objc static func share(_ items: [Any]) {
         
-        let itemsToShare = items
+        itemsToShare = items
         
         let semaphore = DispatchSemaphore(value: 0)
         
-        DispatchQueue.main.sync {
+        DispatchQueue.main.async {
             let activityVC = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
             activityVC.popoverPresentationController?.sourceView = ConsoleViewController.visible.view
             activityVC.popoverPresentationController?.sourceRect = activityVC.popoverPresentationController?.sourceView?.bounds ?? .zero
-            #if WIDGET
-            ConsoleViewController.visible.present(activityVC, animated: true, completion: nil)
-            #else
-            UIApplication.shared.keyWindow?.topViewController?.present(activityVC, animated: true, completion: {
+            ConsoleViewController.visible.present(activityVC, animated: true, completion: {
                 semaphore.signal()
             })
-            #endif
         }
         
         if !Thread.current.isMainThread {
