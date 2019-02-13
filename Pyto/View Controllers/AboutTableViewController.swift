@@ -12,10 +12,11 @@ import SafariServices
 fileprivate extension IndexPath {
     
     //
-    // If you modify this, you should chnage `AppDelegate.application(_:open:options:)` function.
+    // If you modify this, you should check `AppDelegate.application(_:open:options:)` function.
     //
     
     static let theme = IndexPath(row: 0, section: 0)
+    static let indentation = IndexPath(row: 1, section: 0)
     
     static let todayWidget = IndexPath(row: 0, section: 1)
     
@@ -43,7 +44,47 @@ class AboutTableViewController: UITableViewController, DocumentBrowserViewContro
         dismiss(animated: true, completion: nil)
     }
     
+    /// Called when indentation is set.
+    @IBAction func indentationChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            EditorViewController.indentation = "\t"
+        case 1:
+            EditorViewController.indentation = "  "
+        case 2:
+            EditorViewController.indentation = "    "
+        case 3:
+            EditorViewController.indentation = "      "
+        case 4:
+            EditorViewController.indentation = "        "
+        default:
+            EditorViewController.indentation = "  "
+        }
+    }
+    
+    /// The segmented control managing identation.
+    @IBOutlet weak var identationSegmentedControl: UISegmentedControl!
+    
     // MARK: - Table view controller
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        switch EditorViewController.indentation {
+        case "\t":
+            identationSegmentedControl.selectedSegmentIndex = 0
+        case "  ":
+            identationSegmentedControl.selectedSegmentIndex = 1
+        case "    ":
+            identationSegmentedControl.selectedSegmentIndex = 2
+        case "      ":
+            identationSegmentedControl.selectedSegmentIndex = 3
+        case "        ":
+            identationSegmentedControl.selectedSegmentIndex = 4
+        default:
+            identationSegmentedControl.selectedSegmentIndex = 0
+        }
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -52,8 +93,12 @@ class AboutTableViewController: UITableViewController, DocumentBrowserViewContro
         cell.textLabel?.textColor = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
         cell.detailTextLabel?.textColor = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
         
-        if indexPath == IndexPath.todayWidget {
+        if indexPath == .todayWidget {
             cell.detailTextLabel?.text = (UserDefaults.standard.string(forKey: "todayWidgetScriptPath") as NSString?)?.lastPathComponent
+        } else if indexPath == .indentation {
+            for view in cell.contentView.subviews {
+                (view as? UILabel)?.textColor = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
+            }
         }
         
         return cell
