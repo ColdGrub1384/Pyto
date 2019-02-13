@@ -126,7 +126,7 @@ extension TextView {
         let text_ = string
         #endif
         
-        let range = NSMakeRange((text_ as NSString).length - 1, 1)
+        let range = NSMakeRange(((text_ ?? "") as NSString).length - 1, 1)
         scrollRangeToVisible(range)
     }
 }
