@@ -109,6 +109,14 @@ class REPLViewController: EditorViewController, NSWindowDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        (consoleTextView as? ConsoleTextView)?.interruptionHandler = {
+            self.process.interrupt()
+        }
+        (consoleTextView as? ConsoleTextView)?.eofHandler = {
+            self.inputPipe.fileHandleForReading.closeFile()
+            self.inputPipe.fileHandleForWriting.closeFile()
+        }
+        
         startREPL()
     }
     
