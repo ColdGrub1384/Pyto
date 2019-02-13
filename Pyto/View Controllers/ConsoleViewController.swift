@@ -53,7 +53,7 @@ import InputAssistant
             
             UIApplication.shared.keyWindow?.tintColor = newValue.tintColor
             
-            NotificationCenter.default.post(name: ThemeDidChangedNotification, object: newValue)
+            NotificationCenter.default.post(name: ThemeDidChangeNotification, object: newValue)
         }
         
         get {
@@ -372,7 +372,7 @@ import InputAssistant
         super.viewDidLoad()
                 
         #if MAIN
-        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChanged(_:)), name: ThemeDidChangedNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChanged(_:)), name: ThemeDidChangeNotification, object: nil)
         #endif
         
         edgesForExtendedLayout = []

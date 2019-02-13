@@ -24,8 +24,6 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
-                                        <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                                         <menuItem title="Services" id="NMo-om-nkz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
@@ -229,6 +227,10 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Theme" id="jx7-gD-89g">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Theme" autoenablesItems="NO" id="d76-cq-gQy"/>
+                            </menuItem>
                             <menuItem title="View" id="H8h-7b-M4v">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="View" id="HyV-fh-RgO">
@@ -308,6 +310,7 @@
                     <connections>
                         <outlet property="runMenuItem" destination="U8o-ae-RqG" id="hAy-Wu-nxl"/>
                         <outlet property="stopMenuItem" destination="ORE-qn-8RB" id="NzW-rc-hv1"/>
+                        <outlet property="themeMenu" destination="d76-cq-gQy" id="xaT-7g-cjX"/>
                     </connections>
                 </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>

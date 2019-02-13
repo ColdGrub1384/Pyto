@@ -185,6 +185,14 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
         
             suggestionsCollectionView?.enclosingScrollView?.scrollerInsets = NSEdgeInsets(top: 0, left: 0, bottom: 100, right: 0)
         }
+        
+        NotificationCenter.default.addObserver(forName: NSView.AppearanceDidChangeNotification, object: nil, queue: nil) { (notification) in
+            self.textView.theme = ChoosenTheme
+        }
+        
+        NotificationCenter.default.addObserver(forName: ThemeDidChangeNotification, object: nil, queue: nil) { (notification) in
+            self.textView.theme = ChoosenTheme
+        }
     }
     
     override func viewWillAppear() {
