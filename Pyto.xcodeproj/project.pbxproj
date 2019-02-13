@@ -164,6 +164,7 @@
 		C97E49CF2213840800ACB42C /* NSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97E49CE2213840800ACB42C /* NSImage.swift */; };
 		C98472AE21A05CB1008E16AC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C98472AD21A05CB1008E16AC /* README.md */; };
 		C98E12DF22139739005CE20C /* NSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98E12DE22139739005CE20C /* NSView.swift */; };
+		C98E12E72214689A005CE20C /* ConsoleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98E12E62214689A005CE20C /* ConsoleTextView.swift */; };
 		C98E1FFD214EE6ED002F0178 /* Samples in Resources */ = {isa = PBXBuildFile; fileRef = C98E1FFC214EE6EC002F0178 /* Samples */; };
 		C98E2002214F0856002F0178 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C98E2001214F0856002F0178 /* main.m */; };
 		C98E42E321D2CF0300B4D260 /* python37.zip in Resources */ = {isa = PBXBuildFile; fileRef = C98E42E221D2CF0300B4D260 /* python37.zip */; };
@@ -985,6 +986,7 @@
 		C984729121A05A0E008E16AC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C98472AD21A05CB1008E16AC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C98E12DE22139739005CE20C /* NSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSView.swift; sourceTree = "<group>"; };
+		C98E12E62214689A005CE20C /* ConsoleTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleTextView.swift; sourceTree = "<group>"; };
 		C98E1FFC214EE6EC002F0178 /* Samples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Samples; sourceTree = "<group>"; };
 		C98E2001214F0856002F0178 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C98E42E221D2CF0300B4D260 /* python37.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = python37.zip; sourceTree = "<group>"; };
@@ -1855,6 +1857,7 @@
 		C9D6DEFC221059D900D7EF55 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C98E12E62214689A005CE20C /* ConsoleTextView.swift */,
 				C9D6DEFD221059F900D7EF55 /* CodeCompletionViewItem.swift */,
 				C9D6DEFE221059F900D7EF55 /* CodeCompletionViewItem.xib */,
 			);
@@ -2625,6 +2628,7 @@
 				C9BB353E220F83E600C38C17 /* Code Completion.swift in Sources */,
 				C94CC2BC21FCEF6C005E9556 /* AppDelegate.swift in Sources */,
 				C9014B5822131262003A326E /* REPLViewController.swift in Sources */,
+				C98E12E72214689A005CE20C /* ConsoleTextView.swift in Sources */,
 				C9D6DEFF221059F900D7EF55 /* CodeCompletionViewItem.swift in Sources */,
 				C974194121FD243200E3924C /* ReadOnlyTheme.swift in Sources */,
 				C974193E21FD240900E3924C /* WWDC16.swift in Sources */,

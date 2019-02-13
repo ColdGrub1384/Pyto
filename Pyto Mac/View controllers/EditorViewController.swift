@@ -193,6 +193,18 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
         NotificationCenter.default.addObserver(forName: ThemeDidChangeNotification, object: nil, queue: nil) { (notification) in
             self.textView.theme = ChoosenTheme
         }
+        
+        (consoleTextView as? ConsoleTextView)?.interruptionHandler = {
+            if Python.shared.isScriptRunning {
+                Python.shared.process?.interrupt()
+            }
+        }
+        (consoleTextView as? ConsoleTextView)?.eofHandler = {
+            if Python.shared.isScriptRunning {
+                Python.shared.inputPipe.fileHandleForReading.closeFile()
+                Python.shared.inputPipe.fileHandleForWriting.closeFile()
+            }
+        }
     }
     
     override func viewWillAppear() {
