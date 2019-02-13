@@ -308,10 +308,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         inputAssistant.leadingActions = [InputAssistantAction(image: "⇥".image() ?? UIImage(), target: self, action: #selector(insertTab))]
         inputAssistant.attach(to: textView.contentTextView)
+        inputAssistant.trailingActions = [InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView.contentTextView, action: #selector(textView.contentTextView.resignFirstResponder))]
     }
     
     /// Called when the user choosed a theme.
-    @objc func themeDidChanged(_ notification: Notification) {
+    @objc func themeDidChange(_ notification: Notification) {
         setup(theme: ConsoleViewController.choosenTheme)
     }
     
@@ -320,7 +321,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChanged(_:)), name: ThemeDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
         
         view.addSubview(textView)
         textView.delegate = self
@@ -328,7 +329,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         inputAssistant.dataSource = self
         inputAssistant.delegate = self
-        inputAssistant.trailingActions = [InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView.contentTextView, action: #selector(textView.contentTextView.resignFirstResponder))]
         
         parent?.title = document?.deletingPathExtension().lastPathComponent
         
