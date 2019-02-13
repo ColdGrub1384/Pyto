@@ -85,6 +85,18 @@ fileprivate func parseArgs(_ args: inout [String]) {
 /// The View controller used to edit source code.
 @objc class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssistantViewDelegate, InputAssistantViewDataSource, UITextViewDelegate, UISearchBarDelegate {
     
+    /// Returns string used for indentation
+    static var indentation: String {
+        get {
+            return UserDefaults.standard.string(forKey: "indentation") ?? "  "
+        }
+        
+        set {
+            UserDefaults.standard.set(newValue, forKey: "indentation")
+            UserDefaults.standard.synchronize()
+        }
+    }
+    
     /// The `SyntaxTextView` containing the code.
     let textView = SyntaxTextView()
     
@@ -119,7 +131,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     /// Inserts two spaces.
     @objc func insertTab() {
-        textView.contentTextView.insertText("  ")
+        textView.contentTextView.insertText(EditorViewController.indentation)
     }
     
     private var isSaving = false
@@ -940,7 +952,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         docString = nil
         
         if text == "\t", let textRange = range.toTextRange(textInput: textView) {
-            textView.replace(textRange, withText: "  ")
+            textView.replace(textRange, withText: EditorViewController.indentation)
             return false
         }
         
@@ -954,7 +966,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             
             if currentLine.replacingOccurrences(of: " ", with: "").hasSuffix(":") {
                 if spaces.isEmpty {
-                    spaces = "  "
+                    spaces = EditorViewController.indentation
                 } else {
                     spaces += spaces
                 }
