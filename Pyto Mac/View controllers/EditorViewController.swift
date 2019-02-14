@@ -59,6 +59,9 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
     /// Console content.
     @objc var console = ""
     
+    /// If the document isn't saved, this URL is ran.
+    @objc var temporaryFileURL: URL?
+    
     // MARK: - Code completion
     
     /// The touch bar item with suggestions.
@@ -98,6 +101,7 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
     @objc func run(_ sender: Any) {
         prompt = ""
         if let fileURL = document?.fileURL {
+            temporaryFileURL = nil
             document?.save(to: fileURL, ofType: "py", for: .autosaveAsOperation, completionHandler: { (error) in
                 if let error = error {
                     self.consoleTextView?.string += "\(error.localizedDescription)\n"
@@ -107,6 +111,7 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
             })
         } else {
             let tmpURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("tmp_script.py")
+            temporaryFileURL = tmpURL
             if FileManager.default.fileExists(atPath: tmpURL.path) {
                 try? FileManager.default.removeItem(at: tmpURL)
             }

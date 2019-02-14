@@ -208,8 +208,14 @@ import Cocoa
             DispatchQueue.main.async {
                 for window in NSApp.windows {
                     if let editor = window.contentViewController as? EditorViewController, !(editor is REPLViewController) {
-                                                
-                        if str != "Pyto.console.clear" && str != "Pyto.console.clear\n" {
+                        
+                        if str.hasPrefix("Pyto.error_at_line;"), (editor.document?.fileURL == url || editor.temporaryFileURL == url) {
+                            let components = str.components(separatedBy: ";")
+                            guard components.indices.contains(1), let lineNum = Int(components[1]) else {
+                                continue
+                            }
+                            editor.showErrorAtLine(lineNum)
+                        } else if str != "Pyto.console.clear" && str != "Pyto.console.clear\n" {
                             editor.consoleTextView?.string += str
                             editor.console += str
                             editor.consoleTextView?.scrollToBottom()
