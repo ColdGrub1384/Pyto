@@ -191,6 +191,7 @@
 		C9AED5B121DE7E9A00CC5B43 /* Info.plist in Copy lapack_lite */ = {isa = PBXBuildFile; fileRef = C9AED5B021DE7E9A00CC5B43 /* Info.plist */; };
 		C9AED5B521DE7EBB00CC5B43 /* Info.plist in Copy multiarray */ = {isa = PBXBuildFile; fileRef = C9AED5B421DE7EBB00CC5B43 /* Info.plist */; };
 		C9AED5B721DE7ECC00CC5B43 /* Info.plist in Copy umath */ = {isa = PBXBuildFile; fileRef = C9AED5B621DE7ECB00CC5B43 /* Info.plist */; };
+		C9B27BBA2217A03200814051 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCFD5A214428AE00A07974 /* EditorViewController.swift */; };
 		C9B3FDEC21503DE7000FC9A8 /* PyExtensionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */; };
 		C9B5D84B21F119B100E980BA /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B5D84A21F119B100E980BA /* Settings.storyboard */; };
 		C9B5D84F21F11AAE00E980BA /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5D84E21F11AAE00E980BA /* AboutTableViewController.swift */; };
@@ -246,8 +247,8 @@
 		C9CEE25C21EBC52E00316D3C /* suspend.py in Resources */ = {isa = PBXBuildFile; fileRef = C9CEE25B21EBC52E00316D3C /* suspend.py */; };
 		C9CEE26221EBD06700316D3C /* Splash Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9CEE26121EBD06700316D3C /* Splash Screen.storyboard */; };
 		C9CEE26621EBD21000316D3C /* RoundedIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C9CEE26521EBD21000316D3C /* RoundedIcon.png */; };
-		C9D2AA762215A503006AF527 /* EditorViewController+showErrorAtLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D2AA752215A503006AF527 /* EditorViewController+showErrorAtLine.swift */; };
-		C9D2AA772215A512006AF527 /* EditorViewController+showErrorAtLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D2AA752215A503006AF527 /* EditorViewController+showErrorAtLine.swift */; };
+		C9D2AA762215A503006AF527 /* EditorViewController+highlighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D2AA752215A503006AF527 /* EditorViewController+highlighting.swift */; };
+		C9D2AA772215A512006AF527 /* EditorViewController+highlighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D2AA752215A503006AF527 /* EditorViewController+highlighting.swift */; };
 		C9D6DEFF221059F900D7EF55 /* CodeCompletionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6DEFD221059F900D7EF55 /* CodeCompletionViewItem.swift */; };
 		C9D6DF00221059F900D7EF55 /* CodeCompletionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9D6DEFE221059F900D7EF55 /* CodeCompletionViewItem.xib */; };
 		C9D6DF012210DC8700D7EF55 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* TextView.swift */; };
@@ -1048,7 +1049,7 @@
 		C9CEE25B21EBC52E00316D3C /* suspend.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = suspend.py; sourceTree = "<group>"; };
 		C9CEE26121EBD06700316D3C /* Splash Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Splash Screen.storyboard"; sourceTree = "<group>"; };
 		C9CEE26521EBD21000316D3C /* RoundedIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RoundedIcon.png; sourceTree = "<group>"; };
-		C9D2AA752215A503006AF527 /* EditorViewController+showErrorAtLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorViewController+showErrorAtLine.swift"; sourceTree = "<group>"; };
+		C9D2AA752215A503006AF527 /* EditorViewController+highlighting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorViewController+highlighting.swift"; sourceTree = "<group>"; };
 		C9D6DEFD221059F900D7EF55 /* CodeCompletionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeCompletionViewItem.swift; sourceTree = "<group>"; };
 		C9D6DEFE221059F900D7EF55 /* CodeCompletionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CodeCompletionViewItem.xib; sourceTree = "<group>"; };
 		C9D6DF032211B20A00D7EF55 /* ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjC.h; sourceTree = "<group>"; };
@@ -1454,7 +1455,7 @@
 				C91321C821FB500300437845 /* UIColor.swift */,
 				C946A5C622077F9800F78C5C /* UserDefaults.swift */,
 				C946A5C92207809700F78C5C /* FileManager.swift */,
-				C9D2AA752215A503006AF527 /* EditorViewController+showErrorAtLine.swift */,
+				C9D2AA752215A503006AF527 /* EditorViewController+highlighting.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2640,6 +2641,7 @@
 				C974193F21FD241800E3924C /* CoolGlow.swift in Sources */,
 				C974193B21FD23E100E3924C /* LowKey.swift in Sources */,
 				C9BB353E220F83E600C38C17 /* Code Completion.swift in Sources */,
+				C9B27BBA2217A03200814051 /* EditorViewController.swift in Sources */,
 				C94CC2BC21FCEF6C005E9556 /* AppDelegate.swift in Sources */,
 				C9014B5822131262003A326E /* REPLViewController.swift in Sources */,
 				C98E12E72214689A005CE20C /* ConsoleTextView.swift in Sources */,
@@ -2654,7 +2656,7 @@
 				C974194221FD244300E3924C /* Theme.swift in Sources */,
 				C974193C21FD23F100E3924C /* Midnight.swift in Sources */,
 				C974193921FD23D100E3924C /* XcodeDark.swift in Sources */,
-				C9D2AA772215A512006AF527 /* EditorViewController+showErrorAtLine.swift in Sources */,
+				C9D2AA772215A512006AF527 /* EditorViewController+highlighting.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2743,7 +2745,7 @@
 				C921EF7821ECC388004C750D /* ActivityViewController.swift in Sources */,
 				C9425A7B21F49B8400E7CC35 /* PySelector.swift in Sources */,
 				C954FAB9220A2BB00060C488 /* ReplaceView.swift in Sources */,
-				C9D2AA762215A503006AF527 /* EditorViewController+showErrorAtLine.swift in Sources */,
+				C9D2AA762215A503006AF527 /* EditorViewController+highlighting.swift in Sources */,
 				C92DBD8221F687480098BE43 /* REPLViewController.swift in Sources */,
 				C9B5D84F21F11AAE00E980BA /* AboutTableViewController.swift in Sources */,
 				C98E2002214F0856002F0178 /* main.m in Sources */,

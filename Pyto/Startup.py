@@ -29,6 +29,16 @@ pyto.Python.shared.version = sys.version
 # MARK: - Input
 
 def askForInput(prompt=None):
+    try:
+        threading
+    except:
+        import threading
+
+    try:
+        console
+    except:
+        import console
+
     if (threading.currentThread() in console.ignoredThreads):
         return ""
     else:
@@ -39,6 +49,11 @@ __builtins__.input = askForInput
 # MARK: - Output
 
 def read(text):
+    try:
+        console
+    except:
+        import console
+
     console.print(text, end="")
 
 standardOutput = Reader(read)

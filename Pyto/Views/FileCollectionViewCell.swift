@@ -281,22 +281,37 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
         if file?.path.hasPrefix(Bundle.main.bundlePath) == true {
             return (action == #selector(open(_:)))
         } else if isDirectory.boolValue || file?.pathExtension.lowercased() != "py" {
-            return (
-                action == #selector(open(_:))     ||
-                action == #selector(remove(_:))   ||
-                action == #selector(rename(_:))   ||
-                action == #selector(copyFile(_:)) ||
-                action == #selector(move(_:))
-            )
+            if let file = file, FileManager.default.isDeletableFile(atPath: file.path) {
+                return (
+                    action == #selector(open(_:))     ||
+                    action == #selector(remove(_:))   ||
+                    action == #selector(rename(_:))   ||
+                    action == #selector(copyFile(_:)) ||
+                    action == #selector(move(_:))
+                )
+            } else {
+                return (
+                    action == #selector(open(_:))     ||
+                    action == #selector(copyFile(_:))
+                )
+            }
         } else {
-            return (
-                action == #selector(remove(_:))   ||
-                action == #selector(run(_:))      ||
-                action == #selector(open(_:))     ||
-                action == #selector(rename(_:))   ||
-                action == #selector(copyFile(_:)) ||
-                action == #selector(move(_:))
-            )
+            if let file = file, FileManager.default.isDeletableFile(atPath: file.path) {
+                return (
+                    action == #selector(remove(_:))   ||
+                    action == #selector(run(_:))      ||
+                    action == #selector(open(_:))     ||
+                    action == #selector(rename(_:))   ||
+                    action == #selector(copyFile(_:)) ||
+                    action == #selector(move(_:))
+                )
+            } else {
+                return (
+                    action == #selector(run(_:))      ||
+                    action == #selector(open(_:))     ||
+                    action == #selector(copyFile(_:))
+                )
+            }
         }
     }
     

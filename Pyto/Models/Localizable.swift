@@ -209,5 +209,8 @@ class Localizable: Static {
         
         /// The 'Move' menu item
         static let move = NSLocalizedString("menuItems.move", comment: "The 'Move' menu item")
+        
+        /// The menu item for setting breakpoint
+        static let breakpoint = NSLocalizedString("menuItems.breakpoint", comment: "The menu item for setting breakpoint")
     }
 }

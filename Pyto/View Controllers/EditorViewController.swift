@@ -244,6 +244,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
         runBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(run))
         stopBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(stop))
         
+        let debugButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        debugButton.addTarget(self, action: #selector(debug), for: .touchUpInside)
+        let debugItem = UIBarButtonItem(image: UIImage(named: "Debug"), style: .plain, target: self, action: #selector(debug))
+        
         let scriptsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         scriptsButton.setImage(UIImage(named: "Grid"), for: .normal)
         scriptsButton.addTarget(self, action: #selector(close), for: .touchUpInside)
@@ -260,12 +264,12 @@ fileprivate func parseArgs(_ args: inout [String]) {
         if Python.shared.isScriptRunning {
             parent?.navigationItem.rightBarButtonItems = [
                 stopBarButtonItem,
-                argsItem,
+                debugItem,
             ]
         } else {
             parent?.navigationItem.rightBarButtonItems = [
                 runBarButtonItem,
-                argsItem,
+                debugItem,
             ]
         }
         parent?.navigationItem.leftBarButtonItems = [scriptsItem, searchItem]
@@ -276,7 +280,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         textView.contentTextView.isEditable = !isSample
         
         parent?.navigationController?.isToolbarHidden = false
-        parent?.toolbarItems = [shareItem, UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), docItem]
+        parent?.toolbarItems = [shareItem, docItem, UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), argsItem]
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -365,7 +369,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
         
         guard view.frame.height != size.height else {
-            textView.frame.size.width = self.view.safeAreaLayoutGuide.layoutFrame.width
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                self.textView.frame.size.width = self.view.safeAreaLayoutGuide.layoutFrame.width
+            }
             return
         }
         
@@ -656,8 +662,21 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
     }
     
-    /// Run the script represented by `document`.
+    /// Debugs script.
+    @objc func debug() {
+        runScript(debug: true)
+    }
+    
+    /// Runs script.
     @objc func run() {
+        runScript(debug: false)
+    }
+    
+    /// Run the script represented by `document`.
+    ///
+    /// - Parameters:
+    ///     -
+    func runScript(debug: Bool) {
         
         // For error handling
         textView.delegate = nil
@@ -690,7 +709,20 @@ fileprivate func parseArgs(_ args: inout [String]) {
                             return
                         }
                         // Import the script
-                        PyInputHelper.userInput = "import console as c; s = c.run_script('\(url.path)')"
+                        if !debug {
+                            PyInputHelper.userInput = "import console as c; s = c.run_script('\(url.path)')"
+                        } else {
+                            
+                            var breakpointsLines = [String]()
+                            
+                            for breakpoint in self.breakpoints {
+                                breakpointsLines.append(String(describing: breakpoint))
+                            }
+                            
+                            let breakpointsValue = "[\(breakpointsLines.joined(separator: ", "))]"
+                            
+                            PyInputHelper.userInput = "import console as c; s = c.run_script('\(url.path)', debug=True, breakpoints=\(breakpointsValue))"
+                        }
                     } else {
                         Python.shared.runScript(at: url)
                     }
@@ -797,6 +829,124 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
     }
     
+    // MARK: - Breakpoints
+    
+    private struct MarkerPosition: Hashable {
+        var line: Int
+        var range: UITextRange
+    }
+    
+    private var breakpointMarkers = [MarkerPosition : UIView]()
+    
+    /// List of breakpoints in script. Each item is the line where the code will break.
+    var breakpoints = [Int]()
+    
+    /// The currently running line. Set to `0` when no breakpoint is running.
+    @objc static var runningLine = 0 {
+        didSet {
+            guard let editor = EditorSplitViewController.visible?.editor else {
+                return
+            }
+            for (position, marker) in editor.breakpointMarkers {
+                DispatchQueue.main.async {
+                    marker.backgroundColor = breakpointColor
+                    if position.line == runningLine {
+                        print("Running")
+                        marker.backgroundColor = runningLineColor
+                    }
+                }
+            }
+        }
+    }
+    
+    /// Color for highlighting a breakpoint.
+    static let breakpointColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 0.7039777729)
+    
+    /// Color for highlighting a line that is currently running.
+    static let runningLineColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 0.7)
+    
+    /// Sets breakpoint on current line.
+    @objc func setBreakpoint(_ sender: Any) {
+        
+        let currentLineRange = (textView.text as NSString).lineRange(for: textView.contentTextView.selectedRange)
+        
+        var currentLine = (textView.text as NSString).substring(with: currentLineRange)
+        if currentLine.hasSuffix("\n") {
+            currentLine.removeLast()
+        }
+        
+        var rangesOfLinesThatHaveTheSameContentThatTheCurrentLine = [NSRange]()
+        
+        var script = textView.text as NSString
+        if !currentLine.isEmpty {
+            while true {
+                let foundRange = script.range(of: currentLine)
+                if foundRange.location != NSNotFound {
+                    rangesOfLinesThatHaveTheSameContentThatTheCurrentLine.append(foundRange)
+                    script = script.replacingCharacters(in: foundRange, with: "") as NSString
+                } else {
+                    break
+                }
+            }
+        } else {
+            var lineRanges = [NSRange]()
+            script.enumerateSubstrings(in: NSMakeRange(0, script.length), options: .byLines, using: { (_, lineRange, _, _) in
+                lineRanges.append(lineRange)
+            })
+            for lineRange in lineRanges {
+                if script.substring(with: lineRange).isEmpty {
+                    rangesOfLinesThatHaveTheSameContentThatTheCurrentLine.append(lineRange)
+                }
+            }
+        }
+        
+        var currentLineNumber: Int?
+        
+        var currentLineIndex = 0
+        let lines = textView.text.components(separatedBy: .newlines)
+        for line in lines.enumerated() {
+            if line.element == currentLine {
+                if rangesOfLinesThatHaveTheSameContentThatTheCurrentLine.indices.contains(currentLineIndex), (rangesOfLinesThatHaveTheSameContentThatTheCurrentLine[currentLineIndex].location == currentLineRange.location || rangesOfLinesThatHaveTheSameContentThatTheCurrentLine[currentLineIndex].location == currentLineRange.location-(currentLineRange.length-1)) {
+                    currentLineNumber = line.offset+1
+                    break
+                }
+                currentLineIndex += 1
+            }
+        }
+        
+        guard let currentLineNum = currentLineNumber else {
+            return
+        }
+        
+        if !breakpoints.contains(currentLineNum) {
+            breakpoints.append(currentLineNum)
+            
+            if let textRange = textView.contentTextView.currentLineRange, let eol = textView.contentTextView.textRange(from: textRange.start, to: textRange.end) {
+                let view = UIView()
+                view.backgroundColor = EditorViewController.breakpointColor
+                view.frame.origin.y = textView.contentTextView.firstRect(for: eol).origin.y
+                view.frame.size = CGSize(width: ConsoleViewController.choosenTheme.sourceCodeTheme.font.pointSize, height: ConsoleViewController.choosenTheme.sourceCodeTheme.font.pointSize)
+                view.frame.origin.x = textView.contentTextView.frame.width-view.frame.width
+                view.layer.cornerRadius = view.frame.width/2
+                
+                breakpointMarkers[MarkerPosition(line: currentLineNum, range: eol)] = view
+                
+                view.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin, .flexibleBottomMargin]
+                textView.contentTextView.addSubview(view)
+            }
+        } else if let index = breakpoints.firstIndex(of: currentLineNum) {
+            breakpoints.remove(at: index)
+            
+            for marker in breakpointMarkers {
+                if marker.key.line == currentLineNum {
+                    marker.value.removeFromSuperview()
+                    breakpointMarkers[marker.key] = nil
+                    break
+                }
+            }
+        }
+    }
+    
     // MARK: - Keyboard
     
     /// Resize `textView`.
@@ -857,15 +1007,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
             }
             
             if currentLine.replacingOccurrences(of: " ", with: "").hasSuffix(":") {
-                if spaces.isEmpty {
-                    spaces = EditorViewController.indentation
-                } else {
-                    spaces += spaces
-                }
+                spaces += EditorViewController.indentation
             }
             
             textView.insertText("\n"+spaces)
-            
             return false
         }
         

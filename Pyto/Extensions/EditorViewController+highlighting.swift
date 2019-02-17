@@ -8,11 +8,58 @@
 
 #if os(iOS)
 import UIKit
+typealias Color = UIColor
 #elseif os(macOS)
 import Cocoa
+typealias Color = NSColor
 #endif
 
 extension EditorViewController {
+    
+    /// Highlights line with given color.
+    ///
+    /// // Taken from https://stackoverflow.com/a/49332122/7515957
+    ///
+    /// - Parameters:
+    ///     - line: Line to highlight.
+    ///     - color: The color used for highlighting.
+    func highlight(at line: Int, with color: Color?) {
+        
+        #if os(iOS)
+        let storage: NSTextStorage? = textView.contentTextView.textStorage
+        #else
+        let storage = textView.contentTextView.textStorage
+        #endif
+        
+        let textStorage = self.textView.contentTextView.textStorage
+        
+        // Use NSString here because textStorage expects the kind of ranges returned by NSString,
+        // not the kind of ranges returned by String.
+        #if os(iOS)
+        let string = textStorage.string
+        #elseif os(macOS)
+        let string = textStorage?.string ?? ""
+        #endif
+        
+        let storageString = string as NSString
+        
+        var lineRanges = [NSRange]()
+        storageString.enumerateSubstrings(in: NSMakeRange(0, storageString.length), options: .byLines, using: { (_, lineRange, _, _) in
+            lineRanges.append(lineRange)
+        })
+        
+        func setBackgroundColor(_ color: Color?, forLine line: Int) {
+            guard lineRanges.indices.contains(line) else {
+                return
+            }
+            if let color = color {
+                storage?.addAttribute(.backgroundColor, value: color, range: lineRanges[line])
+            } else {
+                storage?.removeAttribute(.backgroundColor, range: lineRanges[line])
+            }
+        }
+        setBackgroundColor(color, forLine: line)
+    }
     
     /// Shows an error at given line.
     ///
@@ -101,47 +148,7 @@ extension EditorViewController {
             self.present(errorVC, animated: true, completion: nil)
             #endif
             
-            // Taken from https://stackoverflow.com/a/49332122/7515957
-            
-            let textStorage = self.textView.contentTextView.textStorage
-            
-            // Use NSString here because textStorage expects the kind of ranges returned by NSString,
-            // not the kind of ranges returned by String.
-            #if os(iOS)
-            let string = textStorage.string
-            #elseif os(macOS)
-            let string = textStorage?.string ?? ""
-            #endif
-            let storageString = string as NSString
-            var lineRanges = [NSRange]()
-            storageString.enumerateSubstrings(in: NSMakeRange(0, storageString.length), options: .byLines, using: { (_, lineRange, _, _) in
-                lineRanges.append(lineRange)
-            })
-            
-            #if os(iOS)
-            typealias Color = UIColor
-            #elseif os(macOS)
-            typealias Color = NSColor
-            #endif
-            
-            #if os(iOS)
-            let storage: UITextStorage? = textStorage
-            #else
-            let storage = textStorage
-            #endif
-            
-            func setBackgroundColor(_ color: Color?, forLine line: Int) {
-                guard lineRanges.indices.contains(line) else {
-                    return
-                }
-                if let color = color {
-                    storage?.addAttribute(.backgroundColor, value: color, range: lineRanges[line])
-                } else {
-                    storage?.removeAttribute(.backgroundColor, range: lineRanges[line])
-                }
-            }
-            
-            setBackgroundColor(errorColor.withAlphaComponent(0.5), forLine: lineNumber-1)
+            self.highlight(at: lineNumber-1, with: errorColor.withAlphaComponent(0.5))
         }
     }
 }
