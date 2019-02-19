@@ -220,8 +220,7 @@
 		C96CBC3B21DE6BF0008C508C /* _umath_linalg.cpython-37m-darwin.so in Copy _umath_linalg */ = {isa = PBXBuildFile; fileRef = C96CBC2521DE6A78008C508C /* _umath_linalg.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C96CBC3D21DE6C0E008C508C /* fftpack_lite.cpython-37m-darwin.so in Copy fftpack_lite */ = {isa = PBXBuildFile; fileRef = C96CBC2621DE6A78008C508C /* fftpack_lite.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C96CBC3F21DE6C22008C508C /* lapack_lite.cpython-37m-darwin.so in Copy lapack_lite */ = {isa = PBXBuildFile; fileRef = C96CBC2721DE6A78008C508C /* lapack_lite.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C96CBC4321DE6C45008C508C /* multiarray.cpython-37m-darwin.so in Copy multiarray */ = {isa = PBXBuildFile; fileRef = C96CBC2821DE6A79008C508C /* multiarray.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C96CBC4521DE6C5C008C508C /* umath.cpython-37m-darwin.so in Copy umath */ = {isa = PBXBuildFile; fileRef = C96CBC2A21DE6A79008C508C /* umath.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96CBC4521DE6C5C008C508C /* _multiarray_umath.cpython-37m-darwin.so in Copy _multiarray_umath */ = {isa = PBXBuildFile; fileRef = C96CBC2A21DE6A79008C508C /* _multiarray_umath.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C970279621FF98A000159E54 /* mtrand.cpython-37m-darwin.so in Copy mtrand */ = {isa = PBXBuildFile; fileRef = C96CBC2C21DE6A79008C508C /* mtrand.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C970279721FF98A500159E54 /* Info.plist in Copy mtrand */ = {isa = PBXBuildFile; fileRef = C9AED5B221DE7EAA00CC5B43 /* Info.plist */; };
 		C970280221FFAE0800159E54 /* _cntr.cpython-37m-darwin.so in Copy _cntr */ = {isa = PBXBuildFile; fileRef = C97027F121FFAAB600159E54 /* _cntr.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -284,6 +283,7 @@
 		C97E86A0221B76BB00D2F7BE /* Info.plist in Copy parsers */ = {isa = PBXBuildFile; fileRef = C97E869F221B76BA00D2F7BE /* Info.plist */; };
 		C97E86A2221B773A00D2F7BE /* Info.plist in Copy testing */ = {isa = PBXBuildFile; fileRef = C97E86A1221B773A00D2F7BE /* Info.plist */; };
 		C97E86A4221B77CB00D2F7BE /* Info.plist in Copy period */ = {isa = PBXBuildFile; fileRef = C97E86A3221B77CB00D2F7BE /* Info.plist */; };
+		C97E87C4221CA94200D2F7BE /* Info.plist in Copy _multiarray_umath */ = {isa = PBXBuildFile; fileRef = C97E87C3221CA91500D2F7BE /* Info.plist */; };
 		C98472AE21A05CB1008E16AC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C98472AD21A05CB1008E16AC /* README.md */; };
 		C98E12DF22139739005CE20C /* NSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98E12DE22139739005CE20C /* NSView.swift */; };
 		C98E12E72214689A005CE20C /* ConsoleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98E12E62214689A005CE20C /* ConsoleTextView.swift */; };
@@ -297,8 +297,7 @@
 		C990B56821E5261700ABC0B8 /* fftpack_lite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59E21DE771C00CC5B43 /* fftpack_lite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C990B56A21E5261C00ABC0B8 /* lapack_lite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59C21DE771C00CC5B43 /* lapack_lite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C990B56C21E5262100ABC0B8 /* mtrand.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59D21DE771C00CC5B43 /* mtrand.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C990B56E21E5262D00ABC0B8 /* multiarray.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59B21DE771C00CC5B43 /* multiarray.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C990B57021E5263100ABC0B8 /* umath.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59F21DE771D00CC5B43 /* umath.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C990B57021E5263100ABC0B8 /* _multiarray_umath.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59F21DE771D00CC5B43 /* _multiarray_umath.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C99A8640221B641300F6AB94 /* Info.plist in Copy resolution */ = {isa = PBXBuildFile; fileRef = C99A863F221B641200F6AB94 /* Info.plist */; };
 		C99DDCEC21BBED22002A734E /* DocumentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99DDCEB21BBED22002A734E /* DocumentationViewController.swift */; };
 		C99DEFC1220865EC00B0BDAB /* BlockBasedSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7421F49B1200E7CC35 /* BlockBasedSelector.m */; };
@@ -312,8 +311,6 @@
 		C9AED5A921DE7DEC00CC5B43 /* Info.plist in Copy fftpack_lite */ = {isa = PBXBuildFile; fileRef = C9AED5A821DE7DEC00CC5B43 /* Info.plist */; };
 		C9AED5AF21DE7E7100CC5B43 /* Info.plist in Copy _umath_linalg */ = {isa = PBXBuildFile; fileRef = C9AED5AE21DE7E7100CC5B43 /* Info.plist */; };
 		C9AED5B121DE7E9A00CC5B43 /* Info.plist in Copy lapack_lite */ = {isa = PBXBuildFile; fileRef = C9AED5B021DE7E9A00CC5B43 /* Info.plist */; };
-		C9AED5B521DE7EBB00CC5B43 /* Info.plist in Copy multiarray */ = {isa = PBXBuildFile; fileRef = C9AED5B421DE7EBB00CC5B43 /* Info.plist */; };
-		C9AED5B721DE7ECC00CC5B43 /* Info.plist in Copy umath */ = {isa = PBXBuildFile; fileRef = C9AED5B621DE7ECB00CC5B43 /* Info.plist */; };
 		C9B27BBA2217A03200814051 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCFD5A214428AE00A07974 /* EditorViewController.swift */; };
 		C9B3FDEC21503DE7000FC9A8 /* PyExtensionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */; };
 		C9B5D84B21F119B100E980BA /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B5D84A21F119B100E980BA /* Settings.storyboard */; };
@@ -1124,28 +1121,16 @@
 			name = "Copy lapack_lite";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C96CBC4221DE6C39008C508C /* Copy multiarray */ = {
+		C96CBC4421DE6C52008C508C /* Copy _multiarray_umath */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = multiarray.framework;
+			dstPath = _multiarray_umath.framework;
 			dstSubfolderSpec = 10;
 			files = (
-				C96CBC4321DE6C45008C508C /* multiarray.cpython-37m-darwin.so in Copy multiarray */,
-				C9AED5B521DE7EBB00CC5B43 /* Info.plist in Copy multiarray */,
+				C96CBC4521DE6C5C008C508C /* _multiarray_umath.cpython-37m-darwin.so in Copy _multiarray_umath */,
+				C97E87C4221CA94200D2F7BE /* Info.plist in Copy _multiarray_umath */,
 			);
-			name = "Copy multiarray";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C96CBC4421DE6C52008C508C /* Copy umath */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = umath.framework;
-			dstSubfolderSpec = 10;
-			files = (
-				C96CBC4521DE6C5C008C508C /* umath.cpython-37m-darwin.so in Copy umath */,
-				C9AED5B721DE7ECC00CC5B43 /* Info.plist in Copy umath */,
-			);
-			name = "Copy umath";
+			name = "Copy _multiarray_umath";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C970279521FF988900159E54 /* Copy mtrand */ = {
@@ -1351,10 +1336,9 @@
 				C9480ABD221A18A300AA4AF9 /* timedeltas.framework in Embed Frameworks */,
 				C9480ABE221A18A300AA4AF9 /* timestamps.framework in Embed Frameworks */,
 				C9480ABF221A18A300AA4AF9 /* timezones.framework in Embed Frameworks */,
-				C990B57021E5263100ABC0B8 /* umath.framework in Embed Frameworks */,
+				C990B57021E5263100ABC0B8 /* _multiarray_umath.framework in Embed Frameworks */,
 				C990B56A21E5261C00ABC0B8 /* lapack_lite.framework in Embed Frameworks */,
 				C9DF71072171768A00981B4F /* Python.framework in Embed Frameworks */,
-				C990B56E21E5262D00ABC0B8 /* multiarray.framework in Embed Frameworks */,
 				C9DF70F3217175C400981B4F /* openssl.framework in Embed Frameworks */,
 				C9DF70EF217175C400981B4F /* network_ios.framework in Embed Frameworks */,
 				C9DF70FD217175C400981B4F /* awk.framework in Embed Frameworks */,
@@ -1628,8 +1612,7 @@
 		C96CBC2521DE6A78008C508C /* _umath_linalg.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "_umath_linalg.cpython-37m-darwin.so"; sourceTree = "<group>"; };
 		C96CBC2621DE6A78008C508C /* fftpack_lite.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "fftpack_lite.cpython-37m-darwin.so"; sourceTree = "<group>"; };
 		C96CBC2721DE6A78008C508C /* lapack_lite.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "lapack_lite.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C96CBC2821DE6A79008C508C /* multiarray.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "multiarray.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C96CBC2A21DE6A79008C508C /* umath.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "umath.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96CBC2A21DE6A79008C508C /* _multiarray_umath.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "_multiarray_umath.cpython-37m-darwin.so"; sourceTree = "<group>"; };
 		C96CBC2C21DE6A79008C508C /* mtrand.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "mtrand.cpython-37m-darwin.so"; sourceTree = "<group>"; };
 		C97027F121FFAAB600159E54 /* _cntr.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "_cntr.cpython-37m-darwin.so"; sourceTree = "<group>"; };
 		C97027F321FFAAC100159E54 /* _delaunay.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "_delaunay.cpython-37m-darwin.so"; sourceTree = "<group>"; };
@@ -1769,6 +1752,7 @@
 		C97E869F221B76BA00D2F7BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = parsers.framework/Info.plist; sourceTree = "<group>"; };
 		C97E86A1221B773A00D2F7BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = testing.framework/Info.plist; sourceTree = "<group>"; };
 		C97E86A3221B77CB00D2F7BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = period.framework/Info.plist; sourceTree = "<group>"; };
+		C97E87C3221CA91500D2F7BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = _multiarray_umath.framework/Info.plist; sourceTree = "<group>"; };
 		C984729121A05A0E008E16AC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C98472AD21A05CB1008E16AC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C98E12DE22139739005CE20C /* NSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSView.swift; sourceTree = "<group>"; };
@@ -1788,17 +1772,14 @@
 		C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = InputAssistant.xcodeproj; path = InputAssistant/InputAssistant.xcodeproj; sourceTree = "<group>"; };
 		C9AAAB5121950E8B0042E733 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		C9AED59A21DE771C00CC5B43 /* _umath_linalg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _umath_linalg.framework; sourceTree = "<group>"; };
-		C9AED59B21DE771C00CC5B43 /* multiarray.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = multiarray.framework; sourceTree = "<group>"; };
 		C9AED59C21DE771C00CC5B43 /* lapack_lite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = lapack_lite.framework; sourceTree = "<group>"; };
 		C9AED59D21DE771C00CC5B43 /* mtrand.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = mtrand.framework; sourceTree = "<group>"; };
 		C9AED59E21DE771C00CC5B43 /* fftpack_lite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = fftpack_lite.framework; sourceTree = "<group>"; };
-		C9AED59F21DE771D00CC5B43 /* umath.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = umath.framework; sourceTree = "<group>"; };
+		C9AED59F21DE771D00CC5B43 /* _multiarray_umath.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _multiarray_umath.framework; sourceTree = "<group>"; };
 		C9AED5A821DE7DEC00CC5B43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = fftpack_lite.framework/Info.plist; sourceTree = "<group>"; };
 		C9AED5AE21DE7E7100CC5B43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = _umath_linalg.framework/Info.plist; sourceTree = "<group>"; };
 		C9AED5B021DE7E9A00CC5B43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = lapack_lite.framework/Info.plist; sourceTree = "<group>"; };
 		C9AED5B221DE7EAA00CC5B43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = mtrand.framework/Info.plist; sourceTree = "<group>"; };
-		C9AED5B421DE7EBB00CC5B43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = multiarray.framework/Info.plist; sourceTree = "<group>"; };
-		C9AED5B621DE7ECB00CC5B43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = umath.framework/Info.plist; sourceTree = "<group>"; };
 		C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyExtensionContext.swift; sourceTree = "<group>"; };
 		C9B5D84A21F119B100E980BA /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		C9B5D84E21F11AAE00E980BA /* AboutTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTableViewController.swift; sourceTree = "<group>"; };
@@ -2714,20 +2695,17 @@
 				C9AED5AE21DE7E7100CC5B43 /* Info.plist */,
 				C9AED5B021DE7E9A00CC5B43 /* Info.plist */,
 				C9AED5B221DE7EAA00CC5B43 /* Info.plist */,
-				C9AED5B421DE7EBB00CC5B43 /* Info.plist */,
-				C9AED5B621DE7ECB00CC5B43 /* Info.plist */,
+				C97E87C3221CA91500D2F7BE /* Info.plist */,
 				C96CBC2521DE6A78008C508C /* _umath_linalg.cpython-37m-darwin.so */,
 				C96CBC2621DE6A78008C508C /* fftpack_lite.cpython-37m-darwin.so */,
 				C96CBC2721DE6A78008C508C /* lapack_lite.cpython-37m-darwin.so */,
 				C96CBC2C21DE6A79008C508C /* mtrand.cpython-37m-darwin.so */,
-				C96CBC2821DE6A79008C508C /* multiarray.cpython-37m-darwin.so */,
-				C96CBC2A21DE6A79008C508C /* umath.cpython-37m-darwin.so */,
+				C96CBC2A21DE6A79008C508C /* _multiarray_umath.cpython-37m-darwin.so */,
 				C9AED59A21DE771C00CC5B43 /* _umath_linalg.framework */,
 				C9AED59E21DE771C00CC5B43 /* fftpack_lite.framework */,
 				C9AED59C21DE771C00CC5B43 /* lapack_lite.framework */,
 				C9AED59D21DE771C00CC5B43 /* mtrand.framework */,
-				C9AED59B21DE771C00CC5B43 /* multiarray.framework */,
-				C9AED59F21DE771D00CC5B43 /* umath.framework */,
+				C9AED59F21DE771D00CC5B43 /* _multiarray_umath.framework */,
 			);
 			path = NumPy;
 			sourceTree = "<group>";
@@ -3130,8 +3108,7 @@
 				C96CBC3C21DE6BFC008C508C /* Copy fftpack_lite */,
 				C96CBC3E21DE6C15008C508C /* Copy lapack_lite */,
 				C970279521FF988900159E54 /* Copy mtrand */,
-				C96CBC4221DE6C39008C508C /* Copy multiarray */,
-				C96CBC4421DE6C52008C508C /* Copy umath */,
+				C96CBC4421DE6C52008C508C /* Copy _multiarray_umath */,
 				C970280121FFACB900159E54 /* Copy _cntr */,
 				C970280521FFAE2E00159E54 /* Copy _delaunay */,
 				C970280821FFAE4A00159E54 /* Copy _backend_agg */,
