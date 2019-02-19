@@ -69,6 +69,7 @@ sys.stderr = standardError
 
 sys.meta_path.append(NumpyImporter())
 sys.meta_path.append(MatplotlibImporter())
+sys.meta_path.append(PandasImporter())
 
 # MARK: - Create a Selector without class.
 

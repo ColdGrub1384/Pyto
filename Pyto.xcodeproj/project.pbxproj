@@ -66,6 +66,48 @@
 		C946A5CB2207809700F78C5C /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946A5C92207809700F78C5C /* FileManager.swift */; };
 		C946A5CC22078C1D00F78C5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9FCFD5F214428B300A07974 /* Assets.xcassets */; };
 		C9477BBB21D45D29000680AE /* installer.py in Resources */ = {isa = PBXBuildFile; fileRef = C9477BBA21D45D28000680AE /* installer.py */; };
+		C9480A292219B0B700AA4AF9 /* Info.plist in Copy hashing */ = {isa = PBXBuildFile; fileRef = C9480A272219B08B00AA4AF9 /* Info.plist */; };
+		C9480A822219C22100AA4AF9 /* ccalendar.cpython-37m-darwin.so in Copy ccalendar */ = {isa = PBXBuildFile; fileRef = C9480A2B2219BD9900AA4AF9 /* ccalendar.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C9480A832219C22300AA4AF9 /* Info.plist in Copy ccalendar */ = {isa = PBXBuildFile; fileRef = C9480A632219BE9800AA4AF9 /* Info.plist */; };
+		C9480A852219C24300AA4AF9 /* Info.plist in Copy conversion */ = {isa = PBXBuildFile; fileRef = C9480A652219BEA300AA4AF9 /* Info.plist */; };
+		C9480A862219C24700AA4AF9 /* conversion.cpython-37m-darwin.so in Copy conversion */ = {isa = PBXBuildFile; fileRef = C9480A2C2219BD9900AA4AF9 /* conversion.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C9480A882219C28600AA4AF9 /* fields.cpython-37m-darwin.so in Copy fields */ = {isa = PBXBuildFile; fileRef = C9480A2D2219BD9900AA4AF9 /* fields.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C9480A892219C29400AA4AF9 /* Info.plist in Copy fields */ = {isa = PBXBuildFile; fileRef = C9480A672219BEAF00AA4AF9 /* Info.plist */; };
+		C9480A8B2219C2B700AA4AF9 /* nattype.cpython-37m-darwin.so in Copy nattype */ = {isa = PBXBuildFile; fileRef = C9480A2E2219BD9900AA4AF9 /* nattype.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C9480A8C2219C2BA00AA4AF9 /* Info.plist in Copy nattype */ = {isa = PBXBuildFile; fileRef = C9480A692219BEB800AA4AF9 /* Info.plist */; };
+		C9480A8E2219C2DF00AA4AF9 /* timedeltas.cpython-37m-darwin.so in Copy timedeltas */ = {isa = PBXBuildFile; fileRef = C9480A2F2219BD9900AA4AF9 /* timedeltas.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C9480A8F2219C2E200AA4AF9 /* Info.plist in Copy timedeltas */ = {isa = PBXBuildFile; fileRef = C9480A6B2219BEC300AA4AF9 /* Info.plist */; };
+		C9480A912219C30D00AA4AF9 /* frequencies.cpython-37m-darwin.so in Copy frequencies */ = {isa = PBXBuildFile; fileRef = C9480A302219BD9900AA4AF9 /* frequencies.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C9480A922219C31000AA4AF9 /* Info.plist in Copy frequencies */ = {isa = PBXBuildFile; fileRef = C9480A6D2219BECA00AA4AF9 /* Info.plist */; };
+		C9480A942219C36100AA4AF9 /* resolution.cpython-37m-darwin.so in Copy resolution */ = {isa = PBXBuildFile; fileRef = C9480A312219BD9900AA4AF9 /* resolution.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C9480A992219C39700AA4AF9 /* offsets.cpython-37m-darwin.so in Copy offsets */ = {isa = PBXBuildFile; fileRef = C9480A322219BD9900AA4AF9 /* offsets.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C9480A9A2219C39900AA4AF9 /* Info.plist in Copy offsets */ = {isa = PBXBuildFile; fileRef = C9480A732219BEE500AA4AF9 /* Info.plist */; };
+		C9480A9C2219C3C700AA4AF9 /* np_datetime.cpython-37m-darwin.so in Copy np_datetime */ = {isa = PBXBuildFile; fileRef = C9480A332219BD9900AA4AF9 /* np_datetime.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C9480A9E2219C3CD00AA4AF9 /* Info.plist in Copy np_datetime */ = {isa = PBXBuildFile; fileRef = C9480A752219BEF500AA4AF9 /* Info.plist */; };
+		C9480AA02219C3E800AA4AF9 /* period.cpython-37m-darwin.so in Copy period */ = {isa = PBXBuildFile; fileRef = C9480A342219BD9900AA4AF9 /* period.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C9480AA3221A11AF00AA4AF9 /* timezones.cpython-37m-darwin.so in Copy timezones */ = {isa = PBXBuildFile; fileRef = C9480A352219BD9900AA4AF9 /* timezones.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C9480AA6221A11C200AA4AF9 /* Info.plist in Copy timezones */ = {isa = PBXBuildFile; fileRef = C9480A792219BF4F00AA4AF9 /* Info.plist */; };
+		C9480AA8221A11F700AA4AF9 /* strptime.cpython-37m-darwin.so in Copy strptime */ = {isa = PBXBuildFile; fileRef = C9480A362219BD9900AA4AF9 /* strptime.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C9480AAA221A11FF00AA4AF9 /* Info.plist in Copy strptime */ = {isa = PBXBuildFile; fileRef = C9480A7B2219BF5A00AA4AF9 /* Info.plist */; };
+		C9480AAC221A123600AA4AF9 /* parsing.cpython-37m-darwin.so in Copy parsing */ = {isa = PBXBuildFile; fileRef = C9480A372219BD9900AA4AF9 /* parsing.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C9480AAD221A123800AA4AF9 /* Info.plist in Copy parsing */ = {isa = PBXBuildFile; fileRef = C9480A7D2219BF9600AA4AF9 /* Info.plist */; };
+		C9480AAF221A125700AA4AF9 /* timestamps.cpython-37m-darwin.so in Copy timestamps */ = {isa = PBXBuildFile; fileRef = C9480A382219BD9900AA4AF9 /* timestamps.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C9480AB0221A125800AA4AF9 /* Info.plist in Copy timestamps */ = {isa = PBXBuildFile; fileRef = C9480A7F2219BF9F00AA4AF9 /* Info.plist */; };
+		C9480AB1221A185400AA4AF9 /* libpng.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE4DF22070224006611CB /* libpng.framework */; };
+		C9480AB2221A18A300AA4AF9 /* ccalendar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9480A4B2219BE7E00AA4AF9 /* ccalendar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9480AB3221A18A300AA4AF9 /* conversion.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9480A472219BE7D00AA4AF9 /* conversion.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9480AB4221A18A300AA4AF9 /* fields.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9480A542219BE7F00AA4AF9 /* fields.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9480AB5221A18A300AA4AF9 /* frequencies.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9480A4A2219BE7E00AA4AF9 /* frequencies.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9480AB6221A18A300AA4AF9 /* nattype.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9480A4D2219BE7E00AA4AF9 /* nattype.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9480AB7221A18A300AA4AF9 /* np_datetime.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9480A522219BE7F00AA4AF9 /* np_datetime.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9480AB8221A18A300AA4AF9 /* offsets.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9480A502219BE7F00AA4AF9 /* offsets.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9480AB9221A18A300AA4AF9 /* parsing.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9480A492219BE7E00AA4AF9 /* parsing.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9480ABA221A18A300AA4AF9 /* period.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9480A512219BE7F00AA4AF9 /* period.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9480ABB221A18A300AA4AF9 /* resolution.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9480A4C2219BE7E00AA4AF9 /* resolution.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9480ABC221A18A300AA4AF9 /* strptime.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9480A482219BE7D00AA4AF9 /* strptime.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9480ABD221A18A300AA4AF9 /* timedeltas.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9480A4E2219BE7E00AA4AF9 /* timedeltas.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9480ABE221A18A300AA4AF9 /* timestamps.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9480A4F2219BE7F00AA4AF9 /* timestamps.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9480ABF221A18A300AA4AF9 /* timezones.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9480A532219BE7F00AA4AF9 /* timezones.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C949D39B21F8A00C005AF481 /* NSRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C949D39A21F8A00C005AF481 /* NSRange.swift */; };
 		C94CC2BC21FCEF6C005E9556 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94CC2BB21FCEF6C005E9556 /* AppDelegate.swift */; };
 		C94CC2C221FCEF70005E9556 /* Assets Mac.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C94CC2C121FCEF70005E9556 /* Assets Mac.xcassets */; };
@@ -82,7 +124,6 @@
 		C9592D2721D059BA00412CEF /* EditorSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1F21D059B900412CEF /* EditorSplitViewController.swift */; };
 		C95A79E8214DC9D0007A1B90 /* PyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A79E7214DC9D0007A1B90 /* PyAlert.swift */; };
 		C95AECB82208A688003BCB05 /* cacert.pem in Resources */ = {isa = PBXBuildFile; fileRef = C95AECB72208A688003BCB05 /* cacert.pem */; };
-		C95EE4E622070224006611CB /* libpng.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE4DF22070224006611CB /* libpng.framework */; };
 		C95EE4E722070224006611CB /* libpng.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE4DF22070224006611CB /* libpng.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C95EE4ED22070275006611CB /* png.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BA62202590E0085E1AA /* png.c */; };
 		C95EE4EE22070277006611CB /* pngerror.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BA72202590E0085E1AA /* pngerror.c */; };
@@ -100,6 +141,82 @@
 		C95EE4FA220702A2006611CB /* pngwutil.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5B9F2202590D0085E1AA /* pngwutil.c */; };
 		C9624EF421A9905400DDA9A7 /* PyThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9624EF321A9905400DDA9A7 /* PyThread.swift */; };
 		C9647FFF21ACA00D005765C2 /* Help.py in Resources */ = {isa = PBXBuildFile; fileRef = C9647FFE21ACA00D005765C2 /* Help.py */; };
+		C96C70372219A1AB0056EA64 /* writers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C6FE322198F7B0056EA64 /* writers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C70382219A1AB0056EA64 /* _packer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C6FE522198F7B0056EA64 /* _packer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C70392219A1AB0056EA64 /* _sas.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C6FE622198F7B0056EA64 /* _sas.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C703A2219A1AB0056EA64 /* hashtable.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C6FE722198F7B0056EA64 /* hashtable.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C703B2219A1AB0056EA64 /* reshape.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C6FE822198F7C0056EA64 /* reshape.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C703C2219A1AB0056EA64 /* tslib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C6FEA22198F7C0056EA64 /* tslib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C703D2219A1AB0056EA64 /* interval.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C6FEE22198F7C0056EA64 /* interval.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C703E2219A1AB0056EA64 /* missing.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C6FF322198F7C0056EA64 /* missing.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C703F2219A1AB0056EA64 /* ops.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C6FF422198F7C0056EA64 /* ops.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C70402219A1AB0056EA64 /* _unpacker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C6FF522198F7C0056EA64 /* _unpacker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C70412219A1AB0056EA64 /* hashing.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C6FF622198F7C0056EA64 /* hashing.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C70422219A1AB0056EA64 /* join.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C6FF722198F7C0056EA64 /* join.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C70432219A1AB0056EA64 /* sparse.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C6FF922198F7C0056EA64 /* sparse.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C70442219A1AB0056EA64 /* indexing.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C6FFD22198F7C0056EA64 /* indexing.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C70452219A1AB0056EA64 /* parsers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C700422198F7C0056EA64 /* parsers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C70462219A1AB0056EA64 /* algos.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C700522198F7C0056EA64 /* algos.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C70472219A1AB0056EA64 /* reduction.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C700622198F7C0056EA64 /* reduction.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C70482219A1AB0056EA64 /* testing.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C700722198F7C0056EA64 /* testing.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C70492219A1AB0056EA64 /* properties.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C700822198F7C0056EA64 /* properties.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C704A2219A1AB0056EA64 /* internals.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C700922198F7C0056EA64 /* internals.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C704B2219A1AB0056EA64 /* window.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C700C22198F7C0056EA64 /* window.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C704C2219A1AB0056EA64 /* json.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C700E22198F7C0056EA64 /* json.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C704D2219A1AB0056EA64 /* index.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C701022198F7C0056EA64 /* index.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C704E2219A1AB0056EA64 /* groupby.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C701322198F7C0056EA64 /* groupby.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C704F2219A1AC0056EA64 /* skiplist.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C701422198F7C0056EA64 /* skiplist.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C70502219A1AC0056EA64 /* lib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C701722198F7C0056EA64 /* lib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C70512219A1AC0056EA64 /* _move.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C701922198F7C0056EA64 /* _move.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C70522219A1E40056EA64 /* _move.cpython-37m-darwin.so in Copy _move */ = {isa = PBXBuildFile; fileRef = C96C6FFC22198F7C0056EA64 /* _move.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C70542219A2280056EA64 /* Info.plist in Copy _move */ = {isa = PBXBuildFile; fileRef = C96C70532219A2280056EA64 /* Info.plist */; };
+		C96C70552219A23A0056EA64 /* lib.cpython-37m-darwin.so in Copy lib */ = {isa = PBXBuildFile; fileRef = C96C6FEF22198F7C0056EA64 /* lib.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C70572219A2570056EA64 /* Info.plist in Copy lib */ = {isa = PBXBuildFile; fileRef = C96C70562219A2560056EA64 /* Info.plist */; };
+		C96C70582219A2930056EA64 /* skiplist.cpython-37m-darwin.so in Copy skiplist */ = {isa = PBXBuildFile; fileRef = C96C701122198F7C0056EA64 /* skiplist.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C705A2219A2AF0056EA64 /* Info.plist in Copy skiplist */ = {isa = PBXBuildFile; fileRef = C96C70592219A2AE0056EA64 /* Info.plist */; };
+		C96C705B2219A30C0056EA64 /* groupby.cpython-37m-darwin.so in Copy groupby */ = {isa = PBXBuildFile; fileRef = C96C6FFF22198F7C0056EA64 /* groupby.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C705D2219A34E0056EA64 /* Info.plist in Copy groupby */ = {isa = PBXBuildFile; fileRef = C96C705C2219A34E0056EA64 /* Info.plist */; };
+		C96C705E2219A3910056EA64 /* index.cpython-37m-darwin.so in Copy index */ = {isa = PBXBuildFile; fileRef = C96C700D22198F7C0056EA64 /* index.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C70602219A3BD0056EA64 /* Info.plist in Copy index */ = {isa = PBXBuildFile; fileRef = C96C705F2219A3BC0056EA64 /* Info.plist */; };
+		C96C70612219A3F90056EA64 /* json.cpython-37m-darwin.so in Copy json */ = {isa = PBXBuildFile; fileRef = C96C701622198F7C0056EA64 /* json.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C70632219A43B0056EA64 /* Info.plist in Copy json */ = {isa = PBXBuildFile; fileRef = C96C70622219A43A0056EA64 /* Info.plist */; };
+		C96C70642219A4540056EA64 /* window.cpython-37m-darwin.so in Copy window */ = {isa = PBXBuildFile; fileRef = C96C700A22198F7C0056EA64 /* window.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C70662219A48F0056EA64 /* Info.plist in Copy window */ = {isa = PBXBuildFile; fileRef = C96C70652219A48F0056EA64 /* Info.plist */; };
+		C96C70672219A4BE0056EA64 /* internals.cpython-37m-darwin.so in Copy internals */ = {isa = PBXBuildFile; fileRef = C96C6FF822198F7C0056EA64 /* internals.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C70692219A4D20056EA64 /* Info.plist in Copy internals */ = {isa = PBXBuildFile; fileRef = C96C70682219A4D10056EA64 /* Info.plist */; };
+		C96C706A2219A5000056EA64 /* properties.cpython-37m-darwin.so in Copy properties */ = {isa = PBXBuildFile; fileRef = C96C6FE922198F7C0056EA64 /* properties.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C706C2219A5100056EA64 /* Info.plist in Copy properties */ = {isa = PBXBuildFile; fileRef = C96C706B2219A5100056EA64 /* Info.plist */; };
+		C96C706D2219A56F0056EA64 /* testing.cpython-37m-darwin.so in Copy testing */ = {isa = PBXBuildFile; fileRef = C96C6FF122198F7C0056EA64 /* testing.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C70702219A5DE0056EA64 /* reduction.cpython-37m-darwin.so in Copy reduction */ = {isa = PBXBuildFile; fileRef = C96C6FED22198F7C0056EA64 /* reduction.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C70722219A6010056EA64 /* Info.plist in Copy reduction */ = {isa = PBXBuildFile; fileRef = C96C70712219A6010056EA64 /* Info.plist */; };
+		C96C70732219A62B0056EA64 /* algos.cpython-37m-darwin.so in Copy algos */ = {isa = PBXBuildFile; fileRef = C96C700F22198F7C0056EA64 /* algos.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C70752219A6460056EA64 /* Info.plist in Copy algos */ = {isa = PBXBuildFile; fileRef = C96C70742219A6450056EA64 /* Info.plist */; };
+		C96C70762219A6BF0056EA64 /* parsers.cpython-37m-darwin.so in Copy parsers */ = {isa = PBXBuildFile; fileRef = C96C700022198F7C0056EA64 /* parsers.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C70792219A71F0056EA64 /* indexing.cpython-37m-darwin.so in Copy indexing */ = {isa = PBXBuildFile; fileRef = C96C700222198F7C0056EA64 /* indexing.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C707B2219A73D0056EA64 /* Info.plist in Copy indexing */ = {isa = PBXBuildFile; fileRef = C96C707A2219A73D0056EA64 /* Info.plist */; };
+		C96C707C2219A79D0056EA64 /* sparse.cpython-37m-darwin.so in Copy sparse */ = {isa = PBXBuildFile; fileRef = C96C700322198F7C0056EA64 /* sparse.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C70812219A8160056EA64 /* join.cpython-37m-darwin.so in Copy join */ = {isa = PBXBuildFile; fileRef = C96C6FF022198F7C0056EA64 /* join.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C70842219A8400056EA64 /* hashing.cpython-37m-darwin.so in Copy hashing */ = {isa = PBXBuildFile; fileRef = C96C6FFA22198F7C0056EA64 /* hashing.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C70872219A8740056EA64 /* _unpacker.cpython-37m-darwin.so in Copy _unpacker */ = {isa = PBXBuildFile; fileRef = C96C701822198F7C0056EA64 /* _unpacker.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C70892219A88B0056EA64 /* Info.plist in Copy _unpacker */ = {isa = PBXBuildFile; fileRef = C96C70882219A88B0056EA64 /* Info.plist */; };
+		C96C708A2219A8C30056EA64 /* ops.cpython-37m-darwin.so in Copy ops */ = {isa = PBXBuildFile; fileRef = C96C700122198F7C0056EA64 /* ops.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C708C2219A8DB0056EA64 /* Info.plist in Copy ops */ = {isa = PBXBuildFile; fileRef = C96C708B2219A8DB0056EA64 /* Info.plist */; };
+		C96C708D2219A8FA0056EA64 /* missing.cpython-37m-darwin.so in Copy missing */ = {isa = PBXBuildFile; fileRef = C96C6FFB22198F7C0056EA64 /* missing.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C708F2219A9110056EA64 /* Info.plist in Copy missing */ = {isa = PBXBuildFile; fileRef = C96C708E2219A9110056EA64 /* Info.plist */; };
+		C96C70902219A9260056EA64 /* interval.cpython-37m-darwin.so in Copy interval */ = {isa = PBXBuildFile; fileRef = C96C6FEB22198F7C0056EA64 /* interval.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C70922219A94C0056EA64 /* Info.plist in Copy interval */ = {isa = PBXBuildFile; fileRef = C96C70912219A94C0056EA64 /* Info.plist */; };
+		C96C70932219A9600056EA64 /* tslib.cpython-37m-darwin.so in Copy tslib */ = {isa = PBXBuildFile; fileRef = C96C700B22198F7C0056EA64 /* tslib.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C70952219A9CF0056EA64 /* Info.plist in Copy tslib */ = {isa = PBXBuildFile; fileRef = C96C70942219A9CE0056EA64 /* Info.plist */; };
+		C96C70962219AA1A0056EA64 /* reshape.cpython-37m-darwin.so in Copy reshape */ = {isa = PBXBuildFile; fileRef = C96C6FF222198F7C0056EA64 /* reshape.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C70982219AA2F0056EA64 /* Info.plist in Copy reshape */ = {isa = PBXBuildFile; fileRef = C96C70972219AA2F0056EA64 /* Info.plist */; };
+		C96C70992219AA8C0056EA64 /* hashtable.cpython-37m-darwin.so in Copy hashtable */ = {isa = PBXBuildFile; fileRef = C96C701222198F7C0056EA64 /* hashtable.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C709B2219AAD40056EA64 /* Info.plist in Copy hashtable */ = {isa = PBXBuildFile; fileRef = C96C709A2219AAD30056EA64 /* Info.plist */; };
+		C96C709C2219AAEA0056EA64 /* _sas.cpython-37m-darwin.so in Copy _sas */ = {isa = PBXBuildFile; fileRef = C96C6FFE22198F7C0056EA64 /* _sas.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C709F2219AAF90056EA64 /* _packer.cpython-37m-darwin.so in Copy _packer */ = {isa = PBXBuildFile; fileRef = C96C6FEC22198F7C0056EA64 /* _packer.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C70A12219AB0E0056EA64 /* Info.plist in Copy _packer */ = {isa = PBXBuildFile; fileRef = C96C70A02219AB0D0056EA64 /* Info.plist */; };
+		C96C70A32219AB3D0056EA64 /* Info.plist in Copy writers */ = {isa = PBXBuildFile; fileRef = C96C70A22219AB3D0056EA64 /* Info.plist */; };
+		C96C70A42219AB470056EA64 /* writers.cpython-37m-darwin.so in Copy writers */ = {isa = PBXBuildFile; fileRef = C96C6FE422198F7B0056EA64 /* writers.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C96C70A62219ADC00056EA64 /* Info.plist in Copy join */ = {isa = PBXBuildFile; fileRef = C96C70A52219ADC00056EA64 /* Info.plist */; };
 		C96CBC3B21DE6BF0008C508C /* _umath_linalg.cpython-37m-darwin.so in Copy _umath_linalg */ = {isa = PBXBuildFile; fileRef = C96CBC2521DE6A78008C508C /* _umath_linalg.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C96CBC3D21DE6C0E008C508C /* fftpack_lite.cpython-37m-darwin.so in Copy fftpack_lite */ = {isa = PBXBuildFile; fileRef = C96CBC2621DE6A78008C508C /* fftpack_lite.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C96CBC3F21DE6C22008C508C /* lapack_lite.cpython-37m-darwin.so in Copy lapack_lite */ = {isa = PBXBuildFile; fileRef = C96CBC2721DE6A78008C508C /* lapack_lite.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -162,6 +279,11 @@
 		C97B760C22046DFB00A05C8D /* kiwisolver.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C97B760022046C7500A05C8D /* kiwisolver.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C97E49C92213515000ACB42C /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94CC2D021FCF59D005E9556 /* EditorViewController.swift */; };
 		C97E49CF2213840800ACB42C /* NSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97E49CE2213840800ACB42C /* NSImage.swift */; };
+		C97E869C221B764700D2F7BE /* Info.plist in Copy sparse */ = {isa = PBXBuildFile; fileRef = C97E869B221B764600D2F7BE /* Info.plist */; };
+		C97E869E221B767C00D2F7BE /* Info.plist in Copy _sas */ = {isa = PBXBuildFile; fileRef = C97E869D221B767C00D2F7BE /* Info.plist */; };
+		C97E86A0221B76BB00D2F7BE /* Info.plist in Copy parsers */ = {isa = PBXBuildFile; fileRef = C97E869F221B76BA00D2F7BE /* Info.plist */; };
+		C97E86A2221B773A00D2F7BE /* Info.plist in Copy testing */ = {isa = PBXBuildFile; fileRef = C97E86A1221B773A00D2F7BE /* Info.plist */; };
+		C97E86A4221B77CB00D2F7BE /* Info.plist in Copy period */ = {isa = PBXBuildFile; fileRef = C97E86A3221B77CB00D2F7BE /* Info.plist */; };
 		C98472AE21A05CB1008E16AC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C98472AD21A05CB1008E16AC /* README.md */; };
 		C98E12DF22139739005CE20C /* NSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98E12DE22139739005CE20C /* NSView.swift */; };
 		C98E12E72214689A005CE20C /* ConsoleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98E12E62214689A005CE20C /* ConsoleTextView.swift */; };
@@ -177,6 +299,7 @@
 		C990B56C21E5262100ABC0B8 /* mtrand.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59D21DE771C00CC5B43 /* mtrand.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C990B56E21E5262D00ABC0B8 /* multiarray.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59B21DE771C00CC5B43 /* multiarray.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C990B57021E5263100ABC0B8 /* umath.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59F21DE771D00CC5B43 /* umath.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C99A8640221B641300F6AB94 /* Info.plist in Copy resolution */ = {isa = PBXBuildFile; fileRef = C99A863F221B641200F6AB94 /* Info.plist */; };
 		C99DDCEC21BBED22002A734E /* DocumentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99DDCEB21BBED22002A734E /* DocumentationViewController.swift */; };
 		C99DEFC1220865EC00B0BDAB /* BlockBasedSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7421F49B1200E7CC35 /* BlockBasedSelector.m */; };
 		C99DEFC4220865EE00B0BDAB /* BlockBasedSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7521F49B1200E7CC35 /* BlockBasedSelector.swift */; };
@@ -473,6 +596,498 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C9480A812219C20B00AA4AF9 /* Copy ccalendar */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = ccalendar.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C9480A822219C22100AA4AF9 /* ccalendar.cpython-37m-darwin.so in Copy ccalendar */,
+				C9480A832219C22300AA4AF9 /* Info.plist in Copy ccalendar */,
+			);
+			name = "Copy ccalendar";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9480A842219C22C00AA4AF9 /* Copy conversion */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = conversion.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C9480A862219C24700AA4AF9 /* conversion.cpython-37m-darwin.so in Copy conversion */,
+				C9480A852219C24300AA4AF9 /* Info.plist in Copy conversion */,
+			);
+			name = "Copy conversion";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9480A872219C26E00AA4AF9 /* Copy fields */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = fields.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C9480A882219C28600AA4AF9 /* fields.cpython-37m-darwin.so in Copy fields */,
+				C9480A892219C29400AA4AF9 /* Info.plist in Copy fields */,
+			);
+			name = "Copy fields";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9480A8A2219C29B00AA4AF9 /* Copy nattype */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = nattype.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C9480A8B2219C2B700AA4AF9 /* nattype.cpython-37m-darwin.so in Copy nattype */,
+				C9480A8C2219C2BA00AA4AF9 /* Info.plist in Copy nattype */,
+			);
+			name = "Copy nattype";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9480A8D2219C2C000AA4AF9 /* Copy timedeltas */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = timedeltas.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C9480A8E2219C2DF00AA4AF9 /* timedeltas.cpython-37m-darwin.so in Copy timedeltas */,
+				C9480A8F2219C2E200AA4AF9 /* Info.plist in Copy timedeltas */,
+			);
+			name = "Copy timedeltas";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9480A902219C2F500AA4AF9 /* Copy frequencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = frequencies.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C9480A912219C30D00AA4AF9 /* frequencies.cpython-37m-darwin.so in Copy frequencies */,
+				C9480A922219C31000AA4AF9 /* Info.plist in Copy frequencies */,
+			);
+			name = "Copy frequencies";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9480A932219C34100AA4AF9 /* Copy resolution */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = resolution.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C9480A942219C36100AA4AF9 /* resolution.cpython-37m-darwin.so in Copy resolution */,
+				C99A8640221B641300F6AB94 /* Info.plist in Copy resolution */,
+			);
+			name = "Copy resolution";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9480A982219C37300AA4AF9 /* Copy offsets */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = offsets.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C9480A992219C39700AA4AF9 /* offsets.cpython-37m-darwin.so in Copy offsets */,
+				C9480A9A2219C39900AA4AF9 /* Info.plist in Copy offsets */,
+			);
+			name = "Copy offsets";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9480A9B2219C3A300AA4AF9 /* Copy np_datetime */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = np_datetime.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C9480A9C2219C3C700AA4AF9 /* np_datetime.cpython-37m-darwin.so in Copy np_datetime */,
+				C9480A9E2219C3CD00AA4AF9 /* Info.plist in Copy np_datetime */,
+			);
+			name = "Copy np_datetime";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9480A9F2219C3D500AA4AF9 /* Copy period */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = period.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C9480AA02219C3E800AA4AF9 /* period.cpython-37m-darwin.so in Copy period */,
+				C97E86A4221B77CB00D2F7BE /* Info.plist in Copy period */,
+			);
+			name = "Copy period";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9480AA22219C3F000AA4AF9 /* Copy timezones */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = timezones.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C9480AA3221A11AF00AA4AF9 /* timezones.cpython-37m-darwin.so in Copy timezones */,
+				C9480AA6221A11C200AA4AF9 /* Info.plist in Copy timezones */,
+			);
+			name = "Copy timezones";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9480AA7221A11D200AA4AF9 /* Copy strptime */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = strptime.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C9480AA8221A11F700AA4AF9 /* strptime.cpython-37m-darwin.so in Copy strptime */,
+				C9480AAA221A11FF00AA4AF9 /* Info.plist in Copy strptime */,
+			);
+			name = "Copy strptime";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9480AAB221A120E00AA4AF9 /* Copy parsing */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = parsing.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C9480AAC221A123600AA4AF9 /* parsing.cpython-37m-darwin.so in Copy parsing */,
+				C9480AAD221A123800AA4AF9 /* Info.plist in Copy parsing */,
+			);
+			name = "Copy parsing";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9480AAE221A123F00AA4AF9 /* Copy timestamps */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = timestamps.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C9480AAF221A125700AA4AF9 /* timestamps.cpython-37m-darwin.so in Copy timestamps */,
+				C9480AB0221A125800AA4AF9 /* Info.plist in Copy timestamps */,
+			);
+			name = "Copy timestamps";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C701C2219905D0056EA64 /* Copy writers */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = writers.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C70A42219AB470056EA64 /* writers.cpython-37m-darwin.so in Copy writers */,
+				C96C70A32219AB3D0056EA64 /* Info.plist in Copy writers */,
+			);
+			name = "Copy writers";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C701D2219907F0056EA64 /* Copy _packer */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = _packer.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C709F2219AAF90056EA64 /* _packer.cpython-37m-darwin.so in Copy _packer */,
+				C96C70A12219AB0E0056EA64 /* Info.plist in Copy _packer */,
+			);
+			name = "Copy _packer";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C701E221990B00056EA64 /* Copy _sas */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = _sas.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C709C2219AAEA0056EA64 /* _sas.cpython-37m-darwin.so in Copy _sas */,
+				C97E869E221B767C00D2F7BE /* Info.plist in Copy _sas */,
+			);
+			name = "Copy _sas";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C701F221990C20056EA64 /* Copy hashtable */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = hashtable.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C70992219AA8C0056EA64 /* hashtable.cpython-37m-darwin.so in Copy hashtable */,
+				C96C709B2219AAD40056EA64 /* Info.plist in Copy hashtable */,
+			);
+			name = "Copy hashtable";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C7020221990D60056EA64 /* Copy reshape */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = reshape.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C70962219AA1A0056EA64 /* reshape.cpython-37m-darwin.so in Copy reshape */,
+				C96C70982219AA2F0056EA64 /* Info.plist in Copy reshape */,
+			);
+			name = "Copy reshape";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C7021221990E00056EA64 /* Copy tslib */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = tslib.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C70932219A9600056EA64 /* tslib.cpython-37m-darwin.so in Copy tslib */,
+				C96C70952219A9CF0056EA64 /* Info.plist in Copy tslib */,
+			);
+			name = "Copy tslib";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C7022221990F60056EA64 /* Copy interval */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = interval.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C70902219A9260056EA64 /* interval.cpython-37m-darwin.so in Copy interval */,
+				C96C70922219A94C0056EA64 /* Info.plist in Copy interval */,
+			);
+			name = "Copy interval";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C7023221991090056EA64 /* Copy missing */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = missing.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C708D2219A8FA0056EA64 /* missing.cpython-37m-darwin.so in Copy missing */,
+				C96C708F2219A9110056EA64 /* Info.plist in Copy missing */,
+			);
+			name = "Copy missing";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C7024221991280056EA64 /* Copy ops */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = ops.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C708A2219A8C30056EA64 /* ops.cpython-37m-darwin.so in Copy ops */,
+				C96C708C2219A8DB0056EA64 /* Info.plist in Copy ops */,
+			);
+			name = "Copy ops";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C7025221991360056EA64 /* Copy _unpacker */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = _unpacker.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C70872219A8740056EA64 /* _unpacker.cpython-37m-darwin.so in Copy _unpacker */,
+				C96C70892219A88B0056EA64 /* Info.plist in Copy _unpacker */,
+			);
+			name = "Copy _unpacker";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C7026221991420056EA64 /* Copy hashing */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = hashing.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C70842219A8400056EA64 /* hashing.cpython-37m-darwin.so in Copy hashing */,
+				C9480A292219B0B700AA4AF9 /* Info.plist in Copy hashing */,
+			);
+			name = "Copy hashing";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C7027221991540056EA64 /* Copy join */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = join.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C70812219A8160056EA64 /* join.cpython-37m-darwin.so in Copy join */,
+				C96C70A62219ADC00056EA64 /* Info.plist in Copy join */,
+			);
+			name = "Copy join";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C7028221991690056EA64 /* Copy sparse */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = sparse.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C707C2219A79D0056EA64 /* sparse.cpython-37m-darwin.so in Copy sparse */,
+				C97E869C221B764700D2F7BE /* Info.plist in Copy sparse */,
+			);
+			name = "Copy sparse";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C70292219917D0056EA64 /* Copy indexing */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = indexing.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C70792219A71F0056EA64 /* indexing.cpython-37m-darwin.so in Copy indexing */,
+				C96C707B2219A73D0056EA64 /* Info.plist in Copy indexing */,
+			);
+			name = "Copy indexing";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C702A2219919A0056EA64 /* Copy parsers */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = parsers.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C70762219A6BF0056EA64 /* parsers.cpython-37m-darwin.so in Copy parsers */,
+				C97E86A0221B76BB00D2F7BE /* Info.plist in Copy parsers */,
+			);
+			name = "Copy parsers";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C702B221991A60056EA64 /* Copy algos */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = algos.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C70732219A62B0056EA64 /* algos.cpython-37m-darwin.so in Copy algos */,
+				C96C70752219A6460056EA64 /* Info.plist in Copy algos */,
+			);
+			name = "Copy algos";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C702C221991B30056EA64 /* Copy reduction */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = reduction.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C70702219A5DE0056EA64 /* reduction.cpython-37m-darwin.so in Copy reduction */,
+				C96C70722219A6010056EA64 /* Info.plist in Copy reduction */,
+			);
+			name = "Copy reduction";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C702D2219A0F70056EA64 /* Copy testing */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = testing.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C706D2219A56F0056EA64 /* testing.cpython-37m-darwin.so in Copy testing */,
+				C97E86A2221B773A00D2F7BE /* Info.plist in Copy testing */,
+			);
+			name = "Copy testing";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C702E2219A1040056EA64 /* Copy properties */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = properties.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C706A2219A5000056EA64 /* properties.cpython-37m-darwin.so in Copy properties */,
+				C96C706C2219A5100056EA64 /* Info.plist in Copy properties */,
+			);
+			name = "Copy properties";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C702F2219A1140056EA64 /* Copy internals */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = internals.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C70672219A4BE0056EA64 /* internals.cpython-37m-darwin.so in Copy internals */,
+				C96C70692219A4D20056EA64 /* Info.plist in Copy internals */,
+			);
+			name = "Copy internals";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C70302219A11F0056EA64 /* Copy window */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = window.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C70642219A4540056EA64 /* window.cpython-37m-darwin.so in Copy window */,
+				C96C70662219A48F0056EA64 /* Info.plist in Copy window */,
+			);
+			name = "Copy window";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C70312219A1320056EA64 /* Copy json */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = json.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C70612219A3F90056EA64 /* json.cpython-37m-darwin.so in Copy json */,
+				C96C70632219A43B0056EA64 /* Info.plist in Copy json */,
+			);
+			name = "Copy json";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C70322219A13B0056EA64 /* Copy index */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = index.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C705E2219A3910056EA64 /* index.cpython-37m-darwin.so in Copy index */,
+				C96C70602219A3BD0056EA64 /* Info.plist in Copy index */,
+			);
+			name = "Copy index";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C70332219A1450056EA64 /* Copy groupby */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = groupby.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C705B2219A30C0056EA64 /* groupby.cpython-37m-darwin.so in Copy groupby */,
+				C96C705D2219A34E0056EA64 /* Info.plist in Copy groupby */,
+			);
+			name = "Copy groupby";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C70342219A1520056EA64 /* Copy skiplist */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = skiplist.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C70582219A2930056EA64 /* skiplist.cpython-37m-darwin.so in Copy skiplist */,
+				C96C705A2219A2AF0056EA64 /* Info.plist in Copy skiplist */,
+			);
+			name = "Copy skiplist";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C70352219A1610056EA64 /* Copy lib */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = lib.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C70552219A23A0056EA64 /* lib.cpython-37m-darwin.so in Copy lib */,
+				C96C70572219A2570056EA64 /* Info.plist in Copy lib */,
+			);
+			name = "Copy lib";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C96C70362219A16A0056EA64 /* Copy _move */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = _move.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C96C70522219A1E40056EA64 /* _move.cpython-37m-darwin.so in Copy _move */,
+				C96C70542219A2280056EA64 /* Info.plist in Copy _move */,
+			);
+			name = "Copy _move";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C96CBC3A21DE6BDC008C508C /* Copy _umath_linalg */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -695,6 +1310,47 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C96C70372219A1AB0056EA64 /* writers.framework in Embed Frameworks */,
+				C96C70382219A1AB0056EA64 /* _packer.framework in Embed Frameworks */,
+				C96C70392219A1AB0056EA64 /* _sas.framework in Embed Frameworks */,
+				C96C703A2219A1AB0056EA64 /* hashtable.framework in Embed Frameworks */,
+				C96C703B2219A1AB0056EA64 /* reshape.framework in Embed Frameworks */,
+				C96C703C2219A1AB0056EA64 /* tslib.framework in Embed Frameworks */,
+				C96C703D2219A1AB0056EA64 /* interval.framework in Embed Frameworks */,
+				C96C703E2219A1AB0056EA64 /* missing.framework in Embed Frameworks */,
+				C96C703F2219A1AB0056EA64 /* ops.framework in Embed Frameworks */,
+				C96C70402219A1AB0056EA64 /* _unpacker.framework in Embed Frameworks */,
+				C96C70412219A1AB0056EA64 /* hashing.framework in Embed Frameworks */,
+				C96C70422219A1AB0056EA64 /* join.framework in Embed Frameworks */,
+				C96C70432219A1AB0056EA64 /* sparse.framework in Embed Frameworks */,
+				C96C70442219A1AB0056EA64 /* indexing.framework in Embed Frameworks */,
+				C96C70452219A1AB0056EA64 /* parsers.framework in Embed Frameworks */,
+				C96C70462219A1AB0056EA64 /* algos.framework in Embed Frameworks */,
+				C96C70472219A1AB0056EA64 /* reduction.framework in Embed Frameworks */,
+				C96C70482219A1AB0056EA64 /* testing.framework in Embed Frameworks */,
+				C96C70492219A1AB0056EA64 /* properties.framework in Embed Frameworks */,
+				C96C704A2219A1AB0056EA64 /* internals.framework in Embed Frameworks */,
+				C96C704B2219A1AB0056EA64 /* window.framework in Embed Frameworks */,
+				C96C704C2219A1AB0056EA64 /* json.framework in Embed Frameworks */,
+				C96C704D2219A1AB0056EA64 /* index.framework in Embed Frameworks */,
+				C96C704E2219A1AB0056EA64 /* groupby.framework in Embed Frameworks */,
+				C96C704F2219A1AC0056EA64 /* skiplist.framework in Embed Frameworks */,
+				C96C70502219A1AC0056EA64 /* lib.framework in Embed Frameworks */,
+				C96C70512219A1AC0056EA64 /* _move.framework in Embed Frameworks */,
+				C9480AB2221A18A300AA4AF9 /* ccalendar.framework in Embed Frameworks */,
+				C9480AB3221A18A300AA4AF9 /* conversion.framework in Embed Frameworks */,
+				C9480AB4221A18A300AA4AF9 /* fields.framework in Embed Frameworks */,
+				C9480AB5221A18A300AA4AF9 /* frequencies.framework in Embed Frameworks */,
+				C9480AB6221A18A300AA4AF9 /* nattype.framework in Embed Frameworks */,
+				C9480AB7221A18A300AA4AF9 /* np_datetime.framework in Embed Frameworks */,
+				C9480AB8221A18A300AA4AF9 /* offsets.framework in Embed Frameworks */,
+				C9480AB9221A18A300AA4AF9 /* parsing.framework in Embed Frameworks */,
+				C9480ABA221A18A300AA4AF9 /* period.framework in Embed Frameworks */,
+				C9480ABB221A18A300AA4AF9 /* resolution.framework in Embed Frameworks */,
+				C9480ABC221A18A300AA4AF9 /* strptime.framework in Embed Frameworks */,
+				C9480ABD221A18A300AA4AF9 /* timedeltas.framework in Embed Frameworks */,
+				C9480ABE221A18A300AA4AF9 /* timestamps.framework in Embed Frameworks */,
+				C9480ABF221A18A300AA4AF9 /* timezones.framework in Embed Frameworks */,
 				C990B57021E5263100ABC0B8 /* umath.framework in Embed Frameworks */,
 				C990B56A21E5261C00ABC0B8 /* lapack_lite.framework in Embed Frameworks */,
 				C9DF71072171768A00981B4F /* Python.framework in Embed Frameworks */,
@@ -828,6 +1484,48 @@
 		C946A5C622077F9800F78C5C /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		C946A5C92207809700F78C5C /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		C9477BBA21D45D28000680AE /* installer.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = installer.py; sourceTree = "<group>"; };
+		C9480A272219B08B00AA4AF9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = hashing.framework/Info.plist; sourceTree = "<group>"; };
+		C9480A2B2219BD9900AA4AF9 /* ccalendar.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "ccalendar.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C9480A2C2219BD9900AA4AF9 /* conversion.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "conversion.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C9480A2D2219BD9900AA4AF9 /* fields.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "fields.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C9480A2E2219BD9900AA4AF9 /* nattype.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "nattype.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C9480A2F2219BD9900AA4AF9 /* timedeltas.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "timedeltas.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C9480A302219BD9900AA4AF9 /* frequencies.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "frequencies.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C9480A312219BD9900AA4AF9 /* resolution.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "resolution.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C9480A322219BD9900AA4AF9 /* offsets.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "offsets.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C9480A332219BD9900AA4AF9 /* np_datetime.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "np_datetime.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C9480A342219BD9900AA4AF9 /* period.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "period.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C9480A352219BD9900AA4AF9 /* timezones.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "timezones.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C9480A362219BD9900AA4AF9 /* strptime.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "strptime.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C9480A372219BD9900AA4AF9 /* parsing.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "parsing.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C9480A382219BD9900AA4AF9 /* timestamps.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "timestamps.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C9480A472219BE7D00AA4AF9 /* conversion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = conversion.framework; path = Pandas/conversion.framework; sourceTree = SOURCE_ROOT; };
+		C9480A482219BE7D00AA4AF9 /* strptime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = strptime.framework; path = Pandas/strptime.framework; sourceTree = SOURCE_ROOT; };
+		C9480A492219BE7E00AA4AF9 /* parsing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = parsing.framework; path = Pandas/parsing.framework; sourceTree = SOURCE_ROOT; };
+		C9480A4A2219BE7E00AA4AF9 /* frequencies.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = frequencies.framework; path = Pandas/frequencies.framework; sourceTree = SOURCE_ROOT; };
+		C9480A4B2219BE7E00AA4AF9 /* ccalendar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ccalendar.framework; path = Pandas/ccalendar.framework; sourceTree = SOURCE_ROOT; };
+		C9480A4C2219BE7E00AA4AF9 /* resolution.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = resolution.framework; path = Pandas/resolution.framework; sourceTree = SOURCE_ROOT; };
+		C9480A4D2219BE7E00AA4AF9 /* nattype.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = nattype.framework; path = Pandas/nattype.framework; sourceTree = SOURCE_ROOT; };
+		C9480A4E2219BE7E00AA4AF9 /* timedeltas.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = timedeltas.framework; path = Pandas/timedeltas.framework; sourceTree = SOURCE_ROOT; };
+		C9480A4F2219BE7F00AA4AF9 /* timestamps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = timestamps.framework; path = Pandas/timestamps.framework; sourceTree = SOURCE_ROOT; };
+		C9480A502219BE7F00AA4AF9 /* offsets.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = offsets.framework; path = Pandas/offsets.framework; sourceTree = SOURCE_ROOT; };
+		C9480A512219BE7F00AA4AF9 /* period.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = period.framework; path = Pandas/period.framework; sourceTree = SOURCE_ROOT; };
+		C9480A522219BE7F00AA4AF9 /* np_datetime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = np_datetime.framework; path = Pandas/np_datetime.framework; sourceTree = SOURCE_ROOT; };
+		C9480A532219BE7F00AA4AF9 /* timezones.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = timezones.framework; path = Pandas/timezones.framework; sourceTree = SOURCE_ROOT; };
+		C9480A542219BE7F00AA4AF9 /* fields.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = fields.framework; path = Pandas/fields.framework; sourceTree = SOURCE_ROOT; };
+		C9480A632219BE9800AA4AF9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Pandas/ccalendar.framework/Info.plist; sourceTree = SOURCE_ROOT; };
+		C9480A652219BEA300AA4AF9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Pandas/conversion.framework/Info.plist; sourceTree = SOURCE_ROOT; };
+		C9480A672219BEAF00AA4AF9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Pandas/fields.framework/Info.plist; sourceTree = SOURCE_ROOT; };
+		C9480A692219BEB800AA4AF9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Pandas/nattype.framework/Info.plist; sourceTree = SOURCE_ROOT; };
+		C9480A6B2219BEC300AA4AF9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Pandas/timedeltas.framework/Info.plist; sourceTree = SOURCE_ROOT; };
+		C9480A6D2219BECA00AA4AF9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Pandas/frequencies.framework/Info.plist; sourceTree = SOURCE_ROOT; };
+		C9480A6F2219BED500AA4AF9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Pandas/frequencies.framework/Info.plist; sourceTree = SOURCE_ROOT; };
+		C9480A732219BEE500AA4AF9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Pandas/offsets.framework/Info.plist; sourceTree = SOURCE_ROOT; };
+		C9480A752219BEF500AA4AF9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Pandas/np_datetime.framework/Info.plist; sourceTree = SOURCE_ROOT; };
+		C9480A792219BF4F00AA4AF9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Pandas/timezones.framework/Info.plist; sourceTree = SOURCE_ROOT; };
+		C9480A7B2219BF5A00AA4AF9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Pandas/strptime.framework/Info.plist; sourceTree = SOURCE_ROOT; };
+		C9480A7D2219BF9600AA4AF9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Pandas/parsing.framework/Info.plist; sourceTree = SOURCE_ROOT; };
+		C9480A7F2219BF9F00AA4AF9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Pandas/timestamps.framework/Info.plist; sourceTree = SOURCE_ROOT; };
 		C949D39A21F8A00C005AF481 /* NSRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSRange.swift; sourceTree = "<group>"; };
 		C94CC2B921FCEF6C005E9556 /* Pyto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pyto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C94CC2BB21FCEF6C005E9556 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -850,6 +1548,83 @@
 		C95EE4EB2207025B006611CB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9624EF321A9905400DDA9A7 /* PyThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyThread.swift; sourceTree = "<group>"; };
 		C9647FFE21ACA00D005765C2 /* Help.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = Help.py; sourceTree = "<group>"; };
+		C96C6FE322198F7B0056EA64 /* writers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = writers.framework; sourceTree = "<group>"; };
+		C96C6FE422198F7B0056EA64 /* writers.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "writers.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C6FE522198F7B0056EA64 /* _packer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _packer.framework; sourceTree = "<group>"; };
+		C96C6FE622198F7B0056EA64 /* _sas.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _sas.framework; sourceTree = "<group>"; };
+		C96C6FE722198F7B0056EA64 /* hashtable.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = hashtable.framework; sourceTree = "<group>"; };
+		C96C6FE822198F7C0056EA64 /* reshape.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = reshape.framework; sourceTree = "<group>"; };
+		C96C6FE922198F7C0056EA64 /* properties.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "properties.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C6FEA22198F7C0056EA64 /* tslib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = tslib.framework; sourceTree = "<group>"; };
+		C96C6FEB22198F7C0056EA64 /* interval.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "interval.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C6FEC22198F7C0056EA64 /* _packer.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "_packer.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C6FED22198F7C0056EA64 /* reduction.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "reduction.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C6FEE22198F7C0056EA64 /* interval.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = interval.framework; sourceTree = "<group>"; };
+		C96C6FEF22198F7C0056EA64 /* lib.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "lib.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C6FF022198F7C0056EA64 /* join.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "join.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C6FF122198F7C0056EA64 /* testing.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "testing.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C6FF222198F7C0056EA64 /* reshape.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "reshape.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C6FF322198F7C0056EA64 /* missing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = missing.framework; sourceTree = "<group>"; };
+		C96C6FF422198F7C0056EA64 /* ops.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ops.framework; sourceTree = "<group>"; };
+		C96C6FF522198F7C0056EA64 /* _unpacker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _unpacker.framework; sourceTree = "<group>"; };
+		C96C6FF622198F7C0056EA64 /* hashing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = hashing.framework; sourceTree = "<group>"; };
+		C96C6FF722198F7C0056EA64 /* join.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = join.framework; sourceTree = "<group>"; };
+		C96C6FF822198F7C0056EA64 /* internals.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "internals.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C6FF922198F7C0056EA64 /* sparse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = sparse.framework; sourceTree = "<group>"; };
+		C96C6FFA22198F7C0056EA64 /* hashing.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "hashing.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C6FFB22198F7C0056EA64 /* missing.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "missing.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C6FFC22198F7C0056EA64 /* _move.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "_move.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C6FFD22198F7C0056EA64 /* indexing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = indexing.framework; sourceTree = "<group>"; };
+		C96C6FFE22198F7C0056EA64 /* _sas.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "_sas.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C6FFF22198F7C0056EA64 /* groupby.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "groupby.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C700022198F7C0056EA64 /* parsers.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "parsers.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C700122198F7C0056EA64 /* ops.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "ops.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C700222198F7C0056EA64 /* indexing.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "indexing.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C700322198F7C0056EA64 /* sparse.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "sparse.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C700422198F7C0056EA64 /* parsers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = parsers.framework; sourceTree = "<group>"; };
+		C96C700522198F7C0056EA64 /* algos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = algos.framework; sourceTree = "<group>"; };
+		C96C700622198F7C0056EA64 /* reduction.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = reduction.framework; sourceTree = "<group>"; };
+		C96C700722198F7C0056EA64 /* testing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = testing.framework; sourceTree = "<group>"; };
+		C96C700822198F7C0056EA64 /* properties.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = properties.framework; sourceTree = "<group>"; };
+		C96C700922198F7C0056EA64 /* internals.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = internals.framework; sourceTree = "<group>"; };
+		C96C700A22198F7C0056EA64 /* window.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "window.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C700B22198F7C0056EA64 /* tslib.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "tslib.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C700C22198F7C0056EA64 /* window.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = window.framework; sourceTree = "<group>"; };
+		C96C700D22198F7C0056EA64 /* index.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "index.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C700E22198F7C0056EA64 /* json.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = json.framework; sourceTree = "<group>"; };
+		C96C700F22198F7C0056EA64 /* algos.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "algos.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C701022198F7C0056EA64 /* index.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = index.framework; sourceTree = "<group>"; };
+		C96C701122198F7C0056EA64 /* skiplist.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "skiplist.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C701222198F7C0056EA64 /* hashtable.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "hashtable.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C701322198F7C0056EA64 /* groupby.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = groupby.framework; sourceTree = "<group>"; };
+		C96C701422198F7C0056EA64 /* skiplist.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = skiplist.framework; sourceTree = "<group>"; };
+		C96C701622198F7C0056EA64 /* json.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "json.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C701722198F7C0056EA64 /* lib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = lib.framework; sourceTree = "<group>"; };
+		C96C701822198F7C0056EA64 /* _unpacker.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "_unpacker.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C96C701922198F7C0056EA64 /* _move.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _move.framework; sourceTree = "<group>"; };
+		C96C70532219A2280056EA64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = _move.framework/Info.plist; sourceTree = "<group>"; };
+		C96C70562219A2560056EA64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = lib.framework/Info.plist; sourceTree = "<group>"; };
+		C96C70592219A2AE0056EA64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = skiplist.framework/Info.plist; sourceTree = "<group>"; };
+		C96C705C2219A34E0056EA64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = groupby.framework/Info.plist; sourceTree = "<group>"; };
+		C96C705F2219A3BC0056EA64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = index.framework/Info.plist; sourceTree = "<group>"; };
+		C96C70622219A43A0056EA64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = json.framework/Info.plist; sourceTree = "<group>"; };
+		C96C70652219A48F0056EA64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = window.framework/Info.plist; sourceTree = "<group>"; };
+		C96C70682219A4D10056EA64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = internals.framework/Info.plist; sourceTree = "<group>"; };
+		C96C706B2219A5100056EA64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = properties.framework/Info.plist; sourceTree = "<group>"; };
+		C96C70712219A6010056EA64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = reduction.framework/Info.plist; sourceTree = "<group>"; };
+		C96C70742219A6450056EA64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = algos.framework/Info.plist; sourceTree = "<group>"; };
+		C96C707A2219A73D0056EA64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = indexing.framework/Info.plist; sourceTree = "<group>"; };
+		C96C707D2219A7BF0056EA64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = indexing.framework/Info.plist; sourceTree = "<group>"; };
+		C96C70882219A88B0056EA64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = _unpacker.framework/Info.plist; sourceTree = "<group>"; };
+		C96C708B2219A8DB0056EA64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ops.framework/Info.plist; sourceTree = "<group>"; };
+		C96C708E2219A9110056EA64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = missing.framework/Info.plist; sourceTree = "<group>"; };
+		C96C70912219A94C0056EA64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = interval.framework/Info.plist; sourceTree = "<group>"; };
+		C96C70942219A9CE0056EA64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = tslib.framework/Info.plist; sourceTree = "<group>"; };
+		C96C70972219AA2F0056EA64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = reshape.framework/Info.plist; sourceTree = "<group>"; };
+		C96C709A2219AAD30056EA64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = hashtable.framework/Info.plist; sourceTree = "<group>"; };
+		C96C70A02219AB0D0056EA64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = _packer.framework/Info.plist; sourceTree = "<group>"; };
+		C96C70A22219AB3D0056EA64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = writers.framework/Info.plist; sourceTree = "<group>"; };
+		C96C70A52219ADC00056EA64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = join.framework/Info.plist; sourceTree = "<group>"; };
 		C96CBC2521DE6A78008C508C /* _umath_linalg.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "_umath_linalg.cpython-37m-darwin.so"; sourceTree = "<group>"; };
 		C96CBC2621DE6A78008C508C /* fftpack_lite.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "fftpack_lite.cpython-37m-darwin.so"; sourceTree = "<group>"; };
 		C96CBC2721DE6A78008C508C /* lapack_lite.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "lapack_lite.cpython-37m-darwin.so"; sourceTree = "<group>"; };
@@ -989,6 +1764,11 @@
 		C97B760222046C8700A05C8D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = kiwisolver.framework/Info.plist; sourceTree = "<group>"; };
 		C97B760422046CB700A05C8D /* kiwisolver.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "kiwisolver.cpython-37m-darwin.so"; sourceTree = "<group>"; };
 		C97E49CE2213840800ACB42C /* NSImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImage.swift; sourceTree = "<group>"; };
+		C97E869B221B764600D2F7BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = sparse.framework/Info.plist; sourceTree = "<group>"; };
+		C97E869D221B767C00D2F7BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = _sas.framework/Info.plist; sourceTree = "<group>"; };
+		C97E869F221B76BA00D2F7BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = parsers.framework/Info.plist; sourceTree = "<group>"; };
+		C97E86A1221B773A00D2F7BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = testing.framework/Info.plist; sourceTree = "<group>"; };
+		C97E86A3221B77CB00D2F7BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = period.framework/Info.plist; sourceTree = "<group>"; };
 		C984729121A05A0E008E16AC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C98472AD21A05CB1008E16AC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C98E12DE22139739005CE20C /* NSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSView.swift; sourceTree = "<group>"; };
@@ -1000,6 +1780,8 @@
 		C98E42E221D2CF0300B4D260 /* python37.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = python37.zip; sourceTree = "<group>"; };
 		C996931221FDF56D00ED9DA7 /* libboringssl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libboringssl.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/lib/libboringssl.tbd; sourceTree = DEVELOPER_DIR; };
 		C996931621FDF57C00ED9DA7 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
+		C99A863D221B634E00F6AB94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C99A863F221B641200F6AB94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = resolution.framework/Info.plist; sourceTree = "<group>"; };
 		C99DDCEB21BBED22002A734E /* DocumentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationViewController.swift; sourceTree = "<group>"; };
 		C99E8D6B21F0CC7800C71884 /* WWDC16.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WWDC16.swift; sourceTree = "<group>"; };
 		C99E8D6F21F0D03400C71884 /* CoolGlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoolGlow.swift; sourceTree = "<group>"; };
@@ -1264,11 +2046,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9480AB1221A185400AA4AF9 /* libpng.framework in Frameworks */,
 				C9FB5C0F22025B040085E1AA /* ftbdf.o in Frameworks */,
 				C9FB5C0722025B040085E1AA /* ftlzw.o in Frameworks */,
 				C9F8660B21ECD3600062D1C1 /* libsqlite3.tbd in Frameworks */,
 				C9FB5BFF22025B040085E1AA /* ftstroke.o in Frameworks */,
-				C95EE4E622070224006611CB /* libpng.framework in Frameworks */,
 				C9FB5BF322025B040085E1AA /* ftmm.o in Frameworks */,
 				C9FB5BF822025B040085E1AA /* ftbbox.o in Frameworks */,
 				C9FB5C0622025B040085E1AA /* ftbase.o in Frameworks */,
@@ -1541,6 +2323,139 @@
 				C9592D1721D0592C00412CEF /* Localizable.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		C96C6FE222198F7B0056EA64 /* Pandas */ = {
+			isa = PBXGroup;
+			children = (
+				C97E869B221B764600D2F7BE /* Info.plist */,
+				C97E86A3221B77CB00D2F7BE /* Info.plist */,
+				C97E86A1221B773A00D2F7BE /* Info.plist */,
+				C97E869F221B76BA00D2F7BE /* Info.plist */,
+				C9480A7F2219BF9F00AA4AF9 /* Info.plist */,
+				C9480A6F2219BED500AA4AF9 /* Info.plist */,
+				C9480A7D2219BF9600AA4AF9 /* Info.plist */,
+				C9480A6B2219BEC300AA4AF9 /* Info.plist */,
+				C9480A692219BEB800AA4AF9 /* Info.plist */,
+				C9480A7B2219BF5A00AA4AF9 /* Info.plist */,
+				C9480A752219BEF500AA4AF9 /* Info.plist */,
+				C9480A672219BEAF00AA4AF9 /* Info.plist */,
+				C9480A652219BEA300AA4AF9 /* Info.plist */,
+				C9480A632219BE9800AA4AF9 /* Info.plist */,
+				C9480A792219BF4F00AA4AF9 /* Info.plist */,
+				C9480A732219BEE500AA4AF9 /* Info.plist */,
+				C9480A6D2219BECA00AA4AF9 /* Info.plist */,
+				C96C707A2219A73D0056EA64 /* Info.plist */,
+				C96C70912219A94C0056EA64 /* Info.plist */,
+				C96C70622219A43A0056EA64 /* Info.plist */,
+				C96C70A22219AB3D0056EA64 /* Info.plist */,
+				C96C709A2219AAD30056EA64 /* Info.plist */,
+				C96C70652219A48F0056EA64 /* Info.plist */,
+				C96C705F2219A3BC0056EA64 /* Info.plist */,
+				C96C70532219A2280056EA64 /* Info.plist */,
+				C96C70562219A2560056EA64 /* Info.plist */,
+				C96C705C2219A34E0056EA64 /* Info.plist */,
+				C96C70882219A88B0056EA64 /* Info.plist */,
+				C96C70942219A9CE0056EA64 /* Info.plist */,
+				C96C708E2219A9110056EA64 /* Info.plist */,
+				C96C70592219A2AE0056EA64 /* Info.plist */,
+				C96C70742219A6450056EA64 /* Info.plist */,
+				C96C70712219A6010056EA64 /* Info.plist */,
+				C96C708B2219A8DB0056EA64 /* Info.plist */,
+				C96C706B2219A5100056EA64 /* Info.plist */,
+				C96C707D2219A7BF0056EA64 /* Info.plist */,
+				C96C70682219A4D10056EA64 /* Info.plist */,
+				C96C70A02219AB0D0056EA64 /* Info.plist */,
+				C96C70972219AA2F0056EA64 /* Info.plist */,
+				C96C70A52219ADC00056EA64 /* Info.plist */,
+				C9480A272219B08B00AA4AF9 /* Info.plist */,
+				C99A863F221B641200F6AB94 /* Info.plist */,
+				C97E869D221B767C00D2F7BE /* Info.plist */,
+				C99A863D221B634E00F6AB94 /* Info.plist */,
+				C96C6FE422198F7B0056EA64 /* writers.cpython-37m-darwin.so */,
+				C96C6FEC22198F7C0056EA64 /* _packer.cpython-37m-darwin.so */,
+				C96C6FFE22198F7C0056EA64 /* _sas.cpython-37m-darwin.so */,
+				C96C701222198F7C0056EA64 /* hashtable.cpython-37m-darwin.so */,
+				C96C6FF222198F7C0056EA64 /* reshape.cpython-37m-darwin.so */,
+				C96C700B22198F7C0056EA64 /* tslib.cpython-37m-darwin.so */,
+				C96C6FEB22198F7C0056EA64 /* interval.cpython-37m-darwin.so */,
+				C96C6FFB22198F7C0056EA64 /* missing.cpython-37m-darwin.so */,
+				C96C700122198F7C0056EA64 /* ops.cpython-37m-darwin.so */,
+				C96C701822198F7C0056EA64 /* _unpacker.cpython-37m-darwin.so */,
+				C96C6FFA22198F7C0056EA64 /* hashing.cpython-37m-darwin.so */,
+				C96C6FF022198F7C0056EA64 /* join.cpython-37m-darwin.so */,
+				C96C700322198F7C0056EA64 /* sparse.cpython-37m-darwin.so */,
+				C96C700222198F7C0056EA64 /* indexing.cpython-37m-darwin.so */,
+				C96C700022198F7C0056EA64 /* parsers.cpython-37m-darwin.so */,
+				C96C700F22198F7C0056EA64 /* algos.cpython-37m-darwin.so */,
+				C96C6FED22198F7C0056EA64 /* reduction.cpython-37m-darwin.so */,
+				C96C6FF122198F7C0056EA64 /* testing.cpython-37m-darwin.so */,
+				C96C6FE922198F7C0056EA64 /* properties.cpython-37m-darwin.so */,
+				C96C6FF822198F7C0056EA64 /* internals.cpython-37m-darwin.so */,
+				C96C700A22198F7C0056EA64 /* window.cpython-37m-darwin.so */,
+				C96C701622198F7C0056EA64 /* json.cpython-37m-darwin.so */,
+				C96C700D22198F7C0056EA64 /* index.cpython-37m-darwin.so */,
+				C96C6FFF22198F7C0056EA64 /* groupby.cpython-37m-darwin.so */,
+				C96C701122198F7C0056EA64 /* skiplist.cpython-37m-darwin.so */,
+				C96C6FEF22198F7C0056EA64 /* lib.cpython-37m-darwin.so */,
+				C96C6FFC22198F7C0056EA64 /* _move.cpython-37m-darwin.so */,
+				C9480A2B2219BD9900AA4AF9 /* ccalendar.cpython-37m-darwin.so */,
+				C9480A2C2219BD9900AA4AF9 /* conversion.cpython-37m-darwin.so */,
+				C9480A2D2219BD9900AA4AF9 /* fields.cpython-37m-darwin.so */,
+				C9480A2E2219BD9900AA4AF9 /* nattype.cpython-37m-darwin.so */,
+				C9480A2F2219BD9900AA4AF9 /* timedeltas.cpython-37m-darwin.so */,
+				C9480A302219BD9900AA4AF9 /* frequencies.cpython-37m-darwin.so */,
+				C9480A312219BD9900AA4AF9 /* resolution.cpython-37m-darwin.so */,
+				C9480A322219BD9900AA4AF9 /* offsets.cpython-37m-darwin.so */,
+				C9480A332219BD9900AA4AF9 /* np_datetime.cpython-37m-darwin.so */,
+				C9480A342219BD9900AA4AF9 /* period.cpython-37m-darwin.so */,
+				C9480A352219BD9900AA4AF9 /* timezones.cpython-37m-darwin.so */,
+				C9480A362219BD9900AA4AF9 /* strptime.cpython-37m-darwin.so */,
+				C9480A372219BD9900AA4AF9 /* parsing.cpython-37m-darwin.so */,
+				C9480A382219BD9900AA4AF9 /* timestamps.cpython-37m-darwin.so */,
+				C96C6FE322198F7B0056EA64 /* writers.framework */,
+				C96C6FE522198F7B0056EA64 /* _packer.framework */,
+				C96C6FE622198F7B0056EA64 /* _sas.framework */,
+				C96C6FE722198F7B0056EA64 /* hashtable.framework */,
+				C96C6FE822198F7C0056EA64 /* reshape.framework */,
+				C96C6FEA22198F7C0056EA64 /* tslib.framework */,
+				C96C6FEE22198F7C0056EA64 /* interval.framework */,
+				C96C6FF322198F7C0056EA64 /* missing.framework */,
+				C96C6FF422198F7C0056EA64 /* ops.framework */,
+				C96C6FF522198F7C0056EA64 /* _unpacker.framework */,
+				C96C6FF622198F7C0056EA64 /* hashing.framework */,
+				C96C6FF722198F7C0056EA64 /* join.framework */,
+				C96C6FF922198F7C0056EA64 /* sparse.framework */,
+				C96C6FFD22198F7C0056EA64 /* indexing.framework */,
+				C96C700422198F7C0056EA64 /* parsers.framework */,
+				C96C700522198F7C0056EA64 /* algos.framework */,
+				C96C700622198F7C0056EA64 /* reduction.framework */,
+				C96C700722198F7C0056EA64 /* testing.framework */,
+				C96C700822198F7C0056EA64 /* properties.framework */,
+				C96C700922198F7C0056EA64 /* internals.framework */,
+				C96C700C22198F7C0056EA64 /* window.framework */,
+				C96C700E22198F7C0056EA64 /* json.framework */,
+				C96C701022198F7C0056EA64 /* index.framework */,
+				C96C701322198F7C0056EA64 /* groupby.framework */,
+				C96C701422198F7C0056EA64 /* skiplist.framework */,
+				C96C701722198F7C0056EA64 /* lib.framework */,
+				C96C701922198F7C0056EA64 /* _move.framework */,
+				C9480A4B2219BE7E00AA4AF9 /* ccalendar.framework */,
+				C9480A472219BE7D00AA4AF9 /* conversion.framework */,
+				C9480A542219BE7F00AA4AF9 /* fields.framework */,
+				C9480A4A2219BE7E00AA4AF9 /* frequencies.framework */,
+				C9480A4D2219BE7E00AA4AF9 /* nattype.framework */,
+				C9480A522219BE7F00AA4AF9 /* np_datetime.framework */,
+				C9480A502219BE7F00AA4AF9 /* offsets.framework */,
+				C9480A492219BE7E00AA4AF9 /* parsing.framework */,
+				C9480A512219BE7F00AA4AF9 /* period.framework */,
+				C9480A4C2219BE7E00AA4AF9 /* resolution.framework */,
+				C9480A482219BE7D00AA4AF9 /* strptime.framework */,
+				C9480A4E2219BE7E00AA4AF9 /* timedeltas.framework */,
+				C9480A4F2219BE7F00AA4AF9 /* timestamps.framework */,
+				C9480A532219BE7F00AA4AF9 /* timezones.framework */,
+			);
+			path = Pandas;
 			sourceTree = "<group>";
 		};
 		C974194421FDECD400E3924C /* python */ = {
@@ -2028,6 +2943,7 @@
 				C97B75FD22046C3500A05C8D /* Kiwisolver */,
 				C9317EF221FF679B0016E422 /* Matplotlib */,
 				C9C14A3721DA5D5000FD8A28 /* NumPy */,
+				C96C6FE222198F7B0056EA64 /* Pandas */,
 				C9CEE1E821EB8D5300316D3C /* PytoCore */,
 				C946A5AB22074EAA00F78C5C /* Pyto Widget */,
 				C9FCFD56214428AE00A07974 /* Products */,
@@ -2228,6 +3144,47 @@
 				C970282B21FFAF8500159E54 /* Copy _tri */,
 				C970282F21FFAFA800159E54 /* Copy ttconv */,
 				C97B760722046CDA00A05C8D /* Copy kiwisolver */,
+				C96C701C2219905D0056EA64 /* Copy writers */,
+				C96C701D2219907F0056EA64 /* Copy _packer */,
+				C96C701E221990B00056EA64 /* Copy _sas */,
+				C96C701F221990C20056EA64 /* Copy hashtable */,
+				C96C7020221990D60056EA64 /* Copy reshape */,
+				C96C7021221990E00056EA64 /* Copy tslib */,
+				C96C7022221990F60056EA64 /* Copy interval */,
+				C96C7023221991090056EA64 /* Copy missing */,
+				C96C7024221991280056EA64 /* Copy ops */,
+				C96C7025221991360056EA64 /* Copy _unpacker */,
+				C96C7026221991420056EA64 /* Copy hashing */,
+				C96C7027221991540056EA64 /* Copy join */,
+				C96C7028221991690056EA64 /* Copy sparse */,
+				C96C70292219917D0056EA64 /* Copy indexing */,
+				C96C702A2219919A0056EA64 /* Copy parsers */,
+				C96C702B221991A60056EA64 /* Copy algos */,
+				C96C702C221991B30056EA64 /* Copy reduction */,
+				C96C702D2219A0F70056EA64 /* Copy testing */,
+				C96C702E2219A1040056EA64 /* Copy properties */,
+				C96C702F2219A1140056EA64 /* Copy internals */,
+				C96C70302219A11F0056EA64 /* Copy window */,
+				C96C70312219A1320056EA64 /* Copy json */,
+				C96C70322219A13B0056EA64 /* Copy index */,
+				C96C70332219A1450056EA64 /* Copy groupby */,
+				C96C70342219A1520056EA64 /* Copy skiplist */,
+				C96C70352219A1610056EA64 /* Copy lib */,
+				C96C70362219A16A0056EA64 /* Copy _move */,
+				C9480A812219C20B00AA4AF9 /* Copy ccalendar */,
+				C9480A842219C22C00AA4AF9 /* Copy conversion */,
+				C9480A872219C26E00AA4AF9 /* Copy fields */,
+				C9480A8A2219C29B00AA4AF9 /* Copy nattype */,
+				C9480A8D2219C2C000AA4AF9 /* Copy timedeltas */,
+				C9480A902219C2F500AA4AF9 /* Copy frequencies */,
+				C9480A932219C34100AA4AF9 /* Copy resolution */,
+				C9480A982219C37300AA4AF9 /* Copy offsets */,
+				C9480A9B2219C3A300AA4AF9 /* Copy np_datetime */,
+				C9480A9F2219C3D500AA4AF9 /* Copy period */,
+				C9480AA22219C3F000AA4AF9 /* Copy timezones */,
+				C9480AA7221A11D200AA4AF9 /* Copy strptime */,
+				C9480AAB221A120E00AA4AF9 /* Copy parsing */,
+				C9480AAE221A123F00AA4AF9 /* Copy timestamps */,
 				C9CEE26F21EBEEA700316D3C /* Archive app template */,
 				C946A5BA22074EAA00F78C5C /* Embed App Extensions */,
 			);
@@ -3382,6 +4339,7 @@
 					"$(PROJECT_DIR)/NumPy",
 					"$(PROJECT_DIR)/Matplotlib",
 					"$(PROJECT_DIR)/Kiwisolver",
+					"$(PROJECT_DIR)/Pandas",
 				);
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -3406,6 +4364,7 @@
 					"$(PROJECT_DIR)/Pyto",
 					"$(PROJECT_DIR)/Matplotlib",
 					"$(PROJECT_DIR)/Kiwisolver",
+					"$(PROJECT_DIR)/Pandas/tslibs",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -3458,6 +4417,7 @@
 					"$(PROJECT_DIR)/NumPy",
 					"$(PROJECT_DIR)/Matplotlib",
 					"$(PROJECT_DIR)/Kiwisolver",
+					"$(PROJECT_DIR)/Pandas",
 				);
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -3482,6 +4442,7 @@
 					"$(PROJECT_DIR)/Pyto",
 					"$(PROJECT_DIR)/Matplotlib",
 					"$(PROJECT_DIR)/Kiwisolver",
+					"$(PROJECT_DIR)/Pandas/tslibs",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
