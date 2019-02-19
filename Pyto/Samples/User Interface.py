@@ -1,8 +1,8 @@
-  """
+"""
 This script shows an example of how presenting an User Interface.
 
 Important: You should not subclass `UIViewController` because you would have to relaunch Pyto to modify the class. Pyto has now APIs for creating selectors from Python functions.
-  """
+"""
 
 #
 # Pyto uses UIKit for presenting UI.
