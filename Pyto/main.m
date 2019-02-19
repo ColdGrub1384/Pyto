@@ -43,15 +43,13 @@ HANDLE = handle;
 
 // MARK: - Numpy
 
-PyMODINIT_FUNC (*PyInit_multiarray)(void);
-PyMODINIT_FUNC (*PyInit_umath)(void);
+PyMODINIT_FUNC (*PyInit__multiarray_umath)(void);
 PyMODINIT_FUNC (*PyInit_fftpack_lite)(void);
 PyMODINIT_FUNC (*PyInit__umath_linalg)(void);
 PyMODINIT_FUNC (*PyInit_lapack_lite)(void);
 PyMODINIT_FUNC (*PyInit_mtrand)(void);
 
-void *multiarray = NULL;
-void *umath = NULL;
+void *_multiarray_umath = NULL;
 void *fftpack_lite = NULL;
 void *umath_linalg = NULL;
 void *lapack_lite = NULL;
@@ -69,10 +67,8 @@ void init_numpy() {
         
         void *handle;
         
-        if ([name isEqualToString:@"multiarray"]) {
-            load(multiarray);
-        } else if ([name isEqualToString:@"umath"]) {
-            load(umath);
+        if ([name isEqualToString:@"_multiarray_umath"]) {
+            load(_multiarray_umath);
         } else if ([name isEqualToString:@"fftpack_lite"]) {
             load(fftpack_lite);
         } else if ([name isEqualToString:@"_umath_linalg"]) {
@@ -90,15 +86,13 @@ void init_numpy() {
         }
     }
     
-    *(void **) (&PyInit_multiarray) = dlsym(multiarray, "PyInit_multiarray");
-    *(void **) (&PyInit_umath) = dlsym(umath, "PyInit_umath");
+    *(void **) (&PyInit__multiarray_umath) = dlsym(_multiarray_umath, "PyInit__multiarray_umath");
     *(void **) (&PyInit_fftpack_lite) = dlsym(fftpack_lite, "PyInit_fftpack_lite");
     *(void **) (&PyInit__umath_linalg) = dlsym(umath_linalg, "PyInit__umath_linalg");
     *(void **) (&PyInit_lapack_lite) = dlsym(lapack_lite, "PyInit_lapack_lite");
     *(void **) (&PyInit_mtrand) = dlsym(mtrand, "PyInit_mtrand");
     
-    PyImport_AppendInittab("__numpy_core_multiarray", PyInit_multiarray);
-    PyImport_AppendInittab("__numpy_core_umath", PyInit_umath);
+    PyImport_AppendInittab("__numpy_core__multiarray_umath", PyInit__multiarray_umath);
     PyImport_AppendInittab("__numpy_fft_fftpack_lite", PyInit_fftpack_lite);
     PyImport_AppendInittab("__numpy_linalg__umath_linalg", PyInit__umath_linalg);
     PyImport_AppendInittab("__numpy_linalg_lapack_lite", PyInit_lapack_lite);
@@ -186,6 +180,27 @@ void init_matplotlib() {
             fprintf(stderr, "%s\n", dlerror());
         }
     }
+    
+    *(void **) (&__PyInit__backend_agg) = dlsym(_backend_agg, "PyInit__backend_agg");
+    *(void **) (&__PyInit__image) = dlsym(_image, "PyInit__image");
+    *(void **) (&__PyInit__path) = dlsym(_path, "PyInit__path");
+    *(void **) (&__PyInit__png) = dlsym(_png, "PyInit__png");
+    *(void **) (&__PyInit_ft2font) = dlsym(ft2font, "PyInit_ft2font");
+    *(void **) (&__PyInit__contour) = dlsym(_contour, "PyInit__contour");
+    *(void **) (&__PyInit__qhull) = dlsym(_qhull, "PyInit__qhull");
+    *(void **) (&__PyInit_ttconv) = dlsym(ttconv, "PyInit_ttconv");
+    *(void **) (&__PyInit_kiwisolver) = dlsym(kiwisolver, "PyInit_kiwisolver");
+    
+    PyImport_AppendInittab("__matplotlib_backends__backend_agg", __PyInit__backend_agg);
+    PyImport_AppendInittab("__matplotlib__image", __PyInit__image);
+    PyImport_AppendInittab("__matplotlib__path", __PyInit__path);
+    PyImport_AppendInittab("__matplotlib__png", __PyInit__png);
+    PyImport_AppendInittab("__matplotlib_ft2font", __PyInit_ft2font);
+    PyImport_AppendInittab("__matplotlib__contour", __PyInit__contour);
+    PyImport_AppendInittab("__matplotlib__qhull", __PyInit__qhull);
+    PyImport_AppendInittab("__matplotlib__tri", __PyInit__tri);
+    PyImport_AppendInittab("__matplotlib_ttconv", __PyInit_ttconv);
+    PyImport_AppendInittab("kiwisolver", __PyInit_kiwisolver);
 }
 
 // MARK: - Pandas
