@@ -9,9 +9,10 @@
 import UIKit
 import WebKit
 import Down
+import SafariServices
 
 /// A View controller displaying Markdown.
-class MarkdownPreviewController: UIViewController {
+class MarkdownPreviewController: UIViewController, WKNavigationDelegate {
     
     /// Previews Markdown on given Web view.
     ///
@@ -50,7 +51,24 @@ class MarkdownPreviewController: UIViewController {
     
     override func loadView() {
         view = WKWebView()
+        (view as? WKWebView)?.navigationDelegate = self
         view.isOpaque = false
         view.backgroundColor = .clear
+    }
+    
+    // MARK: - Navigation delegate
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        
+        guard let url = navigationAction.request.url else {
+            return decisionHandler(.allow)
+        }
+        
+        if !url.isFileURL {
+            decisionHandler(.cancel)
+            present(SFSafariViewController(url: url), animated: true, completion: nil)
+        } else {
+            decisionHandler(.allow)
+        }
     }
 }
