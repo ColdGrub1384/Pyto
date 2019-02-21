@@ -694,7 +694,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                         let navVC = ThemableNavigationController(rootViewController: console)
                         navVC.modalPresentationStyle = .overCurrentContext
                         self.present(navVC, animated: true, completion: {
-                            self.run()
+                            self.runScript(debug: debug)
                         })
                         
                         return
