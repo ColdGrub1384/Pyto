@@ -69,8 +69,9 @@ import ios_system
         
         #if MAIN
         initializeEnvironment()
-        putenv("TERM=".cValue)
-        putenv("LSCOLORS=".cValue)
+        unsetenv("TERM")
+        unsetenv("LSCOLORS")
+        unsetenv("CLICOLOR")
         setenv("PWD", FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].path, 1)
         setenv("SSL_CERT_FILE", Bundle.main.path(forResource: "cacert", ofType: "pem"), 1)
         
