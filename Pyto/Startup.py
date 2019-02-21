@@ -26,6 +26,8 @@ from extensionsimporter import *
 
 pyto.Python.shared.version = sys.version
 
+os.system = pyto.Python.shared.system
+
 # MARK: - Input
 
 def askForInput(prompt=None):
