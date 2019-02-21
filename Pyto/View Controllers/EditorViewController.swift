@@ -147,14 +147,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// Set to `true` before presenting to run the code.
     var shouldRun = false
     
-    /// Updates line numbers.
-    func updateLineNumbers() {
-        textView.theme = ReadonlyTheme(ConsoleViewController.choosenTheme.sourceCodeTheme)
-        DispatchQueue.main.async {
-            self.textView.theme = ConsoleViewController.choosenTheme.sourceCodeTheme
-        }
-    }
-    
     /// Initialize with given document.
     ///
     /// - Parameters:
