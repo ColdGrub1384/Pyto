@@ -3467,7 +3467,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/numpy\"\n\nrm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/matplotlib\"\n";
+			shellScript = "rm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/numpy\"\nrm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/matplotlib\"\nrm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/mpl_toolkits\"\n";
 		};
 		C9CEE26F21EBEEA700316D3C /* Archive app template */ = {
 			isa = PBXShellScriptBuildPhase;
