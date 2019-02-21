@@ -134,7 +134,7 @@ extension TextView {
         #if os(iOS)
         let text_ = text
         #elseif os(macOS)
-        let text_ = string
+        let text_: String? = string
         #endif
         
         let range = NSMakeRange(((text_ ?? "") as NSString).length - 1, 1)

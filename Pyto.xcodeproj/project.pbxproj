@@ -310,7 +310,6 @@
 		C9AED5A921DE7DEC00CC5B43 /* Info.plist in Copy fftpack_lite */ = {isa = PBXBuildFile; fileRef = C9AED5A821DE7DEC00CC5B43 /* Info.plist */; };
 		C9AED5AF21DE7E7100CC5B43 /* Info.plist in Copy _umath_linalg */ = {isa = PBXBuildFile; fileRef = C9AED5AE21DE7E7100CC5B43 /* Info.plist */; };
 		C9AED5B121DE7E9A00CC5B43 /* Info.plist in Copy lapack_lite */ = {isa = PBXBuildFile; fileRef = C9AED5B021DE7E9A00CC5B43 /* Info.plist */; };
-		C9B27BBA2217A03200814051 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCFD5A214428AE00A07974 /* EditorViewController.swift */; };
 		C9B3FDEC21503DE7000FC9A8 /* PyExtensionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */; };
 		C9B5D84B21F119B100E980BA /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B5D84A21F119B100E980BA /* Settings.storyboard */; };
 		C9B5D84F21F11AAE00E980BA /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5D84E21F11AAE00E980BA /* AboutTableViewController.swift */; };
@@ -371,7 +370,6 @@
 		C9D6DEFF221059F900D7EF55 /* CodeCompletionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6DEFD221059F900D7EF55 /* CodeCompletionViewItem.swift */; };
 		C9D6DF00221059F900D7EF55 /* CodeCompletionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9D6DEFE221059F900D7EF55 /* CodeCompletionViewItem.xib */; };
 		C9D6DF012210DC8700D7EF55 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* TextView.swift */; };
-		C9D6DF052211B24900D7EF55 /* ObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D6DF042211B24900D7EF55 /* ObjC.m */; };
 		C9DF70B821715D3D00981B4F /* FileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DF70B721715D3D00981B4F /* FileCollectionViewCell.swift */; };
 		C9DF70ED217175C400981B4F /* shell.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70C32171752100981B4F /* shell.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9DF70EF217175C400981B4F /* network_ios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70C42171752100981B4F /* network_ios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1814,8 +1812,6 @@
 		C9D2AA752215A503006AF527 /* EditorViewController+highlighting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorViewController+highlighting.swift"; sourceTree = "<group>"; };
 		C9D6DEFD221059F900D7EF55 /* CodeCompletionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeCompletionViewItem.swift; sourceTree = "<group>"; };
 		C9D6DEFE221059F900D7EF55 /* CodeCompletionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CodeCompletionViewItem.xib; sourceTree = "<group>"; };
-		C9D6DF032211B20A00D7EF55 /* ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjC.h; sourceTree = "<group>"; };
-		C9D6DF042211B24900D7EF55 /* ObjC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjC.m; sourceTree = "<group>"; };
 		C9DF70B721715D3D00981B4F /* FileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCollectionViewCell.swift; sourceTree = "<group>"; };
 		C9DF70C22171752100981B4F /* libtexlua52.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libtexlua52.5.dylib; sourceTree = "<group>"; };
 		C9DF70C32171752100981B4F /* shell.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = shell.framework; sourceTree = "<group>"; };
@@ -2771,8 +2767,6 @@
 		C9D6DF022211B1E900D7EF55 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C9D6DF032211B20A00D7EF55 /* ObjC.h */,
-				C9D6DF042211B24900D7EF55 /* ObjC.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3562,7 +3556,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C974194021FD242B00E3924C /* SolarizedDark.swift in Sources */,
-				C9D6DF052211B24900D7EF55 /* ObjC.m in Sources */,
 				C9D6DF012210DC8700D7EF55 /* TextView.swift in Sources */,
 				C98E12DF22139739005CE20C /* NSView.swift in Sources */,
 				C974193521FD23B700E3924C /* Basic.swift in Sources */,
@@ -3574,7 +3567,6 @@
 				C974193F21FD241800E3924C /* CoolGlow.swift in Sources */,
 				C974193B21FD23E100E3924C /* LowKey.swift in Sources */,
 				C9BB353E220F83E600C38C17 /* Code Completion.swift in Sources */,
-				C9B27BBA2217A03200814051 /* EditorViewController.swift in Sources */,
 				C94CC2BC21FCEF6C005E9556 /* AppDelegate.swift in Sources */,
 				C9014B5822131262003A326E /* REPLViewController.swift in Sources */,
 				C98E12E72214689A005CE20C /* ConsoleTextView.swift in Sources */,
