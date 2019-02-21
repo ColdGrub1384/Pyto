@@ -360,6 +360,14 @@ fileprivate func parseArgs(_ args: inout [String]) {
             return
         }
         
+        for (_, marker) in breakpointMarkers {
+            marker.backgroundColor = .clear
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+            self.updateBreakpointMarkersPosition()
+        }
+        
         guard view.frame.height != size.height else {
             DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
                 self.textView.frame.size.width = self.view.safeAreaLayoutGuide.layoutFrame.width
@@ -857,6 +865,18 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// Color for highlighting a line that is currently running.
     static let runningLineColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 0.7)
     
+    /// Updates breakpoint markers position.
+    func updateBreakpointMarkersPosition() {
+        for (position, marker) in breakpointMarkers {
+            marker.backgroundColor = EditorViewController.breakpointColor
+            marker.frame.origin.y = textView.contentTextView.firstRect(for: position.range).origin.y
+            marker.frame.origin.x = textView.contentTextView.frame.width-marker.frame.width
+        }
+        let runningLine = EditorViewController.runningLine
+        EditorViewController.runningLine = 0
+        EditorViewController.runningLine = runningLine
+    }
+    
     /// Sets breakpoint on current line.
     @objc func setBreakpoint(_ sender: Any) {
         
@@ -923,7 +943,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 
                 breakpointMarkers[MarkerPosition(line: currentLineNum, range: eol)] = view
                 
-                view.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin, .flexibleBottomMargin]
                 textView.contentTextView.addSubview(view)
             }
         } else if let index = breakpoints.firstIndex(of: currentLineNum) {
