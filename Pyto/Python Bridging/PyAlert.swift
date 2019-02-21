@@ -93,7 +93,19 @@ import UIKit
     ///
     /// - Parameters:
     ///     - title: The title of the action.
-    @objc func addCancelAction(_ title: String) {
-        addAction(title: title, style: .cancel)
+    ///
+    /// - Returns: `false` if there is already a cancel action.
+    @objc func addCancelAction(_ title: String) -> Bool {
+        var hasCancelAction = false
+        DispatchQueue.main.sync {
+            for action in self.actions ?? [] {
+                if action.style == .cancel {
+                    hasCancelAction = true
+                    return
+                }
+            }
+            self.addAction(title: title, style: .cancel)
+        }
+        return !hasCancelAction
     }
 }
