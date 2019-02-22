@@ -3,22 +3,95 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="14460.1"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.WebKit2IBPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="the Touch Bar" minToolsVersion="8.1" minSystemVersion="10.12.2" requiredIntegratedClassName="NSTouchBar"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tef-eS-MyJ">
+        <!--Window Controller-->
+        <scene sceneID="E5h-9R-qqe">
             <objects>
-                <viewController id="CFP-OJ-GoN" sceneMemberID="viewController">
-                    <view key="view" id="lfd-8s-m6x">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="197"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </view>
-                </viewController>
-                <customObject id="QJy-ki-gEp" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <windowController id="hqh-a0-Y1X" sceneMemberID="viewController">
+                    <window key="window" title="Documentation" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="c1q-yY-whi">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="181" y="186" width="480" height="270"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1366" height="745"/>
+                        <toolbar key="toolbar" implicitIdentifier="E7E2F59C-B8A0-497C-B254-80288AB23AAE" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="azQ-sf-Y6u">
+                            <allowedToolbarItems>
+                                <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="zuS-oC-cJm"/>
+                                <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="OK9-8R-Svg"/>
+                                <toolbarItem implicitItemIdentifier="6CADEEAA-0198-4DD6-8F2D-D87CC49AF291" label="Go Back" paletteLabel="Go Back" sizingBehavior="auto" id="A01-sK-AYP">
+                                    <nil key="toolTip"/>
+                                    <button key="view" verticalHuggingPriority="750" id="8g5-kh-2dL">
+                                        <rect key="frame" x="5" y="14" width="42" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="push" title="＜" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bJq-q4-f3Y">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" size="13" name="DFKaiShu-SB-Estd-BF"/>
+                                        </buttonCell>
+                                    </button>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="0A8D22E8-89E1-4D7D-81C9-9B662CE1205B" label="Go Forward" paletteLabel="Go Forward" sizingBehavior="auto" id="E1w-vc-N1e">
+                                    <nil key="toolTip"/>
+                                    <button key="view" verticalHuggingPriority="750" id="L9u-7m-v7v">
+                                        <rect key="frame" x="13" y="14" width="42" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="push" title="＞" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QRt-Rn-V8u">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" size="13" name="DFKaiShu-SB-Estd-BF"/>
+                                        </buttonCell>
+                                    </button>
+                                </toolbarItem>
+                            </allowedToolbarItems>
+                            <defaultToolbarItems>
+                                <toolbarItem reference="A01-sK-AYP"/>
+                                <toolbarItem reference="E1w-vc-N1e"/>
+                                <toolbarItem reference="OK9-8R-Svg"/>
+                            </defaultToolbarItems>
+                        </toolbar>
+                        <connections>
+                            <outlet property="delegate" destination="hqh-a0-Y1X" id="5c0-Gb-ZGs"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="O4S-Kp-V4Y" kind="relationship" relationship="window.shadowedContentViewController" id="zoj-lX-pYL"/>
+                    </connections>
+                </windowController>
+                <customObject id="Vyj-n7-PZQ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="57.5" y="-324.5"/>
+            <point key="canvasLocation" x="30" y="-803"/>
+        </scene>
+        <!--Documentation View Controller-->
+        <scene sceneID="VHf-DW-vXG">
+            <objects>
+                <viewController id="O4S-Kp-V4Y" customClass="DocumentationViewController" customModule="Pyto_Mac" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="9mY-ks-kiu">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <wkWebView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fLb-hC-tCN">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="fLb-hC-tCN" secondAttribute="trailing" id="8y8-ar-xfW"/>
+                            <constraint firstItem="fLb-hC-tCN" firstAttribute="top" secondItem="9mY-ks-kiu" secondAttribute="top" id="CHj-6x-7mS"/>
+                            <constraint firstItem="fLb-hC-tCN" firstAttribute="leading" secondItem="9mY-ks-kiu" secondAttribute="leading" id="s2n-I7-ZXW"/>
+                            <constraint firstAttribute="bottom" secondItem="fLb-hC-tCN" secondAttribute="bottom" id="vm3-2z-DS5"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="fLb-hC-tCN" id="22G-g0-ElP"/>
+                    </connections>
+                </viewController>
+                <customObject id="J21-ci-Ge5" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="30" y="-415"/>
         </scene>
         <!--Application-->
         <scene sceneID="JPo-4y-FX3">
@@ -314,6 +387,9 @@
                                     <items>
                                         <menuItem title="Documentation" id="pwi-MT-hlB">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <segue destination="hqh-a0-Y1X" kind="show" id="eJy-Ad-3UO"/>
+                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
