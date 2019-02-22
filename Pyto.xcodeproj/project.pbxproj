@@ -16,6 +16,8 @@
 		C904EB7321445D5800585C28 /* Python.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904EB7221445D5800585C28 /* Python.swift */; };
 		C904FA2621DA4C7600B70A39 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C904FA1F21DA4C7600B70A39 /* Accelerate.framework */; };
 		C906D36122209BB700318ADF /* DocumentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C906D36022209BB700318ADF /* DocumentationViewController.swift */; };
+		C906D3652220B33E00318ADF /* LicensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C906D3642220B33E00318ADF /* LicensesViewController.swift */; };
+		C906D3672220B35000318ADF /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C906D3662220B35000318ADF /* WebViewController.swift */; };
 		C90A8029220CFE2200C9A5A1 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* TextView.swift */; };
 		C90A803E220D0E0300C9A5A1 /* PyMainThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E501AD220C85B1002719CE /* PyMainThread.swift */; };
 		C90A803F220D0E0400C9A5A1 /* PyMainThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E501AD220C85B1002719CE /* PyMainThread.swift */; };
@@ -1396,6 +1398,8 @@
 		C904EB7221445D5800585C28 /* Python.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Python.swift; sourceTree = "<group>"; wrapsLines = 1; };
 		C904FA1F21DA4C7600B70A39 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C906D36022209BB700318ADF /* DocumentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationViewController.swift; sourceTree = "<group>"; };
+		C906D3642220B33E00318ADF /* LicensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesViewController.swift; sourceTree = "<group>"; };
+		C906D3662220B35000318ADF /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		C90FB05E21FDEE7300DF66DB /* python3.7 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = python3.7; sourceTree = "<group>"; };
 		C90FB06021FDEE9200DF66DB /* Pyto Mac-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pyto Mac-Bridging-Header.h"; sourceTree = "<group>"; };
 		C90FB07021FDF25300DF66DB /* Startup.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = Startup.py; sourceTree = "<group>"; };
@@ -2752,7 +2756,9 @@
 			children = (
 				C94CC2D021FCF59D005E9556 /* EditorViewController.swift */,
 				C9014B5722131262003A326E /* REPLViewController.swift */,
+				C906D3662220B35000318ADF /* WebViewController.swift */,
 				C906D36022209BB700318ADF /* DocumentationViewController.swift */,
+				C906D3642220B33E00318ADF /* LicensesViewController.swift */,
 			);
 			path = "View controllers";
 			sourceTree = "<group>";
@@ -3571,6 +3577,7 @@
 				C974193B21FD23E100E3924C /* LowKey.swift in Sources */,
 				C9BB353E220F83E600C38C17 /* Code Completion.swift in Sources */,
 				C94CC2BC21FCEF6C005E9556 /* AppDelegate.swift in Sources */,
+				C906D3672220B35000318ADF /* WebViewController.swift in Sources */,
 				C9014B5822131262003A326E /* REPLViewController.swift in Sources */,
 				C98E12E72214689A005CE20C /* ConsoleTextView.swift in Sources */,
 				C9D6DEFF221059F900D7EF55 /* CodeCompletionViewItem.swift in Sources */,
@@ -3584,6 +3591,7 @@
 				C974194221FD244300E3924C /* Theme.swift in Sources */,
 				C974193C21FD23F100E3924C /* Midnight.swift in Sources */,
 				C974193921FD23D100E3924C /* XcodeDark.swift in Sources */,
+				C906D3652220B33E00318ADF /* LicensesViewController.swift in Sources */,
 				C9D2AA772215A512006AF527 /* EditorViewController+highlighting.swift in Sources */,
 				C906D36122209BB700318ADF /* DocumentationViewController.swift in Sources */,
 			);
