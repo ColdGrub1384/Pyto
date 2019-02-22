@@ -15,6 +15,7 @@
 		C903B98C21598A63004AAD7F /* IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C903B98B21598A63004AAD7F /* IO.swift */; };
 		C904EB7321445D5800585C28 /* Python.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904EB7221445D5800585C28 /* Python.swift */; };
 		C904FA2621DA4C7600B70A39 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C904FA1F21DA4C7600B70A39 /* Accelerate.framework */; };
+		C906D36122209BB700318ADF /* DocumentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C906D36022209BB700318ADF /* DocumentationViewController.swift */; };
 		C90A8029220CFE2200C9A5A1 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* TextView.swift */; };
 		C90A803E220D0E0300C9A5A1 /* PyMainThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E501AD220C85B1002719CE /* PyMainThread.swift */; };
 		C90A803F220D0E0400C9A5A1 /* PyMainThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E501AD220C85B1002719CE /* PyMainThread.swift */; };
@@ -1394,6 +1395,7 @@
 		C904EB6C21445CAE00585C28 /* Pyto-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pyto-Bridging-Header.h"; sourceTree = "<group>"; };
 		C904EB7221445D5800585C28 /* Python.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Python.swift; sourceTree = "<group>"; wrapsLines = 1; };
 		C904FA1F21DA4C7600B70A39 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		C906D36022209BB700318ADF /* DocumentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationViewController.swift; sourceTree = "<group>"; };
 		C90FB05E21FDEE7300DF66DB /* python3.7 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = python3.7; sourceTree = "<group>"; };
 		C90FB06021FDEE9200DF66DB /* Pyto Mac-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pyto Mac-Bridging-Header.h"; sourceTree = "<group>"; };
 		C90FB07021FDF25300DF66DB /* Startup.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = Startup.py; sourceTree = "<group>"; };
@@ -2750,6 +2752,7 @@
 			children = (
 				C94CC2D021FCF59D005E9556 /* EditorViewController.swift */,
 				C9014B5722131262003A326E /* REPLViewController.swift */,
+				C906D36022209BB700318ADF /* DocumentationViewController.swift */,
 			);
 			path = "View controllers";
 			sourceTree = "<group>";
@@ -3582,6 +3585,7 @@
 				C974193C21FD23F100E3924C /* Midnight.swift in Sources */,
 				C974193921FD23D100E3924C /* XcodeDark.swift in Sources */,
 				C9D2AA772215A512006AF527 /* EditorViewController+highlighting.swift in Sources */,
+				C906D36122209BB700318ADF /* DocumentationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
