@@ -53,6 +53,28 @@
         print("Unknown platform")
     </pre>
     
+    Scripts can be executed from the iOS app, from the Notification Center widget or from a process just for the script on macOS or a native iOS app built from a script. If you want to check from where the script is executed, check the <code>__host__</code> global variable.
+    
+    <pre>
+    if __host__ is app:
+        print("Running on Pyto for iOS")
+    elif __host__ is widget:
+        print("Running on Notification Center widget")
+    else:
+        if __platform__ is iOS:
+            print("Running on native iOS app")
+        elif __platform__ is macOS:
+            print("Running on Pyto for Mac")
+        else:
+            print("Unknown")
+    </pre>
+    <code>__host__</code> is <code>None</code> when running on macOS because Pyto for Mac runs scripts on a subprocess. It's also <code>None</code> when a native app is built from the script. It's <code>app</code> when it's running on Pyto for iOS and <code>widget</code> when running on Notification Center widget.
+    
+    </p>
+    
+    <h3> Native iOS app </h3>
+    <p>
+    An app for iOS can be built from a script. For that, open the editor, tap the share button, and then "Generate Xcode Project". An Xcode project will be generated so you can build it from a Mac.
     </p>
     
     <h2> Third party modules </h2>
