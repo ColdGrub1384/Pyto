@@ -10,6 +10,9 @@ import Cocoa
 import SourceEditor
 import SavannaKit
 
+/// The directory where pip packages will be installed.
+let sitePackagesDirectory = FileManager.default.urls(for: .applicationSupportDirectory, in: .allDomainsMask).first?.appendingPathComponent("site-packages").path
+
 /// The app's delegate.
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, SyntaxTextViewDelegate {
@@ -41,6 +44,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, SyntaxTextVi
     @IBAction func showPip(_ sender: Any) {
         let repl = (NSStoryboard(name: "Main", bundle: nil).instantiateController(withIdentifier: "repl") as? NSWindowController)
         (repl?.contentViewController as? REPLViewController)?.pip = true
+        repl?.window?.title = "Installer"
         repl?.showWindow(nil)
     }
     

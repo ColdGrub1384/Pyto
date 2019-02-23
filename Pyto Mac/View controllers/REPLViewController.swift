@@ -65,6 +65,7 @@ class REPLViewController: EditorViewController, NSWindowDelegate {
             Bundle.main.path(forResource: "lib/python3.7/site-packages", ofType: nil) ?? "",
             Bundle.main.path(forResource: "PyObjc", ofType: nil) ?? "",
             url.deletingLastPathComponent().path,
+            sitePackagesDirectory ?? "",
             "/usr/local/lib/python3.7/site-packages"
             ].joined(separator: ":")
         
@@ -96,6 +97,7 @@ class REPLViewController: EditorViewController, NSWindowDelegate {
         environment["PYTHONPATH"]     = pythonPath
         environment["MPLBACKEND"]     = "TkAgg"
         environment["NSUnbufferedIO"] = "YES"
+        environment["PIP_TARGET"]     = sitePackagesDirectory
         process.environment          = environment
         
         process.terminationHandler = { _ in

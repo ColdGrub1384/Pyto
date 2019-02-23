@@ -89,6 +89,7 @@ func completeCode() {
         Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
         Bundle.main.path(forResource: "lib/python3.7/site-packages", ofType: nil) ?? "",
         Bundle.main.path(forResource: "PyObjc", ofType: nil) ?? "",
+        sitePackagesDirectory ?? "",
         "/usr/local/lib/python3.7/site-packages"
         ].joined(separator: ":")
     
