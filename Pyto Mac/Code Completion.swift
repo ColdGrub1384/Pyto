@@ -68,6 +68,10 @@ func completeCode() {
         "__builtins__.deprecated = ['runAsync', 'runSync', 'generalPasteboard', 'setString', 'setStrings', 'setImage', 'setImages', 'setURL', 'setURLs','showViewController', 'closeViewController', 'mainLoop', 'openURL', 'shareItems', 'pickDocumentsWithFilePicker']",
         "from _codecompletion import suggestionsForCode",
         "source = '''",
+        "macOS = 'macOS'",
+        "iOS = 'iOS'",
+        "__platform__ = macOS",
+        "",
         text.replacingOccurrences(of: "'", with: "\\'"),
         "'''",
         "print(suggestionsForCode(source, '\(filePath)'))"
