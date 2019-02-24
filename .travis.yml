@@ -1,0 +1,21 @@
+# https://docs.travis-ci.com/user/reference/osx
+
+group: travis_latest
+os: osx
+osx_image: xcode10.1
+language: generic  # language: python is still not supported on os: osx
+cache: pip
+before_install:
+  - brew upgrade python swiftlint
+  - pip install --upgrade pip
+install:
+  # - pip install -r requirements.txt
+  - pip install flake8
+before_script:
+  - EXCLUDE=./.*,./Pyto*,./site-packages
+  - flake8 . --count --exclude=${EXCLUDE} --max-complexity=10 --max-line-length=127 --show-source --statistics
+script:
+  - true  # add other tests here
+notifications:
+  on_success: change
+  on_failure: change  # `always` will be the setting once code changes slow down
