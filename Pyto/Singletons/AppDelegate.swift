@@ -59,6 +59,18 @@ import ios_system
     }
     #endif
     
+    /// If set to `true`, app will show a Welcome message at startup.
+    var shouldShowWelcomeMessage: Bool {
+        get {
+            return !UserDefaults.standard.bool(forKey: "welcomeMessageShown")
+        }
+        
+        set {
+            UserDefaults.standard.set(!newValue, forKey: "welcomeMessageShown")
+            UserDefaults.standard.synchronize()
+        }
+    }
+    
     // MARK: - Application delegate
     
     @objc public var window: UIWindow?
@@ -123,7 +135,7 @@ import ios_system
                 
                 for file in ((try? FileManager.default.contentsOfDirectory(at: docs, includingPropertiesForKeys: nil, options: .init(rawValue: 0))) ?? []) {
                     
-                    if file.lastPathComponent != modulesURL.lastPathComponent {
+                    if file.lastPathComponent != modulesURL.lastPathComponent && file.lastPathComponent != "mpl-data" {
                         try? FileManager.default.moveItem(at: file, to: iCloudURL.appendingPathComponent(file.lastPathComponent))
                     }
                 }

@@ -452,6 +452,14 @@ protocol DocumentBrowserViewControllerDelegate {
                 Thread.sleep(forTimeInterval: 0.1)
             }
         }
+        
+        if (UIApplication.shared.delegate as? AppDelegate)?.shouldShowWelcomeMessage == true {
+            (UIApplication.shared.delegate as? AppDelegate)?.shouldShowWelcomeMessage = false
+            
+            let welcomeAlert = UIAlertController(title: "Welcome to Pyto", message: "Pyto is a Python IDE. If you have any bug to report or something to suggest, you can contact me from settings page. If you like the app, please leave a review.", preferredStyle: .alert)
+            welcomeAlert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
+            present(welcomeAlert, animated: true, completion: nil)
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {

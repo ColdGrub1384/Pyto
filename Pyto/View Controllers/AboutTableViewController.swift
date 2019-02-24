@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import MessageUI
 
 fileprivate extension IndexPath {
     
@@ -20,15 +21,15 @@ fileprivate extension IndexPath {
     
     static let todayWidget = IndexPath(row: 0, section: 1)
     
-    static let help = IndexPath(row: 0, section: 2)
-    static let documentation = IndexPath(row: 1, section: 2)
+    static let documentation = IndexPath(row: 0, section: 2)
+    static let contact = IndexPath(row: 1, section: 2)
     
     static let acknowledgments = IndexPath(row: 0, section: 3)
     static let sourceCode = IndexPath(row: 1, section: 3)
 }
 
 /// A View controller with settings and info.
-class AboutTableViewController: UITableViewController, DocumentBrowserViewControllerDelegate {
+class AboutTableViewController: UITableViewController, DocumentBrowserViewControllerDelegate, MFMailComposeViewControllerDelegate {
     
     /// The date of the build.
     var buildDate: Date {
@@ -117,15 +118,14 @@ class AboutTableViewController: UITableViewController, DocumentBrowserViewContro
             }
             browser.delegate = self
             viewControllerToPresent = browser
-        case .help:
-            dismiss(animated: true) {
-                if let help = Bundle.main.url(forResource: "Help", withExtension: "py") {
-                    DocumentBrowserViewController.visible?.openDocument(help, run: false)
-                }
-            }
-            return
         case .documentation:
             viewControllerToPresent = ThemableNavigationController(rootViewController: DocumentationViewController())
+        case .contact:
+            let controller = MFMailComposeViewController()
+            controller.setSubject("Pyto - Contact")
+            controller.setToRecipients(["adri_labbe@hotmail.com"])
+            controller.mailComposeDelegate = self
+            viewControllerToPresent = controller
         case .acknowledgments:
             viewControllerToPresent = ThemableNavigationController(rootViewController: AcknowledgmentsViewController())
         case .sourceCode:
@@ -176,5 +176,17 @@ class AboutTableViewController: UITableViewController, DocumentBrowserViewContro
         (UIApplication.shared.delegate as? AppDelegate)?.copyModules()
         
         tableView.reloadData()
+    }
+    
+    // MARK: - Mail compose view controller delegate
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        dismiss(animated: true) {
+            if let error = error {
+                let alert = UIAlertController(title: "Error sending email", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
     }
 }
