@@ -1,5 +1,5 @@
 group: travis_latest
-dist: latest  # dist: >= xenial required for Python >= 3.7 (travis-ci/travis-ci#9069)
+dist: xenial  # dist: >= xenial required for Python >= 3.7 (travis-ci/travis-ci#9069)
 language: python
 python: 3.7
 cache: pip
