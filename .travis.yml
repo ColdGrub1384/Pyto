@@ -3,10 +3,11 @@
 group: travis_latest
 os: osx
 osx_image: xcode10.1
+language: generic  # language: python is still not supported on os: osx
+cache: pip
 before_install:
   - brew upgrade python
   - pip install --upgrade pip
-cache: pip
 install:
   # - pip install -r requirements.txt
   - pip install flake8
