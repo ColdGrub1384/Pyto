@@ -1,7 +1,11 @@
+# https://docs.travis-ci.com/user/reference/osx
+
 group: travis_latest
-dist: xenial  # dist: >= xenial required for Python >= 3.7 (travis-ci/travis-ci#9069)
-language: python
-python: 3.7
+os: osx
+osx_image: xcode10.1
+before_install:
+  - brew upgrade python
+  - pip install --upgrade pip
 cache: pip
 install:
   # - pip install -r requirements.txt
