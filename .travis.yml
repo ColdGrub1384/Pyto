@@ -12,7 +12,7 @@ xcode_destination: platform=iOS Simulator,OS=10.1,name=iPad Pro (9.7-inch)
 # xcode_sdk: iphonesimulatorX.Y
 
 before_install:
-  - brew upgrade python swiftlint
+  # - brew upgrade python swiftlint
   - pip install --upgrade pip
 install:
   # - pip install -r requirements.txt
@@ -21,6 +21,7 @@ install:
 before_script:
   - EXCLUDE=./.*,./Pyto*,./site-packages
   - flake8 . --count --exclude=${EXCLUDE} --max-complexity=10 --max-line-length=127 --show-source --statistics
+  - swiftlint
 script:
   - ./setup.sh
 
