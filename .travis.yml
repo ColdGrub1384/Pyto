@@ -1,21 +1,31 @@
 # https://docs.travis-ci.com/user/reference/osx
+# https://docs.travis-ci.com/user/languages/objective-c
+# https://github.com/realm/SwiftLint
 
 group: travis_latest
 os: osx
 osx_image: xcode10.1
-language: generic  # language: python is still not supported on os: osx
-cache: pip
+language: objective-c
+xcode_project: Pyto.xcodeproj
+xcode_workspace: Pyto.xcworkspace
+# xcode_scheme: MyNewProjectTests
+xcode_destination: platform=iOS Simulator,OS=10.1,name=iPad Pro (9.7-inch)
+# xcode_sdk: iphonesimulatorX.Y
+
 before_install:
-  - brew upgrade python swiftlint
+  # - brew upgrade python swiftlint
   - pip install --upgrade pip
 install:
   # - pip install -r requirements.txt
   - pip install flake8
+
 before_script:
   - EXCLUDE=./.*,./Pyto*,./site-packages
   - flake8 . --count --exclude=${EXCLUDE} --max-complexity=10 --max-line-length=127 --show-source --statistics
+  #- swiftlint  # Done linting! Found 2225 violations, 91 serious in 82 files.
 script:
-  - true  # add other tests here
+  - ./setup.sh
+
 notifications:
   on_success: change
   on_failure: change  # `always` will be the setting once code changes slow down
