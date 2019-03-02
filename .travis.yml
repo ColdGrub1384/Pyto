@@ -14,14 +14,16 @@ xcode_destination: platform=iOS Simulator,OS=10.1,name=iPad Pro (9.7-inch)
 
 before_install:
   # - brew upgrade python swiftlint
-  - pip install --upgrade pip
+  - python3.7 -m pip install --upgrade pip
 install:
-  # - pip install -r requirements.txt
-  - pip install flake8
+  # - python3.7 -m pip install -r requirements.txt
+  - python3.7 -m pip install flake8
 
 before_script:
   - EXCLUDE=./.*,./Pyto*,./site-packages
   - flake8 . --count --exclude=${EXCLUDE} --max-complexity=10 --max-line-length=127 --show-source --statistics
+  - flake8 --count --ignore=E111 "Pyto/Samples/Hello World.py" "Pyto/Samples/Open URL.py"
+  - flake8 --count --ignore=E111 "Pyto/Samples/Pick File.py" "Pyto/Samples/Tint Color.py"
   #- swiftlint  # Done linting! Found 2225 violations, 91 serious in 82 files.
 script:
   - ./setup.sh
