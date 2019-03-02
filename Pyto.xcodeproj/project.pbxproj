@@ -2280,7 +2280,7 @@
 			path = "Pyto Widget";
 			sourceTree = "<group>";
 		};
-		C94CC2BA21FCEF6C005E9556 /* Pyto Mac */ = {
+		C94CC2BA21FCEF6C005E9556 /* Pyto_Mac */ = {
 			isa = PBXGroup;
 			children = (
 				C974194421FDECD400E3924C /* python */,
@@ -2293,7 +2293,7 @@
 				C9D6DEF9221059A800D7EF55 /* Resources */,
 				C90FB06021FDEE9200DF66DB /* Pyto Mac-Bridging-Header.h */,
 			);
-			path = "Pyto Mac";
+			path = Pyto_Mac;
 			sourceTree = "<group>";
 		};
 		C9592D1321D0592C00412CEF /* Models */ = {
@@ -2918,7 +2918,7 @@
 				C9FB5B99220258EC0085E1AA /* libpng */,
 				C9FB5BBF22025AFE0085E1AA /* libfreetype */,
 				C9FCFD57214428AE00A07974 /* Pyto */,
-				C94CC2BA21FCEF6C005E9556 /* Pyto Mac */,
+				C94CC2BA21FCEF6C005E9556 /* Pyto_Mac */,
 				C984729021A059F2008E16AC /* Python iOS */,
 				C97B75FD22046C3500A05C8D /* Kiwisolver */,
 				C9317EF221FF679B0016E422 /* Matplotlib */,
@@ -3953,15 +3953,15 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Matplotlib",
 				);
-				INFOPLIST_FILE = "Pyto Mac/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Pyto_Mac/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Pyto\\ Mac/python/lib/python3.7/config-3.7m-darwin",
-					"$(PROJECT_DIR)/Pyto\\ Mac/python/lib",
+					"$(PROJECT_DIR)/Pyto_Mac/python/lib/python3.7/config-3.7m-darwin",
+					"$(PROJECT_DIR)/Pyto_Mac/python/lib",
 					"$(PROJECT_DIR)/Matplotlib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
@@ -3987,7 +3987,7 @@
 				PRODUCT_MODULE_NAME = Pyto_Mac;
 				PRODUCT_NAME = Pyto;
 				SDKROOT = macosx;
-				SWIFT_OBJC_BRIDGING_HEADER = "Pyto Mac/Pyto Mac-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Pyto_Mac/Pyto Mac-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 			};
@@ -4007,15 +4007,15 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Matplotlib",
 				);
-				INFOPLIST_FILE = "Pyto Mac/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Pyto_Mac/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Pyto\\ Mac/python/lib/python3.7/config-3.7m-darwin",
-					"$(PROJECT_DIR)/Pyto\\ Mac/python/lib",
+					"$(PROJECT_DIR)/Pyto_Mac/python/lib/python3.7/config-3.7m-darwin",
+					"$(PROJECT_DIR)/Pyto_Mac/python/lib",
 					"$(PROJECT_DIR)/Matplotlib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
@@ -4041,7 +4041,7 @@
 				PRODUCT_MODULE_NAME = Pyto_Mac;
 				PRODUCT_NAME = Pyto;
 				SDKROOT = macosx;
-				SWIFT_OBJC_BRIDGING_HEADER = "Pyto Mac/Pyto Mac-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Pyto_Mac/Pyto Mac-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
