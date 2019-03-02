@@ -27,11 +27,14 @@ label = None
 button = None
 viewController = None
 
+
 def sayHello(sender: ObjCInstance) -> None:
   """
   This function is called when the "Say Hello" button is pressed.
   
-   IMPORTANT: All functions that will be sent to Objective-C must be fully annotated. For example, this function returns `None`, so add "-> None" at the end. For parameters, write ": ObjCInstance" to represent any Objective-C instance.
+   IMPORTANT: All functions that will be sent to Objective-C must be fully annotated.
+   For example, this function returns `None`, so add "-> None" at the end.
+   For parameters, write ": ObjCInstance" to represent any Objective-C instance.
   
    Args:
     sender: The sender button.
