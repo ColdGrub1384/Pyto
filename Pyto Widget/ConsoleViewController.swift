@@ -120,12 +120,7 @@ fileprivate var isPythonSetup = false
         
         sys.stdout = standardOutput
         sys.stderr = standardError
-        
-        # MARK: - Modules
-
-        sys.meta_path.append(NumpyImporter())
-        sys.meta_path.append(MatplotlibImporter())
-        
+                
         # MARK: - Run script
 
         directory = pyto.ConsoleViewController.sharedDirectoryPath
