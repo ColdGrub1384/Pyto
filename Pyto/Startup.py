@@ -4,7 +4,7 @@ __builtins__.__platform__ = __builtins__.iOS
 
 __builtins__.widget = "widget"
 __builtins__.app = "app"
-__builtins__.__host__ = app
+__builtins__.__host__ = __builtins__.app
 
 import sys
 import os

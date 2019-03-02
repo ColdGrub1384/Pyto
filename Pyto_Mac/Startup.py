@@ -6,7 +6,7 @@ __builtins__.__platform__ = __builtins__.macOS
 
 __builtins__.widget = "widget"
 __builtins__.app = "app"
-__builtins__.__host__ = app
+__builtins__.__host__ = None  # None because it's executed on a subprocess on macOS
 
 # MARK: - Run script
 
