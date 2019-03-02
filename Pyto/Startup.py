@@ -24,21 +24,19 @@ from time import sleep
 from outputredirector import Reader
 from extensionsimporter import *
 
-pyto.Python.shared.version = sys.version
-
-os.system = pyto.Python.shared.system
+os.system = pyto.Python.shared.version = sys.version
 
 # MARK: - Input
 
 def askForInput(prompt=None):
     try:
         threading
-    except:
+    except NameError:
         import threading
 
     try:
         console
-    except:
+    except NameError:
         import console
 
     if (threading.currentThread() in console.ignoredThreads):
@@ -53,7 +51,7 @@ __builtins__.input = askForInput
 def read(text):
     try:
         console
-    except:
+    except NameError:
         import console
 
     console.print(text, end="")
@@ -69,9 +67,8 @@ sys.stderr = standardError
 
 # MARK: - Modules
 
-sys.meta_path.insert(0, NumpyImporter())
-sys.meta_path.insert(0, MatplotlibImporter())
-sys.meta_path.insert(0, PandasImporter())
+for importer in (NumpyImporter, MatplotlibImporter, PandasImporter):
+    sys.meta_path.insert(0, importer())
 
 # MARK: - Create a Selector without class.
 
