@@ -7,7 +7,9 @@ import mainthread
 
 # Code here
 
+
 def changeTintColor() -> None:
   UIApplication.sharedApplication.keyWindow.tintColor = UIColor.redColor
-  
+
+
 mainthread.run_sync(changeTintColor)
