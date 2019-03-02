@@ -7,5 +7,4 @@ from urllib.parse import quote
 
 query = quote(input("Search with Google: "), safe="")
 
-sharing.open_url("https://www.google.com/search?q="+query)
-
+sharing.open_url(f"https://www.google.com/search?q={query}")
