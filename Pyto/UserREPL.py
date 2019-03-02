@@ -1,5 +1,5 @@
 """
-The REPL with partial support for code completion and not ran on the main thread so it can be sent to the background.
+The REPL. Goes to the file browser when exited.
 """
 
 from console import __runREPL__
