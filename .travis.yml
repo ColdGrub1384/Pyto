@@ -20,7 +20,7 @@ install:
   - python3.7 -m pip install flake8
 
 before_script:
-  - EXCLUDE=./.*,./Pyto*,./site-packages
+  - EXCLUDE=./.*,./Pyto_Mac/pip,./Pyto_Mac/PyObjC,./site-packages
   - flake8 . --count --exclude=${EXCLUDE} --max-complexity=10 --max-line-length=127 --show-source --statistics
   - flake8 --count --ignore=E111 "Pyto/Samples/Hello World.py" "Pyto/Samples/Open URL.py"
   - flake8 --count --ignore=E111 "Pyto/Samples/Pick File.py" "Pyto/Samples/Tint Color.py"
