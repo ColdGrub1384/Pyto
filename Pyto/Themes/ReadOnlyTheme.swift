@@ -27,7 +27,7 @@ struct ReadonlyTheme: SourceCodeTheme {
     }
     let gutterStyle = GutterStyle(backgroundColor: .clear, minimumWidth: 0)
     var font: Font {
-        return defaultTheme.font
+        return defaultTheme.font.withSize(CGFloat(ThemeFontSize))
     }
     var backgroundColor: Color {
         #if os(macOS)

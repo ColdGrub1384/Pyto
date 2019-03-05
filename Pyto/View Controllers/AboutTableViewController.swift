@@ -18,6 +18,7 @@ fileprivate extension IndexPath {
     
     static let theme = IndexPath(row: 0, section: 0)
     static let indentation = IndexPath(row: 1, section: 0)
+    static let fontSize = IndexPath(row: 2, section: 0)
     
     static let todayWidget = IndexPath(row: 0, section: 1)
     
@@ -66,6 +67,21 @@ class AboutTableViewController: UITableViewController, DocumentBrowserViewContro
     /// The segmented control managing identation.
     @IBOutlet weak var identationSegmentedControl: UISegmentedControl!
     
+    // MARK: - Font size
+    
+    /// The label previewing the font size.
+    @IBOutlet weak var fontSizeLabel: UILabel!
+    
+    /// The stepper for setting font size.
+    @IBOutlet weak var fontSizeStepper: UIStepper!
+    
+    /// Increases or dicreases font size.
+    @IBAction func changeFontSize(_ sender: UIStepper) {
+        ThemeFontSize = Int(sender.value)
+        fontSizeLabel.text = "\(ThemeFontSize)px"
+        fontSizeLabel.font = fontSizeLabel.font.withSize(CGFloat(ThemeFontSize))
+    }
+    
     // MARK: - Table view controller
     
     override func viewDidLoad() {
@@ -85,6 +101,10 @@ class AboutTableViewController: UITableViewController, DocumentBrowserViewContro
         default:
             identationSegmentedControl.selectedSegmentIndex = 0
         }
+        
+        fontSizeStepper.value = Double(ThemeFontSize)
+        fontSizeLabel.text = "\(ThemeFontSize)px"
+        fontSizeLabel.font = fontSizeLabel.font.withSize(CGFloat(ThemeFontSize))
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

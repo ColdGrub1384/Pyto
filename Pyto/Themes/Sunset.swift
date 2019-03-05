@@ -25,7 +25,7 @@ struct SunsetSourceCodeTheme: SourceCodeTheme {
     }
     
     var font: Font {
-        return defaultTheme.font
+        return defaultTheme.font.withSize(CGFloat(ThemeFontSize))
     }
     
     let backgroundColor = Color(displayP3Red: 255/255, green: 252/255, blue: 229/255, alpha: 1)
