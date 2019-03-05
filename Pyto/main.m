@@ -38,7 +38,7 @@ NSString *pythonHome;
 // MARK: - Modules
 
 #define load(HANDLE) \
-handle = dlopen(file.path.UTF8String, RTLD_NOW); \
+handle = dlopen(file.path.UTF8String, RTLD_GLOBAL); \
 HANDLE = handle;
 
 // MARK: - Numpy
