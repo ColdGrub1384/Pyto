@@ -40,17 +40,17 @@
     
     <h3> Platforms </h3>
     <p>
-    Pyto supports iOS and macOS. If you want to check for platform, use the global <code>__platform__</code> variable.
+    Pyto supports iOS and macOS. If you want to check for platform, use the <code>sys.platform</code> variable.
     
     Example:
     
     <pre>
-    if __platform__ is iOS:
+    if sys.platform is 'ios':
         print("Running on iOS")
-    elif __platform__ is macOS:
+    elif sys.platform in ('darwin', 'macos'):
         print("Running on Mac")
     else:
-        print("Unknown platform")
+        print(f"Pyto is not compatible with {sys.platform}.")
     </pre>
     
     Scripts can be executed from the iOS app, from the Notification Center widget or from a process just for the script on macOS or a native iOS app built from a script. If you want to check from where the script is executed, check the <code>__host__</code> global variable.
