@@ -25,7 +25,7 @@ struct CoolGlowSourceCodeTheme: SourceCodeTheme {
     }
     
     var font: Font {
-        return defaultTheme.font
+        return defaultTheme.font.withSize(CGFloat(ThemeFontSize))
     }
     
     let backgroundColor = Color(displayP3Red: 6/255, green: 7/255, blue: 29/255, alpha: 1)

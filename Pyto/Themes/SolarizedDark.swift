@@ -25,7 +25,7 @@ struct SolarizedDarkSourceCodeTheme: SourceCodeTheme {
     }
     
     var font: Font {
-        return defaultTheme.font
+        return defaultTheme.font.withSize(CGFloat(ThemeFontSize))
     }
     
     let backgroundColor = Color(displayP3Red: 0/255, green: 43/255, blue: 54/255, alpha: 1)

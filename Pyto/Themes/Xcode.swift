@@ -25,7 +25,7 @@ struct XcodeSourceCodeTheme: SourceCodeTheme {
     }
     
     var font: Font {
-        return defaultTheme.font
+        return defaultTheme.font.withSize(CGFloat(ThemeFontSize))
     }
     
     let backgroundColor = Color.white

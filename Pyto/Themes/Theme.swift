@@ -144,3 +144,17 @@ var ChoosenTheme: SourceCodeTheme {
 
 /// A notification sent when the user choosed theme.
 let ThemeDidChangeNotification = Notification.Name("ThemeDidChangeNotification")
+
+#if os(iOS)
+/// The font size used on the editor.
+var ThemeFontSize: Int {
+    get {
+        return (UserDefaults.standard.value(forKey: "fontSize") as? Int) ?? 15
+    }
+    
+    set {
+        UserDefaults.standard.set(newValue, forKey: "fontSize")
+        UserDefaults.standard.synchronize()
+    }
+}
+#endif
