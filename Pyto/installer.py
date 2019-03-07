@@ -1,13 +1,15 @@
 """
-Use this script for accessing to pip installer.
+This version of pip is taken from StaSh: https://github.com/ywangd/stash.
+    
+You can only install PURE PYTHON modules. Libraries that have C, Cython or other programming languages that are not Python will fail to install. Packages can depend on Numpy, Matplotlib, Pandas or other bundled libraries.
 
-After executing this script, type arguments you want to pass to pip.
+Type your command bellow:
 """
 
 from pip import main
 import os
 
-os.environ["COLUMNS"] = "100" # Sets terminal's horizontal size
+print(__doc__)
 
 args = input("pip ") # Asks for arguments
 
