@@ -19,6 +19,7 @@ import UIKit
         
         #if MAIN
         text_ = text_.replacingOccurrences(of: DocumentBrowserViewController.localContainerURL.path, with: "Documents")
+        text_ = text_.replacingFirstOccurrence(of: "/privateDocuments", with: "Documents")
         if let iCloudDrive = DocumentBrowserViewController.iCloudContainerURL?.path {
             text_ = text_.replacingOccurrences(of: iCloudDrive, with: "iCloud")
         }
@@ -51,6 +52,7 @@ import UIKit
         
         #if MAIN
         text_ = text_.replacingOccurrences(of: DocumentBrowserViewController.localContainerURL.path, with: "Documents")
+        text_ = text_.replacingFirstOccurrence(of: "/privateDocuments", with: "Documents")
         if let iCloudDrive = DocumentBrowserViewController.iCloudContainerURL?.path {
             text_ = text_.replacingOccurrences(of: iCloudDrive, with: "iCloud")
         }
