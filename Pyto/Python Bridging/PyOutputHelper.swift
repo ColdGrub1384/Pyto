@@ -70,4 +70,32 @@ import UIKit
             }
         }
     }
+    
+    /// Shows warning on visible console.
+    ///
+    /// - Parameters:
+    ///     - text: Text to print.
+    @objc static func printWarning(_ text: String) {
+        var text_ = text
+        
+        #if MAIN
+        text_ = text_.replacingOccurrences(of: DocumentBrowserViewController.localContainerURL.path, with: "Documents")
+        text_ = text_.replacingFirstOccurrence(of: "/privateDocuments", with: "Documents")
+        if let iCloudDrive = DocumentBrowserViewController.iCloudContainerURL?.path {
+            text_ = text_.replacingOccurrences(of: iCloudDrive, with: "iCloud")
+        }
+        text_ = text_.replacingOccurrences(of: Bundle.main.bundlePath, with: "Pyto.app")
+        #endif
+        
+        Python.shared.output += text_
+        
+        DispatchQueue.main.async {
+            if let attrStr = ConsoleViewController.visible.textView.attributedText {
+                let mutable = NSMutableAttributedString(attributedString: attrStr)
+                mutable.append(NSAttributedString(string: text_, attributes: [.font : UIFont(name: "Menlo", size: 13) ?? UIFont.systemFont(ofSize: 12), .foregroundColor : #colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1)]))
+                ConsoleViewController.visible.textView.attributedText = mutable
+                ConsoleViewController.visible.textView.scrollToBottom()
+            }
+        }
+    }
 }

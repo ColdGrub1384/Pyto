@@ -23,6 +23,18 @@ import threading
 from time import sleep
 from outputredirector import Reader
 from extensionsimporter import *
+import warnings
+import logging
+
+# MARK: - Warnings
+
+logging.basicConfig(level=logging.INFO)
+
+def __send_warnings_to_log__(message, category, filename, lineno, file=None, line=None):
+    pyto.PyOutputHelper.printWarning(warnings.formatwarning(message, category, filename, lineno, line))
+    return
+
+warnings.showwarning = __send_warnings_to_log__
 
 os.system = pyto.Python.shared.version = sys.version
 
