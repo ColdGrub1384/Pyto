@@ -55,6 +55,15 @@
 		C93D61DF2145D03200C8B5E3 /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DE2145D03200C8B5E3 /* UIWindow.swift */; };
 		C93D61E12145D46700C8B5E3 /* PyOutputHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E02145D46700C8B5E3 /* PyOutputHelper.swift */; };
 		C93D61E32145D50A00C8B5E3 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E22145D50A00C8B5E3 /* String.swift */; };
+		C941D3762235662000CA921D /* etree.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D36F2235661F00CA921D /* etree.o */; };
+		C941D3772235662000CA921D /* objectify.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D3702235662000CA921D /* objectify.o */; };
+		C941D3782235662000CA921D /* clean.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D3722235662000CA921D /* clean.o */; };
+		C941D3792235662000CA921D /* diff.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D3732235662000CA921D /* diff.o */; };
+		C941D37A2235662000CA921D /* _elementpath.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D3742235662000CA921D /* _elementpath.o */; };
+		C941D37B2235662000CA921D /* builder.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D3752235662000CA921D /* builder.o */; };
+		C941D37D223566B300CA921D /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D37C223566B300CA921D /* libxml2.2.tbd */; };
+		C941D382223568B100CA921D /* libxslt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D37E223566BC00CA921D /* libxslt.tbd */; };
+		C941D384223568B700CA921D /* libexslt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D383223568B700CA921D /* libexslt.tbd */; };
 		C9425A7721F49B1300E7CC35 /* BlockBasedSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7421F49B1200E7CC35 /* BlockBasedSelector.m */; };
 		C9425A7821F49B1300E7CC35 /* BlockBasedSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7521F49B1200E7CC35 /* BlockBasedSelector.swift */; };
 		C9425A7B21F49B8400E7CC35 /* PySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7A21F49B8400E7CC35 /* PySelector.swift */; };
@@ -1453,6 +1462,16 @@
 		C93D61DE2145D03200C8B5E3 /* UIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
 		C93D61E02145D46700C8B5E3 /* PyOutputHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyOutputHelper.swift; sourceTree = "<group>"; };
 		C93D61E22145D50A00C8B5E3 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		C941D36F2235661F00CA921D /* etree.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = etree.o; sourceTree = "<group>"; };
+		C941D3702235662000CA921D /* objectify.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = objectify.o; sourceTree = "<group>"; };
+		C941D3722235662000CA921D /* clean.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = clean.o; sourceTree = "<group>"; };
+		C941D3732235662000CA921D /* diff.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = diff.o; sourceTree = "<group>"; };
+		C941D3742235662000CA921D /* _elementpath.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = _elementpath.o; sourceTree = "<group>"; };
+		C941D3752235662000CA921D /* builder.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = builder.o; sourceTree = "<group>"; };
+		C941D37C223566B300CA921D /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
+		C941D37E223566BC00CA921D /* libxslt.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxslt.tbd; path = usr/lib/libxslt.tbd; sourceTree = SDKROOT; };
+		C941D3802235670A00CA921D /* libxslt.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxslt.1.tbd; path = usr/lib/libxslt.1.tbd; sourceTree = SDKROOT; };
+		C941D383223568B700CA921D /* libexslt.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libexslt.tbd; path = usr/lib/libexslt.tbd; sourceTree = SDKROOT; };
 		C9425A7421F49B1200E7CC35 /* BlockBasedSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockBasedSelector.m; sourceTree = "<group>"; };
 		C9425A7521F49B1200E7CC35 /* BlockBasedSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockBasedSelector.swift; sourceTree = "<group>"; };
 		C9425A7621F49B1300E7CC35 /* BlockBasedSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockBasedSelector.h; sourceTree = "<group>"; };
@@ -2028,6 +2047,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C941D384223568B700CA921D /* libexslt.tbd in Frameworks */,
+				C941D382223568B100CA921D /* libxslt.tbd in Frameworks */,
+				C941D37D223566B300CA921D /* libxml2.2.tbd in Frameworks */,
+				C941D37A2235662000CA921D /* _elementpath.o in Frameworks */,
+				C941D37B2235662000CA921D /* builder.o in Frameworks */,
+				C941D3762235662000CA921D /* etree.o in Frameworks */,
+				C941D3782235662000CA921D /* clean.o in Frameworks */,
+				C941D3792235662000CA921D /* diff.o in Frameworks */,
+				C941D3772235662000CA921D /* objectify.o in Frameworks */,
 				C9480AB1221A185400AA4AF9 /* libpng.framework in Frameworks */,
 				C9FB5C0F22025B040085E1AA /* ftbdf.o in Frameworks */,
 				C9FB5C0722025B040085E1AA /* ftlzw.o in Frameworks */,
@@ -2089,6 +2117,10 @@
 		777F5989381586AA988D5FF0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C941D383223568B700CA921D /* libexslt.tbd */,
+				C941D3802235670A00CA921D /* libxslt.1.tbd */,
+				C941D37E223566BC00CA921D /* libxslt.tbd */,
+				C941D37C223566B300CA921D /* libxml2.2.tbd */,
 				C9E98D9B2200C08100C60946 /* Foundation.framework */,
 				C9E98D992200BFFA00C60946 /* UIKit.framework */,
 				C9E98D972200BFA100C60946 /* CoreLocation.framework */,
@@ -2252,6 +2284,27 @@
 				C9E509A121BC08F800261E3A /* docs */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		C941D36C223565E900CA921D /* Lxml */ = {
+			isa = PBXGroup;
+			children = (
+				C941D3742235662000CA921D /* _elementpath.o */,
+				C941D3752235662000CA921D /* builder.o */,
+				C941D36F2235661F00CA921D /* etree.o */,
+				C941D3712235662000CA921D /* html */,
+				C941D3702235662000CA921D /* objectify.o */,
+			);
+			path = Lxml;
+			sourceTree = "<group>";
+		};
+		C941D3712235662000CA921D /* html */ = {
+			isa = PBXGroup;
+			children = (
+				C941D3722235662000CA921D /* clean.o */,
+				C941D3732235662000CA921D /* diff.o */,
+			);
+			path = html;
 			sourceTree = "<group>";
 		};
 		C9425A7921F49B5A00E7CC35 /* Selectors */ = {
@@ -2916,6 +2969,7 @@
 				C9317EF221FF679B0016E422 /* Matplotlib */,
 				C9C14A3721DA5D5000FD8A28 /* NumPy */,
 				C96C6FE222198F7B0056EA64 /* Pandas */,
+				C941D36C223565E900CA921D /* Lxml */,
 				C9CEE1E821EB8D5300316D3C /* PytoCore */,
 				C946A5AB22074EAA00F78C5C /* Pyto Widget */,
 				C9FCFD56214428AE00A07974 /* Products */,
@@ -3041,7 +3095,7 @@
 				C94CC2B621FCEF6C005E9556 /* Frameworks */,
 				C94CC2B721FCEF6C005E9556 /* Resources */,
 				06F1472A199D0ADBF99FE1D1 /* [CP] Embed Pods Frameworks */,
-				C9317EE721FE6ACD0016E422 /* Remove NumPy and Matplotlib */,
+				C9317EE721FE6ACD0016E422 /* Remove C extensions */,
 			);
 			buildRules = (
 			);
@@ -3452,7 +3506,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C9317EE721FE6ACD0016E422 /* Remove NumPy and Matplotlib */ = {
+		C9317EE721FE6ACD0016E422 /* Remove C extensions */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3461,14 +3515,14 @@
 			);
 			inputPaths = (
 			);
-			name = "Remove NumPy and Matplotlib";
+			name = "Remove C extensions";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/numpy\"\nrm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/matplotlib\"\nrm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/mpl_toolkits\"\n";
+			shellScript = "rm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/numpy\"\nrm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/matplotlib\"\nrm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/mpl_toolkits\"\nrm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/pandas\"\nrm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/lxml\"\n";
 		};
 		C9CEE26F21EBEEA700316D3C /* Archive app template */ = {
 			isa = PBXShellScriptBuildPhase;

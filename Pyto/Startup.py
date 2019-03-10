@@ -79,7 +79,7 @@ sys.stderr = standardError
 
 # MARK: - Modules
 
-for importer in (NumpyImporter, MatplotlibImporter, PandasImporter):
+for importer in (NumpyImporter, MatplotlibImporter, PandasImporter, LXMLImporter):
     sys.meta_path.insert(0, importer())
 
 # MARK: - Create a Selector without class.
