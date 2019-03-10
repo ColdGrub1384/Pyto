@@ -479,6 +479,40 @@ void init_pandas() {
     PyImport_AppendInittab("__pandas__libs_tslibs_timestamps", PyInit_timestamps);
 }
 
+// MARK: - lxml
+
+PyMODINIT_FUNC (*__PyInit__elementpath)(void);
+PyMODINIT_FUNC (*__PyInit_builder)(void);
+PyMODINIT_FUNC (*__PyInit_etree)(void);
+PyMODINIT_FUNC (*__PyInit_clean)(void);
+PyMODINIT_FUNC (*__PyInit_diff)(void);
+PyMODINIT_FUNC (*__PyInit_objectify)(void);
+
+void *_elementpath = NULL;
+void *builder = NULL;
+void *etree = NULL;
+void *clean = NULL;
+void *diff = NULL;
+void *objectify = NULL;
+
+/// Initializes lxml.
+void init_lxml() {
+    
+    *(void **) (&__PyInit__elementpath) = dlsym(RTLD_SELF, "PyInit__elementpath");
+    *(void **) (&__PyInit_builder) = dlsym(RTLD_SELF, "PyInit_builder");
+    *(void **) (&__PyInit_etree) = dlsym(RTLD_SELF, "PyInit_etree");
+    *(void **) (&__PyInit_clean) = dlsym(RTLD_SELF, "PyInit_clean");
+    *(void **) (&__PyInit_diff) = dlsym(RTLD_SELF, "PyInit_diff");
+    *(void **) (&__PyInit_objectify) = dlsym(RTLD_SELF, "PyInit_objectify");
+    
+    PyImport_AppendInittab("__lxml__elementpath", __PyInit__elementpath);
+    PyImport_AppendInittab("__lxml_builder", __PyInit_builder);
+    PyImport_AppendInittab("__lxml_etree", __PyInit_etree);
+    PyImport_AppendInittab("__lxml_clean", __PyInit_clean);
+    PyImport_AppendInittab("__lxml_diff", __PyInit_diff);
+    PyImport_AppendInittab("__lxml_objectifiy", __PyInit_objectify);
+}
+
 // MARK: - Main
 
 #if MAIN
@@ -505,6 +539,7 @@ void init_python() {
     init_numpy();
     init_matplotlib();
     init_pandas();
+    init_lxml();
     #endif    
     
     // MARK: - Init Python
