@@ -1098,11 +1098,15 @@ fileprivate func parseArgs(_ args: inout [String]) {
             return
         }
         
+        let completion = completions[index]
+        let suggestion = suggestions[index]
+        let doc = docStrings[suggestions[index]]
+        
         if let currentWord = textView.contentTextView.currentWord, !suggestions[index].hasPrefix(currentWord), !suggestions[index].contains("_"), let currentWordRange = textView.contentTextView.currentWordRange {
-            textView.contentTextView.replace(currentWordRange, withText: suggestions[index])
-        } else if completions[index] != "" {
-            textView.insertText(completions[index])
-            docString = docStrings[suggestions[index]]
+            textView.contentTextView.replace(currentWordRange, withText: suggestion)
+        } else if completion != "" {
+            textView.insertText(completion)
+            docString = doc
         }
     }
     
