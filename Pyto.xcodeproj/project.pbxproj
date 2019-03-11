@@ -61,7 +61,6 @@
 		C941D3792235662000CA921D /* diff.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D3732235662000CA921D /* diff.o */; };
 		C941D37A2235662000CA921D /* _elementpath.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D3742235662000CA921D /* _elementpath.o */; };
 		C941D37B2235662000CA921D /* builder.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D3752235662000CA921D /* builder.o */; };
-		C941D37D223566B300CA921D /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D37C223566B300CA921D /* libxml2.2.tbd */; };
 		C941D382223568B100CA921D /* libxslt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D37E223566BC00CA921D /* libxslt.tbd */; };
 		C941D384223568B700CA921D /* libexslt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D383223568B700CA921D /* libexslt.tbd */; };
 		C9425A7721F49B1300E7CC35 /* BlockBasedSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7421F49B1200E7CC35 /* BlockBasedSelector.m */; };
@@ -153,6 +152,7 @@
 		C95EE4FA220702A2006611CB /* pngwutil.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5B9F2202590D0085E1AA /* pngwutil.c */; };
 		C9624EF421A9905400DDA9A7 /* PyThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9624EF321A9905400DDA9A7 /* PyThread.swift */; };
 		C9647FFF21ACA00D005765C2 /* Help.py in Resources */ = {isa = PBXBuildFile; fileRef = C9647FFE21ACA00D005765C2 /* Help.py */; };
+		C96C1E6B2237098600F5F1DC /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C96C1E6A2237098600F5F1DC /* libxml2.tbd */; };
 		C96C70372219A1AB0056EA64 /* writers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C6FE322198F7B0056EA64 /* writers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C96C70382219A1AB0056EA64 /* _packer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C6FE522198F7B0056EA64 /* _packer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C96C70392219A1AB0056EA64 /* _sas.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C6FE622198F7B0056EA64 /* _sas.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1554,6 +1554,7 @@
 		C95EE4EB2207025B006611CB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9624EF321A9905400DDA9A7 /* PyThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyThread.swift; sourceTree = "<group>"; };
 		C9647FFE21ACA00D005765C2 /* Help.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = Help.py; sourceTree = "<group>"; };
+		C96C1E6A2237098600F5F1DC /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		C96C6FE322198F7B0056EA64 /* writers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = writers.framework; sourceTree = "<group>"; };
 		C96C6FE422198F7B0056EA64 /* writers.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "writers.cpython-37m-darwin.so"; sourceTree = "<group>"; };
 		C96C6FE522198F7B0056EA64 /* _packer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _packer.framework; sourceTree = "<group>"; };
@@ -2047,9 +2048,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C96C1E6B2237098600F5F1DC /* libxml2.tbd in Frameworks */,
 				C941D384223568B700CA921D /* libexslt.tbd in Frameworks */,
 				C941D382223568B100CA921D /* libxslt.tbd in Frameworks */,
-				C941D37D223566B300CA921D /* libxml2.2.tbd in Frameworks */,
 				C941D37A2235662000CA921D /* _elementpath.o in Frameworks */,
 				C941D37B2235662000CA921D /* builder.o in Frameworks */,
 				C941D3762235662000CA921D /* etree.o in Frameworks */,
@@ -2117,6 +2118,7 @@
 		777F5989381586AA988D5FF0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C96C1E6A2237098600F5F1DC /* libxml2.tbd */,
 				C941D383223568B700CA921D /* libexslt.tbd */,
 				C941D3802235670A00CA921D /* libxslt.1.tbd */,
 				C941D37E223566BC00CA921D /* libxslt.tbd */,
