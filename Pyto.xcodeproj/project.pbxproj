@@ -55,14 +55,6 @@
 		C93D61DF2145D03200C8B5E3 /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DE2145D03200C8B5E3 /* UIWindow.swift */; };
 		C93D61E12145D46700C8B5E3 /* PyOutputHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E02145D46700C8B5E3 /* PyOutputHelper.swift */; };
 		C93D61E32145D50A00C8B5E3 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E22145D50A00C8B5E3 /* String.swift */; };
-		C941D3762235662000CA921D /* etree.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D36F2235661F00CA921D /* etree.o */; };
-		C941D3772235662000CA921D /* objectify.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D3702235662000CA921D /* objectify.o */; };
-		C941D3782235662000CA921D /* clean.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D3722235662000CA921D /* clean.o */; };
-		C941D3792235662000CA921D /* diff.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D3732235662000CA921D /* diff.o */; };
-		C941D37A2235662000CA921D /* _elementpath.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D3742235662000CA921D /* _elementpath.o */; };
-		C941D37B2235662000CA921D /* builder.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D3752235662000CA921D /* builder.o */; };
-		C941D382223568B100CA921D /* libxslt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D37E223566BC00CA921D /* libxslt.tbd */; };
-		C941D384223568B700CA921D /* libexslt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D383223568B700CA921D /* libexslt.tbd */; };
 		C9425A7721F49B1300E7CC35 /* BlockBasedSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7421F49B1200E7CC35 /* BlockBasedSelector.m */; };
 		C9425A7821F49B1300E7CC35 /* BlockBasedSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7521F49B1200E7CC35 /* BlockBasedSelector.swift */; };
 		C9425A7B21F49B8400E7CC35 /* PySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7A21F49B8400E7CC35 /* PySelector.swift */; };
@@ -152,7 +144,6 @@
 		C95EE4FA220702A2006611CB /* pngwutil.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5B9F2202590D0085E1AA /* pngwutil.c */; };
 		C9624EF421A9905400DDA9A7 /* PyThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9624EF321A9905400DDA9A7 /* PyThread.swift */; };
 		C9647FFF21ACA00D005765C2 /* Help.py in Resources */ = {isa = PBXBuildFile; fileRef = C9647FFE21ACA00D005765C2 /* Help.py */; };
-		C96C1E6B2237098600F5F1DC /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C96C1E6A2237098600F5F1DC /* libxml2.tbd */; };
 		C96C70372219A1AB0056EA64 /* writers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C6FE322198F7B0056EA64 /* writers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C96C70382219A1AB0056EA64 /* _packer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C6FE522198F7B0056EA64 /* _packer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C96C70392219A1AB0056EA64 /* _sas.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C6FE622198F7B0056EA64 /* _sas.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -2048,15 +2039,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C96C1E6B2237098600F5F1DC /* libxml2.tbd in Frameworks */,
-				C941D384223568B700CA921D /* libexslt.tbd in Frameworks */,
-				C941D382223568B100CA921D /* libxslt.tbd in Frameworks */,
-				C941D37A2235662000CA921D /* _elementpath.o in Frameworks */,
-				C941D37B2235662000CA921D /* builder.o in Frameworks */,
-				C941D3762235662000CA921D /* etree.o in Frameworks */,
-				C941D3782235662000CA921D /* clean.o in Frameworks */,
-				C941D3792235662000CA921D /* diff.o in Frameworks */,
-				C941D3772235662000CA921D /* objectify.o in Frameworks */,
 				C9480AB1221A185400AA4AF9 /* libpng.framework in Frameworks */,
 				C9FB5C0F22025B040085E1AA /* ftbdf.o in Frameworks */,
 				C9FB5C0722025B040085E1AA /* ftlzw.o in Frameworks */,
