@@ -266,6 +266,10 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
     override func willMove(toWindow newWindow: UIWindow?) {
         super.willMove(toWindow: newWindow)
         
+        layer.cornerRadius = 6
+        folderContentCollectionView?.layer.cornerRadius = 6
+        previewContainerView?.layer.cornerRadius = 6
+        
         let theme = ConsoleViewController.choosenTheme
         backgroundColor = theme.sourceCodeTheme.backgroundColor
         titleView.textColor = theme.sourceCodeTheme.color(for: .plain)
