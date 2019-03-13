@@ -25,7 +25,7 @@ protocol DocumentBrowserViewControllerDelegate {
 }
 
 /// The main file browser used to edit scripts.
-@objc class DocumentBrowserViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDropDelegate, UICollectionViewDragDelegate, QLPreviewControllerDataSource {
+@objc class DocumentBrowserViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDropDelegate, UICollectionViewDragDelegate, QLPreviewControllerDataSource, UIDocumentPickerDelegate {
     
     /// Stops file observer.
     func stopObserver() {
@@ -389,6 +389,14 @@ protocol DocumentBrowserViewControllerDelegate {
         collectionView.reloadData()
     }
     
+    /// Imports script from another location.
+    @IBAction func importScript(_ sender: Any) {
+        let picker = UIDocumentPickerViewController(documentTypes: ["public.python-script"], in: .open)
+        picker.delegate = self
+        picker.allowsMultipleSelection = false
+        present(picker, animated: true, completion: nil)
+    }
+    
     /// The visible instance
     static var visible: DocumentBrowserViewController? {
         return ((UIApplication.shared.keyWindow?.rootViewController as? UITabBarController)?.viewControllers?.first as? UINavigationController)?.visibleViewController as? DocumentBrowserViewController
@@ -631,5 +639,15 @@ protocol DocumentBrowserViewControllerDelegate {
     
     func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
         return 1
+    }
+    
+    // MARK: - Document picker view controller delegate
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        guard let url = urls.first else {
+            return
+        }
+        _ = url.startAccessingSecurityScopedResource()
+        openDocument(url, run: false)
     }
 }

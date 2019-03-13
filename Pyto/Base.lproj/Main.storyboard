@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -165,13 +164,13 @@
                         <viewLayoutGuide key="safeArea" id="Ogs-uM-J6M"/>
                     </view>
                     <navigationItem key="navigationItem" title="My Scripts" leftItemsSupplementBackButton="YES" id="fIx-hF-Ofw">
-                        <barButtonItem key="leftBarButtonItem" image="gear" id="31W-Bf-NHK">
-                            <connections>
-                                <action selector="showSettings:" destination="yhA-FB-rLN" id="Dgw-Mq-LAW"/>
-                            </connections>
-                        </barButtonItem>
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="add" id="Wvr-P3-atf">
+                        <leftBarButtonItems>
+                            <barButtonItem title="Locations" id="Q6h-wB-LPK">
+                                <connections>
+                                    <action selector="importScript:" destination="yhA-FB-rLN" id="foJ-5b-C3Q"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="compose" id="Wvr-P3-atf">
                                 <connections>
                                     <action selector="create:" destination="yhA-FB-rLN" id="IH4-kl-huC"/>
                                 </connections>
@@ -179,6 +178,13 @@
                             <barButtonItem title="New Folder" image="NewFolder_Normal" id="XCP-0L-GUV">
                                 <connections>
                                     <action selector="createFolder:" destination="yhA-FB-rLN" id="Jqa-rf-0ME"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
+                        <rightBarButtonItems>
+                            <barButtonItem image="gear" id="31W-Bf-NHK">
+                                <connections>
+                                    <action selector="showSettings:" destination="yhA-FB-rLN" id="Dgw-Mq-LAW"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="pip" style="done" id="0jp-g5-eOz">
@@ -277,7 +283,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Templates" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zj9-uU-y7f">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Samples" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zj9-uU-y7f">
                                 <rect key="frame" x="20" y="0.0" width="374" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="25"/>
                                 <nil key="highlightedColor"/>
