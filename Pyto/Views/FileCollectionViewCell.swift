@@ -357,10 +357,10 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         let files = directoryContents.1.count
-        if files <= 2 {
+        if files <= 4 {
             return files
         } else {
-            return 2
+            return 4
         }
     }
     
