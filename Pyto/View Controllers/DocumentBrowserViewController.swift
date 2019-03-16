@@ -279,10 +279,11 @@ protocol DocumentBrowserViewControllerDelegate {
     /// Opens the given file.
     ///
     /// - Parameters:
-    ///     - document: The URL of the file or directory..
+    ///     - document: The URL of the file or directory.
+    ///     - tabBarController: If set, the document will be added to the value.
     ///     - run: Set to `true` to run the script inmediately.
     ///     - completion: Code called after presenting the UI.
-    func openDocument(_ document: URL, run: Bool, completion: (() -> Void)? = nil) {
+    func openDocument(_ document: URL, onTabBarController tabBarController: UITabBarController? = nil, run: Bool, completion: (() -> Void)? = nil) {
         
         let tintColor = ConsoleViewController.choosenTheme.tintColor ?? UIColor(named: "TintColor") ?? .orange
         
@@ -330,6 +331,8 @@ protocol DocumentBrowserViewControllerDelegate {
             return
         }
         
+        let isPip = (document.path == Bundle.main.path(forResource: "installer", ofType: "py"))
+        
         if presentedViewController != nil {
             (((presentedViewController as? UITabBarController)?.viewControllers?.first as? UINavigationController)?.viewControllers.first as? EditorViewController)?.save()
             dismiss(animated: true) {
@@ -344,7 +347,7 @@ protocol DocumentBrowserViewControllerDelegate {
         
         let splitVC = EditorSplitViewController()
         
-        if document.path == Bundle.main.path(forResource: "installer", ofType: "py") {
+        if isPip {
             splitVC.ratio = 0
         }
         
@@ -365,7 +368,11 @@ protocol DocumentBrowserViewControllerDelegate {
         
         stopObserver()
         
-        UIApplication.shared.keyWindow?.topViewController?.present(navVC, animated: true, completion: {
+        func _completion() {
+            
+            if isPip {
+                navVC.setToolbarHidden(true, animated: true)
+            }
             
             NotificationCenter.default.removeObserver(splitVC)
             
@@ -373,13 +380,20 @@ protocol DocumentBrowserViewControllerDelegate {
             splitVC.secondChild = contentVC
             
             completion?()
-        })
+        }
+        
+        if let tabBarController = tabBarController {
+            tabBarController.viewControllers?.append(navVC)
+            _completion()
+        } else {
+            UIApplication.shared.keyWindow?.topViewController?.present(navVC, animated: true, completion: _completion)
+        }
     }
     
     /// Opens pip installer.
     @IBAction func pip(_ sender: Any) {
         if let url = Bundle.main.url(forResource: "installer", withExtension: "py") {
-            openDocument(url, run: true)
+            openDocument(url, onTabBarController: UIApplication.shared.keyWindow?.rootViewController as? UITabBarController, run: true)
         }
     }
     
@@ -409,6 +423,8 @@ protocol DocumentBrowserViewControllerDelegate {
         
         navigationController?.view.backgroundColor = .white
         navigationController?.navigationBar.shadowImage = UIImage()
+        
+        (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.minimumInteritemSpacing = 100
         
         (UIApplication.shared.delegate as? AppDelegate)?.copyModules()
     }

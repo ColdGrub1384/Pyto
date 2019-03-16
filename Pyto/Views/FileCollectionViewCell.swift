@@ -11,6 +11,13 @@ import SavannaKit
 import SourceEditor
 import WebKit
 
+class CollectionView: UICollectionView {
+    
+    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        return nil
+    }
+}
+
 /// A cell for displaying a file.
 class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, SyntaxTextViewDelegate, UICollectionViewDataSource {
     
@@ -266,9 +273,9 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
     override func willMove(toWindow newWindow: UIWindow?) {
         super.willMove(toWindow: newWindow)
         
-        layer.cornerRadius = 6
-        folderContentCollectionView?.layer.cornerRadius = 6
-        previewContainerView?.layer.cornerRadius = 6
+        layer.cornerRadius = 3
+        folderContentCollectionView?.layer.cornerRadius = 3
+        previewContainerView?.layer.cornerRadius = 3
         
         let theme = ConsoleViewController.choosenTheme
         backgroundColor = theme.sourceCodeTheme.backgroundColor
