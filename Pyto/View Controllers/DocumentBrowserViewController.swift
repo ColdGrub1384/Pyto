@@ -421,6 +421,10 @@ protocol DocumentBrowserViewControllerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        if navigationController?.viewControllers.first != self {
+            navigationItem.leftBarButtonItems?.remove(at: 0)
+        }
+        
         navigationController?.view.backgroundColor = .white
         navigationController?.navigationBar.shadowImage = UIImage()
         
