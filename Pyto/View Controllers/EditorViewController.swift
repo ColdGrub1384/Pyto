@@ -301,7 +301,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             }
             
             if doc.path == Bundle.main.path(forResource: "installer", ofType: "py") {
-                self.parent?.navigationItem.leftBarButtonItems = [self.scriptsItem]
+                self.parent?.navigationItem.leftBarButtonItems = []
                 if Python.shared.isScriptRunning {
                     self.parent?.navigationItem.rightBarButtonItems = [self.stopBarButtonItem]
                 } else {

@@ -116,7 +116,7 @@ class AboutTableViewController: UITableViewController, DocumentBrowserViewContro
         
         if indexPath == .todayWidget {
             cell.detailTextLabel?.text = (UserDefaults.standard.string(forKey: "todayWidgetScriptPath") as NSString?)?.lastPathComponent
-        } else if indexPath == .indentation {
+        } else if indexPath == .indentation || indexPath == .fontSize {
             for view in cell.contentView.subviews {
                 (view as? UILabel)?.textColor = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
             }

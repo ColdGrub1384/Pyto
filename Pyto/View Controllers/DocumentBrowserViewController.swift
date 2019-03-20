@@ -369,11 +369,6 @@ protocol DocumentBrowserViewControllerDelegate {
         stopObserver()
         
         func _completion() {
-            
-            if isPip {
-                navVC.setToolbarHidden(true, animated: true)
-            }
-            
             NotificationCenter.default.removeObserver(splitVC)
             
             splitVC.firstChild = editor
@@ -387,13 +382,6 @@ protocol DocumentBrowserViewControllerDelegate {
             _completion()
         } else {
             UIApplication.shared.keyWindow?.topViewController?.present(navVC, animated: true, completion: _completion)
-        }
-    }
-    
-    /// Opens pip installer.
-    @IBAction func pip(_ sender: Any) {
-        if let url = Bundle.main.url(forResource: "installer", withExtension: "py") {
-            openDocument(url, onTabBarController: UIApplication.shared.keyWindow?.rootViewController as? UITabBarController, run: true)
         }
     }
     
@@ -421,7 +409,7 @@ protocol DocumentBrowserViewControllerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if navigationController?.viewControllers.first != self {
+        if navigationController?.viewControllers.first != self, navigationItem.leftBarButtonItem?.action != #selector(importScript(_:)) {
             navigationItem.leftBarButtonItems?.remove(at: 0)
         }
         

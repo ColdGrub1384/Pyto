@@ -72,8 +72,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="250" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="No files in Folder" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x4v-Tr-fD3">
-                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="103"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No files in Folder" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x4v-Tr-fD3">
+                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="158"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -142,11 +142,11 @@
                                             <constraint firstItem="X6Z-5W-bGT" firstAttribute="top" secondItem="Ldw-Ti-VDI" secondAttribute="top" id="BKW-Yz-3P5"/>
                                             <constraint firstItem="X6Z-5W-bGT" firstAttribute="trailing" secondItem="lJC-Gg-hEl" secondAttribute="trailing" id="Gw0-bM-nXY"/>
                                             <constraint firstItem="lJC-Gg-hEl" firstAttribute="top" secondItem="X6Z-5W-bGT" secondAttribute="bottom" constant="8" symbolic="YES" id="IWC-zT-4gT"/>
-                                            <constraint firstItem="lJC-Gg-hEl" firstAttribute="top" secondItem="x4v-Tr-fD3" secondAttribute="bottom" constant="63" id="JgP-GF-4zV"/>
+                                            <constraint firstItem="lJC-Gg-hEl" firstAttribute="top" secondItem="x4v-Tr-fD3" secondAttribute="bottom" constant="8" id="JgP-GF-4zV"/>
                                             <constraint firstItem="x4v-Tr-fD3" firstAttribute="leading" secondItem="lJC-Gg-hEl" secondAttribute="leading" id="c7Q-d3-ki5"/>
                                             <constraint firstAttribute="trailing" secondItem="X6Z-5W-bGT" secondAttribute="trailing" id="rNJ-9y-Byq"/>
                                             <constraint firstAttribute="bottom" secondItem="lJC-Gg-hEl" secondAttribute="bottom" id="trh-Eb-z9z"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="x4v-Tr-fD3" secondAttribute="trailing" constant="34" id="tun-iG-tye"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="x4v-Tr-fD3" secondAttribute="trailing" constant="-8" id="tun-iG-tye"/>
                                             <constraint firstItem="x4v-Tr-fD3" firstAttribute="leading" secondItem="Ldw-Ti-VDI" secondAttribute="leading" id="xHU-f3-mN0"/>
                                         </constraints>
                                         <connections>
@@ -202,18 +202,11 @@
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
-                        <rightBarButtonItems>
-                            <barButtonItem image="gear" id="31W-Bf-NHK">
-                                <connections>
-                                    <action selector="showSettings:" destination="yhA-FB-rLN" id="Dgw-Mq-LAW"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="pip" style="done" id="0jp-g5-eOz">
-                                <connections>
-                                    <action selector="pip:" destination="yhA-FB-rLN" id="SZa-vv-THX"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" image="gear" id="31W-Bf-NHK">
+                            <connections>
+                                <action selector="showSettings:" destination="yhA-FB-rLN" id="Dgw-Mq-LAW"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="JdO-ty-WPc" id="hpk-Ge-MXu"/>
@@ -271,6 +264,7 @@
                     <connections>
                         <segue destination="pj0-1q-KfL" kind="relationship" relationship="viewControllers" id="HVU-OR-aKz"/>
                         <segue destination="BaJ-ba-aO8" kind="relationship" relationship="viewControllers" id="Lyk-cK-kxS"/>
+                        <segue destination="da3-zo-4Eh" kind="relationship" relationship="viewControllers" id="mJi-8I-CPR"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JXG-LO-z43" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -436,12 +430,94 @@
             </objects>
             <point key="canvasLocation" x="2786.9565217391305" y="178.53260869565219"/>
         </scene>
+        <!--PyPi-->
+        <scene sceneID="3BU-5o-WEj">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="da3-zo-4Eh" customClass="ThemableNavigationController" customModule="Pyto" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="PyPi" image="pypi" selectedImage="pypi" id="HMQ-P3-Qfx"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="zX6-Bb-01D">
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3ff-9b-r56">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="tj1-xG-qEl" kind="relationship" relationship="rootViewController" id="dg5-Qd-Kh4"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jCI-NU-jhQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1190" y="1527"/>
+        </scene>
+        <!--Pip View Controller-->
+        <scene sceneID="6Jx-72-ijh">
+            <objects>
+                <viewController id="tj1-xG-qEl" customClass="PipViewController" customModule="Pyto" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bmB-NH-sUa">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" allowsBackForwardNavigationGestures="YES" translatesAutoresizingMaskIntoConstraints="NO" id="11F-HI-Wxm">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="623"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="azz-g4-wY4">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="2.666666666666667"/>
+                            </progressView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="azz-g4-wY4" firstAttribute="leading" secondItem="11F-HI-Wxm" secondAttribute="leading" id="2LA-ra-369"/>
+                            <constraint firstItem="azz-g4-wY4" firstAttribute="top" secondItem="VpV-kh-C2E" secondAttribute="top" id="VVP-XM-wAJ"/>
+                            <constraint firstItem="11F-HI-Wxm" firstAttribute="leading" secondItem="bmB-NH-sUa" secondAttribute="leading" id="cL6-Mq-Yvf"/>
+                            <constraint firstAttribute="trailing" secondItem="11F-HI-Wxm" secondAttribute="trailing" id="ppQ-RI-gh4"/>
+                            <constraint firstItem="azz-g4-wY4" firstAttribute="trailing" secondItem="11F-HI-Wxm" secondAttribute="trailing" id="roD-ql-a9l"/>
+                            <constraint firstItem="11F-HI-Wxm" firstAttribute="bottom" secondItem="VpV-kh-C2E" secondAttribute="bottom" id="w2q-i6-o0p"/>
+                            <constraint firstItem="11F-HI-Wxm" firstAttribute="top" secondItem="VpV-kh-C2E" secondAttribute="top" id="wJf-3t-zh6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="VpV-kh-C2E"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="lQc-LH-pgF">
+                        <leftBarButtonItems>
+                            <barButtonItem enabled="NO" title="Item" image="UIButtonBarArrowLeft_Normal" id="CO0-1A-MXa">
+                                <connections>
+                                    <action selector="goBack:" destination="tj1-xG-qEl" id="gDS-Fv-183"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem enabled="NO" title="Item" image="UIButtonBarArrowRight_Normal" id="8Bh-Pj-NUY">
+                                <connections>
+                                    <action selector="goForward:" destination="tj1-xG-qEl" id="UL3-g8-Oal"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="goBackButton" destination="CO0-1A-MXa" id="GuJ-z4-mUQ"/>
+                        <outlet property="goForwardButton" destination="8Bh-Pj-NUY" id="Jfa-76-to2"/>
+                        <outlet property="progressView" destination="azz-g4-wY4" id="ohR-s6-D49"/>
+                        <outlet property="webView" destination="11F-HI-Wxm" id="uRs-Xr-JCl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="46o-cq-d1I" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2128.985507246377" y="1526.0869565217392"/>
+        </scene>
     </scenes>
     <resources>
         <image name="NewFolder_Normal" width="34" height="24"/>
+        <image name="UIButtonBarArrowLeft_Normal" width="10" height="18"/>
+        <image name="UIButtonBarArrowRight_Normal" width="10" height="18"/>
         <image name="fileIcon" width="30" height="30"/>
         <image name="gear" width="28" height="28"/>
         <image name="play" width="30" height="30"/>
+        <image name="pypi" width="30" height="26.5"/>
         <namedColor name="TintColor">
             <color red="0.396078431372549" green="0.80000000000000004" blue="0.38823529411764707" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

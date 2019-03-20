@@ -260,6 +260,8 @@ import InputAssistant
             #if MAIN
             if REPLViewController.shared?.view.window != nil {
                 return REPLViewController.shared?.console ?? shared
+            } else if PipInstallerViewController.shared?.view.window != nil {
+                return PipInstallerViewController.shared?.console ?? shared
             } else {
                 return shared
             }
