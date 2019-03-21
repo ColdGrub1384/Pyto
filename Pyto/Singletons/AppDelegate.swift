@@ -89,7 +89,7 @@ import ios_system
         
         window?.tintColor = ConsoleViewController.choosenTheme.tintColor
         
-        ((window?.rootViewController as? UITabBarController)?.viewControllers?.last as? UINavigationController)?.viewControllers.first?.loadViewIfNeeded()
+        ((window?.rootViewController as? UITabBarController)?.viewControllers?[1] as? UINavigationController)?.viewControllers.first?.loadViewIfNeeded()
         
         for file in ((try? FileManager.default.contentsOfDirectory(at: URL(fileURLWithPath: NSTemporaryDirectory()), includingPropertiesForKeys: nil, options: .skipsHiddenFiles)) ?? []) {
             try? FileManager.default.removeItem(at: file)

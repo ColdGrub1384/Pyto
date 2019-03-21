@@ -126,6 +126,10 @@ class EditorSplitViewController: SplitViewController {
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         
+        guard presentedViewController == nil else {
+            return
+        }
+        
         if newCollection.horizontalSizeClass == .compact {
             firstChild?.view.removeFromSuperview()
             firstChild?.removeFromParent()
