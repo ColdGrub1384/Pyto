@@ -31,6 +31,15 @@ class PipViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
         webView.goForward()
     }
     
+    /// Reloads page.
+    @IBAction func reload(_ sender: Any) {
+        if webView.url != nil {
+            webView.reload()
+        } else {
+            webView.load(URLRequest(url: URL(string: "https://pypi.org")!))
+        }
+    }
+    
     /// Progress view.
     @IBOutlet weak var progressView: UIProgressView!
     
@@ -141,6 +150,12 @@ class PipViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
         progressView.progress = 0
         navigationItem.rightBarButtonItem = installButton
         installButton.isEnabled = false
+        
+        webView.loadHTMLString("""
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <h1>Error loading page</h1>
+        <p>\(error.localizedDescription)</p>
+        """, baseURL: nil)
     }
     
     // MARK: - UI Delegate
