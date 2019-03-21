@@ -409,7 +409,7 @@ protocol DocumentBrowserViewControllerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if navigationController?.viewControllers.first != self, navigationItem.leftBarButtonItem?.action != #selector(importScript(_:)) {
+        if navigationController?.viewControllers.first != self, navigationItem.leftBarButtonItem?.action == #selector(importScript(_:)) {
             navigationItem.leftBarButtonItems?.remove(at: 0)
         }
         
