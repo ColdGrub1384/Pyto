@@ -38,6 +38,10 @@ warnings.showwarning = __send_warnings_to_log__
 
 os.system = pyto.Python.shared.version = sys.version
 
+# MARK: - Disallow subprocesses
+
+os.allows_subprocesses = False
+
 # MARK: - Input
 
 def askForInput(prompt=None):
