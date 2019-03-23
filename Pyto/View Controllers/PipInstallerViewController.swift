@@ -54,10 +54,6 @@ import UIKit
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if Python.shared.isScriptRunning {
-            editor.stop()
-        }
-        
         addChild(console)
         view.addSubview(console.view)
         console.view.frame = view.frame
@@ -75,8 +71,15 @@ import UIKit
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-            self.editor.run()
+        if Python.shared.isScriptRunning {
+            editor.stop()
+            DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+                self.editor.run()
+            }
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                self.editor.run()
+            }
         }
     }
     
