@@ -11,13 +11,6 @@ import UIKit
 /// A View controller for running `pip` commands.
 @objc class PipInstallerViewController: EditorSplitViewController {
     
-    /// Goes back to the file browser
-    @objc static func goToFileBrowser() {
-        DispatchQueue.main.async {
-            (UIApplication.shared.keyWindow?.rootViewController as? UITabBarController)?.selectedIndex = 0
-        }
-    }
-    
     @objc private func closeViewController() {
         return dismiss(animated: true, completion: {
             (((UIApplication.shared.keyWindow?.rootViewController as? UITabBarController)?.viewControllers?[2] as? UINavigationController)?.visibleViewController as? PipViewController)?.webView.reload()
@@ -60,6 +53,10 @@ import UIKit
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if Python.shared.isScriptRunning {
+            editor.stop()
+        }
         
         addChild(console)
         view.addSubview(console.view)

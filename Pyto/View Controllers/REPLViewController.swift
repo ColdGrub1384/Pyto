@@ -20,7 +20,9 @@ import UIKit
     /// Goes back to the file browser
     @objc static func goToFileBrowser() {
         DispatchQueue.main.async {
-            (UIApplication.shared.keyWindow?.rootViewController as? UITabBarController)?.selectedIndex = 0
+            if (UIApplication.shared.keyWindow?.rootViewController as? UITabBarController)?.selectedIndex == 1 {
+                (UIApplication.shared.keyWindow?.rootViewController as? UITabBarController)?.selectedIndex = 0
+            }
         }
     }
     
