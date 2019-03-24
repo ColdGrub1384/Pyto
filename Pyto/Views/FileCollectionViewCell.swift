@@ -189,6 +189,7 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
         if let file = file {
             do {
                 try FileManager.default.removeItem(at: file)
+                documentBrowser?.collectionView.reloadData()
             } catch {
                 let alert = UIAlertController(title: Localizable.Errors.errorRemovingFile, message: error.localizedDescription, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
@@ -222,6 +223,7 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
             }
             do {
                 try FileManager.default.moveItem(at: file, to: newFileURL)
+                self.documentBrowser?.collectionView.reloadData()
             } catch {
                 let alert = UIAlertController(title: Localizable.Errors.errorRenamingFile, message: error.localizedDescription, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
