@@ -14,16 +14,6 @@ Thank you for downloading Pyto. You can now write and run Python scripts.
 
 * To change the app's theme, press the `Info` button at top left of the file browser, then tap `Theme` and choose the theme you want.
 
-# New on 10.0
-
-* Debug scripts with `pdb` and set breakpoints
-
-* Added Pandas
-
-* Updated Numpy to 1.16.1
-
-* Added a setting for tabs
-
 # Debugging
 
 Pyto uses `pdb` for debugging. To debug a script, open it and press the bug button next to  `►`.
@@ -38,7 +28,7 @@ If you never used `pdb`, you can learn how to use it [here](https://docs.python.
 
 Pyto has a minimal version of pip. 
 
-For installing a module, tap `pip` button on the file browser. Arguments will be asked. If you want to install a module, write `install <module_name>` and if you want to uninstall a module, then write `uninstall <module_name>`.
+To install a module, go to the `PyPi` tab. Then find a package from the `PyPi.org` website. When a module page is displayed, an `Install` button will be shown. Press it to install the package. A Trash icon will be shown if the module is already installed.
 
 Pyto cannot compile modules and cannot link shared libraries from outside the app bundle. So `pip` will fail for packages like `pandas`, `scipy` or `numpy`.
 
