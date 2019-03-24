@@ -517,6 +517,7 @@ protocol DocumentBrowserViewControllerDelegate {
         
         DispatchQueue.global().async {
             let file = cell.file
+            let script = self.scripts[indexPath.row]
             
             var textView: SyntaxTextView? {
                 var value: SyntaxTextView?
@@ -529,7 +530,7 @@ protocol DocumentBrowserViewControllerDelegate {
                 return value
             }
             
-            if file != self.scripts[indexPath.row], let str = try? String(contentsOf: self.scripts[indexPath.row]), let textView = textView {
+            if file != script, let str = try? String(contentsOf: script), let textView = textView {
                 
                 var smallerCode = ""
                 
@@ -544,12 +545,12 @@ protocol DocumentBrowserViewControllerDelegate {
                 
                 DispatchQueue.main.async {
                     if textView.text != smallerCode {
-                        cell.file = self.scripts[indexPath.row]
+                        cell.file = script
                     }
                 }
-            } else if file != self.scripts[indexPath.row] {
+            } else if file != script {
                 DispatchQueue.main.async {
-                    cell.file = self.scripts[indexPath.row]
+                    cell.file = script
                 }
             }
         }
