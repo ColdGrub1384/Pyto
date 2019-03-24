@@ -515,24 +515,43 @@ protocol DocumentBrowserViewControllerDelegate {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "File", for: indexPath) as! FileCollectionViewCell
         }
         
-        if cell.file != scripts[indexPath.row], let str = try? String(contentsOf: scripts[indexPath.row]), let textView = cell.previewContainerView?.subviews.first as? SyntaxTextView {
+        DispatchQueue.global().async {
+            let file = cell.file
             
-            var smallerCode = ""
+            var textView: SyntaxTextView? {
+                var value: SyntaxTextView?
+                let semaphore = DispatchSemaphore(value: 0)
+                DispatchQueue.main.async {
+                    value = cell.previewContainerView?.subviews.first as? SyntaxTextView
+                    semaphore.signal()
+                }
+                semaphore.wait()
+                return value
+            }
             
-            for (i, line) in str.components(separatedBy: "\n").enumerated() {
+            if file != self.scripts[indexPath.row], let str = try? String(contentsOf: self.scripts[indexPath.row]), let textView = textView {
                 
-                guard i < 9 else {
-                    break
+                var smallerCode = ""
+                
+                for (i, line) in str.components(separatedBy: "\n").enumerated() {
+                    
+                    guard i < 9 else {
+                        break
+                    }
+                    
+                    smallerCode += line+"\n"
                 }
                 
-                smallerCode += line+"\n"
+                DispatchQueue.main.async {
+                    if textView.text != smallerCode {
+                        cell.file = self.scripts[indexPath.row]
+                    }
+                }
+            } else if file != self.scripts[indexPath.row] {
+                DispatchQueue.main.async {
+                    cell.file = self.scripts[indexPath.row]
+                }
             }
-            
-            if textView.text != smallerCode {
-                cell.file = scripts[indexPath.row]
-            }
-        } else if cell.file != scripts[indexPath.row] {
-            cell.file = scripts[indexPath.row]
         }
         cell.titleView.text = scripts[indexPath.row].deletingPathExtension().lastPathComponent
         cell.documentBrowser = self
