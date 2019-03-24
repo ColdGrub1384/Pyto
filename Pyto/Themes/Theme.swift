@@ -145,7 +145,6 @@ var ChoosenTheme: SourceCodeTheme {
 /// A notification sent when the user choosed theme.
 let ThemeDidChangeNotification = Notification.Name("ThemeDidChangeNotification")
 
-#if os(iOS)
 /// The font size used on the editor.
 var ThemeFontSize: Int {
     get {
@@ -157,4 +156,16 @@ var ThemeFontSize: Int {
         UserDefaults.standard.synchronize()
     }
 }
-#endif
+
+extension NSFont {
+    
+    /// Get this same font with different size.
+    ///
+    /// - Parameters:
+    ///     - size: The new font size.
+    ///
+    /// - Returns: A new font with given size and receiver's font name.
+    func withSize(_ size: CGFloat) -> NSFont {
+        return NSFont(name: fontName, size: size) ?? self
+    }
+}
