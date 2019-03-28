@@ -157,6 +157,7 @@ var ThemeFontSize: Int {
     }
 }
 
+#if os(macOS)
 extension NSFont {
     
     /// Get this same font with different size.
@@ -169,3 +170,4 @@ extension NSFont {
         return NSFont(name: fontName, size: size) ?? self
     }
 }
+#endif
