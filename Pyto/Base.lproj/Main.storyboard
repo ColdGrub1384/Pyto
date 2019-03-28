@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="JdO-ty-WPc">
-                                <rect key="frame" x="20" y="0.0" width="374" height="434"/>
+                                <rect key="frame" x="20" y="0.0" width="374" height="571"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="60" minimumInteritemSpacing="0.0" id="soV-Bh-gDx">
@@ -161,26 +161,14 @@
                                     <outlet property="delegate" destination="yhA-FB-rLN" id="8I8-qH-xvv"/>
                                 </connections>
                             </collectionView>
-                            <containerView opaque="NO" tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ToJ-u5-nXo">
-                                <rect key="frame" x="0.0" y="442" width="414" height="130"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="130" id="uAh-jz-ibR"/>
-                                </constraints>
-                                <connections>
-                                    <segue destination="jL1-kc-l7L" kind="embed" id="W9M-fU-LTL"/>
-                                </connections>
-                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" name="TintColor"/>
                         <constraints>
                             <constraint firstItem="JdO-ty-WPc" firstAttribute="top" secondItem="Ogs-uM-J6M" secondAttribute="top" id="2Ps-xl-v9P"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="ToJ-u5-nXo" secondAttribute="bottom" constant="-1" id="EYd-Va-zV7"/>
-                            <constraint firstAttribute="trailing" secondItem="ToJ-u5-nXo" secondAttribute="trailing" id="Z20-ma-vwu"/>
                             <constraint firstItem="JdO-ty-WPc" firstAttribute="leading" secondItem="03z-P8-cNR" secondAttribute="leadingMargin" id="az8-5X-kYI"/>
-                            <constraint firstItem="ToJ-u5-nXo" firstAttribute="top" secondItem="JdO-ty-WPc" secondAttribute="bottom" constant="8" symbolic="YES" id="swm-Ew-mHw"/>
-                            <constraint firstItem="JdO-ty-WPc" firstAttribute="centerX" secondItem="ToJ-u5-nXo" secondAttribute="centerX" id="t9q-6I-lKS"/>
-                            <constraint firstItem="ToJ-u5-nXo" firstAttribute="leading" secondItem="03z-P8-cNR" secondAttribute="leading" id="zQz-y8-zaD"/>
+                            <constraint firstItem="JdO-ty-WPc" firstAttribute="trailing" secondItem="03z-P8-cNR" secondAttribute="trailingMargin" id="eTu-qy-zdL"/>
+                            <constraint firstItem="JdO-ty-WPc" firstAttribute="bottom" secondItem="Ogs-uM-J6M" secondAttribute="bottom" id="oRl-rg-Ibh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ogs-uM-J6M"/>
                     </view>
@@ -289,146 +277,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Moi-Vl-eUu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1190" y="843"/>
-        </scene>
-        <!--Templates View Controller-->
-        <scene sceneID="Imp-Ih-coU">
-            <objects>
-                <viewController id="jL1-kc-l7L" customClass="TemplatesViewController" customModule="Pyto" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="uOU-2z-Nal">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Samples" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zj9-uU-y7f">
-                                <rect key="frame" x="20" y="0.0" width="374" height="30"/>
-                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="25"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="y3K-W0-2MJ">
-                                <rect key="frame" x="20" y="38" width="374" height="92"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="KwC-91-A9Z">
-                                    <size key="itemSize" width="150" height="90"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="file" id="MtE-MX-Y4r" customClass="FileCollectionViewCell" customModule="Pyto" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1" width="150" height="90"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="150" height="90"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9nN-Eo-cnl">
-                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="67"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="File name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bhe-hr-cgl">
-                                                    <rect key="frame" x="0.0" y="69" width="150" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </view>
-                                        <connections>
-                                            <outlet property="previewContainerView" destination="9nN-Eo-cnl" id="QeZ-23-YNS"/>
-                                            <outlet property="titleView" destination="Bhe-hr-cgl" id="bXW-oW-fCg"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="folder" id="0ev-wq-USJ" customClass="FileCollectionViewCell" customModule="Pyto" customModuleProvider="target">
-                                        <rect key="frame" x="160" y="1" width="150" height="90"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="150" height="90"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Folder" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQM-K7-tzk">
-                                                    <rect key="frame" x="-1" y="68" width="151" height="19"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No files in Folder" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K7M-4U-Ons">
-                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="60"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wey-sx-cQt">
-                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="60"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="gQT-DY-dpU">
-                                                        <size key="itemSize" width="80" height="59"/>
-                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                    </collectionViewFlowLayout>
-                                                    <cells>
-                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="File" id="FyI-k3-eTR" customClass="FileCollectionViewCell" customModule="Pyto" customModuleProvider="target">
-                                                            <rect key="frame" x="20.666666666666668" y="0.0" width="109" height="59"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                                <rect key="frame" x="0.0" y="0.0" width="109" height="59"/>
-                                                                <autoresizingMask key="autoresizingMask"/>
-                                                                <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Script" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sal-MM-2kz">
-                                                                        <rect key="frame" x="0.0" y="38" width="109" height="21"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RkE-EX-dXc">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="109" height="59"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                    </view>
-                                                                </subviews>
-                                                            </view>
-                                                            <size key="customSize" width="109" height="59"/>
-                                                            <connections>
-                                                                <outlet property="previewContainerView" destination="RkE-EX-dXc" id="aQ4-Qj-5LE"/>
-                                                                <outlet property="titleView" destination="sal-MM-2kz" id="AKt-Ng-DTl"/>
-                                                            </connections>
-                                                        </collectionViewCell>
-                                                    </cells>
-                                                </collectionView>
-                                            </subviews>
-                                        </view>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <connections>
-                                            <outlet property="folderContentCollectionView" destination="wey-sx-cQt" id="DYn-48-U3Z"/>
-                                            <outlet property="noFilesView" destination="K7M-4U-Ons" id="aX9-Q2-MfJ"/>
-                                            <outlet property="titleView" destination="FQM-K7-tzk" id="8JZ-c8-lws"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
-                                <connections>
-                                    <outlet property="dataSource" destination="jL1-kc-l7L" id="h7I-Jg-k1f"/>
-                                    <outlet property="delegate" destination="jL1-kc-l7L" id="Xql-zi-Nlq"/>
-                                </connections>
-                            </collectionView>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="Zj9-uU-y7f" firstAttribute="leading" secondItem="uOU-2z-Nal" secondAttribute="leadingMargin" id="8Qd-Wf-p9F"/>
-                            <constraint firstItem="Zj9-uU-y7f" firstAttribute="trailing" secondItem="uOU-2z-Nal" secondAttribute="trailingMargin" id="ICP-eU-PMN"/>
-                            <constraint firstItem="Zj9-uU-y7f" firstAttribute="leading" secondItem="y3K-W0-2MJ" secondAttribute="leading" id="NMw-4c-Syv"/>
-                            <constraint firstItem="Zj9-uU-y7f" firstAttribute="top" secondItem="PAC-cE-J0f" secondAttribute="top" id="hr6-SE-Y7w"/>
-                            <constraint firstItem="y3K-W0-2MJ" firstAttribute="bottom" secondItem="PAC-cE-J0f" secondAttribute="bottom" id="lvd-pk-LOE"/>
-                            <constraint firstItem="y3K-W0-2MJ" firstAttribute="top" secondItem="Zj9-uU-y7f" secondAttribute="bottom" constant="8" symbolic="YES" id="m1H-B1-uaB"/>
-                            <constraint firstItem="Zj9-uU-y7f" firstAttribute="trailing" secondItem="y3K-W0-2MJ" secondAttribute="trailing" id="xDb-Bd-7YC"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="PAC-cE-J0f"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="feY-A6-BQG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2786.9565217391305" y="178.53260869565219"/>
         </scene>
         <!--PyPi-->
         <scene sceneID="3BU-5o-WEj">

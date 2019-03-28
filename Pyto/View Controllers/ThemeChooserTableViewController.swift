@@ -11,6 +11,7 @@ import SavannaKit
 import SourceEditor
 
 /// A View controller for choosing a theme.
+@available(*, deprecated, message: "Use dialog instead.")
 class ThemeChooserTableViewController: UITableViewController, SyntaxTextViewDelegate {
     
     /// Closes this View controller.
