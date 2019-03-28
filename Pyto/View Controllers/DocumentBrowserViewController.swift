@@ -531,20 +531,8 @@ protocol DocumentBrowserViewControllerDelegate {
             }
             
             if file != script, let str = try? String(contentsOf: script), let textView = textView {
-                
-                var smallerCode = ""
-                
-                for (i, line) in str.components(separatedBy: "\n").enumerated() {
-                    
-                    guard i < 9 else {
-                        break
-                    }
-                    
-                    smallerCode += line+"\n"
-                }
-                
                 DispatchQueue.main.async {
-                    if textView.text != smallerCode {
+                    if textView.text != str {
                         cell.file = script
                     }
                 }
@@ -554,8 +542,8 @@ protocol DocumentBrowserViewControllerDelegate {
                 }
             }
         }
-        cell.titleView.text = scripts[indexPath.row].deletingPathExtension().lastPathComponent
         cell.documentBrowser = self
+        cell.titleView.text = scripts[indexPath.row].deletingPathExtension().lastPathComponent
         
         return cell
     }

@@ -35,6 +35,8 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
     /// The Document browser view controller containing this Collection view.
     var documentBrowser: DocumentBrowserViewController?
     
+    private var isSmall = false
+    
     private var isDirectory: ObjCBool = false
     
     private var directoryContents: (Int, [URL]) {
@@ -75,6 +77,8 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
             guard file != nil else {
                 return
             }
+            
+            titleView.text = file!.deletingPathExtension().lastPathComponent
             
             if FileManager.default.fileExists(atPath: file!.path, isDirectory: &isDirectory) {
                 
@@ -121,8 +125,10 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
                         
                         for (i, line) in code.components(separatedBy: "\n").enumerated() {
                             
-                            guard i < 20 else {
-                                break
+                            if isSmall {
+                                guard i < 20 else {
+                                    break
+                                }
                             }
                             
                             smallerCode += line+"\n"
@@ -131,8 +137,15 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
                         textView.text = smallerCode
                     }
                     
+                    let fontSize: CGFloat
+                    if isSmall {
+                        fontSize = 6
+                    } else {
+                        fontSize = 12
+                    }
+                    
                     textView.theme = ReadonlyTheme(ConsoleViewController.choosenTheme.sourceCodeTheme)
-                    textView.contentTextView.font = textView.contentTextView.font?.withSize(5)
+                    textView.contentTextView.font = textView.contentTextView.font?.withSize(fontSize)
                     textView.contentTextView.isEditable = false
                     textView.contentTextView.isSelectable = false
                     textView.isUserInteractionEnabled = false
@@ -169,7 +182,8 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
                         imageView = UIImageView(image: image)
                     }
                     
-                    imageView.frame = container.frame
+                    imageView.frame = CGRect(origin: .zero, size: CGSize(width: container.frame.width/2, height: container.frame.height/2))
+                    imageView.center = container.center
                     imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
                     
                     imageView.contentMode = .scaleAspectFit
@@ -369,6 +383,7 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "File", for: indexPath) as! FileCollectionViewCell
+        cell.isSmall = true
         cell.file = directoryContents.1[indexPath.row]
         
         return cell
