@@ -60,9 +60,15 @@ class Localizable: Static {
         /// The text shown when a folder is empty
         static let noFiles = NSLocalizedString("noFiles", comment: "The text shown when a folder is empty")
         
-        /// The text shown when a folder has subdirectories but no files
-        static func noFilesButDirs(countOfDirs: Int) -> String {
-            return String(format: NSLocalizedString("noFilesButDirs", comment: "The text shown when a folder has subdirectories but no files"), countOfDirs)
+        /// The text shown for previewing a folder
+        static func numberOfFiles(_ countOfFiles: Int) -> String {
+            if countOfFiles > 1 {
+                return String(format: NSLocalizedString("numberOfFiles", comment: "The text shown when a folder has subdirectories but no files"), countOfFiles)
+            } else if countOfFiles == 0 {
+                return noFiles
+            } else {
+                return NSLocalizedString("oneFile", comment: "1 file")
+            }
         }
     }
     

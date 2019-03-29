@@ -19,7 +19,7 @@ class CollectionView: UICollectionView {
 }
 
 /// A cell for displaying a file.
-class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, SyntaxTextViewDelegate, UICollectionViewDataSource {
+class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, SyntaxTextViewDelegate {
     
     /// The view contaning the filename.
     @IBOutlet weak var titleView: UILabel!
@@ -27,15 +27,11 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
     /// The view containing the code's preview.
     @IBOutlet weak var previewContainerView: UIView?
     
-    /// A Collection view displaying folder's content.
-    @IBOutlet weak var folderContentCollectionView: UICollectionView?
-    
-    @IBOutlet weak private var noFilesView: UILabel?
+    /// Label showing info about a folder.
+    @IBOutlet weak var folderLabel: UILabel?
     
     /// The Document browser view controller containing this Collection view.
     var documentBrowser: DocumentBrowserViewController?
-    
-    private var isSmall = false
     
     private var isDirectory: ObjCBool = false
     
@@ -91,20 +87,19 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
                 previewContainerView?.layer.borderColor = UIColor.gray.cgColor
                 previewContainerView?.layer.borderWidth = 0.25
                 
-                folderContentCollectionView?.layer.borderColor = UIColor.gray.cgColor
-                folderContentCollectionView?.layer.borderWidth = 0.25
+                folderLabel?.layer.borderColor = UIColor.gray.cgColor
+                folderLabel?.layer.borderWidth = 0.25
                 
                 if isDirectory.boolValue {
-                    noFilesView?.isHidden = !directoryContents.1.isEmpty
-                    if directoryContents.0 > 0 {
-                        noFilesView?.text = Localizable.Folders.noFilesButDirs(countOfDirs: directoryContents.0)
-                    } else {
-                        noFilesView?.text = Localizable.Folders.noFiles
+                    self.folderLabel?.text = ""
+                    DispatchQueue.global().async {
+                        let numOfFiles = self.directoryContents.1.count+self.directoryContents.0
+                        DispatchQueue.main.async {
+                            self.folderLabel?.isHidden = false
+                            self.folderLabel?.text = Localizable.Folders.numberOfFiles(numOfFiles)
+                            self.titleView.text = self.file!.lastPathComponent
+                        }
                     }
-                    folderContentCollectionView?.isHidden = !(noFilesView?.isHidden ?? false)
-                    folderContentCollectionView?.dataSource = self
-                    folderContentCollectionView?.reloadData()
-                    titleView.text = file!.lastPathComponent
                 } else if file!.pathExtension.lowercased() == "py" || file!.pathExtension.lowercased() == "md" || file!.pathExtension.lowercased() == "markdown", let container = previewContainerView {
                     
                     var textView: SyntaxTextView!
@@ -125,10 +120,8 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
                         
                         for (i, line) in code.components(separatedBy: "\n").enumerated() {
                             
-                            if isSmall {
-                                guard i < 20 else {
-                                    break
-                                }
+                            guard i < 20 else {
+                                break
                             }
                             
                             smallerCode += line+"\n"
@@ -137,15 +130,8 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
                         textView.text = smallerCode
                     }
                     
-                    let fontSize: CGFloat
-                    if isSmall {
-                        fontSize = 6
-                    } else {
-                        fontSize = 12
-                    }
-                    
                     textView.theme = ReadonlyTheme(ConsoleViewController.choosenTheme.sourceCodeTheme)
-                    textView.contentTextView.font = textView.contentTextView.font?.withSize(fontSize)
+                    textView.contentTextView.font = textView.contentTextView.font?.withSize(12)
                     textView.contentTextView.isEditable = false
                     textView.contentTextView.isSelectable = false
                     textView.isUserInteractionEnabled = false
@@ -290,13 +276,13 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
         super.willMove(toWindow: newWindow)
         
         layer.cornerRadius = 3
-        folderContentCollectionView?.layer.cornerRadius = 3
-        previewContainerView?.layer.cornerRadius = 3
+        folderLabel?.layer.cornerRadius = 3
+        folderLabel?.layer.cornerRadius = 3
         
         let theme = ConsoleViewController.choosenTheme
         backgroundColor = theme.sourceCodeTheme.backgroundColor
         titleView.textColor = theme.sourceCodeTheme.color(for: .plain)
-        folderContentCollectionView?.backgroundColor = backgroundColor
+        folderLabel?.backgroundColor = backgroundColor
         previewContainerView?.backgroundColor = backgroundColor
     }
     
@@ -366,26 +352,5 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
             
             return PlainTextLexer()
         }
-    }
-    
-    // MARK: - Collection view data source
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        let files = directoryContents.1.count
-        if files <= 4 {
-            return files
-        } else {
-            return 4
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "File", for: indexPath) as! FileCollectionViewCell
-        cell.isSmall = true
-        cell.file = directoryContents.1[indexPath.row]
-        
-        return cell
     }
 }

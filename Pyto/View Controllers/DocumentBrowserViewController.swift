@@ -532,7 +532,19 @@ protocol DocumentBrowserViewControllerDelegate {
             
             if file != script, let str = try? String(contentsOf: script), let textView = textView {
                 DispatchQueue.main.async {
-                    if textView.text != str {
+                    
+                    var smallerCode = ""
+                    
+                    for (i, line) in str.components(separatedBy: "\n").enumerated() {
+                        
+                        guard i < 20 else {
+                            break
+                        }
+                        
+                        smallerCode += line+"\n"
+                    }
+                    
+                    if textView.text != smallerCode {
                         cell.file = script
                     }
                 }
@@ -585,7 +597,7 @@ protocol DocumentBrowserViewControllerDelegate {
         item.localObject = file
         item.previewProvider = {
             
-            guard let view = cell.folderContentCollectionView ?? cell.previewContainerView else {
+            guard let view = cell.folderLabel ?? cell.previewContainerView else {
                 return nil
             }
             
