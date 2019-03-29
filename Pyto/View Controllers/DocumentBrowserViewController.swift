@@ -294,7 +294,7 @@ protocol DocumentBrowserViewControllerDelegate {
             if document.pathExtension.lowercased() == "md" || document.pathExtension.lowercased() == "markdown" {
                 _ = document.startAccessingSecurityScopedResource()
                 
-                let splitVC = MarkdownSplitViewController()
+                let splitVC = MarkdownSplitViewController(fullScreen: (document == Bundle.main.url(forResource: "Welcome to Pyto", withExtension: "md")))
                 splitVC.modalTransitionStyle = .crossDissolve
                 splitVC.separatorColor = tintColor
                 splitVC.separatorSelectedColor = tintColor
