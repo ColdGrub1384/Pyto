@@ -26,13 +26,22 @@ class MarkdownSplitViewController: SplitViewController {
         }
     }
     
+    /// Creates and returns a new instance.
+    ///
+    /// - Parameters:
+    ///     - fullScreen: If set to `true`, only the markdown preview will be shown.
+    init(fullScreen: Bool) {
+        super.init(nibName: nil, bundle: nil)
+        
+        if fullScreen {
+            ratio = 0
+        }
+    }
+    
     // MARK: - Split view controller
     
-    override func viewDidLoad() {
-        
-        ratio = 0
-        
-        super.viewDidLoad()
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     override func viewDidLayoutSubviews() {
