@@ -51,7 +51,7 @@ class ThemeChooserTableViewController: UITableViewController, SyntaxTextViewDele
         
         sleep(1)
         
-        print("Bye!")
+        print("Bye!") # Comment
         """
         
         textView.theme = ReadonlyTheme(theme.sourceCodeTheme)
