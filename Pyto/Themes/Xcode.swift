@@ -33,7 +33,7 @@ struct XcodeSourceCodeTheme: SourceCodeTheme {
     func color(for syntaxColorType: SourceCodeTokenType) -> Color {
         switch syntaxColorType {
         case .comment:
-            return Color(red: 0/255, green: 128/255, blue: 0/255, alpha: 1)
+            return Color(red: 83/255, green: 101/255, blue: 121/255, alpha: 1)
         case .editorPlaceholder:
             return defaultTheme.color(for: syntaxColorType)
         case .identifier:
