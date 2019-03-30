@@ -25,7 +25,7 @@ protocol DocumentBrowserViewControllerDelegate {
 }
 
 /// The main file browser used to edit scripts.
-@objc class DocumentBrowserViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDropDelegate, UICollectionViewDragDelegate, QLPreviewControllerDataSource, UIDocumentPickerDelegate {
+@objc class DocumentBrowserViewController: UIViewController, DocumentBrowserViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDropDelegate, UICollectionViewDragDelegate, QLPreviewControllerDataSource, UIDocumentPickerDelegate {
     
     /// Stops file observer.
     func stopObserver() {
@@ -134,126 +134,6 @@ protocol DocumentBrowserViewControllerDelegate {
         }
         
         return files
-    }
-    
-    /// Creates script.
-    @IBAction func create(_ sender: Any) {
-        var textField: UITextField?
-        let alert = UIAlertController(title: Localizable.Creation.createFileTitle, message: Localizable.Creation.typeScriptName, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: Localizable.Creation.createScript, style: .default, handler: { (_) in
-            guard let filename = textField?.text else {
-                return
-            }
-            guard !filename.hasSuffix(".") && !filename.isEmpty else {
-                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: Localizable.Errors.emptyName, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-                return
-            }
-            let script: URL
-            if self.directory == DocumentBrowserViewController.localContainerURL {
-                script = (DocumentBrowserViewController.iCloudContainerURL ?? self.directory).appendingPathComponent(filename).appendingPathExtension("py")
-            } else {
-                script = self.directory.appendingPathComponent(filename).appendingPathExtension("py")
-            }
-            do {
-                guard let url = Bundle.main.url(forResource: "Untitled", withExtension: "py") else {
-                    return
-                }
-                if FileManager.default.createFile(atPath: script.path, contents: try Data(contentsOf: url), attributes: nil) {
-                    self.openDocument(script, run: false)
-                } else {
-                    let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: nil, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
-                    UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
-                }
-            } catch {
-                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
-                UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
-            }
-        }))
-        alert.addAction(UIAlertAction(title: Localizable.Creation.createMarkdown, style: .default, handler: { (_) in
-            guard let filename = textField?.text else {
-                return
-            }
-            guard !filename.hasSuffix(".") && !filename.isEmpty else {
-                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: Localizable.Errors.emptyName, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-                return
-            }
-            let file: URL
-            if self.directory == DocumentBrowserViewController.localContainerURL {
-                file = (DocumentBrowserViewController.iCloudContainerURL ?? self.directory).appendingPathComponent(filename).appendingPathExtension("md")
-            } else {
-                file = self.directory.appendingPathComponent(filename).appendingPathExtension("md")
-            }
-            do {
-                guard let url = Bundle.main.url(forResource: "Untitled", withExtension: "md") else {
-                    return
-                }
-                if FileManager.default.createFile(atPath: file.path, contents: try Data(contentsOf: url), attributes: nil) {
-                    self.openDocument(file, run: false)
-                } else {
-                    let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: nil, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
-                    UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
-                }
-            } catch {
-                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
-                UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
-            }
-        }))
-        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
-        alert.addTextField { (textField_) in
-            textField = textField_
-        }
-        present(alert, animated: true, completion: nil)
-    }
-    
-    /// Creates folder.
-    @IBAction func createFolder(_ sender: Any) {
-        var textField: UITextField?
-        let alert = UIAlertController(title: Localizable.Creation.createFolder, message: Localizable.Creation.typeFolderName, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: Localizable.create, style: .default, handler: { (_) in
-            guard let filename = textField?.text else {
-                return
-            }
-            guard !filename.hasSuffix(".") && !filename.isEmpty else {
-                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFolder, message: Localizable.Errors.emptyName, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-                return
-            }
-            let folder: URL
-            if self.directory == DocumentBrowserViewController.localContainerURL {
-                folder = (DocumentBrowserViewController.iCloudContainerURL ?? self.directory).appendingPathComponent(filename)
-            } else {
-                folder = self.directory.appendingPathComponent(filename)
-            }
-            do {
-                try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true, attributes: nil)
-                var i = 0
-                for file in self.scripts { // For loop needed because the folder is not found with `Array.firstIndex(of:)`
-                    if file.lastPathComponent == folder.lastPathComponent {
-                        self.collectionView.insertItems(at: [IndexPath(row: i, section: 0)])
-                        break
-                    }
-                    i += 1
-                }
-            } catch {
-                let alert = UIAlertController(title: Localizable.Creation.createFolder, message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: Localizable.create, style: .cancel, handler: nil))
-                UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
-            }
-        }))
-        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
-        alert.addTextField { (textField_) in
-            textField = textField_
-        }
-        present(alert, animated: true, completion: nil)
     }
     
     /// Opens settings sheet.
@@ -404,6 +284,133 @@ protocol DocumentBrowserViewControllerDelegate {
         return ((UIApplication.shared.keyWindow?.rootViewController as? UITabBarController)?.viewControllers?.first as? UINavigationController)?.visibleViewController as? DocumentBrowserViewController
     }
     
+    // MARK: - Creation
+    
+    /// Shows a dialog for creating a file.
+    @IBAction func create(_ sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: Localizable.Creation.createFileTitle, message: nil, preferredStyle: .actionSheet)
+        alert.popoverPresentationController?.barButtonItem = sender
+        
+        alert.addAction(UIAlertAction(title: "Script", style: .default, handler: { (_) in
+            self.createScript()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Markdown", style: .default, handler: { (_) in
+            self.createMarkdown()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Folder", style: .default, handler: { (_) in
+            self.createFolder()
+        }))
+        
+        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    /// Creates folder.
+    @objc func createFolder() {
+        var textField: UITextField?
+        let alert = UIAlertController(title: Localizable.Creation.createFolder, message: Localizable.Creation.typeFolderName, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Localizable.create, style: .default, handler: { (_) in
+            guard let filename = textField?.text else {
+                return
+            }
+            guard !filename.hasSuffix(".") && !filename.isEmpty else {
+                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFolder, message: Localizable.Errors.emptyName, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+            let folder: URL
+            if self.directory == DocumentBrowserViewController.localContainerURL {
+                folder = (DocumentBrowserViewController.iCloudContainerURL ?? self.directory).appendingPathComponent(filename)
+            } else {
+                folder = self.directory.appendingPathComponent(filename)
+            }
+            do {
+                try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true, attributes: nil)
+                var i = 0
+                for file in self.scripts { // For loop needed because the folder is not found with `Array.firstIndex(of:)`
+                    if file.lastPathComponent == folder.lastPathComponent {
+                        self.collectionView.insertItems(at: [IndexPath(row: i, section: 0)])
+                        break
+                    }
+                    i += 1
+                }
+            } catch {
+                let alert = UIAlertController(title: Localizable.Creation.createFolder, message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.create, style: .cancel, handler: nil))
+                UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+        alert.addTextField { (textField_) in
+            textField = textField_
+        }
+        present(alert, animated: true, completion: nil)
+    }
+    
+    /// Creates script.
+    @objc func createScript() {
+        guard let browser = storyboard?.instantiateViewController(withIdentifier: "Browser") as? DocumentBrowserViewController else {
+            return
+        }
+        browser.delegate = self
+        browser.directory = Bundle.main.url(forResource: "Samples", withExtension: nil) ?? directory
+        navigationController?.pushViewController(browser, animated: true)
+    }
+    
+    /// Creates Markdown file.
+    @objc func createMarkdown() {
+        var textField: UITextField?
+        let alert = UIAlertController(title: Localizable.Creation.createMarkdown, message: Localizable.Creation.typeScriptName, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Localizable.create, style: .default, handler: { (_) in
+            guard let filename = textField?.text else {
+                return
+            }
+            
+            guard let template = Bundle.main.url(forResource: "Untitled", withExtension: "md") else {
+                return
+            }
+            
+            guard !filename.hasSuffix(".") && !filename.isEmpty else {
+                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: Localizable.Errors.emptyName, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+            var markdown: URL
+            if self.directory == DocumentBrowserViewController.localContainerURL {
+                markdown = (DocumentBrowserViewController.iCloudContainerURL ?? self.directory).appendingPathComponent(filename)
+            } else {
+                markdown = self.directory.appendingPathComponent(filename)
+            }
+            markdown = markdown.appendingPathExtension("md")
+            do {
+                try FileManager.default.copyItem(at: template, to: markdown)
+                var i = 0
+                for file in self.scripts { // For loop needed because the folder is not found with `Array.firstIndex(of:)`
+                    if file.lastPathComponent == markdown.lastPathComponent {
+                        self.collectionView.insertItems(at: [IndexPath(row: i, section: 0)])
+                        break
+                    }
+                    i += 1
+                }
+                self.openDocument(markdown, run: false)
+            } catch {
+                let alert = UIAlertController(title: Localizable.Creation.createMarkdown, message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.create, style: .cancel, handler: nil))
+                UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+        alert.addTextField { (textField_) in
+            textField = textField_
+        }
+        present(alert, animated: true, completion: nil)
+    }
+    
     // MARK: - View controller
     
     override func viewWillAppear(_ animated: Bool) {
@@ -492,8 +499,8 @@ protocol DocumentBrowserViewControllerDelegate {
     
     override var keyCommands: [UIKeyCommand]? {
         return [
-            UIKeyCommand(input: "n", modifierFlags: .command, action: #selector(create(_:)), discoverabilityTitle: Localizable.Creation.createScript),
-            UIKeyCommand(input: "n", modifierFlags: [.command, .shift], action: #selector(createFolder(_:)), discoverabilityTitle: Localizable.Creation.createFolder)
+            UIKeyCommand(input: "n", modifierFlags: .command, action: #selector(createScript), discoverabilityTitle: Localizable.Creation.createScript),
+            UIKeyCommand(input: "n", modifierFlags: [.command, .shift], action: #selector(createFolder), discoverabilityTitle: Localizable.Creation.createFolder)
         ]
     }
     
@@ -677,5 +684,57 @@ protocol DocumentBrowserViewControllerDelegate {
         }
         _ = url.startAccessingSecurityScopedResource()
         openDocument(url, run: false)
+    }
+    
+    // MARK: - Document browser view controller delegate
+    
+    func documentBrowserViewController(_ documentBrowserViewController: DocumentBrowserViewController, didPickScriptAtPath path: String) {
+        
+        navigationController?.popViewController(animated: true)
+        
+        var textField: UITextField?
+        let alert = UIAlertController(title: Localizable.Creation.createScript, message: Localizable.Creation.typeScriptName, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Localizable.create, style: .default, handler: { (_) in
+            guard let filename = textField?.text else {
+                return
+            }
+            
+            let template = URL(fileURLWithPath: path)
+            
+            guard !filename.hasSuffix(".") && !filename.isEmpty else {
+                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: Localizable.Errors.emptyName, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+            var script: URL
+            if self.directory == DocumentBrowserViewController.localContainerURL {
+                script = (DocumentBrowserViewController.iCloudContainerURL ?? self.directory).appendingPathComponent(filename)
+            } else {
+                script = self.directory.appendingPathComponent(filename)
+            }
+            script = script.appendingPathExtension("py")
+            do {
+                try FileManager.default.copyItem(at: template, to: script)
+                var i = 0
+                for file in self.scripts { // For loop needed because the folder is not found with `Array.firstIndex(of:)`
+                    if file.lastPathComponent == script.lastPathComponent {
+                        self.collectionView.insertItems(at: [IndexPath(row: i, section: 0)])
+                        break
+                    }
+                    i += 1
+                }
+                self.openDocument(script, run: false)
+            } catch {
+                let alert = UIAlertController(title: Localizable.Creation.createScript, message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.create, style: .cancel, handler: nil))
+                UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+        alert.addTextField { (textField_) in
+            textField = textField_
+        }
+        present(alert, animated: true, completion: nil)
     }
 }
