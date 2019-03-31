@@ -264,9 +264,12 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
     /// Moves file.
     @objc func move(_ sender: Any) {
         if let file = file {
-            let picker = UIDocumentPickerViewController(url: file, in: .moveToService)
-            picker.delegate = self
-            documentBrowser?.present(picker, animated: true, completion: nil)
+            guard let vc = documentBrowser?.storyboard?.instantiateViewController(withIdentifier: "Browser") as? DocumentBrowserViewController else {
+                return
+            }
+            vc.directory = DocumentBrowserViewController.localContainerURL
+            vc.fileToMove = file
+            documentBrowser?.navigationController?.pushViewController(vc, animated: true)
         }
     }
     
@@ -291,6 +294,11 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
     }
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        
+        guard documentBrowser?.fileToMove == nil else {
+            return false
+        }
+        
         if file?.path.hasPrefix(Bundle.main.bundlePath) == true {
             return (action == #selector(open(_:)))
         } else if isDirectory.boolValue || file?.pathExtension.lowercased() != "py" {
