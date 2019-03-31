@@ -21,7 +21,7 @@ class ThemableTabBarController: UITabBarController {
     }
     
     /// Called when the user choosed a theme.
-    @objc func themeDidChanged(_ notification: Notification) {
+    @objc func themeDidChange(_ notification: Notification) {
         setup(theme: ConsoleViewController.choosenTheme)
     }
     
@@ -34,7 +34,7 @@ class ThemableTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChanged(_:)), name: ThemeDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {

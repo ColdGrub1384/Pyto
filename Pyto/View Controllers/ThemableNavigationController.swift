@@ -27,7 +27,7 @@ class ThemableNavigationController: UINavigationController, UINavigationControll
     }
     
     /// Called when the user choosed a theme.
-    @objc func themeDidChanged(_ notification: Notification) {
+    @objc func themeDidChange(_ notification: Notification) {
         setup(theme: ConsoleViewController.choosenTheme)
         
         if let currentBrowser = visibleViewController as? DocumentBrowserViewController, let storyboard = self.storyboard, let browser = storyboard.instantiateViewController(withIdentifier: "Browser") as? DocumentBrowserViewController {
@@ -54,7 +54,7 @@ class ThemableNavigationController: UINavigationController, UINavigationControll
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChanged(_:)), name: ThemeDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
