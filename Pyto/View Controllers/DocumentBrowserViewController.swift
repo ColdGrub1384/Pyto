@@ -133,6 +133,19 @@ protocol DocumentBrowserViewControllerDelegate {
             files = ((try? FileManager.default.contentsOfDirectory(at: iCloudURL, includingPropertiesForKeys: nil, options: .init(rawValue: 0))) ?? [])+files
         }
         
+        if directory == Bundle.main.url(forResource: "Samples", withExtension: nil),
+            let samplesListFile = Bundle.main.url(forResource: "samples_list", withExtension: nil),
+            let samplesList = (try? String(contentsOf: samplesListFile)) {
+            let list = samplesList.components(separatedBy: "\n")
+            files = files.sorted(by: { (firstURL, secondURL) -> Bool in
+                guard let firstIndex = list.firstIndex(of: firstURL.lastPathComponent), let secondIndex = list.firstIndex(of: secondURL.lastPathComponent) else {
+                    return (firstURL.lastPathComponent < secondURL.lastPathComponent)
+                }
+                
+                return (firstIndex < secondIndex)
+            })
+        }
+        
         return files
     }
     
