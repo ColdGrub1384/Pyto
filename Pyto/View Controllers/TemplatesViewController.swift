@@ -27,7 +27,7 @@ class TemplatesViewController: UIViewController, UICollectionViewDataSource, UIC
     }
     
     /// Called when user selected a theme.
-    @objc func themeDidChanged(_ notification: Notification?) {
+    @objc func themeDidChange(_ notification: Notification?) {
         for view in self.view.subviews {
             (view as? UILabel)?.textColor = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
         }
@@ -38,8 +38,8 @@ class TemplatesViewController: UIViewController, UICollectionViewDataSource, UIC
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChanged(_:)), name: ThemeDidChangeNotification, object: nil)
-        themeDidChanged(nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
+        themeDidChange(nil)
     }
     
     // MARK: - Collection view data source
