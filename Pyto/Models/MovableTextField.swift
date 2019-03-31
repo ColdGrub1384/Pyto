@@ -60,7 +60,6 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         textField.delegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
@@ -68,7 +67,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     func show() {
         toolbar.frame.size.width = console.view.frame.width
         toolbar.frame.origin.x = 0
-        toolbar.frame.origin.y = console.view.frame.height-toolbar.frame.height
+        toolbar.frame.origin.y = console.view.safeAreaLayoutGuide.layoutFrame.height-toolbar.frame.height
         toolbar.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin, .flexibleTopMargin]
         console.view.addSubview(toolbar)
     }
@@ -89,13 +88,14 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     // MARK: - Keyboard
     
     @objc private func keyboardWillShow(_ notification: NSNotification) {
-        if let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            self.toolbar.frame.origin.y = self.console.view.frame.height-keyboardFrame.height-(self.console.parent is EditorSplitViewController ? 0 : self.toolbar.frame.height)
+        if let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            let point = CGPoint(x: 0, y: (UIApplication.shared.keyWindow ?? console.view).frame.height-keyboardFrame.height-toolbar.frame.height)
+            toolbar.frame.origin = (UIApplication.shared.keyWindow ?? console.view).convert(point, to: console.view)
         }
     }
     
     @objc private func keyboardWillHide(_ notification: NSNotification) {
-        self.toolbar.frame.origin.y = self.console.view.frame.height-self.toolbar.frame.height
+        toolbar.frame.origin.y = console.view.safeAreaLayoutGuide.layoutFrame.height-toolbar.frame.height
     }
     
     // MARK: - Text field delegate
