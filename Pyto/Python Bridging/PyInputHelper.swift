@@ -14,15 +14,28 @@ import Foundation
     /// The user's input. Set its value while Python script is waiting for input to pass the input.
     @objc static var userInput: String?
     
-    /// Shows an alert to request input.
+    /// Requests for input.
     ///
     /// - Parameters:
-    ///     - prompt: The title of the alert.
+    ///     - prompt: The prompt sent by Python function.
     @objc static func showAlert(prompt: String?) {
         let prompt_ = prompt
         DispatchQueue.main.sync {
             #if !WIDGET
             ConsoleViewController.visible.input(prompt: prompt_ ?? "")
+            #endif
+        }
+    }
+    
+    /// Requests for a password.
+    ///
+    /// - Parameters:
+    ///     - prompt: The prompt sent by Python function.
+    @objc static func getPass(prompt: String?) {
+        let prompt_ = prompt
+        DispatchQueue.main.sync {
+            #if !WIDGET
+            ConsoleViewController.visible.getpass(prompt: prompt_ ?? "")
             #endif
         }
     }

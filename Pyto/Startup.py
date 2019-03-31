@@ -25,6 +25,8 @@ from outputredirector import Reader
 from extensionsimporter import *
 import warnings
 import logging
+from _ios_getpass import getpass as _ios_getpass
+import getpass
 
 # MARK: - Warnings
 
@@ -61,6 +63,8 @@ def askForInput(prompt=None):
         return console.input(prompt)
 
 __builtins__.input = askForInput
+
+getpass.getpass = _ios_getpass
 
 # MARK: - Output
 
