@@ -11,4 +11,4 @@ print(f"Hello {name}!")
 
 sleep(2)
 
-print("Goodbye!")
+print("Good bye!")
