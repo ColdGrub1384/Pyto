@@ -1027,6 +1027,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
         return true
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        textView.contentTextView.setNeedsDisplay()
+    }
+    
     // MARK: - Suggestions
     
     /// Returns suggestions for current word.
