@@ -90,7 +90,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     @objc private func keyboardWillShow(_ notification: NSNotification) {
         if let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             let point = CGPoint(x: 0, y: (UIApplication.shared.keyWindow ?? console.view).frame.height-keyboardFrame.height-toolbar.frame.height)
-            toolbar.frame.origin = (UIApplication.shared.keyWindow ?? console.view).convert(point, to: console.view)
+            toolbar.frame.origin = CGPoint(x: 0, y: (UIApplication.shared.keyWindow ?? console.view).convert(point, to: console.view).y)
         }
     }
     
