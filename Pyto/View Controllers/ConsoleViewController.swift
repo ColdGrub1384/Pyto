@@ -7,9 +7,6 @@
 //
 
 import UIKit
-#if MAIN
-import InputAssistant
-#endif
 
 /// A View controller containing Python script output.
 @objc open class ConsoleViewController: UIViewController, UITextViewDelegate {
@@ -85,45 +82,6 @@ import InputAssistant
             }
         }
     }
-    
-    /// The Input assistant view for typing module's identifier.
-    let inputAssistant = InputAssistantView()
-    
-    /// Reloads suggestions.
-    @objc func reloadSuggestions() {
-        DispatchQueue.main.async {
-            self.inputAssistant.reloadData()
-        }
-    }
-    
-    private var willReloadSuggestion = false
-    
-    private var _suggestions = [String]()
-    
-    /// Code completion suggestions for the REPL.
-    @objc var suggestions: [String] {
-        set {
-            
-            _suggestions = []
-            
-            // Here I'm trying to fix a EXC_BAD_ACCESS crash
-            
-            for suggestion in newValue {
-                _suggestions.append(suggestion)
-            }
-            // Disabled due to multiple crashes
-            /*DispatchQueue.main.async {
-                self.inputAssistant.reloadData()
-            }*/
-        }
-        
-        get {
-            return _suggestions
-        }
-    }
-    
-    /// Code completion suggestions values for the REPL.
-    @objc var completions = [String]()
     #endif
     
     /// Clears screen.
@@ -158,14 +116,8 @@ import InputAssistant
     }
     #endif
     
-    /// The current prompt.
-    @objc var prompt = ""
-    
     /// The content of the console.
     @objc var console = ""
-    
-    /// Set to `true` for asking the user for input.
-    @objc var isAskingForInput = false
     
     /// The Text view containing the console.
     @objc var textView = ConsoleTextView()
@@ -198,38 +150,50 @@ import InputAssistant
         }
     }
     
+    /// The text field used for sending input.
+    var movableTextField: MovableTextField?
+    
+    /// Prompt sent by Python `input(prompt)` function.
+    var prompt: String?
+    
+    /// Returns `false` if input should be ignored.
+    var shouldRequestInput: Bool {
+        #if MAIN
+        let condition = (!self.ignoresInput && !ConsoleViewController.ignoresInput || self.parent is REPLViewController)
+        #else
+        let condition = (!ignoresInput && !ConsoleViewController.ignoresInput)
+        #endif
+        
+        guard condition else {
+            self.ignoresInput = false
+            ConsoleViewController.ignoresInput = false
+            return false
+        }
+        
+        #if MAIN
+        if !(self.parent is REPLViewController) {
+            guard Python.shared.isScriptRunning else {
+                return false
+            }
+        }
+        #endif
+        return true
+    }
+    
     /// Requests the user for input.
     ///
     /// - Parameters:
     ///     - prompt: The prompt from the Python function
     func input(prompt: String) {
         
-        #if MAIN
-        let condition = (!ignoresInput && !ConsoleViewController.ignoresInput || parent is REPLViewController)
-        #else
-        let condition = (!ignoresInput && !ConsoleViewController.ignoresInput)
-        #endif
-        
-        guard condition else {
-            ignoresInput = false
-            ConsoleViewController.ignoresInput = false
+        guard shouldRequestInput else {
             return
         }
         
-        #if MAIN
-        if !(parent is REPLViewController) {
-            guard Python.shared.isScriptRunning else {
-                return
-            }
-        }
-        #endif
-        
-        textView.text += prompt
-        Python.shared.output += prompt
+        self.prompt = prompt
+        movableTextField?.placeholder = prompt
         textViewDidChange(textView)
-        isAskingForInput = true
-        textView.isEditable = true
-        textView.becomeFirstResponder()
+        movableTextField?.focus()
     }
     
     /// Closes the View controller and stops script.
@@ -348,18 +312,16 @@ import InputAssistant
     ///     - theme: The theme to apply.
     func setup(theme: Theme) {
         
-        textView.inputAccessoryView = nil
+        movableTextField?.theme = theme
         
         textView.keyboardAppearance = theme.keyboardAppearance
         textView.backgroundColor = theme.sourceCodeTheme.backgroundColor
+        view.backgroundColor = theme.sourceCodeTheme.backgroundColor
         textView.textColor = theme.sourceCodeTheme.color(for: .plain)
-        
-        inputAssistant.attach(to: textView)
-        inputAssistant.trailingActions = [InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView, action: #selector(textView.resignFirstResponder))]
     }
     
     /// Called when the user choosed a theme.
-    @objc func themeDidChanged(_ notification: Notification) {
+    @objc func themeDidChange(_ notification: Notification) {
         setup(theme: ConsoleViewController.choosenTheme)
     }
     
@@ -374,7 +336,7 @@ import InputAssistant
         super.viewDidLoad()
                 
         #if MAIN
-        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChanged(_:)), name: ThemeDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
         #endif
         
         edgesForExtendedLayout = []
@@ -382,19 +344,18 @@ import InputAssistant
         title = Localizable.console
         
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.frame.size.height = view.frame.height-44
         textView.delegate = self
         textView.isEditable = false
         view.addSubview(textView)
         
-        #if MAIN
-        inputAssistant.delegate = self
-        inputAssistant.dataSource = self
-        inputAssistant.trailingActions = [InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView, action: #selector(textView.resignFirstResponder))]
-        #endif
-        
         NotificationCenter.default.addObserver(self, selector: #selector(print_(_:)), name: .init(rawValue: "DidReceiveOutput"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
+
+        if navigationController?.modalPresentationStyle != .formSheet {
+            movableTextField = MovableTextField(console: self)
+        }
     }
     
     override open func viewDidAppear(_ animated: Bool) {
@@ -410,6 +371,25 @@ import InputAssistant
     
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if navigationController?.modalPresentationStyle != .formSheet {
+            if movableTextField == nil {
+                movableTextField = MovableTextField(console: self)
+                movableTextField?.placeholder = prompt ?? ""
+            }
+            movableTextField?.show()
+            movableTextField?.handler = { text in
+            
+                guard self.shouldRequestInput else {
+                    return
+                }
+            
+                PyInputHelper.userInput = text
+                Python.shared.output += text
+                self.textView.text += "\(self.movableTextField?.placeholder ?? "")\(text)\n"
+                self.textView.scrollToBottom()
+            }
+        }
         
         var items = [UIBarButtonItem]()
         func appendStop() {
@@ -447,6 +427,13 @@ import InputAssistant
         #if MAIN
         setup(theme: ConsoleViewController.choosenTheme)
         #endif
+    }
+    
+    open override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        movableTextField?.toolbar.removeFromSuperview()
+        movableTextField = nil
     }
     
     override open func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
@@ -490,96 +477,17 @@ import InputAssistant
         var r = d[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
         
         r = textView.convert(r, from:nil)
-        textView.contentInset.bottom = r.size.height
-        textView.scrollIndicatorInsets.bottom = r.size.height
+        textView.frame.size.height = view.frame.height-r.size.height
+        textView.scrollToBottom()
     }
     
     @objc func keyboardWillHide(_ notification:Notification) {
-        textView.contentInset = .zero
-        textView.scrollIndicatorInsets = .zero
+        textView.frame.size.height = view.frame.height-44
     }
     
     // MARK: - Text view delegate
     
     public func textViewDidChange(_ textView: UITextView) {
-        if !isAskingForInput {
-            console = textView.text
-        }
-    }
-    
-    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        
-        let location:Int = textView.offset(from: textView.beginningOfDocument, to: textView.endOfDocument)
-        let length:Int = textView.offset(from: textView.endOfDocument, to: textView.endOfDocument)
-        let end =  NSMakeRange(location, length)
-        
-        if end != range && !(text == "" && range.length == 1 && range.location+1 == end.location) {
-            // Only allow inserting text from the end
-            return false
-        }
-        
-        if (textView.text as NSString).replacingCharacters(in: range, with: text).count >= console.count {
-            
-            prompt += text
-            
-            if text == "\n" {
-                prompt = String(prompt.dropLast())
-                PyInputHelper.userInput = prompt
-                Python.shared.output += prompt
-                prompt = ""
-                isAskingForInput = false
-                textView.isEditable = false
-                textView.text += "\n"
-                return false
-            } else if text == "" && range.length == 1 {
-                prompt = String(prompt.dropLast())
-            }
-            
-            return true
-        }
-        
-        return false
+        console = textView.text
     }
 }
-
-#if MAIN
-extension ConsoleViewController: InputAssistantViewDelegate, InputAssistantViewDataSource {
-    
-    public func inputAssistantView(_ inputAssistantView: InputAssistantView, didSelectSuggestionAtIndex index: Int) {
-        
-        guard completions.indices.contains(index) else {
-            return
-        }
-        
-        let completion = completions[index]
-        prompt += completion
-        textView.text += completion
-        
-        inputAssistantView.reloadData()
-    }
-    
-    public func textForEmptySuggestionsInInputAssistantView() -> String? {
-        return nil
-    }
-    
-    public func numberOfSuggestionsInInputAssistantView() -> Int {
-        return suggestions.count
-    }
-    
-    public func inputAssistantView(_ inputAssistantView: InputAssistantView, nameForSuggestionAtIndex index: Int) -> String {
-        
-        guard suggestions.indices.contains(index) else {
-            return ""
-        }
-        
-        let suggestion = suggestions[index]
-        
-        if suggestion.hasSuffix("(") {
-            return suggestion+")"
-        }
-        
-        return suggestion
-    }
-    
-}
-#endif

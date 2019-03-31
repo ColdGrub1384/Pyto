@@ -309,6 +309,8 @@
 		C99DEFC5220865F100B0BDAB /* PySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7A21F49B8400E7CC35 /* PySelector.swift */; };
 		C99E8D6C21F0CC7800C71884 /* WWDC16.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99E8D6B21F0CC7800C71884 /* WWDC16.swift */; };
 		C99E8D7021F0D03400C71884 /* CoolGlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99E8D6F21F0D03400C71884 /* CoolGlow.swift */; };
+		C9A33B11224FCDA00083F041 /* MovableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A33B0E224FCDA00083F041 /* MovableTextField.swift */; };
+		C9A33B13224FCDAD0083F041 /* TextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9A33B12224FCDAD0083F041 /* TextField.xib */; };
 		C9AAAB492195016D0042E733 /* InputAssistant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9AAAB44219501600042E733 /* InputAssistant.framework */; };
 		C9AAAB4A2195016D0042E733 /* InputAssistant.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AAAB44219501600042E733 /* InputAssistant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9AAAB5221950E8B0042E733 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* TextView.swift */; };
@@ -1788,6 +1790,8 @@
 		C99DDCEB21BBED22002A734E /* DocumentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationViewController.swift; sourceTree = "<group>"; };
 		C99E8D6B21F0CC7800C71884 /* WWDC16.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WWDC16.swift; sourceTree = "<group>"; };
 		C99E8D6F21F0D03400C71884 /* CoolGlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoolGlow.swift; sourceTree = "<group>"; };
+		C9A33B0E224FCDA00083F041 /* MovableTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovableTextField.swift; sourceTree = "<group>"; };
+		C9A33B12224FCDAD0083F041 /* TextField.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextField.xib; sourceTree = "<group>"; };
 		C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = InputAssistant.xcodeproj; path = InputAssistant/InputAssistant.xcodeproj; sourceTree = "<group>"; };
 		C9AAAB5121950E8B0042E733 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		C9AED59A21DE771C00CC5B43 /* _umath_linalg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _umath_linalg.framework; sourceTree = "<group>"; };
@@ -2257,6 +2261,7 @@
 				C9C0E78A21F0B5770057C63E /* Theme Chooser.storyboard */,
 				C9530C3D21F8B7BD007B24F3 /* Inspector.storyboard */,
 				C9B5D84A21F119B100E980BA /* Settings.storyboard */,
+				C9A33B12224FCDAD0083F041 /* TextField.xib */,
 				C9FCFD5F214428B300A07974 /* Assets.xcassets */,
 				C9FCFD64214428B300A07974 /* Info.plist */,
 				C9647FFE21ACA00D005765C2 /* Help.py */,
@@ -2343,6 +2348,7 @@
 		C9592D1321D0592C00412CEF /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C9A33B0E224FCDA00083F041 /* MovableTextField.swift */,
 				C9592D1421D0592C00412CEF /* PyDocument.swift */,
 				C99D8E31223ECD1000489E9B /* PyPiPackage.swift */,
 				C921EF6621ECA02E004C750D /* XcodeActivity.swift */,
@@ -3408,6 +3414,7 @@
 				C95AECB82208A688003BCB05 /* cacert.pem in Resources */,
 				C9F04E832173C33400BDD03E /* Localizable.strings in Resources */,
 				C9B5D86221F144E400E980BA /* Untitled.md in Resources */,
+				C9A33B13224FCDAD0083F041 /* TextField.xib in Resources */,
 				C9647FFF21ACA00D005765C2 /* Help.py in Resources */,
 				C9530C3E21F8B7BD007B24F3 /* Inspector.storyboard in Resources */,
 				C954FAB5220A165E0060C488 /* Replace.xib in Resources */,
@@ -3697,6 +3704,7 @@
 				C9C0E77D21EF66C40057C63E /* ThemableTabBarController.swift in Sources */,
 				C9B5D85E21F12E4000E980BA /* PlainTextEditorViewController.swift in Sources */,
 				C946A5CA2207809700F78C5C /* FileManager.swift in Sources */,
+				C9A33B11224FCDA00083F041 /* MovableTextField.swift in Sources */,
 				C9C0E78721EF781F0057C63E /* Basic.swift in Sources */,
 				C9CF40AF2242DECF0076B627 /* PipInstallerViewController.swift in Sources */,
 				C9DF70B821715D3D00981B4F /* FileCollectionViewCell.swift in Sources */,
