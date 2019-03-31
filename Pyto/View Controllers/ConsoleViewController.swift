@@ -192,7 +192,22 @@ import UIKit
         
         self.prompt = prompt
         movableTextField?.placeholder = prompt
-        textViewDidChange(textView)
+        movableTextField?.focus()
+    }
+    
+    /// Requests the user for a password.
+    ///
+    /// - Parameters:
+    ///     - prompt: The prompt from the Python function
+    func getpass(prompt: String) {
+        
+        guard shouldRequestInput else {
+            return
+        }
+        
+        self.prompt = prompt
+        movableTextField?.textField.isSecureTextEntry = true
+        movableTextField?.placeholder = prompt
         movableTextField?.focus()
     }
     
@@ -381,13 +396,27 @@ import UIKit
             movableTextField?.show()
             movableTextField?.handler = { text in
             
+                let secureTextEntry = self.movableTextField?.textField.isSecureTextEntry ?? false
+                self.movableTextField?.textField.isSecureTextEntry = false
+                
                 guard self.shouldRequestInput else {
                     return
                 }
-            
+                
                 PyInputHelper.userInput = text
-                Python.shared.output += text
-                self.textView.text += "\(self.movableTextField?.placeholder ?? "")\(text)\n"
+                if !secureTextEntry {
+                    Python.shared.output += text
+                    self.textView.text += "\(self.movableTextField?.placeholder ?? "")\(text)\n"
+                } else {
+                    
+                    var hiddenPassword = ""
+                    for _ in 0...text.count {
+                        hiddenPassword += "*"
+                    }
+                    
+                    Python.shared.output += text
+                    self.textView.text += "\(self.movableTextField?.placeholder ?? "")\(hiddenPassword)\n"
+                }
                 self.textView.scrollToBottom()
             }
         }
