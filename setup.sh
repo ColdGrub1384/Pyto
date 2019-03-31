@@ -37,10 +37,10 @@ mv Python/Resources/lib/python37.zip .
 
 # Download and setup Python Apple Support for macOS
 
-curl -L "https://s3-us-west-2.amazonaws.com/pybee-briefcase-support/Python-Apple-support/3.7/macOS/Python-3.7-macOS-support.b1.tar.gz" -o "Pyto Mac/python.tar.gz"
-tar -xzf "Pyto Mac/python.tar.gz" -C"Pyto Mac"
-rm "Pyto Mac/VERSIONS"
-rm "Pyto Mac/python.tar.gz"
+curl -L "https://s3-us-west-2.amazonaws.com/pybee-briefcase-support/Python-Apple-support/3.7/macOS/Python-3.7-macOS-support.b1.tar.gz" -o "Pyto_Mac/python.tar.gz"
+tar -xzf "Pyto_Mac/python.tar.gz" -C"Pyto_Mac"
+rm "Pyto_Mac/VERSIONS"
+rm "Pyto_Mac/python.tar.gz"
 
 # Cocoapods and submodules
 
