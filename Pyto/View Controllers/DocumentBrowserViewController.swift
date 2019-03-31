@@ -73,6 +73,29 @@ protocol DocumentBrowserViewControllerDelegate {
     
     private var callDirectorySetter = true
     
+    /// Moves `fileToMove` at this directory.
+    @objc func moveFile() {
+        guard let file = fileToMove else {
+            return
+        }
+        do {
+            try FileManager.default.moveItem(at: file, to: directory.appendingPathComponent(file.lastPathComponent))
+            func pop() {
+                if DocumentBrowserViewController.visible?.fileToMove != nil {
+                    DocumentBrowserViewController.visible?.navigationController?.popViewController(animated: true)
+                    DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                        pop()
+                    }
+                }
+            }
+            pop()
+        } catch {
+            let alert = UIAlertController(title: Localizable.Errors.errorMovingFile, message: error.localizedDescription, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
+    }
+    
     /// The directory to show files.
     var directory = localContainerURL {
         didSet {
@@ -82,6 +105,16 @@ protocol DocumentBrowserViewControllerDelegate {
                 collectionView?.reloadData()
             } else {
                 callDirectorySetter = true
+            }
+        }
+    }
+    
+    /// If set, a button for moving the file will be shown.
+    var fileToMove: URL? = nil {
+        didSet {
+            if fileToMove != nil {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(title: Localizable.moveHere, style: .plain, target: self, action: #selector(moveFile))
+                navigationItem.leftBarButtonItems = []
             }
         }
     }
@@ -204,6 +237,7 @@ protocol DocumentBrowserViewControllerDelegate {
                 guard let vc = storyboard?.instantiateViewController(withIdentifier: "Browser") as? DocumentBrowserViewController else {
                     return
                 }
+                vc.fileToMove = fileToMove
                 vc.directory = document
                 vc.delegate = delegate
                 navigationController?.pushViewController(vc, animated: true)
@@ -594,6 +628,12 @@ protocol DocumentBrowserViewControllerDelegate {
     // MARK: - Collection view delegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        var isDirectory: ObjCBool = false
+        if fileToMove != nil && FileManager.default.fileExists(atPath: scripts[indexPath.row].path, isDirectory: &isDirectory) && !isDirectory.boolValue {
+            return
+        }
+        
         openDocument(scripts[indexPath.row], run: false)
     }
     

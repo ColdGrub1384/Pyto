@@ -44,6 +44,9 @@ class Localizable: Static {
     /// 'REPL' tab
     static let repl = NSLocalizedString("repl", comment: "'REPL' tab")
     
+    /// Action for moving file at current directory
+    static let moveHere = NSLocalizedString("moveHere", comment: "Action for moving file at current directory")
+    
     /// Strings for the alert for setting arguments.
     class ArgumentsAlert: Static {
         
