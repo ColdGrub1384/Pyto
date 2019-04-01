@@ -383,6 +383,7 @@ import UIKit
         #endif
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
         textView.frame.size.height -= 44
+        textView.frame.origin.y = 0
     }
     
     override open func viewWillAppear(_ animated: Bool) {
@@ -488,6 +489,7 @@ import UIKit
         guard view.frame.height != size.height else {
             textView.frame.size.width = view.safeAreaLayoutGuide.layoutFrame.width
             textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
+            textView.frame.origin.y = 0
             return
         }
         
@@ -496,6 +498,7 @@ import UIKit
         _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
             self.textView.frame = self.view.safeAreaLayoutGuide.layoutFrame
             self.textView.frame.size.height = self.view.safeAreaLayoutGuide.layoutFrame.height-44
+            self.textView.frame.origin.y = 0
             if wasFirstResponder {
                 self.textView.becomeFirstResponder()
             }
@@ -510,11 +513,13 @@ import UIKit
         
         r = textView.convert(r, from:nil)
         textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-r.size.height
+        textView.frame.origin.y = 0
         textView.scrollToBottom()
     }
     
     @objc func keyboardWillHide(_ notification:Notification) {
         textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
+        textView.frame.origin.y = 0
     }
     
     // MARK: - Text view delegate
