@@ -1016,6 +1016,14 @@ fileprivate func parseArgs(_ args: inout [String]) {
             return false
         }
         
+        if text == "[" {
+            textView.insertText("[")
+            let range = textView.selectedTextRange
+            textView.insertText("]")
+            textView.selectedTextRange = range
+            return false
+        }
+        
         if text == "\"" {
             textView.insertText("\"")
             let range = textView.selectedTextRange
