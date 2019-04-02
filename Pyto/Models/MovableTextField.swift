@@ -57,10 +57,17 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         textField = toolbar.items!.first!.customView as! UITextField
         
         inputAssistant.attach(to: textField)
-        inputAssistant.leadingActions = []
-        inputAssistant.trailingActions = [InputAssistantAction(image: UIImage(named: "Paste") ?? UIImage(), target: textField, action: #selector(UITextField.paste(_:)))]
         
         super.init()
+        
+        inputAssistant.leadingActions = [
+            InputAssistantAction(image: UIImage(named: "Down") ?? UIImage(), target: self, action: #selector(down)),
+            InputAssistantAction(image: UIImage(named: "Up") ?? UIImage(), target: self, action: #selector(up))
+        ]
+        inputAssistant.trailingActions = [
+            InputAssistantAction(image: UIImage(named: "CtrlC") ?? UIImage(), target: self, action: #selector(interrupt)),
+            InputAssistantAction(image: UIImage(named: "Paste") ?? UIImage(), target: textField, action: #selector(UITextField.paste(_:)))
+        ]
         
         applyTheme()
         
@@ -115,9 +122,80 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         defer {
             handler?(textField.text ?? "")
             placeholder = ""
+            
+            if let text = textField.text, !text.isEmpty {
+                if let i = history.firstIndex(of: text) {
+                    history.remove(at: i)
+                }
+                history.insert(text, at: 0)
+                historyIndex = -1
+            }
+            currentInput = nil
+            
             textField.text = ""
         }
         
         return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        defer {
+            if historyIndex == -1 {
+                currentInput = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
+            }
+        }
+        
+        return true
+    }
+    
+    // MARK: - Actions
+    
+    @objc private func interrupt() {
+        placeholder = ""
+        textField.resignFirstResponder()
+        Python.shared.interrupt()
+    }
+    
+    // MARK: - History
+    
+    /// The current command that is not in the history.
+    var currentInput: String?
+    
+    /// The index of current input in the history. `-1` if the command is not in the history.
+    var historyIndex = -1 {
+        didSet {
+            if historyIndex == -1 {
+                textField.text = currentInput
+            } else if history.indices.contains(historyIndex) {
+                textField.text = history[historyIndex]
+            }
+        }
+    }
+    
+    /// The history of input. This array is reversed. The first command in the history is the last in this array.
+    var history: [String] {
+        get {
+            return (UserDefaults.standard.array(forKey: "inputHistory") as? [String]) ?? []
+        }
+        
+        set {
+            UserDefaults.standard.set(newValue, forKey: "inputHistory")
+            UserDefaults.standard.synchronize() // Yes, I know, that's not needed, but I call it BECAUSE I WANT, I CALL THIS FUNCTION BECAUSE I WANT OK
+        }
+    }
+    
+    /// Scrolls down on the history.
+    @objc func down() {
+        if historyIndex > -1 {
+            historyIndex -= 1
+        }
+    }
+    
+    /// Scrolls up on the history.
+    @objc func up() {
+        if history.indices.contains(historyIndex+1) {
+            historyIndex += 1
+        }
     }
 }
