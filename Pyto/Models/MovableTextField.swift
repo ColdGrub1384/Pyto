@@ -15,6 +15,9 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     /// The view containing this text field.
     let console: ConsoleViewController
     
+    /// The input assistant containing arrows and a paste button.
+    let inputAssistant = InputAssistantView()
+    
     /// The placeholder of the text field.
     var placeholder = "" {
         didSet {
@@ -53,6 +56,10 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         toolbar = Bundle(for: MovableTextField.self).loadNibNamed("TextField", owner: nil, options: nil)?.first as! UIToolbar
         textField = toolbar.items!.first!.customView as! UITextField
         
+        inputAssistant.attach(to: textField)
+        inputAssistant.leadingActions = []
+        inputAssistant.trailingActions = [InputAssistantAction(image: UIImage(named: "Paste") ?? UIImage(), target: textField, action: #selector(UITextField.paste(_:)))]
+        
         super.init()
         
         applyTheme()
@@ -60,6 +67,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         textField.delegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
