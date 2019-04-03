@@ -126,6 +126,8 @@
 		C9592D1B21D0592C00412CEF /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1721D0592C00412CEF /* Localizable.swift */; };
 		C9592D2721D059BA00412CEF /* EditorSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1F21D059B900412CEF /* EditorSplitViewController.swift */; };
 		C95A79E8214DC9D0007A1B90 /* PyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A79E7214DC9D0007A1B90 /* PyAlert.swift */; };
+		C95A9DBD22542C4400B90E42 /* MovableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A33B0E224FCDA00083F041 /* MovableTextField.swift */; };
+		C95A9DC022542C7700B90E42 /* TextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9A33B12224FCDAD0083F041 /* TextField.xib */; };
 		C95AECB82208A688003BCB05 /* cacert.pem in Resources */ = {isa = PBXBuildFile; fileRef = C95AECB72208A688003BCB05 /* cacert.pem */; };
 		C95EE4E722070224006611CB /* libpng.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE4DF22070224006611CB /* libpng.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C95EE4ED22070275006611CB /* png.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BA62202590E0085E1AA /* png.c */; };
@@ -3397,6 +3399,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C95A9DC022542C7700B90E42 /* TextField.xib in Resources */,
 				C9CEE25A21EBADD200316D3C /* Localizable.strings in Resources */,
 				C91321D421FB664F00437845 /* REPL.py in Resources */,
 				C9CEE25921EBAB9B00316D3C /* Startup.py in Resources */,
@@ -3686,6 +3689,7 @@
 				C9CEE1FC21EB8FF100316D3C /* PyOutputHelper.swift in Sources */,
 				C9CEE21A21EB9D6C00316D3C /* PythonApplicationMain.m in Sources */,
 				C9CEE20321EB95BA00316D3C /* ReviewHelper.swift in Sources */,
+				C95A9DBD22542C4400B90E42 /* MovableTextField.swift in Sources */,
 				C9CEE1FD21EB8FF300316D3C /* PySharingHelper.swift in Sources */,
 				C9CEE20721EB95C900316D3C /* ConsoleTextView.swift in Sources */,
 				C9CEE20621EB95C400316D3C /* TextView.swift in Sources */,
