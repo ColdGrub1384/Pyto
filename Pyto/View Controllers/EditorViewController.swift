@@ -709,7 +709,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                         }
                         // Import the script
                         if !debug {
-                            PyInputHelper.userInput = "import console as c; s = c.run_script('\(url.path)')"
+                            PyInputHelper.userInput = "import console as c; s = c.run_script('\(url.path.replacingFirstOccurrence(of: "'", with: "\\'"))')"
                         } else {
                             
                             var breakpointsLines = [String]()
@@ -720,7 +720,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                             
                             let breakpointsValue = "[\(breakpointsLines.joined(separator: ", "))]"
                             
-                            PyInputHelper.userInput = "import console as c; s = c.run_script('\(url.path)', debug=True, breakpoints=\(breakpointsValue))"
+                            PyInputHelper.userInput = "import console as c; s = c.run_script('\(url.path.replacingFirstOccurrence(of: "'", with: "\\'"))', debug=True, breakpoints=\(breakpointsValue))"
                         }
                     } else {
                         Python.shared.runScript(at: url)
@@ -1093,7 +1093,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             "source = '''",
             text.replacingOccurrences(of: "'", with: "\\'"),
             "'''",
-            "suggestForCode(source, '\(document?.path ?? "")')"
+            "suggestForCode(source, '\((document?.path ?? "").replacingOccurrences(of: "'", with: "\\'"))')"
         ].joined(separator: ";")
         PyInputHelper.userInput = input
     }
