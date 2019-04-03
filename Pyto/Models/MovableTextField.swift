@@ -7,7 +7,9 @@
 //
 
 import UIKit
+#if MAIN
 import InputAssistant
+#endif
 
 /// A class for managing a movable text field.
 class MovableTextField: NSObject, UITextFieldDelegate {
@@ -15,15 +17,16 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     /// The view containing this text field.
     let console: ConsoleViewController
     
-    /// The input assistant containing arrows and a paste button.
-    let inputAssistant = InputAssistantView()
-    
     /// The placeholder of the text field.
     var placeholder = "" {
         didSet {
             textField.placeholder = placeholder
         }
     }
+    
+    #if MAIN
+    /// The input assistant containing arrows and a paste button.
+    let inputAssistant = InputAssistantView()
     
     private func applyTheme() {
         textField.keyboardAppearance = theme.keyboardAppearance
@@ -40,13 +43,14 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             applyTheme()
         }
     }
+    #endif
     
     /// The toolbar containing the text field
     let toolbar: UIToolbar
     
     /// The text field.
     let textField: UITextField
-        
+    
     /// Initializes the manager.
     ///
     /// - Parameters:
@@ -56,10 +60,10 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         toolbar = Bundle(for: MovableTextField.self).loadNibNamed("TextField", owner: nil, options: nil)?.first as! UIToolbar
         textField = toolbar.items!.first!.customView as! UITextField
         
-        inputAssistant.attach(to: textField)
-        
         super.init()
         
+        #if MAIN
+        inputAssistant.attach(to: textField)
         inputAssistant.leadingActions = [
             InputAssistantAction(image: UIImage(named: "Down") ?? UIImage(), target: self, action: #selector(down)),
             InputAssistantAction(image: UIImage(named: "Up") ?? UIImage(), target: self, action: #selector(up))
@@ -70,11 +74,12 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         ]
         
         applyTheme()
+        #endif
         
         textField.delegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
@@ -123,6 +128,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             handler?(textField.text ?? "")
             placeholder = ""
             
+            #if MAIN
             if let text = textField.text, !text.isEmpty {
                 if let i = history.firstIndex(of: text) {
                     history.remove(at: i)
@@ -131,6 +137,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
                 historyIndex = -1
             }
             currentInput = nil
+            #endif
             
             textField.text = ""
         }
@@ -138,6 +145,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         return true
     }
     
+    #if MAIN
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         defer {
@@ -148,9 +156,11 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         
         return true
     }
+    #endif
     
     // MARK: - Actions
     
+    #if MAIN
     @objc private func interrupt() {
         placeholder = ""
         textField.resignFirstResponder()
@@ -198,4 +208,5 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             historyIndex += 1
         }
     }
+    #endif
 }

@@ -349,7 +349,7 @@ import UIKit
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         #if MAIN
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
         #endif
@@ -367,7 +367,7 @@ import UIKit
         NotificationCenter.default.addObserver(self, selector: #selector(print_(_:)), name: .init(rawValue: "DidReceiveOutput"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
-
+        
         if navigationController?.modalPresentationStyle != .formSheet {
             movableTextField = MovableTextField(console: self)
         }
@@ -383,7 +383,7 @@ import UIKit
         #endif
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
         textView.frame.size.height -= 44
-        textView.frame.origin.y = 0
+        textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
     }
     
     override open func viewWillAppear(_ animated: Bool) {
@@ -396,7 +396,7 @@ import UIKit
             }
             movableTextField?.show()
             movableTextField?.handler = { text in
-            
+                
                 let secureTextEntry = self.movableTextField?.textField.isSecureTextEntry ?? false
                 self.movableTextField?.textField.isSecureTextEntry = false
                 
@@ -489,7 +489,7 @@ import UIKit
         guard view.frame.height != size.height else {
             textView.frame.size.width = view.safeAreaLayoutGuide.layoutFrame.width
             textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
-            textView.frame.origin.y = 0
+            textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
             return
         }
         
@@ -498,7 +498,7 @@ import UIKit
         _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
             self.textView.frame = self.view.safeAreaLayoutGuide.layoutFrame
             self.textView.frame.size.height = self.view.safeAreaLayoutGuide.layoutFrame.height-44
-            self.textView.frame.origin.y = 0
+            self.textView.frame.origin.y = self.view.safeAreaLayoutGuide.layoutFrame.origin.y
             if wasFirstResponder {
                 self.textView.becomeFirstResponder()
             }
@@ -513,13 +513,13 @@ import UIKit
         
         r = textView.convert(r, from:nil)
         textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-r.size.height
-        textView.frame.origin.y = 0
+        textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
         textView.scrollToBottom()
     }
     
     @objc func keyboardWillHide(_ notification:Notification) {
         textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
-        textView.frame.origin.y = 0
+        textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
     }
     
     // MARK: - Text view delegate
