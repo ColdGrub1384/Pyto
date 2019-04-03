@@ -569,45 +569,9 @@ protocol DocumentBrowserViewControllerDelegate {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "File", for: indexPath) as! FileCollectionViewCell
         }
         
-        DispatchQueue.global().async {
-            let file = cell.file
-            let script = self.scripts[indexPath.row]
-            
-            var textView: SyntaxTextView? {
-                var value: SyntaxTextView?
-                let semaphore = DispatchSemaphore(value: 0)
-                DispatchQueue.main.async {
-                    value = cell.previewContainerView?.subviews.first as? SyntaxTextView
-                    semaphore.signal()
-                }
-                semaphore.wait()
-                return value
-            }
-            
-            if file != script, let str = try? String(contentsOf: script), let textView = textView {
-                DispatchQueue.main.async {
-                    
-                    var smallerCode = ""
-                    
-                    for (i, line) in str.components(separatedBy: "\n").enumerated() {
-                        
-                        guard i < 20 else {
-                            break
-                        }
-                        
-                        smallerCode += line+"\n"
-                    }
-                    
-                    if textView.text != smallerCode {
-                        cell.file = script
-                    }
-                }
-            } else if file != script {
-                DispatchQueue.main.async {
-                    cell.file = script
-                }
-            }
-        }
+        
+        cell.file = scripts[indexPath.row]
+        
         cell.documentBrowser = self
         cell.titleView.text = scripts[indexPath.row].deletingPathExtension().lastPathComponent
         
