@@ -505,6 +505,13 @@ import UIKit
         }) // TODO: Anyway to to it without a timer?
     }
     
+    open override var keyCommands: [UIKeyCommand]? {
+        return [
+            UIKeyCommand(input: UIKeyCommand.inputDownArrow, modifierFlags: [], action: #selector(down)),
+            UIKeyCommand(input: UIKeyCommand.inputUpArrow, modifierFlags: [], action: #selector(up)),
+        ]
+    }
+    
     // MARK: - Keyboard
     
     @objc func keyboardWillShow(_ notification:Notification) {
@@ -520,6 +527,14 @@ import UIKit
     @objc func keyboardWillHide(_ notification:Notification) {
         textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
         textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
+    }
+    
+    @objc private func up() {
+        movableTextField?.up()
+    }
+    
+    @objc private func down() {
+        movableTextField?.down()
     }
     
     // MARK: - Text view delegate
