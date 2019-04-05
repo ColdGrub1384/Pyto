@@ -11,7 +11,8 @@ import UIKit
 /// A View controller for running `pip` commands.
 @objc class PipInstallerViewController: EditorSplitViewController {
     
-    @objc private func closeViewController() {
+    /// Closes this View controller.
+    @objc func closeViewController() {
         return dismiss(animated: true, completion: {
             (((UIApplication.shared.keyWindow?.rootViewController as? UITabBarController)?.viewControllers?[2] as? UINavigationController)?.visibleViewController as? PipViewController)?.webView.reload()
         })
@@ -66,6 +67,7 @@ import UIKit
         PipInstallerViewController.shared = self
         
         navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(closeViewController))]
+        navigationItem.leftBarButtonItem?.isEnabled = false
     }
     
     override func viewDidAppear(_ animated: Bool) {

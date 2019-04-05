@@ -231,6 +231,19 @@ import UIKit
         #endif
     }
     
+    /// Enables `'Done'` if Pip is running.
+    @objc static func enableDoneButton() {
+        DispatchQueue.main.async {
+            guard let doneButton = self.visible.parent?.navigationItem.leftBarButtonItem else {
+                return
+            }
+            
+            if doneButton.action == #selector(PipInstallerViewController.closeViewController) {
+                doneButton.isEnabled = true
+            }
+        }
+    }
+    
     private static var shared = ConsoleViewController()
     
     /// The visible instance.
