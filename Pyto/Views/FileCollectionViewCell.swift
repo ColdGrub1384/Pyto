@@ -66,6 +66,13 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
         return (dirs, files)
     }
     
+    /// Shows the title.
+    func setTitle() {
+        let attributedTitle = NSMutableAttributedString(string: file!.deletingPathExtension().lastPathComponent, attributes: [.font : UIFont.systemFont(ofSize: UIFont.systemFontSize), .foregroundColor : ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)])
+        attributedTitle.append(NSAttributedString(string: " "+file!.pathExtension, attributes: [.font : UIFont.systemFont(ofSize: 12), .foregroundColor : UIColor.gray]))
+        titleView.attributedText = attributedTitle
+    }
+    
     /// The URL to represent.
     var file: URL? {
         didSet {
@@ -73,8 +80,6 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
             guard file != nil else {
                 return
             }
-            
-            titleView.text = file!.deletingPathExtension().lastPathComponent
             
             if FileManager.default.fileExists(atPath: file!.path, isDirectory: &isDirectory) {
                 
@@ -97,10 +102,10 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
                         DispatchQueue.main.async {
                             self.folderLabel?.isHidden = false
                             self.folderLabel?.text = Localizable.Folders.numberOfFiles(numOfFiles)
-                            self.titleView.text = self.file!.lastPathComponent
+                            self.setTitle()
                         }
                     }
-                } else if file!.pathExtension.lowercased() == "py" || file!.pathExtension.lowercased() == "md" || file!.pathExtension.lowercased() == "markdown", let container = previewContainerView {
+                } else if let text = (try? String(contentsOf: file!)), let container = previewContainerView {
                     
                     var textView: SyntaxTextView!
 
@@ -115,20 +120,19 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
                     }
                     
                     textView.delegate = self
-                    if let code = try? String(contentsOf: file!) {
-                        var smallerCode = ""
+                    
+                    var smallerCode = ""
+                    
+                    for (i, line) in text.components(separatedBy: "\n").enumerated() {
                         
-                        for (i, line) in code.components(separatedBy: "\n").enumerated() {
-                            
-                            guard i < 20 else {
-                                break
-                            }
-                            
-                            smallerCode += line+"\n"
+                        guard i < 20 else {
+                            break
                         }
                         
-                        textView.text = smallerCode
+                        smallerCode += line+"\n"
                     }
+                    
+                    textView.text = smallerCode
                     
                     textView.theme = ReadonlyTheme(ConsoleViewController.choosenTheme.sourceCodeTheme)
                     textView.contentTextView.font = textView.contentTextView.font?.withSize(12)
@@ -143,7 +147,7 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
                     if textView.window == nil {
                         container.addSubview(textView)
                     }
-                    titleView.text = file!.deletingPathExtension().lastPathComponent
+                    setTitle()
                 } else if let container = previewContainerView {
                     
                     let image: UIImage?
@@ -178,7 +182,7 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
                         container.addSubview(imageView)
                     }
                     
-                    titleView.text = file!.deletingPathExtension().lastPathComponent
+                    setTitle()
                 }
             }
         }
@@ -284,7 +288,6 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
         
         let theme = ConsoleViewController.choosenTheme
         backgroundColor = theme.sourceCodeTheme.backgroundColor
-        titleView.textColor = theme.sourceCodeTheme.color(for: .plain)
         folderLabel?.backgroundColor = backgroundColor
         previewContainerView?.backgroundColor = backgroundColor
     }

@@ -233,6 +233,10 @@ protocol DocumentBrowserViewControllerDelegate {
                     splitVC.editor.url = document
                     completion?()
                 })
+            } else if let text = (try? String(contentsOf: document)) {
+                let editor = PlainTextEditorViewController()
+                editor.url = document
+                UIApplication.shared.keyWindow?.topViewController?.present(ThemableNavigationController(rootViewController: editor), animated: true, completion: completion)
             } else if FileManager.default.fileExists(atPath: document.path, isDirectory: &isDir) && isDir.boolValue {
                 guard let vc = storyboard?.instantiateViewController(withIdentifier: "Browser") as? DocumentBrowserViewController else {
                     return
@@ -346,12 +350,65 @@ protocol DocumentBrowserViewControllerDelegate {
             self.createMarkdown()
         }))
         
+        alert.addAction(UIAlertAction(title: "Plain text", style: .default, handler: { (_) in
+            self.createPlainText()
+        }))
+        
         alert.addAction(UIAlertAction(title: "Folder", style: .default, handler: { (_) in
             self.createFolder()
         }))
         
         alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
         
+        present(alert, animated: true, completion: nil)
+    }
+    
+    /// Creates a plain text file.
+    @objc func createPlainText() {
+        var textField: UITextField?
+        let alert = UIAlertController(title: Localizable.Creation.createPlainText, message: Localizable.Creation.typeScriptName, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Localizable.create, style: .default, handler: { (_) in
+            guard let filename = textField?.text else {
+                return
+            }
+            
+            guard let template = Bundle.main.url(forResource: "Untitled", withExtension: "txt") else {
+                return
+            }
+            
+            guard !filename.hasSuffix(".") && !filename.isEmpty else {
+                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: Localizable.Errors.emptyName, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+            let text: URL
+            if self.directory == DocumentBrowserViewController.localContainerURL {
+                text = (DocumentBrowserViewController.iCloudContainerURL ?? self.directory).appendingPathComponent(filename)
+            } else {
+                text = self.directory.appendingPathComponent(filename)
+            }
+            do {
+                try FileManager.default.copyItem(at: template, to: text)
+                var i = 0
+                for file in self.scripts { // For loop needed because the folder is not found with `Array.firstIndex(of:)`
+                    if file.lastPathComponent == text.lastPathComponent {
+                        self.collectionView.insertItems(at: [IndexPath(row: i, section: 0)])
+                        break
+                    }
+                    i += 1
+                }
+                self.openDocument(text, run: false)
+            } catch {
+                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+                UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+        alert.addTextField { (textField_) in
+            textField = textField_
+        }
         present(alert, animated: true, completion: nil)
     }
     
@@ -386,8 +443,8 @@ protocol DocumentBrowserViewControllerDelegate {
                     i += 1
                 }
             } catch {
-                let alert = UIAlertController(title: Localizable.Creation.createFolder, message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: Localizable.create, style: .cancel, handler: nil))
+                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFolder, message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
                 UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
             }
         }))
@@ -446,8 +503,8 @@ protocol DocumentBrowserViewControllerDelegate {
                 }
                 self.openDocument(markdown, run: false)
             } catch {
-                let alert = UIAlertController(title: Localizable.Creation.createMarkdown, message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: Localizable.create, style: .cancel, handler: nil))
+                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
                 UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
             }
         }))
@@ -573,7 +630,7 @@ protocol DocumentBrowserViewControllerDelegate {
         cell.file = scripts[indexPath.row]
         
         cell.documentBrowser = self
-        cell.titleView.text = scripts[indexPath.row].deletingPathExtension().lastPathComponent
+        cell.setTitle()
         
         return cell
     }
@@ -743,8 +800,8 @@ protocol DocumentBrowserViewControllerDelegate {
                 }
                 self.openDocument(script, run: false)
             } catch {
-                let alert = UIAlertController(title: Localizable.Creation.createScript, message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: Localizable.create, style: .cancel, handler: nil))
+                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
                 UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
             }
         }))

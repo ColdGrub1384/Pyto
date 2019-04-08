@@ -161,6 +161,9 @@ class Localizable: Static {
         /// The title of the alert shown for creating a folder
         static let createFolder = NSLocalizedString("creation.createFolder", comment: "The title of the alert shown for creating a folder")
         
+        /// The title of the button shown for creating a plain text file
+        static let createPlainText = NSLocalizedString("creation.createPlainText", comment: "The title of the button shown for creating a plain text file")
+        
         /// The message of the alert shown for creating a folder
         static let typeFolderName = NSLocalizedString("creation.typeFolderName", comment: "The message of the alert shown for creating a folder")
     }
