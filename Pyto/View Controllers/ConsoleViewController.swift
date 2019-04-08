@@ -509,6 +509,7 @@ import UIKit
         let wasFirstResponder = textView.isFirstResponder
         textView.resignFirstResponder()
         _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
+            self.movableTextField?.toolbar.frame.size.width = self.view.safeAreaLayoutGuide.layoutFrame.width
             self.textView.frame = self.view.safeAreaLayoutGuide.layoutFrame
             self.textView.frame.size.height = self.view.safeAreaLayoutGuide.layoutFrame.height-44
             self.textView.frame.origin.y = self.view.safeAreaLayoutGuide.layoutFrame.origin.y

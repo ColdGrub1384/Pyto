@@ -85,7 +85,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     
     /// Shows the text field.
     func show() {
-        toolbar.frame.size.width = console.view.frame.width
+        toolbar.frame.size.width = console.view.safeAreaLayoutGuide.layoutFrame.width
         toolbar.frame.origin.x = 0
         toolbar.frame.origin.y = console.view.safeAreaLayoutGuide.layoutFrame.height-toolbar.frame.height
         toolbar.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin, .flexibleTopMargin]
