@@ -210,6 +210,7 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
         }
         
         var textField: UITextField?
+        var fileExtensionTextField: UITextField?
         let alert = UIAlertController(title: Localizable.Renaming.title, message: Localizable.Renaming.message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: Localizable.Renaming.rename, style: .default, handler: { (_) in
             guard let filename = textField?.text else {
@@ -223,7 +224,7 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
             }
             var newFileURL = file.deletingLastPathComponent().appendingPathComponent(filename)
             if !self.isDirectory.boolValue {
-                newFileURL.appendPathExtension(file.pathExtension)
+                newFileURL.appendPathExtension(fileExtensionTextField?.text ?? "")
             }
             do {
                 try FileManager.default.moveItem(at: file, to: newFileURL)
@@ -236,8 +237,14 @@ class FileCollectionViewCell: UICollectionViewCell, UIDocumentPickerDelegate, Sy
         }))
         alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
         alert.addTextField { (textField_) in
+            textField_.placeholder = Localizable.Creation.fileName
+            textField_.text = self.file?.deletingPathExtension().lastPathComponent
             textField = textField_
-            textField?.text = self.file?.deletingPathExtension().lastPathComponent
+        }
+        alert.addTextField { (textField_) in
+            textField_.placeholder = Localizable.Creation.fileExtension
+            textField_.text = self.file?.pathExtension
+            fileExtensionTextField = textField_
         }
         documentBrowser?.present(alert, animated: true, completion: nil)
     }

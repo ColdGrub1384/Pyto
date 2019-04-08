@@ -164,6 +164,12 @@ class Localizable: Static {
         /// The title of the button shown for creating a plain text file
         static let createPlainText = NSLocalizedString("creation.createPlainText", comment: "The title of the button shown for creating a plain text file")
         
+        /// The placeholder of the text field for typing file extension
+        static let fileExtension = NSLocalizedString("creation.extension", comment: "The placeholder of the text field for typing file extension")
+        
+        /// The placeholder of the text field for typing file name
+        static let fileName = NSLocalizedString("creation.name", comment: "The placeholder of the text field for typing file name")
+        
         /// The message of the alert shown for creating a folder
         static let typeFolderName = NSLocalizedString("creation.typeFolderName", comment: "The message of the alert shown for creating a folder")
     }

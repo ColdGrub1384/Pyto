@@ -366,6 +366,7 @@ protocol DocumentBrowserViewControllerDelegate {
     /// Creates a plain text file.
     @objc func createPlainText() {
         var textField: UITextField?
+        var fileExtensionTextField: UITextField?
         let alert = UIAlertController(title: Localizable.Creation.createPlainText, message: Localizable.Creation.typeScriptName, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: Localizable.create, style: .default, handler: { (_) in
             guard let filename = textField?.text else {
@@ -382,11 +383,14 @@ protocol DocumentBrowserViewControllerDelegate {
                 self.present(alert, animated: true, completion: nil)
                 return
             }
-            let text: URL
+            var text: URL
             if self.directory == DocumentBrowserViewController.localContainerURL {
                 text = (DocumentBrowserViewController.iCloudContainerURL ?? self.directory).appendingPathComponent(filename)
             } else {
                 text = self.directory.appendingPathComponent(filename)
+            }
+            if let fileExtension = fileExtensionTextField?.text, !fileExtension.isEmpty {
+                text.appendPathExtension(fileExtension)
             }
             do {
                 try FileManager.default.copyItem(at: template, to: text)
@@ -407,7 +411,12 @@ protocol DocumentBrowserViewControllerDelegate {
         }))
         alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
         alert.addTextField { (textField_) in
+            textField_.placeholder = Localizable.Creation.fileName
             textField = textField_
+        }
+        alert.addTextField { (textField) in
+            textField.placeholder = Localizable.Creation.fileExtension
+            fileExtensionTextField = textField
         }
         present(alert, animated: true, completion: nil)
     }
@@ -510,6 +519,7 @@ protocol DocumentBrowserViewControllerDelegate {
         }))
         alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
         alert.addTextField { (textField_) in
+            textField_.placeholder = Localizable.Creation.fileName
             textField = textField_
         }
         present(alert, animated: true, completion: nil)
@@ -807,6 +817,7 @@ protocol DocumentBrowserViewControllerDelegate {
         }))
         alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
         alert.addTextField { (textField_) in
+            textField_.placeholder = Localizable.Creation.fileName
             textField = textField_
         }
         present(alert, animated: true, completion: nil)
