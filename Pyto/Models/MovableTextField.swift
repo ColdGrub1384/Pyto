@@ -65,12 +65,14 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         #if MAIN
         inputAssistant.attach(to: textField)
         inputAssistant.leadingActions = [
+            InputAssistantAction(image: UIImage()),
             InputAssistantAction(image: UIImage(named: "Down") ?? UIImage(), target: self, action: #selector(down)),
             InputAssistantAction(image: UIImage(named: "Up") ?? UIImage(), target: self, action: #selector(up))
         ]
         inputAssistant.trailingActions = [
             InputAssistantAction(image: UIImage(named: "CtrlC") ?? UIImage(), target: self, action: #selector(interrupt)),
-            InputAssistantAction(image: UIImage(named: "Paste") ?? UIImage(), target: textField, action: #selector(UITextField.paste(_:)))
+            InputAssistantAction(image: UIImage(named: "Paste") ?? UIImage(), target: textField, action: #selector(UITextField.paste(_:))),
+            InputAssistantAction(image: UIImage())
         ]
         
         applyTheme()
@@ -110,7 +112,8 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     @objc private func keyboardWillShow(_ notification: NSNotification) {
         if let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             let point = CGPoint(x: 0, y: (UIApplication.shared.keyWindow ?? console.view).frame.height-keyboardFrame.height-toolbar.frame.height)
-            toolbar.frame.origin = CGPoint(x: console.view.safeAreaInsets.left, y: (UIApplication.shared.keyWindow ?? console.view).convert(point, to: console.view).y)
+            let view: UIView! = UIApplication.shared.keyWindow ?? console.view
+            toolbar.frame.origin = CGPoint(x: view.safeAreaInsets.left, y: view.convert(point, to: console.view).y-(point.y == 0 ? view.safeAreaInsets.bottom : 0))
         }
     }
     

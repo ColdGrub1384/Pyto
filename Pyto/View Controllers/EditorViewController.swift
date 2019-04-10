@@ -204,7 +204,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         inputAssistant.leadingActions = [InputAssistantAction(image: "⇥".image() ?? UIImage(), target: self, action: #selector(insertTab))]
         inputAssistant.attach(to: textView.contentTextView)
-        inputAssistant.trailingActions = [InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView.contentTextView, action: #selector(textView.contentTextView.resignFirstResponder))]
+        inputAssistant.trailingActions = [InputAssistantAction(image: UIImage()), InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView.contentTextView, action: #selector(textView.contentTextView.resignFirstResponder))]
     }
     
     /// Called when the user choosed a theme.
