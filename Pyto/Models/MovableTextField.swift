@@ -86,7 +86,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     /// Shows the text field.
     func show() {
         toolbar.frame.size.width = console.view.safeAreaLayoutGuide.layoutFrame.width
-        toolbar.frame.origin.x = 0
+        toolbar.frame.origin.x = console.view.safeAreaInsets.left
         toolbar.frame.origin.y = console.view.safeAreaLayoutGuide.layoutFrame.height-toolbar.frame.height
         toolbar.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin, .flexibleTopMargin]
         console.view.addSubview(toolbar)
@@ -110,7 +110,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     @objc private func keyboardWillShow(_ notification: NSNotification) {
         if let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             let point = CGPoint(x: 0, y: (UIApplication.shared.keyWindow ?? console.view).frame.height-keyboardFrame.height-toolbar.frame.height)
-            toolbar.frame.origin = CGPoint(x: 0, y: (UIApplication.shared.keyWindow ?? console.view).convert(point, to: console.view).y)
+            toolbar.frame.origin = CGPoint(x: console.view.safeAreaInsets.left, y: (UIApplication.shared.keyWindow ?? console.view).convert(point, to: console.view).y)
         }
     }
     
