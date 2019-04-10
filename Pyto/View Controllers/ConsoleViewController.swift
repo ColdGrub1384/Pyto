@@ -510,6 +510,7 @@ import UIKit
         textView.resignFirstResponder()
         _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
             self.movableTextField?.toolbar.frame.size.width = self.view.safeAreaLayoutGuide.layoutFrame.width
+            self.movableTextField?.toolbar.frame.origin.x = self.view.safeAreaInsets.left
             self.textView.frame = self.view.safeAreaLayoutGuide.layoutFrame
             self.textView.frame.size.height = self.view.safeAreaLayoutGuide.layoutFrame.height-44
             self.textView.frame.origin.y = self.view.safeAreaLayoutGuide.layoutFrame.origin.y
@@ -517,6 +518,12 @@ import UIKit
                 self.textView.becomeFirstResponder()
             }
         }) // TODO: Anyway to to it without a timer?
+    }
+    
+    open override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        
     }
     
     open override var keyCommands: [UIKeyCommand]? {
