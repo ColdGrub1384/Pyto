@@ -517,6 +517,7 @@ import UIKit
             if wasFirstResponder {
                 self.textView.becomeFirstResponder()
             }
+            self.movableTextField?.applyTheme()
         }) // TODO: Anyway to to it without a timer?
     }
     

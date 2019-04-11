@@ -297,7 +297,12 @@ fileprivate func parseArgs(_ args: inout [String]) {
             
             if self.shouldRun {
                 self.shouldRun = false
-                self.run()
+                if Python.shared.isScriptRunning {
+                    self.stop()
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now()+(Python.shared.isScriptRunning ? 4 : 1)) {
+                    self.run()
+                }
             }
             
             if doc.path == Bundle.main.path(forResource: "installer", ofType: "py") {
