@@ -27,6 +27,8 @@ import warnings
 import logging
 from _ios_getpass import getpass as _ios_getpass
 import getpass
+import webbrowser
+import sharing
 
 # MARK: - Warnings
 
@@ -84,6 +86,19 @@ standardError._buffer = io.BufferedWriter(standardError)
 
 sys.stdout = standardOutput
 sys.stderr = standardError
+
+# MARK: - Web browser
+
+class MobileSafari(webbrowser.BaseBrowser):
+    '''
+    Mobile Safari web browser.
+    '''
+    
+    def open(self, url, new=0, autoraise=True):
+        sharing.open_url(url)
+        return True
+
+webbrowser.register("mobile-safari", None, MobileSafari("MobileSafari.app"))
 
 # MARK: - Modules
 
