@@ -202,9 +202,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
         textView.contentTextView.keyboardAppearance = theme.keyboardAppearance
         textView.text = text
         
-        inputAssistant.leadingActions = [InputAssistantAction(image: "⇥".image() ?? UIImage(), target: self, action: #selector(insertTab))]
+        inputAssistant.leadingActions = (UIApplication.shared.statusBarOrientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])+[InputAssistantAction(image: "⇥".image() ?? UIImage(), target: self, action: #selector(insertTab))]
         inputAssistant.attach(to: textView.contentTextView)
-        inputAssistant.trailingActions = [InputAssistantAction(image: UIImage()), InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView.contentTextView, action: #selector(textView.contentTextView.resignFirstResponder))]
+        inputAssistant.trailingActions = [InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView.contentTextView, action: #selector(textView.contentTextView.resignFirstResponder))]+(UIApplication.shared.statusBarOrientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])
     }
     
     /// Called when the user choosed a theme.
@@ -382,6 +382,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             if wasFirstResponder {
                 self.textView.contentTextView.becomeFirstResponder()
             }
+            self.setup(theme: ConsoleViewController.choosenTheme)
         }) // TODO: Anyway to to it without a timer?
     }
     

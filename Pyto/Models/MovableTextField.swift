@@ -28,13 +28,28 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     /// The input assistant containing arrows and a paste button.
     let inputAssistant = InputAssistantView()
     
-    private func applyTheme() {
+    /// Applies theme.
+    func applyTheme() {
+        
+        textField.inputAccessoryView = nil
+        
+        inputAssistant.leadingActions = (UIApplication.shared.statusBarOrientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])+[
+            InputAssistantAction(image: UIImage(named: "Down") ?? UIImage(), target: self, action: #selector(down)),
+            InputAssistantAction(image: UIImage(named: "Up") ?? UIImage(), target: self, action: #selector(up))
+        ]
+        inputAssistant.trailingActions = [
+            InputAssistantAction(image: UIImage(named: "CtrlC") ?? UIImage(), target: self, action: #selector(interrupt)),
+            InputAssistantAction(image: UIImage(named: "Paste") ?? UIImage(), target: textField, action: #selector(UITextField.paste(_:))),
+            ]+(UIApplication.shared.statusBarOrientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])
+        
         textField.keyboardAppearance = theme.keyboardAppearance
         if textField.keyboardAppearance == .dark {
             toolbar.barStyle = .black
         } else {
             toolbar.barStyle = .default
         }
+        
+        inputAssistant.attach(to: textField)
     }
     
     /// Theme used by the bar.
@@ -62,19 +77,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         
         super.init()
         
-        #if MAIN
-        inputAssistant.attach(to: textField)
-        inputAssistant.leadingActions = [
-            InputAssistantAction(image: UIImage()),
-            InputAssistantAction(image: UIImage(named: "Down") ?? UIImage(), target: self, action: #selector(down)),
-            InputAssistantAction(image: UIImage(named: "Up") ?? UIImage(), target: self, action: #selector(up))
-        ]
-        inputAssistant.trailingActions = [
-            InputAssistantAction(image: UIImage(named: "CtrlC") ?? UIImage(), target: self, action: #selector(interrupt)),
-            InputAssistantAction(image: UIImage(named: "Paste") ?? UIImage(), target: textField, action: #selector(UITextField.paste(_:))),
-            InputAssistantAction(image: UIImage())
-        ]
-        
+        #if MAIN        
         applyTheme()
         #endif
         
