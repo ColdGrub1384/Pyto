@@ -233,5 +233,8 @@ class Localizable: Static {
         
         /// The menu item for setting breakpoint
         static let breakpoint = NSLocalizedString("menuItems.breakpoint", comment: "The menu item for setting breakpoint")
+        
+        /// The menu item for setting breakpoint
+        static let toggleComment = NSLocalizedString("menuItems.toggleComment", comment: "The 'Toggle Comment' menu item")        
     }
 }

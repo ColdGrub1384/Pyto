@@ -117,23 +117,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// A Navigation controller containing the documentation.
     var documentationNavigationController: ThemableNavigationController?
     
-    /// Shows documentation
-    @objc func showDocs(_ sender: UIBarButtonItem) {
-        if documentationNavigationController == nil {
-            documentationNavigationController = ThemableNavigationController(rootViewController: DocumentationViewController())
-        }
-        documentationNavigationController?.modalPresentationStyle = .popover
-        documentationNavigationController?.popoverPresentationController?.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
-        documentationNavigationController?.popoverPresentationController?.barButtonItem = sender
-        documentationNavigationController?.preferredContentSize = CGSize(width: 400, height: 400)
-        present(documentationNavigationController!, animated: true, completion: nil)
-    }
-    
-    /// Inserts two spaces.
-    @objc func insertTab() {
-        textView.contentTextView.insertText(EditorViewController.indentation)
-    }
-    
     private var isSaving = false
     
     private var isDocOpened = false
@@ -389,6 +372,16 @@ fileprivate func parseArgs(_ args: inout [String]) {
             }
             self.setup(theme: ConsoleViewController.choosenTheme)
         }) // TODO: Anyway to to it without a timer?
+    }
+    
+    override var keyCommands: [UIKeyCommand]? {
+        if textView.contentTextView.isFirstResponder {
+            return [
+                UIKeyCommand(input: "c", modifierFlags: [.command, .shift], action: #selector(toggleComment), discoverabilityTitle: Localizable.MenuItems.toggleComment)
+            ]
+        } else {
+            return []
+        }
     }
     
     // MARK: - Searching
@@ -783,54 +776,44 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
     }
     
-    /// The doc string to display.
-    @objc var docString: String? {
-        didSet {
-            
-            class DocViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
-                
-                func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-                    return .none
-                }
-            }
-            
-            if presentedViewController != nil, presentedViewController! is DocViewController {
-                presentedViewController?.dismiss(animated: false) {
-                    self.docString = self.docString
-                }
-                return
-            }
-            
-            guard docString != nil else {
-                return
-            }
-            
-            DispatchQueue.main.async {
-                let docView = UITextView()
-                docView.textColor = .white
-                docView.font = UIFont(name: "Menlo", size: UIFont.systemFontSize)
-                docView.isEditable = false
-                docView.text = self.docString
-                
-                let docVC = DocViewController()
-                docVC.view = docView
-                docVC.view.backgroundColor = .black
-                docVC.preferredContentSize = CGSize(width: 300, height: 100)
-                docVC.modalPresentationStyle = .popover
-                docVC.presentationController?.delegate = docVC
-                docVC.popoverPresentationController?.backgroundColor = .black
-                docVC.popoverPresentationController?.permittedArrowDirections = [.up, .down]
-                
-                if let selectedTextRange = self.textView.contentTextView.selectedTextRange {
-                    docVC.popoverPresentationController?.sourceView = self.textView.contentTextView
-                    docVC.popoverPresentationController?.sourceRect = self.textView.contentTextView.caretRect(for: selectedTextRange.end)
-                } else {
-                    docVC.popoverPresentationController?.sourceView = self.textView.contentTextView
-                    docVC.popoverPresentationController?.sourceRect = self.textView.contentTextView.bounds
-                }
-                
-                self.present(docVC, animated: true, completion: nil)
-            }
+    /// Shows documentation
+    @objc func showDocs(_ sender: UIBarButtonItem) {
+        if documentationNavigationController == nil {
+            documentationNavigationController = ThemableNavigationController(rootViewController: DocumentationViewController())
+        }
+        documentationNavigationController?.modalPresentationStyle = .popover
+        documentationNavigationController?.popoverPresentationController?.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
+        documentationNavigationController?.popoverPresentationController?.barButtonItem = sender
+        documentationNavigationController?.preferredContentSize = CGSize(width: 400, height: 400)
+        present(documentationNavigationController!, animated: true, completion: nil)
+    }
+    
+    /// Inserts two spaces.
+    @objc func insertTab() {
+        textView.contentTextView.insertText(EditorViewController.indentation)
+    }
+    
+    /// Comments / Uncomments line.
+    @objc func toggleComment() {
+        guard var line = textView.contentTextView.currentLine else {
+            return
+        }
+        
+        let currentLine = line
+        
+        line = line.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\t", with: "")
+        
+        guard textView.contentTextView.isFirstResponder else {
+            return
+        }
+        
+        if line.hasPrefix("#") {
+            line = currentLine.replacingFirstOccurrence(of: "#", with: "")
+        } else {
+            line = "#"+currentLine
+        }
+        if let lineRange = textView.contentTextView.currentLineRange {
+            textView.contentTextView.replace(lineRange, withText: line)
         }
     }
     
@@ -1081,6 +1064,57 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     /// Returns doc strings per suggestions.
     @objc var docStrings = [String:String]()
+    
+    /// The doc string to display.
+    @objc var docString: String? {
+        didSet {
+            
+            class DocViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
+                
+                func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+                    return .none
+                }
+            }
+            
+            if presentedViewController != nil, presentedViewController! is DocViewController {
+                presentedViewController?.dismiss(animated: false) {
+                    self.docString = self.docString
+                }
+                return
+            }
+            
+            guard docString != nil else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                let docView = UITextView()
+                docView.textColor = .white
+                docView.font = UIFont(name: "Menlo", size: UIFont.systemFontSize)
+                docView.isEditable = false
+                docView.text = self.docString
+                
+                let docVC = DocViewController()
+                docVC.view = docView
+                docVC.view.backgroundColor = .black
+                docVC.preferredContentSize = CGSize(width: 300, height: 100)
+                docVC.modalPresentationStyle = .popover
+                docVC.presentationController?.delegate = docVC
+                docVC.popoverPresentationController?.backgroundColor = .black
+                docVC.popoverPresentationController?.permittedArrowDirections = [.up, .down]
+                
+                if let selectedTextRange = self.textView.contentTextView.selectedTextRange {
+                    docVC.popoverPresentationController?.sourceView = self.textView.contentTextView
+                    docVC.popoverPresentationController?.sourceRect = self.textView.contentTextView.caretRect(for: selectedTextRange.end)
+                } else {
+                    docVC.popoverPresentationController?.sourceView = self.textView.contentTextView
+                    docVC.popoverPresentationController?.sourceRect = self.textView.contentTextView.bounds
+                }
+                
+                self.present(docVC, animated: true, completion: nil)
+            }
+        }
+    }
     
     /// Updates suggestions.
     func updateSuggestions() {

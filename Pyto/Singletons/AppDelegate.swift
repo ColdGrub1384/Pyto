@@ -103,6 +103,7 @@ import ios_system
             UIMenuItem(title: Localizable.MenuItems.copy, action: #selector(FileCollectionViewCell.copyFile(_:))),
             UIMenuItem(title: Localizable.MenuItems.move, action: #selector(FileCollectionViewCell.move(_:))),
             UIMenuItem(title: Localizable.MenuItems.breakpoint, action: #selector(EditorViewController.setBreakpoint(_:))),
+            UIMenuItem(title: Localizable.MenuItems.toggleComment, action: #selector(EditorViewController.toggleComment))
         ]
         
         let docs = DocumentBrowserViewController.localContainerURL
