@@ -44,9 +44,6 @@ class PlainTextEditorViewController: UIViewController, UITextViewDelegate {
                 if let url = self.url, !self.isBundled {
                     try self.textView.text.write(to: url, atomically: true, encoding: .utf8)
                 }
-                DispatchQueue.main.async {
-                    DocumentBrowserViewController.visible?.collectionView.reloadData()
-                }
             } catch {
                 let alert = UIAlertController(title: Localizable.Errors.errorWrittingToScript, message: error.localizedDescription, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))

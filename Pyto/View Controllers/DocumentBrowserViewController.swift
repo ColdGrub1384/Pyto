@@ -11,182 +11,27 @@ import SafariServices
 import CoreSpotlight
 import SplitKit
 import SavannaKit
-import WebKit
-import QuickLook
-
-/// A protocol to set as `DocumentBrowserViewController.delegate`. Used if you want to pick a script.
-protocol DocumentBrowserViewControllerDelegate {
-    
-    /// Called when a Python script is picked. Will not be called for other file types.
-    ///
-    /// - Parameters:
-    ///     - path: The path of the script picked.
-    func documentBrowserViewController(_ documentBrowserViewController: DocumentBrowserViewController, didPickScriptAtPath path: String)
-}
 
 /// The main file browser used to edit scripts.
-@objc class DocumentBrowserViewController: UIViewController, DocumentBrowserViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDropDelegate, UICollectionViewDragDelegate, QLPreviewControllerDataSource, UIDocumentPickerDelegate {
+@objc class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate, UIViewControllerTransitioningDelegate {
     
-    /// Stops file observer.
-    func stopObserver() {
-        stopObserver_ = true
+    /// The visible instance
+    static var visible: DocumentBrowserViewController? {
+        return UIApplication.shared.keyWindow?.rootViewController as? DocumentBrowserViewController
     }
-    
-    private var stopObserver_ = false
     
     /// Store here `EditorSplitViewController`s because it crashes on dealloc. RIP memory
     private static var splitVCs = [UIViewController?]()
     
-    /// Set it if you want to implement a custom file picker.
-    var delegate: DocumentBrowserViewControllerDelegate? {
-        didSet {
-            if delegate != nil {
-                navigationItem.leftBarButtonItems = []
-                navigationItem.rightBarButtonItems = []
-                view.viewWithTag(2)?.alpha = 0.5
-                view.viewWithTag(2)?.isUserInteractionEnabled = false
-            }
-        }
-    }
-    
-    /// If set to `true`, the files observer will ignore next change.
-    var ignoreObserver = false
-    
-    /// The Collection view displaying files.
-    @IBOutlet weak var collectionView: UICollectionView!
-    
-    /// Returns the URL for iCloud Drive folder.
-    @objc static let iCloudContainerURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents")
-    
-    /// Returns the URL for local folder.
-    @objc static let localContainerURL = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0]
-    
-    /// Sets directory without affecting navigation bar.
-    ///
-    /// - Parameters:
-    ///     - directory: The directory to show files.
-    func setDirectory(_ directory: URL) {
-        callDirectorySetter = false
-        self.directory = directory
-        collectionView?.reloadData()
-    }
-    
-    private var callDirectorySetter = true
-    
-    /// Moves `fileToMove` at this directory.
-    @objc func moveFile() {
-        guard let file = fileToMove else {
+    /// Shows more options.
+    @objc func showMore(_ sender: UIBarButtonItem) {
+        guard let menu = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "menu") as? MenuTableViewController else {
             return
         }
-        do {
-            try FileManager.default.moveItem(at: file, to: directory.appendingPathComponent(file.lastPathComponent))
-            func pop() {
-                if DocumentBrowserViewController.visible?.fileToMove != nil {
-                    DocumentBrowserViewController.visible?.navigationController?.popViewController(animated: true)
-                    DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-                        pop()
-                    }
-                }
-            }
-            pop()
-        } catch {
-            let alert = UIAlertController(title: Localizable.Errors.errorMovingFile, message: error.localizedDescription, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
-            present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    /// The directory to show files.
-    var directory = localContainerURL {
-        didSet {
-            if callDirectorySetter {
-                title = directory.lastPathComponent
-                navigationItem.largeTitleDisplayMode = .never
-                collectionView?.reloadData()
-            } else {
-                callDirectorySetter = true
-            }
-        }
-    }
-    
-    /// If set, a button for moving the file will be shown.
-    var fileToMove: URL? = nil {
-        didSet {
-            if fileToMove != nil {
-                navigationItem.rightBarButtonItem = UIBarButtonItem(title: Localizable.moveHere, style: .plain, target: self, action: #selector(moveFile))
-                navigationItem.leftBarButtonItems = []
-            }
-        }
-    }
-    
-    /// All scripts, directories and Markdown files in current directory.
-    var scripts = [URL]()
-    
-    private var scripts_: [URL] {
-        var files = self.files
-        
-        var i = 0
-        for file in files {
-            var isDir: ObjCBool = false
-            if FileManager.default.fileExists(atPath: file.path, isDirectory: &isDir) {
-                if file.lastPathComponent == "__pycache__" || file.lastPathComponent == "mpl-data" || file.lastPathComponent.hasPrefix(".") {
-                    files.remove(at: i)
-                } else {
-                    i += 1
-                }
-            } else {
-                files.remove(at: i)
-            }
-            
-            if let iCloud = DocumentBrowserViewController.iCloudContainerURL, file.path.hasPrefix(iCloud.path) {
-                do {
-                    try FileManager.default.startDownloadingUbiquitousItem(at: file)
-                } catch {
-                    print(error.localizedDescription)
-                }
-            }
-        }
-        
-        return files
-    }
-    
-    private var files: [URL] {
-        var files = (try? FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)) ?? []
-        
-        if let iCloudURL = DocumentBrowserViewController.iCloudContainerURL, directory.pathComponents == DocumentBrowserViewController.localContainerURL.pathComponents {
-            
-            if let welcome = Bundle.main.url(forResource: "Welcome to Pyto", withExtension: "md") {
-                files.append(welcome)
-            }
-            
-            if !FileManager.default.fileExists(atPath: iCloudURL.path) {
-                try? FileManager.default.createDirectory(at: iCloudURL, withIntermediateDirectories: true, attributes: nil)
-            }
-            
-            files = ((try? FileManager.default.contentsOfDirectory(at: iCloudURL, includingPropertiesForKeys: nil, options: .init(rawValue: 0))) ?? [])+files
-        }
-        
-        if directory == Bundle.main.url(forResource: "Samples", withExtension: nil),
-            let samplesListFile = Bundle.main.url(forResource: "samples_list", withExtension: nil),
-            let samplesList = (try? String(contentsOf: samplesListFile)) {
-            let list = samplesList.components(separatedBy: "\n")
-            files = files.sorted(by: { (firstURL, secondURL) -> Bool in
-                guard let firstIndex = list.firstIndex(of: firstURL.lastPathComponent), let secondIndex = list.firstIndex(of: secondURL.lastPathComponent) else {
-                    return (firstURL.lastPathComponent < secondURL.lastPathComponent)
-                }
-                
-                return (firstIndex < secondIndex)
-            })
-        }
-        
-        return files
-    }
-    
-    /// Opens settings sheet.
-    @IBAction func showSettings(_ sender: Any) {
-        if let vc = UIStoryboard(name: "Settings", bundle: Bundle.main).instantiateInitialViewController() {
-            present(vc, animated: true, completion: nil)
-        }
+        menu.modalPresentationStyle = .popover
+        menu.popoverPresentationController?.barButtonItem = sender
+        menu.popoverPresentationController?.delegate = menu
+        present(menu, animated: true, completion: nil)
     }
     
     /// Runs the given code.
@@ -209,65 +54,24 @@ protocol DocumentBrowserViewControllerDelegate {
     ///     - tabBarController: If set, the document will be added to the value.
     ///     - run: Set to `true` to run the script inmediately.
     ///     - completion: Code called after presenting the UI.
-    func openDocument(_ document: URL, onTabBarController tabBarController: UITabBarController? = nil, run: Bool, completion: (() -> Void)? = nil) {
+    func openDocument(_ documentURL: URL, onTabBarController tabBarController: UITabBarController? = nil, run: Bool, completion: (() -> Void)? = nil) {
         
         let tintColor = ConsoleViewController.choosenTheme.tintColor ?? UIColor(named: "TintColor") ?? .orange
         
+        let document = PyDocument(fileURL: documentURL)
+        
         var isDir: ObjCBool = false
         
-        guard document.pathExtension.lowercased() == "py" else {
-            
-            if document.pathExtension.lowercased() == "md" || document.pathExtension.lowercased() == "markdown" {
-                _ = document.startAccessingSecurityScopedResource()
-                
-                let splitVC = MarkdownSplitViewController(fullScreen: (document == Bundle.main.url(forResource: "Welcome to Pyto", withExtension: "md")))
-                splitVC.modalTransitionStyle = .crossDissolve
-                splitVC.separatorColor = tintColor
-                splitVC.separatorSelectedColor = tintColor
-                splitVC.editor = PlainTextEditorViewController()
-                splitVC.previewer = MarkdownPreviewController()
-                splitVC.arrangement = .horizontal
-                UIApplication.shared.keyWindow?.topViewController?.present(ThemableNavigationController(rootViewController: splitVC), animated: true, completion: {
-                    
-                    NotificationCenter.default.removeObserver(splitVC)
-                    splitVC.editor.url = document
-                    completion?()
-                })
-            } else if let text = (try? String(contentsOf: document)) {
-                let editor = PlainTextEditorViewController()
-                editor.url = document
-                UIApplication.shared.keyWindow?.topViewController?.present(ThemableNavigationController(rootViewController: editor), animated: true, completion: completion)
-            } else if FileManager.default.fileExists(atPath: document.path, isDirectory: &isDir) && isDir.boolValue {
-                guard let vc = storyboard?.instantiateViewController(withIdentifier: "Browser") as? DocumentBrowserViewController else {
-                    return
-                }
-                vc.fileToMove = fileToMove
-                vc.directory = document
-                vc.delegate = delegate
-                navigationController?.pushViewController(vc, animated: true)
-                completion?()
-            } else {
-                previewingFile = document
-                let controller = QLPreviewController()
-                controller.dataSource = self
-                UIApplication.shared.keyWindow?.topViewController?.present(controller, animated: true, completion: completion)
-            }
-            
+        guard documentURL.pathExtension.lowercased() == "py" else {
             return
         }
         
-        guard delegate == nil else {
-            delegate?.documentBrowserViewController(self, didPickScriptAtPath: document.path)
-            completion?()
-            return
-        }
-        
-        let isPip = (document.path == Bundle.main.path(forResource: "installer", ofType: "py"))
+        let isPip = (documentURL.path == Bundle.main.path(forResource: "installer", ofType: "py"))
         
         if presentedViewController != nil {
             (((presentedViewController as? UITabBarController)?.viewControllers?.first as? UINavigationController)?.viewControllers.first as? EditorViewController)?.save()
             dismiss(animated: true) {
-                self.openDocument(document, run: run, completion: completion)
+                self.openDocument(documentURL, run: run, completion: completion)
             }
         }
                 
@@ -292,12 +96,14 @@ protocol DocumentBrowserViewControllerDelegate {
         splitVC.console = contentVC
         splitVC.view.backgroundColor = .white
         
+        transitionController = transitionController(forDocumentAt: documentURL)
+        transitionController?.loadingProgress = document.progress
+        transitionController?.targetView = splitVC.view
+        
         navVC.toolbar.setShadowImage(UIImage(), forToolbarPosition: .any)
         navVC.navigationBar.shadowImage = UIImage()
         navVC.navigationBar.isTranslucent = false
-        navVC.modalTransitionStyle = .crossDissolve
-        
-        stopObserver()
+        navVC.transitioningDelegate = self
         
         func _completion() {
             NotificationCenter.default.removeObserver(splitVC)
@@ -316,510 +122,82 @@ protocol DocumentBrowserViewControllerDelegate {
         }
     }
     
-    /// Reloads browser.
-    func reloadData() {
-        scripts = scripts_
-        collectionView.reloadData()
-    }
+    // MARK: - Paths
     
-    /// Imports script from another location.
-    @IBAction func importScript(_ sender: Any) {
-        let picker = UIDocumentPickerViewController(documentTypes: ["public.python-script"], in: .open)
-        picker.delegate = self
-        picker.allowsMultipleSelection = false
-        present(picker, animated: true, completion: nil)
-    }
+    /// Returns the URL for iCloud Drive folder.
+    @objc static let iCloudContainerURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents")
     
-    /// The visible instance
-    static var visible: DocumentBrowserViewController? {
-        return ((UIApplication.shared.keyWindow?.rootViewController as? UITabBarController)?.viewControllers?.first as? UINavigationController)?.visibleViewController as? DocumentBrowserViewController
-    }
+    /// Returns the URL for local folder.
+    @objc static let localContainerURL = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0]
     
-    // MARK: - Creation
+    // MARK: - Document browser view controller
     
-    /// Shows a dialog for creating a file.
-    @IBAction func create(_ sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: Localizable.Creation.createFileTitle, message: nil, preferredStyle: .actionSheet)
-        alert.popoverPresentationController?.barButtonItem = sender
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        alert.addAction(UIAlertAction(title: "Script", style: .default, handler: { (_) in
-            self.createScript()
-        }))
+        additionalLeadingNavigationBarButtonItems = [UIBarButtonItem(image: UIImage(named: "more"), style: .plain, target: self, action: #selector(showMore(_:)))]
         
-        alert.addAction(UIAlertAction(title: "Markdown", style: .default, handler: { (_) in
-            self.createMarkdown()
-        }))
+        if isDarkModeEnabled {
+            browserUserInterfaceStyle = .dark
+        }
         
-        alert.addAction(UIAlertAction(title: "Plain text", style: .default, handler: { (_) in
-            self.createPlainText()
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Folder", style: .default, handler: { (_) in
-            self.createFolder()
-        }))
-        
-        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
-        
-        present(alert, animated: true, completion: nil)
-    }
-    
-    /// Creates a plain text file.
-    @objc func createPlainText() {
-        var textField: UITextField?
-        var fileExtensionTextField: UITextField?
-        let alert = UIAlertController(title: Localizable.Creation.createPlainText, message: Localizable.Creation.typeScriptName, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: Localizable.create, style: .default, handler: { (_) in
-            guard let filename = textField?.text else {
-                return
-            }
+        NotificationCenter.default.addObserver(forName: UIAccessibility.invertColorsStatusDidChangeNotification, object: nil, queue: OperationQueue.main) { [weak self] notification in
             
-            guard let template = Bundle.main.url(forResource: "Untitled", withExtension: "txt") else {
-                return
-            }
+            guard self != nil else { return }
             
-            guard !filename.hasSuffix(".") && !filename.isEmpty else {
-                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: Localizable.Errors.emptyName, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-                return
-            }
-            var text: URL
-            if self.directory == DocumentBrowserViewController.localContainerURL {
-                text = (DocumentBrowserViewController.iCloudContainerURL ?? self.directory).appendingPathComponent(filename)
+            if self!.isDarkModeEnabled {
+                self!.browserUserInterfaceStyle = .dark
             } else {
-                text = self.directory.appendingPathComponent(filename)
-            }
-            if let fileExtension = fileExtensionTextField?.text, !fileExtension.isEmpty {
-                text.appendPathExtension(fileExtension)
-            }
-            do {
-                try FileManager.default.copyItem(at: template, to: text)
-                var i = 0
-                for file in self.scripts { // For loop needed because the folder is not found with `Array.firstIndex(of:)`
-                    if file.lastPathComponent == text.lastPathComponent {
-                        self.collectionView.insertItems(at: [IndexPath(row: i, section: 0)])
-                        break
-                    }
-                    i += 1
-                }
-                self.openDocument(text, run: false)
-            } catch {
-                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
-                UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
-            }
-        }))
-        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
-        alert.addTextField { (textField_) in
-            textField_.placeholder = Localizable.Creation.fileName
-            textField = textField_
-        }
-        alert.addTextField { (textField) in
-            textField.placeholder = Localizable.Creation.fileExtension
-            fileExtensionTextField = textField
-        }
-        present(alert, animated: true, completion: nil)
-    }
-    
-    /// Creates folder.
-    @objc func createFolder() {
-        var textField: UITextField?
-        let alert = UIAlertController(title: Localizable.Creation.createFolder, message: Localizable.Creation.typeFolderName, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: Localizable.create, style: .default, handler: { (_) in
-            guard let filename = textField?.text else {
-                return
-            }
-            guard !filename.hasSuffix(".") && !filename.isEmpty else {
-                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFolder, message: Localizable.Errors.emptyName, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-                return
-            }
-            let folder: URL
-            if self.directory == DocumentBrowserViewController.localContainerURL {
-                folder = (DocumentBrowserViewController.iCloudContainerURL ?? self.directory).appendingPathComponent(filename)
-            } else {
-                folder = self.directory.appendingPathComponent(filename)
-            }
-            do {
-                try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true, attributes: nil)
-                var i = 0
-                for file in self.scripts { // For loop needed because the folder is not found with `Array.firstIndex(of:)`
-                    if file.lastPathComponent == folder.lastPathComponent {
-                        self.collectionView.insertItems(at: [IndexPath(row: i, section: 0)])
-                        break
-                    }
-                    i += 1
-                }
-            } catch {
-                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFolder, message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
-                UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
-            }
-        }))
-        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
-        alert.addTextField { (textField_) in
-            textField = textField_
-        }
-        present(alert, animated: true, completion: nil)
-    }
-    
-    /// Creates script.
-    @objc func createScript() {
-        guard let browser = storyboard?.instantiateViewController(withIdentifier: "Browser") as? DocumentBrowserViewController else {
-            return
-        }
-        browser.delegate = self
-        browser.directory = Bundle.main.url(forResource: "Samples", withExtension: nil) ?? directory
-        navigationController?.pushViewController(browser, animated: true)
-    }
-    
-    /// Creates Markdown file.
-    @objc func createMarkdown() {
-        var textField: UITextField?
-        let alert = UIAlertController(title: Localizable.Creation.createMarkdown, message: Localizable.Creation.typeScriptName, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: Localizable.create, style: .default, handler: { (_) in
-            guard let filename = textField?.text else {
-                return
-            }
-            
-            guard let template = Bundle.main.url(forResource: "Untitled", withExtension: "md") else {
-                return
-            }
-            
-            guard !filename.hasSuffix(".") && !filename.isEmpty else {
-                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: Localizable.Errors.emptyName, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-                return
-            }
-            var markdown: URL
-            if self.directory == DocumentBrowserViewController.localContainerURL {
-                markdown = (DocumentBrowserViewController.iCloudContainerURL ?? self.directory).appendingPathComponent(filename)
-            } else {
-                markdown = self.directory.appendingPathComponent(filename)
-            }
-            markdown = markdown.appendingPathExtension("md")
-            do {
-                try FileManager.default.copyItem(at: template, to: markdown)
-                var i = 0
-                for file in self.scripts { // For loop needed because the folder is not found with `Array.firstIndex(of:)`
-                    if file.lastPathComponent == markdown.lastPathComponent {
-                        self.collectionView.insertItems(at: [IndexPath(row: i, section: 0)])
-                        break
-                    }
-                    i += 1
-                }
-                self.openDocument(markdown, run: false)
-            } catch {
-                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
-                UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
-            }
-        }))
-        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
-        alert.addTextField { (textField_) in
-            textField_.placeholder = Localizable.Creation.fileName
-            textField = textField_
-        }
-        present(alert, animated: true, completion: nil)
-    }
-    
-    // MARK: - View controller
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        if navigationController?.viewControllers.first != self, navigationItem.leftBarButtonItem?.action == #selector(importScript(_:)) {
-            navigationItem.leftBarButtonItems?.remove(at: 0)
-        }
-        
-        navigationController?.view.backgroundColor = .white
-        navigationController?.navigationBar.shadowImage = UIImage()
-        
-        (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.minimumInteritemSpacing = 100
-        
-        (UIApplication.shared.delegate as? AppDelegate)?.copyModules()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        scripts = scripts_
-        
-        navigationController?.view.backgroundColor = .black
-        
-        collectionView.dragDelegate = self
-        collectionView.dropDelegate = self
-        collectionView.dragInteractionEnabled = true
-        collectionView.reloadData()
-        
-        // Directory observer
-        stopObserver_ = false
-        DispatchQueue.global().async {
-            var files = self.scripts_
-            while true {
-                if self.stopObserver_ {
-                    self.stopObserver_ = false
-                    break
-                }
-                
-                if files != self.scripts_ {
-                    
-                    for file in files {
-                        if !FileManager.default.fileExists(atPath: file.path) {
-                            CSSearchableIndex.default().deleteSearchableItems(withDomainIdentifiers: [RelativePathForScript(file)], completionHandler: { error in
-                                print(error?.localizedDescription ?? "")
-                            })
-                        }
-                    }
-                    
-                    files = self.scripts_
-                    self.scripts = files
-                    
-                    if self.ignoreObserver {
-                        self.ignoreObserver = false
-                    } else {
-                        DispatchQueue.main.async {
-                            self.collectionView.reloadData()
-                        }
-                    }
-                }
-                
-                Thread.sleep(forTimeInterval: 0.1)
+                self!.browserUserInterfaceStyle = .white
             }
         }
         
-        if (UIApplication.shared.delegate as? AppDelegate)?.shouldShowWelcomeMessage == true {
-            (UIApplication.shared.delegate as? AppDelegate)?.shouldShowWelcomeMessage = false
-            
-            let welcomeAlert = UIAlertController(title: "Welcome to Pyto", message: "Pyto is a Python IDE. If you have any bug to report or something to suggest, you can contact me from settings page. If you like the app, please leave a review.", preferredStyle: .alert)
-            welcomeAlert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
-            present(welcomeAlert, animated: true, completion: nil)
-        }
+        delegate = self
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
         
-        stopObserver()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
-        stopObserver()
-    }
-    
-    override var keyCommands: [UIKeyCommand]? {
-        return [
-            UIKeyCommand(input: "n", modifierFlags: .command, action: #selector(createScript), discoverabilityTitle: Localizable.Creation.createScript),
-            UIKeyCommand(input: "n", modifierFlags: [.command, .shift], action: #selector(createFolder), discoverabilityTitle: Localizable.Creation.createFolder)
-        ]
-    }
-    
-    // MARK: - Collection view data source
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return scripts.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        var isDir: ObjCBool = false
-        _ = FileManager.default.fileExists(atPath: scripts[indexPath.row].path, isDirectory: &isDir)
-        
-        var cell: FileCollectionViewCell
-        if isDir.boolValue {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Folder", for: indexPath) as! FileCollectionViewCell
+        if isDarkModeEnabled {
+            browserUserInterfaceStyle = .dark
         } else {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "File", for: indexPath) as! FileCollectionViewCell
-        }
-        
-        
-        cell.file = scripts[indexPath.row]
-        
-        cell.documentBrowser = self
-        cell.setTitle()
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return collectionView.cellForItem(at: indexPath)?.canPerformAction(action, withSender: sender) ?? false
-    }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {}
-    
-    // MARK: - Collection view delegate
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        var isDirectory: ObjCBool = false
-        if fileToMove != nil && FileManager.default.fileExists(atPath: scripts[indexPath.row].path, isDirectory: &isDirectory) && !isDirectory.boolValue {
-            return
-        }
-        
-        openDocument(scripts[indexPath.row], run: false)
-    }
-    
-    // MARK: - Collection view drag delegate
-    
-    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        
-        guard let cell = collectionView.cellForItem(at: indexPath) as? FileCollectionViewCell else {
-            return []
-        }
-        
-        let files = scripts
-        
-        guard files.indices.contains(indexPath.row) else {
-            return []
-        }
-        
-        let file = files[indexPath.row]
-        
-        let item = UIDragItem(itemProvider: NSItemProvider(item: nil, typeIdentifier: "file"))
-        item.localObject = file
-        item.previewProvider = {
-            
-            guard let view = cell.folderLabel ?? cell.previewContainerView else {
-                return nil
-            }
-            
-            let dragPreview = UIDragPreview(view: view)
-            dragPreview.parameters.backgroundColor = .clear
-            
-            return dragPreview
-        }
-        
-        return [item]
-    }
-    
-    // MARK: - Collection view drop delegate
-    
-    func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
-        for item in session.items {
-            if !(item.localObject is URL) {
-                return false
-            }
-        }
-        return true
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
-        
-        var isDir: ObjCBool = false
-        if let destinationIndexPath = destinationIndexPath, FileManager.default.fileExists(atPath: scripts[destinationIndexPath.row].path, isDirectory: &isDir) {
-            
-            if isDir.boolValue {
-                return UICollectionViewDropProposal(operation: .move, intent: .insertIntoDestinationIndexPath)
-            } else {
-                return UICollectionViewDropProposal(operation: .forbidden, intent: .insertIntoDestinationIndexPath)
-            }
-        }
-        
-        return UICollectionViewDropProposal(operation: .cancel, intent: .insertIntoDestinationIndexPath)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
-        guard let indexPath = coordinator.destinationIndexPath else {
-            return
-        }
-        let destination = scripts[indexPath.row]
-        
-        for item in coordinator.items {
-            if let url = item.dragItem.localObject as? URL {
-                do {
-                    try FileManager.default.moveItem(at: url, to: destination.appendingPathComponent(url.lastPathComponent))
-                } catch {
-                    let alert = UIAlertController(title: Localizable.Errors.errorMovingFile, message: error.localizedDescription, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
-                    UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
-                    break
-                }
-            }
+            browserUserInterfaceStyle = .white
         }
     }
     
-    // MARK: - Quick look
-    
-    /// The file to preview with quick look.
-    var previewingFile: URL?
-    
-    func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
-        return (previewingFile ?? URL(fileURLWithPath: "/")) as QLPreviewItem
-    }
-    
-    func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
-        return 1
-    }
-    
-    // MARK: - Document picker view controller delegate
-    
-    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        guard let url = urls.first else {
-            return
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if isDarkModeEnabled {
+            return .default
+        } else {
+            return super.preferredStatusBarStyle
         }
-        _ = url.startAccessingSecurityScopedResource()
-        openDocument(url, run: false)
     }
     
     // MARK: - Document browser view controller delegate
     
-    func documentBrowserViewController(_ documentBrowserViewController: DocumentBrowserViewController, didPickScriptAtPath path: String) {
+    func documentBrowser(_ controller: UIDocumentBrowserViewController, didPickDocumentsAt documentURLs: [URL]) {
         
-        navigationController?.popViewController(animated: true)
+        openDocument(documentURLs[0], run: false)
+    }
+    
+    func documentBrowser(_ controller: UIDocumentBrowserViewController, didRequestDocumentCreationWithHandler importHandler: @escaping (URL?, UIDocumentBrowserViewController.ImportMode) -> Void) {
         
-        var textField: UITextField?
-        let alert = UIAlertController(title: Localizable.Creation.createScript, message: Localizable.Creation.typeScriptName, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: Localizable.create, style: .default, handler: { (_) in
-            guard let filename = textField?.text else {
-                return
-            }
-            
-            let template = URL(fileURLWithPath: path)
-            
-            guard !filename.hasSuffix(".") && !filename.isEmpty else {
-                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: Localizable.Errors.emptyName, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-                return
-            }
-            var script: URL
-            if self.directory == DocumentBrowserViewController.localContainerURL {
-                script = (DocumentBrowserViewController.iCloudContainerURL ?? self.directory).appendingPathComponent(filename)
-            } else {
-                script = self.directory.appendingPathComponent(filename)
-            }
-            script = script.appendingPathExtension("py")
-            do {
-                try FileManager.default.copyItem(at: template, to: script)
-                var i = 0
-                for file in self.scripts { // For loop needed because the folder is not found with `Array.firstIndex(of:)`
-                    if file.lastPathComponent == script.lastPathComponent {
-                        self.collectionView.insertItems(at: [IndexPath(row: i, section: 0)])
-                        break
-                    }
-                    i += 1
-                }
-                self.openDocument(script, run: false)
-            } catch {
-                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
-                UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
-            }
-        }))
-        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
-        alert.addTextField { (textField_) in
-            textField_.placeholder = Localizable.Creation.fileName
-            textField = textField_
-        }
-        present(alert, animated: true, completion: nil)
+        let docURL = Bundle.main.url(forResource: "Untitled", withExtension: "py")
+        return importHandler(docURL, docURL != nil ? .copy : .none)
+    }
+    
+    // MARK: - Animation
+    
+    /// Transition controller for presenting and dismissing View controllers.
+    var transitionController: UIDocumentBrowserTransitionController?
+    
+    // MARK: - View controller transition delegate
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return transitionController
+    }
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return transitionController
     }
 }

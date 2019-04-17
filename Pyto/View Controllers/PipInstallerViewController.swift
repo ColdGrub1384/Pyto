@@ -46,7 +46,7 @@ import UIKit
         super.loadView()
         
         if let repl = Bundle.main.url(forResource: "installer", withExtension: "py") {
-            editor = EditorViewController(document: repl)
+            editor = EditorViewController(document: PyDocument(fileURL: repl))
             editor.args = command
         }
         console = ConsoleViewController()

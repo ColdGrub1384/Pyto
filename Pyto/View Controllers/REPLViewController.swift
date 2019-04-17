@@ -19,11 +19,7 @@ import UIKit
     
     /// Goes back to the file browser
     @objc static func goToFileBrowser() {
-        DispatchQueue.main.async {
-            if (UIApplication.shared.keyWindow?.rootViewController as? UITabBarController)?.selectedIndex == 1 {
-                (UIApplication.shared.keyWindow?.rootViewController as? UITabBarController)?.selectedIndex = 0
-            }
-        }
+        REPLViewController.shared?.dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Editor split view controller
@@ -36,7 +32,7 @@ import UIKit
         super.loadView()
         
         if let repl = Bundle.main.url(forResource: "UserREPL", withExtension: "py") {
-            editor = EditorViewController(document: repl)
+            editor = EditorViewController(document: PyDocument(fileURL: repl))
         }
         console = ConsoleViewController()
     }
@@ -50,6 +46,8 @@ import UIKit
         view.addSubview(console.view)
         console.view.frame = view.frame
         console.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Grid"), style: .plain, target: REPLViewController.self, action: #selector(REPLViewController.goToFileBrowser))
     }
     
     override func viewDidAppear(_ animated: Bool) {

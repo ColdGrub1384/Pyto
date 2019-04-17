@@ -76,9 +76,7 @@ import ios_system
     @objc public var window: UIWindow?
     
     @objc public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        window?.accessibilityIgnoresInvertColors = true
-        
+                
         #if MAIN
         initializeEnvironment()
         unsetenv("TERM")
@@ -96,12 +94,6 @@ import ios_system
         }
         
         UIMenuController.shared.menuItems = [
-            UIMenuItem(title: Localizable.MenuItems.open, action: #selector(FileCollectionViewCell.open(_:))),
-            UIMenuItem(title: Localizable.MenuItems.run, action: #selector(FileCollectionViewCell.run(_:))),
-            UIMenuItem(title: Localizable.MenuItems.rename, action: #selector(FileCollectionViewCell.rename(_:))),
-            UIMenuItem(title: Localizable.MenuItems.remove, action: #selector(FileCollectionViewCell.remove(_:))),
-            UIMenuItem(title: Localizable.MenuItems.copy, action: #selector(FileCollectionViewCell.copyFile(_:))),
-            UIMenuItem(title: Localizable.MenuItems.move, action: #selector(FileCollectionViewCell.move(_:))),
             UIMenuItem(title: Localizable.MenuItems.breakpoint, action: #selector(EditorViewController.setBreakpoint(_:))),
             UIMenuItem(title: Localizable.MenuItems.toggleComment, action: #selector(EditorViewController.toggleComment))
         ]
@@ -265,10 +257,6 @@ import ios_system
         }
         
         return true
-    }
-    
-    @objc public func applicationWillEnterForeground(_ application: UIApplication) {
-        DocumentBrowserViewController.visible?.reloadData()
     }
     
     #endif
