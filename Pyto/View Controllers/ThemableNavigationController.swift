@@ -29,20 +29,7 @@ class ThemableNavigationController: UINavigationController, UINavigationControll
     /// Called when the user choosed a theme.
     @objc func themeDidChange(_ notification: Notification) {
         setup(theme: ConsoleViewController.choosenTheme)
-        
-        if let currentBrowser = visibleViewController as? DocumentBrowserViewController, let storyboard = self.storyboard, let browser = storyboard.instantiateViewController(withIdentifier: "Browser") as? DocumentBrowserViewController {
-            
-            if currentBrowser.directory != DocumentBrowserViewController.localContainerURL {
-                browser.directory = currentBrowser.directory
-            } else {
-                browser.setDirectory(currentBrowser.directory)
-            }
-            
-            var vcs = viewControllers
-            vcs.removeLast()
-            vcs.append(browser)
-            viewControllers = vcs
-        }
+        setNeedsStatusBarAppearanceUpdate()
     }
     
     deinit {
@@ -53,6 +40,8 @@ class ThemableNavigationController: UINavigationController, UINavigationControll
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.accessibilityIgnoresInvertColors = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
     }
@@ -68,6 +57,18 @@ class ThemableNavigationController: UINavigationController, UINavigationControll
         toolbar.isTranslucent = false
         
         delegate = self
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if isDarkModeEnabled {
+            if navigationBar.barStyle == .black {
+                return .default
+            } else {
+                return .lightContent
+            }
+        } else {
+            return super.preferredStatusBarStyle
+        }
     }
     
     // MARK: - Navigation controller delegate

@@ -100,15 +100,15 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// The `SyntaxTextView` containing the code.
     let textView = SyntaxTextView()
     
-    /// The document URL to be edited.
-    var document: URL?
+    /// The document to be edited.
+    var document: PyDocument?
     
     /// Returns `true` if the opened file is a sample.
     var isSample: Bool {
         guard document != nil else {
             return true
         }
-        return !FileManager.default.isWritableFile(atPath: document!.path)
+        return !FileManager.default.isWritableFile(atPath: document!.fileURL.path)
     }
     
     /// The Input assistant view containing `suggestions`.
@@ -133,8 +133,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// Initialize with given document.
     ///
     /// - Parameters:
-    ///     - document: The document URL to be edited.
-    init(document: URL) {
+    ///     - document: The document to be edited.
+    init(document: PyDocument) {
         super.init(nibName: nil, bundle: nil)
         self.document = document
     }
@@ -209,9 +209,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
         inputAssistant.dataSource = self
         inputAssistant.delegate = self
         
-        parent?.title = document?.deletingPathExtension().lastPathComponent
+        parent?.title = document?.fileURL.deletingPathExtension().lastPathComponent
         
-        if document == URL(fileURLWithPath: NSTemporaryDirectory()+"/Temporary") {
+        if document?.fileURL == URL(fileURLWithPath: NSTemporaryDirectory()+"/Temporary") {
             title = nil
         }
         
@@ -270,9 +270,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 return
             }
             
-            self.textView.text = (try? String(contentsOf: doc)) ?? ""
+            self.textView.text = (try? String(contentsOf: doc.fileURL)) ?? ""
             
-            if !FileManager.default.isWritableFile(atPath: doc.path) {
+            if !FileManager.default.isWritableFile(atPath: doc.fileURL.path) {
                 self.navigationItem.leftBarButtonItem = nil
                 self.textView.contentTextView.isEditable = false
                 self.textView.contentTextView.inputAccessoryView = nil
@@ -288,7 +288,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 }
             }
             
-            if doc.path == Bundle.main.path(forResource: "installer", ofType: "py") {
+            if doc.fileURL.path == Bundle.main.path(forResource: "installer", ofType: "py") {
                 self.parent?.navigationItem.leftBarButtonItems = []
                 if Python.shared.isScriptRunning {
                     self.parent?.navigationItem.rightBarButtonItems = [self.stopBarButtonItem]
@@ -301,17 +301,17 @@ fileprivate func parseArgs(_ args: inout [String]) {
             
             if #available(iOS 12.0, *) {
                 let filePath: String?
-                if let url = document {
-                    filePath = RelativePathForScript(url)
+                if let doc = document {
+                    filePath = RelativePathForScript(doc.fileURL)
                 } else {
                     filePath = nil
                 }
                 
                 let attributes = CSSearchableItemAttributeSet(itemContentType: "public.item")
-                attributes.contentDescription = document?.lastPathComponent
+                attributes.contentDescription = document?.fileURL.lastPathComponent
                 attributes.kind = "Python Script"
                 let activity = NSUserActivity(activityType: "ch.marcela.ada.Pyto.script")
-                activity.title = "Run \(title ?? document?.deletingPathExtension().lastPathComponent ?? "script")"
+                activity.title = "Run \(title ?? document?.fileURL.deletingPathExtension().lastPathComponent ?? "script")"
                 activity.contentAttributeSet = attributes
                 activity.isEligibleForSearch = true
                 activity.isEligibleForPrediction = true
@@ -325,7 +325,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 userActivity = activity
                 if let path = filePath {
                     activity.addUserInfoEntries(from: ["filePath" : path])
-                    activity.suggestedInvocationPhrase = document?.deletingPathExtension().lastPathComponent
+                    activity.suggestedInvocationPhrase = document?.fileURL.deletingPathExtension().lastPathComponent
                 }
             }
             
@@ -674,7 +674,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// Run the script represented by `document`.
     ///
     /// - Parameters:
-    ///     -
+    ///     - debug: Set to `true` for debugging with `pdb`.
     func runScript(debug: Bool) {
         
         // For error handling
@@ -687,7 +687,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             Python.shared.args = arguments
             
             DispatchQueue.main.async {
-                if let url = self.document {
+                if let url = self.document?.fileURL {
                     let console = ConsoleViewController.visible
                     guard console.view.window != nil else {
                         let navVC = ThemableNavigationController(rootViewController: console)
@@ -744,7 +744,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         DispatchQueue.global().async {
             do {
-                try text.write(to: self.document!, atomically: true, encoding: .utf8)
+                try text.write(to: self.document!.fileURL, atomically: true, encoding: .utf8)
                 completion?(true)
             } catch {
                 completion?(false)
@@ -763,14 +763,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 return
             }
             
-            self.save(completion: { (success) in
+            self.document?.close(completionHandler: { (success) in
                 if !success {
                     let alert = UIAlertController(title: Localizable.Errors.errorWrittingToScript, message: nil, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
                     UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
-                }
-                DispatchQueue.main.async {
-                    DocumentBrowserViewController.visible?.collectionView.reloadData()
                 }
             })
         }
@@ -1133,7 +1130,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             "source = '''",
             text.replacingOccurrences(of: "'", with: "\\'"),
             "'''",
-            "suggestForCode(source, '\((document?.path ?? "").replacingOccurrences(of: "'", with: "\\'"))')"
+            "suggestForCode(source, '\((document?.fileURL.path ?? "").replacingOccurrences(of: "'", with: "\\'"))')"
         ].joined(separator: ";")
         PyInputHelper.userInput = input
     }

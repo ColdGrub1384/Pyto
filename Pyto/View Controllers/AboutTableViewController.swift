@@ -30,7 +30,7 @@ fileprivate extension IndexPath {
 }
 
 /// A View controller with settings and info.
-class AboutTableViewController: UITableViewController, DocumentBrowserViewControllerDelegate, MFMailComposeViewControllerDelegate {
+class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate, MFMailComposeViewControllerDelegate {
     
     /// The date of the build.
     var buildDate: Date {
@@ -133,11 +133,9 @@ class AboutTableViewController: UITableViewController, DocumentBrowserViewContro
         case .theme:
             viewControllerToPresent = UIStoryboard(name: "Theme Chooser", bundle: Bundle.main).instantiateInitialViewController()
         case .todayWidget:
-            guard let browser = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Browser") as? DocumentBrowserViewController else {
-                return
-            }
-            browser.delegate = self
-            viewControllerToPresent = browser
+            let picker = UIDocumentPickerViewController(documentTypes: ["public.python-script"], in: .open)
+            picker.delegate = self
+            viewControllerToPresent = picker
         case .documentation:
             viewControllerToPresent = ThemableNavigationController(rootViewController: DocumentationViewController())
         case .contact:
@@ -161,7 +159,11 @@ class AboutTableViewController: UITableViewController, DocumentBrowserViewContro
         }
         
         if indexPath == .theme || indexPath == .todayWidget {
-            navigationController?.pushViewController(vc, animated: true)
+            if vc is UIDocumentPickerViewController {
+                present(vc, animated: true, completion: nil)
+            } else {
+                navigationController?.pushViewController(vc, animated: true)
+            }
         } else {
             present(vc, animated: true, completion: nil)
         }
@@ -187,13 +189,17 @@ class AboutTableViewController: UITableViewController, DocumentBrowserViewContro
     
     // MARK: - Document browser view controller delegate
     
-    func documentBrowserViewController(_ documentBrowserViewController: DocumentBrowserViewController, didPickScriptAtPath path: String) {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        
+        _ = urls[0].startAccessingSecurityScopedResource()
         
         navigationController?.popToRootViewController(animated: true)
         
-        UserDefaults.standard.set(RelativePathForScript(URL(fileURLWithPath: path)), forKey: "todayWidgetScriptPath")
+        UserDefaults.standard.set(RelativePathForScript(URL(fileURLWithPath: urls[0].path)), forKey: "todayWidgetScriptPath")
         UserDefaults.standard.synchronize()
         (UIApplication.shared.delegate as? AppDelegate)?.copyModules()
+        
+        urls[0].stopAccessingSecurityScopedResource()
         
         tableView.reloadData()
     }

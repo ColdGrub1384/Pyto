@@ -40,6 +40,11 @@ class PipViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
         }
     }
     
+    /// Dismisses this View controller.
+    @IBAction func close(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     /// Progress view.
     @IBOutlet weak var progressView: UIProgressView!
     
