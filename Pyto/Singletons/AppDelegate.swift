@@ -87,8 +87,6 @@ import ios_system
         
         window?.tintColor = ConsoleViewController.choosenTheme.tintColor
         
-        ((window?.rootViewController as? UITabBarController)?.viewControllers?[1] as? UINavigationController)?.viewControllers.first?.loadViewIfNeeded()
-        
         for file in ((try? FileManager.default.contentsOfDirectory(at: URL(fileURLWithPath: NSTemporaryDirectory()), includingPropertiesForKeys: nil, options: .skipsHiddenFiles)) ?? []) {
             try? FileManager.default.removeItem(at: file)
         }
@@ -103,34 +101,12 @@ import ios_system
         
         do {
             let modulesURL = docs.appendingPathComponent("modules")
-            let readmeURL = Bundle.main.url(forResource: "modules_README", withExtension: "md")
             if !FileManager.default.fileExists(atPath: modulesURL.path) {
                 try FileManager.default.createDirectory(at: modulesURL, withIntermediateDirectories: false, attributes: nil)
             }
-            if let readme = readmeURL, !FileManager.default.fileExists(atPath: readme.path) {
-                try FileManager.default.copyItem(at: readme, to: modulesURL.appendingPathComponent("README.md"))
-            }
-            
-            let newSamplesURL = docs.appendingPathComponent("Examples") // Removed since 4.0
-            if FileManager.default.fileExists(atPath: newSamplesURL.path), let samplesURL = Bundle.main.url(forResource: "Samples", withExtension: nil), let contents = (try? FileManager.default.contentsOfDirectory(atPath: newSamplesURL.path)), let defaultContents = (try? FileManager.default.contentsOfDirectory(atPath: samplesURL.path)), contents == defaultContents {
-               try FileManager.default.removeItem(at: newSamplesURL)
-            }
-            
-            let newREADMEURL = docs.appendingPathComponent("README.py") // Removed since 4.0
-            if let readmeURL = Bundle.main.url(forResource: "Help", withExtension: "py"), FileManager.default.fileExists(atPath: newREADMEURL.path), let defaultData = try? Data(contentsOf: readmeURL), let data = try? Data(contentsOf: newREADMEURL), data == defaultData {
-                try FileManager.default.removeItem(at: newREADMEURL)
-            }
-            
             if let iCloudURL = iCloudDriveContainer {
                 if !FileManager.default.fileExists(atPath: iCloudURL.path) {
                     try? FileManager.default.createDirectory(at: iCloudURL, withIntermediateDirectories: true, attributes: nil)
-                }
-                
-                for file in ((try? FileManager.default.contentsOfDirectory(at: docs, includingPropertiesForKeys: nil, options: .init(rawValue: 0))) ?? []) {
-                    
-                    if file.lastPathComponent != modulesURL.lastPathComponent && file.lastPathComponent != "mpl-data" {
-                        try? FileManager.default.moveItem(at: file, to: iCloudURL.appendingPathComponent(file.lastPathComponent))
-                    }
                 }
             }
         } catch {
