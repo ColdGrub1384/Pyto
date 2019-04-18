@@ -235,6 +235,10 @@ import ios_system
         return true
     }
     
+    public func applicationWillTerminate(_ application: UIApplication) {
+        exit(0)
+    }
+    
     #endif
 }
 
