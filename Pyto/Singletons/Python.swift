@@ -75,6 +75,10 @@ import Cocoa
     @objc public var args = [String]()
     
     #if os(iOS)
+    
+    /// Set to `true` when the REPL is ready to run scripts.
+    @objc var isSetup = false
+    
     /// Runs given command with `ios_system`.
     ///
     /// - Parameters:

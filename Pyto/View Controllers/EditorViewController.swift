@@ -681,7 +681,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
         textView.delegate = nil
         textView.delegate = self
         
-        save { (_) in            
+        guard Python.shared.isSetup else {
+            return
+        }
+        
+        save { (_) in
             var arguments = self.args.components(separatedBy: " ")
             parseArgs(&arguments)
             Python.shared.args = arguments
