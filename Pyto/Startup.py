@@ -107,10 +107,13 @@ for importer in (NumpyImporter, MatplotlibImporter, PandasImporter):
 
 # MARK: - Pre-import modules
 
-try:
-    import matplotlib, numpy, pandas
-except:
-    pass
+def importModules():
+    try:
+        import matplotlib, numpy, pandas
+    except:
+        pass
+
+threading.Thread(target=importModules).start()
 
 # MARK: - Create a Selector without class.
 
@@ -125,6 +128,7 @@ __builtins__.deprecated = ["runAsync", "runSync", "generalPasteboard", "setStrin
 
 while True:
     try:
+        pyto.Python.shared.isSetup = True
         SourceFileLoader("main", "%@").load_module()
     except Exception as e:
         print(e)
