@@ -270,7 +270,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 return
             }
             
-            self.textView.text = (try? String(contentsOf: doc.fileURL)) ?? ""
+            self.textView.text = document?.text ?? ""
             
             if !FileManager.default.isWritableFile(atPath: doc.fileURL.path) {
                 self.navigationItem.leftBarButtonItem = nil
@@ -763,6 +763,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 return
             }
             
+            self.document?.text = self.textView.text
             self.document?.close(completionHandler: { (success) in
                 if !success {
                     let alert = UIAlertController(title: Localizable.Errors.errorWrittingToScript, message: nil, preferredStyle: .alert)
@@ -981,6 +982,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     }
     
     func textViewDidChange(_ textView: UITextView) {
+        document?.text = textView.text
         return self.textView.textViewDidChange(textView)
     }
     

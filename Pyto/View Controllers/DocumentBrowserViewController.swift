@@ -50,11 +50,10 @@ import SavannaKit
     /// Opens the given file.
     ///
     /// - Parameters:
-    ///     - document: The URL of the file or directory.
-    ///     - tabBarController: If set, the document will be added to the value.
+    ///     - documentURL: The URL of the file or directory.
     ///     - run: Set to `true` to run the script inmediately.
     ///     - completion: Code called after presenting the UI.
-    func openDocument(_ documentURL: URL, onTabBarController tabBarController: UITabBarController? = nil, run: Bool, completion: (() -> Void)? = nil) {
+    func openDocument(_ documentURL: URL, run: Bool, completion: (() -> Void)? = nil) {
         
         let tintColor = ConsoleViewController.choosenTheme.tintColor ?? UIColor(named: "TintColor") ?? .orange
         
@@ -98,27 +97,26 @@ import SavannaKit
         
         transitionController = transitionController(forDocumentAt: documentURL)
         transitionController?.loadingProgress = document.progress
-        transitionController?.targetView = splitVC.view
+        transitionController?.targetView = navVC.view
         
         navVC.toolbar.setShadowImage(UIImage(), forToolbarPosition: .any)
         navVC.navigationBar.shadowImage = UIImage()
         navVC.navigationBar.isTranslucent = false
         navVC.transitioningDelegate = self
         
-        func _completion() {
-            NotificationCenter.default.removeObserver(splitVC)
+        document.open { (success) in
+            guard success else {
+                return
+            }
             
-            splitVC.firstChild = editor
-            splitVC.secondChild = contentVC
-            
-            completion?()
-        }
-        
-        if let tabBarController = tabBarController {
-            tabBarController.viewControllers?.append(navVC)
-            _completion()
-        } else {
-            UIApplication.shared.keyWindow?.topViewController?.present(navVC, animated: true, completion: _completion)
+            UIApplication.shared.keyWindow?.topViewController?.present(navVC, animated: true, completion: {
+                NotificationCenter.default.removeObserver(splitVC)
+                
+                splitVC.firstChild = editor
+                splitVC.secondChild = contentVC
+                
+                completion?()
+            })
         }
     }
     
