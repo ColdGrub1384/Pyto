@@ -105,10 +105,12 @@ webbrowser.register("mobile-safari", None, MobileSafari("MobileSafari.app"))
 for importer in (NumpyImporter, MatplotlibImporter, PandasImporter):
     sys.meta_path.insert(0, importer())
 
-# Pre-import modules
+# MARK: - Pre-import modules
 
-import matplotlib, numpy, pandas
-
+try:
+    import matplotlib, numpy, pandas
+except:
+    pass
 
 # MARK: - Create a Selector without class.
 
