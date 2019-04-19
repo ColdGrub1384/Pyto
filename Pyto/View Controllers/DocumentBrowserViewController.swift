@@ -59,8 +59,6 @@ import SavannaKit
         
         let document = PyDocument(fileURL: documentURL)
         
-        var isDir: ObjCBool = false
-        
         guard documentURL.pathExtension.lowercased() == "py" else {
             return
         }
