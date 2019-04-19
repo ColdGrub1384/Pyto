@@ -358,6 +358,46 @@ import UIKit
     }
     #endif
     
+    /// Sets "COLUMNS" and "ROWS" environment variables.
+    func updateSize() {
+        var columns: Int {
+            
+            guard let font = textView.font else {
+                assertionFailure("Expected font")
+                return 0
+            }
+            
+            // TODO: check if the bounds includes the safe area (on iPhone X)
+            let viewWidth = textView.bounds.width
+            
+            let dummyAtributedString = NSAttributedString(string: "X", attributes: [.font: font])
+            let charWidth = dummyAtributedString.size().width
+            
+            // Assumes the font is monospaced
+            return Int((viewWidth / charWidth).rounded(.down))
+        }
+        
+        var rows: Int {
+            
+            guard let font = textView.font else {
+                assertionFailure("Expected font")
+                return 0
+            }
+            
+            // TODO: check if the bounds includes the safe area (on iPhone X)
+            let viewHeight = textView.bounds.height-textView.contentInset.bottom
+            
+            let dummyAtributedString = NSAttributedString(string: "X", attributes: [.font: font])
+            let charHeight = dummyAtributedString.size().height
+            
+            // Assumes the font is monospaced
+            return Int((viewHeight / charHeight).rounded(.down))
+        }
+        
+        putenv("COLUMNS=\(columns)".cValue)
+        putenv("ROWS=\(rows)".cValue)
+    }
+    
     // MARK: - View controller
     
     override open func viewDidLoad() {
@@ -372,7 +412,7 @@ import UIKit
         title = Localizable.console
         
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.frame.size.height = view.frame.height-44
+        textView.frame.size.height = view.frame.height
         textView.delegate = self
         textView.isEditable = false
         view.addSubview(textView)
@@ -506,8 +546,8 @@ import UIKit
             return
         }
         
-        let wasFirstResponder = textView.isFirstResponder
-        textView.resignFirstResponder()
+        let wasFirstResponder = movableTextField?.textField.isFirstResponder ?? false
+        movableTextField?.textField.resignFirstResponder()
         _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
             self.movableTextField?.toolbar.frame.size.width = self.view.safeAreaLayoutGuide.layoutFrame.width
             self.movableTextField?.toolbar.frame.origin.x = self.view.safeAreaInsets.left
@@ -515,16 +555,10 @@ import UIKit
             self.textView.frame.size.height = self.view.safeAreaLayoutGuide.layoutFrame.height-44
             self.textView.frame.origin.y = self.view.safeAreaLayoutGuide.layoutFrame.origin.y
             if wasFirstResponder {
-                self.textView.becomeFirstResponder()
+                self.movableTextField?.textField.becomeFirstResponder()
             }
             self.movableTextField?.applyTheme()
         }) // TODO: Anyway to to it without a timer?
-    }
-    
-    open override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        
     }
     
     open override var keyCommands: [UIKeyCommand]? {
@@ -538,10 +572,11 @@ import UIKit
     
     @objc func keyboardWillShow(_ notification:Notification) {
         let d = notification.userInfo!
-        var r = d[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+        let r = d[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
         
-        r = textView.convert(r, from:nil)
-        textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-r.size.height
+        let point = (UIApplication.shared.keyWindow)?.convert(r.origin, to: view) ?? r.origin
+        
+        textView.frame.size.height = point.y-44
         textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
         textView.scrollToBottom()
     }
