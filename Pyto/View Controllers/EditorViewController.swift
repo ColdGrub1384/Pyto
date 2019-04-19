@@ -956,8 +956,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
         var r = d[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
         
         r = textView.convert(r, from:nil)
-        textView.contentInset.bottom = r.height
-        textView.contentTextView.scrollIndicatorInsets.bottom = r.height
+        textView.contentInset.bottom = r.height-((parent ?? self)?.navigationController?.navigationBar.frame.height ?? 0)
+        textView.contentTextView.scrollIndicatorInsets.bottom = textView.contentInset.bottom
         
         if searchBar?.window != nil {
             textView.contentInset.top = findBarHeight
