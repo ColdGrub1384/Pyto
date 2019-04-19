@@ -182,6 +182,11 @@ import SavannaKit
         return importHandler(docURL, docURL != nil ? .copy : .none)
     }
     
+    func documentBrowser(_ controller: UIDocumentBrowserViewController, didImportDocumentAt sourceURL: URL, toDestinationURL destinationURL: URL) {
+        
+        openDocument(destinationURL, run: false)
+    }
+    
     // MARK: - Animation
     
     /// Transition controller for presenting and dismissing View controllers.
