@@ -1024,7 +1024,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
             return false
         }
         
-        if text == "\n", var currentLine = textView.currentLine {
+        if text == "\n", var currentLine = textView.currentLine, let currentLineRange = textView.currentLineRange, let selectedRange = textView.selectedTextRange {
+            
+            if selectedRange.start == currentLineRange.start {
+                return true
+            }
             
             var spaces = ""
             while currentLine.hasPrefix(" ") {
