@@ -76,6 +76,11 @@ import Cocoa
     
     #if os(iOS)
     
+    /// Returns the environment.
+    @objc var environment: [String:String] {
+        return ProcessInfo.processInfo.environment
+    }
+    
     /// Set to `true` when the REPL is ready to run scripts.
     @objc var isSetup = false
     
