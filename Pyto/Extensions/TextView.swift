@@ -92,7 +92,7 @@ extension TextView {
     
     #if os(iOS)
     
-    /// Gets the entire line range from given range.
+    /// Get the entire line range from given range.
     ///
     /// - Parameters:
     ///     - range: The range contained in returned line.
