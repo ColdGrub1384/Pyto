@@ -394,8 +394,10 @@ import UIKit
             return Int((viewHeight / charHeight).rounded(.down))
         }
         
-        putenv("COLUMNS=\(columns)".cValue)
-        putenv("ROWS=\(rows)".cValue)
+        print(columns)
+        print(rows)
+        setenv("COLUMNS", "\(columns)", 1)
+        setenv("ROWS", "\(rows)", 1)
     }
     
     // MARK: - View controller
@@ -421,9 +423,7 @@ import UIKit
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
         
-        if navigationController?.modalPresentationStyle != .formSheet {
-            movableTextField = MovableTextField(console: self)
-        }
+        movableTextField = MovableTextField(console: self)
     }
     
     override open func viewDidAppear(_ animated: Bool) {
@@ -437,42 +437,42 @@ import UIKit
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
         textView.frame.size.height -= 44
         textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
+        
+        updateSize()
     }
     
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if navigationController?.modalPresentationStyle != .formSheet {
-            if movableTextField == nil {
-                movableTextField = MovableTextField(console: self)
-                movableTextField?.placeholder = prompt ?? ""
+        if movableTextField == nil {
+            movableTextField = MovableTextField(console: self)
+            movableTextField?.placeholder = prompt ?? ""
+        }
+        movableTextField?.show()
+        movableTextField?.handler = { text in
+                
+            let secureTextEntry = self.movableTextField?.textField.isSecureTextEntry ?? false
+            self.movableTextField?.textField.isSecureTextEntry = false
+                
+            guard self.shouldRequestInput else {
+                return
             }
-            movableTextField?.show()
-            movableTextField?.handler = { text in
                 
-                let secureTextEntry = self.movableTextField?.textField.isSecureTextEntry ?? false
-                self.movableTextField?.textField.isSecureTextEntry = false
-                
-                guard self.shouldRequestInput else {
-                    return
-                }
-                
-                PyInputHelper.userInput = text
-                if !secureTextEntry {
-                    Python.shared.output += text
-                    self.textView.text += "\(self.movableTextField?.placeholder ?? "")\(text)\n"
-                } else {
+            PyInputHelper.userInput = text
+            if !secureTextEntry {
+                Python.shared.output += text
+                self.textView.text += "\(self.movableTextField?.placeholder ?? "")\(text)\n"
+            } else {
                     
-                    var hiddenPassword = ""
-                    for _ in 0...text.count {
-                        hiddenPassword += "*"
-                    }
-                    
-                    Python.shared.output += text
-                    self.textView.text += "\(self.movableTextField?.placeholder ?? "")\(hiddenPassword)\n"
+                var hiddenPassword = ""
+                for _ in 0...text.count {
+                    hiddenPassword += "*"
                 }
-                self.textView.scrollToBottom()
+                    
+                Python.shared.output += text
+                self.textView.text += "\(self.movableTextField?.placeholder ?? "")\(hiddenPassword)\n"
             }
+            self.textView.scrollToBottom()
         }
         
         var items = [UIBarButtonItem]()
@@ -540,9 +540,12 @@ import UIKit
         }
         
         guard view.frame.height != size.height else {
-            textView.frame.size.width = view.safeAreaLayoutGuide.layoutFrame.width
-            textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
-            textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
+            _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
+                self.textView.frame.size.width = self.view.safeAreaLayoutGuide.layoutFrame.width
+                self.textView.frame.size.height = self.view.safeAreaLayoutGuide.layoutFrame.height-44
+                self.textView.frame.origin.y = self.view.safeAreaLayoutGuide.layoutFrame.origin.y
+                self.updateSize()
+            })
             return
         }
         
@@ -558,6 +561,7 @@ import UIKit
                 self.movableTextField?.textField.becomeFirstResponder()
             }
             self.movableTextField?.applyTheme()
+            self.updateSize()
         }) // TODO: Anyway to to it without a timer?
     }
     
