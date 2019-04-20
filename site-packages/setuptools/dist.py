@@ -11,7 +11,6 @@ import distutils.log
 import distutils.core
 import distutils.cmd
 import distutils.dist
-from distutils.errors import DistutilsOptionError
 from distutils.util import strtobool
 from distutils.debug import DEBUG
 from distutils.fancy_getopt import translate_longopt
@@ -36,7 +35,6 @@ from setuptools.depends import Require
 from setuptools import windows_support
 from setuptools.monkey import get_unpatched
 from setuptools.config import parse_configuration
-from .unicode_utils import detect_encoding
 import pkg_resources
 
 __import__('setuptools.extern.packaging.specifiers')
@@ -134,7 +132,6 @@ def write_pkg_file(self, file):
     else:
         def write_field(key, value):
             file.write("%s: %s\n" % (key, value))
-
 
     write_field('Metadata-Version', str(version))
     write_field('Name', self.get_name())
@@ -589,13 +586,9 @@ class Distribution(_Distribution):
 
         parser = ConfigParser()
         for filename in filenames:
-            with io.open(filename, 'rb') as fp:
-                encoding = detect_encoding(fp)
+            with io.open(filename, encoding='utf-8') as reader:
                 if DEBUG:
-                    self.announce("  reading %s [%s]" % (
-                        filename, encoding or 'locale')
-                    )
-                reader = io.TextIOWrapper(fp, encoding=encoding)
+                    self.announce("  reading {filename}".format(**locals()))
                 (parser.read_file if six.PY3 else parser.readfp)(reader)
             for section in parser.sections():
                 options = parser.options(section)
@@ -885,7 +878,7 @@ class Distribution(_Distribution):
     def include(self, **attrs):
         """Add items to distribution that are named in keyword arguments
 
-        For example, 'dist.exclude(py_modules=["x"])' would add 'x' to
+        For example, 'dist.include(py_modules=["x"])' would add 'x' to
         the distribution's 'py_modules' attribute, if it was not already
         there.
 
@@ -1103,7 +1096,6 @@ class Distribution(_Distribution):
             return _Distribution.handle_display_options(self, option_order)
 
         # Stdout may be StringIO (e.g. in tests)
-        import io
         if not isinstance(sys.stdout, io.TextIOWrapper):
             return _Distribution.handle_display_options(self, option_order)
 
@@ -1282,4 +1274,5 @@ class Feature:
 
 
 class DistDeprecationWarning(SetuptoolsDeprecationWarning):
-    """Class for warning about deprecations in dist in setuptools. Not ignored by default, unlike DeprecationWarning."""
+    """Class for warning about deprecations in dist in
+    setuptools. Not ignored by default, unlike DeprecationWarning."""
