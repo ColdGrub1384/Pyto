@@ -26,6 +26,7 @@ bug reports or API stability):
 Again, this is not a formal definition! Just a "taste" of the module.
 """
 
+import io
 import os
 import sys
 import tokenize
@@ -34,6 +35,8 @@ import contextlib
 
 import setuptools
 import distutils
+
+from pkg_resources import parse_requirements
 
 __all__ = ['get_requires_for_build_sdist',
            'get_requires_for_build_wheel',
@@ -50,7 +53,9 @@ class SetupRequirementsError(BaseException):
 
 class Distribution(setuptools.dist.Distribution):
     def fetch_build_eggs(self, specifiers):
-        raise SetupRequirementsError(specifiers)
+        specifier_list = list(map(str, parse_requirements(specifiers)))
+
+        raise SetupRequirementsError(specifier_list)
 
     @classmethod
     @contextlib.contextmanager
@@ -95,6 +100,14 @@ def _file_with_extension(directory, extension):
     return file
 
 
+def _open_setup_script(setup_script):
+    if not os.path.exists(setup_script):
+        # Supply a default setup.py
+        return io.StringIO(u"from setuptools import setup; setup()")
+
+    return getattr(tokenize, 'open', open)(setup_script)
+
+
 class _BuildMetaBackend(object):
 
     def _fix_config(self, config_settings):
@@ -120,9 +133,10 @@ class _BuildMetaBackend(object):
         # Correctness comes first, then optimization later
         __file__ = setup_script
         __name__ = '__main__'
-        f = getattr(tokenize, 'open', open)(__file__)
-        code = f.read().replace('\\r\\n', '\\n')
-        f.close()
+
+        with _open_setup_script(__file__) as f:
+            code = f.read().replace(r'\r\n', r'\n')
+
         exec(compile(code, __file__, 'exec'), locals())
 
     def get_requires_for_build_wheel(self, config_settings=None):
