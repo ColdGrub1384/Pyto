@@ -14,7 +14,7 @@ import UIKit
     /// Closes this View controller.
     @objc func closeViewController() {
         return dismiss(animated: true, completion: {
-            (((UIApplication.shared.keyWindow?.rootViewController as? UITabBarController)?.viewControllers?[2] as? UINavigationController)?.visibleViewController as? PipViewController)?.webView.reload()
+            ((UIApplication.shared.keyWindow?.rootViewController?.presentedViewController as? UINavigationController)?.visibleViewController as? PipViewController)?.webView.reload()
         })
     }
     
