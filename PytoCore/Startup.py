@@ -56,7 +56,7 @@ code.interact = newInteract
 
 __builtins__.Selector = pyto.PySelector.makeSelector
 __builtins__.Target = pyto.SelectorTarget.shared
-__builtins__.deprecated = ["runAsync", "runSync", "generalPasteboard", "setString", "setStrings", "setImage", "setImages", "setURL", "setURLs", "showViewController", "closeViewController", "mainLoop", "openURL", "shareItems", "pickDocumentsWithFilePicker"]
+__builtins__.deprecated = ["runAsync", "runSync", "generalPasteboard", "setString", "setStrings", "setImage", "setImages", "setURL", "setURLs", "showViewController", "closeViewController", "mainLoop", "openURL", "shareItems", "pickDocumentsWithFilePicker", "_get_variables_hierarchy"]
 
 # MARK: - Run script
 
