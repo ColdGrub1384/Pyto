@@ -36,15 +36,27 @@ class MenuTableViewController: UITableViewController, UIPopoverPresentationContr
     
     /// Shows loaded modules.
     func selectLoadedModules() {
-        if Python.shared.isScriptRunning {
+        let wasRunningScript = Python.shared.isScriptRunning
+        if wasRunningScript {
             Python.shared.stop()
         }
-        dismiss(animated: true) {
+        
+        func checkModules() {
             PyInputHelper.userInput = "import modules_inspector; modules_inspector.main()"
-            
+        }
+        
+        dismiss(animated: true) {
             let navVC = UINavigationController(rootViewController: ModulesTableViewController(style: .grouped))
             navVC.modalPresentationStyle = .formSheet
-            UIApplication.shared.keyWindow?.topViewController?.present(navVC, animated: true, completion: nil)
+            UIApplication.shared.keyWindow?.topViewController?.present(navVC, animated: true, completion: {
+                if wasRunningScript {
+                    _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { (_) in
+                        checkModules()
+                    })
+                } else {
+                    checkModules()
+                }
+            })
         }
     }
     
