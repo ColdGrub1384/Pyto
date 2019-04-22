@@ -37,6 +37,7 @@
 		C91321D721FB684900437845 /* BlockBasedSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7421F49B1200E7CC35 /* BlockBasedSelector.m */; };
 		C91321D821FB684C00437845 /* BlockBasedSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7521F49B1200E7CC35 /* BlockBasedSelector.swift */; };
 		C91321D921FB684E00437845 /* PySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7A21F49B8400E7CC35 /* PySelector.swift */; };
+		C916F44B226CFD4800FA2FB6 /* modules_inspector.py in Resources */ = {isa = PBXBuildFile; fileRef = C916F44A226CFD4700FA2FB6 /* modules_inspector.py */; };
 		C921EF6721ECA02E004C750D /* XcodeActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C921EF6621ECA02E004C750D /* XcodeActivity.swift */; };
 		C921EF7821ECC388004C750D /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C921EF7721ECC388004C750D /* ActivityViewController.swift */; };
 		C92495C72151A3E3007EB4DB /* ReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92495C62151A3E3007EB4DB /* ReviewHelper.swift */; };
@@ -60,7 +61,6 @@
 		C9425A7721F49B1300E7CC35 /* BlockBasedSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7421F49B1200E7CC35 /* BlockBasedSelector.m */; };
 		C9425A7821F49B1300E7CC35 /* BlockBasedSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7521F49B1200E7CC35 /* BlockBasedSelector.swift */; };
 		C9425A7B21F49B8400E7CC35 /* PySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7A21F49B8400E7CC35 /* PySelector.swift */; };
-		C945EB2221F8D3A100F6D5B3 /* InspectorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C945EB2121F8D3A100F6D5B3 /* InspectorTableViewController.swift */; };
 		C946A5AA22074EAA00F78C5C /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C946A5A922074EAA00F78C5C /* NotificationCenter.framework */; };
 		C946A5AD22074EAA00F78C5C /* ConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946A5AC22074EAA00F78C5C /* ConsoleViewController.swift */; };
 		C946A5B022074EAA00F78C5C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C946A5AE22074EAA00F78C5C /* MainInterface.storyboard */; };
@@ -119,7 +119,7 @@
 		C94CC2C521FCEF70005E9556 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C94CC2C321FCEF70005E9556 /* Main.storyboard */; };
 		C94CC2CB21FCF17F005E9556 /* PyDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1421D0592C00412CEF /* PyDocument.swift */; };
 		C94CC2D121FCF59D005E9556 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94CC2D021FCF59D005E9556 /* EditorViewController.swift */; };
-		C9530C3E21F8B7BD007B24F3 /* Inspector.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9530C3D21F8B7BD007B24F3 /* Inspector.storyboard */; };
+		C94F12B0226BC98D00B4A035 /* ModulesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94F12AF226BC98D00B4A035 /* ModulesTableViewController.swift */; };
 		C954FAB5220A165E0060C488 /* Replace.xib in Resources */ = {isa = PBXBuildFile; fileRef = C954FAB4220A165E0060C488 /* Replace.xib */; };
 		C954FAB9220A2BB00060C488 /* ReplaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C954FAB8220A2BB00060C488 /* ReplaceView.swift */; };
 		C9592D1821D0592C00412CEF /* PyDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1421D0592C00412CEF /* PyDocument.swift */; };
@@ -1416,6 +1416,7 @@
 		C913202A21DC12A300EEE677 /* AcknowledgmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcknowledgmentsViewController.swift; sourceTree = "<group>"; };
 		C91321C321FB31C700437845 /* ConsoleViewController+showViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ConsoleViewController+showViewController.m"; sourceTree = "<group>"; };
 		C91321C821FB500300437845 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		C916F44A226CFD4700FA2FB6 /* modules_inspector.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = modules_inspector.py; sourceTree = "<group>"; };
 		C921EF6621ECA02E004C750D /* XcodeActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeActivity.swift; sourceTree = "<group>"; };
 		C921EF7721ECC388004C750D /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		C92495C62151A3E3007EB4DB /* ReviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewHelper.swift; sourceTree = "<group>"; };
@@ -1480,7 +1481,6 @@
 		C943AC3D215277A000844368 /* Python.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Python.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C944180821FDF54000B0A046 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
 		C944180C21FDF54600B0A046 /* liblzma.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = liblzma.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/lib/liblzma.tbd; sourceTree = DEVELOPER_DIR; };
-		C945EB2121F8D3A100F6D5B3 /* InspectorTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorTableViewController.swift; sourceTree = "<group>"; };
 		C946A5A822074EA900F78C5C /* Pyto Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Pyto Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C946A5A922074EAA00F78C5C /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		C946A5AC22074EAA00F78C5C /* ConsoleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleViewController.swift; sourceTree = "<group>"; };
@@ -1541,7 +1541,7 @@
 		C94CC2C621FCEF70005E9556 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C94CC2C721FCEF70005E9556 /* Pyto_Mac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pyto_Mac.entitlements; sourceTree = "<group>"; };
 		C94CC2D021FCF59D005E9556 /* EditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
-		C9530C3D21F8B7BD007B24F3 /* Inspector.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Inspector.storyboard; sourceTree = "<group>"; };
+		C94F12AF226BC98D00B4A035 /* ModulesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulesTableViewController.swift; sourceTree = "<group>"; };
 		C954FAB4220A165E0060C488 /* Replace.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Replace.xib; sourceTree = "<group>"; };
 		C954FAB8220A2BB00060C488 /* ReplaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplaceView.swift; sourceTree = "<group>"; };
 		C9592D1421D0592C00412CEF /* PyDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PyDocument.swift; sourceTree = "<group>"; };
@@ -2216,8 +2216,8 @@
 				C9B5D84E21F11AAE00E980BA /* AboutTableViewController.swift */,
 				C921EF7721ECC388004C750D /* ActivityViewController.swift */,
 				C9C0E78C21F0B7FA0057C63E /* ThemeChooserTableViewController.swift */,
-				C945EB2121F8D3A100F6D5B3 /* InspectorTableViewController.swift */,
 				C909A1992267DB210058C145 /* MenuTableViewController.swift */,
+				C94F12AF226BC98D00B4A035 /* ModulesTableViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -2263,7 +2263,6 @@
 				C903B989215843B4004AAD7F /* extraCommandsDictionary.plist */,
 				C9F04E8A2173DD7300BDD03E /* Main.storyboard */,
 				C9C0E78A21F0B5770057C63E /* Theme Chooser.storyboard */,
-				C9530C3D21F8B7BD007B24F3 /* Inspector.storyboard */,
 				C9B5D84A21F119B100E980BA /* Settings.storyboard */,
 				C9A33B12224FCDAD0083F041 /* TextField.xib */,
 				C9FCFD5F214428B300A07974 /* Assets.xcassets */,
@@ -2280,6 +2279,7 @@
 				C9E4152D21514F9100D64E32 /* Startup.py */,
 				C92DBD7F21F67B9C0098BE43 /* REPL.py */,
 				C9E116DF21F773EB00FB5DD2 /* UserREPL.py */,
+				C916F44A226CFD4700FA2FB6 /* modules_inspector.py */,
 				C9B5D87521F214DC00E980BA /* body.html */,
 				C9F04E852173C33400BDD03E /* Localizable.strings */,
 				C9EA5C7C21F23024000F7FA7 /* Welcome to Pyto.md */,
@@ -3423,7 +3423,6 @@
 				C9B5D86221F144E400E980BA /* Untitled.md in Resources */,
 				C9A33B13224FCDAD0083F041 /* TextField.xib in Resources */,
 				C9647FFF21ACA00D005765C2 /* Help.py in Resources */,
-				C9530C3E21F8B7BD007B24F3 /* Inspector.storyboard in Resources */,
 				C954FAB5220A165E0060C488 /* Replace.xib in Resources */,
 				C9B5D84B21F119B100E980BA /* Settings.storyboard in Resources */,
 				C9E509A221BC08F900261E3A /* docs in Resources */,
@@ -3435,6 +3434,7 @@
 				C9E116E021F773EB00FB5DD2 /* UserREPL.py in Resources */,
 				C9FCFD6D21442FD700A07974 /* Untitled.py in Resources */,
 				C903B98821584367004AAD7F /* commandDictionary.plist in Resources */,
+				C916F44B226CFD4800FA2FB6 /* modules_inspector.py in Resources */,
 				C9B5D87621F214DC00E980BA /* body.html in Resources */,
 				C903B98A215843B4004AAD7F /* extraCommandsDictionary.plist in Resources */,
 				C9E4152E21514F9100D64E32 /* Startup.py in Resources */,
@@ -3719,7 +3719,7 @@
 				C91321C421FB31C700437845 /* ConsoleViewController+showViewController.m in Sources */,
 				C946A5C722077F9800F78C5C /* UserDefaults.swift in Sources */,
 				C9592D2721D059BA00412CEF /* EditorSplitViewController.swift in Sources */,
-				C945EB2221F8D3A100F6D5B3 /* InspectorTableViewController.swift in Sources */,
+				C94F12B0226BC98D00B4A035 /* ModulesTableViewController.swift in Sources */,
 				C9C0E78321EF75080057C63E /* Midnight.swift in Sources */,
 				C903B98C21598A63004AAD7F /* IO.swift in Sources */,
 				C9B3FDEC21503DE7000FC9A8 /* PyExtensionContext.swift in Sources */,

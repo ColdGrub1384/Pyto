@@ -65,7 +65,7 @@ func completeCode() {
     semaphore.wait()
     
     let code = [
-        "__builtins__.deprecated = ['runAsync', 'runSync', 'generalPasteboard', 'setString', 'setStrings', 'setImage', 'setImages', 'setURL', 'setURLs','showViewController', 'closeViewController', 'mainLoop', 'openURL', 'shareItems', 'pickDocumentsWithFilePicker']",
+        "__builtins__.deprecated = ['runAsync', 'runSync', 'generalPasteboard', 'setString', 'setStrings', 'setImage', 'setImages', 'setURL', 'setURLs','showViewController', 'closeViewController', 'mainLoop', 'openURL', 'shareItems', 'pickDocumentsWithFilePicker', '_get_variables_hierarchy']",
         "from _codecompletion import suggestionsForCode",
         "source = '''",
         "macOS = 'macOS'",

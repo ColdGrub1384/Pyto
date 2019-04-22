@@ -92,30 +92,6 @@ import UIKit
         }
     }
     
-    #if MAIN
-    /// Variables from running scripts.
-    @objc static var variables = [String:Any]() {
-        didSet {
-            DispatchQueue.main.async {
-                if let inspector = (self.visible.presentedViewController as? UINavigationController)?.viewControllers.first as? InspectorTableViewController, String(describing: inspector.hierarchy) != String(describing: variables) {
-                    inspector.hierarchy = variables
-                    inspector.tableView.reloadData()
-                }
-            }
-        }
-    }
-    
-    /// Shows the variables inspector.
-    @objc func showInspector() {
-        if let vc = UIStoryboard(name: "Inspector", bundle: Bundle.main).instantiateInitialViewController() {
-            ((vc as? UINavigationController)?.viewControllers.first as? InspectorTableViewController)?.hierarchy = ConsoleViewController.variables
-            (parent as? REPLViewController)?.reloadREPL = false
-            
-            present(vc, animated: true, completion: nil)
-        }
-    }
-    #endif
-    
     /// The content of the console.
     @objc var console = ""
     
@@ -487,25 +463,6 @@ import UIKit
         appendStop()
         #endif
         
-        #if MAIN
-        let inspectorButton = UIButton(type: .infoDark)
-        inspectorButton.addTarget(self, action: #selector(showInspector), for: .touchUpInside)
-        let inspectorItem = UIBarButtonItem(customView: inspectorButton)
-        items.append(inspectorItem)
-        if parent?.navigationItem.rightBarButtonItems == nil {
-            //parent?.navigationItem.rightBarButtonItem = inspectorItem
-        } else {
-            var continue_ = true
-            for item in parent?.navigationItem.rightBarButtonItems ?? [] {
-                if (item.customView as? UIButton)?.buttonType == .infoDark {
-                    continue_ = false
-                }
-            }
-            if continue_ {
-                parent?.navigationItem.rightBarButtonItems?.append(inspectorItem)
-            }
-        }
-        #endif
         navigationItem.rightBarButtonItems = items
         
         #if MAIN
