@@ -34,6 +34,20 @@ class MenuTableViewController: UITableViewController, UIPopoverPresentationContr
         }
     }
     
+    /// Shows loaded modules.
+    func selectLoadedModules() {
+        if Python.shared.isScriptRunning {
+            Python.shared.stop()
+        }
+        dismiss(animated: true) {
+            PyInputHelper.userInput = "import modules_inspector; modules_inspector.main()"
+            
+            let navVC = UINavigationController(rootViewController: ModulesTableViewController(style: .grouped))
+            navVC.modalPresentationStyle = .formSheet
+            UIApplication.shared.keyWindow?.topViewController?.present(navVC, animated: true, completion: nil)
+        }
+    }
+    
     /// Opens settings.
     func selectSettings() {
         dismiss(animated: true) {
@@ -58,6 +72,8 @@ class MenuTableViewController: UITableViewController, UIPopoverPresentationContr
         case 1:
             selectPyPi()
         case 2:
+            selectLoadedModules()
+        case 3:
             selectSettings()
         default:
             break

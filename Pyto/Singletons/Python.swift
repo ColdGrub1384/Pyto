@@ -60,6 +60,9 @@ import Cocoa
     /// Set to `true` while the REPL is asking for input.
     @objc public var isREPLAskingForInput = false
     
+    /// The thread running current thread.
+    @objc var currentRunningThreadID = -1
+    
     #endif
     
     /// All the Python output.
