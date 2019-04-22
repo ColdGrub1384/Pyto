@@ -54,7 +54,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="FVe-ao-lKW">
-                            <rect key="frame" x="0.0" y="225" width="414" height="0.0"/>
+                            <rect key="frame" x="0.0" y="300" width="414" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
@@ -106,8 +106,31 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="Nfb-Qi-luK" imageView="3SV-Fv-Gmw" rowHeight="75" style="IBUITableViewCellStyleDefault" id="cYO-3K-8Cz">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="0lV-pN-hwB" imageView="m6Q-C9-Kaq" rowHeight="75" style="IBUITableViewCellStyleDefault" id="rkx-D1-u0P">
                                         <rect key="frame" x="0.0" y="150" width="414" height="75"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rkx-D1-u0P" id="iBD-CY-0tJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Loaded modules" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0lV-pN-hwB">
+                                                    <rect key="frame" x="67" y="0.0" width="327" height="75"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="Info" id="m6Q-C9-Kaq">
+                                                    <rect key="frame" x="20" y="21" width="32" height="32"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="tintColor" name="TintColor"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="Nfb-Qi-luK" imageView="3SV-Fv-Gmw" rowHeight="75" style="IBUITableViewCellStyleDefault" id="cYO-3K-8Cz">
+                                        <rect key="frame" x="0.0" y="225" width="414" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cYO-3K-8Cz" id="5nZ-T8-Vb1">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
@@ -136,7 +159,7 @@
                             <outlet property="delegate" destination="K3r-ie-kuA" id="uFf-eE-QsV"/>
                         </connections>
                     </tableView>
-                    <value key="contentSizeForViewInPopover" type="size" width="225" height="225"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="300" height="300"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xG2-SF-Zcl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -254,6 +277,7 @@
     </scenes>
     <resources>
         <image name="Grid" width="32" height="32"/>
+        <image name="Info" width="32" height="32"/>
         <image name="UIButtonBarArrowLeft_Normal" width="10" height="18"/>
         <image name="UIButtonBarArrowRight_Normal" width="10" height="18"/>
         <image name="gear" width="28" height="28"/>

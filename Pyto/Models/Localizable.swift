@@ -47,6 +47,16 @@ class Localizable: Static {
     /// Action for moving file at current directory
     static let moveHere = NSLocalizedString("moveHere", comment: "Action for moving file at current directory")
     
+    /// Strings used in the View controller that displays loaded modules.
+    class ModulesTableViewController: Static {
+        
+        /// The subtitle of the view controller for displaying modules
+        static let subtitle = NSLocalizedString("modulesTableViewController.subtitle", comment: "The subtitle of the view controller for displaying modules")
+        
+        /// The title of the view controller for displaying modules
+        static let title = NSLocalizedString("modulesTableViewController.title", comment: "The title of the view controller for displaying modules")
+    }
+    
     /// Strings for the alert for setting arguments.
     class ArgumentsAlert: Static {
         
