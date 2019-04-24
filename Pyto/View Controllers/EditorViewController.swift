@@ -254,8 +254,16 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         textView.contentTextView.isEditable = !isSample
         
+        let space = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        space.width = 10
+        
         parent?.navigationController?.isToolbarHidden = false
-        parent?.toolbarItems = [shareItem, docItem, UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), argsItem]
+        parent?.toolbarItems = [
+            shareItem,
+            space,
+            docItem,
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), argsItem
+        ]
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -597,7 +605,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     /// Shares the current script.
     @objc func share(_ sender: UIBarButtonItem) {
-        let activityVC = UIActivityViewController(activityItems: [document as Any], applicationActivities: [XcodeActivity()])
+        let activityVC = UIActivityViewController(activityItems: [document?.fileURL as Any], applicationActivities: [XcodeActivity()])
         activityVC.popoverPresentationController?.barButtonItem = sender
         present(activityVC, animated: true, completion: nil)
     }
