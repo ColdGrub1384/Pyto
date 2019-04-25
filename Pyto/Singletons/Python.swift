@@ -201,9 +201,10 @@ import Cocoa
         
         let pythonPath = [
             Bundle.main.path(forResource: "site-packages", ofType: nil) ?? "",
+            Bundle.main.path(forResource: "mac-site-packages", ofType: nil) ?? "",
+            Bundle.main.path(forResource: "mac-site-packages/PyObjC", ofType: nil) ?? "",
             Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
             Bundle.main.path(forResource: "lib/python3.7/site-packages", ofType: nil) ?? "",
-            Bundle.main.path(forResource: "PyObjc", ofType: nil) ?? "",
             Bundle.main.resourcePath ?? "",
             url.deletingLastPathComponent().path,
             sitePackagesDirectory ?? "",

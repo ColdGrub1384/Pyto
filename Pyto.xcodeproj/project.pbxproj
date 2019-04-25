@@ -47,17 +47,15 @@
 		C92DBD8221F687480098BE43 /* REPLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92DBD8121F687480098BE43 /* REPLViewController.swift */; };
 		C9317EDD21FDF85A0016E422 /* REPL.py in Resources */ = {isa = PBXBuildFile; fileRef = C92DBD7F21F67B9C0098BE43 /* REPL.py */; };
 		C9317EE421FE15F20016E422 /* PyIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C9317EE321FE15F20016E422 /* PyIcon.png */; };
-		C9317EE921FE7B9F0016E422 /* _scproxy.cpython-37m-darwin.so in Resources */ = {isa = PBXBuildFile; fileRef = C9317EE821FE7B9E0016E422 /* _scproxy.cpython-37m-darwin.so */; };
 		C9317EEB21FF2D310016E422 /* python3 in Resources */ = {isa = PBXBuildFile; fileRef = C974194721FDECD400E3924C /* python3 */; };
 		C9317EEC21FF2DD00016E422 /* Python.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904EB7221445D5800585C28 /* Python.swift */; };
-		C9317EEE21FF35EB0016E422 /* _tkinter.cpython-37m-darwin.so in Resources */ = {isa = PBXBuildFile; fileRef = C9317EED21FF35EB0016E422 /* _tkinter.cpython-37m-darwin.so */; };
-		C9317EF121FF59CD0016E422 /* PyObjC in Resources */ = {isa = PBXBuildFile; fileRef = C9317EF021FF59CC0016E422 /* PyObjC */; };
 		C93CA8B522022E67008DD049 /* QuickLookHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93CA8B422022E67008DD049 /* QuickLookHelper.swift */; };
 		C93CA8B822022E6E008DD049 /* QuickLookHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93CA8B422022E67008DD049 /* QuickLookHelper.swift */; };
 		C93D61DD2145CD0800C8B5E3 /* PyInputHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DC2145CD0800C8B5E3 /* PyInputHelper.swift */; };
 		C93D61DF2145D03200C8B5E3 /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DE2145D03200C8B5E3 /* UIWindow.swift */; };
 		C93D61E12145D46700C8B5E3 /* PyOutputHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E02145D46700C8B5E3 /* PyOutputHelper.swift */; };
 		C93D61E32145D50A00C8B5E3 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E22145D50A00C8B5E3 /* String.swift */; };
+		C93E1C56227115310079A5C0 /* mac-site-packages in Resources */ = {isa = PBXBuildFile; fileRef = C93E1C55227115300079A5C0 /* mac-site-packages */; };
 		C9425A7721F49B1300E7CC35 /* BlockBasedSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7421F49B1200E7CC35 /* BlockBasedSelector.m */; };
 		C9425A7821F49B1300E7CC35 /* BlockBasedSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7521F49B1200E7CC35 /* BlockBasedSelector.swift */; };
 		C9425A7B21F49B8400E7CC35 /* PySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7A21F49B8400E7CC35 /* PySelector.swift */; };
@@ -294,7 +292,6 @@
 		C98E12DF22139739005CE20C /* NSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98E12DE22139739005CE20C /* NSView.swift */; };
 		C98E12E72214689A005CE20C /* ConsoleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98E12E62214689A005CE20C /* ConsoleTextView.swift */; };
 		C98E12EC2214751B005CE20C /* cacert.pem in Resources */ = {isa = PBXBuildFile; fileRef = C95AECB72208A688003BCB05 /* cacert.pem */; };
-		C98E12EE22147618005CE20C /* pip in Resources */ = {isa = PBXBuildFile; fileRef = C98E12ED22147618005CE20C /* pip */; };
 		C98E12F022147695005CE20C /* installer.py in Resources */ = {isa = PBXBuildFile; fileRef = C98E12EF22147695005CE20C /* installer.py */; };
 		C98E1FFD214EE6ED002F0178 /* Samples in Resources */ = {isa = PBXBuildFile; fileRef = C98E1FFC214EE6EC002F0178 /* Samples */; };
 		C98E2002214F0856002F0178 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C98E2001214F0856002F0178 /* main.m */; };
@@ -1425,9 +1422,6 @@
 		C92DBD7F21F67B9C0098BE43 /* REPL.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = REPL.py; sourceTree = "<group>"; };
 		C92DBD8121F687480098BE43 /* REPLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REPLViewController.swift; sourceTree = "<group>"; };
 		C9317EE321FE15F20016E422 /* PyIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PyIcon.png; sourceTree = "<group>"; };
-		C9317EE821FE7B9E0016E422 /* _scproxy.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "_scproxy.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C9317EED21FF35EB0016E422 /* _tkinter.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = "_tkinter.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C9317EF021FF59CC0016E422 /* PyObjC */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PyObjC; sourceTree = "<group>"; };
 		C9317EF321FF67B40016E422 /* ft2font.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "ft2font.cpython-37m-darwin.so"; sourceTree = "<group>"; };
 		C9317EF521FF67C20016E422 /* _tri.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "_tri.cpython-37m-darwin.so"; sourceTree = "<group>"; };
 		C9317EF621FF67C20016E422 /* _contour.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "_contour.cpython-37m-darwin.so"; sourceTree = "<group>"; };
@@ -1464,6 +1458,7 @@
 		C93D61DE2145D03200C8B5E3 /* UIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
 		C93D61E02145D46700C8B5E3 /* PyOutputHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyOutputHelper.swift; sourceTree = "<group>"; };
 		C93D61E22145D50A00C8B5E3 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		C93E1C55227115300079A5C0 /* mac-site-packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "mac-site-packages"; sourceTree = "<group>"; };
 		C941D36F2235661F00CA921D /* etree.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = etree.o; sourceTree = "<group>"; };
 		C941D3702235662000CA921D /* objectify.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = objectify.o; sourceTree = "<group>"; };
 		C941D3722235662000CA921D /* clean.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = clean.o; sourceTree = "<group>"; };
@@ -1781,7 +1776,6 @@
 		C98472AD21A05CB1008E16AC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C98E12DE22139739005CE20C /* NSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSView.swift; sourceTree = "<group>"; };
 		C98E12E62214689A005CE20C /* ConsoleTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleTextView.swift; sourceTree = "<group>"; };
-		C98E12ED22147618005CE20C /* pip */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pip; sourceTree = "<group>"; };
 		C98E12EF22147695005CE20C /* installer.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = installer.py; sourceTree = "<group>"; };
 		C98E1FFC214EE6EC002F0178 /* Samples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Samples; sourceTree = "<group>"; };
 		C98E2001214F0856002F0178 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -2791,10 +2785,7 @@
 				C94CC2C121FCEF70005E9556 /* Assets Mac.xcassets */,
 				C94CC2C321FCEF70005E9556 /* Main.storyboard */,
 				C94CC2C621FCEF70005E9556 /* Info.plist */,
-				C98E12ED22147618005CE20C /* pip */,
-				C9317EF021FF59CC0016E422 /* PyObjC */,
-				C9317EE821FE7B9E0016E422 /* _scproxy.cpython-37m-darwin.so */,
-				C9317EED21FF35EB0016E422 /* _tkinter.cpython-37m-darwin.so */,
+				C93E1C55227115300079A5C0 /* mac-site-packages */,
 				C94CC2C721FCEF70005E9556 /* Pyto_Mac.entitlements */,
 			);
 			name = Resources;
@@ -3368,11 +3359,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9317EF121FF59CD0016E422 /* PyObjC in Resources */,
 				C94CC2C221FCEF70005E9556 /* Assets Mac.xcassets in Resources */,
 				C9317EDD21FDF85A0016E422 /* REPL.py in Resources */,
-				C9317EE921FE7B9F0016E422 /* _scproxy.cpython-37m-darwin.so in Resources */,
-				C9317EEE21FF35EB0016E422 /* _tkinter.cpython-37m-darwin.so in Resources */,
 				C90FB05F21FDEE7300DF66DB /* python3.7 in Resources */,
 				C90FB07121FDF25300DF66DB /* Startup.py in Resources */,
 				C90FB07321FDF4A400DF66DB /* Localizable.strings in Resources */,
@@ -3380,10 +3368,10 @@
 				C98E12EC2214751B005CE20C /* cacert.pem in Resources */,
 				C9317EE421FE15F20016E422 /* PyIcon.png in Resources */,
 				C94CC2C521FCEF70005E9556 /* Main.storyboard in Resources */,
-				C98E12EE22147618005CE20C /* pip in Resources */,
 				C9317EEB21FF2D310016E422 /* python3 in Resources */,
 				C9D6DF00221059F900D7EF55 /* CodeCompletionViewItem.xib in Resources */,
 				C90FB06F21FDF10600DF66DB /* docs in Resources */,
+				C93E1C56227115310079A5C0 /* mac-site-packages in Resources */,
 				C98E12F022147695005CE20C /* installer.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
