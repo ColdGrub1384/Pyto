@@ -17,12 +17,13 @@
     
     <p>This runs a loop while the UI is shown to keep the program running. You should always call this function after showing an interactive UI.</p>
     
-    <h2><code>show_view_controller(viewController)</code></h2>
+    <h2><code>show_view_controller(viewController, completion=None)</code></h2>
     
     <p>Shows the given View controller.</p>
     
     <ul>
         <li>viewController: An <code>UIViewController</code> to show.</li>
+        <li>completion: Code to call as completion. Use this function to configure the view.</li>
     </ul>
     
     <h2><code>close_view_controller()</code></h2>
