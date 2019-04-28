@@ -154,10 +154,8 @@ import SavannaKit
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        if isDarkModeEnabled {
-            browserUserInterfaceStyle = .dark
-        } else {
-            browserUserInterfaceStyle = .white
+        if previousTraitCollection != nil && traitCollection != previousTraitCollection {
+            UIApplication.shared.keyWindow?.rootViewController = storyboard?.instantiateInitialViewController()
         }
     }
     
