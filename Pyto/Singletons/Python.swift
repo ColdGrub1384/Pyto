@@ -230,8 +230,17 @@ import Cocoa
                             }
                             editor.showErrorAtLine(lineNum)
                         } else if str != "Pyto.console.clear" && str != "Pyto.console.clear\n" {
-                            editor.consoleTextView?.string += str
-                            editor.console += str
+                            
+                            
+                            var text = str
+                            if let iCloudDrive = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents").path {
+                                text = text.replacingOccurrences(of: iCloudDrive, with: "iCloud")
+                            }
+                            
+                            text = text.replacingOccurrences(of: Bundle.main.bundlePath, with: "Pyto.app")
+                            
+                            editor.consoleTextView?.string += text
+                            editor.console += text
                             editor.consoleTextView?.scrollToBottom()
                         } else {
                             editor.consoleTextView?.string = ""
