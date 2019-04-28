@@ -71,12 +71,6 @@ class MenuTableViewController: UITableViewController, UIPopoverPresentationContr
     
     // MARK: - Table view controller
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        view.accessibilityIgnoresInvertColors = true
-    }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
@@ -90,6 +84,13 @@ class MenuTableViewController: UITableViewController, UIPopoverPresentationContr
         default:
             break
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        cell.imageView?.accessibilityIgnoresInvertColors = true
+        return cell
     }
     
     // MARK: - Popover presentation controller delegate
