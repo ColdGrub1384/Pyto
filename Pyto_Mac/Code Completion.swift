@@ -37,10 +37,6 @@ func completeCode() {
         return DispatchQueue.global().async(execute: completeCode)
     }
     
-    guard let pythonExecutble = Bundle.main.url(forResource: "python3", withExtension: nil) else {
-        return
-    }
-    
     var text = ""
     var filePath = ""
     
@@ -93,8 +89,7 @@ func completeCode() {
         Bundle.main.path(forResource: "mac-site-packages", ofType: nil) ?? "",
         Bundle.main.path(forResource: "mac-site-packages/PyObjC", ofType: nil) ?? "",
         Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
-        Bundle.main.path(forResource: "lib/python3.7/site-packages", ofType: nil) ?? "",
-        sitePackagesDirectory ?? "",
+        sitePackagesDirectory,
         "/usr/local/lib/python3.7/site-packages"
         ].joined(separator: ":")
     
@@ -104,7 +99,7 @@ func completeCode() {
     
     let process = Process()
     processes[process] = true
-    process.executableURL = pythonExecutble
+    process.executableURL = Python.shared.pythonExecutable
     process.arguments = [scriptPath]
     process.standardOutput = outputPipe
     process.environment = environment
