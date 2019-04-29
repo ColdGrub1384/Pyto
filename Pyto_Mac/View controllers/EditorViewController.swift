@@ -375,13 +375,19 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
     
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         
+        guard suggestions.indices.contains(indexPath.item) else {
+            return collectionView.makeItem(withIdentifier: codeCompletionCellID, for: indexPath)
+        }
+        
+        let suggestion = suggestions[indexPath.item]
+        
         if codeCompletionCellID == nil {
             codeCompletionCellID = NSUserInterfaceItemIdentifier("CodeCompletionViewItem")
             collectionView.register(NSNib(nibNamed: "CodeCompletionViewItem", bundle: nil), forItemWithIdentifier: codeCompletionCellID)
         }
         
         let item = collectionView.makeItem(withIdentifier: codeCompletionCellID, for: indexPath)
-        (item as? CodeCompletionViewItem)?.titleLabel?.stringValue = suggestions[indexPath.item]
+        (item as? CodeCompletionViewItem)?.titleLabel?.stringValue = suggestion
         (item as? CodeCompletionViewItem)?.selectionHandler = {
                         
             let index = indexPath.item

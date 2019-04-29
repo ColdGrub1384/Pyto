@@ -57,8 +57,6 @@ class REPLViewController: EditorViewController, NSWindowDelegate {
         let pythonPath = [
             Bundle.main.resourcePath ?? "",
             Bundle.main.path(forResource: "site-packages", ofType: nil) ?? "",
-            Bundle.main.path(forResource: "mac-site-packages", ofType: nil) ?? "",
-            Bundle.main.path(forResource: "mac-site-packages/PyObjC", ofType: nil) ?? "",
             Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
             url.deletingLastPathComponent().path,
             sitePackagesDirectory,

@@ -202,9 +202,6 @@ import Cocoa
         
         let pythonPath = [
             Bundle.main.path(forResource: "site-packages", ofType: nil) ?? "",
-            Bundle.main.path(forResource: "mac-site-packages", ofType: nil) ?? "",
-            Bundle.main.path(forResource: "mac-site-packages/PyObjC", ofType: nil) ?? "",
-            Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
             Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
             Bundle.main.resourcePath ?? "",
             url.deletingLastPathComponent().path,
@@ -230,9 +227,10 @@ import Cocoa
                                 continue
                             }
                             editor.showErrorAtLine(lineNum)
-                        } else if str != "Pyto.console.clear" && str != "Pyto.console.clear\n" {
-                            
-                            
+                        } else if str == "Pyto.console.clear" || str == "Pyto.console.clear\n" {
+                            editor.consoleTextView?.string = ""
+                            editor.console = ""
+                        } else {
                             var text = str
                             if let iCloudDrive = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents").path {
                                 text = text.replacingOccurrences(of: iCloudDrive, with: "iCloud")
@@ -243,9 +241,6 @@ import Cocoa
                             editor.consoleTextView?.string += text
                             editor.console += text
                             editor.consoleTextView?.scrollToBottom()
-                        } else {
-                            editor.consoleTextView?.string = ""
-                            editor.console = ""
                         }
                     }
                 }
@@ -287,19 +282,20 @@ import Cocoa
     /// Setups Python executable and C extensions. Should be called before running any script.
     func setup() {
     
-        guard let zippedExecutable = Bundle.main.path(forResource: "python", ofType: "zip"), let zippedSitePackages = Bundle.main.path(forResource: "mac-site-packages", ofType: "zip") else {
-            return
+        DispatchQueue.global().async {
+            guard let zippedExecutable = Bundle.main.path(forResource: "python", ofType: "zip"), let zippedSitePackages = Bundle.main.path(forResource: "mac-site-packages", ofType: "zip") else {
+                return
+            }
+            
+            if !FileManager.default.fileExists(atPath: self.pythonExecutable.path) {
+                unzipFile(at: zippedExecutable, to: self.pythonExecutable.deletingLastPathComponent().path)
+            }
+            
+            if !FileManager.default.fileExists(atPath: sitePackagesDirectory) {
+                try? FileManager.default.createDirectory(at: URL(fileURLWithPath: sitePackagesDirectory), withIntermediateDirectories: true, attributes: nil)
+                unzipFile(at: zippedSitePackages, to: sitePackagesDirectory)
+            }
         }
-        
-        if !FileManager.default.fileExists(atPath: pythonExecutable.path) {
-            unzipFile(at: zippedExecutable, to: pythonExecutable.deletingLastPathComponent().path)
-        }
-        
-        if !FileManager.default.fileExists(atPath: sitePackagesDirectory) {
-            try? FileManager.default.createDirectory(at: URL(fileURLWithPath: sitePackagesDirectory), withIntermediateDirectories: true, attributes: nil)
-        }
-        
-        unzipFile(at: zippedSitePackages, to: sitePackagesDirectory)
     }
     
     #endif
