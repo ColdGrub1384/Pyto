@@ -11,7 +11,7 @@ import SourceEditor
 import SavannaKit
 
 /// The directory where pip packages will be installed.
-let sitePackagesDirectory = FileManager.default.urls(for: .applicationSupportDirectory, in: .allDomainsMask).first?.appendingPathComponent("site-packages").path
+let sitePackagesDirectory = FileManager.default.urls(for: .applicationSupportDirectory, in: .allDomainsMask)[0].appendingPathComponent("site-packages").path
 
 /// The app's delegate.
 @NSApplicationMain

@@ -46,10 +46,6 @@ class REPLViewController: EditorViewController, NSWindowDelegate {
             return
         }
         
-        guard let pythonExecutble = Bundle.main.url(forResource: "python3", withExtension: nil) else {
-            return
-        }
-        
         let tmpFile = NSTemporaryDirectory()+"/script.py"
         
         if FileManager.default.fileExists(atPath: tmpFile) {
@@ -64,9 +60,8 @@ class REPLViewController: EditorViewController, NSWindowDelegate {
             Bundle.main.path(forResource: "mac-site-packages", ofType: nil) ?? "",
             Bundle.main.path(forResource: "mac-site-packages/PyObjC", ofType: nil) ?? "",
             Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
-            Bundle.main.path(forResource: "lib/python3.7/site-packages", ofType: nil) ?? "",
             url.deletingLastPathComponent().path,
-            sitePackagesDirectory ?? "",
+            sitePackagesDirectory,
             "/usr/local/lib/python3.7/site-packages"
             ].joined(separator: ":")
         
@@ -89,7 +84,7 @@ class REPLViewController: EditorViewController, NSWindowDelegate {
         
         outputPipe.fileHandleForReading.readabilityHandler = read
         
-        process.executableURL = pythonExecutble
+        process.executableURL = Python.shared.pythonExecutable
         process.arguments = ["-u", tmpFile]
         
         var environment               = ProcessInfo.processInfo.environment

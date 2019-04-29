@@ -166,21 +166,22 @@ import Cocoa
     /// The process running Python.
     var process: Process?
     
+    /// The Python executable path.
+    let pythonExecutable = FileManager.default.urls(for: .applicationSupportDirectory, in: .allDomainsMask)[0].appendingPathComponent("python3")
+    
     /// Run script at given URL in a subprocess.
     ///
     /// - Parameters:
     ///     - url: URL of the Python script to run.
     @objc public func runScript(at url: URL) {
         
+        setup()
+        
         guard let startupURL = Bundle(for: Python.self).url(forResource: "Startup", withExtension: "py"), let src = try? String(contentsOf: startupURL) else {
             return
         }
         
         guard let code = String(format: src, url.path).data(using: .utf8) else {
-            return
-        }
-        
-        guard let pythonExecutble = Bundle.main.url(forResource: "python3", withExtension: nil) else {
             return
         }
         
@@ -204,10 +205,10 @@ import Cocoa
             Bundle.main.path(forResource: "mac-site-packages", ofType: nil) ?? "",
             Bundle.main.path(forResource: "mac-site-packages/PyObjC", ofType: nil) ?? "",
             Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
-            Bundle.main.path(forResource: "lib/python3.7/site-packages", ofType: nil) ?? "",
+            Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
             Bundle.main.resourcePath ?? "",
             url.deletingLastPathComponent().path,
-            sitePackagesDirectory ?? "",
+            sitePackagesDirectory,
             "/usr/local/lib/python3.7/site-packages"
             ].joined(separator: ":")
         
@@ -254,7 +255,7 @@ import Cocoa
         outputPipe.fileHandleForReading.readabilityHandler = read
         
         process = Process()
-        process?.executableURL = pythonExecutble
+        process?.executableURL = pythonExecutable
         process?.arguments = ["-u", tmpFile]
         
         var environment               = ProcessInfo.processInfo.environment
@@ -282,6 +283,25 @@ import Cocoa
             NSApp.presentError(error)
         }
     }
+    
+    /// Setups Python executable and C extensions. Should be called before running any script.
+    func setup() {
+    
+        guard let zippedExecutable = Bundle.main.path(forResource: "python", ofType: "zip"), let zippedSitePackages = Bundle.main.path(forResource: "mac-site-packages", ofType: "zip") else {
+            return
+        }
+        
+        if !FileManager.default.fileExists(atPath: pythonExecutable.path) {
+            unzipFile(at: zippedExecutable, to: pythonExecutable.deletingLastPathComponent().path)
+        }
+        
+        if !FileManager.default.fileExists(atPath: sitePackagesDirectory) {
+            try? FileManager.default.createDirectory(at: URL(fileURLWithPath: sitePackagesDirectory), withIntermediateDirectories: true, attributes: nil)
+        }
+        
+        unzipFile(at: zippedSitePackages, to: sitePackagesDirectory)
+    }
+    
     #endif
     
     #if os(iOS)

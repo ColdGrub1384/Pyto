@@ -47,7 +47,6 @@
 		C92DBD8221F687480098BE43 /* REPLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92DBD8121F687480098BE43 /* REPLViewController.swift */; };
 		C9317EDD21FDF85A0016E422 /* REPL.py in Resources */ = {isa = PBXBuildFile; fileRef = C92DBD7F21F67B9C0098BE43 /* REPL.py */; };
 		C9317EE421FE15F20016E422 /* PyIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C9317EE321FE15F20016E422 /* PyIcon.png */; };
-		C9317EEB21FF2D310016E422 /* python3 in Resources */ = {isa = PBXBuildFile; fileRef = C974194721FDECD400E3924C /* python3 */; };
 		C9317EEC21FF2DD00016E422 /* Python.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904EB7221445D5800585C28 /* Python.swift */; };
 		C93CA8B522022E67008DD049 /* QuickLookHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93CA8B422022E67008DD049 /* QuickLookHelper.swift */; };
 		C93CA8B822022E6E008DD049 /* QuickLookHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93CA8B422022E67008DD049 /* QuickLookHelper.swift */; };
@@ -55,7 +54,6 @@
 		C93D61DF2145D03200C8B5E3 /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DE2145D03200C8B5E3 /* UIWindow.swift */; };
 		C93D61E12145D46700C8B5E3 /* PyOutputHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E02145D46700C8B5E3 /* PyOutputHelper.swift */; };
 		C93D61E32145D50A00C8B5E3 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E22145D50A00C8B5E3 /* String.swift */; };
-		C93E1C56227115310079A5C0 /* mac-site-packages in Resources */ = {isa = PBXBuildFile; fileRef = C93E1C55227115300079A5C0 /* mac-site-packages */; };
 		C9425A7721F49B1300E7CC35 /* BlockBasedSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7421F49B1200E7CC35 /* BlockBasedSelector.m */; };
 		C9425A7821F49B1300E7CC35 /* BlockBasedSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7521F49B1200E7CC35 /* BlockBasedSelector.swift */; };
 		C9425A7B21F49B8400E7CC35 /* PySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7A21F49B8400E7CC35 /* PySelector.swift */; };
@@ -289,6 +287,8 @@
 		C97E86A4221B77CB00D2F7BE /* Info.plist in Copy period */ = {isa = PBXBuildFile; fileRef = C97E86A3221B77CB00D2F7BE /* Info.plist */; };
 		C97E87C4221CA94200D2F7BE /* Info.plist in Copy _multiarray_umath */ = {isa = PBXBuildFile; fileRef = C97E87C3221CA91500D2F7BE /* Info.plist */; };
 		C98472AE21A05CB1008E16AC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C98472AD21A05CB1008E16AC /* README.md */; };
+		C987838F22767236002B1A73 /* mac-site-packages.zip in Resources */ = {isa = PBXBuildFile; fileRef = C987838E22767235002B1A73 /* mac-site-packages.zip */; };
+		C9878397227687CC002B1A73 /* unzipFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9878395227682D6002B1A73 /* unzipFile.swift */; };
 		C98E12DF22139739005CE20C /* NSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98E12DE22139739005CE20C /* NSView.swift */; };
 		C98E12E72214689A005CE20C /* ConsoleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98E12E62214689A005CE20C /* ConsoleTextView.swift */; };
 		C98E12EC2214751B005CE20C /* cacert.pem in Resources */ = {isa = PBXBuildFile; fileRef = C95AECB72208A688003BCB05 /* cacert.pem */; };
@@ -1458,7 +1458,6 @@
 		C93D61DE2145D03200C8B5E3 /* UIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
 		C93D61E02145D46700C8B5E3 /* PyOutputHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyOutputHelper.swift; sourceTree = "<group>"; };
 		C93D61E22145D50A00C8B5E3 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		C93E1C55227115300079A5C0 /* mac-site-packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "mac-site-packages"; sourceTree = "<group>"; };
 		C941D36F2235661F00CA921D /* etree.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = etree.o; sourceTree = "<group>"; };
 		C941D3702235662000CA921D /* objectify.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = objectify.o; sourceTree = "<group>"; };
 		C941D3722235662000CA921D /* clean.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = clean.o; sourceTree = "<group>"; };
@@ -1774,6 +1773,8 @@
 		C97E87C3221CA91500D2F7BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = _multiarray_umath.framework/Info.plist; sourceTree = "<group>"; };
 		C984729121A05A0E008E16AC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C98472AD21A05CB1008E16AC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C987838E22767235002B1A73 /* mac-site-packages.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "mac-site-packages.zip"; sourceTree = "<group>"; };
+		C9878395227682D6002B1A73 /* unzipFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = unzipFile.swift; sourceTree = "<group>"; };
 		C98E12DE22139739005CE20C /* NSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSView.swift; sourceTree = "<group>"; };
 		C98E12E62214689A005CE20C /* ConsoleTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleTextView.swift; sourceTree = "<group>"; };
 		C98E12EF22147695005CE20C /* installer.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = installer.py; sourceTree = "<group>"; };
@@ -2339,6 +2340,7 @@
 				C9D6DEFC221059D900D7EF55 /* Views */,
 				C97E49D02213841600ACB42C /* Extensions */,
 				C9BB353D220F83E600C38C17 /* Code Completion.swift */,
+				C9878395227682D6002B1A73 /* unzipFile.swift */,
 				C9D6DEF9221059A800D7EF55 /* Resources */,
 				C90FB06021FDEE9200DF66DB /* Pyto Mac-Bridging-Header.h */,
 			);
@@ -2785,7 +2787,7 @@
 				C94CC2C121FCEF70005E9556 /* Assets Mac.xcassets */,
 				C94CC2C321FCEF70005E9556 /* Main.storyboard */,
 				C94CC2C621FCEF70005E9556 /* Info.plist */,
-				C93E1C55227115300079A5C0 /* mac-site-packages */,
+				C987838E22767235002B1A73 /* mac-site-packages.zip */,
 				C94CC2C721FCEF70005E9556 /* Pyto_Mac.entitlements */,
 			);
 			name = Resources;
@@ -3091,6 +3093,7 @@
 				C94CC2B721FCEF6C005E9556 /* Resources */,
 				06F1472A199D0ADBF99FE1D1 /* [CP] Embed Pods Frameworks */,
 				C9317EE721FE6ACD0016E422 /* Remove C extensions */,
+				C9878390227672BD002B1A73 /* Copy Python Executable */,
 			);
 			buildRules = (
 			);
@@ -3373,10 +3376,9 @@
 				C98E12EC2214751B005CE20C /* cacert.pem in Resources */,
 				C9317EE421FE15F20016E422 /* PyIcon.png in Resources */,
 				C94CC2C521FCEF70005E9556 /* Main.storyboard in Resources */,
-				C9317EEB21FF2D310016E422 /* python3 in Resources */,
 				C9D6DF00221059F900D7EF55 /* CodeCompletionViewItem.xib in Resources */,
+				C987838F22767236002B1A73 /* mac-site-packages.zip in Resources */,
 				C90FB06F21FDF10600DF66DB /* docs in Resources */,
-				C93E1C56227115310079A5C0 /* mac-site-packages in Resources */,
 				C98E12F022147695005CE20C /* installer.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3525,6 +3527,24 @@
 			shellPath = /bin/sh;
 			shellScript = "rm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/numpy\"\nrm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/matplotlib\"\nrm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/mpl_toolkits\"\nrm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/pandas\"\nrm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/lxml\"\n";
 		};
+		C9878390227672BD002B1A73 /* Copy Python Executable */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Python Executable";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "ZIPFILE=\"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Contents/Resources/python.zip\"\n\nif [ -f \"$ZIPFILE\" ]\nthen\nexit 0\nelse\necho \"Doesn't exist\"\nfi\n\nzip -j $ZIPFILE \"${SRCROOT}/Pyto_Mac/python/bin/python3\"\n";
+		};
 		C9CEE26F21EBEEA700316D3C /* Archive app template */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3615,6 +3635,7 @@
 				C9D6DF012210DC8700D7EF55 /* TextView.swift in Sources */,
 				C98E12DF22139739005CE20C /* NSView.swift in Sources */,
 				C974193521FD23B700E3924C /* Basic.swift in Sources */,
+				C9878397227687CC002B1A73 /* unzipFile.swift in Sources */,
 				C90FB07221FDF4A100DF66DB /* Localizable.swift in Sources */,
 				C974193D21FD240100E3924C /* Sunset.swift in Sources */,
 				C974193A21FD23D900E3924C /* Dusk.swift in Sources */,
