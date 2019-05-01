@@ -3254,6 +3254,12 @@
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1010;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.Mac = {
+								enabled = 0;
+							};
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
 							com.apple.iCloud = {
 								enabled = 1;
 							};
