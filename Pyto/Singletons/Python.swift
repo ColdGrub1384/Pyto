@@ -167,7 +167,7 @@ import Cocoa
     var process: Process?
     
     /// The Python executable path.
-    let pythonExecutable = FileManager.default.urls(for: .applicationSupportDirectory, in: .allDomainsMask)[0].appendingPathComponent("python3")
+    let pythonExecutable = Bundle.main.url(forResource: "python", withExtension: "bundle")!.appendingPathComponent("python3")
     
     /// Run script at given URL in a subprocess.
     ///
