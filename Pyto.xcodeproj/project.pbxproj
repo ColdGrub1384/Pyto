@@ -116,6 +116,8 @@
 		C94CC2CB21FCF17F005E9556 /* PyDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1421D0592C00412CEF /* PyDocument.swift */; };
 		C94CC2D121FCF59D005E9556 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94CC2D021FCF59D005E9556 /* EditorViewController.swift */; };
 		C94F12B0226BC98D00B4A035 /* ModulesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94F12AF226BC98D00B4A035 /* ModulesTableViewController.swift */; };
+		C954562D227B779D004EAED7 /* python.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C954562C227B779C004EAED7 /* python.bundle */; };
+		C954562F227B77AC004EAED7 /* python3 in Copy Python executable */ = {isa = PBXBuildFile; fileRef = C974194721FDECD400E3924C /* python3 */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C954FAB5220A165E0060C488 /* Replace.xib in Resources */ = {isa = PBXBuildFile; fileRef = C954FAB4220A165E0060C488 /* Replace.xib */; };
 		C954FAB9220A2BB00060C488 /* ReplaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C954FAB8220A2BB00060C488 /* ReplaceView.swift */; };
 		C9592D1821D0592C00412CEF /* PyDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1421D0592C00412CEF /* PyDocument.swift */; };
@@ -765,6 +767,17 @@
 				C9480AB0221A125800AA4AF9 /* Info.plist in Copy timestamps */,
 			);
 			name = "Copy timestamps";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C954562B227B771E004EAED7 /* Copy Python executable */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = python.bundle;
+			dstSubfolderSpec = 7;
+			files = (
+				C954562F227B77AC004EAED7 /* python3 in Copy Python executable */,
+			);
+			name = "Copy Python executable";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C96C701C2219905D0056EA64 /* Copy writers */ = {
@@ -1537,6 +1550,7 @@
 		C94CC2C721FCEF70005E9556 /* Pyto_Mac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pyto_Mac.entitlements; sourceTree = "<group>"; };
 		C94CC2D021FCF59D005E9556 /* EditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		C94F12AF226BC98D00B4A035 /* ModulesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulesTableViewController.swift; sourceTree = "<group>"; };
+		C954562C227B779C004EAED7 /* python.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = python.bundle; sourceTree = "<group>"; };
 		C954FAB4220A165E0060C488 /* Replace.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Replace.xib; sourceTree = "<group>"; };
 		C954FAB8220A2BB00060C488 /* ReplaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplaceView.swift; sourceTree = "<group>"; };
 		C9592D1421D0592C00412CEF /* PyDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PyDocument.swift; sourceTree = "<group>"; };
@@ -2336,6 +2350,7 @@
 		C94CC2BA21FCEF6C005E9556 /* Pyto_Mac */ = {
 			isa = PBXGroup;
 			children = (
+				C954562C227B779C004EAED7 /* python.bundle */,
 				C974194421FDECD400E3924C /* python */,
 				C9D6DEFA221059C500D7EF55 /* Singletons */,
 				C9D6DEFB221059D000D7EF55 /* View controllers */,
@@ -3096,7 +3111,7 @@
 				C94CC2B721FCEF6C005E9556 /* Resources */,
 				06F1472A199D0ADBF99FE1D1 /* [CP] Embed Pods Frameworks */,
 				C9317EE721FE6ACD0016E422 /* Remove C extensions */,
-				C9878390227672BD002B1A73 /* Copy Python Executable */,
+				C954562B227B771E004EAED7 /* Copy Python executable */,
 			);
 			buildRules = (
 			);
@@ -3381,6 +3396,7 @@
 				C90FB05F21FDEE7300DF66DB /* python3.7 in Resources */,
 				C90FB07121FDF25300DF66DB /* Startup.py in Resources */,
 				C90FB07321FDF4A400DF66DB /* Localizable.strings in Resources */,
+				C954562D227B779D004EAED7 /* python.bundle in Resources */,
 				C987839A22775A53002B1A73 /* Credits.rtf in Resources */,
 				C90FB06421FDEF1100DF66DB /* site-packages in Resources */,
 				C98E12EC2214751B005CE20C /* cacert.pem in Resources */,
@@ -3536,24 +3552,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "rm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/numpy\"\nrm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/matplotlib\"\nrm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/mpl_toolkits\"\nrm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/pandas\"\nrm -rf \"$BUILT_PRODUCTS_DIR/Pyto.app/Contents/Resources/site-packages/lxml\"\n";
-		};
-		C9878390227672BD002B1A73 /* Copy Python Executable */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Python Executable";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "ZIPFILE=\"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Contents/Resources/python.zip\"\n\nif [ -f \"$ZIPFILE\" ]\nthen\nexit 0\nelse\necho \"Doesn't exist\"\nfi\n\nzip -j $ZIPFILE \"${SRCROOT}/Pyto_Mac/python/bin/python3\"\n";
 		};
 		C9CEE26F21EBEEA700316D3C /* Archive app template */ = {
 			isa = PBXShellScriptBuildPhase;
