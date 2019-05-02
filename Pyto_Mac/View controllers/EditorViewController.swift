@@ -275,6 +275,33 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
             if replacementString == "\t" {
                 textView.insertText("  ", replacementRange: affectedCharRange)
                 return false
+            } else if replacementString == "(" {
+                
+                defer {
+                    let range = textView.selectedRange()
+                    textView.insertText(")", replacementRange: range)
+                    textView.setSelectedRange(range)
+                }
+                
+                return true
+            } else if replacementString == "\"" {
+                
+                defer {
+                    let range = textView.selectedRange()
+                    textView.replaceCharacters(in: range, with: "\"")
+                    textView.setSelectedRange(range)
+                }
+                
+                return true
+            } else if replacementString == "[" {
+                
+                defer {
+                    let range = textView.selectedRange()
+                    textView.insertText("]", replacementRange: range)
+                    textView.setSelectedRange(range)
+                }
+                
+                return true
             } else {
                 return true
             }
