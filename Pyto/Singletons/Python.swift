@@ -266,14 +266,15 @@ import Cocoa
         process?.executableURL = pythonExecutable
         process?.arguments = ["-u", tmpFile]
         
-        var environment               = ProcessInfo.processInfo.environment
-        environment["TMP"]            = NSTemporaryDirectory()
-        environment["MPLBACKEND"]     = "TkAgg"
-        environment["NSUnbufferedIO"] = "YES"
+        var environment                 = ProcessInfo.processInfo.environment
+        environment["TMP"]              = NSTemporaryDirectory()
+        environment["MPLBACKEND"]       = "TkAgg"
+        environment["NSUnbufferedIO"]   = "YES"
+        environment["PYTHONUNBUFFERED"] = "1"
         if pythonExecutable == bundledPythonExecutable {
-            environment["PIP_TARGET"] = sitePackagesDirectory
-            environment["PYTHONHOME"] = Bundle.main.resourcePath ?? ""
-            environment["PYTHONPATH"] = pythonPath
+            environment["PIP_TARGET"]   = sitePackagesDirectory
+            environment["PYTHONHOME"]   = Bundle.main.resourcePath ?? ""
+            environment["PYTHONPATH"]   = pythonPath
         }
         process?.environment          = environment
         
