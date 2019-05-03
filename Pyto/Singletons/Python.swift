@@ -166,8 +166,19 @@ import Cocoa
     /// The process running Python.
     var process: Process?
     
-    /// The Python executable path.
-    let pythonExecutable = Bundle.main.url(forResource: "python", withExtension: "bundle")!.appendingPathComponent("python3")
+    /// The Python executable URL.
+    var pythonExecutable: URL {
+        get {
+            return UserDefaults.standard.url(forKey: "pythonExecutable") ?? bundledPythonExecutable
+        }
+        
+        set {
+            UserDefaults.standard.set(newValue, forKey: "pythonExecutable")
+        }
+    }
+    
+    /// The bundled Python executable URL.
+    let bundledPythonExecutable = Bundle.main.url(forResource: "python", withExtension: "bundle")!.appendingPathComponent("python3")
     
     /// Run script at given URL in a subprocess.
     ///
@@ -200,9 +211,11 @@ import Cocoa
             process?.standardInput = nil
         }
         
+        // Only for bundled Python
         let pythonPath = [
-            Bundle.main.path(forResource: "site-packages", ofType: nil) ?? "",
             Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
+            Bundle.main.path(forResource: "site-packages", ofType: nil) ?? "",
+            zippedSitePackages ?? "",
             Bundle.main.resourcePath ?? "",
             url.deletingLastPathComponent().path,
             sitePackagesDirectory,
@@ -255,11 +268,13 @@ import Cocoa
         
         var environment               = ProcessInfo.processInfo.environment
         environment["TMP"]            = NSTemporaryDirectory()
-        environment["PYTHONHOME"]     = Bundle.main.resourcePath ?? ""
-        environment["PYTHONPATH"]     = pythonPath
         environment["MPLBACKEND"]     = "TkAgg"
         environment["NSUnbufferedIO"] = "YES"
-        environment["PIP_TARGET"]     = sitePackagesDirectory
+        if pythonExecutable == bundledPythonExecutable {
+            environment["PIP_TARGET"] = sitePackagesDirectory
+            environment["PYTHONHOME"] = Bundle.main.resourcePath ?? ""
+            environment["PYTHONPATH"] = pythonPath
+        }
         process?.environment          = environment
         
         process?.terminationHandler = { _ in
@@ -283,17 +298,8 @@ import Cocoa
     func setup() {
     
         DispatchQueue.global().async {
-            guard let zippedExecutable = Bundle.main.path(forResource: "python", ofType: "zip"), let zippedSitePackages = Bundle.main.path(forResource: "mac-site-packages", ofType: "zip") else {
-                return
-            }
-            
-            if !FileManager.default.fileExists(atPath: self.pythonExecutable.path) {
-                unzipFile(at: zippedExecutable, to: self.pythonExecutable.deletingLastPathComponent().path)
-            }
-            
             if !FileManager.default.fileExists(atPath: sitePackagesDirectory) {
                 try? FileManager.default.createDirectory(at: URL(fileURLWithPath: sitePackagesDirectory), withIntermediateDirectories: true, attributes: nil)
-                unzipFile(at: zippedSitePackages, to: sitePackagesDirectory)
             }
         }
     }

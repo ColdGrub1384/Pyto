@@ -62,7 +62,10 @@ func completeCode() {
     
     let code = [
         "__builtins__.deprecated = ['runAsync', 'runSync', 'generalPasteboard', 'setString', 'setStrings', 'setImage', 'setImages', 'setURL', 'setURLs','showViewController', 'closeViewController', 'mainLoop', 'openURL', 'shareItems', 'pickDocumentsWithFilePicker', '_get_variables_hierarchy']",
+        "import sys",
+        "sys.path.insert(0, '\(sitePackagesDirectory)')",
         "from _codecompletion import suggestionsForCode",
+        "del sys.path[0]",
         "source = '''",
         "macOS = 'macOS'",
         "iOS = 'iOS'",
@@ -87,13 +90,16 @@ func completeCode() {
         Bundle.main.resourcePath ?? "",
         Bundle.main.path(forResource: "site-packages", ofType: nil) ?? "",
         Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
+        zippedSitePackages ?? "",
         sitePackagesDirectory,
         "/usr/local/lib/python3.7/site-packages"
         ].joined(separator: ":")
     
     var environment               = ProcessInfo.processInfo.environment
     environment["PYTHONHOME"]     = Bundle.main.resourcePath ?? ""
-    environment["PYTHONPATH"]     = pythonPath
+    if Python.shared.pythonExecutable == Python.shared.bundledPythonExecutable {
+        environment["PYTHONPATH"] = pythonPath
+    }
     
     let process = Process()
     processes[process] = true
