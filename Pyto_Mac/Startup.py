@@ -10,8 +10,13 @@ __builtins__.__host__ = None  # None because it's executed on a subprocess on ma
 
 # MARK: - Run script
 
-from console import run_script
+path = "%@"
 
-run_script("%@")
+import sys
 
-
+if sys.version[0] == "3":
+    from console import run_script
+    run_script(path)
+else:
+    import subprocess
+    subprocess.call([sys.executable, path])

@@ -298,7 +298,6 @@
 		C98E12F022147695005CE20C /* installer.py in Resources */ = {isa = PBXBuildFile; fileRef = C98E12EF22147695005CE20C /* installer.py */; };
 		C98E1FFD214EE6ED002F0178 /* Samples in Resources */ = {isa = PBXBuildFile; fileRef = C98E1FFC214EE6EC002F0178 /* Samples */; };
 		C98E2002214F0856002F0178 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C98E2001214F0856002F0178 /* main.m */; };
-		C98E42E321D2CF0300B4D260 /* python37.zip in Resources */ = {isa = PBXBuildFile; fileRef = C98E42E221D2CF0300B4D260 /* python37.zip */; };
 		C990B56621E5260E00ABC0B8 /* _umath_linalg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59A21DE771C00CC5B43 /* _umath_linalg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C990B56821E5261700ABC0B8 /* fftpack_lite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59E21DE771C00CC5B43 /* fftpack_lite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C990B56A21E5261C00ABC0B8 /* lapack_lite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AED59C21DE771C00CC5B43 /* lapack_lite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -349,7 +348,6 @@
 		C9CEE1F421EB8D8F00316D3C /* libOpenSSL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6721445B6100585C28 /* libOpenSSL.a */; };
 		C9CEE1F521EB8D9300316D3C /* libxz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6921445B6700585C28 /* libxz.a */; };
 		C9CEE1F621EB8D9E00316D3C /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A4214461D300382DCC /* libsqlite3.tbd */; };
-		C9CEE1F721EB8DCD00316D3C /* python37.zip in Resources */ = {isa = PBXBuildFile; fileRef = C98E42E221D2CF0300B4D260 /* python37.zip */; };
 		C9CEE1F821EB8FC400316D3C /* Python.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904EB7221445D5800585C28 /* Python.swift */; };
 		C9CEE1F921EB8FC800316D3C /* ConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EDF9AA21446FCA00382DCC /* ConsoleViewController.swift */; };
 		C9CEE1FB21EB8FEF00316D3C /* PyInputHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DC2145CD0800C8B5E3 /* PyInputHelper.swift */; };
@@ -468,6 +466,7 @@
 		C9EDF9AB21446FCA00382DCC /* ConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EDF9AA21446FCA00382DCC /* ConsoleViewController.swift */; };
 		C9F04E832173C33400BDD03E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9F04E852173C33400BDD03E /* Localizable.strings */; };
 		C9F04E882173DD7300BDD03E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9F04E8A2173DD7300BDD03E /* Main.storyboard */; };
+		C9F32397227CC9DB008BB45C /* python37.zip in Resources */ = {isa = PBXBuildFile; fileRef = C9F32396227CC9DA008BB45C /* python37.zip */; };
 		C9F8660621ECD3360062D1C1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A62144620A00382DCC /* libz.tbd */; };
 		C9F8660721ECD3480062D1C1 /* libPython.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6321445B5800585C28 /* libPython.a */; };
 		C9F8660821ECD34A0062D1C1 /* libbzip2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6521445B5D00585C28 /* libbzip2.a */; };
@@ -1796,7 +1795,6 @@
 		C98E12EF22147695005CE20C /* installer.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = installer.py; sourceTree = "<group>"; };
 		C98E1FFC214EE6EC002F0178 /* Samples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Samples; sourceTree = "<group>"; };
 		C98E2001214F0856002F0178 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C98E42E221D2CF0300B4D260 /* python37.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = python37.zip; sourceTree = "<group>"; };
 		C996931221FDF56D00ED9DA7 /* libboringssl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libboringssl.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/lib/libboringssl.tbd; sourceTree = DEVELOPER_DIR; };
 		C996931621FDF57C00ED9DA7 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
 		C99A863D221B634E00F6AB94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1897,6 +1895,7 @@
 		C9EDF9AA21446FCA00382DCC /* ConsoleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleViewController.swift; sourceTree = "<group>"; };
 		C9F04E842173C33400BDD03E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C9F04E892173DD7300BDD03E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C9F32396227CC9DA008BB45C /* python37.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = python37.zip; sourceTree = "<group>"; };
 		C9FB5B9C2202590D0085E1AA /* pngget.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pngget.c; sourceTree = "<group>"; };
 		C9FB5B9D2202590D0085E1AA /* pnginfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pnginfo.h; sourceTree = "<group>"; };
 		C9FB5B9E2202590D0085E1AA /* pngrtran.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pngrtran.c; sourceTree = "<group>"; };
@@ -2359,8 +2358,6 @@
 				C9BB353D220F83E600C38C17 /* Code Completion.swift */,
 				C9878395227682D6002B1A73 /* unzipFile.swift */,
 				C9D6DEF9221059A800D7EF55 /* Resources */,
-				C90FB06021FDEE9200DF66DB /* Pyto Mac-Bridging-Header.h */,
-				C987839822775984002B1A73 /* Credits.rtf */,
 			);
 			path = Pyto_Mac;
 			sourceTree = "<group>";
@@ -2807,6 +2804,8 @@
 				C94CC2C621FCEF70005E9556 /* Info.plist */,
 				C987838E22767235002B1A73 /* mac-site-packages.zip */,
 				C94CC2C721FCEF70005E9556 /* Pyto_Mac.entitlements */,
+				C90FB06021FDEE9200DF66DB /* Pyto Mac-Bridging-Header.h */,
+				C987839822775984002B1A73 /* Credits.rtf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -2974,9 +2973,9 @@
 				C904EB5D21445AA800585C28 /* BZip2 */,
 				C904EB5B21445AA700585C28 /* OpenSSL */,
 				C904EB5C21445AA800585C28 /* XZ */,
-				C98E42E221D2CF0300B4D260 /* python37.zip */,
 				C9FB5B99220258EC0085E1AA /* libpng */,
 				C9FB5BBF22025AFE0085E1AA /* libfreetype */,
+				C9F32396227CC9DA008BB45C /* python37.zip */,
 				C9FCFD57214428AE00A07974 /* Pyto */,
 				C94CC2BA21FCEF6C005E9556 /* Pyto_Mac */,
 				C984729021A059F2008E16AC /* Python iOS */,
@@ -3373,7 +3372,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C98E42E321D2CF0300B4D260 /* python37.zip in Resources */,
+				C9F32397227CC9DB008BB45C /* python37.zip in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3428,7 +3427,6 @@
 				C9CEE26621EBD21000316D3C /* RoundedIcon.png in Resources */,
 				C9CEE25C21EBC52E00316D3C /* suspend.py in Resources */,
 				C9CEE1F121EB8D6C00316D3C /* site-packages in Resources */,
-				C9CEE1F721EB8DCD00316D3C /* python37.zip in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

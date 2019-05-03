@@ -26,7 +26,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" title="＜" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Nh5-Nx-WvY">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" size="13" name="DFKaiShu-SB-Estd-BF"/>
+                                            <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                 </toolbarItem>
@@ -39,7 +39,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" title="＞" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0gn-4Q-x1W">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" size="13" name="DFKaiShu-SB-Estd-BF"/>
+                                            <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                 </toolbarItem>
@@ -113,7 +113,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" title="＜" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bJq-q4-f3Y">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" size="13" name="DFKaiShu-SB-Estd-BF"/>
+                                            <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                 </toolbarItem>
@@ -124,7 +124,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" title="＞" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QRt-Rn-V8u">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" size="13" name="DFKaiShu-SB-Estd-BF"/>
+                                            <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                 </toolbarItem>
@@ -401,12 +401,20 @@
                                                 <action selector="stop:" target="Voe-Tx-rLC" id="dMj-LH-D18"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Theme" id="jx7-gD-89g">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Theme" autoenablesItems="NO" id="d76-cq-gQy"/>
+                                        </menuItem>
+                                        <menuItem title="Python executable" id="mPq-Iw-fqj">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" autoenablesItems="NO" id="Ho6-yi-g1H">
+                                                <connections>
+                                                    <outlet property="delegate" destination="Voe-Tx-rLC" id="jY3-Ul-5nb"/>
+                                                </connections>
+                                            </menu>
+                                        </menuItem>
                                     </items>
                                 </menu>
-                            </menuItem>
-                            <menuItem title="Theme" id="jx7-gD-89g">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Theme" autoenablesItems="NO" id="d76-cq-gQy"/>
                             </menuItem>
                             <menuItem title="View" id="H8h-7b-M4v">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -493,6 +501,7 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Pyto_Mac" customModuleProvider="target">
                     <connections>
+                        <outlet property="pythonExecutableMenu" destination="Ho6-yi-g1H" id="QAA-La-d2m"/>
                         <outlet property="runMenuItem" destination="U8o-ae-RqG" id="hAy-Wu-nxl"/>
                         <outlet property="stopMenuItem" destination="ORE-qn-8RB" id="NzW-rc-hv1"/>
                         <outlet property="themeMenu" destination="d76-cq-gQy" id="xaT-7g-cjX"/>

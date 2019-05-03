@@ -58,6 +58,7 @@ class REPLViewController: EditorViewController, NSWindowDelegate {
             Bundle.main.resourcePath ?? "",
             Bundle.main.path(forResource: "site-packages", ofType: nil) ?? "",
             Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
+            zippedSitePackages ?? "",
             url.deletingLastPathComponent().path,
             sitePackagesDirectory,
             "/usr/local/lib/python3.7/site-packages"
@@ -87,11 +88,13 @@ class REPLViewController: EditorViewController, NSWindowDelegate {
         
         var environment               = ProcessInfo.processInfo.environment
         environment["TMP"]            = NSTemporaryDirectory()
-        environment["PYTHONHOME"]     = Bundle.main.resourcePath ?? ""
-        environment["PYTHONPATH"]     = pythonPath
         environment["MPLBACKEND"]     = "TkAgg"
         environment["NSUnbufferedIO"] = "YES"
-        environment["PIP_TARGET"]     = sitePackagesDirectory
+        if Python.shared.pythonExecutable == Python.shared.bundledPythonExecutable {
+            environment["PIP_TARGET"] = sitePackagesDirectory
+            environment["PYTHONHOME"] = Bundle.main.resourcePath ?? ""
+            environment["PYTHONPATH"] = pythonPath
+        }
         process.environment          = environment
         
         process.terminationHandler = { _ in
