@@ -90,6 +90,7 @@ class REPLViewController: EditorViewController, NSWindowDelegate {
         environment["TMP"]            = NSTemporaryDirectory()
         environment["MPLBACKEND"]     = "TkAgg"
         environment["NSUnbufferedIO"] = "YES"
+        environment["PYTHONUNBUFFERED"] = "1"
         if Python.shared.pythonExecutable == Python.shared.bundledPythonExecutable {
             environment["PIP_TARGET"] = sitePackagesDirectory
             environment["PYTHONHOME"] = Bundle.main.resourcePath ?? ""
