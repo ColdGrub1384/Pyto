@@ -3477,7 +3477,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Pyto Mac/Pods-Pyto Mac-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Pyto Mac/Pods-Pyto Mac-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Down-macOS/Down.framework",
 				"${BUILT_PRODUCTS_DIR}/SavannaKit-macOS/SavannaKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SourceEditor-macOS/SourceEditor.framework",
@@ -3492,7 +3492,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pyto Mac/Pods-Pyto Mac-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pyto Mac/Pods-Pyto Mac-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5618A4822E7BF0E674844A80 /* [CP] Check Pods Manifest.lock */ = {
@@ -3577,7 +3577,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Pyto/Pods-Pyto-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Pyto/Pods-Pyto-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Down-iOS/Down.framework",
 				"${BUILT_PRODUCTS_DIR}/SavannaKit-iOS/SavannaKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SourceEditor-iOS/SourceEditor.framework",
@@ -3594,7 +3594,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pyto/Pods-Pyto-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pyto/Pods-Pyto-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -4055,6 +4055,7 @@
 					"-iquote",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/SourceEditor-macOS/SourceEditor.framework/Headers\"",
 				);
+				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -4110,6 +4111,7 @@
 					"-iquote",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/SourceEditor-macOS/SourceEditor.framework/Headers\"",
 				);
+				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
