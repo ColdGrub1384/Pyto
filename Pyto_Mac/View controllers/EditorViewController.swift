@@ -326,6 +326,8 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
                     
                 if currentLine.replacingOccurrences(of: " ", with: "").hasSuffix(":") {
                     spaces += EditorViewController.indentation
+                } else {
+                    return true
                 }
                     
                 textView.insertText("\n"+spaces, replacementRange: affectedCharRange)
