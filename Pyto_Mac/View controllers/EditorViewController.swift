@@ -279,10 +279,6 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
         
         if textView == self.textView.contentTextView {
             
-            if !self.textView.textView(textView, shouldChangeTextIn: affectedCharRange, replacementString: replacementString) {
-                return false
-            }
-            
             if replacementString == "\t" && EditorViewController.indentation != "\t" {
                 textView.insertText(EditorViewController.indentation, replacementRange: affectedCharRange)
                 return false
@@ -313,6 +309,27 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
                 }
                 
                 return true
+            } else if replacementString == "\n", var currentLine = textView.currentLine {
+                
+                let currentLineRange = textView.currentLineRange
+                let selectedRange = textView.selectedRange()
+                
+                if selectedRange.location == currentLineRange.location {
+                    return true
+                }
+                    
+                var spaces = ""
+                while currentLine.hasPrefix(" ") {
+                    currentLine.removeFirst()
+                    spaces += " "
+                }
+                    
+                if currentLine.replacingOccurrences(of: " ", with: "").hasSuffix(":") {
+                    spaces += EditorViewController.indentation
+                }
+                    
+                textView.insertText("\n"+spaces, replacementRange: affectedCharRange)
+                return false
             } else {
                 return true
             }
