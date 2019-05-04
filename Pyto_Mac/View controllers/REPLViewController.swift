@@ -54,15 +54,22 @@ class REPLViewController: EditorViewController, NSWindowDelegate {
         
         FileManager.default.createFile(atPath: tmpFile, contents: code, attributes: [:])
         
-        let pythonPath = [
-            Bundle.main.resourcePath ?? "",
-            Bundle.main.path(forResource: "site-packages", ofType: nil) ?? "",
-            Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
-            zippedSitePackages ?? "",
-            url.deletingLastPathComponent().path,
-            sitePackagesDirectory,
-            "/usr/local/lib/python3.7/site-packages"
-            ].joined(separator: ":")
+        let pythonPath: String
+        if Python.shared.pythonExecutable == Python.shared.bundledPythonExecutable {
+            pythonPath = [
+                Bundle.main.resourcePath ?? "",
+                Bundle.main.path(forResource: "site-packages", ofType: nil) ?? "",
+                Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
+                zippedSitePackages ?? "",
+                url.deletingLastPathComponent().path,
+                sitePackagesDirectory,
+                ].joined(separator: ":")
+        } else {
+            pythonPath = [
+                url.deletingLastPathComponent().path,
+                sitePackagesDirectory,
+                ].joined(separator: ":")
+        }
         
         func read(handle: FileHandle) {
             guard let str = String(data: handle.availableData, encoding: .utf8), !str.isEmpty else {
@@ -86,17 +93,17 @@ class REPLViewController: EditorViewController, NSWindowDelegate {
         process.executableURL = Python.shared.pythonExecutable
         process.arguments = ["-u", tmpFile]
         
-        var environment               = ProcessInfo.processInfo.environment
-        environment["TMP"]            = NSTemporaryDirectory()
-        environment["MPLBACKEND"]     = "TkAgg"
-        environment["NSUnbufferedIO"] = "YES"
-        environment["PYTHONUNBUFFERED"] = "1"
+        var environment                   = ProcessInfo.processInfo.environment
+        environment["TMP"]                = NSTemporaryDirectory()
+        environment["MPLBACKEND"]         = "TkAgg"
+        environment["NSUnbufferedIO"]     = "YES"
+        environment["PYTHONUNBUFFERED"]   = "1"
+        environment["PIP_TARGET"]         = sitePackagesDirectory
+        environment["PYTHONPATH"]         = pythonPath
         if Python.shared.pythonExecutable == Python.shared.bundledPythonExecutable {
-            environment["PIP_TARGET"] = sitePackagesDirectory
-            environment["PYTHONHOME"] = Bundle.main.resourcePath ?? ""
-            environment["PYTHONPATH"] = pythonPath
+            environment["PYTHONHOME"]     = Bundle.main.resourcePath ?? ""
         }
-        process.environment          = environment
+        process.environment               = environment
         
         process.terminationHandler = { _ in
             if !self.pip {

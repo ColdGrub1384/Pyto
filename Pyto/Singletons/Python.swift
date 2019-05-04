@@ -212,15 +212,22 @@ import Cocoa
         }
         
         // Only for bundled Python
-        let pythonPath = [
-            Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
-            Bundle.main.path(forResource: "site-packages", ofType: nil) ?? "",
-            zippedSitePackages ?? "",
-            Bundle.main.resourcePath ?? "",
-            url.deletingLastPathComponent().path,
-            sitePackagesDirectory,
-            "/usr/local/lib/python3.7/site-packages"
-            ].joined(separator: ":")
+        let pythonPath: String
+        if pythonExecutable == bundledPythonExecutable {
+            pythonPath = [
+                Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
+                Bundle.main.path(forResource: "site-packages", ofType: nil) ?? "",
+                zippedSitePackages ?? "",
+                Bundle.main.resourcePath ?? "",
+                url.deletingLastPathComponent().path,
+                sitePackagesDirectory,
+                ].joined(separator: ":")
+        } else {
+            pythonPath = [
+                url.deletingLastPathComponent().path,
+                sitePackagesDirectory,
+                ].joined(separator: ":")
+        }
         
         inputPipe = Pipe()
         outputPipe = Pipe()
@@ -271,12 +278,12 @@ import Cocoa
         environment["MPLBACKEND"]       = "TkAgg"
         environment["NSUnbufferedIO"]   = "YES"
         environment["PYTHONUNBUFFERED"] = "1"
-        if pythonExecutable == bundledPythonExecutable {
-            environment["PIP_TARGET"]   = sitePackagesDirectory
+        environment["PIP_TARGET"]       = sitePackagesDirectory
+        environment["PYTHONPATH"]       = pythonPath
+        if pythonExecutable             == bundledPythonExecutable {
             environment["PYTHONHOME"]   = Bundle.main.resourcePath ?? ""
-            environment["PYTHONPATH"]   = pythonPath
         }
-        process?.environment          = environment
+        process?.environment            = environment
         
         process?.terminationHandler = { _ in
             self.isScriptRunning = false
