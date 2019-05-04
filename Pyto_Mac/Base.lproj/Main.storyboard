@@ -391,6 +391,42 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Editor" autoenablesItems="NO" id="7nP-Zb-fcC">
                                     <items>
+                                        <menuItem title="Indentation" id="cSu-pR-P4g">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Indentation" autoenablesItems="NO" id="FmI-Lh-Bsh">
+                                                <items>
+                                                    <menuItem title="Tab" id="2hG-9F-Fjz">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="2 Spaces" state="on" tag="2" id="MPW-J9-h7o">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="4 Spaces" tag="4" id="bWl-dJ-7jM">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="6 Spaces" tag="6" id="QOv-fo-N3A">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="8 Spaces" tag="8" id="RnK-SN-PxJ">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                </items>
+                                                <connections>
+                                                    <outlet property="delegate" destination="Voe-Tx-rLC" id="2PT-TP-FYk"/>
+                                                </connections>
+                                            </menu>
+                                        </menuItem>
+                                        <menuItem title="Theme" id="jx7-gD-89g">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Theme" autoenablesItems="NO" id="d76-cq-gQy"/>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Script" id="5zj-Qi-coG">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Script" id="afr-6g-81I">
+                                    <items>
                                         <menuItem title="Run" keyEquivalent="r" id="U8o-ae-RqG" userLabel="Run">
                                             <connections>
                                                 <action selector="run:" target="Voe-Tx-rLC" id="rof-K1-9xj"/>
@@ -400,10 +436,6 @@
                                             <connections>
                                                 <action selector="stop:" target="Voe-Tx-rLC" id="dMj-LH-D18"/>
                                             </connections>
-                                        </menuItem>
-                                        <menuItem title="Theme" id="jx7-gD-89g">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="Theme" autoenablesItems="NO" id="d76-cq-gQy"/>
                                         </menuItem>
                                         <menuItem title="Python executable" id="mPq-Iw-fqj">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -501,6 +533,7 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Pyto_Mac" customModuleProvider="target">
                     <connections>
+                        <outlet property="indentationMenu" destination="FmI-Lh-Bsh" id="tmM-bN-zyb"/>
                         <outlet property="pythonExecutableMenu" destination="Ho6-yi-g1H" id="QAA-La-d2m"/>
                         <outlet property="runMenuItem" destination="U8o-ae-RqG" id="hAy-Wu-nxl"/>
                         <outlet property="stopMenuItem" destination="ORE-qn-8RB" id="NzW-rc-hv1"/>

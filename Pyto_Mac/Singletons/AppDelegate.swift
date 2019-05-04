@@ -184,6 +184,60 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, SyntaxTextVi
         menu.items = items
     }
     
+    // MARK: - Indentation
+    
+    /// Menu for setting editor's indentation.
+    @IBOutlet weak var indentationMenu: NSMenu!
+    
+    /// Changes indentation from menu item.
+    @objc func changeIndentation(_ sender: NSMenuItem) {
+        
+        var indentation: String?
+        
+        switch sender.tag {
+        case 0:
+            indentation = "\t"
+        case 2:
+            indentation = "  "
+        case 4:
+            indentation = "    "
+        case 6:
+            indentation = "      "
+        case 8:
+            indentation = "        "
+        default:
+            break
+        }
+        
+        EditorViewController.indentation = indentation
+    }
+    
+    private func indentationMenuWillOpen(_ menu: NSMenu) {
+        
+        let indentation = EditorViewController.indentation
+        
+        for item in menu.items {
+            
+            item.target = self
+            item.action = #selector(changeIndentation(_:))
+            
+            switch item.tag {
+            case 0:
+                item.state = indentation == "\t" ? .on : .off
+            case 2:
+                item.state = indentation == "  " ? .on : .off
+            case 4:
+                item.state = indentation == "    " ? .on : .off
+            case 6:
+                item.state = indentation == "      " ? .on : .off
+            case 8:
+                item.state = indentation == "        " ? .on : .off
+            default:
+                break
+            }
+        }
+    }
+    
     // MARK: - Python version
     
     /// The menu for choosing Python version.
@@ -309,6 +363,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, SyntaxTextVi
             themeMenuWillOpen(menu)
         } else if menu == pythonExecutableMenu {
             pythonExecutableMenuWillOpen(menu)
+        } else if menu == indentationMenu {
+            indentationMenuWillOpen(indentationMenu)
         }
     }
     

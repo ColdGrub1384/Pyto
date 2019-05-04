@@ -54,6 +54,17 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
         }
     }
     
+    /// Character(s) sent with tab key and default indentation.
+    static var indentation: String! {
+        get {
+            return UserDefaults.standard.string(forKey: "indentation") ?? "  "
+        }
+        
+        set {
+            UserDefaults.standard.set(newValue, forKey: "indentation")
+        }
+    }
+    
     // MARK: - Instance
     
     /// Console content.
@@ -272,8 +283,8 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
                 return false
             }
             
-            if replacementString == "\t" {
-                textView.insertText("  ", replacementRange: affectedCharRange)
+            if replacementString == "\t" && EditorViewController.indentation != "\t" {
+                textView.insertText(EditorViewController.indentation, replacementRange: affectedCharRange)
                 return false
             } else if replacementString == "(" {
                 
