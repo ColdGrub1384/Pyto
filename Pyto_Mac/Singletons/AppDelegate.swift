@@ -13,7 +13,13 @@ import SavannaKit
 // MARK: - Helpers
 
 /// The directory where pip packages will be installed.
-let sitePackagesDirectory = FileManager.default.urls(for: .applicationSupportDirectory, in: .allDomainsMask)[0].appendingPathComponent("site-packages").path
+var sitePackagesDirectory: String {
+    if Python.shared.pythonExecutable == Python.shared.bundledPythonExecutable {
+        return FileManager.default.urls(for: .applicationSupportDirectory, in: .allDomainsMask)[0].appendingPathComponent("site-packages").path
+    } else {
+        return FileManager.default.urls(for: .applicationSupportDirectory, in: .allDomainsMask)[0].appendingPathComponent("\(Python.shared.pythonExecutable.path)/site-packages").path
+    }
+}
 
 /// The Zip file containing mac specific modules.
 let zippedSitePackages = Bundle.main.path(forResource: "mac-site-packages", ofType: "zip")

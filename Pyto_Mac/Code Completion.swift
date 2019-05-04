@@ -88,21 +88,27 @@ func completeCode() {
     
     let outputPipe = Pipe()
     
-    let pythonPath = [
-        Bundle.main.resourcePath ?? "",
-        Bundle.main.path(forResource: "site-packages", ofType: nil) ?? "",
-        Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
-        zippedSitePackages ?? "",
-        sitePackagesDirectory,
-        "/usr/local/lib/python3.7/site-packages"
-        ].joined(separator: ":")
-    
-    var environment                 = ProcessInfo.processInfo.environment
-    environment["NSUnbufferedIO"]   = "YES"
-    environment["PYTHONUNBUFFERED"] = "1"
+    let pythonPath: String
     if Python.shared.pythonExecutable == Python.shared.bundledPythonExecutable {
-        environment["PYTHONHOME"]   = Bundle.main.resourcePath ?? ""
-        environment["PYTHONPATH"]   = pythonPath
+        pythonPath = [
+            Bundle.main.resourcePath ?? "",
+            Bundle.main.path(forResource: "site-packages", ofType: nil) ?? "",
+            Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
+            zippedSitePackages ?? "",
+            sitePackagesDirectory,
+            ].joined(separator: ":")
+    } else {
+        pythonPath = [
+            sitePackagesDirectory,
+            ].joined(separator: ":")
+    }
+    
+    var environment                   = ProcessInfo.processInfo.environment
+    environment["NSUnbufferedIO"]     = "YES"
+    environment["PYTHONUNBUFFERED"]   = "1"
+    environment["PYTHONPATH"]         = pythonPath
+    if Python.shared.pythonExecutable == Python.shared.bundledPythonExecutable {
+        environment["PYTHONHOME"]     = Bundle.main.resourcePath ?? ""
     }
     
     let process = Process()
