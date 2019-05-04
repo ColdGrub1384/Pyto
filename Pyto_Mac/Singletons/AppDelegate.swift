@@ -69,6 +69,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, SyntaxTextVi
         themeMenu.delegate = self
         themeMenu.autoenablesItems = false
         
+        pythonExecutableMenuWillOpen(pythonExecutableMenu)
+        
         runMenuItem.isEnabled = (!Python.shared.isScriptRunning && NSApp.keyWindow?.contentViewController is EditorViewController && !(NSApp.keyWindow?.contentViewController is REPLViewController))
         stopMenuItem.isEnabled = Python.shared.isScriptRunning
         
@@ -276,7 +278,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, SyntaxTextVi
             }
             
             DispatchQueue.main.async {
-                menu.items = []
+                
+                var menuItems = [NSMenuItem]()
                 
                 for pythonVersion in [bundledPythonVersion, systemPythonVersion, python2BrewVersion, python3BrewVersion] {
                     if let version = pythonVersion {
@@ -290,9 +293,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, SyntaxTextVi
                             menuItem.state = .off
                         }
                         
-                        menu.items.append(menuItem)
+                        menuItems.append(menuItem)
                     }
                 }
+                
+                menu.items = menuItems
             }
         }
     }
