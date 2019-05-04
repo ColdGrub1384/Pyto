@@ -10,7 +10,7 @@ import Cocoa
 
 /// Taken from https://stackoverflow.com/a/30480777/7515957
 fileprivate func convertToDictionary(text: String) -> [String: Any]? {
-    if let data = (text.replacingOccurrences(of: "'", with: "\"")).data(using: .utf8) {
+    if let data = (text.replacingOccurrences(of: "{u'", with: "{'").replacingOccurrences(of: ", u'", with: ", '").replacingOccurrences(of: "'", with: "\"")).data(using: .utf8) {
         do {
             return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
         } catch {
@@ -63,7 +63,7 @@ func completeCode() {
     let code = [
         "__builtins__.deprecated = ['runAsync', 'runSync', 'generalPasteboard', 'setString', 'setStrings', 'setImage', 'setImages', 'setURL', 'setURLs','showViewController', 'closeViewController', 'mainLoop', 'openURL', 'shareItems', 'pickDocumentsWithFilePicker', '_get_variables_hierarchy']",
         "import sys",
-        "sys.path.insert(0, '\(sitePackagesDirectory)')",
+        "sys.path.insert(0, '\(Bundle.main.path(forResource: "site-packages", ofType: nil) ?? "")')",
         "from _codecompletion import suggestionsForCode",
         "del sys.path[0]",
         "source = '''",
@@ -73,7 +73,9 @@ func completeCode() {
         "",
         text.replacingOccurrences(of: "'", with: "\\'"),
         "'''",
-        "print(suggestionsForCode(source, '\(filePath)'))"
+        "suggestions = repr(suggestionsForCode(source, '\(filePath)'))",
+        "sys.stderr.write(suggestions+'\\n')",
+        "sys.stdout.write(suggestions+'\\n')"
         ].joined(separator: ";")
     
     let scriptPath = (NSTemporaryDirectory() as NSString).appendingPathComponent("code_completion.py")
@@ -95,16 +97,18 @@ func completeCode() {
         "/usr/local/lib/python3.7/site-packages"
         ].joined(separator: ":")
     
-    var environment               = ProcessInfo.processInfo.environment
-    environment["PYTHONHOME"]     = Bundle.main.resourcePath ?? ""
+    var environment                 = ProcessInfo.processInfo.environment
+    environment["NSUnbufferedIO"]   = "YES"
+    environment["PYTHONUNBUFFERED"] = "1"
     if Python.shared.pythonExecutable == Python.shared.bundledPythonExecutable {
-        environment["PYTHONPATH"] = pythonPath
+        environment["PYTHONHOME"]   = Bundle.main.resourcePath ?? ""
+        environment["PYTHONPATH"]   = pythonPath
     }
     
     let process = Process()
     processes[process] = true
     process.executableURL = Python.shared.pythonExecutable
-    process.arguments = [scriptPath]
+    process.arguments = ["-u", scriptPath]
     process.standardOutput = outputPipe
     process.environment = environment
     
