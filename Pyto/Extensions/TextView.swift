@@ -116,15 +116,28 @@ extension TextView {
         return line(at: selectedRange)
     }
     
+    #endif
+    
+    #if os(macOS)
+    
+    /// Returns the range of the selected line.
+    var currentLineRange: NSRange {
+        return (string as NSString).lineRange(for: NSMakeRange(selectedRange().location, 0))
+    }
+    #endif
+    
     /// Returns the current selected line.
     var currentLine : String? {
+        #if os(iOS)
         if let textRange = currentLineRange {
             return text(in: textRange)
         } else {
             return nil
         }
+        #elseif os(macOS)
+        return (string as NSString).substring(with: currentLineRange)
+        #endif
     }
-    #endif
     
     // MARK: - Other
     
