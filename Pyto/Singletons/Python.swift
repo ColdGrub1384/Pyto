@@ -273,17 +273,18 @@ import Cocoa
         process?.executableURL = pythonExecutable
         process?.arguments = ["-u", tmpFile]
         
-        var environment                 = ProcessInfo.processInfo.environment
-        environment["TMP"]              = NSTemporaryDirectory()
-        environment["MPLBACKEND"]       = "TkAgg"
-        environment["NSUnbufferedIO"]   = "YES"
-        environment["PYTHONUNBUFFERED"] = "1"
-        environment["PIP_TARGET"]       = sitePackagesDirectory
-        environment["PYTHONPATH"]       = pythonPath
-        if pythonExecutable             == bundledPythonExecutable {
-            environment["PYTHONHOME"]   = Bundle.main.resourcePath ?? ""
+        var environment                              = ProcessInfo.processInfo.environment
+        environment["TMP"]                           = NSTemporaryDirectory()
+        environment["MPLBACKEND"]                    = "TkAgg"
+        environment["NSUnbufferedIO"]                = "YES"
+        environment["PYTHONUNBUFFERED"]              = "1"
+        environment["PIP_DISABLE_PIP_VERSION_CHECK"] = "1"
+        environment["PIP_TARGET"]                    = sitePackagesDirectory
+        environment["PYTHONPATH"]                    = pythonPath
+        if pythonExecutable                          == bundledPythonExecutable {
+            environment["PYTHONHOME"]                = Bundle.main.resourcePath ?? ""
         }
-        process?.environment            = environment
+        process?.environment                         = environment
         
         process?.terminationHandler = { _ in
             self.isScriptRunning = false

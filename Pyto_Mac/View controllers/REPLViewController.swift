@@ -93,17 +93,18 @@ class REPLViewController: EditorViewController, NSWindowDelegate {
         process.executableURL = Python.shared.pythonExecutable
         process.arguments = ["-u", tmpFile]
         
-        var environment                   = ProcessInfo.processInfo.environment
-        environment["TMP"]                = NSTemporaryDirectory()
-        environment["MPLBACKEND"]         = "TkAgg"
-        environment["NSUnbufferedIO"]     = "YES"
-        environment["PYTHONUNBUFFERED"]   = "1"
-        environment["PIP_TARGET"]         = sitePackagesDirectory
-        environment["PYTHONPATH"]         = pythonPath
-        if Python.shared.pythonExecutable == Python.shared.bundledPythonExecutable {
-            environment["PYTHONHOME"]     = Bundle.main.resourcePath ?? ""
+        var environment                              = ProcessInfo.processInfo.environment
+        environment["TMP"]                           = NSTemporaryDirectory()
+        environment["MPLBACKEND"]                    = "TkAgg"
+        environment["NSUnbufferedIO"]                = "YES"
+        environment["PYTHONUNBUFFERED"]              = "1"
+        environment["PIP_DISABLE_PIP_VERSION_CHECK"] = "1"
+        environment["PIP_TARGET"]                    = sitePackagesDirectory
+        environment["PYTHONPATH"]                    = pythonPath
+        if Python.shared.pythonExecutable            == Python.shared.bundledPythonExecutable {
+            environment["PYTHONHOME"]                = Bundle.main.resourcePath ?? ""
         }
-        process.environment               = environment
+        process.environment                          = environment
         
         process.terminationHandler = { _ in
             if !self.pip {
