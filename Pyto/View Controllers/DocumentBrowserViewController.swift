@@ -133,38 +133,7 @@ import SavannaKit
         
         additionalLeadingNavigationBarButtonItems = [UIBarButtonItem(image: UIImage(named: "more"), style: .plain, target: self, action: #selector(showMore(_:)))]
         
-        if isDarkModeEnabled {
-            browserUserInterfaceStyle = .dark
-        }
-        
-        NotificationCenter.default.addObserver(forName: UIAccessibility.invertColorsStatusDidChangeNotification, object: nil, queue: OperationQueue.main) { [weak self] notification in
-            
-            guard self != nil else { return }
-            
-            if self!.isDarkModeEnabled {
-                self!.browserUserInterfaceStyle = .dark
-            } else {
-                self!.browserUserInterfaceStyle = .white
-            }
-        }
-        
         delegate = self
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        if previousTraitCollection != nil && traitCollection != previousTraitCollection {
-            UIApplication.shared.keyWindow?.rootViewController = storyboard?.instantiateInitialViewController()
-        }
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        if isDarkModeEnabled {
-            return .default
-        } else {
-            return super.preferredStatusBarStyle
-        }
     }
     
     // MARK: - Document browser view controller delegate

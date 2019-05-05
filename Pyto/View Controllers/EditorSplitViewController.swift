@@ -150,7 +150,7 @@ class EditorSplitViewController: SplitViewController {
                 self.view.addSubview(self.editor.view)
                 
                 if Python.shared.isScriptRunning && !justShown {
-                    let navVC = ThemableNavigationController(rootViewController: self.console)
+                    let navVC = UINavigationController(rootViewController: self.console)
                     navVC.modalPresentationStyle = .overFullScreen
                     self.present(navVC, animated: true, completion: nil)
                 }

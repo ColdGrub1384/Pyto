@@ -86,13 +86,6 @@ class MenuTableViewController: UITableViewController, UIPopoverPresentationContr
         }
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = super.tableView(tableView, cellForRowAt: indexPath)
-        cell.imageView?.accessibilityIgnoresInvertColors = true
-        return cell
-    }
-    
     // MARK: - Popover presentation controller delegate
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {

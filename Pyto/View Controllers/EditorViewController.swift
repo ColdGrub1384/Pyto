@@ -115,7 +115,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     let inputAssistant = InputAssistantView()
     
     /// A Navigation controller containing the documentation.
-    var documentationNavigationController: ThemableNavigationController?
+    var documentationNavigationController: UINavigationController?
     
     private var isSaving = false
     
@@ -702,7 +702,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 if let url = self.document?.fileURL {
                     let console = ConsoleViewController.visible
                     guard console.view.window != nil else {
-                        let navVC = ThemableNavigationController(rootViewController: console)
+                        let navVC = UINavigationController(rootViewController: console)
                         navVC.modalPresentationStyle = .overCurrentContext
                         self.present(navVC, animated: true, completion: {
                             self.runScript(debug: debug)
@@ -789,7 +789,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// Shows documentation
     @objc func showDocs(_ sender: UIBarButtonItem) {
         if documentationNavigationController == nil {
-            documentationNavigationController = ThemableNavigationController(rootViewController: DocumentationViewController())
+            documentationNavigationController = UINavigationController(rootViewController: DocumentationViewController())
         }
         documentationNavigationController?.modalPresentationStyle = .popover
         documentationNavigationController?.popoverPresentationController?.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
