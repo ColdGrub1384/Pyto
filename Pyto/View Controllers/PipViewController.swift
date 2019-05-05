@@ -55,7 +55,7 @@ class PipViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     var removeButton: UIBarButtonItem!
     
     private func run(command: String) {
-        let navVC = ThemableNavigationController(rootViewController: PipInstallerViewController(command: command))
+        let navVC = UINavigationController(rootViewController: PipInstallerViewController(command: command))
         navVC.modalPresentationStyle = .formSheet
         present(navVC, animated: true, completion: nil)
     }

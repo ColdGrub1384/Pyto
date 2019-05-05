@@ -21,6 +21,12 @@ class ThemeChooserTableViewController: UITableViewController, SyntaxTextViewDele
     
     // MARK: - Table view controller
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.accessibilityIgnoresInvertColors = true
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Themes.count
     }

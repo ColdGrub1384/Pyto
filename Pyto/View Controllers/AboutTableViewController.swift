@@ -110,16 +110,9 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
-        cell.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
-        cell.textLabel?.textColor = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
-        cell.detailTextLabel?.textColor = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
         
         if indexPath == .todayWidget {
             cell.detailTextLabel?.text = (UserDefaults.standard.string(forKey: "todayWidgetScriptPath") as NSString?)?.lastPathComponent
-        } else if indexPath == .indentation || indexPath == .fontSize {
-            for view in cell.contentView.subviews {
-                (view as? UILabel)?.textColor = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
-            }
         }
         
         return cell
@@ -137,7 +130,7 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
             picker.delegate = self
             viewControllerToPresent = picker
         case .documentation:
-            viewControllerToPresent = ThemableNavigationController(rootViewController: DocumentationViewController())
+            viewControllerToPresent = UINavigationController(rootViewController: DocumentationViewController())
         case .contact:
             let controller = MFMailComposeViewController()
             controller.setSubject("Pyto - Contact")
@@ -145,7 +138,7 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
             controller.mailComposeDelegate = self
             viewControllerToPresent = controller
         case .acknowledgments:
-            viewControllerToPresent = ThemableNavigationController(rootViewController: AcknowledgmentsViewController())
+            viewControllerToPresent = UINavigationController(rootViewController: AcknowledgmentsViewController())
         case .sourceCode:
             viewControllerToPresent = SFSafariViewController(url: URL(string: "https://github.com/ColdGrub1384/Pyto")!)
         default:
