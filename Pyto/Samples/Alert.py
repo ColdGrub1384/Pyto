@@ -2,12 +2,16 @@
 Shows an alert.
 """
 
-import console
+from console import Alert
+from sys import platform
 
 # Code here
 
-alert = console.Alert.alertWithTitle("Hello", message="Hello World!")
+alert = Alert.alertWithTitle("Hello", message="Hello World!")
 alert.addAction("Ok")
-alert.addCancelAction("Cancel")
+if platform == "ios":
+    alert.addCancelAction("Cancel")
+else:
+    alert.addAction("Cancel")
 if (alert.show() == "Ok"):
   print("Good Bye!")
