@@ -9,7 +9,12 @@
 import UIKit
 
 /// A View controller for choosing from `REPL`, `PyPi` and `Settings` from an `UIDocumentBrowserViewController`.
-class MenuTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
+class MenuTableViewController: UITableViewController {
+    
+    /// Closes this View controller.
+    @IBAction func close(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     
     private static var repl: UIViewController?
     
@@ -45,18 +50,13 @@ class MenuTableViewController: UITableViewController, UIPopoverPresentationContr
             PyInputHelper.userInput = "import modules_inspector; modules_inspector.main()"
         }
         
-        dismiss(animated: true) {
-            let navVC = UINavigationController(rootViewController: ModulesTableViewController(style: .grouped))
-            navVC.modalPresentationStyle = .formSheet
-            UIApplication.shared.keyWindow?.topViewController?.present(navVC, animated: true, completion: {
-                if wasRunningScript {
-                    _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { (_) in
-                        checkModules()
-                    })
-                } else {
-                    checkModules()
-                }
+        navigationController?.pushViewController(ModulesTableViewController(style: .grouped), animated: true)
+        if wasRunningScript {
+            _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { (_) in
+                checkModules()
             })
+        } else {
+            checkModules()
         }
     }
     
@@ -75,20 +75,14 @@ class MenuTableViewController: UITableViewController, UIPopoverPresentationContr
         switch indexPath.row {
         case 0:
             selectREPL()
-        case 1:
-            selectPyPi()
         case 2:
-            selectLoadedModules()
+            selectPyPi()
         case 3:
+            selectLoadedModules()
+        case 4:
             selectSettings()
         default:
             break
         }
-    }
-    
-    // MARK: - Popover presentation controller delegate
-    
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
     }
 }

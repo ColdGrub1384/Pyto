@@ -230,6 +230,8 @@ import UIKit
                 return REPLViewController.shared?.console ?? shared
             } else if PipInstallerViewController.shared?.view.window != nil {
                 return PipInstallerViewController.shared?.console ?? shared
+            } else if RunModuleViewController.shared?.view.window != nil {
+                return RunModuleViewController.shared?.console ?? shared
             } else {
                 return shared
             }
@@ -489,37 +491,21 @@ import UIKit
         #endif
     }
     
-    override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
-        guard view != nil else {
-            return
-        }
-        
-        guard view.frame.height != size.height else {
-            _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
-                self.textView.frame.size.width = self.view.safeAreaLayoutGuide.layoutFrame.width
-                self.textView.frame.size.height = self.view.safeAreaLayoutGuide.layoutFrame.height-44
-                self.textView.frame.origin.y = self.view.safeAreaLayoutGuide.layoutFrame.origin.y
-                self.updateSize()
-            })
-            return
-        }
+    open override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         
         let wasFirstResponder = movableTextField?.textField.isFirstResponder ?? false
         movableTextField?.textField.resignFirstResponder()
-        _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
-            self.movableTextField?.toolbar.frame.size.width = self.view.safeAreaLayoutGuide.layoutFrame.width
-            self.movableTextField?.toolbar.frame.origin.x = self.view.safeAreaInsets.left
-            self.textView.frame = self.view.safeAreaLayoutGuide.layoutFrame
-            self.textView.frame.size.height = self.view.safeAreaLayoutGuide.layoutFrame.height-44
-            self.textView.frame.origin.y = self.view.safeAreaLayoutGuide.layoutFrame.origin.y
-            if wasFirstResponder {
-                self.movableTextField?.textField.becomeFirstResponder()
-            }
-            self.movableTextField?.applyTheme()
-            self.updateSize()
-        }) // TODO: Anyway to to it without a timer?
+        movableTextField?.toolbar.frame.size.width = view.safeAreaLayoutGuide.layoutFrame.width
+        movableTextField?.toolbar.frame.origin.x = view.safeAreaInsets.left
+        textView.frame = view.safeAreaLayoutGuide.layoutFrame
+        textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
+        textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
+        if wasFirstResponder {
+            movableTextField?.textField.becomeFirstResponder()
+        }
+        movableTextField?.applyTheme()
+        updateSize()
     }
     
     open override var keyCommands: [UIKeyCommand]? {
@@ -532,13 +518,19 @@ import UIKit
     // MARK: - Keyboard
     
     @objc func keyboardWillShow(_ notification:Notification) {
-        let d = notification.userInfo!
-        let r = d[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+        if parent?.parent?.modalPresentationStyle != .popover || parent?.parent?.view.frame.width != parent?.parent?.preferredContentSize.width {
+            let d = notification.userInfo!
+            let r = d[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+            
+            let point = (UIApplication.shared.keyWindow)?.convert(r.origin, to: view) ?? r.origin
+            
+            textView.frame.size.height = point.y-44
+        } else {
+            textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
+        }
         
-        let point = (UIApplication.shared.keyWindow)?.convert(r.origin, to: view) ?? r.origin
-        
-        textView.frame.size.height = point.y-44
         textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
+        
         textView.scrollToBottom()
     }
     

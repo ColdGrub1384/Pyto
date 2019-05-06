@@ -25,12 +25,10 @@ import SavannaKit
     
     /// Shows more options.
     @objc func showMore(_ sender: UIBarButtonItem) {
-        guard let menu = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "menu") as? MenuTableViewController else {
-            return
-        }
+        let menu = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "menu")
         menu.modalPresentationStyle = .popover
         menu.popoverPresentationController?.barButtonItem = sender
-        menu.popoverPresentationController?.delegate = menu
+        menu.view.backgroundColor = .white
         present(menu, animated: true, completion: nil)
     }
     

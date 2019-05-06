@@ -113,10 +113,12 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     // MARK: - Keyboard
     
     @objc private func keyboardWillShow(_ notification: NSNotification) {
-        if let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            let point = CGPoint(x: 0, y: (UIApplication.shared.keyWindow ?? console.view).frame.height-keyboardFrame.height-toolbar.frame.height)
-            let view: UIView! = UIApplication.shared.keyWindow ?? console.view
-            toolbar.frame.origin = CGPoint(x: view.safeAreaInsets.left, y: view.convert(point, to: console.view).y-(point.y == 0 ? view.safeAreaInsets.bottom : 0))
+        if console.parent?.parent?.modalPresentationStyle != .popover || console.parent?.parent?.view.frame.width != console.parent?.parent?.preferredContentSize.width {
+            if let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+                let point = CGPoint(x: 0, y: (UIApplication.shared.keyWindow ?? console.view).frame.height-keyboardFrame.height-toolbar.frame.height)
+                let view: UIView! = UIApplication.shared.keyWindow ?? console.view
+                toolbar.frame.origin = CGPoint(x: view.safeAreaInsets.left, y: view.convert(point, to: console.view).y-(point.y == 0 ? view.safeAreaInsets.bottom : 0))
+            }
         }
     }
     

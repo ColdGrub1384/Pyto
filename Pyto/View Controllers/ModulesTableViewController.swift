@@ -68,11 +68,6 @@ import UIKit
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
-        
-        navigationItem.largeTitleDisplayMode = .always
-        definesPresentationContext = true
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
     }
     
     override func viewWillAppear(_ animated: Bool) {
