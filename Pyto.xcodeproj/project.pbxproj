@@ -23,6 +23,8 @@
 		C90A8029220CFE2200C9A5A1 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* TextView.swift */; };
 		C90A803E220D0E0300C9A5A1 /* PyMainThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E501AD220C85B1002719CE /* PyMainThread.swift */; };
 		C90A803F220D0E0400C9A5A1 /* PyMainThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E501AD220C85B1002719CE /* PyMainThread.swift */; };
+		C90F7CED227F445D00EEA045 /* command_runner.py in Resources */ = {isa = PBXBuildFile; fileRef = C90F7CEC227F445D00EEA045 /* command_runner.py */; };
+		C90F7CF1227F494300EEA045 /* RunModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90F7CF0227F494300EEA045 /* RunModuleViewController.swift */; };
 		C90FB05F21FDEE7300DF66DB /* python3.7 in Resources */ = {isa = PBXBuildFile; fileRef = C90FB05E21FDEE7300DF66DB /* python3.7 */; };
 		C90FB06421FDEF1100DF66DB /* site-packages in Resources */ = {isa = PBXBuildFile; fileRef = C9BE01B021530BAF00A8C825 /* site-packages */; };
 		C90FB06F21FDF10600DF66DB /* docs in Resources */ = {isa = PBXBuildFile; fileRef = C9E509A121BC08F800261E3A /* docs */; };
@@ -1421,6 +1423,8 @@
 		C909A1992267DB210058C145 /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 		C909A19B2267E6E30058C145 /* UIViewController+isDarkModeEnabled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+isDarkModeEnabled.swift"; sourceTree = "<group>"; };
 		C90E5583227B44AE000F27F4 /* Pyto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pyto.entitlements; sourceTree = "<group>"; };
+		C90F7CEC227F445D00EEA045 /* command_runner.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = command_runner.py; sourceTree = "<group>"; };
+		C90F7CF0227F494300EEA045 /* RunModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunModuleViewController.swift; sourceTree = "<group>"; };
 		C90FB05E21FDEE7300DF66DB /* python3.7 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = python3.7; sourceTree = "<group>"; };
 		C90FB06021FDEE9200DF66DB /* Pyto Mac-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pyto Mac-Bridging-Header.h"; sourceTree = "<group>"; };
 		C90FB07021FDF25300DF66DB /* Startup.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = Startup.py; sourceTree = "<group>"; };
@@ -2220,6 +2224,7 @@
 				C913202A21DC12A300EEE677 /* AcknowledgmentsViewController.swift */,
 				C9592D1F21D059B900412CEF /* EditorSplitViewController.swift */,
 				C92DBD8121F687480098BE43 /* REPLViewController.swift */,
+				C90F7CF0227F494300EEA045 /* RunModuleViewController.swift */,
 				C9CF40AE2242DECF0076B627 /* PipInstallerViewController.swift */,
 				C99D8E1F223E960100489E9B /* PipViewController.swift */,
 				C9C0E77921EF65BE0057C63E /* ThemableNavigationController.swift */,
@@ -2290,6 +2295,7 @@
 				C92DBD7F21F67B9C0098BE43 /* REPL.py */,
 				C9E116DF21F773EB00FB5DD2 /* UserREPL.py */,
 				C916F44A226CFD4700FA2FB6 /* modules_inspector.py */,
+				C90F7CEC227F445D00EEA045 /* command_runner.py */,
 				C9B5D87521F214DC00E980BA /* body.html */,
 				C9F04E852173C33400BDD03E /* Localizable.strings */,
 				C9EA5C7C21F23024000F7FA7 /* Welcome to Pyto.md */,
@@ -3435,6 +3441,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C98E1FFD214EE6ED002F0178 /* Samples in Resources */,
+				C90F7CED227F445D00EEA045 /* command_runner.py in Resources */,
 				C9FCD710225AD4FA000F00E6 /* Untitled.txt in Resources */,
 				C9F8661A21ED059F0062D1C1 /* site-packages in Resources */,
 				C95AECB82208A688003BCB05 /* cacert.pem in Resources */,
@@ -3775,6 +3782,7 @@
 				C9C0E78521EF764F0057C63E /* Sunset.swift in Sources */,
 				C9EA55B3219F752D007546BC /* RelativePathForScript.swift in Sources */,
 				C92ACE3321F0D8CB00FA8904 /* SolarizedLight.swift in Sources */,
+				C90F7CF1227F494300EEA045 /* RunModuleViewController.swift in Sources */,
 				C949D39B21F8A00C005AF481 /* NSRange.swift in Sources */,
 				C99D8E20223E960100489E9B /* PipViewController.swift in Sources */,
 				C909A19C2267E6E30058C145 /* UIViewController+isDarkModeEnabled.swift in Sources */,
