@@ -309,7 +309,7 @@ class EditorViewController: NSViewController, SyntaxTextViewDelegate, NSTextView
                 }
                 
                 return true
-            } else if replacementString == "\n", var currentLine = textView.currentLine {
+            } else if replacementString == "\n", var currentLine = textView.currentLine?.replacingOccurrences(of: "\n", with: "") {
                 
                 let currentLineRange = textView.currentLineRange
                 let selectedRange = textView.selectedRange()
