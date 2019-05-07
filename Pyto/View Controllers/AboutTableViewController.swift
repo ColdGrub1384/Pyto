@@ -130,7 +130,7 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
             picker.delegate = self
             viewControllerToPresent = picker
         case .documentation:
-            viewControllerToPresent = UINavigationController(rootViewController: DocumentationViewController())
+            viewControllerToPresent = ThemableNavigationController(rootViewController: DocumentationViewController())
         case .contact:
             let controller = MFMailComposeViewController()
             controller.setSubject("Pyto - Contact")

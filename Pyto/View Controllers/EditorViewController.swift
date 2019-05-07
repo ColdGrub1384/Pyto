@@ -789,7 +789,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// Shows documentation
     @objc func showDocs(_ sender: UIBarButtonItem) {
         if documentationNavigationController == nil {
-            documentationNavigationController = UINavigationController(rootViewController: DocumentationViewController())
+            documentationNavigationController = ThemableNavigationController(rootViewController: DocumentationViewController())
         }
         documentationNavigationController?.modalPresentationStyle = .popover
         documentationNavigationController?.popoverPresentationController?.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
