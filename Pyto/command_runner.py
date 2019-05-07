@@ -33,6 +33,10 @@ def main():
         spec = importlib.util.spec_from_file_location("__main__", module_path)
         script = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(script)
+    except KeyboardInterrupt:
+        pass
+    except SystemExit:
+        pass
     except:
         print(traceback.format_exc())
 
