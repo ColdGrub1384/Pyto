@@ -94,7 +94,6 @@ func completeCode() {
             Bundle.main.resourcePath ?? "",
             Bundle.main.path(forResource: "site-packages", ofType: nil) ?? "",
             Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
-            zippedSitePackages ?? "",
             sitePackagesDirectory,
             ].joined(separator: ":")
     } else {

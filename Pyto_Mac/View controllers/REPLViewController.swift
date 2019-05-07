@@ -60,7 +60,6 @@ class REPLViewController: EditorViewController, NSWindowDelegate {
                 Bundle.main.resourcePath ?? "",
                 Bundle.main.path(forResource: "site-packages", ofType: nil) ?? "",
                 Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
-                zippedSitePackages ?? "",
                 url.deletingLastPathComponent().path,
                 sitePackagesDirectory,
                 ].joined(separator: ":")

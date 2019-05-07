@@ -31,14 +31,12 @@
     
     <h2><code>FilePicker</code></h2>
     
-    <p>(Wraps <a href="PyFilePicker.html">PyFilePicker</a>)</p>
-    
-    <p>A class representing a file picker.</p>
+    <p>A class representing a file picker. On iOS, presents an <code>UIDocumentPickerViewController</code> and an <code>NSOpenPanel</code> on macOS.</p>
     
     <p>Example:</p>
     
     <pre><code>
-    filePicker = sharing.FilePicker.new()
+    filePicker = sharing.FilePicker()
     filePicker.fileTypes = ["public.data"]
     filePicker.allowsMultipleSelection = True
     
@@ -49,6 +47,24 @@
     filePicker.completion = files_picked
     sharing.pick_documents(filePicker)
     </code></pre>
+    
+    <h3><code>fileTypes</code></h3>
+    
+    <p>
+    Document types that can be opened.
+    </p>
+    
+    <h3><code>allowsMultipleSelection</code></h3>
+    
+    <p>
+    Allow multiple selection or not.
+    </p>
+    
+    <h3><code>completion</code></h3>
+    
+    <p>
+    The code to execute when files where picked.
+    </p>
     
     <h2><code>pick_documents(filePicker)</code></h2>
     

@@ -217,7 +217,6 @@ import Cocoa
             pythonPath = [
                 Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
                 Bundle.main.path(forResource: "site-packages", ofType: nil) ?? "",
-                zippedSitePackages ?? "",
                 Bundle.main.resourcePath ?? "",
                 url.deletingLastPathComponent().path,
                 sitePackagesDirectory,
@@ -310,6 +309,8 @@ import Cocoa
             if !FileManager.default.fileExists(atPath: sitePackagesDirectory) {
                 try? FileManager.default.createDirectory(at: URL(fileURLWithPath: sitePackagesDirectory), withIntermediateDirectories: true, attributes: nil)
             }
+            
+            unzipFile(at: zippedSitePackages ?? "", to: sitePackagesDirectory)
         }
     }
     
