@@ -47,6 +47,19 @@ class Localizable: Static {
     /// Action for moving file at current directory
     static let moveHere = NSLocalizedString("moveHere", comment: "Action for moving file at current directory")
     
+    /// Strings used by `EditorActionsTableViewController`.
+    class EditorActionsTableViewController: Static {
+        
+        /// The title of the view controller for managing editor actions.
+        static let title = NSLocalizedString("editorActionsTableViewController.title", comment: "The title of the view controller for managing editor actions.")
+        
+        /// The title of the alert for adding an editor action.
+        static let createEditorActionAlertTitle = NSLocalizedString("editorActionsTableViewController.createEditorActionAlertTitle", comment: "The title of the alert for adding an editor action.")
+        
+        /// The message of the alert for adding an editor action.
+        static let createEditorActionAlertMessage = NSLocalizedString("editorActionsTableViewController.createEditorActionAlertMessage", comment: "The message of the alert for adding an editor action.")
+    }
+    
     /// Strings used in the View controller that displays loaded modules.
     class ModulesTableViewController: Static {
         

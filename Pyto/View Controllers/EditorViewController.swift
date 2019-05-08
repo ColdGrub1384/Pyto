@@ -235,6 +235,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         docItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showDocs(_:)))
         shareItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share(_:)))
+        let moreItem = UIBarButtonItem(image: UIImage(named: "more"), style: .plain, target: self, action: #selector(showEditorScripts(_:)))
         
         if Python.shared.isScriptRunning {
             parent?.navigationItem.rightBarButtonItems = [
@@ -260,6 +261,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         parent?.navigationController?.isToolbarHidden = false
         parent?.toolbarItems = [
             shareItem,
+            moreItem,
             space,
             docItem,
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), argsItem
@@ -602,6 +604,57 @@ fileprivate func parseArgs(_ args: inout [String]) {
     }
     
     // MARK: - Actions
+    
+    @objc func showEditorScripts(_ sender: UIBarButtonItem) {
+        
+        class NavigationController: UINavigationController {
+            
+            var editor: EditorViewController?
+            
+            override func viewWillDisappear(_ animated: Bool) {
+                super.viewWillDisappear(animated)
+                
+                if let doc = editor?.document, let data = try? Data(contentsOf: doc.fileURL) {
+                    try? doc.load(fromContents: data, ofType: "public.python-script")
+                    editor?.textView.text = doc.text
+                }
+            }
+        }
+        
+        guard let fileURL = document?.fileURL else {
+            return
+        }
+        
+        save { (success) in
+            
+            func presentPopover() {
+                DispatchQueue.main.async {
+                    let tableVC = EditorActionsTableViewController(scriptURL: fileURL)
+                    tableVC.editor = self
+                    let vc = NavigationController(rootViewController: tableVC)
+                    vc.editor = self
+                    vc.modalPresentationStyle = .popover
+                    vc.popoverPresentationController?.barButtonItem = sender
+                    vc.popoverPresentationController?.delegate = tableVC
+                    
+                    self.present(vc, animated: true, completion: nil)
+                }
+            }
+            
+            guard success else {
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: Localizable.Errors.errorWrittingToScript, message: nil, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: { (_) in
+                        presentPopover()
+                    }))
+                    self.present(alert, animated: true, completion: nil)
+                }
+                return
+            }
+            
+            presentPopover()
+        }
+    }
     
     /// Shares the current script.
     @objc func share(_ sender: UIBarButtonItem) {

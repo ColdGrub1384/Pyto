@@ -396,6 +396,8 @@
 		C9DF71072171768A00981B4F /* Python.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C943AC3D215277A000844368 /* Python.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9DF711A217176D700981B4F /* ios_system.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF7115217176BF00981B4F /* ios_system.framework */; };
 		C9DF711B217176D700981B4F /* ios_system.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF7115217176BF00981B4F /* ios_system.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E016ED22823186002DF4CA /* EditorScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E016EC22823186002DF4CA /* EditorScript.swift */; };
+		C9E016F122823E30002DF4CA /* EditorActionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E016F022823E30002DF4CA /* EditorActionsTableViewController.swift */; };
 		C9E116E021F773EB00FB5DD2 /* UserREPL.py in Resources */ = {isa = PBXBuildFile; fileRef = C9E116DF21F773EB00FB5DD2 /* UserREPL.py */; };
 		C9E4152B21513E3400D64E32 /* ConsoleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E4152A21513E3400D64E32 /* ConsoleTextView.swift */; };
 		C9E4152E21514F9100D64E32 /* Startup.py in Resources */ = {isa = PBXBuildFile; fileRef = C9E4152D21514F9100D64E32 /* Startup.py */; };
@@ -1877,6 +1879,8 @@
 		C9DF70D42171752100981B4F /* text.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = text.framework; sourceTree = "<group>"; };
 		C9DF70D52171752100981B4F /* lua_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = lua_ios.framework; sourceTree = "<group>"; };
 		C9DF7110217176BE00981B4F /* ios_system.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ios_system.xcodeproj; path = ios_system/ios_system.xcodeproj; sourceTree = "<group>"; };
+		C9E016EC22823186002DF4CA /* EditorScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorScript.swift; sourceTree = "<group>"; };
+		C9E016F022823E30002DF4CA /* EditorActionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorActionsTableViewController.swift; sourceTree = "<group>"; };
 		C9E116DF21F773EB00FB5DD2 /* UserREPL.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = UserREPL.py; sourceTree = "<group>"; };
 		C9E4152A21513E3400D64E32 /* ConsoleTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleTextView.swift; sourceTree = "<group>"; };
 		C9E4152D21514F9100D64E32 /* Startup.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = Startup.py; sourceTree = "<group>"; };
@@ -2233,6 +2237,7 @@
 				C9C0E78C21F0B7FA0057C63E /* ThemeChooserTableViewController.swift */,
 				C909A1992267DB210058C145 /* MenuTableViewController.swift */,
 				C94F12AF226BC98D00B4A035 /* ModulesTableViewController.swift */,
+				C9E016F022823E30002DF4CA /* EditorActionsTableViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -2376,6 +2381,7 @@
 				C99D8E31223ECD1000489E9B /* PyPiPackage.swift */,
 				C921EF6621ECA02E004C750D /* XcodeActivity.swift */,
 				C9592D1521D0592C00412CEF /* ViewControllerTransitionCoordinator.swift */,
+				C9E016EC22823186002DF4CA /* EditorScript.swift */,
 				C9592D1721D0592C00412CEF /* Localizable.swift */,
 			);
 			path = Models;
@@ -3784,6 +3790,7 @@
 				C92ACE3321F0D8CB00FA8904 /* SolarizedLight.swift in Sources */,
 				C90F7CF1227F494300EEA045 /* RunModuleViewController.swift in Sources */,
 				C949D39B21F8A00C005AF481 /* NSRange.swift in Sources */,
+				C9E016F122823E30002DF4CA /* EditorActionsTableViewController.swift in Sources */,
 				C99D8E20223E960100489E9B /* PipViewController.swift in Sources */,
 				C909A19C2267E6E30058C145 /* UIViewController+isDarkModeEnabled.swift in Sources */,
 				C9C0E77F21EF71E30057C63E /* Dusk.swift in Sources */,
@@ -3804,6 +3811,7 @@
 				C9425A7721F49B1300E7CC35 /* BlockBasedSelector.m in Sources */,
 				C99DDCEC21BBED22002A734E /* DocumentationViewController.swift in Sources */,
 				C97659062147192C001C96A8 /* PySharingHelper.swift in Sources */,
+				C9E016ED22823186002DF4CA /* EditorScript.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
