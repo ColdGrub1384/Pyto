@@ -137,7 +137,7 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
         case .contact:
             let controller = MFMailComposeViewController()
             controller.setSubject("Pyto - Contact")
-            controller.setToRecipients(["adri_labbe@hotmail.com"])
+            controller.setToRecipients(["adrian@develobile.com"])
             controller.mailComposeDelegate = self
             viewControllerToPresent = controller
         case .acknowledgments:
