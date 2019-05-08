@@ -83,9 +83,10 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         
         textField.delegate = self
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(_:)), name: UIResponder.keyboardDidHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
     /// Shows the text field.
@@ -112,18 +113,50 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     
     // MARK: - Keyboard
     
-    @objc private func keyboardWillShow(_ notification: NSNotification) {
+    @objc private func keyboardDidShow(_ notification: NSNotification) {
         if console.parent?.parent?.modalPresentationStyle != .popover || console.parent?.parent?.view.frame.width != console.parent?.parent?.preferredContentSize.width {
-            if let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-                let point = CGPoint(x: 0, y: (UIApplication.shared.keyWindow ?? console.view).frame.height-keyboardFrame.height-toolbar.frame.height)
-                let view: UIView! = UIApplication.shared.keyWindow ?? console.view
-                toolbar.frame.origin = CGPoint(x: view.safeAreaInsets.left, y: view.convert(point, to: console.view).y-(point.y == 0 ? view.safeAreaInsets.bottom : 0))
+            
+            #if MAIN
+            let inputAssistantOrigin = inputAssistant.frame.origin
+            let yPos = inputAssistant.convert(inputAssistantOrigin, to: console.view).y
+            
+            toolbar.frame.origin = CGPoint(x: console.view.safeAreaInsets.left, y: yPos-toolbar.frame.height)
+            
+            if toolbar.superview != nil {
+                if !toolbar.superview!.bounds.intersection(toolbar.frame).equalTo(toolbar.frame) {
+                    toolbar.frame.origin.y = console.view.safeAreaLayoutGuide.layoutFrame.height-toolbar.frame.height
+                }
             }
+            #endif
+        }
+        
+        UIView.animate(withDuration: 0.5) {
+            self.toolbar.alpha = 1
+        }
+    }
+    
+    @objc private func keyboardDidHide(_ notification: NSNotification) {
+        toolbar.frame.origin.y = console.view.safeAreaLayoutGuide.layoutFrame.height-toolbar.frame.height
+        
+        if textField.isFirstResponder { // Still editing, but with a hardware keyboard
+            keyboardDidShow(notification)
+        }
+        
+        UIView.animate(withDuration: 0.5) {
+            self.toolbar.alpha = 1
         }
     }
     
     @objc private func keyboardWillHide(_ notification: NSNotification) {
-        toolbar.frame.origin.y = console.view.safeAreaLayoutGuide.layoutFrame.height-toolbar.frame.height
+        UIView.animate(withDuration: 0.5) {
+            self.toolbar.alpha = 0
+        }
+    }
+    
+    @objc private func keyboardWillShow(_ notification: NSNotification) {
+        UIView.animate(withDuration: 0.5) {
+            self.toolbar.alpha = 0
+        }
     }
     
     // MARK: - Text field delegate
