@@ -119,13 +119,28 @@ class EditorActionsTableViewController: UITableViewController, UIPopoverPresenta
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return editorScripts[indexPath.row] != k2to3Script
+        return editorScripts[indexPath.row] != k2to3Script && editorScripts[indexPath.row] != kBlackScript
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            savedEditorScripts.remove(at: indexPath.row-1)
+            savedEditorScripts.remove(at: indexPath.row-2)
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return editorScripts[indexPath.row] != k2to3Script && editorScripts[indexPath.row] != kBlackScript
+    }
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        
+        guard editorScripts.indices.contains(sourceIndexPath.row), savedEditorScripts.indices.contains(sourceIndexPath.row-2), destinationIndexPath.row > 1 else {
+            return tableView.reloadData()
+        }
+        
+        let moved = editorScripts[sourceIndexPath.row]
+        savedEditorScripts.remove(at: sourceIndexPath.row-2)
+        savedEditorScripts.insert(moved, at: destinationIndexPath.row-2)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
