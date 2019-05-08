@@ -7,11 +7,14 @@ import os
 import sys
 import traceback
 
-usage = "Usage: <module-name> [<args>]"
-print(usage)
+if len(sys.argv) == 1:
+    usage = "Usage: <module-name> [<args>]"
+    print(usage)
 
 def main():
-    command = input("python -m ").split()
+    command = sys.argv[1:]
+    if len(command) == 0:
+        command = input("python -m ").split()
     if len(command) == 0:
         print(usage)
         return
@@ -42,3 +45,5 @@ def main():
 
 while True:
     main()
+    if len(sys.argv) > 1:
+        break

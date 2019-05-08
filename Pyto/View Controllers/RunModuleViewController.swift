@@ -18,6 +18,14 @@ import UIKit
     /// The last visible instance.
     static var shared: RunModuleViewController?
     
+    /// Arguments sent to the script containing script to run name.
+    var argv: [String]? {
+        didSet {
+            loadViewIfNeeded()
+            editor.args = argv?.joined(separator: " ") ?? ""
+        }
+    }
+    
     private static let console = ConsoleViewController()
     
     // MARK: - Editor split view controller
