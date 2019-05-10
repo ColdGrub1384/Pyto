@@ -21,7 +21,7 @@ install:
 
 before_script:
   - EXCLUDE=./.*,./Pyto_Mac/mac-site-packages,./Pyto_Mac/pip,./Pyto_Mac/PyObjC,./site-packages
-  - flake8 . --count --exclude=${EXCLUDE} --select=E901,E999,F821,F822,F823  --show-source --statistics
+  - flake8 . --count --exclude=${EXCLUDE} --select=E9,F63,F72,F82 --show-source --statistics
   - EXCLUDE=./.*,./Pyto*,./*site-packages
   - flake8 . --count --exclude=${EXCLUDE} --max-complexity=10 --max-line-length=127 --show-source --statistics
   - flake8 --count --ignore=E111 "Pyto/Samples/Hello World.py" "Pyto/Samples/Open URL.py"
