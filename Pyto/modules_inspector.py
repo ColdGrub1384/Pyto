@@ -9,20 +9,12 @@ def main():
     mods = []
     paths = []
 
-    modules = sys.modules.copy()
-    for key, mod in modules.items():
+    for key, mod in sys.modules.copy().items():
         mods.append(key)
         try:
-            file = mod.__file__
-            if file != None:
-                paths.append(file)
-            else:
-                paths.append("")
+            paths.append(mod.__file__ or "")
         except:
             paths.append("built-in")
 
-    mods.reverse()
-    paths.reverse()
-
-    pyto.ModulesTableViewController.modules = mods
-    pyto.ModulesTableViewController.paths = paths
+    pyto.ModulesTableViewController.modules = reversed(mods)
+    pyto.ModulesTableViewController.paths = reversed(paths)
