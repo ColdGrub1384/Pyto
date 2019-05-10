@@ -13,7 +13,7 @@ def main():
         mods.append(key)
         try:
             paths.append(mod.__file__ or "")
-        except:
+        except Exception:
             paths.append("built-in")
 
     pyto.ModulesTableViewController.modules = reversed(mods)
