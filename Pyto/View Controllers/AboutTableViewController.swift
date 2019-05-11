@@ -141,7 +141,7 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
             controller.mailComposeDelegate = self
             viewControllerToPresent = controller
         case .acknowledgments:
-            viewControllerToPresent = UINavigationController(rootViewController: AcknowledgmentsViewController())
+            viewControllerToPresent = ThemableNavigationController(rootViewController: AcknowledgmentsViewController())
         case .sourceCode:
             viewControllerToPresent = SFSafariViewController(url: URL(string: "https://github.com/ColdGrub1384/Pyto")!)
         default:

@@ -55,7 +55,7 @@ import WebKit
     var removeButton: UIBarButtonItem!
     
     private func run(command: String) {
-        let navVC = UINavigationController(rootViewController: PipInstallerViewController(command: command))
+        let navVC = ThemableNavigationController(rootViewController: PipInstallerViewController(command: command))
         navVC.modalPresentationStyle = .formSheet
         present(navVC, animated: true, completion: nil)
     }
