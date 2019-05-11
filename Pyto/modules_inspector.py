@@ -11,11 +11,11 @@ def main():
 
     modules = sys.modules.copy()
     for key, mod in modules.items():
-        mods.append(key)
+        mods.append(str(key))
         try:
             file = mod.__file__
             if file != None:
-                paths.append(file)
+                paths.append(str(file))
             else:
                 paths.append("")
         except:
