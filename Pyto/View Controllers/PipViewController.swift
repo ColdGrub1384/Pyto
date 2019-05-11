@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 
 /// A View controller for accessing PyPi.
-class PipViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
+@objc class PipViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     
     /// The Web view displaying PyPi.
     @IBOutlet weak var webView: WKWebView!
@@ -71,7 +71,7 @@ class PipViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     }
     
     /// Bundled modules.
-    let bundled = ["certifi", "chardet", "colorama", "cycler", "dateutil", "distlib", "idna", "ipaddress", "jedi", "lockfile", "matplotlib", "numpy", "pandas", "setuptools", "progress", "pyparsing", "pytoml", "pytz", "queue", "requests", "rubicon", "six", "stopit", "urllib3", "webencodings", "wsgiref"]
+    @objc static var bundled = [String]()
     
     /// Returns the currently viewing package.
     var currentPackage: String? {
@@ -137,7 +137,7 @@ class PipViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
         progressView.isHidden = true
         progressView.progress = 0
         
-        if let package = currentPackage, !bundled.contains(package) {
+        if let package = currentPackage, !PipViewController.bundled.contains(package) {
             if isPackageInstalled {
                 navigationItem.rightBarButtonItem = removeButton
             } else {

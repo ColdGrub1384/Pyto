@@ -9,9 +9,8 @@ __builtins__.__host__ = __builtins__.app
 import sys
 import os
 
-sys.path.insert(0, os.path.expanduser("~/Library/pylib"))
-sys.path.insert(0, os.path.expanduser("~/Documents"))
-sys.path.insert(0, os.path.expanduser("~/Documents/modules"))
+sys.path.insert(-1, os.path.expanduser("~/Documents"))
+sys.path.insert(-1, os.path.expanduser("~/Documents/modules"))
 
 import io
 import console
@@ -29,6 +28,7 @@ from _ios_getpass import getpass as _ios_getpass
 import getpass
 import webbrowser
 import sharing
+from pip import BUNDLED_MODULES
 
 # MARK: - Warnings
 
@@ -123,6 +123,11 @@ __builtins__.Target = pyto.SelectorTarget.shared
 # MARK: - Deprecations
 
 __builtins__.deprecated = ["runAsync", "runSync", "generalPasteboard", "setString", "setStrings", "setImage", "setImages", "setURL", "setURLs", "showViewController", "closeViewController", "mainLoop", "openURL", "shareItems", "pickDocumentsWithFilePicker", "_get_variables_hierarchy"]
+
+# Pip bundled modules
+
+if pyto.PipViewController != None:
+    pyto.PipViewController.bundled = BUNDLED_MODULES
 
 # MARK: - Run script
 
