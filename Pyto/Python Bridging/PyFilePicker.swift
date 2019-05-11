@@ -36,4 +36,11 @@ import UIKit
             self.completion?()
         }
     }
+    
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        PyFilePicker.urls = []
+        Python.shared.queue.async {
+            PySharingHelper.semaphore?.signal()
+        }
+    }
 }
