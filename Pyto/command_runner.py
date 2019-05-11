@@ -43,7 +43,10 @@ def main():
     except:
         print(traceback.format_exc())
 
-while True:
+    sys.argv = [sys.argv[0]]
+
+if len(sys.argv) > 1:
     main()
-    if len(sys.argv) > 1:
-        break
+else:
+    while True:
+        main()
