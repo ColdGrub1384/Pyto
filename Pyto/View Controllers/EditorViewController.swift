@@ -755,7 +755,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 if let url = self.document?.fileURL {
                     let console = ConsoleViewController.visible
                     guard console.view.window != nil else {
-                        let navVC = UINavigationController(rootViewController: console)
+                        let navVC = ThemableNavigationController(rootViewController: console)
                         navVC.modalPresentationStyle = .overCurrentContext
                         self.present(navVC, animated: true, completion: {
                             self.runScript(debug: debug)
