@@ -805,16 +805,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
             return
         }
         
-        let text = textView.text
+        document?.text = textView.text
         
-        DispatchQueue.global().async {
-            do {
-                try text.write(to: self.document!.fileURL, atomically: true, encoding: .utf8)
-                completion?(true)
-            } catch {
-                completion?(false)
-            }
-        }
+        document?.save(to: document!.fileURL, for: .forOverwriting, completionHandler: completion)
     }
     
     /// The View controller is closed and the document is saved.
@@ -828,12 +821,16 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 return
             }
             
-            self.document?.text = self.textView.text
-            self.document?.close(completionHandler: { (success) in
-                if !success {
-                    let alert = UIAlertController(title: Localizable.Errors.errorWrittingToScript, message: nil, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
-                    UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+            self.save(completion: { (_) in
+                DispatchQueue.main.async {
+                    self.document?.text = self.textView.text
+                    self.document?.close(completionHandler: { (success) in
+                        if !success {
+                            let alert = UIAlertController(title: Localizable.Errors.errorWrittingToScript, message: nil, preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
+                            UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+                        }
+                    })
                 }
             })
         }
