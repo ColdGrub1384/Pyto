@@ -50,6 +50,8 @@
 		C9317EDD21FDF85A0016E422 /* REPL.py in Resources */ = {isa = PBXBuildFile; fileRef = C92DBD7F21F67B9C0098BE43 /* REPL.py */; };
 		C9317EE421FE15F20016E422 /* PyIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C9317EE321FE15F20016E422 /* PyIcon.png */; };
 		C9317EEC21FF2DD00016E422 /* Python.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904EB7221445D5800585C28 /* Python.swift */; };
+		C93657252287286400498011 /* ConflictsResolver.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C93657242287286400498011 /* ConflictsResolver.storyboard */; };
+		C93657292287334600498011 /* ResolveConflictsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93657282287334600498011 /* ResolveConflictsTableViewController.swift */; };
 		C93CA8B522022E67008DD049 /* QuickLookHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93CA8B422022E67008DD049 /* QuickLookHelper.swift */; };
 		C93CA8B822022E6E008DD049 /* QuickLookHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93CA8B422022E67008DD049 /* QuickLookHelper.swift */; };
 		C93D61DD2145CD0800C8B5E3 /* PyInputHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DC2145CD0800C8B5E3 /* PyInputHelper.swift */; };
@@ -1469,6 +1471,8 @@
 		C9317F2321FF6A770016E422 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = _tri.framework/Info.plist; sourceTree = "<group>"; };
 		C9317F2521FF6A7F0016E422 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ft2font.framework/Info.plist; sourceTree = "<group>"; };
 		C9317F2721FF6A860016E422 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ttconv.framework/Info.plist; sourceTree = "<group>"; };
+		C93657242287286400498011 /* ConflictsResolver.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ConflictsResolver.storyboard; sourceTree = "<group>"; };
+		C93657282287334600498011 /* ResolveConflictsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolveConflictsTableViewController.swift; sourceTree = "<group>"; };
 		C93B6A2D2200B6C8009D637F /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		C93B6A2F2200B711009D637F /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
 		C93B6A312200BEA1009D637F /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
@@ -2238,6 +2242,7 @@
 				C909A1992267DB210058C145 /* MenuTableViewController.swift */,
 				C94F12AF226BC98D00B4A035 /* ModulesTableViewController.swift */,
 				C9E016F022823E30002DF4CA /* EditorActionsTableViewController.swift */,
+				C93657282287334600498011 /* ResolveConflictsTableViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -2284,6 +2289,7 @@
 				C9F04E8A2173DD7300BDD03E /* Main.storyboard */,
 				C9C0E78A21F0B5770057C63E /* Theme Chooser.storyboard */,
 				C9B5D84A21F119B100E980BA /* Settings.storyboard */,
+				C93657242287286400498011 /* ConflictsResolver.storyboard */,
 				C9A33B12224FCDAD0083F041 /* TextField.xib */,
 				C9FCFD5F214428B300A07974 /* Assets.xcassets */,
 				C9FCFD64214428B300A07974 /* Info.plist */,
@@ -3461,6 +3467,7 @@
 				C9C0E78B21F0B5770057C63E /* Theme Chooser.storyboard in Resources */,
 				C9727C472204D7F100B7AC32 /* LaunchScreen.storyboard in Resources */,
 				C9EA5C7D21F23558000F7FA7 /* Welcome to Pyto.md in Resources */,
+				C93657252287286400498011 /* ConflictsResolver.storyboard in Resources */,
 				C98472AE21A05CB1008E16AC /* README.md in Resources */,
 				C9F04E882173DD7300BDD03E /* Main.storyboard in Resources */,
 				C9E116E021F773EB00FB5DD2 /* UserREPL.py in Resources */,
@@ -3785,6 +3792,7 @@
 				C9AAAB5221950E8B0042E733 /* TextView.swift in Sources */,
 				C909A19A2267DB210058C145 /* MenuTableViewController.swift in Sources */,
 				C9C0E77821EEA9BE0057C63E /* XcodeDark.swift in Sources */,
+				C93657292287334600498011 /* ResolveConflictsTableViewController.swift in Sources */,
 				C9C0E78521EF764F0057C63E /* Sunset.swift in Sources */,
 				C9EA55B3219F752D007546BC /* RelativePathForScript.swift in Sources */,
 				C92ACE3321F0D8CB00FA8904 /* SolarizedLight.swift in Sources */,
