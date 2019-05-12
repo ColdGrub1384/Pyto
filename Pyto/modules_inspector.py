@@ -12,9 +12,9 @@ def main():
     for key, mod in sys.modules.copy().items():
         mods.append(str(key))
         try:
-            paths.append(mod.__file__ or "")
+            paths.append(str(mod.__file__) or "")
         except Exception:
             paths.append("built-in")
 
-    pyto.ModulesTableViewController.modules = reversed(mods)
-    pyto.ModulesTableViewController.paths = reversed(paths)
+    pyto.ModulesTableViewController.modules = list(reversed(mods))
+    pyto.ModulesTableViewController.paths = list(reversed(paths))
