@@ -28,6 +28,7 @@ from _ios_getpass import getpass as _ios_getpass
 import getpass
 import webbrowser
 import sharing
+import _signal
 from pip import BUNDLED_MODULES
 
 # MARK: - Warnings
@@ -124,10 +125,31 @@ __builtins__.Target = pyto.SelectorTarget.shared
 
 __builtins__.deprecated = ["runAsync", "runSync", "generalPasteboard", "setString", "setStrings", "setImage", "setImages", "setURL", "setURLs", "showViewController", "closeViewController", "mainLoop", "openURL", "shareItems", "pickDocumentsWithFilePicker", "_get_variables_hierarchy"]
 
-# Pip bundled modules
+# MARK: - Pip bundled modules
 
 if pyto.PipViewController != None:
     pyto.PipViewController.bundled = BUNDLED_MODULES
+
+# MARK: - OS
+
+def fork():
+    pass
+
+def waitpid(pid, options):
+    return (-1, 0)
+
+os.fork = fork
+os.waitpid = waitpid
+
+# MARK: -Handle signal called outside main thread
+
+old_signal = _signal.signal
+def signal(signal, handler):
+    if threading.main_thread() == threading.current_thread():
+        return old_signal(signal, handler)
+    else:
+        return None
+_signal.signal = signal
 
 # MARK: - Run script
 
