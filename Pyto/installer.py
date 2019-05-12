@@ -1,4 +1,8 @@
 from pip import main
 import sys
+import traceback
 
-main(sys.argv[1:])
+try:
+    main(sys.argv[1:])
+except:
+    print(traceback.format_exc())
