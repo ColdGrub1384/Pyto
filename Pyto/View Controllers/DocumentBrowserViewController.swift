@@ -105,13 +105,15 @@ import SavannaKit
                 return
             }
             
-            UIApplication.shared.keyWindow?.topViewController?.present(navVC, animated: true, completion: {
-                NotificationCenter.default.removeObserver(splitVC)
-                
-                splitVC.firstChild = editor
-                splitVC.secondChild = contentVC
-                
-                completion?()
+            document.checkForConflicts(completion: {
+                UIApplication.shared.keyWindow?.topViewController?.present(navVC, animated: true, completion: {
+                    NotificationCenter.default.removeObserver(splitVC)
+                    
+                    splitVC.firstChild = editor
+                    splitVC.secondChild = contentVC
+                    
+                    completion?()
+                })
             })
         }
     }

@@ -28,6 +28,32 @@ class PyDocument: Document {
     /// The text of the Python script to save.
     var text = ""
     
+    /// Checks for conflicts and presents an alert if needed.
+    ///
+    /// - Parameters:
+    ///     - completion: Code to call after the file is checked.
+    func checkForConflicts(completion: (() -> Void)?) {
+        
+        if documentState == UIDocument.State.inConflict, let versions = NSFileVersion.unresolvedConflictVersionsOfItem(at: fileURL), versions.count > 1 {
+            
+            guard let resolver = UIStoryboard(name: "ConflictsResolver", bundle: Bundle.main).instantiateInitialViewController() as? ResolveConflictsTableViewController else {
+                completion?()
+                return
+            }
+            
+            resolver.document = self
+            resolver.versions = versions
+            resolver.completion = completion
+            
+            let navVC = UINavigationController(rootViewController: resolver)
+            navVC.modalPresentationStyle = .formSheet
+            
+            UIApplication.shared.keyWindow?.topViewController?.present(navVC, animated: true, completion: nil)
+        } else {
+            completion?()
+        }
+    }
+    
     private func load(contents: Any) throws {
         guard let data = contents as? Data else {
             // This would be a developer error.
