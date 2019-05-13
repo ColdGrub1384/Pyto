@@ -1,5 +1,8 @@
 #if os(iOS)
 import UIKit
+#if MAIN
+import SavannaKit
+#endif
 typealias TextView = UITextView
 typealias Range = UITextRange
 #elseif os(macOS)

@@ -877,6 +877,16 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
     }
     
+    /// Undo.
+    @objc func undo() {
+        textView.contentTextView.undoManager?.undo()
+    }
+    
+    /// Redo.
+    @objc func redo() {
+        textView.contentTextView.undoManager?.redo()
+    }
+    
     // MARK: - Breakpoints
     
     private struct MarkerPosition: Hashable {
@@ -1044,6 +1054,27 @@ fileprivate func parseArgs(_ args: inout [String]) {
     }
     
     func textViewDidChange(_ textView: UITextView) {
+        
+        func removeUndoAndRedo() {
+            for (i, item) in (UIMenuController.shared.menuItems ?? []).enumerated() {
+                if item.action == #selector(EditorViewController.redo) || item.action == #selector(EditorViewController.undo) {
+                    UIMenuController.shared.menuItems?.remove(at: i)
+                    removeUndoAndRedo()
+                    break
+                }
+            }
+        }
+        
+        removeUndoAndRedo()
+        
+        if textView.undoManager?.canRedo == true {
+            UIMenuController.shared.menuItems?.insert(UIMenuItem(title: Localizable.MenuItems.redo, action: #selector(EditorViewController.redo)), at: 0)
+        }
+        
+        if textView.undoManager?.canUndo == true {
+            UIMenuController.shared.menuItems?.insert(UIMenuItem(title: Localizable.MenuItems.undo, action: #selector(EditorViewController.undo)), at: 0)
+        }
+        
         document?.text = textView.text
         return self.textView.textViewDidChange(textView)
     }

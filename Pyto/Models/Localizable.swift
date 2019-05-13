@@ -236,6 +236,12 @@ class Localizable: Static {
     /// Titles of items in `UIMenuController`.
     class MenuItems: Static {
         
+        /// The 'Undo' menu item
+        static let undo = NSLocalizedString("menuItems.undo", comment: "The 'Undo' menu item")
+        
+        /// The 'Redo' menu item
+        static let redo = NSLocalizedString("menuItems.redo", comment: "The 'Redo' menu item")
+        
         /// The 'Open' menu item
         static let open = NSLocalizedString("menuItems.open", comment: "The 'Open' menu item")
         
