@@ -47,6 +47,28 @@ class Localizable: Static {
     /// Action for moving file at current directory
     static let moveHere = NSLocalizedString("moveHere", comment: "Action for moving file at current directory")
     
+    /// 'Runtime' button on the editor
+    static let runtime = NSLocalizedString("runtime", comment: "'Runtime' button on the editor")
+    
+    // 'Change'
+    static let change = NSLocalizedString("change", comment: "'Change'")
+    
+    /// Alert for setting current directory.
+    class CurrentDirectoryAlert: Static {
+        
+        /// Message of the alert for setting current directory
+        static let message = NSLocalizedString("directoryAlert.message", comment: "Message of the alert for setting current directory")
+        
+        /// Title of the alert for setting current directory
+        static let title = NSLocalizedString("directoryAlert.title", comment: "Title of the alert for current directory")
+        
+        /// Message shown after the path of a directory that is not readable in the alert for setting the current directory
+        static let notReadable = NSLocalizedString("directoryAlert.notReadable", comment: "Message shown after the path of a directory that is not readable in the alert for setting the current directory")
+        
+        /// Message shown after the path of a directory that is readable in the alert for setting the current directory
+        static let readable = NSLocalizedString("directoryAlert.readable", comment: "Message shown after the path of a directory that is readable in the alert for setting the current directory")
+    }
+    
     /// Strings used by `EditorActionsTableViewController`.
     class EditorActionsTableViewController: Static {
         

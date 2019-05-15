@@ -40,16 +40,7 @@ import UIKit
     private var filtredPaths: [String]?
     
     private func shortened(path: String) -> String {
-        var _path = path
-        _path = _path.replacingOccurrences(of: DocumentBrowserViewController.localContainerURL.path, with: "Documents")
-        _path = _path.replacingOccurrences(of: Bundle.main.bundlePath, with: "Pyto.app")
-        if let iCloud = DocumentBrowserViewController.iCloudContainerURL {
-            _path = _path.replacingOccurrences(of: iCloud.path, with: "iCloud")
-        }
-        _path = _path.replacingOccurrences(of: "/privatePyto.app", with: "Pyto.app")
-        _path = _path.replacingOccurrences(of: "/privateDocuments", with: "Documents")
-        
-        return _path
+        return ShortenFilePaths(in: path)
     }
     
     @objc private func close() {

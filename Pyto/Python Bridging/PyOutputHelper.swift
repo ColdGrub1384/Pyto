@@ -18,14 +18,7 @@ import UIKit
         var text_ = text
         
         #if MAIN
-        text_ = text_.replacingOccurrences(of: DocumentBrowserViewController.localContainerURL.path, with: "Documents")
-        text_ = text_.replacingOccurrences(of: "/privateDocuments", with: "Documents")
-        if let iCloudDrive = DocumentBrowserViewController.iCloudContainerURL?.path {
-            text_ = text_.replacingOccurrences(of: iCloudDrive, with: "iCloud")
-        }
-        
-        text_ = text_.replacingOccurrences(of: Bundle.main.bundlePath, with: "Pyto.app")
-        text_ = text_.replacingOccurrences(of: "/privatePyto.app", with: "Pyto.app")
+        text_ = ShortenFilePaths(in: text_)
         #endif
         
         Python.shared.output += text_
@@ -52,12 +45,7 @@ import UIKit
         var text_ = text
         
         #if MAIN
-        text_ = text_.replacingOccurrences(of: URL(fileURLWithPath: "/private").appendingPathComponent(DocumentBrowserViewController.localContainerURL.path).path, with: "Documents")
-        text_ = text_.replacingOccurrences(of: DocumentBrowserViewController.localContainerURL.path, with: "Documents")
-        if let iCloudDrive = DocumentBrowserViewController.iCloudContainerURL?.path {
-            text_ = text_.replacingOccurrences(of: iCloudDrive, with: "iCloud")
-        }
-        text_ = text_.replacingOccurrences(of: Bundle.main.bundlePath, with: "Pyto.app")
+        text_ = ShortenFilePaths(in: text_)
         #endif
         
         Python.shared.output += text_
@@ -80,12 +68,7 @@ import UIKit
         var text_ = text
         
         #if MAIN
-        text_ = text_.replacingOccurrences(of: URL(fileURLWithPath: "/private").appendingPathComponent(DocumentBrowserViewController.localContainerURL.path).path, with: "Documents")
-        text_ = text_.replacingOccurrences(of: DocumentBrowserViewController.localContainerURL.path, with: "Documents")
-        if let iCloudDrive = DocumentBrowserViewController.iCloudContainerURL?.path {
-            text_ = text_.replacingOccurrences(of: iCloudDrive, with: "iCloud")
-        }
-        text_ = text_.replacingOccurrences(of: Bundle.main.bundlePath, with: "Pyto.app")
+        text_ = ShortenFilePaths(in: text_)
         #endif
         
         Python.shared.output += text_
