@@ -79,6 +79,9 @@ import Cocoa
     
     #if os(iOS)
     
+    /// The directory from which the script is executed.
+    @objc public var currentWorkingDirectory = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].path
+    
     /// Returns the environment.
     @objc var environment: [String:String] {
         return ProcessInfo.processInfo.environment

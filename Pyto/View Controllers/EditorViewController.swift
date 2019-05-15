@@ -83,7 +83,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
 
 
 /// The View controller used to edit source code.
-@objc class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssistantViewDelegate, InputAssistantViewDataSource, UITextViewDelegate, UISearchBarDelegate {
+@objc class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssistantViewDelegate, InputAssistantViewDataSource, UITextViewDelegate, UISearchBarDelegate, UIDocumentPickerDelegate {
     
     /// Returns string used for indentation
     static var indentation: String {
@@ -125,7 +125,55 @@ fileprivate func parseArgs(_ args: inout [String]) {
     var lineNumberError: Int?
     
     /// Arguments passed to the script.
-    var args = ""
+    var args: String {
+        get {
+            return UserDefaults.standard.string(forKey: "arguments\(document?.fileURL.path ?? "")") ?? ""
+        }
+        
+        set {
+            UserDefaults.standard.set(newValue, forKey: "arguments\(document?.fileURL.path ?? "")")
+        }
+    }
+    
+    /// Directory in which the script will be ran.
+    var currentDirectory: URL {
+        get {
+            
+            var isStale = false
+            
+            let defaultDir = document?.fileURL.deletingLastPathComponent() ?? DocumentBrowserViewController.localContainerURL
+            
+            guard let data = UserDefaults.standard.data(forKey: "currentDirectory\(document?.fileURL.path ?? "")") else {
+                return defaultDir
+            }
+            
+            guard let url = try? URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale) else {
+                return defaultDir
+            }
+            
+            _ = url.startAccessingSecurityScopedResource()
+            
+            var isDir: ObjCBool = false
+            guard FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir), isDir.boolValue else {
+                return defaultDir
+            }
+            
+            return url
+        }
+        
+        set {
+            
+            let key = "currentDirectory\(document?.fileURL.path ?? "")"
+            
+            guard newValue != document?.fileURL.deletingLastPathComponent() else {
+                return UserDefaults.standard.set(nil, forKey: key)
+            }
+            
+            if let data = try? newValue.bookmarkData() {
+                UserDefaults.standard.set(data, forKey: key)
+            }
+        }
+    }
     
     /// Set to `true` before presenting to run the code.
     var shouldRun = false
@@ -153,9 +201,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     /// The bar button item for showing docs.
     var docItem: UIBarButtonItem!
-    
-    /// The bar button item for setting arguments.
-    var argsItem: UIBarButtonItem!
     
     /// The bar button item for sharing the script.
     var shareItem: UIBarButtonItem!
@@ -215,7 +260,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
             title = nil
         }
         
-        argsItem = UIBarButtonItem(title: "args", style: .plain, target: self, action: #selector(setArgs(_:)))
         runBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(run))
         stopBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(stop))
         
@@ -236,6 +280,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         docItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showDocs(_:)))
         shareItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share(_:)))
         let moreItem = UIBarButtonItem(image: UIImage(named: "more"), style: .plain, target: self, action: #selector(showEditorScripts(_:)))
+        let runtimeItem = UIBarButtonItem(image: UIImage(named: "gear"), style: .plain, target: self, action: #selector(showRuntimeSettings(_:)))
         
         if Python.shared.isScriptRunning {
             parent?.navigationItem.rightBarButtonItems = [
@@ -264,7 +309,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
             moreItem,
             space,
             docItem,
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), argsItem
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            runtimeItem
         ]
     }
     
@@ -703,6 +749,23 @@ fileprivate func parseArgs(_ args: inout [String]) {
         present(alert, animated: true, completion: nil)
     }
     
+    /// Opens an alert for setting current directory.
+    @objc func setCwd(_ sender: Any) {
+        
+        let alert = UIAlertController(title: Localizable.CurrentDirectoryAlert.title, message: Localizable.CurrentDirectoryAlert.message+"\n\n\(ShortenFilePaths(in: currentDirectory.path)) \(FileManager.default.isReadableFile(atPath: currentDirectory.path) ? Localizable.CurrentDirectoryAlert.readable : Localizable.CurrentDirectoryAlert.notReadable)", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: Localizable.change, style: .default, handler: { _ in
+            let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
+            picker.delegate = self
+            picker.allowsMultipleSelection = true
+            self.present(picker, animated: true, completion: nil)
+        }))
+        
+        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
     /// Stops the current running script.
     @objc func stop() {
         
@@ -750,6 +813,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             var arguments = self.args.components(separatedBy: " ")
             parseArgs(&arguments)
             Python.shared.args = arguments
+            Python.shared.currentWorkingDirectory = self.currentDirectory.path
             
             DispatchQueue.main.async {
                 if let url = self.document?.fileURL {
@@ -885,6 +949,22 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// Redo.
     @objc func redo() {
         textView.contentTextView.undoManager?.redo()
+    }
+    
+    /// Shows runtime settings.
+    @objc func showRuntimeSettings(_ sender: UIBarButtonItem) {
+        
+        let alert = UIAlertController(title: Localizable.runtime, message: nil, preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: Localizable.ArgumentsAlert.title, style: .default, handler: setArgs))
+        
+        alert.addAction(UIAlertAction(title: Localizable.CurrentDirectoryAlert.title, style: .default, handler: setCwd))
+        
+        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+        
+        alert.popoverPresentationController?.barButtonItem = sender
+        
+        present(alert, animated: true, completion: nil)
     }
     
     // MARK: - Breakpoints
@@ -1319,6 +1399,13 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
         
         return suggestions[index]
+    }
+    
+    // MARK: - Document picker delegate
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        _ = urls.first?.startAccessingSecurityScopedResource()
+        currentDirectory = urls.first ?? currentDirectory
     }
 }
 

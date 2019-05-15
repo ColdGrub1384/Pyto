@@ -23,6 +23,7 @@
 		C90A8029220CFE2200C9A5A1 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* TextView.swift */; };
 		C90A803E220D0E0300C9A5A1 /* PyMainThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E501AD220C85B1002719CE /* PyMainThread.swift */; };
 		C90A803F220D0E0400C9A5A1 /* PyMainThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E501AD220C85B1002719CE /* PyMainThread.swift */; };
+		C90ECC52228B8B2000EC91C6 /* ShortenFilePaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90ECC51228B8B2000EC91C6 /* ShortenFilePaths.swift */; };
 		C90F7CED227F445D00EEA045 /* command_runner.py in Resources */ = {isa = PBXBuildFile; fileRef = C90F7CEC227F445D00EEA045 /* command_runner.py */; };
 		C90F7CF1227F494300EEA045 /* RunModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90F7CF0227F494300EEA045 /* RunModuleViewController.swift */; };
 		C90FB05F21FDEE7300DF66DB /* python3.7 in Resources */ = {isa = PBXBuildFile; fileRef = C90FB05E21FDEE7300DF66DB /* python3.7 */; };
@@ -1427,6 +1428,7 @@
 		C909A1992267DB210058C145 /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 		C909A19B2267E6E30058C145 /* UIViewController+isDarkModeEnabled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+isDarkModeEnabled.swift"; sourceTree = "<group>"; };
 		C90E5583227B44AE000F27F4 /* Pyto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pyto.entitlements; sourceTree = "<group>"; };
+		C90ECC51228B8B2000EC91C6 /* ShortenFilePaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortenFilePaths.swift; sourceTree = "<group>"; };
 		C90F7CEC227F445D00EEA045 /* command_runner.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = command_runner.py; sourceTree = "<group>"; };
 		C90F7CF0227F494300EEA045 /* RunModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunModuleViewController.swift; sourceTree = "<group>"; };
 		C90FB05E21FDEE7300DF66DB /* python3.7 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = python3.7; sourceTree = "<group>"; };
@@ -3028,6 +3030,7 @@
 			children = (
 				C90E5583227B44AE000F27F4 /* Pyto.entitlements */,
 				C9EA55B2219F752D007546BC /* RelativePathForScript.swift */,
+				C90ECC51228B8B2000EC91C6 /* ShortenFilePaths.swift */,
 				C93D61E42145E17D00C8B5E3 /* Singletons */,
 				C93D61E52145E19300C8B5E3 /* View Controllers */,
 				C93D61E62145E1A500C8B5E3 /* Python Bridging */,
@@ -3817,6 +3820,7 @@
 				C913202B21DC12A300EEE677 /* AcknowledgmentsViewController.swift in Sources */,
 				C92ACE3721F0DBF600FA8904 /* SolarizedDark.swift in Sources */,
 				C9425A7721F49B1300E7CC35 /* BlockBasedSelector.m in Sources */,
+				C90ECC52228B8B2000EC91C6 /* ShortenFilePaths.swift in Sources */,
 				C99DDCEC21BBED22002A734E /* DocumentationViewController.swift in Sources */,
 				C97659062147192C001C96A8 /* PySharingHelper.swift in Sources */,
 				C9E016ED22823186002DF4CA /* EditorScript.swift in Sources */,
