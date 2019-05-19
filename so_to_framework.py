@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 #coding=utf-8
 
-import os,sys,plistlib
+import os, plistlib
 import shutil
-
 
 def out_fw(path,list1):
     fileList = os.listdir(path)
@@ -37,7 +36,7 @@ for filepath in list1:
     #idfa = 'com.goodclass.ClientPython.'+begin+file1
     idfa = 'ch.ada.'+begin+file1
     bName = begin+file1
-    plist ={
+    plist = {
         'CFBundleDevelopmentRegion':'en',
         'CFBundleExecutable':newfilename,
         'CFBundleIdentifier':idfa,
@@ -50,10 +49,10 @@ for filepath in list1:
         'MinimumOSVersion':'11.0'
     }
 
-    fkdir = spath +'/' + begin + file1 + '.framework'
+    fkdir = spath + '/' + begin + file1 + '.framework'
     os.mkdir(fkdir)
     plistlib.writePlist(plist,fkdir + "/Info.plist")
-    shutil.move(filepath, fkdir + '/'+ newfilename)
+    shutil.move(filepath, fkdir + '/' + newfilename)
     
     # 输出方法参数
     index = filepath.find(mulu)
@@ -62,7 +61,7 @@ for filepath in list1:
 
     key = '__' + so_model.replace('.', '_')
     name = file1
-    buffer = buffer + '[name addObject:@"'+name+ '"];\t\t [key addObject:@"'+key+'"];\n'
+    buffer = buffer + '[name addObject:@"' + name + '"];\t\t [key addObject:@"' + key + '"];\n'
 
 fo = open("method.txt", "w")
 fo.write( varbuffer + '\n\n')
