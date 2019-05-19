@@ -145,6 +145,11 @@ os.waitpid = waitpid
 
 old_signal = _signal.signal
 def signal(signal, handler):
+    try:
+        threading
+    except NameError:
+        import threading
+    
     if threading.main_thread() == threading.current_thread():
         return old_signal(signal, handler)
     else:
