@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 #coding=utf-8
 
-import os, plistlib
-import shutil
+import os, sys, plistlib, shutil
 
 def out_fw(path,list1):
     fileList = os.listdir(path)
@@ -13,9 +12,7 @@ def out_fw(path,list1):
         elif filename[-3:].upper() == '.SO':
             list1.append(pathTmp)
 
-#mulu  = 'numpy'
-#mulu  = 'pandas'
-mulu  = 'matplotlib'
+mulu = sys.argv[1]
 begin = mulu + '_'
 
 path = os.getcwd()
