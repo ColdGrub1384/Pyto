@@ -36,6 +36,6 @@ Features:
 
 ## Contributing
 
-Thanks to [@cclauss](https://github.com/cclauss) for contributions.
+Thanks to [@cclauss](https://github.com/cclauss) and [@goodclass](https://github.com/goodclass) for contributions.
 
 If you want to add a library to the app, see [this](PORT_LIBRARY.md).
