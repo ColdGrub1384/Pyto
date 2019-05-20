@@ -95,6 +95,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         toolbar.frame.origin.x = console.view.safeAreaInsets.left
         toolbar.frame.origin.y = console.view.safeAreaLayoutGuide.layoutFrame.height-toolbar.frame.height
         toolbar.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin, .flexibleTopMargin]
+        console.view.clipsToBounds = false
         console.view.addSubview(toolbar)
     }
     
@@ -114,18 +115,29 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     // MARK: - Keyboard
     
     @objc private func keyboardDidShow(_ notification: NSNotification) {
+        
+        // That's the typical code you just cannot understand when you are playing Clash Royale while coding
+        // So please, open iTunes, play your playlist, focus and then go back.
+        
         if console.parent?.parent?.modalPresentationStyle != .popover || console.parent?.parent?.view.frame.width != console.parent?.parent?.preferredContentSize.width {
             
             #if MAIN
             let inputAssistantOrigin = inputAssistant.frame.origin
+            
             let yPos = inputAssistant.convert(inputAssistantOrigin, to: console.view).y
+            /*if EditorSplitViewController.shouldShowConsoleAtBottom {
+                yPos = inputAssistantOrigin.y
+            } else {
+                yPos =
+            }*/
             
             toolbar.frame.origin = CGPoint(x: console.view.safeAreaInsets.left, y: yPos-toolbar.frame.height)
             
-            if toolbar.superview != nil {
-                if !toolbar.superview!.bounds.intersection(toolbar.frame).equalTo(toolbar.frame) {
+            
+            if toolbar.superview != nil,
+                !EditorSplitViewController.shouldShowConsoleAtBottom,
+                !toolbar.superview!.bounds.intersection(toolbar.frame).equalTo(toolbar.frame) {
                     toolbar.frame.origin.y = console.view.safeAreaLayoutGuide.layoutFrame.height-toolbar.frame.height
-                }
             }
             #endif
         }

@@ -12,6 +12,17 @@ import SplitKit
 /// A Split view controller for displaying the editor and the console.
 class EditorSplitViewController: SplitViewController {
     
+    /// If set to `true`, console will be shown at bottom.
+    static var shouldShowConsoleAtBottom: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: "shouldShowConsoleAtBottom")
+        }
+        
+        set {
+            UserDefaults.standard.set(newValue, forKey: "shouldShowConsoleAtBottom")
+        }
+    }
+    
     /// The View controller for editing code.
     @objc var editor: EditorViewController!
     
@@ -130,7 +141,7 @@ class EditorSplitViewController: SplitViewController {
             return
         }
         
-        if newCollection.horizontalSizeClass == .compact {
+        if newCollection.horizontalSizeClass == .compact && !EditorSplitViewController.shouldShowConsoleAtBottom {
             firstChild?.view.removeFromSuperview()
             firstChild?.removeFromParent()
             secondChild?.view.removeFromSuperview()
@@ -162,7 +173,11 @@ class EditorSplitViewController: SplitViewController {
             }
             
             viewDidLoad()
-            arrangement = .horizontal
+            if EditorSplitViewController.shouldShowConsoleAtBottom {
+                arrangement = .vertical
+            } else {
+                arrangement = .horizontal
+            }
             super.viewDidAppear(false)
             
             firstChild = editor

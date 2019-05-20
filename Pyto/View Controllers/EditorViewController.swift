@@ -1100,11 +1100,12 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     /// Resize `textView`.
     @objc func keyboardWillShow(_ notification:Notification) {
+        
         let d = notification.userInfo!
         var r = d[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-        
+            
         r = textView.convert(r, from:nil)
-        textView.contentInset.bottom = r.height-((parent ?? self)?.navigationController?.navigationBar.frame.height ?? 0)
+        textView.contentInset.bottom = (textView.frame.height-r.origin.y-((parent ?? self)?.navigationController?.navigationBar.frame.height ?? 0))+inputAssistant.frame.height
         textView.contentTextView.scrollIndicatorInsets.bottom = textView.contentInset.bottom
         
         if searchBar?.window != nil {
@@ -1125,6 +1126,15 @@ fileprivate func parseArgs(_ args: inout [String]) {
     }
     
     // MARK: - Text view delegate
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        if ConsoleViewController.visible.movableTextField?.textField.isFirstResponder == false {
+            return true
+        } else {
+            ConsoleViewController.visible.movableTextField?.textField.resignFirstResponder()
+            return false
+        }
+    }
     
     func textViewDidChangeSelection(_ textView: UITextView) {
         if textView.isFirstResponder {

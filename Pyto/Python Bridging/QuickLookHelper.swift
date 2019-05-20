@@ -27,8 +27,15 @@ fileprivate class ImageAttachment: NSTextAttachment {
             return rect
         }
         
-        rect.size.height = rect.height/(rect.width/size.width)
-        rect.size.width = size.width
+        let width: CGFloat
+        #if MAIN
+        width = EditorSplitViewController.shouldShowConsoleAtBottom ? 400 : size.width
+        #else
+        width = size.width
+        #endif
+        
+        rect.size.height = rect.height/(rect.width/width)
+        rect.size.width = width
         
         /*
  
