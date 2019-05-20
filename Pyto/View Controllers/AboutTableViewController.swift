@@ -19,6 +19,7 @@ fileprivate extension IndexPath {
     static let theme = IndexPath(row: 0, section: 0)
     static let indentation = IndexPath(row: 1, section: 0)
     static let fontSize = IndexPath(row: 2, section: 0)
+    static let showConsoleAtBottom = IndexPath(row: 3, section: 0)
     
     static let todayWidget = IndexPath(row: 0, section: 1)
     
@@ -83,6 +84,16 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
         fontSizeLabel.font = fontSizeLabel.font.withSize(CGFloat(ThemeFontSize))
     }
     
+    // MARK: - Show console at bottom
+
+    /// Switch for toggleing console at bottom.
+    @IBOutlet weak var showConsoleAtBottom: UISwitch!
+    
+    /// Toggles console at bottom.
+    @IBAction func toggleConsoleAtBottom(_ sender: UISwitch) {
+        EditorSplitViewController.shouldShowConsoleAtBottom = sender.isOn
+    }
+    
     // MARK: - Table view controller
     
     override func viewDidLoad() {
@@ -106,6 +117,7 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
         fontSizeStepper.value = Double(ThemeFontSize)
         fontSizeLabel.text = "\(ThemeFontSize)px"
         fontSizeLabel.font = fontSizeLabel.font.withSize(CGFloat(ThemeFontSize))
+        showConsoleAtBottom.isOn = EditorSplitViewController.shouldShowConsoleAtBottom
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
