@@ -56,7 +56,7 @@ for filepath in list1:
     os.mkdir(fkdir)
     plistlib.writePlist(plist, fkdir + "/Info.plist")
     shutil.move(filepath, fkdir + '/' + newfilename)
-    
+
     # 输出方法参数
     index = filepath.find(mulu)
     so_model = filepath[index:].replace('/', '.').replace('.cpython-37m-darwin.so', '')
