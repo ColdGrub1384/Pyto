@@ -29,21 +29,21 @@ for filepath in list1:
     file3 = filename.split(".")[2]
     newfilename = begin + filename
 
-    #输出框架
-    #idfa = 'com.goodclass.ClientPython.'+begin+file1
+    # 输出框架
+    # idfa = 'com.goodclass.ClientPython.'+begin+file1
     idfa = 'ch.ada.'+begin+file1
     bName = begin+file1
     plist = {
-        'CFBundleDevelopmentRegion':'en',
-        'CFBundleExecutable':newfilename,
-        'CFBundleIdentifier':idfa,
-        'CFBundleInfoDictionaryVersion':'6.0',
-        'CFBundleName':bName,
-        'CFBundlePackageType':'FMWK',
-        'CFBundleShortVersionString':'1.0',
-        'CFBundleVersion':'1',
-        'CFBundleSupportedPlatforms':['iPhoneOS'],
-        'MinimumOSVersion':'11.0'
+        'CFBundleDevelopmentRegion' : 'en',
+        'CFBundleExecutable' : newfilename,
+        'CFBundleIdentifier' : idfa,
+        'CFBundleInfoDictionaryVersion' : '6.0',
+        'CFBundleName' : bName,
+        'CFBundlePackageType' : 'FMWK',
+        'CFBundleShortVersionString' : '1.0',
+        'CFBundleVersion' : '1',
+        'CFBundleSupportedPlatforms' : ['iPhoneOS'],
+        'MinimumOSVersion' : '11.0'
     }
 
     fkdir = spath + '/' + begin + file1 + '.framework'
@@ -54,7 +54,7 @@ for filepath in list1:
     # 输出方法参数
     index = filepath.find(mulu)
     so_model = filepath[index:].replace('/', '.').replace('.cpython-37m-darwin.so','')
-    varbuffer = varbuffer + "'"+so_model + "', "
+    varbuffer = varbuffer + "'" + so_model + "', "
 
     key = '__' + so_model.replace('.', '_')
     name = file1
