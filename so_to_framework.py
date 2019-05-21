@@ -34,16 +34,16 @@ for filepath in list1:
     idfa = 'ch.ada.'+begin+file1
     bName = begin+file1
     plist = {
-        'CFBundleDevelopmentRegion' : 'en',
-        'CFBundleExecutable' : newfilename,
-        'CFBundleIdentifier' : idfa,
-        'CFBundleInfoDictionaryVersion' : '6.0',
-        'CFBundleName' : bName,
-        'CFBundlePackageType' : 'FMWK',
-        'CFBundleShortVersionString' : '1.0',
-        'CFBundleVersion' : '1',
-        'CFBundleSupportedPlatforms' : ['iPhoneOS'],
-        'MinimumOSVersion' : '11.0'
+        'CFBundleDevelopmentRegion': 'en',
+        'CFBundleExecutable': newfilename,
+        'CFBundleIdentifier': idfa,
+        'CFBundleInfoDictionaryVersion': '6.0',
+        'CFBundleName': bName,
+        'CFBundlePackageType': 'FMWK',
+        'CFBundleShortVersionString': '1.0',
+        'CFBundleVersion': '1',
+        'CFBundleSupportedPlatforms': ['iPhoneOS'],
+        'MinimumOSVersion': '11.0'
     }
 
     fkdir = spath + '/' + begin + file1 + '.framework'
@@ -53,7 +53,7 @@ for filepath in list1:
     
     # 输出方法参数
     index = filepath.find(mulu)
-    so_model = filepath[index:].replace('/', '.').replace('.cpython-37m-darwin.so','')
+    so_model = filepath[index:].replace('/', '.').replace('.cpython-37m-darwin.so', '')
     varbuffer = varbuffer + "'" + so_model + "', "
 
     key = '__' + so_model.replace('.', '_')
@@ -61,8 +61,6 @@ for filepath in list1:
     buffer = buffer + '[name addObject:@"' + name + '"];\t\t [key addObject:@"' + key + '"];\n'
 
 fo = open("method.txt", "w")
-fo.write( varbuffer + '\n\n')
-fo.write( buffer)
+fo.write(varbuffer + '\n\n')
+fo.write(buffer)
 fo.close()
-
-
