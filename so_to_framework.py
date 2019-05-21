@@ -1,23 +1,29 @@
 #!/usr/bin/env python
-#coding=utf-8
+# coding=utf-8
 
-import os, sys, plistlib, shutil
+import os
+import sys
+import plistlib
+import shutil
 
-def out_fw(path,list1):
+
+def out_fw(path, list1):
+    
     fileList = os.listdir(path)
     for filename in fileList:
-        pathTmp = os.path.join(path,filename)
-        if os.path.isdir(pathTmp) and filename.find('framework')==-1:
-            out_fw(pathTmp,list1)
+        pathTmp = os.path.join(path, filename)
+        if os.path.isdir(pathTmp) and filename.find('framework') == -1:
+            out_fw(pathTmp, list1)
         elif filename[-3:].upper() == '.SO':
             list1.append(pathTmp)
+
 
 mulu = sys.argv[1]
 begin = mulu + '_'
 
 path = os.getcwd()
 list1 = []
-out_fw(path,list1)
+out_fw(path, list1)
 
 buffer = ''
 varbuffer = ''
@@ -48,7 +54,7 @@ for filepath in list1:
 
     fkdir = spath + '/' + begin + file1 + '.framework'
     os.mkdir(fkdir)
-    plistlib.writePlist(plist,fkdir + "/Info.plist")
+    plistlib.writePlist(plist, fkdir + "/Info.plist")
     shutil.move(filepath, fkdir + '/' + newfilename)
     
     # 输出方法参数
