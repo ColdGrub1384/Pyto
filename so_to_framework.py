@@ -8,7 +8,7 @@ import shutil
 
 
 def out_fw(path, list1):
-    
+
     fileList = os.listdir(path)
     for filename in fileList:
         pathTmp = os.path.join(path, filename)
