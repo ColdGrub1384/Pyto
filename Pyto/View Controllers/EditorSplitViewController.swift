@@ -173,12 +173,13 @@ class EditorSplitViewController: SplitViewController {
             }
             
             viewDidLoad()
+            super.viewDidAppear(false)
+            
             if EditorSplitViewController.shouldShowConsoleAtBottom {
                 arrangement = .vertical
             } else {
                 arrangement = .horizontal
             }
-            super.viewDidAppear(false)
             
             firstChild = editor
             secondChild = console
