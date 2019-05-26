@@ -1174,9 +1174,22 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         docString = nil
         
-        if text == "\t", let textRange = range.toTextRange(textInput: textView) {
-            textView.replace(textRange, withText: EditorViewController.indentation)
+        if text == "\n", currentSuggestionIndex != -1 {
+            inputAssistantView(inputAssistant, didSelectSuggestionAtIndex: 0)
             return false
+        }
+        
+        if text == "\t" {
+            
+            if suggestions.count > 0 {
+                nextSuggestion()
+                return false
+            }
+
+            if let textRange = range.toTextRange(textInput: textView) {
+                textView.replace(textRange, withText: EditorViewController.indentation)
+                return false
+            }
         }
         
         if text == "(" {
@@ -1232,9 +1245,48 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     // MARK: - Suggestions
     
-    /// Returns suggestions for current word.
-    @objc var suggestions = [String]() {
+    private var currentSuggestionIndex = -1 {
         didSet {
+            DispatchQueue.main.async {
+                self.inputAssistant.reloadData()
+            }
+        }
+    }
+    
+    /// Selects a suggestion from hardware tab key.
+    func nextSuggestion() {
+        let new = currentSuggestionIndex+1
+        
+        if suggestions.indices.contains(new) {
+            currentSuggestionIndex = new
+        } else {
+            currentSuggestionIndex = -1
+        }
+    }
+    
+    /// Returns suggestions for current word.
+    @objc var suggestions: [String] {
+        
+        get {
+            
+            if _suggestions.indices.contains(currentSuggestionIndex) {
+                var completions = _suggestions
+                
+                let completion = completions[currentSuggestionIndex]
+                completions.remove(at: currentSuggestionIndex)
+                completions.insert(completion, at: 0)
+                return completions
+            }
+            
+            return _suggestions
+        }
+        
+        set {
+            
+            currentSuggestionIndex = -1
+            
+            _suggestions = newValue
+            
             guard !Thread.current.isMainThread else {
                 return
             }
@@ -1245,8 +1297,29 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
     }
     
+    private var _completions = [String]()
+    
+    private var _suggestions = [String]()
+    
     /// Completions corresponding to `suggestions`.
-    @objc var completions = [String]()
+    @objc var completions: [String] {
+        get {
+            if _completions.indices.contains(currentSuggestionIndex) {
+                var completions = _completions
+                
+                let completion = completions[currentSuggestionIndex]
+                completions.remove(at: currentSuggestionIndex)
+                completions.insert(completion, at: 0)
+                return completions
+            }
+            
+            return _completions
+        }
+        
+        set {
+            _completions = newValue
+        }
+    }
     
     /// Returns doc strings per suggestions.
     @objc var docStrings = [String:String]()
@@ -1348,6 +1421,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     func inputAssistantView(_ inputAssistantView: InputAssistantView, didSelectSuggestionAtIndex index: Int) {
         
         guard completions.indices.contains(index), suggestions.indices.contains(index), docStrings.keys.contains(suggestions[index]) else {
+            currentSuggestionIndex = -1
             return
         }
         
@@ -1361,6 +1435,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
             textView.insertText(completion)
             docString = doc
         }
+        
+        currentSuggestionIndex = -1
     }
     
     // MARK: - Input assistant view data source
@@ -1404,11 +1480,13 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     func inputAssistantView(_ inputAssistantView: InputAssistantView, nameForSuggestionAtIndex index: Int) -> String {
         
+        let suffix: String = ((currentSuggestionIndex != -1 && index == 0) ? " ⤶" : "")
+        
         if suggestions[index].hasSuffix("(") {
-            return suggestions[index]+")"
+            return suggestions[index]+")"+suffix
         }
         
-        return suggestions[index]
+        return suggestions[index]+suffix
     }
     
     // MARK: - Document picker delegate
