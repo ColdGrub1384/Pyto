@@ -89,7 +89,11 @@ import SavannaKit
         splitVC.separatorSelectedColor = tintColor
         splitVC.editor = editor
         splitVC.console = contentVC
+        splitVC.firstChild = editor
+        splitVC.secondChild = contentVC
         splitVC.view.backgroundColor = .white
+        
+        splitVC.arrangement = .horizontal
         
         transitionController = transitionController(forDocumentAt: documentURL)
         transitionController?.loadingProgress = document.progress
@@ -107,11 +111,11 @@ import SavannaKit
             
             document.checkForConflicts(completion: {
                 UIApplication.shared.keyWindow?.topViewController?.present(navVC, animated: true, completion: {
-                    NotificationCenter.default.removeObserver(splitVC)
                     
                     splitVC.firstChild = editor
                     splitVC.secondChild = contentVC
                     
+                    NotificationCenter.default.removeObserver(splitVC)
                     completion?()
                 })
             })
