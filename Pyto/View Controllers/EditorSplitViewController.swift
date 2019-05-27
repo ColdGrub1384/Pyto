@@ -168,21 +168,28 @@ class EditorSplitViewController: SplitViewController {
             }
         } else {
             
-            for view in view.subviews {
-                view.removeFromSuperview()
-            }
-            
-            viewDidLoad()
-            super.viewDidAppear(false)
-            
             if EditorSplitViewController.shouldShowConsoleAtBottom {
                 arrangement = .vertical
-            } else {
-                arrangement = .horizontal
             }
             
-            firstChild = editor
-            secondChild = console
+            if firstChild != editor || secondChild != console {
+                
+                for view in view.subviews {
+                    view.removeFromSuperview()
+                }
+                
+                super.viewDidLoad()
+                super.viewDidAppear(true)
+                
+                if EditorSplitViewController.shouldShowConsoleAtBottom {
+                    arrangement = .vertical
+                } else if arrangement != .horizontal {
+                    arrangement = .horizontal
+                }
+                
+                firstChild = editor
+                secondChild = console
+            }
         }
     }    
 }
