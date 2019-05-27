@@ -1482,6 +1482,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         let suffix: String = ((currentSuggestionIndex != -1 && index == 0) ? " ⤶" : "")
         
+        guard suggestions.indices.contains(index) else {
+            return ""
+        }
+        
         if suggestions[index].hasSuffix("(") {
             return suggestions[index]+")"+suffix
         }
