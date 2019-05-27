@@ -385,9 +385,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 }
             }
             
-            if Python.shared.isScriptRunning {
+            /*if Python.shared.isScriptRunning {
                 Python.shared.stop()
-            }
+            }*/
         }
     }
     
@@ -877,7 +877,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// The View controller is closed and the document is saved.
     @objc func close() {
         
-        stop()
+        //stop()
         
         dismiss(animated: true) {
             
