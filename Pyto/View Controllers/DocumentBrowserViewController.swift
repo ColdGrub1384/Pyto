@@ -85,7 +85,11 @@ import SavannaKit
         EditorSplitViewController.visible = splitVC
         let navVC = ThemableNavigationController(rootViewController: splitVC)
         
-        splitVC.separatorColor = .clear
+        if EditorSplitViewController.shouldShowSeparator {
+            splitVC.separatorColor = tintColor
+        } else {
+            splitVC.separatorColor = .clear
+        }
         splitVC.separatorSelectedColor = tintColor
         splitVC.editor = editor
         splitVC.console = contentVC

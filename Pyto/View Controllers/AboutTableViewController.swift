@@ -20,6 +20,7 @@ fileprivate extension IndexPath {
     static let indentation = IndexPath(row: 1, section: 0)
     static let fontSize = IndexPath(row: 2, section: 0)
     static let showConsoleAtBottom = IndexPath(row: 3, section: 0)
+    static let showSeparator = IndexPath(row: 3, section: 0)
     
     static let todayWidget = IndexPath(row: 0, section: 1)
     
@@ -86,7 +87,7 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
     
     // MARK: - Show console at bottom
 
-    /// Switch for toggleing console at bottom.
+    /// Switch for toggling console at bottom.
     @IBOutlet weak var showConsoleAtBottom: UISwitch!
     
     /// Toggles console at bottom.
@@ -94,6 +95,16 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
         EditorSplitViewController.shouldShowConsoleAtBottom = sender.isOn
     }
     
+    // MARK: - Show separator
+    
+    /// Switch for toggling the separator between editor and console.
+    @IBOutlet weak var showSeparator: UISwitch!
+    
+    /// Toggles the separator between editor and console.
+    @IBAction func toggleSeparator(_ sender: UISwitch) {
+        EditorSplitViewController.shouldShowSeparator = sender.isOn
+    }
+        
     // MARK: - Table view controller
     
     override func viewDidLoad() {
@@ -118,6 +129,7 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
         fontSizeLabel.text = "\(ThemeFontSize)px"
         fontSizeLabel.font = fontSizeLabel.font.withSize(CGFloat(ThemeFontSize))
         showConsoleAtBottom.isOn = EditorSplitViewController.shouldShowConsoleAtBottom
+        showSeparator.isOn = EditorSplitViewController.shouldShowSeparator
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

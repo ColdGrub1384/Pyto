@@ -23,6 +23,17 @@ class EditorSplitViewController: SplitViewController {
         }
     }
     
+    /// If set to `true`, the separator between the console and the editor will be shown.
+    static var shouldShowSeparator: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: "shouldShowSeparator")
+        }
+        
+        set {
+            UserDefaults.standard.set(newValue, forKey: "shouldShowSeparator")
+        }
+    }
+    
     /// The View controller for editing code.
     @objc var editor: EditorViewController!
     
