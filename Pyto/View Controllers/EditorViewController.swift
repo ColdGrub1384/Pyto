@@ -1127,6 +1127,32 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     // MARK: - Text view delegate
     
+    /// Taken from https://stackoverflow.com/a/52515645/7515957.
+    private func characterBeforeCursor() -> String? {
+        // get the cursor position
+        if let cursorRange = textView.contentTextView.selectedTextRange {
+            // get the position one character before the cursor start position
+            if let newPosition = textView.contentTextView.position(from: cursorRange.start, offset: -1) {
+                let range = textView.contentTextView.textRange(from: newPosition, to: cursorRange.start)
+                return textView.contentTextView.text(in: range!)
+            }
+        }
+        return nil
+    }
+    
+    /// Taken from https://stackoverflow.com/a/52515645/7515957.
+    private func characterAfterCursor() -> String? {
+        // get the cursor position
+        if let cursorRange = textView.contentTextView.selectedTextRange {
+            // get the position one character before the cursor start position
+            if let newPosition = textView.contentTextView.position(from: cursorRange.start, offset: 1) {
+                let range = textView.contentTextView.textRange(from: newPosition, to: cursorRange.start)
+                return textView.contentTextView.text(in: range!)
+            }
+        }
+        return nil
+    }
+    
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         if ConsoleViewController.visible.movableTextField?.textField.isFirstResponder == false {
             return true
@@ -1192,27 +1218,66 @@ fileprivate func parseArgs(_ args: inout [String]) {
             }
         }
         
-        if text == "(" {
-            textView.insertText("(")
-            let range = textView.selectedTextRange
-            textView.insertText(")")
-            textView.selectedTextRange = range
-            return false
+        // Close parentheses and brackets.
+        if let start = textView.selectedTextRange?.start, let textRange = textView.textRange(from: start, to: textView.endOfDocument) {
+         
+            if text == "(" {
+                var parenthesesFound = false
+                var closeParentheses = false
+                for char in textView.text(in: textRange) ?? "" {
+                    if char == "(" {
+                        closeParentheses = true
+                        parenthesesFound = true
+                        break
+                    } else if char == ")" {
+                        parenthesesFound = true
+                        break
+                    }
+                }
+                
+                textView.insertText("(")
+                
+                let range = textView.selectedTextRange
+                
+                if !parenthesesFound || closeParentheses {
+                    textView.insertText(")")
+                }
+                
+                textView.selectedTextRange = range
+                
+                return false
+            }
+            
+            if text == "[" {
+                
+                var bracketsFound = false
+                var closeBrackets = false
+                for char in textView.text(in: textRange) ?? "" {
+                    if char == "[" {
+                        closeBrackets = true
+                        bracketsFound = true
+                        break
+                    } else if char == "]" {
+                        bracketsFound = true
+                        break
+                    }
+                }
+                
+                textView.insertText("[")
+                
+                let range = textView.selectedTextRange
+                
+                if !bracketsFound || closeBrackets {
+                    textView.insertText("]")
+                }
+                
+                textView.selectedTextRange = range
+                
+                return false
+            }
         }
-        
-        if text == "[" {
-            textView.insertText("[")
-            let range = textView.selectedTextRange
-            textView.insertText("]")
-            textView.selectedTextRange = range
-            return false
-        }
-        
-        if text == "\"" {
-            textView.insertText("\"")
-            let range = textView.selectedTextRange
-            textView.insertText("\"")
-            textView.selectedTextRange = range
+        if (characterBeforeCursor() == "(" && text == ")" && characterAfterCursor() == ")") || (characterBeforeCursor() == "[" && text == "]" && characterAfterCursor() == "]") {
+            textView.selectedRange = NSRange(location: textView.selectedRange.location+1, length: textView.selectedRange.length)
             return false
         }
         
