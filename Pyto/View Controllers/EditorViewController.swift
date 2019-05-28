@@ -1275,8 +1275,36 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 
                 return false
             }
+            
+            if text == "{" {
+                
+                var curlyBracesFound = false
+                var closeCurlyBraces = false
+                for char in textView.text(in: textRange) ?? "" {
+                    if char == "{" {
+                        closeCurlyBraces = true
+                        curlyBracesFound = true
+                        break
+                    } else if char == "}" {
+                        curlyBracesFound = true
+                        break
+                    }
+                }
+                
+                textView.insertText("{")
+                
+                let range = textView.selectedTextRange
+                
+                if !curlyBracesFound || closeCurlyBraces {
+                    textView.insertText("}")
+                }
+                
+                textView.selectedTextRange = range
+                
+                return false
+            }
         }
-        if (characterBeforeCursor() == "(" && text == ")" && characterAfterCursor() == ")") || (characterBeforeCursor() == "[" && text == "]" && characterAfterCursor() == "]") {
+        if (characterBeforeCursor() == "(" && text == ")" && characterAfterCursor() == ")") || (characterBeforeCursor() == "[" && text == "]" && characterAfterCursor() == "]") || (characterBeforeCursor() == "{" && text == "}" && characterAfterCursor() == "}") {
             textView.selectedRange = NSRange(location: textView.selectedRange.location+1, length: textView.selectedRange.length)
             return false
         }
