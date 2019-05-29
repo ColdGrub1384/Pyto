@@ -178,6 +178,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// Set to `true` before presenting to run the code.
     var shouldRun = false
     
+    private var originalText: String?
+    
     /// Initialize with given document.
     ///
     /// - Parameters:
@@ -327,6 +329,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             }
             
             self.textView.text = document?.text ?? ""
+            self.originalText = document?.text
             
             if !FileManager.default.isWritableFile(atPath: doc.fileURL.path) {
                 self.navigationItem.leftBarButtonItem = nil
@@ -863,6 +866,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// - Parameters:
     ///     - completion: The code executed when the file was saved. A boolean indicated if the file was successfully saved is passed.
     @objc func save(completion: ((Bool) -> Void)? = nil) {
+        
+        guard document?.text != originalText else {
+            completion?(true)
+            return
+        }
         
         guard document != nil else {
             completion?(false)
