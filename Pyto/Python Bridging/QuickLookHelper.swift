@@ -133,7 +133,7 @@ fileprivate class ImageAttachment: NSTextAttachment {
                 }
             }
             #else
-            showConsole()
+            showOnConsole()
             #endif
         }
     }

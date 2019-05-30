@@ -207,6 +207,7 @@ import UIKit
         #endif
     }
     
+    #if MAIN
     /// Enables `'Done'` if Pip is running.
     @objc static func enableDoneButton() {
         DispatchQueue.main.async {
@@ -219,6 +220,7 @@ import UIKit
             }
         }
     }
+    #endif
     
     private static var shared = ConsoleViewController()
     
@@ -428,25 +430,25 @@ import UIKit
         }
         movableTextField?.show()
         movableTextField?.handler = { text in
-                
+            
             let secureTextEntry = self.movableTextField?.textField.isSecureTextEntry ?? false
             self.movableTextField?.textField.isSecureTextEntry = false
-                
+            
             guard self.shouldRequestInput else {
                 return
             }
-                
+            
             PyInputHelper.userInput = text
             if !secureTextEntry {
                 Python.shared.output += text
                 self.textView.text += "\(self.movableTextField?.placeholder ?? "")\(text)\n"
             } else {
-                    
+                
                 var hiddenPassword = ""
                 for _ in 0...text.count {
                     hiddenPassword += "*"
                 }
-                    
+                
                 Python.shared.output += text
                 self.textView.text += "\(self.movableTextField?.placeholder ?? "")\(hiddenPassword)\n"
             }
@@ -504,7 +506,9 @@ import UIKit
         if wasFirstResponder {
             movableTextField?.textField.becomeFirstResponder()
         }
+        #if MAIN
         movableTextField?.applyTheme()
+        #endif
         updateSize()
     }
     
@@ -553,3 +557,4 @@ import UIKit
         console = textView.text
     }
 }
+
