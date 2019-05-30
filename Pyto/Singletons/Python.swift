@@ -43,8 +43,10 @@ import Cocoa
     @objc var bundle: Bundle {
         if Bundle.main.bundleIdentifier?.hasSuffix(".ada.Pyto") == true || Bundle.main.bundleIdentifier?.hasSuffix(".ada.Pyto.Pyto-Widget") == true {
             return Bundle(identifier: "ch.ada.Python")!
+        } else if let bundle = Bundle(path: Bundle.main.path(forResource: "Python.framework", ofType: nil) ?? "") {
+            return bundle
         } else {
-            return Bundle(path: Bundle.main.path(forResource: "Python.framework", ofType: nil)!)!
+            return Bundle(for: Python.self)
         }
     }
     
@@ -307,7 +309,7 @@ import Cocoa
     
     /// Setups Python executable and C extensions. Should be called before running any script.
     func setup() {
-    
+        
         DispatchQueue.global().async {
             if !FileManager.default.fileExists(atPath: sitePackagesDirectory) {
                 try? FileManager.default.createDirectory(at: URL(fileURLWithPath: sitePackagesDirectory), withIntermediateDirectories: true, attributes: nil)
@@ -358,7 +360,7 @@ import Cocoa
                     item?.rightBarButtonItem = editor.runBarButtonItem
                 }
                 item?.rightBarButtonItem?.isEnabled = (self.isScriptRunning == self.isScriptRunning)
-                #endif                
+                #endif
             }
             #elseif os(macOS)
             if !isScriptRunning && process?.isRunning == true {
@@ -370,3 +372,4 @@ import Cocoa
         }
     }
 }
+

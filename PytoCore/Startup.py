@@ -62,8 +62,6 @@ __builtins__.deprecated = ["runAsync", "runSync", "generalPasteboard", "setStrin
 
 script = "%@"
 
-print("Will run "+script+"\n")
-
 try:
     SourceFileLoader("main", script).load_module()
 except Exception as e:

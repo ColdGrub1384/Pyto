@@ -132,7 +132,7 @@ class XcodeActivity: UIActivity {
                             info["CFBundleDevelopmentRegion"] = "en"
                             info["CFBundleDisplayName"] = appNameTextField.text
                             info["CFBundleExecutable"] = "$(EXECUTABLE_NAME)"
-                            info["CFBundleIdentifier"] = (appOrganizationID.text ?? "your_company")+"."+(appNameTextField.text ?? "your_app")
+                            info["CFBundleIdentifier"] = (appOrganizationID.text ?? "your_company")+"."+((appNameTextField.text ?? "your_app").replacingOccurrences(of: " ", with: "-"))
                             info["CFBundleInfoDictionaryVersion"] = "6.0"
                             info["CFBundleName"] = "$(PRODUCT_NAME)"
                             info["CFBundlePackageType"] = "APPL"

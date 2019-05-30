@@ -33,7 +33,7 @@ class PyDocument: Document {
     /// - Parameters:
     ///     - completion: Code to call after the file is checked.
     func checkForConflicts(completion: (() -> Void)?) {
-        
+        #if MAIN
         if documentState == UIDocument.State.inConflict, let versions = NSFileVersion.unresolvedConflictVersionsOfItem(at: fileURL), versions.count > 1 {
             
             guard let resolver = UIStoryboard(name: "ConflictsResolver", bundle: Bundle.main).instantiateInitialViewController() as? ResolveConflictsTableViewController else {
@@ -52,6 +52,9 @@ class PyDocument: Document {
         } else {
             completion?()
         }
+        #else
+        completion?()
+        #endif
     }
     
     private func load(contents: Any) throws {

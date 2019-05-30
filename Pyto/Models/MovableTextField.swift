@@ -77,7 +77,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         
         super.init()
         
-        #if MAIN        
+        #if MAIN
         applyTheme()
         #endif
         
@@ -126,10 +126,10 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             
             let yPos = inputAssistant.convert(inputAssistantOrigin, to: console.view).y
             /*if EditorSplitViewController.shouldShowConsoleAtBottom {
-                yPos = inputAssistantOrigin.y
-            } else {
-                yPos =
-            }*/
+             yPos = inputAssistantOrigin.y
+             } else {
+             yPos =
+             }*/
             
             toolbar.frame.origin = CGPoint(x: console.view.safeAreaInsets.left, y: yPos-toolbar.frame.height)
             
@@ -137,8 +137,12 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             if toolbar.superview != nil,
                 !EditorSplitViewController.shouldShowConsoleAtBottom,
                 !toolbar.superview!.bounds.intersection(toolbar.frame).equalTo(toolbar.frame) {
-                    toolbar.frame.origin.y = console.view.safeAreaLayoutGuide.layoutFrame.height-toolbar.frame.height
+                toolbar.frame.origin.y = console.view.safeAreaLayoutGuide.layoutFrame.height-toolbar.frame.height
             }
+            #else
+            var r = notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+            r = console.textView.convert(r, from:nil)
+            toolbar.frame.origin.y = console.view.frame.height-r.height-toolbar.frame.height
             #endif
         }
         
@@ -213,7 +217,6 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     
     // MARK: - Actions
     
-    #if MAIN
     @objc private func interrupt() {
         placeholder = ""
         textField.resignFirstResponder()
@@ -261,5 +264,5 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             historyIndex += 1
         }
     }
-    #endif
 }
+

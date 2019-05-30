@@ -41,4 +41,3 @@ int PythonApplicationMain(NSString * scriptPath, int argc, char * _Nullable * _N
     AppDelegate.scriptToRun = scriptPath;
     return UIApplicationMain(argc, argv, NULL, NSStringFromClass(AppDelegate.self));
 }
-
