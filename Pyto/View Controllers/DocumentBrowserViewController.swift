@@ -93,8 +93,10 @@ import SavannaKit
         splitVC.separatorSelectedColor = tintColor
         splitVC.editor = editor
         splitVC.console = contentVC
-        splitVC.firstChild = editor
-        splitVC.secondChild = contentVC
+        if EditorSplitViewController.shouldShowConsoleAtBottom { // Please, don't remove this condition :)
+            splitVC.firstChild = editor
+            splitVC.secondChild = contentVC
+        }
         splitVC.view.backgroundColor = .white
         
         splitVC.arrangement = .horizontal

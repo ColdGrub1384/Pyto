@@ -297,7 +297,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
         parent?.navigationItem.leftBarButtonItems = [scriptsItem, searchItem]
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         textView.contentTextView.isEditable = !isSample
@@ -417,7 +417,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         guard (view.frame.height != size.height) || (textView.contentTextView.isFirstResponder && textView.frame.height != view.safeAreaLayoutGuide.layoutFrame.height) else {
             DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-                self.textView.frame.size.width = self.view.safeAreaLayoutGuide.layoutFrame.width
+                self.textView.frame = self.view.safeAreaLayoutGuide.layoutFrame
             }
             return
         }
@@ -795,6 +795,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     /// Runs script.
     @objc func run() {
+        textView.contentTextView.resignFirstResponder()
         runScript(debug: false)
     }
     
@@ -1107,13 +1108,12 @@ fileprivate func parseArgs(_ args: inout [String]) {
     // MARK: - Keyboard
     
     /// Resize `textView`.
-    @objc func keyboardWillShow(_ notification:Notification) {
-        
+    @objc func keyboardDidShow(_ notification:Notification) {
         let d = notification.userInfo!
-        var r = d[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-            
-        r = textView.convert(r, from:nil)
-        textView.contentInset.bottom = (textView.frame.height-r.origin.y-((parent ?? self)?.navigationController?.navigationBar.frame.height ?? 0))+inputAssistant.frame.height
+        let r = d[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+        let point = (UIApplication.shared.keyWindow)?.convert(r.origin, to: textView) ?? r.origin
+        
+        textView.contentInset.bottom = (point.y >= textView.frame.height ? 0 : textView.frame.height-point.y)
         textView.contentTextView.scrollIndicatorInsets.bottom = textView.contentInset.bottom
         
         if searchBar?.window != nil {
