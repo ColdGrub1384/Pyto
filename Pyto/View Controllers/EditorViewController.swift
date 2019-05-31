@@ -415,7 +415,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             self.updateBreakpointMarkersPosition()
         }
         
-        guard view.frame.height != size.height else {
+        guard (view.frame.height != size.height) || (textView.contentTextView.isFirstResponder && textView.frame.height != view.safeAreaLayoutGuide.layoutFrame.height) else {
             DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
                 self.textView.frame.size.width = self.view.safeAreaLayoutGuide.layoutFrame.width
             }
