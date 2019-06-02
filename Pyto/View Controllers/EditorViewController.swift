@@ -439,7 +439,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
     override var keyCommands: [UIKeyCommand]? {
         if textView.contentTextView.isFirstResponder {
             return [
-                UIKeyCommand(input: "c", modifierFlags: [.command, .shift], action: #selector(toggleComment), discoverabilityTitle: Localizable.MenuItems.toggleComment)
+                UIKeyCommand(input: "c", modifierFlags: [.command, .shift], action: #selector(toggleComment), discoverabilityTitle: Localizable.MenuItems.toggleComment),
+                UIKeyCommand(input: "b", modifierFlags: [.command, .shift], action: #selector(setBreakpoint(_:)), discoverabilityTitle: Localizable.MenuItems.breakpoint)
             ]
         } else {
             return []
