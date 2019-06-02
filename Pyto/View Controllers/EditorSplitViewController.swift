@@ -95,6 +95,93 @@ class EditorSplitViewController: SplitViewController {
         Python.shared.interrupt()
     }
     
+    /// Sets navigation bar items.
+    func setNavigationBarItems() {
+        if firstChild == editor {
+            navigationItem.leftBarButtonItems = [editor.scriptsItem, editor.searchItem]
+            if Python.shared.isScriptRunning {
+                navigationItem.rightBarButtonItems = [
+                    editor.stopBarButtonItem,
+                    editor.debugItem,
+                ]
+            } else {
+                navigationItem.rightBarButtonItems = [
+                    editor.runBarButtonItem,
+                    editor.debugItem,
+                ]
+            }
+        } else {
+            navigationItem.leftBarButtonItems = [editor.scriptsItem]
+            navigationItem.rightBarButtonItems = [closeConsoleBarButtonItem]
+        }
+    }
+    
+    /// The button for closing the full screen console.
+    let closeConsoleBarButtonItem: UIBarButtonItem = {
+        return UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(showEditor))
+    }()
+    
+    /// Shows the editor on full screen.
+    @objc func showEditor() {
+        firstChild = nil
+        secondChild = nil
+        
+        for view in view.subviews {
+            view.removeFromSuperview()
+        }
+        
+        super.viewDidLoad()
+        super.viewWillTransition(to: view.frame.size, with: ViewControllerTransitionCoordinator())
+        super.viewDidAppear(true)
+        
+        removeGestures()
+        
+        firstChild = editor
+        secondChild = console
+        
+        setNavigationBarItems()
+        
+        Python.shared.stop()
+    }
+    
+    /// Shows the console on full screen.
+    func showConsole(_ completion: @escaping (() -> Void)) {
+        
+        firstChild = nil
+        secondChild = nil
+        
+        for view in view.subviews {
+            view.removeFromSuperview()
+        }
+        
+        super.viewDidLoad()
+        super.viewWillTransition(to: view.frame.size, with: ViewControllerTransitionCoordinator())
+        super.viewDidAppear(true)
+        
+        removeGestures()
+        
+        firstChild = console
+        secondChild = editor
+        
+        setNavigationBarItems()
+        
+        completion()
+    }
+    
+    private func removeGestures() {
+        if ratio == 1 {
+            for view in view.subviews {
+                for gesture in view.gestureRecognizers ?? [] {
+                    if gesture is UIPanGestureRecognizer {
+                        view.removeGestureRecognizer(gesture)
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: - Split view controller
+    
     override var keyCommands: [UIKeyCommand]? {
         var commands = [
             UIKeyCommand(input: "r", modifierFlags: .command, action: #selector(run), discoverabilityTitle: Localizable.MenuItems.run),
@@ -111,8 +198,6 @@ class EditorSplitViewController: SplitViewController {
         
         return commands
     }
-        
-    // MARK: - Split view controller
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -130,6 +215,8 @@ class EditorSplitViewController: SplitViewController {
         
         willTransition(to: traitCollection, with: ViewControllerTransitionCoordinator())
         justShown = false
+        
+        removeGestures()
     }
     
     override func viewDidLayoutSubviews() {
@@ -153,30 +240,7 @@ class EditorSplitViewController: SplitViewController {
         }
         
         if newCollection.horizontalSizeClass == .compact && !EditorSplitViewController.shouldShowConsoleAtBottom {
-            firstChild?.view.removeFromSuperview()
-            firstChild?.removeFromParent()
-            secondChild?.view.removeFromSuperview()
-            secondChild?.removeFromParent()
-            firstChild = nil
-            secondChild = nil
-            
-            for view in view.subviews {
-                view.removeFromSuperview()
-            }
-            
-            let justShown = self.justShown
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.25) {
-                self.addChild(self.editor)
-                self.editor.view.frame = self.view.bounds
-                self.editor.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                self.view.addSubview(self.editor.view)
-                
-                if Python.shared.isScriptRunning && !justShown {
-                    let navVC = ThemableNavigationController(rootViewController: self.console)
-                    navVC.modalPresentationStyle = .overFullScreen
-                    self.present(navVC, animated: true, completion: nil)
-                }
-            }
+            arrangement = .vertical
         } else {
             
             if EditorSplitViewController.shouldShowConsoleAtBottom {
@@ -191,6 +255,7 @@ class EditorSplitViewController: SplitViewController {
                 
                 super.viewDidLoad()
                 super.viewDidAppear(true)
+                removeGestures()
                 
                 if EditorSplitViewController.shouldShowConsoleAtBottom {
                     arrangement = .vertical

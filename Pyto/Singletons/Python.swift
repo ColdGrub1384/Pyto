@@ -354,12 +354,14 @@ import Cocoa
                 
                 let item = editor.parent?.navigationItem
                 
-                if self.isScriptRunning {
-                    item?.rightBarButtonItem = editor.stopBarButtonItem
-                } else {
-                    item?.rightBarButtonItem = editor.runBarButtonItem
+                if item?.rightBarButtonItem != EditorSplitViewController.visible?.closeConsoleBarButtonItem {
+                    if self.isScriptRunning {
+                        item?.rightBarButtonItem = editor.stopBarButtonItem
+                    } else {
+                        item?.rightBarButtonItem = editor.runBarButtonItem
+                    }
+                    item?.rightBarButtonItem?.isEnabled = (self.isScriptRunning == self.isScriptRunning)
                 }
-                item?.rightBarButtonItem?.isEnabled = (self.isScriptRunning == self.isScriptRunning)
                 #endif
             }
             #elseif os(macOS)

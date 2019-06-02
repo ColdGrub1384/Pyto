@@ -213,6 +213,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// Button for going back to scripts.
     var scriptsItem: UIBarButtonItem!
     
+    /// Button for debugging script.
+    var debugItem: UIBarButtonItem!
+    
     // MARK: - Theme
     
     /// Setups the View controller interface for given theme.
@@ -267,7 +270,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         let debugButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         debugButton.addTarget(self, action: #selector(debug), for: .touchUpInside)
-        let debugItem = UIBarButtonItem(image: UIImage(named: "Debug"), style: .plain, target: self, action: #selector(debug))
+        debugItem = UIBarButtonItem(image: UIImage(named: "Debug"), style: .plain, target: self, action: #selector(debug))
         
         let scriptsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         scriptsButton.setImage(UIImage(named: "Grid"), for: .normal)
@@ -822,40 +825,43 @@ fileprivate func parseArgs(_ args: inout [String]) {
             DispatchQueue.main.async {
                 if let url = self.document?.fileURL {
                     let console = ConsoleViewController.visible
-                    guard console.view.window != nil else {
-                        let navVC = ThemableNavigationController(rootViewController: console)
-                        self.present(navVC, animated: true, completion: {
-                            self.runScript(debug: debug)
-                        })
-                        
+                    
+                    func run() {
+                        console.textView.text = ""
+                        console.console = ""
+                        console.movableTextField?.placeholder = ""
+                        if Python.shared.isREPLRunning {
+                            if Python.shared.isScriptRunning {
+                                return
+                            }
+                            // Import the script
+                            if !debug {
+                                PyInputHelper.userInput = "import console as c; s = c.run_script('\(url.path.replacingFirstOccurrence(of: "'", with: "\\'"))')"
+                            } else {
+                                
+                                var breakpointsLines = [String]()
+                                
+                                for breakpoint in self.breakpoints {
+                                    breakpointsLines.append(String(describing: breakpoint))
+                                }
+                                
+                                let breakpointsValue = "[\(breakpointsLines.joined(separator: ", "))]"
+                                
+                                PyInputHelper.userInput = "import console as c; s = c.run_script('\(url.path.replacingFirstOccurrence(of: "'", with: "\\'"))', debug=True, breakpoints=\(breakpointsValue))"
+                            }
+                        } else {
+                            Python.shared.runScript(at: url)
+                        }
+                    }
+                    
+                    guard console.view.window != nil && EditorSplitViewController.visible?.ratio != 1 else {
+                        EditorSplitViewController.visible?.showConsole {
+                            run()
+                        }
                         return
                     }
                     
-                    console.textView.text = ""
-                    console.console = ""
-                    console.movableTextField?.placeholder = ""
-                    if Python.shared.isREPLRunning {
-                        if Python.shared.isScriptRunning {
-                            return
-                        }
-                        // Import the script
-                        if !debug {
-                            PyInputHelper.userInput = "import console as c; s = c.run_script('\(url.path.replacingFirstOccurrence(of: "'", with: "\\'"))')"
-                        } else {
-                            
-                            var breakpointsLines = [String]()
-                            
-                            for breakpoint in self.breakpoints {
-                                breakpointsLines.append(String(describing: breakpoint))
-                            }
-                            
-                            let breakpointsValue = "[\(breakpointsLines.joined(separator: ", "))]"
-                            
-                            PyInputHelper.userInput = "import console as c; s = c.run_script('\(url.path.replacingFirstOccurrence(of: "'", with: "\\'"))', debug=True, breakpoints=\(breakpointsValue))"
-                        }
-                    } else {
-                        Python.shared.runScript(at: url)
-                    }
+                    run()
                 }
             }
         }
