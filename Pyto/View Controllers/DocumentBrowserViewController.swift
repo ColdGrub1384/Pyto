@@ -81,7 +81,7 @@ import SavannaKit
             splitVC.ratio = 0
         }
         
-        if traitCollection.horizontalSizeClass == .compact {
+        if traitCollection.horizontalSizeClass == .compact && !EditorSplitViewController.shouldShowConsoleAtBottom {
             splitVC.ratio = 1
         }
         
