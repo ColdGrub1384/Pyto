@@ -117,9 +117,7 @@ class EditorSplitViewController: SplitViewController {
     }
     
     /// The button for closing the full screen console.
-    let closeConsoleBarButtonItem: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(showEditor))
-    }()
+    var closeConsoleBarButtonItem: UIBarButtonItem!
     
     /// Shows the editor on full screen.
     @objc func showEditor() {
@@ -197,6 +195,12 @@ class EditorSplitViewController: SplitViewController {
         }
         
         return commands
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        closeConsoleBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(showEditor))
     }
     
     override func viewWillAppear(_ animated: Bool) {
