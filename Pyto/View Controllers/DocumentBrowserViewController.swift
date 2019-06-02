@@ -81,6 +81,10 @@ import SavannaKit
             splitVC.ratio = 0
         }
         
+        if traitCollection.horizontalSizeClass == .compact {
+            splitVC.ratio = 1
+        }
+        
         DocumentBrowserViewController.splitVCs.append(EditorSplitViewController.visible)
         EditorSplitViewController.visible = splitVC
         let navVC = ThemableNavigationController(rootViewController: splitVC)

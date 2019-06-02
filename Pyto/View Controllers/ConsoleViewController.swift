@@ -196,10 +196,12 @@ import UIKit
         if navigationController != nil {
             dismiss(animated: true, completion: {
                 EditorSplitViewController.visible?.editor.stop()
-                if let line = EditorSplitViewController.visible?.editor.lineNumberError {
-                    EditorSplitViewController.visible?.editor.lineNumberError = nil
-                    EditorSplitViewController.visible?.editor.showErrorAtLine(line)
-                }
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: {
+                    if let line = EditorSplitViewController.visible?.editor.lineNumberError {
+                        EditorSplitViewController.visible?.editor.lineNumberError = nil
+                        EditorSplitViewController.visible?.editor.showErrorAtLine(line)
+                    }
+                })
             })
         }
         #else
@@ -506,6 +508,7 @@ import UIKit
         if wasFirstResponder {
             movableTextField?.textField.becomeFirstResponder()
         }
+        movableTextField?.toolbar.isHidden = (view.frame.size.height == 0 )
         #if MAIN
         movableTextField?.applyTheme()
         #endif
