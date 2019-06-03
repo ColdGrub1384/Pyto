@@ -127,11 +127,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// Arguments passed to the script.
     var args: String {
         get {
-            return UserDefaults.standard.string(forKey: "arguments\(document?.fileURL.path ?? "")") ?? ""
+            return UserDefaults.standard.string(forKey: "arguments\(document?.fileURL.path.replacingOccurrences(of: "//", with: "/") ?? "")") ?? ""
         }
         
         set {
-            UserDefaults.standard.set(newValue, forKey: "arguments\(document?.fileURL.path ?? "")")
+            UserDefaults.standard.set(newValue, forKey: "arguments\(document?.fileURL.path.replacingOccurrences(of: "//", with: "/") ?? "")")
         }
     }
     
@@ -143,7 +143,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             
             let defaultDir = document?.fileURL.deletingLastPathComponent() ?? DocumentBrowserViewController.localContainerURL
             
-            guard let data = UserDefaults.standard.data(forKey: "currentDirectory\(document?.fileURL.path ?? "")") else {
+            guard let data = UserDefaults.standard.data(forKey: "currentDirectory\(document?.fileURL.path.replacingOccurrences(of: "//", with: "/") ?? "")") else {
                 return defaultDir
             }
             
@@ -345,8 +345,18 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 if Python.shared.isScriptRunning {
                     self.stop()
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now()+(Python.shared.isScriptRunning ? 4 : 1)) {
-                    self.run()
+                
+                if Python.shared.isScriptRunning || Python.shared.version.isEmpty {
+                    _ = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true, block: { (timer) in
+                        if !(Python.shared.isScriptRunning || Python.shared.version.isEmpty) {
+                            timer.invalidate()
+                            self.run()
+                        }
+                    })
+                } else {
+                    DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                        self.run()
+                    }
                 }
             }
             
