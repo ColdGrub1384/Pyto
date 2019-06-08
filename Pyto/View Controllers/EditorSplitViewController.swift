@@ -12,15 +12,6 @@ import SplitKit
 /// A Split view controller for displaying the editor and the console.
 class EditorSplitViewController: SplitViewController {
     
-    /// The image of the button used for returning the file browser.
-    static var gridImage: UIImage {
-        if #available(iOS 13.0, *) {
-            return UIImage(systemName: "square.grid.2x2.fill") ?? UIImage(named: "Grid") ?? UIImage()
-        } else {
-            return UIImage(named: "Grid") ?? UIImage()
-        }
-    }
-    
     /// If set to `true`, console will be shown at bottom.
     static var shouldShowConsoleAtBottom: Bool {
         get {
@@ -289,5 +280,44 @@ class EditorSplitViewController: SplitViewController {
                 secondChild = console
             }
         }
-    }    
+    }
+    
+    // MARK: Symbols
+    
+    /// The image of the button used for returning the file browser.
+    static var gridImage: UIImage {
+        if #available(iOS 13.0, *) {
+            return UIImage(systemName: "square.grid.2x2.fill") ?? UIImage(named: "Grid") ?? UIImage()
+        } else {
+            return UIImage(named: "Grid") ?? UIImage()
+        }
+    }
+    
+    
+    /// The image of the button used for opening settings.
+    static var gearImage: UIImage {
+        if #available(iOS 13.0, *) {
+            return UIImage(systemName: "gear") ?? UIImage(named: "gear") ?? UIImage()
+        } else {
+            return UIImage(named: "gear") ?? UIImage()
+        }
+    }
+    
+    /// The image of the button used for showing more.
+    static var threeDotsImage: UIImage {
+        if #available(iOS 13.0, *) {
+            return UIImage(systemName: "ellipsis") ?? UIImage(named: "more") ?? UIImage()
+        } else {
+            return UIImage(named: "more") ?? UIImage()
+        }
+    }
+    
+    /// The image of the button used for debugging.
+    static var debugImage: UIImage {
+        if #available(iOS 13.0, *) {
+            return UIImage(systemName: "ant.fill") ?? UIImage(named: "Debug") ?? UIImage()
+        } else {
+            return UIImage(named: "Debug") ?? UIImage()
+        }
+    }
 }
