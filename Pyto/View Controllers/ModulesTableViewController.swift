@@ -59,6 +59,8 @@ import UIKit
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Grid"), style: .plain, target: self, action: #selector(close))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,10 +93,20 @@ import UIKit
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-        cell.textLabel?.text = (filtredModules ?? ModulesTableViewController.modules)[indexPath.row]
-        cell.detailTextLabel?.text = shortened(path: (filtredPaths ?? ModulesTableViewController.paths)[indexPath.row])
         
-        if FileManager.default.fileExists(atPath: (filtredPaths ?? ModulesTableViewController.paths)[indexPath.row]) {
+        
+        let modules = (filtredModules ?? ModulesTableViewController.modules)
+        let paths = (filtredPaths ?? ModulesTableViewController.paths)
+        
+        
+        if modules.indices.contains(indexPath.row) {
+            cell.textLabel?.text = modules[indexPath.row]
+        }
+        if paths.indices.contains(indexPath.row) {
+            cell.detailTextLabel?.text = shortened(path: paths[indexPath.row])
+        }
+            
+        if paths.indices.contains(indexPath.row) && FileManager.default.fileExists(atPath: paths[indexPath.row]) {
             cell.accessoryType = .disclosureIndicator
         } else {
             cell.accessoryType = .none

@@ -27,7 +27,7 @@ class ThemableNavigationController: UINavigationController, UINavigationControll
     }
     
     /// Called when the user choosed a theme.
-    @objc func themeDidChange(_ notification: Notification) {
+    @objc func themeDidChange(_ notification: Notification?) {
         setup(theme: ConsoleViewController.choosenTheme)
         setNeedsStatusBarAppearanceUpdate()
     }
@@ -46,15 +46,16 @@ class ThemableNavigationController: UINavigationController, UINavigationControll
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        themeDidChange(nil)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         setup(theme: ConsoleViewController.choosenTheme)
-        
-        navigationBar.isTranslucent = false
-        navigationBar.shadowImage = UIImage()
-        toolbar.setShadowImage(UIImage(), forToolbarPosition: .any)
-        toolbar.isTranslucent = false
         
         delegate = self
     }
@@ -75,6 +76,10 @@ class ThemableNavigationController: UINavigationController, UINavigationControll
     
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         
-        viewController.view.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
+        if #available(iOS 13.0, *) {
+            viewController.view.backgroundColor = .systemBackground
+        } else {
+            viewController.view.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
+        }
     }
 }

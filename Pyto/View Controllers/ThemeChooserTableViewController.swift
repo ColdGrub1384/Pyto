@@ -27,6 +27,14 @@ class ThemeChooserTableViewController: UITableViewController, SyntaxTextViewDele
         view.accessibilityIgnoresInvertColors = true
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = UIColor.systemBackground
+        }
+        tableView.reloadData()
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Themes.count
     }

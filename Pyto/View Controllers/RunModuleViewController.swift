@@ -26,6 +26,10 @@ import UIKit
         }
     }
     
+    @objc private func goToFileBrowser() {
+        dismiss(animated: true, completion: nil)
+    }
+    
     private static let console = ConsoleViewController()
     
     // MARK: - Editor split view controller
@@ -52,6 +56,8 @@ import UIKit
         view.addSubview(console.view)
         console.view.frame = view.frame
         console.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Grid"), style: .plain, target: self, action: #selector(goToFileBrowser))
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -50,7 +50,10 @@ class MenuTableViewController: UITableViewController {
             PyInputHelper.userInput = "import modules_inspector; modules_inspector.main()"
         }
         
-        navigationController?.pushViewController(ModulesTableViewController(style: .grouped), animated: true)
+        dismiss(animated: true) {
+            DocumentBrowserViewController.visible?.present(UINavigationController(rootViewController: ModulesTableViewController(style: .grouped)), animated: true, completion: nil)
+        }
+        
         if wasRunningScript {
             _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { (_) in
                 checkModules()
@@ -84,5 +87,7 @@ class MenuTableViewController: UITableViewController {
         default:
             break
         }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

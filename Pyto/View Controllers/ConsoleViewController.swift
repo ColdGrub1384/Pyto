@@ -19,7 +19,9 @@ import UIKit
             let themeID: Int
             
             switch newValue {
-            case is XcodeTheme:
+            case is XcodeLightTheme:
+                themeID = -1
+            case is DefaultTheme:
                 themeID = 0
             case is XcodeDarkTheme:
                 themeID = 1
@@ -55,8 +57,10 @@ import UIKit
         
         get {
             switch UserDefaults.standard.integer(forKey: "theme") {
+            case -1:
+                return XcodeLightTheme()
             case 0:
-                return XcodeTheme()
+                return DefaultTheme()
             case 1:
                 return XcodeDarkTheme()
             case 2:
@@ -78,7 +82,7 @@ import UIKit
             case 10:
                 return SolarizedDarkTheme()
             default:
-                return XcodeTheme()
+                return DefaultTheme()
             }
         }
     }
@@ -271,15 +275,6 @@ import UIKit
         #if MAIN
         class PyNavigationController: UINavigationController {
             
-            override func viewWillAppear(_ animated: Bool) {
-                super.viewWillAppear(animated)
-                
-                navigationBar.isTranslucent = false
-                navigationBar.shadowImage = UIImage()
-                navigationBar.barStyle = ConsoleViewController.choosenTheme.barStyle
-                navigationBar.barTintColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
-            }
-            
             override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
                 if traitCollection.horizontalSizeClass == .compact {
                     return [.portrait, .portraitUpsideDown]
@@ -331,7 +326,7 @@ import UIKit
     }
     
     /// Called when the user choosed a theme.
-    @objc func themeDidChange(_ notification: Notification) {
+    @objc func themeDidChange(_ notification: Notification?) {
         setup(theme: ConsoleViewController.choosenTheme)
     }
     
@@ -391,6 +386,10 @@ import UIKit
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
         #endif
         
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemBackground
+        }
+        
         edgesForExtendedLayout = []
         
         title = Localizable.console
@@ -406,6 +405,12 @@ import UIKit
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
         
         movableTextField = MovableTextField(console: self)
+    }
+    
+    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        themeDidChange(nil)
     }
     
     override open func viewDidAppear(_ animated: Bool) {

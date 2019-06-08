@@ -78,7 +78,6 @@ import ios_system
     @objc public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
                 
         #if MAIN
-        initializeEnvironment()
         unsetenv("TERM")
         unsetenv("LSCOLORS")
         unsetenv("CLICOLOR")

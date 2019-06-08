@@ -92,26 +92,6 @@ import Cocoa
     /// Set to `true` when the REPL is ready to run scripts.
     @objc var isSetup = false
     
-    /// Runs given command with `ios_system`.
-    ///
-    /// - Parameters:
-    ///     - cmd: Command to run.
-    ///
-    /// - Returns: The result code.
-    @objc func system(_ cmd: String) -> Int32 {
-        #if MAIN
-        ios_switchSession(IO.shared.ios_stdout)
-        ios_setDirectoryURL(FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0])
-        ios_setStreams(IO.shared.ios_stdin, IO.shared.ios_stdout, IO.shared.ios_stderr)
-        let retValue = ios_system(cmd.cValue)
-        sleep(1)
-        return retValue
-        #else
-        PyOutputHelper.print("Only supported on main app.")
-        return 1
-        #endif
-    }
-    
     /// Exposes Pyto modules to Pyhon.
     @available(*, deprecated, message: "The Library is now located on app bundle.")
     @objc public func importPytoLib() {

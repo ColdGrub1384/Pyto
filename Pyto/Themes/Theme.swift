@@ -37,7 +37,8 @@ extension Theme {
 
 /// A dictionary with all themes.
 let Themes: [(name: String, value: Theme)] = [
-    (name: "Xcode", value: XcodeTheme()),
+    (name: "Default", value: DefaultTheme()),
+    (name: "Xcode Light", value: XcodeLightTheme()),
     (name: "Xcode Dark", value: XcodeDarkTheme()),
     (name: "Basic", value: BasicTheme()),
     (name: "Dusk", value: DuskTheme()),
