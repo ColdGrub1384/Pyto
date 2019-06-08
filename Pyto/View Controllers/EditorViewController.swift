@@ -278,7 +278,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         let debugButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         debugButton.addTarget(self, action: #selector(debug), for: .touchUpInside)
-        debugItem = UIBarButtonItem(image: UIImage(named: "Debug"), style: .plain, target: self, action: #selector(debug))
+        debugItem = UIBarButtonItem(image: EditorSplitViewController.debugImage, style: .plain, target: self, action: #selector(debug))
         
         let scriptsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         scriptsButton.setImage(EditorSplitViewController.gridImage, for: .normal)
@@ -296,8 +296,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         docItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showDocs(_:)))
         shareItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share(_:)))
-        let moreItem = UIBarButtonItem(image: UIImage(named: "more"), style: .plain, target: self, action: #selector(showEditorScripts(_:)))
-        let runtimeItem = UIBarButtonItem(image: UIImage(named: "gear"), style: .plain, target: self, action: #selector(showRuntimeSettings(_:)))
+        let moreItem = UIBarButtonItem(image: EditorSplitViewController.threeDotsImage, style: .plain, target: self, action: #selector(showEditorScripts(_:)))
+        let runtimeItem = UIBarButtonItem(image: EditorSplitViewController.gearImage, style: .plain, target: self, action: #selector(showRuntimeSettings(_:)))
         
         if Python.shared.isScriptRunning {
             parent?.navigationItem.rightBarButtonItems = [
@@ -793,6 +793,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
             let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
             picker.delegate = self
             picker.allowsMultipleSelection = true
+            if #available(iOS 13.0, *) {
+                picker.directoryURL = self.currentDirectory
+            }
             self.present(picker, animated: true, completion: nil)
         }))
         
