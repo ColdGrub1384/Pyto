@@ -22,11 +22,11 @@ func RelativePathForScript(_ url: URL) -> String {
         filePath = filePath.replacingFirstOccurrence(of: iCloudPath, with: "iCloud/")
     }
     
-    if filePath.hasPrefix("/private/") {
-        filePath = filePath.replacingFirstOccurrence(of: "/private/", with: "")
+    if filePath.hasPrefix("/private") {
+        filePath = filePath.replacingFirstOccurrence(of: "/private", with: "")
     }
     
-    if filePath.hasPrefix("/") {
+    if filePath.hasPrefix("/") && !FileManager.default.fileExists(atPath: filePath) {
         filePath.removeFirst()
     }
     
