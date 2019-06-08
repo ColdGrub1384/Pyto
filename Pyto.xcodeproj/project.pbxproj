@@ -386,9 +386,6 @@
 		C9D6DEFF221059F900D7EF55 /* CodeCompletionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6DEFD221059F900D7EF55 /* CodeCompletionViewItem.swift */; };
 		C9D6DF00221059F900D7EF55 /* CodeCompletionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9D6DEFE221059F900D7EF55 /* CodeCompletionViewItem.xib */; };
 		C9D6DF012210DC8700D7EF55 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* TextView.swift */; };
-		C9DF70EF217175C400981B4F /* network_ios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70C42171752100981B4F /* network_ios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9DF70FF217175C400981B4F /* files.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70D22171752100981B4F /* files.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9DF7105217175C500981B4F /* lua_ios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70D52171752100981B4F /* lua_ios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9DF71062171768A00981B4F /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C943AC3D215277A000844368 /* Python.framework */; };
 		C9DF71072171768A00981B4F /* Python.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C943AC3D215277A000844368 /* Python.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9E016ED22823186002DF4CA /* EditorScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E016EC22823186002DF4CA /* EditorScript.swift */; };
@@ -570,13 +567,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = C943AC3C215277A000844368;
 			remoteInfo = Python;
-		};
-		C9DF7114217176BF00981B4F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C9DF7110217176BE00981B4F /* ios_system.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 223496AB1FD5FC71007ED1A9;
-			remoteInfo = ios_system;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -1349,13 +1339,10 @@
 				C990B57021E5263100ABC0B8 /* _multiarray_umath.framework in Embed Frameworks */,
 				C990B56A21E5261C00ABC0B8 /* lapack_lite.framework in Embed Frameworks */,
 				C9DF71072171768A00981B4F /* Python.framework in Embed Frameworks */,
-				C9DF70EF217175C400981B4F /* network_ios.framework in Embed Frameworks */,
 				C990B56C21E5262100ABC0B8 /* mtrand.framework in Embed Frameworks */,
 				C9AAAB4A2195016D0042E733 /* InputAssistant.framework in Embed Frameworks */,
 				C990B56621E5260E00ABC0B8 /* _umath_linalg.framework in Embed Frameworks */,
-				C9DF70FF217175C400981B4F /* files.framework in Embed Frameworks */,
 				C95EE4E722070224006611CB /* libpng.framework in Embed Frameworks */,
-				C9DF7105217175C500981B4F /* lua_ios.framework in Embed Frameworks */,
 				C990B56821E5261700ABC0B8 /* fftpack_lite.framework in Embed Frameworks */,
 				C970283221FFAFDB00159E54 /* _cntr.framework in Embed Frameworks */,
 				C970283321FFAFDD00159E54 /* _delaunay.framework in Embed Frameworks */,
@@ -1842,27 +1829,6 @@
 		C9D2AA752215A503006AF527 /* EditorViewController+highlighting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorViewController+highlighting.swift"; sourceTree = "<group>"; };
 		C9D6DEFD221059F900D7EF55 /* CodeCompletionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeCompletionViewItem.swift; sourceTree = "<group>"; };
 		C9D6DEFE221059F900D7EF55 /* CodeCompletionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CodeCompletionViewItem.xib; sourceTree = "<group>"; };
-		C9DF70C22171752100981B4F /* libtexlua52.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libtexlua52.5.dylib; sourceTree = "<group>"; };
-		C9DF70C32171752100981B4F /* shell.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = shell.framework; sourceTree = "<group>"; };
-		C9DF70C42171752100981B4F /* network_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = network_ios.framework; sourceTree = "<group>"; };
-		C9DF70C52171752100981B4F /* libkpathsea.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libkpathsea.6.dylib; sourceTree = "<group>"; };
-		C9DF70C62171752100981B4F /* curl_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = curl_ios.framework; sourceTree = "<group>"; };
-		C9DF70C72171752100981B4F /* libluatex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libluatex.dylib; sourceTree = "<group>"; };
-		C9DF70C82171752100981B4F /* openssl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = openssl.framework; sourceTree = "<group>"; };
-		C9DF70C92171752100981B4F /* Python_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Python_ios.framework; sourceTree = "<group>"; };
-		C9DF70CA2171752100981B4F /* libssh2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libssh2.framework; sourceTree = "<group>"; };
-		C9DF70CB2171752100981B4F /* libctags.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libctags.dylib; sourceTree = "<group>"; };
-		C9DF70CC2171752100981B4F /* ios_system.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ios_system.framework; sourceTree = "<group>"; };
-		C9DF70CD2171752100981B4F /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		C9DF70CE2171752100981B4F /* libpdftex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libpdftex.dylib; sourceTree = "<group>"; };
-		C9DF70CF2171752100981B4F /* libbibtex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libbibtex.dylib; sourceTree = "<group>"; };
-		C9DF70D02171752100981B4F /* tar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = tar.framework; sourceTree = "<group>"; };
-		C9DF70D12171752100981B4F /* awk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = awk.framework; sourceTree = "<group>"; };
-		C9DF70D22171752100981B4F /* files.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = files.framework; sourceTree = "<group>"; };
-		C9DF70D32171752100981B4F /* ssh_cmd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ssh_cmd.framework; sourceTree = "<group>"; };
-		C9DF70D42171752100981B4F /* text.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = text.framework; sourceTree = "<group>"; };
-		C9DF70D52171752100981B4F /* lua_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = lua_ios.framework; sourceTree = "<group>"; };
-		C9DF7110217176BE00981B4F /* ios_system.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ios_system.xcodeproj; path = ios_system/ios_system.xcodeproj; sourceTree = "<group>"; };
 		C9E016EC22823186002DF4CA /* EditorScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorScript.swift; sourceTree = "<group>"; };
 		C9E016F022823E30002DF4CA /* EditorActionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorActionsTableViewController.swift; sourceTree = "<group>"; };
 		C9E116DF21F773EB00FB5DD2 /* UserREPL.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = UserREPL.py; sourceTree = "<group>"; };
@@ -2838,41 +2804,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		C9DF70C12171752100981B4F /* ios_system_builds */ = {
-			isa = PBXGroup;
-			children = (
-				C9DF70C22171752100981B4F /* libtexlua52.5.dylib */,
-				C9DF70C32171752100981B4F /* shell.framework */,
-				C9DF70C42171752100981B4F /* network_ios.framework */,
-				C9DF70C52171752100981B4F /* libkpathsea.6.dylib */,
-				C9DF70C62171752100981B4F /* curl_ios.framework */,
-				C9DF70C72171752100981B4F /* libluatex.dylib */,
-				C9DF70C82171752100981B4F /* openssl.framework */,
-				C9DF70C92171752100981B4F /* Python_ios.framework */,
-				C9DF70CA2171752100981B4F /* libssh2.framework */,
-				C9DF70CB2171752100981B4F /* libctags.dylib */,
-				C9DF70CC2171752100981B4F /* ios_system.framework */,
-				C9DF70CD2171752100981B4F /* .gitignore */,
-				C9DF70CE2171752100981B4F /* libpdftex.dylib */,
-				C9DF70CF2171752100981B4F /* libbibtex.dylib */,
-				C9DF70D02171752100981B4F /* tar.framework */,
-				C9DF70D12171752100981B4F /* awk.framework */,
-				C9DF70D22171752100981B4F /* files.framework */,
-				C9DF70D32171752100981B4F /* ssh_cmd.framework */,
-				C9DF70D42171752100981B4F /* text.framework */,
-				C9DF70D52171752100981B4F /* lua_ios.framework */,
-			);
-			path = ios_system_builds;
-			sourceTree = "<group>";
-		};
-		C9DF7111217176BE00981B4F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C9DF7115217176BF00981B4F /* ios_system.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		C9E4152921513E2300D64E32 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -2965,8 +2896,6 @@
 				C98472AD21A05CB1008E16AC /* README.md */,
 				C950BD1B2291E40800B73B29 /* so_to_framework.py */,
 				C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */,
-				C9DF7110217176BE00981B4F /* ios_system.xcodeproj */,
-				C9DF70C12171752100981B4F /* ios_system_builds */,
 				C9BE01B021530BAF00A8C825 /* site-packages */,
 				C904EB6121445B4300585C28 /* Python */,
 				C904EB5D21445AA800585C28 /* BZip2 */,
@@ -3318,10 +3247,6 @@
 					ProductGroup = C9AAAB3E219501600042E733 /* Products */;
 					ProjectRef = C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */;
 				},
-				{
-					ProductGroup = C9DF7111217176BE00981B4F /* Products */;
-					ProjectRef = C9DF7110217176BE00981B4F /* ios_system.xcodeproj */;
-				},
 			);
 			projectRoot = "";
 			targets = (
@@ -3355,13 +3280,6 @@
 			fileType = wrapper.application;
 			path = "InputAssistant Sample.app";
 			remoteRef = C9AAAB47219501600042E733 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C9DF7115217176BF00981B4F /* ios_system.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = ios_system.framework;
-			remoteRef = C9DF7114217176BF00981B4F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

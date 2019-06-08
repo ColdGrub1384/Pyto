@@ -281,12 +281,16 @@ fileprivate func parseArgs(_ args: inout [String]) {
         debugItem = UIBarButtonItem(image: UIImage(named: "Debug"), style: .plain, target: self, action: #selector(debug))
         
         let scriptsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-        scriptsButton.setImage(UIImage(named: "Grid"), for: .normal)
+        scriptsButton.setImage(EditorSplitViewController.gridImage, for: .normal)
         scriptsButton.addTarget(self, action: #selector(close), for: .touchUpInside)
         scriptsItem = UIBarButtonItem(customView: scriptsButton)
         
         let searchButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-        searchButton.setImage(UIImage(imageLiteralResourceName: "search"), for: .normal)
+        if #available(iOS 13.0, *) {
+            searchButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+        } else {
+            searchButton.setImage(UIImage(named: "Search"), for: .normal)
+        }
         searchButton.addTarget(self, action: #selector(search), for: .touchUpInside)
         searchItem = UIBarButtonItem(customView: searchButton)
         

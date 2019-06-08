@@ -12,6 +12,15 @@ import SplitKit
 /// A Split view controller for displaying the editor and the console.
 class EditorSplitViewController: SplitViewController {
     
+    /// The image of the button used for returning the file browser.
+    static var gridImage: UIImage {
+        if #available(iOS 13.0, *) {
+            return UIImage(systemName: "square.grid.2x2.fill") ?? UIImage(named: "Grid") ?? UIImage()
+        } else {
+            return UIImage(named: "Grid") ?? UIImage()
+        }
+    }
+    
     /// If set to `true`, console will be shown at bottom.
     static var shouldShowConsoleAtBottom: Bool {
         get {

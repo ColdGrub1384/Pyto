@@ -9,7 +9,6 @@
 
 import Foundation
 #if MAIN && os(iOS)
-import ios_system
 #elseif os(iOS) && !WIDGET
 @_silgen_name("PyRun_SimpleStringFlags")
 func PyRun_SimpleStringFlags(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Any>!)
