@@ -140,7 +140,10 @@ import SavannaKit
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        additionalLeadingNavigationBarButtonItems = [UIBarButtonItem(image: UIImage(named: "more"), style: .plain, target: self, action: #selector(showMore(_:)))]
+        additionalLeadingNavigationBarButtonItems = [UIBarButtonItem(image: EditorSplitViewController.threeDotsImage, style: .plain, target: self, action: #selector(showMore(_:)))]
+        self.customActions = [UIDocumentBrowserAction(identifier: "run", localizedTitle: Localizable.MenuItems.run, availability: .menu, handler: { (urls) in
+            self.openDocument(urls[0], run: true)
+        })]
         
         delegate = self
     }
