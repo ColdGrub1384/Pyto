@@ -17,7 +17,11 @@ extension FileManager {
         }
         
         if !fileExists(atPath: url.path) {
-            try? createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
+            do {
+                try createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print(error.localizedDescription)
+            }
         }
         
         return url
