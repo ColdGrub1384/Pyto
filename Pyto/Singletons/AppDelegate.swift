@@ -183,7 +183,10 @@ import SafariServices
         
         // Reveal / import the document at the URL
         
-        documentBrowserViewController.openDocument(inputURL, run: false)
+        documentBrowserViewController.revealDocument(at: inputURL, importIfNeeded: true, completion: { (url, _) in
+            
+            documentBrowserViewController.openDocument(url ?? inputURL, run: false)
+        })
         
         return true
     }
