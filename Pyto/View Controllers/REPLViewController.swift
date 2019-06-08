@@ -19,7 +19,9 @@ import UIKit
     
     /// Goes back to the file browser
     @objc static func goToFileBrowser() {
-        REPLViewController.shared?.dismiss(animated: true, completion: nil)
+        DispatchQueue.main.async {
+            REPLViewController.shared?.dismiss(animated: true, completion: nil)
+        }
     }
     
     // MARK: - Editor split view controller
@@ -48,6 +50,16 @@ import UIKit
         console.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Grid"), style: .plain, target: REPLViewController.self, action: #selector(REPLViewController.goToFileBrowser))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemBackground
+        } else {
+            view.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

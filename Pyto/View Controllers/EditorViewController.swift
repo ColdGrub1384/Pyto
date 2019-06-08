@@ -232,7 +232,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
         textView.delegate = self
         textView.theme = theme.sourceCodeTheme
         textView.contentTextView.textColor = theme.sourceCodeTheme.color(for: .plain)
-        textView.contentTextView.keyboardAppearance = theme.keyboardAppearance
+        if traitCollection.userInterfaceStyle == .dark {
+            textView.contentTextView.keyboardAppearance = .dark
+        } else {
+            textView.contentTextView.keyboardAppearance = theme.keyboardAppearance
+        }
         textView.text = text
         
         inputAssistant.leadingActions = (UIApplication.shared.statusBarOrientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])+[InputAssistantAction(image: "⇥".image() ?? UIImage(), target: self, action: #selector(insertTab))]
@@ -241,7 +245,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     }
     
     /// Called when the user choosed a theme.
-    @objc func themeDidChange(_ notification: Notification) {
+    @objc func themeDidChange(_ notification: Notification?) {
         setup(theme: ConsoleViewController.choosenTheme)
     }
     
@@ -251,6 +255,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
+        
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemBackground
+        }
         
         view.addSubview(textView)
         textView.delegate = self
@@ -317,6 +325,12 @@ fileprivate func parseArgs(_ args: inout [String]) {
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
             runtimeItem
         ]
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        themeDidChange(nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {

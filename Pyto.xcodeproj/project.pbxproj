@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -44,6 +44,7 @@
 		C921EF6721ECA02E004C750D /* XcodeActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C921EF6621ECA02E004C750D /* XcodeActivity.swift */; };
 		C921EF7821ECC388004C750D /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C921EF7721ECC388004C750D /* ActivityViewController.swift */; };
 		C92495C72151A3E3007EB4DB /* ReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92495C62151A3E3007EB4DB /* ReviewHelper.swift */; };
+		C924ADE622A9FBF6001C8E94 /* Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = C924ADE522A9FBF6001C8E94 /* Default.swift */; };
 		C92ACE3321F0D8CB00FA8904 /* SolarizedLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92ACE3221F0D8CB00FA8904 /* SolarizedLight.swift */; };
 		C92ACE3721F0DBF600FA8904 /* SolarizedDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92ACE3621F0DBF600FA8904 /* SolarizedDark.swift */; };
 		C92DBD8021F67B9D0098BE43 /* REPL.py in Resources */ = {isa = PBXBuildFile; fileRef = C92DBD7F21F67B9C0098BE43 /* REPL.py */; };
@@ -65,7 +66,7 @@
 		C946A5AA22074EAA00F78C5C /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C946A5A922074EAA00F78C5C /* NotificationCenter.framework */; };
 		C946A5AD22074EAA00F78C5C /* ConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946A5AC22074EAA00F78C5C /* ConsoleViewController.swift */; };
 		C946A5B022074EAA00F78C5C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C946A5AE22074EAA00F78C5C /* MainInterface.storyboard */; };
-		C946A5B422074EAA00F78C5C /* Pyto Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C946A5A822074EA900F78C5C /* Pyto Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C946A5B422074EAA00F78C5C /* Pyto Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C946A5A822074EA900F78C5C /* Pyto Widget.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C946A5C722077F9800F78C5C /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946A5C622077F9800F78C5C /* UserDefaults.swift */; };
 		C946A5C822077F9800F78C5C /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946A5C622077F9800F78C5C /* UserDefaults.swift */; };
 		C946A5CA2207809700F78C5C /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946A5C92207809700F78C5C /* FileManager.swift */; };
@@ -127,7 +128,7 @@
 		C954FAB9220A2BB00060C488 /* ReplaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C954FAB8220A2BB00060C488 /* ReplaceView.swift */; };
 		C9592D1821D0592C00412CEF /* PyDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1421D0592C00412CEF /* PyDocument.swift */; };
 		C9592D1921D0592C00412CEF /* ViewControllerTransitionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1521D0592C00412CEF /* ViewControllerTransitionCoordinator.swift */; };
-		C9592D1A21D0592C00412CEF /* Xcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1621D0592C00412CEF /* Xcode.swift */; };
+		C9592D1A21D0592C00412CEF /* XcodeLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1621D0592C00412CEF /* XcodeLight.swift */; };
 		C9592D1B21D0592C00412CEF /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1721D0592C00412CEF /* Localizable.swift */; };
 		C9592D2721D059BA00412CEF /* EditorSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1F21D059B900412CEF /* EditorSplitViewController.swift */; };
 		C95A79E8214DC9D0007A1B90 /* PyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A79E7214DC9D0007A1B90 /* PyAlert.swift */; };
@@ -269,7 +270,7 @@
 		C9727C472204D7F100B7AC32 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9727C452204D7F100B7AC32 /* LaunchScreen.storyboard */; };
 		C9727C752205D64500B7AC32 /* ConsoleViewController+showViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C91321C321FB31C700437845 /* ConsoleViewController+showViewController.m */; };
 		C974193521FD23B700E3924C /* Basic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E78621EF781F0057C63E /* Basic.swift */; };
-		C974193821FD23B900E3924C /* Xcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1621D0592C00412CEF /* Xcode.swift */; };
+		C974193821FD23B900E3924C /* XcodeLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1621D0592C00412CEF /* XcodeLight.swift */; };
 		C974193921FD23D100E3924C /* XcodeDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E77721EEA9BE0057C63E /* XcodeDark.swift */; };
 		C974193A21FD23D900E3924C /* Dusk.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E77E21EF71E30057C63E /* Dusk.swift */; };
 		C974193B21FD23E100E3924C /* LowKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E78021EF735F0057C63E /* LowKey.swift */; };
@@ -385,21 +386,11 @@
 		C9D6DEFF221059F900D7EF55 /* CodeCompletionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6DEFD221059F900D7EF55 /* CodeCompletionViewItem.swift */; };
 		C9D6DF00221059F900D7EF55 /* CodeCompletionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9D6DEFE221059F900D7EF55 /* CodeCompletionViewItem.xib */; };
 		C9D6DF012210DC8700D7EF55 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* TextView.swift */; };
-		C9DF70ED217175C400981B4F /* shell.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70C32171752100981B4F /* shell.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9DF70EF217175C400981B4F /* network_ios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70C42171752100981B4F /* network_ios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9DF70F1217175C400981B4F /* curl_ios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70C62171752100981B4F /* curl_ios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9DF70F3217175C400981B4F /* openssl.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70C82171752100981B4F /* openssl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9DF70F7217175C400981B4F /* libssh2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70CA2171752100981B4F /* libssh2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9DF70FB217175C400981B4F /* tar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70D02171752100981B4F /* tar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9DF70FD217175C400981B4F /* awk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70D12171752100981B4F /* awk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9DF70FF217175C400981B4F /* files.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70D22171752100981B4F /* files.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9DF7101217175C500981B4F /* ssh_cmd.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70D32171752100981B4F /* ssh_cmd.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9DF7103217175C500981B4F /* text.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70D42171752100981B4F /* text.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9DF7105217175C500981B4F /* lua_ios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF70D52171752100981B4F /* lua_ios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9DF71062171768A00981B4F /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C943AC3D215277A000844368 /* Python.framework */; };
 		C9DF71072171768A00981B4F /* Python.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C943AC3D215277A000844368 /* Python.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9DF711A217176D700981B4F /* ios_system.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF7115217176BF00981B4F /* ios_system.framework */; };
-		C9DF711B217176D700981B4F /* ios_system.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF7115217176BF00981B4F /* ios_system.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9E016ED22823186002DF4CA /* EditorScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E016EC22823186002DF4CA /* EditorScript.swift */; };
 		C9E016F122823E30002DF4CA /* EditorActionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E016F022823E30002DF4CA /* EditorActionsTableViewController.swift */; };
 		C9E116E021F773EB00FB5DD2 /* UserREPL.py in Resources */ = {isa = PBXBuildFile; fileRef = C9E116DF21F773EB00FB5DD2 /* UserREPL.py */; };
@@ -585,13 +576,6 @@
 			containerPortal = C9DF7110217176BE00981B4F /* ios_system.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 223496AB1FD5FC71007ED1A9;
-			remoteInfo = ios_system;
-		};
-		C9DF711C217176D700981B4F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C9DF7110217176BE00981B4F /* ios_system.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 223496AA1FD5FC71007ED1A9;
 			remoteInfo = ios_system;
 		};
 /* End PBXContainerItemProxy section */
@@ -1365,23 +1349,14 @@
 				C990B57021E5263100ABC0B8 /* _multiarray_umath.framework in Embed Frameworks */,
 				C990B56A21E5261C00ABC0B8 /* lapack_lite.framework in Embed Frameworks */,
 				C9DF71072171768A00981B4F /* Python.framework in Embed Frameworks */,
-				C9DF70F3217175C400981B4F /* openssl.framework in Embed Frameworks */,
 				C9DF70EF217175C400981B4F /* network_ios.framework in Embed Frameworks */,
-				C9DF70FD217175C400981B4F /* awk.framework in Embed Frameworks */,
-				C9DF70F1217175C400981B4F /* curl_ios.framework in Embed Frameworks */,
 				C990B56C21E5262100ABC0B8 /* mtrand.framework in Embed Frameworks */,
-				C9DF711B217176D700981B4F /* ios_system.framework in Embed Frameworks */,
 				C9AAAB4A2195016D0042E733 /* InputAssistant.framework in Embed Frameworks */,
 				C990B56621E5260E00ABC0B8 /* _umath_linalg.framework in Embed Frameworks */,
-				C9DF70ED217175C400981B4F /* shell.framework in Embed Frameworks */,
 				C9DF70FF217175C400981B4F /* files.framework in Embed Frameworks */,
-				C9DF70F7217175C400981B4F /* libssh2.framework in Embed Frameworks */,
 				C95EE4E722070224006611CB /* libpng.framework in Embed Frameworks */,
 				C9DF7105217175C500981B4F /* lua_ios.framework in Embed Frameworks */,
 				C990B56821E5261700ABC0B8 /* fftpack_lite.framework in Embed Frameworks */,
-				C9DF7101217175C500981B4F /* ssh_cmd.framework in Embed Frameworks */,
-				C9DF7103217175C500981B4F /* text.framework in Embed Frameworks */,
-				C9DF70FB217175C400981B4F /* tar.framework in Embed Frameworks */,
 				C970283221FFAFDB00159E54 /* _cntr.framework in Embed Frameworks */,
 				C970283321FFAFDD00159E54 /* _delaunay.framework in Embed Frameworks */,
 				C970283421FFAFE000159E54 /* _backend_agg.framework in Embed Frameworks */,
@@ -1442,6 +1417,7 @@
 		C921EF6621ECA02E004C750D /* XcodeActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeActivity.swift; sourceTree = "<group>"; };
 		C921EF7721ECC388004C750D /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		C92495C62151A3E3007EB4DB /* ReviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewHelper.swift; sourceTree = "<group>"; };
+		C924ADE522A9FBF6001C8E94 /* Default.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Default.swift; sourceTree = "<group>"; };
 		C92ACE3221F0D8CB00FA8904 /* SolarizedLight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarizedLight.swift; sourceTree = "<group>"; };
 		C92ACE3621F0DBF600FA8904 /* SolarizedDark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarizedDark.swift; sourceTree = "<group>"; };
 		C92DBD7F21F67B9C0098BE43 /* REPL.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = REPL.py; sourceTree = "<group>"; };
@@ -1568,7 +1544,7 @@
 		C954FAB8220A2BB00060C488 /* ReplaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplaceView.swift; sourceTree = "<group>"; };
 		C9592D1421D0592C00412CEF /* PyDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PyDocument.swift; sourceTree = "<group>"; };
 		C9592D1521D0592C00412CEF /* ViewControllerTransitionCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerTransitionCoordinator.swift; sourceTree = "<group>"; };
-		C9592D1621D0592C00412CEF /* Xcode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Xcode.swift; sourceTree = "<group>"; };
+		C9592D1621D0592C00412CEF /* XcodeLight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XcodeLight.swift; sourceTree = "<group>"; };
 		C9592D1721D0592C00412CEF /* Localizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
 		C9592D1F21D059B900412CEF /* EditorSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSplitViewController.swift; sourceTree = "<group>"; };
 		C95A79E7214DC9D0007A1B90 /* PyAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyAlert.swift; sourceTree = "<group>"; };
@@ -2130,7 +2106,6 @@
 				C9FB5BEC22025B040085E1AA /* sfnt.o in Frameworks */,
 				C9FB5C0A22025B040085E1AA /* ftcid.o in Frameworks */,
 				C9FB5C0C22025B040085E1AA /* ftbitmap.o in Frameworks */,
-				C9DF711A217176D700981B4F /* ios_system.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2762,8 +2737,9 @@
 		C9C0E77021EE9EFA0057C63E /* Themes */ = {
 			isa = PBXGroup;
 			children = (
+				C924ADE522A9FBF6001C8E94 /* Default.swift */,
 				C9C0E78621EF781F0057C63E /* Basic.swift */,
-				C9592D1621D0592C00412CEF /* Xcode.swift */,
+				C9592D1621D0592C00412CEF /* XcodeLight.swift */,
 				C9C0E77721EEA9BE0057C63E /* XcodeDark.swift */,
 				C9C0E77E21EF71E30057C63E /* Dusk.swift */,
 				C9C0E78021EF735F0057C63E /* LowKey.swift */,
@@ -3256,7 +3232,6 @@
 			);
 			dependencies = (
 				C9DF71092171768A00981B4F /* PBXTargetDependency */,
-				C9DF711D217176D700981B4F /* PBXTargetDependency */,
 				C9AAAB4C2195016D0042E733 /* PBXTargetDependency */,
 				C95EE4E522070224006611CB /* PBXTargetDependency */,
 				C946A5B322074EAA00F78C5C /* PBXTargetDependency */,
@@ -3500,20 +3475,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Pyto Mac/Pods-Pyto Mac-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Down-macOS/Down.framework",
-				"${BUILT_PRODUCTS_DIR}/SavannaKit-macOS/SavannaKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SourceEditor-macOS/SourceEditor.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-Pyto Mac/Pods-Pyto Mac-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Down.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SavannaKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SourceEditor.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-Pyto Mac/Pods-Pyto Mac-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3601,21 +3567,12 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Pyto/Pods-Pyto-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Down-iOS/Down.framework",
-				"${BUILT_PRODUCTS_DIR}/SavannaKit-iOS/SavannaKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SourceEditor-iOS/SourceEditor.framework",
-				"${BUILT_PRODUCTS_DIR}/SplitKit/SplitKit.framework",
-				"${BUILT_PRODUCTS_DIR}/Zip/Zip.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pyto/Pods-Pyto-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Down.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SavannaKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SourceEditor.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SplitKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zip.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pyto/Pods-Pyto-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3686,7 +3643,7 @@
 				C974193E21FD240900E3924C /* WWDC16.swift in Sources */,
 				C94CC2D121FCF59D005E9556 /* EditorViewController.swift in Sources */,
 				C97E49CF2213840800ACB42C /* NSImage.swift in Sources */,
-				C974193821FD23B900E3924C /* Xcode.swift in Sources */,
+				C974193821FD23B900E3924C /* XcodeLight.swift in Sources */,
 				C9317EEC21FF2DD00016E422 /* Python.swift in Sources */,
 				C94CC2CB21FCF17F005E9556 /* PyDocument.swift in Sources */,
 				C974194221FD244300E3924C /* Theme.swift in Sources */,
@@ -3770,6 +3727,7 @@
 				C9C0E78321EF75080057C63E /* Midnight.swift in Sources */,
 				C903B98C21598A63004AAD7F /* IO.swift in Sources */,
 				C9B3FDEC21503DE7000FC9A8 /* PyExtensionContext.swift in Sources */,
+				C924ADE622A9FBF6001C8E94 /* Default.swift in Sources */,
 				C99E8D6C21F0CC7800C71884 /* WWDC16.swift in Sources */,
 				C93D61DD2145CD0800C8B5E3 /* PyInputHelper.swift in Sources */,
 				C9C0E78F21F0BC640057C63E /* ReadOnlyTheme.swift in Sources */,
@@ -3809,7 +3767,7 @@
 				C99D8E20223E960100489E9B /* PipViewController.swift in Sources */,
 				C909A19C2267E6E30058C145 /* UIViewController+isDarkModeEnabled.swift in Sources */,
 				C9C0E77F21EF71E30057C63E /* Dusk.swift in Sources */,
-				C9592D1A21D0592C00412CEF /* Xcode.swift in Sources */,
+				C9592D1A21D0592C00412CEF /* XcodeLight.swift in Sources */,
 				C9FCFD5B214428AE00A07974 /* EditorViewController.swift in Sources */,
 				C99D8E32223ECD1000489E9B /* PyPiPackage.swift in Sources */,
 				C976592721471D23001C96A8 /* PyFilePicker.swift in Sources */,
@@ -3836,6 +3794,7 @@
 /* Begin PBXTargetDependency section */
 		C946A5B322074EAA00F78C5C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = ios;
 			target = C946A5A722074EA900F78C5C /* Pyto Widget */;
 			targetProxy = C946A5B222074EAA00F78C5C /* PBXContainerItemProxy */;
 		};
@@ -3853,11 +3812,6 @@
 			isa = PBXTargetDependency;
 			target = C943AC3C215277A000844368 /* Python */;
 			targetProxy = C9DF71082171768A00981B4F /* PBXContainerItemProxy */;
-		};
-		C9DF711D217176D700981B4F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ios_system;
-			targetProxy = C9DF711C217176D700981B4F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -4008,6 +3962,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_UIKITFORMAC = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "WIDGET DEBUG";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pyto Widget/Pyto Widget-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -4042,6 +3997,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_UIKITFORMAC = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = WIDGET;
 				SWIFT_OBJC_BRIDGING_HEADER = "Pyto Widget/Pyto Widget-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
@@ -4477,6 +4433,7 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = "non-global";
 				STRIP_SWIFT_SYMBOLS = NO;
+				SUPPORTS_UIKITFORMAC = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "MAIN DEBUG";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pyto/Pyto-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -4554,6 +4511,7 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = "non-global";
 				STRIP_SWIFT_SYMBOLS = NO;
+				SUPPORTS_UIKITFORMAC = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = MAIN;
 				SWIFT_OBJC_BRIDGING_HEADER = "Pyto/Pyto-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;

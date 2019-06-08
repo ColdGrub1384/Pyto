@@ -43,6 +43,9 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             ]+(UIApplication.shared.statusBarOrientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])
         
         textField.keyboardAppearance = theme.keyboardAppearance
+        if toolbar.traitCollection.userInterfaceStyle == .dark {
+            textField.keyboardAppearance = .dark
+        }
         if textField.keyboardAppearance == .dark {
             toolbar.barStyle = .black
         } else {
@@ -82,6 +85,9 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         #endif
         
         textField.delegate = self
+        if #available(iOS 13.0, *) {
+            textField.textColor = UIColor.label
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(_:)), name: UIResponder.keyboardDidHideNotification, object: nil)

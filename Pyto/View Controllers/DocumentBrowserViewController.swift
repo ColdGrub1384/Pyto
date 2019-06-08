@@ -87,7 +87,8 @@ import SavannaKit
         
         DocumentBrowserViewController.splitVCs.append(EditorSplitViewController.visible)
         EditorSplitViewController.visible = splitVC
-        let navVC = ThemableNavigationController(rootViewController: splitVC)
+        let navVC = UINavigationController(rootViewController: splitVC)
+        navVC.modalPresentationStyle = .fullScreen
         
         if EditorSplitViewController.shouldShowSeparator {
             splitVC.separatorColor = tintColor
@@ -109,9 +110,6 @@ import SavannaKit
         transitionController?.loadingProgress = document.progress
         transitionController?.targetView = navVC.view
         
-        navVC.toolbar.setShadowImage(UIImage(), forToolbarPosition: .any)
-        navVC.navigationBar.shadowImage = UIImage()
-        navVC.navigationBar.isTranslucent = false
         navVC.transitioningDelegate = self
         
         document.open { (success) in

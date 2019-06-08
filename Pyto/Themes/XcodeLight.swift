@@ -12,7 +12,7 @@ import SourceEditor
 // MARK: - Source code theme
 
 /// The Xcode source code theme.
-struct XcodeSourceCodeTheme: SourceCodeTheme {
+struct XcodeLightSourceCodeTheme: SourceCodeTheme {
     
     let defaultTheme = DefaultSourceCodeTheme()
     
@@ -65,13 +65,13 @@ struct XcodeSourceCodeTheme: SourceCodeTheme {
 #if os(iOS)
 
 /// The Xcode theme.
-struct XcodeTheme: Theme {
+struct XcodeLightTheme: Theme {
     
     let keyboardAppearance: UIKeyboardAppearance = .default
     
     let barStyle: UIBarStyle = .default
     
-    let sourceCodeTheme: SourceCodeTheme = XcodeSourceCodeTheme()
+    let sourceCodeTheme: SourceCodeTheme = XcodeLightSourceCodeTheme()
 }
 
 #endif

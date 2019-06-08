@@ -70,7 +70,7 @@ class PlainTextEditorViewController: UIViewController, UITextViewDelegate {
     }
     
     /// Called when the user choosed a theme.
-    @objc func themeDidChange(_ notification: Notification) {
+    @objc func themeDidChange(_ notification: Notification?) {
         setup(theme: ConsoleViewController.choosenTheme)
     }
     
@@ -101,6 +101,12 @@ class PlainTextEditorViewController: UIViewController, UITextViewDelegate {
         }
         
         setup(theme: ConsoleViewController.choosenTheme)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        themeDidChange(nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
