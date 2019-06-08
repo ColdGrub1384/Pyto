@@ -57,7 +57,7 @@ import UIKit
         console.view.frame = view.frame
         console.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Grid"), style: .plain, target: self, action: #selector(goToFileBrowser))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: EditorSplitViewController.gridImage, style: .plain, target: self, action: #selector(goToFileBrowser))
     }
     
     override func viewWillAppear(_ animated: Bool) {
