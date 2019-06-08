@@ -225,6 +225,11 @@ class EditorSplitViewController: SplitViewController {
                 view.backgroundColor = self.view.backgroundColor
             }
         }
+        
+        if arrangement == .horizontal && justShown {
+            firstChild = editor
+            secondChild = console
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

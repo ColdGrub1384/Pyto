@@ -120,9 +120,6 @@ import SavannaKit
             document.checkForConflicts(completion: {
                 UIApplication.shared.keyWindow?.topViewController?.present(navVC, animated: true, completion: {
                     
-                    splitVC.firstChild = editor
-                    splitVC.secondChild = contentVC
-                    
                     NotificationCenter.default.removeObserver(splitVC)
                     completion?()
                 })
