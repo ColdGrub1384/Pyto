@@ -258,6 +258,8 @@ class EditorSplitViewController: SplitViewController {
             
             if EditorSplitViewController.shouldShowConsoleAtBottom {
                 arrangement = .vertical
+            } else if arrangement != .horizontal {
+                arrangement = .horizontal
             }
             
             if firstChild != editor || secondChild != console {
