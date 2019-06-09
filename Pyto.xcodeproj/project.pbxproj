@@ -380,6 +380,7 @@
 		C9CEE25C21EBC52E00316D3C /* suspend.py in Resources */ = {isa = PBXBuildFile; fileRef = C9CEE25B21EBC52E00316D3C /* suspend.py */; };
 		C9CEE26221EBD06700316D3C /* Splash Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9CEE26121EBD06700316D3C /* Splash Screen.storyboard */; };
 		C9CEE26621EBD21000316D3C /* RoundedIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C9CEE26521EBD21000316D3C /* RoundedIcon.png */; };
+		C9CEF4B222AC8DD300B1916D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CEF4B122AC8DD300B1916D /* SceneDelegate.swift */; };
 		C9CF40AF2242DECF0076B627 /* PipInstallerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CF40AE2242DECF0076B627 /* PipInstallerViewController.swift */; };
 		C9D2AA762215A503006AF527 /* EditorViewController+highlighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D2AA752215A503006AF527 /* EditorViewController+highlighting.swift */; };
 		C9D2AA772215A512006AF527 /* EditorViewController+highlighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D2AA752215A503006AF527 /* EditorViewController+highlighting.swift */; };
@@ -1825,6 +1826,7 @@
 		C9CEE25B21EBC52E00316D3C /* suspend.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = suspend.py; sourceTree = "<group>"; };
 		C9CEE26121EBD06700316D3C /* Splash Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Splash Screen.storyboard"; sourceTree = "<group>"; };
 		C9CEE26521EBD21000316D3C /* RoundedIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RoundedIcon.png; sourceTree = "<group>"; };
+		C9CEF4B122AC8DD300B1916D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C9CF40AE2242DECF0076B627 /* PipInstallerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipInstallerViewController.swift; sourceTree = "<group>"; };
 		C9D2AA752215A503006AF527 /* EditorViewController+highlighting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorViewController+highlighting.swift"; sourceTree = "<group>"; };
 		C9D6DEFD221059F900D7EF55 /* CodeCompletionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeCompletionViewItem.swift; sourceTree = "<group>"; };
@@ -2327,6 +2329,7 @@
 		C9592D1321D0592C00412CEF /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C9CEF4B122AC8DD300B1916D /* SceneDelegate.swift */,
 				C9A33B0E224FCDA00083F041 /* MovableTextField.swift */,
 				C9592D1421D0592C00412CEF /* PyDocument.swift */,
 				C99D8E31223ECD1000489E9B /* PyPiPackage.swift */,
@@ -3688,6 +3691,7 @@
 				C9592D1A21D0592C00412CEF /* XcodeLight.swift in Sources */,
 				C9FCFD5B214428AE00A07974 /* EditorViewController.swift in Sources */,
 				C99D8E32223ECD1000489E9B /* PyPiPackage.swift in Sources */,
+				C9CEF4B222AC8DD300B1916D /* SceneDelegate.swift in Sources */,
 				C976592721471D23001C96A8 /* PyFilePicker.swift in Sources */,
 				C9C0E78D21F0B7FA0057C63E /* ThemeChooserTableViewController.swift in Sources */,
 				C9E4152B21513E3400D64E32 /* ConsoleTextView.swift in Sources */,

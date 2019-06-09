@@ -86,6 +86,9 @@ import UIKit
             }
         }
     }
+    
+    /// The `EditorSplitViewController` associated with this console.
+    @objc var editorSplitViewController: EditorSplitViewController?
     #endif
     
     /// Clears screen.
@@ -199,11 +202,11 @@ import UIKit
         
         if navigationController != nil {
             dismiss(animated: true, completion: {
-                EditorSplitViewController.visible?.editor.stop()
+                self.editorSplitViewController?.editor.stop()
                 DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: {
-                    if let line = EditorSplitViewController.visible?.editor.lineNumberError {
-                        EditorSplitViewController.visible?.editor.lineNumberError = nil
-                        EditorSplitViewController.visible?.editor.showErrorAtLine(line)
+                    if let line = self.editorSplitViewController?.editor.lineNumberError {
+                        self.editorSplitViewController?.editor.lineNumberError = nil
+                        self.editorSplitViewController?.editor.showErrorAtLine(line)
                     }
                 })
             })
@@ -217,12 +220,14 @@ import UIKit
     /// Enables `'Done'` if Pip is running.
     @objc static func enableDoneButton() {
         DispatchQueue.main.async {
-            guard let doneButton = self.visible.parent?.navigationItem.leftBarButtonItem else {
-                return
-            }
-            
-            if doneButton.action == #selector(PipInstallerViewController.closeViewController) {
-                doneButton.isEnabled = true
+            for console in self.visibles {
+                guard let doneButton = console.navigationItem.leftBarButtonItem else {
+                    return
+                }
+                
+                if doneButton.action == #selector(PipInstallerViewController.closeViewController) {
+                    doneButton.isEnabled = true
+                }
             }
         }
     }
@@ -231,7 +236,7 @@ import UIKit
     private static var shared = ConsoleViewController()
     
     /// The visible instance.
-    @objc static var visible: ConsoleViewController {
+    /*@available(*, deprecated, message: "Use scenes APIs instead.") @objc static var visible: ConsoleViewController {
         if Thread.current.isMainThread {
             #if MAIN
             if REPLViewController.shared?.view.window != nil {
@@ -253,7 +258,9 @@ import UIKit
             }
             return console ?? shared
         }
-    }
+    }*/
+    
+    @objc static var visibles = [ConsoleViewController]()
     
     /// Closes the View controller presented from Python and stops the UI main loop.
     @objc func closePresentedViewController() {
@@ -431,6 +438,10 @@ import UIKit
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        if !ConsoleViewController.visibles.contains(self) {
+            ConsoleViewController.visibles.append(self)
+        }
+        
         if movableTextField == nil {
             movableTextField = MovableTextField(console: self)
             movableTextField?.placeholder = prompt ?? ""
@@ -483,6 +494,10 @@ import UIKit
     
     open override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        
+        if let i = ConsoleViewController.visibles.firstIndex(of: self) {
+            ConsoleViewController.visibles.remove(at: i)
+        }
         
         movableTextField?.toolbar.removeFromSuperview()
         movableTextField = nil

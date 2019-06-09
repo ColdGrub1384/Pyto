@@ -20,27 +20,32 @@ class MenuTableViewController: UITableViewController {
     
     /// Opens the REPL.
     func selectREPL() {
+        let presentingVC = presentingViewController
         dismiss(animated: true) {
             if let repl = MenuTableViewController.repl {
-                DocumentBrowserViewController.visible?.present(repl, animated: true, completion: nil)
+                presentingVC?.present(repl, animated: true, completion: nil)
             } else if let repl = self.storyboard?.instantiateViewController(withIdentifier: "repl") {
                 MenuTableViewController.repl = repl
-                DocumentBrowserViewController.visible?.present(repl, animated: true, completion: nil)
+                presentingVC?.present(repl, animated: true, completion: nil)
             }
         }
     }
     
     /// Opens PyPi.
     func selectPyPi() {
+        let presentingVC = presentingViewController
         dismiss(animated: true) {
             if let pypi = self.storyboard?.instantiateViewController(withIdentifier: "pypi") {
-                DocumentBrowserViewController.visible?.present(pypi, animated: true, completion: nil)
+                presentingVC?.present(pypi, animated: true, completion: nil)
             }
         }
     }
     
     /// Shows loaded modules.
     func selectLoadedModules() {
+        
+        let presentingVC = presentingViewController
+        
         let wasRunningScript = Python.shared.isScriptRunning
         if wasRunningScript {
             Python.shared.stop()
@@ -51,7 +56,7 @@ class MenuTableViewController: UITableViewController {
         }
         
         dismiss(animated: true) {
-            DocumentBrowserViewController.visible?.present(UINavigationController(rootViewController: ModulesTableViewController(style: .grouped)), animated: true, completion: nil)
+            presentingVC?.present(UINavigationController(rootViewController: ModulesTableViewController(style: .grouped)), animated: true, completion: nil)
         }
         
         if wasRunningScript {
@@ -65,9 +70,12 @@ class MenuTableViewController: UITableViewController {
     
     /// Opens settings.
     func selectSettings() {
+        
+        let presentingVC = presentingViewController
+        
         dismiss(animated: true) {
             if let settings = UIStoryboard(name: "Settings", bundle: nil).instantiateInitialViewController() {
-                DocumentBrowserViewController.visible?.present(settings, animated: true, completion: nil)
+                presentingVC?.present(settings, animated: true, completion: nil)
             }
         }
     }

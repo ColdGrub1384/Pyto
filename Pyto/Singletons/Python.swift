@@ -325,21 +325,28 @@ import Cocoa
             #if os(iOS)
             DispatchQueue.main.async {
                 #if MAIN
-                let contentVC = ConsoleViewController.visible
                 
-                guard let editor = (contentVC.parent as? EditorSplitViewController)?.editor ?? EditorSplitViewController.visible?.editor else {
-                    return
-                }
+                #if WIDGET
+                let visibles = [ConsoleViewController.visible ?? ConsoleViewController()]
+                #else
+                let visibles = ConsoleViewController.visibles
+                #endif
                 
-                let item = editor.parent?.navigationItem
-                
-                if item?.rightBarButtonItem != EditorSplitViewController.visible?.closeConsoleBarButtonItem {
-                    if self.isScriptRunning {
-                        item?.rightBarButtonItem = editor.stopBarButtonItem
-                    } else {
-                        item?.rightBarButtonItem = editor.runBarButtonItem
+                for contentVC in visibles {
+                    guard let editor = contentVC.editorSplitViewController?.editor else {
+                        return
                     }
-                    item?.rightBarButtonItem?.isEnabled = (self.isScriptRunning == self.isScriptRunning)
+                    
+                    let item = editor.parent?.navigationItem
+                    
+                    if item?.rightBarButtonItem != contentVC.editorSplitViewController?.closeConsoleBarButtonItem {
+                        if self.isScriptRunning {
+                            item?.rightBarButtonItem = editor.stopBarButtonItem
+                        } else {
+                            item?.rightBarButtonItem = editor.runBarButtonItem
+                        }
+                        item?.rightBarButtonItem?.isEnabled = (self.isScriptRunning == self.isScriptRunning)
+                    }
                 }
                 #endif
             }

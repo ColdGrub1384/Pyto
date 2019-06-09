@@ -56,18 +56,6 @@ import SafariServices
     }
     #endif
     
-    /// If set to `true`, app will show a Welcome message at startup.
-    var shouldShowWelcomeMessage: Bool {
-        get {
-            return !UserDefaults.standard.bool(forKey: "welcomeMessageShown")
-        }
-        
-        set {
-            UserDefaults.standard.set(!newValue, forKey: "welcomeMessageShown")
-            UserDefaults.standard.synchronize()
-        }
-    }
-    
     // MARK: - Application delegate
     
     @objc public var window: UIWindow?
@@ -80,8 +68,6 @@ import SafariServices
         unsetenv("CLICOLOR")
         setenv("PWD", FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].path, 1)
         setenv("SSL_CERT_FILE", Bundle.main.path(forResource: "cacert", ofType: "pem"), 1)
-        
-        window?.tintColor = ConsoleViewController.choosenTheme.tintColor
         
         for file in ((try? FileManager.default.contentsOfDirectory(at: URL(fileURLWithPath: NSTemporaryDirectory()), includingPropertiesForKeys: nil, options: .skipsHiddenFiles)) ?? []) {
             try? FileManager.default.removeItem(at: file)
@@ -136,104 +122,7 @@ import SafariServices
     }
     
     #if MAIN
-    
-    @objc public func application(_ app: UIApplication, open inputURL: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         
-        if inputURL.scheme == "pyto" { // Select script for Today widget
-            
-            if inputURL.host == "select-script", let vc = UIStoryboard(name: "Settings", bundle: Bundle.main).instantiateInitialViewController() {
-                window?.topViewController?.present(vc, animated: true, completion: {
-                    let settingsVC = (vc as? UINavigationController)?.visibleViewController as? AboutTableViewController
-                    
-                    let indexPath = IndexPath(row: 0, section: 1)
-                    settingsVC?.tableView?.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
-                    _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
-                        settingsVC?.tableView(settingsVC!.tableView, didSelectRowAt: indexPath)
-                    })
-                })
-                return true
-            }
-            
-            return false
-        }
-      
-        // Open script
-        
-        guard let documentBrowserViewController = DocumentBrowserViewController.visible else {
-            window?.rootViewController?.dismiss(animated: true, completion: {
-                _ = self.application(app, open: inputURL, options: options)
-            })
-            return true
-        }
-        
-        // Ensure the URL is a file URL
-        guard inputURL.isFileURL else {
-            
-            guard let query = inputURL.query?.removingPercentEncoding else {
-                return false
-            }
-            
-            // Run code passed to the URL
-            documentBrowserViewController.run(code: query)
-            
-            return true
-        }
-        
-        _ = inputURL.startAccessingSecurityScopedResource()
-        
-        // Reveal / import the document at the URL
-        
-        documentBrowserViewController.revealDocument(at: inputURL, importIfNeeded: true, completion: { (url, _) in
-            
-            documentBrowserViewController.openDocument(url ?? inputURL, run: false)
-        })
-        
-        return true
-    }
-    
-    @objc public func applicationWillResignActive(_ application: UIApplication) {
-        #if MAIN
-        copyModules()
-        #endif
-    }
-    
-    @objc public func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-        
-        let root = window?.rootViewController
-        
-        func runScript() {
-            if let path = userActivity.userInfo?["filePath"] as? String {
-                
-                let url = URL(fileURLWithPath: path.replacingFirstOccurrence(of: "iCloud/", with: (DocumentBrowserViewController.iCloudContainerURL?.path ?? DocumentBrowserViewController.localContainerURL.path)+"/"), relativeTo: DocumentBrowserViewController.localContainerURL)
-                
-                if FileManager.default.fileExists(atPath: url.path) {
-                    
-                    if FileManager.default.isUbiquitousItem(at: url) {
-                        try? FileManager.default.startDownloadingUbiquitousItem(at: url)
-                    }
-                    
-                    DocumentBrowserViewController.visible?.openDocument(url, run: true)
-                } else {
-                    let alert = UIAlertController(title: Localizable.Errors.errorReadingFile, message: nil, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
-                    root?.present(alert, animated: true, completion: nil)
-                }
-            } else {
-                print("Invalid shortcut!")
-            }
-        }
-        
-        if root?.presentedViewController != nil {
-            root?.dismiss(animated: true, completion: {
-                runScript()
-            })
-        } else {
-            runScript()
-        }
-        
-        return true
-    }
-    
     public func applicationWillTerminate(_ application: UIApplication) {
         exit(0)
     }

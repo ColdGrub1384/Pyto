@@ -23,16 +23,24 @@ import UIKit
         
         Python.shared.output += text_
         
-        DispatchQueue.main.async {
-            if let attrStr = ConsoleViewController.visible.textView.attributedText {
-                let mutable = NSMutableAttributedString(attributedString: attrStr)
-                var attributes: [NSAttributedString.Key : AnyHashable] = [.font : UIFont(name: "Menlo", size: 13) ?? UIFont.systemFont(ofSize: 12)]
-                #if MAIN
-                attributes[.foregroundColor] = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
-                #endif
-                mutable.append(NSAttributedString(string: text_, attributes: attributes))
-                ConsoleViewController.visible.textView.attributedText = mutable
-                ConsoleViewController.visible.textView.scrollToBottom()
+        #if WIDGET
+        let visibles = [ConsoleViewController.visible ?? ConsoleViewController()]
+        #else
+        let visibles = ConsoleViewController.visibles
+        #endif
+        
+        for console in visibles {
+            DispatchQueue.main.async {
+                if let attrStr = console.textView.attributedText {
+                    let mutable = NSMutableAttributedString(attributedString: attrStr)
+                    var attributes: [NSAttributedString.Key : AnyHashable] = [.font : UIFont(name: "Menlo", size: 13) ?? UIFont.systemFont(ofSize: 12)]
+                    #if MAIN
+                    attributes[.foregroundColor] = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
+                    #endif
+                    mutable.append(NSAttributedString(string: text_, attributes: attributes))
+                    console.textView.attributedText = mutable
+                    console.textView.scrollToBottom()
+                }
             }
         }
     }
@@ -50,12 +58,20 @@ import UIKit
         
         Python.shared.output += text_
         
-        DispatchQueue.main.async {
-            if let attrStr = ConsoleViewController.visible.textView.attributedText {
-                let mutable = NSMutableAttributedString(attributedString: attrStr)
-                mutable.append(NSAttributedString(string: text_, attributes: [.font : UIFont(name: "Menlo", size: 13) ?? UIFont.systemFont(ofSize: 12), .foregroundColor : #colorLiteral(red: 0.6743632277, green: 0.1917540668, blue: 0.1914597603, alpha: 1)]))
-                ConsoleViewController.visible.textView.attributedText = mutable
-                ConsoleViewController.visible.textView.scrollToBottom()
+        #if WIDGET
+        let visibles = [ConsoleViewController.visible ?? ConsoleViewController()]
+        #else
+        let visibles = ConsoleViewController.visibles
+        #endif
+        
+        for console in visibles {
+            DispatchQueue.main.async {
+                if let attrStr = console.textView.attributedText {
+                    let mutable = NSMutableAttributedString(attributedString: attrStr)
+                    mutable.append(NSAttributedString(string: text_, attributes: [.font : UIFont(name: "Menlo", size: 13) ?? UIFont.systemFont(ofSize: 12), .foregroundColor : #colorLiteral(red: 0.6743632277, green: 0.1917540668, blue: 0.1914597603, alpha: 1)]))
+                    console.textView.attributedText = mutable
+                    console.textView.scrollToBottom()
+                }
             }
         }
     }
@@ -73,12 +89,20 @@ import UIKit
         
         Python.shared.output += text_
         
-        DispatchQueue.main.async {
-            if let attrStr = ConsoleViewController.visible.textView.attributedText {
-                let mutable = NSMutableAttributedString(attributedString: attrStr)
-                mutable.append(NSAttributedString(string: text_, attributes: [.font : UIFont(name: "Menlo", size: 13) ?? UIFont.systemFont(ofSize: 12), .foregroundColor : #colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1)]))
-                ConsoleViewController.visible.textView.attributedText = mutable
-                ConsoleViewController.visible.textView.scrollToBottom()
+        #if WIDGET
+        let visibles = [ConsoleViewController.visible ?? ConsoleViewController()]
+        #else
+        let visibles = ConsoleViewController.visibles
+        #endif
+        
+        for console in visibles {
+            DispatchQueue.main.async {
+                if let attrStr = console.textView.attributedText {
+                    let mutable = NSMutableAttributedString(attributedString: attrStr)
+                    mutable.append(NSAttributedString(string: text_, attributes: [.font : UIFont(name: "Menlo", size: 13) ?? UIFont.systemFont(ofSize: 12), .foregroundColor : #colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1)]))
+                    console.textView.attributedText = mutable
+                    console.textView.scrollToBottom()
+                }
             }
         }
     }

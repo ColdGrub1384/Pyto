@@ -23,10 +23,10 @@ enum PyDocumentError: Error {
 }
 
 /// A document representing a Python script.
-class PyDocument: Document {
+@objc class PyDocument: Document {
     
     /// The text of the Python script to save.
-    var text = ""
+    @objc var text = ""
     
     /// Checks for conflicts and presents an alert if needed.
     ///

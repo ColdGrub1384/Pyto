@@ -26,13 +26,21 @@ import SafariServices
         
         let semaphore = DispatchSemaphore(value: 0)
         
-        DispatchQueue.main.async {
-            let activityVC = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
-            activityVC.popoverPresentationController?.sourceView = ConsoleViewController.visible.view
-            activityVC.popoverPresentationController?.sourceRect = activityVC.popoverPresentationController?.sourceView?.bounds ?? .zero
-            ConsoleViewController.visible.present(activityVC, animated: true, completion: {
-                semaphore.signal()
-            })
+        #if WIDGET
+        let visibles = [ConsoleViewController.visible ?? ConsoleViewController()]
+        #else
+        let visibles = ConsoleViewController.visibles
+        #endif
+        
+        for console in visibles {
+            DispatchQueue.main.async {
+                let activityVC = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
+                activityVC.popoverPresentationController?.sourceView = console.view
+                activityVC.popoverPresentationController?.sourceRect = activityVC.popoverPresentationController?.sourceView?.bounds ?? .zero
+                console.present(activityVC, animated: true, completion: {
+                    semaphore.signal()
+                })
+            }
         }
         
         if !Thread.current.isMainThread {
