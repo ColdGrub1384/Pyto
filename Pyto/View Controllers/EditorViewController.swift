@@ -814,7 +814,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             }
             
             if ConsoleViewController.isMainLoopRunning {
-                console.closePresentedViewController()
+                ConsoleViewController.closePresentedViewController()
                 DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
                     stop_()
                 }
