@@ -262,15 +262,6 @@ import UIKit
     
     @objc static var visibles = [ConsoleViewController]()
     
-    /// Closes the View controller presented from Python and stops the UI main loop.
-    @objc func closePresentedViewController() {
-        if presentedViewController != nil && ConsoleViewController.isMainLoopRunning {
-            dismiss(animated: true) {
-                ConsoleViewController.isMainLoopRunning = false
-            }
-        }
-    }
-    
     /// Creates a View controller to present
     ///
     /// - Parameters:
@@ -299,7 +290,7 @@ import UIKit
         viewController.view.autoresizingMask = [.flexibleTopMargin, .flexibleBottomMargin, .flexibleLeftMargin, .flexibleRightMargin]
         vc.view.addSubview(viewController.view)
         
-        vc.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(closePresentedViewController))
+        vc.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: ConsoleViewController.self, action: #selector(ConsoleViewController.closePresentedViewController))
         
         let navVC = PyNavigationController(rootViewController: vc)
         navVC.modalPresentationStyle = .overFullScreen
@@ -382,6 +373,42 @@ import UIKit
         print(rows)
         setenv("COLUMNS", "\(columns)", 1)
         setenv("ROWS", "\(rows)", 1)
+    }
+    
+    private static var presentedViewController: UIViewController?
+    
+    /// Shows a view controller from Python code.
+    ///
+    /// - Parameters:
+    ///     - viewController: View controller to present.
+    ///     - completion: Code called to setup the interface.
+    @objc static func showViewController(_ viewController: UIViewController, completion: (() -> Void)?) {
+        
+        presentedViewController = viewController
+        
+        #if WIDGET
+        ConsoleViewController.visible.present(viewController, animated: true, completion: completion)
+        #else
+        if #available(iOS 13.0, *) {
+            if UIApplication.shared.connectedScenes.count == 1, let console = ConsoleViewController.visibles.first {
+                console.present(viewController, animated: true, completion: completion)
+            } else {
+                SceneDelegate.viewControllerToShow = viewController
+                SceneDelegate.viewControllerDidShow = completion
+                UIApplication.shared.requestSceneSessionActivation(nil, userActivity: nil, options: nil, errorHandler: nil)
+            }
+        } else {
+            ConsoleViewController.visibles.first?.present(viewController, animated: true, completion: nil)
+        }
+        #endif
+    }
+    
+    /// Closes the View controller presented by code.
+    @objc static func closePresentedViewController() {
+        presentedViewController?.dismiss(animated: true, completion: {
+            ConsoleViewController.isMainLoopRunning = false
+            self.presentedViewController = nil
+        })
     }
     
     // MARK: - View controller

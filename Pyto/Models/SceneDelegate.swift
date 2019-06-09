@@ -11,6 +11,12 @@ import UIKit
 /// The scene delegate.
 @objc class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
+    /// A View controller to present in a new created scene.
+    static var viewControllerToShow: UIViewController?
+    
+    /// Code called after `viewControllerToShow` is shown.
+    static var viewControllerDidShow: (() -> Void)?
+    
     @available(iOS 13.0, *)
     private class ViewController: UIViewController {
         
@@ -20,12 +26,16 @@ import UIKit
         
         var sceneSession: UISceneSession?
         
+        var completion: (() -> Void)?
+        
         override func viewDidAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
             
             if justShown, let vc = viewControllerToPresent {
                 vc.modalPresentationStyle = .fullScreen
-                present(vc, animated: true, completion: nil)
+                present(vc, animated: true, completion: {
+                    self.completion?()
+                })
             } else if let session = sceneSession {
                 UIApplication.shared.requestSceneSessionDestruction(session, options: nil, errorHandler: nil)
             }
@@ -45,6 +55,18 @@ import UIKit
     @available(iOS 13.0, *)
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
+        if let vc = SceneDelegate.viewControllerToShow {
+            SceneDelegate.viewControllerToShow = nil
+            
+            let blankVC = ViewController()
+            blankVC.sceneSession = session
+            blankVC.viewControllerToPresent = vc
+            blankVC.completion = SceneDelegate.viewControllerDidShow
+            window?.rootViewController = blankVC
+            
+            return
+        }
+        
         window?.tintColor = ConsoleViewController.choosenTheme.tintColor
         
         if connectionOptions.urlContexts.count > 0 {
@@ -61,16 +83,6 @@ import UIKit
     
     @available(iOS 13.0, *)
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
-        
-        guard userActivity.activityType != "vc" else {
-            if let vc = userActivity.userInfo?["vc"] as? UIViewController {
-                let blankVC = ViewController()
-                blankVC.sceneSession = scene.session
-                blankVC.viewControllerToPresent = vc
-                window?.rootViewController = blankVC
-            }
-            return
-        }
         
         let root = window?.rootViewController
         
