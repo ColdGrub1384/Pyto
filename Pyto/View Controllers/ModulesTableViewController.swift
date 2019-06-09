@@ -118,7 +118,9 @@ import UIKit
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let url = URL(fileURLWithPath: ModulesTableViewController.paths[indexPath.row])
         if FileManager.default.fileExists(atPath: url.path) {
-            _ = (UIApplication.shared.delegate as? AppDelegate)?.application(UIApplication.shared, open: url)
+            presentingViewController?.dismiss(animated: true, completion: {
+                (self.presentingViewController as? DocumentBrowserViewController)?.openDocument(url, run: false)
+            })
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }

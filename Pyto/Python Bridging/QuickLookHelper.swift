@@ -84,13 +84,20 @@ fileprivate class ImageAttachment: NSTextAttachment {
                 attachment.image = image
                 let attrString = NSMutableAttributedString(attributedString: NSAttributedString(attachment: attachment))
                 attrString.append(NSAttributedString(string: "\n"))
-                ConsoleViewController.visible.textView.textStorage.insert(attrString, at: ConsoleViewController.visible.textView.offset(from: ConsoleViewController.visible.textView.endOfDocument, to: ConsoleViewController.visible.textView.endOfDocument))
+                for console in ConsoleViewController.visibles {
+                    console.textView.textStorage.insert(attrString, at: console.textView.offset(from: console.textView.endOfDocument, to: console.textView.endOfDocument))
+                }
             }
             
             #if MAIN
             if !EditorSplitViewController.shouldShowConsoleAtBottom {
                 showOnConsole()
             } else {
+                
+                if #available(iOS 13.0, *), UIApplication.shared.connectedScenes.count >= 1 {
+                    return showOnConsole()
+                }
+                
                 DispatchQueue.main.async {
                     guard visible == nil else {
                         visible?.filePaths.append(file)
@@ -108,21 +115,9 @@ fileprivate class ImageAttachment: NSTextAttachment {
                     let controller = QLPreviewController()
                     controller.dataSource = dataSource
                     controller.delegate = dataSource
-                    
-                    #if MAIN || WIDGET
-                    var vc: UIViewController?
-                    if ConsoleViewController.visible.view.window != nil {
-                        vc = ConsoleViewController.visible
-                    }
-                    #if MAIN
-                    if vc == nil, let browser = DocumentBrowserViewController.visible {
-                        vc = browser
-                    }
-                    
-                    if vc == nil {
-                        return
-                    }
-                    #endif
+            
+                    #if WIDGET
+                    return
                     #else
                     let vc = UIApplication.shared.keyWindow?.topViewController
                     #endif

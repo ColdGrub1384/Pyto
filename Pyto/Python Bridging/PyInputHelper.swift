@@ -22,7 +22,9 @@ import Foundation
         let prompt_ = prompt
         DispatchQueue.main.sync {
             #if !WIDGET
-            ConsoleViewController.visible.input(prompt: prompt_ ?? "")
+            for console in ConsoleViewController.visibles {
+                console.input(prompt: prompt_ ?? "")
+            }
             #endif
         }
     }
@@ -35,7 +37,9 @@ import Foundation
         let prompt_ = prompt
         DispatchQueue.main.sync {
             #if !WIDGET
-            ConsoleViewController.visible.getpass(prompt: prompt_ ?? "")
+            for console in ConsoleViewController.visibles {
+                console.getpass(prompt: prompt_ ?? "")
+            }
             #endif
         }
     }

@@ -68,9 +68,9 @@
 		<true/>
 	</dict>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Allow photo library usage if you want to allow scripts accessing to it or if you want to save Matplotlib figures. The app itself doesn't require photo library access.</string>
+	<string>Allow photo library usage if you want to allow scripts accessing to it or if you want to save Matplotlib figures. The app itself doesn&apos;t require photo library access.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow photo library usage if you want to allow scripts accessing to it. The app itself doesn't require photo library access.</string>
+	<string>Allow photo library usage if you want to allow scripts accessing to it. The app itself doesn&apos;t require photo library access.</string>
 	<key>NSUbiquitousContainers</key>
 	<dict>
 		<key>iCloud.ch.marcela.ada.Pyto</key>
@@ -87,6 +87,27 @@
 	<array>
 		<string>ch.marcela.ada.Pyto.script</string>
 	</array>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UISceneConfigurations</key>
+		<dict>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneDelegateClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
+					<key>UISceneConfigurationName</key>
+					<string>Document Browser</string>
+					<key>UILaunchStoryboardName</key>
+					<string>LaunchScreen</string>
+					<key>UISceneStoryboardFile</key>
+					<string>Main</string>
+				</dict>
+			</array>
+		</dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<true/>
+	</dict>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

@@ -31,7 +31,9 @@ import StoreKit
                 
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(1 * Double(NSEC_PER_SEC)) / Double(NSEC_PER_SEC), execute: {
                     if UIApplication.shared.windows.count > 1 {
-                        ConsoleViewController.visible.textView.resignFirstResponder()
+                        for console in ConsoleViewController.visibles {
+                            console.textView.resignFirstResponder()
+                        }
                     }
                 })
             }

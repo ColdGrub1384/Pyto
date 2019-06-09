@@ -151,17 +151,21 @@ class XcodeActivity: UIActivity {
                         
                         DispatchQueue.main.async {
                             activityAlert.dismiss(animated: true, completion: {
-                                let activityVC = UIActivityViewController(activityItems: [zipURL], applicationActivities: nil)
-                                activityVC.popoverPresentationController?.barButtonItem = EditorSplitViewController.visible?.editor.shareItem
-                                UIApplication.shared.keyWindow?.topViewController?.present(activityVC, animated: true, completion: nil)
+                                for console in ConsoleViewController.visibles {
+                                    let activityVC = UIActivityViewController(activityItems: [zipURL], applicationActivities: nil)
+                                    activityVC.popoverPresentationController?.barButtonItem = console.editorSplitViewController?.editor.shareItem
+                                    console.present(activityVC, animated: true, completion: nil)
+                                }
                             })
                         }
                     } catch {
                         DispatchQueue.main.async {
                             activityAlert.dismiss(animated: true, completion: {
-                                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: error.localizedDescription, preferredStyle: .alert)
-                                alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
-                                UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
+                                for console in ConsoleViewController.visibles {
+                                    let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: error.localizedDescription, preferredStyle: .alert)
+                                    alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+                                    console.present(alert, animated: true, completion: nil)
+                                }
                             })
                         }
                     }

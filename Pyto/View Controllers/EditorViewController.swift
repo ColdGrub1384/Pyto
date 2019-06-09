@@ -101,7 +101,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     let textView = SyntaxTextView()
     
     /// The document to be edited.
-    var document: PyDocument?
+    @objc var document: PyDocument?
     
     /// Returns `true` if the opened file is a sample.
     var isSample: Bool {
@@ -807,19 +807,20 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// Stops the current running script.
     @objc func stop() {
         
-        func stop_() {
-            Python.shared.stop()
-            ConsoleViewController.visible.textView.resignFirstResponder()
-            ConsoleViewController.visible.textView.isEditable = false
-        }
-        
-        if ConsoleViewController.isMainLoopRunning {
-            ConsoleViewController.visible.closePresentedViewController()
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+        for console in ConsoleViewController.visibles {
+            func stop_() {
+                Python.shared.stop()
+                console.textView.resignFirstResponder()
+            }
+            
+            if ConsoleViewController.isMainLoopRunning {
+                console.closePresentedViewController()
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                    stop_()
+                }
+            } else {
                 stop_()
             }
-        } else {
-            stop_()
         }
     }
     
@@ -854,46 +855,48 @@ fileprivate func parseArgs(_ args: inout [String]) {
             Python.shared.args = arguments
             Python.shared.currentWorkingDirectory = self.currentDirectory.path
             
-            DispatchQueue.main.async {
-                if let url = self.document?.fileURL {
-                    let console = ConsoleViewController.visible
-                    
-                    func run() {
-                        console.textView.text = ""
-                        console.console = ""
-                        console.movableTextField?.placeholder = ""
-                        if Python.shared.isREPLRunning {
-                            if Python.shared.isScriptRunning {
-                                return
-                            }
-                            // Import the script
-                            if !debug {
-                                PyInputHelper.userInput = "import console as c; s = c.run_script('\(url.path.replacingFirstOccurrence(of: "'", with: "\\'"))')"
-                            } else {
-                                
-                                var breakpointsLines = [String]()
-                                
-                                for breakpoint in self.breakpoints {
-                                    breakpointsLines.append(String(describing: breakpoint))
+            for console in ConsoleViewController.visibles {
+                DispatchQueue.main.async {
+                    if let url = self.document?.fileURL {
+                        func run() {
+                            console.textView.text = ""
+                            console.console = ""
+                            console.movableTextField?.placeholder = ""
+                            if Python.shared.isREPLRunning {
+                                if Python.shared.isScriptRunning {
+                                    return
                                 }
-                                
-                                let breakpointsValue = "[\(breakpointsLines.joined(separator: ", "))]"
-                                
-                                PyInputHelper.userInput = "import console as c; s = c.run_script('\(url.path.replacingFirstOccurrence(of: "'", with: "\\'"))', debug=True, breakpoints=\(breakpointsValue))"
+                                // Import the script
+                                if !debug {
+                                    PyInputHelper.userInput = "import console as c; s = c.run_script('\(url.path.replacingFirstOccurrence(of: "'", with: "\\'"))')"
+                                } else {
+                                    
+                                    var breakpointsLines = [String]()
+                                    
+                                    for breakpoint in self.breakpoints {
+                                        breakpointsLines.append(String(describing: breakpoint))
+                                    }
+                                    
+                                    let breakpointsValue = "[\(breakpointsLines.joined(separator: ", "))]"
+                                    
+                                    PyInputHelper.userInput = "import console as c; s = c.run_script('\(url.path.replacingFirstOccurrence(of: "'", with: "\\'"))', debug=True, breakpoints=\(breakpointsValue))"
+                                }
+                            } else {
+                                Python.shared.runScript(at: url)
                             }
-                        } else {
-                            Python.shared.runScript(at: url)
                         }
-                    }
-                    
-                    guard console.view.window != nil && EditorSplitViewController.visible?.ratio != 1 else {
-                        EditorSplitViewController.visible?.showConsole {
-                            run()
+                        
+                        let editorSplitViewController = console.editorSplitViewController
+                        
+                        guard console.view.window != nil && editorSplitViewController?.ratio != 1 else {
+                            editorSplitViewController?.showConsole {
+                                run()
+                            }
+                            return
                         }
-                        return
+                        
+                        run()
                     }
-                    
-                    run()
                 }
             }
         }
@@ -1028,15 +1031,17 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// The currently running line. Set to `0` when no breakpoint is running.
     @objc static var runningLine = 0 {
         didSet {
-            guard let editor = EditorSplitViewController.visible?.editor else {
-                return
-            }
-            for (position, marker) in editor.breakpointMarkers {
-                DispatchQueue.main.async {
-                    marker.backgroundColor = breakpointColor
-                    if position.line == runningLine {
-                        print("Running")
-                        marker.backgroundColor = runningLineColor
+            for console in ConsoleViewController.visibles {
+                guard let editor = console.editorSplitViewController?.editor else {
+                    return
+                }
+                for (position, marker) in editor.breakpointMarkers {
+                    DispatchQueue.main.async {
+                        marker.backgroundColor = breakpointColor
+                        if position.line == runningLine {
+                            print("Running")
+                            marker.backgroundColor = runningLineColor
+                        }
                     }
                 }
             }
@@ -1199,12 +1204,15 @@ fileprivate func parseArgs(_ args: inout [String]) {
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        if ConsoleViewController.visible.movableTextField?.textField.isFirstResponder == false {
-            return true
-        } else {
-            ConsoleViewController.visible.movableTextField?.textField.resignFirstResponder()
-            return false
+        for console in ConsoleViewController.visibles {
+            if console.movableTextField?.textField.isFirstResponder == false {
+                continue
+            } else {
+                console.movableTextField?.textField.resignFirstResponder()
+                return false
+            }
         }
+        return true
     }
     
     func textViewDidChangeSelection(_ textView: UITextView) {

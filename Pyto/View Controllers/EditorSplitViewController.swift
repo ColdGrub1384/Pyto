@@ -66,7 +66,7 @@ class EditorSplitViewController: SplitViewController {
     }
     
     /// Last visible controller.
-    @objc static var visible: EditorSplitViewController?
+    //@available(*, deprecated, message: "Use scenes APIs instead.") @objc static var visible: EditorSplitViewController?
     
     // MARK: - Key commands
     

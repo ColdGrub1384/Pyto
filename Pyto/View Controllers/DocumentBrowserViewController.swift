@@ -15,10 +15,10 @@ import SavannaKit
 /// The main file browser used to edit scripts.
 @objc class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate, UIViewControllerTransitioningDelegate {
     
-    /// The visible instance
-    static var visible: DocumentBrowserViewController? {
+    /// The visible instance.
+    /*@available(*, deprecated, message: "Use scenes APIs instead.") static var visible: DocumentBrowserViewController? {
         return UIApplication.shared.keyWindow?.rootViewController as? DocumentBrowserViewController
-    }
+    }*/
     
     /// Store here `EditorSplitViewController`s because it crashes on dealloc. RIP memory
     private static var splitVCs = [UIViewController?]()
@@ -64,18 +64,19 @@ import SavannaKit
         let isPip = (documentURL.path == Bundle.main.path(forResource: "installer", ofType: "py"))
         
         if presentedViewController != nil {
-            (((presentedViewController as? UITabBarController)?.viewControllers?.first as? UINavigationController)?.viewControllers.first as? EditorViewController)?.save()
             dismiss(animated: true) {
                 self.openDocument(documentURL, run: run, completion: completion)
             }
+            return
         }
                 
         let editor = EditorViewController(document: document)
         editor.shouldRun = run
-        let contentVC = ConsoleViewController.visible
+        let contentVC = ConsoleViewController()
         contentVC.view.backgroundColor = .white
         
         let splitVC = EditorSplitViewController()
+        contentVC.editorSplitViewController = splitVC
         
         if isPip {
             splitVC.ratio = 0
@@ -85,8 +86,7 @@ import SavannaKit
             splitVC.ratio = 1
         }
         
-        DocumentBrowserViewController.splitVCs.append(EditorSplitViewController.visible)
-        EditorSplitViewController.visible = splitVC
+        DocumentBrowserViewController.splitVCs.append(splitVC)
         let navVC = UINavigationController(rootViewController: splitVC)
         navVC.modalPresentationStyle = .fullScreen
         
@@ -118,7 +118,7 @@ import SavannaKit
             }
             
             document.checkForConflicts(completion: {
-                UIApplication.shared.keyWindow?.topViewController?.present(navVC, animated: true, completion: {
+                self.present(navVC, animated: true, completion: {
                     
                     NotificationCenter.default.removeObserver(splitVC)
                     completion?()
