@@ -167,7 +167,7 @@ class EditorSplitViewController: SplitViewController {
     }
     
     private func removeGestures() {
-        if ratio == 1 {
+        if ratio == 1 || ratio == 0 {
             for view in view.subviews {
                 for gesture in view.gestureRecognizers ?? [] {
                     if gesture is UIPanGestureRecognizer {

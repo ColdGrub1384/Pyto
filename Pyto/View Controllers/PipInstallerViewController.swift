@@ -45,6 +45,8 @@ import UIKit
     override func loadView() {
         super.loadView()
         
+        ratio = 0
+        
         if let repl = Bundle.main.url(forResource: "installer", withExtension: "py") {
             editor = EditorViewController(document: PyDocument(fileURL: repl))
             editor.args = command
@@ -52,18 +54,12 @@ import UIKit
         console = ConsoleViewController()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        addChild(console)
-        view.addSubview(console.view)
-        console.view.frame = view.frame
-        console.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        navigationItem.leftBarButtonItems = []
+        navigationItem.rightBarButtonItems = []
+        navigationController?.isToolbarHidden = true        
         PipInstallerViewController.shared = self
         
         navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(closeViewController))]
