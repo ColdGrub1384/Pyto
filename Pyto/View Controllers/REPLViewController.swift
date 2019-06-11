@@ -9,7 +9,7 @@
 import UIKit
 
 /// A View controller with the REPL.
-@objc class REPLViewController: EditorSplitViewController {
+@objc class REPLViewController: EditorSplitViewController, UIDocumentPickerDelegate {
     
     /// The shared instance.
     @objc static var shared: REPLViewController?
@@ -22,6 +22,12 @@ import UIKit
         DispatchQueue.main.async {
             REPLViewController.shared?.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    @objc private func setCurrentDirectory() {
+        let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
+        picker.delegate = self
+        present(picker, animated: true, completion: nil)
     }
     
     // MARK: - Editor split view controller
@@ -52,6 +58,7 @@ import UIKit
         
         navigationItem.leftBarButtonItems = []
         navigationItem.rightBarButtonItems = []
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(setCurrentDirectory))
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: EditorSplitViewController.gridImage, style: .plain, target: REPLViewController.self, action: #selector(REPLViewController.goToFileBrowser))
         navigationController?.isToolbarHidden = true
         title = Localizable.repl
@@ -72,4 +79,12 @@ import UIKit
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {}
+    
+    // MARK: Document picker view controller
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        _ = urls[0].startAccessingSecurityScopedResource()
+        console.movableTextField?.textField.text = "import os; os.chdir(\"\(urls[0].path.replacingOccurrences(of: "\"", with: "\\\""))\")"
+        console.movableTextField?.textField.becomeFirstResponder()
+    }
 }
