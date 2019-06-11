@@ -41,6 +41,8 @@ import UIKit
     override func loadView() {
         super.loadView()
         
+        ratio = 0
+        
         if let repl = Bundle.main.url(forResource: "command_runner", withExtension: "py") {
             editor = EditorViewController(document: PyDocument(fileURL: repl))
         }
@@ -51,17 +53,16 @@ import UIKit
         super.viewDidLoad()
         
         edgesForExtendedLayout = []
-                
-        addChild(console)
-        view.addSubview(console.view)
-        console.view.frame = view.frame
-        console.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: EditorSplitViewController.gridImage, style: .plain, target: self, action: #selector(goToFileBrowser))
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        navigationItem.leftBarButtonItems = []
+        navigationItem.rightBarButtonItems = []
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: EditorSplitViewController.gridImage, style: .plain, target: REPLViewController.self, action: #selector(REPLViewController.goToFileBrowser))
+        navigationController?.isToolbarHidden = true
+        title = Localizable.repl
         
         RunModuleViewController.shared = self
     }
