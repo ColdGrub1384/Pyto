@@ -25,6 +25,14 @@ class ScriptThread(threading.Thread):
 
 while True:
     
+    try:
+        code = str(Python.shared.codeToRun)
+        exec(code)
+        if code == Python.shared.codeToRun:
+            Python.shared.codeToRun = None
+    except:
+        pass
+    
     if Python.shared.scriptToRun != None:
         
         script = Python.shared.scriptToRun

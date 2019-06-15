@@ -1540,7 +1540,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             "'''",
             "suggestForCode(source, '\((document?.fileURL.path ?? "").replacingOccurrences(of: "'", with: "\\'"))')"
         ].joined(separator: ";")
-        PyInputHelper.userInput = input
+        Python.shared.run(code: input)
     }
     
     // MARK: - Syntax text view delegate

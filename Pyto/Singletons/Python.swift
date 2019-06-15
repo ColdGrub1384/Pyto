@@ -104,6 +104,17 @@ import Cocoa
         }
     }
     
+    /// Python code to run.
+    @objc public var codeToRun: String?
+    
+    /// Runs given code..
+    ///
+    /// - Parameters:
+    ///     - code: Python code to run.
+    @objc public func run(code: String) {
+        codeToRun = code
+    }
+    
     /// The path of the script to run. Set it to run it.
     @objc public var scriptToRun: Script?
     
