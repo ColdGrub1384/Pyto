@@ -30,6 +30,13 @@ Features:
   - Use pip to install pure Python modules from PyPi
 ```
 
+## TODO
+
+- [ ] Implement state restoration
+- [ ] Add a setting to not clear the console before running a script
+- [ ] Update UIKit
+- [ ] Fix a bug while dragging console vertically
+
 ## Building
 
 `$ ./setup.sh` and build the `Pyto` target from `Pyto.xcworkspace`

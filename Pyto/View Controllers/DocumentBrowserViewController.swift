@@ -76,7 +76,6 @@ import SavannaKit
         contentVC.view.backgroundColor = .white
         
         let splitVC = EditorSplitViewController()
-        contentVC.editorSplitViewController = splitVC
         
         if isPip {
             splitVC.ratio = 0

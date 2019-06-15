@@ -228,7 +228,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         let text = textView.text
         textView.delegate = nil
-        textView.text = ""
         textView.delegate = self
         textView.theme = theme.sourceCodeTheme
         textView.contentTextView.textColor = theme.sourceCodeTheme.color(for: .plain)
@@ -299,18 +298,20 @@ fileprivate func parseArgs(_ args: inout [String]) {
         let moreItem = UIBarButtonItem(image: EditorSplitViewController.threeDotsImage, style: .plain, target: self, action: #selector(showEditorScripts(_:)))
         let runtimeItem = UIBarButtonItem(image: EditorSplitViewController.gearImage, style: .plain, target: self, action: #selector(showRuntimeSettings(_:)))
         
-        if Python.shared.isScriptRunning {
-            parent?.navigationItem.rightBarButtonItems = [
-                stopBarButtonItem,
-                debugItem,
-            ]
-        } else {
-            parent?.navigationItem.rightBarButtonItems = [
-                runBarButtonItem,
-                debugItem,
-            ]
+        if !(parent is REPLViewController) && !(parent is RunModuleViewController) && !(parent is PipInstallerViewController) {
+            if let path = document?.fileURL.path, Python.shared.isScriptRunning(path) {
+                parent?.navigationItem.rightBarButtonItems = [
+                    stopBarButtonItem,
+                    debugItem,
+                ]
+            } else {
+                parent?.navigationItem.rightBarButtonItems = [
+                    runBarButtonItem,
+                    debugItem,
+                ]
+            }
+            parent?.navigationItem.leftBarButtonItems = [scriptsItem, searchItem]
         }
-        parent?.navigationItem.leftBarButtonItems = [scriptsItem, searchItem]
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -349,6 +350,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 return
             }
             
+            let path = doc.fileURL.path
+            
             self.textView.text = document?.text ?? ""
             self.originalText = document?.text
             
@@ -360,13 +363,13 @@ fileprivate func parseArgs(_ args: inout [String]) {
             
             if self.shouldRun {
                 self.shouldRun = false
-                if Python.shared.isScriptRunning {
+                if Python.shared.isScriptRunning(path) {
                     self.stop()
                 }
                 
-                if Python.shared.isScriptRunning || Python.shared.version.isEmpty {
+                if Python.shared.isScriptRunning(path) || Python.shared.version.isEmpty {
                     _ = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true, block: { (timer) in
-                        if !(Python.shared.isScriptRunning || Python.shared.version.isEmpty) {
+                        if !(Python.shared.isScriptRunning(path) || Python.shared.version.isEmpty) {
                             timer.invalidate()
                             self.run()
                         }
@@ -378,9 +381,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 }
             }
             
-            if doc.fileURL.path == Bundle.main.path(forResource: "installer", ofType: "py") {
+            if doc.fileURL.path == Bundle.main.path(forResource: "installer", ofType: "py") && (!(parent is REPLViewController) && !(parent is RunModuleViewController) && !(parent is PipInstallerViewController)) {
                 self.parent?.navigationItem.leftBarButtonItems = []
-                if Python.shared.isScriptRunning {
+                if Python.shared.isScriptRunning(path) {
                     self.parent?.navigationItem.rightBarButtonItems = [self.stopBarButtonItem]
                 } else {
                     self.parent?.navigationItem.rightBarButtonItems = [self.runBarButtonItem]
@@ -807,9 +810,13 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// Stops the current running script.
     @objc func stop() {
         
+        guard let path = document?.fileURL.path else {
+            return
+        }
+        
         for console in ConsoleViewController.visibles {
             func stop_() {
-                Python.shared.stop()
+                Python.shared.stop(script: path)
                 console.textView.resignFirstResponder()
             }
             
@@ -845,6 +852,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
         textView.delegate = nil
         textView.delegate = self
         
+        guard let path = document?.fileURL.path else {
+            return
+        }
+        
         guard Python.shared.isSetup else {
             return
         }
@@ -855,48 +866,37 @@ fileprivate func parseArgs(_ args: inout [String]) {
             Python.shared.args = arguments
             Python.shared.currentWorkingDirectory = self.currentDirectory.path
             
-            for console in ConsoleViewController.visibles {
-                DispatchQueue.main.async {
-                    if let url = self.document?.fileURL {
-                        func run() {
-                            console.textView.text = ""
-                            console.console = ""
-                            console.movableTextField?.placeholder = ""
-                            if Python.shared.isREPLRunning {
-                                if Python.shared.isScriptRunning {
-                                    return
-                                }
-                                // Import the script
-                                if !debug {
-                                    PyInputHelper.userInput = "import console as c; s = c.run_script('\(url.path.replacingFirstOccurrence(of: "'", with: "\\'"))')"
-                                } else {
-                                    
-                                    var breakpointsLines = [String]()
-                                    
-                                    for breakpoint in self.breakpoints {
-                                        breakpointsLines.append(String(describing: breakpoint))
-                                    }
-                                    
-                                    let breakpointsValue = "[\(breakpointsLines.joined(separator: ", "))]"
-                                    
-                                    PyInputHelper.userInput = "import console as c; s = c.run_script('\(url.path.replacingFirstOccurrence(of: "'", with: "\\'"))', debug=True, breakpoints=\(breakpointsValue))"
-                                }
-                            } else {
-                                Python.shared.runScript(at: url)
+            guard let console = (self.parent as? EditorSplitViewController)?.console else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                if let url = self.document?.fileURL {
+                    func run() {
+                        console.textView.text = ""
+                        console.console = ""
+                        console.movableTextField?.placeholder = ""
+                        if Python.shared.isREPLRunning {
+                            if Python.shared.isScriptRunning(path) {
+                                return
                             }
+                            
+                            Python.shared.run(script: Python.Script(path: path, debug: debug, breakpoints: self.breakpoints))
+                        } else {
+                            Python.shared.runScript(at: url)
                         }
-                        
-                        let editorSplitViewController = console.editorSplitViewController
-                        
-                        guard console.view.window != nil && editorSplitViewController?.ratio != 1 else {
-                            editorSplitViewController?.showConsole {
-                                run()
-                            }
-                            return
-                        }
-                        
-                        run()
                     }
+                    
+                    let editorSplitViewController = console.editorSplitViewController
+                    
+                    guard console.view.window != nil && editorSplitViewController?.ratio != 1 else {
+                        editorSplitViewController?.showConsole {
+                            run()
+                        }
+                        return
+                    }
+                    
+                    run()
                 }
             }
         }
@@ -1526,7 +1526,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         let textView = self.textView.contentTextView
         
-        guard !Python.shared.isScriptRunning, let range = textView.selectedTextRange, let textRange = textView.textRange(from: textView.beginningOfDocument, to: range.end), let text = textView.text(in: textRange) else {
+        guard let range = textView.selectedTextRange, let textRange = textView.textRange(from: textView.beginningOfDocument, to: range.end), let text = textView.text(in: textRange) else {
             self.suggestions = []
             self.completions = []
             return inputAssistant.reloadData()

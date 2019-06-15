@@ -146,7 +146,7 @@ fileprivate var isPythonSetup = false
         run()
         """
         
-        if !Python.shared.isScriptRunning, let newScriptURL = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask).first?.appendingPathComponent("main.py") {
+        if Python.shared.runningScripts.count == 0, let newScriptURL = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask).first?.appendingPathComponent("main.py") {
             
             do {
                 if FileManager.default.fileExists(atPath: newScriptURL.path) {

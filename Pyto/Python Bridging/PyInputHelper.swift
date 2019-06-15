@@ -18,11 +18,19 @@ import Foundation
     ///
     /// - Parameters:
     ///     - prompt: The prompt sent by Python function.
-    @objc static func showAlert(prompt: String?) {
+    ///     - script: The script that asked for input. Set to `nil` to request input on every console.
+    @objc static func showAlert(prompt: String?, script: String?) {
         let prompt_ = prompt
         DispatchQueue.main.sync {
             #if !WIDGET
             for console in ConsoleViewController.visibles {
+                
+                if script != nil {
+                    guard console.editorSplitViewController?.editor.document?.fileURL.path == script else {
+                        continue
+                    }
+                }
+                
                 console.input(prompt: prompt_ ?? "")
             }
             #endif
@@ -33,11 +41,19 @@ import Foundation
     ///
     /// - Parameters:
     ///     - prompt: The prompt sent by Python function.
-    @objc static func getPass(prompt: String?) {
+    ///     - script: The script that asked for input. Set to `nil` to request input on every console.
+    @objc static func getPass(prompt: String?, script: String?) {
         let prompt_ = prompt
         DispatchQueue.main.sync {
             #if !WIDGET
             for console in ConsoleViewController.visibles {
+                
+                if script != nil {
+                    guard console.editorSplitViewController?.editor.document?.fileURL.path == script else {
+                        continue
+                    }
+                }
+                
                 console.getpass(prompt: prompt_ ?? "")
             }
             #endif

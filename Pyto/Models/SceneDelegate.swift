@@ -67,6 +67,8 @@ import UIKit
             return
         }
         
+        window?.isOpaque = false
+        window?.backgroundColor = .clear
         window?.tintColor = ConsoleViewController.choosenTheme.tintColor
         
         if connectionOptions.urlContexts.count > 0 {

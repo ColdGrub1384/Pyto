@@ -9,7 +9,7 @@
 import Foundation
 
 /// A class for managing input and output.
-class IO {
+@available(*, deprecated, message: "ios_system is not supported by Pyto anymore") class IO {
     
     /// The shared and unique instance.
     static let shared = IO()
@@ -19,7 +19,7 @@ class IO {
         ios_stdin = fdopen(inputPipe.fileHandleForReading.fileDescriptor, "r")
         outputPipe.fileHandleForReading.readabilityHandler = { handle in
             if let str = String(data: handle.availableData, encoding: .utf8) {
-                PyOutputHelper.print(str)
+                PyOutputHelper.print(str, script: nil)
             }
         }
     }
