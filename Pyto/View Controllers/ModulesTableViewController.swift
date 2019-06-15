@@ -128,7 +128,7 @@ import UIKit
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            PyInputHelper.userInput = "import sys; del sys.modules[\"\((self.filtredModules ?? ModulesTableViewController.modules)[indexPath.row])\"]; print(\"\((self.filtredModules ?? ModulesTableViewController.modules)[indexPath.row])\")"
+            Python.shared.run(code: "import sys; del sys.modules[\"\((self.filtredModules ?? ModulesTableViewController.modules)[indexPath.row])\"]; print(\"\((self.filtredModules ?? ModulesTableViewController.modules)[indexPath.row])\")")
             
             if filtredModules != nil {
                 filtredModules?.remove(at: indexPath.row)

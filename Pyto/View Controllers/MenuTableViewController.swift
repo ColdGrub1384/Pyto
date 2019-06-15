@@ -42,7 +42,7 @@ class MenuTableViewController: UITableViewController {
         let presentingVC = presentingViewController
         
         func checkModules() {
-            PyInputHelper.userInput = "import modules_inspector; modules_inspector.main()"
+            Python.shared.run(code: "import modules_inspector; modules_inspector.main()")
         }
         
         dismiss(animated: true) {
