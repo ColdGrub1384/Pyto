@@ -16,16 +16,11 @@ class MenuTableViewController: UITableViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    private static var repl: UIViewController?
-    
     /// Opens the REPL.
     func selectREPL() {
         let presentingVC = presentingViewController
         dismiss(animated: true) {
-            if let repl = MenuTableViewController.repl {
-                presentingVC?.present(repl, animated: true, completion: nil)
-            } else if let repl = self.storyboard?.instantiateViewController(withIdentifier: "repl") {
-                MenuTableViewController.repl = repl
+            if let repl = self.storyboard?.instantiateViewController(withIdentifier: "repl") {
                 presentingVC?.present(repl, animated: true, completion: nil)
             }
         }
@@ -46,11 +41,6 @@ class MenuTableViewController: UITableViewController {
         
         let presentingVC = presentingViewController
         
-        let wasRunningScript = Python.shared.isScriptRunning
-        if wasRunningScript {
-            Python.shared.stop()
-        }
-        
         func checkModules() {
             PyInputHelper.userInput = "import modules_inspector; modules_inspector.main()"
         }
@@ -59,13 +49,7 @@ class MenuTableViewController: UITableViewController {
             presentingVC?.present(UINavigationController(rootViewController: ModulesTableViewController(style: .grouped)), animated: true, completion: nil)
         }
         
-        if wasRunningScript {
-            _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { (_) in
-                checkModules()
-            })
-        } else {
-            checkModules()
-        }
+        checkModules()
     }
     
     /// Opens settings.

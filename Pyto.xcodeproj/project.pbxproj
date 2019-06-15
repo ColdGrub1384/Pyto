@@ -44,6 +44,7 @@
 		C921EF7821ECC388004C750D /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C921EF7721ECC388004C750D /* ActivityViewController.swift */; };
 		C92495C72151A3E3007EB4DB /* ReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92495C62151A3E3007EB4DB /* ReviewHelper.swift */; };
 		C924ADE622A9FBF6001C8E94 /* Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = C924ADE522A9FBF6001C8E94 /* Default.swift */; };
+		C929167E22B192A5001C8BA0 /* scripts_runner.py in Resources */ = {isa = PBXBuildFile; fileRef = C929167D22B192A5001C8BA0 /* scripts_runner.py */; };
 		C92ACE3321F0D8CB00FA8904 /* SolarizedLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92ACE3221F0D8CB00FA8904 /* SolarizedLight.swift */; };
 		C92ACE3721F0DBF600FA8904 /* SolarizedDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92ACE3621F0DBF600FA8904 /* SolarizedDark.swift */; };
 		C92DBD8021F67B9D0098BE43 /* REPL.py in Resources */ = {isa = PBXBuildFile; fileRef = C92DBD7F21F67B9C0098BE43 /* REPL.py */; };
@@ -1402,6 +1403,7 @@
 		C921EF7721ECC388004C750D /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		C92495C62151A3E3007EB4DB /* ReviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewHelper.swift; sourceTree = "<group>"; };
 		C924ADE522A9FBF6001C8E94 /* Default.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Default.swift; sourceTree = "<group>"; };
+		C929167D22B192A5001C8BA0 /* scripts_runner.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = scripts_runner.py; sourceTree = "<group>"; };
 		C92ACE3221F0D8CB00FA8904 /* SolarizedLight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarizedLight.swift; sourceTree = "<group>"; };
 		C92ACE3621F0DBF600FA8904 /* SolarizedDark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarizedDark.swift; sourceTree = "<group>"; };
 		C92DBD7F21F67B9C0098BE43 /* REPL.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = REPL.py; sourceTree = "<group>"; };
@@ -2237,6 +2239,7 @@
 				C9FCFD64214428B300A07974 /* Info.plist */,
 				C9647FFE21ACA00D005765C2 /* Help.py */,
 				C9477BBA21D45D28000680AE /* installer.py */,
+				C929167D22B192A5001C8BA0 /* scripts_runner.py */,
 				C9727C452204D7F100B7AC32 /* LaunchScreen.storyboard */,
 				C95AECB72208A688003BCB05 /* cacert.pem */,
 				C9BABAF92251772300AD15A5 /* samples_list */,
@@ -3373,6 +3376,7 @@
 				C903B98821584367004AAD7F /* commandDictionary.plist in Resources */,
 				C916F44B226CFD4800FA2FB6 /* modules_inspector.py in Resources */,
 				C9B5D87621F214DC00E980BA /* body.html in Resources */,
+				C929167E22B192A5001C8BA0 /* scripts_runner.py in Resources */,
 				C903B98A215843B4004AAD7F /* extraCommandsDictionary.plist in Resources */,
 				C9E4152E21514F9100D64E32 /* Startup.py in Resources */,
 				C92DBD8021F67B9D0098BE43 /* REPL.py in Resources */,
@@ -3853,6 +3857,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -3873,6 +3878,7 @@
 					"$(PROJECT_DIR)/OpenSSL",
 					"$(PROJECT_DIR)/XZ",
 				);
+				MARKETING_VERSION = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -3891,6 +3897,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = "WIDGET=1";
@@ -3908,6 +3915,7 @@
 					"$(PROJECT_DIR)/OpenSSL",
 					"$(PROJECT_DIR)/XZ",
 				);
+				MARKETING_VERSION = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4291,6 +4299,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -4328,6 +4337,7 @@
 					"$(PROJECT_DIR)/Matplotlib",
 					"$(PROJECT_DIR)/Kiwisolver",
 				);
+				MARKETING_VERSION = 11.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -4369,6 +4379,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -4406,6 +4417,7 @@
 					"$(PROJECT_DIR)/Matplotlib",
 					"$(PROJECT_DIR)/Kiwisolver",
 				);
+				MARKETING_VERSION = 11.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",

@@ -203,7 +203,7 @@ void init_python() {
     [Python.shared importPytoLib];
     
     // MARK: - Start the REPL that will contain all child modules
-    [Python.shared runScriptAt:[[NSBundle mainBundle] URLForResource:@"REPL" withExtension:@"py"]];
+    [Python.shared runScriptAt:[[NSBundle mainBundle] URLForResource:@"scripts_runner" withExtension:@"py"]];
     
     @autoreleasepool {
         return UIApplicationMain(argc, argv, NULL, NSStringFromClass(AppDelegate.class));

@@ -54,6 +54,12 @@ import UIKit
         console = ConsoleViewController()
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        arrangement = .horizontal
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -69,7 +75,7 @@ import UIKit
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if Python.shared.isScriptRunning {
+        if let path = editor.document?.fileURL.path, Python.shared.isScriptRunning(path) {
             editor.stop()
             DispatchQueue.main.asyncAfter(deadline: .now()+2) {
                 self.editor.run()

@@ -73,7 +73,8 @@ fileprivate class ImageAttachment: NSTextAttachment {
     ///
     /// - Parameters:
     ///     - file: The path of the file.
-    @objc static func previewFile(_ file: String) {
+    ///     - script: The script that previewed the given file. Set to `nil` to show on all the consoles.
+    @objc static func previewFile(_ file: String, script: String?) {
         DispatchQueue.main.async {
             
             func showOnConsole() {
@@ -85,6 +86,13 @@ fileprivate class ImageAttachment: NSTextAttachment {
                 let attrString = NSMutableAttributedString(attributedString: NSAttributedString(attachment: attachment))
                 attrString.append(NSAttributedString(string: "\n"))
                 for console in ConsoleViewController.visibles {
+                    
+                    if script != nil {
+                        guard console.editorSplitViewController?.editor.document?.fileURL.path == script else {
+                            continue
+                        }
+                    }
+                    
                     console.textView.textStorage.insert(attrString, at: console.textView.offset(from: console.textView.endOfDocument, to: console.textView.endOfDocument))
                 }
             }

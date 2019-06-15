@@ -8,7 +8,6 @@ __builtins__.__host__ = None
 
 import sys
 import console as Pyto
-import code
 import pyto
 from importlib.machinery import SourceFileLoader
 import importlib
@@ -43,14 +42,6 @@ standardError._buffer = io.BufferedWriter(standardError)
 
 sys.stdout = standardOutput
 sys.stderr = standardError
-
-# MARK: - REPL
-
-interact = code.interact
-def newInteract():
-    pyto.Python.shared.isREPLRunning = True
-    interact()
-code.interact = newInteract
 
 # MARK: - Create a Selector without class.
 

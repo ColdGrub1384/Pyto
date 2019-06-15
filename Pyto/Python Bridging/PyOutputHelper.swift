@@ -14,7 +14,8 @@ import UIKit
     /// Shows output on visible console.
     /// - Parameters:
     ///     - text: Text to print.
-    @objc static func print(_ text: String) {
+    ///     - script: Script that printed the output. Set to `nil` to be printed in every console.
+    @objc static func print(_ text: String, script: String?) {
         var text_ = text
         
         #if MAIN
@@ -30,6 +31,15 @@ import UIKit
         #endif
         
         for console in visibles {
+            
+            #if !WIDGET && MAIN
+            if script != nil {
+                guard console.editorSplitViewController?.editor.document?.fileURL.path == script else {
+                    continue
+                }
+            }
+            #endif
+            
             DispatchQueue.main.async {
                 if let attrStr = console.textView.attributedText {
                     let mutable = NSMutableAttributedString(attributedString: attrStr)
@@ -49,7 +59,8 @@ import UIKit
     ///
     /// - Parameters:
     ///     - text: Text to print.
-    @objc static func printError(_ text: String) {
+    ///     - script: Script that printed the output. Set to `nil` to be printed in every console.
+    @objc static func printError(_ text: String, script: String?) {
         var text_ = text
         
         #if MAIN
@@ -65,6 +76,14 @@ import UIKit
         #endif
         
         for console in visibles {
+            #if !WIDGET && MAIN
+            if script != nil {
+                guard console.editorSplitViewController?.editor.document?.fileURL.path == script else {
+                    continue
+                }
+            }
+            #endif
+            
             DispatchQueue.main.async {
                 if let attrStr = console.textView.attributedText {
                     let mutable = NSMutableAttributedString(attributedString: attrStr)
@@ -80,7 +99,8 @@ import UIKit
     ///
     /// - Parameters:
     ///     - text: Text to print.
-    @objc static func printWarning(_ text: String) {
+    ///     - script: Script that printed the output. Set to `nil` to be printed in every console.
+    @objc static func printWarning(_ text: String, script: String?) {
         var text_ = text
         
         #if MAIN
@@ -96,6 +116,15 @@ import UIKit
         #endif
         
         for console in visibles {
+            
+            #if !WIDGET && MAIN
+            if script != nil {
+                guard console.editorSplitViewController?.editor.document?.fileURL.path == script else {
+                    continue
+                }
+            }
+            #endif
+            
             DispatchQueue.main.async {
                 if let attrStr = console.textView.attributedText {
                     let mutable = NSMutableAttributedString(attributedString: attrStr)

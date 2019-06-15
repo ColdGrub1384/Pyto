@@ -23,7 +23,7 @@ import Foundation
         } else if let block = item as? (() -> Void) {
             return makeSelector(block)
         } else {
-            PyOutputHelper.print("Invalid block!\n")
+            PyOutputHelper.print("Invalid block!\n", script: nil)
             return nil
         }
     }

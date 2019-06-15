@@ -95,13 +95,6 @@ import SafariServices
             print(error.localizedDescription)
         }
         
-        NSSetUncaughtExceptionHandler { (exception) in
-            PyOutputHelper.print(NSString(format: Localizable.ObjectiveC.exception as NSString, exception.name.rawValue, exception.reason ?? "") as String)
-            PyInputHelper.showAlert(prompt: Localizable.ObjectiveC.quit)
-            while PyInputHelper.userInput == nil {
-                sleep(UInt32(0.5))
-            }
-        }
         #else
         window = UIWindow()
         window?.backgroundColor = .white

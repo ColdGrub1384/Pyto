@@ -24,6 +24,13 @@ import UIKit
         }
     }
     
+    /// Goes back to the file browser
+    @objc func goToFileBrowser() {
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     @objc private func setCurrentDirectory() {
         let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
         picker.delegate = self
@@ -42,7 +49,17 @@ import UIKit
         ratio = 0
         
         if let repl = Bundle.main.url(forResource: "UserREPL", withExtension: "py") {
-            editor = EditorViewController(document: PyDocument(fileURL: repl))
+            
+            /// Taken from https://stackoverflow.com/a/26845710/7515957
+            func randomString(length: Int) -> String {
+                let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+                return String((0..<length).map{ _ in letters.randomElement()! })
+            }
+            
+            let newURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(randomString(length: 5)).appendingPathExtension("repl.py")
+            try? FileManager.default.copyItem(at: repl, to: newURL)
+            
+            editor = EditorViewController(document: PyDocument(fileURL: newURL))
         }
         console = ConsoleViewController()
     }
@@ -50,6 +67,7 @@ import UIKit
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        arrangement = .horizontal
         REPLViewController.shared = self
     }
     
@@ -59,7 +77,7 @@ import UIKit
         navigationItem.leftBarButtonItems = []
         navigationItem.rightBarButtonItems = []
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(setCurrentDirectory))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: EditorSplitViewController.gridImage, style: .plain, target: REPLViewController.self, action: #selector(REPLViewController.goToFileBrowser))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: EditorSplitViewController.gridImage, style: .plain, target: self, action: #selector(goToFileBrowser))
         navigationController?.isToolbarHidden = true
         title = Localizable.repl
         
@@ -73,12 +91,10 @@ import UIKit
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if !Python.shared.isScriptRunning {
+        if let script = editor.document?.fileURL.path, !Python.shared.isScriptRunning(script) {
             editor.run()
         }
     }
-    
-    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {}
     
     // MARK: Document picker view controller
     

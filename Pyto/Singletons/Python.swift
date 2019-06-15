@@ -80,6 +80,95 @@ import Cocoa
     
     #if os(iOS)
     
+    /// A class representing a script to run.
+    @objc public class Script: NSObject {
+        
+        /// The path of the script.
+        @objc public var path: String
+        
+        /// Set to `true` if the script should  be debugged with `pdb`.
+        @objc public var debug: Bool
+        
+        @objc public var breakpoints: [Int]
+        
+        /// Initializes the script.
+        ///
+        /// - Parameters:
+        ///     - path: The path of the script.
+        ///     - debug: Set to `true` if the script should  be debugged with `pdb`.
+        ///     - breakpoints: Line numbers where breakpoints should be placed if the script should be debugged.
+        @objc public init(path: String, debug: Bool, breakpoints: [Int] = []) {
+            self.path = path
+            self.debug = debug
+            self.breakpoints = breakpoints
+        }
+    }
+    
+    /// The path of the script to run. Set it to run it.
+    @objc public var scriptToRun: Script?
+    
+    @objc private func removeScriptFromList(_ script: String) {
+        while let i = runningScripts.firstIndex(of: script) {
+            runningScripts.remove(at: i)
+        }
+    }
+    
+    @objc private func addScriptToList(_ script: String) {
+        if runningScripts.firstIndex(of: script) == nil {
+            runningScripts.append(script)
+        }
+    }
+    
+    /// The path of the scripts running.
+    @objc public var runningScripts = [String]() {
+        didSet {
+            #if os(iOS)
+            DispatchQueue.main.async {
+                #if MAIN
+                
+                #if WIDGET
+                let visibles = [ConsoleViewController.visible ?? ConsoleViewController()]
+                #else
+                let visibles = ConsoleViewController.visibles
+                #endif
+                
+                for contentVC in visibles {
+                    guard let editor = contentVC.editorSplitViewController?.editor, let scriptPath = editor.document?.fileURL.path else {
+                        return
+                    }
+                    
+                    guard !(contentVC.editorSplitViewController is REPLViewController) && !(contentVC.editorSplitViewController is RunModuleViewController) && !(contentVC.editorSplitViewController is PipInstallerViewController) else {
+                        return
+                    }
+                    
+                    let item = editor.parent?.navigationItem
+                    
+                    if item?.rightBarButtonItem != contentVC.editorSplitViewController?.closeConsoleBarButtonItem {
+                        if self.runningScripts.contains(scriptPath) {
+                            item?.rightBarButtonItem = editor.stopBarButtonItem
+                        } else {
+                            item?.rightBarButtonItem = editor.runBarButtonItem
+                        }
+                    }
+                }
+                #endif
+            }
+            #elseif os(macOS)
+            if !isScriptRunning && process?.isRunning == true {
+                process?.terminate()
+            }
+            
+            EditorViewController.toggleStopButton()
+            #endif
+        }
+    }
+    
+    /// Add a script here to send `KeyboardInterrupt`to it.
+    @objc public var scriptsToInterrupt = [String]()
+    
+    /// Add a script here to send `SystemExit`to it.
+    @objc public var scriptsToExit = [String]()
+    
     /// The directory from which the script is executed.
     @objc public var currentWorkingDirectory = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].path
     
@@ -105,7 +194,15 @@ import Cocoa
     /// The thread running script.
     @objc public var thread: Thread?
     
-    /// Run script at given URL.
+    /// Runs the given script.
+    ///
+    /// - Parameters:
+    ///     - script: Script to run.
+    public func run(script: Script) {
+        scriptToRun = script
+    }
+    
+    /// Run script at given URL. Will be ran with Python C API directly. Call it once!
     ///
     /// - Parameters:
     ///     - url: URL of the Python script to run.
@@ -115,20 +212,18 @@ import Cocoa
             self.thread = Thread.current
             
             guard !self.isREPLRunning else {
-                PyOutputHelper.print(Localizable.Python.alreadyRunning) // Should not be called. When the REPL is running, run the script inside it.
+                PyOutputHelper.print(Localizable.Python.alreadyRunning, script: nil) // Should not be called. When the REPL is running, run the script inside it.
                 return
             }
             
-            if url.path == Bundle.main.url(forResource: "REPL", withExtension: "py")?.path {
-                self.isREPLRunning = true
-            }
+            self.isREPLRunning = true
             
             #if WIDGET
-            self.isScriptRunning = true
+            self.runningScripts.append(url.path)
             PyRun_SimpleFileExFlags(fopen(url.path.cValue, "r"), url.lastPathComponent.cValue, 0, nil)
             #else
             guard let startupURL = Bundle(for: Python.self).url(forResource: "Startup", withExtension: "py"), let src = try? String(contentsOf: startupURL) else {
-                PyOutputHelper.print(Localizable.Python.alreadyRunning)
+                PyOutputHelper.print(Localizable.Python.alreadyRunning, script: nil)
                 return
             }
             
@@ -302,62 +397,36 @@ import Cocoa
     
     #if os(iOS)
     
-    /// Set to `false` to send `SystemExit`.
-    @objc private var _isScriptRunning = false
-    
-    /// Set to `true` to send `KeyboardInterrupt`.
-    @objc private var _interrupt = false
-    
     /// Sends `SystemExit`.
-    @objc public func stop() {
-        _isScriptRunning = false
+    ///
+    /// - Parameters:
+    ///     - script: The path of the script to stop.
+    @objc public func stop(script: String) {
+        if scriptsToExit.firstIndex(of: script) == nil {
+            scriptsToExit.append(script)
+        }
     }
     
-    @objc public func interrupt() {
-        _interrupt = true
+    /// Sends `KeyboardInterrupt`.
+    ///
+    /// - Parameters:
+    ///     - script: The path of the script to interrupt.
+    @objc public func interrupt(script: String) {
+        if scriptsToInterrupt.firstIndex(of: script) == nil {
+            scriptsToInterrupt.append(script)
+        }
     }
     
     #endif
     
-    /// Set to `true` while a script is running to prevent user from running one while another is running.
-    @objc public var isScriptRunning = false {
-        didSet {
-            #if os(iOS)
-            DispatchQueue.main.async {
-                #if MAIN
-                
-                #if WIDGET
-                let visibles = [ConsoleViewController.visible ?? ConsoleViewController()]
-                #else
-                let visibles = ConsoleViewController.visibles
-                #endif
-                
-                for contentVC in visibles {
-                    guard let editor = contentVC.editorSplitViewController?.editor else {
-                        return
-                    }
-                    
-                    let item = editor.parent?.navigationItem
-                    
-                    if item?.rightBarButtonItem != contentVC.editorSplitViewController?.closeConsoleBarButtonItem {
-                        if self.isScriptRunning {
-                            item?.rightBarButtonItem = editor.stopBarButtonItem
-                        } else {
-                            item?.rightBarButtonItem = editor.runBarButtonItem
-                        }
-                        item?.rightBarButtonItem?.isEnabled = (self.isScriptRunning == self.isScriptRunning)
-                    }
-                }
-                #endif
-            }
-            #elseif os(macOS)
-            if !isScriptRunning && process?.isRunning == true {
-                process?.terminate()
-            }
-            
-            EditorViewController.toggleStopButton()
-            #endif
-        }
+    /// Checks if a script is currently running.
+    ///
+    /// - Parameters:
+    ///     - script: Script to check.
+    ///
+    /// - Returns: `true` if the passed script is currently running.
+    @objc public func isScriptRunning(_ script: String) -> Bool {
+        return runningScripts.contains(script)
     }
 }
 

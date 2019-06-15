@@ -128,9 +128,6 @@ import UIKit
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            if Python.shared.isScriptRunning {
-                Python.shared.stop()
-            }
             PyInputHelper.userInput = "import sys; del sys.modules[\"\((self.filtredModules ?? ModulesTableViewController.modules)[indexPath.row])\"]; print(\"\((self.filtredModules ?? ModulesTableViewController.modules)[indexPath.row])\")"
             
             if filtredModules != nil {

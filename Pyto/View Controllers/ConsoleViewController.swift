@@ -133,6 +133,10 @@ import UIKit
         }
     }
     
+    private var scriptPath: String? {
+        return editorSplitViewController?.editor.document?.fileURL.path
+    }
+    
     /// The text field used for sending input.
     var movableTextField: MovableTextField?
     
@@ -155,7 +159,7 @@ import UIKit
         
         #if MAIN
         if !(self.parent is REPLViewController) {
-            guard Python.shared.isScriptRunning else {
+            guard let script = scriptPath, Python.shared.isScriptRunning(script) else {
                 return false
             }
         }
@@ -391,14 +395,15 @@ import UIKit
         #else
         if #available(iOS 13.0, *) {
             if UIApplication.shared.connectedScenes.count == 1, let console = ConsoleViewController.visibles.first {
-                console.present(viewController, animated: true, completion: completion)
+                console.present(console.viewController(viewController), animated: true, completion: completion)
             } else {
                 SceneDelegate.viewControllerToShow = viewController
                 SceneDelegate.viewControllerDidShow = completion
                 UIApplication.shared.requestSceneSessionActivation(nil, userActivity: nil, options: nil, errorHandler: nil)
             }
         } else {
-            ConsoleViewController.visibles.first?.present(viewController, animated: true, completion: nil)
+            let console = ConsoleViewController.visibles.first
+            console?.present(console!.viewController(viewController), animated: true, completion: nil)
         }
         #endif
     }
@@ -419,10 +424,6 @@ import UIKit
         #if MAIN
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
         #endif
-        
-        if #available(iOS 13.0, *) {
-            view.backgroundColor = .systemBackground
-        }
         
         edgesForExtendedLayout = []
         
@@ -534,8 +535,7 @@ import UIKit
         super.dismiss(animated: flag, completion: completion)
         
         #if MAIN
-        view.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
-        navigationController?.view.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
+        themeDidChange(nil)
         #else
         view.backgroundColor = .white
         navigationController?.view.backgroundColor = .white

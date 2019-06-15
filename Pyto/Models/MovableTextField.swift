@@ -226,7 +226,9 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     @objc private func interrupt() {
         placeholder = ""
         textField.resignFirstResponder()
-        Python.shared.interrupt()
+        if let path = console.editorSplitViewController?.editor.document?.fileURL.path {
+            Python.shared.interrupt(script: path)
+        }
     }
     
     // MARK: - History

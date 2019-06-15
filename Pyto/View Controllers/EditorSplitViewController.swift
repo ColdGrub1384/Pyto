@@ -38,7 +38,11 @@ class EditorSplitViewController: SplitViewController {
     @objc var editor: EditorViewController!
     
     /// The console.
-    @objc var console: ConsoleViewController!
+    @objc var console: ConsoleViewController! {
+        didSet {
+            console.editorSplitViewController = self
+        }
+    }
     
     /// Set to `true` if this View controller was just shown.
     var justShown = true
@@ -92,14 +96,28 @@ class EditorSplitViewController: SplitViewController {
     
     /// Interrupts current running script.
     @objc func interrupt() {
-        Python.shared.interrupt()
+        
+        guard let path = editor.document?.fileURL.path else {
+            return
+        }
+        
+        Python.shared.interrupt(script: path)
     }
     
     /// Sets navigation bar items.
     func setNavigationBarItems() {
+        
+        guard !(self is REPLViewController), !(self is PipInstallerViewController), !(self is RunModuleViewController) else {
+            return
+        }
+        
+        guard let path = editor.document?.fileURL.path else {
+            return
+        }
+        
         if firstChild == editor {
             navigationItem.leftBarButtonItems = [editor.scriptsItem, editor.searchItem]
-            if Python.shared.isScriptRunning {
+            if Python.shared.isScriptRunning(path) {
                 navigationItem.rightBarButtonItems = [
                     editor.stopBarButtonItem,
                     editor.debugItem,
@@ -121,6 +139,7 @@ class EditorSplitViewController: SplitViewController {
     
     /// Shows the editor on full screen.
     @objc func showEditor() {
+        
         firstChild = nil
         secondChild = nil
         
@@ -139,7 +158,9 @@ class EditorSplitViewController: SplitViewController {
         
         setNavigationBarItems()
         
-        Python.shared.stop()
+        if let path = editor.document?.fileURL.path {
+            Python.shared.stop(script: path)
+        }
     }
     
     /// Shows the console on full screen.
@@ -188,7 +209,11 @@ class EditorSplitViewController: SplitViewController {
             UIKeyCommand(input: "w", modifierFlags: .command, action: #selector(close), discoverabilityTitle: Localizable.close),
         ]
         
-        if Python.shared.isScriptRunning {
+        guard let path = editor.document?.fileURL.path else {
+            return commands
+        }
+        
+        if Python.shared.isScriptRunning(path) {
             commands.append(
                 UIKeyCommand(input: "c", modifierFlags: .control, action: #selector(interrupt), discoverabilityTitle: Localizable.interrupt)
             )

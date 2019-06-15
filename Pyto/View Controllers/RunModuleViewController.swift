@@ -52,6 +52,7 @@ import UIKit
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        arrangement = .horizontal
         edgesForExtendedLayout = []
     }
     
@@ -70,16 +71,7 @@ import UIKit
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if Python.shared.isScriptRunning {
-            editor.stop()
-            DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-                self.editor.run()
-            }
-        } else {
-            DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                self.editor.run()
-            }
-        }
+        editor.run()
     }
     
     override func viewDidDisappear(_ animated: Bool) {

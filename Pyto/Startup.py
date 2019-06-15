@@ -36,7 +36,11 @@ from pip import BUNDLED_MODULES
 logging.basicConfig(level=logging.INFO)
 
 def __send_warnings_to_log__(message, category, filename, lineno, file=None, line=None):
-    pyto.PyOutputHelper.printWarning(warnings.formatwarning(message, category, filename, lineno, line))
+    _message = warnings.formatwarning(message, category, filename, lineno, line)
+    try:
+        pyto.PyOutputHelper.printWarning(_message, script=threading.current_thread().script_path)
+    except:
+        pyto.PyOutputHelper.printWarning(_message, script=None)
     return
 
 warnings.showwarning = __send_warnings_to_log__
