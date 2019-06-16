@@ -144,9 +144,13 @@ import SavannaKit
         super.viewDidLoad()
         
         additionalLeadingNavigationBarButtonItems = [UIBarButtonItem(image: EditorSplitViewController.threeDotsImage, style: .plain, target: self, action: #selector(showMore(_:)))]
-        self.customActions = [UIDocumentBrowserAction(identifier: "run", localizedTitle: Localizable.MenuItems.run, availability: .menu, handler: { (urls) in
+        let runAction = UIDocumentBrowserAction(identifier: "run", localizedTitle: Localizable.MenuItems.run, availability: [.menu, .navigationBar], handler: { (urls) in
             self.openDocument(urls[0], run: true)
-        })]
+        })
+        if #available(iOS 13.0, *) {
+            runAction.image = UIImage(systemName: "play.fill")
+        }
+        self.customActions = [runAction]
         
         delegate = self
     }
