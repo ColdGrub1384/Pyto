@@ -32,7 +32,6 @@ Features:
 
 ## TODO
 
-- [ ] Implement state restoration
 - [ ] Add a setting to not clear the console before running a script
 - [ ] Update UIKit
 - [ ] Fix a bug while dragging console vertically
