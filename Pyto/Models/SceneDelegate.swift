@@ -74,6 +74,18 @@ import UIKit
         if connectionOptions.urlContexts.count > 0 {
             self.scene(scene, openURLContexts: connectionOptions.urlContexts)
         }
+        
+        if let restorationActivity = session.stateRestorationActivity, let data = restorationActivity.userInfo?["bookmarkData"] as? Data {
+            
+            do {
+                var isStale = false
+                let url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
+                
+                (window?.rootViewController as? DocumentBrowserViewController)?.documentURL = url
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
     
     @available(iOS 13.0, *)
@@ -174,5 +186,26 @@ import UIKit
             
             documentBrowserViewController.openDocument(url ?? inputURL, run: false)
         })
+    }
+    
+    // MARK: - State restoration
+    
+    @available(iOS 13.0, *)
+    func stateRestorationActivity(for scene: UIScene) -> NSUserActivity? {
+        if let presented = ((scene.delegate as? UIWindowSceneDelegate)?.window??.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController, let url = presented.editor.document?.fileURL {
+            
+            do {
+                
+                let bookmarkData = try url.bookmarkData()
+
+                let activity = NSUserActivity(activityType: "stateRestoration")
+                activity.userInfo?["bookmarkData"] = bookmarkData
+                return activity
+            } catch {
+                return nil
+            }
+        }
+        
+        return nil
     }
 }

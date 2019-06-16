@@ -23,6 +23,9 @@ import SavannaKit
     /// Store here `EditorSplitViewController`s because it crashes on dealloc. RIP memory
     private static var splitVCs = [UIViewController?]()
     
+    /// If set, will open the document when the view appeared.
+    var documentURL: URL?
+    
     /// Shows more options.
     @objc func showMore(_ sender: UIBarButtonItem) {
         let menu = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "menu")
@@ -50,8 +53,9 @@ import SavannaKit
     /// - Parameters:
     ///     - documentURL: The URL of the file or directory.
     ///     - run: Set to `true` to run the script inmediately.
+    ///     - animated: Set to `true` if the presentation should be animated.
     ///     - completion: Code called after presenting the UI.
-    func openDocument(_ documentURL: URL, run: Bool, completion: (() -> Void)? = nil) {
+    func openDocument(_ documentURL: URL, run: Bool, animated: Bool = true, completion: (() -> Void)? = nil) {
         
         let tintColor = ConsoleViewController.choosenTheme.tintColor ?? UIColor(named: "TintColor") ?? .orange
         
@@ -117,7 +121,7 @@ import SavannaKit
             }
             
             document.checkForConflicts(completion: {
-                self.present(navVC, animated: true, completion: {
+                self.present(navVC, animated: animated, completion: {
                     
                     NotificationCenter.default.removeObserver(splitVC)
                     completion?()
@@ -145,6 +149,15 @@ import SavannaKit
         })]
         
         delegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let docURL = documentURL {
+            openDocument(docURL, run: false, animated: false)
+            documentURL = nil
+        }
     }
     
     // MARK: - Document browser view controller delegate
