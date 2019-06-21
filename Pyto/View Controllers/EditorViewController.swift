@@ -241,6 +241,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
         inputAssistant.leadingActions = (UIApplication.shared.statusBarOrientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])+[InputAssistantAction(image: "⇥".image() ?? UIImage(), target: self, action: #selector(insertTab))]
         inputAssistant.attach(to: textView.contentTextView)
         inputAssistant.trailingActions = [InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView.contentTextView, action: #selector(textView.contentTextView.resignFirstResponder))]+(UIApplication.shared.statusBarOrientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])
+        
+        (textView.contentTextView.value(forKey: "textInputTraits") as? NSObject)?.setValue(theme.tintColor, forKey: "insertionPointColor")
     }
     
     /// Called when the user choosed a theme.
@@ -411,7 +413,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 activity.isEligibleForHandoff = false
                 activity.keywords = ["python", "pyto", "run", "script", title ?? "Untitled"]
                 activity.requiredUserInfoKeys = ["filePath"]
-                activity.persistentIdentifier = filePath
                 attributes.relatedUniqueIdentifier = filePath
                 attributes.identifier = filePath
                 attributes.domainIdentifier = filePath
@@ -432,6 +433,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
         super.viewDidAppear(animated)
         
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
+        
+        if #available(iOS 13.0, *) {
+            view.window?.windowScene?.title = document?.fileURL.deletingPathExtension().lastPathComponent
+        }
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -467,6 +472,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }) // TODO: Anyway to to it without a timer?
     }
     
+    #if !targetEnvironment(UIKitForMac)
     override var keyCommands: [UIKeyCommand]? {
         if textView.contentTextView.isFirstResponder {
             return [
@@ -477,6 +483,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             return []
         }
     }
+    #endif
     
     // MARK: - Searching
     
@@ -497,7 +504,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         didSet {
             
             textView.contentInset.top = findBarHeight
-            textView.contentTextView.scrollIndicatorInsets.top = findBarHeight
+            textView.contentTextView.verticalScrollIndicatorInsets.top = findBarHeight
             
             if replace {
                 if let replaceView = Bundle.main.loadNibNamed("Replace", owner: nil, options: nil)?.first as? ReplaceView {
@@ -576,7 +583,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             searchBar.removeFromSuperview()
             searchBar.resignFirstResponder()
             textView.contentInset.top = 0
-            textView.contentTextView.scrollIndicatorInsets.top = 0
+            textView.contentTextView.verticalScrollIndicatorInsets.top = 0
             
             let text = textView.text
             textView.delegate = nil
@@ -625,7 +632,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         searchBar.becomeFirstResponder()
         
         textView.contentInset.top = findBarHeight
-        textView.contentTextView.scrollIndicatorInsets.top = findBarHeight
+        textView.contentTextView.verticalScrollIndicatorInsets.top = findBarHeight
     }
     
     /// Highlights search results.
@@ -742,7 +749,14 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     /// Shares the current script.
     @objc func share(_ sender: UIBarButtonItem) {
-        let activityVC = UIActivityViewController(activityItems: [document?.fileURL as Any], applicationActivities: [XcodeActivity()])
+        let xcodeActivtiy = XcodeActivity()
+        xcodeActivtiy.viewController = self
+        #if !targetEnvironment(UIKitForMac)
+        let activities = [xcodeActivtiy]
+        #else
+        let activities = [UIActivity]()
+        #endif
+        let activityVC = UIActivityViewController(activityItems: [document?.fileURL as Any], applicationActivities: activities)
         activityVC.popoverPresentationController?.barButtonItem = sender
         present(activityVC, animated: true, completion: nil)
     }
@@ -928,6 +942,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         //stop()
         
+        let presenting = presentingViewController
+        
         dismiss(animated: true) {
             
             guard !self.isSample else {
@@ -941,7 +957,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                         if !success {
                             let alert = UIAlertController(title: Localizable.Errors.errorWrittingToScript, message: nil, preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
-                            UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+                            presenting?.present(alert, animated: true, completion: nil)
                         }
                     })
                 }
@@ -1153,14 +1169,14 @@ fileprivate func parseArgs(_ args: inout [String]) {
     @objc func keyboardDidShow(_ notification:Notification) {
         let d = notification.userInfo!
         let r = d[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-        let point = (UIApplication.shared.keyWindow)?.convert(r.origin, to: textView) ?? r.origin
+        let point = (view.window)?.convert(r.origin, to: textView) ?? r.origin
         
         textView.contentInset.bottom = (point.y >= textView.frame.height ? 0 : textView.frame.height-point.y)
-        textView.contentTextView.scrollIndicatorInsets.bottom = textView.contentInset.bottom
+        textView.contentTextView.verticalScrollIndicatorInsets.bottom = textView.contentInset.bottom
         
         if searchBar?.window != nil {
             textView.contentInset.top = findBarHeight
-            textView.contentTextView.scrollIndicatorInsets.top = findBarHeight
+            textView.contentTextView.verticalScrollIndicatorInsets.top = findBarHeight
         }
     }
     
@@ -1171,7 +1187,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         if searchBar?.window != nil {
             textView.contentInset.top = findBarHeight
-            textView.contentTextView.scrollIndicatorInsets.top = findBarHeight
+            textView.contentTextView.verticalScrollIndicatorInsets.top = findBarHeight
         }
     }
     

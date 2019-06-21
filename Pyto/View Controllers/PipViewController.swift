@@ -117,6 +117,19 @@ import WebKit
                             forKeyPath: #keyPath(WKWebView.estimatedProgress),
                             options: .new,
                             context: nil)
+        
+        #if targetEnvironment(UIKitForMac)
+        navigationItem.leftBarButtonItems?.removeFirst()
+        #endif
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if #available(iOS 13.0, *) {
+            view.window?.windowScene?.titlebar?.titleVisibility = .hidden
+            view.window?.windowScene?.title = title
+        }
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

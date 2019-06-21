@@ -17,6 +17,9 @@ import UIKit
     /// Code called after `viewControllerToShow` is shown.
     static var viewControllerDidShow: (() -> Void)?
     
+    /// RIP Memory.
+    private static var windows = [UIWindow]()
+    
     @available(iOS 13.0, *)
     private class ViewController: UIViewController {
         
@@ -58,18 +61,29 @@ import UIKit
         if let vc = SceneDelegate.viewControllerToShow {
             SceneDelegate.viewControllerToShow = nil
             
+            #if targetEnvironment(UIKitForMac)
+            window?.rootViewController = vc
+            #else
             let blankVC = ViewController()
             blankVC.sceneSession = session
             blankVC.viewControllerToPresent = vc
             blankVC.completion = SceneDelegate.viewControllerDidShow
             window?.rootViewController = blankVC
+            #endif
             
             return
         }
         
         window?.isOpaque = false
         window?.backgroundColor = .clear
+        #if !targetEnvironment(UIKitForMac)
         window?.tintColor = ConsoleViewController.choosenTheme.tintColor
+        #else
+        (scene as? UIWindowScene)?.titlebar?.titleVisibility = .hidden
+        #endif
+        if let window = self.window {
+            SceneDelegate.windows.append(window)
+        }
         
         if connectionOptions.urlContexts.count > 0 {
             self.scene(scene, openURLContexts: connectionOptions.urlContexts)

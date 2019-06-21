@@ -15,6 +15,9 @@ class XcodeActivity: UIActivity {
     /// The URL of the Python script to be used as entry point.
     var scriptURL: URL!
     
+    /// The View controller which is presenting the UI.
+    var viewController: UIViewController?
+    
     // MARK: - Activity
     
     override class var activityCategory: UIActivity.Category {
@@ -82,7 +85,7 @@ class XcodeActivity: UIActivity {
             let destURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(title)
             
             let activityAlert = ActivityViewController(message: "")
-            UIApplication.shared.keyWindow?.topViewController?.present(activityAlert, animated: true, completion: {
+            self.viewController?.present(activityAlert, animated: true, completion: {
                 
                 DispatchQueue.global().async {
                     do {
@@ -176,7 +179,7 @@ class XcodeActivity: UIActivity {
         
         alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
         
-        UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
+        viewController?.present(alert, animated: true, completion: nil)
         
         activityDidFinish(true)
     }

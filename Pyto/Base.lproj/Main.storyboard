@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14810.11" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xoe-vS-Tot">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14810.11" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xoe-vS-Tot" initialMenu="glQ-k8-PWi">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -30,6 +30,7 @@
                 <navigationController storyboardIdentifier="repl" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BaJ-ba-aO8" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="REPL" image="play" selectedImage="play" id="SCw-AR-fio"/>
                     <toolbarItems/>
+                    <value key="contentSizeForViewInPopover" type="size" width="540" height="620"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="5NA-pS-qVt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -203,6 +204,265 @@
             </objects>
             <point key="canvasLocation" x="-508.69565217391306" y="734.51086956521749"/>
         </scene>
+        <!--MainMenu-->
+        <scene sceneID="KJA-y4-Q0R">
+            <objects>
+                <menu title="MainMenu" discoverabilityTitle="" identifier="com.apple.menu.root" id="glQ-k8-PWi" sceneMemberID="viewController">
+                    <children>
+                        <menu title="Application" discoverabilityTitle="" identifier="com.apple.menu.application" id="nmq-Su-u98">
+                            <children>
+                                <menu title="About" discoverabilityTitle="" identifier="com.apple.menu.about" id="bT0-1w-xQ7">
+                                    <commandGroupOptions key="options" displayInline="YES"/>
+                                    <children>
+                                        <command title="About Pyto" discoverabilityTitle="" propertyListString="" id="kmA-nf-6Fp">
+                                            <connections>
+                                                <action selector="orderFrontStandardAboutPanel:" destination="GQt-Fj-TpB" id="ofa-2q-6re"/>
+                                            </connections>
+                                        </command>
+                                    </children>
+                                </menu>
+                                <menu discoverabilityTitle="" id="mQK-LH-bXK">
+                                    <commandGroupOptions key="options" displayInline="YES"/>
+                                    <children>
+                                        <command title="Preferences" discoverabilityTitle="" propertyListString="" input="," id="iXC-OL-7vc">
+                                            <keyModifierFlags key="modifierFlags" command="YES"/>
+                                            <connections>
+                                                <action selector="showSettings:" destination="GQt-Fj-TpB" id="WeI-xj-LPq"/>
+                                            </connections>
+                                        </command>
+                                    </children>
+                                </menu>
+                                <menu title="Services" discoverabilityTitle="" identifier="com.apple.menu.services" id="GNb-YW-Xay"/>
+                                <menu title="Hide" discoverabilityTitle="" identifier="com.apple.menu.hide" id="4GK-0h-0Ze">
+                                    <commandGroupOptions key="options" displayInline="YES"/>
+                                    <children>
+                                        <command title="Hide Pyto" discoverabilityTitle="" propertyListString="" input="h" id="D1m-gf-cVS">
+                                            <keyModifierFlags key="modifierFlags" command="YES"/>
+                                            <connections>
+                                                <action selector="hide:" destination="GQt-Fj-TpB" id="s74-Nd-KeB"/>
+                                            </connections>
+                                        </command>
+                                        <command title="Hide Others" discoverabilityTitle="" propertyListString="" input="h" id="Psx-rx-JxO">
+                                            <keyModifierFlags key="modifierFlags" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="hideOtherApplications:" destination="GQt-Fj-TpB" id="gq1-c7-V7E"/>
+                                            </connections>
+                                        </command>
+                                        <command title="Show All" discoverabilityTitle="" propertyListString="" id="giq-WC-8KA">
+                                            <connections>
+                                                <action selector="unhideAllApplications:" destination="GQt-Fj-TpB" id="LfD-3c-bdO"/>
+                                            </connections>
+                                        </command>
+                                    </children>
+                                </menu>
+                                <menu discoverabilityTitle="" identifier="com.apple.menu.quit" id="XVW-6p-SrL">
+                                    <commandGroupOptions key="options" displayInline="YES"/>
+                                    <children>
+                                        <command title="Quit Pyto" discoverabilityTitle="" propertyListString="" input="q" id="a5W-3f-0DD">
+                                            <keyModifierFlags key="modifierFlags" command="YES"/>
+                                            <connections>
+                                                <action selector="terminate:" destination="GQt-Fj-TpB" id="5LP-c4-3Pb"/>
+                                            </connections>
+                                        </command>
+                                    </children>
+                                </menu>
+                            </children>
+                        </menu>
+                        <menu title="File" discoverabilityTitle="" identifier="com.apple.menu.file" id="98Q-vB-0qZ">
+                            <children>
+                                <command title="New" discoverabilityTitle="" propertyListString="" input="n" id="yIv-vh-JBv">
+                                    <keyModifierFlags key="modifierFlags" command="YES"/>
+                                    <connections>
+                                        <action selector="newFile:" destination="GQt-Fj-TpB" id="cUG-Ol-bqL"/>
+                                    </connections>
+                                </command>
+                                <menu discoverabilityTitle="" identifier="com.apple.menu.close" id="hrF-0W-gKr">
+                                    <commandGroupOptions key="options" displayInline="YES"/>
+                                    <children>
+                                        <command title="Close" discoverabilityTitle="" propertyListString="" input="w" id="2QO-xl-axx">
+                                            <keyModifierFlags key="modifierFlags" command="YES"/>
+                                            <alternates>
+                                                <commandAlternate title="Close All" actionName="closeAll:" id="DnK-uh-Z4t">
+                                                    <keyModifierFlags key="modifierFlags" option="YES"/>
+                                                </commandAlternate>
+                                            </alternates>
+                                            <connections>
+                                                <action selector="performClose:" destination="GQt-Fj-TpB" id="jzs-mi-SgG"/>
+                                            </connections>
+                                        </command>
+                                    </children>
+                                </menu>
+                            </children>
+                        </menu>
+                        <menu title="Editor" discoverabilityTitle="" identifier="editor" id="htk-9u-OcV">
+                            <children>
+                                <command title="Run" discoverabilityTitle="" propertyListString="" input="r" id="CM8-pk-CDO" userLabel="Run">
+                                    <keyModifierFlags key="modifierFlags" command="YES"/>
+                                    <connections>
+                                        <action selector="runScript:" destination="GQt-Fj-TpB" id="Jql-CD-syv"/>
+                                    </connections>
+                                </command>
+                                <command title="SystemExit" discoverabilityTitle="" propertyListString="" input="." id="d8d-QJ-1k3" userLabel="SystemExit">
+                                    <keyModifierFlags key="modifierFlags" command="YES"/>
+                                    <connections>
+                                        <action selector="stopScript:" destination="GQt-Fj-TpB" id="S6C-SE-mIk"/>
+                                    </connections>
+                                </command>
+                                <command title="KeyboardInterrupt" discoverabilityTitle="" propertyListString="" input="c" id="7Ne-de-siH" userLabel="KeyboardInterrupt">
+                                    <keyModifierFlags key="modifierFlags" control="YES"/>
+                                    <connections>
+                                        <action selector="interrupt:" destination="GQt-Fj-TpB" id="dfs-e0-zrD"/>
+                                    </connections>
+                                </command>
+                            </children>
+                        </menu>
+                        <menu title="Edit" discoverabilityTitle="" identifier="com.apple.menu.edit" id="9dy-VE-40W">
+                            <children>
+                                <menu discoverabilityTitle="" identifier="com.apple.menu.undo-redo" id="JaN-YN-Mes">
+                                    <commandGroupOptions key="options" displayInline="YES"/>
+                                    <children>
+                                        <command title="Undo" discoverabilityTitle="" propertyListString="" input="z" id="rdu-81-d88">
+                                            <keyModifierFlags key="modifierFlags" command="YES"/>
+                                            <connections>
+                                                <action selector="undo:" destination="GQt-Fj-TpB" id="MJM-WQ-yJf"/>
+                                            </connections>
+                                        </command>
+                                        <command title="Redo" discoverabilityTitle="" propertyListString="" input="z" id="UkA-j0-Rdx">
+                                            <keyModifierFlags key="modifierFlags" shift="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="redo:" destination="GQt-Fj-TpB" id="LFL-7b-z8i"/>
+                                            </connections>
+                                        </command>
+                                    </children>
+                                </menu>
+                                <menu discoverabilityTitle="" identifier="com.apple.menu.standard-edit" id="CUS-ZT-SJi">
+                                    <commandGroupOptions key="options" displayInline="YES"/>
+                                    <children>
+                                        <command title="Cut" discoverabilityTitle="" propertyListString="" input="x" id="TQt-lZ-NkF">
+                                            <keyModifierFlags key="modifierFlags" command="YES"/>
+                                            <connections>
+                                                <action selector="cut:" destination="GQt-Fj-TpB" id="EpO-LS-dW5"/>
+                                            </connections>
+                                        </command>
+                                        <command title="Copy" discoverabilityTitle="" propertyListString="" input="c" id="h8v-Ll-TCw">
+                                            <keyModifierFlags key="modifierFlags" command="YES"/>
+                                            <connections>
+                                                <action selector="copy:" destination="GQt-Fj-TpB" id="7Ld-qz-num"/>
+                                            </connections>
+                                        </command>
+                                        <command title="Paste" discoverabilityTitle="" propertyListString="" input="v" id="OiU-Db-C57">
+                                            <keyModifierFlags key="modifierFlags" command="YES"/>
+                                            <connections>
+                                                <action selector="paste:" destination="GQt-Fj-TpB" id="GXT-oZ-FHE"/>
+                                            </connections>
+                                        </command>
+                                        <command title="Delete" discoverabilityTitle="" propertyListString="" id="IUe-m7-OtZ">
+                                            <connections>
+                                                <action selector="delete:" destination="GQt-Fj-TpB" id="vj4-ct-G9e"/>
+                                            </connections>
+                                        </command>
+                                        <command title="Select All" discoverabilityTitle="" propertyListString="" input="a" id="4vN-we-jKj">
+                                            <keyModifierFlags key="modifierFlags" command="YES"/>
+                                            <connections>
+                                                <action selector="selectAll:" destination="GQt-Fj-TpB" id="PcX-u4-g3P"/>
+                                            </connections>
+                                        </command>
+                                    </children>
+                                </menu>
+                                <menu discoverabilityTitle="" identifier="com.apple.menu.find" id="q14-5A-8oh">
+                                    <commandGroupOptions key="options" displayInline="YES"/>
+                                    <children>
+                                        <command title="Find…" discoverabilityTitle="" propertyListString="" input="f" id="IQy-Ul-omA">
+                                            <keyModifierFlags key="modifierFlags" command="YES"/>
+                                            <connections>
+                                                <action selector="performFindPanelAction:" destination="GQt-Fj-TpB" id="ndE-b7-GAU"/>
+                                            </connections>
+                                        </command>
+                                    </children>
+                                </menu>
+                            </children>
+                        </menu>
+                        <menu title="View" discoverabilityTitle="" identifier="com.apple.menu.view" id="s5Y-Vo-EC9">
+                            <children>
+                                <menu discoverabilityTitle="" identifier="com.apple.menu.fullscreen" id="JaH-9c-icd">
+                                    <commandGroupOptions key="options" displayInline="YES"/>
+                                    <children>
+                                        <command title="Enter Full Screen" discoverabilityTitle="" propertyListString="" input="f" id="zPx-7S-hqk">
+                                            <keyModifierFlags key="modifierFlags" control="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="toggleFullScreen:" destination="GQt-Fj-TpB" id="xGS-bU-9Qm"/>
+                                            </connections>
+                                        </command>
+                                    </children>
+                                </menu>
+                            </children>
+                        </menu>
+                        <menu title="Window" discoverabilityTitle="" identifier="com.apple.menu.window" id="uy7-V5-VZB">
+                            <children>
+                                <command title="REPL" discoverabilityTitle="" propertyListString="" id="B9P-xK-PPg">
+                                    <connections>
+                                        <action selector="showREPL:" destination="GQt-Fj-TpB" id="T6w-wS-TDs"/>
+                                    </connections>
+                                </command>
+                                <command title="Run modules" discoverabilityTitle="" propertyListString="" id="tNf-vX-LY6">
+                                    <connections>
+                                        <action selector="runModules:" destination="GQt-Fj-TpB" id="1PD-ww-m5V"/>
+                                    </connections>
+                                </command>
+                                <command title="PyPi" discoverabilityTitle="" propertyListString="" id="SO4-71-oAZ">
+                                    <connections>
+                                        <action selector="showPyPi:" destination="GQt-Fj-TpB" id="iTl-Ug-mVs"/>
+                                    </connections>
+                                </command>
+                                <command title="Loaded Modules" discoverabilityTitle="" propertyListString="" id="PUo-gp-gJR">
+                                    <connections>
+                                        <action selector="showLoadedModules:" destination="GQt-Fj-TpB" id="WyQ-Ve-qoe"/>
+                                    </connections>
+                                </command>
+                                <menu discoverabilityTitle="" identifier="com.apple.menu.minimize-and-zoom" id="tpv-kC-UF4">
+                                    <commandGroupOptions key="options" displayInline="YES"/>
+                                    <children>
+                                        <command title="Minimize" discoverabilityTitle="" propertyListString="" input="m" id="JM8-lo-dPd">
+                                            <keyModifierFlags key="modifierFlags" command="YES"/>
+                                            <connections>
+                                                <action selector="performMiniaturize:" destination="GQt-Fj-TpB" id="XFc-pe-JK9"/>
+                                            </connections>
+                                        </command>
+                                        <command title="Zoom" discoverabilityTitle="" propertyListString="" id="5dV-A1-3Au">
+                                            <connections>
+                                                <action selector="performZoom:" destination="GQt-Fj-TpB" id="VcX-6q-kMD"/>
+                                            </connections>
+                                        </command>
+                                    </children>
+                                </menu>
+                                <menu discoverabilityTitle="" identifier="com.apple.menu.bring-all-to-front" id="GQu-tK-1Pi">
+                                    <commandGroupOptions key="options" displayInline="YES"/>
+                                    <children>
+                                        <command title="Bring All to Front" discoverabilityTitle="" propertyListString="" id="6ew-fR-WFB">
+                                            <connections>
+                                                <action selector="arrangeInFront:" destination="GQt-Fj-TpB" id="iAo-H1-3Of"/>
+                                            </connections>
+                                        </command>
+                                    </children>
+                                </menu>
+                            </children>
+                        </menu>
+                        <menu title="Help" discoverabilityTitle="" identifier="com.apple.menu.help" id="hyr-Cw-sRW">
+                            <children>
+                                <command title="Pyto Help" discoverabilityTitle="" propertyListString="" input="?" id="Lzg-lo-j7y">
+                                    <keyModifierFlags key="modifierFlags" command="YES"/>
+                                    <connections>
+                                        <action selector="showHelp:" destination="GQt-Fj-TpB" id="w5k-zV-XR3"/>
+                                    </connections>
+                                </command>
+                            </children>
+                        </menu>
+                    </children>
+                </menu>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GQt-Fj-TpB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="398" y="376"/>
+        </scene>
         <!--Document Browser View Controller-->
         <scene sceneID="nGT-bk-D0O">
             <objects>
@@ -224,6 +484,7 @@
                 <navigationController storyboardIdentifier="pypi" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" useStoryboardIdentifierAsRestorationIdentifier="YES" id="da3-zo-4Eh" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="PyPi" image="pypi" selectedImage="pypi" id="HMQ-P3-Qfx"/>
                     <toolbarItems/>
+                    <value key="contentSizeForViewInPopover" type="size" width="540" height="620"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zX6-Bb-01D">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -334,7 +595,7 @@
         <!--Navigation Controller-->
         <scene sceneID="qfx-zs-0bj">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mCn-Dc-GGG" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="runModulesNavigationController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mCn-Dc-GGG" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rYE-BC-Pdo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>

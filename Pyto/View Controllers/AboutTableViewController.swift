@@ -46,7 +46,15 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
     
     /// Closes this View controller.
     @IBAction func close(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        if #available(iOS 13.0, *) {
+            if navigationController?.presentingViewController != nil {
+                dismiss(animated: true, completion: nil)
+            } else if let sceneSession = view.window?.windowScene?.session {
+                UIApplication.shared.requestSceneSessionDestruction(sceneSession, options: nil, errorHandler: nil)
+            }
+        } else if navigationController?.presentingViewController != nil {
+            dismiss(animated: true, completion: nil)
+        }
     }
     
     /// Called when indentation is set.
@@ -130,6 +138,19 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
         fontSizeLabel.font = fontSizeLabel.font.withSize(CGFloat(ThemeFontSize))
         showConsoleAtBottom.isOn = EditorSplitViewController.shouldShowConsoleAtBottom
         showSeparator.isOn = EditorSplitViewController.shouldShowSeparator
+        
+        #if targetEnvironment(UIKitForMac)
+        navigationItem.rightBarButtonItems = []
+        #endif
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if #available(iOS 13.0, *) {
+            view.window?.windowScene?.titlebar?.titleVisibility = .hidden
+            view.window?.windowScene?.title = title
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -62,8 +62,6 @@ struct SunsetSourceCodeTheme: SourceCodeTheme {
 
 // MARK: - Theme
 
-#if os(iOS)
-
 /// The Sunset theme.
 struct SunsetTheme: Theme {
     
@@ -73,5 +71,3 @@ struct SunsetTheme: Theme {
     
     let sourceCodeTheme: SourceCodeTheme = SunsetSourceCodeTheme()
 }
-
-#endif

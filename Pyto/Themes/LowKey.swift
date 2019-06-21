@@ -62,8 +62,6 @@ struct LowKeySourceCodeTheme: SourceCodeTheme {
 
 // MARK: - Theme
 
-#if os(iOS)
-
 /// The Low Key theme.
 struct LowKeyTheme: Theme {
     
@@ -73,5 +71,3 @@ struct LowKeyTheme: Theme {
     
     let sourceCodeTheme: SourceCodeTheme = LowKeySourceCodeTheme()
 }
-
-#endif

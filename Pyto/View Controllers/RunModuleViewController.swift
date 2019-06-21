@@ -34,9 +34,11 @@ import UIKit
     
     // MARK: - Editor split view controller
     
+    #if !targetEnvironment(UIKitForMac)
     override var keyCommands: [UIKeyCommand]? {
         return [UIKeyCommand(input: "C", modifierFlags: .control, action: #selector(interrupt), discoverabilityTitle: Localizable.interrupt)]
     }
+    #endif
     
     override func loadView() {
         super.loadView()
@@ -61,11 +63,20 @@ import UIKit
         
         navigationItem.leftBarButtonItems = []
         navigationItem.rightBarButtonItems = []
+        #if targetEnvironment(UIKitForMac)
+        navigationItem.leftBarButtonItems = []
+        #else
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: EditorSplitViewController.gridImage, style: .plain, target: self, action: #selector(RunModuleViewController.goToFileBrowser))
+        #endif
         navigationController?.isToolbarHidden = true
         title = Localizable.repl
         
         RunModuleViewController.shared = self
+        
+        if #available(iOS 13.0, *) {
+            view.window?.windowScene?.titlebar?.titleVisibility = .hidden
+            view.window?.windowScene?.title = title
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

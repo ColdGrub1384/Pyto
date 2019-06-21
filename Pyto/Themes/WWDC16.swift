@@ -62,8 +62,6 @@ struct WWDC16SourceCodeTheme: SourceCodeTheme {
 
 // MARK: - Theme
 
-#if os(iOS)
-
 /// The WWDC16 theme.
 struct WWDC16Theme: Theme {
     
@@ -77,5 +75,3 @@ struct WWDC16Theme: Theme {
         return sourceCodeTheme.color(for: .identifier)
     }
 }
-
-#endif

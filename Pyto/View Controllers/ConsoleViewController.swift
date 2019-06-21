@@ -50,7 +50,13 @@ import UIKit
             UserDefaults.standard.set(themeID, forKey: "theme")
             UserDefaults.standard.synchronize()
             
-            UIApplication.shared.keyWindow?.tintColor = newValue.tintColor
+            #if !targetEnvironment(UIKitForMac)
+            if #available(iOS 13.0, *) {
+                for scene in UIApplication.shared.connectedScenes {
+                    (scene.delegate as? UIWindowSceneDelegate)?.window??.tintColor = newValue.tintColor
+                }
+            }
+            #endif
             
             NotificationCenter.default.post(name: ThemeDidChangeNotification, object: newValue)
         }
@@ -90,6 +96,18 @@ import UIKit
     /// The `EditorSplitViewController` associated with this console.
     @objc var editorSplitViewController: EditorSplitViewController?
     #endif
+    
+    
+    /// Clears screen.
+    @objc static func clearConsoleForPath(_ path: String?) {
+        DispatchQueue.main.sync {
+            for console in visibles {
+                if console.editorSplitViewController?.editor.document?.fileURL.path == path || path == nil {
+                    console.clear()
+                }
+            }
+        }
+    }
     
     /// Clears screen.
     @objc func clear() {
@@ -576,7 +594,7 @@ import UIKit
             let d = notification.userInfo!
             let r = d[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
             
-            let point = (UIApplication.shared.keyWindow)?.convert(r.origin, to: view) ?? r.origin
+            let point = (view.window)?.convert(r.origin, to: view) ?? r.origin
             
             textView.frame.size.height = point.y-44
         } else {

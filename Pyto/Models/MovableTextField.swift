@@ -53,6 +53,8 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         }
         
         inputAssistant.attach(to: textField)
+        
+        (textField.value(forKey: "textInputTraits") as? NSObject)?.setValue(theme.tintColor, forKey: "insertionPointColor")
     }
     
     /// Theme used by the bar.

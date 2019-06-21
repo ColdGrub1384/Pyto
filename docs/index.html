@@ -12,29 +12,14 @@
     
     <ul>
         <li><a href="Console.html">console</a>
-            <strong class="compatible">iOS</strong>
-            <strong>|</strong>
-            <strong class="compatible">macOS</strong>
         </li>
         <li><a href="Sharing.html">sharing</a>
-            <strong class="compatible">iOS</strong>
-            <strong>|</strong>
-            <strong class="compatible">macOS</strong>
         </li>
         <li><a href="MainThread.html">mainthread</a>
-            <strong class="compatible">iOS</strong>
-            <strong>|</strong>
-            <strong class="incompatible">macOS</strong>
         </li>
         <li><a href="Pasteboard.html">pasteboard</a>
-            <strong class="compatible">iOS</strong>
-            <strong>|</strong>
-            <strong class="incompatible">macOS</strong>
         </li>
         <li><a href="UI.html">ui</a>
-            <strong class="compatible">iOS</strong>
-            <strong>|</strong>
-            <strong class="incompatible">macOS</strong>
         </li>
     </ul>
     
@@ -68,7 +53,7 @@
         else:
             print("Unknown")
     </pre>
-    <code>__host__</code> is <code>None</code> when running on macOS because Pyto for Mac runs scripts on a subprocess. It's also <code>None</code> when a native app is built from the script. It's <code>app</code> when it's running on Pyto for iOS and <code>widget</code> when running on Notification Center widget.
+    <code>__host__</code> is <code>None</code> when a native app is built from the script. It's <code>app</code> when it's running on Pyto for iOS or macOS and <code>widget</code> when running on Notification Center widget.
     
     </p>
     
@@ -127,11 +112,5 @@
     </ul>
     <p>
     You can install other pure Python modules from PyPi.
-    <br/>
-    <strong>iOS</strong>: Press <code>...</code> on main screen and then <code>PyPi</code>. You can search for packages and install them.
-    <br/>
-    <strong>macOS</strong>: Click <code>Window > pip</code> on menu bar.
-    <br/>
-    Installing C extensions with only work on <strong class="compatible">macOS</strong>.
     </p>
 </body>

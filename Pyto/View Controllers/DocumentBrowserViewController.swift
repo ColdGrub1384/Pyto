@@ -120,7 +120,7 @@ import SavannaKit
                 return
             }
             
-            document.checkForConflicts(completion: {
+            document.checkForConflicts(onViewController: self, completion: {
                 self.present(navVC, animated: animated, completion: {
                     
                     NotificationCenter.default.removeObserver(splitVC)
