@@ -74,9 +74,16 @@ class EditorSplitViewController: SplitViewController {
     
     // MARK: - Key commands
     
-    /// Runs the code
-    @objc func run() {
+    /// Runs the code.
+    @IBAction func runScript(_ sender: Any) {
         editor?.run()
+    }
+    
+    /// Stops the current running script.
+    @IBAction func stopScript(_ sender: Any) {
+        if let path = editor.document?.fileURL.path, Python.shared.isScriptRunning(path) {
+            Python.shared.stop(script: path)
+        }
     }
     
     /// Closes the controller.
@@ -95,7 +102,7 @@ class EditorSplitViewController: SplitViewController {
     }
     
     /// Interrupts current running script.
-    @objc func interrupt() {
+    @IBAction func interrupt(_ sender: Any) {
         
         guard let path = editor.document?.fileURL.path else {
             return
@@ -201,10 +208,24 @@ class EditorSplitViewController: SplitViewController {
     
     // MARK: - Split view controller
     
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        
+        guard let path = editor.document?.fileURL.path else {
+            return super.canPerformAction(action, withSender: sender)
+        }
+        
+        if action == #selector(runScript(_:)) {
+            return !Python.shared.isScriptRunning(path)
+        } else if action == #selector(stopScript(_:)) || action == #selector(interrupt(_:)) {
+            return Python.shared.isScriptRunning(path)
+        } else {
+            return super.canPerformAction(action, withSender: sender)
+        }
+    }
+    
+    #if !targetEnvironment(UIKitForMac)
     override var keyCommands: [UIKeyCommand]? {
         var commands = [
-            UIKeyCommand(input: "r", modifierFlags: .command, action: #selector(run), discoverabilityTitle: Localizable.MenuItems.run),
-            UIKeyCommand(input: "r", modifierFlags: [.command, .shift], action: #selector(runWithArguments), discoverabilityTitle: Localizable.runAndSetArguments),
             UIKeyCommand(input: "d", modifierFlags: .command, action: #selector(showDocs), discoverabilityTitle: Localizable.Help.documentation),
             UIKeyCommand(input: "w", modifierFlags: .command, action: #selector(close), discoverabilityTitle: Localizable.close),
         ]
@@ -215,12 +236,21 @@ class EditorSplitViewController: SplitViewController {
         
         if Python.shared.isScriptRunning(path) {
             commands.append(
-                UIKeyCommand(input: "c", modifierFlags: .control, action: #selector(interrupt), discoverabilityTitle: Localizable.interrupt)
+                UIKeyCommand(input: "c", modifierFlags: .control, action: #selector(interrupt(_:)), discoverabilityTitle: Localizable.interrupt)
+            )
+        } else {
+            commands.append(
+                UIKeyCommand(input: "r", modifierFlags: .command, action: #selector(runScript(_:)), discoverabilityTitle: Localizable.MenuItems.run)
+            )
+            
+            commands.append(
+                UIKeyCommand(input: "r", modifierFlags: [.command, .shift], action: #selector(runWithArguments), discoverabilityTitle: Localizable.runAndSetArguments)
             )
         }
         
         return commands
     }
+    #endif
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -271,7 +301,19 @@ class EditorSplitViewController: SplitViewController {
         secondChild.viewWillTransition(to: firstChild.view.frame.size, with: ViewControllerTransitionCoordinator())
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        guard view != nil else {
+            return
+        }
+        
+        super.viewWillTransition(to: size, with: coordinator)
+    }
+    
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        
+        guard view != nil else {
+            return
+        }
         
         guard presentedViewController == nil else {
             return

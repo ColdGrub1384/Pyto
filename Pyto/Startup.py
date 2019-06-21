@@ -1,12 +1,16 @@
+import sys
+
 __builtins__.iOS = "iOS"
 __builtins__.macOS = "macOS"
-__builtins__.__platform__ = __builtins__.iOS
+if sys.platform == "ios":
+    __builtins__.__platform__ = __builtins__.iOS
+else:
+    __builtins__.__platform__ = __builtins__.macOS
 
 __builtins__.widget = "widget"
 __builtins__.app = "app"
 __builtins__.__host__ = __builtins__.app
 
-import sys
 import os
 
 sys.path.insert(-1, os.path.expanduser("~/Documents"))
@@ -47,9 +51,12 @@ warnings.showwarning = __send_warnings_to_log__
 
 pyto.Python.shared.version = sys.version
 
-# MARK: - Disallow subprocesses
+# MARK: - Allow / Disallow subprocesses
 
-os.allows_subprocesses = False
+if __platform__ is iOS:
+    os.allows_subprocesses = False
+elif __platform__ is macOS:
+    os.allows_subprocesses = True
 
 # MARK: - Input
 
@@ -145,7 +152,7 @@ def waitpid(pid, options):
 os.fork = fork
 os.waitpid = waitpid
 
-# MARK: -Handle signal called outside main thread
+# MARK: - Handle signal called outside main thread
 
 old_signal = _signal.signal
 def signal(signal, handler):

@@ -60,14 +60,27 @@ import UIKit
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
         
+        #if targetEnvironment(UIKitForMac)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
+        #else
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: EditorSplitViewController.gridImage, style: .plain, target: self, action: #selector(close))
+        #endif
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         ModulesTableViewController.visible = self
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.prefersLargeTitles = true        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if #available(iOS 13.0, *) {
+            view.window?.windowScene?.titlebar?.titleVisibility = .hidden
+            view.window?.windowScene?.title = title
+        }
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -119,7 +132,16 @@ import UIKit
         let url = URL(fileURLWithPath: ModulesTableViewController.paths[indexPath.row])
         if FileManager.default.fileExists(atPath: url.path) {
             presentingViewController?.dismiss(animated: true, completion: {
-                (self.presentingViewController as? DocumentBrowserViewController)?.openDocument(url, run: false)
+                if let docBrowser = self.presentingViewController as? DocumentBrowserViewController {
+                    docBrowser.openDocument(url, run: false)
+                } else {
+                    let docBrowser = DocumentBrowserViewController()
+                    SceneDelegate.viewControllerToShow = docBrowser
+                    UIApplication.shared.requestSceneSessionActivation(nil, userActivity: nil, options: nil, errorHandler: nil)
+                    DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                        docBrowser.openDocument(url, run: false)
+                    }
+                }
             })
         }
         tableView.deselectRow(at: indexPath, animated: true)

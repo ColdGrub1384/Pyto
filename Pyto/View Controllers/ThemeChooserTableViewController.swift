@@ -80,9 +80,8 @@ class ThemeChooserTableViewController: UITableViewController, SyntaxTextViewDele
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        dismiss(animated: true) {
-            ConsoleViewController.choosenTheme = Themes[indexPath.row].value
-        }
+        navigationController?.popViewController(animated: true)
+        ConsoleViewController.choosenTheme = Themes[indexPath.row].value
     }
     
     // MARK: - Syntax text view delegate

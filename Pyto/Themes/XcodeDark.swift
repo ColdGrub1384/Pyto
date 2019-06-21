@@ -62,8 +62,6 @@ struct XcodeDarkSourceCodeTheme: SourceCodeTheme {
 
 // MARK: - Theme
 
-#if os(iOS)
-
 /// The Xcode dark theme.
 struct XcodeDarkTheme: Theme {
     
@@ -73,5 +71,3 @@ struct XcodeDarkTheme: Theme {
     
     let sourceCodeTheme: SourceCodeTheme = XcodeDarkSourceCodeTheme()
 }
-
-#endif

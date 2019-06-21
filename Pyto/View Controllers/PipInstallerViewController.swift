@@ -13,8 +13,11 @@ import UIKit
     
     /// Closes this View controller.
     @objc func closeViewController() {
+        
+        let window = view.window
+        
         return dismiss(animated: true, completion: {
-            ((UIApplication.shared.keyWindow?.rootViewController?.presentedViewController as? UINavigationController)?.visibleViewController as? PipViewController)?.webView.reload()
+            ((window?.rootViewController?.presentedViewController as? UINavigationController)?.visibleViewController as? PipViewController)?.webView.reload()
         })
     }
     
@@ -38,9 +41,11 @@ import UIKit
     
     // MARK: - Editor split view controller
     
+    #if !targetEnvironment(UIKitForMac)
     override var keyCommands: [UIKeyCommand]? {
         return [UIKeyCommand(input: "C", modifierFlags: .control, action: #selector(interrupt), discoverabilityTitle: Localizable.interrupt)]
     }
+    #endif
     
     override func loadView() {
         super.loadView()

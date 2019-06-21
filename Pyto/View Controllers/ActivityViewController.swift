@@ -21,7 +21,13 @@ class ActivityViewController: UIViewController {
 
 private class ActivityView: UIView {
     
-    let activityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
+    let activityIndicatorView: UIActivityIndicatorView = {
+        if #available(iOS 13.0, *) {
+            return UIActivityIndicatorView(style: .large)
+        } else {
+            return UIActivityIndicatorView(style: .whiteLarge)
+        }
+    }()
     let boundingBoxView = UIView(frame: .zero)
     let messageLabel = UILabel(frame: .zero)
     

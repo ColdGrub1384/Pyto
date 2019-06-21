@@ -12,7 +12,7 @@ import SavannaKit
 import SourceEditor
 
 /// A View controller for editing plain text.
-class PlainTextEditorViewController: UIViewController, UITextViewDelegate {
+@available(*, deprecated, message: "Pyto only edits Python script.") class PlainTextEditorViewController: UIViewController, UITextViewDelegate {
     
     /// The Text view containing text.
     let textView = SyntaxTextView()

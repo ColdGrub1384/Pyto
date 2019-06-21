@@ -33,6 +33,14 @@ class ResolveConflictsTableViewController: UITableViewController {
     
     // MARK: - UI
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if #available(iOS 13.0, *) {
+            view.window?.windowScene?.title = title
+        }
+    }
+    
     @IBOutlet weak private var keepButton: UIBarButtonItem!
     
     

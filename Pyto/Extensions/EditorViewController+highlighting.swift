@@ -6,13 +6,8 @@
 //  Copyright © 2019 Adrian Labbé. All rights reserved.
 //
 
-#if os(iOS)
 import UIKit
 typealias Color = UIColor
-#elseif os(macOS)
-import Cocoa
-typealias Color = NSColor
-#endif
 
 extension EditorViewController {
     
@@ -25,21 +20,13 @@ extension EditorViewController {
     ///     - color: The color used for highlighting.
     func highlight(at line: Int, with color: Color?) {
         
-        #if os(iOS)
         let storage: NSTextStorage? = textView.contentTextView.textStorage
-        #else
-        let storage = textView.contentTextView.textStorage
-        #endif
         
         let textStorage = self.textView.contentTextView.textStorage
         
         // Use NSString here because textStorage expects the kind of ranges returned by NSString,
         // not the kind of ranges returned by String.
-        #if os(iOS)
         let string = textStorage.string
-        #elseif os(macOS)
-        let string = textStorage?.string ?? ""
-        #endif
         
         let storageString = string as NSString
         
@@ -71,12 +58,10 @@ extension EditorViewController {
         
             let errorColor = #colorLiteral(red: 0.6743632277, green: 0.1917540668, blue: 0.1914597603, alpha: 1)
             
-            #if os(iOS)
             guard self.parent?.presentedViewController == nil, self.view.window != nil else {
                 self.lineNumberError = lineNumber
                 return
             }
-            #endif
             
             guard lineNumber > 0 else {
                 return
@@ -97,12 +82,9 @@ extension EditorViewController {
             
             let errorRange = NSRange(location: lines.joined(separator: "\n").count, length: 0)
             
-            #if os(iOS)
             self.textView.contentTextView.becomeFirstResponder()
-            #endif
             self.textView.contentTextView.selectedRange = errorRange
             
-            #if os(iOS)
             let errorView = UITextView()
             errorView.textColor = .white
             errorView.isEditable = false
@@ -146,7 +128,6 @@ extension EditorViewController {
             }
             
             self.present(errorVC, animated: true, completion: nil)
-            #endif
             
             self.highlight(at: lineNumber-1, with: errorColor.withAlphaComponent(0.5))
         }

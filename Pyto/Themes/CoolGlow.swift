@@ -62,8 +62,6 @@ struct CoolGlowSourceCodeTheme: SourceCodeTheme {
 
 // MARK: - Theme
 
-#if os(iOS)
-
 /// The Cool Glow theme.
 struct CoolGlowTheme: Theme {
     
@@ -77,5 +75,3 @@ struct CoolGlowTheme: Theme {
         return Color(displayP3Red: 175/255, green: 127/255, blue: 196/255, alpha: 1)
     }
 }
-
-#endif

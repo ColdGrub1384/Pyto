@@ -8,21 +8,19 @@
 //
 
 import Foundation
-#if MAIN && os(iOS)
+#if MAIN
 #elseif os(iOS) && !WIDGET
 @_silgen_name("PyRun_SimpleStringFlags")
 func PyRun_SimpleStringFlags(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Any>!)
 
 @_silgen_name("Py_DecodeLocale")
 func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> UnsafeMutablePointer<wchar_t>
-#elseif os(macOS)
-import Cocoa
 #endif
 
 /// A class for interacting with `Cpython`
 @objc public class Python: NSObject {
     
-    #if !MAIN && os(iOS)
+    #if !MAIN
     /// Throws a fatal error.
     ///
     /// - Parameters:
@@ -37,12 +35,13 @@ import Cocoa
     
     private override init() {}
     
-    #if os(iOS)
     /// The bundle containing all Python resources.
     @objc var bundle: Bundle {
         if Bundle.main.bundleIdentifier?.hasSuffix(".ada.Pyto") == true || Bundle.main.bundleIdentifier?.hasSuffix(".ada.Pyto.Pyto-Widget") == true {
             return Bundle(identifier: "ch.ada.Python")!
         } else if let bundle = Bundle(path: Bundle.main.path(forResource: "Python.framework", ofType: nil) ?? "") {
+            return bundle
+        } else if let bundle = Bundle(path: ((Bundle.main.privateFrameworksPath ?? "") as NSString).appendingPathComponent("Python.framework")) {
             return bundle
         } else {
             return Bundle(for: Python.self)
@@ -64,8 +63,6 @@ import Cocoa
     /// The thread running current thread.
     @objc var currentRunningThreadID = -1
     
-    #endif
-    
     /// All the Python output.
     public var output = ""
     
@@ -77,9 +74,7 @@ import Cocoa
     
     /// The arguments to pass to scripts.
     @objc public var args = [String]()
-    
-    #if os(iOS)
-    
+
     /// A class representing a script to run.
     @objc public class Script: NSObject {
         
@@ -133,7 +128,6 @@ import Cocoa
     /// The path of the scripts running.
     @objc public var runningScripts = [String]() {
         didSet {
-            #if os(iOS)
             DispatchQueue.main.async {
                 #if MAIN
                 
@@ -164,13 +158,6 @@ import Cocoa
                 }
                 #endif
             }
-            #elseif os(macOS)
-            if !isScriptRunning && process?.isRunning == true {
-                process?.terminate()
-            }
-            
-            EditorViewController.toggleStopButton()
-            #endif
         }
     }
     
@@ -243,171 +230,7 @@ import Cocoa
             #endif
         }
     }
-    #endif
-    
-    #if os(macOS)
-    
-    /// Pipe used for standard input.
-    var inputPipe = Pipe()
-    
-    /// Pipe used for standard output.
-    var outputPipe = Pipe()
-    
-    /// The process running Python.
-    var process: Process?
-    
-    /// The Python executable URL.
-    var pythonExecutable: URL {
-        get {
-            return UserDefaults.standard.url(forKey: "pythonExecutable") ?? bundledPythonExecutable
-        }
-        
-        set {
-            UserDefaults.standard.set(newValue, forKey: "pythonExecutable")
-        }
-    }
-    
-    /// The bundled Python executable URL.
-    let bundledPythonExecutable = Bundle.main.url(forResource: "python", withExtension: "bundle")!.appendingPathComponent("python3")
-    
-    /// Run script at given URL in a subprocess.
-    ///
-    /// - Parameters:
-    ///     - url: URL of the Python script to run.
-    @objc public func runScript(at url: URL) {
-        
-        setup()
-        
-        guard let startupURL = Bundle(for: Python.self).url(forResource: "Startup", withExtension: "py"), let src = try? String(contentsOf: startupURL) else {
-            return
-        }
-        
-        guard let code = String(format: src, url.path).data(using: .utf8) else {
-            return
-        }
-        
-        let tmpFile = NSTemporaryDirectory()+"/script.py"
-        
-        if FileManager.default.fileExists(atPath: tmpFile) {
-            try? FileManager.default.removeItem(atPath: tmpFile)
-        }
-        
-        FileManager.default.createFile(atPath: tmpFile, contents: code, attributes: [:])
-        
-        if process?.isRunning == true {
-            process?.terminate()
-            process?.standardOutput = nil
-            process?.standardError = nil
-            process?.standardInput = nil
-        }
-        
-        // Only for bundled Python
-        let pythonPath: String
-        if pythonExecutable == bundledPythonExecutable {
-            pythonPath = [
-                Bundle.main.path(forResource: "python3.7", ofType: nil) ?? "",
-                Bundle.main.path(forResource: "site-packages", ofType: nil) ?? "",
-                Bundle.main.resourcePath ?? "",
-                url.deletingLastPathComponent().path,
-                sitePackagesDirectory,
-                ].joined(separator: ":")
-        } else {
-            pythonPath = [
-                url.deletingLastPathComponent().path,
-                sitePackagesDirectory,
-                ].joined(separator: ":")
-        }
-        
-        inputPipe = Pipe()
-        outputPipe = Pipe()
-        
-        func read(handle: FileHandle) {
-            guard let str = String(data: handle.availableData, encoding: .utf8), !str.isEmpty else {
-                return
-            }
-            
-            DispatchQueue.main.async {
-                for window in NSApp.windows {
-                    if let editor = window.contentViewController as? EditorViewController, !(editor is REPLViewController) {
-                        
-                        if str.hasPrefix("Pyto.error_at_line;"), (editor.document?.fileURL == url || editor.temporaryFileURL == url) {
-                            let components = str.components(separatedBy: ";")
-                            guard components.indices.contains(1), let lineNum = Int(components[1]) else {
-                                continue
-                            }
-                            editor.showErrorAtLine(lineNum)
-                        } else if str == "Pyto.console.clear" || str == "Pyto.console.clear\n" {
-                            editor.consoleTextView?.string = ""
-                            editor.console = ""
-                        } else {
-                            var text = str
-                            if let iCloudDrive = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents").path {
-                                text = text.replacingOccurrences(of: iCloudDrive, with: "iCloud")
-                            }
-                            
-                            text = text.replacingOccurrences(of: Bundle.main.bundlePath, with: "Pyto.app")
-                            
-                            editor.consoleTextView?.string += text
-                            editor.console += text
-                            editor.consoleTextView?.scrollToBottom()
-                        }
-                    }
-                }
-            }
-        }
-        
-        outputPipe.fileHandleForReading.readabilityHandler = read
-        
-        process = Process()
-        process?.executableURL = pythonExecutable
-        process?.arguments = ["-u", tmpFile]
-        
-        var environment                              = ProcessInfo.processInfo.environment
-        environment["TMP"]                           = NSTemporaryDirectory()
-        environment["MPLBACKEND"]                    = "TkAgg"
-        environment["NSUnbufferedIO"]                = "YES"
-        environment["PYTHONUNBUFFERED"]              = "1"
-        environment["PIP_DISABLE_PIP_VERSION_CHECK"] = "1"
-        environment["PIP_TARGET"]                    = sitePackagesDirectory
-        environment["PYTHONPATH"]                    = pythonPath
-        if pythonExecutable                          == bundledPythonExecutable {
-            environment["PYTHONHOME"]                = Bundle.main.resourcePath ?? ""
-        }
-        process?.environment                         = environment
-        
-        process?.terminationHandler = { _ in
-            self.isScriptRunning = false
-        }
-        process?.standardOutput = outputPipe
-        process?.standardError = outputPipe
-        process?.standardInput = inputPipe
-        isScriptRunning = true
-        
-        EditorViewController.clear()
-        
-        do {
-            try process?.run()
-        } catch {
-            NSApp.presentError(error)
-        }
-    }
-    
-    /// Setups Python executable and C extensions. Should be called before running any script.
-    func setup() {
-        
-        DispatchQueue.global().async {
-            if !FileManager.default.fileExists(atPath: sitePackagesDirectory) {
-                try? FileManager.default.createDirectory(at: URL(fileURLWithPath: sitePackagesDirectory), withIntermediateDirectories: true, attributes: nil)
-            }
-            
-            unzipFile(at: zippedSitePackages ?? "", to: sitePackagesDirectory)
-        }
-    }
-    
-    #endif
-    
-    #if os(iOS)
-    
+
     /// Sends `SystemExit`.
     ///
     /// - Parameters:
@@ -427,9 +250,7 @@ import Cocoa
             scriptsToInterrupt.append(script)
         }
     }
-    
-    #endif
-    
+
     /// Checks if a script is currently running.
     ///
     /// - Parameters:

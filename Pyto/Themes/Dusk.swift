@@ -62,8 +62,6 @@ struct DuskSourceCodeTheme: SourceCodeTheme {
 
 // MARK: - Theme
 
-#if os(iOS)
-
 /// The Dusk theme.
 struct DuskTheme: Theme {
     
@@ -73,5 +71,3 @@ struct DuskTheme: Theme {
     
     let sourceCodeTheme: SourceCodeTheme = DuskSourceCodeTheme()
 }
-
-#endif

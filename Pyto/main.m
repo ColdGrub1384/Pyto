@@ -77,7 +77,7 @@ void init_numpy() {
 
 // MARK: - Matplotlib
 
-void init_matplotlib(){
+void init_matplotlib() {
     NSURL *mpl_data = [[NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask].firstObject URLByAppendingPathComponent:@"mpl-data"];
     
     [NSFileManager.defaultManager removeItemAtPath:mpl_data.path error:NULL];
@@ -166,6 +166,24 @@ int main(int argc, char *argv[]) {
 void init_python() {
 #endif
     
+    NSBundle *macPythonBundle = [NSBundle bundleWithPath:[NSBundle.mainBundle pathForResource:@"Python3" ofType:@"framework"]];
+    NSBundle *_scproxy_bundle = [NSBundle bundleWithPath:[NSBundle.mainBundle pathForResource:@"_scproxy" ofType:@"framework"]];
+    if (macPythonBundle) {
+        void *handle = dlopen([macPythonBundle pathForResource:@"Versions/A/Python3_Mac" ofType:NULL].UTF8String, RTLD_GLOBAL);
+        if (!handle) {
+            fprintf(stderr, "%s\n", dlerror());
+        }
+    }
+    if (_scproxy_bundle) {
+        void *handle = dlopen([_scproxy_bundle pathForResource:@"Versions/A/_scproxy.cpython-37m-darwin.so" ofType:NULL].UTF8String, RTLD_GLOBAL);
+        
+        if (!handle) {
+            fprintf(stderr, "%s\n", dlerror());
+        }
+        
+        PyImport_AppendInittab("_scproxy", dlsym(handle, "PyInit__scproxy"));
+    }
+    
     // MARK: - Init builtins
     #if MAIN
     init_numpy();
@@ -173,17 +191,17 @@ void init_python() {
     init_pandas();
     #endif
     
-    NSString *pythonHome = Python.shared.bundle.bundlePath;
+    NSBundle *pythonBundle = Python.shared.bundle;
     // MARK: - Python env variables
     putenv("PYTHONOPTIMIZE=");
     putenv("PYTHONDONTWRITEBYTECODE=1");
     putenv((char *)[[NSString stringWithFormat:@"TMP=%@", NSTemporaryDirectory()] UTF8String]);
-    putenv((char *)[[NSString stringWithFormat:@"PYTHONHOME=%@", pythonHome] UTF8String]);
-    putenv((char *)[[NSString stringWithFormat:@"PYTHONPATH=%@:%@", [mainBundle() pathForResource:@"site-packages" ofType:NULL],
-                     [pythonHome stringByAppendingPathComponent:@"python37.zip"]] UTF8String]);
+    putenv((char *)[[NSString stringWithFormat:@"PYTHONHOME=%@", pythonBundle.bundlePath] UTF8String]);
+    putenv((char *)[[NSString stringWithFormat:@"PYTHONPATH=%@:%@:%@", [mainBundle() pathForResource:@"site-packages" ofType:NULL],
+                     [pythonBundle pathForResource:@"python37" ofType:NULL], [pythonBundle pathForResource:@"python37.zip" ofType:NULL]] UTF8String]);
     
     // MARK: - Init Python
-    Py_SetPythonHome(Py_DecodeLocale([pythonHome UTF8String], NULL));
+    Py_SetPythonHome(Py_DecodeLocale([pythonBundle.bundlePath UTF8String], NULL));
     Py_Initialize();
     PyEval_InitThreads();
     

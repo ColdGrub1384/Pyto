@@ -62,8 +62,6 @@ struct SolarizedDarkSourceCodeTheme: SourceCodeTheme {
 
 // MARK: - Theme
 
-#if os(iOS)
-
 /// The Cool Glow theme.
 struct SolarizedDarkTheme: Theme {
     
@@ -73,5 +71,3 @@ struct SolarizedDarkTheme: Theme {
     
     let sourceCodeTheme: SourceCodeTheme = SolarizedDarkSourceCodeTheme()
 }
-
-#endif
