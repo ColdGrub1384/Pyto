@@ -281,10 +281,22 @@ class EditorSplitViewController: SplitViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        if #available(iOS 13.0, *) {
+            view.window?.windowScene?.title = editor.document?.fileURL.deletingPathExtension().lastPathComponent
+        }
+        
         willTransition(to: traitCollection, with: ViewControllerTransitionCoordinator())
         justShown = false
         
         removeGestures()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if #available(iOS 13.0, *) {
+            view.window?.windowScene?.title = ""
+        }
     }
     
     override func viewDidLayoutSubviews() {
