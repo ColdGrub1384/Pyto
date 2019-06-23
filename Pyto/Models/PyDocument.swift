@@ -20,6 +20,9 @@ enum PyDocumentError: Error {
     /// The text of the Python script to save.
     @objc var text = ""
     
+    /// The editor that is editing this document.
+    var editor: EditorViewController?
+    
     /// Checks for conflicts and presents an alert if needed.
     ///
     /// - Parameters:
@@ -84,6 +87,21 @@ enum PyDocumentError: Error {
             try load(contents: contents)
         } catch {
             throw error
+        }
+    }
+    
+    // MARK: - File presenter
+    
+    override func presentedItemDidChange() {
+        super.presentedItemDidChange()
+        
+        if let data = try? Data(contentsOf: fileURL) {
+            try? load(fromContents: data, ofType: "public.python-script")
+            DispatchQueue.main.async {
+                if self.editor?.textView.text != self.text {
+                    self.editor?.textView.text = self.text
+                }
+            }
         }
     }
 }
