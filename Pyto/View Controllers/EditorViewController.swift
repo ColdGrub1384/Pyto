@@ -101,7 +101,18 @@ fileprivate func parseArgs(_ args: inout [String]) {
     let textView = SyntaxTextView()
     
     /// The document to be edited.
-    @objc var document: PyDocument?
+    @objc var document: PyDocument? {
+        didSet {
+            
+            loadViewIfNeeded()
+            
+            document?.editor = self
+            
+            textView.contentTextView.isEditable = !(document?.documentState == .editingDisabled)
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(stateChanged(_:)), name: UIDocument.stateChangedNotification, object: document)
+        }
+    }
     
     /// Returns `true` if the opened file is a sample.
     var isSample: Bool {
@@ -116,8 +127,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     /// A Navigation controller containing the documentation.
     var documentationNavigationController: UINavigationController?
-    
-    private var isSaving = false
     
     private var isDocOpened = false
     
@@ -178,7 +187,17 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// Set to `true` before presenting to run the code.
     var shouldRun = false
     
-    private var originalText: String?
+    /// Handles state changes on a document..
+    @objc func stateChanged(_ notification: Notification) {
+        textView.contentTextView.isEditable = !(document?.documentState == .editingDisabled)
+        
+        document?.checkForConflicts(onViewController: self, completion: {
+            if let doc = self.document, let data = try? Data(contentsOf: doc.fileURL) {
+                try? doc.load(fromContents: data, ofType: "public.python-script")
+                self.textView.text = doc.text
+            }
+        })
+    }
     
     /// Initialize with given document.
     ///
@@ -187,6 +206,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     init(document: PyDocument) {
         super.init(nibName: nil, bundle: nil)
         self.document = document
+        self.document?.editor = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -355,7 +375,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
             let path = doc.fileURL.path
             
             self.textView.text = document?.text ?? ""
-            self.originalText = document?.text
             
             if !FileManager.default.isWritableFile(atPath: doc.fileURL.path) {
                 self.navigationItem.leftBarButtonItem = nil
@@ -437,6 +456,12 @@ fileprivate func parseArgs(_ args: inout [String]) {
         if #available(iOS 13.0, *) {
             view.window?.windowScene?.title = document?.fileURL.deletingPathExtension().lastPathComponent
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        save()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -922,19 +947,21 @@ fileprivate func parseArgs(_ args: inout [String]) {
     ///     - completion: The code executed when the file was saved. A boolean indicated if the file was successfully saved is passed.
     @objc func save(completion: ((Bool) -> Void)? = nil) {
         
-        guard document?.text != originalText else {
-            completion?(true)
-            return
-        }
-        
         guard document != nil else {
             completion?(false)
             return
         }
         
+        guard document?.text != textView.text else {
+            completion?(true)
+            return
+        }
+        
         document?.text = textView.text
         
-        document?.save(to: document!.fileURL, for: .forOverwriting, completionHandler: completion)
+        if document?.documentState != UIDocument.State.editingDisabled {
+            document?.save(to: document!.fileURL, for: .forOverwriting, completionHandler: completion)
+        }
     }
     
     /// The View controller is closed and the document is saved.
@@ -1189,6 +1216,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
             textView.contentInset.top = findBarHeight
             textView.contentTextView.verticalScrollIndicatorInsets.top = findBarHeight
         }
+        
+        save()
     }
     
     // MARK: - Text view delegate
@@ -1260,7 +1289,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
             UIMenuController.shared.menuItems?.insert(UIMenuItem(title: Localizable.MenuItems.undo, action: #selector(EditorViewController.undo)), at: 0)
         }
         
-        document?.text = textView.text
         return self.textView.textViewDidChange(textView)
     }
     
@@ -1561,16 +1589,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     // MARK: - Syntax text view delegate
 
-    func didChangeText(_ syntaxTextView: SyntaxTextView) {
-        if !isSaving {
-            isSaving = true
-            DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                self.save { (_) in
-                    self.isSaving = false
-                }
-            }
-        }
-    }
+    func didChangeText(_ syntaxTextView: SyntaxTextView) {}
     
     func didChangeSelectedRange(_ syntaxTextView: SyntaxTextView, selectedRange: NSRange) {}
     
