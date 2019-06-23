@@ -78,7 +78,9 @@ import UIKit
         super.viewDidAppear(animated)
         
         if #available(iOS 13.0, *) {
+            #if targetEnvironment(UIKitForMac)
             view.window?.windowScene?.titlebar?.titleVisibility = .hidden
+            #endif
             view.window?.windowScene?.title = title
         }
     }
@@ -137,7 +139,9 @@ import UIKit
                 } else {
                     let docBrowser = DocumentBrowserViewController()
                     SceneDelegate.viewControllerToShow = docBrowser
-                    UIApplication.shared.requestSceneSessionActivation(nil, userActivity: nil, options: nil, errorHandler: nil)
+                    if #available(iOS 13.0, *) {
+                        UIApplication.shared.requestSceneSessionActivation(nil, userActivity: nil, options: nil, errorHandler: nil)
+                    }
                     DispatchQueue.main.asyncAfter(deadline: .now()+1) {
                         docBrowser.openDocument(url, run: false)
                     }
