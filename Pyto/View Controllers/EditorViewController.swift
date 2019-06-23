@@ -452,10 +452,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
         super.viewDidAppear(animated)
         
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
-        
-        if #available(iOS 13.0, *) {
-            view.window?.windowScene?.title = document?.fileURL.deletingPathExtension().lastPathComponent
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -1589,7 +1585,24 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     // MARK: - Syntax text view delegate
 
-    func didChangeText(_ syntaxTextView: SyntaxTextView) {}
+    func didChangeText(_ syntaxTextView: SyntaxTextView) {
+        if #available(iOS 13.0, *) {
+            for scene in UIApplication.shared.connectedScenes {
+                
+                guard scene != view.window?.windowScene else {
+                    continue
+                }
+                
+                let editor = (((scene.delegate as? UIWindowSceneDelegate)?.window??.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor
+                
+                guard editor?.textView.text != syntaxTextView.text else {
+                    continue
+                }
+                
+                editor?.textView.text = syntaxTextView.text
+            }
+        }
+    }
     
     func didChangeSelectedRange(_ syntaxTextView: SyntaxTextView, selectedRange: NSRange) {}
     
