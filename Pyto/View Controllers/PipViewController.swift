@@ -127,7 +127,9 @@ import WebKit
         super.viewDidAppear(animated)
         
         if #available(iOS 13.0, *) {
+            #if targetEnvironment(UIKitForMac)
             view.window?.windowScene?.titlebar?.titleVisibility = .hidden
+            #endif
             view.window?.windowScene?.title = title
         }
     }

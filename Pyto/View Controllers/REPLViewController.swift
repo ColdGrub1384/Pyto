@@ -103,7 +103,9 @@ import UIKit
         
         if #available(iOS 13.0, *) {
             view.window?.windowScene?.title = title
+            #if targetEnvironment(UIKitForMac)
             view.window?.windowScene?.titlebar?.titleVisibility = .hidden
+            #endif
         }
     }
     

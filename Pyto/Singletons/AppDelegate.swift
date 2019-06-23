@@ -114,6 +114,25 @@ import SafariServices
         return true
     }
     
+    public func applicationWillResignActive(_ application: UIApplication) {
+        guard #available(iOS 13.0, *) else {
+            ((window?.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor.save()
+            return
+        }
+    }
+    
+    public func applicationDidEnterBackground(_ application: UIApplication) {
+        ((window?.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor.save()
+    }
+    
+    @available(iOS 13.0, *)
+    public func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
+        
+        for session in sceneSessions {
+            (((session.scene?.delegate as? UIWindowSceneDelegate)?.window??.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor.save()
+        }
+    }
+    
     #if MAIN
         
     public func applicationWillTerminate(_ application: UIApplication) {

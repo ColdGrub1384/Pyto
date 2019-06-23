@@ -74,8 +74,6 @@ import UIKit
             return
         }
         
-        window?.isOpaque = false
-        window?.backgroundColor = .clear
         #if !targetEnvironment(UIKitForMac)
         window?.tintColor = ConsoleViewController.choosenTheme.tintColor
         #else
@@ -143,6 +141,16 @@ import UIKit
         } else {
             runScript()
         }
+    }
+    
+    @available(iOS 13.0, *)
+    func sceneDidDisconnect(_ scene: UIScene) {
+        ((window?.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor.save()
+    }
+    
+    @available(iOS 13.0, *)
+    func sceneDidEnterBackground(_ scene: UIScene) {
+        ((window?.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor.save()
     }
     
     @available(iOS 13.0, *)
