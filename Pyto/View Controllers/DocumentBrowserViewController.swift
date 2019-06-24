@@ -90,7 +90,7 @@ import SavannaKit
         }
         
         DocumentBrowserViewController.splitVCs.append(splitVC)
-        let navVC = UINavigationController(rootViewController: splitVC)
+        let navVC = EditorSplitViewController.NavigationController(rootViewController: splitVC)
         navVC.modalPresentationStyle = .fullScreen
         
         if EditorSplitViewController.shouldShowSeparator {

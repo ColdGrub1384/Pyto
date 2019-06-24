@@ -69,5 +69,9 @@ struct SunsetTheme: Theme {
     
     let barStyle: UIBarStyle = .default
     
+    var userInterfaceStyle: UIUserInterfaceStyle {
+        return .light
+    }
+    
     let sourceCodeTheme: SourceCodeTheme = SunsetSourceCodeTheme()
 }

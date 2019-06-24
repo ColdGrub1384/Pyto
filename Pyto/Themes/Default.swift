@@ -16,6 +16,10 @@ struct DefaultTheme: Theme {
         return (UIApplication.shared.keyWindow?.traitCollection.userInterfaceStyle == .dark ? .dark : .default)
     }
     
+    var userInterfaceStyle: UIUserInterfaceStyle {
+        return .unspecified
+    }
+    
     let barStyle: UIBarStyle = .default
     
     var sourceCodeTheme: SourceCodeTheme {

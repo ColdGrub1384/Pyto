@@ -7,7 +7,6 @@
 //
 
 import SourceEditor
-
 import UIKit
 
 /// A protocol for implementing an editor and console theme.
@@ -21,6 +20,9 @@ protocol Theme {
     
     /// The source code theme type.
     var sourceCodeTheme: SourceCodeTheme { get }
+    
+    /// The user interface style applied to the editor and the console.
+    var userInterfaceStyle: UIUserInterfaceStyle { get }
     
     /// The tint color of the interface.
     var tintColor: UIColor? { get }

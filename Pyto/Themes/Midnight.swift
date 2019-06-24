@@ -69,5 +69,9 @@ struct MidnightTheme: Theme {
     
     let barStyle: UIBarStyle = .black
     
+    var userInterfaceStyle: UIUserInterfaceStyle {
+        return .dark
+    }
+    
     let sourceCodeTheme: SourceCodeTheme = MidnightSourceCodeTheme()
 }

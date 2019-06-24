@@ -71,6 +71,10 @@ struct CoolGlowTheme: Theme {
     
     let sourceCodeTheme: SourceCodeTheme = CoolGlowSourceCodeTheme()
     
+    var userInterfaceStyle: UIUserInterfaceStyle {
+        return .dark
+    }
+    
     var tintColor: UIColor? {
         return Color(displayP3Red: 175/255, green: 127/255, blue: 196/255, alpha: 1)
     }
