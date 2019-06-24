@@ -71,6 +71,10 @@ struct WWDC16Theme: Theme {
     
     let sourceCodeTheme: SourceCodeTheme = WWDC16SourceCodeTheme()
     
+    var userInterfaceStyle: UIUserInterfaceStyle {
+        return .dark
+    }
+    
     var tintColor: UIColor? {
         return sourceCodeTheme.color(for: .identifier)
     }

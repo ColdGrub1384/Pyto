@@ -401,4 +401,29 @@ class EditorSplitViewController: SplitViewController {
             return UIImage(named: "Debug") ?? UIImage()
         }
     }
+    
+    // MARK: - Navigation controller
+    
+    /// A Navigation controller that has the user interface style of the selected theme.
+    class NavigationController: UINavigationController {
+        
+        @objc private func themeDidChange(_ notification: Notification) {
+            if #available(iOS 13.0, *) {
+                if ConsoleViewController.choosenTheme.userInterfaceStyle != .unspecified {
+                    overrideUserInterfaceStyle = ConsoleViewController.choosenTheme.userInterfaceStyle
+                }
+            }
+        }
+        
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            
+            if #available(iOS 13.0, *) {
+                if ConsoleViewController.choosenTheme.userInterfaceStyle != .unspecified {
+                    overrideUserInterfaceStyle = ConsoleViewController.choosenTheme.userInterfaceStyle
+                }
+                NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
+            }
+        }
+    }
 }

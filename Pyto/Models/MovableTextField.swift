@@ -43,7 +43,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             ]+(UIApplication.shared.statusBarOrientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])
         
         textField.keyboardAppearance = theme.keyboardAppearance
-        if toolbar.traitCollection.userInterfaceStyle == .dark {
+        if console.traitCollection.userInterfaceStyle == .dark {
             textField.keyboardAppearance = .dark
         }
         if textField.keyboardAppearance == .dark {
