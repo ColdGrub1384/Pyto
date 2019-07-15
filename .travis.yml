@@ -4,20 +4,22 @@
 
 group: travis_latest
 os: osx
-osx_image: xcode10.2
+osx_image: xcode11
 language: objective-c
 xcode_project: Pyto.xcodeproj
 xcode_workspace: Pyto.xcworkspace
 # xcode_scheme: MyNewProjectTests
-xcode_destination: platform=iOS Simulator,OS=12.2,name=iPad Pro (9.7-inch)
+xcode_destination: platform=iOS Simulator,OS=13.0,name=iPad Pro (9.7-inch)
 # xcode_sdk: iphonesimulatorX.Y
 
 before_install:
+  - sw_vers
   # - brew upgrade python swiftlint
-  - python3.7 -m pip install --upgrade pip
+  - python3 --version ; pip3 --version
+  - pip3 install --upgrade pip
 install:
-  # - python3.7 -m pip install -r requirements.txt
-  - python3.7 -m pip install flake8
+  # - pip3 install -r requirements.txt
+  - pip3 install flake8
 
 before_script:
   - EXCLUDE=./.*,./Pyto_Mac/mac-site-packages,./Pyto_Mac/pip,./Pyto_Mac/PyObjC,./site-packages
