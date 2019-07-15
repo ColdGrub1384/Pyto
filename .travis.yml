@@ -16,10 +16,10 @@ before_install:
   - sw_vers
   # - brew upgrade python swiftlint
   - python3 --version ; pip3 --version
-  - python3 -m pip install --upgrade pip
+  - pip3 install --upgrade pip
 install:
-  # - python3.7 -m pip install -r requirements.txt
-  - python3 -m pip install flake8
+  # - pip3 install -r requirements.txt
+  - pip3 install flake8
 
 before_script:
   - EXCLUDE=./.*,./Pyto_Mac/mac-site-packages,./Pyto_Mac/pip,./Pyto_Mac/PyObjC,./site-packages
