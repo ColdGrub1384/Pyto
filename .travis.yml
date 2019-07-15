@@ -4,12 +4,12 @@
 
 group: travis_latest
 os: osx
-osx_image: xcode10.2
+osx_image: xcode11
 language: objective-c
 xcode_project: Pyto.xcodeproj
 xcode_workspace: Pyto.xcworkspace
 # xcode_scheme: MyNewProjectTests
-xcode_destination: platform=iOS Simulator,OS=12.2,name=iPad Pro (9.7-inch)
+xcode_destination: platform=iOS Simulator,OS=13.0,name=iPad Pro (9.7-inch)
 # xcode_sdk: iphonesimulatorX.Y
 
 before_install:
