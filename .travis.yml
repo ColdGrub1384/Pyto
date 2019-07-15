@@ -15,12 +15,11 @@ xcode_destination: platform=iOS Simulator,OS=13.0,name=iPad Pro (9.7-inch)
 before_install:
   - sw_vers
   # - brew upgrade python swiftlint
-  - python3 -V || true
-  - python3.7 -V || true
-  - python3.7 -m pip install --upgrade pip
+  - python3 --version ; pip3 --version
+  - python3 -m pip install --upgrade pip
 install:
   # - python3.7 -m pip install -r requirements.txt
-  - python3.7 -m pip install flake8
+  - python3 -m pip install flake8
 
 before_script:
   - EXCLUDE=./.*,./Pyto_Mac/mac-site-packages,./Pyto_Mac/pip,./Pyto_Mac/PyObjC,./site-packages
