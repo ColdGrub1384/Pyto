@@ -450,7 +450,6 @@
 		C9C0E77221EE9F4B0057C63E /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E77121EE9F4B0057C63E /* Theme.swift */; };
 		C9C0E77821EEA9BE0057C63E /* XcodeDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E77721EEA9BE0057C63E /* XcodeDark.swift */; };
 		C9C0E77A21EF65BE0057C63E /* ThemableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E77921EF65BE0057C63E /* ThemableNavigationController.swift */; };
-		C9C0E77F21EF71E30057C63E /* Dusk.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E77E21EF71E30057C63E /* Dusk.swift */; };
 		C9C0E78121EF735F0057C63E /* LowKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E78021EF735F0057C63E /* LowKey.swift */; };
 		C9C0E78321EF75080057C63E /* Midnight.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E78221EF75080057C63E /* Midnight.swift */; };
 		C9C0E78521EF764F0057C63E /* Sunset.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E78421EF764F0057C63E /* Sunset.swift */; };
@@ -493,6 +492,7 @@
 		C9CEF4B222AC8DD300B1916D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CEF4B122AC8DD300B1916D /* SceneDelegate.swift */; };
 		C9CF40AF2242DECF0076B627 /* PipInstallerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CF40AE2242DECF0076B627 /* PipInstallerViewController.swift */; };
 		C9D2AA762215A503006AF527 /* EditorViewController+highlighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D2AA752215A503006AF527 /* EditorViewController+highlighting.swift */; };
+		C9D3586A22EB7A3400F0B9E8 /* Dusk.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D3586922EB7A3400F0B9E8 /* Dusk.swift */; };
 		C9DF71062171768A00981B4F /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C943AC3D215277A000844368 /* Python.framework */; };
 		C9DF71072171768A00981B4F /* Python.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C943AC3D215277A000844368 /* Python.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9E016ED22823186002DF4CA /* EditorScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E016EC22823186002DF4CA /* EditorScript.swift */; };
@@ -2035,7 +2035,6 @@
 		C9C0E77121EE9F4B0057C63E /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		C9C0E77721EEA9BE0057C63E /* XcodeDark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeDark.swift; sourceTree = "<group>"; };
 		C9C0E77921EF65BE0057C63E /* ThemableNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemableNavigationController.swift; sourceTree = "<group>"; };
-		C9C0E77E21EF71E30057C63E /* Dusk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dusk.swift; sourceTree = "<group>"; };
 		C9C0E78021EF735F0057C63E /* LowKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowKey.swift; sourceTree = "<group>"; };
 		C9C0E78221EF75080057C63E /* Midnight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Midnight.swift; sourceTree = "<group>"; };
 		C9C0E78421EF764F0057C63E /* Sunset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sunset.swift; sourceTree = "<group>"; };
@@ -2056,6 +2055,7 @@
 		C9CEF4B122AC8DD300B1916D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C9CF40AE2242DECF0076B627 /* PipInstallerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipInstallerViewController.swift; sourceTree = "<group>"; };
 		C9D2AA752215A503006AF527 /* EditorViewController+highlighting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorViewController+highlighting.swift"; sourceTree = "<group>"; };
+		C9D3586922EB7A3400F0B9E8 /* Dusk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dusk.swift; sourceTree = "<group>"; };
 		C9D6DEFD221059F900D7EF55 /* CodeCompletionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeCompletionViewItem.swift; sourceTree = "<group>"; };
 		C9D6DEFE221059F900D7EF55 /* CodeCompletionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CodeCompletionViewItem.xib; sourceTree = "<group>"; };
 		C9E016EC22823186002DF4CA /* EditorScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorScript.swift; sourceTree = "<group>"; };
@@ -2703,7 +2703,6 @@
 				C9592D1521D0592C00412CEF /* ViewControllerTransitionCoordinator.swift */,
 				C9E016EC22823186002DF4CA /* EditorScript.swift */,
 				C9592D1721D0592C00412CEF /* Localizable.swift */,
-				C9C0E77E21EF71E30057C63E /* Dusk.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3130,6 +3129,7 @@
 				C9C0E78621EF781F0057C63E /* Basic.swift */,
 				C9592D1621D0592C00412CEF /* XcodeLight.swift */,
 				C9C0E77721EEA9BE0057C63E /* XcodeDark.swift */,
+				C9D3586922EB7A3400F0B9E8 /* Dusk.swift */,
 				C9C0E78021EF735F0057C63E /* LowKey.swift */,
 				C9C0E78221EF75080057C63E /* Midnight.swift */,
 				C9C0E78421EF764F0057C63E /* Sunset.swift */,
@@ -4063,6 +4063,7 @@
 				C9B5D87021F20ECC00E980BA /* MarkdownSplitViewController.swift in Sources */,
 				C921EF7821ECC388004C750D /* ActivityViewController.swift in Sources */,
 				C9425A7B21F49B8400E7CC35 /* PySelector.swift in Sources */,
+				C9D3586A22EB7A3400F0B9E8 /* Dusk.swift in Sources */,
 				C954FAB9220A2BB00060C488 /* ReplaceView.swift in Sources */,
 				C9D2AA762215A503006AF527 /* EditorViewController+highlighting.swift in Sources */,
 				C92DBD8221F687480098BE43 /* REPLViewController.swift in Sources */,
@@ -4097,7 +4098,6 @@
 				C9E016F122823E30002DF4CA /* EditorActionsTableViewController.swift in Sources */,
 				C99D8E20223E960100489E9B /* PipViewController.swift in Sources */,
 				C909A19C2267E6E30058C145 /* UIViewController.swift in Sources */,
-				C9C0E77F21EF71E30057C63E /* Dusk.swift in Sources */,
 				C9592D1A21D0592C00412CEF /* XcodeLight.swift in Sources */,
 				C9FCFD5B214428AE00A07974 /* EditorViewController.swift in Sources */,
 				C903986922D2CF2600FAD834 /* PyImageView.swift in Sources */,
