@@ -1,7 +1,8 @@
-from pyto import Python
+from pyto import Python, PyOutputHelper, ConsoleViewController
 from time import sleep
 from console import run_script
 import threading
+import traceback
 import stopit
 
 def raise_exception(script, exception):
@@ -31,7 +32,9 @@ while True:
         if code == Python.shared.codeToRun:
             Python.shared.codeToRun = None
     except:
-        pass
+        error = traceback.format_exc()
+        PyOutputHelper.printError(error, script=None)
+        Python.shared.codeToRun = None
     
     if Python.shared.scriptToRun != None:
         
@@ -52,5 +55,8 @@ while True:
         raise_exception(str(script), KeyboardInterrupt)
     if Python.shared.scriptsToInterrupt.count != 0:
         Python.shared.scriptsToInterrupt = []
-    
-    sleep(0.2)
+
+    if ConsoleViewController.isPresentingView:
+        sleep(0.02)
+    else:
+        sleep(0.2)
