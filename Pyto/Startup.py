@@ -114,14 +114,14 @@ webbrowser.register("mobile-safari", None, MobileSafari("MobileSafari.app"))
 
 # MARK: - Modules
 
-for importer in (NumpyImporter, MatplotlibImporter, PandasImporter):
+for importer in (NumpyImporter, MatplotlibImporter, PandasImporter, PillowImporter):
     sys.meta_path.insert(0, importer())
 
 # MARK: - Pre-import modules
 
 def importModules():
     try:
-        import matplotlib, numpy, pandas
+        import matplotlib, numpy, pandas, PIL
     except:
         pass
 
@@ -134,7 +134,7 @@ __builtins__.Target = pyto.SelectorTarget.shared
 
 # MARK: - Deprecations
 
-__builtins__.deprecated = ["runAsync", "runSync", "generalPasteboard", "setString", "setStrings", "setImage", "setImages", "setURL", "setURLs", "showViewController", "closeViewController", "mainLoop", "openURL", "shareItems", "pickDocumentsWithFilePicker", "_get_variables_hierarchy"]
+__builtins__.deprecated = []
 
 # MARK: - Pip bundled modules
 
@@ -169,9 +169,10 @@ _signal.signal = signal
 
 # MARK: - Run script
 
+pyto.Python.shared.isSetup = True
+
 while True:
     try:
-        pyto.Python.shared.isSetup = True
         SourceFileLoader("main", "%@").load_module()
     except Exception as e:
         print(e)
