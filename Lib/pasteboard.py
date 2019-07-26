@@ -12,7 +12,7 @@ from typing import List
 NSURL = ObjCClass("NSURL")
 
 def general_pasteboard():
-    return UIPasteboard.generalPasteboard
+    return __UIPasteboard__.generalPasteboard
 
 # MARK: - Text
 
