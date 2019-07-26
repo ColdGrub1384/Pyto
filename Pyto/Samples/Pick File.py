@@ -5,8 +5,8 @@ This script is an example of how importing files from other apps.
 import sharing
 
 filePicker = sharing.FilePicker()
-filePicker.fileTypes = ["public.data"]  # UTI types to import
-filePicker.allowsMultipleSelection = True  # Or `False` to import just one file
+filePicker.file_types = ["public.data"]  # UTI types to import
+filePicker.allows_multiple_selection = True  # Or `False` to import just one file
 
 
 def files_picked() -> None:
