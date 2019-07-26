@@ -1044,6 +1044,33 @@ class Color:
     
     __py_color__ = None
     
+    def red(self) -> Color:
+        """
+        Returns the red value of the color.
+        
+        :rtype: Color
+        """
+        
+        return self.__class__(self.__py_color__.red)
+    
+    def green(self) -> Color:
+        """
+        Returns the green value of the color.
+            
+        :rtype: Color
+        """
+        
+        return self.__class__(self.__py_color__.green)
+
+    def blue(self) -> Color:
+        """
+        Returns the blue value of the color.
+        
+        :rtype: Color
+        """
+        
+        return self.__class__(self.__py_color__.blue)
+    
     def __init__(self, py_color):
         self.__py_color__ = py_color
     
