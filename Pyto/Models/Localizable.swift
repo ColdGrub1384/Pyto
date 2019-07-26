@@ -6,13 +6,26 @@
 //  Copyright © 2018 Adrian Labbé. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+/// Returns a localized string from UIKit with given key.
+///
+/// - Parameters:
+///     - key: The key of the String.
+///
+/// - Returns: The localized string from UIKit corresponding to the given key.
+func UIKitLocalizedString(key: String) -> String {
+    return Bundle(for: UIApplication.self).localizedString(forKey: key, value: nil, table: nil)
+}
 
 /// A class with an unaccessible initializer.
 class Static { private init(){} }
 
 /// A class containing localizable strings.
 class Localizable: Static {
+    
+    /* Title for command for selecting next suggestion */
+    static let nextSuggestion = NSLocalizedString("nextSuggestion", comment: "Title for command for selecting next suggestion")
     
     /// Install
     static let install = NSLocalizedString("install", comment: "Install")
@@ -52,6 +65,22 @@ class Localizable: Static {
     
     // 'Change'
     static let change = NSLocalizedString("change", comment: "'Change'")
+    
+    /// View controller simulating a widget on the Notification Center.
+    class WidgetSimulator: Static {
+
+        /// The message of the alert displayed when a widget script is set
+        static let alertMessage = NSLocalizedString("widget.alertMessage", comment: "Title of the button for collapsing a widget.")
+        
+        /// The title of the alert displayed when a widget script is set
+        static let alertTitle = NSLocalizedString("widget.alertTitle", comment: "The message of the alert displayed when a widget script is set")
+        
+        /// Title of the button for collapsing a widget.
+        static let showLess = NSLocalizedString("widget.showLess", comment: "Title of the button for collapsing a widget.")
+        
+        /// Title of the button for expanding a widget.
+        static let showMore = NSLocalizedString("widget.showMore", comment: "Title of the button for expanding a widget.")
+    }
     
     /// Alert for setting current directory.
     class CurrentDirectoryAlert: Static {
@@ -163,6 +192,9 @@ class Localizable: Static {
     /// Strings for errors.
     class Errors: Static {
         
+        /// The title of the alert shown when a widget is set
+        static let errorSettingWidget = NSLocalizedString("errors.errorSettingWidget", comment: "The title of the alert shown when a widget is set")
+        
         /// The title of alerts shown when an error occurred while creating a file
         static let errorCreatingFile = NSLocalizedString("errors.errorCreatingFile", comment: "The title of alerts shown when an error occurred while creating a file")
         
@@ -176,7 +208,7 @@ class Localizable: Static {
         static let errorRemovingFile = NSLocalizedString("errors.errorRemovingFile", comment: "Title of the alert shown when an error occurred while removing a file")
         
         /// Title of the alert shown when an error occurred while renaming a file
-        static let errorRenamingFile = NSLocalizedString("errors.errorRenamingFIle", comment: "Title of the alert shown when an error occurred while renaming a file")
+        static let errorRenamingFile = NSLocalizedString("errors.errorRenamingFile", comment: "Title of the alert shown when an error occurred while renaming a file")
         
         /// Message shown when the user typed an empty name
         static let emptyName = NSLocalizedString("errors.emptyName", comment: "Message shown when the user typed an empty name")
