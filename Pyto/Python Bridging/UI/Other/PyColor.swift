@@ -18,6 +18,33 @@ import UIKit
         }
     }
     
+    /// Returns the red value.
+    @objc public var red: Double {
+        return get {
+            var r: CGFloat = 0
+            self.color.getRed(&r, green: nil, blue: nil, alpha: nil)
+            return Double(r )
+        }
+    }
+    
+    /// Returns the green value.
+    @objc public var green: Double {
+        return get {
+            var g: CGFloat = 0
+            self.color.getRed(nil, green: &g, blue: nil, alpha: nil)
+            return Double(g )
+        }
+    }
+    
+    /// Returns the blue value.
+    @objc public var blue: Double {
+        return get {
+            var b: CGFloat = 0
+            self.color.getRed(nil, green: nil, blue: &b, alpha: nil)
+            return Double(b)
+        }
+    }
+    
     /// Initializes a new color with given values.
     ///
     /// - Parameters:
