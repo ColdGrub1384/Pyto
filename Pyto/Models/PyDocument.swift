@@ -23,6 +23,12 @@ enum PyDocumentError: Error {
     /// The editor that is editing this document.
     var editor: EditorViewController?
     
+    private var storedModificationDate: Date? {
+        didSet {
+            print(self.storedModificationDate ?? "nil")
+        }
+    }
+    
     /// Checks for conflicts and presents an alert if needed.
     ///
     /// - Parameters:
@@ -90,10 +96,23 @@ enum PyDocumentError: Error {
         }
     }
     
+    override func open(completionHandler: ((Bool) -> Void)? = nil) {
+        super.open { (success) in
+            self.storedModificationDate = self.fileModificationDate
+            completionHandler?(success)
+        }
+    }
+    
     // MARK: - File presenter
     
     override func presentedItemDidChange() {
         super.presentedItemDidChange()
+        
+        guard fileModificationDate != storedModificationDate else {
+            return
+        }
+        
+        storedModificationDate = fileModificationDate
         
         if let data = try? Data(contentsOf: fileURL) {
             try? load(fromContents: data, ofType: "public.python-script")
