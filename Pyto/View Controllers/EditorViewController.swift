@@ -204,12 +204,14 @@ fileprivate func parseArgs(_ args: inout [String]) {
     @objc func stateChanged(_ notification: Notification) {
         textView.contentTextView.isEditable = !(document?.documentState == .editingDisabled)
         
-        document?.checkForConflicts(onViewController: self, completion: {
-            if let doc = self.document, let data = try? Data(contentsOf: doc.fileURL) {
-                try? doc.load(fromContents: data, ofType: "public.python-script")
-                self.textView.text = doc.text
-            }
-        })
+        save { (_) in
+            self.document?.checkForConflicts(onViewController: self, completion: {
+                if let doc = self.document, let data = try? Data(contentsOf: doc.fileURL) {
+                    try? doc.load(fromContents: data, ofType: "public.python-script")
+                    self.textView.text = doc.text
+                }
+            })
+        }
     }
     
     /// Initialize with given document.
@@ -961,12 +963,14 @@ fileprivate func parseArgs(_ args: inout [String]) {
             return
         }
         
-        guard document?.text != textView.text else {
+        let text = textView.text
+        
+        guard document?.text != text else {
             completion?(true)
             return
         }
         
-        document?.text = textView.text
+        document?.text = text
         
         if document?.documentState != UIDocument.State.editingDisabled {
             document?.save(to: document!.fileURL, for: .forOverwriting, completionHandler: completion)
@@ -1225,8 +1229,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
             textView.contentInset.top = findBarHeight
             textView.contentTextView.verticalScrollIndicatorInsets.top = findBarHeight
         }
-        
-        save()
     }
     
     // MARK: - Text view delegate
