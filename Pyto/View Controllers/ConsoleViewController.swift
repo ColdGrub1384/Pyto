@@ -111,9 +111,17 @@ import UIKit
     
     /// Clears screen.
     @objc func clear() {
-        DispatchQueue.main.sync {
-            textView.text = ""
-            console = ""
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        DispatchQueue.main.async {
+            self.textView.text = ""
+            self.console = ""
+            semaphore.signal()
+        }
+        
+        if !Thread.current.isMainThread {
+            semaphore.wait()
         }
     }
     
