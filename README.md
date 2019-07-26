@@ -33,7 +33,11 @@ Features:
 ## TODO
 
 - [ ] Add a setting to not clear the console before running a script
-- [ ] Fix a bug while dragging console vertically
+
+# Known bugs
+
+- [ ] Bug while dragging console vertically
+- [ ] Cannot select code completions from the middle
 
 ## Building
 
