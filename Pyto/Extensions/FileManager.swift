@@ -8,10 +8,10 @@
 
 import Foundation
 
-extension FileManager {
+@objc extension FileManager {
     
     /// Returns the `URL` of the directory shared between targets.
-    var sharedDirectory: URL? {
+    @objc var sharedDirectory: URL? {
         guard let url = containerURL(forSecurityApplicationGroupIdentifier: "group.pyto")?.appendingPathComponent("Documents") else {
             return nil
         }

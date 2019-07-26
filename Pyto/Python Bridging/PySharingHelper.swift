@@ -52,7 +52,8 @@ import SafariServices
     ///
     /// - Parameters:
     ///     - filePicker: Python representation of the file picker.
-    @objc static func presentFilePicker(_ filePicker: PyFilePicker) {
+    ///     - scriptPath: The script that called this function.
+    @objc static func presentFilePicker(_ filePicker: PyFilePicker, scriptPath: String?) {
         semaphore = DispatchSemaphore(value: 0)
         DispatchQueue.main.async {
             let picker = UIDocumentPickerViewController(documentTypes: filePicker.fileTypes as [String], in: .open)
@@ -61,7 +62,18 @@ import SafariServices
             #if WIDGET
             ConsoleViewController.visible.present(picker, animated: true, completion: nil)
             #else
-            UIApplication.shared.keyWindow?.topViewController?.present(picker, animated: true, completion: nil)
+            for console in ConsoleViewController.visibles {
+                
+                if scriptPath == nil {
+                    (console.presentedViewController ?? console).present(picker, animated: true, completion: nil)
+                    break
+                }
+                
+                if console.editorSplitViewController?.editor.document?.fileURL.path == scriptPath {
+                    (console.presentedViewController ?? console).present(picker, animated: true, completion: nil)
+                    break
+                }
+            }
             #endif
         }
         semaphore?.wait()

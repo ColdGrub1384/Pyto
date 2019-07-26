@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// A helperaccessible by Rubicon to request user's input.
+/// A helper accessible by Rubicon to request user's input.
 @objc class PyInputHelper: NSObject {
     
     /// The user's input. Set its value while Python script is waiting for input to pass the input.

@@ -88,6 +88,7 @@ extension EditorViewController {
             let errorView = UITextView()
             errorView.textColor = .white
             errorView.isEditable = false
+            errorView.backgroundColor = errorColor
             
             let title = NSAttributedString(string: Python.shared.errorType ?? "", attributes: [
                 .font : UIFont(name: "Menlo-Bold", size: UIFont.systemFontSize) ?? UIFont.systemFont(ofSize: UIFont.systemFontSize),
@@ -106,14 +107,34 @@ extension EditorViewController {
             
             class ErrorViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
                 
+                override func viewLayoutMarginsDidChange() {
+                    super.viewLayoutMarginsDidChange()
+                    
+                    view.subviews.first?.frame = view.safeAreaLayoutGuide.layoutFrame
+                }
+                
+                override func viewWillAppear(_ animated: Bool) {
+                    super.viewWillAppear(animated)
+                    
+                    view.subviews.first?.isHidden = true
+                }
+                
+                override func viewDidAppear(_ animated: Bool) {
+                    super.viewDidAppear(animated)
+                    
+                    view.subviews.first?.isHidden = false
+                    view.subviews.first?.frame = view.safeAreaLayoutGuide.layoutFrame
+                }
+                
                 func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
                     return .none
                 }
             }
             
             let errorVC = ErrorViewController()
-            errorVC.view = errorView
+            errorView.frame = errorVC.view.safeAreaLayoutGuide.layoutFrame
             errorVC.view.backgroundColor = errorColor
+            errorVC.view.addSubview(errorView)
             errorVC.preferredContentSize = CGSize(width: 300, height: 100)
             errorVC.modalPresentationStyle = .popover
             errorVC.presentationController?.delegate = errorVC
