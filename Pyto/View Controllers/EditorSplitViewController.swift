@@ -147,23 +147,42 @@ class EditorSplitViewController: SplitViewController {
     /// Shows the editor on full screen.
     @objc func showEditor() {
         
-        firstChild = nil
-        secondChild = nil
-        
-        for view in view.subviews {
-            view.removeFromSuperview()
+        for view in self.view.subviews {
+            if view.backgroundColor == .white {
+                view.backgroundColor = self.view.backgroundColor
+            }
         }
         
-        super.viewDidLoad()
-        super.viewWillTransition(to: view.frame.size, with: ViewControllerTransitionCoordinator())
-        super.viewDidAppear(true)
+        firstChild?.view.superview?.backgroundColor = view.backgroundColor
+        secondChild?.view.superview?.backgroundColor = view.backgroundColor
         
-        removeGestures()
+        UIView.animate(withDuration: 0.25) {
+            self.view.alpha = 0
+        }
         
-        firstChild = editor
-        secondChild = console
-        
-        setNavigationBarItems()
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.25, execute: {
+            self.firstChild = nil
+            self.secondChild = nil
+            
+            for view in self.view.subviews {
+                view.removeFromSuperview()
+            }
+            
+            super.viewDidLoad()
+            super.viewWillTransition(to: self.view.frame.size, with: ViewControllerTransitionCoordinator())
+            super.viewDidAppear(true)
+            
+            self.removeGestures()
+            
+            self.firstChild = self.editor
+            self.secondChild = self.console
+            
+            self.setNavigationBarItems()
+            
+            UIView.animate(withDuration: 0.25) {
+                self.view.alpha = 1
+            }
+        })
         
         if let path = editor.document?.fileURL.path {
             Python.shared.stop(script: path)
@@ -173,25 +192,44 @@ class EditorSplitViewController: SplitViewController {
     /// Shows the console on full screen.
     func showConsole(_ completion: @escaping (() -> Void)) {
         
-        firstChild = nil
-        secondChild = nil
-        
-        for view in view.subviews {
-            view.removeFromSuperview()
+        for view in self.view.subviews {
+            if view.backgroundColor == .white {
+                view.backgroundColor = self.view.backgroundColor
+            }
         }
         
-        super.viewDidLoad()
-        super.viewWillTransition(to: view.frame.size, with: ViewControllerTransitionCoordinator())
-        super.viewDidAppear(true)
+        firstChild?.view.superview?.backgroundColor = view.backgroundColor
+        secondChild?.view.superview?.backgroundColor = view.backgroundColor
         
-        removeGestures()
+        UIView.animate(withDuration: 0.25) {
+            self.view.alpha = 0
+        }
         
-        firstChild = console
-        secondChild = editor
-        
-        setNavigationBarItems()
-        
-        completion()
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.25, execute: {
+            self.firstChild = nil
+            self.secondChild = nil
+            
+            for view in self.view.subviews {
+                view.removeFromSuperview()
+            }
+            
+            super.viewDidLoad()
+            super.viewWillTransition(to: self.view.frame.size, with: ViewControllerTransitionCoordinator())
+            super.viewDidAppear(true)
+            
+            self.removeGestures()
+            
+            self.firstChild = self.console
+            self.secondChild = self.editor
+            
+            self.setNavigationBarItems()
+            
+            completion()
+            
+            UIView.animate(withDuration: 0.25) {
+                self.view.alpha = 1
+            }
+        })
     }
     
     private func removeGestures() {
@@ -276,6 +314,9 @@ class EditorSplitViewController: SplitViewController {
             firstChild = editor
             secondChild = console
         }
+        
+        firstChild?.view.superview?.backgroundColor = view.backgroundColor
+        secondChild?.view.superview?.backgroundColor = view.backgroundColor
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -311,6 +352,9 @@ class EditorSplitViewController: SplitViewController {
         
         firstChild.viewWillTransition(to: firstChild.view.frame.size, with: ViewControllerTransitionCoordinator())
         secondChild.viewWillTransition(to: firstChild.view.frame.size, with: ViewControllerTransitionCoordinator())
+        
+        firstChild.view.superview?.backgroundColor = view.backgroundColor
+        secondChild.view.superview?.backgroundColor = view.backgroundColor
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -351,6 +395,14 @@ class EditorSplitViewController: SplitViewController {
                 super.viewDidAppear(true)
                 removeGestures()
                 
+                for view in self.view.subviews {
+                    if view.backgroundColor == .white {
+                        view.backgroundColor = self.view.backgroundColor
+                    }
+                }
+                firstChild?.view.superview?.backgroundColor = self.view.backgroundColor
+                secondChild?.view.superview?.backgroundColor = self.view.backgroundColor
+                
                 if EditorSplitViewController.shouldShowConsoleAtBottom {
                     arrangement = .vertical
                 } else if arrangement != .horizontal {
@@ -361,6 +413,10 @@ class EditorSplitViewController: SplitViewController {
                 secondChild = console
             }
         }
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
     }
     
     // MARK: Symbols
