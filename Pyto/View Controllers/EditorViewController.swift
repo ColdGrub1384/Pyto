@@ -449,8 +449,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 attributes.identifier = filePath
                 attributes.domainIdentifier = filePath
                 userActivity = activity
-                if let path = filePath {
-                    activity.addUserInfoEntries(from: ["filePath" : path])
+                if let d = try? document?.fileURL.bookmarkData(), let data = d {
+                    activity.addUserInfoEntries(from: ["filePath" : data])
                     activity.suggestedInvocationPhrase = document?.fileURL.deletingPathExtension().lastPathComponent
                 }
             }
