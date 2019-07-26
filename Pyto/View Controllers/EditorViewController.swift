@@ -144,30 +144,43 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
     }
     
+    /// Obtains the current directory URL set for the given script.
+    ///
+    /// - Parameters:
+    ///     - scriptURL: The URL of the script.
+    ///
+    /// - Returns: The current directory set for the given script.
+    static func directory(for scriptURL: URL) -> URL {
+        var isStale = false
+        
+        let defaultDir = scriptURL.deletingLastPathComponent()
+        
+        guard let data = UserDefaults.standard.data(forKey: "currentDirectory\(scriptURL.path.replacingOccurrences(of: "//", with: "/") )") else {
+            return defaultDir
+        }
+        
+        guard let url = try? URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale) else {
+            return defaultDir
+        }
+        
+        _ = url.startAccessingSecurityScopedResource()
+        
+        var isDir: ObjCBool = false
+        guard FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir), isDir.boolValue else {
+            return defaultDir
+        }
+        
+        return url
+    }
+    
     /// Directory in which the script will be ran.
     var currentDirectory: URL {
         get {
-            
-            var isStale = false
-            
-            let defaultDir = document?.fileURL.deletingLastPathComponent() ?? DocumentBrowserViewController.localContainerURL
-            
-            guard let data = UserDefaults.standard.data(forKey: "currentDirectory\(document?.fileURL.path.replacingOccurrences(of: "//", with: "/") ?? "")") else {
-                return defaultDir
+            if let url = document?.fileURL {
+                return EditorViewController.directory(for: url)
+            } else {
+                return DocumentBrowserViewController.localContainerURL
             }
-            
-            guard let url = try? URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale) else {
-                return defaultDir
-            }
-            
-            _ = url.startAccessingSecurityScopedResource()
-            
-            var isDir: ObjCBool = false
-            guard FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir), isDir.boolValue else {
-                return defaultDir
-            }
-            
-            return url
         }
         
         set {
