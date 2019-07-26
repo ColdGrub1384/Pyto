@@ -508,6 +508,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }) // TODO: Anyway to to it without a timer?
     }
     
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
     #if !targetEnvironment(UIKitForMac)
     override var keyCommands: [UIKeyCommand]? {
         if textView.contentTextView.isFirstResponder {
