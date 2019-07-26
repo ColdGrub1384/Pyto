@@ -143,6 +143,7 @@ import UIKit
                         UIApplication.shared.requestSceneSessionActivation(nil, userActivity: nil, options: nil, errorHandler: nil)
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                        docBrowser.view.window?.tintColor = ConsoleViewController.choosenTheme.tintColor
                         docBrowser.openDocument(url, run: false)
                     }
                 }
