@@ -20,26 +20,156 @@ fileprivate var isPythonSetup = false
     /// Set to `true` to start the script.
     @objc static var startScript = true
     
+    /// Set to `true` when a script is running.
+    @objc static var isScriptRunning = false {
+        didSet {
+            DispatchQueue.main.async {
+                self.visible.playButton.isEnabled = !self.isScriptRunning
+            }
+        }
+    }
+    
     /// The shared directory path to be passed to Python.
     @objc static var sharedDirectoryPath: String?
     
     /// Text view containing the console.
-    @IBOutlet weak var textView: UITextView!
+    let textView = UITextView()
+    
+    /// A button for running script.
+    let playButton = UIButton()
     
     /// Adds given text to the text view.
     ///
     /// - Parameters:
     ///     - text: Text to be added.
     @objc func print(_ text: String) {
+        Swift.print(text, terminator: "")
         DispatchQueue.main.async {
             self.textView.text += text
+            self.textView.scrollToBottom()
         }
     }
     
     /// Clears screen.
     @objc func clear() {
-        DispatchQueue.main.sync {
-            textView.text = ""
+        DispatchQueue.main.async {
+            self.textView.text = ""
+        }
+    }
+    
+    /// Runs script.
+    @objc func run() {
+        if ConsoleViewController.isScriptRunning {
+            ConsoleViewController.startScript = false
+        } else {
+            ConsoleViewController.startScript = true
+            ConsoleViewController.visible.textView.text = ""
+        }
+    }
+    
+    // MARK: - UI Presentation
+    
+    @available(iOSApplicationExtension 13.0, *)
+    private class ViewController: UIViewController {
+        
+        var pyView: PyView?
+        
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            
+            edgesForExtendedLayout = []
+        }
+        
+        override func viewDidDisappear(_ animated: Bool) {
+            super.viewDidDisappear(animated)
+            
+            pyView?.isPresented = false
+            pyView = nil
+        }
+        
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            
+            view.subviews.first?.frame = view.safeAreaLayoutGuide.layoutFrame
+        }
+        
+        override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+            super.viewWillTransition(to: size, with: coordinator)
+            
+            coordinator.animate(alongsideTransition: { (_) in
+                self.view.subviews.first?.frame.size = size
+            }) { (_) in
+                self.view.subviews.first?.frame = self.view.safeAreaLayoutGuide.layoutFrame
+            }
+        }
+    }
+    
+    /// Shows a given view initialized from Python.
+    ///
+    /// - Parameters:
+    ///     - view: The view to present.
+    ///     - path: The path of the script that called this method.
+    @available(iOS 13.0, *) @objc public static func showView(_ view: Any, onConsoleForPath path: String?) {
+        
+        (view as? PyView)?.isPresented = true
+        
+        DispatchQueue.main.async {
+            let vc = self.viewController((view as? PyView) ?? PyView(managed: view as! UIView), forConsoleWithPath: path)
+            self.showViewController(vc, scriptPath: path, completion: nil)
+        }
+    }
+    
+    /// Shows a view controller from Python code.
+    ///
+    /// - Parameters:
+    ///     - viewController: View controller to present.
+    ///     - completion: Code called to setup the interface.
+    @objc static func showViewController(_ viewController: UIViewController, scriptPath: String? = nil, completion: (() -> Void)?) {
+        ConsoleViewController.visible.addChild(viewController)
+        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        viewController.view.frame = ConsoleViewController.visible.view.frame
+        ConsoleViewController.visible.textView.isHidden = true
+        ConsoleViewController.visible.playButton.isHidden = true
+        ConsoleViewController.visible.view.addSubview(viewController.view)
+    }
+    
+    /// Creates a View controller to present
+    ///
+    /// - Parameters:
+    ///     - view: The View to present initialized from Python.
+    ///
+    /// - Returns: A ready to present View controller.
+    @available(iOS 13.0, *) @objc public static func viewController(_ view: PyView, forConsoleWithPath path: String?) -> UIViewController {
+        
+        let vc = ViewController()
+        vc.pyView = view
+        view.viewController = vc
+        vc.view.addSubview(view.view)
+        
+        return vc
+    }
+    
+    /// Set to `true` to make the widget able to expand.
+    @objc var canBeExpanded = false {
+        didSet {
+            DispatchQueue.main.async {
+                if self.canBeExpanded {
+                    self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+                } else {
+                    self.extensionContext?.widgetLargestAvailableDisplayMode = .compact
+                }
+            }
+        }
+    }
+    
+    /// The widget's maximum height.
+    @objc var maximumHeight: Double = 280 {
+        didSet {
+            DispatchQueue.main.async {
+                if self.extensionContext?.widgetActiveDisplayMode == .expanded {
+                    self.preferredContentSize = CGSize(width: 0, height: CGFloat(self.maximumHeight))
+                }
+            }
         }
     }
     
@@ -49,14 +179,17 @@ fileprivate var isPythonSetup = false
         super.viewDidLoad()
         // Do any additional setup after loading the view from its nib.
         
-        ConsoleViewController.sharedDirectoryPath = dir?.path
+        ConsoleViewController.sharedDirectoryPath = FileManager.default.sharedDirectory?.path
+        
+        if let bundleID = Bundle.main.bundleIdentifier, let dir = ConsoleViewController.sharedDirectoryPath {
+            let scriptExists = FileManager.default.fileExists(atPath: (dir as NSString).appendingPathComponent("main.py"))
+            NCWidgetController().setHasContent(scriptExists, forWidgetWithBundleIdentifier: bundleID)
+        }
         
         if !isPythonSetup {
             setup_python()
             isPythonSetup = true
         }
-        
-        sharedExtensionContext?.widgetLargestAvailableDisplayMode = .expanded
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,7 +200,35 @@ fileprivate var isPythonSetup = false
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        textView.frame = view.safeAreaLayoutGuide.layoutFrame
+        textView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        textView.backgroundColor = .clear
+        textView.font = UIFont(name: "Menlo", size: 14)
+        textView.isEditable = false
+        view.addSubview(textView)
+        
+        if #available(iOSApplicationExtension 13.0, *) {
+            playButton.addTarget(self, action: #selector(run), for: .touchUpInside)
+            playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+            playButton.sizeToFit()
+            playButton.frame.origin = CGPoint(x: view.safeAreaLayoutGuide.layoutFrame.width-(playButton.frame.width*1.5), y: view.safeAreaLayoutGuide.layoutFrame.height-(playButton.frame.height*1.5))
+            playButton.autoresizingMask = [.flexibleTopMargin, .flexibleBottomMargin, .flexibleLeftMargin, .flexibleRightMargin]
+            view.addSubview(playButton)
+        }
+    }
+    
     // MARK: - Widget providing
+    
+    func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
+        if activeDisplayMode == .expanded {
+            preferredContentSize = CGSize(width: 0, height: CGFloat(maximumHeight))
+        } else {
+            preferredContentSize = maxSize
+        }
+    }
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         // Perform any setup necessary in order to update the view.
@@ -77,7 +238,11 @@ fileprivate var isPythonSetup = false
         // If there's an update, use NCUpdateResult.NewData
         
         textView.text = ""
-        ConsoleViewController.startScript = true
+        if !ConsoleViewController.isScriptRunning {
+            ConsoleViewController.startScript = true
+        } else {
+            ConsoleViewController.startScript = false
+        }
         
         let main = """
         __builtins__.iOS = "iOS"
@@ -95,20 +260,22 @@ fileprivate var isPythonSetup = false
             from time import sleep
             import sys
             from outputredirector import *
-            from extensionsimporter import *
+            from extensionsimporter import PillowImporter
             import pyto
             import io
+            import threading
+            import os
+            import ssl
         except Exception as e:
             ex_type, ex, tb = sys.exc_info()
             traceback.print_tb(tb)
+
+        # MARK: - SSL
         
-        # MARK: - Create selector without class
-        
-        __builtins__.Selector = pyto.PySelector.makeSelector
-        __builtins__.Target = pyto.SelectorTarget.shared
+        ssl._create_default_https_context = ssl._create_unverified_context
 
         # MARK: - Output
-        
+
         def read(text):
             pyto.ConsoleViewController.visible.print(text)
         
@@ -120,30 +287,71 @@ fileprivate var isPythonSetup = false
         
         sys.stdout = standardOutput
         sys.stderr = standardError
-                
+
+        # MARK: - Pillow
+
+        sys.meta_path.insert(0, PillowImporter())
+
         # MARK: - Run script
 
         directory = pyto.ConsoleViewController.sharedDirectoryPath
-        
-        if not directory+"/modules" in sys.path:
-            sys.path.append(directory+"/modules")
 
-        def run():
+        def run_code():
+            while True:
+                code_to_run = pyto.Python.shared.codeToRun
+
+                if code_to_run == None:
+                    sleep(0.2)
+                    continue
+
+                try:
+                    code = str(code_to_run)
+                    exec(code)
+                    if code == pyto.Python.shared.codeToRun:
+                        pyto.Python.shared.codeToRun = None
+                except:
+                    error = traceback.format_exc()
+                    print(error)
+                    pyto.Python.shared.codeToRun = None
+
+        run_code_thread = threading.Thread(target=run_code)
+        run_code_thread.start()
+
+        script_path = directory+"/main.py"
+
+        def run_loop():
             pyto.ConsoleViewController.startScript = False
-        
+            
+            if "pyto_ui" in sys.modules:
+                del sys.modules["pyto_ui"]
+
+            if "_values" in sys.modules:
+                del sys.modules["_values"]
+
+            if "ui_constants" in sys.modules:
+                del sys.modules["ui_constants"]
+
+            pyto.ConsoleViewController.isScriptRunning = True
+
             try:
-                spec = importlib.util.spec_from_file_location("__main__", directory+"/main.py")
+                spec = importlib.util.spec_from_file_location("__main__", script_path)
                 script = importlib.util.module_from_spec(spec)
                 spec.loader.exec_module(script)
+            except FileNotFoundError:
+                print("A script can be executed from this widget. To to that, go to Pyto's settings and select a script in 'Today Widget'.")
             except Exception as e:
                 print(e.__class__.__name__, e)
-        
-            while not pyto.ConsoleViewController.startScript:
-                sleep(0.5)
-        
-            run()
 
-        run()
+            pyto.ConsoleViewController.isScriptRunning = False
+            
+            while not pyto.ConsoleViewController.startScript:
+                sleep(0.2)
+
+            run_loop()
+        
+        run_loop()
+
+        print("WTF")
         """
         
         if Python.shared.runningScripts.count == 0, let newScriptURL = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask).first?.appendingPathComponent("main.py") {
@@ -152,10 +360,12 @@ fileprivate var isPythonSetup = false
                 if FileManager.default.fileExists(atPath: newScriptURL.path) {
                     try FileManager.default.removeItem(at: newScriptURL)
                 }
-                if !FileManager.default.createFile(atPath: newScriptURL.path, contents: main.data(using: .utf8), attributes: nil) {
-                    throw NSError(domain: "pyto.widget", code: 1, userInfo: [NSLocalizedDescriptionKey : "Error creating startup script."])
-                }
-                Python.shared.runScript(at: newScriptURL)
+                _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { (timer) in
+                    if FileManager.default.createFile(atPath: newScriptURL.path, contents: main.data(using: .utf8), attributes: nil) {
+                        Python.shared.runScript(at: newScriptURL)
+                        timer.invalidate()
+                    } // The file may not be created on the lock screen, so we try create the file each 0.5 seconds
+                })
             } catch {
                 print(error.localizedDescription)
             }
