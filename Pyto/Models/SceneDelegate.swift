@@ -87,15 +87,19 @@ import UIKit
             self.scene(scene, openURLContexts: connectionOptions.urlContexts)
         }
         
-        if let restorationActivity = session.stateRestorationActivity, let data = restorationActivity.userInfo?["bookmarkData"] as? Data {
+        if let restorationActivity = session.stateRestorationActivity {
             
-            do {
-                var isStale = false
-                let url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
-                
-                (window?.rootViewController as? DocumentBrowserViewController)?.documentURL = url
-            } catch {
-                print(error.localizedDescription)
+            if let data = restorationActivity.userInfo?["bookmarkData"] as? Data {
+                do {
+                    var isStale = false
+                    let url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
+                    
+                    (window?.rootViewController as? DocumentBrowserViewController)?.documentURL = url
+                } catch {
+                    print(error.localizedDescription)
+                }
+            } else if restorationActivity.userInfo?["filePath"] != nil {
+                self.scene(scene, continue: restorationActivity)
             }
         }
     }
@@ -104,6 +108,7 @@ import UIKit
     func sceneWillResignActive(_ scene: UIScene) {
         #if MAIN
         (UIApplication.shared.delegate as? AppDelegate)?.copyModules()
+        ((window?.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor.save()
         #endif
     }
     
@@ -119,13 +124,34 @@ import UIKit
                 
                 if FileManager.default.fileExists(atPath: url.path) {
                     
-                    if FileManager.default.isUbiquitousItem(at: url) {
-                        try? FileManager.default.startDownloadingUbiquitousItem(at: url)
-                    }
-                    
-                    documentBrowserViewController?.openDocument(url, run: true)
+                    _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
+                        if let doc = self.documentBrowserViewController {
+                            doc.revealDocument(at: url, importIfNeeded: true) { (url_, _) in
+                                doc.openDocument(url_ ?? url, run: true)
+                            }
+                            timer.invalidate()
+                        }
+                    })
                 } else {
                     let alert = UIAlertController(title: Localizable.Errors.errorReadingFile, message: nil, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
+                    root?.present(alert, animated: true, completion: nil)
+                }
+            } else if let data = userActivity.userInfo?["filePath"] as? Data {
+                do {
+                    var isStale = false
+                    let url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
+                    
+                    _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
+                        if let doc = self.documentBrowserViewController {
+                            doc.revealDocument(at: url, importIfNeeded: true) { (url_, _) in
+                                doc.openDocument(url_ ?? url, run: true)
+                            }
+                            timer.invalidate()
+                        }
+                    })
+                } catch {
+                    let alert = UIAlertController(title: Localizable.Errors.errorReadingFile, message: error.localizedDescription, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
                     root?.present(alert, animated: true, completion: nil)
                 }
