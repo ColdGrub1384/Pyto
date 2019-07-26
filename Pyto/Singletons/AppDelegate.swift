@@ -16,11 +16,14 @@ import SafariServices
     /// Script to run at startup passed by `PythonApplicationMain`.
     @objc public static var scriptToRun: String?
     #else
+    
+    private let copyModulesQueue = DispatchQueue.global(qos: .background)
+    
     /// Copies modules to shared container.
     func copyModules() {
         
         if Thread.current.isMainThread {
-            return DispatchQueue.global().async {
+            return copyModulesQueue.async {
                 self.copyModules()
             }
         }
@@ -30,9 +33,31 @@ import SafariServices
                 return
             }
             
-            if let widgetPath = UserDefaults.standard.string(forKey: "todayWidgetScriptPath") {
+            let path = UserDefaults.standard.string(forKey: "todayWidgetScriptPath")
+            let data = UserDefaults.standard.data(forKey: "todayWidgetScriptPath")
+            let url: URL?
+            if let data = data {
+                var isStale = false
+                url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
+                _ = url?.startAccessingSecurityScopedResource()
+            } else if let path = path {
+                url = URL(fileURLWithPath: path)
+            } else {
+                url = nil
+            }
+            
+            if let widgetPath = url?.path {
                 
-                let widgetURL = URL(fileURLWithPath: widgetPath.replacingFirstOccurrence(of: "iCloud/", with: (DocumentBrowserViewController.iCloudContainerURL?.path ?? DocumentBrowserViewController.localContainerURL.path)+"/"), relativeTo: DocumentBrowserViewController.localContainerURL)
+                for file in try FileManager.default.contentsOfDirectory(at: sharedDir, includingPropertiesForKeys: nil, options: .init(rawValue: 0)) {
+                    try FileManager.default.removeItem(at: file)
+                }
+                
+                let widgetURL: URL
+                if data != nil {
+                    widgetURL = URL(fileURLWithPath: widgetPath)
+                } else {
+                    widgetURL = URL(fileURLWithPath: widgetPath.replacingFirstOccurrence(of: "iCloud/", with: (DocumentBrowserViewController.iCloudContainerURL?.path ?? DocumentBrowserViewController.localContainerURL.path)+"/"), relativeTo: DocumentBrowserViewController.localContainerURL)
+                }
                 
                 let newWidgetURL = sharedDir.appendingPathComponent("main.py")
                 
@@ -41,6 +66,15 @@ import SafariServices
                 }
                 
                 try FileManager.default.copyItem(at: widgetURL, to: newWidgetURL)
+                
+                for file in ((try? FileManager.default.contentsOfDirectory(at: EditorViewController.directory(for: url!), includingPropertiesForKeys: nil, options: .init(rawValue: 0))) ?? []) {
+                    let newURL = sharedDir.appendingPathComponent(file.lastPathComponent)
+                    if FileManager.default.fileExists(atPath: newURL.path) {
+                        try? FileManager.default.removeItem(at: newURL)
+                    }
+                    
+                    try? FileManager.default.copyItem(at: file, to: newURL)
+                }
             }
             
             let sharedModulesDir = sharedDir.appendingPathComponent("modules")

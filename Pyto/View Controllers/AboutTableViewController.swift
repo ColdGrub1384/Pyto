@@ -9,6 +9,7 @@
 import UIKit
 import SafariServices
 import MessageUI
+import NotificationCenter
 
 fileprivate extension IndexPath {
     
@@ -160,7 +161,14 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
         if indexPath == .todayWidget {
-            cell.detailTextLabel?.text = (UserDefaults.standard.string(forKey: "todayWidgetScriptPath") as NSString?)?.lastPathComponent
+            var isStale = false
+            if let lastPathComponent = (UserDefaults.standard.string(forKey: "todayWidgetScriptPath") as NSString?)?.lastPathComponent {
+                cell.detailTextLabel?.text = lastPathComponent
+            } else if let data = UserDefaults.standard.data(forKey: "todayWidgetScriptPath"), let url = (try? URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)) {
+                cell.detailTextLabel?.text = url.lastPathComponent
+            } else {
+                cell.detailTextLabel?.text = ""
+            }
         }
         
         return cell
@@ -238,11 +246,15 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
         
         navigationController?.popToRootViewController(animated: true)
         
-        UserDefaults.standard.set(RelativePathForScript(URL(fileURLWithPath: urls[0].path)), forKey: "todayWidgetScriptPath")
+        do {
+            UserDefaults.standard.set(try urls[0].bookmarkData(), forKey: "todayWidgetScriptPath")
+        } catch {
+            print(error.localizedDescription)
+        }
         UserDefaults.standard.synchronize()
         (UIApplication.shared.delegate as? AppDelegate)?.copyModules()
         
-        urls[0].stopAccessingSecurityScopedResource()
+        NCWidgetController().setHasContent(true, forWidgetWithBundleIdentifier: Bundle.main.bundleIdentifier!+".Pyto-Widget")
         
         tableView.reloadData()
     }
