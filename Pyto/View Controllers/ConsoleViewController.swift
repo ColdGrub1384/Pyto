@@ -137,9 +137,6 @@ import UIKit
     /// If set to `true`, the user will not be able to input.
     static var ignoresInput = false
     
-    /// Returns `true` if the UI main loop is running.
-    @objc static private(set) var isMainLoopRunning = false
-    
     /// Add the content of the given notification as `String` to `textView`. Called when the stderr changed or when a script printed from the Pyto module's `print` function`.
     ///
     /// - Parameters:
@@ -290,51 +287,8 @@ import UIKit
         }
     }*/
     
+    /// All visible instances.
     @objc static var visibles = [ConsoleViewController]()
-    
-    /// Creates a View controller to present
-    ///
-    /// - Parameters:
-    ///     - viewController: The View controller to present initialized from Python.
-    ///
-    /// - Returns: A ready to present View controller.
-    @objc public func viewController(_ viewController: UIViewController) -> UIViewController {
-        
-        #if MAIN
-        class PyNavigationController: UINavigationController {
-            
-            override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-                if traitCollection.horizontalSizeClass == .compact {
-                    return [.portrait, .portraitUpsideDown]
-                } else {
-                    return super.supportedInterfaceOrientations
-                }
-            }
-        }
-        
-        let vc = UIViewController()
-        vc.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        vc.addChild(viewController)
-        viewController.view.frame = CGRect(x: 0, y: 0, width: 320, height: 420)
-        viewController.view.center = vc.view.center
-        viewController.view.autoresizingMask = [.flexibleTopMargin, .flexibleBottomMargin, .flexibleLeftMargin, .flexibleRightMargin]
-        vc.view.addSubview(viewController.view)
-        
-        vc.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: ConsoleViewController.self, action: #selector(ConsoleViewController.closePresentedViewController))
-        
-        let navVC = PyNavigationController(rootViewController: vc)
-        navVC.modalPresentationStyle = .overFullScreen
-        
-        if navigationController != nil {
-            view.backgroundColor = UIColor.black.withAlphaComponent(0.25)
-            navigationController?.view.backgroundColor = view.backgroundColor
-        }
-        
-        return navVC
-        #else
-        return viewController
-        #endif
-    }
     
     // MARK: - Theme
     
@@ -405,41 +359,198 @@ import UIKit
         setenv("ROWS", "\(rows)", 1)
     }
     
-    private static var presentedViewController: UIViewController?
+    // MARK: - UI Presentation
+    
+    @available(iOS 13.0, *)
+    private class ViewController: UIViewController {
+        
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
+            
+            edgesForExtendedLayout = []
+        }
+        
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            
+            view.subviews.first?.frame = view.safeAreaLayoutGuide.layoutFrame
+            view.backgroundColor = view.subviews.first?.backgroundColor
+            
+            navigationItem.leftItemsSupplementBackButton = true
+            navigationItem.leftBarButtonItems = view.subviews.first?.buttonItems
+        }
+        
+        override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+            super.viewWillTransition(to: size, with: coordinator)
+            
+            coordinator.animate(alongsideTransition: { (_) in
+                self.view.subviews.first?.frame.size = size
+            }) { (_) in
+                self.view.subviews.first?.frame = self.view.safeAreaLayoutGuide.layoutFrame
+            }
+        }
+        
+        @objc func keyboardWillShow(notification: NSNotification) {
+            guard let userInfo = notification.userInfo else { return }
+            
+            guard let r = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+            
+            let point = (view.window)?.convert(r.origin, to: view) ?? r.origin
+            
+            view.subviews.first?.frame.size.height = point.y
+        }
+        
+        @objc func keyboardWillHide(notification: NSNotification) {
+            view.subviews.first?.frame = view.safeAreaLayoutGuide.layoutFrame
+        }
+    }
+    
+    @available(iOS 13.0, *)
+    private class NavigationController: UINavigationController {
+        
+        var pyView: PyView?
+        
+        override func viewDidDisappear(_ animated: Bool) {
+            super.viewDidDisappear(animated)
+            
+            pyView?.isPresented = false
+        }
+        
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            
+            navigationBar.backgroundColor = UIColor.systemBackground
+        }
+    }
+    
+    /// Returns `true` if any console is presenting an ui.
+    @objc public static var isPresentingView: Bool {
+        if #available(iOS 13.0, *) {
+            for visibile in self.visibles {
+                var presenting: Bool {
+                    return (visibile.presentedViewController as? NavigationController) != nil
+                }
+                if Thread.current.isMainThread && presenting {
+                    return true
+                } else {
+                    let semaphore = DispatchSemaphore(value: 0)
+                    var flag = false
+                    DispatchQueue.main.async {
+                        flag = presenting
+                        semaphore.signal()
+                    }
+                    semaphore.wait()
+                    if flag {
+                        return true
+                    }
+                }
+            }
+        }
+        return false
+    }
+    
+    /// Shows a given view initialized from Python.
+    ///
+    /// - Parameters:
+    ///     - view: The view to present.
+    ///     - path: The path of the script that called this method.
+    @available(iOS 13.0, *) @objc public static func showView(_ view: Any, onConsoleForPath path: String?) {
+        
+        (view as? PyView)?.isPresented = true
+        
+        DispatchQueue.main.async {
+            
+            for visibile in self.visibles {
+                (visibile.presentedViewController as? NavigationController)?.dismiss(animated: true, completion: nil)
+            }
+            
+            let vc = self.viewController((view as? PyView) ?? PyView(managed: view as! UIView), forConsoleWithPath: path)
+            self.showViewController(vc, scriptPath: path, completion: nil)
+        }
+    }
     
     /// Shows a view controller from Python code.
     ///
     /// - Parameters:
     ///     - viewController: View controller to present.
     ///     - completion: Code called to setup the interface.
-    @objc static func showViewController(_ viewController: UIViewController, completion: (() -> Void)?) {
-        
-        presentedViewController = viewController
+    @objc static func showViewController(_ viewController: UIViewController, scriptPath: String? = nil, completion: (() -> Void)?) {
         
         #if WIDGET
         ConsoleViewController.visible.present(viewController, animated: true, completion: completion)
         #else
-        if #available(iOS 13.0, *) {
-            if UIApplication.shared.connectedScenes.count == 1, let console = ConsoleViewController.visibles.first {
-                console.present(console.viewController(viewController), animated: true, completion: completion)
-            } else {
-                SceneDelegate.viewControllerToShow = viewController
-                SceneDelegate.viewControllerDidShow = completion
-                UIApplication.shared.requestSceneSessionActivation(nil, userActivity: nil, options: nil, errorHandler: nil)
+        for console in visibles {
+            if scriptPath == nil {
+                console.present(viewController, animated: true, completion: completion)
+                break
+            } else if console.editorSplitViewController?.editor.document?.fileURL.path == scriptPath {
+                console.present(viewController, animated: true, completion: completion)
             }
-        } else {
-            let console = ConsoleViewController.visibles.first
-            console?.present(console!.viewController(viewController), animated: true, completion: nil)
         }
         #endif
     }
     
+    /// Creates a View controller to present
+    ///
+    /// - Parameters:
+    ///     - view: The View to present initialized from Python.
+    ///     - path: The script requesting for the View controller.
+    ///
+    /// - Returns: A ready to present View controller.
+    @available(iOS 13.0, *) @objc public static func viewController(_ view: PyView, forConsoleWithPath path: String?) -> UIViewController {
+        
+        let vc = ViewController()
+        vc.view.addSubview(view.view)
+        
+        #if MAIN
+        
+        var console: ConsoleViewController?
+        for _console in ConsoleViewController.visibles {
+            if path == nil {
+                console = _console
+                break
+            } else if _console.editorSplitViewController?.editor.document?.fileURL.path == path {
+                console = _console
+                break
+            }
+        }
+        
+        vc.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: console, action: #selector(ConsoleViewController.closePresentedViewController))
+        
+        let navVC = NavigationController(rootViewController: vc)
+        navVC.pyView = view
+        view.viewController = navVC
+        
+        if view.presentationMode == PyView.PresentationModeFullScreen {
+            navVC.modalPresentationStyle = .overFullScreen
+        } else if view.presentationMode == PyView.PresentationModeWidget, let viewController = UIStoryboard(name: "Widget Simulator", bundle: Bundle.main).instantiateInitialViewController() {
+            
+            let widget = (viewController as? UINavigationController)?.viewControllers.first as? WidgetSimulatorViewController
+            
+            viewController.modalPresentationStyle = .formSheet
+            widget?.pyView = view
+            
+            if let path = path {
+                widget?.scriptURL = URL(fileURLWithPath: path)
+            }
+            
+            return viewController
+        }
+        
+        return navVC
+        #else
+        return vc
+        #endif
+    }
+    
     /// Closes the View controller presented by code.
-    @objc static func closePresentedViewController() {
-        presentedViewController?.dismiss(animated: true, completion: {
-            ConsoleViewController.isMainLoopRunning = false
-            self.presentedViewController = nil
-        })
+    @objc func closePresentedViewController() {
+        dismiss(animated: true, completion: nil)
     }
     
     // MARK: - View controller
@@ -563,8 +674,8 @@ import UIKit
         #if MAIN
         themeDidChange(nil)
         #else
-        view.backgroundColor = .white
-        navigationController?.view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
+        navigationController?.view.backgroundColor = .systemBackground
         #endif
     }
     

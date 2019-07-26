@@ -167,8 +167,27 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// Add a script here to send `SystemExit`to it.
     @objc public var scriptsToExit = [String]()
     
+    private var _cwd = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].path
+    
     /// The directory from which the script is executed.
-    @objc public var currentWorkingDirectory = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].path
+    @objc public var currentWorkingDirectory: String {
+        get {
+            var cwd = ""
+            let semaphore = DispatchSemaphore(value: 0)
+            queue.async {
+                cwd = self._cwd
+                semaphore.signal()
+            }
+                semaphore.wait()
+            return cwd
+        }
+        
+        set {
+            queue.async {
+                self._cwd = newValue
+            }
+        }
+    }
     
     /// Returns the environment.
     @objc var environment: [String:String] {

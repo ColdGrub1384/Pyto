@@ -38,8 +38,11 @@ import UIKit
     
     /// Show an alert with set parameters.
     ///
+    /// - Parameters:
+    ///     - scriptPath: The path of the script that is showing the alert.
+    ///
     /// - Returns: The title of the pressed action.
-    @objc func _show() -> String {
+    @objc func _show(_ scriptPath: String?) -> String {
         response = nil
         DispatchQueue.main.async {
             let alert = UIAlertController(title: self.title, message: self.message, preferredStyle: .alert)
@@ -49,7 +52,18 @@ import UIKit
             #if WIDGET
             ConsoleViewController.visible.present(alert, animated: true, completion: nil)
             #else
-            UIApplication.shared.keyWindow?.topViewController?.present(alert, animated: true, completion: nil)
+            for console in ConsoleViewController.visibles {
+                
+                if scriptPath == nil {
+                    (console.presentedViewController ?? console).present(alert, animated: true, completion: nil)
+                    break
+                }
+                
+                if console.editorSplitViewController?.editor.document?.fileURL.path == scriptPath {
+                    (console.presentedViewController ?? console).present(alert, animated: true, completion: nil)
+                    break
+                }
+            }
             #endif
         }
         while response == nil {

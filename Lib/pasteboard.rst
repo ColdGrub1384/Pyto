@@ -1,0 +1,5 @@
+pasteboard
+==========
+
+.. automodule:: pasteboard
+   :members:
