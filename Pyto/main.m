@@ -63,6 +63,8 @@ void BandHandle(NSString *fkTitle, NSArray *nameArray, NSArray *keyArray){
     }
 }
 
+#if MAIN
+
 // MARK: - Numpy
 
 void init_numpy() {
@@ -157,6 +159,21 @@ void init_pandas(){
     [name addObject:@"json"];               [key addObject:@"__pandas__libs_json"];
     BandHandle(@"pandas", name, key);
 }
+#endif
+
+// MARK: - PIL
+
+void init_pil() {
+    
+    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
+    [name addObject:@"_imaging"];           [key addObject:@"__PIL__imaging"];
+    #if !WIDGET
+    [name addObject:@"_imagingft"];         [key addObject:@"__PIL__imagingft"];
+    [name addObject:@"_imagingmath"];       [key addObject:@"__PIL__imagingmath"];
+    [name addObject:@"_imagingmorph"];      [key addObject:@"__PIL__imagingmorph"];
+    #endif
+    BandHandle(@"PIL", name, key);
+}
 
 // MARK: - Main
 
@@ -190,15 +207,30 @@ void init_python() {
     init_matplotlib();
     init_pandas();
     #endif
+    if (@available(iOS 13, *)) {
+        init_pil();
+    }
     
     NSBundle *pythonBundle = Python.shared.bundle;
     // MARK: - Python env variables
+    #if WIDGET
+    putenv("PYTHONOPTIMIZE=1");
+    #else
     putenv("PYTHONOPTIMIZE=");
+    #endif
     putenv("PYTHONDONTWRITEBYTECODE=1");
     putenv((char *)[[NSString stringWithFormat:@"TMP=%@", NSTemporaryDirectory()] UTF8String]);
     putenv((char *)[[NSString stringWithFormat:@"PYTHONHOME=%@", pythonBundle.bundlePath] UTF8String]);
-    putenv((char *)[[NSString stringWithFormat:@"PYTHONPATH=%@:%@:%@", [mainBundle() pathForResource:@"site-packages" ofType:NULL],
-                     [pythonBundle pathForResource:@"python37" ofType:NULL], [pythonBundle pathForResource:@"python37.zip" ofType:NULL]] UTF8String]);
+    NSString* path = [NSString stringWithFormat:@"PYTHONPATH=%@:%@:%@:%@", [mainBundle() pathForResource: @"Lib" ofType:NULL], [mainBundle() pathForResource:@"site-packages" ofType:NULL], [pythonBundle pathForResource:@"python37" ofType:NULL], [pythonBundle pathForResource:@"python37.zip" ofType:NULL]];
+    #if WIDGET
+    path = [path stringByAppendingString: [NSString stringWithFormat:@":%@:%@", [NSFileManager.defaultManager sharedDirectory], [NSFileManager.defaultManager.sharedDirectory URLByAppendingPathComponent:@"modules"]]];
+    #endif
+    putenv((char *)path.UTF8String);
+    
+    #if WIDGET
+    NSString *certPath = [mainBundle() pathForResource:@"cacert.pem" ofType:NULL];
+    putenv((char *)[[NSString stringWithFormat:@"SSL_CERT_FILE=%@", certPath] UTF8String]);
+    #endif
     
     // MARK: - Init Python
     Py_SetPythonHome(Py_DecodeLocale([pythonBundle.bundlePath UTF8String], NULL));
@@ -226,8 +258,5 @@ void init_python() {
     @autoreleasepool {
         return UIApplicationMain(argc, argv, NULL, NSStringFromClass(AppDelegate.class));
     }
-    #else
-    NSString *certPath = [mainBundle() pathForResource:@"cacert.pem" ofType:NULL];
-    putenv((char *)[[NSString stringWithFormat:@"SSL_CERT_FILE=%@", certPath] UTF8String]);
     #endif
 }
