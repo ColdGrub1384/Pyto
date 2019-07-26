@@ -511,10 +511,14 @@ fileprivate func parseArgs(_ args: inout [String]) {
     #if !targetEnvironment(UIKitForMac)
     override var keyCommands: [UIKeyCommand]? {
         if textView.contentTextView.isFirstResponder {
-            return [
+            var commands = [
                 UIKeyCommand(input: "c", modifierFlags: [.command, .shift], action: #selector(toggleComment), discoverabilityTitle: Localizable.MenuItems.toggleComment),
                 UIKeyCommand(input: "b", modifierFlags: [.command, .shift], action: #selector(setBreakpoint(_:)), discoverabilityTitle: Localizable.MenuItems.breakpoint)
             ]
+            if suggestions.count > 0 {
+                commands.append(UIKeyCommand(input: "\t", modifierFlags: [.shift], action: #selector(nextSuggestion), discoverabilityTitle: Localizable.nextSuggestion))
+            }
+            return commands
         } else {
             return []
         }
@@ -870,9 +874,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 console.textView.resignFirstResponder()
             }
             
-            if ConsoleViewController.isMainLoopRunning {
-                ConsoleViewController.closePresentedViewController()
-                DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+            if console.presentedViewController != nil {
+                console.dismiss(animated: true) {
                     stop_()
                 }
             } else {
@@ -897,6 +900,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// - Parameters:
     ///     - debug: Set to `true` for debugging with `pdb`.
     func runScript(debug: Bool) {
+        
+        textView.contentTextView.resignFirstResponder()
         
         // For error handling
         textView.delegate = nil
@@ -1314,12 +1319,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
         
         if text == "\t" {
-            
-            if suggestions.count > 0 {
-                nextSuggestion()
-                return false
-            }
-
             if let textRange = range.toTextRange(textInput: textView) {
                 textView.replace(textRange, withText: EditorViewController.indentation)
                 return false
@@ -1455,7 +1454,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     }
     
     /// Selects a suggestion from hardware tab key.
-    func nextSuggestion() {
+    @objc func nextSuggestion() {
         let new = currentSuggestionIndex+1
         
         if suggestions.indices.contains(new) {
@@ -1531,6 +1530,25 @@ fileprivate func parseArgs(_ args: inout [String]) {
             
             class DocViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
                 
+                override func viewLayoutMarginsDidChange() {
+                    super.viewLayoutMarginsDidChange()
+                    
+                    view.subviews.first?.frame = view.safeAreaLayoutGuide.layoutFrame
+                }
+                
+                override func viewWillAppear(_ animated: Bool) {
+                    super.viewWillAppear(animated)
+                    
+                    view.subviews.first?.isHidden = true
+                }
+                
+                override func viewDidAppear(_ animated: Bool) {
+                    super.viewDidAppear(animated)
+                    
+                    view.subviews.first?.frame = view.safeAreaLayoutGuide.layoutFrame
+                    view.subviews.first?.isHidden = false
+                }
+                
                 func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
                     return .none
                 }
@@ -1553,9 +1571,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 docView.font = UIFont(name: "Menlo", size: UIFont.systemFontSize)
                 docView.isEditable = false
                 docView.text = self.docString
+                docView.backgroundColor = .black
                 
                 let docVC = DocViewController()
-                docVC.view = docView
+                docView.frame = docVC.view.safeAreaLayoutGuide.layoutFrame
+                docVC.view.addSubview(docView)
                 docVC.view.backgroundColor = .black
                 docVC.preferredContentSize = CGSize(width: 300, height: 100)
                 docVC.modalPresentationStyle = .popover
@@ -1591,7 +1611,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         let input = [
             "from _codecompletion import suggestForCode",
             "source = '''",
-            text.replacingOccurrences(of: "'", with: "\\'"),
+            text.replacingOccurrences(of: "'", with: "\\'").replacingOccurrences(of: "\\", with: "\\\\"),
             "'''",
             "suggestForCode(source, '\((document?.fileURL.path ?? "").replacingOccurrences(of: "'", with: "\\'"))')"
         ].joined(separator: ";")
@@ -1610,7 +1630,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 
                 let editor = (((scene.delegate as? UIWindowSceneDelegate)?.window??.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor
                 
-                guard editor?.textView.text != syntaxTextView.text else {
+                guard editor?.textView.text != syntaxTextView.text, editor?.document?.fileURL.path == document?.fileURL.path else {
                     continue
                 }
                 
@@ -1636,13 +1656,24 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         let completion = completions[index]
         let suggestion = suggestions[index]
-        let doc = docStrings[suggestions[index]]
         
-        if let currentWord = textView.contentTextView.currentWord, !suggestions[index].hasPrefix(currentWord), !suggestions[index].contains("_"), let currentWordRange = textView.contentTextView.currentWordRange {
-            textView.contentTextView.replace(currentWordRange, withText: suggestion)
-        } else if completion != "" {
-            textView.insertText(completion)
-            docString = doc
+        let selectedRange = textView.contentTextView.selectedRange
+        
+        let location = selectedRange.location-(suggestion.count-completion.count)
+        let length = suggestion.count-completion.count
+        
+        /*
+         
+         hello_w HELLO_WORLD ORLD
+         
+         */
+        
+        let iDonTKnowHowToNameThisVariableButItSSomethingWithTheSelectedRangeButFromTheBeginingLikeTheEntireSelectedWordWithUnderscoresIncluded = NSRange(location: location, length: length)
+        
+        textView.contentTextView.selectedRange = iDonTKnowHowToNameThisVariableButItSSomethingWithTheSelectedRangeButFromTheBeginingLikeTheEntireSelectedWordWithUnderscoresIncluded
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
+            self.textView.contentTextView.insertText(suggestion)
         }
         
         currentSuggestionIndex = -1
