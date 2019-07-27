@@ -3,7 +3,6 @@ Shows an alert.
 """
 
 from pyto_ui import Alert
-from sys import platform
 
 # Code here
 
