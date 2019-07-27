@@ -1019,10 +1019,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
         if documentationNavigationController == nil {
             documentationNavigationController = ThemableNavigationController(rootViewController: DocumentationViewController())
         }
-        documentationNavigationController?.modalPresentationStyle = .popover
-        documentationNavigationController?.popoverPresentationController?.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
-        documentationNavigationController?.popoverPresentationController?.barButtonItem = sender
-        documentationNavigationController?.preferredContentSize = CGSize(width: 400, height: 400)
         present(documentationNavigationController!, animated: true, completion: nil)
     }
     
