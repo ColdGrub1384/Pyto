@@ -19,6 +19,33 @@ import SafariServices
     
     private let copyModulesQueue = DispatchQueue.global(qos: .background)
     
+    /// Copies examples to iCloud Drive or Local Storage.
+    ///
+    /// - Parameters:
+    ///     - force: A boolean indicating if the copy should be made even it it's already done.
+    func copyExamples(force: Bool = false) {
+        let version = Float((Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "1.0") ?? 1.0
+        let key = "copiedExamples_v\(version)"
+        
+        guard !UserDefaults.standard.bool(forKey: key) || force else {
+            return
+        }
+        
+        guard let examplesURL = Bundle.main.url(forResource: "Examples", withExtension: nil) else {
+            return
+        }
+        
+        UserDefaults.standard.set(true, forKey: key)
+        
+        DispatchQueue.global().async {
+            if FileManager.default.fileExists(atPath: examplesURL.path) {
+                try? FileManager.default.removeItem(at: examplesURL)
+            }
+            
+            try? FileManager.default.copyItem(at: examplesURL, to: (DocumentBrowserViewController.iCloudContainerURL ?? DocumentBrowserViewController.localContainerURL).appendingPathComponent(examplesURL.lastPathComponent))
+        }
+    }
+    
     /// Copies modules to shared container.
     func copyModules() {
         
@@ -106,6 +133,7 @@ import SafariServices
         for file in ((try? FileManager.default.contentsOfDirectory(at: URL(fileURLWithPath: NSTemporaryDirectory()), includingPropertiesForKeys: nil, options: .skipsHiddenFiles)) ?? []) {
             try? FileManager.default.removeItem(at: file)
         }
+        copyExamples()
         
         window?.tintColor = ConsoleViewController.choosenTheme.tintColor
         
