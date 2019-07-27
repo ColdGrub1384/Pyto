@@ -155,7 +155,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         let defaultDir = scriptURL.deletingLastPathComponent()
         
-        guard let data = UserDefaults.standard.data(forKey: "currentDirectory\(scriptURL.path.replacingOccurrences(of: "//", with: "/") )") else {
+        guard let data = try? scriptURL.extendedAttribute(forName: "currentDirectory") else {
             return defaultDir
         }
         
@@ -184,16 +184,28 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
         
         set {
-            
-            let key = "currentDirectory\(document?.fileURL.path ?? "")"
-            
-            guard newValue != document?.fileURL.deletingLastPathComponent() else {
-                return UserDefaults.standard.set(nil, forKey: key)
+            func _set() {
+                guard newValue != document?.fileURL.deletingLastPathComponent() else {
+                    if (try? document?.fileURL.extendedAttribute(forName: "currentDirectory")) != nil {
+                        do {
+                            try document?.fileURL.removeExtendedAttribute(forName: "currentDirectory")
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                    }
+                    return
+                }
+                
+                if let data = try? newValue.bookmarkData() {
+                    do {
+                        try document?.fileURL.setExtendedAttribute(data: data, forName: "currentDirectory")
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
             }
             
-            if let data = try? newValue.bookmarkData() {
-                UserDefaults.standard.set(data, forKey: key)
-            }
+            DispatchQueue.global().async(execute: _set)
         }
     }
     

@@ -333,6 +333,10 @@ fileprivate var isPythonSetup = false
 
             pyto.ConsoleViewController.isScriptRunning = True
 
+            os.chdir(directory)
+            if not directory in sys.path:
+                sys.path.append(directory)
+
             try:
                 spec = importlib.util.spec_from_file_location("__main__", script_path)
                 script = importlib.util.module_from_spec(spec)
