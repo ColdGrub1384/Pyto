@@ -98,7 +98,7 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(close))
         
-        if UIDevice.current.isMultitaskingSupported, #available(iOS 13.0, *) {
+        if UIDevice.current.userInterfaceIdiom == .pad, #available(iOS 13.0, *) {
             navigationItem.rightBarButtonItems?.append(UIBarButtonItem(image: UIImage(systemName: "chevron.down.square.fill"), style: .plain, target: self, action: #selector(openInNewWindow)))
         }
     }
