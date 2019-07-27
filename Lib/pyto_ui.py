@@ -13,7 +13,7 @@ This library may have a lot of similarities with ``UIKit``, but subclassing isn'
 """
 
 from __future__ import annotations
-from UIKit import UIDevice, UIFont as __UIFont__, UIImage as __UIImage__
+from UIKit import UIDevice, UIFont as __UIFont__, UIImage as UIImage
 from rubicon.objc import ObjCClass, CGFloat, objc_method
 
 if UIDevice != None and float(str(UIDevice.currentDevice.systemVersion)) < 13:
@@ -1280,7 +1280,7 @@ class Font:
         return font
 
     @classmethod
-    def font_with_style(cls, style: FONT_STYLE) -> Font:
+    def font_with_style(cls, style: FONT_TEXT_STYLE) -> Font:
         """
         Returns an instance of the system font for the specified text style and scaled appropriately for the user's selected content size category.
         
@@ -1774,7 +1774,7 @@ class ButtonItem:
     def image(self, new_value: Image.Image):
         if new_value == None:
             self.__py_item__.image = None
-        elif "objc_class" in dir(new_value) and new_value.objc_class == __UIImage__:
+        elif "objc_class" in dir(new_value) and new_value.objc_class == UIImage:
             self.__py_item__.image = new_value
         else:
             self.__py_item__.image = __ui_image_from_pil_image__(new_value)
@@ -2525,7 +2525,7 @@ class View:
                 _recognizer = self.__class__()
                 _recognizer.__py_gesture__ =  recognizer
                 _recognizers.append(_recognizer)
-            return _views
+            return _recognizers
 
 
     def size_to_fit(self):
@@ -2640,7 +2640,7 @@ class ImageView(View):
 
         if new_value == None:
             self.__py_view__.image = None
-        elif "objc_class" in dir(new_value) and new_value.objc_class == __UIImage__:
+        elif "objc_class" in dir(new_value) and new_value.objc_class == UIImage:
             self.__py_view__.image = new_value
         else:
             self.__py_view__.image = __ui_image_from_pil_image__(new_value)
@@ -2964,7 +2964,7 @@ class TableView(View):
         for section in sections:
             py_section = TableViewSection()
             py_section.__py_section__ = section
-            py_sections.append(cell)
+            py_sections.append(py_section)
         return py_sections
     
     @sections.setter
@@ -3706,7 +3706,7 @@ class Button(Control):
     def image(self, new_value: Image.Image):
         if new_value == None:
             self.__py_view__.image = None
-        elif "objc_class" in dir(new_value) and new_value.objc_class == __UIImage__:
+        elif "objc_class" in dir(new_value) and new_value.objc_class == UIImage:
             self.__py_view__.image = new_value
         else:
             self.__py_view__.image = __ui_image_from_pil_image__(new_value)
@@ -4024,7 +4024,7 @@ def __ui_image_from_pil_image__(image):
     img_str = base64.b64encode(buffered.getvalue())
 
     data = __NSData__.alloc().initWithBase64EncodedString(img_str, options=0)
-    return __UIImage__.alloc().initWithData(data)
+    return UIImage.alloc().initWithData(data)
 
 def __pil_image_from_ui_image__(image):
     
@@ -4053,17 +4053,17 @@ def font_family_names() -> List[str]:
     
     return py_names
 
-def image_with_system_name(name: str) -> UIKit.UIImage:
+def image_with_system_name(name: str) -> UIImage:
     """
     Returns a system symbol image from given name. The return value is an UIKit ``UIImage`` object, so it can only be used on the ``pyto_ui`` library.
     More info about symbols on `Apple's Web Site <https://developer.apple.com/design/resources/>`_ .
     
     :param name: The name of the SF Symbol.
     
-    :rtype: UIKit.UIImage
+    :rtype: UIImage
     """
     
-    image = __UIImage__.systemImageNamed(name, withConfiguration=None)
+    image = UIImage.systemImageNamed(name, withConfiguration=None)
     if image == None:
         raise ValueError("The given symbol name is not valid.")
     return image

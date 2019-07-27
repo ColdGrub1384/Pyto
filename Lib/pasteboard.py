@@ -64,7 +64,7 @@ def set_image(image: UIImage):
         
     :param image: The image to copy.
     """
-    general_pasteboard().image = text
+    general_pasteboard().image = image
 
 def set_images(array: List[UIImage]):
     """
