@@ -86,6 +86,7 @@
 <p class="caption"><span class="caption-text">Pyto Library Reference</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">pyto_ui</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#api-reference">API Reference</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="pyto_ui/classes.html">Classes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyto_ui/functions.html">Functions</a></li>
@@ -171,7 +172,10 @@ This library’s API is very similar to UIKit.</p>
 <p class="admonition-title">Warning</p>
 <p>This library requires iOS / iPadOS 13.</p>
 </div>
-<p><strong>Getting Started</strong></p>
+<p>This library may have a lot of similarities with <code class="docutils literal notranslate"><span class="pre">UIKit</span></code>, but subclassing isn’t supported very well. Instead of overriding methods, you will often need to set properties to a function. For properties, setters are what makes the passed value take effect, so instead of override the getter, you should just set properties. If you really want to subclass a <a class="reference internal" href="pyto_ui/classes.html#pyto_ui.View" title="pyto_ui.View"><code class="xref py py-class docutils literal notranslate"><span class="pre">View</span></code></a>, you can set properties from the initializer.</p>
+<p>(Many docstrings are quoted from the Apple Documentation)</p>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
 <p>Each item presented on the screen is a <a class="reference internal" href="pyto_ui/classes.html#pyto_ui.View" title="pyto_ui.View"><code class="xref py py-class docutils literal notranslate"><span class="pre">View</span></code></a> object. This module contains many <a class="reference internal" href="pyto_ui/classes.html#pyto_ui.View" title="pyto_ui.View"><code class="xref py py-class docutils literal notranslate"><span class="pre">View</span></code></a> subclasses.</p>
 <p>We can initialize a view like that:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyto_ui</span> <span class="kn">as</span> <span class="nn">ui</span>
@@ -211,7 +215,7 @@ It’s important to set our view’s background color because it will be transpa
 <p>To add an action to the button:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">button_pressed</span><span class="p">(</span><span class="n">sender</span><span class="p">):</span>
   <span class="n">sender</span><span class="o">.</span><span class="n">superview</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-    
+
 <span class="n">button</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="n">button_pressed</span>
 </pre></div>
 </div>
@@ -239,8 +243,7 @@ It’s important to set our view’s background color because it will be transpa
 </div>
 <p>When the button is clicked, the UI will be closed and “Hello World!” will be printed.
 UIs can be presented on the Today widget if you set the widget script.</p>
-<p>This library may have a lot of similarities with <code class="docutils literal notranslate"><span class="pre">UIKit</span></code>, but subclassing isn’t supported very well. Instead of overriding methods, you will often need to set properties to a function. For properties, setters are what makes the passed value take effect, so instead of override the getter, you should just set properties. If you really want to subclass a <a class="reference internal" href="pyto_ui/classes.html#pyto_ui.View" title="pyto_ui.View"><code class="xref py py-class docutils literal notranslate"><span class="pre">View</span></code></a>, you can set properties from the initializer.</p>
-<p>(Many docstrings are quoted from the Apple Documentation)</p>
+</div>
 <div class="section" id="api-reference">
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">

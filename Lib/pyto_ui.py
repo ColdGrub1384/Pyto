@@ -7,101 +7,6 @@ This library's API is very similar to UIKit.
 .. warning::
    This library requires iOS / iPadOS 13.
 
-**Getting Started**
-
-Each item presented on the screen is a :class:`~pyto_ui.View` object. This module contains many :class:`~pyto_ui.View` subclasses.
-
-We can initialize a view like that:
-
-.. highlight:: python
-.. code-block:: python
-
-    import pyto_ui as ui
-    
-    view = ui.View()
-    
-You can modify the view's attributes, like :data:`~pyto_ui.View.background_color` for example:
-
-.. highlight:: python
-.. code-block:: python
-
-    view.background_color = ui.COLOR_SYSTEM_BACKGROUND
-    
-Then, call the :func:`~pyto_ui.show_view` function to show the view:
-
-.. highlight:: python
-.. code-block:: python
-
-    ui.show_view(view)
-    
-A view will be presented, with the system background color, white or black depending on if the device has dark mode enabled or not.
-It's important to set our view's background color because it will be transparent if it's not set. That looks great on widgets, but not in app.
-
-NOTE: The thread will be blocked until the view is closed, but you can run code on another thread and modify the UI from there:
-
-.. highlight:: python
-.. code-block:: python
-
-    ui.show_view(view)
-    print("Closed") # This line will be called after the view is closed.
-    
-Now we have an empty view, the root view, we can add other views inside it, like a :class:`~pyto_ui.Button`:
-
-.. highlight:: python
-.. code-block:: python
-
-    button = ui.Button(title="Hello World!")
-    button.size = (100, 50)
-    button.center = (view.width/2, view.height/2)
-    button.flex = [
-        FLEXIBLE_TOP_MARGIN,
-        FLEXIBLE_BOTTOM_MARGIN,
-        FLEXIBLE_LEFT_MARGIN,
-        FLEXIBLE_RIGHT_MARGIN
-    ]
-    view.add_subview(button)
-    
-We are creating a button with title "Hello World!", with 100 as width and 50 as height. We place it at center, and we set :data:`~pyto_ui.View.flex` to have flexible margins so the button will always stay at center even if the root view will change its size.
-
-To add an action to the button:
-
-.. highlight:: python
-.. code-block:: python
-
-    def button_pressed(sender):
-      sender.superview.close()
-        
-    button.action = button_pressed
-    
-We define a function that takes the button as parameter and we pass it to the button's :data:`~pyto_ui.Button.action` property. The :data:`~pyto_ui.View.superview` property of the button is the view that contains it. With the :meth:`~pyto_ui.View.close` function, we close it.
-
-So we have this code:
-
-.. highlight:: python
-.. code-block:: python
-
-    import pyto_ui as ui
-
-    def button_pressed(sender):
-      sender.superview.close()
-    
-    view = ui.View()
-    view.background_color = ui.COLOR_SYSTEM_BACKGROUND
-    
-    button = ui.Button(title="Hello World!")
-    button.size = (100, 50)
-    button.center = (view.width/2, view.height/2)
-    button.flexible_margins = True
-    button.action = button_pressed
-    view.add_subview(button)
-    
-    ui.show_view(view)
-    
-    print("Hello World!")
-    
-When the button is clicked, the UI will be closed and "Hello World!" will be printed.
-UIs can be presented on the Today widget if you set the widget script.
-
 This library may have a lot of similarities with ``UIKit``, but subclassing isn't supported very well. Instead of overriding methods, you will often need to set properties to a function. For properties, setters are what makes the passed value take effect, so instead of override the getter, you should just set properties. If you really want to subclass a :class:`View`, you can set properties from the initializer.
 
 (Many docstrings are quoted from the Apple Documentation)
@@ -1083,7 +988,7 @@ class Color:
         """
         Initializes a color from RGB values.
         
-        All values should be located between 0 and 1, not between 0 and 255. You can divide a value: ``Color.rgb(255/255, 100/255, 50/255, 255/255)``.
+        All values should be located between 0 and 1, not between 0 and 255.
         
         :param red: The red value.
         :param green: The geen value.
@@ -1100,7 +1005,7 @@ class Color:
         """
         Initializes and returns a color from white value.
         
-        All values should be located between 0 and 1, not between 0 and 255. You can divide a value: ``Color.white(255/255, 100/255)``.
+        All values should be located between 0 and 1, not between 0 and 255.
         
         :param white: The grayscale value.
         :param alpha: The opacity value.
@@ -2606,7 +2511,7 @@ class View:
         """
         (Read Only) Returns all gesture recognizers.
         
-        See ``add_gesture_recognizer(gesture_recognizer)``.
+        See :meth:`~pyto_ui.View.add_gesture_recognizer`\ .
         
         :rtype: List[GestureRecognizer]
         """
@@ -4151,8 +4056,9 @@ def font_family_names() -> List[str]:
 def image_with_system_name(name: str) -> UIKit.UIImage:
     """
     Returns a system symbol image from given name. The return value is an UIKit ``UIImage`` object, so it can only be used on the ``pyto_ui`` library.
+    More info about symbols on `Apple's Web Site <https://developer.apple.com/design/resources/>`_ .
     
-    :param name: The name of the SF Symbol. More info at https://developer.apple.com/design/resources/.
+    :param name: The name of the SF Symbol.
     
     :rtype: UIKit.UIImage
     """
