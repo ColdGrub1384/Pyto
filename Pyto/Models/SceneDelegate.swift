@@ -98,6 +98,24 @@ import UIKit
                 } catch {
                     print(error.localizedDescription)
                 }
+            } else if let className = restorationActivity.userInfo?["viewControllerClass"] as? String, let ViewController = NSClassFromString(className) as? UIViewController.Type {
+                
+                let navClassName = restorationActivity.userInfo?["navigationControllerClass"] as? String
+                var NavigationController: UINavigationController.Type?
+                if let className = navClassName {
+                    NavigationController = NSClassFromString(className) as? UINavigationController.Type
+                }
+                
+                let blankVC = SceneDelegate.ViewController()
+                blankVC.sceneSession = session
+                if let navVC = NavigationController?.init() {
+                    navVC.viewControllers = [ViewController.init()]
+                    blankVC.viewControllerToPresent = navVC
+                } else {
+                    blankVC.viewControllerToPresent = ViewController.init()
+                }
+                window?.rootViewController = blankVC
+                
             } else if restorationActivity.userInfo?["filePath"] != nil {
                 self.scene(scene, continue: restorationActivity)
             }
@@ -252,6 +270,18 @@ import UIKit
             } catch {
                 return nil
             }
+        } else if let vc = ((scene.delegate as? UIWindowSceneDelegate)?.window??.rootViewController as? ViewController)?.viewControllerToPresent {
+            
+            let ViewController = type(of: vc) as UIViewController.Type
+            
+            let activity = NSUserActivity(activityType: "stateRestoration")
+            if ViewController is UINavigationController.Type, let visible = (vc as? UINavigationController)?.visibleViewController {
+                activity.userInfo?["navigationControllerClass"] = NSStringFromClass(ViewController)
+                activity.userInfo?["viewControllerClass"] = NSStringFromClass(type(of: visible))
+            } else {
+                activity.userInfo?["viewControllerClass"] = NSStringFromClass(ViewController)
+            }
+            return activity
         }
         
         return nil
