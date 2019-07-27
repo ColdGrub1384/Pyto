@@ -36,7 +36,6 @@ Features:
 
 # Known bugs
 
-- [ ] Bug while dragging console vertically
 - [ ] Cannot select code completions from the middle
 
 ## Building
