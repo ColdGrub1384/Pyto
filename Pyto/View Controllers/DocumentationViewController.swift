@@ -37,6 +37,37 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         dismiss(animated: true, completion: nil)
     }
     
+    /// Opens the documentation in a new window.
+    @objc func openInNewWindow() {
+        let presenting = presentingViewController
+        let navVC = navigationController
+        ((presenting as? EditorSplitViewController.NavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor?.documentationNavigationController = nil
+        dismiss(animated: true) {
+            func showDocs() {
+                SceneDelegate.viewControllerToShow = navVC ?? self
+                SceneDelegate.viewControllerDidShow = {
+                    self.view.window?.tintColor = ConsoleViewController.choosenTheme.tintColor
+                }
+                if #available(iOS 13.0, *) {
+                    UIApplication.shared.requestSceneSessionActivation(nil, userActivity: nil, options: nil, errorHandler: { error in
+                        print(error.localizedDescription)
+                    })
+                }
+                if self.navigationItem.rightBarButtonItems?.count == 2 {
+                    self.navigationItem.rightBarButtonItems?.removeLast()
+                }
+            }
+            
+            if presenting?.modalPresentationStyle == .formSheet {
+                presenting?.dismiss(animated: true, completion: {
+                    showDocs()
+                })
+            } else {
+                showDocs()
+            }
+        }
+    }
+    
     // MARK: - View controller
     
     #if !targetEnvironment(UIKitForMac)
@@ -51,13 +82,12 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         edgesForExtendedLayout = []
         
         webView = WKWebView(frame: view.frame)
-        webView.isHidden = true
         webView.allowsBackForwardNavigationGestures = true
         webView.navigationDelegate = self
         webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(webView)
         
-        if let url = Bundle.main.url(forResource: "docs", withExtension: "") {
+        if let url = Bundle.main.url(forResource: "docs/html", withExtension: "") {
             webView.loadFileURL(url.appendingPathComponent("index.html"), allowingReadAccessTo: url)
         }
         
@@ -67,6 +97,10 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         toolbarItems = [goBackButton, UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), goForwardButton]
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(close))
+        
+        if UIDevice.current.isMultitaskingSupported, #available(iOS 13.0, *) {
+            navigationItem.rightBarButtonItems?.append(UIBarButtonItem(image: UIImage(systemName: "chevron.down.square.fill"), style: .plain, target: self, action: #selector(openInNewWindow)))
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -80,12 +114,6 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         goBackButton.isEnabled = webView.canGoBack
         goForwardButton.isEnabled = webView.canGoForward
-        
-        webView.evaluateJavaScript("document.body.style.backgroundColor = '\(ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor.hexString ?? "white")'; document.body.style.color = '\(ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain).hexString ?? "black")'") { (_, _) in
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: {
-                webView.isHidden = false
-            })
-        }
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
