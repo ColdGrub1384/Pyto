@@ -2200,7 +2200,7 @@ class View:
         """
         
         views = self.__py_view__.subviews
-        if superview == None or len(views) == 0:
+        if views == None or len(views) == 0:
             return []
         else:
             _views = []
