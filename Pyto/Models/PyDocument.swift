@@ -20,8 +20,10 @@ enum PyDocumentError: Error {
     /// The text of the Python script to save.
     @objc var text = ""
     
+    #if MAIN
     /// The editor that is editing this document.
     var editor: EditorViewController?
+    #endif
     
     private var storedModificationDate: Date? {
         didSet {
@@ -105,6 +107,7 @@ enum PyDocumentError: Error {
     
     // MARK: - File presenter
     
+    #if MAIN
     override func presentedItemDidChange() {
         super.presentedItemDidChange()
         
@@ -123,4 +126,5 @@ enum PyDocumentError: Error {
             }
         }
     }
+    #endif
 }

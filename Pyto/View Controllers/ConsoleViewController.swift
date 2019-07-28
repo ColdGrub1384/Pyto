@@ -101,11 +101,15 @@ import UIKit
     /// Clears screen.
     @objc static func clearConsoleForPath(_ path: String?) {
         DispatchQueue.main.sync {
+            #if MAIN
             for console in visibles {
                 if console.editorSplitViewController?.editor.document?.fileURL.path == path || path == nil {
                     console.clear()
                 }
             }
+            #else
+            ConsoleViewController.visibles.first?.clear()
+            #endif
         }
     }
     
@@ -156,9 +160,11 @@ import UIKit
         }
     }
     
+    #if MAIN
     private var scriptPath: String? {
         return editorSplitViewController?.editor.document?.fileURL.path
     }
+    #endif
     
     /// The text field used for sending input.
     var movableTextField: MovableTextField?
@@ -483,6 +489,8 @@ import UIKit
         
         #if WIDGET
         ConsoleViewController.visible.present(viewController, animated: true, completion: completion)
+        #elseif !MAIN
+        ConsoleViewController.visibles.first?.present(viewController, animated: true, completion: completion)
         #else
         for console in visibles {
             if scriptPath == nil {
@@ -544,7 +552,12 @@ import UIKit
         
         return navVC
         #else
-        return vc
+        let navVC = NavigationController(rootViewController: vc)
+        navVC.navigationBar.isTranslucent = false
+        navVC.modalPresentationStyle = .fullScreen
+        navVC.pyView = view
+        view.viewController = navVC
+        return navVC
         #endif
     }
     
@@ -570,6 +583,13 @@ import UIKit
         textView.frame.size.height = view.frame.height
         textView.delegate = self
         textView.isEditable = false
+        #if !MAIN
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemBackground
+            textView.backgroundColor = .systemBackground
+            textView.textColor = .label
+        }
+        #endif
         view.addSubview(textView)
         
         NotificationCenter.default.addObserver(self, selector: #selector(print_(_:)), name: .init(rawValue: "DidReceiveOutput"), object: nil)
@@ -579,11 +599,13 @@ import UIKit
         movableTextField = MovableTextField(console: self)
     }
     
+    #if MAIN
     override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
         themeDidChange(nil)
     }
+    #endif
     
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -674,8 +696,10 @@ import UIKit
         #if MAIN
         themeDidChange(nil)
         #else
-        view.backgroundColor = .systemBackground
-        navigationController?.view.backgroundColor = .systemBackground
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemBackground
+            navigationController?.view.backgroundColor = .systemBackground
+        }
         #endif
     }
     
@@ -744,4 +768,3 @@ import UIKit
         console = textView.text
     }
 }
-

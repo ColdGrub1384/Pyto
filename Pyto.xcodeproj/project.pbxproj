@@ -106,6 +106,7 @@
 		C92DBD8221F687480098BE43 /* REPLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92DBD8121F687480098BE43 /* REPLViewController.swift */; };
 		C92EAC6322D93D1100729970 /* libPython.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6321445B5800585C28 /* libPython.a */; };
 		C92EAC6422D93D2800729970 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A4214461D300382DCC /* libsqlite3.tbd */; };
+		C92FB43522ECC4BF00A59AC0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C98E2001214F0856002F0178 /* main.m */; };
 		C93657252287286400498011 /* ConflictsResolver.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C93657242287286400498011 /* ConflictsResolver.storyboard */; };
 		C93657292287334600498011 /* ResolveConflictsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93657282287334600498011 /* ResolveConflictsTableViewController.swift */; };
 		C936B9CC22D93A1A00DF2720 /* libbzip2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6521445B5D00585C28 /* libbzip2.a */; };
@@ -486,7 +487,6 @@
 		C9CEE21A21EB9D6C00316D3C /* PythonApplicationMain.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CEE21921EB9D6C00316D3C /* PythonApplicationMain.m */; };
 		C9CEE25921EBAB9B00316D3C /* Startup.py in Resources */ = {isa = PBXBuildFile; fileRef = C9CEE25821EBAB9B00316D3C /* Startup.py */; };
 		C9CEE25A21EBADD200316D3C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9F04E852173C33400BDD03E /* Localizable.strings */; };
-		C9CEE25C21EBC52E00316D3C /* suspend.py in Resources */ = {isa = PBXBuildFile; fileRef = C9CEE25B21EBC52E00316D3C /* suspend.py */; };
 		C9CEE26221EBD06700316D3C /* Splash Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9CEE26121EBD06700316D3C /* Splash Screen.storyboard */; };
 		C9CEE26621EBD21000316D3C /* RoundedIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C9CEE26521EBD21000316D3C /* RoundedIcon.png */; };
 		C9CEF4B222AC8DD300B1916D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CEF4B122AC8DD300B1916D /* SceneDelegate.swift */; };
@@ -520,6 +520,25 @@
 		C9F1258F22DFD28F00F54D84 /* PySegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F1258E22DFD28F00F54D84 /* PySegmentedControl.swift */; };
 		C9F1259022DFD28F00F54D84 /* PySegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F1258E22DFD28F00F54D84 /* PySegmentedControl.swift */; };
 		C9F32397227CC9DB008BB45C /* python37.zip in Resources */ = {isa = PBXBuildFile; fileRef = C9F32396227CC9DA008BB45C /* python37.zip */; };
+		C9F4622522ECB40C007DC3B8 /* PyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98A5BB122C7E86900D411CC /* PyWrapper.swift */; };
+		C9F4622822ECB412007DC3B8 /* PyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A05F6522E400890096DCA8 /* PyView.swift */; };
+		C9F4622922ECB412007DC3B8 /* PyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C956AB6222CD6BD600DBC580 /* PyLabel.swift */; };
+		C9F4622A22ECB412007DC3B8 /* PyImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C903986822D2CF2600FAD834 /* PyImageView.swift */; };
+		C9F4622B22ECB412007DC3B8 /* PyControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C927187A22C99CEA0025341B /* PyControl.swift */; };
+		C9F4622C22ECB412007DC3B8 /* PySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C8E1822DFDEBC0008DC13 /* PySlider.swift */; };
+		C9F4622D22ECB412007DC3B8 /* PySegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F1258E22DFD28F00F54D84 /* PySegmentedControl.swift */; };
+		C9F4622E22ECB412007DC3B8 /* PySwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C8E1D22E01ACA0008DC13 /* PySwitch.swift */; };
+		C9F4622F22ECB412007DC3B8 /* PyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C927187722C9933A0025341B /* PyButton.swift */; };
+		C9F4623022ECB412007DC3B8 /* PyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF46E622E106D500B8FE4B /* PyTableView.swift */; };
+		C9F4623122ECB412007DC3B8 /* PyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF46E122E0DC4F00B8FE4B /* PyTableViewCell.swift */; };
+		C9F4623222ECB412007DC3B8 /* PyTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C943E7F222E1719200B8027C /* PyTextView.swift */; };
+		C9F4623322ECB412007DC3B8 /* PyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C943E7F922E2BA0500B8027C /* PyTextField.swift */; };
+		C9F4623422ECB417007DC3B8 /* PyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C927187422C973F60025341B /* PyValue.swift */; };
+		C9F4623522ECB417007DC3B8 /* PyColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98A5BB322C7E86900D411CC /* PyColor.swift */; };
+		C9F4623622ECB417007DC3B8 /* PyGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A8F02422DCE184000E320F /* PyGestureRecognizer.swift */; };
+		C9F4623722ECB417007DC3B8 /* PyTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF46E922E108C100B8FE4B /* PyTableViewSection.swift */; };
+		C9F4623822ECB417007DC3B8 /* PyButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94E730122E3BBF300F3FB79 /* PyButtonItem.swift */; };
+		C9F4623922ECB417007DC3B8 /* PyTextInputTraits.swift in Sources */ = {isa = PBXBuildFile; fileRef = C943E7F422E21D4C00B8027C /* PyTextInputTraits.swift */; };
 		C9F8660621ECD3360062D1C1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A62144620A00382DCC /* libz.tbd */; };
 		C9F8660721ECD3480062D1C1 /* libPython.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6321445B5800585C28 /* libPython.a */; platformFilter = ios; };
 		C9F8660821ECD34A0062D1C1 /* libbzip2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6521445B5D00585C28 /* libbzip2.a */; platformFilter = ios; };
@@ -1906,7 +1925,6 @@
 		C9CEE1EA21EB8D5300316D3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9CEE21921EB9D6C00316D3C /* PythonApplicationMain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PythonApplicationMain.m; sourceTree = "<group>"; };
 		C9CEE25821EBAB9B00316D3C /* Startup.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = Startup.py; sourceTree = "<group>"; };
-		C9CEE25B21EBC52E00316D3C /* suspend.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = suspend.py; sourceTree = "<group>"; };
 		C9CEE26121EBD06700316D3C /* Splash Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Splash Screen.storyboard"; sourceTree = "<group>"; };
 		C9CEE26521EBD21000316D3C /* RoundedIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RoundedIcon.png; sourceTree = "<group>"; };
 		C9CEF4B122AC8DD300B1916D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -2808,7 +2826,6 @@
 			children = (
 				C9CEE1E921EB8D5300316D3C /* PytoCore.h */,
 				C9CEE21921EB9D6C00316D3C /* PythonApplicationMain.m */,
-				C9CEE25B21EBC52E00316D3C /* suspend.py */,
 				C9CEE25821EBAB9B00316D3C /* Startup.py */,
 				C9CEE26121EBD06700316D3C /* Splash Screen.storyboard */,
 				C9CEE26521EBD21000316D3C /* RoundedIcon.png */,
@@ -3351,7 +3368,6 @@
 				C9CEE25921EBAB9B00316D3C /* Startup.py in Resources */,
 				C9CEE26221EBD06700316D3C /* Splash Screen.storyboard in Resources */,
 				C9CEE26621EBD21000316D3C /* RoundedIcon.png in Resources */,
-				C9CEE25C21EBC52E00316D3C /* suspend.py in Resources */,
 				C9CEE1F121EB8D6C00316D3C /* site-packages in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3482,7 +3498,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "ZIPFILE=\"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/repo.zip\"\n\nif [ -d \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Contents\" ]\nthen\nexit 0 # Is building for macOS\nfi\n\nif [ -f \"$ZIPFILE\" ]\nthen\nexit 0\nelse\necho \"Doesn't exist\"\nfi\n\nTMPSRC=\"${SRCROOT}/../PytoTmpCopy\"\ncp -r \"${SRCROOT}/Python App\" \"$TMPSRC\"\ncp -r \"${SRCROOT}\" \"$TMPSRC/Pyto\"\n\npushd \"$TMPSRC\"\n\nls\n\nrm -rf Pyto/Pods\nrm -rf Pyto/NumPy\nrm -rf Pyto/Matplotlib\nrm -rf Pyto/Pyto\\ Mac/python\nrm -rf Pyto/Pyto\\ Mac/*.so\nrm -rf Pyto/Pyto/Samples\nrm -rf Pyto/Pyto/docs\nrm -rf Pyto/InputAssistant\nrm -rf Pyto/ios_system\nrm -rf Pyto/ios_system_builds\nrm -rf Pyto/.git\nzip -r \"$ZIPFILE\" *\npopd\n\nrm -rf \"$TMPSRC\"\n";
+			shellScript = "ZIPFILE=\"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/repo.zip\"\n\nif [ -d \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Contents\" ]\nthen\nexit 0 # Is building for macOS\nfi\n\nif [ -f \"$ZIPFILE\" ]\nthen\nexit 0\nelse\necho \"Doesn't exist\"\nfi\n\nTMPSRC=\"${SRCROOT}/../PytoTmpCopy\"\ncp -r \"${SRCROOT}/Python App\" \"$TMPSRC\"\ncp -r \"${SRCROOT}\" \"$TMPSRC/Pyto\"\n\npushd \"$TMPSRC\"\n\nls\n\nrm -rf Pyto/Pods\nrm -rf Pyto/NumPy\nrm -rf Pyto/Matplotlib\nrm -rf Pyto/Pandas\nrm -rf Pyto/Lxml\nrm -rf Python3_Mac\nrm -rf Pyto/InputAssistant\nrm -rf Pyto/.git\nzip -r \"$ZIPFILE\" *\npopd\n\nrm -rf \"$TMPSRC\"\n";
 		};
 		D910EE956F1871789C77F1DA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3587,27 +3603,47 @@
 			buildActionMask = 2147483647;
 			files = (
 				C91321D721FB684900437845 /* BlockBasedSelector.m in Sources */,
+				C9F4623222ECB412007DC3B8 /* PyTextView.swift in Sources */,
 				C9CEE1FB21EB8FEF00316D3C /* PyInputHelper.swift in Sources */,
+				C9F4623922ECB417007DC3B8 /* PyTextInputTraits.swift in Sources */,
+				C9F4623022ECB412007DC3B8 /* PyTableView.swift in Sources */,
+				C9F4622E22ECB412007DC3B8 /* PySwitch.swift in Sources */,
 				C9CEE20921EB960200316D3C /* PyDocument.swift in Sources */,
 				C9CEE20C21EB960900316D3C /* Localizable.swift in Sources */,
 				C91321D921FB684E00437845 /* PySelector.swift in Sources */,
+				C9F4623722ECB417007DC3B8 /* PyTableViewSection.swift in Sources */,
+				C9F4623422ECB417007DC3B8 /* PyValue.swift in Sources */,
 				C9CEE20521EB95C100316D3C /* String.swift in Sources */,
+				C9F4623622ECB417007DC3B8 /* PyGestureRecognizer.swift in Sources */,
 				C9CEE20121EB8FFD00316D3C /* PyAlert.swift in Sources */,
 				C9CEE20421EB95BE00316D3C /* UIWindow.swift in Sources */,
 				C9CEE21021EB96D300316D3C /* AppDelegate.swift in Sources */,
 				C93CA8B822022E6E008DD049 /* QuickLookHelper.swift in Sources */,
+				C9F4622B22ECB412007DC3B8 /* PyControl.swift in Sources */,
 				C9CEE20021EB8FFB00316D3C /* PyThread.swift in Sources */,
 				C9CEE1FC21EB8FF100316D3C /* PyOutputHelper.swift in Sources */,
+				C9F4623322ECB412007DC3B8 /* PyTextField.swift in Sources */,
 				C9CEE21A21EB9D6C00316D3C /* PythonApplicationMain.m in Sources */,
+				C9F4622A22ECB412007DC3B8 /* PyImageView.swift in Sources */,
+				C9F4622F22ECB412007DC3B8 /* PyButton.swift in Sources */,
 				C9CEE20321EB95BA00316D3C /* ReviewHelper.swift in Sources */,
+				C92FB43522ECC4BF00A59AC0 /* main.m in Sources */,
 				C95A9DBD22542C4400B90E42 /* MovableTextField.swift in Sources */,
 				C9CEE1FD21EB8FF300316D3C /* PySharingHelper.swift in Sources */,
+				C9F4623522ECB417007DC3B8 /* PyColor.swift in Sources */,
+				C9F4622C22ECB412007DC3B8 /* PySlider.swift in Sources */,
 				C9CEE20721EB95C900316D3C /* ConsoleTextView.swift in Sources */,
 				C9CEE20621EB95C400316D3C /* TextView.swift in Sources */,
 				C9CEE20221EB8FFF00316D3C /* PyExtensionContext.swift in Sources */,
 				C9CEE20A21EB960400316D3C /* ViewControllerTransitionCoordinator.swift in Sources */,
+				C9F4622822ECB412007DC3B8 /* PyView.swift in Sources */,
+				C9F4622922ECB412007DC3B8 /* PyLabel.swift in Sources */,
+				C9F4622D22ECB412007DC3B8 /* PySegmentedControl.swift in Sources */,
+				C9F4623822ECB417007DC3B8 /* PyButtonItem.swift in Sources */,
 				C90A803E220D0E0300C9A5A1 /* PyMainThread.swift in Sources */,
 				C91321D821FB684C00437845 /* BlockBasedSelector.swift in Sources */,
+				C9F4622522ECB40C007DC3B8 /* PyWrapper.swift in Sources */,
+				C9F4623122ECB412007DC3B8 /* PyTableViewCell.swift in Sources */,
 				C9CEE1F921EB8FC800316D3C /* ConsoleViewController.swift in Sources */,
 				C9CEE1FE21EB8FF500316D3C /* PyFilePicker.swift in Sources */,
 				C9CEE1F821EB8FC400316D3C /* Python.swift in Sources */,
