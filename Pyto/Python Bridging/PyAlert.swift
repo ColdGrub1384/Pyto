@@ -51,6 +51,8 @@ import UIKit
             }
             #if WIDGET
             ConsoleViewController.visible.present(alert, animated: true, completion: nil)
+            #elseif !MAIN
+            ConsoleViewController.visibles.first?.present(alert, animated: true, completion: nil)
             #else
             for console in ConsoleViewController.visibles {
                 

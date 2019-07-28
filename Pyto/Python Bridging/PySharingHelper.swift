@@ -61,6 +61,8 @@ import SafariServices
             picker.delegate = filePicker
             #if WIDGET
             ConsoleViewController.visible.present(picker, animated: true, completion: nil)
+            #elseif !MAIN
+            ConsoleViewController.visibles.first?.present(picker, animated: true, completion: nil)
             #else
             for console in ConsoleViewController.visibles {
                 

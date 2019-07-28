@@ -106,6 +106,9 @@ class XcodeActivity: UIActivity {
                             (url: self.scriptURL.deletingLastPathComponent(),
                              destination: mainURL.deletingLastPathComponent()),
                             
+                            (url: EditorViewController.directory(for: self.scriptURL.deletingLastPathComponent()),
+                             destination: mainURL.deletingLastPathComponent()),
+                            
                             (url: DocumentBrowserViewController.localContainerURL,
                              destination: destURL.appendingPathComponent("Python App").appendingPathComponent("Documents")),
                             
@@ -121,7 +124,11 @@ class XcodeActivity: UIActivity {
                             for file in ((try? FileManager.default.contentsOfDirectory(at: directory.url, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)) ?? []) {
                                 
                                 if file.path != self.scriptURL.path && file.lastPathComponent != "__pycache__" {
-                                    try FileManager.default.copyItem(at: file, to: directory.destination.appendingPathComponent(file.lastPathComponent))
+                                    let dest = directory.destination.appendingPathComponent(file.lastPathComponent)
+                                    if FileManager.default.fileExists(atPath: dest.path) {
+                                        try? FileManager.default.removeItem(at: dest)
+                                    }
+                                    try FileManager.default.copyItem(at: file, to: dest)
                                 }
                             }
                         }

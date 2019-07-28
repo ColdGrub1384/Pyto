@@ -32,7 +32,7 @@ NSBundle* mainBundle() {
     }
     return bundle;
     #else
-    return NULL;
+    return [NSBundle mainBundle];
     #endif
 }
 
@@ -177,12 +177,8 @@ void init_pil() {
 
 // MARK: - Main
 
-#if MAIN
-int main(int argc, char *argv[]) {
-#else
-void init_python() {
-#endif
-    
+#if MAIN || WIDGET
+int initialize_python(int argc, char *argv[]) {
     NSBundle *macPythonBundle = [NSBundle bundleWithPath:[NSBundle.mainBundle pathForResource:@"Python3" ofType:@"framework"]];
     NSBundle *_scproxy_bundle = [NSBundle bundleWithPath:[NSBundle.mainBundle pathForResource:@"_scproxy" ofType:@"framework"]];
     if (macPythonBundle) {
@@ -237,11 +233,6 @@ void init_python() {
     Py_Initialize();
     PyEval_InitThreads();
     
-    #if !MAIN
-    int argc = 0;
-    const char *argv[0] = {};
-    #endif
-    
     wchar_t** python_argv = PyMem_RawMalloc(sizeof(wchar_t*) * argc);
     int i;
     for (i = 0; i < argc; i++) {
@@ -259,4 +250,23 @@ void init_python() {
         return UIApplicationMain(argc, argv, NULL, NSStringFromClass(AppDelegate.class));
     }
     #endif
+    
+    return 0;
 }
+
+#if MAIN
+int main(int argc, char *argv[]) {
+#elif WIDGET
+int init_python() {
+#endif
+    
+    #if !MAIN
+    int argc = 0;
+    char *argv[] = {};
+    #endif
+    
+    return initialize_python(argc, argv);
+    
+}
+#endif
+

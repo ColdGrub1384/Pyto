@@ -17,7 +17,7 @@ import UIKit
     }
     
     /// The way the view will be presented, set from Python API. The setter is only used internally and has no effect.
-    var presentationMode: Int {
+     public var presentationMode: Int {
         get {
             return Holder.presentationMode[self] ?? 0
         }
@@ -28,7 +28,7 @@ import UIKit
     }
     
     /// Bar button items to be displayed on the navigation bar.
-    var buttonItems: [UIBarButtonItem] {
+    public var buttonItems: [UIBarButtonItem] {
         get {
             return Holder.buttonItems[self] ?? []
         }
@@ -39,7 +39,7 @@ import UIKit
     }
     
     /// The View controller showing this View from Python.
-    var viewController: UIViewController? {
+     public var viewController: UIViewController? {
         get {
             return Holder.viewController[self]
         }

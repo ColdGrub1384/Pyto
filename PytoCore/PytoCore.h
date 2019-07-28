@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+void init_pil(void);
+
 @interface BlockBasedSelector : NSObject
     
 @end

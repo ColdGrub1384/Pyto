@@ -11,8 +11,105 @@
 		C921EF6021EC0D0B004C750D /* modules in Resources */ = {isa = PBXBuildFile; fileRef = C921EF5F21EC0D0B004C750D /* modules */; };
 		C921EF6221EC0D10004C750D /* iCloudDrive in Resources */ = {isa = PBXBuildFile; fileRef = C921EF6121EC0D10004C750D /* iCloudDrive */; };
 		C921EF6C21ECAFA1004C750D /* site-packages in Resources */ = {isa = PBXBuildFile; fileRef = C921EF6B21ECAFA1004C750D /* site-packages */; };
+		C92FB36A22ECC13200A59AC0 /* _imaging.cpython-37m-darwin.so in Copy _imaging */ = {isa = PBXBuildFile; fileRef = C92FB36922ECC13200A59AC0 /* _imaging.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C92FB36C22ECC13900A59AC0 /* Info.plist in Copy _imaging */ = {isa = PBXBuildFile; fileRef = C92FB36B22ECC13800A59AC0 /* Info.plist */; };
+		C92FB36E22ECC13E00A59AC0 /* _imagingft.cpython-37m-darwin.so in Copy _imagingft */ = {isa = PBXBuildFile; fileRef = C92FB36D22ECC13E00A59AC0 /* _imagingft.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C92FB37422ECC1B800A59AC0 /* Info.plist in Copy _imagingft */ = {isa = PBXBuildFile; fileRef = C92FB37322ECC1B800A59AC0 /* Info.plist */; };
+		C92FB37622ECC1BF00A59AC0 /* _imagingmath.cpython-37m-darwin.so in Copy _imagingmath */ = {isa = PBXBuildFile; fileRef = C92FB37522ECC1BF00A59AC0 /* _imagingmath.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C92FB37822ECC1D000A59AC0 /* Info.plist in Copy _imagingmath */ = {isa = PBXBuildFile; fileRef = C92FB37722ECC1D000A59AC0 /* Info.plist */; };
+		C92FB37A22ECC1D800A59AC0 /* _imagingmorph.cpython-37m-darwin.so in Copy _imagingmorph */ = {isa = PBXBuildFile; fileRef = C92FB37922ECC1D800A59AC0 /* _imagingmorph.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C92FB37C22ECC1E200A59AC0 /* Info.plist in Copy _imagingmorph */ = {isa = PBXBuildFile; fileRef = C92FB37B22ECC1E200A59AC0 /* Info.plist */; };
+		C92FB3B722ECC41500A59AC0 /* jquant1.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB38922ECC41300A59AC0 /* jquant1.o */; };
+		C92FB3B822ECC41500A59AC0 /* jcsample.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB38A22ECC41300A59AC0 /* jcsample.o */; };
+		C92FB3B922ECC41500A59AC0 /* jcapimin.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB38B22ECC41300A59AC0 /* jcapimin.o */; };
+		C92FB3BA22ECC41500A59AC0 /* jdcoefct.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB38C22ECC41300A59AC0 /* jdcoefct.o */; };
+		C92FB3BB22ECC41500A59AC0 /* jfdctint.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB38D22ECC41300A59AC0 /* jfdctint.o */; };
+		C92FB3BC22ECC41500A59AC0 /* jdmaster.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB38E22ECC41300A59AC0 /* jdmaster.o */; };
+		C92FB3BD22ECC41500A59AC0 /* jctrans.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB38F22ECC41400A59AC0 /* jctrans.o */; };
+		C92FB3BE22ECC41500A59AC0 /* jdapistd.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39022ECC41400A59AC0 /* jdapistd.o */; };
+		C92FB3BF22ECC41500A59AC0 /* jdmarker.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39122ECC41400A59AC0 /* jdmarker.o */; };
+		C92FB3C022ECC41500A59AC0 /* jmemnobs.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39222ECC41400A59AC0 /* jmemnobs.o */; };
+		C92FB3C122ECC41500A59AC0 /* jcdctmgr.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39322ECC41400A59AC0 /* jcdctmgr.o */; };
+		C92FB3C222ECC41500A59AC0 /* jidctfst.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39422ECC41400A59AC0 /* jidctfst.o */; };
+		C92FB3C322ECC41500A59AC0 /* jutils.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39522ECC41400A59AC0 /* jutils.o */; };
+		C92FB3C422ECC41500A59AC0 /* jidctflt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39622ECC41400A59AC0 /* jidctflt.o */; };
+		C92FB3C522ECC41500A59AC0 /* jdatadst.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39722ECC41400A59AC0 /* jdatadst.o */; };
+		C92FB3C622ECC41500A59AC0 /* jdmerge.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39822ECC41400A59AC0 /* jdmerge.o */; };
+		C92FB3C722ECC41500A59AC0 /* jcinit.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39922ECC41400A59AC0 /* jcinit.o */; };
+		C92FB3C822ECC41500A59AC0 /* jccolor.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39A22ECC41400A59AC0 /* jccolor.o */; };
+		C92FB3C922ECC41500A59AC0 /* jfdctflt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39B22ECC41400A59AC0 /* jfdctflt.o */; };
+		C92FB3CA22ECC41500A59AC0 /* jdhuff.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39C22ECC41400A59AC0 /* jdhuff.o */; };
+		C92FB3CB22ECC41500A59AC0 /* jquant2.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39D22ECC41400A59AC0 /* jquant2.o */; };
+		C92FB3CC22ECC41500A59AC0 /* jddctmgr.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39E22ECC41400A59AC0 /* jddctmgr.o */; };
+		C92FB3CD22ECC41500A59AC0 /* jcparam.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39F22ECC41400A59AC0 /* jcparam.o */; };
+		C92FB3CE22ECC41500A59AC0 /* jcmainct.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3A022ECC41400A59AC0 /* jcmainct.o */; };
+		C92FB3CF22ECC41500A59AC0 /* jfdctfst.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3A122ECC41400A59AC0 /* jfdctfst.o */; };
+		C92FB3D022ECC41500A59AC0 /* jcomapi.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3A222ECC41400A59AC0 /* jcomapi.o */; };
+		C92FB3D122ECC41500A59AC0 /* jdinput.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3A322ECC41400A59AC0 /* jdinput.o */; };
+		C92FB3D222ECC41500A59AC0 /* jdtrans.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3A422ECC41400A59AC0 /* jdtrans.o */; };
+		C92FB3D322ECC41500A59AC0 /* jdatasrc.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3A522ECC41400A59AC0 /* jdatasrc.o */; };
+		C92FB3D422ECC41500A59AC0 /* jcprepct.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3A622ECC41500A59AC0 /* jcprepct.o */; };
+		C92FB3D522ECC41500A59AC0 /* jdarith.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3A722ECC41500A59AC0 /* jdarith.o */; };
+		C92FB3D622ECC41500A59AC0 /* jchuff.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3A822ECC41500A59AC0 /* jchuff.o */; };
+		C92FB3D722ECC41500A59AC0 /* jcmarker.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3A922ECC41500A59AC0 /* jcmarker.o */; };
+		C92FB3D822ECC41500A59AC0 /* jaricom.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3AA22ECC41500A59AC0 /* jaricom.o */; };
+		C92FB3D922ECC41500A59AC0 /* jcarith.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3AB22ECC41500A59AC0 /* jcarith.o */; };
+		C92FB3DA22ECC41500A59AC0 /* jdcolor.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3AC22ECC41500A59AC0 /* jdcolor.o */; };
+		C92FB3DB22ECC41500A59AC0 /* jdapimin.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3AD22ECC41500A59AC0 /* jdapimin.o */; };
+		C92FB3DC22ECC41500A59AC0 /* jccoefct.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3AE22ECC41500A59AC0 /* jccoefct.o */; };
+		C92FB3DD22ECC41500A59AC0 /* jdpostct.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3AF22ECC41500A59AC0 /* jdpostct.o */; };
+		C92FB3DE22ECC41500A59AC0 /* jcapistd.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3B022ECC41500A59AC0 /* jcapistd.o */; };
+		C92FB3DF22ECC41500A59AC0 /* jidctint.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3B122ECC41500A59AC0 /* jidctint.o */; };
+		C92FB3E022ECC41500A59AC0 /* jdmainct.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3B222ECC41500A59AC0 /* jdmainct.o */; };
+		C92FB3E122ECC41500A59AC0 /* jerror.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3B322ECC41500A59AC0 /* jerror.o */; };
+		C92FB3E222ECC41500A59AC0 /* jmemmgr.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3B422ECC41500A59AC0 /* jmemmgr.o */; };
+		C92FB3E322ECC41500A59AC0 /* jcmaster.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3B522ECC41500A59AC0 /* jcmaster.o */; };
+		C92FB3E422ECC41500A59AC0 /* jdsample.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3B622ECC41500A59AC0 /* jdsample.o */; };
+		C92FB40D22ECC42F00A59AC0 /* type1cid.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3E522ECC42D00A59AC0 /* type1cid.o */; };
+		C92FB40E22ECC42F00A59AC0 /* fttype1.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3E622ECC42D00A59AC0 /* fttype1.o */; };
+		C92FB40F22ECC42F00A59AC0 /* smooth.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3E722ECC42D00A59AC0 /* smooth.o */; };
+		C92FB41022ECC42F00A59AC0 /* ftcid.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3E822ECC42D00A59AC0 /* ftcid.o */; };
+		C92FB41122ECC42F00A59AC0 /* ftpfr.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3E922ECC42D00A59AC0 /* ftpfr.o */; };
+		C92FB41222ECC42F00A59AC0 /* type42.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3EA22ECC42D00A59AC0 /* type42.o */; };
+		C92FB41322ECC42F00A59AC0 /* bdf.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3EB22ECC42D00A59AC0 /* bdf.o */; };
+		C92FB41422ECC42F00A59AC0 /* ftsystem.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3EC22ECC42E00A59AC0 /* ftsystem.o */; };
+		C92FB41522ECC42F00A59AC0 /* ftgzip.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3ED22ECC42E00A59AC0 /* ftgzip.o */; };
+		C92FB41622ECC42F00A59AC0 /* ftbbox.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3EE22ECC42E00A59AC0 /* ftbbox.o */; };
+		C92FB41722ECC42F00A59AC0 /* psnames.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3EF22ECC42E00A59AC0 /* psnames.o */; };
+		C92FB41822ECC42F00A59AC0 /* ftbdf.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3F022ECC42E00A59AC0 /* ftbdf.o */; };
+		C92FB41922ECC42F00A59AC0 /* ftinit.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3F122ECC42E00A59AC0 /* ftinit.o */; };
+		C92FB41A22ECC42F00A59AC0 /* ftwinfnt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3F222ECC42E00A59AC0 /* ftwinfnt.o */; };
+		C92FB41B22ECC42F00A59AC0 /* autofit.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3F322ECC42E00A59AC0 /* autofit.o */; };
+		C92FB41C22ECC42F00A59AC0 /* ftotval.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3F422ECC42E00A59AC0 /* ftotval.o */; };
+		C92FB41D22ECC42F00A59AC0 /* cff.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3F522ECC42E00A59AC0 /* cff.o */; };
+		C92FB41E22ECC42F00A59AC0 /* ftbase.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3F622ECC42E00A59AC0 /* ftbase.o */; };
+		C92FB41F22ECC42F00A59AC0 /* sfnt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3F722ECC42E00A59AC0 /* sfnt.o */; };
+		C92FB42022ECC42F00A59AC0 /* pshinter.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3F822ECC42E00A59AC0 /* pshinter.o */; };
+		C92FB42122ECC42F00A59AC0 /* type1.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3F922ECC42E00A59AC0 /* type1.o */; };
+		C92FB42222ECC42F00A59AC0 /* winfnt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3FA22ECC42E00A59AC0 /* winfnt.o */; };
+		C92FB42322ECC42F00A59AC0 /* ftgasp.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3FB22ECC42E00A59AC0 /* ftgasp.o */; };
+		C92FB42422ECC42F00A59AC0 /* truetype.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3FC22ECC42E00A59AC0 /* truetype.o */; };
+		C92FB42522ECC42F00A59AC0 /* psaux.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3FD22ECC42E00A59AC0 /* psaux.o */; };
+		C92FB42622ECC42F00A59AC0 /* ftlzw.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3FE22ECC42E00A59AC0 /* ftlzw.o */; };
+		C92FB42722ECC42F00A59AC0 /* ftdebug.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3FF22ECC42E00A59AC0 /* ftdebug.o */; };
+		C92FB42822ECC42F00A59AC0 /* ftgxval.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40022ECC42E00A59AC0 /* ftgxval.o */; };
+		C92FB42922ECC42F00A59AC0 /* ftbzip2.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40122ECC42E00A59AC0 /* ftbzip2.o */; };
+		C92FB42A22ECC42F00A59AC0 /* ftsynth.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40222ECC42F00A59AC0 /* ftsynth.o */; };
+		C92FB42B22ECC42F00A59AC0 /* ftfstype.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40322ECC42F00A59AC0 /* ftfstype.o */; };
+		C92FB42C22ECC42F00A59AC0 /* ftcache.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40422ECC42F00A59AC0 /* ftcache.o */; };
+		C92FB42D22ECC42F00A59AC0 /* ftstroke.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40522ECC42F00A59AC0 /* ftstroke.o */; };
+		C92FB42E22ECC42F00A59AC0 /* pcf.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40622ECC42F00A59AC0 /* pcf.o */; };
+		C92FB42F22ECC42F00A59AC0 /* ftmm.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40722ECC42F00A59AC0 /* ftmm.o */; };
+		C92FB43022ECC42F00A59AC0 /* ftglyph.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40822ECC42F00A59AC0 /* ftglyph.o */; };
+		C92FB43122ECC42F00A59AC0 /* ftbitmap.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40922ECC42F00A59AC0 /* ftbitmap.o */; };
+		C92FB43222ECC42F00A59AC0 /* pfr.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40A22ECC42F00A59AC0 /* pfr.o */; };
+		C92FB43322ECC42F00A59AC0 /* raster.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40B22ECC42F00A59AC0 /* raster.o */; };
+		C92FB43422ECC42F00A59AC0 /* ftpatent.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40C22ECC42F00A59AC0 /* ftpatent.o */; };
 		C93AE16521EC017E00B588B6 /* PytoCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C93AE16421EC017700B588B6 /* PytoCore.framework */; };
 		C93AE16621EC017E00B588B6 /* PytoCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C93AE16421EC017700B588B6 /* PytoCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C97EBD5C22ED216900FD4A84 /* libpng.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F4625B22ECBB9E007DC3B8 /* libpng.framework */; };
+		C97EBD5D22ED216900FD4A84 /* libpng.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9F4625B22ECBB9E007DC3B8 /* libpng.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C97EBD5E22ED217300FD4A84 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB45E22ED074300A59AC0 /* libz.tbd */; };
 		C9CEE23321EBA6C100316D3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9CEE23221EBA6C100316D3C /* Assets.xcassets */; };
 		C9CEE23621EBA6C100316D3C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9CEE23421EBA6C100316D3C /* LaunchScreen.storyboard */; };
 		C9CEE26C21EBDD9100316D3C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CEE26B21EBDD9100316D3C /* main.swift */; };
@@ -47,6 +144,27 @@
 			remoteGlobalIDString = C9CEE1E621EB8D5200316D3C;
 			remoteInfo = PytoCore;
 		};
+		C9F4625822ECBB9E007DC3B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C93AE15721EC017700B588B6 /* Pyto.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C946A5A822074EA900F78C5C;
+			remoteInfo = "Pyto Widget";
+		};
+		C9F4625A22ECBB9E007DC3B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C93AE15721EC017700B588B6 /* Pyto.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C95EE4DF22070224006611CB;
+			remoteInfo = libpng;
+		};
+		C9F4625C22ECBB9E007DC3B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C93AE15721EC017700B588B6 /* Pyto.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C9653F1422B9BF6100302F8D;
+			remoteInfo = Python3_Mac;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -56,9 +174,58 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C97EBD5D22ED216900FD4A84 /* libpng.framework in Embed Frameworks */,
 				C93AE16621EC017E00B588B6 /* PytoCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9F4625222ECBB9E007DC3B8 /* Copy _imaging */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = _imaging.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C92FB36A22ECC13200A59AC0 /* _imaging.cpython-37m-darwin.so in Copy _imaging */,
+				C92FB36C22ECC13900A59AC0 /* Info.plist in Copy _imaging */,
+			);
+			name = "Copy _imaging";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9F4626322ECBEE4007DC3B8 /* Copy _imagingft */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = _imagingft.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C92FB36E22ECC13E00A59AC0 /* _imagingft.cpython-37m-darwin.so in Copy _imagingft */,
+				C92FB37422ECC1B800A59AC0 /* Info.plist in Copy _imagingft */,
+			);
+			name = "Copy _imagingft";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9F4626822ECBF1F007DC3B8 /* Copy _imagingmath */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = _imagingmath.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C92FB37622ECC1BF00A59AC0 /* _imagingmath.cpython-37m-darwin.so in Copy _imagingmath */,
+				C92FB37822ECC1D000A59AC0 /* Info.plist in Copy _imagingmath */,
+			);
+			name = "Copy _imagingmath";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9F4626D22ECBF4D007DC3B8 /* Copy _imagingmorph */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = _imagingmorph.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C92FB37A22ECC1D800A59AC0 /* _imagingmorph.cpython-37m-darwin.so in Copy _imagingmorph */,
+				C92FB37C22ECC1E200A59AC0 /* Info.plist in Copy _imagingmorph */,
+			);
+			name = "Copy _imagingmorph";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -68,6 +235,101 @@
 		C921EF5F21EC0D0B004C750D /* modules */ = {isa = PBXFileReference; lastKnownFileType = folder; path = modules; sourceTree = "<group>"; };
 		C921EF6121EC0D10004C750D /* iCloudDrive */ = {isa = PBXFileReference; lastKnownFileType = folder; path = iCloudDrive; sourceTree = "<group>"; };
 		C921EF6B21ECAFA1004C750D /* site-packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "site-packages"; sourceTree = "<group>"; };
+		C92FB36922ECC13200A59AC0 /* _imaging.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "_imaging.cpython-37m-darwin.so"; path = "Pyto/PIL/_imaging.framework/_imaging.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C92FB36B22ECC13800A59AC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Pyto/PIL/_imaging.framework/Info.plist; sourceTree = "<group>"; };
+		C92FB36D22ECC13E00A59AC0 /* _imagingft.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "_imagingft.cpython-37m-darwin.so"; path = "Pyto/PIL/_imagingft.framework/_imagingft.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C92FB37322ECC1B800A59AC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Pyto/PIL/_imagingft.framework/Info.plist; sourceTree = "<group>"; };
+		C92FB37522ECC1BF00A59AC0 /* _imagingmath.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "_imagingmath.cpython-37m-darwin.so"; path = "Pyto/PIL/_imagingmath.framework/_imagingmath.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C92FB37722ECC1D000A59AC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Pyto/PIL/_imagingmath.framework/Info.plist; sourceTree = "<group>"; };
+		C92FB37922ECC1D800A59AC0 /* _imagingmorph.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "_imagingmorph.cpython-37m-darwin.so"; path = "Pyto/PIL/_imagingmorph.framework/_imagingmorph.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C92FB37B22ECC1E200A59AC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Pyto/PIL/_imagingmorph.framework/Info.plist; sourceTree = "<group>"; };
+		C92FB38922ECC41300A59AC0 /* jquant1.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jquant1.o; path = Pyto/libjpeg/jquant1.o; sourceTree = "<group>"; };
+		C92FB38A22ECC41300A59AC0 /* jcsample.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcsample.o; path = Pyto/libjpeg/jcsample.o; sourceTree = "<group>"; };
+		C92FB38B22ECC41300A59AC0 /* jcapimin.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcapimin.o; path = Pyto/libjpeg/jcapimin.o; sourceTree = "<group>"; };
+		C92FB38C22ECC41300A59AC0 /* jdcoefct.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdcoefct.o; path = Pyto/libjpeg/jdcoefct.o; sourceTree = "<group>"; };
+		C92FB38D22ECC41300A59AC0 /* jfdctint.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jfdctint.o; path = Pyto/libjpeg/jfdctint.o; sourceTree = "<group>"; };
+		C92FB38E22ECC41300A59AC0 /* jdmaster.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdmaster.o; path = Pyto/libjpeg/jdmaster.o; sourceTree = "<group>"; };
+		C92FB38F22ECC41400A59AC0 /* jctrans.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jctrans.o; path = Pyto/libjpeg/jctrans.o; sourceTree = "<group>"; };
+		C92FB39022ECC41400A59AC0 /* jdapistd.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdapistd.o; path = Pyto/libjpeg/jdapistd.o; sourceTree = "<group>"; };
+		C92FB39122ECC41400A59AC0 /* jdmarker.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdmarker.o; path = Pyto/libjpeg/jdmarker.o; sourceTree = "<group>"; };
+		C92FB39222ECC41400A59AC0 /* jmemnobs.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jmemnobs.o; path = Pyto/libjpeg/jmemnobs.o; sourceTree = "<group>"; };
+		C92FB39322ECC41400A59AC0 /* jcdctmgr.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcdctmgr.o; path = Pyto/libjpeg/jcdctmgr.o; sourceTree = "<group>"; };
+		C92FB39422ECC41400A59AC0 /* jidctfst.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jidctfst.o; path = Pyto/libjpeg/jidctfst.o; sourceTree = "<group>"; };
+		C92FB39522ECC41400A59AC0 /* jutils.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jutils.o; path = Pyto/libjpeg/jutils.o; sourceTree = "<group>"; };
+		C92FB39622ECC41400A59AC0 /* jidctflt.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jidctflt.o; path = Pyto/libjpeg/jidctflt.o; sourceTree = "<group>"; };
+		C92FB39722ECC41400A59AC0 /* jdatadst.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdatadst.o; path = Pyto/libjpeg/jdatadst.o; sourceTree = "<group>"; };
+		C92FB39822ECC41400A59AC0 /* jdmerge.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdmerge.o; path = Pyto/libjpeg/jdmerge.o; sourceTree = "<group>"; };
+		C92FB39922ECC41400A59AC0 /* jcinit.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcinit.o; path = Pyto/libjpeg/jcinit.o; sourceTree = "<group>"; };
+		C92FB39A22ECC41400A59AC0 /* jccolor.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jccolor.o; path = Pyto/libjpeg/jccolor.o; sourceTree = "<group>"; };
+		C92FB39B22ECC41400A59AC0 /* jfdctflt.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jfdctflt.o; path = Pyto/libjpeg/jfdctflt.o; sourceTree = "<group>"; };
+		C92FB39C22ECC41400A59AC0 /* jdhuff.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdhuff.o; path = Pyto/libjpeg/jdhuff.o; sourceTree = "<group>"; };
+		C92FB39D22ECC41400A59AC0 /* jquant2.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jquant2.o; path = Pyto/libjpeg/jquant2.o; sourceTree = "<group>"; };
+		C92FB39E22ECC41400A59AC0 /* jddctmgr.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jddctmgr.o; path = Pyto/libjpeg/jddctmgr.o; sourceTree = "<group>"; };
+		C92FB39F22ECC41400A59AC0 /* jcparam.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcparam.o; path = Pyto/libjpeg/jcparam.o; sourceTree = "<group>"; };
+		C92FB3A022ECC41400A59AC0 /* jcmainct.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcmainct.o; path = Pyto/libjpeg/jcmainct.o; sourceTree = "<group>"; };
+		C92FB3A122ECC41400A59AC0 /* jfdctfst.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jfdctfst.o; path = Pyto/libjpeg/jfdctfst.o; sourceTree = "<group>"; };
+		C92FB3A222ECC41400A59AC0 /* jcomapi.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcomapi.o; path = Pyto/libjpeg/jcomapi.o; sourceTree = "<group>"; };
+		C92FB3A322ECC41400A59AC0 /* jdinput.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdinput.o; path = Pyto/libjpeg/jdinput.o; sourceTree = "<group>"; };
+		C92FB3A422ECC41400A59AC0 /* jdtrans.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdtrans.o; path = Pyto/libjpeg/jdtrans.o; sourceTree = "<group>"; };
+		C92FB3A522ECC41400A59AC0 /* jdatasrc.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdatasrc.o; path = Pyto/libjpeg/jdatasrc.o; sourceTree = "<group>"; };
+		C92FB3A622ECC41500A59AC0 /* jcprepct.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcprepct.o; path = Pyto/libjpeg/jcprepct.o; sourceTree = "<group>"; };
+		C92FB3A722ECC41500A59AC0 /* jdarith.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdarith.o; path = Pyto/libjpeg/jdarith.o; sourceTree = "<group>"; };
+		C92FB3A822ECC41500A59AC0 /* jchuff.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jchuff.o; path = Pyto/libjpeg/jchuff.o; sourceTree = "<group>"; };
+		C92FB3A922ECC41500A59AC0 /* jcmarker.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcmarker.o; path = Pyto/libjpeg/jcmarker.o; sourceTree = "<group>"; };
+		C92FB3AA22ECC41500A59AC0 /* jaricom.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jaricom.o; path = Pyto/libjpeg/jaricom.o; sourceTree = "<group>"; };
+		C92FB3AB22ECC41500A59AC0 /* jcarith.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcarith.o; path = Pyto/libjpeg/jcarith.o; sourceTree = "<group>"; };
+		C92FB3AC22ECC41500A59AC0 /* jdcolor.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdcolor.o; path = Pyto/libjpeg/jdcolor.o; sourceTree = "<group>"; };
+		C92FB3AD22ECC41500A59AC0 /* jdapimin.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdapimin.o; path = Pyto/libjpeg/jdapimin.o; sourceTree = "<group>"; };
+		C92FB3AE22ECC41500A59AC0 /* jccoefct.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jccoefct.o; path = Pyto/libjpeg/jccoefct.o; sourceTree = "<group>"; };
+		C92FB3AF22ECC41500A59AC0 /* jdpostct.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdpostct.o; path = Pyto/libjpeg/jdpostct.o; sourceTree = "<group>"; };
+		C92FB3B022ECC41500A59AC0 /* jcapistd.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcapistd.o; path = Pyto/libjpeg/jcapistd.o; sourceTree = "<group>"; };
+		C92FB3B122ECC41500A59AC0 /* jidctint.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jidctint.o; path = Pyto/libjpeg/jidctint.o; sourceTree = "<group>"; };
+		C92FB3B222ECC41500A59AC0 /* jdmainct.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdmainct.o; path = Pyto/libjpeg/jdmainct.o; sourceTree = "<group>"; };
+		C92FB3B322ECC41500A59AC0 /* jerror.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jerror.o; path = Pyto/libjpeg/jerror.o; sourceTree = "<group>"; };
+		C92FB3B422ECC41500A59AC0 /* jmemmgr.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jmemmgr.o; path = Pyto/libjpeg/jmemmgr.o; sourceTree = "<group>"; };
+		C92FB3B522ECC41500A59AC0 /* jcmaster.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcmaster.o; path = Pyto/libjpeg/jcmaster.o; sourceTree = "<group>"; };
+		C92FB3B622ECC41500A59AC0 /* jdsample.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdsample.o; path = Pyto/libjpeg/jdsample.o; sourceTree = "<group>"; };
+		C92FB3E522ECC42D00A59AC0 /* type1cid.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = type1cid.o; path = Pyto/libfreetype/type1cid.o; sourceTree = "<group>"; };
+		C92FB3E622ECC42D00A59AC0 /* fttype1.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = fttype1.o; path = Pyto/libfreetype/fttype1.o; sourceTree = "<group>"; };
+		C92FB3E722ECC42D00A59AC0 /* smooth.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = smooth.o; path = Pyto/libfreetype/smooth.o; sourceTree = "<group>"; };
+		C92FB3E822ECC42D00A59AC0 /* ftcid.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftcid.o; path = Pyto/libfreetype/ftcid.o; sourceTree = "<group>"; };
+		C92FB3E922ECC42D00A59AC0 /* ftpfr.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftpfr.o; path = Pyto/libfreetype/ftpfr.o; sourceTree = "<group>"; };
+		C92FB3EA22ECC42D00A59AC0 /* type42.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = type42.o; path = Pyto/libfreetype/type42.o; sourceTree = "<group>"; };
+		C92FB3EB22ECC42D00A59AC0 /* bdf.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = bdf.o; path = Pyto/libfreetype/bdf.o; sourceTree = "<group>"; };
+		C92FB3EC22ECC42E00A59AC0 /* ftsystem.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftsystem.o; path = Pyto/libfreetype/ftsystem.o; sourceTree = "<group>"; };
+		C92FB3ED22ECC42E00A59AC0 /* ftgzip.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftgzip.o; path = Pyto/libfreetype/ftgzip.o; sourceTree = "<group>"; };
+		C92FB3EE22ECC42E00A59AC0 /* ftbbox.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftbbox.o; path = Pyto/libfreetype/ftbbox.o; sourceTree = "<group>"; };
+		C92FB3EF22ECC42E00A59AC0 /* psnames.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = psnames.o; path = Pyto/libfreetype/psnames.o; sourceTree = "<group>"; };
+		C92FB3F022ECC42E00A59AC0 /* ftbdf.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftbdf.o; path = Pyto/libfreetype/ftbdf.o; sourceTree = "<group>"; };
+		C92FB3F122ECC42E00A59AC0 /* ftinit.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftinit.o; path = Pyto/libfreetype/ftinit.o; sourceTree = "<group>"; };
+		C92FB3F222ECC42E00A59AC0 /* ftwinfnt.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftwinfnt.o; path = Pyto/libfreetype/ftwinfnt.o; sourceTree = "<group>"; };
+		C92FB3F322ECC42E00A59AC0 /* autofit.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = autofit.o; path = Pyto/libfreetype/autofit.o; sourceTree = "<group>"; };
+		C92FB3F422ECC42E00A59AC0 /* ftotval.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftotval.o; path = Pyto/libfreetype/ftotval.o; sourceTree = "<group>"; };
+		C92FB3F522ECC42E00A59AC0 /* cff.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = cff.o; path = Pyto/libfreetype/cff.o; sourceTree = "<group>"; };
+		C92FB3F622ECC42E00A59AC0 /* ftbase.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftbase.o; path = Pyto/libfreetype/ftbase.o; sourceTree = "<group>"; };
+		C92FB3F722ECC42E00A59AC0 /* sfnt.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = sfnt.o; path = Pyto/libfreetype/sfnt.o; sourceTree = "<group>"; };
+		C92FB3F822ECC42E00A59AC0 /* pshinter.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = pshinter.o; path = Pyto/libfreetype/pshinter.o; sourceTree = "<group>"; };
+		C92FB3F922ECC42E00A59AC0 /* type1.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = type1.o; path = Pyto/libfreetype/type1.o; sourceTree = "<group>"; };
+		C92FB3FA22ECC42E00A59AC0 /* winfnt.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = winfnt.o; path = Pyto/libfreetype/winfnt.o; sourceTree = "<group>"; };
+		C92FB3FB22ECC42E00A59AC0 /* ftgasp.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftgasp.o; path = Pyto/libfreetype/ftgasp.o; sourceTree = "<group>"; };
+		C92FB3FC22ECC42E00A59AC0 /* truetype.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = truetype.o; path = Pyto/libfreetype/truetype.o; sourceTree = "<group>"; };
+		C92FB3FD22ECC42E00A59AC0 /* psaux.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = psaux.o; path = Pyto/libfreetype/psaux.o; sourceTree = "<group>"; };
+		C92FB3FE22ECC42E00A59AC0 /* ftlzw.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftlzw.o; path = Pyto/libfreetype/ftlzw.o; sourceTree = "<group>"; };
+		C92FB3FF22ECC42E00A59AC0 /* ftdebug.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftdebug.o; path = Pyto/libfreetype/ftdebug.o; sourceTree = "<group>"; };
+		C92FB40022ECC42E00A59AC0 /* ftgxval.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftgxval.o; path = Pyto/libfreetype/ftgxval.o; sourceTree = "<group>"; };
+		C92FB40122ECC42E00A59AC0 /* ftbzip2.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftbzip2.o; path = Pyto/libfreetype/ftbzip2.o; sourceTree = "<group>"; };
+		C92FB40222ECC42F00A59AC0 /* ftsynth.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftsynth.o; path = Pyto/libfreetype/ftsynth.o; sourceTree = "<group>"; };
+		C92FB40322ECC42F00A59AC0 /* ftfstype.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftfstype.o; path = Pyto/libfreetype/ftfstype.o; sourceTree = "<group>"; };
+		C92FB40422ECC42F00A59AC0 /* ftcache.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftcache.o; path = Pyto/libfreetype/ftcache.o; sourceTree = "<group>"; };
+		C92FB40522ECC42F00A59AC0 /* ftstroke.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftstroke.o; path = Pyto/libfreetype/ftstroke.o; sourceTree = "<group>"; };
+		C92FB40622ECC42F00A59AC0 /* pcf.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = pcf.o; path = Pyto/libfreetype/pcf.o; sourceTree = "<group>"; };
+		C92FB40722ECC42F00A59AC0 /* ftmm.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftmm.o; path = Pyto/libfreetype/ftmm.o; sourceTree = "<group>"; };
+		C92FB40822ECC42F00A59AC0 /* ftglyph.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftglyph.o; path = Pyto/libfreetype/ftglyph.o; sourceTree = "<group>"; };
+		C92FB40922ECC42F00A59AC0 /* ftbitmap.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftbitmap.o; path = Pyto/libfreetype/ftbitmap.o; sourceTree = "<group>"; };
+		C92FB40A22ECC42F00A59AC0 /* pfr.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = pfr.o; path = Pyto/libfreetype/pfr.o; sourceTree = "<group>"; };
+		C92FB40B22ECC42F00A59AC0 /* raster.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = raster.o; path = Pyto/libfreetype/raster.o; sourceTree = "<group>"; };
+		C92FB40C22ECC42F00A59AC0 /* ftpatent.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftpatent.o; path = Pyto/libfreetype/ftpatent.o; sourceTree = "<group>"; };
+		C92FB45E22ED074300A59AC0 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C93AE15721EC017700B588B6 /* Pyto.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pyto.xcodeproj; path = Pyto/Pyto.xcodeproj; sourceTree = "<group>"; };
 		C9CEE22621EBA6BB00316D3C /* Python App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Python App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9CEE23221EBA6C100316D3C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -82,19 +344,218 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C92FB42E22ECC42F00A59AC0 /* pcf.o in Frameworks */,
+				C92FB3C922ECC41500A59AC0 /* jfdctflt.o in Frameworks */,
+				C92FB3B722ECC41500A59AC0 /* jquant1.o in Frameworks */,
+				C92FB3DD22ECC41500A59AC0 /* jdpostct.o in Frameworks */,
+				C92FB42922ECC42F00A59AC0 /* ftbzip2.o in Frameworks */,
+				C92FB41722ECC42F00A59AC0 /* psnames.o in Frameworks */,
+				C92FB3DC22ECC41500A59AC0 /* jccoefct.o in Frameworks */,
+				C92FB3C122ECC41500A59AC0 /* jcdctmgr.o in Frameworks */,
+				C92FB3D322ECC41500A59AC0 /* jdatasrc.o in Frameworks */,
+				C92FB3E022ECC41500A59AC0 /* jdmainct.o in Frameworks */,
+				C92FB3CB22ECC41500A59AC0 /* jquant2.o in Frameworks */,
+				C92FB3C022ECC41500A59AC0 /* jmemnobs.o in Frameworks */,
 				C93AE16521EC017E00B588B6 /* PytoCore.framework in Frameworks */,
+				C92FB42622ECC42F00A59AC0 /* ftlzw.o in Frameworks */,
+				C92FB3D022ECC41500A59AC0 /* jcomapi.o in Frameworks */,
+				C92FB42B22ECC42F00A59AC0 /* ftfstype.o in Frameworks */,
+				C92FB42C22ECC42F00A59AC0 /* ftcache.o in Frameworks */,
+				C92FB41622ECC42F00A59AC0 /* ftbbox.o in Frameworks */,
+				C92FB42A22ECC42F00A59AC0 /* ftsynth.o in Frameworks */,
+				C92FB3DE22ECC41500A59AC0 /* jcapistd.o in Frameworks */,
+				C92FB3C322ECC41500A59AC0 /* jutils.o in Frameworks */,
+				C92FB3D122ECC41500A59AC0 /* jdinput.o in Frameworks */,
+				C92FB3CF22ECC41500A59AC0 /* jfdctfst.o in Frameworks */,
+				C92FB41822ECC42F00A59AC0 /* ftbdf.o in Frameworks */,
+				C92FB3D222ECC41500A59AC0 /* jdtrans.o in Frameworks */,
+				C92FB41422ECC42F00A59AC0 /* ftsystem.o in Frameworks */,
+				C92FB3D522ECC41500A59AC0 /* jdarith.o in Frameworks */,
+				C92FB3B922ECC41500A59AC0 /* jcapimin.o in Frameworks */,
+				C92FB41122ECC42F00A59AC0 /* ftpfr.o in Frameworks */,
+				C92FB42222ECC42F00A59AC0 /* winfnt.o in Frameworks */,
+				C92FB3C722ECC41500A59AC0 /* jcinit.o in Frameworks */,
+				C92FB41B22ECC42F00A59AC0 /* autofit.o in Frameworks */,
+				C92FB3DB22ECC41500A59AC0 /* jdapimin.o in Frameworks */,
+				C92FB3D922ECC41500A59AC0 /* jcarith.o in Frameworks */,
+				C92FB43122ECC42F00A59AC0 /* ftbitmap.o in Frameworks */,
+				C92FB41022ECC42F00A59AC0 /* ftcid.o in Frameworks */,
+				C92FB43322ECC42F00A59AC0 /* raster.o in Frameworks */,
+				C92FB42422ECC42F00A59AC0 /* truetype.o in Frameworks */,
+				C92FB41922ECC42F00A59AC0 /* ftinit.o in Frameworks */,
+				C92FB42322ECC42F00A59AC0 /* ftgasp.o in Frameworks */,
+				C92FB3C522ECC41500A59AC0 /* jdatadst.o in Frameworks */,
+				C92FB3DA22ECC41500A59AC0 /* jdcolor.o in Frameworks */,
+				C92FB41A22ECC42F00A59AC0 /* ftwinfnt.o in Frameworks */,
+				C92FB41F22ECC42F00A59AC0 /* sfnt.o in Frameworks */,
+				C92FB42D22ECC42F00A59AC0 /* ftstroke.o in Frameworks */,
+				C92FB3BF22ECC41500A59AC0 /* jdmarker.o in Frameworks */,
+				C92FB3BD22ECC41500A59AC0 /* jctrans.o in Frameworks */,
+				C92FB3E422ECC41500A59AC0 /* jdsample.o in Frameworks */,
+				C97EBD5C22ED216900FD4A84 /* libpng.framework in Frameworks */,
+				C92FB40D22ECC42F00A59AC0 /* type1cid.o in Frameworks */,
+				C92FB40F22ECC42F00A59AC0 /* smooth.o in Frameworks */,
+				C92FB3CD22ECC41500A59AC0 /* jcparam.o in Frameworks */,
+				C92FB3C822ECC41500A59AC0 /* jccolor.o in Frameworks */,
+				C92FB43222ECC42F00A59AC0 /* pfr.o in Frameworks */,
+				C92FB41522ECC42F00A59AC0 /* ftgzip.o in Frameworks */,
+				C92FB42722ECC42F00A59AC0 /* ftdebug.o in Frameworks */,
+				C92FB3D622ECC41500A59AC0 /* jchuff.o in Frameworks */,
+				C97EBD5E22ED217300FD4A84 /* libz.tbd in Frameworks */,
+				C92FB42522ECC42F00A59AC0 /* psaux.o in Frameworks */,
+				C92FB3D422ECC41500A59AC0 /* jcprepct.o in Frameworks */,
+				C92FB3C622ECC41500A59AC0 /* jdmerge.o in Frameworks */,
+				C92FB42822ECC42F00A59AC0 /* ftgxval.o in Frameworks */,
+				C92FB42F22ECC42F00A59AC0 /* ftmm.o in Frameworks */,
+				C92FB41222ECC42F00A59AC0 /* type42.o in Frameworks */,
+				C92FB41322ECC42F00A59AC0 /* bdf.o in Frameworks */,
+				C92FB3C222ECC41500A59AC0 /* jidctfst.o in Frameworks */,
+				C92FB43022ECC42F00A59AC0 /* ftglyph.o in Frameworks */,
+				C92FB3D822ECC41500A59AC0 /* jaricom.o in Frameworks */,
+				C92FB41E22ECC42F00A59AC0 /* ftbase.o in Frameworks */,
+				C92FB3BA22ECC41500A59AC0 /* jdcoefct.o in Frameworks */,
+				C92FB43422ECC42F00A59AC0 /* ftpatent.o in Frameworks */,
+				C92FB3E122ECC41500A59AC0 /* jerror.o in Frameworks */,
+				C92FB41D22ECC42F00A59AC0 /* cff.o in Frameworks */,
+				C92FB3CC22ECC41500A59AC0 /* jddctmgr.o in Frameworks */,
+				C92FB41C22ECC42F00A59AC0 /* ftotval.o in Frameworks */,
+				C92FB3B822ECC41500A59AC0 /* jcsample.o in Frameworks */,
+				C92FB40E22ECC42F00A59AC0 /* fttype1.o in Frameworks */,
+				C92FB42022ECC42F00A59AC0 /* pshinter.o in Frameworks */,
+				C92FB3E322ECC41500A59AC0 /* jcmaster.o in Frameworks */,
+				C92FB3CE22ECC41500A59AC0 /* jcmainct.o in Frameworks */,
+				C92FB3C422ECC41500A59AC0 /* jidctflt.o in Frameworks */,
+				C92FB3CA22ECC41500A59AC0 /* jdhuff.o in Frameworks */,
+				C92FB3BE22ECC41500A59AC0 /* jdapistd.o in Frameworks */,
+				C92FB3BB22ECC41500A59AC0 /* jfdctint.o in Frameworks */,
+				C92FB3D722ECC41500A59AC0 /* jcmarker.o in Frameworks */,
+				C92FB3E222ECC41500A59AC0 /* jmemmgr.o in Frameworks */,
+				C92FB3DF22ECC41500A59AC0 /* jidctint.o in Frameworks */,
+				C92FB3BC22ECC41500A59AC0 /* jdmaster.o in Frameworks */,
+				C92FB42122ECC42F00A59AC0 /* type1.o in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C92FB37F22ECC3B200A59AC0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C92FB45E22ED074300A59AC0 /* libz.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C92FB38722ECC3F000A59AC0 /* libjpeg */ = {
+			isa = PBXGroup;
+			children = (
+				C92FB3AA22ECC41500A59AC0 /* jaricom.o */,
+				C92FB38B22ECC41300A59AC0 /* jcapimin.o */,
+				C92FB3B022ECC41500A59AC0 /* jcapistd.o */,
+				C92FB3AB22ECC41500A59AC0 /* jcarith.o */,
+				C92FB3AE22ECC41500A59AC0 /* jccoefct.o */,
+				C92FB39A22ECC41400A59AC0 /* jccolor.o */,
+				C92FB39322ECC41400A59AC0 /* jcdctmgr.o */,
+				C92FB3A822ECC41500A59AC0 /* jchuff.o */,
+				C92FB39922ECC41400A59AC0 /* jcinit.o */,
+				C92FB3A022ECC41400A59AC0 /* jcmainct.o */,
+				C92FB3A922ECC41500A59AC0 /* jcmarker.o */,
+				C92FB3B522ECC41500A59AC0 /* jcmaster.o */,
+				C92FB3A222ECC41400A59AC0 /* jcomapi.o */,
+				C92FB39F22ECC41400A59AC0 /* jcparam.o */,
+				C92FB3A622ECC41500A59AC0 /* jcprepct.o */,
+				C92FB38A22ECC41300A59AC0 /* jcsample.o */,
+				C92FB38F22ECC41400A59AC0 /* jctrans.o */,
+				C92FB3AD22ECC41500A59AC0 /* jdapimin.o */,
+				C92FB39022ECC41400A59AC0 /* jdapistd.o */,
+				C92FB3A722ECC41500A59AC0 /* jdarith.o */,
+				C92FB39722ECC41400A59AC0 /* jdatadst.o */,
+				C92FB3A522ECC41400A59AC0 /* jdatasrc.o */,
+				C92FB38C22ECC41300A59AC0 /* jdcoefct.o */,
+				C92FB3AC22ECC41500A59AC0 /* jdcolor.o */,
+				C92FB39E22ECC41400A59AC0 /* jddctmgr.o */,
+				C92FB39C22ECC41400A59AC0 /* jdhuff.o */,
+				C92FB3A322ECC41400A59AC0 /* jdinput.o */,
+				C92FB3B222ECC41500A59AC0 /* jdmainct.o */,
+				C92FB39122ECC41400A59AC0 /* jdmarker.o */,
+				C92FB38E22ECC41300A59AC0 /* jdmaster.o */,
+				C92FB39822ECC41400A59AC0 /* jdmerge.o */,
+				C92FB3AF22ECC41500A59AC0 /* jdpostct.o */,
+				C92FB3B622ECC41500A59AC0 /* jdsample.o */,
+				C92FB3A422ECC41400A59AC0 /* jdtrans.o */,
+				C92FB3B322ECC41500A59AC0 /* jerror.o */,
+				C92FB39B22ECC41400A59AC0 /* jfdctflt.o */,
+				C92FB3A122ECC41400A59AC0 /* jfdctfst.o */,
+				C92FB38D22ECC41300A59AC0 /* jfdctint.o */,
+				C92FB39622ECC41400A59AC0 /* jidctflt.o */,
+				C92FB39422ECC41400A59AC0 /* jidctfst.o */,
+				C92FB3B122ECC41500A59AC0 /* jidctint.o */,
+				C92FB3B422ECC41500A59AC0 /* jmemmgr.o */,
+				C92FB39222ECC41400A59AC0 /* jmemnobs.o */,
+				C92FB38922ECC41300A59AC0 /* jquant1.o */,
+				C92FB39D22ECC41400A59AC0 /* jquant2.o */,
+				C92FB39522ECC41400A59AC0 /* jutils.o */,
+			);
+			name = libjpeg;
+			sourceTree = "<group>";
+		};
+		C92FB38822ECC3FC00A59AC0 /* libfreetype */ = {
+			isa = PBXGroup;
+			children = (
+				C92FB3F322ECC42E00A59AC0 /* autofit.o */,
+				C92FB3EB22ECC42D00A59AC0 /* bdf.o */,
+				C92FB3F522ECC42E00A59AC0 /* cff.o */,
+				C92FB3F622ECC42E00A59AC0 /* ftbase.o */,
+				C92FB3EE22ECC42E00A59AC0 /* ftbbox.o */,
+				C92FB3F022ECC42E00A59AC0 /* ftbdf.o */,
+				C92FB40922ECC42F00A59AC0 /* ftbitmap.o */,
+				C92FB40122ECC42E00A59AC0 /* ftbzip2.o */,
+				C92FB40422ECC42F00A59AC0 /* ftcache.o */,
+				C92FB3E822ECC42D00A59AC0 /* ftcid.o */,
+				C92FB3FF22ECC42E00A59AC0 /* ftdebug.o */,
+				C92FB40322ECC42F00A59AC0 /* ftfstype.o */,
+				C92FB3FB22ECC42E00A59AC0 /* ftgasp.o */,
+				C92FB40822ECC42F00A59AC0 /* ftglyph.o */,
+				C92FB40022ECC42E00A59AC0 /* ftgxval.o */,
+				C92FB3ED22ECC42E00A59AC0 /* ftgzip.o */,
+				C92FB3F122ECC42E00A59AC0 /* ftinit.o */,
+				C92FB3FE22ECC42E00A59AC0 /* ftlzw.o */,
+				C92FB40722ECC42F00A59AC0 /* ftmm.o */,
+				C92FB3F422ECC42E00A59AC0 /* ftotval.o */,
+				C92FB40C22ECC42F00A59AC0 /* ftpatent.o */,
+				C92FB3E922ECC42D00A59AC0 /* ftpfr.o */,
+				C92FB40522ECC42F00A59AC0 /* ftstroke.o */,
+				C92FB40222ECC42F00A59AC0 /* ftsynth.o */,
+				C92FB3EC22ECC42E00A59AC0 /* ftsystem.o */,
+				C92FB3E622ECC42D00A59AC0 /* fttype1.o */,
+				C92FB3F222ECC42E00A59AC0 /* ftwinfnt.o */,
+				C92FB40622ECC42F00A59AC0 /* pcf.o */,
+				C92FB40A22ECC42F00A59AC0 /* pfr.o */,
+				C92FB3FD22ECC42E00A59AC0 /* psaux.o */,
+				C92FB3F822ECC42E00A59AC0 /* pshinter.o */,
+				C92FB3EF22ECC42E00A59AC0 /* psnames.o */,
+				C92FB40B22ECC42F00A59AC0 /* raster.o */,
+				C92FB3F722ECC42E00A59AC0 /* sfnt.o */,
+				C92FB3E722ECC42D00A59AC0 /* smooth.o */,
+				C92FB3FC22ECC42E00A59AC0 /* truetype.o */,
+				C92FB3F922ECC42E00A59AC0 /* type1.o */,
+				C92FB3E522ECC42D00A59AC0 /* type1cid.o */,
+				C92FB3EA22ECC42D00A59AC0 /* type42.o */,
+				C92FB3FA22ECC42E00A59AC0 /* winfnt.o */,
+			);
+			name = libfreetype;
+			sourceTree = "<group>";
+		};
 		C93AE15821EC017700B588B6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				C93AE16021EC017700B588B6 /* Pyto.app */,
+				C9F4625922ECBB9E007DC3B8 /* Pyto Widget.appex */,
 				C93AE16221EC017700B588B6 /* Python.framework */,
 				C93AE16421EC017700B588B6 /* PytoCore.framework */,
+				C9F4625B22ECBB9E007DC3B8 /* libpng.framework */,
+				C9F4625D22ECBB9E007DC3B8 /* Python3_Mac.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -102,10 +563,21 @@
 		C9CEE21D21EBA6BA00316D3C = {
 			isa = PBXGroup;
 			children = (
+				C92FB37B22ECC1E200A59AC0 /* Info.plist */,
+				C92FB37922ECC1D800A59AC0 /* _imagingmorph.cpython-37m-darwin.so */,
+				C92FB37722ECC1D000A59AC0 /* Info.plist */,
+				C92FB37522ECC1BF00A59AC0 /* _imagingmath.cpython-37m-darwin.so */,
+				C92FB37322ECC1B800A59AC0 /* Info.plist */,
+				C92FB36D22ECC13E00A59AC0 /* _imagingft.cpython-37m-darwin.so */,
+				C92FB36B22ECC13800A59AC0 /* Info.plist */,
+				C92FB36922ECC13200A59AC0 /* _imaging.cpython-37m-darwin.so */,
 				C9F4A4C8229F59E80052E20A /* README.md */,
+				C92FB38822ECC3FC00A59AC0 /* libfreetype */,
+				C92FB38722ECC3F000A59AC0 /* libjpeg */,
 				C93AE15721EC017700B588B6 /* Pyto.xcodeproj */,
 				C9CEE22821EBA6BB00316D3C /* Python App */,
 				C9CEE22721EBA6BB00316D3C /* Products */,
+				C92FB37F22ECC3B200A59AC0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -143,6 +615,10 @@
 				C9CEE22321EBA6BB00316D3C /* Frameworks */,
 				C9CEE22421EBA6BB00316D3C /* Resources */,
 				C9CEE25121EBA71A00316D3C /* Embed Frameworks */,
+				C9F4625222ECBB9E007DC3B8 /* Copy _imaging */,
+				C9F4626322ECBEE4007DC3B8 /* Copy _imagingft */,
+				C9F4626822ECBF1F007DC3B8 /* Copy _imagingmath */,
+				C9F4626D22ECBF4D007DC3B8 /* Copy _imagingmorph */,
 			);
 			buildRules = (
 			);
@@ -213,6 +689,27 @@
 			fileType = wrapper.framework;
 			path = PytoCore.framework;
 			remoteRef = C93AE16321EC017700B588B6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C9F4625922ECBB9E007DC3B8 /* Pyto Widget.appex */ = {
+			isa = PBXReferenceProxy;
+			fileType = "wrapper.app-extension";
+			path = "Pyto Widget.appex";
+			remoteRef = C9F4625822ECBB9E007DC3B8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C9F4625B22ECBB9E007DC3B8 /* libpng.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = libpng.framework;
+			remoteRef = C9F4625A22ECBB9E007DC3B8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C9F4625D22ECBB9E007DC3B8 /* Python3_Mac.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Python3_Mac.framework;
+			remoteRef = C9F4625C22ECBB9E007DC3B8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

@@ -22,7 +22,9 @@ import Foundation
     @objc static func showAlert(prompt: String?, script: String?) {
         let prompt_ = prompt
         DispatchQueue.main.sync {
-            #if !WIDGET
+            #if !WIDGET && !MAIN
+            ConsoleViewController.visibles.first?.input(prompt: prompt_ ?? "")
+            #elseif !WIDGET
             for console in ConsoleViewController.visibles {
                 
                 if script != nil {
@@ -45,7 +47,9 @@ import Foundation
     @objc static func getPass(prompt: String?, script: String?) {
         let prompt_ = prompt
         DispatchQueue.main.sync {
-            #if !WIDGET
+            #if !WIDGET && !MAIN
+            ConsoleViewController.visibles.first?.getpass(prompt: prompt_ ?? "")
+            #elseif !WIDGET
             for console in ConsoleViewController.visibles {
                 
                 if script != nil {

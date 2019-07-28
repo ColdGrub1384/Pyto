@@ -85,6 +85,7 @@ fileprivate class ImageAttachment: NSTextAttachment {
                 attachment.image = image
                 let attrString = NSMutableAttributedString(attributedString: NSAttributedString(attachment: attachment))
                 attrString.append(NSAttributedString(string: "\n"))
+                #if MAIN
                 for console in ConsoleViewController.visibles {
                     
                     if script != nil {
@@ -95,6 +96,9 @@ fileprivate class ImageAttachment: NSTextAttachment {
                     
                     console.textView.textStorage.insert(attrString, at: console.textView.offset(from: console.textView.endOfDocument, to: console.textView.endOfDocument))
                 }
+                #else
+                ConsoleViewController.visibles.first?.textView.textStorage.insert(attrString, at: ConsoleViewController.visibles[0].textView.offset(from: ConsoleViewController.visibles[0].textView.endOfDocument, to: ConsoleViewController.visibles[0].textView.endOfDocument))
+                #endif
             }
             
             #if MAIN

@@ -165,18 +165,20 @@ import SafariServices
         window?.rootViewController = UIStoryboard(name: "Splash Screen", bundle: Bundle(for: Python.self)).instantiateInitialViewController()
         window?.makeKeyAndVisible()
         DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-            
-            ConsoleViewController.visible.modalTransitionStyle = .crossDissolve
-            self.window?.rootViewController?.present(ConsoleViewController.visible, animated: true, completion: {
-                ConsoleViewController.visible.textView.text = ""
-                Python.shared.isScriptRunning = true
-                PyInputHelper.userInput = "import console as __console__; script = __console__.run_script('\(AppDelegate.scriptToRun!)'); from suspend import suspend; suspend(); from time import sleep; sleep(0.5); exit(0)"
+            let console = ConsoleViewController()
+            console.modalTransitionStyle = .crossDissolve
+            self.window?.rootViewController?.present(console, animated: true, completion: {
+                console.textView.text = ""
+                Python.shared.runningScripts = [AppDelegate.scriptToRun!]
+                PyInputHelper.userInput = "import console as __console__; script = __console__.run_script('\(AppDelegate.scriptToRun!)'); import code; code.interact(banner='', local=vars(script))"
             })
         }
         #endif
         
         return true
     }
+    
+    #if MAIN
     
     public func applicationWillResignActive(_ application: UIApplication) {
         guard #available(iOS 13.0, *) else {
@@ -196,9 +198,7 @@ import SafariServices
             (((session.scene?.delegate as? UIWindowSceneDelegate)?.window??.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor.save()
         }
     }
-    
-    #if MAIN
-        
+            
     public func applicationWillTerminate(_ application: UIApplication) {
         exit(0)
     }

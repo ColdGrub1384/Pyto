@@ -46,6 +46,10 @@ import UIKit
                     var attributes: [NSAttributedString.Key : AnyHashable] = [.font : UIFont(name: "Menlo", size: 13) ?? UIFont.systemFont(ofSize: 12)]
                     #if MAIN
                     attributes[.foregroundColor] = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
+                    #else
+                    if #available(iOS 13.0, *) {
+                        attributes[.foregroundColor] = UIColor.label
+                    }
                     #endif
                     mutable.append(NSAttributedString(string: text_, attributes: attributes))
                     console.textView.attributedText = mutable
