@@ -6,6 +6,8 @@ Pyto includes the following third party modules:
 Modules
 *******
 
+* `Bio`_
+* `bs4`_
 * `chardet`_
 * `colorama`_
 * `dateutil`_
@@ -27,6 +29,8 @@ Modules
 * `rubicon-objc`_
 * `jedi`_
 
+.. _bio: https://biopython.org/wiki/Documentation
+.. _bs4: https://www.crummy.com/software/BeautifulSoup/bs4/doc/
 .. _chardet: https://chardet.readthedocs.io/en/latest/
 .. _colorama: https://pypi.org/project/colorama/
 .. _dateutil: https://dateutil.readthedocs.io/en/stable/
@@ -59,6 +63,7 @@ Acknowledgments
 * `attrs <https://github.com/python-attrs/attrs>`__
 * `black <https://github.com/python/black>`__
 * `beautifulsoup4 <https://pypi.org/project/beautifulsoup4>`__
+* `Biopython <https://github.com/biopython/biopython>`__
 * `chardet <https://github.com/chardet/chardet>`__
 * `click <https://github.com/pallets/click>`__
 * `colorama <https://github.com/tartley/colorama>`__
@@ -207,6 +212,32 @@ Acknowledgments
            Beautiful Soup incorporates code from the html5lib library, which is
            also made available under the MIT license.
 
+*Biopython*
+
+.. code-block::
+
+    text
+
+    Biopython is currently released under the "Biopython License Agreement" (given in full below). Unless stated otherwise in individual file headers, all Biopython's files are under the "Biopython License Agreement".
+
+    Some files are explicitly dual licensed under your choice of the "Biopython License Agreement" or the "BSD 3-Clause License" (both given in full below). This is with the intention of later offering all of Biopython under this dual licensing approach.
+
+    Biopython License Agreement
+
+    Permission to use, copy, modify, and distribute this software and its documentation with or without modifications and for any purpose and without fee is hereby granted, provided that any copyright notices appear in all copies and that both those copyright notices and this permission notice appear in supporting documentation, and that the names of the contributors or copyright holders not be used in advertising or publicity pertaining to distribution of the software without specific prior permission.
+
+    THE CONTRIBUTORS AND COPYRIGHT HOLDERS OF THIS SOFTWARE DISCLAIM ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL THE CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+    BSD 3-Clause License
+
+    Copyright (c) 1999-2019, The Biopython Contributors All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+    Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+    Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+    Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 *chardet*
 

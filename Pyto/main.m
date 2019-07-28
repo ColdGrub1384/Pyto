@@ -217,6 +217,7 @@ int initialize_python(int argc, char *argv[]) {
     init_numpy();
     init_matplotlib();
     init_pandas();
+    init_biopython();
     #endif
     init_pil();
     
