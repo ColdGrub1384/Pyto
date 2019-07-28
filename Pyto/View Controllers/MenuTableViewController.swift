@@ -82,7 +82,7 @@ class MenuTableViewController: UITableViewController {
         case 2:
             image = UIImage(named: "pypi")
         case 3:
-            image = UIImage(systemName: "info.fill")
+            image = UIImage(systemName: "info.circle.fill")
         case 4:
             image = UIImage(systemName: "gear")
         default:
