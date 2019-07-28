@@ -174,6 +174,19 @@ void init_biopython() {
     [name addObject:@"trie"];                   [key addObject:@"__Bio_trie"];
     BandHandle(@"Bio", name, key);
 }
+
+void init_lxml() {
+    
+    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
+    [name addObject:@"_elementpath"];              [key addObject:@"__lxml__elementpath"];
+    [name addObject:@"builder"];                   [key addObject:@"__lxml_builder"];
+    [name addObject:@"etree"];                     [key addObject:@"__lxml_etree"];
+    [name addObject:@"clean"];                     [key addObject:@"__lxml_html_clean"];
+    [name addObject:@"diff"];                      [key addObject:@"__lxml_html_diff"];
+    [name addObject:@"objectify"];                 [key addObject:@"__lxml_objectifiy"];
+    [name addObject:@"sax"];                       [key addObject:@"__lxml_sax"];
+    BandHandle(@"lxml", name, key);
+}
 #endif
 
 // MARK: - PIL
@@ -218,6 +231,7 @@ int initialize_python(int argc, char *argv[]) {
     init_matplotlib();
     init_pandas();
     init_biopython();
+    init_lxml();
     #endif
     init_pil();
     
