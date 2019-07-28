@@ -114,6 +114,15 @@
 		C936B9CE22D93A2000DF2720 /* libxz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6921445B6700585C28 /* libxz.a */; };
 		C936B9CF22D93A3500DF2720 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A62144620A00382DCC /* libz.tbd */; };
 		C937B9C122EE341000269FC6 /* MainMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C937B9C022EE341000269FC6 /* MainMenu.storyboard */; platformFilter = maccatalyst; };
+		C937B9C722EE430500269FC6 /* libexslt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C937B9C422EE430500269FC6 /* libexslt.a */; };
+		C937B9C822EE430500269FC6 /* libxml2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C937B9C522EE430500269FC6 /* libxml2.a */; };
+		C937B9C922EE430500269FC6 /* libxslt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C937B9C622EE430500269FC6 /* libxslt.a */; };
+		C937B9CA22EE430900269FC6 /* _elementpath.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D3742235662000CA921D /* _elementpath.o */; platformFilter = ios; };
+		C937B9CB22EE430C00269FC6 /* builder.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D3752235662000CA921D /* builder.o */; platformFilter = ios; };
+		C937B9CC22EE430E00269FC6 /* etree.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D36F2235661F00CA921D /* etree.o */; platformFilter = ios; };
+		C937B9CD22EE431100269FC6 /* diff.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D3732235662000CA921D /* diff.o */; platformFilter = ios; };
+		C937B9CE22EE431300269FC6 /* clean.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D3722235662000CA921D /* clean.o */; platformFilter = ios; };
+		C937B9CF22EE431600269FC6 /* objectify.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C941D3702235662000CA921D /* objectify.o */; };
 		C93C8E1922DFDEBC0008DC13 /* PySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C8E1822DFDEBC0008DC13 /* PySlider.swift */; };
 		C93C8E1C22E011CE0008DC13 /* PySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C8E1822DFDEBC0008DC13 /* PySlider.swift */; };
 		C93C8E1E22E01ACA0008DC13 /* PySwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C8E1D22E01ACA0008DC13 /* PySwitch.swift */; };
@@ -1770,6 +1779,9 @@
 		C93657242287286400498011 /* ConflictsResolver.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ConflictsResolver.storyboard; sourceTree = "<group>"; };
 		C93657282287334600498011 /* ResolveConflictsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolveConflictsTableViewController.swift; sourceTree = "<group>"; };
 		C937B9C022EE341000269FC6 /* MainMenu.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = MainMenu.storyboard; path = ../../../../../System/Volumes/Data/Users/adrianlabbe/Desktop/Pyto/Pyto/MainMenu.storyboard; sourceTree = "<group>"; };
+		C937B9C422EE430500269FC6 /* libexslt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libexslt.a; sourceTree = "<group>"; };
+		C937B9C522EE430500269FC6 /* libxml2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libxml2.a; sourceTree = "<group>"; };
+		C937B9C622EE430500269FC6 /* libxslt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libxslt.a; sourceTree = "<group>"; };
 		C93B6A2D2200B6C8009D637F /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		C93B6A2F2200B711009D637F /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
 		C93B6A312200BEA1009D637F /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
@@ -2291,6 +2303,8 @@
 				C9130DD822D803670055A1BE /* jdcoefct.o in Frameworks */,
 				C9FB5C0722025B040085E1AA /* ftlzw.o in Frameworks */,
 				C9130DC622D803670055A1BE /* jdarith.o in Frameworks */,
+				C937B9C922EE430500269FC6 /* libxslt.a in Frameworks */,
+				C937B9C822EE430500269FC6 /* libxml2.a in Frameworks */,
 				C9130D9022D803670055A1BE /* jmemmgr.o in Frameworks */,
 				C9F8660B21ECD3600062D1C1 /* libsqlite3.tbd in Frameworks */,
 				C9130DB222D803670055A1BE /* jdapistd.o in Frameworks */,
@@ -2303,17 +2317,20 @@
 				C9FB5BF822025B040085E1AA /* ftbbox.o in Frameworks */,
 				C9FB5C0622025B040085E1AA /* ftbase.o in Frameworks */,
 				C9F8660621ECD3360062D1C1 /* libz.tbd in Frameworks */,
+				C937B9CD22EE431100269FC6 /* diff.o in Frameworks */,
 				C9130DA422D803670055A1BE /* jidctfst.o in Frameworks */,
 				C9FB5C0E22025B040085E1AA /* ftpatent.o in Frameworks */,
 				C9FB5BF122025B040085E1AA /* psnames.o in Frameworks */,
 				C9130DB822D803670055A1BE /* jdpostct.o in Frameworks */,
 				C9FB5C0522025B040085E1AA /* ftgxval.o in Frameworks */,
+				C937B9CC22EE430E00269FC6 /* etree.o in Frameworks */,
 				C9FB5BFD22025B040085E1AA /* ftgasp.o in Frameworks */,
 				C9F8660721ECD3480062D1C1 /* libPython.a in Frameworks */,
 				C9FB5BEF22025B040085E1AA /* ftfstype.o in Frameworks */,
 				C9FB5BF522025B040085E1AA /* psaux.o in Frameworks */,
 				C9130DBC22D803670055A1BE /* jidctflt.o in Frameworks */,
 				C9130DC022D803670055A1BE /* jdinput.o in Frameworks */,
+				C937B9CF22EE431600269FC6 /* objectify.o in Frameworks */,
 				C9FB5BEE22025B040085E1AA /* cff.o in Frameworks */,
 				C9130DCC22D803670055A1BE /* jdcolor.o in Frameworks */,
 				C9FB5BED22025B040085E1AA /* pshinter.o in Frameworks */,
@@ -2334,8 +2351,10 @@
 				C9FB5BE822025B040085E1AA /* pcf.o in Frameworks */,
 				C9130DB622D803670055A1BE /* jddctmgr.o in Frameworks */,
 				C9130D9C22D803670055A1BE /* jidctint.o in Frameworks */,
+				C937B9CE22EE431300269FC6 /* clean.o in Frameworks */,
 				C9130DD022D803670055A1BE /* jdatasrc.o in Frameworks */,
 				C9130DD222D803670055A1BE /* jcarith.o in Frameworks */,
+				C937B9C722EE430500269FC6 /* libexslt.a in Frameworks */,
 				C9FB5C0122025B040085E1AA /* ftinit.o in Frameworks */,
 				C9F8660821ECD34A0062D1C1 /* libbzip2.a in Frameworks */,
 				C9FB5BEB22025B040085E1AA /* ftwinfnt.o in Frameworks */,
@@ -2355,6 +2374,7 @@
 				C9FB5BFC22025B040085E1AA /* ftsynth.o in Frameworks */,
 				C9130D8022D803670055A1BE /* jdsample.o in Frameworks */,
 				C9AAAB492195016D0042E733 /* InputAssistant.framework in Frameworks */,
+				C937B9CA22EE430900269FC6 /* _elementpath.o in Frameworks */,
 				C9130DAE22D803670055A1BE /* jcapistd.o in Frameworks */,
 				C9FB5BF022025B040085E1AA /* type1.o in Frameworks */,
 				C9130D9E22D803670055A1BE /* jfdctfst.o in Frameworks */,
@@ -2377,6 +2397,7 @@
 				C9FB5BF622025B040085E1AA /* smooth.o in Frameworks */,
 				C9130DC822D803670055A1BE /* jutils.o in Frameworks */,
 				C9130DAC22D803670055A1BE /* jaricom.o in Frameworks */,
+				C937B9CB22EE430C00269FC6 /* builder.o in Frameworks */,
 				C9130DC422D803670055A1BE /* jcmainct.o in Frameworks */,
 				C9130D8A22D803670055A1BE /* jcmarker.o in Frameworks */,
 				C9FB5BEC22025B040085E1AA /* sfnt.o in Frameworks */,
@@ -2665,6 +2686,9 @@
 		C941D36C223565E900CA921D /* Lxml */ = {
 			isa = PBXGroup;
 			children = (
+				C937B9C422EE430500269FC6 /* libexslt.a */,
+				C937B9C522EE430500269FC6 /* libxml2.a */,
+				C937B9C622EE430500269FC6 /* libxslt.a */,
 				C941D3742235662000CA921D /* _elementpath.o */,
 				C941D3752235662000CA921D /* builder.o */,
 				C941D36F2235661F00CA921D /* etree.o */,
@@ -4581,6 +4605,7 @@
 					"$(PROJECT_DIR)/PIL/_imaging.framework",
 					"$(PROJECT_DIR)/PIL",
 					"$(PROJECT_DIR)/libjpeg",
+					"$(PROJECT_DIR)/Lxml",
 				);
 				MARKETING_VERSION = 11.0;
 				ONLY_ACTIVE_ARCH = YES;
@@ -4669,6 +4694,7 @@
 					"$(PROJECT_DIR)/PIL/_imaging.framework",
 					"$(PROJECT_DIR)/PIL",
 					"$(PROJECT_DIR)/libjpeg",
+					"$(PROJECT_DIR)/Lxml",
 				);
 				MARKETING_VERSION = 11.0;
 				ONLY_ACTIVE_ARCH = NO;
