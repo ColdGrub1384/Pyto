@@ -8,7 +8,7 @@
 
 import UIKit
 
-#if targetEnvironment(UIKitForMac)
+#if targetEnvironment(macCatalyst)
 extension UIApplication {
     
     /// Opens a new window.

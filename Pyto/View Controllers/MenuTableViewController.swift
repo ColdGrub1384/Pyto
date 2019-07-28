@@ -66,6 +66,33 @@ class MenuTableViewController: UITableViewController {
     
     // MARK: - Table view controller
     
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        
+        guard #available(iOS 13.0, *) else {
+            return cell
+        }
+        
+        var image: UIImage?
+        switch indexPath.row {
+        case 0:
+            image = UIImage(systemName: "play.fill")
+        case 1:
+            image = UIImage(systemName: "doc.fill")
+        case 2:
+            image = UIImage(named: "pypi")
+        case 3:
+            image = UIImage(systemName: "info.fill")
+        case 4:
+            image = UIImage(systemName: "gear")
+        default:
+            break
+        }
+        cell.imageView?.image = image
+        
+        return cell
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:

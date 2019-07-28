@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14810.11" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xoe-vS-Tot" initialMenu="glQ-k8-PWi">
-    <device id="retina5_5" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14845" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xoe-vS-Tot">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14766.13"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14799.2"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,7 +13,7 @@
             <objects>
                 <viewController id="dTl-Ox-Rar" customClass="REPLViewController" customModule="Pyto" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rbE-BI-yGy">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="N2M-c2-kW4"/>
@@ -32,7 +32,7 @@
                     <toolbarItems/>
                     <value key="contentSizeForViewInPopover" type="size" width="540" height="620"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="5NA-pS-qVt">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -49,7 +49,7 @@
             <objects>
                 <viewController storyboardIdentifier="runModule" title="python -m" useStoryboardIdentifierAsRestorationIdentifier="YES" id="JxT-RS-i2V" customClass="RunModuleViewController" customModule="Pyto" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Eri-vo-fav">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Ys3-1X-Lcl"/>
@@ -65,11 +65,11 @@
             <objects>
                 <tableViewController id="K3r-ie-kuA" customClass="MenuTableViewController" customModule="Pyto" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="FGl-Ke-tCD">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="FVe-ao-lKW">
-                            <rect key="frame" x="0.0" y="356" width="414" height="0.0"/>
+                            <rect key="frame" x="0.0" y="356" width="375" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
@@ -77,42 +77,42 @@
                             <tableViewSection id="LJ4-em-mMO">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="XKs-1g-aOa" imageView="UUG-lO-LjR" style="IBUITableViewCellStyleDefault" id="p8G-Tu-tyF">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="60"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="p8G-Tu-tyF" id="pmk-T5-vRz">
-                                            <rect key="frame" x="0.0" y="0.0" width="382.66666666666669" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="347.5" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="REPL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XKs-1g-aOa">
-                                                    <rect key="frame" x="93" y="0.0" width="281.66666666666669" height="60"/>
+                                                    <rect key="frame" x="16" y="0.0" width="323.5" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="play.fill" catalog="system" id="UUG-lO-LjR">
-                                                    <rect key="frame" x="20" y="0.0" width="58" height="64"/>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UUG-lO-LjR">
+                                                    <rect key="frame" x="20" y="0.0" width="54.666666666666657" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="CXh-gk-WUT" imageView="HWo-C8-I4F" style="IBUITableViewCellStyleDefault" id="iQn-u2-JAb">
-                                        <rect key="frame" x="0.0" y="88" width="414" height="60"/>
+                                        <rect key="frame" x="0.0" y="88" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iQn-u2-JAb" id="4Kb-tz-c3n">
-                                            <rect key="frame" x="0.0" y="0.0" width="382.66666666666669" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="347.5" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Run module (python -m)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CXh-gk-WUT">
-                                                    <rect key="frame" x="91" y="0.0" width="283.66666666666669" height="60"/>
+                                                    <rect key="frame" x="16" y="0.0" width="323.5" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="doc.fill" catalog="system" id="HWo-C8-I4F">
-                                                    <rect key="frame" x="20" y="0.0" width="56" height="64"/>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="HWo-C8-I4F">
+                                                    <rect key="frame" x="20" y="0.0" width="54.666666666666657" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
@@ -122,62 +122,62 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="aLz-Xa-9Ai" imageView="gGU-Bh-VEe" style="IBUITableViewCellStyleDefault" id="u89-eH-RRq">
-                                        <rect key="frame" x="0.0" y="148" width="414" height="60"/>
+                                        <rect key="frame" x="0.0" y="148" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="u89-eH-RRq" id="nKN-5E-cA2">
-                                            <rect key="frame" x="0.0" y="0.0" width="382.66666666666669" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="347.5" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="PyPi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aLz-Xa-9Ai">
-                                                    <rect key="frame" x="65" y="0.0" width="309.66666666666669" height="60"/>
+                                                    <rect key="frame" x="16" y="0.0" width="323.5" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="pypi" id="gGU-Bh-VEe">
-                                                    <rect key="frame" x="20" y="16.666666666666668" width="30" height="26.500000000000004"/>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gGU-Bh-VEe">
+                                                    <rect key="frame" x="20" y="16.666666666666668" width="30" height="26.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="0lV-pN-hwB" imageView="m6Q-C9-Kaq" style="IBUITableViewCellStyleDefault" id="rkx-D1-u0P">
-                                        <rect key="frame" x="0.0" y="208" width="414" height="60"/>
+                                        <rect key="frame" x="0.0" y="208" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rkx-D1-u0P" id="iBD-CY-0tJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="382.66666666666669" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="347.5" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Loaded modules" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0lV-pN-hwB">
-                                                    <rect key="frame" x="99" y="0.0" width="275.66666666666669" height="60"/>
+                                                    <rect key="frame" x="16" y="0.0" width="323.5" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="info.circle.fill" catalog="system" id="m6Q-C9-Kaq">
-                                                    <rect key="frame" x="20" y="0.0" width="64" height="62"/>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="m6Q-C9-Kaq">
+                                                    <rect key="frame" x="20" y="0.0" width="62" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Nfb-Qi-luK" imageView="3SV-Fv-Gmw" style="IBUITableViewCellStyleDefault" id="cYO-3K-8Cz">
-                                        <rect key="frame" x="0.0" y="268" width="414" height="60"/>
+                                        <rect key="frame" x="0.0" y="268" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cYO-3K-8Cz" id="5nZ-T8-Vb1">
-                                            <rect key="frame" x="0.0" y="0.0" width="382.66666666666669" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="347.5" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Nfb-Qi-luK">
-                                                    <rect key="frame" x="99" y="0.0" width="275.66666666666669" height="60"/>
+                                                    <rect key="frame" x="16" y="0.0" width="323.5" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="gear" catalog="system" id="3SV-Fv-Gmw">
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3SV-Fv-Gmw">
                                                     <rect key="frame" x="20" y="0.0" width="64" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
@@ -204,271 +204,12 @@
             </objects>
             <point key="canvasLocation" x="-508.69565217391306" y="734.51086956521749"/>
         </scene>
-        <!--MainMenu-->
-        <scene sceneID="KJA-y4-Q0R">
-            <objects>
-                <menu title="MainMenu" discoverabilityTitle="" identifier="com.apple.menu.root" id="glQ-k8-PWi" sceneMemberID="viewController">
-                    <children>
-                        <menu title="Application" discoverabilityTitle="" identifier="com.apple.menu.application" id="nmq-Su-u98">
-                            <children>
-                                <menu title="About" discoverabilityTitle="" identifier="com.apple.menu.about" id="bT0-1w-xQ7">
-                                    <commandGroupOptions key="options" displayInline="YES"/>
-                                    <children>
-                                        <command title="About Pyto" discoverabilityTitle="" propertyListString="" id="kmA-nf-6Fp">
-                                            <connections>
-                                                <action selector="orderFrontStandardAboutPanel:" destination="GQt-Fj-TpB" id="ofa-2q-6re"/>
-                                            </connections>
-                                        </command>
-                                    </children>
-                                </menu>
-                                <menu discoverabilityTitle="" id="mQK-LH-bXK">
-                                    <commandGroupOptions key="options" displayInline="YES"/>
-                                    <children>
-                                        <command title="Preferences" discoverabilityTitle="" propertyListString="" input="," id="iXC-OL-7vc">
-                                            <keyModifierFlags key="modifierFlags" command="YES"/>
-                                            <connections>
-                                                <action selector="showSettings:" destination="GQt-Fj-TpB" id="WeI-xj-LPq"/>
-                                            </connections>
-                                        </command>
-                                    </children>
-                                </menu>
-                                <menu title="Services" discoverabilityTitle="" identifier="com.apple.menu.services" id="GNb-YW-Xay"/>
-                                <menu title="Hide" discoverabilityTitle="" identifier="com.apple.menu.hide" id="4GK-0h-0Ze">
-                                    <commandGroupOptions key="options" displayInline="YES"/>
-                                    <children>
-                                        <command title="Hide Pyto" discoverabilityTitle="" propertyListString="" input="h" id="D1m-gf-cVS">
-                                            <keyModifierFlags key="modifierFlags" command="YES"/>
-                                            <connections>
-                                                <action selector="hide:" destination="GQt-Fj-TpB" id="s74-Nd-KeB"/>
-                                            </connections>
-                                        </command>
-                                        <command title="Hide Others" discoverabilityTitle="" propertyListString="" input="h" id="Psx-rx-JxO">
-                                            <keyModifierFlags key="modifierFlags" option="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="hideOtherApplications:" destination="GQt-Fj-TpB" id="gq1-c7-V7E"/>
-                                            </connections>
-                                        </command>
-                                        <command title="Show All" discoverabilityTitle="" propertyListString="" id="giq-WC-8KA">
-                                            <connections>
-                                                <action selector="unhideAllApplications:" destination="GQt-Fj-TpB" id="LfD-3c-bdO"/>
-                                            </connections>
-                                        </command>
-                                    </children>
-                                </menu>
-                                <menu discoverabilityTitle="" identifier="com.apple.menu.quit" id="XVW-6p-SrL">
-                                    <commandGroupOptions key="options" displayInline="YES"/>
-                                    <children>
-                                        <command title="Quit Pyto" discoverabilityTitle="" propertyListString="" input="q" id="a5W-3f-0DD">
-                                            <keyModifierFlags key="modifierFlags" command="YES"/>
-                                            <connections>
-                                                <action selector="terminate:" destination="GQt-Fj-TpB" id="5LP-c4-3Pb"/>
-                                            </connections>
-                                        </command>
-                                    </children>
-                                </menu>
-                            </children>
-                        </menu>
-                        <menu title="File" discoverabilityTitle="" identifier="com.apple.menu.file" id="98Q-vB-0qZ">
-                            <children>
-                                <command title="New" discoverabilityTitle="" propertyListString="" input="n" id="yIv-vh-JBv">
-                                    <keyModifierFlags key="modifierFlags" command="YES"/>
-                                    <connections>
-                                        <action selector="newFile:" destination="GQt-Fj-TpB" id="cUG-Ol-bqL"/>
-                                    </connections>
-                                </command>
-                                <menu discoverabilityTitle="" identifier="com.apple.menu.close" id="hrF-0W-gKr">
-                                    <commandGroupOptions key="options" displayInline="YES"/>
-                                    <children>
-                                        <command title="Close" discoverabilityTitle="" propertyListString="" input="w" id="2QO-xl-axx">
-                                            <keyModifierFlags key="modifierFlags" command="YES"/>
-                                            <alternates>
-                                                <commandAlternate title="Close All" actionName="closeAll:" id="DnK-uh-Z4t">
-                                                    <keyModifierFlags key="modifierFlags" option="YES"/>
-                                                </commandAlternate>
-                                            </alternates>
-                                            <connections>
-                                                <action selector="performClose:" destination="GQt-Fj-TpB" id="jzs-mi-SgG"/>
-                                            </connections>
-                                        </command>
-                                    </children>
-                                </menu>
-                            </children>
-                        </menu>
-                        <menu title="Editor" discoverabilityTitle="" identifier="editor" id="htk-9u-OcV">
-                            <children>
-                                <command title="Run" discoverabilityTitle="" propertyListString="" input="r" id="CM8-pk-CDO" userLabel="Run">
-                                    <keyModifierFlags key="modifierFlags" command="YES"/>
-                                    <connections>
-                                        <action selector="runScript:" destination="GQt-Fj-TpB" id="Jql-CD-syv"/>
-                                    </connections>
-                                </command>
-                                <command title="SystemExit" discoverabilityTitle="" propertyListString="" input="." id="d8d-QJ-1k3" userLabel="SystemExit">
-                                    <keyModifierFlags key="modifierFlags" command="YES"/>
-                                    <connections>
-                                        <action selector="stopScript:" destination="GQt-Fj-TpB" id="S6C-SE-mIk"/>
-                                    </connections>
-                                </command>
-                                <command title="KeyboardInterrupt" discoverabilityTitle="" propertyListString="" input="c" id="7Ne-de-siH" userLabel="KeyboardInterrupt">
-                                    <keyModifierFlags key="modifierFlags" control="YES"/>
-                                    <connections>
-                                        <action selector="interrupt:" destination="GQt-Fj-TpB" id="dfs-e0-zrD"/>
-                                    </connections>
-                                </command>
-                            </children>
-                        </menu>
-                        <menu title="Edit" discoverabilityTitle="" identifier="com.apple.menu.edit" id="9dy-VE-40W">
-                            <children>
-                                <menu discoverabilityTitle="" identifier="com.apple.menu.undo-redo" id="JaN-YN-Mes">
-                                    <commandGroupOptions key="options" displayInline="YES"/>
-                                    <children>
-                                        <command title="Undo" discoverabilityTitle="" propertyListString="" input="z" id="rdu-81-d88">
-                                            <keyModifierFlags key="modifierFlags" command="YES"/>
-                                            <connections>
-                                                <action selector="undo:" destination="GQt-Fj-TpB" id="MJM-WQ-yJf"/>
-                                            </connections>
-                                        </command>
-                                        <command title="Redo" discoverabilityTitle="" propertyListString="" input="z" id="UkA-j0-Rdx">
-                                            <keyModifierFlags key="modifierFlags" shift="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="redo:" destination="GQt-Fj-TpB" id="LFL-7b-z8i"/>
-                                            </connections>
-                                        </command>
-                                    </children>
-                                </menu>
-                                <menu discoverabilityTitle="" identifier="com.apple.menu.standard-edit" id="CUS-ZT-SJi">
-                                    <commandGroupOptions key="options" displayInline="YES"/>
-                                    <children>
-                                        <command title="Cut" discoverabilityTitle="" propertyListString="" input="x" id="TQt-lZ-NkF">
-                                            <keyModifierFlags key="modifierFlags" command="YES"/>
-                                            <connections>
-                                                <action selector="cut:" destination="GQt-Fj-TpB" id="EpO-LS-dW5"/>
-                                            </connections>
-                                        </command>
-                                        <command title="Copy" discoverabilityTitle="" propertyListString="" input="c" id="h8v-Ll-TCw">
-                                            <keyModifierFlags key="modifierFlags" command="YES"/>
-                                            <connections>
-                                                <action selector="copy:" destination="GQt-Fj-TpB" id="7Ld-qz-num"/>
-                                            </connections>
-                                        </command>
-                                        <command title="Paste" discoverabilityTitle="" propertyListString="" input="v" id="OiU-Db-C57">
-                                            <keyModifierFlags key="modifierFlags" command="YES"/>
-                                            <connections>
-                                                <action selector="paste:" destination="GQt-Fj-TpB" id="GXT-oZ-FHE"/>
-                                            </connections>
-                                        </command>
-                                        <command title="Delete" discoverabilityTitle="" propertyListString="" id="IUe-m7-OtZ">
-                                            <connections>
-                                                <action selector="delete:" destination="GQt-Fj-TpB" id="vj4-ct-G9e"/>
-                                            </connections>
-                                        </command>
-                                        <command title="Select All" discoverabilityTitle="" propertyListString="" input="a" id="4vN-we-jKj">
-                                            <keyModifierFlags key="modifierFlags" command="YES"/>
-                                            <connections>
-                                                <action selector="selectAll:" destination="GQt-Fj-TpB" id="PcX-u4-g3P"/>
-                                            </connections>
-                                        </command>
-                                    </children>
-                                </menu>
-                                <menu discoverabilityTitle="" identifier="com.apple.menu.find" id="q14-5A-8oh">
-                                    <commandGroupOptions key="options" displayInline="YES"/>
-                                    <children>
-                                        <command title="Find…" discoverabilityTitle="" propertyListString="" input="f" id="IQy-Ul-omA">
-                                            <keyModifierFlags key="modifierFlags" command="YES"/>
-                                            <connections>
-                                                <action selector="performFindPanelAction:" destination="GQt-Fj-TpB" id="ndE-b7-GAU"/>
-                                            </connections>
-                                        </command>
-                                    </children>
-                                </menu>
-                            </children>
-                        </menu>
-                        <menu title="View" discoverabilityTitle="" identifier="com.apple.menu.view" id="s5Y-Vo-EC9">
-                            <children>
-                                <menu discoverabilityTitle="" identifier="com.apple.menu.fullscreen" id="JaH-9c-icd">
-                                    <commandGroupOptions key="options" displayInline="YES"/>
-                                    <children>
-                                        <command title="Enter Full Screen" discoverabilityTitle="" propertyListString="" input="f" id="zPx-7S-hqk">
-                                            <keyModifierFlags key="modifierFlags" control="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="toggleFullScreen:" destination="GQt-Fj-TpB" id="xGS-bU-9Qm"/>
-                                            </connections>
-                                        </command>
-                                    </children>
-                                </menu>
-                            </children>
-                        </menu>
-                        <menu title="Window" discoverabilityTitle="" identifier="com.apple.menu.window" id="uy7-V5-VZB">
-                            <children>
-                                <command title="REPL" discoverabilityTitle="" propertyListString="" id="B9P-xK-PPg">
-                                    <connections>
-                                        <action selector="showREPL:" destination="GQt-Fj-TpB" id="T6w-wS-TDs"/>
-                                    </connections>
-                                </command>
-                                <command title="Run modules" discoverabilityTitle="" propertyListString="" id="tNf-vX-LY6">
-                                    <connections>
-                                        <action selector="runModules:" destination="GQt-Fj-TpB" id="1PD-ww-m5V"/>
-                                    </connections>
-                                </command>
-                                <command title="PyPi" discoverabilityTitle="" propertyListString="" id="SO4-71-oAZ">
-                                    <connections>
-                                        <action selector="showPyPi:" destination="GQt-Fj-TpB" id="iTl-Ug-mVs"/>
-                                    </connections>
-                                </command>
-                                <command title="Loaded Modules" discoverabilityTitle="" propertyListString="" id="PUo-gp-gJR">
-                                    <connections>
-                                        <action selector="showLoadedModules:" destination="GQt-Fj-TpB" id="WyQ-Ve-qoe"/>
-                                    </connections>
-                                </command>
-                                <menu discoverabilityTitle="" identifier="com.apple.menu.minimize-and-zoom" id="tpv-kC-UF4">
-                                    <commandGroupOptions key="options" displayInline="YES"/>
-                                    <children>
-                                        <command title="Minimize" discoverabilityTitle="" propertyListString="" input="m" id="JM8-lo-dPd">
-                                            <keyModifierFlags key="modifierFlags" command="YES"/>
-                                            <connections>
-                                                <action selector="performMiniaturize:" destination="GQt-Fj-TpB" id="XFc-pe-JK9"/>
-                                            </connections>
-                                        </command>
-                                        <command title="Zoom" discoverabilityTitle="" propertyListString="" id="5dV-A1-3Au">
-                                            <connections>
-                                                <action selector="performZoom:" destination="GQt-Fj-TpB" id="VcX-6q-kMD"/>
-                                            </connections>
-                                        </command>
-                                    </children>
-                                </menu>
-                                <menu discoverabilityTitle="" identifier="com.apple.menu.bring-all-to-front" id="GQu-tK-1Pi">
-                                    <commandGroupOptions key="options" displayInline="YES"/>
-                                    <children>
-                                        <command title="Bring All to Front" discoverabilityTitle="" propertyListString="" id="6ew-fR-WFB">
-                                            <connections>
-                                                <action selector="arrangeInFront:" destination="GQt-Fj-TpB" id="iAo-H1-3Of"/>
-                                            </connections>
-                                        </command>
-                                    </children>
-                                </menu>
-                            </children>
-                        </menu>
-                        <menu title="Help" discoverabilityTitle="" identifier="com.apple.menu.help" id="hyr-Cw-sRW">
-                            <children>
-                                <command title="Pyto Help" discoverabilityTitle="" propertyListString="" input="?" id="Lzg-lo-j7y">
-                                    <keyModifierFlags key="modifierFlags" command="YES"/>
-                                    <connections>
-                                        <action selector="showHelp:" destination="GQt-Fj-TpB" id="w5k-zV-XR3"/>
-                                    </connections>
-                                </command>
-                            </children>
-                        </menu>
-                    </children>
-                </menu>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GQt-Fj-TpB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="398" y="376"/>
-        </scene>
         <!--Document Browser View Controller-->
         <scene sceneID="nGT-bk-D0O">
             <objects>
                 <viewController storyboardIdentifier="browser" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xoe-vS-Tot" customClass="DocumentBrowserViewController" customModule="Pyto" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Pnx-EP-B2e">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="2ed-Wr-Dd8"/>
@@ -486,7 +227,7 @@
                     <toolbarItems/>
                     <value key="contentSizeForViewInPopover" type="size" width="540" height="620"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zX6-Bb-01D">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -506,11 +247,11 @@
             <objects>
                 <viewController id="tj1-xG-qEl" customClass="PipViewController" customModule="Pyto" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bmB-NH-sUa">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" allowsBackForwardNavigationGestures="YES" translatesAutoresizingMaskIntoConstraints="NO" id="11F-HI-Wxm">
-                                <rect key="frame" x="0.0" y="44" width="414" height="643"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="574"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -518,7 +259,7 @@
                                 </wkWebViewConfiguration>
                             </wkWebView>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="azz-g4-wY4">
-                                <rect key="frame" x="0.0" y="44" width="414" height="2.6666666666666643"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="2.5"/>
                             </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -580,7 +321,7 @@
                     <toolbarItems/>
                     <value key="contentSizeForViewInPopover" type="size" width="300" height="350"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Cw4-7B-snx">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -598,7 +339,7 @@
                 <navigationController storyboardIdentifier="runModulesNavigationController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mCn-Dc-GGG" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rYE-BC-Pdo">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -615,11 +356,7 @@
         <image name="Grid" width="32" height="32"/>
         <image name="UIButtonBarArrowLeft_Normal" width="10" height="18"/>
         <image name="UIButtonBarArrowRight_Normal" width="10" height="18"/>
-        <image name="doc.fill" catalog="system" width="56" height="64"/>
-        <image name="gear" catalog="system" width="64" height="60"/>
-        <image name="info.circle.fill" catalog="system" width="64" height="62"/>
         <image name="play" width="30" height="30"/>
-        <image name="play.fill" catalog="system" width="58" height="64"/>
         <image name="pypi" width="30" height="26.5"/>
     </resources>
 </document>

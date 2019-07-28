@@ -113,6 +113,7 @@
 		C936B9CD22D93A1D00DF2720 /* libOpenSSL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6721445B6100585C28 /* libOpenSSL.a */; };
 		C936B9CE22D93A2000DF2720 /* libxz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6921445B6700585C28 /* libxz.a */; };
 		C936B9CF22D93A3500DF2720 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A62144620A00382DCC /* libz.tbd */; };
+		C937B9C122EE341000269FC6 /* MainMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C937B9C022EE341000269FC6 /* MainMenu.storyboard */; platformFilter = maccatalyst; };
 		C93C8E1922DFDEBC0008DC13 /* PySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C8E1822DFDEBC0008DC13 /* PySlider.swift */; };
 		C93C8E1C22E011CE0008DC13 /* PySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C8E1822DFDEBC0008DC13 /* PySlider.swift */; };
 		C93C8E1E22E01ACA0008DC13 /* PySwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C8E1D22E01ACA0008DC13 /* PySwitch.swift */; };
@@ -131,7 +132,7 @@
 		C93E9F0D22BAC8CB0065A3F2 /* libxz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6921445B6700585C28 /* libxz.a */; };
 		C93E9F1022BAC8EC0065A3F2 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C93E9F0E22BAC8E30065A3F2 /* libsqlite3.tbd */; };
 		C941143322B714340073DA32 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = C941143222B714340073DA32 /* UIApplication.swift */; };
-		C942435022B883B700274AED /* libbz2.1.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C942434E22B8838C00274AED /* libbz2.1.0.tbd */; platformFilter = uikitformac; };
+		C942435022B883B700274AED /* libbz2.1.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C942434E22B8838C00274AED /* libbz2.1.0.tbd */; platformFilter = maccatalyst; };
 		C9425A7721F49B1300E7CC35 /* BlockBasedSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7421F49B1200E7CC35 /* BlockBasedSelector.m */; };
 		C9425A7821F49B1300E7CC35 /* BlockBasedSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7521F49B1200E7CC35 /* BlockBasedSelector.swift */; };
 		C9425A7B21F49B8400E7CC35 /* PySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7A21F49B8400E7CC35 /* PySelector.swift */; };
@@ -458,6 +459,24 @@
 		C9C0E78B21F0B5770057C63E /* Theme Chooser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9C0E78A21F0B5770057C63E /* Theme Chooser.storyboard */; };
 		C9C0E78D21F0B7FA0057C63E /* ThemeChooserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E78C21F0B7FA0057C63E /* ThemeChooserTableViewController.swift */; };
 		C9C0E78F21F0BC640057C63E /* ReadOnlyTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E78E21F0BC640057C63E /* ReadOnlyTheme.swift */; };
+		C9C7445122EE0A6E0035EFB9 /* _aligners.cpython-37m-darwin.so in Copy _aligners */ = {isa = PBXBuildFile; fileRef = C9C7444822EE0A260035EFB9 /* _aligners.cpython-37m-darwin.so */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C9C7445222EE0A6F0035EFB9 /* Info.plist in Copy _aligners */ = {isa = PBXBuildFile; fileRef = C9C7443F22EE09CB0035EFB9 /* Info.plist */; platformFilter = ios; };
+		C9C7445322EE0A7C0035EFB9 /* _CKDTree.cpython-37m-darwin.so in Copy _CKDTree */ = {isa = PBXBuildFile; fileRef = C9C7444922EE0A2E0035EFB9 /* _CKDTree.cpython-37m-darwin.so */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C9C7445422EE0A810035EFB9 /* Info.plist in Copy _CKDTree */ = {isa = PBXBuildFile; fileRef = C9C7444022EE09D20035EFB9 /* Info.plist */; platformFilter = ios; };
+		C9C7445522EE0A880035EFB9 /* Info.plist in Copy _cluster */ = {isa = PBXBuildFile; fileRef = C9C7444122EE09D90035EFB9 /* Info.plist */; platformFilter = ios; };
+		C9C7445622EE0A8B0035EFB9 /* _cluster.cpython-37m-darwin.so in Copy _cluster */ = {isa = PBXBuildFile; fileRef = C9C7444A22EE0A360035EFB9 /* _cluster.cpython-37m-darwin.so */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C9C7445722EE0A910035EFB9 /* _pwm.cpython-37m-darwin.so in Copy _pwm */ = {isa = PBXBuildFile; fileRef = C9C7444B22EE0A3E0035EFB9 /* _pwm.cpython-37m-darwin.so */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C9C7445822EE0A950035EFB9 /* Info.plist in Copy _pwm */ = {isa = PBXBuildFile; fileRef = C9C7444222EE09E00035EFB9 /* Info.plist */; platformFilter = ios; };
+		C9C7445922EE0A9D0035EFB9 /* cnexus.cpython-37m-darwin.so in Copy cnexus */ = {isa = PBXBuildFile; fileRef = C9C7444C22EE0A460035EFB9 /* cnexus.cpython-37m-darwin.so */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C9C7445A22EE0AA00035EFB9 /* Info.plist in Copy cnexus */ = {isa = PBXBuildFile; fileRef = C9C7444322EE09E80035EFB9 /* Info.plist */; platformFilter = ios; };
+		C9C7445B22EE0AAA0035EFB9 /* cpairwise2.cpython-37m-darwin.so in Copy cpairwise2 */ = {isa = PBXBuildFile; fileRef = C9C7444D22EE0A510035EFB9 /* cpairwise2.cpython-37m-darwin.so */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C9C7445C22EE0AAF0035EFB9 /* Info.plist in Copy cpairwise2 */ = {isa = PBXBuildFile; fileRef = C9C7444422EE09F30035EFB9 /* Info.plist */; platformFilter = ios; };
+		C9C7445D22EE0AB40035EFB9 /* kdtrees.cpython-37m-darwin.so in Copy kdtrees */ = {isa = PBXBuildFile; fileRef = C9C7444E22EE0A5A0035EFB9 /* kdtrees.cpython-37m-darwin.so */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C9C7445E22EE0AB90035EFB9 /* Info.plist in Copy kdtrees */ = {isa = PBXBuildFile; fileRef = C9C7444522EE09FF0035EFB9 /* Info.plist */; platformFilter = ios; };
+		C9C7445F22EE0ABF0035EFB9 /* qcprotmodule.cpython-37m-darwin.so in Copy qcprotmodule */ = {isa = PBXBuildFile; fileRef = C9C7444F22EE0A610035EFB9 /* qcprotmodule.cpython-37m-darwin.so */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C9C7446122EE0AC90035EFB9 /* Info.plist in Copy qcprotmodule */ = {isa = PBXBuildFile; fileRef = C9C7444622EE0A070035EFB9 /* Info.plist */; platformFilter = ios; };
+		C9C7446222EE0ACE0035EFB9 /* trie.cpython-37m-darwin.so in Copy trie */ = {isa = PBXBuildFile; fileRef = C9C7445022EE0A6A0035EFB9 /* trie.cpython-37m-darwin.so */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C9C7446322EE0ACF0035EFB9 /* Info.plist in Copy trie */ = {isa = PBXBuildFile; fileRef = C9C7444722EE0A0E0035EFB9 /* Info.plist */; platformFilter = ios; };
 		C9CEE1EB21EB8D5300316D3C /* PytoCore.h in Headers */ = {isa = PBXBuildFile; fileRef = C9CEE1E921EB8D5300316D3C /* PytoCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C9CEE1F121EB8D6C00316D3C /* site-packages in Resources */ = {isa = PBXBuildFile; fileRef = C9BE01B021530BAF00A8C825 /* site-packages */; };
 		C9CEE1F221EB8D8A00316D3C /* libPython.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6321445B5800585C28 /* libPython.a */; };
@@ -1437,6 +1456,114 @@
 			name = "Copy kiwisolver";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C9C7443622EE08810035EFB9 /* Copy _aligners */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = _aligners.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C9C7445122EE0A6E0035EFB9 /* _aligners.cpython-37m-darwin.so in Copy _aligners */,
+				C9C7445222EE0A6F0035EFB9 /* Info.plist in Copy _aligners */,
+			);
+			name = "Copy _aligners";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9C7443722EE08A00035EFB9 /* Copy _CKDTree */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = _CKDTree.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C9C7445322EE0A7C0035EFB9 /* _CKDTree.cpython-37m-darwin.so in Copy _CKDTree */,
+				C9C7445422EE0A810035EFB9 /* Info.plist in Copy _CKDTree */,
+			);
+			name = "Copy _CKDTree";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9C7443822EE08EE0035EFB9 /* Copy _cluster */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = _cluster.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C9C7445622EE0A8B0035EFB9 /* _cluster.cpython-37m-darwin.so in Copy _cluster */,
+				C9C7445522EE0A880035EFB9 /* Info.plist in Copy _cluster */,
+			);
+			name = "Copy _cluster";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9C7443922EE08FB0035EFB9 /* Copy _pwm */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = _pwm.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C9C7445722EE0A910035EFB9 /* _pwm.cpython-37m-darwin.so in Copy _pwm */,
+				C9C7445822EE0A950035EFB9 /* Info.plist in Copy _pwm */,
+			);
+			name = "Copy _pwm";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9C7443A22EE092C0035EFB9 /* Copy cnexus */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = cnexus.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C9C7445922EE0A9D0035EFB9 /* cnexus.cpython-37m-darwin.so in Copy cnexus */,
+				C9C7445A22EE0AA00035EFB9 /* Info.plist in Copy cnexus */,
+			);
+			name = "Copy cnexus";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9C7443B22EE093F0035EFB9 /* Copy cpairwise2 */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = cpairwise2.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C9C7445B22EE0AAA0035EFB9 /* cpairwise2.cpython-37m-darwin.so in Copy cpairwise2 */,
+				C9C7445C22EE0AAF0035EFB9 /* Info.plist in Copy cpairwise2 */,
+			);
+			name = "Copy cpairwise2";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9C7443C22EE09550035EFB9 /* Copy kdtrees */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = kdtrees.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C9C7445D22EE0AB40035EFB9 /* kdtrees.cpython-37m-darwin.so in Copy kdtrees */,
+				C9C7445E22EE0AB90035EFB9 /* Info.plist in Copy kdtrees */,
+			);
+			name = "Copy kdtrees";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9C7443D22EE097A0035EFB9 /* Copy qcprotmodule */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = qcprotmodule.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C9C7445F22EE0ABF0035EFB9 /* qcprotmodule.cpython-37m-darwin.so in Copy qcprotmodule */,
+				C9C7446122EE0AC90035EFB9 /* Info.plist in Copy qcprotmodule */,
+			);
+			name = "Copy qcprotmodule";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9C7443E22EE098D0035EFB9 /* Copy trie */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = trie.framework;
+			dstSubfolderSpec = 10;
+			files = (
+				C9C7446222EE0ACE0035EFB9 /* trie.cpython-37m-darwin.so in Copy trie */,
+				C9C7446322EE0ACF0035EFB9 /* Info.plist in Copy trie */,
+			);
+			name = "Copy trie";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9EAB4CA214D95C500DFC9A4 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1642,6 +1769,7 @@
 		C9317F2721FF6A860016E422 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ttconv.framework/Info.plist; sourceTree = "<group>"; };
 		C93657242287286400498011 /* ConflictsResolver.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ConflictsResolver.storyboard; sourceTree = "<group>"; };
 		C93657282287334600498011 /* ResolveConflictsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolveConflictsTableViewController.swift; sourceTree = "<group>"; };
+		C937B9C022EE341000269FC6 /* MainMenu.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = MainMenu.storyboard; path = ../../../../../System/Volumes/Data/Users/adrianlabbe/Desktop/Pyto/Pyto/MainMenu.storyboard; sourceTree = "<group>"; };
 		C93B6A2D2200B6C8009D637F /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		C93B6A2F2200B711009D637F /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
 		C93B6A312200BEA1009D637F /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
@@ -1920,6 +2048,33 @@
 		C9C0E78E21F0BC640057C63E /* ReadOnlyTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadOnlyTheme.swift; sourceTree = "<group>"; };
 		C9C1B6E722B69C6F0035BDCC /* libpython3.7m.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpython3.7m.a; path = "../../Downloads/Python-3.7-macOS-support.b1/python/lib/libpython3.7m.a"; sourceTree = "<group>"; };
 		C9C57EB40A56344EEB889161 /* Pods-Pyto Share.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Share.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Share/Pods-Pyto Share.release.xcconfig"; sourceTree = "<group>"; };
+		C9C7442D22EE08350035EFB9 /* cpairwise2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = cpairwise2.framework; sourceTree = "<group>"; };
+		C9C7442E22EE08350035EFB9 /* _CKDTree.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _CKDTree.framework; sourceTree = "<group>"; };
+		C9C7442F22EE08350035EFB9 /* _aligners.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _aligners.framework; sourceTree = "<group>"; };
+		C9C7443022EE08350035EFB9 /* kdtrees.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = kdtrees.framework; sourceTree = "<group>"; };
+		C9C7443122EE08350035EFB9 /* cnexus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = cnexus.framework; sourceTree = "<group>"; };
+		C9C7443222EE08350035EFB9 /* _pwm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _pwm.framework; sourceTree = "<group>"; };
+		C9C7443322EE08350035EFB9 /* qcprotmodule.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = qcprotmodule.framework; sourceTree = "<group>"; };
+		C9C7443422EE08350035EFB9 /* trie.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = trie.framework; sourceTree = "<group>"; };
+		C9C7443522EE08350035EFB9 /* _cluster.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _cluster.framework; sourceTree = "<group>"; };
+		C9C7443F22EE09CB0035EFB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = _aligners.framework/Info.plist; sourceTree = "<group>"; };
+		C9C7444022EE09D20035EFB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = _CKDTree.framework/Info.plist; sourceTree = "<group>"; };
+		C9C7444122EE09D90035EFB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = _cluster.framework/Info.plist; sourceTree = "<group>"; };
+		C9C7444222EE09E00035EFB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = _pwm.framework/Info.plist; sourceTree = "<group>"; };
+		C9C7444322EE09E80035EFB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = cnexus.framework/Info.plist; sourceTree = "<group>"; };
+		C9C7444422EE09F30035EFB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = cpairwise2.framework/Info.plist; sourceTree = "<group>"; };
+		C9C7444522EE09FF0035EFB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = kdtrees.framework/Info.plist; sourceTree = "<group>"; };
+		C9C7444622EE0A070035EFB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = qcprotmodule.framework/Info.plist; sourceTree = "<group>"; };
+		C9C7444722EE0A0E0035EFB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = trie.framework/Info.plist; sourceTree = "<group>"; };
+		C9C7444822EE0A260035EFB9 /* _aligners.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "_aligners.cpython-37m-darwin.so"; path = "_aligners.framework/_aligners.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C9C7444922EE0A2E0035EFB9 /* _CKDTree.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "_CKDTree.cpython-37m-darwin.so"; path = "_CKDTree.framework/_CKDTree.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C9C7444A22EE0A360035EFB9 /* _cluster.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "_cluster.cpython-37m-darwin.so"; path = "_cluster.framework/_cluster.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C9C7444B22EE0A3E0035EFB9 /* _pwm.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "_pwm.cpython-37m-darwin.so"; path = "_pwm.framework/_pwm.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C9C7444C22EE0A460035EFB9 /* cnexus.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "cnexus.cpython-37m-darwin.so"; path = "cnexus.framework/cnexus.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C9C7444D22EE0A510035EFB9 /* cpairwise2.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "cpairwise2.cpython-37m-darwin.so"; path = "cpairwise2.framework/cpairwise2.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C9C7444E22EE0A5A0035EFB9 /* kdtrees.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "kdtrees.cpython-37m-darwin.so"; path = "kdtrees.framework/kdtrees.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C9C7444F22EE0A610035EFB9 /* qcprotmodule.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "qcprotmodule.cpython-37m-darwin.so"; path = "qcprotmodule.framework/qcprotmodule.cpython-37m-darwin.so"; sourceTree = "<group>"; };
+		C9C7445022EE0A6A0035EFB9 /* trie.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "trie.cpython-37m-darwin.so"; path = "trie.framework/trie.cpython-37m-darwin.so"; sourceTree = "<group>"; };
 		C9CEE1E721EB8D5200316D3C /* PytoCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PytoCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9CEE1E921EB8D5300316D3C /* PytoCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PytoCore.h; sourceTree = "<group>"; };
 		C9CEE1EA21EB8D5300316D3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -2480,6 +2635,7 @@
 				C903B98721584367004AAD7F /* commandDictionary.plist */,
 				C903B989215843B4004AAD7F /* extraCommandsDictionary.plist */,
 				C9F04E8A2173DD7300BDD03E /* Main.storyboard */,
+				C937B9C022EE341000269FC6 /* MainMenu.storyboard */,
 				C9C0E78A21F0B5770057C63E /* Theme Chooser.storyboard */,
 				C9B5D84A21F119B100E980BA /* Settings.storyboard */,
 				C93657242287286400498011 /* ConflictsResolver.storyboard */,
@@ -2821,6 +2977,40 @@
 			path = NumPy;
 			sourceTree = "<group>";
 		};
+		C9C7442122EE044A0035EFB9 /* Biopython */ = {
+			isa = PBXGroup;
+			children = (
+				C9C7443F22EE09CB0035EFB9 /* Info.plist */,
+				C9C7444022EE09D20035EFB9 /* Info.plist */,
+				C9C7444122EE09D90035EFB9 /* Info.plist */,
+				C9C7444222EE09E00035EFB9 /* Info.plist */,
+				C9C7444322EE09E80035EFB9 /* Info.plist */,
+				C9C7444422EE09F30035EFB9 /* Info.plist */,
+				C9C7444522EE09FF0035EFB9 /* Info.plist */,
+				C9C7444622EE0A070035EFB9 /* Info.plist */,
+				C9C7444722EE0A0E0035EFB9 /* Info.plist */,
+				C9C7444822EE0A260035EFB9 /* _aligners.cpython-37m-darwin.so */,
+				C9C7444922EE0A2E0035EFB9 /* _CKDTree.cpython-37m-darwin.so */,
+				C9C7444A22EE0A360035EFB9 /* _cluster.cpython-37m-darwin.so */,
+				C9C7444B22EE0A3E0035EFB9 /* _pwm.cpython-37m-darwin.so */,
+				C9C7444C22EE0A460035EFB9 /* cnexus.cpython-37m-darwin.so */,
+				C9C7444D22EE0A510035EFB9 /* cpairwise2.cpython-37m-darwin.so */,
+				C9C7444E22EE0A5A0035EFB9 /* kdtrees.cpython-37m-darwin.so */,
+				C9C7444F22EE0A610035EFB9 /* qcprotmodule.cpython-37m-darwin.so */,
+				C9C7445022EE0A6A0035EFB9 /* trie.cpython-37m-darwin.so */,
+				C9C7442F22EE08350035EFB9 /* _aligners.framework */,
+				C9C7442E22EE08350035EFB9 /* _CKDTree.framework */,
+				C9C7443522EE08350035EFB9 /* _cluster.framework */,
+				C9C7443222EE08350035EFB9 /* _pwm.framework */,
+				C9C7443122EE08350035EFB9 /* cnexus.framework */,
+				C9C7442D22EE08350035EFB9 /* cpairwise2.framework */,
+				C9C7443022EE08350035EFB9 /* kdtrees.framework */,
+				C9C7443322EE08350035EFB9 /* qcprotmodule.framework */,
+				C9C7443422EE08350035EFB9 /* trie.framework */,
+			);
+			path = Biopython;
+			sourceTree = "<group>";
+		};
 		C9CEE1E821EB8D5300316D3C /* PytoCore */ = {
 			isa = PBXGroup;
 			children = (
@@ -2946,6 +3136,7 @@
 				C96C6FE222198F7B0056EA64 /* Pandas */,
 				C941D36C223565E900CA921D /* Lxml */,
 				C90397B522D15B4B00FAD834 /* PIL */,
+				C9C7442122EE044A0035EFB9 /* Biopython */,
 				C9CEE1E821EB8D5300316D3C /* PytoCore */,
 				C946A5AB22074EAA00F78C5C /* Pyto Widget */,
 				C9653F1522B9BF6100302F8D /* Python3_Mac */,
@@ -3203,6 +3394,15 @@
 				C90397CB22D15CE900FAD834 /* Copy _imagingft */,
 				C90397CE22D15D1D00FAD834 /* Copy _imagingmath */,
 				C90397D322D15D9500FAD834 /* Copy _imagingmorph */,
+				C9C7443622EE08810035EFB9 /* Copy _aligners */,
+				C9C7443722EE08A00035EFB9 /* Copy _CKDTree */,
+				C9C7443822EE08EE0035EFB9 /* Copy _cluster */,
+				C9C7443922EE08FB0035EFB9 /* Copy _pwm */,
+				C9C7443A22EE092C0035EFB9 /* Copy cnexus */,
+				C9C7443B22EE093F0035EFB9 /* Copy cpairwise2 */,
+				C9C7443C22EE09550035EFB9 /* Copy kdtrees */,
+				C9C7443D22EE097A0035EFB9 /* Copy qcprotmodule */,
+				C9C7443E22EE098D0035EFB9 /* Copy trie */,
 				C9CEE26F21EBEEA700316D3C /* Archive app template */,
 				C942434B22B8504B00274AED /* Embed Python 3 for Mac */,
 				C946A5BA22074EAA00F78C5C /* Embed App Extensions */,
@@ -3383,6 +3583,7 @@
 				C9F04E832173C33400BDD03E /* Localizable.strings in Resources */,
 				C9A33B13224FCDAD0083F041 /* TextField.xib in Resources */,
 				C954FAB5220A165E0060C488 /* Replace.xib in Resources */,
+				C937B9C122EE341000269FC6 /* MainMenu.storyboard in Resources */,
 				C9B5D84B21F119B100E980BA /* Settings.storyboard in Resources */,
 				C9C0E78B21F0B5770057C63E /* Theme Chooser.storyboard in Resources */,
 				C9727C472204D7F100B7AC32 /* LaunchScreen.storyboard in Resources */,
@@ -3757,7 +3958,7 @@
 /* Begin PBXTargetDependency section */
 		C93E9E3222B9C05E0065A3F2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			platformFilter = uikitformac;
+			platformFilter = maccatalyst;
 			target = C9653F1322B9BF6100302F8D /* Python3_Mac */;
 			targetProxy = C93E9E3122B9C05E0065A3F2 /* PBXContainerItemProxy */;
 		};

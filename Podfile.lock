@@ -1,5 +1,5 @@
 PODS:
-  - Down (0.6.2)
+  - Down (0.8.6)
   - SavannaKit (0.9.0)
   - SourceEditor (1.0.1):
     - SavannaKit (~> 0.9)
@@ -7,24 +7,28 @@ PODS:
   - Zip (1.1.0)
 
 DEPENDENCIES:
-  - Down
+  - Down (from `https://github.com/ColdGrub1384/Down.git`)
   - SourceEditor (from `https://github.com/ColdGrub1384/source-editor.git`)
   - SplitKit (from `https://github.com/ColdGrub1384/SplitKit.git`)
   - Zip
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - Down
     - SavannaKit
     - Zip
 
 EXTERNAL SOURCES:
+  Down:
+    :git: https://github.com/ColdGrub1384/Down.git
   SourceEditor:
     :git: https://github.com/ColdGrub1384/source-editor.git
   SplitKit:
     :git: https://github.com/ColdGrub1384/SplitKit.git
 
 CHECKOUT OPTIONS:
+  Down:
+    :commit: f4d8d3b87e8115fc1b5e6ad1152383ab31c4438a
+    :git: https://github.com/ColdGrub1384/Down.git
   SourceEditor:
     :commit: 7be90d45b01ff125986807bc187ba2d7f4e1f3aa
     :git: https://github.com/ColdGrub1384/source-editor.git
@@ -33,12 +37,12 @@ CHECKOUT OPTIONS:
     :git: https://github.com/ColdGrub1384/SplitKit.git
 
 SPEC CHECKSUMS:
-  Down: 8c59a03cb229ef28dfa774b2132da860f3dee0ac
+  Down: 065ea594046e99ea02a0990a53ebf585e9a50a7b
   SavannaKit: 920c240bde011900df8156200a960dad3ee5edfd
   SourceEditor: 4d590385d642c812d08a91941a4bfc90eccf20af
   SplitKit: bf2dd8da644ba04a28acfad398723670541dffd9
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 52e1dd667446a863bf36bc55dc996d5881d1b04f
+PODFILE CHECKSUM: c3fd4a96cf0528cd30b8caf2f9dd0c2ce9f834a7
 
 COCOAPODS: 1.7.5

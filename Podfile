@@ -12,7 +12,7 @@ target 'Pyto' do
   pod 'SplitKit', :git => 'https://github.com/ColdGrub1384/SplitKit.git'
   pod 'SourceEditor', :git => 'https://github.com/ColdGrub1384/source-editor.git'
   pod 'Zip'
-  pod 'Down'
+  pod 'Down', :git => 'https://github.com/ColdGrub1384/Down.git'
 end
 
 # post install

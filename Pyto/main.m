@@ -159,6 +159,21 @@ void init_pandas(){
     [name addObject:@"json"];               [key addObject:@"__pandas__libs_json"];
     BandHandle(@"pandas", name, key);
 }
+
+void init_biopython() {
+
+    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
+    [name addObject:@"_aligners"];              [key addObject:@"__Bio_Align__aligners"];
+    [name addObject:@"_CKDTree"];               [key addObject:@"__Bio_KDTree__CKDTree"];
+    [name addObject:@"_cluster"];               [key addObject:@"__Bio_Cluster__cluster"];
+    [name addObject:@"_pwm"];                   [key addObject:@"__Bio_motifs__pwm"];
+    [name addObject:@"cnexus"];                 [key addObject:@"__Bio_Nexus_cnexus"];
+    [name addObject:@"cpairwise2"];             [key addObject:@"__Bio_cpairwise2"];
+    [name addObject:@"kdtrees"];                [key addObject:@"__Bio_PDB_kdtrees"];
+    [name addObject:@"qcprotmodule"];           [key addObject:@"__Bio_PDB_QCPSuperimposer_qcprotmodule"];
+    [name addObject:@"trie"];                   [key addObject:@"__Bio_trie"];
+    BandHandle(@"Bio", name, key);
+}
 #endif
 
 // MARK: - PIL
@@ -203,9 +218,7 @@ int initialize_python(int argc, char *argv[]) {
     init_matplotlib();
     init_pandas();
     #endif
-    if (@available(iOS 13, *)) {
-        init_pil();
-    }
+    init_pil();
     
     NSBundle *pythonBundle = Python.shared.bundle;
     // MARK: - Python env variables

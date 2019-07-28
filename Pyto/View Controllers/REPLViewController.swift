@@ -39,7 +39,7 @@ import UIKit
     
     // MARK: - Editor split view controller
     
-    #if !targetEnvironment(UIKitForMac)
+    #if !targetEnvironment(macCatalyst)
     override var keyCommands: [UIKeyCommand]? {
         return [UIKeyCommand(input: "C", modifierFlags: .control, action: #selector(interrupt), discoverabilityTitle: Localizable.interrupt)]
     }
@@ -79,7 +79,7 @@ import UIKit
         navigationItem.leftBarButtonItems = []
         navigationItem.rightBarButtonItems = []
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(setCurrentDirectory))
-        #if targetEnvironment(UIKitForMac)
+        #if targetEnvironment(macCatalyst)
         navigationItem.leftBarButtonItems = []
         #else
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: EditorSplitViewController.gridImage, style: .plain, target: self, action: #selector(goToFileBrowser))
@@ -103,7 +103,7 @@ import UIKit
         
         if #available(iOS 13.0, *) {
             view.window?.windowScene?.title = title
-            #if targetEnvironment(UIKitForMac)
+            #if targetEnvironment(macCatalyst)
             view.window?.windowScene?.titlebar?.titleVisibility = .hidden
             #endif
         }

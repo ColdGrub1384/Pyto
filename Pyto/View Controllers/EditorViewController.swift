@@ -524,7 +524,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         return true
     }
     
-    #if !targetEnvironment(UIKitForMac)
+    #if !targetEnvironment(macCatalyst)
     override var keyCommands: [UIKeyCommand]? {
         if textView.contentTextView.isFirstResponder {
             var commands = [
@@ -807,7 +807,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     @objc func share(_ sender: UIBarButtonItem) {
         let xcodeActivtiy = XcodeActivity()
         xcodeActivtiy.viewController = self
-        #if !targetEnvironment(UIKitForMac)
+        #if !targetEnvironment(macCatalyst)
         let activities = [xcodeActivtiy]
         #else
         let activities = [UIActivity]()

@@ -41,7 +41,7 @@ import UIKit
     
     // MARK: - Editor split view controller
     
-    #if !targetEnvironment(UIKitForMac)
+    #if !targetEnvironment(macCatalyst)
     override var keyCommands: [UIKeyCommand]? {
         return [UIKeyCommand(input: "C", modifierFlags: .control, action: #selector(interrupt), discoverabilityTitle: Localizable.interrupt)]
     }
