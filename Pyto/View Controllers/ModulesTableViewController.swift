@@ -60,7 +60,7 @@ import UIKit
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
         
-        #if targetEnvironment(UIKitForMac)
+        #if targetEnvironment(macCatalyst)
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
         #else
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: EditorSplitViewController.gridImage, style: .plain, target: self, action: #selector(close))
@@ -78,7 +78,7 @@ import UIKit
         super.viewDidAppear(animated)
         
         if #available(iOS 13.0, *) {
-            #if targetEnvironment(UIKitForMac)
+            #if targetEnvironment(macCatalyst)
             view.window?.windowScene?.titlebar?.titleVisibility = .hidden
             #endif
             view.window?.windowScene?.title = title

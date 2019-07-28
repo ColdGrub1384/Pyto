@@ -118,7 +118,7 @@ import WebKit
                             options: .new,
                             context: nil)
         
-        #if targetEnvironment(UIKitForMac)
+        #if targetEnvironment(macCatalyst)
         navigationItem.leftBarButtonItems?.removeFirst()
         #endif
     }
@@ -127,7 +127,7 @@ import WebKit
         super.viewDidAppear(animated)
         
         if #available(iOS 13.0, *) {
-            #if targetEnvironment(UIKitForMac)
+            #if targetEnvironment(macCatalyst)
             view.window?.windowScene?.titlebar?.titleVisibility = .hidden
             #endif
             view.window?.windowScene?.title = title

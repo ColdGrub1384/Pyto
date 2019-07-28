@@ -61,7 +61,7 @@ import UIKit
         if let vc = SceneDelegate.viewControllerToShow {
             SceneDelegate.viewControllerToShow = nil
             
-            #if targetEnvironment(UIKitForMac)
+            #if targetEnvironment(macCatalyst)
             window?.rootViewController = vc
             #else
             let blankVC = ViewController()
@@ -74,7 +74,7 @@ import UIKit
             return
         }
         
-        #if !targetEnvironment(UIKitForMac)
+        #if !targetEnvironment(macCatalyst)
         window?.tintColor = ConsoleViewController.choosenTheme.tintColor
         #else
         (scene as? UIWindowScene)?.titlebar?.titleVisibility = .hidden

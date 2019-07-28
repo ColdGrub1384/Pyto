@@ -4,7 +4,6 @@
 
 #import "../Python/Headers/Python.h"
 #import "Python Bridging/Selectors/BlockBasedSelector.h"
-#import <UIKit/NSToolbar+UIKitAdditions.h>
 
 PyMODINIT_FUNC (*PyInit__multiarray_umath)(void);
 PyMODINIT_FUNC (*PyInit_fftpack_lite)(void);
