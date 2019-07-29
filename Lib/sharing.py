@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 """
 Sharing Items
-    
+
 This module allows you to share items, to import files and to open URLs.
 """
 
-from rubicon.objc import *
+from rubicon.objc import ObjCClass
 from UIKit import UIApplication as __UIApplication__
 import pyto
 import mainthread
@@ -17,7 +17,7 @@ NSURL = ObjCClass("NSURL")
 def share_items(items: object):
     """
     Opens a share sheet with given items.
-        
+    
     :param items: Items to be shared with the sheet.
     """
     
@@ -33,7 +33,7 @@ if __host__ is not widget:
         
         :param path: Path to preview.
         """
-    
+
         try:
             pyto.QuickLookHelper.previewFile(path, script=threading.current_thread().script_path)
         except:
@@ -51,15 +51,15 @@ class FilePicker:
     
     .. highlight:: python
     .. code-block:: python
-    
+
         filePicker = sharing.FilePicker()
         filePicker.file_types = ["public.data"]
         filePicker.allows_multiple_selection = True
-    
+
         def files_picked() -> None:
             files = sharing.picked_files()
             sharing.share_items(files)
-    
+
         filePicker.completion = files_picked
         sharing.pick_documents(filePicker)
     """
@@ -68,17 +68,17 @@ class FilePicker:
     """
     Document types that can be opened.
     """
-    
+
     allows_multiple_selection = False
     """
     Allow multiple selection or not.
     """
-    
+
     completion = None
     """
     The code to execute when files where picked.
     """
-    
+
     urls = []
     """
     Picked URLs.
@@ -89,9 +89,9 @@ class FilePicker:
         filePicker.fileTypes = self.fileTypes
         filePicker.allowsMultipleSelection = self.allowsMultipleSelection
         filePicker.completion = self.completion
-    
+
         return filePicker
-    
+
     @staticmethod
     def new():
         return __FilePicker__()
@@ -99,23 +99,23 @@ class FilePicker:
 def pick_documents(filePicker: FilePicker):
     """
     Pick documents with given parameters as a ``FilePicker``.
-        
+
     :param filePicker: The parameters of the file picker to be presented.
     """
-    
+
     script_path = None
     try:
         script_path = threading.current_thread().script_path
     except:
         pass
-    
+
     __PySharingHelper__.presentFilePicker(filePicker.__objcFilePicker__(), scriptPath=script_path)
 
 def picked_files() -> List[str]:
     """
     Returns paths of files picked with ``pickDocumentsWithFilePicker``.
     """
-    
+
     urls = pyto.FilePicker.urls
     if len(urls) == 0:
         return []
@@ -133,12 +133,12 @@ def open_url(url: str):
     
     :param url: URL to open. Can be a String or an Objective-C ``NSURL``.
     """
-    
+
     __url__ = None
-    
+
     def __openURL__() -> None:
         __UIApplication__.sharedApplication.openURL(__url__)
-    
+
     if (type(url) is str):
         __url__ = NSURL.URLWithString(url)
         mainthread.run_sync(__openURL__)

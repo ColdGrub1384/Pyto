@@ -524,7 +524,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
         return true
     }
     
-    #if !targetEnvironment(macCatalyst)
     override var keyCommands: [UIKeyCommand]? {
         if textView.contentTextView.isFirstResponder {
             var commands = [
@@ -539,7 +538,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
             return []
         }
     }
-    #endif
     
     // MARK: - Searching
     
@@ -807,12 +805,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     @objc func share(_ sender: UIBarButtonItem) {
         let xcodeActivtiy = XcodeActivity()
         xcodeActivtiy.viewController = self
-        #if !targetEnvironment(macCatalyst)
-        let activities = [xcodeActivtiy]
-        #else
-        let activities = [UIActivity]()
-        #endif
-        let activityVC = UIActivityViewController(activityItems: [document?.fileURL as Any], applicationActivities: activities)
+        let activityVC = UIActivityViewController(activityItems: [document?.fileURL as Any], applicationActivities: [xcodeActivtiy])
         activityVC.popoverPresentationController?.barButtonItem = sender
         present(activityVC, animated: true, completion: nil)
     }

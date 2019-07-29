@@ -13,6 +13,7 @@ Modules
 * `dateutil`_
 * `distlib`_
 * `idna`_
+* `lxml`_
 * `pip - stash`_
 * `progress`_
 * `py-filelock`_
@@ -36,6 +37,7 @@ Modules
 .. _dateutil: https://dateutil.readthedocs.io/en/stable/
 .. _distlib: https://distlib.readthedocs.io/en/latest/
 .. _idna: https://pypi.org/project/idna/
+.. _lxml: https://lxml.de
 .. _pip - stash: https://github.com/ywangd/stash/blob/master/bin/pip.py
 .. _progress: https://pypi.org/project/progress/
 .. _py-filelock: https://filelock.readthedocs.io/en/latest/
@@ -56,6 +58,8 @@ Other pure Python modules can be installed from PyPi. (Three points icon > PyPi)
 
 Acknowledgments
 ***************
+
+Thanks to `Christian Clauss <https://github.com/cclauss>`_ and `goodclass <https://github.com/goodclass>`_ for contributions!
 
 | This application makes use of the following third party libraries:
 
@@ -79,6 +83,7 @@ Acknowledgments
 * `kiwisolver <https://github.com/nucleic/kiwi>`__
 * `lipjpeg <https://libjpeg.sourceforge.io>`__
 * `libpng <https://libpng.sourceforge.io>`__
+* `lxml <https://github.com/lxml/lxml>`__
 * `matplotlib <https://github.com/matplotlib/matplotlib>`__
 * `numpy <https://github.com/numpy/numpy>`__
 * `pandas <https://github.com/pandas-dev/pandas>`__
@@ -1197,6 +1202,7 @@ Acknowledgments
                The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
                THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+               THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
                EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
                MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
                NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
@@ -1567,6 +1573,40 @@ Acknowledgments
            this source code in a product, acknowledgment is not required but would
            be appreciated.
 
+*lxml*
+
+.. code-block::
+    text
+    
+    lxml is copyright Infrae and distributed under the BSD license (see
+    doc/licenses/BSD.txt), with the following exceptions:
+
+    Some code, such a selftest.py, selftest2.py and
+    src/lxml/_elementpath.py are derived from ElementTree and
+    cElementTree. See doc/licenses/elementtree.txt for the license text.
+
+    lxml.cssselect and lxml.html are copyright Ian Bicking and distributed
+    under the BSD license (see doc/licenses/BSD.txt).
+
+    test.py, the test-runner script, is GPL and copyright Shuttleworth
+    Foundation. See doc/licenses/GPL.txt. It is believed the unchanged
+    inclusion of test.py to run the unit test suite falls under the
+    "aggregation" clause of the GPL and thus does not affect the license
+    of the rest of the package.
+
+    The isoschematron implementation uses several XSL and RelaxNG resources:
+     * The (XML syntax) RelaxNG schema for schematron, copyright International
+       Organization for Standardization (see
+       src/lxml/isoschematron/resources/rng/iso-schematron.rng for the license
+       text)
+     * The skeleton iso-schematron-xlt1 pure-xslt schematron implementation
+       xsl stylesheets, copyright Rick Jelliffe and Academia Sinica Computing
+       Center, Taiwan (see the xsl files here for the license text:
+       src/lxml/isoschematron/resources/xsl/iso-schematron-xslt1/)
+     * The xsd/rng schema schematron extraction xsl transformations are unlicensed
+       and copyright the respective authors as noted (see
+       src/lxml/isoschematron/resources/xsl/RNG2Schtrn.xsl and
+       src/lxml/isoschematron/resources/xsl/XSD2Schtrn.xsl)
 
 *matplotlib*
 

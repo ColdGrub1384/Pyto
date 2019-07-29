@@ -70,11 +70,9 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
     
     // MARK: - View controller
     
-    #if !targetEnvironment(macCatalyst)
     override var keyCommands: [UIKeyCommand]? {
         return [UIKeyCommand(input: "w", modifierFlags: .command, action: #selector(close), discoverabilityTitle: Localizable.close)]
     }
-    #endif
     
     override func viewDidLoad() {
         super.viewDidLoad()

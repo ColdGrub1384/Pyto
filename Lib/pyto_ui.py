@@ -16,7 +16,7 @@ from __future__ import annotations
 from UIKit import UIDevice, UIFont as __UIFont__, UIImage as UIImage
 from rubicon.objc import ObjCClass, CGFloat, objc_method
 
-if UIDevice != None and float(str(UIDevice.currentDevice.systemVersion)) < 13:
+if UIDevice is not and float(str(UIDevice.currentDevice.systemVersion)) < 13:
     raise ImportError("PytoUI requires iPadOS / iOS 13")
 
 from typing import List, Callable, Tuple
@@ -1346,7 +1346,7 @@ class GestureRecognizer:
             self.__py_gesture__ = __PyGestureRecognizer__.newRecognizerWithType(type)
 
         self.__py_gesture__.managedValue = _values.value(self)
-        if action != None:
+        if action is not None:
             self.action = action
 
     def __repr__(self):
@@ -1436,7 +1436,7 @@ class GestureRecognizer:
         :rtype: int
         """
         
-        if self.__number_of_touches__ != None:
+        if self.__number_of_touches__ is not None:
             return self.__number_of_touches__
         else:
             return self.__py_gesture__.numberOfTouches
@@ -1452,7 +1452,7 @@ class GestureRecognizer:
         :rtype: `Gesture State <constants#gesture-state>`_
         """
         
-        if self.__state__ != None:
+        if self.__state__ is not None:
             return self.__state__
         else:
             return self.__py_gesture__.state
@@ -1722,7 +1722,7 @@ class ButtonItem:
         if style == "BUTTON_ITEM_STYLE_PLAIN":
             style = BUTTON_ITEM_STYLE_PLAIN
         
-        if system_item != None:
+        if system_item is not None:
             self.__py_item__ = __PyButtonItem__.alloc().initWithSystemItem(system_item)
         else:
             self.__py_item__ = __PyButtonItem__.alloc().initWithStyle(style)
@@ -1744,7 +1744,7 @@ class ButtonItem:
         """
         
         title = self.__py_item__.title
-        if title != None:
+        if title is not None:
             return str(title)
         else:
             return None
@@ -2602,7 +2602,7 @@ class View:
     @button_items.setter
     def button_items(self, new_value: List[ButtonItem]):
         items = []
-        if new_value != None and len(new_value) > 0:
+        if new_value is not None and len(new_value) > 0:
             for item in new_value:
                 items.append(item.__py_item__)
         self.__py_view__.buttonItems = items
@@ -2616,7 +2616,7 @@ class ImageView(View):
     def __init__(self, image: Image.Image = None, url: str = None):
         self.__py_view__ = __UIImageView__.newView()
         self.image = image
-        if url != None:
+        if url is not None:
             self.load_from_url(url)
     
     @property
@@ -3654,7 +3654,7 @@ class Button(Control):
         """
         
         title = self.__py_view__.title
-        if title != None:
+        if title is not None:
             return str(title)
         else:
             return None

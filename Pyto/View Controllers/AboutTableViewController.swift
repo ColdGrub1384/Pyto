@@ -140,18 +140,13 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
         showConsoleAtBottom.isOn = EditorSplitViewController.shouldShowConsoleAtBottom
         showSeparator.isOn = EditorSplitViewController.shouldShowSeparator
         
-        #if targetEnvironment(macCatalyst)
         navigationItem.rightBarButtonItems = []
-        #endif
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if #available(iOS 13.0, *) {
-            #if targetEnvironment(macCatalyst)
-            view.window?.windowScene?.titlebar?.titleVisibility = .hidden
-            #endif
             view.window?.windowScene?.title = title
         }
     }

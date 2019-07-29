@@ -26,8 +26,7 @@ before_script:
   - flake8 . --count --exclude=${EXCLUDE} --select=E9,F63,F7,F82 --show-source --statistics
   - EXCLUDE=./.*,./Pyto*,./*site-packages
   - flake8 . --count --exclude=${EXCLUDE} --max-complexity=10 --max-line-length=127 --show-source --statistics
-  - flake8 --count --ignore=E111 "Pyto/Samples/Hello World.py" "Pyto/Samples/Open URL.py"
-  - flake8 --count --ignore=E111 "Pyto/Samples/Pick File.py" "Pyto/Samples/Tint Color.py"
+  - flake8 --count --ignore=E402 "Lib/pyto_ui.py"
   #- swiftlint  # Done linting! Found 2225 violations, 91 serious in 82 files.
 script:
   - ./setup.sh

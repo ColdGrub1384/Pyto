@@ -261,7 +261,6 @@ class EditorSplitViewController: SplitViewController {
         }
     }
     
-    #if !targetEnvironment(macCatalyst)
     override var keyCommands: [UIKeyCommand]? {
         var commands = [
             UIKeyCommand(input: "d", modifierFlags: .command, action: #selector(showDocs), discoverabilityTitle: Localizable.Help.documentation),
@@ -288,7 +287,6 @@ class EditorSplitViewController: SplitViewController {
         
         return commands
     }
-    #endif
     
     override func viewDidLoad() {
         super.viewDidLoad()
