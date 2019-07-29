@@ -117,19 +117,12 @@ import WebKit
                             forKeyPath: #keyPath(WKWebView.estimatedProgress),
                             options: .new,
                             context: nil)
-        
-        #if targetEnvironment(macCatalyst)
-        navigationItem.leftBarButtonItems?.removeFirst()
-        #endif
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if #available(iOS 13.0, *) {
-            #if targetEnvironment(macCatalyst)
-            view.window?.windowScene?.titlebar?.titleVisibility = .hidden
-            #endif
             view.window?.windowScene?.title = title
         }
     }

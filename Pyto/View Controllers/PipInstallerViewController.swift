@@ -41,11 +41,9 @@ import UIKit
     
     // MARK: - Editor split view controller
     
-    #if !targetEnvironment(macCatalyst)
     override var keyCommands: [UIKeyCommand]? {
         return [UIKeyCommand(input: "C", modifierFlags: .control, action: #selector(interrupt), discoverabilityTitle: Localizable.interrupt)]
     }
-    #endif
     
     override func loadView() {
         super.loadView()

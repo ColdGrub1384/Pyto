@@ -61,24 +61,16 @@ import UIKit
         if let vc = SceneDelegate.viewControllerToShow {
             SceneDelegate.viewControllerToShow = nil
             
-            #if targetEnvironment(macCatalyst)
-            window?.rootViewController = vc
-            #else
             let blankVC = ViewController()
             blankVC.sceneSession = session
             blankVC.viewControllerToPresent = vc
             blankVC.completion = SceneDelegate.viewControllerDidShow
             window?.rootViewController = blankVC
-            #endif
             
             return
         }
         
-        #if !targetEnvironment(macCatalyst)
         window?.tintColor = ConsoleViewController.choosenTheme.tintColor
-        #else
-        (scene as? UIWindowScene)?.titlebar?.titleVisibility = .hidden
-        #endif
         if let window = self.window {
             SceneDelegate.windows.append(window)
         }

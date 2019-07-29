@@ -50,13 +50,11 @@ import UIKit
             UserDefaults.standard.set(themeID, forKey: "theme")
             UserDefaults.standard.synchronize()
             
-            #if !targetEnvironment(macCatalyst)
             if #available(iOS 13.0, *) {
                 for scene in UIApplication.shared.connectedScenes {
                     (scene.delegate as? UIWindowSceneDelegate)?.window??.tintColor = newValue.tintColor
                 }
             }
-            #endif
             
             NotificationCenter.default.post(name: ThemeDidChangeNotification, object: newValue)
         }
