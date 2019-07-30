@@ -18,8 +18,6 @@
 		C90397D522D15DC800FAD834 /* Info.plist in Copy _imagingmorph */ = {isa = PBXBuildFile; fileRef = C90397C622D15C2400FAD834 /* Info.plist */; platformFilter = ios; };
 		C903986922D2CF2600FAD834 /* PyImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C903986822D2CF2600FAD834 /* PyImageView.swift */; };
 		C903986A22D2CF2600FAD834 /* PyImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C903986822D2CF2600FAD834 /* PyImageView.swift */; };
-		C903B98821584367004AAD7F /* commandDictionary.plist in Resources */ = {isa = PBXBuildFile; fileRef = C903B98721584367004AAD7F /* commandDictionary.plist */; };
-		C903B98A215843B4004AAD7F /* extraCommandsDictionary.plist in Resources */ = {isa = PBXBuildFile; fileRef = C903B989215843B4004AAD7F /* extraCommandsDictionary.plist */; };
 		C903B98C21598A63004AAD7F /* IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C903B98B21598A63004AAD7F /* IO.swift */; };
 		C904EB7321445D5800585C28 /* Python.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904EB7221445D5800585C28 /* Python.swift */; };
 		C904FA2621DA4C7600B70A39 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C904FA1F21DA4C7600B70A39 /* Accelerate.framework */; platformFilter = ios; };
@@ -419,6 +417,7 @@
 		C99DDCEC21BBED22002A734E /* DocumentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99DDCEB21BBED22002A734E /* DocumentationViewController.swift */; };
 		C99E8D6C21F0CC7800C71884 /* WWDC16.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99E8D6B21F0CC7800C71884 /* WWDC16.swift */; };
 		C99E8D7021F0D03400C71884 /* CoolGlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99E8D6F21F0D03400C71884 /* CoolGlow.swift */; };
+		C99F568922F0FF6300361698 /* RunCodeIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99F568822F0FF6300361698 /* RunCodeIntentHandler.swift */; };
 		C9A05F6222E3FF600096DCA8 /* PyButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94E730122E3BBF300F3FB79 /* PyButtonItem.swift */; };
 		C9A05F6622E400890096DCA8 /* PyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A05F6522E400890096DCA8 /* PyView.swift */; };
 		C9A05F6722E400890096DCA8 /* PyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A05F6522E400890096DCA8 /* PyView.swift */; };
@@ -456,6 +455,11 @@
 		C9C0E78B21F0B5770057C63E /* Theme Chooser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9C0E78A21F0B5770057C63E /* Theme Chooser.storyboard */; };
 		C9C0E78D21F0B7FA0057C63E /* ThemeChooserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E78C21F0B7FA0057C63E /* ThemeChooserTableViewController.swift */; };
 		C9C0E78F21F0BC640057C63E /* ReadOnlyTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E78E21F0BC640057C63E /* ReadOnlyTheme.swift */; };
+		C9C2F42322F0BAC10062F4D6 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = C9C2F42222F0BAC10062F4D6 /* Intents.intentdefinition */; };
+		C9C2F47122F0ED8C0062F4D6 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2F47022F0ED8C0062F4D6 /* IntentHandler.swift */; };
+		C9C2F47522F0ED8C0062F4D6 /* Pyto Intents.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C9C2F46E22F0ED8C0062F4D6 /* Pyto Intents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C9C2F47A22F0EDB80062F4D6 /* RunScriptIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2F47922F0EDB80062F4D6 /* RunScriptIntentHandler.swift */; };
+		C9C2F47B22F0EDBF0062F4D6 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = C9C2F42222F0BAC10062F4D6 /* Intents.intentdefinition */; };
 		C9C7445122EE0A6E0035EFB9 /* _aligners.cpython-37m-darwin.so in Copy _aligners */ = {isa = PBXBuildFile; fileRef = C9C7444822EE0A260035EFB9 /* _aligners.cpython-37m-darwin.so */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C9C7445222EE0A6F0035EFB9 /* Info.plist in Copy _aligners */ = {isa = PBXBuildFile; fileRef = C9C7443F22EE09CB0035EFB9 /* Info.plist */; platformFilter = ios; };
 		C9C7445322EE0A7C0035EFB9 /* _CKDTree.cpython-37m-darwin.so in Copy _CKDTree */ = {isa = PBXBuildFile; fileRef = C9C7444922EE0A2E0035EFB9 /* _CKDTree.cpython-37m-darwin.so */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -659,6 +663,13 @@
 			remoteGlobalIDString = 3C2E4346201E7E6C00E4254A;
 			remoteInfo = InputAssistant;
 		};
+		C9C2F47322F0ED8C0062F4D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9FCFD4D214428AE00A07974 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C9C2F46D22F0ED8C0062F4D6;
+			remoteInfo = "Pyto Intents";
+		};
 		C9DF71082171768A00981B4F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C9FCFD4D214428AE00A07974 /* Project object */;
@@ -734,6 +745,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				C946A5B422074EAA00F78C5C /* Pyto Widget.appex in Embed App Extensions */,
+				C9C2F47522F0ED8C0062F4D6 /* Pyto Intents.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1636,8 +1648,6 @@
 		C90397C522D15C1400FAD834 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = _imagingmath.framework/Info.plist; sourceTree = "<group>"; };
 		C90397C622D15C2400FAD834 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = _imagingmorph.framework/Info.plist; sourceTree = "<group>"; };
 		C903986822D2CF2600FAD834 /* PyImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyImageView.swift; sourceTree = "<group>"; };
-		C903B98721584367004AAD7F /* commandDictionary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = commandDictionary.plist; sourceTree = "<group>"; };
-		C903B989215843B4004AAD7F /* extraCommandsDictionary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = extraCommandsDictionary.plist; sourceTree = "<group>"; };
 		C903B98B21598A63004AAD7F /* IO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IO.swift; sourceTree = "<group>"; };
 		C904EB5B21445AA700585C28 /* OpenSSL */ = {isa = PBXFileReference; lastKnownFileType = folder; path = OpenSSL; sourceTree = "<group>"; };
 		C904EB5C21445AA800585C28 /* XZ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = XZ; sourceTree = "<group>"; };
@@ -1984,6 +1994,7 @@
 		C99DDCEB21BBED22002A734E /* DocumentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationViewController.swift; sourceTree = "<group>"; };
 		C99E8D6B21F0CC7800C71884 /* WWDC16.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WWDC16.swift; sourceTree = "<group>"; };
 		C99E8D6F21F0D03400C71884 /* CoolGlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoolGlow.swift; sourceTree = "<group>"; };
+		C99F568822F0FF6300361698 /* RunCodeIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RunCodeIntentHandler.swift; path = "../../../../../System/Volumes/Data/Users/adrianlabbe/Desktop/Pyto/Pyto Intents/RunCodeIntentHandler.swift"; sourceTree = "<group>"; };
 		C9A05F6522E400890096DCA8 /* PyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PyView.swift; sourceTree = "<group>"; };
 		C9A33B0E224FCDA00083F041 /* MovableTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovableTextField.swift; sourceTree = "<group>"; };
 		C9A33B12224FCDAD0083F041 /* TextField.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextField.xib; sourceTree = "<group>"; };
@@ -2021,6 +2032,11 @@
 		C9C0E78C21F0B7FA0057C63E /* ThemeChooserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeChooserTableViewController.swift; sourceTree = "<group>"; };
 		C9C0E78E21F0BC640057C63E /* ReadOnlyTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadOnlyTheme.swift; sourceTree = "<group>"; };
 		C9C1B6E722B69C6F0035BDCC /* libpython3.7m.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpython3.7m.a; path = "../../Downloads/Python-3.7-macOS-support.b1/python/lib/libpython3.7m.a"; sourceTree = "<group>"; };
+		C9C2F42222F0BAC10062F4D6 /* Intents.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Intents.intentdefinition; path = ../../../../../System/Volumes/Data/Users/adrianlabbe/Desktop/Pyto/Pyto/Intents.intentdefinition; sourceTree = "<group>"; };
+		C9C2F46E22F0ED8C0062F4D6 /* Pyto Intents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Pyto Intents.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9C2F47022F0ED8C0062F4D6 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
+		C9C2F47222F0ED8C0062F4D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9C2F47922F0EDB80062F4D6 /* RunScriptIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RunScriptIntentHandler.swift; path = "../../../../../System/Volumes/Data/Users/adrianlabbe/Desktop/Pyto/Pyto Intents/RunScriptIntentHandler.swift"; sourceTree = "<group>"; };
 		C9C57EB40A56344EEB889161 /* Pods-Pyto Share.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Share.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Share/Pods-Pyto Share.release.xcconfig"; sourceTree = "<group>"; };
 		C9C7442D22EE08350035EFB9 /* cpairwise2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = cpairwise2.framework; sourceTree = "<group>"; };
 		C9C7442E22EE08350035EFB9 /* _CKDTree.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _CKDTree.framework; sourceTree = "<group>"; };
@@ -2223,6 +2239,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C95EE4DC22070224006611CB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9C2F46B22F0ED8C0062F4D6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2601,8 +2624,6 @@
 		C93D61E82145E1D300C8B5E3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C903B98721584367004AAD7F /* commandDictionary.plist */,
-				C903B989215843B4004AAD7F /* extraCommandsDictionary.plist */,
 				C9F04E8A2173DD7300BDD03E /* Main.storyboard */,
 				C9C0E78A21F0B5770057C63E /* Theme Chooser.storyboard */,
 				C9B5D84A21F119B100E980BA /* Settings.storyboard */,
@@ -2610,6 +2631,7 @@
 				C9A33B12224FCDAD0083F041 /* TextField.xib */,
 				C95076F922DE39A800226497 /* Widget Simulator.storyboard */,
 				C9FCFD5F214428B300A07974 /* Assets.xcassets */,
+				C9C2F42222F0BAC10062F4D6 /* Intents.intentdefinition */,
 				C9FCFD64214428B300A07974 /* Info.plist */,
 				C9477BBA21D45D28000680AE /* installer.py */,
 				C929167D22B192A5001C8BA0 /* scripts_runner.py */,
@@ -2937,6 +2959,17 @@
 			path = NumPy;
 			sourceTree = "<group>";
 		};
+		C9C2F46F22F0ED8C0062F4D6 /* Pyto Intents */ = {
+			isa = PBXGroup;
+			children = (
+				C9C2F47022F0ED8C0062F4D6 /* IntentHandler.swift */,
+				C9C2F47922F0EDB80062F4D6 /* RunScriptIntentHandler.swift */,
+				C99F568822F0FF6300361698 /* RunCodeIntentHandler.swift */,
+				C9C2F47222F0ED8C0062F4D6 /* Info.plist */,
+			);
+			path = "Pyto Intents";
+			sourceTree = "<group>";
+		};
 		C9C7442122EE044A0035EFB9 /* Biopython */ = {
 			isa = PBXGroup;
 			children = (
@@ -3099,6 +3132,7 @@
 				C9C7442122EE044A0035EFB9 /* Biopython */,
 				C9CEE1E821EB8D5300316D3C /* PytoCore */,
 				C946A5AB22074EAA00F78C5C /* Pyto Widget */,
+				C9C2F46F22F0ED8C0062F4D6 /* Pyto Intents */,
 				C9FCFD56214428AE00A07974 /* Products */,
 				E49BBFEA4FF54799EBA99E3A /* Pods */,
 				777F5989381586AA988D5FF0 /* Frameworks */,
@@ -3113,6 +3147,7 @@
 				C9CEE1E721EB8D5200316D3C /* PytoCore.framework */,
 				C95EE4DF22070224006611CB /* libpng.framework */,
 				C946A5A822074EA900F78C5C /* Pyto Widget.appex */,
+				C9C2F46E22F0ED8C0062F4D6 /* Pyto Intents.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3234,6 +3269,23 @@
 			productReference = C95EE4DF22070224006611CB /* libpng.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		C9C2F46D22F0ED8C0062F4D6 /* Pyto Intents */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9C2F47622F0ED8C0062F4D6 /* Build configuration list for PBXNativeTarget "Pyto Intents" */;
+			buildPhases = (
+				C9C2F46A22F0ED8C0062F4D6 /* Sources */,
+				C9C2F46B22F0ED8C0062F4D6 /* Frameworks */,
+				C9C2F46C22F0ED8C0062F4D6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pyto Intents";
+			productName = "Pyto Intents";
+			productReference = C9C2F46E22F0ED8C0062F4D6 /* Pyto Intents.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		C9CEE1E621EB8D5200316D3C /* PytoCore */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C9CEE1F021EB8D5300316D3C /* Build configuration list for PBXNativeTarget "PytoCore" */;
@@ -3344,6 +3396,7 @@
 				C9AAAB4C2195016D0042E733 /* PBXTargetDependency */,
 				C95EE4E522070224006611CB /* PBXTargetDependency */,
 				C946A5B322074EAA00F78C5C /* PBXTargetDependency */,
+				C9C2F47422F0ED8C0062F4D6 /* PBXTargetDependency */,
 			);
 			name = Pyto;
 			productName = Pyto;
@@ -3356,7 +3409,7 @@
 		C9FCFD4D214428AE00A07974 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Adrian Labbé";
 				TargetAttributes = {
@@ -3374,6 +3427,9 @@
 					};
 					C95EE4DE22070224006611CB = {
 						CreatedOnToolsVersion = 10.1;
+					};
+					C9C2F46D22F0ED8C0062F4D6 = {
+						CreatedOnToolsVersion = 11.0;
 					};
 					C9CEE1E621EB8D5200316D3C = {
 						CreatedOnToolsVersion = 10.1;
@@ -3420,6 +3476,7 @@
 				C943AC3C215277A000844368 /* Python */,
 				C9CEE1E621EB8D5200316D3C /* PytoCore */,
 				C95EE4DE22070224006611CB /* libpng */,
+				C9C2F46D22F0ED8C0062F4D6 /* Pyto Intents */,
 			);
 		};
 /* End PBXProject section */
@@ -3473,6 +3530,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C9C2F46C22F0ED8C0062F4D6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9CEE1E521EB8D5200316D3C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3510,11 +3574,9 @@
 				C9F04E882173DD7300BDD03E /* Main.storyboard in Resources */,
 				C9E116E021F773EB00FB5DD2 /* UserREPL.py in Resources */,
 				C9FCFD6D21442FD700A07974 /* Untitled.py in Resources */,
-				C903B98821584367004AAD7F /* commandDictionary.plist in Resources */,
 				C916F44B226CFD4800FA2FB6 /* modules_inspector.py in Resources */,
 				C9B5D87621F214DC00E980BA /* body.html in Resources */,
 				C929167E22B192A5001C8BA0 /* scripts_runner.py in Resources */,
-				C903B98A215843B4004AAD7F /* extraCommandsDictionary.plist in Resources */,
 				C9E4152E21514F9100D64E32 /* Startup.py in Resources */,
 				C92DBD8021F67B9D0098BE43 /* REPL.py in Resources */,
 				C95076FA22DE39A800226497 /* Widget Simulator.storyboard in Resources */,
@@ -3689,6 +3751,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C9C2F46A22F0ED8C0062F4D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9C2F47B22F0EDBF0062F4D6 /* Intents.intentdefinition in Sources */,
+				C99F568922F0FF6300361698 /* RunCodeIntentHandler.swift in Sources */,
+				C9C2F47122F0ED8C0062F4D6 /* IntentHandler.swift in Sources */,
+				C9C2F47A22F0EDB80062F4D6 /* RunScriptIntentHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9CEE1E321EB8D5200316D3C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3748,6 +3821,7 @@
 				C9EDF9AB21446FCA00382DCC /* ConsoleViewController.swift in Sources */,
 				C9F1258F22DFD28F00F54D84 /* PySegmentedControl.swift in Sources */,
 				C927187822C9933A0025341B /* PyButton.swift in Sources */,
+				C9C2F42322F0BAC10062F4D6 /* Intents.intentdefinition in Sources */,
 				C9B5D85E21F12E4000E980BA /* PlainTextEditorViewController.swift in Sources */,
 				C9BF46E722E106D500B8FE4B /* PyTableView.swift in Sources */,
 				C94E730222E3BBF300F3FB79 /* PyButtonItem.swift in Sources */,
@@ -3866,6 +3940,11 @@
 			isa = PBXTargetDependency;
 			name = InputAssistant;
 			targetProxy = C9AAAB4B2195016D0042E733 /* PBXContainerItemProxy */;
+		};
+		C9C2F47422F0ED8C0062F4D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C9C2F46D22F0ED8C0062F4D6 /* Pyto Intents */;
+			targetProxy = C9C2F47322F0ED8C0062F4D6 /* PBXContainerItemProxy */;
 		};
 		C9DF71092171768A00981B4F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -4140,6 +4219,50 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		C9C2F47722F0ED8C0062F4D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				INFOPLIST_FILE = "Pyto Intents/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Intents";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C9C2F47822F0ED8C0062F4D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				INFOPLIST_FILE = "Pyto Intents/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Intents";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -4543,6 +4666,15 @@
 			buildConfigurations = (
 				C95EE4E922070224006611CB /* Debug */,
 				C95EE4EA22070224006611CB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C9C2F47622F0ED8C0062F4D6 /* Build configuration list for PBXNativeTarget "Pyto Intents" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9C2F47722F0ED8C0062F4D6 /* Debug */,
+				C9C2F47822F0ED8C0062F4D6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

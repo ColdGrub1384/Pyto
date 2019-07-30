@@ -440,7 +440,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             
             // Siri shortcut
             
-            if #available(iOS 12.0, *) {
+            if #available(iOS 12.0, *), doc.fileURL != Bundle.main.url(forResource: "installer", withExtension: "py") && !doc.fileURL.path.hasSuffix(".repl.py") {
                 let filePath: String?
                 if let doc = document {
                     filePath = RelativePathForScript(doc.fileURL)
