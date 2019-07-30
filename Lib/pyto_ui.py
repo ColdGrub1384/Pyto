@@ -16,7 +16,7 @@ from __future__ import annotations
 from UIKit import UIDevice, UIFont as __UIFont__, UIImage as UIImage
 from rubicon.objc import ObjCClass, CGFloat, objc_method
 
-if UIDevice is not and float(str(UIDevice.currentDevice.systemVersion)) < 13:
+if UIDevice is not None and float(str(UIDevice.currentDevice.systemVersion)) < 13:
     raise ImportError("PytoUI requires iPadOS / iOS 13")
 
 from typing import List, Callable, Tuple
