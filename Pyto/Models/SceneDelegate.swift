@@ -152,6 +152,10 @@ import UIKit
                     var isStale = false
                     let url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
                     
+                    if let arguments = userActivity.userInfo?["arguments"] as? String {
+                        UserDefaults.standard.set(arguments, forKey: "arguments\(url.path.replacingOccurrences(of: "//", with: "/"))")
+                    }
+                    
                     _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
                         if let doc = self.documentBrowserViewController {
                             doc.revealDocument(at: url, importIfNeeded: true) { (url_, _) in
@@ -165,6 +169,23 @@ import UIKit
                     alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
                     root?.present(alert, animated: true, completion: nil)
                 }
+            } else if let code = userActivity.userInfo?["code"] as? String {
+                let fileURL = FileManager.default.urls(for: .cachesDirectory, in: .allDomainsMask)[0].appendingPathComponent("Shortcuts.py")
+                if FileManager.default.fileExists(atPath: fileURL.path) {
+                    try? FileManager.default.removeItem(at: fileURL)
+                }
+                
+                if let arguments = userActivity.userInfo?["arguments"] as? String {
+                    UserDefaults.standard.set(arguments, forKey: "arguments\(fileURL.path.replacingOccurrences(of: "//", with: "/"))")
+                }
+                
+                FileManager.default.createFile(atPath: fileURL.path, contents: code.data(using: .utf8), attributes: nil)
+                _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
+                    if let doc = self.documentBrowserViewController {
+                        doc.openDocument(fileURL, run: true)
+                        timer.invalidate()
+                    }
+                })
             } else {
                 print("Invalid shortcut!")
             }
