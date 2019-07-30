@@ -90,8 +90,15 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
     /// Increases or dicreases font size.
     @IBAction func changeFontSize(_ sender: UIStepper) {
         ThemeFontSize = Int(sender.value)
-        fontSizeLabel.text = "\(ThemeFontSize)px"
-        fontSizeLabel.font = fontSizeLabel.font.withSize(CGFloat(ThemeFontSize))
+        let label = fontSizeLabel
+        let superview = label?.superview
+        let constraints = superview?.constraints
+        label?.removeFromSuperview()
+        label?.text = "\(ThemeFontSize)px"
+        label?.font = fontSizeLabel.font.withSize(CGFloat(ThemeFontSize))
+        superview?.addSubview(label!)
+        superview?.removeConstraints(superview!.constraints)
+        superview?.addConstraints(constraints!)
     }
     
     // MARK: - Show console at bottom
