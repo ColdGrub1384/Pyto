@@ -188,7 +188,7 @@ This library’s API is very similar to UIKit.</p>
 </pre></div>
 </div>
 <p>Then, call the <a class="reference internal" href="pyto_ui/functions.html#pyto_ui.show_view" title="pyto_ui.show_view"><code class="xref py py-func docutils literal notranslate"><span class="pre">show_view()</span></code></a> function to show the view:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ui</span><span class="o">.</span><span class="n">show_view</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ui</span><span class="o">.</span><span class="n">show_view</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">ui</span><span class="o">.</span><span class="n">PRESENTATION_MODE_SHEET</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>A view will be presented, with the system background color, white or black depending on if the device has dark mode enabled or not.
@@ -236,7 +236,7 @@ It’s important to set our view’s background color because it will be transpa
 <span class="n">button</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="n">button_pressed</span>
 <span class="n">view</span><span class="o">.</span><span class="n">add_subview</span><span class="p">(</span><span class="n">button</span><span class="p">)</span>
 
-<span class="n">ui</span><span class="o">.</span><span class="n">show_view</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
+<span class="n">ui</span><span class="o">.</span><span class="n">show_view</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">ui</span><span class="o">.</span><span class="n">PRESENTATION_MODE_SHEET</span><span class="p">)</span>
 
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
 </pre></div>
