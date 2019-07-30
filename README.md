@@ -30,14 +30,6 @@ Features:
   - Use pip to install pure Python modules from PyPi
 ```
 
-## TODO
-
-- [ ] Add a setting to not clear the console before running a script
-
-# Known bugs
-
-- [ ] Cannot select code completions from the middle
-
 ## Building
 
 `$ ./setup.sh` and build the `Pyto` target from `Pyto.xcworkspace`
