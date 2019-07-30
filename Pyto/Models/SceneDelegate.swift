@@ -79,6 +79,10 @@ import UIKit
             self.scene(scene, openURLContexts: connectionOptions.urlContexts)
         }
         
+        if connectionOptions.userActivities.count > 0 {
+            self.scene(scene, continue: connectionOptions.userActivities.first!)
+        }
+        
         if let restorationActivity = session.stateRestorationActivity {
             
             if let data = restorationActivity.userInfo?["bookmarkData"] as? Data {
