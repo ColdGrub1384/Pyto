@@ -146,8 +146,6 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
         fontSizeLabel.font = fontSizeLabel.font.withSize(CGFloat(ThemeFontSize))
         showConsoleAtBottom.isOn = EditorSplitViewController.shouldShowConsoleAtBottom
         showSeparator.isOn = EditorSplitViewController.shouldShowSeparator
-        
-        navigationItem.rightBarButtonItems = []
     }
     
     override func viewDidAppear(_ animated: Bool) {
