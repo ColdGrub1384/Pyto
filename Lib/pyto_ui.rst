@@ -90,7 +90,12 @@ So we have this code:
     button = ui.Button(title="Hello World!")
     button.size = (100, 50)
     button.center = (view.width/2, view.height/2)
-    button.flexible_margins = True
+    button.flex = [
+        FLEXIBLE_TOP_MARGIN,
+        FLEXIBLE_BOTTOM_MARGIN,
+        FLEXIBLE_LEFT_MARGIN,
+        FLEXIBLE_RIGHT_MARGIN
+    ]
     button.action = button_pressed
     view.add_subview(button)
 
