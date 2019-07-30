@@ -252,9 +252,15 @@ import UIKit
     @objc static func enableDoneButton() {
         DispatchQueue.main.async {
             for console in self.visibles {
-                guard let doneButton = console.navigationItem.leftBarButtonItem else {
+                guard let doneButton = console.editorSplitViewController?.navigationItem.leftBarButtonItem else {
                     return
                 }
+                
+                if #available(iOS 13.0, *) {
+                    console.editorSplitViewController?.isModalInPresentation = false
+                }
+                
+                (console.editorSplitViewController as? PipInstallerViewController)?.done = true
                 
                 if doneButton.action == #selector(PipInstallerViewController.closeViewController) {
                     doneButton.isEnabled = true
