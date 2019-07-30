@@ -7,17 +7,23 @@
 //
 
 import UIKit
+import WebKit
 
 /// A View controller for running `pip` commands.
 @objc class PipInstallerViewController: EditorSplitViewController {
     
+    /// The Web View to reload after the module is installed or removed.
+    var webView: WKWebView?
+    
+    /// `true` if pip finished running.
+    var done = false
+    
+    private var executed = false
+    
     /// Closes this View controller.
     @objc func closeViewController() {
-        
-        let window = view.window
-        
         return dismiss(animated: true, completion: {
-            ((window?.rootViewController?.presentedViewController as? UINavigationController)?.visibleViewController as? PipViewController)?.webView.reload()
+            self.webView?.reload()
         })
     }
     
@@ -61,6 +67,15 @@ import UIKit
         super.viewDidLoad()
         
         arrangement = .horizontal
+        if #available(iOS 13.0, *) {
+            isModalInPresentation = true
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        webView?.reload()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,6 +92,12 @@ import UIKit
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        guard !done && !executed else {
+            return
+        }
+        
+        executed = true
         
         if let path = editor.document?.fileURL.path, Python.shared.isScriptRunning(path) {
             editor.stop()
