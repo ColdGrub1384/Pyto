@@ -31,7 +31,7 @@ Then, call the :func:`~pyto_ui.show_view` function to show the view:
 .. highlight:: python
 .. code-block:: python
 
-    ui.show_view(view)
+    ui.show_view(view, ui.PRESENTATION_MODE_SHEET)
 
 A view will be presented, with the system background color, white or black depending on if the device has dark mode enabled or not.
 It's important to set our view's background color because it will be transparent if it's not set. That looks great on widgets, but not in app.
@@ -94,7 +94,7 @@ So we have this code:
     button.action = button_pressed
     view.add_subview(button)
 
-    ui.show_view(view)
+    ui.show_view(view, ui.PRESENTATION_MODE_SHEET)
 
     print("Hello World!")
 
