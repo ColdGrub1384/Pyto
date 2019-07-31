@@ -411,13 +411,47 @@ fileprivate func parseArgs(_ args: inout [String]) {
             
             if self.shouldRun {
                 self.shouldRun = false
+                
                 if Python.shared.isScriptRunning(path) {
                     self.stop()
                 }
                 
+                let splitVC = self.parent as? EditorSplitViewController
+                
+                splitVC?.ratio = 0
+                
+                for view in (splitVC?.view.subviews ?? []) {
+                    if view.backgroundColor == .white {
+                        view.backgroundColor = splitVC?.view.backgroundColor
+                    }
+                }
+                
+                splitVC?.firstChild?.view.superview?.backgroundColor = splitVC!.view.backgroundColor
+                splitVC?.secondChild?.view.superview?.backgroundColor = splitVC!.view.backgroundColor
+                
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.25, execute: {
+                    splitVC?.firstChild = nil
+                    splitVC?.secondChild = nil
+                    
+                    for view in (splitVC?.view.subviews ?? []) {
+                        view.removeFromSuperview()
+                    }
+                    
+                    splitVC?.viewDidLoad()
+                    splitVC?.viewWillTransition(to: splitVC!.view.frame.size, with: ViewControllerTransitionCoordinator())
+                    splitVC?.viewDidAppear(true)
+                    
+                    splitVC?.removeGestures()
+                    
+                    splitVC?.firstChild = splitVC?.editor
+                    splitVC?.secondChild = splitVC?.console
+                    
+                    splitVC?.setNavigationBarItems()
+                })
+                
                 if Python.shared.isScriptRunning(path) || Python.shared.version.isEmpty {
-                    _ = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true, block: { (timer) in
-                        if !(Python.shared.isScriptRunning(path) || Python.shared.version.isEmpty) {
+                    _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
+                        if !Python.shared.isScriptRunning(path) && !Python.shared.version.isEmpty {
                             timer.invalidate()
                             self.run()
                         }
