@@ -120,30 +120,32 @@ for importer in (NumpyImporter, MatplotlibImporter, PandasImporter, PillowImport
 # MARK: - Pre-import modules
 
 def importModules():
+
+    try:
+        import PIL.ImageShow
+
+        def show_image(image, title=None, **options):
+            import os
+            import tempfile
+            import sharing
+    
+            imgPath = tempfile.gettempdir()+"/image.png"
+
+            i = 1
+            while os.path.isfile(imgPath):
+                i += 1
+                imgPath = os.path.join(tempfile.gettempdir(), 'image '+str(i)+'.png')
+    
+            image.save(imgPath,"PNG")
+            sharing.quick_look(imgPath)
+
+        PIL.ImageShow.show = show_image
+    except ImportError:
+        pass
+
+
     try:
         import matplotlib, numpy, pandas
-        
-        try:
-            import PIL.ImageShow
-
-            def show_image(image, title=None, **options):
-                import os
-                import tempfile
-                import sharing
-    
-                imgPath = tempfile.gettempdir()+"/image.png"
-    
-                i = 1
-                while os.path.isfile(imgPath):
-                    i += 1
-                    imgPath = os.path.join(tempfile.gettempdir(), 'image '+str(i)+'.png')
-    
-                image.save(imgPath,"PNG")
-                sharing.quick_look(imgPath)
-
-            PIL.ImageShow.show = show_image
-        except ImportError:
-            pass
     except:
         pass
 

@@ -75,73 +75,32 @@ fileprivate class ImageAttachment: NSTextAttachment {
     ///     - file: The path of the file.
     ///     - script: The script that previewed the given file. Set to `nil` to show on all the consoles.
     @objc static func previewFile(_ file: String, script: String?) {
+                
         DispatchQueue.main.async {
             
-            func showOnConsole() {
-                guard let image = UIImage(contentsOfFile: file) else {
-                    return
-                }
-                let attachment = ImageAttachment()
-                attachment.image = image
-                let attrString = NSMutableAttributedString(attributedString: NSAttributedString(attachment: attachment))
-                attrString.append(NSAttributedString(string: "\n"))
-                #if MAIN
-                for console in ConsoleViewController.visibles {
-                    
-                    if script != nil {
-                        guard console.editorSplitViewController?.editor.document?.fileURL.path == script else {
-                            continue
-                        }
-                    }
-                    
-                    console.textView.textStorage.insert(attrString, at: console.textView.offset(from: console.textView.endOfDocument, to: console.textView.endOfDocument))
-                }
-                #else
-                ConsoleViewController.visibles.first?.textView.textStorage.insert(attrString, at: ConsoleViewController.visibles[0].textView.offset(from: ConsoleViewController.visibles[0].textView.endOfDocument, to: ConsoleViewController.visibles[0].textView.endOfDocument))
-                #endif
+            guard let image = UIImage(contentsOfFile: file) else {
+                return
             }
             
+            let attachment = ImageAttachment()
+            attachment.image = image
+            let attrString = NSMutableAttributedString(attributedString: NSAttributedString(attachment: attachment))
+            attrString.append(NSAttributedString(string: "\n"))
             #if MAIN
-            if !EditorSplitViewController.shouldShowConsoleAtBottom {
-                showOnConsole()
-            } else {
+            for console in ConsoleViewController.visibles {
                 
-                if #available(iOS 13.0, *), UIApplication.shared.connectedScenes.count >= 1 {
-                    return showOnConsole()
+                if script != nil {
+                    guard console.editorSplitViewController?.editor.document?.fileURL.path == script else {
+                        continue
+                    }
                 }
                 
-                DispatchQueue.main.async {
-                    guard visible == nil else {
-                        visible?.filePaths.append(file)
-                        return
-                    }
-                    
-                    for fileURL in ((try? FileManager.default.contentsOfDirectory(at: URL(fileURLWithPath: NSTemporaryDirectory()), includingPropertiesForKeys: nil, options: .skipsHiddenFiles)) ?? []) {
-                        if fileURL.path != file {
-                            try? FileManager.default.removeItem(at: fileURL)
-                        }
-                    }
-                    
-                    let dataSource = QuickLookHelper(filePaths: [file])
-                    
-                    let controller = QLPreviewController()
-                    controller.dataSource = dataSource
-                    controller.delegate = dataSource
-            
-                    #if WIDGET
-                    return
-                    #else
-                    let vc = UIApplication.shared.keyWindow?.topViewController
-                    #endif
-                    
-                    visible = dataSource
-                    
-                    vc?.present(controller, animated: true, completion: nil)
-                }
+                console.textView.textStorage.insert(attrString, at: console.textView.offset(from: console.textView.endOfDocument, to: console.textView.endOfDocument))
             }
             #else
-            showOnConsole()
+            ConsoleViewController.visibles.first?.textView.textStorage.insert(attrString, at: ConsoleViewController.visibles[0].textView.offset(from: ConsoleViewController.visibles[0].textView.endOfDocument, to: ConsoleViewController.visibles[0].textView.endOfDocument))
             #endif
+            
         }
     }
     
