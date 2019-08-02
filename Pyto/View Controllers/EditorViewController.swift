@@ -892,7 +892,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
         alert.addAction(UIAlertAction(title: Localizable.change, style: .default, handler: { _ in
             let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
             picker.delegate = self
-            picker.allowsMultipleSelection = true
             if #available(iOS 13.0, *) {
                 picker.directoryURL = self.currentDirectory
             }
