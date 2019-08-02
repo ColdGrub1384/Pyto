@@ -124,7 +124,7 @@ webbrowser.register("mobile-safari", None, MobileSafari("MobileSafari.app"))
 
 # MARK: - Modules
 
-for importer in (NumpyImporter, MatplotlibImporter, PandasImporter, PillowImporter, BiopythonImporter, LXMLImporter):
+for importer in (NumpyImporter, MatplotlibImporter, PandasImporter, PillowImporter, BiopythonImporter, LXMLImporter, ScipyImporter):
     sys.meta_path.insert(0, importer())
 
 # MARK: - Pre-import modules
