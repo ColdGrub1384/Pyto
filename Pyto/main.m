@@ -40,7 +40,7 @@ NSBundle* mainBundle() {
 
 void BandHandle(NSString *fkTitle, NSArray *nameArray, NSArray *keyArray, bool staticlib) {
     
-    if (!staticlib) {
+    if (staticlib) {
         void *handle = dlopen(NULL, RTLD_LAZY);
         for( int i=0; i<nameArray.count; i++){
             NSString *fkey  = [keyArray  objectAtIndex:i];
@@ -89,7 +89,7 @@ void init_numpy() {
     [name addObject:@"_umath_linalg"];      [key addObject:@"__numpy_linalg__umath_linalg"];
     [name addObject:@"fftpack_lite"];       [key addObject:@"__numpy_fft_fftpack_lite"];
     [name addObject:@"mtrand"];             [key addObject:@"__numpy_random_mtrand"];
-    BandHandle(@"numpy", name, key, true);
+    BandHandle(@"numpy", name, key, false);
 }
 
 // MARK: - Matplotlib
@@ -124,7 +124,7 @@ void init_matplotlib() {
     [name addObject:@"ft2font"];            [key addObject:@"__matplotlib_ft2font"];
     [name addObject:@"_path"];              [key addObject:@"__matplotlib__path"];
     [name addObject:@"kiwisolver"];         [key addObject:@"kiwisolver"];
-    BandHandle(@"matplotlib", name, key, true);
+    BandHandle(@"matplotlib", name, key, false);
 }
 
 // MARK: - Pandas
@@ -172,7 +172,7 @@ void init_pandas(){
     [name addObject:@"skiplist"];           [key addObject:@"__pandas__libs_skiplist"];
     [name addObject:@"hashtable"];          [key addObject:@"__pandas__libs_hashtable"];
     [name addObject:@"json"];               [key addObject:@"__pandas__libs_json"];
-    BandHandle(@"pandas", name, key, true);
+    BandHandle(@"pandas", name, key, false);
 }
 
 void init_biopython() {
@@ -187,7 +187,7 @@ void init_biopython() {
     [name addObject:@"kdtrees"];                [key addObject:@"__Bio_PDB_kdtrees"];
     [name addObject:@"qcprotmodule"];           [key addObject:@"__Bio_PDB_QCPSuperimposer_qcprotmodule"];
     [name addObject:@"trie"];                   [key addObject:@"__Bio_trie"];
-    BandHandle(@"Bio", name, key, true);
+    BandHandle(@"Bio", name, key, false);
 }
 
 void init_lxml() {
@@ -200,7 +200,7 @@ void init_lxml() {
     [name addObject:@"diff"];                      [key addObject:@"__lxml_html_diff"];
     [name addObject:@"objectify"];                 [key addObject:@"__lxml_objectifiy"];
     [name addObject:@"sax"];                       [key addObject:@"__lxml_sax"];
-    BandHandle(@"lxml", name, key, false);
+    BandHandle(@"lxml", name, key, true);
 }
 #endif
 
@@ -215,7 +215,7 @@ void init_pil() {
     [name addObject:@"_imagingmath"];       [key addObject:@"__PIL__imagingmath"];
     [name addObject:@"_imagingmorph"];      [key addObject:@"__PIL__imagingmorph"];
     #endif
-    BandHandle(@"PIL", name, key, true);
+    BandHandle(@"PIL", name, key, false);
 }
 
 // MARK: - Main
