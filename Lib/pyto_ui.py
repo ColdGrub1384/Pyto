@@ -61,6 +61,7 @@ __PyTableViewCell__ = __Class__("PyTableViewCell")
 __PyTableViewSection__ = __Class__("PyTableViewSection")
 __PyTextView__ = __Class__("PyTextView")
 __PyTextField__ = __Class__("PyTextField")
+__PyWebView__ = __Class__("PyWebView")
 
 __PyGestureRecognizer__ = __Class__("PyGestureRecognizer")
 __PyColor__ = __Class__("PyColor")
@@ -1414,7 +1415,7 @@ class GestureRecognizer:
     @property
     def enabled(self) -> bool:
         """
-        A boolean indicating wheter the gesture recognizer is enabled.
+        A boolean indicating whether the gesture recognizer is enabled.
         
         :rtype: bool
         """
@@ -1783,7 +1784,7 @@ class ButtonItem:
     @property
     def enabled(self) -> bool:
         """
-        A boolean indicating wheter the button is enabled.
+        A boolean indicating whether the button is enabled.
         
         :rtype: bool
         """
@@ -2251,7 +2252,7 @@ class View:
     @property
     def hidden(self) -> bool:
         """
-        A boolean indicating wheter the view is visible or not.
+        A boolean indicating whether the view is visible or not.
         
         :rtype: bool
         """
@@ -2281,7 +2282,7 @@ class View:
     @property
     def opaque(self) -> bool:
         """
-        A boolean indicating wheter the view is opaque or not. Setting to ``True`` should prevent the view from having a transparent background.
+        A boolean indicating whether the view is opaque or not. Setting to ``True`` should prevent the view from having a transparent background.
         
         :rtype: bool
         """
@@ -2318,7 +2319,7 @@ class View:
     @property
     def user_interaction_enabled(self) -> bool:
         """
-        A boolean indicating wheter the view responds to touches.
+        A boolean indicating whether the view responds to touches.
         
         :rtype: bool
         """
@@ -2761,7 +2762,7 @@ class Label(View):
     @property
     def adjusts_font_size_to_fit_width(self) -> bool:
         """
-        A boolean indicating wheter the label adjusts its font size to fit its size.
+        A boolean indicating whether the label adjusts its font size to fit its size.
         
         :rtype: bool
         """
@@ -2816,7 +2817,7 @@ class TableViewCell(View):
     @property
     def movable(self) -> bool:
         """
-        A boolean indicating wheter the cell is movable. If set to ``True``, the container :class:`TableViewSection` object should handle the move.
+        A boolean indicating whether the cell is movable. If set to ``True``, the container :class:`TableViewSection` object should handle the move.
         
         :rtype: bool
         """
@@ -3079,7 +3080,7 @@ class TextView(View):
     @property
     def editable(self) -> bool:
         """
-        A boolean indicating wheter the text is editable.
+        A boolean indicating whether the text is editable.
             
         :rtype: bool
         """
@@ -3094,7 +3095,7 @@ class TextView(View):
     @property
     def selectable(self) -> bool:
         """
-        A boolean indicating wheter the text is selectable.
+        A boolean indicating whether the text is selectable.
         
         :rtype: bool
         """
@@ -3169,7 +3170,7 @@ class TextView(View):
     @property
     def smart_dashes(self) -> bool:
         """
-        A boolean indicating wheter smart dashes are enabled.
+        A boolean indicating whether smart dashes are enabled.
         
         :rtype: bool
         """
@@ -3184,7 +3185,7 @@ class TextView(View):
     @property
     def smart_quotes(self) -> bool:
         """
-        A boolean indicating wheter smart quotes are enabled.
+        A boolean indicating whether smart quotes are enabled.
         
         :rtype: bool
         """
@@ -3229,7 +3230,7 @@ class TextView(View):
     @property
     def autocorrection(self) -> bool:
         """
-        A boolean indicating wheter autocorrection is enabled.
+        A boolean indicating whether autocorrection is enabled.
         
         :rtype: bool
         """
@@ -3274,7 +3275,7 @@ class TextView(View):
     @property
     def secure(self) -> bool:
         """
-        A boolean indicating wheter the keyboard should be configured to enter sensitive data.
+        A boolean indicating whether the keyboard should be configured to enter sensitive data.
         
         :rtype: bool
         """
@@ -3286,6 +3287,198 @@ class TextView(View):
         self.__py_view__.isSecureTextEntry = new_value
 
 
+class WebView(View):
+    """
+    A View that displays web content.
+    """
+
+    class JavaScriptException(Exception):
+        """
+        An excpetion while running JavaScript code. Raised by :meth:`~pyto_ui.WebView.evaluate_js`.
+        """
+        
+        pass
+
+    def __init__(self, url: str = None):
+        self.__py_view__ = __PyWebView__.newView()
+        self.__py_view__.managedValue = _values.value(self)
+        if url is not None:
+            self.load_url(url)
+    
+    def evaluate_js(self, code) -> str:
+        """
+        Runs JavaScript code and returns a String representation of the evaluation result. Raises a :class:`~pyto_ui.WebView.JavaScriptException`.
+        
+        :param code: JavaScript code to run.
+        :rtype: str
+        """
+        
+        result = self.__py_view__.evaluateJavaScript(code)
+        if result == None:
+            return None
+        else:
+            result = str(result)
+            if result.startswith("_VALULE_:"):
+                return result.replace("_VALULE_:", "", 1)
+            elif result.endswith("_ERROR_:"):
+                raise JavaScriptException(result.replace("_ERROR_:", "", 1))
+            
+    def load_url(self, url: str):
+        """
+        Loads an URL.
+        
+        :param url: The URL to laod. Can be 'http://', 'https://' or 'file://'.
+        """
+        
+        self.__py_view__.loadURL(url)
+        
+    def load_html(self, html: str, base_url: str = None):
+        """
+        Loads an HTML string.
+        
+        :param html: The HTML code to load.
+        :param base_url: An optional URL used to resolve relative paths.
+        """
+        
+        baseURL = base_url
+        if baseURL is not None:
+            baseURL = str(base_url)
+            
+        self.__py_view__.loadHTML(html, baseURL=baseURL)
+        
+    def reload(self):
+        """
+        Reloads the Web View.
+        """
+        
+        self.__py_view__.reload()
+        
+    def stop(self):
+        """
+        Stops loading content.
+        """
+        
+        self.__py_view__.stop()
+        
+    def go_back(self):
+        """
+        Goes back.
+        """
+        
+        self.__py_view__.goBack()
+        
+    def go_forward(self):
+        """
+        Goes forward.
+        """
+        
+        self.__py_view__.goForward()
+        
+    @property
+    def can_go_back(self) -> bool:
+        """
+        (Read Only) A boolean indicating whether :meth:`~pyto_ui.WebView.go_back` can be performed.
+        
+        :rtype: bool
+        """
+        
+        return self.__py_view__.canGoBack
+        
+    @property
+    def can_go_forward(self) -> bool:
+        """
+        (Read Only) A boolean indicating whether :meth:`~pyto_ui.WebView.go_forward` can be performed.
+        
+        :rtype: bool
+        """
+        return self.__py_view__.canGoForward
+        
+    @property
+    def is_loading(self) -> bool:
+        """
+        (Read Only) A boolean indicating whether the Web View is loading content.
+        
+        :rtype: bool
+        """
+        
+        return self.__py_view__.isLoading
+        
+    @property
+    def url(self) -> str:
+        """
+        (Read Only) The current URL loaded into the Web View.
+        
+        :rtype: str
+        """
+        
+        url = self.__py_view__.url
+        if url is None:
+            return None
+        else:
+            return str(url)
+            
+    @property
+    def did_start_loading(self) -> Callable[[WebView], None]:
+        """
+        A function called when the Web View starts loading contents. Takes the sender Web View as parameter.
+        
+        :rtype: Callable[[WebView], None]
+        """
+        
+        action = self.__py_view__.didStartLoading
+        if action == None:
+            return None
+        else:
+            return _values.globals()[action.identifier]
+    
+    @did_start_loading.setter
+    def did_start_loading(self, new_value: Callable[[WebView], None]):
+        if new_value == None:
+            self.__py_view__.didStartLoading = None
+        else:
+            self.__py_view__.didStartLoading = _values.value(new_value)
+    
+    @property
+    def did_finish_loading(self) -> Callable[[WebView], None]:
+        """
+        A function called when the Web View finished loading contents. Takes the sender Web View as parameter.
+        
+        :rtype: Callable[[WebView], None]
+        """
+        
+        action = self.__py_view__.didFinishLoading
+        if action == None:
+            return None
+        else:
+            return _values.globals()[action.identifier]
+    
+    @did_finish_loading.setter
+    def did_finish_loading(self, new_value: Callable[[WebView], None]):
+        if new_value == None:
+            self.__py_view__.didFinishLoading = None
+        else:
+            self.__py_view__.didFinishLoading = _values.value(new_value)
+            
+    @property
+    def did_fail_loading(self) -> Callable[[WebView, str], None]:
+        """
+        A function called when the Web View failed to load contents. Takes the sender Web View and a string describing the error as parameters.
+        
+        :rtype: Callable[[WebView, str], None]
+        """
+        
+        action = self.__py_view__.didFailLoading
+        if action == None:
+            return None
+        else:
+            return _values.globals()[action.identifier]
+    
+    @did_fail_loading.setter
+    def did_fail_loading(self, new_value: Callable[[WebView, str], None]):
+        if new_value == None:
+            self.__py_view__.didFailLoading = None
+        else:
+            self.__py_view__.didFailLoading = _values.value(new_value)
 
 ##################
 # MARK: - Control Classes
@@ -3306,7 +3499,7 @@ class Control(View):
     @property
     def enabled(self) -> bool:
         """
-        A boolean indicating wheter the control is enabled.
+        A boolean indicating whether the control is enabled.
         
         :rtype: bool
         """
@@ -3563,7 +3756,7 @@ class Switch(Control):
         """
         Sets the state of the switch to On or Off with an animation.
         
-        :param on: A boolean indicating wheter the switch should be On.
+        :param on: A boolean indicating whether the switch should be On.
         """
         
         self.__py_view__.setOn(on, animated=True)
@@ -3571,7 +3764,7 @@ class Switch(Control):
     @property
     def on(self) -> bool:
         """
-        A boolean indicating wheter the switch is On.
+        A boolean indicating whether the switch is On.
             
         :rtype: bool
         """
@@ -3893,7 +4086,7 @@ class TextField(Control):
     @property
     def smart_dashes(self) -> bool:
         """
-        A boolean indicating wheter smart dashes are enabled.
+        A boolean indicating whether smart dashes are enabled.
         
         :rtype: bool
         """
@@ -3908,7 +4101,7 @@ class TextField(Control):
     @property
     def smart_quotes(self) -> bool:
         """
-        A boolean indicating wheter smart quotes are enabled.
+        A boolean indicating whether smart quotes are enabled.
         
         :rtype: bool
         """
@@ -3953,7 +4146,7 @@ class TextField(Control):
     @property
     def autocorrection(self) -> bool:
         """
-        A boolean indicating wheter autocorrection is enabled.
+        A boolean indicating whether autocorrection is enabled.
         
         :rtype: bool
         """
@@ -3998,7 +4191,7 @@ class TextField(Control):
     @property
     def secure(self) -> bool:
         """
-        A boolean indicating wheter the keyboard should be configured to enter sensitive data. The text entered by the user will be hidden.
+        A boolean indicating whether the keyboard should be configured to enter sensitive data. The text entered by the user will be hidden.
         
         :rtype: bool
         """
