@@ -27,6 +27,9 @@ A list of UI elements to be displayed on screen.
 
 .. autoclass:: TextView
    :members:
+   
+.. autoclass:: WebView
+   :members:
 
 Controls
 ********
