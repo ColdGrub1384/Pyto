@@ -10,7 +10,6 @@ def __class__(name):
     try:
         return ObjCClass(name)
     except:
-        print(name)
         return None
 
 UIApplication = __class__("UIApplication")
