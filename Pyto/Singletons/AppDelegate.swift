@@ -38,11 +38,14 @@ import SafariServices
         UserDefaults.standard.set(true, forKey: key)
         
         DispatchQueue.global().async {
-            if FileManager.default.fileExists(atPath: examplesURL.path) {
-                try? FileManager.default.removeItem(at: examplesURL)
+            
+            let destURL = (DocumentBrowserViewController.iCloudContainerURL ?? DocumentBrowserViewController.localContainerURL).appendingPathComponent(examplesURL.lastPathComponent)
+            
+            if FileManager.default.fileExists(atPath: destURL.path) {
+                try? FileManager.default.removeItem(at: destURL)
             }
             
-            try? FileManager.default.copyItem(at: examplesURL, to: (DocumentBrowserViewController.iCloudContainerURL ?? DocumentBrowserViewController.localContainerURL).appendingPathComponent(examplesURL.lastPathComponent))
+            try? FileManager.default.copyItem(at: examplesURL, to: destURL)
         }
     }
     
