@@ -44,11 +44,12 @@ void BandHandle(NSString *fkTitle, NSArray *nameArray, NSArray *keyArray, bool s
         void *handle = dlopen(NULL, RTLD_LAZY);
         for( int i=0; i<nameArray.count; i++){
             NSString *fkey  = [keyArray  objectAtIndex:i];
-                        
-            if (!handle) {
+            void *function = dlsym(handle, [NSString stringWithFormat:@"PyInit_%@",[nameArray objectAtIndex:i]].UTF8String);
+            
+            if (!handle || !function) {
                 fprintf(stderr, "%s\n", dlerror());
             } else {
-                PyImport_AppendInittab(fkey.UTF8String, dlsym(handle, [NSString stringWithFormat:@"PyInit_%@",[nameArray objectAtIndex:i]].UTF8String));
+                PyImport_AppendInittab(fkey.UTF8String, function);
             }
         }
         return;
@@ -203,7 +204,6 @@ void init_lxml() {
     [name addObject:@"clean"];                     [key addObject:@"__lxml_html_clean"];
     [name addObject:@"diff"];                      [key addObject:@"__lxml_html_diff"];
     [name addObject:@"objectify"];                 [key addObject:@"__lxml_objectifiy"];
-    [name addObject:@"sax"];                       [key addObject:@"__lxml_sax"];
     BandHandle(@"lxml", name, key, true);
 }
 
@@ -316,7 +316,7 @@ extern PyMODINIT_FUNC PyInit__stats(void);
 extern PyMODINIT_FUNC PyInit_mvn(void);
 extern PyMODINIT_FUNC PyInit_statlib(void);
 
-void init_scipy(){
+void init_scipy() {
     
     PyImport_AppendInittab("__scipy__lib__ccallback_c", &PyInit__ccallback_c);
     PyImport_AppendInittab("__scipy__lib__fpumode", &PyInit__fpumode);
@@ -406,6 +406,57 @@ void init_scipy(){
     PyImport_AppendInittab("__scipy_stats_mvn", &PyInit_mvn);
     PyImport_AppendInittab("__scipy_stats_statlib", &PyInit_statlib);
 }
+
+// MARK: - SKLearn
+
+void init_sklearn() {
+    
+    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
+    
+    [name addObject:@"_tree"];                     [key addObject:@"__sklearn_tree__tree"];
+    [name addObject:@"_criterion"];                [key addObject:@"__sklearn_tree__criterion"];
+    [name addObject:@"_splitter"];                 [key addObject:@"__sklearn_tree__splitter"];
+    [name addObject:@"_tree_utils"];               [key addObject:@"__sklearn_tree__utils"];
+    [name addObject:@"expected_mutual_info_fast"]; [key addObject:@"__sklearn_metrics_cluster_expected_mutual_info_fast"];
+    [name addObject:@"pairwise_fast"];             [key addObject:@"__sklearn_metrics_pairwise_fast"];
+    [name addObject:@"_gradient_boosting"];        [key addObject:@"__sklearn_ensemble__gradient_boosting"];
+    [name addObject:@"_k_means"];                  [key addObject:@"__sklearn_cluster__k_means"];
+    [name addObject:@"_hierarchical"];             [key addObject:@"__sklearn_cluster__hierarchical"];
+    [name addObject:@"_dbscan_inner"];             [key addObject:@"__sklearn_cluster__dbscan_inner"];
+    [name addObject:@"_k_means_elkan"];            [key addObject:@"__sklearn_cluster__k_means_elkan"];
+    [name addObject:@"_hashing"];                  [key addObject:@"__sklearn_feature_extraction__hashing"];
+    [name addObject:@"_check_build"];              [key addObject:@"__sklearn___check_build__check_build"];
+    [name addObject:@"_svmlight_format"];          [key addObject:@"__sklearn_datasets__svmlight_format"];
+    [name addObject:@"sgd_fast"];                  [key addObject:@"__sklearn_linear_model_sgd_fast"];
+    [name addObject:@"sag_fast"];                  [key addObject:@"__sklearn_linear_model_sag_fast"];
+    [name addObject:@"cd_fast"];                   [key addObject:@"__sklearn_linear_model_cd_fast"];
+    [name addObject:@"arrayfuncs"];                [key addObject:@"__sklearn_utils_arrayfuncs"];
+    [name addObject:@"graph_shortest_path"];       [key addObject:@"__sklearn_utils_graph_shortest_path"];
+    [name addObject:@"murmurhash"];                [key addObject:@"__sklearn_utils_murmurhash"];
+    [name addObject:@"sparsefuncs_fast"];          [key addObject:@"__sklearn_utils_sparsefuncs_fast"];
+    [name addObject:@"fast_dict"];                 [key addObject:@"__sklearn_utils_fast_dict"];
+    [name addObject:@"weight_vector"];             [key addObject:@"__sklearn_utils_weight_vector"];
+    [name addObject:@"_logistic_sigmoid"];         [key addObject:@"__sklearn_utils__logistic_sigmoid"];
+    [name addObject:@"seq_dataset"];               [key addObject:@"__sklearn_utils_seq_dataset"];
+    [name addObject:@"lgamma"];                    [key addObject:@"__sklearn_utils_lgamma"];
+    [name addObject:@"_random"];                   [key addObject:@"__sklearn_utils__random"];
+    [name addObject:@"_isotonic"];                 [key addObject:@"__sklearn__isotonic"];
+    [name addObject:@"libsvm"];                    [key addObject:@"__sklearn_svm_libsvm"];
+    [name addObject:@"liblinear"];                 [key addObject:@"__sklearn_svm_liblinear"];
+    [name addObject:@"libsvm_sparse"];             [key addObject:@"__sklearn_svm_libsvm_sparse"];
+    [name addObject:@"_barnes_hut_tsne"];          [key addObject:@"__sklearn_manifold__barnes_hut_tsne"];
+    [name addObject:@"_manifold_utils"];           [key addObject:@"__sklearn_manifold__utils"];
+    [name addObject:@"cdnmf_fast"];                [key addObject:@"__sklearn_decomposition_cdnmf_fast"];
+    [name addObject:@"_online_lda"];               [key addObject:@"__sklearn_decomposition__online_lda"];
+    [name addObject:@"quad_tree"];                 [key addObject:@"__sklearn_neighbors_quad_tree"];
+    [name addObject:@"typedefs"];                  [key addObject:@"__sklearn_neighbors_typedefs"];
+    [name addObject:@"ball_tree"];                 [key addObject:@"__sklearn_neighbors_ball_tree"];
+    [name addObject:@"dist_metrics"];              [key addObject:@"__sklearn_neighbors_dist_metrics"];
+    [name addObject:@"kd_tree"];                   [key addObject:@"__sklearn_neighbors_kd_tree"];
+    
+    BandHandle(@"sklearn", name, key, false);
+}
+
 #endif
 
 // MARK: - PIL
@@ -452,6 +503,7 @@ int initialize_python(int argc, char *argv[]) {
     init_biopython();
     init_lxml();
     init_scipy();
+    init_sklearn();
     #endif
     init_pil();
     
