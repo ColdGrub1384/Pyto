@@ -94,8 +94,7 @@ fileprivate class ImageAttachment: NSTextAttachment {
                         continue
                     }
                 }
-                
-                console.textView.textStorage.insert(attrString, at: console.textView.offset(from: console.textView.endOfDocument, to: console.textView.endOfDocument))
+                console.textView.textStorage.insert(attrString, at: console.textView.offset(from: console.textView.beginningOfDocument, to: console.textView.endOfDocument))
             }
             #else
             ConsoleViewController.visibles.first?.textView.textStorage.insert(attrString, at: ConsoleViewController.visibles[0].textView.offset(from: ConsoleViewController.visibles[0].textView.endOfDocument, to: ConsoleViewController.visibles[0].textView.endOfDocument))
