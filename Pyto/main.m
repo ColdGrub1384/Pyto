@@ -457,6 +457,78 @@ void init_sklearn() {
     BandHandle(@"sklearn", name, key, false);
 }
 
+// MARK: - SKImage
+
+void init_skimage() {
+    
+    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
+    
+    [name addObject:@"_ctmf"];                      [key addObject:@"__skimage_filters__ctmf"];
+    [name addObject:@"bilateral_cy"];               [key addObject:@"__skimage_filters_rank_bilateral_cy"];
+    [name addObject:@"generic_cy"];                 [key addObject:@"__skimage_filters_rank_generic_cy"];
+    [name addObject:@"percentile_cy"];              [key addObject:@"__skimage_filters_rank_percentile_cy"];
+    [name addObject:@"core_cy"];                    [key addObject:@"__skimage_filters_rank_core_cy"];
+    [name addObject:@"_denoise_cy"];                [key addObject:@"__skimage_restoration__denoise_cy"];
+    [name addObject:@"_unwrap_1d"];                 [key addObject:@"__skimage_restoration__unwrap_1d"];
+    [name addObject:@"_unwrap_2d"];                 [key addObject:@"__skimage_restoration__unwrap_2d"];
+    [name addObject:@"_nl_means_denoising"];        [key addObject:@"__skimage_restoration__nl_means_denoising"];
+    [name addObject:@"_unwrap_3d"];                 [key addObject:@"__skimage_restoration__unwrap_3d"];
+    [name addObject:@"_felzenszwalb_cy"];           [key addObject:@"__skimage_segmentation__felzenszwalb_cy"];
+    [name addObject:@"_slic"];                      [key addObject:@"__skimage_segmentation__slic"];
+    [name addObject:@"_quickshift_cy"];             [key addObject:@"__skimage_segmentation__quickshift_cy"];
+    [name addObject:@"_colormixer"];                [key addObject:@"__skimage_io__plugins__colormixer"];
+    [name addObject:@"_histograms"];                [key addObject:@"__skimage_io__plugins__histograms"];
+    [name addObject:@"_mcp"];                       [key addObject:@"__skimage_graph__mcp"];
+    [name addObject:@"_spath"];                     [key addObject:@"__skimage_graph__spath"];
+    [name addObject:@"heap"];                       [key addObject:@"__skimage_graph_heap"];
+    [name addObject:@"_ccomp"];                     [key addObject:@"__skimage_measure__ccomp"];
+    [name addObject:@"_pnpoly"];                    [key addObject:@"__skimage_measure__pnpoly"];
+    [name addObject:@"_marching_cubes_classic_cy"]; [key addObject:@"__skimage_measure__marching_cubes_classic_cy"];
+    [name addObject:@"_marching_cubes_lewiner_cy"]; [key addObject:@"__skimage_measure__marching_cubes_lewiner_cy"];
+    [name addObject:@"_find_contours_cy"];          [key addObject:@"__skimage_measure__find_contours_cy"];
+    [name addObject:@"_moments_cy"];                [key addObject:@"__skimage_measure__moments_cy"];
+    [name addObject:@"transform"];                  [key addObject:@"__skimage__shared_transform"];
+    [name addObject:@"interpolation"];              [key addObject:@"__skimage__shared_interpolation"];
+    [name addObject:@"geometry"];                   [key addObject:@"__skimage__shared_geometry"];
+    [name addObject:@"_extrema_cy"];                [key addObject:@"__skimage_morphology__extrema_cy"];
+    [name addObject:@"_skeletonize_3d_cy"];         [key addObject:@"__skimage_morphology__skeletonize_3d_cy"];
+    [name addObject:@"_convex_hull"];               [key addObject:@"__skimage_morphology__convex_hull"];
+    [name addObject:@"_greyreconstruct"];           [key addObject:@"__skimage_morphology__greyreconstruct"];
+    [name addObject:@"_skeletonize_cy"];            [key addObject:@"__skimage_morphology__skeletonize_cy"];
+    [name addObject:@"_watershed"];                 [key addObject:@"__skimage_morphology__watershed"];
+    [name addObject:@"_texture"];                   [key addObject:@"__skimage_feature__texture"];
+    [name addObject:@"orb_cy"];                     [key addObject:@"__skimage_feature_orb_cy"];
+    [name addObject:@"_hoghistogram"];              [key addObject:@"__skimage_feature__hoghistogram"];
+    [name addObject:@"brief_cy"];                   [key addObject:@"__skimage_feature_brief_cy"];
+    [name addObject:@"censure_cy"];                 [key addObject:@"__skimage_feature_censure_cy"];
+    [name addObject:@"_haar"];                      [key addObject:@"__skimage_feature__haar"];
+    [name addObject:@"_hessian_det_appx"];          [key addObject:@"__skimage_feature__hessian_det_appx"];
+    [name addObject:@"corner_cy"];                  [key addObject:@"__skimage_feature_corner_cy"];
+    [name addObject:@"tifffile._tifffile"];         [key addObject:@"__skimage_external_tifffile__tifffile"];
+    [name addObject:@"_warps_cy"];                  [key addObject:@"__skimage_transform__warps_cy"];
+    [name addObject:@"_hough_transform"];           [key addObject:@"__skimage_transform__hough_transform"];
+    [name addObject:@"_radon_transform"];           [key addObject:@"__skimage_transform__radon_transform"];
+    [name addObject:@"_seam_carving"];              [key addObject:@"__skimage_transform__seam_carving"];
+    [name addObject:@"_draw"];                      [key addObject:@"__skimage_draw__draw"];
+    [name addObject:@"_ncut_cy"];                   [key addObject:@"__skimage_future_graph__ncut_cy"];
+    
+    BandHandle(@"skimage", name, key, false);
+}
+
+// MARK: - Pywt
+
+void init_pywt() {
+    
+    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
+    
+    [name addObject:@"_cwt"];  [key addObject:@"__pywt__extensions__cwt"];
+    [name addObject:@"_pywt"]; [key addObject:@"__pywt__extensions__pywt"];
+    [name addObject:@"_swt"];  [key addObject:@"__pywt__extensions__swt"];
+    [name addObject:@"_dwt"];  [key addObject:@"__pyimportwt__extensions__dwt"];
+    
+    BandHandle(@"pywt", name, key, false);
+}
+
 #endif
 
 // MARK: - PIL
@@ -504,6 +576,8 @@ int initialize_python(int argc, char *argv[]) {
     init_lxml();
     init_scipy();
     init_sklearn();
+    init_skimage();
+    init_pywt();
     #endif
     init_pil();
     
