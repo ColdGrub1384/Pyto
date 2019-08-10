@@ -6,14 +6,16 @@ Pyto includes the following third party modules:
 Modules
 *******
 
-* `Bio`_
 * `bs4`_
 * `chardet`_
+* `cloudpickle`_
 * `colorama`_
+* `dask`_
 * `dateutil`_
 * `distlib`_
 * `idna`_
-* `lxml`_
+* `joblib`_
+* `networkx`_
 * `pip - stash`_
 * `progress`_
 * `py-filelock`_
@@ -25,19 +27,27 @@ Modules
 * `numpy`_
 * `pandas`_
 * `PIL`_
+* `pywt`_
 * `matplotlib`_
 * `kiwisolver`_
+* `sklearn`_
+* `skimage`_
+* `scipy`_
+* `lxml`_
+* `Bio`_
 * `rubicon-objc`_
 * `jedi`_
 
-.. _bio: https://biopython.org/wiki/Documentation
 .. _bs4: https://www.crummy.com/software/BeautifulSoup/bs4/doc/
 .. _chardet: https://chardet.readthedocs.io/en/latest/
+.. _cloudpickle: https://www.pydoc.io/pypi/cloudpickle-0.3.1/autoapi/cloudpickle/index.html
 .. _colorama: https://pypi.org/project/colorama/
+.. _dask: https://docs.dask.org/en/latest/
 .. _dateutil: https://dateutil.readthedocs.io/en/stable/
 .. _distlib: https://distlib.readthedocs.io/en/latest/
 .. _idna: https://pypi.org/project/idna/
-.. _lxml: https://lxml.de
+.. _joblib: https://joblib.readthedocs.io
+.. _networkx: https://networkx.github.io/documentation/stable/
 .. _pip - stash: https://github.com/ywangd/stash/blob/master/bin/pip.py
 .. _progress: https://pypi.org/project/progress/
 .. _py-filelock: https://filelock.readthedocs.io/en/latest/
@@ -49,8 +59,14 @@ Modules
 .. _numpy: https://docs.scipy.org/doc/numpy/
 .. _pandas: https://pandas.pydata.org/pandas-docs/stable/
 .. _PIL: https://pillow.readthedocs.io/en/stable/
+.. _pywt: https://pywavelets.readthedocs.io
 .. _matplotlib: https://matplotlib.org/users/index.html
 .. _kiwisolver: https://kiwisolver.readthedocs.io/en/latest/
+.. _sklearn: https://scikit-learn.org/stable/documentation.html
+.. _skimage: https://scikit-image.org/docs/stable/
+.. _scipy: https://docs.scipy.org/doc/scipy/reference/
+.. _bio: https://biopython.org/wiki/Documentation
+.. _lxml: https://lxml.de
 .. _rubicon-objc: https://rubicon-objc.readthedocs.io/en/latest/
 .. _jedi: https://jedi.readthedocs.io/en/latest/
 
@@ -70,21 +86,26 @@ Thanks to `Christian Clauss <https://github.com/cclauss>`_ and `goodclass <https
 * `Biopython <https://github.com/biopython/biopython>`__
 * `chardet <https://github.com/chardet/chardet>`__
 * `click <https://github.com/pallets/click>`__
+* `cloudpickle <https://github.com/cloudpipe/cloudpickle>`__
 * `colorama <https://github.com/tartley/colorama>`__
 * `Cpython <https://github.com/python/cpython>`__
 * `cycler <https://github.com/matplotlib/cycler>`__
+* `dask <https://github.com/dask/dask>`__
 * `dateutil <https://github.com/dateutil/dateutil>`__
 * `distlib <https://bitbucket.org/pypa/distlib>`__
 * `Down <https://github.com/iwasrobbed/Down>`__
+* `FileBrowser <https://github.com/marmelroy/FileBrowser>`__
 * `filelock <https://pypi.org/project/lockfile/>`__
 * `freetype <https://www.freetype.org>`__
 * `idna <https://github.com/kjd/idna>`__
 * `jedi <https://github.com/davidhalter/jedi>`__
+* `joblib <https://github.com/joblib/joblib>`__
 * `kiwisolver <https://github.com/nucleic/kiwi>`__
 * `lipjpeg <https://libjpeg.sourceforge.io>`__
 * `libpng <https://libpng.sourceforge.io>`__
 * `lxml <https://github.com/lxml/lxml>`__
 * `matplotlib <https://github.com/matplotlib/matplotlib>`__
+* `networkx <https://github.com/networkx/networkx>`__
 * `numpy <https://github.com/numpy/numpy>`__
 * `pandas <https://github.com/pandas-dev/pandas>`__
 * `parso <https://github.com/davidhalter/parso>`__
@@ -95,8 +116,12 @@ Thanks to `Christian Clauss <https://github.com/cclauss>`_ and `goodclass <https
 * `python-certifi <https://github.com/certifi/python-certifi>`__
 * `pytz <https://pythonhosted.org/pytz/>`__
 * `python-webencodings <https://github.com/gsnedders/python-webencodings>`__
+* `pywt <https://github.com/PyWavelets/pywt>`__
 * `requests <https://github.com/requests/requests>`__
 * `rubicon-objc <https://github.com/pybee/rubicon-objc>`__
+* `scipy <http://github.com/scipy/scipy>`__
+* `scikit-learn <http://github.com/scikit-learn/scikit-learn>`__
+* `scikit-image <http://github.com/scikit-image/scikit-image>`_
 * `six <https://github.com/benjaminp/six>`__
 * `soupsieve <https://github.com/facelessuser/soupsieve>`__
 * `Source Editor <https://github.com/ColdGrub1384/source-editor>`__
@@ -220,7 +245,6 @@ Thanks to `Christian Clauss <https://github.com/cclauss>`_ and `goodclass <https
 *Biopython*
 
 .. code-block::
-
     text
 
     Biopython is currently released under the "Biopython License Agreement" (given in full below). Unless stated otherwise in individual file headers, all Biopython's files are under the "Biopython License Agreement".
@@ -309,6 +333,43 @@ Thanks to `Christian Clauss <https://github.com/cclauss>`_ and `goodclass <https
            Copyright © 2001-2006 Gregory P. Ward. All rights reserved.
            Copyright © 2002-2006 Python Software Foundation. All rights reserved.
 
+*cloudpickle*
+
+.. code-block::
+   text
+   
+    This module was extracted from the `cloud` package, developed by
+    PiCloud, Inc.
+
+    Copyright (c) 2015, Cloudpickle contributors.
+    Copyright (c) 2012, Regents of the University of California.
+    Copyright (c) 2009 PiCloud, Inc. http://www.picloud.com.
+    All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions
+    are met:
+        * Redistributions of source code must retain the above copyright
+          notice, this list of conditions and the following disclaimer.
+        * Redistributions in binary form must reproduce the above copyright
+          notice, this list of conditions and the following disclaimer in the
+          documentation and/or other materials provided with the distribution.
+        * Neither the name of the University of California, Berkeley nor the
+          names of its contributors may be used to endorse or promote
+          products derived from this software without specific prior written
+          permission.
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+    "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+    A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+    HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+    SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+    TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+    PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+    LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 *colorama*
 
@@ -635,6 +696,39 @@ Thanks to `Christian Clauss <https://github.com/cclauss>`_ and `goodclass <https
            OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
            OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+*dask*
+
+.. code-block::
+   text
+   
+    Copyright (c) 2014-2018, Anaconda, Inc. and contributors
+    All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without modification,
+    are permitted provided that the following conditions are met:
+
+    Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+
+    Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+
+    Neither the name of Anaconda nor the names of any contributors may be used to
+    endorse or promote products derived from this software without specific prior
+    written permission.
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+    ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+    LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+    CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+    SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+    INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+    CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+    THE POSSIBILITY OF SUCH DAMAGE.
 
 *dateutil*
 
@@ -1210,6 +1304,32 @@ Thanks to `Christian Clauss <https://github.com/cclauss>`_ and `goodclass <https
                OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
                WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+*FileBrowser*
+
+.. code-block::
+   text
+   
+    The MIT License (MIT)
+
+    Copyright (c) 2016 Roy Marmelstein
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
 
 *freetype*
 
@@ -1303,6 +1423,79 @@ Thanks to `Christian Clauss <https://github.com/cclauss>`_ and `goodclass <https
            OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
            THE SOFTWARE.
 
+*joblib*
+
+.. code-block::
+   text
+   
+   BSD 3-Clause License
+
+   Copyright (c) 2008-2016, The joblib developers.
+   All rights reserved.
+
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions are met:
+
+   * Redistributions of source code must retain the above copyright notice, this
+     list of conditions and the following disclaimer.
+
+   * Redistributions in binary form must reproduce the above copyright notice,
+     this list of conditions and the following disclaimer in the documentation
+     and/or other materials provided with the distribution.
+
+   * Neither the name of the copyright holder nor the names of its
+     contributors may be used to endorse or promote products derived from
+     this software without specific prior written permission.
+
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+   DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+   FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+   DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+   SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+   CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+   OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+   
+*networkx*
+
+.. code-block::
+   text
+
+    Copyright (C) 2004-2019, NetworkX Developers
+    Aric Hagberg <hagberg@lanl.gov>
+    Dan Schult <dschult@colgate.edu>
+    Pieter Swart <swart@lanl.gov>
+    All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions are
+    met:
+
+      * Redistributions of source code must retain the above copyright
+        notice, this list of conditions and the following disclaimer.
+
+      * Redistributions in binary form must reproduce the above
+        copyright notice, this list of conditions and the following
+        disclaimer in the documentation and/or other materials provided
+        with the distribution.
+
+      * Neither the name of the NetworkX Developers nor the names of its
+        contributors may be used to endorse or promote products derived
+        from this software without specific prior written permission.
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+    "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+    A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+    OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+    SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+    LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+    DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+    THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+    (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+    OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 *kiwisolver*
 
@@ -1905,7 +2098,6 @@ Thanks to `Christian Clauss <https://github.com/cclauss>`_ and `goodclass <https
        agrees to be bound by the terms and conditions of this License
        Agreement.
 
-
 *Pillow*
 
 .. code-block:: text      
@@ -2022,6 +2214,35 @@ Thanks to `Christian Clauss <https://github.com/cclauss>`_ and `goodclass <https
            ***** END LICENSE BLOCK *****
            @(#) $RCSfile: certdata.txt,v $ $Revision: 1.80 $ $Date: 2011/11/03 15:11:58 $
 
+*pywt*
+
+.. code-block::
+   text
+   
+    Copyright (c) 2006-2012 Filip Wasilewski <http://en.ig.ma/>
+    Copyright (c) 2012-2019 The PyWavelets Developers <https://github.com/PyWavelets/pywt>
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy of
+    this software and associated documentation files (the "Software"), to deal in
+    the Software without restriction, including without limitation the rights to
+    use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+    of the Software, and to permit persons to whom the Software is furnished to do
+    so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+
+
+    The PyWavelets repository and source distributions bundle some code that is
+    adapted from compatibly licensed projects. We list these here.
 
 *pytz*
 
@@ -2150,6 +2371,198 @@ Thanks to `Christian Clauss <https://github.com/cclauss>`_ and `goodclass <https
            (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
            SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+*scipy*
+
+.. code-block::
+   text
+   
+    Copyright (c) 2001-2002 Enthought, Inc.  2003-2019, SciPy Developers.
+    All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions
+    are met:
+
+    1. Redistributions of source code must retain the above copyright
+       notice, this list of conditions and the following disclaimer.
+
+    2. Redistributions in binary form must reproduce the above
+       copyright notice, this list of conditions and the following
+       disclaimer in the documentation and/or other materials provided
+       with the distribution.
+
+    3. Neither the name of the copyright holder nor the names of its
+       contributors may be used to endorse or promote products derived
+       from this software without specific prior written permission.
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+    "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+    A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+    OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+    SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+    LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+    DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+    THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+    (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+    OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+*scikit-learn*
+
+.. code-block::
+   text
+   
+    New BSD License
+
+    Copyright (c) 2007–2019 The scikit-learn developers.
+    All rights reserved.
+
+
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions are met:
+
+      a. Redistributions of source code must retain the above copyright notice,
+         this list of conditions and the following disclaimer.
+      b. Redistributions in binary form must reproduce the above copyright
+         notice, this list of conditions and the following disclaimer in the
+         documentation and/or other materials provided with the distribution.
+      c. Neither the name of the Scikit-learn Developers  nor the names of
+         its contributors may be used to endorse or promote products
+         derived from this software without specific prior written
+         permission.
+
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+    ARE DISCLAIMED. IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE FOR
+    ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+    DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+    SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+    CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+    LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+    OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+    DAMAGE.
+   
+*scikit-image*
+
+.. code-block::
+   text
+   
+    Copyright (C) 2019, the scikit-image team
+    All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions are
+    met:
+
+     1. Redistributions of source code must retain the above copyright
+        notice, this list of conditions and the following disclaimer.
+     2. Redistributions in binary form must reproduce the above copyright
+        notice, this list of conditions and the following disclaimer in
+        the documentation and/or other materials provided with the
+        distribution.
+     3. Neither the name of skimage nor the names of its contributors may be
+        used to endorse or promote products derived from this software without
+        specific prior written permission.
+
+    THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+    IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+    DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT,
+    INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+    (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+    SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+    HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+    STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+    IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+    POSSIBILITY OF SUCH DAMAGE.
+
+    skimage/_shared/version_requirements.py:_check_version
+
+        Copyright (c) 2013 The IPython Development Team
+        All rights reserved.
+
+        Redistribution and use in source and binary forms, with or without
+        modification, are permitted provided that the following conditions are met:
+
+        * Redistributions of source code must retain the above copyright notice, this
+          list of conditions and the following disclaimer.
+
+        * Redistributions in binary form must reproduce the above copyright notice,
+          this list of conditions and the following disclaimer in the documentation
+          and/or other materials provided with the distribution.
+
+        * Neither the name of the copyright holder nor the names of its
+          contributors may be used to endorse or promote products derived from
+          this software without specific prior written permission.
+
+        THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+        AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+        IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+        DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+        FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+        DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+        SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+        CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+        OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+        OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+    skimage/_shared/version_requirements.py:is_installed:
+
+        Original Copyright (C) 2009-2011 Pierre Raybaut
+
+        Permission is hereby granted, free of charge, to any person obtaining
+        a copy of this software and associated documentation files (the
+        "Software"), to deal in the Software without restriction, including
+        without limitation the rights to use, copy, modify, merge, publish,
+        distribute, sublicense, and/or sell copies of the Software, and to
+        permit persons to whom the Software is furnished to do so, subject to
+        the following conditions:
+
+        The above copyright notice and this permission notice shall be
+        included in all copies or substantial portions of the Software.
+
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+        EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+        MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+        NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+        LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+        OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+        WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+    skimage/external/tifffile:
+
+        Copyright (c) 2008-2014, Christoph Gohlke
+        Copyright (c) 2008-2014, The Regents of the University of California
+        Produced at the Laboratory for Fluorescence Dynamics
+        All rights reserved.
+
+        Redistribution and use in source and binary forms, with or without
+        modification, are permitted provided that the following conditions are met:
+
+        * Redistributions of source code must retain the above copyright notice,
+          this list of conditions and the following disclaimer.
+
+        * Redistributions in binary form must reproduce the above copyright notice,
+          this list of conditions and the following disclaimer in the documentation
+          and/or other materials provided with the distribution.
+
+        * Neither the name of the copyright holder nor the names of its
+          contributors may be used to endorse or promote products derived from
+          this software without specific prior written permission.
+
+        THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+        AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+        IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+        ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+        LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+        CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+        SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+        INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+        CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+        ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+        POSSIBILITY OF SUCH DAMAGE.
 
 *six*
 
