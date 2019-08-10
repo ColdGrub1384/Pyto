@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FileBrowser
 
 /// A View controller for choosing from `REPL`, `PyPi` and `Settings` from an `UIDocumentBrowserViewController`.
 class MenuTableViewController: UITableViewController {
@@ -18,49 +19,57 @@ class MenuTableViewController: UITableViewController {
     
     /// Opens the REPL.
     func selectREPL() {
-        let presentingVC = presentingViewController
-        dismiss(animated: true) {
-            if let repl = self.storyboard?.instantiateViewController(withIdentifier: "repl") {
-                presentingVC?.present(repl, animated: true, completion: nil)
-            }
+        if let repl = self.storyboard?.instantiateViewController(withIdentifier: "repl") {
+            present(repl, animated: true, completion: nil)
         }
     }
     
     /// Opens PyPi.
     func selectPyPi() {
+        if let pypi = self.storyboard?.instantiateViewController(withIdentifier: "pypi") {
+            present(pypi, animated: true, completion: nil)
+        }
+    }
+    
+    /// Show samples..
+    func selectSamples() {
+        guard let samples = Bundle.main.url(forResource: "Samples", withExtension: nil) else {
+            return
+        }
+        
         let presentingVC = presentingViewController
-        dismiss(animated: true) {
-            if let pypi = self.storyboard?.instantiateViewController(withIdentifier: "pypi") {
-                presentingVC?.present(pypi, animated: true, completion: nil)
+        
+        let fileBrowser = FileBrowser(initialPath: samples, allowEditing: false, showCancelButton: true)
+        fileBrowser.didSelectFile = { file in
+            guard file.filePath.pathExtension.lowercased() == "py" else {
+                return
+            }
+            
+            fileBrowser.dismiss(animated: true) {
+                (presentingVC as? DocumentBrowserViewController)?.openDocument(file.filePath, run: false)
             }
         }
+        
+        present(fileBrowser, animated: true, completion: nil)
     }
     
     /// Shows loaded modules.
     func selectLoadedModules() {
-        
-        let presentingVC = presentingViewController
-        
+                
         func checkModules() {
             Python.shared.run(code: "import modules_inspector; modules_inspector.main()")
         }
         
-        dismiss(animated: true) {
-            presentingVC?.present(UINavigationController(rootViewController: ModulesTableViewController(style: .grouped)), animated: true, completion: nil)
-        }
+        present(UINavigationController(rootViewController: ModulesTableViewController(style: .grouped)), animated: true, completion: nil)
         
         checkModules()
     }
     
     /// Opens settings.
     func selectSettings() {
-        
-        let presentingVC = presentingViewController
-        
-        dismiss(animated: true) {
-            if let settings = UIStoryboard(name: "Settings", bundle: nil).instantiateInitialViewController() {
-                presentingVC?.present(settings, animated: true, completion: nil)
-            }
+                
+        if let settings = UIStoryboard(name: "Settings", bundle: nil).instantiateInitialViewController() {
+            present(settings, animated: true, completion: nil)
         }
     }
     
@@ -82,8 +91,10 @@ class MenuTableViewController: UITableViewController {
         case 2:
             image = UIImage(named: "pypi")
         case 3:
-            image = UIImage(systemName: "info.circle.fill")
+            image = UIImage(systemName: "book.fill")
         case 4:
+            image = UIImage(systemName: "info.circle.fill")
+        case 5:
             image = UIImage(systemName: "gear")
         default:
             break
@@ -100,8 +111,10 @@ class MenuTableViewController: UITableViewController {
         case 2:
             selectPyPi()
         case 3:
-            selectLoadedModules()
+            selectSamples()
         case 4:
+            selectLoadedModules()
+        case 5:
             selectSettings()
         default:
             break

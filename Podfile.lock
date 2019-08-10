@@ -1,5 +1,6 @@
 PODS:
   - Down (0.8.6)
+  - FileBrowser (1.0.0)
   - SavannaKit (0.9.0)
   - SourceEditor (1.0.1):
     - SavannaKit (~> 0.9)
@@ -8,6 +9,7 @@ PODS:
 
 DEPENDENCIES:
   - Down (from `https://github.com/ColdGrub1384/Down.git`)
+  - FileBrowser (from `https://github.com/ColdGrub1384/FileBrowser.git`)
   - SourceEditor (from `https://github.com/ColdGrub1384/source-editor.git`)
   - SplitKit (from `https://github.com/ColdGrub1384/SplitKit.git`)
   - Zip
@@ -20,6 +22,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Down:
     :git: https://github.com/ColdGrub1384/Down.git
+  FileBrowser:
+    :git: https://github.com/ColdGrub1384/FileBrowser.git
   SourceEditor:
     :git: https://github.com/ColdGrub1384/source-editor.git
   SplitKit:
@@ -29,6 +33,9 @@ CHECKOUT OPTIONS:
   Down:
     :commit: f4d8d3b87e8115fc1b5e6ad1152383ab31c4438a
     :git: https://github.com/ColdGrub1384/Down.git
+  FileBrowser:
+    :commit: f8c401b4ac9a2f41730927067bcce66a8ffb4289
+    :git: https://github.com/ColdGrub1384/FileBrowser.git
   SourceEditor:
     :commit: 7be90d45b01ff125986807bc187ba2d7f4e1f3aa
     :git: https://github.com/ColdGrub1384/source-editor.git
@@ -38,11 +45,12 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Down: 065ea594046e99ea02a0990a53ebf585e9a50a7b
+  FileBrowser: 42fe0e5dbb9602f13c6f7f742f4a4193b018eafd
   SavannaKit: 920c240bde011900df8156200a960dad3ee5edfd
   SourceEditor: 4d590385d642c812d08a91941a4bfc90eccf20af
   SplitKit: bf2dd8da644ba04a28acfad398723670541dffd9
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: c3fd4a96cf0528cd30b8caf2f9dd0c2ce9f834a7
+PODFILE CHECKSUM: 3aa3b96c0ef41b42f6ad1445266af123c1d6e826
 
 COCOAPODS: 1.7.5

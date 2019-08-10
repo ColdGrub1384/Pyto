@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14845" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xoe-vS-Tot">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14854.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xoe-vS-Tot">
+    <device id="retina4_7" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14799.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14806.4"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -51,7 +51,7 @@
                     <view key="view" contentMode="scaleToFill" id="Eri-vo-fav">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Ys3-1X-Lcl"/>
                     </view>
                     <navigationItem key="navigationItem" id="bgE-sN-JIb"/>
@@ -64,20 +64,15 @@
         <scene sceneID="ESx-2r-CT1">
             <objects>
                 <tableViewController id="K3r-ie-kuA" customClass="MenuTableViewController" customModule="Pyto" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="FGl-Ke-tCD">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="FGl-Ke-tCD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="FVe-ao-lKW">
-                            <rect key="frame" x="0.0" y="356" width="375" height="0.0"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </view>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <sections>
                             <tableViewSection id="LJ4-em-mMO">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="XKs-1g-aOa" imageView="UUG-lO-LjR" style="IBUITableViewCellStyleDefault" id="p8G-Tu-tyF">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="18" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="p8G-Tu-tyF" id="pmk-T5-vRz">
                                             <rect key="frame" x="0.0" y="0.0" width="347.5" height="60"/>
@@ -98,7 +93,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="CXh-gk-WUT" imageView="HWo-C8-I4F" style="IBUITableViewCellStyleDefault" id="iQn-u2-JAb">
-                                        <rect key="frame" x="0.0" y="88" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="78" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iQn-u2-JAb" id="4Kb-tz-c3n">
                                             <rect key="frame" x="0.0" y="0.0" width="347.5" height="60"/>
@@ -122,7 +117,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="aLz-Xa-9Ai" imageView="gGU-Bh-VEe" style="IBUITableViewCellStyleDefault" id="u89-eH-RRq">
-                                        <rect key="frame" x="0.0" y="148" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="138" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="u89-eH-RRq" id="nKN-5E-cA2">
                                             <rect key="frame" x="0.0" y="0.0" width="347.5" height="60"/>
@@ -142,8 +137,29 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="eHD-Sq-7U3" imageView="I2U-cQ-AZz" style="IBUITableViewCellStyleDefault" id="Jie-fS-5UK">
+                                        <rect key="frame" x="0.0" y="198" width="375" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Jie-fS-5UK" id="kkr-Zq-mLb">
+                                            <rect key="frame" x="0.0" y="0.0" width="347.5" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Samples" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eHD-Sq-7U3">
+                                                    <rect key="frame" x="16" y="0.0" width="323.5" height="60"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="I2U-cQ-AZz">
+                                                    <rect key="frame" x="20" y="16.666666666666668" width="30" height="26.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="0lV-pN-hwB" imageView="m6Q-C9-Kaq" style="IBUITableViewCellStyleDefault" id="rkx-D1-u0P">
-                                        <rect key="frame" x="0.0" y="208" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="258" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rkx-D1-u0P" id="iBD-CY-0tJ">
                                             <rect key="frame" x="0.0" y="0.0" width="347.5" height="60"/>
@@ -164,7 +180,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Nfb-Qi-luK" imageView="3SV-Fv-Gmw" style="IBUITableViewCellStyleDefault" id="cYO-3K-8Cz">
-                                        <rect key="frame" x="0.0" y="268" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="318" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cYO-3K-8Cz" id="5nZ-T8-Vb1">
                                             <rect key="frame" x="0.0" y="0.0" width="347.5" height="60"/>
@@ -192,7 +208,7 @@
                             <outlet property="delegate" destination="K3r-ie-kuA" id="uFf-eE-QsV"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Pyto" largeTitleDisplayMode="never" id="Xjl-lZ-MOj">
+                    <navigationItem key="navigationItem" title="Pyto" largeTitleDisplayMode="always" id="Xjl-lZ-MOj">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="xLR-Nk-YGz">
                             <connections>
                                 <action selector="close:" destination="K3r-ie-kuA" id="Q4K-mt-DE1"/>
@@ -251,7 +267,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" allowsBackForwardNavigationGestures="YES" translatesAutoresizingMaskIntoConstraints="NO" id="11F-HI-Wxm">
-                                <rect key="frame" x="0.0" y="44" width="375" height="574"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -270,16 +286,16 @@
                             <constraint firstAttribute="trailing" secondItem="11F-HI-Wxm" secondAttribute="trailing" id="ppQ-RI-gh4"/>
                             <constraint firstItem="azz-g4-wY4" firstAttribute="trailing" secondItem="11F-HI-Wxm" secondAttribute="trailing" id="roD-ql-a9l"/>
                             <constraint firstItem="11F-HI-Wxm" firstAttribute="bottom" secondItem="VpV-kh-C2E" secondAttribute="bottom" id="w2q-i6-o0p"/>
-                            <constraint firstItem="11F-HI-Wxm" firstAttribute="top" secondItem="VpV-kh-C2E" secondAttribute="top" id="wJf-3t-zh6"/>
+                            <constraint firstItem="11F-HI-Wxm" firstAttribute="top" secondItem="VpV-kh-C2E" secondAttribute="top" constant="-44" id="wJf-3t-zh6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VpV-kh-C2E"/>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="PyPi" id="lQc-LH-pgF">
                         <leftBarButtonItems>
-                            <barButtonItem image="Grid" id="109-oh-0e4">
+                            <barButtonItem style="done" systemItem="done" id="FJS-PO-zBZ">
                                 <connections>
-                                    <action selector="close:" destination="tj1-xG-qEl" id="wtI-nx-kNR"/>
+                                    <action selector="close:" destination="tj1-xG-qEl" id="cNS-bm-UJj"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem enabled="NO" title="Item" image="UIButtonBarArrowLeft_Normal" id="CO0-1A-MXa">
@@ -312,16 +328,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="46o-cq-d1I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2300" y="1041.8478260869565"/>
+            <point key="canvasLocation" x="2300" y="1041.2293853073463"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="x6l-rK-SCm">
             <objects>
                 <navigationController storyboardIdentifier="menu" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vaj-vN-fmR" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <value key="contentSizeForViewInPopover" type="size" width="300" height="350"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Cw4-7B-snx">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="Cw4-7B-snx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -353,7 +368,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Grid" width="32" height="32"/>
         <image name="UIButtonBarArrowLeft_Normal" width="10" height="18"/>
         <image name="UIButtonBarArrowRight_Normal" width="10" height="18"/>
         <image name="play" width="30" height="30"/>

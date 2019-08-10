@@ -77,7 +77,7 @@ import UIKit
         navigationItem.leftBarButtonItems = []
         navigationItem.rightBarButtonItems = []
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(setCurrentDirectory))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: EditorSplitViewController.gridImage, style: .plain, target: self, action: #selector(goToFileBrowser))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(goToFileBrowser))
         navigationController?.isToolbarHidden = true
         title = Localizable.repl
         

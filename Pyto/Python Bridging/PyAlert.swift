@@ -66,10 +66,13 @@ import UIKit
                     break
                 }
             }
+            if ConsoleViewController.visibles.count == 0 {
+                self.response = ""
+            }
             #endif
         }
         while response == nil {
-            sleep(UInt32(0.1))
+            sleep(UInt32(0.2))
         }
         return response!
     }
