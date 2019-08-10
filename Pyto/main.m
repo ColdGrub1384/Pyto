@@ -68,10 +68,25 @@ void BandHandle(NSString *fkTitle, NSArray *nameArray, NSArray *keyArray, bool s
             
             if ([name isEqualToString:[nameArray objectAtIndex:i]]){
                 void *dllHandle = NULL; load(dllHandle);
+                
+                if (!dllHandle) {
+                    fprintf(stderr, "%s\n", dlerror());
+                }
+                
+                NSString *funcName = [nameArray objectAtIndex:i];
+                
+                void *func = dlsym(dllHandle, [NSString stringWithFormat:@"PyInit_%@", funcName].UTF8String);
+                
+                if (!func) {
+                    NSMutableArray *comp = [NSMutableArray arrayWithArray:[funcName componentsSeparatedByString:@"_"]];
+                    [comp removeObjectAtIndex:0];
+                    func = dlsym(dllHandle, [NSString stringWithFormat:@"PyInit__%@", [comp componentsJoinedByString:@"_"]].UTF8String);
+                }
+                
                 if (!handle) {
                     fprintf(stderr, "%s\n", dlerror());
                 } else {
-                    PyImport_AppendInittab(fkey.UTF8String, dlsym(dllHandle, [NSString stringWithFormat:@"PyInit_%@",[nameArray objectAtIndex:i]].UTF8String));
+                    PyImport_AppendInittab(fkey.UTF8String, func);
                 }
                 break;
             }
@@ -416,10 +431,11 @@ void init_sklearn() {
     [name addObject:@"_tree"];                     [key addObject:@"__sklearn_tree__tree"];
     [name addObject:@"_criterion"];                [key addObject:@"__sklearn_tree__criterion"];
     [name addObject:@"_splitter"];                 [key addObject:@"__sklearn_tree__splitter"];
-    [name addObject:@"_tree_utils"];               [key addObject:@"__sklearn_tree__utils"];
+    [name addObject:@"tree_utils"];                [key addObject:@"__sklearn_tree__utils"];
     [name addObject:@"expected_mutual_info_fast"]; [key addObject:@"__sklearn_metrics_cluster_expected_mutual_info_fast"];
     [name addObject:@"pairwise_fast"];             [key addObject:@"__sklearn_metrics_pairwise_fast"];
     [name addObject:@"_gradient_boosting"];        [key addObject:@"__sklearn_ensemble__gradient_boosting"];
+    [name addObject:@"_hist_gradient_boosting"];   [key addObject:@"__sklearn_ensemble__hist_gradient_boosting__gradient_boosting"];
     [name addObject:@"_k_means"];                  [key addObject:@"__sklearn_cluster__k_means"];
     [name addObject:@"_hierarchical"];             [key addObject:@"__sklearn_cluster__hierarchical"];
     [name addObject:@"_dbscan_inner"];             [key addObject:@"__sklearn_cluster__dbscan_inner"];
@@ -440,12 +456,13 @@ void init_sklearn() {
     [name addObject:@"seq_dataset"];               [key addObject:@"__sklearn_utils_seq_dataset"];
     [name addObject:@"lgamma"];                    [key addObject:@"__sklearn_utils_lgamma"];
     [name addObject:@"_random"];                   [key addObject:@"__sklearn_utils__random"];
+    [name addObject:@"_cython_blas"];              [key addObject:@"__sklearn_utils__cython_blas"];
     [name addObject:@"_isotonic"];                 [key addObject:@"__sklearn__isotonic"];
     [name addObject:@"libsvm"];                    [key addObject:@"__sklearn_svm_libsvm"];
     [name addObject:@"liblinear"];                 [key addObject:@"__sklearn_svm_liblinear"];
     [name addObject:@"libsvm_sparse"];             [key addObject:@"__sklearn_svm_libsvm_sparse"];
     [name addObject:@"_barnes_hut_tsne"];          [key addObject:@"__sklearn_manifold__barnes_hut_tsne"];
-    [name addObject:@"_manifold_utils"];           [key addObject:@"__sklearn_manifold__utils"];
+    [name addObject:@"manifold_utils"];            [key addObject:@"__sklearn_manifold__utils"];
     [name addObject:@"cdnmf_fast"];                [key addObject:@"__sklearn_decomposition_cdnmf_fast"];
     [name addObject:@"_online_lda"];               [key addObject:@"__sklearn_decomposition__online_lda"];
     [name addObject:@"quad_tree"];                 [key addObject:@"__sklearn_neighbors_quad_tree"];
@@ -453,8 +470,12 @@ void init_sklearn() {
     [name addObject:@"ball_tree"];                 [key addObject:@"__sklearn_neighbors_ball_tree"];
     [name addObject:@"dist_metrics"];              [key addObject:@"__sklearn_neighbors_dist_metrics"];
     [name addObject:@"kd_tree"];                   [key addObject:@"__sklearn_neighbors_kd_tree"];
+    [name addObject:@"_csr_polynomial_expansion"]; [key addObject:@"__sklearn_preprocessing__csr_polynomial_expansion"];
+    [name addObject:@"types"];                     [key addObject:@"__sklearn_ensemble__hist_gradient_boosting_types"];
     
     BandHandle(@"sklearn", name, key, false);
+    
+    putenv((char *)[NSString stringWithFormat:@"SCIKIT_LEARN_DATA=%@", [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask].firstObject.path].UTF8String);
 }
 
 // MARK: - SKImage
@@ -511,6 +532,10 @@ void init_skimage() {
     [name addObject:@"_seam_carving"];              [key addObject:@"__skimage_transform__seam_carving"];
     [name addObject:@"_draw"];                      [key addObject:@"__skimage_draw__draw"];
     [name addObject:@"_ncut_cy"];                   [key addObject:@"__skimage_future_graph__ncut_cy"];
+    [name addObject:@"_multiotsu"];                 [key addObject:@"__skimage_filters__multiotsu"];
+    [name addObject:@"_flood_fill_cy"];             [key addObject:@"__skimage_morphology__flood_fill_cy"];
+    [name addObject:@"_max_tree"];                  [key addObject:@"__skimage_morphology__max_tree"];
+    [name addObject:@"_cascade"];                   [key addObject:@"__skimage_feature__cascade"];
     
     BandHandle(@"skimage", name, key, false);
 }
@@ -524,7 +549,7 @@ void init_pywt() {
     [name addObject:@"_cwt"];  [key addObject:@"__pywt__extensions__cwt"];
     [name addObject:@"_pywt"]; [key addObject:@"__pywt__extensions__pywt"];
     [name addObject:@"_swt"];  [key addObject:@"__pywt__extensions__swt"];
-    [name addObject:@"_dwt"];  [key addObject:@"__pyimportwt__extensions__dwt"];
+    [name addObject:@"_dwt"];  [key addObject:@"__pywt__extensions__dwt"];
     
     BandHandle(@"pywt", name, key, false);
 }
@@ -549,23 +574,6 @@ void init_pil() {
 
 #if MAIN || WIDGET
 int initialize_python(int argc, char *argv[]) {
-    NSBundle *macPythonBundle = [NSBundle bundleWithPath:[NSBundle.mainBundle pathForResource:@"Python3" ofType:@"framework"]];
-    NSBundle *_scproxy_bundle = [NSBundle bundleWithPath:[NSBundle.mainBundle pathForResource:@"_scproxy" ofType:@"framework"]];
-    if (macPythonBundle) {
-        void *handle = dlopen([macPythonBundle pathForResource:@"Versions/A/Python3_Mac" ofType:NULL].UTF8String, RTLD_GLOBAL);
-        if (!handle) {
-            fprintf(stderr, "%s\n", dlerror());
-        }
-    }
-    if (_scproxy_bundle) {
-        void *handle = dlopen([_scproxy_bundle pathForResource:@"Versions/A/_scproxy.cpython-37m-darwin.so" ofType:NULL].UTF8String, RTLD_GLOBAL);
-        
-        if (!handle) {
-            fprintf(stderr, "%s\n", dlerror());
-        }
-        
-        PyImport_AppendInittab("_scproxy", dlsym(handle, "PyInit__scproxy"));
-    }
     
     // MARK: - Init builtins
     #if MAIN

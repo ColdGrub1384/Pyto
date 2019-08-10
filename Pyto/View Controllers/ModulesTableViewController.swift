@@ -60,7 +60,7 @@ import UIKit
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: EditorSplitViewController.gridImage, style: .plain, target: self, action: #selector(close))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
     }
     
     override func viewWillAppear(_ animated: Bool) {

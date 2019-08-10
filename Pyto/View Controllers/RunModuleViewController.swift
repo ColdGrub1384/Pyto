@@ -32,6 +32,8 @@ import UIKit
     
     private static let console = ConsoleViewController()
     
+    private var viewAppeared = false
+    
     // MARK: - Editor split view controller
     
     override var keyCommands: [UIKeyCommand]? {
@@ -53,7 +55,6 @@ import UIKit
         super.viewDidLoad()
         
         arrangement = .horizontal
-        edgesForExtendedLayout = []
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,7 +62,7 @@ import UIKit
         
         navigationItem.leftBarButtonItems = []
         navigationItem.rightBarButtonItems = []
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: EditorSplitViewController.gridImage, style: .plain, target: self, action: #selector(RunModuleViewController.goToFileBrowser))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(goToFileBrowser))
         navigationController?.isToolbarHidden = true
         title = Localizable.repl
         
@@ -74,6 +75,12 @@ import UIKit
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        guard !viewAppeared else {
+            return
+        }
+        
+        viewAppeared = true
         
         editor.run()
     }

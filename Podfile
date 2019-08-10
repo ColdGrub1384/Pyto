@@ -13,6 +13,7 @@ target 'Pyto' do
   pod 'SourceEditor', :git => 'https://github.com/ColdGrub1384/source-editor.git'
   pod 'Zip'
   pod 'Down', :git => 'https://github.com/ColdGrub1384/Down.git'
+  pod 'FileBrowser', :git => 'https://github.com/ColdGrub1384/FileBrowser.git'
 end
 
 # post install
