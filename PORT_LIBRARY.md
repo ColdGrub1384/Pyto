@@ -66,21 +66,7 @@ When the extension compiled, see the content of the `build/lib[..]`. You should 
 Now, if you have many `.so` files, this will be hard. `.so` files cannot be directly embedded on the app bundle because the App Store will automatically reject that.
 We have to make frameworks from those binaries.
 
-`cd` into the Pyto repo and create a folder named as the library you compiled with a capital. Then, create a `.framework` folder with an `Info.plist` inside it for each `.so` file you have. 
-
-    $ cd Pyto
-    $ mkdir NumPy
-    $ cd NumPy
-    $ mkdir _umath_linalg.framework fftpack_lite.framework lapack_lite.framework mtrand.framework _multiarray_umath.framework
-    $ for FRAMEWORK in *.framework
-    do
-    touch $FRAMEWORK/Info.plist
-    done
-    $
-    
-Also, create an `Info.plist` file inside the folder containing frameworks. The content can be anything. It's just for the Xcode project.
-
-    $ touch Info.plist
+Make a framework for each `.so` file.
     
 Now, copy every `.so` file into its corresponding framework.
     
@@ -121,11 +107,7 @@ NOTE: Here, by library name, I mean the name of the `.so` file and not the entir
 
 Replace `[FILE NAME]` by the `.so` contained on the framework file name (include the extension), replace `[BUNDLE NAME]` by the name of the library, without extensions. And replace `[BUNDLE IDENTIFIER]` by the bundle identifier. For example: "com.yourcompany.libraryname". It cannot contain underscores.
 
-Add the folder you created to the Xcode project (as group and NOT folder reference!). Then, add each `Info.plist` file contained in frameworks on the just created group. Make sure to UNCHECK "Copy Items if Needed" .
-
-Then, select Xcode project on sidebar and select "Pyto" target. Go to Build Phases and add all frameworks you added on "Embed Frameworks" if they are not already added.
-
-For each framework, add a Copy Files Phase. Set "Frameworks" as destination. Drag a `.so` file and the corresponding `Info.plist`. Type the corresponding framework file name with extension on "Subpath". Make sure "Code Sign On Copy" is checked for the `.so` file.
+Now you can embed the frameworks, without linking.
 
 Run on device to check it works.
 
