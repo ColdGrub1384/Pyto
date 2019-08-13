@@ -474,11 +474,6 @@ import UIKit
         (view as? PyView)?.isPresented = true
         
         DispatchQueue.main.async {
-            
-            for visibile in self.visibles {
-                (visibile.presentedViewController as? NavigationController)?.dismiss(animated: true, completion: nil)
-            }
-            
             let vc = self.viewController((view as? PyView) ?? PyView(managed: view as! UIView), forConsoleWithPath: path)
             self.showViewController(vc, scriptPath: path, completion: nil)
         }
@@ -498,10 +493,10 @@ import UIKit
         #else
         for console in visibles {
             if scriptPath == nil {
-                console.present(viewController, animated: true, completion: completion)
+                console.view.window?.topViewController?.present(viewController, animated: true, completion: completion)
                 break
             } else if console.editorSplitViewController?.editor.document?.fileURL.path == scriptPath {
-                console.present(viewController, animated: true, completion: completion)
+                console.view.window?.topViewController?.present(viewController, animated: true, completion: completion)
             }
         }
         #endif
