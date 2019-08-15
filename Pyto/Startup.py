@@ -124,7 +124,7 @@ webbrowser.register("mobile-safari", None, MobileSafari("MobileSafari.app"))
 
 # MARK: - Modules
 
-for importer in (NumpyImporter, MatplotlibImporter, PandasImporter, PillowImporter, BiopythonImporter, LXMLImporter, ScipyImporter, SkLearnImporter, SkImageImporter, PywtImporter):
+for importer in (NumpyImporter, MatplotlibImporter, PandasImporter, PillowImporter, BiopythonImporter, LXMLImporter, ScipyImporter, SkLearnImporter, SkImageImporter, PywtImporter, OpenCvImporter):
     sys.meta_path.insert(0, importer())
 
 # MARK: - Pre-import modules
@@ -155,7 +155,7 @@ def importModules():
 
 
     try:
-        import matplotlib, numpy, pandas, scipy, sklearn, skimage
+        import matplotlib, numpy, pandas, scipy, sklearn, skimage, cv2
     except:
         pass
 
