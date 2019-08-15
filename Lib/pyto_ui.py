@@ -945,7 +945,7 @@ class Color:
         # Dynamic
         background = ui.Color.dynamic(light=white, dark=black)
         
-    For pre-defined colors, see `Color <constants#ui-elements-colors>`_ constants.
+    For pre-defined colors, see `Color <constants.html#ui-elements-colors>`_ constants.
     """
     
     __py_color__ = None
@@ -1285,7 +1285,7 @@ class Font:
         """
         Returns an instance of the system font for the specified text style and scaled appropriately for the user's selected content size category.
         
-        :param style: The text style for which to return a font. See `Font Text Style <constants#font-text-style>`_ constants for possible values.
+        :param style: The text style for which to return a font. See `Font Text Style <constants.html#font-text-style>`_ constants for possible values.
         
         :rtype: Font
         """
@@ -1300,7 +1300,7 @@ class GestureRecognizer:
     """
     A gesture-recognizer object—or, simply, a gesture recognizer—decouples the logic for recognizing a sequence of touches (or other input) and acting on that recognition. When one of these objects recognizes a common gesture or, in some cases, a change in the gesture, it sends an action message to each designated target object.
     
-    This class represents the type of gesture passed to the ``type`` initializer parameter. See `Gesture Type <constants#gesture-type>`_ constants for possible values.
+    This class represents the type of gesture passed to the ``type`` initializer parameter. See `Gesture Type <constants.html#gesture-type>`_ constants for possible values.
     When the gesture is starting, cancelling or changig, ``action`` is called with the gesture recognizer as parameter. You can then access the location and the state from it.
     
     Example:
@@ -1450,7 +1450,7 @@ class GestureRecognizer:
         """
         (Read Only) The current state of the gesture recognizer.
         
-        :rtype: `Gesture State <constants#gesture-state>`_
+        :rtype: `Gesture State <constants.html#gesture-state>`_
         """
         
         if self.__state__ is not None:
@@ -1520,7 +1520,7 @@ class GestureRecognizer:
         """
         An array of touch types used to distinguish type of touches. For possible values, see ``Touch Type`` constants.
         
-        :rtype: List[\ `Touch Type <constants#touch-type>`_\ ]
+        :rtype: List[\ `Touch Type <constants.html#touch-type>`_\ ]
         """
         return self.__py_gesture__.allowedTouchTypes
     
@@ -1798,9 +1798,9 @@ class ButtonItem:
     @property
     def style(self) -> BUTTON_ITEM_STYLE:
         """
-        The button item style. See `Button Item Style <constants#button-item-style>`_ constants for possible values.
+        The button item style. See `Button Item Style <constants.html#button-item-style>`_ constants for possible values.
         
-        :rtype: `Button Item Style <constants#button-item-style>`_
+        :rtype: `Button Item Style <constants.html#button-item-style>`_
         """
         return self.__py_item__.style
 
@@ -2158,9 +2158,9 @@ class View:
     @property
     def flex(self) -> List[AUTO_RESIZING]:
         """
-        A list that determines how the receiver resizes itself when its superview’s bounds change. See `Auto Resizing <constants#auto-resizing>`_ constants for possible values.
+        A list that determines how the receiver resizes itself when its superview’s bounds change. See `Auto Resizing <constants.html#auto-resizing>`_ constants for possible values.
         
-        :rtype: List[`Auto Resizing <constants#auto-resizing>`_]
+        :rtype: List[`Auto Resizing <constants.html#auto-resizing>`_]
         """
         
         a = []
@@ -2402,9 +2402,9 @@ class View:
     def content_mode(self) -> CONTENT_MODE:
         """
         A flag used to determine how a view lays out its content when its bounds change.
-        See `Content Mode` <constants#content-mode>`_ constants for possible values.
+        See `Content Mode` <constants.html#content-mode>`_ constants for possible values.
         
-        :rtype: `Content Mode` <constants#content-mode>`_
+        :rtype: `Content Mode` <constants.html#content-mode>`_
         """
         
         return self.__py_view__.contentMode
@@ -2418,9 +2418,9 @@ class View:
     def appearance(self) -> APPEARANCE:
         """
         The appearance of the view.
-        See `Appearance <constants#appearance>`_ constants for possible values.
+        See `Appearance <constants.html#appearance>`_ constants for possible values.
         
-        :rtype: `Appearance <constants#appearance>`_
+        :rtype: `Appearance <constants.html#appearance>`_
         """
         
         return self.__py_view__.appearance
@@ -2732,9 +2732,9 @@ class Label(View):
     @property
     def text_alignment(self) -> TEXT_ALIGNMENT:
         """
-        The text's alignment. For possible values, see `Text Alignment <constants#text-alignment>`_ constants.
+        The text's alignment. For possible values, see `Text Alignment <constants.html#text-alignment>`_ constants.
         
-        :rtype: `Text Alignment <constants#text-alignment>`_
+        :rtype: `Text Alignment <constants.html#text-alignment>`_
         """
         
         return self.__py_view__.textAlignment
@@ -2749,7 +2749,7 @@ class Label(View):
         """
         The line break mode.
         
-        :rtype: `Line Break Mode <constants#line-break-mode>`_
+        :rtype: `Line Break Mode <constants.html#line-break-mode>`_
         """
         
         return self.__py_view__.lineBreakMode
@@ -2803,7 +2803,7 @@ class TableViewCell(View):
     A cell contained in a :class:`~pyto_ui.TableView`.
     Can have a title, a subtitle, an image and an accessory view.
     
-    For a list of supported style, see `Table View Cell Style <constants#table-view-cell-style>`_ constants.
+    For a list of supported style, see `Table View Cell Style <constants.html#table-view-cell-style>`_ constants.
     """
     
     def __init__(self, style: TABLE_VIEW_STYLE = __v__("TABLE_VIEW_CELL_STYLE_DEFAULT")):
@@ -2860,7 +2860,7 @@ class TableViewCell(View):
     @property
     def image_view(self) -> ImageView:
         """
-        (Read Only) The view containing an image. May return ``None`` for some `Table View Cell Style <constants#table-view-cell-style>`_ values.
+        (Read Only) The view containing an image. May return ``None`` for some `Table View Cell Style <constants.html#table-view-cell-style>`_ values.
         
         :rtype: Image View
         """
@@ -2894,7 +2894,7 @@ class TableViewCell(View):
     @property
     def detail_text_label(self) -> Label:
         """
-        (Read Only) The label containing secondary text. May return ``None`` for some `Table View Cell Style <constants#table-view-cell-style>`_ values.
+        (Read Only) The label containing secondary text. May return ``None`` for some `Table View Cell Style <constants.html#table-view-cell-style>`_ values.
         
         :rtype: Label
         """
@@ -2911,9 +2911,9 @@ class TableViewCell(View):
     @property
     def accessory_type(self) -> ACCESSORY_TYPE:
         """
-        The type of accessory view placed to the right of the cell. See `Accessory Type <constants#accessory_type>`_ constants for possible values.
+        The type of accessory view placed to the right of the cell. See `Accessory Type <constants.html#accessory_type>`_ constants for possible values.
         
-        :rtype: `Accessory Type <constants#accessory_type>`_.
+        :rtype: `Accessory Type <constants.html#accessory_type>`_.
         """
         
         return self.__py_view__.accessoryType
@@ -2926,7 +2926,7 @@ class TableView(View):
     """
     A view containing a list of cells.
     
-    A Table View has a list of :class:`TableViewSection` objects that represent groups of cells. A Table View has two possible styles. See `Table View Style <constants#table-view-style>`_.
+    A Table View has a list of :class:`TableViewSection` objects that represent groups of cells. A Table View has two possible styles. See `Table View Style <constants.html#table-view-style>`_.
     """
     
     def __init__(self, style: TABLE_VIEW_STYLE = __v__("TABLE_VIEW_STYLE_PLAIN"), sections: List[TableViewSection] = []):
@@ -3155,9 +3155,9 @@ class TextView(View):
     @property
     def text_alignment(self) -> TEXT_ALIGNMENT:
         """
-        The alignment of the text displayed on screen. See `Text Alignment <constants#text-alignment>`_ constants for possible values.
+        The alignment of the text displayed on screen. See `Text Alignment <constants.html#text-alignment>`_ constants for possible values.
         
-        :rtype: `Text Alignment <constants#text-alignment>`_
+        :rtype: `Text Alignment <constants.html#text-alignment>`_
         """
         
         return self.__py_view__.textAlignment
@@ -3200,9 +3200,9 @@ class TextView(View):
     @property
     def keyboard_type(self) -> KEYBOARD_TYPE:
         """
-        The type of keyboard to use while editing the text. See `Keyboard Type <constants#keyboard-type>`_ constants for possible values.
+        The type of keyboard to use while editing the text. See `Keyboard Type <constants.html#keyboard-type>`_ constants for possible values.
         
-        :rtype: `Keyboard Type <constants#keyboard-type>`_
+        :rtype: `Keyboard Type <constants.html#keyboard-type>`_
         """
         
         return self.__py_view__.keyboardType
@@ -3215,9 +3215,9 @@ class TextView(View):
     @property
     def autocapitalization_type(self) -> AUTO_CAPITALIZE:
         """
-        The type of autocapitalization to use while editing th text. See `Auto Capitalization <constants#auto-capitalization>`_ constants for possible values.
+        The type of autocapitalization to use while editing th text. See `Auto Capitalization <constants.html#auto-capitalization>`_ constants for possible values.
         
-        :rtype: `Auto Capitalization <constants#auto-capitalization>`_
+        :rtype: `Auto Capitalization <constants.html#auto-capitalization>`_
         """
         
         return self.__py_view__.autocapitalizationType
@@ -3245,9 +3245,9 @@ class TextView(View):
     @property
     def keyboard_appearance(self) -> KEYBOARD_APPEARANCE:
         """
-        The appearance of the keyboard used while editing the text. See `Keyboard Appearance <constants#keyboard-appearance>`_ constants for possible values.
+        The appearance of the keyboard used while editing the text. See `Keyboard Appearance <constants.html#keyboard-appearance>`_ constants for possible values.
         
-        :rtype: `Keyboard Appearance <constants#keyboard-appearance>`_
+        :rtype: `Keyboard Appearance <constants.html#keyboard-appearance>`_
         """
         
         return self.__py_view__.keyboardAppearance
@@ -3260,9 +3260,9 @@ class TextView(View):
     @property
     def return_key_type(self) -> RETURN_KEY_TYPE:
         """
-        The type of return key to show on the keyboard used to edit the text. See `Return Key Type <constants#return-key-type>`_ constants for possible values.
+        The type of return key to show on the keyboard used to edit the text. See `Return Key Type <constants.html#return-key-type>`_ constants for possible values.
         
-        :rtype: `Return Key Type <constants#return-key-type>`_
+        :rtype: `Return Key Type <constants.html#return-key-type>`_
         """
         
         return self.__py_view__.returnKeyType
@@ -3514,9 +3514,9 @@ class Control(View):
     @property
     def horizontal_alignment(self) -> HORZONTAL_ALIGNMENT:
         """
-        The horizontal alignment of the view's contents. See `Horizontal Alignment <constants#horizontal-alignment>`_ constants for possible values.
+        The horizontal alignment of the view's contents. See `Horizontal Alignment <constants.html#horizontal-alignment>`_ constants for possible values.
         
-        :rtype: `Horizontal Alignment <constants#horizontal-alignment>`_
+        :rtype: `Horizontal Alignment <constants.html#horizontal-alignment>`_
         """
         
         return self.__py_view__.contentHorizontalAlignment
@@ -3529,9 +3529,9 @@ class Control(View):
     @property
     def vertical_alignment(self) -> VERTICAL_ALIGNMENT:
         """
-        The vertical alignment of the view's contents. See `Vertical Alignemnt <constants#vertical-alignment>`_ constants for possible values.
+        The vertical alignment of the view's contents. See `Vertical Alignemnt <constants.html#vertical-alignment>`_ constants for possible values.
         
-        :rtype: `Vertical Alignment <constants#vertical-alignment>`_
+        :rtype: `Vertical Alignment <constants.html#vertical-alignment>`_
         """
         
         return self.__py_view__.contentVerticalAlignment
@@ -3825,7 +3825,7 @@ class Button(Control):
     A control that executes your custom code in response to user interactions.
     To add an action, set :data:`~pyto_ui.Control.action`\ .
     
-    For types of buttons, see `Button Type <constants#button-type>`_ constants.
+    For types of buttons, see `Button Type <constants.html#button-type>`_ constants.
     """
     
     def __init__(self, type: BUTTON_TYPE = __v__("BUTTON_TYPE_SYSTEM"), title: str = "", image: Image.Image = None):
@@ -4071,9 +4071,9 @@ class TextField(Control):
     @property
     def text_alignment(self) -> TEXT_ALIGNMENT:
         """
-        The alignment of the text displayed on screen. See `Text Alignment <constants#text-alignment>`_ constants for possible values.
+        The alignment of the text displayed on screen. See `Text Alignment <constants.html#text-alignment>`_ constants for possible values.
         
-        :rtype: `Text Alignment <constants#text-alignment>`_
+        :rtype: `Text Alignment <constants.html#text-alignment>`_
         """
         
         return self.__py_view__.textAlignment
@@ -4116,9 +4116,9 @@ class TextField(Control):
     @property
     def keyboard_type(self) -> KEYBOARD_TYPE:
         """
-        The type of keyboard to use while editing the text. See `Keyboard Type <constants#keyboard-type>`_ constants for possible values.
+        The type of keyboard to use while editing the text. See `Keyboard Type <constants.html#keyboard-type>`_ constants for possible values.
         
-        :rtype: `Keyboard Type <constants#keyboard-type>`_
+        :rtype: `Keyboard Type <constants.html#keyboard-type>`_
         """
         
         return self.__py_view__.keyboardType
@@ -4131,9 +4131,9 @@ class TextField(Control):
     @property
     def autocapitalization_type(self) -> AUTO_CAPITALIZE:
         """
-        The type of autocapitalization to use while editing th text. See `Auto Capitalization <constants#auto-capitalization>`_ constants for possible values.
+        The type of autocapitalization to use while editing th text. See `Auto Capitalization <constants.html#auto-capitalization>`_ constants for possible values.
         
-        :rtype: `Auto Capitalization <constants#auto-capitalization>`_
+        :rtype: `Auto Capitalization <constants.html#auto-capitalization>`_
         """
         
         return self.__py_view__.autocapitalizationType
@@ -4161,9 +4161,9 @@ class TextField(Control):
     @property
     def keyboard_appearance(self) -> KEYBOARD_APPEARANCE:
         """
-        The appearance of the keyboard used while editing the text. See `Keyboard Appearance <constants#keyboard-appearance>`_ constants for possible values.
+        The appearance of the keyboard used while editing the text. See `Keyboard Appearance <constants.html#keyboard-appearance>`_ constants for possible values.
         
-        :rtype: `Keyboard Appearance <constants#keyboard-appearance>`_
+        :rtype: `Keyboard Appearance <constants.html#keyboard-appearance>`_
         """
         
         return self.__py_view__.keyboardAppearance
@@ -4176,9 +4176,9 @@ class TextField(Control):
     @property
     def return_key_type(self) -> RETURN_KEY_TYPE:
         """
-        The type of return key to show on the keyboard used to edit the text. See `Return Key Type <constants#return-key-type>`_ constants for possible values.
+        The type of return key to show on the keyboard used to edit the text. See `Return Key Type <constants.html#return-key-type>`_ constants for possible values.
         
-        :rtype: `Return Key Type <constants#return-key-type>`_
+        :rtype: `Return Key Type <constants.html#return-key-type>`_
         """
         
         return self.__py_view__.returnKeyType
@@ -4269,7 +4269,7 @@ def show_view(view: View, mode: PRESENTATION_MODE):
     This function doesn't return until the view is closed. You can use another thread to perform background tasks and modify the UI after it's presented.
     
     :param view: The :class:`~pyto_ui.View` object to present.
-    :param mode: The presentation mode to use. The value will be ignored on a widget. See `Presentation Mode <constants#presentation-mode>`_ constants for possible values.
+    :param mode: The presentation mode to use. The value will be ignored on a widget. See `Presentation Mode <constants.html#presentation-mode>`_ constants for possible values.
     """
     
     view.__py_view__.presentationMode = mode
