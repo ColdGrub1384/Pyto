@@ -94,7 +94,7 @@ class FilePicker:
 
     @staticmethod
     def new():
-        return __FilePicker__()
+        return FilePicker()
 
 def pick_documents(filePicker: FilePicker):
     """
