@@ -3321,7 +3321,7 @@ class WebView(View):
             if result.startswith("_VALULE_:"):
                 return result.replace("_VALULE_:", "", 1)
             elif result.endswith("_ERROR_:"):
-                raise JavaScriptException(result.replace("_ERROR_:", "", 1))
+                raise self.__class__.JavaScriptException(result.replace("_ERROR_:", "", 1))
             
     def load_url(self, url: str):
         """
