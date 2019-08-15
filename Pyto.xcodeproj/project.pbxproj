@@ -165,6 +165,7 @@
 		C95A9DBD22542C4400B90E42 /* MovableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A33B0E224FCDA00083F041 /* MovableTextField.swift */; };
 		C95A9DC022542C7700B90E42 /* TextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9A33B12224FCDAD0083F041 /* TextField.xib */; };
 		C95AECB82208A688003BCB05 /* cacert.pem in Resources */ = {isa = PBXBuildFile; fileRef = C95AECB72208A688003BCB05 /* cacert.pem */; };
+		C95C463E2304F0E100166AB5 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C97868132304E1AE00BD6FA4 /* opencv2.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		C95EE4E722070224006611CB /* libpng.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE4DF22070224006611CB /* libpng.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C95EE4ED22070275006611CB /* png.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BA62202590E0085E1AA /* png.c */; };
 		C95EE4EE22070277006611CB /* pngerror.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BA72202590E0085E1AA /* pngerror.c */; };
@@ -239,6 +240,8 @@
 		C978680D2304DEC600BD6FA4 /* jquant2.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C97867482304D52600BD6FA4 /* jquant2.o */; };
 		C978680E2304DEC600BD6FA4 /* jutils.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C97867592304D52800BD6FA4 /* jutils.o */; };
 		C97868112304DF0F00BD6FA4 /* libjpeg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C97867D52304DEB000BD6FA4 /* libjpeg.framework */; };
+		C97868142304E1CA00BD6FA4 /* opencv2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C97868132304E1AE00BD6FA4 /* opencv2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C97868162304E1E700BD6FA4 /* cv2.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C97868152304E1E700BD6FA4 /* cv2.o */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C982A7A822F8D92000E999AA /* libpng.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE4DF22070224006611CB /* libpng.framework */; };
 		C98472AE21A05CB1008E16AC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C98472AD21A05CB1008E16AC /* README.md */; };
 		C98A5BB422C7E86900D411CC /* PyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98A5BB122C7E86900D411CC /* PyWrapper.swift */; };
@@ -1611,6 +1614,7 @@
 			files = (
 				C9DF71072171768A00981B4F /* Python.framework in Embed Frameworks */,
 				C9AAAB4A2195016D0042E733 /* InputAssistant.framework in Embed Frameworks */,
+				C97868142304E1CA00BD6FA4 /* opencv2.framework in Embed Frameworks */,
 				C95EE4E722070224006611CB /* libpng.framework in Embed Frameworks */,
 				C9F8FB5023025D91004648F4 /* _imagingmorph.framework in Embed Frameworks */,
 				C9F8FB5123025D91004648F4 /* _imagingft.framework in Embed Frameworks */,
@@ -2019,6 +2023,8 @@
 		C97867D52304DEB000BD6FA4 /* libjpeg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = libjpeg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C97867D72304DEB000BD6FA4 /* libjpeg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libjpeg.h; sourceTree = "<group>"; };
 		C97867D82304DEB000BD6FA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C97868132304E1AE00BD6FA4 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		C97868152304E1E700BD6FA4 /* cv2.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = cv2.o; sourceTree = "<group>"; };
 		C984729121A05A0E008E16AC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C98472AD21A05CB1008E16AC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C9868E9E22B728490013F108 /* Python3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Python3.framework; path = Library/Frameworks/Python3.framework; sourceTree = DEVELOPER_DIR; };
@@ -3362,6 +3368,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C95C463E2304F0E100166AB5 /* opencv2.framework in Frameworks */,
 				C9F8F9A52302569C004648F4 /* dspr.o in Frameworks */,
 				C9F8FA072302569D004648F4 /* idzp_aid_subr_5.o in Frameworks */,
 				C9F8F7E12302569C004648F4 /* zrfft.o in Frameworks */,
@@ -3533,6 +3540,7 @@
 				C9F8F8802302569C004648F4 /* prini.o in Frameworks */,
 				C9F8F8C52302569C004648F4 /* mio5_utils.o in Frameworks */,
 				C937B9CD22EE431100269FC6 /* diff.o in Frameworks */,
+				C97868162304E1E700BD6FA4 /* cv2.o in Frameworks */,
 				C9F8F7FB2302569C004648F4 /* CGSREVCOM.o in Frameworks */,
 				C9F8FA592302569D004648F4 /* ztpmv.o in Frameworks */,
 				C9F8F8FC2302569C004648F4 /* fppogr.o in Frameworks */,
@@ -4854,6 +4862,15 @@
 			path = libjpeg;
 			sourceTree = "<group>";
 		};
+		C97868122304E19300BD6FA4 /* OpenCV */ = {
+			isa = PBXGroup;
+			children = (
+				C97868132304E1AE00BD6FA4 /* opencv2.framework */,
+				C97868152304E1E700BD6FA4 /* cv2.o */,
+			);
+			path = OpenCV;
+			sourceTree = "<group>";
+		};
 		C97B75FD22046C3500A05C8D /* Kiwisolver */ = {
 			isa = PBXGroup;
 			children = (
@@ -6109,6 +6126,7 @@
 				C982A6E722F8D83600E999AA /* SkLearn */,
 				C92A7CAF22F99A4700D3B4DF /* SkImage */,
 				C96D324122F74283007D2289 /* Pywt */,
+				C97868122304E19300BD6FA4 /* OpenCV */,
 				C9CEE1E821EB8D5300316D3C /* PytoCore */,
 				C946A5AB22074EAA00F78C5C /* Pyto Widget */,
 				C9C2F46F22F0ED8C0062F4D6 /* Pyto Intents */,
@@ -7514,6 +7532,7 @@
 					"$(PROJECT_DIR)/SkImage",
 					"$(PROJECT_DIR)/Pywt",
 					"$(PROJECT_DIR)/SkLearn",
+					"$(PROJECT_DIR)/OpenCV",
 				);
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -7610,6 +7629,7 @@
 					"$(PROJECT_DIR)/SkImage",
 					"$(PROJECT_DIR)/Pywt",
 					"$(PROJECT_DIR)/SkLearn",
+					"$(PROJECT_DIR)/OpenCV",
 				);
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PREPROCESSOR_DEFINITIONS = (

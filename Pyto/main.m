@@ -574,6 +574,15 @@ void init_pil() {
     BandHandle(@"PIL", name, key, false);
 }
 
+// MARK: - OpenCV
+
+void init_cv2() {
+    
+    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
+    [name addObject:@"cv2"]; [key addObject:@"__cv2_cv2"];
+    BandHandle(@"cv2", name, key, true);
+}
+
 // MARK: - Main
 
 #if MAIN || WIDGET
@@ -591,6 +600,7 @@ int initialize_python(int argc, char *argv[]) {
     init_sklearn();
     init_skimage();
     init_pywt();
+    init_cv2();
     #endif
     init_pil();
     #endif

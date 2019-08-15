@@ -14,6 +14,7 @@ Modules
 * `dateutil`_
 * `distlib`_
 * `idna`_
+* `imageio`_
 * `joblib`_
 * `networkx`_
 * `pip - stash`_
@@ -33,6 +34,7 @@ Modules
 * `sklearn`_
 * `skimage`_
 * `scipy`_
+* `cv2`_
 * `lxml`_
 * `Bio`_
 * `rubicon-objc`_
@@ -46,6 +48,7 @@ Modules
 .. _dateutil: https://dateutil.readthedocs.io/en/stable/
 .. _distlib: https://distlib.readthedocs.io/en/latest/
 .. _idna: https://pypi.org/project/idna/
+.. _imageio: http://imageio.readthedocs.io
 .. _joblib: https://joblib.readthedocs.io
 .. _networkx: https://networkx.github.io/documentation/stable/
 .. _pip - stash: https://github.com/ywangd/stash/blob/master/bin/pip.py
@@ -65,6 +68,7 @@ Modules
 .. _sklearn: https://scikit-learn.org/stable/documentation.html
 .. _skimage: https://scikit-image.org/docs/stable/
 .. _scipy: https://docs.scipy.org/doc/scipy/reference/
+.. _cv2: https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_tutorials.html
 .. _bio: https://biopython.org/wiki/Documentation
 .. _lxml: https://lxml.de
 .. _rubicon-objc: https://rubicon-objc.readthedocs.io/en/latest/
@@ -76,7 +80,7 @@ Acknowledgments
 ***************
 
 Thanks to `Christian Clauss <https://github.com/cclauss>`_ and `goodclass <https://github.com/goodclass>`_ for contributions!
-``SciPy`` was taken from `goodclass/scipy_arm64 <https://github.com/goodclass/scipy_arm64>`_\ .
+``SciPy`` was taken from `goodclass/scipy_arm64 <https://github.com/goodclass/scipy_arm64>`_ and ``OpenCV`` from `goodclass/ <https://github.com/goodclass/opencv_arm64>`_\ .
 
 | This application makes use of the following third party libraries:
 
@@ -99,6 +103,7 @@ Thanks to `Christian Clauss <https://github.com/cclauss>`_ and `goodclass <https
 * `filelock <https://pypi.org/project/lockfile/>`__
 * `freetype <https://www.freetype.org>`__
 * `idna <https://github.com/kjd/idna>`__
+* `imageio <https://github.com/imageio/imageio>`__
 * `jedi <https://github.com/davidhalter/jedi>`__
 * `joblib <https://github.com/joblib/joblib>`__
 * `kiwisolver <https://github.com/nucleic/kiwi>`__
@@ -108,6 +113,9 @@ Thanks to `Christian Clauss <https://github.com/cclauss>`_ and `goodclass <https
 * `matplotlib <https://github.com/matplotlib/matplotlib>`__
 * `networkx <https://github.com/networkx/networkx>`__
 * `numpy <https://github.com/numpy/numpy>`__
+* `opencv <https://github.com/opencv/opencv>`__
+* `openvc_arm64 <https://github.com/goodclass/opencv_arm64>`__
+* `opencv-python <https://github.com/skvark/opencv-python>`__
 * `pandas <https://github.com/pandas-dev/pandas>`__
 * `parso <https://github.com/davidhalter/parso>`__
 * `Pillow <https://github.com/python-pillow/Pillow>`__
@@ -1396,6 +1404,36 @@ Thanks to `Christian Clauss <https://github.com/cclauss>`_ and `goodclass <https
                Except as contained in this notice, the name of a copyright holder shall not be used in advertising or otherwise to promote the sale, use or other dealings in these Data Files or Software without prior written authorization of the copyright holder.
 
 
+*imageio*
+
+.. code-block::
+   text
+
+
+   Copyright (c) 2014-2018, imageio developers
+   All rights reserved.
+
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions are met:
+
+   * Redistributions of source code must retain the above copyright notice, this
+     list of conditions and the following disclaimer.
+
+   * Redistributions in binary form must reproduce the above copyright notice,
+     this list of conditions and the following disclaimer in the documentation
+     and/or other materials provided with the distribution.
+
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+   DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+   FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+   DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+   SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+   CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+   OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 *jedi*
 
 .. code-block:: text      
@@ -1973,6 +2011,96 @@ Thanks to `Christian Clauss <https://github.com/cclauss>`_ and `goodclass <https
            License: One of a kind
            For license text, see numpy/core/src/multiarray/dragon4.c
 
+*opencv*
+
+.. code-block::
+   text
+   
+   By downloading, copying, installing or using the software you agree to this license.
+   If you do not agree to this license, do not download, install,
+   copy or use the software.
+
+
+                             License Agreement
+                  For Open Source Computer Vision Library
+                          (3-clause BSD License)
+
+   Copyright (C) 2000-2019, Intel Corporation, all rights reserved.
+   Copyright (C) 2009-2011, Willow Garage Inc., all rights reserved.
+   Copyright (C) 2009-2016, NVIDIA Corporation, all rights reserved.
+   Copyright (C) 2010-2013, Advanced Micro Devices, Inc., all rights reserved.
+   Copyright (C) 2015-2016, OpenCV Foundation, all rights reserved.
+   Copyright (C) 2015-2016, Itseez Inc., all rights reserved.
+   Third party copyrights are property of their respective owners.
+
+   Redistribution and use in source and binary forms, with or without modification,
+   are permitted provided that the following conditions are met:
+
+     * Redistributions of source code must retain the above copyright notice,
+       this list of conditions and the following disclaimer.
+
+     * Redistributions in binary form must reproduce the above copyright notice,
+       this list of conditions and the following disclaimer in the documentation
+       and/or other materials provided with the distribution.
+
+     * Neither the names of the copyright holders nor the names of the contributors
+       may be used to endorse or promote products derived from this software
+       without specific prior written permission.
+
+   This software is provided by the copyright holders and contributors "as is" and
+   any express or implied warranties, including, but not limited to, the implied
+   warranties of merchantability and fitness for a particular purpose are disclaimed.
+   In no event shall copyright holders or contributors be liable for any direct,
+   indirect, incidental, special, exemplary, or consequential damages
+   (including, but not limited to, procurement of substitute goods or services;
+   loss of use, data, or profits; or business interruption) however caused
+   and on any theory of liability, whether in contract, strict liability,
+   or tort (including negligence or otherwise) arising in any way out of
+   the use of this software, even if advised of the possibility of such damage.
+   
+*openvc_arm64*
+
+.. code-block::
+   text
+   
+   Copyright [2019] [goodclass]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+*opencv-python*
+
+.. code-block::
+   text
+   
+   Copyright (c) 2016-2018 Olli-Pekka Heinisuo and contributors
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to deal
+   in the Software without restriction, including without limitation the rights
+   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+   SOFTWARE.
 
 *pandas*
 
