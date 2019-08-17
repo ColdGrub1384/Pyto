@@ -18,6 +18,10 @@ import UIKit
     @objc static func print(_ text: String, script: String?) {
         var text_ = text
         
+        guard !text_.isEmpty else {
+            return
+        }
+        
         #if MAIN
         text_ = ShortenFilePaths(in: text_)
         #endif
@@ -65,7 +69,12 @@ import UIKit
     ///     - text: Text to print.
     ///     - script: Script that printed the output. Set to `nil` to be printed in every console.
     @objc static func printError(_ text: String, script: String?) {
+        
         var text_ = text
+        
+        guard !text_.isEmpty else {
+            return
+        }
         
         #if MAIN
         text_ = ShortenFilePaths(in: text_)

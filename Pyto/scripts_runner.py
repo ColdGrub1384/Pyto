@@ -4,6 +4,7 @@ from console import run_script
 import threading
 import traceback
 import stopit
+import sys
 
 def raise_exception(script, exception):
     for tid, tobj in threading._active.items():
@@ -45,6 +46,8 @@ while True:
         thread.start()
         
         Python.shared.scriptToRun = None
+    
+    sys.stdout.write("")
     
     for script in Python.shared.scriptsToExit:
         raise_exception(str(script), SystemExit)

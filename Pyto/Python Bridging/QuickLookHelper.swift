@@ -11,6 +11,8 @@ import QuickLook
 
 fileprivate class ImageAttachment: NSTextAttachment {
     
+    var textView: UITextView?
+    
     var verticalOffset: CGFloat = 0.0
     
     convenience init(_ image: UIImage, verticalOffset: CGFloat = 0.0) {
@@ -23,22 +25,20 @@ fileprivate class ImageAttachment: NSTextAttachment {
        
         var rect = super.attachmentBounds(for: textContainer, proposedLineFragment: lineFrag, glyphPosition: position, characterIndex: charIndex)
         
-        guard let size = textContainer?.size else {
+        guard let size = textView?.frame.size else {
             return rect
         }
         
         let width = size.width
-        
         rect.size.height = rect.height/(rect.width/width)
         rect.size.width = width
         
-        /*
- 
-         w500 h300
-         
-         h300 xxx
-         
-        */
+        if rect.height > size.height {
+            
+            let height = size.height-10
+            rect.size.width = rect.width/(rect.height/height)
+            rect.size.height = height
+        }
         
         return rect
     }
@@ -64,23 +64,51 @@ fileprivate class ImageAttachment: NSTextAttachment {
     /// The data source of the currently displaying controller.
     static var visible: QuickLookHelper?
     
+    /// Rotation to be used on OpenCV images.
+    @objc static var openCvRotation: Double {
+        var rotation: Double = 0
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        DispatchQueue.main.async {
+                        
+            switch UIApplication.shared.statusBarOrientation {
+            case .portrait:
+                rotation = 0
+            case .landscapeLeft:
+                rotation = 90
+            case .landscapeRight:
+                rotation = 270
+            default:
+                rotation = 0
+            }
+            
+            semaphore.signal()
+        }
+        
+        if !Thread.current.isMainThread {
+            semaphore.wait()
+        }
+        
+        return rotation
+    }
+    
     /// Previews given file.
     ///
     /// - Parameters:
-    ///     - file: The path of the file.
+    ///     - data: Base 64 encoded string representing the image.
     ///     - script: The script that previewed the given file. Set to `nil` to show on all the consoles.
-    @objc static func previewFile(_ file: String, script: String?) {
+    ///     - removePrevious: A boolean indicating whether the previously shown images should be hidden. Used by OpenCV to display real time camera input.
+    @objc static func previewFile(_ data: String, script: String?, removePrevious: Bool) {
                 
         DispatchQueue.main.async {
             
-            guard let image = UIImage(contentsOfFile: file) else {
+            guard let data = Data(base64Encoded: data, options: .ignoreUnknownCharacters), let image = UIImage(data: data) else {
                 return
             }
             
             let attachment = ImageAttachment()
             attachment.image = image
             let attrString = NSMutableAttributedString(attributedString: NSAttributedString(attachment: attachment))
-            attrString.append(NSAttributedString(string: "\n"))
             #if MAIN
             for console in ConsoleViewController.visibles {
                 
@@ -89,6 +117,21 @@ fileprivate class ImageAttachment: NSTextAttachment {
                         continue
                     }
                 }
+                
+                if removePrevious {
+                    let attrString = NSMutableAttributedString(attributedString: console.textView.attributedText)
+                    var attachments = [NSRange]()
+                    attrString.enumerateAttribute(.attachment, in: NSRange(location: 0, length: attrString.length), options: []) { (_, range, _) in
+                        attachments.append(range)
+                    }
+                    for attachment in attachments {
+                        attrString.removeAttribute(.attachment, range: attachment)
+                    }
+                    console.textView.attributedText = attrString
+                }
+                
+                attachment.textView = console.textView
+                
                 console.textView.textStorage.insert(attrString, at: console.textView.offset(from: console.textView.beginningOfDocument, to: console.textView.endOfDocument))
                 console.textView.scrollToBottom()
             }
