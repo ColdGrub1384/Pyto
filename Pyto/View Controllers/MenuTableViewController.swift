@@ -53,6 +53,12 @@ class MenuTableViewController: UITableViewController {
         present(fileBrowser, animated: true, completion: nil)
     }
     
+    /// Opens documentation.
+    func selectDocumentation() {
+        let documentation = DocumentationViewController()
+        present(ThemableNavigationController(rootViewController: documentation), animated: true, completion: nil)
+    }
+    
     /// Shows loaded modules.
     func selectLoadedModules() {
                 
@@ -91,10 +97,12 @@ class MenuTableViewController: UITableViewController {
         case 2:
             image = UIImage(named: "pypi")
         case 3:
-            image = UIImage(systemName: "book.fill")
+            image = UIImage(systemName: "bookmark.fill")
         case 4:
-            image = UIImage(systemName: "info.circle.fill")
+            image = UIImage(systemName: "book.fill")
         case 5:
+            image = UIImage(systemName: "info.circle.fill")
+        case 6:
             image = UIImage(systemName: "gear")
         default:
             break
@@ -113,8 +121,10 @@ class MenuTableViewController: UITableViewController {
         case 3:
             selectSamples()
         case 4:
-            selectLoadedModules()
+            selectDocumentation()
         case 5:
+            selectLoadedModules()
+        case 6:
             selectSettings()
         default:
             break
