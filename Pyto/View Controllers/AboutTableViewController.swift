@@ -25,9 +25,7 @@ fileprivate extension IndexPath {
     
     static let todayWidget = IndexPath(row: 0, section: 1)
     
-    static let documentation = IndexPath(row: 0, section: 2)
-    static let examples = IndexPath(row: 1, section: 2)
-    static let contact = IndexPath(row: 2, section: 2)
+    static let contact = IndexPath(row: 0, section: 2)
     
     static let acknowledgments = IndexPath(row: 0, section: 3)
     static let sourceCode = IndexPath(row: 1, section: 3)
@@ -185,10 +183,6 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
             let picker = UIDocumentPickerViewController(documentTypes: ["public.python-script"], in: .open)
             picker.delegate = self
             viewControllerToPresent = picker
-        case .documentation:
-            viewControllerToPresent = ThemableNavigationController(rootViewController: DocumentationViewController())
-        case .examples:
-            viewControllerToPresent = SFSafariViewController(url: URL(string: "https://github.com/ColdGrub1384/Pyto/tree/master/Pyto/Samples")!)
         case .contact:
             let controller = MFMailComposeViewController()
             controller.setSubject("Pyto - Contact")
