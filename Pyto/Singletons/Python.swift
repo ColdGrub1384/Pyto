@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import AVFoundation
 #if MAIN
 #elseif os(iOS) && !WIDGET
 @_silgen_name("PyRun_SimpleStringFlags")

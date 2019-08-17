@@ -10,6 +10,7 @@ from UIKit import UIApplication as __UIApplication__
 import pyto
 import mainthread
 import threading
+import base64
 from typing import List
 __PySharingHelper__ = pyto.PySharingHelper
 NSURL = ObjCClass("NSURL")
@@ -31,13 +32,17 @@ if __host__ is not widget:
         
         This function doesn't block the current thread. You can call this function multiple times and the file path will be appended to the current Preview controller. Thread safe.
         
-        :param path: Path to preview.
+        :param path: Path of the image to preview.
         """
+        
+        file = open(path, 'rb') #open binary file in read mode
+        file_read = file.read()
+        file64_encode = base64.encodestring(file_read).decode("utf-8")
 
         try:
-            pyto.QuickLookHelper.previewFile(path, script=threading.current_thread().script_path)
+            pyto.QuickLookHelper.previewFile(file64_encode, script=threading.current_thread().script_path, removePrevious=False)
         except:
-            pyto.QuickLookHelper.previewFile(path, script=None)
+            pyto.QuickLookHelper.previewFile(file64_encode, script=None, removePrevious=False)
 
 # MARK: - File picker
 

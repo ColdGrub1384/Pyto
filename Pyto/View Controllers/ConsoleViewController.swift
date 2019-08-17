@@ -492,11 +492,28 @@ import UIKit
         ConsoleViewController.visibles.first?.present(viewController, animated: true, completion: completion)
         #else
         for console in visibles {
-            if scriptPath == nil {
+            
+            guard console.view.window != nil else {
+                continue
+            }
+            
+            func showView() {
                 console.view.window?.topViewController?.present(viewController, animated: true, completion: completion)
+            }
+            
+            if scriptPath == nil {
+                showView()
                 break
             } else if console.editorSplitViewController?.editor.document?.fileURL.path == scriptPath {
-                console.view.window?.topViewController?.present(viewController, animated: true, completion: completion)
+                if console.presentedViewController != nil {
+                    console.dismiss(animated: true) {
+                        showView()
+                    }
+                } else {
+                    showView()
+                }
+            } else if console.presentedViewController != nil {
+                console.dismiss(animated: true)
             }
         }
         #endif

@@ -146,17 +146,15 @@ def importModules():
                 i += 1
                 imgPath = os.path.join(tempfile.gettempdir(), 'image '+str(i)+'.png')
     
-            image.save(imgPath,"PNG")
-            sharing.quick_look(imgPath)
+            image.save(imgPath, "PNG")
+            
+            if title == "OpenCV":
+                sharing.quick_look(imgPath, remove_previous=True)
+            else:
+                sharing.quick_look(imgPath)
 
         PIL.ImageShow.show = show_image
     except ImportError:
-        pass
-
-
-    try:
-        import matplotlib, numpy, pandas, scipy, sklearn, skimage, cv2
-    except:
         pass
 
 threading.Thread(target=importModules).start()
