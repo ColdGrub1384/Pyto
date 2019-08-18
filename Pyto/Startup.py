@@ -1,16 +1,4 @@
 import sys
-
-__builtins__.iOS = "iOS"
-__builtins__.macOS = "macOS"
-if sys.platform == "ios":
-    __builtins__.__platform__ = __builtins__.iOS
-else:
-    __builtins__.__platform__ = __builtins__.macOS
-
-__builtins__.widget = "widget"
-__builtins__.app = "app"
-__builtins__.__host__ = __builtins__.app
-
 import os
 
 sys.path.insert(-1, os.path.expanduser("~/Documents"))
@@ -63,10 +51,7 @@ pyto.Python.shared.version = sys.version
 
 # MARK: - Allow / Disallow subprocesses
 
-if __platform__ is iOS:
-    os.allows_subprocesses = False
-elif __platform__ is macOS:
-    os.allows_subprocesses = True
+os.allows_subprocesses = (not sys.platform == "ios")
 
 # MARK: - Input
 
@@ -124,7 +109,7 @@ webbrowser.register("mobile-safari", None, MobileSafari("MobileSafari.app"))
 
 # MARK: - Modules
 
-for importer in (NumpyImporter, MatplotlibImporter, PandasImporter, PillowImporter, BiopythonImporter, LXMLImporter, ScipyImporter, SkLearnImporter, SkImageImporter, PywtImporter, OpenCvImporter):
+for importer in (NumpyImporter, MatplotlibImporter, PandasImporter, PillowImporter, BiopythonImporter, LXMLImporter, ScipyImporter, SkLearnImporter, SkImageImporter, PywtImporter):
     sys.meta_path.insert(0, importer())
 
 # MARK: - Pre-import modules

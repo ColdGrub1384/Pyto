@@ -245,14 +245,6 @@ fileprivate var isPythonSetup = false
         }
         
         let main = """
-        __builtins__.iOS = "iOS"
-        __builtins__.macOS = "macOS"
-        __builtins__.__platform__ = __builtins__.iOS
-
-        __builtins__.widget = "widget"
-        __builtins__.app = "app"
-        __builtins__.__host__ = widget
-
         import traceback
 
         try:
@@ -269,6 +261,8 @@ fileprivate var isPythonSetup = false
         except Exception as e:
             ex_type, ex, tb = sys.exc_info()
             traceback.print_tb(tb)
+
+        os.environ["widget"] = 1
 
         # MARK: - SSL
         

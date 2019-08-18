@@ -11,6 +11,7 @@ import pyto
 import mainthread
 import threading
 import base64
+import os
 from typing import List
 __PySharingHelper__ = pyto.PySharingHelper
 NSURL = ObjCClass("NSURL")
@@ -24,7 +25,7 @@ def share_items(items: object):
     
     __PySharingHelper__.share(items)
 
-if __host__ is not widget:
+if not "widget" in os.environ:
     
     def quick_look(path: str):
         """

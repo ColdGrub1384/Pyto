@@ -576,12 +576,14 @@ void init_pil() {
 
 // MARK: - OpenCV
 
+#if !(TARGET_IPHONE_SIMULATOR) && MAIN
+
+extern PyMODINIT_FUNC PyInit_cv2(void);
+
 void init_cv2() {
-    
-    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
-    [name addObject:@"cv2"]; [key addObject:@"__cv2_cv2"];
-    BandHandle(@"cv2", name, key, true);
+    PyImport_AppendInittab("__cv2_cv2", &PyInit_cv2);
 }
+#endif
 
 // MARK: - Main
 
