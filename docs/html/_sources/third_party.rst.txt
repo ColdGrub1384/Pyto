@@ -80,7 +80,7 @@ Acknowledgments
 ***************
 
 Thanks to `Christian Clauss <https://github.com/cclauss>`_ and `goodclass <https://github.com/goodclass>`_ for contributions!
-``SciPy`` was taken from `goodclass/scipy_arm64 <https://github.com/goodclass/scipy_arm64>`_ and ``OpenCV`` from `goodclass/opencv_arm64 <https://github.com/goodclass/opencv_arm64>`_\ .
+``SciPy``, ``OpenCV`` and ``Lxml`` were taken from `goodclass <https://github.com/goodclass>`_.
 
 | This application makes use of the following third party libraries:
 
