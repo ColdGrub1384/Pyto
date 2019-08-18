@@ -13,8 +13,10 @@ import threading
 import base64
 import os
 from typing import List
+
 __PySharingHelper__ = pyto.PySharingHelper
 NSURL = ObjCClass("NSURL")
+
 
 def share_items(items: object):
     """
@@ -22,11 +24,12 @@ def share_items(items: object):
     
     :param items: Items to be shared with the sheet.
     """
-    
+
     __PySharingHelper__.share(items)
 
+
 if not "widget" in os.environ:
-    
+
     def quick_look(path: str):
         """
         Previews given file.
@@ -35,17 +38,25 @@ if not "widget" in os.environ:
         
         :param path: Path of the image to preview.
         """
-        
-        file = open(path, 'rb') #open binary file in read mode
+
+        file = open(path, "rb")  # open binary file in read mode
         file_read = file.read()
         file64_encode = base64.encodestring(file_read).decode("utf-8")
 
         try:
-            pyto.QuickLookHelper.previewFile(file64_encode, script=threading.current_thread().script_path, removePrevious=False)
-        except:
-            pyto.QuickLookHelper.previewFile(file64_encode, script=None, removePrevious=False)
+            pyto.QuickLookHelper.previewFile(
+                file64_encode,
+                script=threading.current_thread().script_path,
+                removePrevious=False,
+            )
+        except AttributeError:
+            pyto.QuickLookHelper.previewFile(
+                file64_encode, script=None, removePrevious=False
+            )
+
 
 # MARK: - File picker
+
 
 class FilePicker:
     """
@@ -102,6 +113,7 @@ class FilePicker:
     def new():
         return FilePicker()
 
+
 def pick_documents(filePicker: FilePicker):
     """
     Pick documents with given parameters as a ``FilePicker``.
@@ -112,10 +124,13 @@ def pick_documents(filePicker: FilePicker):
     script_path = None
     try:
         script_path = threading.current_thread().script_path
-    except:
+    except AttributeError:
         pass
 
-    __PySharingHelper__.presentFilePicker(filePicker.__objcFilePicker__(), scriptPath=script_path)
+    __PySharingHelper__.presentFilePicker(
+        filePicker.__objcFilePicker__(), scriptPath=script_path
+    )
+
 
 def picked_files() -> List[str]:
     """
@@ -131,7 +146,9 @@ def picked_files() -> List[str]:
             py_urls.append(str(url.path))
         return py_urls
 
+
 # MARK: - URLs
+
 
 def open_url(url: str):
     """
@@ -145,12 +162,11 @@ def open_url(url: str):
     def __openURL__() -> None:
         __UIApplication__.sharedApplication.openURL(__url__)
 
-    if (type(url) is str):
+    if type(url) is str:
         __url__ = NSURL.URLWithString(url)
         mainthread.run_sync(__openURL__)
-    elif (__PySharingHelper__.isURL(url)):
+    elif __PySharingHelper__.isURL(url):
         __url__ = url
         mainthread.run_sync(__openURL__)
     else:
-        raise ValueError('url musts be a String or an Objective-C ``NSURL``.')
-
+        raise ValueError("url musts be a String or an Objective-C ``NSURL``.")

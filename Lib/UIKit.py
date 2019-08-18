@@ -6,11 +6,13 @@ This module contains all UIKit classes. You should not use this module to presen
 
 from rubicon.objc import *
 
+
 def __class__(name):
     try:
         return ObjCClass(name)
     except:
         return None
+
 
 UIApplication = __class__("UIApplication")
 UIDevice = __class__("UIDevice")
@@ -30,7 +32,9 @@ UIImageAsset = __class__("UIImageAsset")
 NSDataAsset = __class__("NSDataAsset")
 UINib = __class__("UINib")
 NSExtensionContext = __class__("NSExtensionContext")
-UIDocumentPickerExtensionViewController = __class__("UIDocumentPickerExtensionViewController")
+UIDocumentPickerExtensionViewController = __class__(
+    "UIDocumentPickerExtensionViewController"
+)
 NSFileProviderExtension = __class__("NSFileProviderExtension")
 UIInputViewController = __class__("UIInputViewController")
 UILexicon = __class__("UILexicon")
@@ -145,7 +149,9 @@ UIAccessibilityCustomAction = __class__("UIAccessibilityCustomAction")
 UIAccessibilityElement = __class__("UIAccessibilityElement")
 UIAccessibilityCustomRotor = __class__("UIAccessibilityCustomRotor")
 UIAccessibilityCustomRotorItemResult = __class__("UIAccessibilityCustomRotorItemResult")
-UIAccessibilityCustomRotorSearchPredicate = __class__("UIAccessibilityCustomRotorSearchPredicate")
+UIAccessibilityCustomRotorSearchPredicate = __class__(
+    "UIAccessibilityCustomRotorSearchPredicate"
+)
 UIAccessibilityLocationDescriptor = __class__("UIAccessibilityLocationDescriptor")
 UIImage = __class__("UIImage")
 UIGraphicsRenderer = __class__("UIGraphicsRenderer")
@@ -197,7 +203,9 @@ UISceneActivationConditions = __class__("UISceneActivationConditions")
 UIStatusBarManager = __class__("UIStatusBarManager")
 UILargeContentViewerInteraction = __class__("UILargeContentViewerInteraction")
 UIFontPickerViewController = __class__("UIFontPickerViewController")
-UIFontPickerViewControllerConfiguration = __class__("UIFontPickerViewControllerConfiguration")
+UIFontPickerViewControllerConfiguration = __class__(
+    "UIFontPickerViewControllerConfiguration"
+)
 UINavigationBarAppearance = __class__("UINavigationBarAppearance")
 UIToolbarAppearance = __class__("UIToolbarAppearance")
 UITabBarAppearance = __class__("UITabBarAppearance")
@@ -223,4 +231,215 @@ UITextFormattingCoordinator = __class__("UITextFormattingCoordinator")
 UITextInteraction = __class__("UITextInteraction")
 UIMenuSystem = __class__("UIMenuSystem")
 
-__all__ = ["UIApplication", "UIDevice", "UITraitCollection", "UIDocument", "UIManagedDocument", "UIPasteboard", "UIPasteConfiguration", "NSUserActivity", "UIActivity", "UIActivityViewController", "UIActivityItemProvider", "UIStoryboard", "UIStoryboardSegue", "UIStoryboardUnwindSegueSource", "UIImageAsset", "NSDataAsset", "UINib", "NSExtensionContext", "UIDocumentPickerExtensionViewController", "NSFileProviderExtension", "UIInputViewController", "UILexicon", "UILexiconEntry", "UIView", "UIStackView", "UIScrollView", "UIActivityIndicatorView", "UIImageView", "UIPickerView", "UIProgressView", "UIControl", "UIButton", "UIDatePicker", "UIPageControl", "UISegmentedControl", "UISlider", "UIStepper", "UISwitch", "UILabel", "UITextField", "UITextView", "UIVisualEffect", "UIVisualEffectView", "UIVibrancyEffect", "UIBlurEffect", "UIBarItem", "UIBarButtonItem", "UIBarButtonItemGroup", "UINavigationBar", "UISearchBar", "UIToolbar", "UITabBar", "UITabBarItem", "UIViewController", "UITableViewController", "UICollectionViewController", "UISplitViewController", "UINavigationController", "UINavigationItem", "UIPageViewController", "UITabBarController", "UISearchContainerViewController", "UISearchController", "UIImagePickerController", "UIVideoEditorController", "UIDocumentBrowserViewController", "UIDocumentPickerViewController", "UIDocumentInteractionController", "UICloudSharingController", "UIReferenceLibraryViewController", "UIPrinterPickerController", "UIPresentationController", "NSLayoutConstraint", "UILayoutGuide", "NSLayoutDimension", "NSLayoutAnchor", "NSLayoutXAxisAnchor", "NSLayoutYAxisAnchor", "UIFeedbackGenerator", "UIImpactFeedbackGenerator", "UINotificationFeedbackGenerator", "UISelectionFeedbackGenerator", "UIWindow", "UIPopoverPresentationController", "UIPopoverBackgroundView", "UIAlertController", "UIAlertAction", "UIScreen", "UIScreenMode", "UIResponder", "UIEvent", "UITouch", "UIPress", "UIPressesEvent", "UILongPressGestureRecognizer", "UIPanGestureRecognizer", "UIGestureRecognizer", "UIPinchGestureRecognizer", "UIScreenEdgePanGestureRecognizer", "UISwipeGestureRecognizer", "UIRotationGestureRecognizer", "UITapGestureRecognizer", "UIDragInteraction", "UIDropInteraction", "UISpringLoadedInteraction", "UIDragItem", "UIDropProposal", "NSItemProvider", "UIDragPreviewParameters", "UIDragPreview", "UIDragPreviewTarget", "UITargetedDragPreview", "UIPencilInteraction", "UIFocusSystem", "UIFocusUpdateContext", "UIFocusMovementHint", "UIFocusGuide", "UIFocusDebugger", "UIFocusAnimationCoordinator", "UIPreviewAction", "UIPreviewActionGroup", "UIPreviewInteraction", "UIApplicationShortcutIcon", "UIApplicationShortcutItem", "UIMutableApplicationShortcutItem", "UIKeyCommand", "UIMenuController", "UIMenuItem", "UIInputView", "UIAccessibilityCustomAction", "UIAccessibilityElement", "UIAccessibilityCustomRotor", "UIAccessibilityCustomRotorItemResult", "UIAccessibilityCustomRotorSearchPredicate", "UIAccessibilityLocationDescriptor", "UIImage", "UIGraphicsRenderer", "UIGraphicsRendererContext", "UIGraphicsRendererFormat", "UIGraphicsImageRenderer", "UIGraphicsImageRendererContext", "UIGraphicsImageRendererFormat", "UIGraphicsPDFRenderer", "UIGraphicsPDFRendererContext", "UIGraphicsPDFRendererFormat", "UIColor", "UIBezierPath", "NSShadow", "UIPrintInteractionController", "UIPrintPageRenderer", "UIPrinter", "UIPrintInfo", "UIPrintPaper", "UIPrintFormatter", "UIViewPrintFormatter", "UISimpleTextPrintFormatter", "UIMarkupTextPrintFormatter", "NSLayoutManager", "NSTextStorage", "UIFont", "UIFontDescriptor", "UIFontMetrics", "UITextChecker", "NSTextContainer", "NSAttributedString", "UITextPosition", "UITextRange", "UITextSelectionRect", "NSParagraphStyle", "NSMutableParagraphStyle", "NSTextTab", "NSTextAttachment", "UITextInputTraits", "UITextInputAssistantItem", "UITextInputMode", "UITextInputStringTokenizer", "UIDictationPhrase", "UIWindowScene", "UIScene", "UISceneSession", "UISceneConfiguration", "UISceneActivationConditions", "UIStatusBarManager", "UILargeContentViewerInteraction", "UIFontPickerViewController", "UIFontPickerViewControllerConfiguration", "UINavigationBarAppearance", "UIToolbarAppearance", "UITabBarAppearance", "UITabBarItemAppearance", "UITabBarItemStateAppearance", "UIBarAppearance", "UIBarButtonItemAppearance", "UIBarButtonItemStateAppearance", "UIHoverGestureRecognizer", "UIMenu", "UIMenuElement", "UIContextMenuInteraction", "UITargetedPreview", "UIPreviewTarget", "UIPreviewParameters", "UIAction", "UICommand", "UIMutableKeyCommand", "UIScreenshotService", "UISearchTextField", "UISearchToken", "UITextFormattingCoordinator", "UITextInteraction", "UIMenuSystem"]
+__all__ = [
+    "UIApplication",
+    "UIDevice",
+    "UITraitCollection",
+    "UIDocument",
+    "UIManagedDocument",
+    "UIPasteboard",
+    "UIPasteConfiguration",
+    "NSUserActivity",
+    "UIActivity",
+    "UIActivityViewController",
+    "UIActivityItemProvider",
+    "UIStoryboard",
+    "UIStoryboardSegue",
+    "UIStoryboardUnwindSegueSource",
+    "UIImageAsset",
+    "NSDataAsset",
+    "UINib",
+    "NSExtensionContext",
+    "UIDocumentPickerExtensionViewController",
+    "NSFileProviderExtension",
+    "UIInputViewController",
+    "UILexicon",
+    "UILexiconEntry",
+    "UIView",
+    "UIStackView",
+    "UIScrollView",
+    "UIActivityIndicatorView",
+    "UIImageView",
+    "UIPickerView",
+    "UIProgressView",
+    "UIControl",
+    "UIButton",
+    "UIDatePicker",
+    "UIPageControl",
+    "UISegmentedControl",
+    "UISlider",
+    "UIStepper",
+    "UISwitch",
+    "UILabel",
+    "UITextField",
+    "UITextView",
+    "UIVisualEffect",
+    "UIVisualEffectView",
+    "UIVibrancyEffect",
+    "UIBlurEffect",
+    "UIBarItem",
+    "UIBarButtonItem",
+    "UIBarButtonItemGroup",
+    "UINavigationBar",
+    "UISearchBar",
+    "UIToolbar",
+    "UITabBar",
+    "UITabBarItem",
+    "UIViewController",
+    "UITableViewController",
+    "UICollectionViewController",
+    "UISplitViewController",
+    "UINavigationController",
+    "UINavigationItem",
+    "UIPageViewController",
+    "UITabBarController",
+    "UISearchContainerViewController",
+    "UISearchController",
+    "UIImagePickerController",
+    "UIVideoEditorController",
+    "UIDocumentBrowserViewController",
+    "UIDocumentPickerViewController",
+    "UIDocumentInteractionController",
+    "UICloudSharingController",
+    "UIReferenceLibraryViewController",
+    "UIPrinterPickerController",
+    "UIPresentationController",
+    "NSLayoutConstraint",
+    "UILayoutGuide",
+    "NSLayoutDimension",
+    "NSLayoutAnchor",
+    "NSLayoutXAxisAnchor",
+    "NSLayoutYAxisAnchor",
+    "UIFeedbackGenerator",
+    "UIImpactFeedbackGenerator",
+    "UINotificationFeedbackGenerator",
+    "UISelectionFeedbackGenerator",
+    "UIWindow",
+    "UIPopoverPresentationController",
+    "UIPopoverBackgroundView",
+    "UIAlertController",
+    "UIAlertAction",
+    "UIScreen",
+    "UIScreenMode",
+    "UIResponder",
+    "UIEvent",
+    "UITouch",
+    "UIPress",
+    "UIPressesEvent",
+    "UILongPressGestureRecognizer",
+    "UIPanGestureRecognizer",
+    "UIGestureRecognizer",
+    "UIPinchGestureRecognizer",
+    "UIScreenEdgePanGestureRecognizer",
+    "UISwipeGestureRecognizer",
+    "UIRotationGestureRecognizer",
+    "UITapGestureRecognizer",
+    "UIDragInteraction",
+    "UIDropInteraction",
+    "UISpringLoadedInteraction",
+    "UIDragItem",
+    "UIDropProposal",
+    "NSItemProvider",
+    "UIDragPreviewParameters",
+    "UIDragPreview",
+    "UIDragPreviewTarget",
+    "UITargetedDragPreview",
+    "UIPencilInteraction",
+    "UIFocusSystem",
+    "UIFocusUpdateContext",
+    "UIFocusMovementHint",
+    "UIFocusGuide",
+    "UIFocusDebugger",
+    "UIFocusAnimationCoordinator",
+    "UIPreviewAction",
+    "UIPreviewActionGroup",
+    "UIPreviewInteraction",
+    "UIApplicationShortcutIcon",
+    "UIApplicationShortcutItem",
+    "UIMutableApplicationShortcutItem",
+    "UIKeyCommand",
+    "UIMenuController",
+    "UIMenuItem",
+    "UIInputView",
+    "UIAccessibilityCustomAction",
+    "UIAccessibilityElement",
+    "UIAccessibilityCustomRotor",
+    "UIAccessibilityCustomRotorItemResult",
+    "UIAccessibilityCustomRotorSearchPredicate",
+    "UIAccessibilityLocationDescriptor",
+    "UIImage",
+    "UIGraphicsRenderer",
+    "UIGraphicsRendererContext",
+    "UIGraphicsRendererFormat",
+    "UIGraphicsImageRenderer",
+    "UIGraphicsImageRendererContext",
+    "UIGraphicsImageRendererFormat",
+    "UIGraphicsPDFRenderer",
+    "UIGraphicsPDFRendererContext",
+    "UIGraphicsPDFRendererFormat",
+    "UIColor",
+    "UIBezierPath",
+    "NSShadow",
+    "UIPrintInteractionController",
+    "UIPrintPageRenderer",
+    "UIPrinter",
+    "UIPrintInfo",
+    "UIPrintPaper",
+    "UIPrintFormatter",
+    "UIViewPrintFormatter",
+    "UISimpleTextPrintFormatter",
+    "UIMarkupTextPrintFormatter",
+    "NSLayoutManager",
+    "NSTextStorage",
+    "UIFont",
+    "UIFontDescriptor",
+    "UIFontMetrics",
+    "UITextChecker",
+    "NSTextContainer",
+    "NSAttributedString",
+    "UITextPosition",
+    "UITextRange",
+    "UITextSelectionRect",
+    "NSParagraphStyle",
+    "NSMutableParagraphStyle",
+    "NSTextTab",
+    "NSTextAttachment",
+    "UITextInputTraits",
+    "UITextInputAssistantItem",
+    "UITextInputMode",
+    "UITextInputStringTokenizer",
+    "UIDictationPhrase",
+    "UIWindowScene",
+    "UIScene",
+    "UISceneSession",
+    "UISceneConfiguration",
+    "UISceneActivationConditions",
+    "UIStatusBarManager",
+    "UILargeContentViewerInteraction",
+    "UIFontPickerViewController",
+    "UIFontPickerViewControllerConfiguration",
+    "UINavigationBarAppearance",
+    "UIToolbarAppearance",
+    "UITabBarAppearance",
+    "UITabBarItemAppearance",
+    "UITabBarItemStateAppearance",
+    "UIBarAppearance",
+    "UIBarButtonItemAppearance",
+    "UIBarButtonItemStateAppearance",
+    "UIHoverGestureRecognizer",
+    "UIMenu",
+    "UIMenuElement",
+    "UIContextMenuInteraction",
+    "UITargetedPreview",
+    "UIPreviewTarget",
+    "UIPreviewParameters",
+    "UIAction",
+    "UICommand",
+    "UIMutableKeyCommand",
+    "UIScreenshotService",
+    "UISearchTextField",
+    "UISearchToken",
+    "UITextFormattingCoordinator",
+    "UITextInteraction",
+    "UIMenuSystem",
+]

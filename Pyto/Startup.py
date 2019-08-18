@@ -41,7 +41,7 @@ def __send_warnings_to_log__(message, category, filename, lineno, file=None, lin
     _message = warnings.formatwarning(message, category, filename, lineno, line)
     try:
         pyto.PyOutputHelper.printWarning(_message, script=threading.current_thread().script_path)
-    except:
+    except AttributeError:
         pyto.PyOutputHelper.printWarning(_message, script=None)
     return
 

@@ -14,8 +14,8 @@ if UIDevice is not None and float(str(UIDevice.currentDevice.systemVersion)) < 1
 
 __PyNotificationCenter__ = __Class__("PyNotificationCenter")
 
-class __NotificationCenter__(ModuleType):
 
+class __NotificationCenter__(ModuleType):
     @property
     def expandable(self):
         return __PyNotificationCenter__.canBeExpanded

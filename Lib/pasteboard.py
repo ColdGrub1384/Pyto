@@ -11,10 +11,13 @@ from typing import List
 
 NSURL = ObjCClass("NSURL")
 
+
 def general_pasteboard():
     return __UIPasteboard__.generalPasteboard
 
+
 # MARK: - Text
+
 
 def string() -> str:
     """
@@ -22,11 +25,13 @@ def string() -> str:
     """
     return str(general_pasteboard().string)
 
+
 def strings() -> List[str]:
     """
     Returns all strings contained in the pasteboard.
     """
     return general_pasteboard().strings
+
 
 def set_string(text: str):
     """
@@ -36,6 +41,7 @@ def set_string(text: str):
     """
     general_pasteboard().string = text
 
+
 def set_strings(array: List[str]):
     """
     Copy the given strings to the pasteboard.
@@ -44,7 +50,9 @@ def set_strings(array: List[str]):
     """
     general_pasteboard().strings = array
 
+
 # MARK: - Images
+
 
 def image() -> UIImage:
     """
@@ -52,11 +60,13 @@ def image() -> UIImage:
     """
     return general_pasteboard().image
 
+
 def images() -> List[UIImage]:
     """
     Returns all images contained in the pasteboard as Objective-C ``UIImage``\ s.
     """
     return general_pasteboard().images
+
 
 def set_image(image: UIImage):
     """
@@ -66,6 +76,7 @@ def set_image(image: UIImage):
     """
     general_pasteboard().image = image
 
+
 def set_images(array: List[UIImage]):
     """
     Copy the given images to the pasteboard.
@@ -74,7 +85,9 @@ def set_images(array: List[UIImage]):
     """
     general_pasteboard().images = array
 
+
 # MARK: - URLs
+
 
 def url() -> NSURL:
     """
@@ -82,11 +95,13 @@ def url() -> NSURL:
     """
     return general_pasteboard().url
 
+
 def urls() -> List[NSURL]:
     """
     Returns all URLs contained in the pasteboard as Objective-C ``NSURL``\ s.
     """
     return general_pasteboard().urls
+
 
 def set_url(url: NSURL):
     """
@@ -95,6 +110,7 @@ def set_url(url: NSURL):
     :param url: The Objective-C ``NSURL`` to copy.
     """
     general_pasteboard().url = url
+
 
 def set_urls(array: List[NSURL]):
     """
