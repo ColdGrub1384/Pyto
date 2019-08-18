@@ -1919,7 +1919,7 @@ class Alert:
         script_path = None
         try:
             script_path = threading.current_thread().script_path
-        except:
+        except AttributeError:
             pass
 
         return self.__pyAlert__._show(script_path)
@@ -4223,7 +4223,7 @@ def show_view(view: View, mode: PRESENTATION_MODE):
         ConsoleViewController.showView(
             view.__py_view__, onConsoleForPath=threading.current_thread().script_path
         )
-    except:
+    except AttributeError:
         ConsoleViewController.showView(view.__py_view__, onConsoleForPath=None)
 
     while view.__py_view__.isPresented:

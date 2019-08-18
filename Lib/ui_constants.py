@@ -23,82 +23,107 @@ __PyGestureRecognizer__ = __Class__("PyGestureRecognizer")
 __PyButtonItem__ = __Class__("PyButtonItem")
 __PyTextInputTraitsConstants__ = __Class__("PyTextInputTraitsConstants")
 
-class Value:
 
+class Value:
     def __repr__(self):
         return None
+
 
 class AUTO_RESIZING:
     pass
 
+
 class GESTURE_TYPE:
     pass
+
 
 class KEYBOARD_APPEARANCE:
     pass
 
+
 class KEYBOARD_TYPE:
     pass
+
 
 class RETURN_KEY_TYPE:
     pass
 
+
 class AUTO_CAPITALIZE:
     pass
+
 
 class FONT_TEXT_STYLE:
     pass
 
+
 class FONT_SIZE:
     pass
+
 
 class PRESENTATION_MODE:
     pass
 
+
 class APPEARANCE:
     pass
+
 
 class CONTENT_MODE:
     pass
 
+
 class HORZONTAL_ALIGNMENT:
     pass
+
 
 class VERTICAL_ALIGNMENT:
     pass
 
+
 class BUTTON_TYPE:
     pass
+
 
 class TEXT_ALIGNMENT:
     pass
 
+
 class LINE_BREAK_MODE:
     pass
+
 
 class TOUCH_TYPE:
     pass
 
+
 class GESTURE_STATE:
     pass
+
 
 class TABLE_VIEW_CELL_STYLE:
     pass
 
+
 class ACCESSORY_TYPE:
     pass
+
 
 class TABLE_VIEW_STYLE:
     pass
 
+
 class TEXT_FIELD_BORDER_STYLE:
     pass
+
 
 class BUTTON_ITEM_STYLE:
     pass
 
+
 class SYSTEM_ITEM:
     pass
+
 
 try:
 
@@ -158,19 +183,31 @@ try:
     GESTURE_TYPE_PAN = UIPanGestureRecognizer
     GESTURE_TYPE_TAP = UITapGestureRecognizer
 
-    KEYBOARD_APPEARANCE_DEFAULT = __PyTextInputTraitsConstants__.KeyboardAppearanceDefault
+    KEYBOARD_APPEARANCE_DEFAULT = (
+        __PyTextInputTraitsConstants__.KeyboardAppearanceDefault
+    )
     KEYBOARD_APPEARANCE_LIGHT = __PyTextInputTraitsConstants__.KeyboardAppearanceLight
     KEYBOARD_APPEARANCE_DARK = __PyTextInputTraitsConstants__.KeyboardAppearanceDark
 
     KEYBOARD_TYPE_DEFAULT = __PyTextInputTraitsConstants__.KeyboardTypeDefault
     KEYBOARD_TYPE_ALPHABET = __PyTextInputTraitsConstants__.KeyboardTypeAlphabet
-    KEYBOARD_TYPE_ASCII_CAPABLE = __PyTextInputTraitsConstants__.KeyboardTypeAsciiCapable
-    KEYBOARD_TYPE_ASCII_CAPABLE_NUMBER_PAD = __PyTextInputTraitsConstants__.KeyboardTypeAsciiCapableNumberPad
+    KEYBOARD_TYPE_ASCII_CAPABLE = (
+        __PyTextInputTraitsConstants__.KeyboardTypeAsciiCapable
+    )
+    KEYBOARD_TYPE_ASCII_CAPABLE_NUMBER_PAD = (
+        __PyTextInputTraitsConstants__.KeyboardTypeAsciiCapableNumberPad
+    )
     KEYBOARD_TYPE_DECIMAL_PAD = __PyTextInputTraitsConstants__.KeyboardTypeDecimalPad
-    KEYBOARD_TYPE_EMAIL_ADDRESS = __PyTextInputTraitsConstants__.KeyboardTypeEmailAddress
-    KEYBOARD_TYPE_NAME_PHONE_PAD = __PyTextInputTraitsConstants__.KeyboardTypeNamePhonePad
+    KEYBOARD_TYPE_EMAIL_ADDRESS = (
+        __PyTextInputTraitsConstants__.KeyboardTypeEmailAddress
+    )
+    KEYBOARD_TYPE_NAME_PHONE_PAD = (
+        __PyTextInputTraitsConstants__.KeyboardTypeNamePhonePad
+    )
     KEYBOARD_TYPE_NUMBER_PAD = __PyTextInputTraitsConstants__.KeyboardTypeNumberPad
-    KEYBOARD_TYPE_NUMBERS_AND_PUNCTUATION = __PyTextInputTraitsConstants__.KeyboardTypeNumbersAndPunctuation
+    KEYBOARD_TYPE_NUMBERS_AND_PUNCTUATION = (
+        __PyTextInputTraitsConstants__.KeyboardTypeNumbersAndPunctuation
+    )
     KEYBOARD_TYPE_PHONE_PAD = __PyTextInputTraitsConstants__.KeyboardTypePhonePad
     KEYBOARD_TYPE_TWITTER = __PyTextInputTraitsConstants__.KeyboardTypeTwitter
     KEYBOARD_TYPE_URL = __PyTextInputTraitsConstants__.KeyboardTypeURL
@@ -179,7 +216,9 @@ try:
     RETURN_KEY_TYPE_DEFAULT = __PyTextInputTraitsConstants__.ReturnKeyTypeDefault
     RETURN_KEY_TYPE_CONTINUE = __PyTextInputTraitsConstants__.ReturnKeyTypeContinue
     RETURN_KEY_TYPE_DONE = __PyTextInputTraitsConstants__.ReturnKeyTypeDone
-    RETURN_KEY_TYPE_EMERGENCY_CALL = __PyTextInputTraitsConstants__.ReturnKeyTypeEmergencyCall
+    RETURN_KEY_TYPE_EMERGENCY_CALL = (
+        __PyTextInputTraitsConstants__.ReturnKeyTypeEmergencyCall
+    )
     RETURN_KEY_TYPE_GO = __PyTextInputTraitsConstants__.ReturnKeyTypeGo
     RETURN_KEY_TYPE_GOOGLE = __PyTextInputTraitsConstants__.ReturnKeyTypeGoogle
     RETURN_KEY_TYPE_JOIN = __PyTextInputTraitsConstants__.ReturnKeyTypeJoin
@@ -190,8 +229,12 @@ try:
     RETURN_KEY_TYPE_YAHOO = __PyTextInputTraitsConstants__.ReturnKeyTypeYahoo
 
     AUTO_CAPITALIZE_NONE = __PyTextInputTraitsConstants__.AutocapitalizationTypeNone
-    AUTO_CAPITALIZE_ALL = __PyTextInputTraitsConstants__.AutocapitalizationTypeAllCharacters
-    AUTO_CAPITALIZE_SENTENCES = __PyTextInputTraitsConstants__.AutocapitalizationTypeSentences
+    AUTO_CAPITALIZE_ALL = (
+        __PyTextInputTraitsConstants__.AutocapitalizationTypeAllCharacters
+    )
+    AUTO_CAPITALIZE_SENTENCES = (
+        __PyTextInputTraitsConstants__.AutocapitalizationTypeSentences
+    )
     AUTO_CAPITALIZE_WORDS = __PyTextInputTraitsConstants__.AutocapitalizationTypeWords
 
     FONT_TEXT_STYLE_BODY = "UICTFontTextStyleBody"
@@ -291,8 +334,12 @@ try:
     ACCESSORY_TYPE_NONE = __PyTableViewCell__.AccessoryTypeNone
     ACCESSORY_TYPE_CHECKMARK = __PyTableViewCell__.AccessoryTypeCheckmark
     ACCESSORY_TYPE_DETAIL_BUTTON = __PyTableViewCell__.AccessoryTypeDetailButton
-    ACCESSORY_TYPE_DETAIL_DISCLOSURE_BUTTON = __PyTableViewCell__.AccessoryTypeDetailDisclosureButton
-    ACCESSORY_TYPE_DISCLOSURE_INDICATOR = __PyTableViewCell__.AccessoryTypeDisclosureIndicator
+    ACCESSORY_TYPE_DETAIL_DISCLOSURE_BUTTON = (
+        __PyTableViewCell__.AccessoryTypeDetailDisclosureButton
+    )
+    ACCESSORY_TYPE_DISCLOSURE_INDICATOR = (
+        __PyTableViewCell__.AccessoryTypeDisclosureIndicator
+    )
 
     TABLE_VIEW_STYLE_PLAIN = __PyTableView__.StylePlain
     TABLE_VIEW_STYLE_GROUPED = __PyTableView__.StyleGrouped
