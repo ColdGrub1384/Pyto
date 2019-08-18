@@ -16,18 +16,32 @@ Follow [@develobile](https://twitter.com/develobile) on Twitter for news about m
 ![screenshots](mockup.png)
 
 ```
-Pyto is a Python 3.7 IDE for iPhone an iPad. You can run code directly on your device and offline.
+Pyto is a Python 3.7 IDE for iPhone an iPad. Run code directly on your device and offline.
 
 Features:
 
-  - Python 3.7 with all default libraries like "sys"
-  - Pre-installed modules for interacting with the app
+  - Python 3.7 with all standard library
   - Full Python REPL
-  - Use your own modules on your scripts
-  - Code an user interface with the same UIKit interface
+  - Code user interfaces
   - Smart code completion
-  - Numpy 1.16.1, Matplotlib 3.0.2 and Pandas 0.24.1 included
   - Use pip to install pure Python modules from PyPi
+  - Access scripts from everywhere
+  - Preview images and plots on console
+  - Multiple windows for iPadOS 13+
+  - Run scripts and code from Siri Shortcuts
+  
+Libraries included:
+  
+  - Numpy
+  - Matplotlib
+  - Pandas
+  - Pillow
+  - SciPy
+  - SciKit-Learn
+  - SciKit-Image
+  - OpenCV
+  - Lxml
+  - Biopython
 ```
 
 ## Building
