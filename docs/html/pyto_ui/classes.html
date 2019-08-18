@@ -81,6 +81,7 @@
             
             
               <ul>
+<li class="toctree-l1"><a class="reference internal" href="../opencv.html">OpenCV</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../third_party.html">Third Party Libraries</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Pyto Library Reference</span></p>
@@ -1908,8 +1909,8 @@ When the gesture is starting, cancelling or changig, <code class="docutils liter
 <span class="n">view</span><span class="o">.</span><span class="n">add_subview</span><span class="p">(</span><span class="n">circle</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="n">sender</span><span class="p">:</span> <span class="n">ui</span><span class="o">.</span><span class="n">GestureRecognizer</span><span class="p">):</span>
-  <span class="k">if</span> <span class="n">sender</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">ui</span><span class="o">.</span><span class="n">GESTURE_STATE_CHANGED</span><span class="p">:</span>
-    <span class="n">circle</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">sender</span><span class="o">.</span><span class="n">location</span>
+    <span class="k">if</span> <span class="n">sender</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">ui</span><span class="o">.</span><span class="n">GESTURE_STATE_CHANGED</span><span class="p">:</span>
+        <span class="n">circle</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">sender</span><span class="o">.</span><span class="n">location</span>
 
 <span class="n">gesture</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">GestureRecognizer</span><span class="p">(</span><span class="n">ui</span><span class="o">.</span><span class="n">GESTURE_TYPE_PAN</span><span class="p">)</span>
 <span class="n">gesture</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="n">move</span>
@@ -2228,7 +2229,7 @@ This function should be used to move the data corresponding to the cell from the
 <span class="n">alert</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span><span class="s2">&quot;Ok&quot;</span><span class="p">)</span>
 <span class="n">alert</span><span class="o">.</span><span class="n">add_cancel_action</span><span class="p">(</span><span class="s2">&quot;Cancel&quot;</span><span class="p">)</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">alert</span><span class="o">.</span><span class="n">show</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Ok&quot;</span><span class="p">):</span>
-  <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Good Bye!&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Good Bye!&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="method">

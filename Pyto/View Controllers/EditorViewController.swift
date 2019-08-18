@@ -88,7 +88,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// Returns string used for indentation
     static var indentation: String {
         get {
-            return UserDefaults.standard.string(forKey: "indentation") ?? "  "
+            return UserDefaults.standard.string(forKey: "indentation") ?? "    "
         }
         
         set {
