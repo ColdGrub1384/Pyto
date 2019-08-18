@@ -104,7 +104,6 @@ import UIKit
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         _ = urls[0].startAccessingSecurityScopedResource()
-        console.movableTextField?.textField.text = "import os; os.chdir(\"\(urls[0].path.replacingOccurrences(of: "\"", with: "\\\""))\")"
-        console.movableTextField?.textField.becomeFirstResponder()
+        Python.shared.run(code: "import os, sys; path = \"\(urls[0].path.replacingOccurrences(of: "\"", with: "\\\""))\"; os.chdir(path); sys.path.append(path)")
     }
 }
