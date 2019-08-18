@@ -1,7 +1,9 @@
 """
 An example of face detection using OpenCV.
 
-Real time camera is displayed on the console whith a green square around faces. As the video is displayed on the console and not on a window, the code is a bit different on Pyto than code on computers.
+(!) Real time camera is displayed on the console whith a green square around faces. As the video is displayed on the console and not on a window, the code is a bit different on Pyto than code on computers.
+
+(!) Face detection is orientation sensitive, so put your device in portrait mode to make this script work better.
 """
 
 import cv2
