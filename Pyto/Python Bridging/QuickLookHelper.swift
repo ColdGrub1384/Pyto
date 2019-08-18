@@ -65,7 +65,12 @@ fileprivate class ImageAttachment: NSTextAttachment {
     static var visible: QuickLookHelper?
     
     /// Rotation to be used on OpenCV images.
-    @objc static var openCvRotation: Double {
+    ///
+    /// - Parameters:
+    ///     - device: Integer parameter to initialize `cv2.VideoCapture` object.
+    ///
+    /// - Returns: Rotation to be used on OpenCV images.
+    @objc static func openCvRotation(_ device: Int) -> Double {
         var rotation: Double = 0
         let semaphore = DispatchSemaphore(value: 0)
         
@@ -75,9 +80,17 @@ fileprivate class ImageAttachment: NSTextAttachment {
             case .portrait:
                 rotation = 0
             case .landscapeLeft:
-                rotation = 90
+                if device == 1 {
+                    rotation = 90
+                } else {
+                    rotation = 270
+                }
             case .landscapeRight:
-                rotation = 270
+                if device == 1 {
+                    rotation = 270
+                } else {
+                    rotation = 90
+                }
             default:
                 rotation = 0
             }
