@@ -16,16 +16,6 @@ import builtins
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../site-packages'))
 
-builtins.iOS = "iOS"
-builtins.macOS = "macOS"
-builtins.__platform__ = builtins.iOS
-
-builtins.widget = "widget"
-builtins.app = "app"
-builtins.__host__ = builtins.app
-
-
-
 # -- Project information -----------------------------------------------------
 
 project = 'Pyto'

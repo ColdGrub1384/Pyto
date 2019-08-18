@@ -96,6 +96,8 @@
 		C92A7D4722F99AD700D3B4DF /* _denoise_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C92A7CE122F99A4700D3B4DF /* _denoise_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C92ACE3321F0D8CB00FA8904 /* SolarizedLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92ACE3221F0D8CB00FA8904 /* SolarizedLight.swift */; };
 		C92ACE3721F0DBF600FA8904 /* SolarizedDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92ACE3621F0DBF600FA8904 /* SolarizedDark.swift */; };
+		C92D5E5C2309D14900C82225 /* cv2.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C97868152304E1E700BD6FA4 /* cv2.o */; };
+		C92D5E5D2309D15B00C82225 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C97868132304E1AE00BD6FA4 /* opencv2.framework */; };
 		C92DBD8021F67B9D0098BE43 /* REPL.py in Resources */ = {isa = PBXBuildFile; fileRef = C92DBD7F21F67B9C0098BE43 /* REPL.py */; };
 		C92DBD8221F687480098BE43 /* REPLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92DBD8121F687480098BE43 /* REPLViewController.swift */; };
 		C92EAC6322D93D1100729970 /* libPython.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6321445B5800585C28 /* libPython.a */; };
@@ -165,7 +167,6 @@
 		C95A9DBD22542C4400B90E42 /* MovableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A33B0E224FCDA00083F041 /* MovableTextField.swift */; };
 		C95A9DC022542C7700B90E42 /* TextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9A33B12224FCDAD0083F041 /* TextField.xib */; };
 		C95AECB82208A688003BCB05 /* cacert.pem in Resources */ = {isa = PBXBuildFile; fileRef = C95AECB72208A688003BCB05 /* cacert.pem */; };
-		C95C463E2304F0E100166AB5 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C97868132304E1AE00BD6FA4 /* opencv2.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		C95EE4E722070224006611CB /* libpng.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE4DF22070224006611CB /* libpng.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C95EE4ED22070275006611CB /* png.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BA62202590E0085E1AA /* png.c */; };
 		C95EE4EE22070277006611CB /* pngerror.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BA72202590E0085E1AA /* pngerror.c */; };
@@ -240,8 +241,6 @@
 		C978680D2304DEC600BD6FA4 /* jquant2.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C97867482304D52600BD6FA4 /* jquant2.o */; };
 		C978680E2304DEC600BD6FA4 /* jutils.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C97867592304D52800BD6FA4 /* jutils.o */; };
 		C97868112304DF0F00BD6FA4 /* libjpeg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C97867D52304DEB000BD6FA4 /* libjpeg.framework */; };
-		C97868142304E1CA00BD6FA4 /* opencv2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C97868132304E1AE00BD6FA4 /* opencv2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C97868162304E1E700BD6FA4 /* cv2.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C97868152304E1E700BD6FA4 /* cv2.o */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C982A7A822F8D92000E999AA /* libpng.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE4DF22070224006611CB /* libpng.framework */; };
 		C98472AE21A05CB1008E16AC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C98472AD21A05CB1008E16AC /* README.md */; };
 		C98A5BB422C7E86900D411CC /* PyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98A5BB122C7E86900D411CC /* PyWrapper.swift */; };
@@ -1614,7 +1613,6 @@
 			files = (
 				C9DF71072171768A00981B4F /* Python.framework in Embed Frameworks */,
 				C9AAAB4A2195016D0042E733 /* InputAssistant.framework in Embed Frameworks */,
-				C97868142304E1CA00BD6FA4 /* opencv2.framework in Embed Frameworks */,
 				C95EE4E722070224006611CB /* libpng.framework in Embed Frameworks */,
 				C9F8FB5023025D91004648F4 /* _imagingmorph.framework in Embed Frameworks */,
 				C9F8FB5123025D91004648F4 /* _imagingft.framework in Embed Frameworks */,
@@ -3368,7 +3366,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C95C463E2304F0E100166AB5 /* opencv2.framework in Frameworks */,
 				C9F8F9A52302569C004648F4 /* dspr.o in Frameworks */,
 				C9F8FA072302569D004648F4 /* idzp_aid_subr_5.o in Frameworks */,
 				C9F8F7E12302569C004648F4 /* zrfft.o in Frameworks */,
@@ -3439,6 +3436,7 @@
 				C9F8F79F2302569C004648F4 /* specfun_wrappers.o in Frameworks */,
 				C937B9C822EE430500269FC6 /* libxml2.a in Frameworks */,
 				C9F8F8C62302569C004648F4 /* surfit.o in Frameworks */,
+				C92D5E5D2309D15B00C82225 /* opencv2.framework in Frameworks */,
 				C9F8FA992302569D004648F4 /* d_mprec.o in Frameworks */,
 				C9F8F8152302569C004648F4 /* dmyblas2.o in Frameworks */,
 				C9F8FB162302569D004648F4 /* dsinqb.o in Frameworks */,
@@ -3540,7 +3538,7 @@
 				C9F8F8802302569C004648F4 /* prini.o in Frameworks */,
 				C9F8F8C52302569C004648F4 /* mio5_utils.o in Frameworks */,
 				C937B9CD22EE431100269FC6 /* diff.o in Frameworks */,
-				C97868162304E1E700BD6FA4 /* cv2.o in Frameworks */,
+				C92D5E5C2309D14900C82225 /* cv2.o in Frameworks */,
 				C9F8F7FB2302569C004648F4 /* CGSREVCOM.o in Frameworks */,
 				C9F8FA592302569D004648F4 /* ztpmv.o in Frameworks */,
 				C9F8F8FC2302569C004648F4 /* fppogr.o in Frameworks */,
@@ -7508,8 +7506,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_CXX_LIBRARY = "libstdc++";
-				CLANG_ENABLE_CPP_STATIC_DESTRUCTORS = YES;
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_CPP_STATIC_DESTRUCTORS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
@@ -7535,6 +7533,7 @@
 					"$(PROJECT_DIR)/OpenCV",
 				);
 				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"MAIN=1",
@@ -7605,8 +7604,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_CXX_LIBRARY = "libstdc++";
-				CLANG_ENABLE_CPP_STATIC_DESTRUCTORS = YES;
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_CPP_STATIC_DESTRUCTORS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
@@ -7632,6 +7631,7 @@
 					"$(PROJECT_DIR)/OpenCV",
 				);
 				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"MAIN=1",
