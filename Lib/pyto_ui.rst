@@ -68,7 +68,7 @@ To add an action to the button:
 .. code-block:: python
 
     def button_pressed(sender):
-      sender.superview.close()
+        sender.superview.close()
 
     button.action = button_pressed
 
@@ -82,7 +82,7 @@ So we have this code:
     import pyto_ui as ui
 
     def button_pressed(sender):
-      sender.superview.close()
+        sender.superview.close()
 
     view = ui.View()
     view.background_color = ui.COLOR_SYSTEM_BACKGROUND

@@ -81,6 +81,7 @@
             
             
               <ul>
+<li class="toctree-l1"><a class="reference internal" href="opencv.html">OpenCV</a></li>
 <li class="toctree-l1"><a class="reference internal" href="third_party.html">Third Party Libraries</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Pyto Library Reference</span></p>
@@ -214,7 +215,7 @@ It’s important to set our view’s background color because it will be transpa
 <p>We are creating a button with title “Hello World!”, with 100 as width and 50 as height. We place it at center, and we set <a class="reference internal" href="pyto_ui/classes.html#pyto_ui.View.flex" title="pyto_ui.View.flex"><code class="xref py py-data docutils literal notranslate"><span class="pre">flex</span></code></a> to have flexible margins so the button will always stay at center even if the root view will change its size.</p>
 <p>To add an action to the button:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">button_pressed</span><span class="p">(</span><span class="n">sender</span><span class="p">):</span>
-  <span class="n">sender</span><span class="o">.</span><span class="n">superview</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">sender</span><span class="o">.</span><span class="n">superview</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
 <span class="n">button</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="n">button_pressed</span>
 </pre></div>
@@ -224,7 +225,7 @@ It’s important to set our view’s background color because it will be transpa
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyto_ui</span> <span class="kn">as</span> <span class="nn">ui</span>
 
 <span class="k">def</span> <span class="nf">button_pressed</span><span class="p">(</span><span class="n">sender</span><span class="p">):</span>
-  <span class="n">sender</span><span class="o">.</span><span class="n">superview</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">sender</span><span class="o">.</span><span class="n">superview</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
 <span class="n">view</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">View</span><span class="p">()</span>
 <span class="n">view</span><span class="o">.</span><span class="n">background_color</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">COLOR_SYSTEM_BACKGROUND</span>

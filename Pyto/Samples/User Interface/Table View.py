@@ -6,52 +6,52 @@ import pyto_ui as ui
 import webbrowser
 
 class Item:
-  
-  def __init__(self, title, subtitle):
-    self.title = title
-    self.subtitle = subtitle
-    
+
+    def __init__(self, title, subtitle):
+        self.title = title
+        self.subtitle = subtitle
+
   def cell(self):
-    cell = ui.TableViewCell(ui.TABLE_VIEW_CELL_STYLE_SUBTITLE)
-    cell.text_label.text = self.title
-    cell.detail_text_label.text = self.subtitle
-    cell.accessory_type = ui.ACCESSORY_TYPE_DISCLOSURE_INDICATOR
-    cell.removable, cell.movable = True, True
-    return cell
+        cell = ui.TableViewCell(ui.TABLE_VIEW_CELL_STYLE_SUBTITLE)
+        cell.text_label.text = self.title
+        cell.detail_text_label.text = self.subtitle
+        cell.accessory_type = ui.ACCESSORY_TYPE_DISCLOSURE_INDICATOR
+        cell.removable, cell.movable = True, True
+        return cell
 
 def cells(items):
-  cells = []
-  for item in items:
-    cells.append(item.cell())
-  return cells
+    cells = []
+    for item in items:
+        cells.append(item.cell())
+    return cells
 
 iphones = [
-  Item("iPhone XS", "2018"),
-  Item("iPhone Xr", "2018"),
-  Item("iPhone X", "2017"),
-  Item("iPhone 8", "2017"),
-  Item("iPhone 7", "2016")
+    Item("iPhone XS", "2018"),
+    Item("iPhone Xr", "2018"),
+    Item("iPhone X", "2017"),
+    Item("iPhone 8", "2017"),
+    Item("iPhone 7", "2016")
 ]
 
 ipads = [
-  Item("iPad Air", "2019"),
-  Item("iPad Mini", "2019"),
-  Item("iPad Pro", "2018"),
-  Item("iPad 9.7", "2018"),
+    Item("iPad Air", "2019"),
+    Item("iPad Mini", "2019"),
+    Item("iPad Pro", "2018"),
+    Item("iPad 9.7", "2018"),
 ]
 
 macs = [
-  Item("MacBook Air", "2019"),
-  Item("MacBook Pro", "2019"),
-  Item("Mac Pro", "2019"),
-  Item("Mac Mini", "2018"),
-  Item("iMac Pro", "2017")
+    Item("MacBook Air", "2019"),
+    Item("MacBook Pro", "2019"),
+    Item("Mac Pro", "2019"),
+    Item("Mac Mini", "2018"),
+    Item("iMac Pro", "2017")
 ]
 
 all_items = {
-  ui.TableViewSection("iPhone", cells(iphones)) : iphones,
-  ui.TableViewSection("iPad", cells(ipads)) : ipads,
-  ui.TableViewSection("Mac", cells(macs)) : macs
+    ui.TableViewSection("iPhone", cells(iphones)) : iphones,
+    ui.TableViewSection("iPad", cells(ipads)) : ipads,
+    ui.TableViewSection("Mac", cells(macs)) : macs
 }
 
 def selected(section, cell_index):

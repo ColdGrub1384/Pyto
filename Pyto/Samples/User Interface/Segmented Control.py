@@ -19,14 +19,14 @@ segmented_control.segments = ["Foo", "Bar"]
 segmented_control.width = 200
 segmented_control.center = (view.width/2, view.height/2)
 segmented_control.flex = [
-  ui.FLEXIBLE_BOTTOM_MARGIN,
-  ui.FLEXIBLE_TOP_MARGIN,
-  ui.FLEXIBLE_LEFT_MARGIN,
-  ui.FLEXIBLE_RIGHT_MARGIN
+    ui.FLEXIBLE_BOTTOM_MARGIN,
+    ui.FLEXIBLE_TOP_MARGIN,
+    ui.FLEXIBLE_LEFT_MARGIN,
+    ui.FLEXIBLE_RIGHT_MARGIN
 ]
 
 def did_select(sender):
-  label.text = sender.segments[sender.selected_segment]
+    label.text = sender.segments[sender.selected_segment]
 
 segmented_control.action = did_select
 view.add_subview(segmented_control)

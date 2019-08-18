@@ -1326,8 +1326,8 @@ class GestureRecognizer:
         view.add_subview(circle)
     
         def move(sender: ui.GestureRecognizer):
-          if sender.state == ui.GESTURE_STATE_CHANGED:
-            circle.center = sender.location
+            if sender.state == ui.GESTURE_STATE_CHANGED:
+                circle.center = sender.location
     
         gesture = ui.GestureRecognizer(ui.GESTURE_TYPE_PAN)
         gesture.action = move
@@ -1847,7 +1847,7 @@ class Alert:
         alert.add_action("Ok")
         alert.add_cancel_action("Cancel")
         if (alert.show() == "Ok"):
-          print("Good Bye!")
+            print("Good Bye!")
     """
         
     __pyAlert__ = None
