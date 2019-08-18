@@ -12,12 +12,12 @@ class Item:
         self.subtitle = subtitle
 
   def cell(self):
-        cell = ui.TableViewCell(ui.TABLE_VIEW_CELL_STYLE_SUBTITLE)
-        cell.text_label.text = self.title
-        cell.detail_text_label.text = self.subtitle
-        cell.accessory_type = ui.ACCESSORY_TYPE_DISCLOSURE_INDICATOR
-        cell.removable, cell.movable = True, True
-        return cell
+      cell = ui.TableViewCell(ui.TABLE_VIEW_CELL_STYLE_SUBTITLE)
+      cell.text_label.text = self.title
+      cell.detail_text_label.text = self.subtitle
+      cell.accessory_type = ui.ACCESSORY_TYPE_DISCLOSURE_INDICATOR
+      cell.removable, cell.movable = True, True
+      return cell
 
 def cells(items):
     cells = []
