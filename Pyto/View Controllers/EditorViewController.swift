@@ -1724,8 +1724,13 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
             self.textView.contentTextView.insertText(suggestion)
+            if suggestion.hasSuffix("(") {
+                let range = self.textView.contentTextView.selectedRange
+                self.textView.contentTextView.insertText(")")
+                self.textView.contentTextView.selectedRange = range
+            }
         }
-        
+                
         currentSuggestionIndex = -1
     }
     
@@ -1777,7 +1782,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
         
         if suggestions[index].hasSuffix("(") {
-            return suggestions[index]+")"+suffix
+            return "()"+suffix
         }
         
         return suggestions[index]+suffix
