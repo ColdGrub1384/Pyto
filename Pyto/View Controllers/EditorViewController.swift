@@ -1646,14 +1646,26 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
         
         ConsoleViewController.ignoresInput = true
-        let input = [
-            "from _codecompletion import suggestForCode",
-            "source = '''",
-            text.replacingOccurrences(of: "'", with: "\\'").replacingOccurrences(of: "\\", with: "\\\\"),
-            "'''",
-            "suggestForCode(source, '\((document?.fileURL.path ?? "").replacingOccurrences(of: "'", with: "\\'"))')"
-        ].joined(separator: ";")
-        Python.shared.run(code: input)
+        let code = """
+        from _codecompletion import suggestForCode
+        import sys
+        
+        path = '\(currentDirectory.path.replacingOccurrences(of: "'", with: "\\'"))'
+        should_path_be_deleted = False
+        
+        if not path in sys.path:
+          sys.path.append(path)
+          should_path_be_deleted = True
+        
+        source = '''
+        \(text.replacingOccurrences(of: "'", with: "\\'").replacingOccurrences(of: "\\", with: "\\\\"));
+        '''
+        suggestForCode(source, '\((document?.fileURL.path ?? "").replacingOccurrences(of: "'", with: "\\'"))')
+        
+        if should_path_be_deleted:
+          sys.path.remove(path)
+        """
+        Python.shared.run(code: code)
     }
     
     // MARK: - Syntax text view delegate
