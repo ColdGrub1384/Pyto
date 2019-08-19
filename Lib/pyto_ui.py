@@ -936,23 +936,23 @@ The system undo button.
 class Color:
     """
     A ``Color`` object represents a color to be displayed on screen.
-    
+
     Example:
-    
+
     .. highlight:: python
     .. code-block:: python
-    
+
         import pyto_ui as ui
-    
+
         # RGB
         black = ui.Color.rgb(0, 0, 0, 1)
-        
+
         # White
         white = ui.Color.white(1, 1)
-        
+
         # Dynamic
         background = ui.Color.dynamic(light=white, dark=black)
-        
+
     For pre-defined colors, see `Color <constants.html#ui-elements-colors>`_ constants.
     """
 
@@ -961,7 +961,7 @@ class Color:
     def red(self) -> Color:
         """
         Returns the red value of the color.
-        
+
         :rtype: Color
         """
 
@@ -970,7 +970,7 @@ class Color:
     def green(self) -> Color:
         """
         Returns the green value of the color.
-            
+
         :rtype: Color
         """
 
@@ -979,7 +979,7 @@ class Color:
     def blue(self) -> Color:
         """
         Returns the blue value of the color.
-        
+
         :rtype: Color
         """
 
@@ -995,14 +995,14 @@ class Color:
     def rgb(cls, red: float, green: float, blue, alpha: float) -> Color:
         """
         Initializes a color from RGB values.
-        
+
         All values should be located between 0 and 1, not between 0 and 255.
-        
+
         :param red: The red value.
         :param green: The geen value.
         :param blue: The blue value.
         :param alpha: The opacity value.
-        
+
         :rtype: Color
         """
 
@@ -1012,12 +1012,12 @@ class Color:
     def white(cls, white: float, alpha: float) -> Color:
         """
         Initializes and returns a color from white value.
-        
+
         All values should be located between 0 and 1, not between 0 and 255.
-        
+
         :param white: The grayscale value.
         :param alpha: The opacity value.
-        
+
         :rtype: Color
         """
 
@@ -1027,10 +1027,10 @@ class Color:
     def dynamic(cls, light: Color, dark: Color) -> Color:
         """
         Initializes and returns a color that dynamically changes in dark or light mode.
-        
+
         :param light: :class:`~pyto_ui.Color` object to be displayed in light mode.
         :param dark: :class:`~pyto_ui.Color` object to be displayed in dark mode.
-        
+
         :rtype: Color
         """
 
@@ -1207,7 +1207,7 @@ class Font:
     def __init__(self, name: str, size: float):
         """
         Initializes a font with given name and size.
-        
+
         :pram name: The fully specified name of the font. This name incorporates both the font family name and the specific style information for the font.
         :param size: The size (in points) to which the font is scaled. This value must be greater than 0.0.
         """
@@ -1223,9 +1223,9 @@ class Font:
     def with_size(self, size: float) -> Font:
         """
         Returns a font object that is the same as the receiver but which has the specified size instead.
-        
+
         :param size: The desired size (in points) of the new font object. This value must be greater than 0.0.
-        
+
         :rtype: Font
         """
 
@@ -1237,9 +1237,9 @@ class Font:
     def font_names_for_family_name(cls, name: str) -> List[str]:
         """
         Returns an array of font names available in a particular font family.
-        
+
         :param name: The name of the font family. Use the :func:`~pyto_ui.font_family_names` function to get an array of the available font family names on the system.
-        
+
         :rtype: List[str]
         """
 
@@ -1256,9 +1256,9 @@ class Font:
     def system_font_of_size(cls, size: float) -> Font:
         """
         Returns the font object used for standard interface items in the specified size.
-        
+
         :param size: The size (in points) to which the font is scaled. This value must be greater than 0.0.
-        
+
         :rtype: Font
         """
 
@@ -1270,9 +1270,9 @@ class Font:
     def italic_system_font_of_size(cls, size: float) -> Font:
         """
         Returns the font object used for standard interface items that are rendered in italic type in the specified size.
-        
+
         :param size: The size (in points) for the font. This value must be greater than 0.0.
-        
+
         :rtype: Font
         """
 
@@ -1284,9 +1284,9 @@ class Font:
     def bold_system_font_of_size(cls, size: float) -> Font:
         """
         Returns the font object used for standard interface items that are rendered in boldface type in the specified size
-        
+
         :param size: The size (in points) for the font. This value must be greater than 0.0.
-        
+
         :rtype: Font
         """
 
@@ -1298,9 +1298,9 @@ class Font:
     def font_with_style(cls, style: FONT_TEXT_STYLE) -> Font:
         """
         Returns an instance of the system font for the specified text style and scaled appropriately for the user's selected content size category.
-        
+
         :param style: The text style for which to return a font. See `Font Text Style <constants.html#font-text-style>`_ constants for possible values.
-        
+
         :rtype: Font
         """
 
@@ -1315,24 +1315,24 @@ class Font:
 class GestureRecognizer:
     """
     A gesture-recognizer object—or, simply, a gesture recognizer—decouples the logic for recognizing a sequence of touches (or other input) and acting on that recognition. When one of these objects recognizes a common gesture or, in some cases, a change in the gesture, it sends an action message to each designated target object.
-    
+
     This class represents the type of gesture passed to the ``type`` initializer parameter. See `Gesture Type <constants.html#gesture-type>`_ constants for possible values.
     When the gesture is starting, cancelling or changig, ``action`` is called with the gesture recognizer as parameter. You can then access the location and the state from it.
-    
+
     Example:
-    
+
     .. highlight:: python
     .. code-block:: python
-    
+
         '''
         Move a circle with finger.
         '''
-    
+
         import pyto_ui as ui
-    
+
         view = ui.View()
         view.background_color = ui.COLOR_SYSTEM_BACKGROUND
-    
+
         circle = ui.View()
         circle.size = (50, 50)
         circle.center = (view.width/2, view.height/2)
@@ -1340,15 +1340,15 @@ class GestureRecognizer:
         circle.corner_radius = 25
         circle.background_color = ui.COLOR_LABEL
         view.add_subview(circle)
-    
+
         def move(sender: ui.GestureRecognizer):
             if sender.state == ui.GESTURE_STATE_CHANGED:
                 circle.center = sender.location
-    
+
         gesture = ui.GestureRecognizer(ui.GESTURE_TYPE_PAN)
         gesture.action = move
         view.add_gesture_recognizer(gesture)
-    
+
         ui.show_view(view)
 
     """
@@ -1378,7 +1378,7 @@ class GestureRecognizer:
     def x(self) -> float:
         """
         (Read Only) Returns the X position of the gesture in its container view.
-        
+
         :rtype: float
         """
 
@@ -1402,7 +1402,7 @@ class GestureRecognizer:
     def location(self) -> Tuple[float, float]:
         """
         (Read Only) Returns a tuple with the X and the Y position of the gesture in its container view.
-        
+
         :rtype: Tuple[float, float]
         """
 
@@ -1416,7 +1416,7 @@ class GestureRecognizer:
     def view(self) -> "View":
         """
         (Read Only) Returns the view associated with the gesture.
-        
+
         :rtype: View
         """
 
@@ -1432,7 +1432,7 @@ class GestureRecognizer:
     def enabled(self) -> bool:
         """
         A boolean indicating whether the gesture recognizer is enabled.
-        
+
         :rtype: bool
         """
 
@@ -1448,7 +1448,7 @@ class GestureRecognizer:
     def number_of_touches(self) -> int:
         """
         (Read Only) Returns the number of touches involved in the gesture represented by the receiver.
-        
+
         :rtype: int
         """
 
@@ -1463,7 +1463,7 @@ class GestureRecognizer:
     def state(self) -> GESTURE_STATE:
         """
         (Read Only) The current state of the gesture recognizer.
-        
+
         :rtype: `Gesture State <constants.html#gesture-state>`_
         """
 
@@ -1476,7 +1476,7 @@ class GestureRecognizer:
     def requires_exclusive_touch_type(self) -> bool:
         """
         A Boolean indicating whether the gesture recognizer considers touches of different types simultaneously.
-        
+
         :rtype: bool
         """
         return self.__py_gesture__.requiresExclusiveTouchType
@@ -1489,7 +1489,7 @@ class GestureRecognizer:
     def delays_touches_ended(self) -> bool:
         """
         A Boolean value determining whether the receiver delays sending touches in a end phase to its view.
-        
+
         :rtype: bool
         """
         return self.__py_gesture__.delaysTouchesEnded
@@ -1502,7 +1502,7 @@ class GestureRecognizer:
     def delays_touches_began(self) -> bool:
         """
         A Boolean value determining whether the receiver delays sending touches in a begin phase to its view.
-        
+
         :rtype: bool
         """
         return self.__py_gesture__.delaysTouchesBegan
@@ -1515,7 +1515,7 @@ class GestureRecognizer:
     def cancels_touches_in_view(self) -> bool:
         """
         A Boolean value affecting whether touches are delivered to a view when a gesture is recognized.
-        
+
         :rtype: bool
         """
         return self.__py_gesture__.cancelsTouchesInView
@@ -1528,8 +1528,8 @@ class GestureRecognizer:
     def allowed_touch_types(self) -> List[TOUCH_TYPE]:
         """
         An array of touch types used to distinguish type of touches. For possible values, see ``Touch Type`` constants.
-        
-        :rtype: List[\ `Touch Type <constants.html#touch-type>`_\ ]
+
+        :rtype: List[`Touch Type <constants.html#touch-type>`_]
         """
         return self.__py_gesture__.allowedTouchTypes
 
@@ -1541,7 +1541,7 @@ class GestureRecognizer:
     def action(self) -> Callable[[GestureRecognizer], None]:
         """
         A function called to handle the gesture. Takes the sender gesture recognizer as parameter.
-        
+
         :rtype: Callable[[GestureRecognizer], None]
         """
 
@@ -1580,7 +1580,7 @@ class TableViewSection:
     def table_view(self) -> "TableView":
         """
         (Read Only) Returns the Table view associated with the section.
-        
+
         :rtype: TableView
         """
 
@@ -1596,7 +1596,7 @@ class TableViewSection:
     def title(self) -> str:
         """
         The title of the section displayed on screen.
-        
+
         :rtype: str
         """
 
@@ -1610,7 +1610,7 @@ class TableViewSection:
     def cells(self) -> "TableViewCell":
         """
         Cells contained in the section. After setting a value, the section will be reloaded automatically.
-        
+
         :rtype: TableViewCell
         """
 
@@ -1633,7 +1633,7 @@ class TableViewSection:
     def did_select_cell(self) -> Callable[[TableViewSection, int], None]:
         """
         A function called when a cell contained in the section is selected. Takes the sender section and the selected cell's index as parameters.
-        
+
         :rtype: Callable[[TableViewSection, int], None]
         """
 
@@ -1654,7 +1654,7 @@ class TableViewSection:
     def did_tap_cell_accessory_button(self) -> Callable[[TableViewSection, int], None]:
         """
         A function called when the accessory button of a cell contained in the section is pressed. Takes the sender section and the cell's index as parameters.
-        
+
         :rtype: Callable[[TableViewSection, int], None]
         """
 
@@ -1678,7 +1678,7 @@ class TableViewSection:
         """
         A function called when a cell contained in the section is deleted. Takes the sender section and the selected deleted cell's index as parameters.
         This function should be used to remove the data corresponding to the cell from the database.
-        
+
         :rtype: Callable[[TableViewSection, int], None]
         """
 
@@ -1700,7 +1700,7 @@ class TableViewSection:
         """
         A function called when a cell contained in the section is moved. Takes the sender section, the moved deleted cell's index and the destination index as parameters.
         This function should be used to move the data corresponding to the cell from the database.
-        
+
         :rtype: Callable[[TableViewSection, int, int], None]
         """
 
@@ -1755,7 +1755,7 @@ class ButtonItem:
     def title(self) -> str:
         """
         The title of the button displayed on screen.
-        
+
         :rtype: str
         """
 
@@ -1773,7 +1773,7 @@ class ButtonItem:
     def image(self) -> Image.Image:
         """
         A ``PIL`` image object displayed on screen. May also be an ``UIKit`` ``UIImage`` symbol. See :func:`~pyto_ui.image_with_system_name`.
-        
+
         :rtype: PIL.Image.Image
         """
 
@@ -1798,7 +1798,7 @@ class ButtonItem:
     def enabled(self) -> bool:
         """
         A boolean indicating whether the button is enabled.
-        
+
         :rtype: bool
         """
         return self.__py_item__.enabled
@@ -1811,7 +1811,7 @@ class ButtonItem:
     def style(self) -> BUTTON_ITEM_STYLE:
         """
         The button item style. See `Button Item Style <constants.html#button-item-style>`_ constants for possible values.
-        
+
         :rtype: `Button Item Style <constants.html#button-item-style>`_
         """
         return self.__py_item__.style
@@ -1824,7 +1824,7 @@ class ButtonItem:
     def action(self) -> Callable[[ButtonItem], None]:
         """
         A function called when the button item is pressed. Takes the button item as parameter.
-        
+
         :rtype: Callable[[ButtonItem], None]
         """
 
@@ -1848,14 +1848,14 @@ class ButtonItem:
 class Alert:
     """
     A class representing an alert.
-    
+
     Example:
-    
+
     .. highlight:: python
     .. code-block:: python
-    
+
         from pyto_ui import Alert
-        
+
         alert = Alert("Hello", "Hello World!")
         alert.add_action("Ok")
         alert.add_cancel_action("Cancel")
@@ -1868,7 +1868,7 @@ class Alert:
     def __init__(self, title: str, message: str):
         """
         Creates an alert.
-        
+
         :param title: The title of the alert.
         :param message: The message of the alert.
         """
@@ -1882,7 +1882,7 @@ class Alert:
     def add_action(self, title: str):
         """
         Adds an action with given title.
-        
+
         :param title: The title of the action.
         """
 
@@ -1891,7 +1891,7 @@ class Alert:
     def add_destructive_action(self, title: str):
         """
         Adds a destructive action with given title.
-        
+
         :param title: The title of the action.
         """
 
@@ -1900,7 +1900,7 @@ class Alert:
     def add_cancel_action(self, title: str):
         """
         Adds a cancel action with given title. Can only be added once.
-        
+
         :param title: The title of the action.
         """
 
@@ -1910,9 +1910,9 @@ class Alert:
     def show(self) -> str:
         """
         Shows alert.
-        
+
         Returns the title of the selected action.
-        
+
         :rtype: str
         """
 
@@ -1953,7 +1953,7 @@ class View:
     def push(self, view: View):
         """
         Presents the given additional view on top of the receiver.
-        
+
         :param view: The view to present.
         """
 
@@ -1970,7 +1970,7 @@ class View:
     def x(self) -> float:
         """
         The x-coordinate of the view.
-        
+
         :rtype: float
         """
 
@@ -1984,7 +1984,7 @@ class View:
     def y(self) -> float:
         """
         The y-coordinate of the point.
-        
+
         :rtype: float
         """
         return self.__py_view__.y
@@ -1997,7 +1997,7 @@ class View:
     def width(self) -> float:
         """
         The width of the view.
-        
+
         :rtype: float
         """
 
@@ -2011,7 +2011,7 @@ class View:
     def height(self) -> float:
         """
         The height of the view.
-        
+
         :rtype: float
         """
 
@@ -2025,7 +2025,7 @@ class View:
     def center_x(self) -> float:
         """
         The center x-coordinate of the view's frame rectangle. Setting this value updates ``frame`` property appropiately.
-        
+
         :rtype: float
         """
 
@@ -2039,7 +2039,7 @@ class View:
     def center_y(self) -> float:
         """
         The center y-coordinate of the view's frame rectangle. Setting this value updates ``frame`` property appropiately.
-        
+
         :rtype: float
         """
 
@@ -2054,7 +2054,7 @@ class View:
         """
         The center point of the view's frame rectangle. Setting this value updates ``frame`` property appropiately.
         This value is a tuple with X and Y coordinates.
-        
+
         :rtype: Tuple[float, float]
         """
 
@@ -2069,7 +2069,7 @@ class View:
         """
         A size that specifies the height and width of the rectangle.
         This value is a tuple with height and width values.
-        
+
         :rtype: Tuple[float, float]
         """
 
@@ -2084,7 +2084,7 @@ class View:
         """
         A point that specifies the coordinates of the view's rectangle’s origin.
         This value is a tuple with X and Y coordinates.
-        
+
         :rtype: Tuple[float, float]
         """
 
@@ -2099,7 +2099,7 @@ class View:
         """
         The frame rectangle, which describes the view’s location and size in its superview’s coordinate system.
         This value is a tuple with X, Y, Width and Height values.
-        
+
         :rtype: Tuple[float, float, float, float]
         """
 
@@ -2161,7 +2161,7 @@ class View:
     def flex(self) -> List[AUTO_RESIZING]:
         """
         A list that determines how the receiver resizes itself when its superview’s bounds change. See `Auto Resizing <constants.html#auto-resizing>`_ constants for possible values.
-        
+
         :rtype: List[`Auto Resizing <constants.html#auto-resizing>`_]
         """
 
@@ -2202,9 +2202,9 @@ class View:
     def subviews(self) -> List[View]:
         """
         (Read Only) A list of the view's children.
-        
-        See also :func:`~pyto_ui.View.add_subview`\ .
-        
+
+        See also :func:`~pyto_ui.View.add_subview`.
+
         :rtype: List[View]
         """
 
@@ -2223,7 +2223,7 @@ class View:
     def superview(self) -> View:
         """
         (Read Only) The parent view containg the receiver view.
-        
+
         :rtype: View
         """
 
@@ -2239,7 +2239,7 @@ class View:
     def background_color(self) -> Color:
         """
         The background color of the view.
-        
+
         :rtype: Color
         """
 
@@ -2260,7 +2260,7 @@ class View:
     def hidden(self) -> bool:
         """
         A boolean indicating whether the view is visible or not.
-        
+
         :rtype: bool
         """
 
@@ -2274,7 +2274,7 @@ class View:
     def alpha(self) -> float:
         """
         The opacity of the view.
-        
+
         :rtype: float
         """
 
@@ -2288,7 +2288,7 @@ class View:
     def opaque(self) -> bool:
         """
         A boolean indicating whether the view is opaque or not. Setting to ``True`` should prevent the view from having a transparent background.
-        
+
         :rtype: bool
         """
 
@@ -2302,7 +2302,7 @@ class View:
     def tint_color(self) -> Color:
         """
         The tint color of the view. If set to ``None``, the tint color will be inherited from the superview. The tint color affects some views like ``Button`` for title color, ``TextView`` for cursor color, etc.
-        
+
         :rtype: Color
         """
 
@@ -2323,7 +2323,7 @@ class View:
     def user_interaction_enabled(self) -> bool:
         """
         A boolean indicating whether the view responds to touches.
-        
+
         :rtype: bool
         """
 
@@ -2337,7 +2337,7 @@ class View:
     def clips_to_bounds(self) -> bool:
         """
         A boolean value that determines whether subviews are confined to the bounds of the view.
-        
+
         :rtype: bool
         """
 
@@ -2351,7 +2351,7 @@ class View:
     def corner_radius(self) -> float:
         """
         The radius to use when drawing rounded corners for the view’s background.
-        
+
         :rtype: float
         """
 
@@ -2365,7 +2365,7 @@ class View:
     def border_width(self) -> float:
         """
         The width of the view's border.
-        
+
         :rtype: float
         """
 
@@ -2379,7 +2379,7 @@ class View:
     def border_color(self) -> Color:
         """
         The color of the view's border
-        
+
         :rtype: Color
         """
 
@@ -2401,7 +2401,7 @@ class View:
         """
         A flag used to determine how a view lays out its content when its bounds change.
         See `Content Mode` <constants.html#content-mode>`_ constants for possible values.
-        
+
         :rtype: `Content Mode` <constants.html#content-mode>`_
         """
 
@@ -2416,7 +2416,7 @@ class View:
         """
         The appearance of the view.
         See `Appearance <constants.html#appearance>`_ constants for possible values.
-        
+
         :rtype: `Appearance <constants.html#appearance>`_
         """
 
@@ -2431,7 +2431,7 @@ class View:
         """
         (Read Only) A boolean indicating the view is first responder.
         ``UIKit`` dispatches some types of events, such as motion events, to the first responder initially.
-        
+
         :rtype: bool
         """
 
@@ -2440,7 +2440,7 @@ class View:
     def add_subview(self, view: View):
         """
         Adds the given view to the receiver's hierarchy.
-        
+
         :param view: The view to add.
         """
 
@@ -2449,7 +2449,7 @@ class View:
     def insert_subview(self, view: View, index: int):
         """
         Inserts the given view to the receiver's hierarchy at the given index.
-        
+
         :param view: The view to insert.
         :param index: The index where the view should be inserted.
         """
@@ -2459,7 +2459,7 @@ class View:
     def insert_subview_bellow(self, view: View, bellow_view: View):
         """
         Inserts the given view to the receiver's hierarchy bellow another given view.
-        
+
         :param view: The view to insert.
         :param bellow_view: The view above the inserted view.
         """
@@ -2469,7 +2469,7 @@ class View:
     def insert_subview_above(self, view: View, above_view: View):
         """
         Inserts the given view to the receiver's hierarchy above another given view.
-    
+
         :param view: The view to insert.
         :param above_view: The view bellow the inserted view.
         """
@@ -2486,7 +2486,7 @@ class View:
     def add_gesture_recognizer(self, gesture_recognizer: GestureRecognizer):
         """
         Adds a gesture recognizer.
-        
+
         :param gesture_recognizer: The gesture recognizer to be added.
         """
 
@@ -2495,7 +2495,7 @@ class View:
     def remove_gesture_recognizer(self, gesture_recognizer: GestureRecognizer):
         """
         Removes a gesture recognizer.
-        
+
         :param gesture_recognizer: The gesture recognizer to be removed.
         """
 
@@ -2505,9 +2505,9 @@ class View:
     def gesture_recognizers(self) -> List[GestureRecognizer]:
         """
         (Read Only) Returns all gesture recognizers.
-        
-        See :meth:`~pyto_ui.View.add_gesture_recognizer`\ .
-        
+
+        See :meth:`~pyto_ui.View.add_gesture_recognizer`.
+
         :rtype: List[GestureRecognizer]
         """
 
@@ -2533,7 +2533,7 @@ class View:
         """
         Becomes the first responder. On :class:`~pyto_ui.TextView` and :class:`~pyto_ui.TextField` objects, the keyboard will be shown.
         Returns a boolean indicating the success.
-        
+
         :rtype: bool
         """
 
@@ -2543,7 +2543,7 @@ class View:
         """
         Stops being the first responder. On :class:`~pyto_ui.TextView` and :class:`~pyto_ui.TextField` objects, the keyboard will be hidden.
         Returns a boolean indicating the success.
-        
+
         :rtype: bool
         """
 
@@ -2553,7 +2553,7 @@ class View:
     def layout(self) -> Callable[[View], None]:
         """
         A function called when the view is resized. Takes the view as parameter.
-        
+
         :rtype: Callable[[View], None]
         """
 
@@ -2575,7 +2575,7 @@ class View:
     def button_items(self) -> List[ButtonItem]:
         """
         A list of :class:`~pyto_ui.ButtonItem` objects to be displayed on the top bar. Works only if the view is the root view presented with :func:`~pyto_ui.show_view` or :meth:`~pyto_ui.View.push`.
-        
+
         :rtype: List[ButtonItem]
         """
 
@@ -2614,7 +2614,7 @@ class ImageView(View):
     def image(self) -> Image.Image:
         """
         The image displayed on screen. Can be a ``PIL`` image or an ``UIKit`` ``UIImage``. See :func:`~pyto_ui.image_with_system_name` for more information about how to get a symbol image.
-        
+
         :rtype: Image.Image
         """
 
@@ -2639,7 +2639,7 @@ class ImageView(View):
     def load_from_url(self, url):
         """
         Loads and display the image at given url.
-        
+
         :param url: The URL of the image.
         """
 
@@ -2662,7 +2662,7 @@ class Label(View):
     def text(self) -> str:
         """
         The text to be displayed on the view.
-            
+
         :rtype: str
         """
 
@@ -2676,7 +2676,7 @@ class Label(View):
     def text_color(self) -> Color:
         """
         The color of the text.
-            
+
         :rtype: Color
         """
 
@@ -2697,7 +2697,7 @@ class Label(View):
     def font(self) -> Font:
         """
         The font of the text.
-        
+
         :rtype: Font
         """
 
@@ -2720,7 +2720,7 @@ class Label(View):
     def text_alignment(self) -> TEXT_ALIGNMENT:
         """
         The text's alignment. For possible values, see `Text Alignment <constants.html#text-alignment>`_ constants.
-        
+
         :rtype: `Text Alignment <constants.html#text-alignment>`_
         """
 
@@ -2734,7 +2734,7 @@ class Label(View):
     def line_break_mode(self) -> LINE_BREAK_MODE:
         """
         The line break mode.
-        
+
         :rtype: `Line Break Mode <constants.html#line-break-mode>`_
         """
 
@@ -2748,7 +2748,7 @@ class Label(View):
     def adjusts_font_size_to_fit_width(self) -> bool:
         """
         A boolean indicating whether the label adjusts its font size to fit its size.
-        
+
         :rtype: bool
         """
 
@@ -2770,7 +2770,7 @@ class Label(View):
     def number_of_lines(self) -> int:
         """
         The numbers of lines displayed in the label. Set to ``0`` to show all the text.
-        
+
         :rtype: int
         """
 
@@ -2785,7 +2785,7 @@ class TableViewCell(View):
     """
     A cell contained in a :class:`~pyto_ui.TableView`.
     Can have a title, a subtitle, an image and an accessory view.
-    
+
     For a list of supported style, see `Table View Cell Style <constants.html#table-view-cell-style>`_ constants.
     """
 
@@ -2804,7 +2804,7 @@ class TableViewCell(View):
     def movable(self) -> bool:
         """
         A boolean indicating whether the cell is movable. If set to ``True``, the container :class:`TableViewSection` object should handle the move.
-        
+
         :rtype: bool
         """
 
@@ -2818,7 +2818,7 @@ class TableViewCell(View):
     def removable(self) -> bool:
         """
         A boolean indicating the cell is removable. If set to ``True``, the container :class:`TableViewSection` object should handle the removal.
-        
+
         :rtype: bool
         """
 
@@ -2832,7 +2832,7 @@ class TableViewCell(View):
     def content_view(self) -> View:
         """
         (Read Only) The view contained in the cell. Custom views should be added inside it.
-        
+
         :rtype: View
         """
 
@@ -2844,7 +2844,7 @@ class TableViewCell(View):
     def image_view(self) -> ImageView:
         """
         (Read Only) The view containing an image. May return ``None`` for some `Table View Cell Style <constants.html#table-view-cell-style>`_ values.
-        
+
         :rtype: Image View
         """
 
@@ -2860,7 +2860,7 @@ class TableViewCell(View):
     def text_label(self) -> Label:
         """
         (Read Only) The label containing the main text of the cell.
-        
+
         :rtype: Label
         """
 
@@ -2876,7 +2876,7 @@ class TableViewCell(View):
     def detail_text_label(self) -> Label:
         """
         (Read Only) The label containing secondary text. May return ``None`` for some `Table View Cell Style <constants.html#table-view-cell-style>`_ values.
-        
+
         :rtype: Label
         """
 
@@ -2892,7 +2892,7 @@ class TableViewCell(View):
     def accessory_type(self) -> ACCESSORY_TYPE:
         """
         The type of accessory view placed to the right of the cell. See `Accessory Type <constants.html#accessory_type>`_ constants for possible values.
-        
+
         :rtype: `Accessory Type <constants.html#accessory_type>`_.
         """
 
@@ -2906,7 +2906,7 @@ class TableViewCell(View):
 class TableView(View):
     """
     A view containing a list of cells.
-    
+
     A Table View has a list of :class:`TableViewSection` objects that represent groups of cells. A Table View has two possible styles. See `Table View Style <constants.html#table-view-style>`_.
     """
 
@@ -2926,7 +2926,7 @@ class TableView(View):
         """
         Returns a bar button item that toggles its title and associated state between Edit and Done.
         The button item is setup to edit the Table View.
-        
+
         :rtype: ButtonItem
         """
 
@@ -2939,7 +2939,7 @@ class TableView(View):
         """
         A list of :class:`TableViewSection` containg cells to be displayed on the Table View.
         Setting a new value will reload automatically the contents of the Table View.
-        
+
         :rtype: List[TableViewSection]
         """
 
@@ -2981,7 +2981,7 @@ class TextView(View):
     def did_begin_editing(self) -> Callable[[TextView], None]:
         """
         A function called when the Text View begins editing. Takes the sender Text View as parameter.
-        
+
         :rtype: Callable[[TextView], None]
         """
 
@@ -3002,7 +3002,7 @@ class TextView(View):
     def did_end_editing(self) -> Callable[[TextView], None]:
         """
         A function called when the Text View ends editing. Takes the sender Text View as parameter.
-        
+
         :rtype: Callable[[TextView], None]
         """
 
@@ -3023,7 +3023,7 @@ class TextView(View):
     def did_change(self) -> Callable[[TextView], None]:
         """
         A function called when the Text View's text changes. Takes the sender Text View as parameter.
-            
+
         :rtype: Callable[[TextView], None]
         """
 
@@ -3044,7 +3044,7 @@ class TextView(View):
     def text(self) -> str:
         """
         The text contained in the view.
-        
+
         :rtype: str
         """
 
@@ -3058,7 +3058,7 @@ class TextView(View):
     def editable(self) -> bool:
         """
         A boolean indicating whether the text is editable.
-            
+
         :rtype: bool
         """
 
@@ -3072,7 +3072,7 @@ class TextView(View):
     def selectable(self) -> bool:
         """
         A boolean indicating whether the text is selectable.
-        
+
         :rtype: bool
         """
 
@@ -3086,7 +3086,7 @@ class TextView(View):
     def text_color(self) -> Color:
         """
         The color of the text displayed on screen.
-            
+
         :rtype: Color
         """
 
@@ -3107,7 +3107,7 @@ class TextView(View):
     def font(self) -> Font:
         """
         The font of the text displayed on screen.
-        
+
         :rtype: Font
         """
 
@@ -3130,7 +3130,7 @@ class TextView(View):
     def text_alignment(self) -> TEXT_ALIGNMENT:
         """
         The alignment of the text displayed on screen. See `Text Alignment <constants.html#text-alignment>`_ constants for possible values.
-        
+
         :rtype: `Text Alignment <constants.html#text-alignment>`_
         """
 
@@ -3144,7 +3144,7 @@ class TextView(View):
     def smart_dashes(self) -> bool:
         """
         A boolean indicating whether smart dashes are enabled.
-        
+
         :rtype: bool
         """
 
@@ -3158,7 +3158,7 @@ class TextView(View):
     def smart_quotes(self) -> bool:
         """
         A boolean indicating whether smart quotes are enabled.
-        
+
         :rtype: bool
         """
 
@@ -3172,7 +3172,7 @@ class TextView(View):
     def keyboard_type(self) -> KEYBOARD_TYPE:
         """
         The type of keyboard to use while editing the text. See `Keyboard Type <constants.html#keyboard-type>`_ constants for possible values.
-        
+
         :rtype: `Keyboard Type <constants.html#keyboard-type>`_
         """
 
@@ -3186,7 +3186,7 @@ class TextView(View):
     def autocapitalization_type(self) -> AUTO_CAPITALIZE:
         """
         The type of autocapitalization to use while editing th text. See `Auto Capitalization <constants.html#auto-capitalization>`_ constants for possible values.
-        
+
         :rtype: `Auto Capitalization <constants.html#auto-capitalization>`_
         """
 
@@ -3200,7 +3200,7 @@ class TextView(View):
     def autocorrection(self) -> bool:
         """
         A boolean indicating whether autocorrection is enabled.
-        
+
         :rtype: bool
         """
 
@@ -3214,7 +3214,7 @@ class TextView(View):
     def keyboard_appearance(self) -> KEYBOARD_APPEARANCE:
         """
         The appearance of the keyboard used while editing the text. See `Keyboard Appearance <constants.html#keyboard-appearance>`_ constants for possible values.
-        
+
         :rtype: `Keyboard Appearance <constants.html#keyboard-appearance>`_
         """
 
@@ -3228,7 +3228,7 @@ class TextView(View):
     def return_key_type(self) -> RETURN_KEY_TYPE:
         """
         The type of return key to show on the keyboard used to edit the text. See `Return Key Type <constants.html#return-key-type>`_ constants for possible values.
-        
+
         :rtype: `Return Key Type <constants.html#return-key-type>`_
         """
 
@@ -3242,7 +3242,7 @@ class TextView(View):
     def secure(self) -> bool:
         """
         A boolean indicating whether the keyboard should be configured to enter sensitive data.
-        
+
         :rtype: bool
         """
 
@@ -3274,7 +3274,7 @@ class WebView(View):
     def evaluate_js(self, code) -> str:
         """
         Runs JavaScript code and returns a String representation of the evaluation result. Raises a :class:`~pyto_ui.WebView.JavaScriptException`.
-        
+
         :param code: JavaScript code to run.
         :rtype: str
         """
@@ -3294,7 +3294,7 @@ class WebView(View):
     def load_url(self, url: str):
         """
         Loads an URL.
-        
+
         :param url: The URL to laod. Can be 'http://', 'https://' or 'file://'.
         """
 
@@ -3303,7 +3303,7 @@ class WebView(View):
     def load_html(self, html: str, base_url: str = None):
         """
         Loads an HTML string.
-        
+
         :param html: The HTML code to load.
         :param base_url: An optional URL used to resolve relative paths.
         """
@@ -3346,7 +3346,7 @@ class WebView(View):
     def can_go_back(self) -> bool:
         """
         (Read Only) A boolean indicating whether :meth:`~pyto_ui.WebView.go_back` can be performed.
-        
+
         :rtype: bool
         """
 
@@ -3356,7 +3356,7 @@ class WebView(View):
     def can_go_forward(self) -> bool:
         """
         (Read Only) A boolean indicating whether :meth:`~pyto_ui.WebView.go_forward` can be performed.
-        
+
         :rtype: bool
         """
         return self.__py_view__.canGoForward
@@ -3365,7 +3365,7 @@ class WebView(View):
     def is_loading(self) -> bool:
         """
         (Read Only) A boolean indicating whether the Web View is loading content.
-        
+
         :rtype: bool
         """
 
@@ -3375,7 +3375,7 @@ class WebView(View):
     def url(self) -> str:
         """
         (Read Only) The current URL loaded into the Web View.
-        
+
         :rtype: str
         """
 
@@ -3389,7 +3389,7 @@ class WebView(View):
     def did_start_loading(self) -> Callable[[WebView], None]:
         """
         A function called when the Web View starts loading contents. Takes the sender Web View as parameter.
-        
+
         :rtype: Callable[[WebView], None]
         """
 
@@ -3410,7 +3410,7 @@ class WebView(View):
     def did_finish_loading(self) -> Callable[[WebView], None]:
         """
         A function called when the Web View finished loading contents. Takes the sender Web View as parameter.
-        
+
         :rtype: Callable[[WebView], None]
         """
 
@@ -3431,7 +3431,7 @@ class WebView(View):
     def did_fail_loading(self) -> Callable[[WebView, str], None]:
         """
         A function called when the Web View failed to load contents. Takes the sender Web View and a string describing the error as parameters.
-        
+
         :rtype: Callable[[WebView, str], None]
         """
 
@@ -3457,7 +3457,7 @@ class WebView(View):
 class Control(View):
     """
     The base class for controls, which are visual elements that convey a specific action or intention in response to user interactions.
-    
+
     Inherited by :class:`Button`, :class:`SegmentedControl`, :class:`Slider`, :class:`Switch` and :class:`TextField`
     """
 
@@ -3469,7 +3469,7 @@ class Control(View):
     def enabled(self) -> bool:
         """
         A boolean indicating whether the control is enabled.
-        
+
         :rtype: bool
         """
 
@@ -3483,7 +3483,7 @@ class Control(View):
     def horizontal_alignment(self) -> HORZONTAL_ALIGNMENT:
         """
         The horizontal alignment of the view's contents. See `Horizontal Alignment <constants.html#horizontal-alignment>`_ constants for possible values.
-        
+
         :rtype: `Horizontal Alignment <constants.html#horizontal-alignment>`_
         """
 
@@ -3497,7 +3497,7 @@ class Control(View):
     def vertical_alignment(self) -> VERTICAL_ALIGNMENT:
         """
         The vertical alignment of the view's contents. See `Vertical Alignemnt <constants.html#vertical-alignment>`_ constants for possible values.
-        
+
         :rtype: `Vertical Alignment <constants.html#vertical-alignment>`_
         """
 
@@ -3512,9 +3512,9 @@ class Control(View):
         """
         A function called when the control triggers its action.
         For example, a :class:`Button` object calls this function when it's pressed.
-        
+
         Takes the :class:`Control` object as parameter.
-            
+
         :rtype: Callable[[Control], None]
         """
 
@@ -3547,7 +3547,7 @@ class SegmentedControl(Control):
     def segments(self) -> List[str]:
         """
         A list of strings representing segments titles.
-        
+
         :rtype: List[str]
         """
 
@@ -3561,7 +3561,7 @@ class SegmentedControl(Control):
     def selected_segment(self) -> int:
         """
         The index of selected segment.
-        
+
         :rtype: int
         """
 
@@ -3586,7 +3586,7 @@ class Slider(Control):
     def set_value_with_animation(self, value: float):
         """
         Sets the value of the slider with an animation.
-        
+
         :param value: The value of the slider.
         """
 
@@ -3596,7 +3596,7 @@ class Slider(Control):
     def value(self) -> float:
         """
         The value of the slider between its range.
-        
+
         :rtype: float
         """
 
@@ -3610,7 +3610,7 @@ class Slider(Control):
     def minimum_value(self) -> float:
         """
         The minimum value of the slider.
-        
+
         :rtype: float
         """
 
@@ -3624,7 +3624,7 @@ class Slider(Control):
     def maximum_value(self) -> float:
         """
         The maximum value of the slider.
-            
+
         :rtype: float
         """
 
@@ -3638,7 +3638,7 @@ class Slider(Control):
     def minimum_track_color(self) -> Color:
         """
         The color used to tint the default minimum track.
-        
+
         :rtype: Color
         """
 
@@ -3659,7 +3659,7 @@ class Slider(Control):
     def maximum_track_color(self) -> Color:
         """
         The color used to tint the default maximum track.
-            
+
         :rtype: Color
         """
 
@@ -3680,7 +3680,7 @@ class Slider(Control):
     def thumb_color(self) -> Color:
         """
         The color used to tint the default thumb.
-            
+
         :rtype: Color
         """
 
@@ -3712,7 +3712,7 @@ class Switch(Control):
     def set_on_with_animation(self, on: bool):
         """
         Sets the state of the switch to On or Off with an animation.
-        
+
         :param on: A boolean indicating whether the switch should be On.
         """
 
@@ -3722,7 +3722,7 @@ class Switch(Control):
     def on(self) -> bool:
         """
         A boolean indicating whether the switch is On.
-            
+
         :rtype: bool
         """
 
@@ -3736,7 +3736,7 @@ class Switch(Control):
     def on_color(self) -> Color:
         """
         The color used to tint the appearance of the switch when it is turned on.
-        
+
         :rtype: Color
         """
 
@@ -3757,7 +3757,7 @@ class Switch(Control):
     def thumb_color(self) -> Color:
         """
         The color used to tint the appearance of the thumb.
-        
+
         :rtype: Color
         """
 
@@ -3778,8 +3778,8 @@ class Switch(Control):
 class Button(Control):
     """
     A control that executes your custom code in response to user interactions.
-    To add an action, set :data:`~pyto_ui.Control.action`\ .
-    
+    To add an action, set :data:`~pyto_ui.Control.action`.
+
     For types of buttons, see `Button Type <constants.html#button-type>`_ constants.
     """
 
@@ -3801,7 +3801,7 @@ class Button(Control):
     def title(self) -> str:
         """
         The title of the button
-        
+
         :rtype: str
         """
 
@@ -3819,7 +3819,7 @@ class Button(Control):
     def title_color(self) -> Color:
         """
         The color of the title.
-        
+
         :rtype: Color
         """
 
@@ -3839,8 +3839,8 @@ class Button(Control):
     @property
     def image(self) -> Image.Image:
         """
-        The image displayed on the button. Can be a ``PIL`` image or an ``UIKit`` symbol image. For more information about symbols, see :func:`~pyto_ui.image_with_system_name`\ .
-        
+        The image displayed on the button. Can be a ``PIL`` image or an ``UIKit`` symbol image. For more information about symbols, see :func:`~pyto_ui.image_with_system_name`.
+
         :rtype: PIL.Image.Image
         """
 
@@ -3865,7 +3865,7 @@ class Button(Control):
     def font(self) -> Font:
         """
         The font to be applied to the text.
-        
+
         :rtype: Font
         """
 
@@ -3908,7 +3908,7 @@ class TextField(Control):
     def did_begin_editing(self) -> Callable[[TextField], None]:
         """
         A function called when the Text Field begins editing. Takes the sender Text Field as parameter.
-            
+
         :rtype: Callable[[TextField], None]
         """
 
@@ -3929,7 +3929,7 @@ class TextField(Control):
     def did_end_editing(self) -> Callable[[TextField], None]:
         """
         A function called when the Text Field ends editing. Takes the sender Text Field as parameter.
-            
+
         :rtype: Callable[[TextField], None]
         """
 
@@ -3950,7 +3950,7 @@ class TextField(Control):
     def text(self) -> str:
         """
         The text contained in the Text Field.
-            
+
         :rtype:
         """
 
@@ -3964,7 +3964,7 @@ class TextField(Control):
     def placeholder(self) -> str:
         """
         A gray text shown when there is no text.
-        
+
         :rtype: str
         """
 
@@ -3978,7 +3978,7 @@ class TextField(Control):
     def text_color(self) -> Color:
         """
         The color of the text displayed on screen.
-        
+
         :rtype: Color
         """
 
@@ -3999,7 +3999,7 @@ class TextField(Control):
     def font(self) -> Font:
         """
         The font of the text displayed on screen.
-        
+
         :rtype: Font
         """
 
@@ -4022,7 +4022,7 @@ class TextField(Control):
     def text_alignment(self) -> TEXT_ALIGNMENT:
         """
         The alignment of the text displayed on screen. See `Text Alignment <constants.html#text-alignment>`_ constants for possible values.
-        
+
         :rtype: `Text Alignment <constants.html#text-alignment>`_
         """
 
@@ -4036,7 +4036,7 @@ class TextField(Control):
     def smart_dashes(self) -> bool:
         """
         A boolean indicating whether smart dashes are enabled.
-        
+
         :rtype: bool
         """
 
@@ -4050,7 +4050,7 @@ class TextField(Control):
     def smart_quotes(self) -> bool:
         """
         A boolean indicating whether smart quotes are enabled.
-        
+
         :rtype: bool
         """
 
@@ -4064,7 +4064,7 @@ class TextField(Control):
     def keyboard_type(self) -> KEYBOARD_TYPE:
         """
         The type of keyboard to use while editing the text. See `Keyboard Type <constants.html#keyboard-type>`_ constants for possible values.
-        
+
         :rtype: `Keyboard Type <constants.html#keyboard-type>`_
         """
 
@@ -4078,7 +4078,7 @@ class TextField(Control):
     def autocapitalization_type(self) -> AUTO_CAPITALIZE:
         """
         The type of autocapitalization to use while editing th text. See `Auto Capitalization <constants.html#auto-capitalization>`_ constants for possible values.
-        
+
         :rtype: `Auto Capitalization <constants.html#auto-capitalization>`_
         """
 
@@ -4092,7 +4092,7 @@ class TextField(Control):
     def autocorrection(self) -> bool:
         """
         A boolean indicating whether autocorrection is enabled.
-        
+
         :rtype: bool
         """
 
@@ -4106,7 +4106,7 @@ class TextField(Control):
     def keyboard_appearance(self) -> KEYBOARD_APPEARANCE:
         """
         The appearance of the keyboard used while editing the text. See `Keyboard Appearance <constants.html#keyboard-appearance>`_ constants for possible values.
-        
+
         :rtype: `Keyboard Appearance <constants.html#keyboard-appearance>`_
         """
 
@@ -4120,7 +4120,7 @@ class TextField(Control):
     def return_key_type(self) -> RETURN_KEY_TYPE:
         """
         The type of return key to show on the keyboard used to edit the text. See `Return Key Type <constants.html#return-key-type>`_ constants for possible values.
-        
+
         :rtype: `Return Key Type <constants.html#return-key-type>`_
         """
 
@@ -4134,7 +4134,7 @@ class TextField(Control):
     def secure(self) -> bool:
         """
         A boolean indicating whether the keyboard should be configured to enter sensitive data. The text entered by the user will be hidden.
-        
+
         :rtype: bool
         """
 
@@ -4178,7 +4178,7 @@ def __pil_image_from_ui_image__(image):
 def font_family_names() -> List[str]:
     """
     Returns all font family names that can be used to initialize a font.
-    
+
     :rtype: List[str]
     """
 
@@ -4196,9 +4196,9 @@ def image_with_system_name(name: str) -> UIImage:
     """
     Returns a system symbol image from given name. The return value is an UIKit ``UIImage`` object, so it can only be used on the ``pyto_ui`` library.
     More info about symbols on `Apple's Web Site <https://developer.apple.com/design/resources/>`_ .
-    
+
     :param name: The name of the SF Symbol.
-    
+
     :rtype: UIImage
     """
 
@@ -4211,9 +4211,9 @@ def image_with_system_name(name: str) -> UIImage:
 def show_view(view: View, mode: PRESENTATION_MODE):
     """
     Presents the given view.
-    
+
     This function doesn't return until the view is closed. You can use another thread to perform background tasks and modify the UI after it's presented.
-    
+
     :param view: The :class:`~pyto_ui.View` object to present.
     :param mode: The presentation mode to use. The value will be ignored on a widget. See `Presentation Mode <constants.html#presentation-mode>`_ constants for possible values.
     """

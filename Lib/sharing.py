@@ -21,7 +21,7 @@ NSURL = ObjCClass("NSURL")
 def share_items(items: object):
     """
     Opens a share sheet with given items.
-    
+
     :param items: Items to be shared with the sheet.
     """
 
@@ -33,9 +33,9 @@ if not "widget" in os.environ:
     def quick_look(path: str):
         """
         Previews given file.
-        
+
         This function doesn't block the current thread. You can call this function multiple times and the file path will be appended to the current Preview controller. Thread safe.
-        
+
         :param path: Path of the image to preview.
         """
 
@@ -60,12 +60,12 @@ if not "widget" in os.environ:
 
 class FilePicker:
     """
-    A class representing a file picker. Presents an ``UIDocumentPickerViewController``\ .
-    
+    A class representing a file picker. Presents an ``UIDocumentPickerViewController``.
+
     A class representing a file picker.
-    
+
     Example:
-    
+
     .. highlight:: python
     .. code-block:: python
 
@@ -153,7 +153,7 @@ def picked_files() -> List[str]:
 def open_url(url: str):
     """
     Opens the given URL.
-    
+
     :param url: URL to open. Can be a String or an Objective-C ``NSURL``.
     """
 

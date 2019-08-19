@@ -56,14 +56,14 @@ def set_strings(array: List[str]):
 
 def image() -> UIImage:
     """
-    Returns the image contained in the pasteboard as an Objective-C ``UIImage``\ .
+    Returns the image contained in the pasteboard as an Objective-C ``UIImage``.
     """
     return general_pasteboard().image
 
 
 def images() -> List[UIImage]:
     """
-    Returns all images contained in the pasteboard as Objective-C ``UIImage``\ s.
+    Returns all images contained in the pasteboard as Objective-C ``UIImage``s.
     """
     return general_pasteboard().images
 
@@ -91,14 +91,14 @@ def set_images(array: List[UIImage]):
 
 def url() -> NSURL:
     """
-    Returns the URL contained in the pasteboard as an Objective-C ``NSURL``\ .
+    Returns the URL contained in the pasteboard as an Objective-C ``NSURL``.
     """
     return general_pasteboard().url
 
 
 def urls() -> List[NSURL]:
     """
-    Returns all URLs contained in the pasteboard as Objective-C ``NSURL``\ s.
+    Returns all URLs contained in the pasteboard as Objective-C ``NSURL``s.
     """
     return general_pasteboard().urls
 
@@ -116,6 +116,6 @@ def set_urls(array: List[NSURL]):
     """
     Copy the given URLs to the pasteboard.
         
-    :param array: A list of Objective-C ``NSURL``\ s to copy.
+    :param array: A list of Objective-C ``NSURL``s to copy.
     """
     general_pasteboard().urls = array
