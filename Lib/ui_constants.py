@@ -376,7 +376,7 @@ try:
     SYSTEM_ITEM_TRASH = __PyButtonItem__.SystemItemTrash
     SYSTEM_ITEM_UNDO = __PyButtonItem__.SystemItemUndo
 
-except:
+except AttributeError:
 
     COLOR_LABEL = Value()
     COLOR_SECONDARY_LABEL = Value()

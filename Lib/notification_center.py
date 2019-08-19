@@ -35,7 +35,7 @@ class __NotificationCenter__(ModuleType):
 
 expandable = False
 """
-If set to ``True``\ , the widget will be expandable.
+If set to ``True``, the widget will be expandable.
 """
 
 maximum_height = 280
