@@ -294,7 +294,7 @@ fileprivate var isPythonSetup = false
             while True:
                 code_to_run = pyto.Python.shared.codeToRun
 
-                if code_to_run == None:
+                if code_to_run is None:
                     sleep(0.2)
                     continue
 

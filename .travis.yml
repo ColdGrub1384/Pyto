@@ -23,7 +23,7 @@ install:
 
 before_script:
   - EXCLUDE=./.*,./Pyto_Mac/mac-site-packages,./Pyto_Mac/pip,./Pyto_Mac/PyObjC,./site-packages
-  - flake8 . --count --exclude=${EXCLUDE} --select=E9,F63,F7,F82 --show-source --statistics
+  - flake8 . --count --exclude=${EXCLUDE} --select=E9,F63,F7,F82 --ignore=E501 --show-source --statistics
   - EXCLUDE=./.*,./Pyto*,./*site-packages
   - flake8 . --count --exclude=${EXCLUDE} --max-complexity=10 --max-line-length=127 --show-source --statistics
   - flake8 --count --ignore=E402 "Lib/pyto_ui.py"

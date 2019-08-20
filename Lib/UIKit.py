@@ -4,13 +4,13 @@ UIKit classes
 This module contains all UIKit classes. You should not use this module to present an UI, there is the ``pyto_ui`` module for that. However, you can safely use classes like ``UIDevice``, ``UIImage``, ``UIFont`` etc.
 """
 
-from rubicon.objc import *
+from rubicon.objc import ObjCClass
 
 
 def __class__(name):
     try:
         return ObjCClass(name)
-    except:
+    except NameError:
         return None
 
 

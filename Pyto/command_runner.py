@@ -21,7 +21,7 @@ def main():
     module_name = command[0]
 
     spec = importlib.util.find_spec(module_name)
-    if spec == None:
+    if spec is None:
         print("python: No module named "+module_name)
         return
     module_path = spec.origin

@@ -14,11 +14,7 @@ This library may have a lot of similarities with ``UIKit``, but subclassing isn'
 
 from __future__ import annotations
 from UIKit import UIDevice, UIFont as __UIFont__, UIImage as UIImage
-from rubicon.objc import ObjCClass, CGFloat, objc_method
-
-if UIDevice is not None and float(str(UIDevice.currentDevice.systemVersion)) < 13:
-    raise ImportError("PytoUI requires iPadOS / iOS 13")
-
+from rubicon.objc import ObjCClass, CGFloat
 from typing import List, Callable, Tuple
 from pyto import __Class__, ConsoleViewController, PyAlert as __PyAlert__
 from time import sleep
@@ -29,10 +25,11 @@ from PIL import Image
 import base64
 import io
 import threading
-import sys
 import _values
 import ui_constants
 
+if UIDevice is not None and float(str(UIDevice.currentDevice.systemVersion)) < 13:
+    raise ImportError("PytoUI requires iPadOS / iOS 13")
 
 class __v__:
     def __init__(self, string):
@@ -1212,10 +1209,10 @@ class Font:
         :param size: The size (in points) to which the font is scaled. This value must be greater than 0.0.
         """
 
-        if name == None and size == None:
+        if name is None and size is None:
             return
 
-        __ui_font__ = __UIFont__.fontWithName(name, size=CGFloat(size))
+        self.__ui_font__ = __UIFont__.fontWithName(name, size=CGFloat(size))
 
     def __repr__(self):
         return str(self.__ui_font__.description)
@@ -1421,7 +1418,7 @@ class GestureRecognizer:
         """
 
         view = self.__py_gesture__.view
-        if view == None:
+        if view is None:
             return None
         else:
             _view = View()
@@ -1546,14 +1543,14 @@ class GestureRecognizer:
         """
 
         action = self.__py_gesture__.action
-        if action == None:
+        if action is None:
             return None
         else:
             return _values.globals()[action.identifier]
 
     @action.setter
     def action(self, new_value: Callable[[GestureRecognizer], None]):
-        if new_value == None:
+        if new_value is None:
             self.__py_gesture__.action = None
         else:
             self.__py_gesture__.action = _values.value(new_value)
@@ -1585,7 +1582,7 @@ class TableViewSection:
         """
 
         table_view = self.__py_section__.tableView
-        if table_view == None:
+        if table_view is None:
             return None
         else:
             py_table_view = TableView()
@@ -1638,14 +1635,14 @@ class TableViewSection:
         """
 
         action = self.__py_section__.didSelectCell
-        if action == None:
+        if action is None:
             return None
         else:
             return _values.globals()[action.identifier]
 
     @did_select_cell.setter
     def did_select_cell(self, new_value: Callable[[TableViewSection, int], None]):
-        if new_value == None:
+        if new_value is None:
             self.__py_section__.didSelectCell = None
         else:
             self.__py_section__.didSelectCell = _values.value(new_value)
@@ -1659,7 +1656,7 @@ class TableViewSection:
         """
 
         action = self.__py_section__.accessoryButtonTapped
-        if action == None:
+        if action is None:
             return None
         else:
             return _values.globals()[action.identifier]
@@ -1668,7 +1665,7 @@ class TableViewSection:
     def did_tap_cell_accessory_button(
         self, new_value: Callable[[TableViewSection, int], None]
     ):
-        if new_value == None:
+        if new_value is None:
             self.__py_section__.accessoryButtonTapped = None
         else:
             self.__py_section__.accessoryButtonTapped = _values.value(new_value)
@@ -1683,14 +1680,14 @@ class TableViewSection:
         """
 
         action = self.__py_section__.didDeleteCell
-        if action == None:
+        if action is None:
             return None
         else:
             return _values.globals()[action.identifier]
 
     @did_delete_cell.setter
     def did_delete_cell(self, new_value: Callable[[TableViewSection, int], None]):
-        if new_value == None:
+        if new_value is None:
             self.__py_section__.didDeleteCell = None
         else:
             self.__py_section__.didDeleteCell = _values.value(new_value)
@@ -1705,14 +1702,14 @@ class TableViewSection:
         """
 
         action = self.__py_section__.didMoveCell
-        if action == None:
+        if action is None:
             return None
         else:
             return _values.globals()[action.identifier]
 
     @did_move_cell.setter
     def did_move_cell(self, new_value: Callable[[TableViewSection, int, int], None]):
-        if new_value == None:
+        if new_value is None:
             self.__py_section__.didMoveCell = None
         else:
             self.__py_section__.didMoveCell = _values.value(new_value)
@@ -1778,7 +1775,7 @@ class ButtonItem:
         """
 
         ui_image = self.__py_item__.image
-        if ui_image == None:
+        if ui_image is None:
             return None
         elif ui_image.symbolImage:
             return ui_image
@@ -1787,7 +1784,7 @@ class ButtonItem:
 
     @image.setter
     def image(self, new_value: Image.Image):
-        if new_value == None:
+        if new_value is None:
             self.__py_item__.image = None
         elif "objc_class" in dir(new_value) and new_value.objc_class == UIImage:
             self.__py_item__.image = new_value
@@ -1816,7 +1813,7 @@ class ButtonItem:
         """
         return self.__py_item__.style
 
-    @enabled.setter
+    @style.setter
     def style(self, new_value: BUTTON_ITEM_STYLE):
         self.__py_item__.style = new_value
 
@@ -1829,14 +1826,14 @@ class ButtonItem:
         """
 
         action = self.__py_item__.action
-        if action == None:
+        if action is None:
             return None
         else:
             return _values.globals()[action.identifier]
 
     @action.setter
     def action(self, new_value: Callable[[ButtonItem], None]):
-        if new_value == None:
+        if new_value is None:
             self.__py_item__.action = None
         else:
             self.__py_item__.action = _values.value(new_value)
@@ -2209,7 +2206,7 @@ class View:
         """
 
         views = self.__py_view__.subviews
-        if views == None or len(views) == 0:
+        if views is None or len(views) == 0:
             return []
         else:
             _views = []
@@ -2228,7 +2225,7 @@ class View:
         """
 
         superview = self.__py_view__.superView
-        if superview == None:
+        if superview is None:
             return None
         else:
             view = self.__class__()
@@ -2244,14 +2241,14 @@ class View:
         """
 
         c = self.__py_view__.backgroundColor
-        if c == None:
+        if c is None:
             return None
         else:
             return Color(c)
 
     @background_color.setter
     def background_color(self, new_value: Color):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.backgroundColor = None
         else:
             self.__py_view__.backgroundColor = new_value.__py_color__
@@ -2307,14 +2304,14 @@ class View:
         """
 
         c = self.__py_view__.tintColor
-        if c == None:
+        if c is None:
             return None
         else:
             return Color(c)
 
     @tint_color.setter
     def tint_color(self, new_value: Color):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.tintColor = None
         else:
             self.__py_view__.tintColor = new_value.__py_color__
@@ -2384,14 +2381,14 @@ class View:
         """
 
         c = self.__py_view__.borderColor
-        if c == None:
+        if c is None:
             return None
         else:
             return Color(c)
 
     @border_color.setter
     def border_color(self, new_value: Color):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.borderColor = None
         else:
             self.__py_view__.borderColor = new_value.__py_color__
@@ -2512,7 +2509,7 @@ class View:
         """
 
         recognizers = self.__py_view__.gestureRecognizers
-        if recognizers == None or len(recognizers) == 0:
+        if recognizers is None or len(recognizers) == 0:
             return []
         else:
             _recognizers = []
@@ -2558,7 +2555,7 @@ class View:
         """
 
         action = self.__py_view__.layoutAction
-        if action == None:
+        if action is None:
             return None
         else:
             return _values.globals()[action.identifier]
@@ -2566,7 +2563,7 @@ class View:
     @layout.setter
     def layout(self, new_value: Callable[[View], None]):
         self.__py_view__.pyValue = _values.value(self)
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.layoutAction = None
         else:
             self.__py_view__.layoutAction = _values.value(new_value)
@@ -2580,7 +2577,7 @@ class View:
         """
 
         items = self.__py_view__.buttonItems
-        if items == None or len(items) == 0:
+        if items is None or len(items) == 0:
             return []
         else:
             _items = []
@@ -2619,7 +2616,7 @@ class ImageView(View):
         """
 
         ui_image = self.__py_view__.image
-        if ui_image == None:
+        if ui_image is None:
             return None
         elif ui_image.symbolImage:
             return ui_image
@@ -2629,7 +2626,7 @@ class ImageView(View):
     @image.setter
     def image(self, new_value: Image.Image):
 
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.image = None
         elif "objc_class" in dir(new_value) and new_value.objc_class == UIImage:
             self.__py_view__.image = new_value
@@ -2681,14 +2678,14 @@ class Label(View):
         """
 
         c = self.__py_view__.textColor
-        if c == None:
+        if c is None:
             return None
         else:
             return Color(c)
 
     @text_color.setter
     def text_color(self, new_value: Color):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.textColor = None
         else:
             self.__py_view__.textColor = new_value.__py_color__
@@ -2702,7 +2699,7 @@ class Label(View):
         """
 
         py_font = self.__py_view__.font
-        if py_font == None:
+        if py_font is None:
             return None
 
         font = Font(None, None)
@@ -2711,7 +2708,7 @@ class Label(View):
 
     @font.setter
     def font(self, new_value: Font):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.font = None
         else:
             self.__py_view__.font = new_value.__ui_font__
@@ -2849,7 +2846,7 @@ class TableViewCell(View):
         """
 
         view = self.__py_view__.imageView
-        if view == None:
+        if view is None:
             return None
         else:
             _view = ImageView()
@@ -2865,7 +2862,7 @@ class TableViewCell(View):
         """
 
         view = self.__py_view__.textLabel
-        if view == None:
+        if view is None:
             return None
         else:
             _view = Label()
@@ -2881,7 +2878,7 @@ class TableViewCell(View):
         """
 
         view = self.__py_view__.detailLabel
-        if view == None:
+        if view is None:
             return None
         else:
             _view = Label()
@@ -2986,14 +2983,14 @@ class TextView(View):
         """
 
         action = self.__py_view__.didBeginEditing
-        if action == None:
+        if action is None:
             return None
         else:
             return _values.globals()[action.identifier]
 
     @did_begin_editing.setter
     def did_begin_editing(self, new_value: Callable[[TextView], None]):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.didBeginEditing = None
         else:
             self.__py_view__.didBeginEditing = _values.value(new_value)
@@ -3007,14 +3004,14 @@ class TextView(View):
         """
 
         action = self.__py_view__.didEndEditing
-        if action == None:
+        if action is None:
             return None
         else:
             return _values.globals()[action.identifier]
 
     @did_end_editing.setter
     def did_end_editing(self, new_value: Callable[[TextView], None]):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.didEndEditing = None
         else:
             self.__py_view__.didEndEditing = _values.value(new_value)
@@ -3028,14 +3025,14 @@ class TextView(View):
         """
 
         action = self.__py_view__.didChangeText
-        if action == None:
+        if action is None:
             return None
         else:
             return _values.globals()[action.identifier]
 
     @did_change.setter
     def did_change(self, new_value: Callable[[TextView], None]):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.didChangeText = None
         else:
             self.__py_view__.didChangeText = _values.value(new_value)
@@ -3091,14 +3088,14 @@ class TextView(View):
         """
 
         c = self.__py_view__.textColor
-        if c == None:
+        if c is None:
             return None
         else:
             return Color(c)
 
     @text_color.setter
     def text_color(self, new_value: Color):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.textColor = None
         else:
             self.__py_view__.textColor = new_value.__py_color__
@@ -3112,7 +3109,7 @@ class TextView(View):
         """
 
         py_font = self.__py_view__.font
-        if py_font == None:
+        if py_font is None:
             return None
 
         font = Font(None, None)
@@ -3121,7 +3118,7 @@ class TextView(View):
 
     @font.setter
     def font(self, new_value: Font):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.font = None
         else:
             self.__py_view__.font = new_value.__ui_font__
@@ -3280,7 +3277,7 @@ class WebView(View):
         """
 
         result = self.__py_view__.evaluateJavaScript(code)
-        if result == None:
+        if result is None:
             return None
         else:
             result = str(result)
@@ -3394,14 +3391,14 @@ class WebView(View):
         """
 
         action = self.__py_view__.didStartLoading
-        if action == None:
+        if action is None:
             return None
         else:
             return _values.globals()[action.identifier]
 
     @did_start_loading.setter
     def did_start_loading(self, new_value: Callable[[WebView], None]):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.didStartLoading = None
         else:
             self.__py_view__.didStartLoading = _values.value(new_value)
@@ -3415,14 +3412,14 @@ class WebView(View):
         """
 
         action = self.__py_view__.didFinishLoading
-        if action == None:
+        if action is None:
             return None
         else:
             return _values.globals()[action.identifier]
 
     @did_finish_loading.setter
     def did_finish_loading(self, new_value: Callable[[WebView], None]):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.didFinishLoading = None
         else:
             self.__py_view__.didFinishLoading = _values.value(new_value)
@@ -3436,14 +3433,14 @@ class WebView(View):
         """
 
         action = self.__py_view__.didFailLoading
-        if action == None:
+        if action is None:
             return None
         else:
             return _values.globals()[action.identifier]
 
     @did_fail_loading.setter
     def did_fail_loading(self, new_value: Callable[[WebView, str], None]):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.didFailLoading = None
         else:
             self.__py_view__.didFailLoading = _values.value(new_value)
@@ -3519,14 +3516,14 @@ class Control(View):
         """
 
         action = self.__py_view__.action
-        if action == None:
+        if action is None:
             return None
         else:
             return _values.globals()[action.identifier]
 
     @action.setter
     def action(self, new_value: Callable[[Control], None]):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.action = None
         else:
             self.__py_view__.action = _values.value(new_value)
@@ -3643,14 +3640,14 @@ class Slider(Control):
         """
 
         c = self.__py_view__.minimumTrackColor
-        if c == None:
+        if c is None:
             return None
         else:
             return Color(c)
 
     @minimum_track_color.setter
     def minimum_track_color(self, new_value: Color):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.minimumTrackColor = None
         else:
             self.__py_view__.minimumTrackColor = new_value.__py_color__
@@ -3664,14 +3661,14 @@ class Slider(Control):
         """
 
         c = self.__py_view__.maximumTrackColor
-        if c == None:
+        if c is None:
             return None
         else:
             return Color(c)
 
     @maximum_track_color.setter
     def maximum_track_color(self, new_value: Color):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.maximumTrackColor = None
         else:
             self.__py_view__.maximumTrackColor = new_value.__py_color__
@@ -3685,14 +3682,14 @@ class Slider(Control):
         """
 
         c = self.__py_view__.thumbColor
-        if c == None:
+        if c is None:
             return None
         else:
             return Color(c)
 
     @thumb_color.setter
     def thumb_color(self, new_value: Color):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.thumbColor = None
         else:
             self.__py_view__.thumbColor = new_value.__py_color__
@@ -3741,14 +3738,14 @@ class Switch(Control):
         """
 
         c = self.__py_view__.onColor
-        if c == None:
+        if c is None:
             return None
         else:
             return Color(c)
 
     @on_color.setter
     def on_color(self, new_value: Color):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.onColor = None
         else:
             self.__py_view__.onColor = new_value.__py_color__
@@ -3762,14 +3759,14 @@ class Switch(Control):
         """
 
         c = self.__py_view__.thumbColor
-        if c == None:
+        if c is None:
             return None
         else:
             return Color(c)
 
     @thumb_color.setter
     def thumb_color(self, new_value: Color):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.thumbColor = None
         else:
             self.__py_view__.thumbColor = new_value.__py_color__
@@ -3824,14 +3821,14 @@ class Button(Control):
         """
 
         c = self.__py_view__.titleColor
-        if c == None:
+        if c is None:
             return None
         else:
             return Color(c)
 
     @title_color.setter
     def title_color(self, new_value: Color):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.titleColor = None
         else:
             self.__py_view__.titleColor = new_value.__py_color__
@@ -3845,7 +3842,7 @@ class Button(Control):
         """
 
         ui_image = self.__py_view__.image
-        if ui_image == None:
+        if ui_image is None:
             return None
         elif ui_image.symbolImage:
             return ui_image
@@ -3854,7 +3851,7 @@ class Button(Control):
 
     @image.setter
     def image(self, new_value: Image.Image):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.image = None
         elif "objc_class" in dir(new_value) and new_value.objc_class == UIImage:
             self.__py_view__.image = new_value
@@ -3870,7 +3867,7 @@ class Button(Control):
         """
 
         py_font = self.__py_view__.font
-        if py_font == None:
+        if py_font is None:
             return None
         font = Font(None, None)
         font.__ui_font__ = py_font
@@ -3878,7 +3875,7 @@ class Button(Control):
 
     @font.setter
     def font(self, new_value: Font):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.font = None
         else:
             self.__py_view__.font = new_value.__ui_font__
@@ -3913,14 +3910,14 @@ class TextField(Control):
         """
 
         action = self.__py_view__.didBeginEditing
-        if action == None:
+        if action is None:
             return None
         else:
             return _values.globals()[action.identifier]
 
     @did_begin_editing.setter
     def did_begin_editing(self, new_value: Callable[[TextField], None]):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.didBeginEditing = None
         else:
             self.__py_view__.didBeginEditing = _values.value(new_value)
@@ -3934,14 +3931,14 @@ class TextField(Control):
         """
 
         action = self.__py_view__.didEndEditing
-        if action == None:
+        if action is None:
             return None
         else:
             return _values.globals()[action.identifier]
 
     @did_end_editing.setter
     def did_end_editing(self, new_value: Callable[[TextField], None]):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.didEndEditing = None
         else:
             self.__py_view__.didEndEditing = _values.value(new_value)
@@ -3983,14 +3980,14 @@ class TextField(Control):
         """
 
         c = self.__py_view__.textColor
-        if c == None:
+        if c is None:
             return None
         else:
             return Color(c)
 
     @text_color.setter
     def text_color(self, new_value: Color):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.textColor = None
         else:
             self.__py_view__.textColor = new_value.__py_color__
@@ -4004,7 +4001,7 @@ class TextField(Control):
         """
 
         py_font = self.__py_view__.font
-        if py_font == None:
+        if py_font is None:
             return None
 
         font = Font(None, None)
@@ -4013,7 +4010,7 @@ class TextField(Control):
 
     @font.setter
     def font(self, new_value: Font):
-        if new_value == None:
+        if new_value is None:
             self.__py_view__.font = None
         else:
             self.__py_view__.font = new_value.__ui_font__
@@ -4152,7 +4149,7 @@ class TextField(Control):
 
 def __ui_image_from_pil_image__(image):
 
-    if image == None:
+    if image is None:
         return None
 
     buffered = BytesIO()
@@ -4165,7 +4162,7 @@ def __ui_image_from_pil_image__(image):
 
 def __pil_image_from_ui_image__(image):
 
-    if image == None:
+    if image is None:
         return None
 
     img_str = str(image.data.base64EncodedStringWithOptions(0))
@@ -4203,7 +4200,7 @@ def image_with_system_name(name: str) -> UIImage:
     """
 
     image = UIImage.systemImageNamed(name, withConfiguration=None)
-    if image == None:
+    if image is None:
         raise ValueError("The given symbol name is not valid.")
     return image
 
