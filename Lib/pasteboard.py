@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Pasteboard Access
-  
+
 This module gives access to the pasteboard.
 """
 
@@ -71,7 +71,7 @@ def images() -> List[UIImage]:
 def set_image(image: UIImage):
     """
     Copy the given image to the pasteboard.
- 
+
     :param image: The image to copy.
     """
     general_pasteboard().image = image
@@ -80,7 +80,7 @@ def set_image(image: UIImage):
 def set_images(array: List[UIImage]):
     """
     Copy the given images to the pasteboard.
-  
+
     :param array: A list of images to copy.
     """
     general_pasteboard().images = array
@@ -106,7 +106,7 @@ def urls() -> List[NSURL]:
 def set_url(url: NSURL):
     """
     Copy the given URL to the pasteboard.
- 
+
     :param url: The Objective-C ``NSURL`` to copy.
     """
     general_pasteboard().url = url
