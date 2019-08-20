@@ -47,6 +47,7 @@ import UIKit
         
         if let repl = Bundle.main.url(forResource: "command_runner", withExtension: "py") {
             editor = EditorViewController(document: PyDocument(fileURL: repl))
+            editor.args = ""
         }
         console = RunModuleViewController.console
     }
