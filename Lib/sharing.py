@@ -28,7 +28,7 @@ def share_items(items: object):
     __PySharingHelper__.share(items)
 
 
-if not "widget" in os.environ:
+if "widget" not in os.environ:
 
     def quick_look(path: str):
         """
