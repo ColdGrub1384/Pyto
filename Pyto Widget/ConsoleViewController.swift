@@ -262,7 +262,7 @@ fileprivate var isPythonSetup = false
             ex_type, ex, tb = sys.exc_info()
             traceback.print_tb(tb)
 
-        os.environ["widget"] = 1
+        os.environ["widget"] = "1"
 
         # MARK: - SSL
         
