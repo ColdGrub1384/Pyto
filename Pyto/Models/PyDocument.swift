@@ -27,7 +27,7 @@ enum PyDocumentError: Error {
     
     private var storedModificationDate: Date? {
         didSet {
-            print(self.storedModificationDate ?? "nil")
+            print("Set modification date", self.storedModificationDate ?? "nil")
         }
     }
     
@@ -100,7 +100,9 @@ enum PyDocumentError: Error {
     
     override func open(completionHandler: ((Bool) -> Void)? = nil) {
         super.open { (success) in
-            self.storedModificationDate = self.fileModificationDate
+            if self.storedModificationDate == nil {
+                self.storedModificationDate = self.fileModificationDate
+            }
             completionHandler?(success)
         }
     }
@@ -111,6 +113,8 @@ enum PyDocumentError: Error {
     override func presentedItemDidChange() {
         super.presentedItemDidChange()
         
+        print(fileModificationDate ?? "nil")
+        print(storedModificationDate ?? "nil")
         guard fileModificationDate != storedModificationDate else {
             return
         }

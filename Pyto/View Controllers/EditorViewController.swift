@@ -1477,6 +1477,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
         return true
     }
     
+    func textViewDidEndEditing(_ textView: UITextView) {
+        save(completion: nil)
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         textView.contentTextView.setNeedsDisplay()
     }
