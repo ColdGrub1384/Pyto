@@ -21,12 +21,16 @@ from time import sleep
 from io import BytesIO
 from urllib.request import urlopen
 from threading import Thread
-from PIL import Image
 import base64
 import io
 import threading
 import _values
 import ui_constants
+
+try:
+    from PIL import Image
+except ImportError:
+    pass
 
 if UIDevice is not None and float(str(UIDevice.currentDevice.systemVersion)) < 13:
     raise ImportError("PytoUI requires iPadOS / iOS 13")
