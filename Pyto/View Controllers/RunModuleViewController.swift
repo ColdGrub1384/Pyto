@@ -9,7 +9,7 @@
 import UIKit
 
 /// A View controller for running `python -m` commands.
-@objc class RunModuleViewController: EditorSplitViewController {
+@objc class RunModuleViewController: EditorSplitViewController, UIDocumentPickerDelegate {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -33,6 +33,13 @@ import UIKit
     private static let console = ConsoleViewController()
     
     private var viewAppeared = false
+    
+    @objc private func setCurrentDirectory() {
+        console.movableTextField?.textField.resignFirstResponder()
+        let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
+        picker.delegate = self
+        present(picker, animated: true, completion: nil)
+    }
     
     // MARK: - Editor split view controller
     
@@ -63,6 +70,7 @@ import UIKit
         
         navigationItem.leftBarButtonItems = []
         navigationItem.rightBarButtonItems = []
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(setCurrentDirectory))
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(goToFileBrowser))
         navigationController?.isToolbarHidden = true
         title = Localizable.repl
@@ -93,5 +101,13 @@ import UIKit
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {}
+    
+    // MARK: Document picker view controller
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        console.movableTextField?.focus()
+        _ = urls[0].startAccessingSecurityScopedResource()
+        Python.shared.run(code: "import os, sys; path = \"\(urls[0].path.replacingOccurrences(of: "\"", with: "\\\""))\"; os.chdir(path); sys.path.append(path)")
+    }
 }
 
