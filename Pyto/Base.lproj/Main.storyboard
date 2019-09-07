@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14854.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xoe-vS-Tot">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14865.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xoe-vS-Tot">
     <device id="retina4_7" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14806.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14819.2"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,7 +27,7 @@
         <!--REPL-->
         <scene sceneID="l1p-Hi-3ck">
             <objects>
-                <navigationController storyboardIdentifier="repl" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BaJ-ba-aO8" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="repl" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BaJ-ba-aO8" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="REPL" image="play" selectedImage="play" id="SCw-AR-fio"/>
                     <toolbarItems/>
                     <value key="contentSizeForViewInPopover" type="size" width="540" height="620"/>
@@ -49,7 +49,7 @@
             <objects>
                 <viewController storyboardIdentifier="runModule" title="python -m" useStoryboardIdentifierAsRestorationIdentifier="YES" id="JxT-RS-i2V" customClass="RunModuleViewController" customModule="Pyto" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Eri-vo-fav">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Ys3-1X-Lcl"/>
@@ -259,7 +259,7 @@
         <!--PyPi-->
         <scene sceneID="3BU-5o-WEj">
             <objects>
-                <navigationController storyboardIdentifier="pypi" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" useStoryboardIdentifierAsRestorationIdentifier="YES" id="da3-zo-4Eh" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="pypi" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="formSheet" useStoryboardIdentifierAsRestorationIdentifier="YES" id="da3-zo-4Eh" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="PyPi" image="pypi" selectedImage="pypi" id="HMQ-P3-Qfx"/>
                     <toolbarItems/>
                     <value key="contentSizeForViewInPopover" type="size" width="540" height="620"/>
@@ -288,7 +288,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" allowsBackForwardNavigationGestures="YES" translatesAutoresizingMaskIntoConstraints="NO" id="11F-HI-Wxm">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="574"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -299,7 +299,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="2.5"/>
                             </progressView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="azz-g4-wY4" firstAttribute="leading" secondItem="11F-HI-Wxm" secondAttribute="leading" id="2LA-ra-369"/>
                             <constraint firstItem="azz-g4-wY4" firstAttribute="top" secondItem="VpV-kh-C2E" secondAttribute="top" id="VVP-XM-wAJ"/>
@@ -307,7 +307,7 @@
                             <constraint firstAttribute="trailing" secondItem="11F-HI-Wxm" secondAttribute="trailing" id="ppQ-RI-gh4"/>
                             <constraint firstItem="azz-g4-wY4" firstAttribute="trailing" secondItem="11F-HI-Wxm" secondAttribute="trailing" id="roD-ql-a9l"/>
                             <constraint firstItem="11F-HI-Wxm" firstAttribute="bottom" secondItem="VpV-kh-C2E" secondAttribute="bottom" id="w2q-i6-o0p"/>
-                            <constraint firstItem="11F-HI-Wxm" firstAttribute="top" secondItem="VpV-kh-C2E" secondAttribute="top" constant="-44" id="wJf-3t-zh6"/>
+                            <constraint firstItem="11F-HI-Wxm" firstAttribute="top" secondItem="VpV-kh-C2E" secondAttribute="top" id="wJf-3t-zh6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VpV-kh-C2E"/>
                     </view>
@@ -372,10 +372,10 @@
         <!--Navigation Controller-->
         <scene sceneID="qfx-zs-0bj">
             <objects>
-                <navigationController storyboardIdentifier="runModulesNavigationController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mCn-Dc-GGG" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="runModulesNavigationController" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mCn-Dc-GGG" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rYE-BC-Pdo">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
