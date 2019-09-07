@@ -75,7 +75,9 @@ class MenuTableViewController: UITableViewController {
     func selectSettings() {
                 
         if let settings = UIStoryboard(name: "Settings", bundle: nil).instantiateInitialViewController() {
-            present(settings, animated: true, completion: nil)
+            let navVC = UINavigationController(rootViewController: settings)
+            navVC.navigationBar.prefersLargeTitles = true
+            present(navVC, animated: true, completion: nil)
         }
     }
     
