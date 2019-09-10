@@ -38,23 +38,7 @@ NSBundle* mainBundle() {
 
 // MARK: - BandHandle
 
-void BandHandle(NSString *fkTitle, NSArray *nameArray, NSArray *keyArray, bool staticlib) {
-    
-    if (staticlib) {
-        void *handle = dlopen(NULL, RTLD_LAZY);
-        for( int i=0; i<nameArray.count; i++){
-            NSString *fkey  = [keyArray  objectAtIndex:i];
-            void *function = dlsym(handle, [NSString stringWithFormat:@"PyInit_%@",[nameArray objectAtIndex:i]].UTF8String);
-            
-            if (!handle || !function) {
-                fprintf(stderr, "%s\n", dlerror());
-            } else {
-                PyImport_AppendInittab(fkey.UTF8String, function);
-            }
-        }
-        return;
-    }
-    
+void BandHandle(NSString *fkTitle, NSArray *nameArray, NSArray *keyArray) {
     
     NSError *error;
     for (NSURL *bundle in [NSFileManager.defaultManager contentsOfDirectoryAtURL:mainBundle().privateFrameworksURL includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:&error]) {
@@ -98,14 +82,18 @@ void BandHandle(NSString *fkTitle, NSArray *nameArray, NSArray *keyArray, bool s
 
 // MARK: - Numpy
 
+extern PyMODINIT_FUNC PyInit__multiarray_umath(void);
+extern PyMODINIT_FUNC PyInit_lapack_lite(void);
+extern PyMODINIT_FUNC PyInit__umath_linalg(void);
+extern PyMODINIT_FUNC PyInit_fftpack_lite(void);
+extern PyMODINIT_FUNC PyInit_mtrand(void);
+
 void init_numpy() {
-    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
-    [name addObject:@"_multiarray_umath"];  [key addObject:@"__numpy_core__multiarray_umath"];
-    [name addObject:@"lapack_lite"];        [key addObject:@"__numpy_linalg_lapack_lite"];
-    [name addObject:@"_umath_linalg"];      [key addObject:@"__numpy_linalg__umath_linalg"];
-    [name addObject:@"fftpack_lite"];       [key addObject:@"__numpy_fft_fftpack_lite"];
-    [name addObject:@"mtrand"];             [key addObject:@"__numpy_random_mtrand"];
-    BandHandle(@"numpy", name, key, false);
+    PyImport_AppendInittab("__numpy_core__multiarray_umath", &PyInit__multiarray_umath);
+    PyImport_AppendInittab("__numpy_linalg_lapack_lite", &PyInit_lapack_lite);
+    PyImport_AppendInittab("__numpy_linalg__umath_linalg", &PyInit__umath_linalg);
+    PyImport_AppendInittab("__numpy_fft_fftpack_lite", &PyInit_fftpack_lite);
+    PyImport_AppendInittab("__numpy_random_mtrand", &PyInit_mtrand);
 }
 
 // MARK: - Matplotlib
@@ -140,7 +128,7 @@ void init_matplotlib() {
     [name addObject:@"ft2font"];            [key addObject:@"__matplotlib_ft2font"];
     [name addObject:@"_path"];              [key addObject:@"__matplotlib__path"];
     [name addObject:@"kiwisolver"];         [key addObject:@"kiwisolver"];
-    BandHandle(@"matplotlib", name, key, false);
+    BandHandle(@"matplotlib", name, key);
 }
 
 // MARK: - Pandas
@@ -188,7 +176,7 @@ void init_pandas(){
     [name addObject:@"skiplist"];           [key addObject:@"__pandas__libs_skiplist"];
     [name addObject:@"hashtable"];          [key addObject:@"__pandas__libs_hashtable"];
     [name addObject:@"json"];               [key addObject:@"__pandas__libs_json"];
-    BandHandle(@"pandas", name, key, false);
+    BandHandle(@"pandas", name, key);
 }
 
 // MARK: - Biopython
@@ -205,21 +193,25 @@ void init_biopython() {
     [name addObject:@"kdtrees"];                [key addObject:@"__Bio_PDB_kdtrees"];
     [name addObject:@"qcprotmodule"];           [key addObject:@"__Bio_PDB_QCPSuperimposer_qcprotmodule"];
     [name addObject:@"trie"];                   [key addObject:@"__Bio_trie"];
-    BandHandle(@"Bio", name, key, false);
+    BandHandle(@"Bio", name, key);
 }
 
 // MARK: - LXML
 
+extern PyMODINIT_FUNC PyInit__elementpath(void);
+extern PyMODINIT_FUNC PyInit_builder(void);
+extern PyMODINIT_FUNC PyInit_etree(void);
+extern PyMODINIT_FUNC PyInit_clean(void);
+extern PyMODINIT_FUNC PyInit_diff(void);
+extern PyMODINIT_FUNC PyInit_objectify(void);
+
 void init_lxml() {
-    
-    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
-    [name addObject:@"_elementpath"];              [key addObject:@"__lxml__elementpath"];
-    [name addObject:@"builder"];                   [key addObject:@"__lxml_builder"];
-    [name addObject:@"etree"];                     [key addObject:@"__lxml_etree"];
-    [name addObject:@"clean"];                     [key addObject:@"__lxml_html_clean"];
-    [name addObject:@"diff"];                      [key addObject:@"__lxml_html_diff"];
-    [name addObject:@"objectify"];                 [key addObject:@"__lxml_objectifiy"];
-    BandHandle(@"lxml", name, key, true);
+    PyImport_AppendInittab("__lxml__elementpath", &PyInit__elementpath);
+    PyImport_AppendInittab("__lxml_builder", &PyInit_builder);
+    PyImport_AppendInittab("__lxml_etree", &PyInit_etree);
+    PyImport_AppendInittab("__lxml_html_clean", &PyInit_clean);
+    PyImport_AppendInittab("__lxml_html_diff", &PyInit_diff);
+    PyImport_AppendInittab("__lxml_objectifiy", &PyInit_objectify);
 }
 
 // MARK: - SciPy
@@ -477,7 +469,7 @@ void init_sklearn() {
     [name addObject:@"_csr_polynomial_expansion"]; [key addObject:@"__sklearn_preprocessing__csr_polynomial_expansion"];
     [name addObject:@"types"];                     [key addObject:@"__sklearn_ensemble__hist_gradient_boosting_types"];
     
-    BandHandle(@"sklearn", name, key, false);
+    BandHandle(@"sklearn", name, key);
     
     putenv((char *)[NSString stringWithFormat:@"SCIKIT_LEARN_DATA=%@", [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask].firstObject.path].UTF8String);
 }
@@ -541,7 +533,7 @@ void init_skimage() {
     [name addObject:@"_max_tree"];                  [key addObject:@"__skimage_morphology__max_tree"];
     [name addObject:@"_cascade"];                   [key addObject:@"__skimage_feature__cascade"];
     
-    BandHandle(@"skimage", name, key, false);
+    BandHandle(@"skimage", name, key);
 }
 
 // MARK: - Pywt
@@ -555,12 +547,19 @@ void init_pywt() {
     [name addObject:@"_swt"];  [key addObject:@"__pywt__extensions__swt"];
     [name addObject:@"_dwt"];  [key addObject:@"__pywt__extensions__dwt"];
     
-    BandHandle(@"pywt", name, key, false);
+    BandHandle(@"pywt", name, key);
 }
 
 #endif
 
 // MARK: - PIL
+
+extern PyMODINIT_FUNC PyInit__imaging(void);
+#if !WIDGET
+extern PyMODINIT_FUNC PyInit__imagingft(void);
+extern PyMODINIT_FUNC PyInit__imagingmath(void);
+extern PyMODINIT_FUNC PyInit__imagingmorph(void);
+#endif
 
 void init_pil() {
     
@@ -571,8 +570,24 @@ void init_pil() {
     [name addObject:@"_imagingmath"];       [key addObject:@"__PIL__imagingmath"];
     [name addObject:@"_imagingmorph"];      [key addObject:@"__PIL__imagingmorph"];
     #endif
-    BandHandle(@"PIL", name, key, false);
+    
+    PyImport_AppendInittab("__PIL__imaging", &PyInit__imaging);
+    #if !WIDGET
+    PyImport_AppendInittab("__PIL__imagingft", &PyInit__imaging);
+    PyImport_AppendInittab("__PIL__imagingmath", &PyInit__imagingmath);
+    PyImport_AppendInittab("__PIL__imagingmorph", &PyInit__imagingmorph);
+    #endif
 }
+
+// MARK: - CFFI
+
+#if MAIN
+extern PyMODINIT_FUNC PyInit__cffi_backend(void);
+
+void init_cffi() {
+    PyImport_AppendInittab("_cffi_backend", &PyInit__cffi_backend);
+}
+#endif
 
 // MARK: - OpenCV
 
@@ -603,6 +618,7 @@ int initialize_python(int argc, char *argv[]) {
     init_skimage();
     init_pywt();
     init_cv2();
+    init_cffi();
     #endif
     init_pil();
     #endif
