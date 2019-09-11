@@ -662,7 +662,7 @@ import UIKit
             PyInputHelper.userInput = text
             if !secureTextEntry {
                 Python.shared.output += text
-                self.textView.text += "\(self.movableTextField?.placeholder ?? "")\(text)\n"
+                self.textView.text += "\(text)\n"
             } else {
                 
                 var hiddenPassword = ""
@@ -671,7 +671,7 @@ import UIKit
                 }
                 
                 Python.shared.output += text
-                self.textView.text += "\(self.movableTextField?.placeholder ?? "")\(hiddenPassword)\n"
+                self.textView.text += "\(hiddenPassword)\n"
             }
             self.textView.scrollToBottom()
         }
