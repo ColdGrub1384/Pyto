@@ -10,6 +10,10 @@ from UIKit import (
     UIGestureRecognizer,
 )
 from UIKit import UIFont as __UIFont__
+from UIKit import UIDevice
+
+if UIDevice is not None and float(str(UIDevice.currentDevice.systemVersion)) < 13:
+    raise ImportError("PytoUI requires iPadOS / iOS 13")
 
 __PyView__ = __Class__("PyView")
 __PyColor__ = __Class__("PyColor")

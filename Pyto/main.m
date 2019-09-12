@@ -78,6 +78,8 @@ void BandHandle(NSString *fkTitle, NSArray *nameArray, NSArray *keyArray) {
     }
 }
 
+#if !(TARGET_IPHONE_SIMULATOR)
+
 #if MAIN
 
 // MARK: - Numpy
@@ -587,6 +589,8 @@ extern PyMODINIT_FUNC PyInit__cffi_backend(void);
 void init_cffi() {
     PyImport_AppendInittab("_cffi_backend", &PyInit__cffi_backend);
 }
+#endif
+
 #endif
 
 // MARK: - OpenCV
