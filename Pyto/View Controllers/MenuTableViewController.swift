@@ -45,7 +45,7 @@ class MenuTableViewController: UITableViewController {
                 return
             }
             
-            fileBrowser.dismiss(animated: true) {
+            fileBrowser.presentingViewController?.dismiss(animated: true) {
                 (presentingVC as? DocumentBrowserViewController)?.openDocument(file.filePath, run: false)
             }
         }

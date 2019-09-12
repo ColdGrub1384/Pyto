@@ -13,7 +13,7 @@ This library may have a lot of similarities with ``UIKit``, but subclassing isn'
 """
 
 from __future__ import annotations
-from UIKit import UIDevice, UIFont as __UIFont__, UIImage as UIImage
+from UIKit import UIFont as __UIFont__, UIImage as UIImage
 from rubicon.objc import ObjCClass, CGFloat
 from typing import List, Callable, Tuple
 from pyto import __Class__, ConsoleViewController, PyAlert as __PyAlert__
@@ -31,10 +31,6 @@ try:
     from PIL import Image
 except ImportError:
     pass
-
-if UIDevice is not None and float(str(UIDevice.currentDevice.systemVersion)) < 13:
-    raise ImportError("PytoUI requires iPadOS / iOS 13")
-
 
 class __v__:
     def __init__(self, string):
