@@ -32,6 +32,7 @@ try:
 except ImportError:
     pass
 
+
 class __v__:
     def __init__(self, string):
         self.s = string
