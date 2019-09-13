@@ -556,15 +556,8 @@ void init_pywt() {
 
 // MARK: - PIL
 
-extern PyMODINIT_FUNC PyInit__imaging(void);
-#if !WIDGET
-extern PyMODINIT_FUNC PyInit__imagingft(void);
-extern PyMODINIT_FUNC PyInit__imagingmath(void);
-extern PyMODINIT_FUNC PyInit__imagingmorph(void);
-#endif
-
 void init_pil() {
-    
+
     NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
     [name addObject:@"_imaging"];           [key addObject:@"__PIL__imaging"];
     #if !WIDGET
@@ -572,13 +565,7 @@ void init_pil() {
     [name addObject:@"_imagingmath"];       [key addObject:@"__PIL__imagingmath"];
     [name addObject:@"_imagingmorph"];      [key addObject:@"__PIL__imagingmorph"];
     #endif
-    
-    PyImport_AppendInittab("__PIL__imaging", &PyInit__imaging);
-    #if !WIDGET
-    PyImport_AppendInittab("__PIL__imagingft", &PyInit__imaging);
-    PyImport_AppendInittab("__PIL__imagingmath", &PyInit__imagingmath);
-    PyImport_AppendInittab("__PIL__imagingmorph", &PyInit__imagingmorph);
-    #endif
+    BandHandle(@"PIL", name, key);
 }
 
 // MARK: - CFFI
