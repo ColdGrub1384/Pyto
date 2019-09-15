@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		6AB6C68D181C2C686D545A61 /* Pods_Pyto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 296FFAAD958315A38A36E2A4 /* Pods_Pyto.framework */; };
+		C9017D5B232E853000986E8A /* _aligners.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C7442F22EE08350035EFB9 /* _aligners.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9017D5C232E853000986E8A /* _CKDTree.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C7442E22EE08350035EFB9 /* _CKDTree.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9017D5D232E853000986E8A /* _cluster.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C7443522EE08350035EFB9 /* _cluster.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9017D5E232E853000986E8A /* _pwm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C7443222EE08350035EFB9 /* _pwm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9017D5F232E853000986E8A /* cnexus.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C7443122EE08350035EFB9 /* cnexus.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9017D60232E853000986E8A /* cpairwise2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C7442D22EE08350035EFB9 /* cpairwise2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9017D61232E853000986E8A /* kdtrees.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C7443022EE08350035EFB9 /* kdtrees.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9017D62232E853000986E8A /* qcprotmodule.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C7443322EE08350035EFB9 /* qcprotmodule.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9017D63232E853000986E8A /* trie.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C7443422EE08350035EFB9 /* trie.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C903986922D2CF2600FAD834 /* PyImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C903986822D2CF2600FAD834 /* PyImageView.swift */; };
 		C903986A22D2CF2600FAD834 /* PyImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C903986822D2CF2600FAD834 /* PyImageView.swift */; };
 		C903B98C21598A63004AAD7F /* IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C903B98B21598A63004AAD7F /* IO.swift */; };
@@ -1703,6 +1712,15 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C9017D5B232E853000986E8A /* _aligners.framework in Embed Frameworks */,
+				C9017D5C232E853000986E8A /* _CKDTree.framework in Embed Frameworks */,
+				C9017D5D232E853000986E8A /* _cluster.framework in Embed Frameworks */,
+				C9017D5E232E853000986E8A /* _pwm.framework in Embed Frameworks */,
+				C9017D5F232E853000986E8A /* cnexus.framework in Embed Frameworks */,
+				C9017D60232E853000986E8A /* cpairwise2.framework in Embed Frameworks */,
+				C9017D61232E853000986E8A /* kdtrees.framework in Embed Frameworks */,
+				C9017D62232E853000986E8A /* qcprotmodule.framework in Embed Frameworks */,
+				C9017D63232E853000986E8A /* trie.framework in Embed Frameworks */,
 				C97ACC56232B1A6300B6CF46 /* _imaging.framework in Embed Frameworks */,
 				C97ACC57232B1A6300B6CF46 /* _imagingft.framework in Embed Frameworks */,
 				C97ACC58232B1A6300B6CF46 /* _imagingmath.framework in Embed Frameworks */,
@@ -7406,7 +7424,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -7440,7 +7458,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.0;
+				MARKETING_VERSION = 11.0.1;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -7467,7 +7485,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -7499,7 +7517,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.0;
+				MARKETING_VERSION = 11.0.1;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -7641,7 +7659,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				INFOPLIST_FILE = "Pyto Intents/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -7650,7 +7668,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.0;
+				MARKETING_VERSION = 11.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Intents";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -7664,7 +7682,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				INFOPLIST_FILE = "Pyto Intents/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -7673,7 +7691,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.0;
+				MARKETING_VERSION = 11.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Intents";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -7890,7 +7908,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -7939,7 +7957,7 @@
 					"$(PROJECT_DIR)/Lxml",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.0;
+				MARKETING_VERSION = 11.0.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
@@ -7988,7 +8006,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -8037,7 +8055,7 @@
 					"$(PROJECT_DIR)/Lxml",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.0;
+				MARKETING_VERSION = 11.0.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
