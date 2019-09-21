@@ -13,6 +13,7 @@ Modules
 * `colorama`_
 * `dask`_
 * `dateutil`_
+* `decorator`_
 * `distlib`_
 * `idna`_
 * `imageio`_
@@ -48,6 +49,7 @@ Modules
 .. _colorama: https://pypi.org/project/colorama/
 .. _dask: https://docs.dask.org/en/latest/
 .. _dateutil: https://dateutil.readthedocs.io/en/stable/
+.. _decorator: https://pypi.org/project/decorator/
 .. _distlib: https://distlib.readthedocs.io/en/latest/
 .. _idna: https://pypi.org/project/idna/
 .. _imageio: http://imageio.readthedocs.io
@@ -100,6 +102,7 @@ Thanks to `Christian Clauss <https://github.com/cclauss>`_ and `goodclass <https
 * `cycler <https://github.com/matplotlib/cycler>`__
 * `dask <https://github.com/dask/dask>`__
 * `dateutil <https://github.com/dateutil/dateutil>`__
+* `decorator <https://github.com/micheles/decorator>`__
 * `distlib <https://bitbucket.org/pypa/distlib>`__
 * `Down <https://github.com/iwasrobbed/Down>`__
 * `FileBrowser <https://github.com/marmelroy/FileBrowser>`__
@@ -828,6 +831,37 @@ Thanks to `Christian Clauss <https://github.com/cclauss>`_ and `goodclass <https
 
            The above BSD License Applies to all code, even that also covered by Apache 2.0.
 
+*decorator*
+
+.. code-block::
+   text
+   
+   Copyright (c) 2005-2018, Michele Simionato
+   All rights reserved.
+
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions are
+   met:
+
+     Redistributions of source code must retain the above copyright
+     notice, this list of conditions and the following disclaimer.
+     Redistributions in bytecode form must reproduce the above copyright
+     notice, this list of conditions and the following disclaimer in
+     the documentation and/or other materials provided with the
+     distribution.
+
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+   A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+   INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+   BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+   OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+   ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
+   TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
+   USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+   DAMAGE.
 
 *distlib*
 
