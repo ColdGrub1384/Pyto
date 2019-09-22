@@ -1,12 +1,3 @@
-<p align="center">
-<a href="https://github.com/ColdGrub1384/Pisth">Pisth</a> &bull;
-<a href="https://github.com/ColdGrub1384/Edidown">Edidown</a> &bull;
-<b>Pyto</b> &bull;
-<a href="https://github.com/ColdGrub1384/Luade">Luade</a>
-</p>
-
-Follow [@develobile](https://twitter.com/develobile) on Twitter for news about my projects.
-
 ![Icon](https://raw.githubusercontent.com/ColdGrub1384/Pyto/master/Pyto/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5%402x.png)
 
 # Pyto
