@@ -596,62 +596,68 @@ void init_cv2() {
 #if MAIN || WIDGET
 int initialize_python(int argc, char *argv[]) {
     
-    // MARK: - Init builtins
-    #if !(TARGET_IPHONE_SIMULATOR)
+    #if MAIN && !WIDGET
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    #endif
+
+        NSBundle *pythonBundle = Python.shared.bundle;
+        // MARK: - Python env variables
+        #if WIDGET
+        putenv("PYTHONOPTIMIZE=1");
+        #else
+        putenv("PYTHONOPTIMIZE=");
+        #endif
+        putenv("PYTHONDONTWRITEBYTECODE=1");
+        putenv((char *)[[NSString stringWithFormat:@"TMP=%@", NSTemporaryDirectory()] UTF8String]);
+        putenv((char *)[[NSString stringWithFormat:@"PYTHONHOME=%@", pythonBundle.bundlePath] UTF8String]);
+        NSString* path = [NSString stringWithFormat:@"PYTHONPATH=%@:%@:%@:%@", [mainBundle() pathForResource: @"Lib" ofType:NULL], [mainBundle() pathForResource:@"site-packages" ofType:NULL], [pythonBundle pathForResource:@"python37" ofType:NULL], [pythonBundle pathForResource:@"python37.zip" ofType:NULL]];
+        #if WIDGET
+        path = [path stringByAppendingString: [NSString stringWithFormat:@":%@:%@", [NSFileManager.defaultManager sharedDirectory], [NSFileManager.defaultManager.sharedDirectory URLByAppendingPathComponent:@"modules"]]];
+        #endif
+        putenv((char *)path.UTF8String);
+        
+        #if WIDGET
+        NSString *certPath = [mainBundle() pathForResource:@"cacert.pem" ofType:NULL];
+        putenv((char *)[[NSString stringWithFormat:@"SSL_CERT_FILE=%@", certPath] UTF8String]);
+        #endif
+        
+        // MARK: - Init builtins
+        #if !(TARGET_IPHONE_SIMULATOR)
+        #if MAIN
+        init_numpy();
+        init_matplotlib();
+        init_pandas();
+        init_biopython();
+        init_lxml();
+        init_scipy();
+        init_sklearn();
+        init_skimage();
+        init_pywt();
+        init_cv2();
+        init_cffi();
+        #endif
+        init_pil();
+        #endif
+        
+        // MARK: - Init Python
+        Py_SetPythonHome(Py_DecodeLocale([pythonBundle.bundlePath UTF8String], NULL));
+        Py_Initialize();
+        PyEval_InitThreads();
+        
+        wchar_t** python_argv = PyMem_RawMalloc(sizeof(wchar_t*) * argc);
+        int i;
+        for (i = 0; i < argc; i++) {
+            python_argv[i] = Py_DecodeLocale(argv[i], NULL);
+        }
+        PySys_SetArgv(argc, python_argv);
+                
+        // MARK: - Start the REPL that will contain all child modules
+        [Python.shared runScriptAt:[[NSBundle mainBundle] URLForResource:@"scripts_runner" withExtension:@"py"]];
+    #if MAIN && !WIDGET
+    });
+    #endif
+    
     #if MAIN
-    init_numpy();
-    init_matplotlib();
-    init_pandas();
-    init_biopython();
-    init_lxml();
-    init_scipy();
-    init_sklearn();
-    init_skimage();
-    init_pywt();
-    init_cv2();
-    init_cffi();
-    #endif
-    init_pil();
-    #endif
-    
-    NSBundle *pythonBundle = Python.shared.bundle;
-    // MARK: - Python env variables
-    #if WIDGET
-    putenv("PYTHONOPTIMIZE=1");
-    #else
-    putenv("PYTHONOPTIMIZE=");
-    #endif
-    putenv("PYTHONDONTWRITEBYTECODE=1");
-    putenv((char *)[[NSString stringWithFormat:@"TMP=%@", NSTemporaryDirectory()] UTF8String]);
-    putenv((char *)[[NSString stringWithFormat:@"PYTHONHOME=%@", pythonBundle.bundlePath] UTF8String]);
-    NSString* path = [NSString stringWithFormat:@"PYTHONPATH=%@:%@:%@:%@", [mainBundle() pathForResource: @"Lib" ofType:NULL], [mainBundle() pathForResource:@"site-packages" ofType:NULL], [pythonBundle pathForResource:@"python37" ofType:NULL], [pythonBundle pathForResource:@"python37.zip" ofType:NULL]];
-    #if WIDGET
-    path = [path stringByAppendingString: [NSString stringWithFormat:@":%@:%@", [NSFileManager.defaultManager sharedDirectory], [NSFileManager.defaultManager.sharedDirectory URLByAppendingPathComponent:@"modules"]]];
-    #endif
-    putenv((char *)path.UTF8String);
-    
-    #if WIDGET
-    NSString *certPath = [mainBundle() pathForResource:@"cacert.pem" ofType:NULL];
-    putenv((char *)[[NSString stringWithFormat:@"SSL_CERT_FILE=%@", certPath] UTF8String]);
-    #endif
-    
-    // MARK: - Init Python
-    Py_SetPythonHome(Py_DecodeLocale([pythonBundle.bundlePath UTF8String], NULL));
-    Py_Initialize();
-    PyEval_InitThreads();
-    
-    wchar_t** python_argv = PyMem_RawMalloc(sizeof(wchar_t*) * argc);
-    int i;
-    for (i = 0; i < argc; i++) {
-        python_argv[i] = Py_DecodeLocale(argv[i], NULL);
-    }
-    PySys_SetArgv(argc, python_argv);
-    
-    #if MAIN
-    [Python.shared importPytoLib];
-    
-    // MARK: - Start the REPL that will contain all child modules
-    [Python.shared runScriptAt:[[NSBundle mainBundle] URLForResource:@"scripts_runner" withExtension:@"py"]];
     
     @autoreleasepool {
         return UIApplicationMain(argc, argv, NULL, NSStringFromClass(AppDelegate.class));
