@@ -589,6 +589,15 @@ extern PyMODINIT_FUNC PyInit_cv2(void);
 void init_cv2() {
     PyImport_AppendInittab("__cv2_cv2", &PyInit_cv2);
 }
+
+// MARK: - Nacl
+
+extern PyMODINIT_FUNC PyInit__sodium(void);
+
+void init_nacl() {
+    PyImport_AppendInittab("__nacl__sodium", &PyInit__sodium);
+}
+
 #endif
 
 // MARK: - Main
@@ -635,6 +644,7 @@ int initialize_python(int argc, char *argv[]) {
         init_pywt();
         init_cv2();
         init_cffi();
+        init_nacl();
         #endif
         init_pil();
         #endif
