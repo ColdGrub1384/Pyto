@@ -27,7 +27,7 @@ class MenuTableViewController: UITableViewController {
     /// Opens PyPi.
     func selectPyPi() {
         if let pypi = self.storyboard?.instantiateViewController(withIdentifier: "pypi") {
-            present(pypi, animated: true, completion: nil)
+            present(UINavigationController(rootViewController: pypi), animated: true, completion: nil)
         }
     }
     
