@@ -144,9 +144,7 @@ import SavannaKit
         let runAction = UIDocumentBrowserAction(identifier: "run", localizedTitle: Localizable.MenuItems.run, availability: [.menu, .navigationBar], handler: { (urls) in
             self.openDocument(urls[0], run: true)
         })
-        if #available(iOS 13.0, *) {
-            runAction.image = UIImage(systemName: "play.fill")
-        }
+        runAction.image = UIImage(named: "play")
         self.customActions = [runAction]
         
         delegate = self
