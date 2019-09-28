@@ -14,7 +14,6 @@ target 'Pyto' do
   pod 'Zip'
   pod 'Down', :git => 'https://github.com/ColdGrub1384/Down.git'
   pod 'FileBrowser', :git => 'https://github.com/ColdGrub1384/FileBrowser.git'
-  pod 'libsodium-ios'
 end
 
 # post install

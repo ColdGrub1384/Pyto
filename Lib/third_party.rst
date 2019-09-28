@@ -117,7 +117,6 @@ Thanks to `Christian Clauss <https://github.com/cclauss>`_ and `goodclass <https
 * `kiwisolver <https://github.com/nucleic/kiwi>`__
 * `lipjpeg <https://libjpeg.sourceforge.io>`__
 * `libpng <https://libpng.sourceforge.io>`__
-* `libsodium-ios <https://github.com/mochtu/libsodium-ios>`__
 * `lxml <https://github.com/lxml/lxml>`__
 * `matplotlib <https://github.com/matplotlib/matplotlib>`__
 * `networkx <https://github.com/networkx/networkx>`__
@@ -1872,48 +1871,6 @@ Thanks to `Christian Clauss <https://github.com/cclauss>`_ and `goodclass <https
            to supporting the PNG file format in commercial products.  If you use
            this source code in a product, acknowledgment is not required but would
            be appreciated.
-
-*libsodium-ios*
-
-.. code-block::
-   text
-   
-   License
-   -------
-
-   Copyright (c) 2013-2014
-   Moritz C. Türck
-
-   Permission to use, copy, modify, and distribute this software for any
-   purpose with or without fee is hereby granted, provided that the above
-   copyright notice and this permission notice appear in all copies.
-
-   THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
-   WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
-   MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
-   ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
-   WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
-   ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
-   OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-
-
-   Original License
-   ----------------
-
-   Copyright (c) 2013-2014
-   Frank Denis <j at pureftpd dot org>
-
-   Permission to use, copy, modify, and distribute this software for any
-   purpose with or without fee is hereby granted, provided that the above
-   copyright notice and this permission notice appear in all copies.
-
-   THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
-   WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
-   MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
-   ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
-   WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
-   ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
-   OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 *lxml*
 
