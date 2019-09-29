@@ -9,8 +9,8 @@ from pyto import __Class__
 from types import ModuleType
 import sys
 
-if UIDevice is not None and float(str(UIDevice.currentDevice.systemVersion)) < 13:
-    raise ImportError("'notification_center' requires iPadOS / iOS 13")
+if UIDevice is not None and float(str(UIDevice.currentDevice.systemVersion).split(".")[0]) < 13:
+    raise ImportError("PytoUI requires iPadOS / iOS 13")
 
 __PyNotificationCenter__ = __Class__("PyNotificationCenter")
 
