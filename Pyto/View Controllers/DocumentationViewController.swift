@@ -85,7 +85,7 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(webView)
         
-        if let url = Bundle.main.url(forResource: "docs/html", withExtension: "") {
+        if let url = Bundle.main.url(forResource: "docs_build/html", withExtension: "") {
             webView.loadFileURL(url.appendingPathComponent("index.html"), allowingReadAccessTo: url)
         }
         
