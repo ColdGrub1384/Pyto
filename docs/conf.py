@@ -21,6 +21,9 @@ project = 'Pyto'
 copyright = '2019, Adrian Labbé'
 author = 'Adrian Labbé'
 
+# -- ReadTheDocs VM ----------------------------------------------------------
+
+master_doc = 'index'
 
 # -- General configuration ---------------------------------------------------
 
