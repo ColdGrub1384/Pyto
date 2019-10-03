@@ -7,6 +7,39 @@
 //
 
 import UIKit
+
+@available(iOS 13.0, *)
+fileprivate class _PyTextView: UITextView {
+    
+    var html: String?
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        guard html != nil else {
+            return
+        }
+        
+        let _html = """
+        <style>
+            * {
+                color: \(UIColor.label.hexString ?? "#000");
+                font-family: '.SFNSDisplay-Regular', sans-serif;
+            }
+        </style>
+        
+        \(html!)
+        """
+        
+        do {
+            let htmlAttrs = try NSAttributedString(data: _html.data(using: .utf8) ?? Data(), options: [.documentType : NSAttributedString.DocumentType.html], documentAttributes: nil)
+            attributedText = htmlAttrs
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+}
+
 @available(iOS 13.0, *) @objc public class PyTextView: PyView, PyTextInputTraits, UITextViewDelegate {
     
     /// The text view associated with this object.
@@ -23,6 +56,29 @@ import UIKit
     @objc public var didChangeText: PyValue?
     
     @objc public var didEndEditing: PyValue?
+    
+    @objc public func loadHTML(_ html: String) {
+        set {
+            let _html = """
+            <style>
+                * {
+                    color: \(UIColor.label.hexString ?? "#000");
+                    font-family: '.SFNSDisplay-Regular', sans-serif;
+                }
+            </style>
+            
+            \(html)
+            """
+            
+            do {
+                let htmlAttrs = try NSAttributedString(data: _html.data(using: .utf8) ?? Data(), options: [.documentType : NSAttributedString.DocumentType.html], documentAttributes: nil)
+                (self.textView as? _PyTextView)?.html = html
+                self.textView.attributedText = htmlAttrs
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
     
     @objc public var selectable: Bool {
         get {
@@ -61,6 +117,7 @@ import UIKit
         
         set {
             set {
+                (self.textView as? _PyTextView)?.html = nil
                 self.textView.text = newValue
             }
         }
@@ -75,6 +132,7 @@ import UIKit
         
         set {
             set {
+                (self.textView as? _PyTextView)?.html = nil
                 self.textView.font = newValue
             }
         }
@@ -93,6 +151,7 @@ import UIKit
         
         set {
             set {
+                (self.textView as? _PyTextView)?.html = nil
                 self.textView.textColor = newValue?.color
             }
         }
@@ -122,7 +181,8 @@ import UIKit
     
     @objc override class func newView() -> PyView {
         return PyTextView(managed: get {
-            let textView = UITextView()
+            let textView = _PyTextView()
+            textView.allowsEditingTextAttributes = true
             textView.backgroundColor = UIColor.systemBackground
             textView.textColor = UIColor.label
             
@@ -140,6 +200,7 @@ import UIKit
     }
     
     public func textViewDidBeginEditing(_ textView: UITextView) {
+        (textView as? _PyTextView)?.html = nil
         didBeginEditing?.call(parameter: managedValue)
     }
     

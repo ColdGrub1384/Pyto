@@ -98,10 +98,6 @@ import SafariServices
         
         #if MAIN
         
-        for folder in FoldersBrowserViewController.accessibleFolders {
-            _ = folder.startAccessingSecurityScopedResource()
-        }
-        
         unsetenv("TERM")
         unsetenv("LSCOLORS")
         unsetenv("CLICOLOR")
@@ -134,6 +130,13 @@ import SafariServices
             }
         } catch {
             print(error.localizedDescription)
+        }
+        
+        DispatchQueue.global().async {
+            for folder in FoldersBrowserViewController.accessibleFolders {
+                _ = folder.startAccessingSecurityScopedResource()
+                sleep(UInt32(0.2))
+            }
         }
         
         #else

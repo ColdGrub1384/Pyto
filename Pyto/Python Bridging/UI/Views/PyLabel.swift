@@ -8,6 +8,38 @@
 
 import UIKit
 
+@available(iOS 13.0, *)
+fileprivate class _PyLabel: UILabel {
+    
+    var html: String?
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        guard html != nil else {
+            return
+        }
+        
+        let _html = """
+        <style>
+            * {
+                color: \(UIColor.label.hexString ?? "#000");
+                font-family: '.SFNSDisplay-Regular', sans-serif;
+            }
+        </style>
+        
+        \(html!)
+        """
+        
+        do {
+            let htmlAttrs = try NSAttributedString(data: _html.data(using: .utf8) ?? Data(), options: [.documentType : NSAttributedString.DocumentType.html], documentAttributes: nil)
+            attributedText = htmlAttrs
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+}
+
 /// A Python wrapper for `UIView`.
 @available(iOS 13.0, *) @objc public class PyLabel: PyView {
     
@@ -17,7 +49,7 @@ import UIKit
     
     @objc override class func newView() -> PyView {
         return PyLabel(managed: get {
-            let label = UILabel()
+            let label = _PyLabel()
             label.numberOfLines = 0
             return label
         })
@@ -27,6 +59,30 @@ import UIKit
     @objc public var label: UILabel {
         return get {
             return self.managed as! UILabel
+        }
+    }
+    
+    @objc public func loadHTML(_ html: String) {
+        
+        set {
+            let _html = """
+            <style>
+                * {
+                    color: \(UIColor.label.hexString ?? "#000");
+                    font-family: '.SFNSDisplay-Regular', sans-serif;
+                }
+            </style>
+
+            \(html)
+            """
+            
+            do {
+                let html = try NSAttributedString(data: _html.data(using: .utf8) ?? Data(), options: [.documentType : NSAttributedString.DocumentType.html], documentAttributes: nil)
+                
+                self.label.attributedText = html
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
     
