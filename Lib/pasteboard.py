@@ -13,6 +13,7 @@ except ValueError:
     def ObjCClass(class_name):
         return None
 
+
 NSURL = ObjCClass("NSURL")
 
 

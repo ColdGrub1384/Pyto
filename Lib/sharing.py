@@ -18,6 +18,7 @@ except ValueError:
     def ObjCClass(class_name):
         return None
 
+
 __PySharingHelper__ = pyto.PySharingHelper
 NSURL = ObjCClass("NSURL")
 
