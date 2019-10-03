@@ -14,7 +14,6 @@ This library may have a lot of similarities with ``UIKit``, but subclassing isn'
 
 from __future__ import annotations
 from UIKit import UIFont as __UIFont__, UIImage as UIImage
-from rubicon.objc import ObjCClass, CGFloat
 from typing import List, Callable, Tuple
 from pyto import __Class__, ConsoleViewController, PyAlert as __PyAlert__
 from time import sleep
@@ -26,6 +25,11 @@ import io
 import threading
 import _values
 import ui_constants
+try:
+    from rubicon.objc import ObjCClass, CGFloat
+except ValueError:
+    def ObjCClass(class_name):
+        return None
 
 try:
     from PIL import Image

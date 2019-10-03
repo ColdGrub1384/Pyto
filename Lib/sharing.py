@@ -5,7 +5,6 @@ Sharing Items
 This module allows you to share items, to import files and to open URLs.
 """
 
-from rubicon.objc import ObjCClass
 from UIKit import UIApplication as __UIApplication__
 import pyto
 import mainthread
@@ -13,6 +12,11 @@ import threading
 import base64
 import os
 from typing import List
+try:
+    from rubicon.objc import ObjCClass
+except ValueError:
+    def ObjCClass(class_name):
+        return None
 
 __PySharingHelper__ = pyto.PySharingHelper
 NSURL = ObjCClass("NSURL")
