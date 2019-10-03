@@ -4,9 +4,9 @@
 
 [![Download on the App Store](https://pisth.github.io/appstorebadge.svg)](https://itunes.apple.com/us/app/pyto-python-ide/id1436650069?l=fr&ls=1&mt=8)
 
-![screenshots](mockup.png)
-
 [Documentation](https://pyto.readthedocs.io)
+
+![screenshots](mockup.png)
 
 ```
 Pyto is a Python 3.7 IDE for iPhone an iPad. Run code directly on your device and offline.
