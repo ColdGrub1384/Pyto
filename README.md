@@ -6,6 +6,8 @@
 
 ![screenshots](mockup.png)
 
+[Documentation](https://pyto.readthedocs.io)
+
 ```
 Pyto is a Python 3.7 IDE for iPhone an iPad. Run code directly on your device and offline.
 
