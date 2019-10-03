@@ -97,6 +97,11 @@ import SafariServices
     @objc public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         #if MAIN
+        
+        for folder in FoldersBrowserViewController.accessibleFolders {
+            _ = folder.startAccessingSecurityScopedResource()
+        }
+        
         unsetenv("TERM")
         unsetenv("LSCOLORS")
         unsetenv("CLICOLOR")
