@@ -2657,6 +2657,15 @@ class Label(View):
         self.__py_view__ = __PyLabel__.newView()
         self.text = text
 
+    def load_html(self, html):
+        """
+        Loads HTML in the Label.
+
+        :param html: The HTML code to load.
+        """
+
+        self.__py_view__.loadHTML(html)
+
     @property
     def text(self) -> str:
         """
@@ -3038,6 +3047,15 @@ class TextView(View):
             self.__py_view__.didChangeText = None
         else:
             self.__py_view__.didChangeText = _values.value(new_value)
+
+    def load_html(self, html):
+        """
+        Loads HTML in the Text View.
+
+        :param html: The HTML code to load.
+        """
+
+        self.__py_view__.loadHTML(html)
 
     @property
     def text(self) -> str:
