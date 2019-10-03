@@ -5,9 +5,13 @@ Pasteboard Access
 This module gives access to the pasteboard.
 """
 
-from rubicon.objc import ObjCClass
 from UIKit import UIPasteboard as __UIPasteboard__, UIImage
 from typing import List
+try:
+    from rubicon.objc import ObjCClass
+except ValueError:
+    def ObjCClass(class_name):
+        return None
 
 NSURL = ObjCClass("NSURL")
 
