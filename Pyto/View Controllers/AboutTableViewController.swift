@@ -25,10 +25,10 @@ fileprivate extension IndexPath {
     
     static let todayWidget = IndexPath(row: 0, section: 1)
     
-    static let contact = IndexPath(row: 0, section: 2)
+    static let contact = IndexPath(row: 0, section: 3)
     
-    static let acknowledgments = IndexPath(row: 0, section: 3)
-    static let sourceCode = IndexPath(row: 1, section: 3)
+    static let acknowledgments = IndexPath(row: 0, section: 4)
+    static let sourceCode = IndexPath(row: 1, section: 4)
 }
 
 /// A View controller with settings and info.
@@ -216,7 +216,7 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         
-        if section == 4, let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, let build = Bundle.main.infoDictionary?[kCFBundleVersionKey as String] as? String {
+        if section == 5, let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, let build = Bundle.main.infoDictionary?[kCFBundleVersionKey as String] as? String {
             
             let formatter = DateFormatter()
             formatter.dateStyle = .medium

@@ -1797,6 +1797,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         _ = urls.first?.startAccessingSecurityScopedResource()
         currentDirectory = urls.first ?? currentDirectory
+        if !FoldersBrowserViewController.accessibleFolders.contains(currentDirectory.resolvingSymlinksInPath()) {
+            FoldersBrowserViewController.accessibleFolders.append(currentDirectory.resolvingSymlinksInPath())
+        }
     }
 }
 
