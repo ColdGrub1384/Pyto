@@ -10,6 +10,7 @@ except ValueError:
     def ObjCClass(class_name):
         return None
 
+
 def __class__(name):
     try:
         return ObjCClass(name)
