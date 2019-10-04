@@ -18,8 +18,8 @@ from typing import List, Callable, Tuple
 from pyto import __Class__, ConsoleViewController, PyAlert as __PyAlert__
 from time import sleep
 from io import BytesIO
-from urllib.request import urlopen
 from threading import Thread
+import os
 import base64
 import io
 import threading
@@ -36,6 +36,10 @@ try:
     from PIL import Image
 except ImportError:
     pass
+
+
+if "widget" not in os.environ:
+    from urllib.request import urlopen
 
 
 class __v__:
@@ -2646,6 +2650,9 @@ class ImageView(View):
 
         :param url: The URL of the image.
         """
+
+        if "widget" in os.environ:
+            raise EnvironmentError("'load_from_url' is not supported in Today Widget.")
 
         def _set_image(self, url):
             self.image = Image.open(urlopen(url))
