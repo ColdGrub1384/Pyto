@@ -736,7 +736,9 @@ int initialize_python(int argc, char *argv[]) {
         PySys_SetArgv(argc, python_argv);
                 
         // MARK: - Start the REPL that will contain all child modules
+        #if !WIDGET
         [Python.shared runScriptAt:[[NSBundle mainBundle] URLForResource:@"scripts_runner" withExtension:@"py"]];
+        #endif
     #if MAIN && !WIDGET
     });
     #endif
