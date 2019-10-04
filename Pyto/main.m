@@ -685,12 +685,10 @@ int initialize_python(int argc, char *argv[]) {
 
         NSBundle *pythonBundle = Python.shared.bundle;
         // MARK: - Python env variables
-        #if WIDGET
-        putenv("PYTHONOPTIMIZE=1");
-        #else
         putenv("PYTHONOPTIMIZE=");
-        #endif
+        #if !WIDGET
         putenv("PYTHONDONTWRITEBYTECODE=1");
+        #endif
         putenv((char *)[[NSString stringWithFormat:@"TMP=%@", NSTemporaryDirectory()] UTF8String]);
         putenv((char *)[[NSString stringWithFormat:@"PYTHONHOME=%@", pythonBundle.bundlePath] UTF8String]);
         NSString* path = [NSString stringWithFormat:@"PYTHONPATH=%@:%@:%@:%@", [mainBundle() pathForResource: @"Lib" ofType:NULL], [mainBundle() pathForResource:@"site-packages" ofType:NULL], [pythonBundle pathForResource:@"python37" ofType:NULL], [pythonBundle pathForResource:@"python37.zip" ofType:NULL]];
