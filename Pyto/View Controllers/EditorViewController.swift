@@ -1662,6 +1662,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
           should_path_be_deleted = True
         
         source = '''
+        import
+        
         \(text.replacingOccurrences(of: "'", with: "\\'").replacingOccurrences(of: "\\", with: "\\\\"));
         '''
         suggestForCode(source, '\((document?.fileURL.path ?? "").replacingOccurrences(of: "'", with: "\\'"))')
