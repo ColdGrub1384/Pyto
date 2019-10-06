@@ -102,6 +102,15 @@ import UIKit
         }
     }
     
+    /// A boolean indicating whether the Navigation Bar of the View should be hidden.
+    @objc public var navigationBarHidden = false {
+        didSet {
+            set {
+                (self.viewController as? UINavigationController)?.setNavigationBarHidden(self.navigationBarHidden, animated: true)
+            }
+        }
+    }
+    
     /// `true` if the view is presented on the console.
     @objc public var isPresented = false
     

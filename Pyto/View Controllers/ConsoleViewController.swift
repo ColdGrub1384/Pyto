@@ -434,6 +434,7 @@ import UIKit
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             
+            setNavigationBarHidden(pyView?.navigationBarHidden == true, animated: true)
             navigationBar.backgroundColor = UIColor.systemBackground
         }
     }
