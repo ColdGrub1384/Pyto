@@ -409,60 +409,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 self.textView.contentTextView.inputAccessoryView = nil
             }
             
-            if self.shouldRun {
-                self.shouldRun = false
-                
-                if Python.shared.isScriptRunning(path) {
-                    self.stop()
-                }
-                
-                let splitVC = self.parent as? EditorSplitViewController
-                
-                splitVC?.ratio = 0
-                
-                for view in (splitVC?.view.subviews ?? []) {
-                    if view.backgroundColor == .white {
-                        view.backgroundColor = splitVC?.view.backgroundColor
-                    }
-                }
-                
-                splitVC?.firstChild?.view.superview?.backgroundColor = splitVC!.view.backgroundColor
-                splitVC?.secondChild?.view.superview?.backgroundColor = splitVC!.view.backgroundColor
-                
-                DispatchQueue.main.asyncAfter(deadline: .now()+0.25, execute: {
-                    splitVC?.firstChild = nil
-                    splitVC?.secondChild = nil
-                    
-                    for view in (splitVC?.view.subviews ?? []) {
-                        view.removeFromSuperview()
-                    }
-                    
-                    splitVC?.viewDidLoad()
-                    splitVC?.viewWillTransition(to: splitVC!.view.frame.size, with: ViewControllerTransitionCoordinator())
-                    splitVC?.viewDidAppear(true)
-                    
-                    splitVC?.removeGestures()
-                    
-                    splitVC?.firstChild = splitVC?.editor
-                    splitVC?.secondChild = splitVC?.console
-                    
-                    splitVC?.setNavigationBarItems()
-                })
-                
-                if Python.shared.isScriptRunning(path) || Python.shared.version.isEmpty {
-                    _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
-                        if !Python.shared.isScriptRunning(path) && !Python.shared.version.isEmpty {
-                            timer.invalidate()
-                            self.run()
-                        }
-                    })
-                } else {
-                    DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                        self.run()
-                    }
-                }
-            }
-            
             if doc.fileURL.path == Bundle.main.path(forResource: "installer", ofType: "py") && (!(parent is REPLViewController) && !(parent is RunModuleViewController) && !(parent is PipInstallerViewController)) {
                 self.parent?.navigationItem.leftBarButtonItems = []
                 if Python.shared.isScriptRunning(path) {
@@ -511,6 +457,60 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        if shouldRun, let path = document?.fileURL.path {
+            shouldRun = false
+            
+            if Python.shared.isScriptRunning(path) {
+                stop()
+            }
+            
+            let splitVC = parent as? EditorSplitViewController
+            
+            splitVC?.ratio = 0
+            
+            for view in (splitVC?.view.subviews ?? []) {
+                if view.backgroundColor == .white {
+                    view.backgroundColor = splitVC?.view.backgroundColor
+                }
+            }
+            
+            splitVC?.firstChild?.view.superview?.backgroundColor = splitVC!.view.backgroundColor
+            splitVC?.secondChild?.view.superview?.backgroundColor = splitVC!.view.backgroundColor
+            
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.25, execute: {
+                splitVC?.firstChild = nil
+                splitVC?.secondChild = nil
+                
+                for view in (splitVC?.view.subviews ?? []) {
+                    view.removeFromSuperview()
+                }
+                
+                splitVC?.viewDidLoad()
+                splitVC?.viewWillTransition(to: splitVC!.view.frame.size, with: ViewControllerTransitionCoordinator())
+                splitVC?.viewDidAppear(true)
+                
+                splitVC?.removeGestures()
+                
+                splitVC?.firstChild = splitVC?.editor
+                splitVC?.secondChild = splitVC?.console
+                
+                splitVC?.setNavigationBarItems()
+            })
+            
+            if Python.shared.isScriptRunning(path) || Python.shared.version.isEmpty {
+                _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
+                    if !Python.shared.isScriptRunning(path) && !Python.shared.version.isEmpty {
+                        timer.invalidate()
+                        self.run()
+                    }
+                })
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                    self.run()
+                }
+            }
+        }
         
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
     }
