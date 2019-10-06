@@ -1974,6 +1974,22 @@ class View:
 
         self.__py_view__.pop()
 
+
+    @property
+    def navigation_bar_hidden(self) -> bool:
+        """
+        A boolean indicating whether the Navigation Bar of the View should be hidden.
+
+        :rtype: bool
+        """
+
+        return self.__py_view__.navigationBarHidden
+
+    @navigation_bar_hidden.setter
+    def navigation_bar_hidden(self, new_value: bool):
+        self.__py_view__.navigationBarHidden = new_value
+
+
     @property
     def x(self) -> float:
         """
