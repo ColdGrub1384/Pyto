@@ -8,26 +8,33 @@
 
 import UIKit
 
+/// A View controller displayed for creating a script.
 class TemplateChooserTableViewController: UITableViewController, UIDocumentPickerDelegate {
     
-    var importHandler: ((URL?, UIDocumentBrowserViewController.ImportMode) -> Void)?
-    
+    /// The function called to create the file. Passed from `UIDocumentBrowserViewController.documentBrowser(_:didRequestDocumentCreationWithHandler:)`.
     var templates: [URL] {
         return (try? FileManager.default.contentsOfDirectory(at: FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask)[0].appendingPathComponent("templates"), includingPropertiesForKeys: nil, options: .skipsHiddenFiles)) ?? []
     }
     
+    /// Closes the View controller.
     @IBAction func close(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
+    /// Creates an empty script.
     func createEmptyScript() {
         createScript(templateURL: Bundle.main.url(forResource: "Untitled", withExtension: "py")!)
     }
     
+    /// Creates a Hello World script.
     func createHelloWorld() {
         createScript(templateURL: Bundle.main.url(forResource: "Hello World", withExtension: "py")!)
     }
     
+    /// Creates a script from given template. Asks for name
+    ///
+    /// - Parameters:
+    ///     - templateURL: The URL of the template to use.
     func createScript(templateURL: URL) {
         let alert = UIAlertController(title: Localizable.Creation.createScript, message: Localizable.Creation.typeScriptName, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
@@ -68,6 +75,8 @@ class TemplateChooserTableViewController: UITableViewController, UIDocumentPicke
         }
         present(alert, animated: true, completion: nil)
     }
+    
+    // MARK: - Table view controller
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -142,6 +151,8 @@ class TemplateChooserTableViewController: UITableViewController, UIDocumentPicke
             tableView.reloadData()
         }
     }
+    
+    // MARK: - Document picker delegate
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         
