@@ -220,6 +220,12 @@ fileprivate var isPythonSetup = false
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        exit(0)
+    }
+    
     // MARK: - Widget providing
     
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
@@ -369,6 +375,6 @@ fileprivate var isPythonSetup = false
             }
         }
         
-        completionHandler(NCUpdateResult.newData)
+        completionHandler(NCUpdateResult.noData)
     }
 }
