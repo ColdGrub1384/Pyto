@@ -77,6 +77,7 @@ class MenuTableViewController: UITableViewController {
         if let settings = UIStoryboard(name: "Settings", bundle: nil).instantiateInitialViewController() {
             let navVC = UINavigationController(rootViewController: settings)
             navVC.navigationBar.prefersLargeTitles = true
+            navVC.modalPresentationStyle = .formSheet
             present(navVC, animated: true, completion: nil)
         }
     }

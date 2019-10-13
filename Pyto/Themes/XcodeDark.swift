@@ -25,7 +25,7 @@ struct XcodeDarkSourceCodeTheme: SourceCodeTheme {
     }
     
     var font: Font {
-        return defaultTheme.font.withSize(CGFloat(ThemeFontSize))
+        return EditorViewController.font.withSize(CGFloat(ThemeFontSize))
     }
     
     let backgroundColor = Color(displayP3Red: 31/255, green: 31/255, blue: 36/255, alpha: 1)

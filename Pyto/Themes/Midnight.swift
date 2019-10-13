@@ -25,7 +25,7 @@ struct MidnightSourceCodeTheme: SourceCodeTheme {
     }
     
     var font: Font {
-        return defaultTheme.font.withSize(CGFloat(ThemeFontSize))
+        return EditorViewController.font.withSize(CGFloat(ThemeFontSize))
     }
     
     let backgroundColor = Color.black

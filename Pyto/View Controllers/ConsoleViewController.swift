@@ -149,7 +149,14 @@ import UIKit
                 self.console += output
                 
                 let attrStr = NSMutableAttributedString(attributedString: self.textView.attributedText)
-                attrStr.append(NSAttributedString(string: output, attributes: [.font : UIFont(name: "Menlo", size: 12) ?? UIFont.systemFont(ofSize: 12)]))
+                
+                #if MAIN
+                let font = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
+                #else
+                let font = UIFont(name: "Menlo", size: 12) ?? UIFont.systemFont(ofSize: 12)
+                #endif
+                
+                attrStr.append(NSAttributedString(string: output, attributes: [.font : font]))
                 self.textView.attributedText = attrStr
                 
                 self.textViewDidChange(self.textView)
