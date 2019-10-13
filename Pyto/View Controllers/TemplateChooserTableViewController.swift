@@ -12,6 +12,9 @@ import UIKit
 class TemplateChooserTableViewController: UITableViewController, UIDocumentPickerDelegate {
     
     /// The function called to create the file. Passed from `UIDocumentBrowserViewController.documentBrowser(_:didRequestDocumentCreationWithHandler:)`.
+    var importHandler: ((URL?, UIDocumentBrowserViewController.ImportMode) -> Void)?
+    
+    /// Templates created by user.
     var templates: [URL] {
         return (try? FileManager.default.contentsOfDirectory(at: FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask)[0].appendingPathComponent("templates"), includingPropertiesForKeys: nil, options: .skipsHiddenFiles)) ?? []
     }
