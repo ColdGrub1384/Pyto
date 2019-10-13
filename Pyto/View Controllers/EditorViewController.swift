@@ -97,6 +97,17 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
     }
     
+    /// The font used in the code editor and the console.
+    static var font: UIFont {
+        get {
+            return UserDefaults.standard.font(forKey: "codeFont") ?? DefaultSourceCodeTheme().font
+        }
+        
+        set {
+            UserDefaults.standard.set(font: newValue, forKey: "codeFont")
+        }
+    }
+    
     /// The `SyntaxTextView` containing the code.
     let textView = SyntaxTextView()
     
