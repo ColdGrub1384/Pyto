@@ -168,8 +168,10 @@ import SavannaKit
     
     func documentBrowser(_ controller: UIDocumentBrowserViewController, didRequestDocumentCreationWithHandler importHandler: @escaping (URL?, UIDocumentBrowserViewController.ImportMode) -> Void) {
         
-        let docURL = Bundle.main.url(forResource: "Untitled", withExtension: "py")
-        return importHandler(docURL, docURL != nil ? .copy : .none)
+        let navVC = UIStoryboard(name: "Template Chooser", bundle: nil).instantiateInitialViewController()!
+        ((navVC as? UINavigationController)?.topViewController as? TemplateChooserTableViewController)?.importHandler = importHandler
+        
+        present(navVC, animated: true, completion: nil)
     }
     
     func documentBrowser(_ controller: UIDocumentBrowserViewController, didImportDocumentAt sourceURL: URL, toDestinationURL destinationURL: URL) {
