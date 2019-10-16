@@ -74,4 +74,6 @@ struct LowKeyTheme: Theme {
     }
     
     let sourceCodeTheme: SourceCodeTheme = LowKeySourceCodeTheme()
+    
+    let name: String? = "LowKey"
 }

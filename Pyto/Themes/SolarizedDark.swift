@@ -74,4 +74,6 @@ struct SolarizedDarkTheme: Theme {
     }
     
     let sourceCodeTheme: SourceCodeTheme = SolarizedDarkSourceCodeTheme()
+    
+    let name: String? = "Solarized Dark"
 }

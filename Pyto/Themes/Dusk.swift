@@ -74,4 +74,6 @@ struct DuskTheme: Theme {
     }
     
     let sourceCodeTheme: SourceCodeTheme = DuskSourceCodeTheme()
+    
+    let name: String? = "Dusk"
 }

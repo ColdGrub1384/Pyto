@@ -78,4 +78,6 @@ struct WWDC16Theme: Theme {
     var tintColor: UIColor? {
         return sourceCodeTheme.color(for: .identifier)
     }
+    
+    let name: String? = "WWDC16"
 }

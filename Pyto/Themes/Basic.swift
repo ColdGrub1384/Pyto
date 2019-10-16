@@ -74,4 +74,6 @@ struct BasicTheme: Theme {
     }
     
     let sourceCodeTheme: SourceCodeTheme = BasicSourceCodeTheme()
+    
+    let name: String? = "Basic"
 }

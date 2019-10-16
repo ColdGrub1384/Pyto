@@ -74,4 +74,6 @@ struct XcodeLightTheme: Theme {
     }
     
     let sourceCodeTheme: SourceCodeTheme = XcodeLightSourceCodeTheme()
+    
+    let name: String? = "Xcode Light"
 }

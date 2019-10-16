@@ -89,6 +89,7 @@ import SavannaKit
         DocumentBrowserViewController.splitVCs.append(splitVC)
         let navVC = EditorSplitViewController.NavigationController(rootViewController: splitVC)
         navVC.modalPresentationStyle = .fullScreen
+        navVC.navigationBar.isTranslucent = true
         
         if EditorSplitViewController.shouldShowSeparator {
             splitVC.separatorColor = tintColor

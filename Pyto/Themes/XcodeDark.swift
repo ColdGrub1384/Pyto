@@ -74,4 +74,6 @@ struct XcodeDarkTheme: Theme {
     }
     
     let sourceCodeTheme: SourceCodeTheme = XcodeDarkSourceCodeTheme()
+    
+    let name: String? = "Xcode Dark"
 }
