@@ -74,4 +74,6 @@ struct MidnightTheme: Theme {
     }
     
     let sourceCodeTheme: SourceCodeTheme = MidnightSourceCodeTheme()
+    
+    let name: String? = "Midnight"
 }

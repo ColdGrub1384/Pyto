@@ -78,4 +78,6 @@ struct CoolGlowTheme: Theme {
     var tintColor: UIColor? {
         return Color(displayP3Red: 175/255, green: 127/255, blue: 196/255, alpha: 1)
     }
+    
+    let name: String? = "Cool Glow"
 }

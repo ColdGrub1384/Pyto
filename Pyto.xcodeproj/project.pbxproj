@@ -450,6 +450,8 @@
 		C9C7AC6B22F5ED2300659685 /* RunScriptIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C7AC6922F5ED2300659685 /* RunScriptIntentHandler.swift */; };
 		C9C7AC6C22F5ED2300659685 /* RunCodeIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C7AC6A22F5ED2300659685 /* RunCodeIntentHandler.swift */; };
 		C9C7AC6E22F5EE9F00659685 /* PyWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C7AC6D22F5EE9F00659685 /* PyWebView.swift */; };
+		C9CED5352353A214000BB464 /* ThemeMakerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CED5342353A214000BB464 /* ThemeMakerTableViewController.swift */; };
+		C9CED5382353C973000BB464 /* HRColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CED5372353C973000BB464 /* HRColorPickerView.swift */; };
 		C9CEE1EB21EB8D5300316D3C /* PytoCore.h in Headers */ = {isa = PBXBuildFile; fileRef = C9CEE1E921EB8D5300316D3C /* PytoCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C9CEE1F121EB8D6C00316D3C /* site-packages in Resources */ = {isa = PBXBuildFile; fileRef = C9BE01B021530BAF00A8C825 /* site-packages */; };
 		C9CEE1F221EB8D8A00316D3C /* libPython.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6321445B5800585C28 /* libPython.a */; };
@@ -2414,6 +2416,8 @@
 		C9C7AC6922F5ED2300659685 /* RunScriptIntentHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunScriptIntentHandler.swift; sourceTree = "<group>"; };
 		C9C7AC6A22F5ED2300659685 /* RunCodeIntentHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunCodeIntentHandler.swift; sourceTree = "<group>"; };
 		C9C7AC6D22F5EE9F00659685 /* PyWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PyWebView.swift; sourceTree = "<group>"; };
+		C9CED5342353A214000BB464 /* ThemeMakerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeMakerTableViewController.swift; sourceTree = "<group>"; };
+		C9CED5372353C973000BB464 /* HRColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRColorPickerView.swift; sourceTree = "<group>"; };
 		C9CEE1E721EB8D5200316D3C /* PytoCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PytoCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9CEE1E921EB8D5300316D3C /* PytoCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PytoCore.h; sourceTree = "<group>"; };
 		C9CEE1EA21EB8D5300316D3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -5012,6 +5016,7 @@
 				C95076FB22DE428F00226497 /* WidgetSimulatorViewController.swift */,
 				C972AE3E23467AE30053E1C3 /* FoldersBrowserViewController.swift */,
 				C9A5A5E22352B2EC001C8E20 /* TemplateChooserTableViewController.swift */,
+				C9CED5342353A214000BB464 /* ThemeMakerTableViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -5048,6 +5053,7 @@
 				C946A5C92207809700F78C5C /* FileManager.swift */,
 				C9D2AA752215A503006AF527 /* EditorViewController+highlighting.swift */,
 				C909A19B2267E6E30058C145 /* UIViewController.swift */,
+				C9CED5372353C973000BB464 /* HRColorPickerView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -7386,6 +7392,7 @@
 				C904EB7321445D5800585C28 /* Python.swift in Sources */,
 				C927187B22C99CEA0025341B /* PyControl.swift in Sources */,
 				C958F8F222EC250E00481712 /* URL.swift in Sources */,
+				C9CED5352353A214000BB464 /* ThemeMakerTableViewController.swift in Sources */,
 				C92495C72151A3E3007EB4DB /* ReviewHelper.swift in Sources */,
 				C93C8E1E22E01ACA0008DC13 /* PySwitch.swift in Sources */,
 				C9E501AE220C85B1002719CE /* PyMainThread.swift in Sources */,
@@ -7419,6 +7426,7 @@
 				C909A19A2267DB210058C145 /* MenuTableViewController.swift in Sources */,
 				C9A05F6622E400890096DCA8 /* PyView.swift in Sources */,
 				C943E7F522E21D4C00B8027C /* PyTextInputTraits.swift in Sources */,
+				C9CED5382353C973000BB464 /* HRColorPickerView.swift in Sources */,
 				C927187522C973F60025341B /* PyValue.swift in Sources */,
 				C9C0E77821EEA9BE0057C63E /* XcodeDark.swift in Sources */,
 				C93657292287334600498011 /* ResolveConflictsTableViewController.swift in Sources */,

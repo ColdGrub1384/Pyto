@@ -25,4 +25,8 @@ struct DefaultTheme: Theme {
     var sourceCodeTheme: SourceCodeTheme {
         return (UIApplication.shared.keyWindow?.traitCollection.userInterfaceStyle == .dark ? MidnightSourceCodeTheme() : XcodeLightSourceCodeTheme())
     }
+    
+    var name: String? {
+        return (UIApplication.shared.keyWindow?.traitCollection.userInterfaceStyle == .dark ? "Midnight" : "Xcode")
+    }
 }

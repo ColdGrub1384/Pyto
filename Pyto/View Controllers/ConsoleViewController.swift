@@ -44,11 +44,16 @@ import UIKit
             case is SolarizedDarkTheme:
                 themeID = 10
             default:
-                themeID = 0
+                themeID = -2
             }
             
-            UserDefaults.standard.set(themeID, forKey: "theme")
-            UserDefaults.standard.synchronize()
+            if themeID == -2 {
+                UserDefaults.standard.set(newValue.data, forKey: "theme")
+                UserDefaults.standard.synchronize()
+            } else {
+                UserDefaults.standard.set(themeID, forKey: "theme")
+                UserDefaults.standard.synchronize()
+            }
             
             if #available(iOS 13.0, *) {
                 for scene in UIApplication.shared.connectedScenes {
@@ -60,6 +65,11 @@ import UIKit
         }
         
         get {
+            
+            if let data = UserDefaults.standard.data(forKey: "theme"), let theme = ThemeFromData(data) {
+                return theme
+            }
+            
             switch UserDefaults.standard.integer(forKey: "theme") {
             case -1:
                 return XcodeLightTheme()
