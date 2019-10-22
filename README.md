@@ -9,11 +9,11 @@
 ![screenshots](mockup.png)
 
 ```
-Pyto is a Python 3.7 IDE for iPhone an iPad. Run code directly on your device and offline.
+Pyto is a Python 3.8 IDE for iPhone an iPad. Run code directly on your device and offline.
 
 Features:
 
-  - Python 3.7 with all standard library
+  - Python 3.8 with all standard library
   - Full Python REPL
   - Code user interfaces
   - Smart code completion
