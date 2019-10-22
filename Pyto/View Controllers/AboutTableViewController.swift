@@ -36,15 +36,6 @@ fileprivate extension IndexPath {
 /// A View controller with settings and info.
 class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate, MFMailComposeViewControllerDelegate, UIFontPickerViewControllerDelegate {
     
-    /// The date of the build.
-    var buildDate: Date {
-        if let infoPath = Bundle.main.path(forResource: "Info", ofType: "plist"), let infoAttr = try? FileManager.default.attributesOfItem(atPath: infoPath), let infoDate = infoAttr[.creationDate] as? Date {
-            return infoDate
-        } else {
-            return Date()
-        }
-    }
-    
     /// Closes this View controller.
     @IBAction func close(_ sender: Any) {
         if #available(iOS 13.0, *) {
@@ -234,24 +225,6 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
             }
         } else {
             present(vc, animated: true, completion: nil)
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        
-        if section == 5, let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, let build = Bundle.main.infoDictionary?[kCFBundleVersionKey as String] as? String {
-            
-            let formatter = DateFormatter()
-            formatter.dateStyle = .medium
-            formatter.timeStyle = .short
-            
-            return """
-            Pyto version \(version) (\(build)) \(formatter.string(from: buildDate))
-            
-            Python \(Python.shared.version)
-            """
-        } else {
-            return super.tableView(tableView, titleForFooterInSection: section)
         }
     }
     
