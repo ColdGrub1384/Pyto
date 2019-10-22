@@ -21,6 +21,7 @@ import getpass
 import webbrowser
 import sharing
 import _signal
+import traceback
 from pip import BUNDLED_MODULES
 
 # MARK: - Warnings
@@ -192,4 +193,4 @@ while True:
     try:
         SourceFileLoader("main", "%@").load_module()
     except Exception as e:
-        print(e)
+        traceback.print_exc()
