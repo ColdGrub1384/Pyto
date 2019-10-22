@@ -331,8 +331,9 @@
         <!--Navigation Controller-->
         <scene sceneID="x6l-rK-SCm">
             <objects>
-                <navigationController storyboardIdentifier="menu" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vaj-vN-fmR" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="menu" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="formSheet" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vaj-vN-fmR" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <value key="contentSizeForViewInPopover" type="size" width="480" height="640"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="Cw4-7B-snx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
