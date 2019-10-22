@@ -181,11 +181,6 @@ fileprivate var isPythonSetup = false
         
         ConsoleViewController.sharedDirectoryPath = FileManager.default.sharedDirectory?.path
         
-        if let bundleID = Bundle.main.bundleIdentifier, let dir = ConsoleViewController.sharedDirectoryPath {
-            let scriptExists = FileManager.default.fileExists(atPath: (dir as NSString).appendingPathComponent("main.py"))
-            NCWidgetController().setHasContent(scriptExists, forWidgetWithBundleIdentifier: bundleID)
-        }
-        
         if !isPythonSetup {
             setup_python()
             isPythonSetup = true
@@ -373,6 +368,11 @@ fileprivate var isPythonSetup = false
             } catch {
                 print(error.localizedDescription)
             }
+        }
+        
+        if let bundleID = Bundle.main.bundleIdentifier, let dir = ConsoleViewController.sharedDirectoryPath {
+            let scriptExists = FileManager.default.fileExists(atPath: (dir as NSString).appendingPathComponent("main.py"))
+            NCWidgetController().setHasContent(scriptExists, forWidgetWithBundleIdentifier: bundleID)
         }
         
         completionHandler(NCUpdateResult.noData)

@@ -20,6 +20,11 @@ def main():
         return
     module_name = command[0]
 
+    try:
+        del sys.modules[module_name]
+    except KeyError:
+        pass
+
     spec = importlib.util.find_spec(module_name)
     if spec is None:
         print("python: No module named "+module_name)
