@@ -2,7 +2,7 @@
 //  Use this file to import your target's headers that you would like to expose to Swift.
 //
 
-#import "../Python/Headers/Python.h"
+#import "../Python/Python.h"
 #import "Python Bridging/Selectors/BlockBasedSelector.h"
 
 PyMODINIT_FUNC (*PyInit__multiarray_umath)(void);

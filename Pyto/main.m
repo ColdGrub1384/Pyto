@@ -9,7 +9,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "../Python/Headers/Python.h"
+#import "../Python/Python.h"
 #if MAIN
 #import "Pyto-Swift.h"
 #elif WIDGET
@@ -46,6 +46,12 @@ void BandHandle(NSString *fkTitle, NSArray *nameArray, NSArray *keyArray) {
     for (NSURL *bundle in [NSFileManager.defaultManager contentsOfDirectoryAtURL:mainBundle().privateFrameworksURL includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:&error]) {
         
         NSURL *file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"cpython-37m-darwin.so"].lastPathComponent];
+        if (![NSFileManager.defaultManager fileExistsAtPath:file.path]) {
+            file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"abi3.so"].lastPathComponent];
+        }
+        if (![NSFileManager.defaultManager fileExistsAtPath:file.path]) {
+            file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"cpython-38m-darwin.so"].lastPathComponent];
+        }
         if (![NSFileManager.defaultManager fileExistsAtPath:file.path]) {
             file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"abi3.so"].lastPathComponent];
         }
@@ -691,7 +697,7 @@ int initialize_python(int argc, char *argv[]) {
         #endif
         putenv((char *)[[NSString stringWithFormat:@"TMP=%@", NSTemporaryDirectory()] UTF8String]);
         putenv((char *)[[NSString stringWithFormat:@"PYTHONHOME=%@", pythonBundle.bundlePath] UTF8String]);
-        NSString* path = [NSString stringWithFormat:@"PYTHONPATH=%@:%@:%@:%@", [mainBundle() pathForResource: @"Lib" ofType:NULL], [mainBundle() pathForResource:@"site-packages" ofType:NULL], [pythonBundle pathForResource:@"python37" ofType:NULL], [pythonBundle pathForResource:@"python37.zip" ofType:NULL]];
+        NSString* path = [NSString stringWithFormat:@"PYTHONPATH=%@:%@:%@:%@", [mainBundle() pathForResource: @"Lib" ofType:NULL], [mainBundle() pathForResource:@"site-packages" ofType:NULL], [pythonBundle pathForResource:@"python38" ofType:NULL], [pythonBundle pathForResource:@"python38.zip" ofType:NULL]];
         #if WIDGET
         path = [path stringByAppendingString: [NSString stringWithFormat:@":%@:%@", [NSFileManager.defaultManager sharedDirectory], [NSFileManager.defaultManager.sharedDirectory URLByAppendingPathComponent:@"modules"]]];
         #endif
