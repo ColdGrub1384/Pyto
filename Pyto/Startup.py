@@ -48,8 +48,6 @@ def __send_warnings_to_log__(message, category, filename, lineno, file=None, lin
 
 warnings.showwarning = __send_warnings_to_log__
 
-pyto.Python.shared.version = sys.version
-
 # MARK: - Allow / Disallow subprocesses
 
 os.allows_subprocesses = (not sys.platform == "ios")

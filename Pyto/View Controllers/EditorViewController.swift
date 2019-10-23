@@ -509,9 +509,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 splitVC?.setNavigationBarItems()
             })
             
-            if Python.shared.isScriptRunning(path) || Python.shared.version.isEmpty {
+            if Python.shared.isScriptRunning(path) || !Python.shared.isSetup {
                 _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
-                    if !Python.shared.isScriptRunning(path) && !Python.shared.version.isEmpty {
+                    if !Python.shared.isScriptRunning(path) && Python.shared.isSetup {
                         timer.invalidate()
                         self.run()
                     }
