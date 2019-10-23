@@ -40,6 +40,8 @@
 		C91321D821FB684C00437845 /* BlockBasedSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7521F49B1200E7CC35 /* BlockBasedSelector.swift */; };
 		C91321D921FB684E00437845 /* PySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7A21F49B8400E7CC35 /* PySelector.swift */; };
 		C916F44B226CFD4800FA2FB6 /* modules_inspector.py in Resources */ = {isa = PBXBuildFile; fileRef = C916F44A226CFD4700FA2FB6 /* modules_inspector.py */; };
+		C91BFF982360A54A0016AFD8 /* Loading Python.xib in Resources */ = {isa = PBXBuildFile; fileRef = C91BFF972360A54A0016AFD8 /* Loading Python.xib */; };
+		C91BFF9C2360B7D80016AFD8 /* LoadingPythonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BFF9B2360B7D80016AFD8 /* LoadingPythonView.swift */; };
 		C921B52322CD8660005FF00F /* PyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C956AB6222CD6BD600DBC580 /* PyLabel.swift */; };
 		C921EF6721ECA02E004C750D /* XcodeActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C921EF6621ECA02E004C750D /* XcodeActivity.swift */; };
 		C921EF7821ECC388004C750D /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C921EF7721ECC388004C750D /* ActivityViewController.swift */; };
@@ -1939,6 +1941,8 @@
 		C913202A21DC12A300EEE677 /* AcknowledgmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcknowledgmentsViewController.swift; sourceTree = "<group>"; };
 		C91321C821FB500300437845 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		C916F44A226CFD4700FA2FB6 /* modules_inspector.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = modules_inspector.py; sourceTree = "<group>"; };
+		C91BFF972360A54A0016AFD8 /* Loading Python.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "Loading Python.xib"; sourceTree = "<group>"; };
+		C91BFF9B2360B7D80016AFD8 /* LoadingPythonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingPythonView.swift; sourceTree = "<group>"; };
 		C921EF6621ECA02E004C750D /* XcodeActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeActivity.swift; sourceTree = "<group>"; };
 		C921EF7721ECC388004C750D /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		C92495C62151A3E3007EB4DB /* ReviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewHelper.swift; sourceTree = "<group>"; };
@@ -5075,6 +5079,7 @@
 				C9A33B12224FCDAD0083F041 /* TextField.xib */,
 				C95076F922DE39A800226497 /* Widget Simulator.storyboard */,
 				C9A5A5DE2352AEC5001C8E20 /* Template Chooser.storyboard */,
+				C91BFF972360A54A0016AFD8 /* Loading Python.xib */,
 				C9C7AC6622F5EB3E00659685 /* Intents.intentdefinition */,
 				C9FCFD5F214428B300A07974 /* Assets.xcassets */,
 				C9FCFD64214428B300A07974 /* Info.plist */,
@@ -5645,6 +5650,7 @@
 			children = (
 				C9E4152A21513E3400D64E32 /* ConsoleTextView.swift */,
 				C954FAB8220A2BB00060C488 /* ReplaceView.swift */,
+				C91BFF9B2360B7D80016AFD8 /* LoadingPythonView.swift */,
 				C954FAB4220A165E0060C488 /* Replace.xib */,
 			);
 			path = Views;
@@ -7161,6 +7167,7 @@
 				C916F44B226CFD4800FA2FB6 /* modules_inspector.py in Resources */,
 				C9B5D87621F214DC00E980BA /* body.html in Resources */,
 				C929167E22B192A5001C8BA0 /* scripts_runner.py in Resources */,
+				C91BFF982360A54A0016AFD8 /* Loading Python.xib in Resources */,
 				C9E4152E21514F9100D64E32 /* Startup.py in Resources */,
 				C9A5A5DF2352AEC5001C8E20 /* Template Chooser.storyboard in Resources */,
 				C92DBD8021F67B9D0098BE43 /* REPL.py in Resources */,
@@ -7498,6 +7505,7 @@
 				C9E4152B21513E3400D64E32 /* ConsoleTextView.swift in Sources */,
 				C98A5BB622C7E86900D411CC /* PyColor.swift in Sources */,
 				C9592D1B21D0592C00412CEF /* Localizable.swift in Sources */,
+				C91BFF9C2360B7D80016AFD8 /* LoadingPythonView.swift in Sources */,
 				C93C8E1922DFDEBC0008DC13 /* PySlider.swift in Sources */,
 				C91321C921FB500300437845 /* UIColor.swift in Sources */,
 				C943E7F322E1719200B8027C /* PyTextView.swift in Sources */,

@@ -52,9 +52,11 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// The queue running scripts.
     @objc public let queue = DispatchQueue.global(qos: .userInteractive)
     
-    /// The version catched passed from `"sys.version"`.
-    @objc public var version = ""
-    
+    /// The full  Python version
+    @objc public var version: String {
+        return String(cString: Py_GetVersion())
+    }
+        
     /// If set to `true`, scripts will run inside the REPL.
     @objc public var isREPLRunning = false
     
