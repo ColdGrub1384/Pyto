@@ -134,6 +134,20 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate,
         }
     }
     
+    var exception_: UIColor! {
+        didSet {
+            exceptionView.backgroundColor = exception_
+            previewTheme()
+        }
+    }
+    
+    var warning: UIColor! {
+        didSet {
+            warningView.backgroundColor = warning
+            previewTheme()
+        }
+    }
+    
     func makeTheme() -> Theme {
         
         struct CustomTheme: Theme {
@@ -149,6 +163,10 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate,
             var name: String?
             
             var tintColor: UIColor?
+            
+            var exceptionColor: UIColor
+            
+            var warningColor: UIColor
         }
         
         struct CustomSourceCodeTheme: SourceCodeTheme {
@@ -203,7 +221,7 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate,
             }
         }
         
-        return CustomTheme(keyboardAppearance: (interfaceStyle == .dark ? .dark : (interfaceStyle == .light ? .light : .default)), barStyle: (interfaceStyle == .dark ? .black : .default), sourceCodeTheme: CustomSourceCodeTheme(themeMaker: self), userInterfaceStyle: interfaceStyle, name: name, tintColor: tint)
+        return CustomTheme(keyboardAppearance: (interfaceStyle == .dark ? .dark : (interfaceStyle == .light ? .light : .default)), barStyle: (interfaceStyle == .dark ? .black : .default), sourceCodeTheme: CustomSourceCodeTheme(themeMaker: self), userInterfaceStyle: interfaceStyle, name: name, tintColor: tint, exceptionColor: exception_, warningColor: warning)
     }
     
     // MARK: - UI Elements
@@ -237,6 +255,10 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate,
     @IBOutlet weak var numberView: UIView!
     
     @IBOutlet weak var stringView: UIView!
+    
+    @IBOutlet weak var exceptionView: UIView!
+    
+    @IBOutlet weak var warningView: UIView!
     
     // MARK: - Actions
     
@@ -341,6 +363,9 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate,
         number = theme.sourceCodeTheme.color(for: .number)
         string = theme.sourceCodeTheme.color(for: .string)
         
+        exception_ = theme.exceptionColor
+        warning = theme.warningColor
+        
         previewAfterSettingProperties = true
         
         previewTheme()
@@ -428,6 +453,14 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate,
         case IndexPath(row: 6, section: 3):
             pickColor(color: string) { (color) in
                 self.string = color
+            }
+        case IndexPath(row: 0, section: 4):
+            pickColor(color: exception_) { (color) in
+                self.exception_ = color
+            }
+        case IndexPath(row: 1, section: 4):
+            pickColor(color: warning) { (color) in
+                self.warning = color
             }
         default:
             break
