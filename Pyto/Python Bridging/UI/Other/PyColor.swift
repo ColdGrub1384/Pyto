@@ -52,9 +52,9 @@ import UIKit
     ///     - green: Green value / 1.
     ///     - blue: Blue value / 1.
     ///     - alpha: Alpha value / 1.
-    @objc public init(red: Float, green: Float, blue: Float, alpha: Float) {
+    @objc public static func color(red: Float, green: Float, blue: Float, alpha: Float) -> PyColor {
         let color = UIColor(displayP3Red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: CGFloat(alpha))
-        super.init(managed: color)
+        return PyColor(managed: color)
     }
     
     /// Initializes a new color with given values.
@@ -62,9 +62,9 @@ import UIKit
     /// - Parameters:
     ///     - white: White value / 1.
     ///     - alpha: Alpha value / 1.
-    @objc public init(white: Float, alpha: Float) {
+    @objc public static func color(white: Float, alpha: Float) -> PyColor {
         let color = UIColor(white: CGFloat(white), alpha: CGFloat(alpha))
-        super.init(managed: color)
+        return PyColor(managed: color)
     }
     
     /// Initializes a new color for different appearances.
@@ -72,7 +72,7 @@ import UIKit
     /// - Parameters:
     ///     - light: Color displayed on light appearance.
     ///     - dark: Color displayed on dark appearance.
-    @objc public init(light: PyColor, dark: PyColor) {
+    @objc public static func color(light: PyColor, dark: PyColor) -> PyColor {
         let color = UIColor(dynamicProvider: { (traitCollection) -> UIColor in
             
             if traitCollection.userInterfaceStyle == .dark {
@@ -81,7 +81,7 @@ import UIKit
                 return light.color
             }
         })
-        super.init(managed: color)
+        return PyColor(managed: color)
     }
     
     override init(managed: Any! = NSObject()) {

@@ -1014,7 +1014,7 @@ class Color:
         :rtype: Color
         """
 
-        return cls(__PyColor__.initRed(red, green=green, blue=blue, alpha=alpha))
+        return cls(__PyColor__.colorWithRed(red, green=green, blue=blue, alpha=alpha))
 
     @classmethod
     def white(cls, white: float, alpha: float) -> Color:
@@ -1029,7 +1029,7 @@ class Color:
         :rtype: Color
         """
 
-        return cls(__PyColor__.initWhite(white, alpha=alpha))
+        return cls(__PyColor__.colorWithWhite(white, alpha=alpha))
 
     @classmethod
     def dynamic(cls, light: Color, dark: Color) -> Color:
@@ -1042,7 +1042,7 @@ class Color:
         :rtype: Color
         """
 
-        return cls(__PyColor__.initLight(light.__py_color__, dark=dark.__py_color__))
+        return cls(__PyColor__.colorWithLight(light.__py_color__, dark=dark.__py_color__))
 
 
 COLOR_LABEL = Color(ui_constants.COLOR_LABEL)
