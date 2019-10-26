@@ -42,6 +42,8 @@
 		C916F44B226CFD4800FA2FB6 /* modules_inspector.py in Resources */ = {isa = PBXBuildFile; fileRef = C916F44A226CFD4700FA2FB6 /* modules_inspector.py */; };
 		C91BFF982360A54A0016AFD8 /* Loading Python.xib in Resources */ = {isa = PBXBuildFile; fileRef = C91BFF972360A54A0016AFD8 /* Loading Python.xib */; };
 		C91BFF9C2360B7D80016AFD8 /* LoadingPythonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BFF9B2360B7D80016AFD8 /* LoadingPythonView.swift */; };
+		C91BFFAE236101110016AFD8 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91321C821FB500300437845 /* UIColor.swift */; };
+		C91BFFB2236105D30016AFD8 /* python3_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C981698D235E5E6C0062A91F /* python3_ios.framework */; };
 		C921B52322CD8660005FF00F /* PyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C956AB6222CD6BD600DBC580 /* PyLabel.swift */; };
 		C921EF6721ECA02E004C750D /* XcodeActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C921EF6621ECA02E004C750D /* XcodeActivity.swift */; };
 		C921EF7821ECC388004C750D /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C921EF7721ECC388004C750D /* ActivityViewController.swift */; };
@@ -457,10 +459,6 @@
 		C9CED5382353C973000BB464 /* HRColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CED5372353C973000BB464 /* HRColorPickerView.swift */; };
 		C9CEE1EB21EB8D5300316D3C /* PytoCore.h in Headers */ = {isa = PBXBuildFile; fileRef = C9CEE1E921EB8D5300316D3C /* PytoCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C9CEE1F121EB8D6C00316D3C /* site-packages in Resources */ = {isa = PBXBuildFile; fileRef = C9BE01B021530BAF00A8C825 /* site-packages */; };
-		C9CEE1F221EB8D8A00316D3C /* libPython.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6321445B5800585C28 /* libPython.a */; };
-		C9CEE1F321EB8D8C00316D3C /* libbzip2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6521445B5D00585C28 /* libbzip2.a */; };
-		C9CEE1F421EB8D8F00316D3C /* libOpenSSL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6721445B6100585C28 /* libOpenSSL.a */; };
-		C9CEE1F521EB8D9300316D3C /* libxz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C904EB6921445B6700585C28 /* libxz.a */; };
 		C9CEE1F621EB8D9E00316D3C /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A4214461D300382DCC /* libsqlite3.tbd */; };
 		C9CEE1F821EB8FC400316D3C /* Python.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904EB7221445D5800585C28 /* Python.swift */; };
 		C9CEE1F921EB8FC800316D3C /* ConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EDF9AA21446FCA00382DCC /* ConsoleViewController.swift */; };
@@ -3657,10 +3655,7 @@
 			files = (
 				C9CEE21621EB9D1400316D3C /* libz.tbd in Frameworks */,
 				C9CEE1F621EB8D9E00316D3C /* libsqlite3.tbd in Frameworks */,
-				C9CEE1F221EB8D8A00316D3C /* libPython.a in Frameworks */,
-				C9CEE1F321EB8D8C00316D3C /* libbzip2.a in Frameworks */,
-				C9CEE1F421EB8D8F00316D3C /* libOpenSSL.a in Frameworks */,
-				C9CEE1F521EB8D9300316D3C /* libxz.a in Frameworks */,
+				C91BFFB2236105D30016AFD8 /* python3_ios.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6947,10 +6942,10 @@
 				8B77444CB27802637BAB7D62 /* [CP] Check Pods Manifest.lock */,
 				C9FCFD51214428AE00A07974 /* Sources */,
 				C9FCFD53214428AE00A07974 /* Resources */,
+				C9CEE26F21EBEEA700316D3C /* Archive app template */,
 				D910EE956F1871789C77F1DA /* [CP] Embed Pods Frameworks */,
 				C9FCFD52214428AE00A07974 /* Frameworks */,
 				C9EAB4CA214D95C500DFC9A4 /* Embed Frameworks */,
-				C9CEE26F21EBEEA700316D3C /* Archive app template */,
 				C946A5BA22074EAA00F78C5C /* Embed App Extensions */,
 			);
 			buildRules = (
@@ -7255,7 +7250,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "ZIPFILE=\"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/repo.zip\"\n\nif [ -d \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Contents\" ]\nthen\nexit 0 # Is building for macOS\nfi\n\nif [ -f \"$ZIPFILE\" ]\nthen\nexit 0\nelse\necho \"Doesn't exist\"\nfi\n\nTMPSRC=\"${SRCROOT}/../PytoTmpCopy\"\ncp -r \"${SRCROOT}/Python App\" \"$TMPSRC\"\ncp -r \"${SRCROOT}\" \"$TMPSRC/Pyto\"\n\npushd \"$TMPSRC\"\n\nls\n\nrm -rf Pyto/Pods\nrm -rf Pyto/NumPy\nrm -rf Pyto/Matplotlib\nrm -rf Pyto/Pandas\nrm -rf Pyto/Lxml\nrm -rf Python3_Mac\nrm -rf Pyto/InputAssistant\nrm -rf python3_ios\nrm -rf Pyto/.git\nzip -r \"$ZIPFILE\" *\npopd\n\nrm -rf \"$TMPSRC\"\n";
+			shellScript = "ZIPFILE=\"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/repo.zip\"\n\nif [ -d \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Contents\" ]\nthen\nexit 0 # Is building for macOS\nfi\n\nif [ -f \"$ZIPFILE\" ]\nthen\nexit 0\nelse\necho \"Doesn't exist\"\nfi\n\nTMPSRC=\"${SRCROOT}/../PytoTmpCopy\"\ncp -r \"${SRCROOT}/Python App\" \"$TMPSRC\"\ncp -r \"${SRCROOT}\" \"$TMPSRC/Pyto\"\n\npushd \"$TMPSRC\"\n\nls\n\nrm -rf Pyto/Pods\nrm -rf Pyto/NumPy\nrm -rf Pyto/Matplotlib\nrm -rf Pyto/Pandas\nrm -rf Pyto/Lxml\nrm -rf Pyto/SciPy\nrm -rf Pyto/SkLearn\nrm -rf Pyto/SkImage\nrm -rf Pyto/OpenCV\nrm -rf Pyto/Pywt\nrm -rf Pyto/docs_build\nrm -rf Pyto/InputAssistant\nrm -rf Pyto/.git\nzip -r \"$ZIPFILE\" *\npopd\n\nrm -rf \"$TMPSRC\"\n";
 		};
 		D910EE956F1871789C77F1DA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -7403,6 +7398,7 @@
 				C9CEE20721EB95C900316D3C /* ConsoleTextView.swift in Sources */,
 				C9CEE20621EB95C400316D3C /* TextView.swift in Sources */,
 				C9CEE20221EB8FFF00316D3C /* PyExtensionContext.swift in Sources */,
+				C91BFFAE236101110016AFD8 /* UIColor.swift in Sources */,
 				C9CEE20A21EB960400316D3C /* ViewControllerTransitionCoordinator.swift in Sources */,
 				C9F4622822ECB412007DC3B8 /* PyView.swift in Sources */,
 				C9F4622922ECB412007DC3B8 /* PyLabel.swift in Sources */,
@@ -7982,6 +7978,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
 				INFOPLIST_FILE = PytoCore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -8021,6 +8019,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
 				INFOPLIST_FILE = PytoCore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -8215,7 +8215,6 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/SplitKit/SplitKit.framework/Headers\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Zip/Zip.framework/Headers\"",
 					"\"$(SRCROOT)/Python\"",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.0/include,
 				);
 				INFOPLIST_FILE = Pyto/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -8326,7 +8325,6 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/SplitKit/SplitKit.framework/Headers\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Zip/Zip.framework/Headers\"",
 					"\"$(SRCROOT)/Python\"",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.0/include,
 				);
 				INFOPLIST_FILE = Pyto/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
