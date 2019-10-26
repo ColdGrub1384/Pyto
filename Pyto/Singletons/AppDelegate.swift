@@ -146,6 +146,7 @@ import SafariServices
         window?.makeKeyAndVisible()
         DispatchQueue.main.asyncAfter(deadline: .now()+1) {
             let console = ConsoleViewController()
+            console.modalPresentationStyle = .fullScreen
             console.modalTransitionStyle = .crossDissolve
             self.window?.rootViewController?.present(console, animated: true, completion: {
                 console.textView.text = ""

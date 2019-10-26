@@ -29,6 +29,11 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     @objc func fatalError(_ message: String) -> Never {
         return Swift.fatalError(message)
     }
+    #else
+    /// The full  Python version
+    @objc public var version: String {
+        return String(cString: Py_GetVersion())
+    }
     #endif
     
     /// The shared and unique instance
@@ -51,11 +56,6 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     
     /// The queue running scripts.
     @objc public let queue = DispatchQueue.global(qos: .userInteractive)
-    
-    /// The full  Python version
-    @objc public var version: String {
-        return String(cString: Py_GetVersion())
-    }
         
     /// If set to `true`, scripts will run inside the REPL.
     @objc public var isREPLRunning = false

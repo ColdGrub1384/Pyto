@@ -107,6 +107,7 @@
 		C92FB43422ECC42F00A59AC0 /* ftpatent.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40C22ECC42F00A59AC0 /* ftpatent.o */; };
 		C93AE16521EC017E00B588B6 /* PytoCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C93AE16421EC017700B588B6 /* PytoCore.framework */; };
 		C93AE16621EC017E00B588B6 /* PytoCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C93AE16421EC017700B588B6 /* PytoCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C97B57632363DA850066BE05 /* python3_ios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C97B57082363C4FA0066BE05 /* python3_ios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C97EBD5C22ED216900FD4A84 /* libpng.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F4625B22ECBB9E007DC3B8 /* libpng.framework */; };
 		C97EBD5D22ED216900FD4A84 /* libpng.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9F4625B22ECBB9E007DC3B8 /* libpng.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C97EBD5E22ED217300FD4A84 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB45E22ED074300A59AC0 /* libz.tbd */; };
@@ -144,6 +145,27 @@
 			remoteGlobalIDString = C9CEE1E621EB8D5200316D3C;
 			remoteInfo = PytoCore;
 		};
+		C97B56FF2363C4E70066BE05 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C93AE15721EC017700B588B6 /* Pyto.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C9C2F46E22F0ED8C0062F4D6;
+			remoteInfo = "Pyto Intents";
+		};
+		C97B57012363C4E70066BE05 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C93AE15721EC017700B588B6 /* Pyto.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C97867D52304DEB000BD6FA4;
+			remoteInfo = libjpeg;
+		};
+		C97B57072363C4FA0066BE05 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C97B57032363C4FA0066BE05 /* Python3_ios.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 22E8FEE221C66AD100967E21;
+			remoteInfo = python3_ios;
+		};
 		C9F4625822ECBB9E007DC3B8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C93AE15721EC017700B588B6 /* Pyto.xcodeproj */;
@@ -158,13 +180,6 @@
 			remoteGlobalIDString = C95EE4DF22070224006611CB;
 			remoteInfo = libpng;
 		};
-		C9F4625C22ECBB9E007DC3B8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C93AE15721EC017700B588B6 /* Pyto.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C9653F1422B9BF6100302F8D;
-			remoteInfo = Python3_Mac;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -174,6 +189,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C97B57632363DA850066BE05 /* python3_ios.framework in Embed Frameworks */,
 				C97EBD5D22ED216900FD4A84 /* libpng.framework in Embed Frameworks */,
 				C93AE16621EC017E00B588B6 /* PytoCore.framework in Embed Frameworks */,
 			);
@@ -331,6 +347,7 @@
 		C92FB40C22ECC42F00A59AC0 /* ftpatent.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftpatent.o; path = Pyto/libfreetype/ftpatent.o; sourceTree = "<group>"; };
 		C92FB45E22ED074300A59AC0 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C93AE15721EC017700B588B6 /* Pyto.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pyto.xcodeproj; path = Pyto/Pyto.xcodeproj; sourceTree = "<group>"; };
+		C97B57032363C4FA0066BE05 /* Python3_ios.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Python3_ios.xcodeproj; path = Pyto/python3_ios/Python3_ios/Python3_ios.xcodeproj; sourceTree = "<group>"; };
 		C9CEE22621EBA6BB00316D3C /* Python App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Python App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9CEE23221EBA6C100316D3C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9CEE23521EBA6C100316D3C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -552,10 +569,19 @@
 			children = (
 				C93AE16021EC017700B588B6 /* Pyto.app */,
 				C9F4625922ECBB9E007DC3B8 /* Pyto Widget.appex */,
+				C97B57002363C4E70066BE05 /* Pyto Intents.appex */,
 				C93AE16221EC017700B588B6 /* Python.framework */,
 				C93AE16421EC017700B588B6 /* PytoCore.framework */,
 				C9F4625B22ECBB9E007DC3B8 /* libpng.framework */,
-				C9F4625D22ECBB9E007DC3B8 /* Python3_Mac.framework */,
+				C97B57022363C4E70066BE05 /* libjpeg.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C97B57042363C4FA0066BE05 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C97B57082363C4FA0066BE05 /* python3_ios.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -563,6 +589,7 @@
 		C9CEE21D21EBA6BA00316D3C = {
 			isa = PBXGroup;
 			children = (
+				C97B57032363C4FA0066BE05 /* Python3_ios.xcodeproj */,
 				C92FB37B22ECC1E200A59AC0 /* Info.plist */,
 				C92FB37922ECC1D800A59AC0 /* _imagingmorph.cpython-37m-darwin.so */,
 				C92FB37722ECC1D000A59AC0 /* Info.plist */,
@@ -658,6 +685,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = C97B57042363C4FA0066BE05 /* Products */;
+					ProjectRef = C97B57032363C4FA0066BE05 /* Python3_ios.xcodeproj */;
+				},
+				{
 					ProductGroup = C93AE15821EC017700B588B6 /* Products */;
 					ProjectRef = C93AE15721EC017700B588B6 /* Pyto.xcodeproj */;
 				},
@@ -691,6 +722,27 @@
 			remoteRef = C93AE16321EC017700B588B6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		C97B57002363C4E70066BE05 /* Pyto Intents.appex */ = {
+			isa = PBXReferenceProxy;
+			fileType = "wrapper.app-extension";
+			path = "Pyto Intents.appex";
+			remoteRef = C97B56FF2363C4E70066BE05 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C97B57022363C4E70066BE05 /* libjpeg.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = libjpeg.framework;
+			remoteRef = C97B57012363C4E70066BE05 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C97B57082363C4FA0066BE05 /* python3_ios.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = python3_ios.framework;
+			remoteRef = C97B57072363C4FA0066BE05 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		C9F4625922ECBB9E007DC3B8 /* Pyto Widget.appex */ = {
 			isa = PBXReferenceProxy;
 			fileType = "wrapper.app-extension";
@@ -703,13 +755,6 @@
 			fileType = wrapper.framework;
 			path = libpng.framework;
 			remoteRef = C9F4625A22ECBB9E007DC3B8 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C9F4625D22ECBB9E007DC3B8 /* Python3_Mac.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Python3_Mac.framework;
-			remoteRef = C9F4625C22ECBB9E007DC3B8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -881,10 +926,15 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Python App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -902,10 +952,15 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Python App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
