@@ -1,3 +1,5 @@
+Join the Pyto Discord channel: https://discord.gg/XCKkvJS
+
 ![Icon](https://raw.githubusercontent.com/ColdGrub1384/Pyto/master/Pyto/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5%402x.png)
 
 # Pyto
