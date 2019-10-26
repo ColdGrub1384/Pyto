@@ -1073,7 +1073,15 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     /// Inserts two spaces.
     @objc func insertTab() {
-        textView.contentTextView.insertText(EditorViewController.indentation)
+        if let range = textView.contentTextView.selectedTextRange, let selected = textView.contentTextView.text(in: range) {
+            var lines = [String]()
+            for line in selected.components(separatedBy: "\n") {
+                lines.append(EditorViewController.indentation+line)
+            }
+            textView.contentTextView.insertText(lines.joined(separator: "\n"))
+        } else {
+            textView.contentTextView.insertText(EditorViewController.indentation)
+        }
     }
     
     /// Comments / Uncomments line.
@@ -1369,7 +1377,13 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         if text == "\t" {
             if let textRange = range.toTextRange(textInput: textView) {
-                textView.replace(textRange, withText: EditorViewController.indentation)
+                if let selected = textView.text(in: textRange){
+                    var lines = [String]()
+                    for line in selected.components(separatedBy: "\n") {
+                        lines.append(EditorViewController.indentation+line)
+                    }
+                    textView.replace(textRange, withText: lines.joined(separator: "\n"))
+                }
                 return false
             }
         }
