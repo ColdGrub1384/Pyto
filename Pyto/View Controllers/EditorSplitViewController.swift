@@ -411,6 +411,14 @@ class EditorSplitViewController: SplitViewController {
         }
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        view.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
+        firstChild?.view.backgroundColor = view.backgroundColor
+        secondChild?.view.backgroundColor = view.backgroundColor
+    }
+    
     override var canBecomeFirstResponder: Bool {
         return true
     }
