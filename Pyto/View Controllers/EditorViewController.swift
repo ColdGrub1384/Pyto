@@ -134,7 +134,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     }
     
     /// The Input assistant view containing `suggestions`.
-    let inputAssistant = InputAssistantView()
+    var inputAssistant = InputAssistantView()
     
     /// A Navigation controller containing the documentation.
     var documentationNavigationController: UINavigationController?
@@ -296,11 +296,14 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
         textView.text = text
         
+        inputAssistant = InputAssistantView()
+        inputAssistant.delegate = self
+        inputAssistant.dataSource = self
         inputAssistant.leadingActions = (UIApplication.shared.statusBarOrientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])+[InputAssistantAction(image: "⇥".image() ?? UIImage(), target: self, action: #selector(insertTab))]
         inputAssistant.attach(to: textView.contentTextView)
         inputAssistant.trailingActions = [InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView.contentTextView, action: #selector(textView.contentTextView.resignFirstResponder))]+(UIApplication.shared.statusBarOrientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])
         
-        (textView.contentTextView.value(forKey: "textInputTraits") as? NSObject)?.setValue(theme.tintColor, forKey: "insertionPointColor")
+        textView.contentTextView.reloadInputViews()
     }
     
     /// Called when the user choosed a theme.
