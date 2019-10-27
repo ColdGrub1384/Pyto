@@ -91,14 +91,6 @@ void BandHandle(NSString *fkTitle, NSArray *nameArray, NSArray *keyArray) {
 
 #if !(TARGET_IPHONE_SIMULATOR)
 
-// MARK: - _lzma
-
-extern PyMODINIT_FUNC PyInit__lzma(void);
-
-void init__lzma() {
-    PyImport_AppendInittab("_lzma", &PyInit__lzma);
-}
-
 #if MAIN
 
 // MARK: - Numpy
@@ -733,7 +725,6 @@ int initialize_python(int argc, char *argv[]) {
         init_nacl();
         #endif
         init_pil();
-        init__lzma();
         #endif
         
         // MARK: - Init Python

@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 void init_pil(void);
-void init__lzma(void);
 
 @interface BlockBasedSelector : NSObject
     
