@@ -107,7 +107,6 @@
 		C92FB43422ECC42F00A59AC0 /* ftpatent.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40C22ECC42F00A59AC0 /* ftpatent.o */; };
 		C93AE16521EC017E00B588B6 /* PytoCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C93AE16421EC017700B588B6 /* PytoCore.framework */; };
 		C93AE16621EC017E00B588B6 /* PytoCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C93AE16421EC017700B588B6 /* PytoCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C972DD13236525AA00911098 /* _lzmamodule.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C972DD12236525A900911098 /* _lzmamodule.o */; };
 		C97B57632363DA850066BE05 /* python3_ios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C97B57082363C4FA0066BE05 /* python3_ios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C97EBD5C22ED216900FD4A84 /* libpng.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F4625B22ECBB9E007DC3B8 /* libpng.framework */; };
 		C97EBD5D22ED216900FD4A84 /* libpng.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9F4625B22ECBB9E007DC3B8 /* libpng.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -348,7 +347,6 @@
 		C92FB40C22ECC42F00A59AC0 /* ftpatent.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftpatent.o; path = Pyto/libfreetype/ftpatent.o; sourceTree = "<group>"; };
 		C92FB45E22ED074300A59AC0 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C93AE15721EC017700B588B6 /* Pyto.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pyto.xcodeproj; path = Pyto/Pyto.xcodeproj; sourceTree = "<group>"; };
-		C972DD12236525A900911098 /* _lzmamodule.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = _lzmamodule.o; path = Pyto/_lzmamodule.o; sourceTree = "<group>"; };
 		C97B57032363C4FA0066BE05 /* Python3_ios.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Python3_ios.xcodeproj; path = Pyto/python3_ios/Python3_ios/Python3_ios.xcodeproj; sourceTree = "<group>"; };
 		C9CEE22621EBA6BB00316D3C /* Python App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Python App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9CEE23221EBA6C100316D3C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -442,7 +440,6 @@
 				C92FB40E22ECC42F00A59AC0 /* fttype1.o in Frameworks */,
 				C92FB42022ECC42F00A59AC0 /* pshinter.o in Frameworks */,
 				C92FB3E322ECC41500A59AC0 /* jcmaster.o in Frameworks */,
-				C972DD13236525AA00911098 /* _lzmamodule.o in Frameworks */,
 				C92FB3CE22ECC41500A59AC0 /* jcmainct.o in Frameworks */,
 				C92FB3C422ECC41500A59AC0 /* jidctflt.o in Frameworks */,
 				C92FB3CA22ECC41500A59AC0 /* jdhuff.o in Frameworks */,
@@ -601,7 +598,6 @@
 				C92FB36D22ECC13E00A59AC0 /* _imagingft.cpython-37m-darwin.so */,
 				C92FB36B22ECC13800A59AC0 /* Info.plist */,
 				C92FB36922ECC13200A59AC0 /* _imaging.cpython-37m-darwin.so */,
-				C972DD12236525A900911098 /* _lzmamodule.o */,
 				C9F4A4C8229F59E80052E20A /* README.md */,
 				C92FB38822ECC3FC00A59AC0 /* libfreetype */,
 				C92FB38722ECC3F000A59AC0 /* libjpeg */,
@@ -936,7 +932,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)";
 				OTHER_LDFLAGS = (
 					"-undefined",
 					dynamic_lookup,
@@ -963,7 +958,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)";
 				OTHER_LDFLAGS = (
 					"-undefined",
 					dynamic_lookup,

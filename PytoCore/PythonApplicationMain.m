@@ -22,9 +22,8 @@ int PythonApplicationMain(NSString * scriptPath, int argc, char * _Nullable * _N
     putenv((char *)[[NSString stringWithFormat:@"PYTHONHOME=%@", bundle.bundlePath] UTF8String]);
     putenv((char *)[[NSString stringWithFormat:@"PYTHONPATH=%@:%@:%@:%@:%@:%@:%@:%@", [bundle.bundlePath stringByAppendingPathComponent:@"python38.zip"], [bundle.bundlePath stringByAppendingPathComponent:@"site-packages"], [bundle.bundlePath stringByAppendingPathComponent:@"Lib"], bundle.bundlePath, [NSBundle.mainBundle.bundlePath stringByAppendingString:@"site-packages"], [NSBundle.mainBundle.bundlePath stringByAppendingString:@"modules"], [NSBundle.mainBundle.bundlePath stringByAppendingString:@"iCloudDrive"], [NSBundle.mainBundle.bundlePath stringByAppendingString:@"Documents"]] UTF8String]);
     
-    // MARK: - Init extensions
+    // MARK: - Init PIL
     init_pil();
-    init__lzma();
     
     // MARK: - Init Python
     Py_SetPythonHome(Py_DecodeLocale([bundle.bundlePath UTF8String], NULL));
