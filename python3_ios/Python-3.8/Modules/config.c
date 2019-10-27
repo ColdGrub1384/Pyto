@@ -104,7 +104,7 @@ PyMODINIT_FUNC PyInit_resource(void);
 // PyMODINIT_FUNC PyInit__curses_panel(void); // Library not loaded: /usr/lib/libpanel.5.4.dylib
 PyMODINIT_FUNC PyInit_binascii(void);
 PyMODINIT_FUNC PyInit__bz2(void);
-// PyMODINIT_FUNC PyInit__lzma(void);  // not compatible with AppStore
+PyMODINIT_FUNC PyInit__lzma(void);  // not compatible with AppStore
 PyMODINIT_FUNC PyInit__elementtree(void);
 PyMODINIT_FUNC PyInit__multibytecodec(void);
 PyMODINIT_FUNC PyInit__codecs_kr(void);
@@ -224,7 +224,7 @@ struct _inittab _PyImport_Inittab[] = {
     // {"_curses_panel", PyInit__curses_panel}, // Library not loaded: /usr/lib/libpanel.5.4.dylib
     {"binascii", PyInit_binascii},
     {"_bz2", PyInit__bz2},
-    // {"_lzma", PyInit__lzma},  // not compatible with AppStore
+    {"_lzma", PyInit__lzma},  // not compatible with AppStore
     {"_elementtree", PyInit__elementtree},
     {"_multibytecodec", PyInit__multibytecodec},
     {"_codecs_kr", PyInit__codecs_kr},
