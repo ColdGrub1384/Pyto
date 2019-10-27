@@ -340,6 +340,9 @@
 		C9727C472204D7F100B7AC32 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9727C452204D7F100B7AC32 /* LaunchScreen.storyboard */; };
 		C972AE3F23467AE30053E1C3 /* FoldersBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C972AE3E23467AE30053E1C3 /* FoldersBrowserViewController.swift */; };
 		C972AE4223469DC80053E1C3 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91321C821FB500300437845 /* UIColor.swift */; };
+		C972DCFE2365223D00911098 /* _lzmamodule.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C972DCFB2365223D00911098 /* _lzmamodule.o */; };
+		C972DCFF2365223D00911098 /* _lzmamodule.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C972DCFB2365223D00911098 /* _lzmamodule.o */; };
+		C972DD1A23652C0400911098 /* liblzma.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C972DD1823652BEB00911098 /* liblzma.tbd */; };
 		C9734AEF22D67B7100C5FE4B /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C943AC3D215277A000844368 /* Python.framework */; };
 		C97659062147192C001C96A8 /* PySharingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97659052147192C001C96A8 /* PySharingHelper.swift */; };
 		C976592721471D23001C96A8 /* PyFilePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C976592621471D23001C96A8 /* PyFilePicker.swift */; };
@@ -2305,6 +2308,9 @@
 		C96D324522F74283007D2289 /* _dwt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _dwt.framework; sourceTree = "<group>"; };
 		C9727C462204D7F100B7AC32 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C972AE3E23467AE30053E1C3 /* FoldersBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersBrowserViewController.swift; sourceTree = "<group>"; };
+		C972DCFB2365223D00911098 /* _lzmamodule.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = _lzmamodule.o; sourceTree = "<group>"; };
+		C972DD1823652BEB00911098 /* liblzma.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = liblzma.tbd; path = usr/lib/liblzma.tbd; sourceTree = SDKROOT; };
+		C972DD1923652BFB00911098 /* liblzma.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = liblzma.5.tbd; path = usr/lib/liblzma.5.tbd; sourceTree = SDKROOT; };
 		C97659052147192C001C96A8 /* PySharingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PySharingHelper.swift; sourceTree = "<group>"; };
 		C976592621471D23001C96A8 /* PyFilePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyFilePicker.swift; sourceTree = "<group>"; };
 		C97867462304D52500BD6FA4 /* jddctmgr.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jddctmgr.o; sourceTree = "<group>"; };
@@ -3575,9 +3581,11 @@
 				C981698E235E5E780062A91F /* python3_ios.framework in Frameworks */,
 				C97868112304DF0F00BD6FA4 /* libjpeg.framework in Frameworks */,
 				C92EAC6422D93D2800729970 /* libsqlite3.tbd in Frameworks */,
+				C972DCFF2365223D00911098 /* _lzmamodule.o in Frameworks */,
 				C9734AEF22D67B7100C5FE4B /* Python.framework in Frameworks */,
 				C936B9CF22D93A3500DF2720 /* libz.tbd in Frameworks */,
 				C946A5AA22074EAA00F78C5C /* NotificationCenter.framework in Frameworks */,
+				C972DD1A23652C0400911098 /* liblzma.tbd in Frameworks */,
 				BA16AADB4324BCC5D8C18AF7 /* Pods_Pyto_Widget.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4725,6 +4733,7 @@
 				C9F8F9742302569C004648F4 /* smout.o in Frameworks */,
 				C95EE66A23273D720084EA0C /* usertypes.o in Frameworks */,
 				C9F8F87B2302569C004648F4 /* splder.o in Frameworks */,
+				C972DCFE2365223D00911098 /* _lzmamodule.o in Frameworks */,
 				C95EE65C23273D720084EA0C /* mergesort.o in Frameworks */,
 				C937B9CB22EE430C00269FC6 /* builder.o in Frameworks */,
 				C9F8F83B2302569C004648F4 /* spivotgrowth.o in Frameworks */,
@@ -4794,6 +4803,8 @@
 		777F5989381586AA988D5FF0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C972DD1923652BFB00911098 /* liblzma.5.tbd */,
+				C972DD1823652BEB00911098 /* liblzma.tbd */,
 				C93E9F0F22BAC8E80065A3F2 /* libsqlite3.0.tbd */,
 				C93E9F0E22BAC8E30065A3F2 /* libsqlite3.tbd */,
 				C93E9F0922BAC8630065A3F2 /* libz.1.2.8.tbd */,
@@ -6712,6 +6723,7 @@
 				C9FB5BBF22025AFE0085E1AA /* libfreetype */,
 				C9130D5122D802CF0055A1BE /* libjpeg */,
 				C9B2DD99235CA587000BD8C5 /* python38.zip */,
+				C972DCFB2365223D00911098 /* _lzmamodule.o */,
 				C9FCFD57214428AE00A07974 /* Pyto */,
 				C984729021A059F2008E16AC /* Python iOS */,
 				C95EE98D23273E050084EA0C /* CFFI */,
@@ -7685,7 +7697,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -7749,7 +7761,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -7925,7 +7937,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				INFOPLIST_FILE = "Pyto Intents/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -7948,7 +7960,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				INFOPLIST_FILE = "Pyto Intents/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -7996,6 +8008,10 @@
 					"$(PROJECT_DIR)/XZ",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = ch.ada.PytoCore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -8036,6 +8052,10 @@
 					"$(PROJECT_DIR)/OpenSSL",
 					"$(PROJECT_DIR)/XZ",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
+				);
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ch.ada.PytoCore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -8178,7 +8198,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -8288,7 +8308,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
