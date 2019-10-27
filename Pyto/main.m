@@ -686,7 +686,7 @@ void init_nacl() {
 int initialize_python(int argc, char *argv[]) {
     
     #if MAIN && !WIDGET
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
     #endif
 
         NSBundle *pythonBundle = Python.shared.bundle;
