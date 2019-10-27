@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import NotificationCenter
 
 /// The application's delegate.
 @objc public class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -86,6 +87,11 @@ import SafariServices
             try FileManager.default.copyItem(at: DocumentBrowserViewController.localContainerURL.appendingPathComponent("modules"), to: sharedModulesDir)
         } catch {
             print(error.localizedDescription)
+        }
+        
+        if let bundleID = Bundle.main.bundleIdentifier?.appending(".Today-Widget"), let dir = FileManager.default.sharedDirectory?.path {
+            let scriptExists = FileManager.default.fileExists(atPath: (dir as NSString).appendingPathComponent("main.py"))
+            NCWidgetController().setHasContent(scriptExists, forWidgetWithBundleIdentifier: bundleID)
         }
     }
     #endif
