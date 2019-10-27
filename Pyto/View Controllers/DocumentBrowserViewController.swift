@@ -159,9 +159,9 @@ import SavannaKit
             documentURL = nil
         }
         
-        if !Python.shared.isSetup, let view = Bundle.main.loadNibNamed("Loading Python", owner: nil, options: nil)!.first as? UIView {
+        /*if !Python.shared.isSetup, let view = Bundle.main.loadNibNamed("Loading Python", owner: nil, options: nil)!.first as? UIView {
             self.view.window?.addSubview(view)
-        }
+        }*/
     }
     
     // MARK: - Document browser view controller delegate
