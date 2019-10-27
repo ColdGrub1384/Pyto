@@ -31,7 +31,9 @@ def main():
         return
     module_path = spec.origin
 
-    __main__path = os.path.dirname(module_path)+"/__main__.py"
+    __main__path = os.path.dirname(module_path)+"/main.py"
+    if not os.path.isfile(__main__path):
+        __main__path = os.path.dirname(module_path)+"/__main__.py"
     if os.path.isfile(__main__path) and os.path.basename(module_path) == "__init__.py":
         module_path = __main__path
 
