@@ -11,14 +11,6 @@
 		C921EF6021EC0D0B004C750D /* modules in Resources */ = {isa = PBXBuildFile; fileRef = C921EF5F21EC0D0B004C750D /* modules */; };
 		C921EF6221EC0D10004C750D /* iCloudDrive in Resources */ = {isa = PBXBuildFile; fileRef = C921EF6121EC0D10004C750D /* iCloudDrive */; };
 		C921EF6C21ECAFA1004C750D /* site-packages in Resources */ = {isa = PBXBuildFile; fileRef = C921EF6B21ECAFA1004C750D /* site-packages */; };
-		C92FB36A22ECC13200A59AC0 /* _imaging.cpython-37m-darwin.so in Copy _imaging */ = {isa = PBXBuildFile; fileRef = C92FB36922ECC13200A59AC0 /* _imaging.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C92FB36C22ECC13900A59AC0 /* Info.plist in Copy _imaging */ = {isa = PBXBuildFile; fileRef = C92FB36B22ECC13800A59AC0 /* Info.plist */; };
-		C92FB36E22ECC13E00A59AC0 /* _imagingft.cpython-37m-darwin.so in Copy _imagingft */ = {isa = PBXBuildFile; fileRef = C92FB36D22ECC13E00A59AC0 /* _imagingft.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C92FB37422ECC1B800A59AC0 /* Info.plist in Copy _imagingft */ = {isa = PBXBuildFile; fileRef = C92FB37322ECC1B800A59AC0 /* Info.plist */; };
-		C92FB37622ECC1BF00A59AC0 /* _imagingmath.cpython-37m-darwin.so in Copy _imagingmath */ = {isa = PBXBuildFile; fileRef = C92FB37522ECC1BF00A59AC0 /* _imagingmath.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C92FB37822ECC1D000A59AC0 /* Info.plist in Copy _imagingmath */ = {isa = PBXBuildFile; fileRef = C92FB37722ECC1D000A59AC0 /* Info.plist */; };
-		C92FB37A22ECC1D800A59AC0 /* _imagingmorph.cpython-37m-darwin.so in Copy _imagingmorph */ = {isa = PBXBuildFile; fileRef = C92FB37922ECC1D800A59AC0 /* _imagingmorph.cpython-37m-darwin.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C92FB37C22ECC1E200A59AC0 /* Info.plist in Copy _imagingmorph */ = {isa = PBXBuildFile; fileRef = C92FB37B22ECC1E200A59AC0 /* Info.plist */; };
 		C92FB3B722ECC41500A59AC0 /* jquant1.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB38922ECC41300A59AC0 /* jquant1.o */; };
 		C92FB3B822ECC41500A59AC0 /* jcsample.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB38A22ECC41300A59AC0 /* jcsample.o */; };
 		C92FB3B922ECC41500A59AC0 /* jcapimin.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB38B22ECC41300A59AC0 /* jcapimin.o */; };
@@ -111,6 +103,10 @@
 		C97EBD5C22ED216900FD4A84 /* libpng.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F4625B22ECBB9E007DC3B8 /* libpng.framework */; };
 		C97EBD5D22ED216900FD4A84 /* libpng.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9F4625B22ECBB9E007DC3B8 /* libpng.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C97EBD5E22ED217300FD4A84 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB45E22ED074300A59AC0 /* libz.tbd */; };
+		C9BC8086236622A5002B8CB4 /* _imaging.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9BC8084236622A5002B8CB4 /* _imaging.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9BC8088236622AB002B8CB4 /* _imagingft.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9BC8087236622AA002B8CB4 /* _imagingft.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9BC808A236622AE002B8CB4 /* _imagingmath.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9BC8089236622AE002B8CB4 /* _imagingmath.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9BC808C236622B3002B8CB4 /* _imagingmorph.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9BC808B236622B2002B8CB4 /* _imagingmorph.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9CEE23321EBA6C100316D3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9CEE23221EBA6C100316D3C /* Assets.xcassets */; };
 		C9CEE23621EBA6C100316D3C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9CEE23421EBA6C100316D3C /* LaunchScreen.storyboard */; };
 		C9CEE26C21EBDD9100316D3C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CEE26B21EBDD9100316D3C /* main.swift */; };
@@ -192,56 +188,12 @@
 				C97B57632363DA850066BE05 /* python3_ios.framework in Embed Frameworks */,
 				C97EBD5D22ED216900FD4A84 /* libpng.framework in Embed Frameworks */,
 				C93AE16621EC017E00B588B6 /* PytoCore.framework in Embed Frameworks */,
+				C9BC8086236622A5002B8CB4 /* _imaging.framework in Embed Frameworks */,
+				C9BC8088236622AB002B8CB4 /* _imagingft.framework in Embed Frameworks */,
+				C9BC808A236622AE002B8CB4 /* _imagingmath.framework in Embed Frameworks */,
+				C9BC808C236622B3002B8CB4 /* _imagingmorph.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C9F4625222ECBB9E007DC3B8 /* Copy _imaging */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = _imaging.framework;
-			dstSubfolderSpec = 10;
-			files = (
-				C92FB36A22ECC13200A59AC0 /* _imaging.cpython-37m-darwin.so in Copy _imaging */,
-				C92FB36C22ECC13900A59AC0 /* Info.plist in Copy _imaging */,
-			);
-			name = "Copy _imaging";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C9F4626322ECBEE4007DC3B8 /* Copy _imagingft */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = _imagingft.framework;
-			dstSubfolderSpec = 10;
-			files = (
-				C92FB36E22ECC13E00A59AC0 /* _imagingft.cpython-37m-darwin.so in Copy _imagingft */,
-				C92FB37422ECC1B800A59AC0 /* Info.plist in Copy _imagingft */,
-			);
-			name = "Copy _imagingft";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C9F4626822ECBF1F007DC3B8 /* Copy _imagingmath */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 12;
-			dstPath = _imagingmath.framework;
-			dstSubfolderSpec = 10;
-			files = (
-				C92FB37622ECC1BF00A59AC0 /* _imagingmath.cpython-37m-darwin.so in Copy _imagingmath */,
-				C92FB37822ECC1D000A59AC0 /* Info.plist in Copy _imagingmath */,
-			);
-			name = "Copy _imagingmath";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C9F4626D22ECBF4D007DC3B8 /* Copy _imagingmorph */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = _imagingmorph.framework;
-			dstSubfolderSpec = 10;
-			files = (
-				C92FB37A22ECC1D800A59AC0 /* _imagingmorph.cpython-37m-darwin.so in Copy _imagingmorph */,
-				C92FB37C22ECC1E200A59AC0 /* Info.plist in Copy _imagingmorph */,
-			);
-			name = "Copy _imagingmorph";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -251,14 +203,6 @@
 		C921EF5F21EC0D0B004C750D /* modules */ = {isa = PBXFileReference; lastKnownFileType = folder; path = modules; sourceTree = "<group>"; };
 		C921EF6121EC0D10004C750D /* iCloudDrive */ = {isa = PBXFileReference; lastKnownFileType = folder; path = iCloudDrive; sourceTree = "<group>"; };
 		C921EF6B21ECAFA1004C750D /* site-packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "site-packages"; sourceTree = "<group>"; };
-		C92FB36922ECC13200A59AC0 /* _imaging.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "_imaging.cpython-37m-darwin.so"; path = "Pyto/PIL/_imaging.framework/_imaging.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C92FB36B22ECC13800A59AC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Pyto/PIL/_imaging.framework/Info.plist; sourceTree = "<group>"; };
-		C92FB36D22ECC13E00A59AC0 /* _imagingft.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "_imagingft.cpython-37m-darwin.so"; path = "Pyto/PIL/_imagingft.framework/_imagingft.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C92FB37322ECC1B800A59AC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Pyto/PIL/_imagingft.framework/Info.plist; sourceTree = "<group>"; };
-		C92FB37522ECC1BF00A59AC0 /* _imagingmath.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "_imagingmath.cpython-37m-darwin.so"; path = "Pyto/PIL/_imagingmath.framework/_imagingmath.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C92FB37722ECC1D000A59AC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Pyto/PIL/_imagingmath.framework/Info.plist; sourceTree = "<group>"; };
-		C92FB37922ECC1D800A59AC0 /* _imagingmorph.cpython-37m-darwin.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "_imagingmorph.cpython-37m-darwin.so"; path = "Pyto/PIL/_imagingmorph.framework/_imagingmorph.cpython-37m-darwin.so"; sourceTree = "<group>"; };
-		C92FB37B22ECC1E200A59AC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Pyto/PIL/_imagingmorph.framework/Info.plist; sourceTree = "<group>"; };
 		C92FB38922ECC41300A59AC0 /* jquant1.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jquant1.o; path = Pyto/libjpeg/jquant1.o; sourceTree = "<group>"; };
 		C92FB38A22ECC41300A59AC0 /* jcsample.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcsample.o; path = Pyto/libjpeg/jcsample.o; sourceTree = "<group>"; };
 		C92FB38B22ECC41300A59AC0 /* jcapimin.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcapimin.o; path = Pyto/libjpeg/jcapimin.o; sourceTree = "<group>"; };
@@ -348,6 +292,10 @@
 		C92FB45E22ED074300A59AC0 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C93AE15721EC017700B588B6 /* Pyto.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pyto.xcodeproj; path = Pyto/Pyto.xcodeproj; sourceTree = "<group>"; };
 		C97B57032363C4FA0066BE05 /* Python3_ios.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Python3_ios.xcodeproj; path = Pyto/python3_ios/Python3_ios/Python3_ios.xcodeproj; sourceTree = "<group>"; };
+		C9BC8084236622A5002B8CB4 /* _imaging.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = _imaging.framework; path = Pyto/PIL/_imaging.framework; sourceTree = "<group>"; };
+		C9BC8087236622AA002B8CB4 /* _imagingft.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = _imagingft.framework; path = Pyto/PIL/_imagingft.framework; sourceTree = "<group>"; };
+		C9BC8089236622AE002B8CB4 /* _imagingmath.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = _imagingmath.framework; path = Pyto/PIL/_imagingmath.framework; sourceTree = "<group>"; };
+		C9BC808B236622B2002B8CB4 /* _imagingmorph.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = _imagingmorph.framework; path = Pyto/PIL/_imagingmorph.framework; sourceTree = "<group>"; };
 		C9CEE22621EBA6BB00316D3C /* Python App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Python App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9CEE23221EBA6C100316D3C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9CEE23521EBA6C100316D3C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -589,15 +537,11 @@
 		C9CEE21D21EBA6BA00316D3C = {
 			isa = PBXGroup;
 			children = (
+				C9BC808B236622B2002B8CB4 /* _imagingmorph.framework */,
+				C9BC8089236622AE002B8CB4 /* _imagingmath.framework */,
+				C9BC8087236622AA002B8CB4 /* _imagingft.framework */,
+				C9BC8084236622A5002B8CB4 /* _imaging.framework */,
 				C97B57032363C4FA0066BE05 /* Python3_ios.xcodeproj */,
-				C92FB37B22ECC1E200A59AC0 /* Info.plist */,
-				C92FB37922ECC1D800A59AC0 /* _imagingmorph.cpython-37m-darwin.so */,
-				C92FB37722ECC1D000A59AC0 /* Info.plist */,
-				C92FB37522ECC1BF00A59AC0 /* _imagingmath.cpython-37m-darwin.so */,
-				C92FB37322ECC1B800A59AC0 /* Info.plist */,
-				C92FB36D22ECC13E00A59AC0 /* _imagingft.cpython-37m-darwin.so */,
-				C92FB36B22ECC13800A59AC0 /* Info.plist */,
-				C92FB36922ECC13200A59AC0 /* _imaging.cpython-37m-darwin.so */,
 				C9F4A4C8229F59E80052E20A /* README.md */,
 				C92FB38822ECC3FC00A59AC0 /* libfreetype */,
 				C92FB38722ECC3F000A59AC0 /* libjpeg */,
@@ -642,10 +586,6 @@
 				C9CEE22321EBA6BB00316D3C /* Frameworks */,
 				C9CEE22421EBA6BB00316D3C /* Resources */,
 				C9CEE25121EBA71A00316D3C /* Embed Frameworks */,
-				C9F4625222ECBB9E007DC3B8 /* Copy _imaging */,
-				C9F4626322ECBEE4007DC3B8 /* Copy _imagingft */,
-				C9F4626822ECBF1F007DC3B8 /* Copy _imagingmath */,
-				C9F4626D22ECBF4D007DC3B8 /* Copy _imagingmorph */,
 			);
 			buildRules = (
 			);

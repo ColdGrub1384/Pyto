@@ -50,7 +50,7 @@ void BandHandle(NSString *fkTitle, NSArray *nameArray, NSArray *keyArray) {
             file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"abi3.so"].lastPathComponent];
         }
         if (![NSFileManager.defaultManager fileExistsAtPath:file.path]) {
-            file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"cpython-38m-darwin.so"].lastPathComponent];
+            file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"cpython-38-darwin.so"].lastPathComponent];
         }
         if (![NSFileManager.defaultManager fileExistsAtPath:file.path]) {
             file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"abi3.so"].lastPathComponent];
