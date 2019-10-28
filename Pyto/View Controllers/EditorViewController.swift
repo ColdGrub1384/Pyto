@@ -1077,11 +1077,29 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// Inserts two spaces.
     @objc func insertTab() {
         if let range = textView.contentTextView.selectedTextRange, let selected = textView.contentTextView.text(in: range) {
+            
+            let nsRange = textView.contentTextView.selectedRange
+            
+            /*
+             location: 3
+             length: 37
+             
+             location: ~40
+             length: 0
+             
+                .
+             ->     print("Hello World")
+                    print("Foo Bar")| selected
+                               - 37
+             */
+            
             var lines = [String]()
             for line in selected.components(separatedBy: "\n") {
                 lines.append(EditorViewController.indentation+line)
             }
             textView.contentTextView.insertText(lines.joined(separator: "\n"))
+            
+            textView.contentTextView.selectedRange = NSRange(location: nsRange.location, length: textView.contentTextView.selectedRange.location-nsRange.location)
         } else {
             textView.contentTextView.insertText(EditorViewController.indentation)
         }
@@ -1380,12 +1398,17 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         if text == "\t" {
             if let textRange = range.toTextRange(textInput: textView) {
-                if let selected = textView.text(in: textRange){
+                if let selected = textView.text(in: textRange) {
+                    
+                    let nsRange = textView.selectedRange
+                    
                     var lines = [String]()
                     for line in selected.components(separatedBy: "\n") {
                         lines.append(EditorViewController.indentation+line)
                     }
                     textView.replace(textRange, withText: lines.joined(separator: "\n"))
+                    
+                    textView.selectedRange = NSRange(location: nsRange.location, length: textView.selectedRange.location-nsRange.location)
                 }
                 return false
             }
