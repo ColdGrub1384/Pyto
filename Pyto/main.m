@@ -688,6 +688,7 @@ int initialize_python(int argc, char *argv[]) {
     NSBundle *pythonBundle = Python.shared.bundle;
     // MARK: - Python env variables
     putenv("PYTHONOPTIMIZE=");
+    putenv("PYTHONIOENCODING=utf-8");
     #if !WIDGET
     putenv("PYTHONDONTWRITEBYTECODE=1");
     #endif
