@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6AB6C68D181C2C686D545A61 /* Pods_Pyto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 296FFAAD958315A38A36E2A4 /* Pods_Pyto.framework */; };
-		BA16AADB4324BCC5D8C18AF7 /* Pods_Pyto_Widget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0630C379AE627F186E38BA5 /* Pods_Pyto_Widget.framework */; };
 		C9017D5B232E853000986E8A /* _aligners.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C7442F22EE08350035EFB9 /* _aligners.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9017D5C232E853000986E8A /* _CKDTree.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C7442E22EE08350035EFB9 /* _CKDTree.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9017D5D232E853000986E8A /* _cluster.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C7443522EE08350035EFB9 /* _cluster.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -3555,9 +3554,6 @@
 		C9FCFD64214428B300A07974 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9FCFD6A21442DE700A07974 /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
 		C9FCFD6C21442FD700A07974 /* Untitled.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = Untitled.py; sourceTree = "<group>"; };
-		DCD8B8F6B95005C601B05230 /* Pods-Pyto Widget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Widget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Widget/Pods-Pyto Widget.debug.xcconfig"; sourceTree = "<group>"; };
-		E0630C379AE627F186E38BA5 /* Pods_Pyto_Widget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pyto_Widget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F31644BB2FD155C013F75BE5 /* Pods-Pyto Widget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Widget.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Widget/Pods-Pyto Widget.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3578,7 +3574,6 @@
 				C9734AEF22D67B7100C5FE4B /* Python.framework in Frameworks */,
 				C936B9CF22D93A3500DF2720 /* libz.tbd in Frameworks */,
 				C946A5AA22074EAA00F78C5C /* NotificationCenter.framework in Frameworks */,
-				BA16AADB4324BCC5D8C18AF7 /* Pods_Pyto_Widget.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4838,7 +4833,6 @@
 				C904EB6921445B6700585C28 /* libxz.a */,
 				2F8F8D2B8DAB35A84F3DD8B0 /* Pods_Pyto_Mac.framework */,
 				C946A5A922074EAA00F78C5C /* NotificationCenter.framework */,
-				E0630C379AE627F186E38BA5 /* Pods_Pyto_Widget.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -6782,8 +6776,6 @@
 				C9C57EB40A56344EEB889161 /* Pods-Pyto Share.release.xcconfig */,
 				BDF906F857A60D2FF55BE403 /* Pods-Pyto Mac.debug.xcconfig */,
 				486497B57E25E63492329299 /* Pods-Pyto Mac.release.xcconfig */,
-				DCD8B8F6B95005C601B05230 /* Pods-Pyto Widget.debug.xcconfig */,
-				F31644BB2FD155C013F75BE5 /* Pods-Pyto Widget.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -6847,7 +6839,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C946A5B922074EAA00F78C5C /* Build configuration list for PBXNativeTarget "Pyto Widget" */;
 			buildPhases = (
-				1366C4C2DDE0E67B286F1FC3 /* [CP] Check Pods Manifest.lock */,
 				C946A5A422074EA900F78C5C /* Sources */,
 				C946A5A522074EA900F78C5C /* Frameworks */,
 				C946A5A622074EA900F78C5C /* Resources */,
@@ -7176,28 +7167,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1366C4C2DDE0E67B286F1FC3 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Pyto Widget-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		8B77444CB27802637BAB7D62 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -7678,14 +7647,13 @@
 		};
 		C946A5B522074EAA00F78C5C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DCD8B8F6B95005C601B05230 /* Pods-Pyto Widget.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_DEADCODE_DEADSTORES = NO;
 				CLANG_ENABLE_CPP_STATIC_DESTRUCTORS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -7742,14 +7710,13 @@
 		};
 		C946A5B622074EAA00F78C5C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F31644BB2FD155C013F75BE5 /* Pods-Pyto Widget.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_DEADCODE_DEADSTORES = NO;
 				CLANG_ENABLE_CPP_STATIC_DESTRUCTORS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -7925,7 +7892,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				INFOPLIST_FILE = "Pyto Intents/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -7948,7 +7915,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				INFOPLIST_FILE = "Pyto Intents/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -8178,7 +8145,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -8288,7 +8255,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
