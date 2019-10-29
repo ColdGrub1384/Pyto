@@ -109,7 +109,7 @@ static const char usage_6[] =
 
 /* UTF-8 mode (PEP 540): if equals to 1, use the UTF-8 encoding, and change
    stdin and stdout error handler to "surrogateescape". */
-int Py_UTF8Mode = 0;
+int Py_UTF8Mode = 1;
 int Py_DebugFlag = 0; /* Needed by parser.c */
 int Py_VerboseFlag = 0; /* Needed by import.c */
 int Py_QuietFlag = 0; /* Needed by sysmodule.c */
