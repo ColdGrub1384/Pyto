@@ -24,7 +24,10 @@ class Static { private init(){} }
 /// A class containing localizable strings.
 class Localizable: Static {
     
-    /* Title for command for selecting next suggestion */
+    /// 'Unindent' key command
+    static let unindent = NSLocalizedString("unindent", comment: "'Unindent' key command")
+    
+    /// Title for command for selecting next suggestion
     static let nextSuggestion = NSLocalizedString("nextSuggestion", comment: "Title for command for selecting next suggestion")
     
     /// Install

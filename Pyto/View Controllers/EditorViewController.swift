@@ -581,6 +581,24 @@ fileprivate func parseArgs(_ args: inout [String]) {
             if suggestions.count > 0 {
                 commands.append(UIKeyCommand(input: "\t", modifierFlags: [.shift], action: #selector(nextSuggestion), discoverabilityTitle: Localizable.nextSuggestion))
             }
+            
+            var indented = false
+            if let range = textView.contentTextView.selectedTextRange {
+                for line in textView.contentTextView.text(in: range)?.components(separatedBy: "\n") ?? [] {
+                    if line.hasPrefix(EditorViewController.indentation) {
+                        indented = true
+                        break
+                    }
+                }
+            }
+            if let line = textView.contentTextView.currentLine, line.hasPrefix(EditorViewController.indentation) {
+                indented = true
+            }
+            
+            if indented {
+                commands.append(UIKeyCommand(input: "\t", modifierFlags: [.alternate], action: #selector(unindent), discoverabilityTitle: Localizable.unindent))
+            }
+            
             return commands
         } else {
             return []
@@ -1074,7 +1092,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         present(documentationNavigationController!, animated: true, completion: nil)
     }
     
-    /// Inserts two spaces.
+    /// Indents current line.
     @objc func insertTab() {
         if let range = textView.contentTextView.selectedTextRange, let selected = textView.contentTextView.text(in: range) {
             
@@ -1102,6 +1120,27 @@ fileprivate func parseArgs(_ args: inout [String]) {
             textView.contentTextView.selectedRange = NSRange(location: nsRange.location, length: textView.contentTextView.selectedRange.location-nsRange.location)
         } else {
             textView.contentTextView.insertText(EditorViewController.indentation)
+        }
+    }
+    
+    /// Unindent current line
+    @objc func unindent() {
+        if let range = textView.contentTextView.selectedTextRange, let selected = textView.contentTextView.text(in: range), selected.components(separatedBy: "\n").count > 1 {
+            
+            let nsRange = textView.contentTextView.selectedRange
+            
+            var lines = [String]()
+            for line in selected.components(separatedBy: "\n") {
+                lines.append(line.replacingFirstOccurrence(of: EditorViewController.indentation, with: ""))
+            }
+            
+            textView.contentTextView.replace(range, withText: lines.joined(separator: "\n"))
+            
+            textView.contentTextView.selectedRange = NSRange(location: nsRange.location, length: textView.contentTextView.selectedRange.location-nsRange.location)
+        } else if let range = textView.contentTextView.currentLineRange, let text = textView.contentTextView.text(in: range) {
+            let newRange = textView.contentTextView.textRange(from: range.start, to: range.start)
+            textView.contentTextView.replace(range, withText: text.replacingFirstOccurrence(of: EditorViewController.indentation, with: ""))
+            textView.contentTextView.selectedTextRange = newRange
         }
     }
     
