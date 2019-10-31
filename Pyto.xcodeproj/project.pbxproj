@@ -437,6 +437,7 @@
 		C9BF46E822E106D500B8FE4B /* PyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF46E622E106D500B8FE4B /* PyTableView.swift */; };
 		C9BF46EA22E108C100B8FE4B /* PyTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF46E922E108C100B8FE4B /* PyTableViewSection.swift */; };
 		C9BF46EB22E108C100B8FE4B /* PyTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF46E922E108C100B8FE4B /* PyTableViewSection.swift */; };
+		C9BF4E89236B3281001D1883 /* libf2c.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BF4E88236B3281001D1883 /* libf2c.a */; };
 		C9C0E77221EE9F4B0057C63E /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E77121EE9F4B0057C63E /* Theme.swift */; };
 		C9C0E77821EEA9BE0057C63E /* XcodeDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E77721EEA9BE0057C63E /* XcodeDark.swift */; };
 		C9C0E77A21EF65BE0057C63E /* ThemableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E77921EF65BE0057C63E /* ThemableNavigationController.swift */; };
@@ -2398,6 +2399,7 @@
 		C9BF46E122E0DC4F00B8FE4B /* PyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyTableViewCell.swift; sourceTree = "<group>"; };
 		C9BF46E622E106D500B8FE4B /* PyTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyTableView.swift; sourceTree = "<group>"; };
 		C9BF46E922E108C100B8FE4B /* PyTableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyTableViewSection.swift; sourceTree = "<group>"; };
+		C9BF4E88236B3281001D1883 /* libf2c.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libf2c.a; sourceTree = "<group>"; };
 		C9C0E77121EE9F4B0057C63E /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		C9C0E77721EEA9BE0057C63E /* XcodeDark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeDark.swift; sourceTree = "<group>"; };
 		C9C0E77921EF65BE0057C63E /* ThemableNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemableNavigationController.swift; sourceTree = "<group>"; };
@@ -3918,6 +3920,7 @@
 				C9F8FA582302569D004648F4 /* bgrat.o in Frameworks */,
 				C9F8F85B2302569C004648F4 /* dfftb.o in Frameworks */,
 				C9F8FABA2302569D004648F4 /* dpmpar.o in Frameworks */,
+				C9BF4E89236B3281001D1883 /* libf2c.a in Frameworks */,
 				C95EE69223273D720084EA0C /* typeinfo.o in Frameworks */,
 				C9FB5BEF22025B040085E1AA /* ftfstype.o in Frameworks */,
 				C9F8F84C2302569C004648F4 /* mvndst.o in Frameworks */,
@@ -5648,6 +5651,7 @@
 		C9F8F39923025695004648F4 /* SciPy */ = {
 			isa = PBXGroup;
 			children = (
+				C9BF4E88236B3281001D1883 /* libf2c.a */,
 				C9F8FB4E23025A75004648F4 /* vode.o */,
 				C9F8F39A23025695004648F4 /* dtrsv.o */,
 				C9F8F39B23025695004648F4 /* zcolumn_dfs.o */,
@@ -7653,7 +7657,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -7716,7 +7720,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -7892,7 +7896,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				INFOPLIST_FILE = "Pyto Intents/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -7915,7 +7919,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				INFOPLIST_FILE = "Pyto Intents/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -8145,7 +8149,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -8205,6 +8209,7 @@
 					"$(PROJECT_DIR)/Lxml",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 					"$(PROJECT_DIR)/PyNacl",
+					"$(PROJECT_DIR)/SciPy",
 				);
 				MARKETING_VERSION = 11.1;
 				ONLY_ACTIVE_ARCH = YES;
@@ -8255,7 +8260,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -8315,6 +8320,7 @@
 					"$(PROJECT_DIR)/Lxml",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 					"$(PROJECT_DIR)/PyNacl",
+					"$(PROJECT_DIR)/SciPy",
 				);
 				MARKETING_VERSION = 11.1;
 				ONLY_ACTIVE_ARCH = NO;
