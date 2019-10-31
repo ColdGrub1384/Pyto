@@ -157,7 +157,7 @@ import NotificationCenter
             self.window?.rootViewController?.present(console, animated: true, completion: {
                 console.textView.text = ""
                 Python.shared.runningScripts = [AppDelegate.scriptToRun!]
-                PyInputHelper.userInput = "import console as __console__; script = __console__.run_script('\(AppDelegate.scriptToRun!)'); import code; code.interact(banner='', local=vars(script))"
+                PyInputHelper.userInput[""] = "import console as __console__; script = __console__.run_script('\(AppDelegate.scriptToRun!)'); import code; code.interact(banner='', local=vars(script))"
             })
         }
         #endif
