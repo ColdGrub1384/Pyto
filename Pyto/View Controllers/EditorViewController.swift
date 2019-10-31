@@ -1118,6 +1118,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
             textView.contentTextView.insertText(lines.joined(separator: "\n"))
             
             textView.contentTextView.selectedRange = NSRange(location: nsRange.location, length: textView.contentTextView.selectedRange.location-nsRange.location)
+            if selected.components(separatedBy: "\n").count == 1, let range = textView.contentTextView.selectedTextRange {
+                textView.contentTextView.selectedTextRange = textView.contentTextView.textRange(from: range.end, to: range.end)
+            }
         } else {
             textView.contentTextView.insertText(EditorViewController.indentation)
         }
@@ -1448,6 +1451,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
                     textView.replace(textRange, withText: lines.joined(separator: "\n"))
                     
                     textView.selectedRange = NSRange(location: nsRange.location, length: textView.selectedRange.location-nsRange.location)
+                    if selected.components(separatedBy: "\n").count == 1, let range = textView.selectedTextRange {
+                        textView.selectedTextRange = textView.textRange(from: range.end, to: range.end)
+                    }
                 }
                 return false
             }
