@@ -47,7 +47,14 @@ import UIKit
             DispatchQueue.main.async {
                 if let attrStr = console.textView.attributedText {
                     let mutable = NSMutableAttributedString(attributedString: attrStr)
-                    var attributes: [NSAttributedString.Key : AnyHashable] = [.font : UIFont(name: "Menlo", size: 13) ?? UIFont.systemFont(ofSize: 12)]
+                    
+                    #if MAIN
+                    let font = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
+                    #else
+                    let font = UIFont(name: "Menlo", size: 12) ?? UIFont.systemFont(ofSize: 12)
+                    #endif
+                    
+                    var attributes: [NSAttributedString.Key : AnyHashable] = [.font : font]
                     #if MAIN
                     attributes[.foregroundColor] = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
                     #else
@@ -97,10 +104,18 @@ import UIKit
             }
             #endif
             
+            #if MAIN
+            let font = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
+            let color = ConsoleViewController.choosenTheme.exceptionColor
+            #else
+            let font = UIFont(name: "Menlo", size: 12) ?? UIFont.systemFont(ofSize: 12)
+            let color = #colorLiteral(red: 0.6745098039, green: 0.1921568627, blue: 0.1921568627, alpha: 1)
+            #endif
+            
             DispatchQueue.main.async {
                 if let attrStr = console.textView.attributedText {
                     let mutable = NSMutableAttributedString(attributedString: attrStr)
-                    mutable.append(NSAttributedString(string: text_, attributes: [.font : UIFont(name: "Menlo", size: 13) ?? UIFont.systemFont(ofSize: 12), .foregroundColor : #colorLiteral(red: 0.6743632277, green: 0.1917540668, blue: 0.1914597603, alpha: 1)]))
+                    mutable.append(NSAttributedString(string: text_, attributes: [.font : font, .foregroundColor : color]))
                     console.textView.attributedText = mutable
                     console.textView.scrollToBottom()
                 }
@@ -139,9 +154,18 @@ import UIKit
             #endif
             
             DispatchQueue.main.async {
+                
+                #if MAIN
+                let font = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
+                let color = ConsoleViewController.choosenTheme.warningColor
+                #else
+                let font = UIFont(name: "Menlo", size: 12) ?? UIFont.systemFont(ofSize: 12)
+                let color = #colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1)
+                #endif
+                
                 if let attrStr = console.textView.attributedText {
                     let mutable = NSMutableAttributedString(attributedString: attrStr)
-                    mutable.append(NSAttributedString(string: text_, attributes: [.font : UIFont(name: "Menlo", size: 13) ?? UIFont.systemFont(ofSize: 12), .foregroundColor : #colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1)]))
+                    mutable.append(NSAttributedString(string: text_, attributes: [.font : font, .foregroundColor : color]))
                     console.textView.attributedText = mutable
                     console.textView.scrollToBottom()
                 }

@@ -1,11 +1,4 @@
-<p align="center">
-<a href="https://github.com/ColdGrub1384/Pisth">Pisth</a> &bull;
-<a href="https://github.com/ColdGrub1384/Edidown">Edidown</a> &bull;
-<b>Pyto</b> &bull;
-<a href="https://github.com/ColdGrub1384/Luade">Luade</a>
-</p>
-
-Follow [@develobile](https://twitter.com/develobile) on Twitter for news about my projects.
+Join the Pyto Discord channel: https://discord.gg/XCKkvJS
 
 ![Icon](https://raw.githubusercontent.com/ColdGrub1384/Pyto/master/Pyto/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5%402x.png)
 
@@ -13,21 +6,37 @@ Follow [@develobile](https://twitter.com/develobile) on Twitter for news about m
 
 [![Download on the App Store](https://pisth.github.io/appstorebadge.svg)](https://itunes.apple.com/us/app/pyto-python-ide/id1436650069?l=fr&ls=1&mt=8)
 
+[Documentation](https://pyto.readthedocs.io)
+
 ![screenshots](mockup.png)
 
 ```
-Pyto is a Python 3.7 IDE for iPhone an iPad. You can run code directly on your device and offline.
+Pyto is a Python 3.8 IDE for iPhone an iPad. Run code directly on your device and offline.
 
 Features:
 
-  - Python 3.7 with all default libraries like "sys"
-  - Pre-installed modules for interacting with the app
+  - Python 3.8 with all standard library
   - Full Python REPL
-  - Use your own modules on your scripts
-  - Code an user interface with the same UIKit interface
+  - Code user interfaces
   - Smart code completion
-  - Numpy 1.16.1, Matplotlib 3.0.2 and Pandas 0.24.1 included
   - Use pip to install pure Python modules from PyPi
+  - Access scripts from everywhere
+  - Preview images and plots on console
+  - Multiple windows for iPadOS 13+
+  - Run scripts and code from Siri Shortcuts
+  
+Libraries included:
+  
+  - Numpy
+  - Matplotlib
+  - Pandas
+  - Pillow
+  - SciPy
+  - SciKit-Learn
+  - SciKit-Image
+  - OpenCV
+  - Lxml
+  - Biopython
 ```
 
 ## Building

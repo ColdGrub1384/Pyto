@@ -82,7 +82,6 @@ extension EditorViewController {
             
             let errorRange = NSRange(location: lines.joined(separator: "\n").count, length: 0)
             
-            self.textView.contentTextView.becomeFirstResponder()
             self.textView.contentTextView.selectedRange = errorRange
             
             let errorView = UITextView()
@@ -148,7 +147,10 @@ extension EditorViewController {
                 errorVC.popoverPresentationController?.sourceRect = self.textView.contentTextView.bounds
             }
             
-            self.present(errorVC, animated: true, completion: nil)
+            if self.view.frame.height > 0 {
+                self.textView.contentTextView.becomeFirstResponder()
+                self.present(errorVC, animated: true, completion: nil)
+            }
             
             self.highlight(at: lineNumber-1, with: errorColor.withAlphaComponent(0.5))
         }

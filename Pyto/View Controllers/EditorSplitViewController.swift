@@ -298,11 +298,8 @@ class EditorSplitViewController: SplitViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if #available(iOS 13.0, *) {
-            view.backgroundColor = .systemBackground
-        } else {
-            view.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
-        }
+        view.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
+        
         for view in self.view.subviews {
             if view.backgroundColor == .white {
                 view.backgroundColor = self.view.backgroundColor
@@ -412,6 +409,14 @@ class EditorSplitViewController: SplitViewController {
                 secondChild = console
             }
         }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        view.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
+        firstChild?.view.backgroundColor = view.backgroundColor
+        secondChild?.view.backgroundColor = view.backgroundColor
     }
     
     override var canBecomeFirstResponder: Bool {

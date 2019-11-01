@@ -44,11 +44,16 @@ import UIKit
             case is SolarizedDarkTheme:
                 themeID = 10
             default:
-                themeID = 0
+                themeID = -2
             }
             
-            UserDefaults.standard.set(themeID, forKey: "theme")
-            UserDefaults.standard.synchronize()
+            if themeID == -2 {
+                UserDefaults.standard.set(newValue.data, forKey: "theme")
+                UserDefaults.standard.synchronize()
+            } else {
+                UserDefaults.standard.set(themeID, forKey: "theme")
+                UserDefaults.standard.synchronize()
+            }
             
             if #available(iOS 13.0, *) {
                 for scene in UIApplication.shared.connectedScenes {
@@ -60,6 +65,11 @@ import UIKit
         }
         
         get {
+            
+            if let data = UserDefaults.standard.data(forKey: "theme"), let theme = ThemeFromData(data) {
+                return theme
+            }
+            
             switch UserDefaults.standard.integer(forKey: "theme") {
             case -1:
                 return XcodeLightTheme()
@@ -149,7 +159,14 @@ import UIKit
                 self.console += output
                 
                 let attrStr = NSMutableAttributedString(attributedString: self.textView.attributedText)
-                attrStr.append(NSAttributedString(string: output, attributes: [.font : UIFont(name: "Menlo", size: 12) ?? UIFont.systemFont(ofSize: 12)]))
+                
+                #if MAIN
+                let font = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
+                #else
+                let font = UIFont(name: "Menlo", size: 12) ?? UIFont.systemFont(ofSize: 12)
+                #endif
+                
+                attrStr.append(NSAttributedString(string: output, attributes: [.font : font]))
                 self.textView.attributedText = attrStr
                 
                 self.textViewDidChange(self.textView)
@@ -434,6 +451,7 @@ import UIKit
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             
+            setNavigationBarHidden(pyView?.navigationBarHidden == true, animated: true)
             navigationBar.backgroundColor = UIColor.systemBackground
         }
     }
@@ -659,10 +677,10 @@ import UIKit
                 return
             }
             
-            PyInputHelper.userInput = text
+            PyInputHelper.userInput.setObject(text, forKey: (self.editorSplitViewController?.editor.document?.fileURL.path ?? "") as NSCopying)
             if !secureTextEntry {
                 Python.shared.output += text
-                self.textView.text += "\(self.movableTextField?.placeholder ?? "")\(text)\n"
+                self.textView.text += "\(text)\n"
             } else {
                 
                 var hiddenPassword = ""
@@ -671,7 +689,7 @@ import UIKit
                 }
                 
                 Python.shared.output += text
-                self.textView.text += "\(self.movableTextField?.placeholder ?? "")\(hiddenPassword)\n"
+                self.textView.text += "\(hiddenPassword)\n"
             }
             self.textView.scrollToBottom()
         }

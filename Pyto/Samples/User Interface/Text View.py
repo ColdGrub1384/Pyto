@@ -6,7 +6,7 @@ import pyto_ui as ui
 import pasteboard as pb
 
 def did_end(text_view):
-  pb.set_string(text_view.text)
+    pb.set_string(text_view.text)
 
 text_view = ui.TextView(text=pb.string())
 text_view.become_first_responder()

@@ -77,10 +77,12 @@ import UIKit
         
         if connectionOptions.urlContexts.count > 0 {
             self.scene(scene, openURLContexts: connectionOptions.urlContexts)
+            return
         }
         
         if connectionOptions.userActivities.count > 0 {
             self.scene(scene, continue: connectionOptions.userActivities.first!)
+            return
         }
         
         if let restorationActivity = session.stateRestorationActivity {

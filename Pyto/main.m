@@ -9,13 +9,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "../Python/Headers/Python.h"
+#import "../Python/Python.h"
 #if MAIN
 #import "Pyto-Swift.h"
 #elif WIDGET
 #import "Pyto_Widget-Swift.h"
 #endif
 #include <dlfcn.h>
+#include "../PyNacl/sodium/crypto_pwhash_scryptsalsa208sha256.h"
+#include "../PyNacl/sodium/crypto_shorthash_siphash24.h"
 
 #define load(HANDLE) handle = dlopen(file.path.UTF8String, RTLD_GLOBAL);  HANDLE = handle;
 
@@ -38,28 +40,21 @@ NSBundle* mainBundle() {
 
 // MARK: - BandHandle
 
-void BandHandle(NSString *fkTitle, NSArray *nameArray, NSArray *keyArray, bool staticlib) {
-    
-    if (staticlib) {
-        void *handle = dlopen(NULL, RTLD_LAZY);
-        for( int i=0; i<nameArray.count; i++){
-            NSString *fkey  = [keyArray  objectAtIndex:i];
-            void *function = dlsym(handle, [NSString stringWithFormat:@"PyInit_%@",[nameArray objectAtIndex:i]].UTF8String);
-            
-            if (!handle || !function) {
-                fprintf(stderr, "%s\n", dlerror());
-            } else {
-                PyImport_AppendInittab(fkey.UTF8String, function);
-            }
-        }
-        return;
-    }
-    
+void BandHandle(NSString *fkTitle, NSArray *nameArray, NSArray *keyArray) {
     
     NSError *error;
     for (NSURL *bundle in [NSFileManager.defaultManager contentsOfDirectoryAtURL:mainBundle().privateFrameworksURL includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:&error]) {
         
         NSURL *file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"cpython-37m-darwin.so"].lastPathComponent];
+        if (![NSFileManager.defaultManager fileExistsAtPath:file.path]) {
+            file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"abi3.so"].lastPathComponent];
+        }
+        if (![NSFileManager.defaultManager fileExistsAtPath:file.path]) {
+            file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"cpython-38-darwin.so"].lastPathComponent];
+        }
+        if (![NSFileManager.defaultManager fileExistsAtPath:file.path]) {
+            file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"abi3.so"].lastPathComponent];
+        }
         NSString *name = file.URLByDeletingPathExtension.URLByDeletingPathExtension.lastPathComponent;
         
         void *handle = NULL;
@@ -94,18 +89,24 @@ void BandHandle(NSString *fkTitle, NSArray *nameArray, NSArray *keyArray, bool s
     }
 }
 
+#if !(TARGET_IPHONE_SIMULATOR)
+
 #if MAIN
 
 // MARK: - Numpy
 
+extern PyMODINIT_FUNC PyInit__multiarray_umath(void);
+extern PyMODINIT_FUNC PyInit_lapack_lite(void);
+extern PyMODINIT_FUNC PyInit__umath_linalg(void);
+extern PyMODINIT_FUNC PyInit_fftpack_lite(void);
+extern PyMODINIT_FUNC PyInit_mtrand(void);
+
 void init_numpy() {
-    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
-    [name addObject:@"_multiarray_umath"];  [key addObject:@"__numpy_core__multiarray_umath"];
-    [name addObject:@"lapack_lite"];        [key addObject:@"__numpy_linalg_lapack_lite"];
-    [name addObject:@"_umath_linalg"];      [key addObject:@"__numpy_linalg__umath_linalg"];
-    [name addObject:@"fftpack_lite"];       [key addObject:@"__numpy_fft_fftpack_lite"];
-    [name addObject:@"mtrand"];             [key addObject:@"__numpy_random_mtrand"];
-    BandHandle(@"numpy", name, key, false);
+    PyImport_AppendInittab("__numpy_core__multiarray_umath", &PyInit__multiarray_umath);
+    PyImport_AppendInittab("__numpy_linalg_lapack_lite", &PyInit_lapack_lite);
+    PyImport_AppendInittab("__numpy_linalg__umath_linalg", &PyInit__umath_linalg);
+    PyImport_AppendInittab("__numpy_fft_fftpack_lite", &PyInit_fftpack_lite);
+    PyImport_AppendInittab("__numpy_random_mtrand", &PyInit_mtrand);
 }
 
 // MARK: - Matplotlib
@@ -140,7 +141,7 @@ void init_matplotlib() {
     [name addObject:@"ft2font"];            [key addObject:@"__matplotlib_ft2font"];
     [name addObject:@"_path"];              [key addObject:@"__matplotlib__path"];
     [name addObject:@"kiwisolver"];         [key addObject:@"kiwisolver"];
-    BandHandle(@"matplotlib", name, key, false);
+    BandHandle(@"matplotlib", name, key);
 }
 
 // MARK: - Pandas
@@ -188,7 +189,7 @@ void init_pandas(){
     [name addObject:@"skiplist"];           [key addObject:@"__pandas__libs_skiplist"];
     [name addObject:@"hashtable"];          [key addObject:@"__pandas__libs_hashtable"];
     [name addObject:@"json"];               [key addObject:@"__pandas__libs_json"];
-    BandHandle(@"pandas", name, key, false);
+    BandHandle(@"pandas", name, key);
 }
 
 // MARK: - Biopython
@@ -205,21 +206,25 @@ void init_biopython() {
     [name addObject:@"kdtrees"];                [key addObject:@"__Bio_PDB_kdtrees"];
     [name addObject:@"qcprotmodule"];           [key addObject:@"__Bio_PDB_QCPSuperimposer_qcprotmodule"];
     [name addObject:@"trie"];                   [key addObject:@"__Bio_trie"];
-    BandHandle(@"Bio", name, key, false);
+    BandHandle(@"Bio", name, key);
 }
 
 // MARK: - LXML
 
+extern PyMODINIT_FUNC PyInit__elementpath(void);
+extern PyMODINIT_FUNC PyInit_builder(void);
+extern PyMODINIT_FUNC PyInit_etree(void);
+extern PyMODINIT_FUNC PyInit_clean(void);
+extern PyMODINIT_FUNC PyInit_diff(void);
+extern PyMODINIT_FUNC PyInit_objectify(void);
+
 void init_lxml() {
-    
-    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
-    [name addObject:@"_elementpath"];              [key addObject:@"__lxml__elementpath"];
-    [name addObject:@"builder"];                   [key addObject:@"__lxml_builder"];
-    [name addObject:@"etree"];                     [key addObject:@"__lxml_etree"];
-    [name addObject:@"clean"];                     [key addObject:@"__lxml_html_clean"];
-    [name addObject:@"diff"];                      [key addObject:@"__lxml_html_diff"];
-    [name addObject:@"objectify"];                 [key addObject:@"__lxml_objectifiy"];
-    BandHandle(@"lxml", name, key, true);
+    PyImport_AppendInittab("__lxml__elementpath", &PyInit__elementpath);
+    PyImport_AppendInittab("__lxml_builder", &PyInit_builder);
+    PyImport_AppendInittab("__lxml_etree", &PyInit_etree);
+    PyImport_AppendInittab("__lxml_html_clean", &PyInit_clean);
+    PyImport_AppendInittab("__lxml_html_diff", &PyInit_diff);
+    PyImport_AppendInittab("__lxml_objectifiy", &PyInit_objectify);
 }
 
 // MARK: - SciPy
@@ -477,7 +482,7 @@ void init_sklearn() {
     [name addObject:@"_csr_polynomial_expansion"]; [key addObject:@"__sklearn_preprocessing__csr_polynomial_expansion"];
     [name addObject:@"types"];                     [key addObject:@"__sklearn_ensemble__hist_gradient_boosting_types"];
     
-    BandHandle(@"sklearn", name, key, false);
+    BandHandle(@"sklearn", name, key);
     
     putenv((char *)[NSString stringWithFormat:@"SCIKIT_LEARN_DATA=%@", [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask].firstObject.path].UTF8String);
 }
@@ -541,7 +546,7 @@ void init_skimage() {
     [name addObject:@"_max_tree"];                  [key addObject:@"__skimage_morphology__max_tree"];
     [name addObject:@"_cascade"];                   [key addObject:@"__skimage_feature__cascade"];
     
-    BandHandle(@"skimage", name, key, false);
+    BandHandle(@"skimage", name, key);
 }
 
 // MARK: - Pywt
@@ -555,7 +560,7 @@ void init_pywt() {
     [name addObject:@"_swt"];  [key addObject:@"__pywt__extensions__swt"];
     [name addObject:@"_dwt"];  [key addObject:@"__pywt__extensions__dwt"];
     
-    BandHandle(@"pywt", name, key, false);
+    BandHandle(@"pywt", name, key);
 }
 
 #endif
@@ -563,7 +568,7 @@ void init_pywt() {
 // MARK: - PIL
 
 void init_pil() {
-    
+
     NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
     [name addObject:@"_imaging"];           [key addObject:@"__PIL__imaging"];
     #if !WIDGET
@@ -571,22 +576,134 @@ void init_pil() {
     [name addObject:@"_imagingmath"];       [key addObject:@"__PIL__imagingmath"];
     [name addObject:@"_imagingmorph"];      [key addObject:@"__PIL__imagingmorph"];
     #endif
-    BandHandle(@"PIL", name, key, false);
+    BandHandle(@"PIL", name, key);
 }
+
+// MARK: - CFFI
+
+#if MAIN
+extern PyMODINIT_FUNC PyInit__cffi_backend(void);
+
+void init_cffi() {
+    PyImport_AppendInittab("_cffi_backend", &PyInit__cffi_backend);
+}
+#endif
+
+#endif
 
 // MARK: - OpenCV
 
+#if !(TARGET_IPHONE_SIMULATOR) && MAIN
+
+extern PyMODINIT_FUNC PyInit_cv2(void);
+
 void init_cv2() {
-    
-    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
-    [name addObject:@"cv2"]; [key addObject:@"__cv2_cv2"];
-    BandHandle(@"cv2", name, key, true);
+    PyImport_AppendInittab("__cv2_cv2", &PyInit_cv2);
 }
+
+// MARK: - Nacl
+
+SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_bytes_min(void) {
+    return crypto_pwhash_scryptsalsa208sha256_BYTES_MIN;
+}
+
+SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_bytes_max(void) {
+    return crypto_pwhash_scryptsalsa208sha256_BYTES_MAX;
+}
+
+SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_passwd_min(void) {
+    return crypto_pwhash_scryptsalsa208sha256_PASSWD_MIN;
+}
+
+SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_passwd_max(void) {
+    return crypto_pwhash_scryptsalsa208sha256_PASSWD_MAX;
+}
+
+SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_saltbytes(void) {
+    return crypto_pwhash_scryptsalsa208sha256_SALTBYTES;
+}
+
+SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_strbytes(void) {
+    return crypto_pwhash_scryptsalsa208sha256_STRBYTES;
+}
+
+SODIUM_EXPORT const char *crypto_pwhash_scryptsalsa208sha256_strprefix(void) {
+    return crypto_pwhash_scryptsalsa208sha256_STRPREFIX;
+}
+
+SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_opslimit_min(void) {
+    return crypto_pwhash_scryptsalsa208sha256_OPSLIMIT_MIN;
+}
+
+SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_opslimit_max(void) {
+    return crypto_pwhash_scryptsalsa208sha256_OPSLIMIT_MAX;
+}
+
+SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_memlimit_min(void) {
+    return crypto_pwhash_scryptsalsa208sha256_MEMLIMIT_MIN;
+}
+
+SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_memlimit_max(void) {
+    return crypto_pwhash_scryptsalsa208sha256_MEMLIMIT_MAX;
+}
+
+SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_opslimit_interactive(void) {
+    return crypto_pwhash_scryptsalsa208sha256_OPSLIMIT_INTERACTIVE;
+}
+
+SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_memlimit_interactive(void) {
+    return crypto_pwhash_scryptsalsa208sha256_MEMLIMIT_INTERACTIVE;
+}
+
+SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_opslimit_sensitive(void) {
+    return crypto_pwhash_scryptsalsa208sha256_OPSLIMIT_SENSITIVE;
+}
+
+SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_memlimit_sensitive(void) {
+    return crypto_pwhash_scryptsalsa208sha256_MEMLIMIT_SENSITIVE;
+}
+
+
+SODIUM_EXPORT size_t crypto_shorthash_siphashx24_bytes(void) {
+    return crypto_shorthash_siphashx24_BYTES;
+}
+
+SODIUM_EXPORT size_t crypto_shorthash_siphashx24_keybytes(void) {
+    return crypto_shorthash_siphashx24_KEYBYTES;
+}
+
+extern PyMODINIT_FUNC PyInit__sodium(void);
+
+void init_nacl() {
+    PyImport_AppendInittab("__nacl__sodium", &PyInit__sodium);
+}
+
+#endif
 
 // MARK: - Main
 
 #if MAIN || WIDGET
 int initialize_python(int argc, char *argv[]) {
+    
+    NSBundle *pythonBundle = Python.shared.bundle;
+    // MARK: - Python env variables
+    putenv("PYTHONOPTIMIZE=");
+    putenv("PYTHONIOENCODING=utf-8");
+    #if !WIDGET
+    putenv("PYTHONDONTWRITEBYTECODE=1");
+    #endif
+    putenv((char *)[[NSString stringWithFormat:@"TMP=%@", NSTemporaryDirectory()] UTF8String]);
+    putenv((char *)[[NSString stringWithFormat:@"PYTHONHOME=%@", pythonBundle.bundlePath] UTF8String]);
+    NSString* path = [NSString stringWithFormat:@"PYTHONPATH=%@:%@:%@:%@", [mainBundle() pathForResource: @"Lib" ofType:NULL], [mainBundle() pathForResource:@"site-packages" ofType:NULL], [pythonBundle pathForResource:@"python38" ofType:NULL], [pythonBundle pathForResource:@"python38.zip" ofType:NULL]];
+    #if WIDGET
+    path = [path stringByAppendingString: [NSString stringWithFormat:@":%@:%@", [NSFileManager.defaultManager sharedDirectory], [NSFileManager.defaultManager.sharedDirectory URLByAppendingPathComponent:@"modules"]]];
+    #endif
+    putenv((char *)path.UTF8String);
+    
+    #if WIDGET
+    NSString *certPath = [mainBundle() pathForResource:@"cacert.pem" ofType:NULL];
+    putenv((char *)[[NSString stringWithFormat:@"SSL_CERT_FILE=%@", certPath] UTF8String]);
+    #endif
     
     // MARK: - Init builtins
     #if !(TARGET_IPHONE_SIMULATOR)
@@ -601,29 +718,10 @@ int initialize_python(int argc, char *argv[]) {
     init_skimage();
     init_pywt();
     init_cv2();
+    init_cffi();
+    init_nacl();
     #endif
     init_pil();
-    #endif
-    
-    NSBundle *pythonBundle = Python.shared.bundle;
-    // MARK: - Python env variables
-    #if WIDGET
-    putenv("PYTHONOPTIMIZE=1");
-    #else
-    putenv("PYTHONOPTIMIZE=");
-    #endif
-    putenv("PYTHONDONTWRITEBYTECODE=1");
-    putenv((char *)[[NSString stringWithFormat:@"TMP=%@", NSTemporaryDirectory()] UTF8String]);
-    putenv((char *)[[NSString stringWithFormat:@"PYTHONHOME=%@", pythonBundle.bundlePath] UTF8String]);
-    NSString* path = [NSString stringWithFormat:@"PYTHONPATH=%@:%@:%@:%@", [mainBundle() pathForResource: @"Lib" ofType:NULL], [mainBundle() pathForResource:@"site-packages" ofType:NULL], [pythonBundle pathForResource:@"python37" ofType:NULL], [pythonBundle pathForResource:@"python37.zip" ofType:NULL]];
-    #if WIDGET
-    path = [path stringByAppendingString: [NSString stringWithFormat:@":%@:%@", [NSFileManager.defaultManager sharedDirectory], [NSFileManager.defaultManager.sharedDirectory URLByAppendingPathComponent:@"modules"]]];
-    #endif
-    putenv((char *)path.UTF8String);
-    
-    #if WIDGET
-    NSString *certPath = [mainBundle() pathForResource:@"cacert.pem" ofType:NULL];
-    putenv((char *)[[NSString stringWithFormat:@"SSL_CERT_FILE=%@", certPath] UTF8String]);
     #endif
     
     // MARK: - Init Python
@@ -637,12 +735,13 @@ int initialize_python(int argc, char *argv[]) {
         python_argv[i] = Py_DecodeLocale(argv[i], NULL);
     }
     PySys_SetArgv(argc, python_argv);
+            
+    // MARK: - Start the REPL that will contain all child modules
+    #if !WIDGET
+    [Python.shared runScriptAt:[[NSBundle mainBundle] URLForResource:@"scripts_runner" withExtension:@"py"]];
+    #endif
     
     #if MAIN
-    [Python.shared importPytoLib];
-    
-    // MARK: - Start the REPL that will contain all child modules
-    [Python.shared runScriptAt:[[NSBundle mainBundle] URLForResource:@"scripts_runner" withExtension:@"py"]];
     
     @autoreleasepool {
         return UIApplicationMain(argc, argv, NULL, NSStringFromClass(AppDelegate.class));

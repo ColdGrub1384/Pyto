@@ -12,7 +12,17 @@ import Foundation
 @objc class PyInputHelper: NSObject {
     
     /// The user's input. Set its value while Python script is waiting for input to pass the input.
-    @objc static var userInput: String?
+    @objc static var userInput: NSMutableDictionary = NSMutableDictionary(dictionary: [String:String]())
+    
+    /// Returns user input for script at given path.
+    ///
+    /// - Parameters:
+    ///     - path: The path of the script that is asking for input or an empty string.
+    ///
+    /// - Returns: The input entered by the user.
+    @objc static func getUserInput(_ path: String) -> String? {
+        return userInput.object(forKey: path) as? String
+    }
     
     /// Requests for input.
     ///

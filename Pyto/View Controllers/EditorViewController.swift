@@ -88,12 +88,23 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// Returns string used for indentation
     static var indentation: String {
         get {
-            return UserDefaults.standard.string(forKey: "indentation") ?? "  "
+            return UserDefaults.standard.string(forKey: "indentation") ?? "    "
         }
         
         set {
             UserDefaults.standard.set(newValue, forKey: "indentation")
             UserDefaults.standard.synchronize()
+        }
+    }
+    
+    /// The font used in the code editor and the console.
+    static var font: UIFont {
+        get {
+            return UserDefaults.standard.font(forKey: "codeFont") ?? DefaultSourceCodeTheme().font
+        }
+        
+        set {
+            UserDefaults.standard.set(font: newValue, forKey: "codeFont")
         }
     }
     
@@ -123,7 +134,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     }
     
     /// The Input assistant view containing `suggestions`.
-    let inputAssistant = InputAssistantView()
+    var inputAssistant = InputAssistantView()
     
     /// A Navigation controller containing the documentation.
     var documentationNavigationController: UINavigationController?
@@ -285,11 +296,14 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
         textView.text = text
         
+        inputAssistant = InputAssistantView()
+        inputAssistant.delegate = self
+        inputAssistant.dataSource = self
         inputAssistant.leadingActions = (UIApplication.shared.statusBarOrientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])+[InputAssistantAction(image: "⇥".image() ?? UIImage(), target: self, action: #selector(insertTab))]
         inputAssistant.attach(to: textView.contentTextView)
         inputAssistant.trailingActions = [InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView.contentTextView, action: #selector(textView.contentTextView.resignFirstResponder))]+(UIApplication.shared.statusBarOrientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])
         
-        (textView.contentTextView.value(forKey: "textInputTraits") as? NSObject)?.setValue(theme.tintColor, forKey: "insertionPointColor")
+        textView.contentTextView.reloadInputViews()
     }
     
     /// Called when the user choosed a theme.
@@ -409,60 +423,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 self.textView.contentTextView.inputAccessoryView = nil
             }
             
-            if self.shouldRun {
-                self.shouldRun = false
-                
-                if Python.shared.isScriptRunning(path) {
-                    self.stop()
-                }
-                
-                let splitVC = self.parent as? EditorSplitViewController
-                
-                splitVC?.ratio = 0
-                
-                for view in (splitVC?.view.subviews ?? []) {
-                    if view.backgroundColor == .white {
-                        view.backgroundColor = splitVC?.view.backgroundColor
-                    }
-                }
-                
-                splitVC?.firstChild?.view.superview?.backgroundColor = splitVC!.view.backgroundColor
-                splitVC?.secondChild?.view.superview?.backgroundColor = splitVC!.view.backgroundColor
-                
-                DispatchQueue.main.asyncAfter(deadline: .now()+0.25, execute: {
-                    splitVC?.firstChild = nil
-                    splitVC?.secondChild = nil
-                    
-                    for view in (splitVC?.view.subviews ?? []) {
-                        view.removeFromSuperview()
-                    }
-                    
-                    splitVC?.viewDidLoad()
-                    splitVC?.viewWillTransition(to: splitVC!.view.frame.size, with: ViewControllerTransitionCoordinator())
-                    splitVC?.viewDidAppear(true)
-                    
-                    splitVC?.removeGestures()
-                    
-                    splitVC?.firstChild = splitVC?.editor
-                    splitVC?.secondChild = splitVC?.console
-                    
-                    splitVC?.setNavigationBarItems()
-                })
-                
-                if Python.shared.isScriptRunning(path) || Python.shared.version.isEmpty {
-                    _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
-                        if !Python.shared.isScriptRunning(path) && !Python.shared.version.isEmpty {
-                            timer.invalidate()
-                            self.run()
-                        }
-                    })
-                } else {
-                    DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                        self.run()
-                    }
-                }
-            }
-            
             if doc.fileURL.path == Bundle.main.path(forResource: "installer", ofType: "py") && (!(parent is REPLViewController) && !(parent is RunModuleViewController) && !(parent is PipInstallerViewController)) {
                 self.parent?.navigationItem.leftBarButtonItems = []
                 if Python.shared.isScriptRunning(path) {
@@ -511,6 +471,60 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        if shouldRun, let path = document?.fileURL.path {
+            shouldRun = false
+            
+            if Python.shared.isScriptRunning(path) {
+                stop()
+            }
+            
+            let splitVC = parent as? EditorSplitViewController
+            
+            splitVC?.ratio = 0
+            
+            for view in (splitVC?.view.subviews ?? []) {
+                if view.backgroundColor == .white {
+                    view.backgroundColor = splitVC?.view.backgroundColor
+                }
+            }
+            
+            splitVC?.firstChild?.view.superview?.backgroundColor = splitVC!.view.backgroundColor
+            splitVC?.secondChild?.view.superview?.backgroundColor = splitVC!.view.backgroundColor
+            
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.25, execute: {
+                splitVC?.firstChild = nil
+                splitVC?.secondChild = nil
+                
+                for view in (splitVC?.view.subviews ?? []) {
+                    view.removeFromSuperview()
+                }
+                
+                splitVC?.viewDidLoad()
+                splitVC?.viewWillTransition(to: splitVC!.view.frame.size, with: ViewControllerTransitionCoordinator())
+                splitVC?.viewDidAppear(true)
+                
+                splitVC?.removeGestures()
+                
+                splitVC?.firstChild = splitVC?.editor
+                splitVC?.secondChild = splitVC?.console
+                
+                splitVC?.setNavigationBarItems()
+            })
+            
+            if Python.shared.isScriptRunning(path) || !Python.shared.isSetup {
+                _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
+                    if !Python.shared.isScriptRunning(path) && Python.shared.isSetup {
+                        timer.invalidate()
+                        self.run()
+                    }
+                })
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                    self.run()
+                }
+            }
+        }
         
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
     }
@@ -567,6 +581,24 @@ fileprivate func parseArgs(_ args: inout [String]) {
             if suggestions.count > 0 {
                 commands.append(UIKeyCommand(input: "\t", modifierFlags: [.shift], action: #selector(nextSuggestion), discoverabilityTitle: Localizable.nextSuggestion))
             }
+            
+            var indented = false
+            if let range = textView.contentTextView.selectedTextRange {
+                for line in textView.contentTextView.text(in: range)?.components(separatedBy: "\n") ?? [] {
+                    if line.hasPrefix(EditorViewController.indentation) {
+                        indented = true
+                        break
+                    }
+                }
+            }
+            if let line = textView.contentTextView.currentLine, line.hasPrefix(EditorViewController.indentation) {
+                indented = true
+            }
+            
+            if indented {
+                commands.append(UIKeyCommand(input: "\t", modifierFlags: [.alternate], action: #selector(unindent), discoverabilityTitle: Localizable.unindent))
+            }
+            
             return commands
         } else {
             return []
@@ -1060,9 +1092,59 @@ fileprivate func parseArgs(_ args: inout [String]) {
         present(documentationNavigationController!, animated: true, completion: nil)
     }
     
-    /// Inserts two spaces.
+    /// Indents current line.
     @objc func insertTab() {
-        textView.contentTextView.insertText(EditorViewController.indentation)
+        if let range = textView.contentTextView.selectedTextRange, let selected = textView.contentTextView.text(in: range) {
+            
+            let nsRange = textView.contentTextView.selectedRange
+            
+            /*
+             location: 3
+             length: 37
+             
+             location: ~40
+             length: 0
+             
+                .
+             ->     print("Hello World")
+                    print("Foo Bar")| selected
+                               - 37
+             */
+            
+            var lines = [String]()
+            for line in selected.components(separatedBy: "\n") {
+                lines.append(EditorViewController.indentation+line)
+            }
+            textView.contentTextView.insertText(lines.joined(separator: "\n"))
+            
+            textView.contentTextView.selectedRange = NSRange(location: nsRange.location, length: textView.contentTextView.selectedRange.location-nsRange.location)
+            if selected.components(separatedBy: "\n").count == 1, let range = textView.contentTextView.selectedTextRange {
+                textView.contentTextView.selectedTextRange = textView.contentTextView.textRange(from: range.end, to: range.end)
+            }
+        } else {
+            textView.contentTextView.insertText(EditorViewController.indentation)
+        }
+    }
+    
+    /// Unindent current line
+    @objc func unindent() {
+        if let range = textView.contentTextView.selectedTextRange, let selected = textView.contentTextView.text(in: range), selected.components(separatedBy: "\n").count > 1 {
+            
+            let nsRange = textView.contentTextView.selectedRange
+            
+            var lines = [String]()
+            for line in selected.components(separatedBy: "\n") {
+                lines.append(line.replacingFirstOccurrence(of: EditorViewController.indentation, with: ""))
+            }
+            
+            textView.contentTextView.replace(range, withText: lines.joined(separator: "\n"))
+            
+            textView.contentTextView.selectedRange = NSRange(location: nsRange.location, length: textView.contentTextView.selectedRange.location-nsRange.location)
+        } else if let range = textView.contentTextView.currentLineRange, let text = textView.contentTextView.text(in: range) {
+            let newRange = textView.contentTextView.textRange(from: range.start, to: range.start)
+            textView.contentTextView.replace(range, withText: text.replacingFirstOccurrence(of: EditorViewController.indentation, with: ""))
+            textView.contentTextView.selectedTextRange = newRange
+        }
     }
     
     /// Comments / Uncomments line.
@@ -1358,7 +1440,21 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         if text == "\t" {
             if let textRange = range.toTextRange(textInput: textView) {
-                textView.replace(textRange, withText: EditorViewController.indentation)
+                if let selected = textView.text(in: textRange) {
+                    
+                    let nsRange = textView.selectedRange
+                    
+                    var lines = [String]()
+                    for line in selected.components(separatedBy: "\n") {
+                        lines.append(EditorViewController.indentation+line)
+                    }
+                    textView.replace(textRange, withText: lines.joined(separator: "\n"))
+                    
+                    textView.selectedRange = NSRange(location: nsRange.location, length: textView.selectedRange.location-nsRange.location)
+                    if selected.components(separatedBy: "\n").count == 1, let range = textView.selectedTextRange {
+                        textView.selectedTextRange = textView.textRange(from: range.end, to: range.end)
+                    }
+                }
                 return false
             }
         }
@@ -1475,6 +1571,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
         
         return true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        save(completion: nil)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -1658,6 +1758,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
           should_path_be_deleted = True
         
         source = '''
+        import
+        
         \(text.replacingOccurrences(of: "'", with: "\\'").replacingOccurrences(of: "\\", with: "\\\\"));
         '''
         suggestForCode(source, '\((document?.fileURL.path ?? "").replacingOccurrences(of: "'", with: "\\'"))')
@@ -1793,6 +1895,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         _ = urls.first?.startAccessingSecurityScopedResource()
         currentDirectory = urls.first ?? currentDirectory
+        if !FoldersBrowserViewController.accessibleFolders.contains(currentDirectory.resolvingSymlinksInPath()) {
+            FoldersBrowserViewController.accessibleFolders.append(currentDirectory.resolvingSymlinksInPath())
+        }
     }
 }
 

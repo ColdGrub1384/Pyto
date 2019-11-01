@@ -89,6 +89,7 @@ import SavannaKit
         DocumentBrowserViewController.splitVCs.append(splitVC)
         let navVC = EditorSplitViewController.NavigationController(rootViewController: splitVC)
         navVC.modalPresentationStyle = .fullScreen
+        navVC.navigationBar.isTranslucent = true
         
         if EditorSplitViewController.shouldShowSeparator {
             splitVC.separatorColor = tintColor
@@ -144,9 +145,7 @@ import SavannaKit
         let runAction = UIDocumentBrowserAction(identifier: "run", localizedTitle: Localizable.MenuItems.run, availability: [.menu, .navigationBar], handler: { (urls) in
             self.openDocument(urls[0], run: true)
         })
-        if #available(iOS 13.0, *) {
-            runAction.image = UIImage(systemName: "play.fill")
-        }
+        runAction.image = UIImage(named: "play")
         self.customActions = [runAction]
         
         delegate = self
@@ -159,6 +158,10 @@ import SavannaKit
             openDocument(docURL, run: false, animated: false)
             documentURL = nil
         }
+        
+        /*if !Python.shared.isSetup, let view = Bundle.main.loadNibNamed("Loading Python", owner: nil, options: nil)!.first as? UIView {
+            self.view.window?.addSubview(view)
+        }*/
     }
     
     // MARK: - Document browser view controller delegate
@@ -170,8 +173,10 @@ import SavannaKit
     
     func documentBrowser(_ controller: UIDocumentBrowserViewController, didRequestDocumentCreationWithHandler importHandler: @escaping (URL?, UIDocumentBrowserViewController.ImportMode) -> Void) {
         
-        let docURL = Bundle.main.url(forResource: "Untitled", withExtension: "py")
-        return importHandler(docURL, docURL != nil ? .copy : .none)
+        let navVC = UIStoryboard(name: "Template Chooser", bundle: nil).instantiateInitialViewController()!
+        ((navVC as? UINavigationController)?.topViewController as? TemplateChooserTableViewController)?.importHandler = importHandler
+        
+        present(navVC, animated: true, completion: nil)
     }
     
     func documentBrowser(_ controller: UIDocumentBrowserViewController, didImportDocumentAt sourceURL: URL, toDestinationURL destinationURL: URL) {

@@ -1,0 +1,286 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>OpenCV &mdash; Pyto  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Third Party Libraries" href="third_party.html" />
+    <link rel="prev" title="Welcome to Pyto’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Pyto
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">OpenCV</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pyto-specific-api">Pyto specific API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#face-detection-example">Face detection example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="third_party.html">Third Party Libraries</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Pyto Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pyto_ui.html">pyto_ui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notification_center.html">notification_center</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pasteboard.html">pasteboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">sharing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UIKit.html">UIKit</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Pyto</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>OpenCV</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/opencv.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="opencv">
+<h1>OpenCV<a class="headerlink" href="#opencv" title="Permalink to this headline">¶</a></h1>
+<p>Pyto includes OpenCV. However, video output does not work the exact same way that on computers. Frames are displayed on the console and no other window is presented. So <code class="docutils literal notranslate"><span class="pre">cv2.destroyAllWindows</span></code> and <code class="docutils literal notranslate"><span class="pre">cv2.waitKey</span></code> will throw errors.</p>
+<div class="section" id="pyto-specific-api">
+<h2>Pyto specific API<a class="headerlink" href="#pyto-specific-api" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="cv2.autorotate">
+<code class="sig-prename descclassname">cv2.</code><code class="sig-name descname">autorotate</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">cam</em><span class="sig-paren">)</span><a class="headerlink" href="#cv2.autorotate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an auto rotated frame captured with hardware camera.</p>
+<p>By default, frames captured by hardware camera will be rotated correctly only if the device is in portrait mode. By calling this function, you can make sure things like face detection will work on any device orientation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>frame</strong> – The frame captured by the camera.</p></li>
+<li><p><strong>cam</strong> – The camera used to capture the frame. <code class="docutils literal notranslate"><span class="pre">0</span></code> for back and <code class="docutils literal notranslate"><span class="pre">1</span></code> for front.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="face-detection-example">
+<h2>Face detection example<a class="headerlink" href="#face-detection-example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">An example of face detection using OpenCV.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">casc_path</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">haarcascades</span><span class="o">+</span><span class="s2">&quot;haarcascade_frontalface_default.xml&quot;</span>
+<span class="n">face_cascade</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CascadeClassifier</span><span class="p">(</span><span class="n">casc_path</span><span class="p">)</span>
+
+<span class="n">device</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># Front camera</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># 0 for back camera</span>
+<span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="n">cap</span><span class="o">.</span><span class="n">isOpened</span><span class="p">():</span>
+
+    <span class="c1"># Capture frame-by-frame</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="c1"># Check if frame is not empty</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ret</span><span class="p">:</span>
+      <span class="k">continue</span>
+
+    <span class="c1"># Auto rotate camera</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">autorotate</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+
+    <span class="c1"># Convert from BGR to RGB</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+
+    <span class="n">faces</span> <span class="o">=</span> <span class="n">face_cascade</span><span class="o">.</span><span class="n">detectMultiScale</span><span class="p">(</span>
+      <span class="n">frame</span><span class="p">,</span>
+      <span class="n">scaleFactor</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span>
+      <span class="n">minNeighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+      <span class="n">minSize</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
+      <span class="n">flags</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">CASCADE_SCALE_IMAGE</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Draw a rectangle around the faces</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span> <span class="ow">in</span> <span class="n">faces</span><span class="p">:</span>
+      <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">w</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="n">h</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># Display the resulting frame</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;frame&#39;</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="third_party.html" class="btn btn-neutral float-right" title="Third Party Libraries" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Pyto’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Adrian Labbé
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

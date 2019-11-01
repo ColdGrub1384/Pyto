@@ -20,28 +20,21 @@ fileprivate extension IndexPath {
     static let theme = IndexPath(row: 0, section: 0)
     static let indentation = IndexPath(row: 1, section: 0)
     static let fontSize = IndexPath(row: 2, section: 0)
-    static let showConsoleAtBottom = IndexPath(row: 3, section: 0)
-    static let showSeparator = IndexPath(row: 3, section: 0)
+    static let font = IndexPath(row: 3, section: 0)
+    static let showConsoleAtBottom = IndexPath(row: 4, section: 0)
+    static let showSeparator = IndexPath(row: 5, section: 0)
     
     static let todayWidget = IndexPath(row: 0, section: 1)
     
-    static let contact = IndexPath(row: 0, section: 2)
+    static let discord = IndexPath(row: 0, section: 3)
+    static let contact = IndexPath(row: 1, section: 3)
     
-    static let acknowledgments = IndexPath(row: 0, section: 3)
-    static let sourceCode = IndexPath(row: 1, section: 3)
+    static let acknowledgments = IndexPath(row: 0, section: 4)
+    static let sourceCode = IndexPath(row: 1, section: 4)
 }
 
 /// A View controller with settings and info.
-class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate, MFMailComposeViewControllerDelegate {
-    
-    /// The date of the build.
-    var buildDate: Date {
-        if let infoPath = Bundle.main.path(forResource: "Info", ofType: "plist"), let infoAttr = try? FileManager.default.attributesOfItem(atPath: infoPath), let infoDate = infoAttr[.creationDate] as? Date {
-            return infoDate
-        } else {
-            return Date()
-        }
-    }
+class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate, MFMailComposeViewControllerDelegate, UIFontPickerViewControllerDelegate {
     
     /// Closes this View controller.
     @IBAction func close(_ sender: Any) {
@@ -141,7 +134,7 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
         
         fontSizeStepper.value = Double(ThemeFontSize)
         fontSizeLabel.text = "\(ThemeFontSize)px"
-        fontSizeLabel.font = fontSizeLabel.font.withSize(CGFloat(ThemeFontSize))
+        fontSizeLabel.font = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
         showConsoleAtBottom.isOn = EditorSplitViewController.shouldShowConsoleAtBottom
         showSeparator.isOn = EditorSplitViewController.shouldShowSeparator
     }
@@ -167,6 +160,14 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
             } else {
                 cell.detailTextLabel?.text = ""
             }
+        } else if indexPath == .font {
+            if #available(iOS 13.0, *) {
+                cell.detailTextLabel?.text = EditorViewController.font.fontName
+                cell.detailTextLabel?.font = EditorViewController.font
+            } else {
+                cell.contentView.alpha = 0.5
+                cell.detailTextLabel?.text = "\(UIDevice.current.userInterfaceIdiom == .pad ? "iPadOS" : "iOS") 13+"
+            }
         }
         
         return cell
@@ -179,6 +180,16 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
         switch indexPath {
         case .theme:
             viewControllerToPresent = UIStoryboard(name: "Theme Chooser", bundle: Bundle.main).instantiateInitialViewController()
+        case .font:
+            if #available(iOS 13.0, *) {
+                let config = UIFontPickerViewController.Configuration()
+                config.includeFaces = true
+                let fontPickerViewController = UIFontPickerViewController(configuration: config)
+                fontPickerViewController.delegate = self
+                viewControllerToPresent = fontPickerViewController
+            } else {
+                viewControllerToPresent = nil
+            }
         case .todayWidget:
             let picker = UIDocumentPickerViewController(documentTypes: ["public.python-script"], in: .open)
             picker.delegate = self
@@ -186,9 +197,12 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
         case .contact:
             let controller = MFMailComposeViewController()
             controller.setSubject("Pyto - Contact")
-            controller.setToRecipients(["adrian@develobile.com"])
+            controller.setToRecipients(["adrian@labbe.me"])
             controller.mailComposeDelegate = self
             viewControllerToPresent = controller
+        case .discord:
+            UIApplication.shared.open(URL(string: "https://discord.gg/326ster")!, options: [:], completionHandler: nil)
+            viewControllerToPresent = nil
         case .acknowledgments:
             viewControllerToPresent = ThemableNavigationController(rootViewController: AcknowledgmentsViewController())
         case .sourceCode:
@@ -211,24 +225,6 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
             }
         } else {
             present(vc, animated: true, completion: nil)
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        
-        if section == 4, let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, let build = Bundle.main.infoDictionary?[kCFBundleVersionKey as String] as? String {
-            
-            let formatter = DateFormatter()
-            formatter.dateStyle = .medium
-            formatter.timeStyle = .short
-            
-            return """
-            Pyto version \(version) (\(build)) \(formatter.string(from: buildDate))
-            
-            Python \(Python.shared.version)
-            """
-        } else {
-            return super.tableView(tableView, titleForFooterInSection: section)
         }
     }
     
@@ -263,5 +259,17 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
                 self.present(alert, animated: true, completion: nil)
             }
         }
+    }
+    
+    // MARK: - Font picker view controller delegate
+    
+    @available(iOS 13.0, *)
+    func fontPickerViewControllerDidPickFont(_ viewController: UIFontPickerViewController) {
+        guard let fontDescriptor = viewController.selectedFontDescriptor else { return }
+        let font = UIFont(descriptor: fontDescriptor, size: DefaultTheme().sourceCodeTheme.font.pointSize)
+        EditorViewController.font = font
+        
+        tableView.reloadData()
+        fontSizeLabel.font = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
     }
 }

@@ -1,11 +1,3 @@
-__builtins__.iOS = 'iOS'
-__builtins__.macOS = 'macOS'
-__builtins__.__platform__ = __builtins__.iOS
-
-__builtins__.widget = 'widget'
-__builtins__.app = 'app'
-__builtins__.__host__ = None
-
 import sys
 import console as Pyto
 import pyto

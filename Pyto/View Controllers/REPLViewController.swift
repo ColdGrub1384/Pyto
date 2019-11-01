@@ -32,6 +32,7 @@ import UIKit
     }
     
     @objc private func setCurrentDirectory() {
+        console.movableTextField?.textField.resignFirstResponder()
         let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
         picker.delegate = self
         present(picker, animated: true, completion: nil)
@@ -103,6 +104,7 @@ import UIKit
     // MARK: Document picker view controller
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        console.movableTextField?.focus()
         _ = urls[0].startAccessingSecurityScopedResource()
         Python.shared.run(code: "import os, sys; path = \"\(urls[0].path.replacingOccurrences(of: "\"", with: "\\\""))\"; os.chdir(path); sys.path.append(path)")
     }
