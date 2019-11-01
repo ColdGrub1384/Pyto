@@ -51,6 +51,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         } else {
             toolbar.barStyle = .default
         }
+        toolbar.isTranslucent = true
         
         inputAssistant.attach(to: textField)
         

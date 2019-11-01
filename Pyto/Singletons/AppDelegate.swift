@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import NotificationCenter
 
 /// The application's delegate.
 @objc public class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -87,6 +88,11 @@ import SafariServices
         } catch {
             print(error.localizedDescription)
         }
+        
+        if let bundleID = Bundle.main.bundleIdentifier?.appending(".Today-Widget"), let dir = FileManager.default.sharedDirectory?.path {
+            let scriptExists = FileManager.default.fileExists(atPath: (dir as NSString).appendingPathComponent("main.py"))
+            NCWidgetController().setHasContent(scriptExists, forWidgetWithBundleIdentifier: bundleID)
+        }
     }
     #endif
     
@@ -95,8 +101,9 @@ import SafariServices
     @objc public var window: UIWindow?
     
     @objc public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-                
+        
         #if MAIN
+        
         unsetenv("TERM")
         unsetenv("LSCOLORS")
         unsetenv("CLICOLOR")
@@ -131,6 +138,13 @@ import SafariServices
             print(error.localizedDescription)
         }
         
+        DispatchQueue.global().async {
+            for folder in FoldersBrowserViewController.accessibleFolders {
+                _ = folder.startAccessingSecurityScopedResource()
+                sleep(UInt32(0.2))
+            }
+        }
+        
         #else
         window = UIWindow()
         window?.backgroundColor = .white
@@ -138,11 +152,12 @@ import SafariServices
         window?.makeKeyAndVisible()
         DispatchQueue.main.asyncAfter(deadline: .now()+1) {
             let console = ConsoleViewController()
+            console.modalPresentationStyle = .fullScreen
             console.modalTransitionStyle = .crossDissolve
             self.window?.rootViewController?.present(console, animated: true, completion: {
                 console.textView.text = ""
                 Python.shared.runningScripts = [AppDelegate.scriptToRun!]
-                PyInputHelper.userInput = "import console as __console__; script = __console__.run_script('\(AppDelegate.scriptToRun!)'); import code; code.interact(banner='', local=vars(script))"
+                PyInputHelper.userInput[""] = "import console as __console__; script = __console__.run_script('\(AppDelegate.scriptToRun!)'); import code; code.interact(banner='', local=vars(script))"
             })
         }
         #endif

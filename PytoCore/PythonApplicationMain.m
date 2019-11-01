@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <PytoCore/PytoCore-Swift.h>
-#import "../Python/Headers/Python.h"
+#import "../Python/Python.h"
 #import "PytoCore.h"
 
 int PythonApplicationMain(NSString * scriptPath, int argc, char * _Nullable * _Nonnull argv) {
@@ -20,7 +20,7 @@ int PythonApplicationMain(NSString * scriptPath, int argc, char * _Nullable * _N
     putenv("PYTHONDONTWRITEBYTECODE=1");
     putenv((char *)[[NSString stringWithFormat:@"TMP=%@", NSTemporaryDirectory()] UTF8String]);
     putenv((char *)[[NSString stringWithFormat:@"PYTHONHOME=%@", bundle.bundlePath] UTF8String]);
-    putenv((char *)[[NSString stringWithFormat:@"PYTHONPATH=%@:%@:%@:%@:%@:%@:%@:%@", [bundle.bundlePath stringByAppendingPathComponent:@"python37.zip"], [bundle.bundlePath stringByAppendingPathComponent:@"site-packages"], [bundle.bundlePath stringByAppendingPathComponent:@"Lib"], bundle.bundlePath, [NSBundle.mainBundle.bundlePath stringByAppendingString:@"site-packages"], [NSBundle.mainBundle.bundlePath stringByAppendingString:@"modules"], [NSBundle.mainBundle.bundlePath stringByAppendingString:@"iCloudDrive"], [NSBundle.mainBundle.bundlePath stringByAppendingString:@"Documents"]] UTF8String]);
+    putenv((char *)[[NSString stringWithFormat:@"PYTHONPATH=%@:%@:%@:%@:%@:%@:%@:%@", [bundle.bundlePath stringByAppendingPathComponent:@"python38.zip"], [bundle.bundlePath stringByAppendingPathComponent:@"site-packages"], [bundle.bundlePath stringByAppendingPathComponent:@"Lib"], bundle.bundlePath, [NSBundle.mainBundle.bundlePath stringByAppendingString:@"site-packages"], [NSBundle.mainBundle.bundlePath stringByAppendingString:@"modules"], [NSBundle.mainBundle.bundlePath stringByAppendingString:@"iCloudDrive"], [NSBundle.mainBundle.bundlePath stringByAppendingString:@"Documents"]] UTF8String]);
     
     // MARK: - Init PIL
     init_pil();

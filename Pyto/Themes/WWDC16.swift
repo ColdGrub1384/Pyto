@@ -25,7 +25,7 @@ struct WWDC16SourceCodeTheme: SourceCodeTheme {
     }
     
     var font: Font {
-        return defaultTheme.font.withSize(CGFloat(ThemeFontSize))
+        return EditorViewController.font.withSize(CGFloat(ThemeFontSize))
     }
     
     let backgroundColor = Color(displayP3Red: 31/255, green: 32/255, blue: 41/255, alpha: 1)
@@ -78,4 +78,6 @@ struct WWDC16Theme: Theme {
     var tintColor: UIColor? {
         return sourceCodeTheme.color(for: .identifier)
     }
+    
+    let name: String? = "WWDC16"
 }

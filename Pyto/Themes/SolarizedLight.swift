@@ -25,7 +25,7 @@ struct SolarizedLightSourceCodeTheme: SourceCodeTheme {
     }
     
     var font: Font {
-        return defaultTheme.font.withSize(CGFloat(ThemeFontSize))
+        return EditorViewController.font.withSize(CGFloat(ThemeFontSize))
     }
     
     let backgroundColor = Color(displayP3Red: 252/255, green: 244/255, blue: 220/255, alpha: 1)
@@ -76,6 +76,8 @@ struct SolarizedLightTheme: Theme {
     }
     
     let sourceCodeTheme: SourceCodeTheme = SolarizedLightSourceCodeTheme()
+    
+    let name: String? = "Solarized Light"
 }
 
 #endif

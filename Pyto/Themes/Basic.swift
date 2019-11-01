@@ -25,7 +25,7 @@ struct BasicSourceCodeTheme: SourceCodeTheme {
     }
     
     var font: Font {
-        return defaultTheme.font.withSize(CGFloat(ThemeFontSize))
+        return EditorViewController.font.withSize(CGFloat(ThemeFontSize))
     }
     
     let backgroundColor = Color.white
@@ -74,4 +74,6 @@ struct BasicTheme: Theme {
     }
     
     let sourceCodeTheme: SourceCodeTheme = BasicSourceCodeTheme()
+    
+    let name: String? = "Basic"
 }

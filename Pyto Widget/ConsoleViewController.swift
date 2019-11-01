@@ -181,11 +181,6 @@ fileprivate var isPythonSetup = false
         
         ConsoleViewController.sharedDirectoryPath = FileManager.default.sharedDirectory?.path
         
-        if let bundleID = Bundle.main.bundleIdentifier, let dir = ConsoleViewController.sharedDirectoryPath {
-            let scriptExists = FileManager.default.fileExists(atPath: (dir as NSString).appendingPathComponent("main.py"))
-            NCWidgetController().setHasContent(scriptExists, forWidgetWithBundleIdentifier: bundleID)
-        }
-        
         if !isPythonSetup {
             setup_python()
             isPythonSetup = true
@@ -220,6 +215,12 @@ fileprivate var isPythonSetup = false
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        exit(0)
+    }
+    
     // MARK: - Widget providing
     
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
@@ -245,14 +246,6 @@ fileprivate var isPythonSetup = false
         }
         
         let main = """
-        __builtins__.iOS = "iOS"
-        __builtins__.macOS = "macOS"
-        __builtins__.__platform__ = __builtins__.iOS
-
-        __builtins__.widget = "widget"
-        __builtins__.app = "app"
-        __builtins__.__host__ = widget
-
         import traceback
 
         try:
@@ -269,6 +262,8 @@ fileprivate var isPythonSetup = false
         except Exception as e:
             ex_type, ex, tb = sys.exc_info()
             traceback.print_tb(tb)
+
+        os.environ["widget"] = "1"
 
         # MARK: - SSL
         
@@ -300,7 +295,7 @@ fileprivate var isPythonSetup = false
             while True:
                 code_to_run = pyto.Python.shared.codeToRun
 
-                if code_to_run == None:
+                if code_to_run is None:
                     sleep(0.2)
                     continue
 
@@ -375,6 +370,11 @@ fileprivate var isPythonSetup = false
             }
         }
         
-        completionHandler(NCUpdateResult.newData)
+        if let bundleID = Bundle.main.bundleIdentifier, let dir = ConsoleViewController.sharedDirectoryPath {
+            let scriptExists = FileManager.default.fileExists(atPath: (dir as NSString).appendingPathComponent("main.py"))
+            NCWidgetController().setHasContent(scriptExists, forWidgetWithBundleIdentifier: bundleID)
+        }
+        
+        completionHandler(NCUpdateResult.noData)
     }
 }

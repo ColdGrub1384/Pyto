@@ -9,13 +9,13 @@ from pyto import __Class__
 from types import ModuleType
 import sys
 
-if UIDevice is not None and float(str(UIDevice.currentDevice.systemVersion)) < 13:
-    raise ImportError("'notification_center' requires iPadOS / iOS 13")
+if UIDevice is not None and float(str(UIDevice.currentDevice.systemVersion).split(".")[0]) < 13:
+    raise ImportError("PytoUI requires iPadOS / iOS 13")
 
 __PyNotificationCenter__ = __Class__("PyNotificationCenter")
 
-class __NotificationCenter__(ModuleType):
 
+class __NotificationCenter__(ModuleType):
     @property
     def expandable(self):
         return __PyNotificationCenter__.canBeExpanded
@@ -35,7 +35,7 @@ class __NotificationCenter__(ModuleType):
 
 expandable = False
 """
-If set to ``True``\ , the widget will be expandable.
+If set to ``True``, the widget will be expandable.
 """
 
 maximum_height = 280

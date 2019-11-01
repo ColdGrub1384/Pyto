@@ -27,7 +27,7 @@ class MenuTableViewController: UITableViewController {
     /// Opens PyPi.
     func selectPyPi() {
         if let pypi = self.storyboard?.instantiateViewController(withIdentifier: "pypi") {
-            present(pypi, animated: true, completion: nil)
+            present(UINavigationController(rootViewController: pypi), animated: true, completion: nil)
         }
     }
     
@@ -45,7 +45,7 @@ class MenuTableViewController: UITableViewController {
                 return
             }
             
-            fileBrowser.dismiss(animated: true) {
+            fileBrowser.presentingViewController?.dismiss(animated: true) {
                 (presentingVC as? DocumentBrowserViewController)?.openDocument(file.filePath, run: false)
             }
         }
@@ -75,7 +75,10 @@ class MenuTableViewController: UITableViewController {
     func selectSettings() {
                 
         if let settings = UIStoryboard(name: "Settings", bundle: nil).instantiateInitialViewController() {
-            present(settings, animated: true, completion: nil)
+            let navVC = UINavigationController(rootViewController: settings)
+            navVC.navigationBar.prefersLargeTitles = true
+            navVC.modalPresentationStyle = .formSheet
+            present(navVC, animated: true, completion: nil)
         }
     }
     
@@ -89,20 +92,20 @@ class MenuTableViewController: UITableViewController {
         }
         
         var image: UIImage?
-        switch indexPath.row {
-        case 0:
+        switch indexPath {
+        case IndexPath(row: 0, section: 0):
             image = UIImage(systemName: "play.fill")
-        case 1:
+        case IndexPath(row: 1, section: 0):
             image = UIImage(systemName: "doc.fill")
-        case 2:
+        case IndexPath(row: 0, section: 1):
             image = UIImage(named: "pypi")
-        case 3:
+        case IndexPath(row: 0, section: 2):
             image = UIImage(systemName: "bookmark.fill")
-        case 4:
+        case IndexPath(row: 1, section: 2):
             image = UIImage(systemName: "book.fill")
-        case 5:
+        case IndexPath(row: 0, section: 3):
             image = UIImage(systemName: "info.circle.fill")
-        case 6:
+        case IndexPath(row: 1, section: 3):
             image = UIImage(systemName: "gear")
         default:
             break
@@ -113,23 +116,49 @@ class MenuTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row {
-        case 0:
+        switch indexPath {
+        case IndexPath(row: 0, section: 0):
             selectREPL()
-        case 2:
+        case IndexPath(row: 0, section: 1):
             selectPyPi()
-        case 3:
+        case IndexPath(row: 0, section: 2):
             selectSamples()
-        case 4:
+        case IndexPath(row: 1, section: 2):
             selectDocumentation()
-        case 5:
+        case IndexPath(row: 0, section: 3):
             selectLoadedModules()
-        case 6:
+        case IndexPath(row: 1, section: 3):
             selectSettings()
         default:
             break
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        
+        var buildDate: Date {
+            if let infoPath = Bundle.main.path(forResource: "Info", ofType: "plist"), let infoAttr = try? FileManager.default.attributesOfItem(atPath: infoPath), let infoDate = infoAttr[.creationDate] as? Date {
+                return infoDate
+            } else {
+                return Date()
+            }
+        }
+        
+        if section == 3, let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, let build = Bundle.main.infoDictionary?[kCFBundleVersionKey as String] as? String {
+            
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            formatter.timeStyle = .short
+            
+            return """
+            \nPyto version \(version) (\(build)) \(formatter.string(from: buildDate))
+            
+            Python \(Python.shared.version)
+            """
+        } else {
+            return super.tableView(tableView, titleForFooterInSection: section)
+        }
     }
 }

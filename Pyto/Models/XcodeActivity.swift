@@ -96,8 +96,6 @@ class XcodeActivity: UIActivity {
                         
                         try Zip.unzipFile(Bundle.main.bundleURL.appendingPathComponent("repo.zip"), destination: destURL, overwrite: true, password: nil)
                         
-                        try FileManager.default.moveItem(at: destURL.appendingPathComponent("Python App.xcodeproj"), to: destURL.appendingPathComponent(title).appendingPathExtension("xcodeproj"))
-                        
                         let mainURL = destURL.appendingPathComponent("Python App").appendingPathComponent("app").appendingPathComponent("main.py")
                         try FileManager.default.removeItem(at: mainURL)
                         try FileManager.default.copyItem(at: self.scriptURL, to: mainURL)
