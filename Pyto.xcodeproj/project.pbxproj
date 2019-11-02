@@ -1561,6 +1561,8 @@
 		C9F8FB4C2302569D004648F4 /* fpader.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8F7722302569B004648F4 /* fpader.o */; };
 		C9F8FB4D2302569D004648F4 /* slacon2.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8F7732302569B004648F4 /* slacon2.o */; };
 		C9F8FB4F23025A76004648F4 /* vode.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8FB4E23025A75004648F4 /* vode.o */; };
+		C9FA4F1B236D32B40048086D /* c_timestamp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9FA4F1A236D32A00048086D /* c_timestamp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9FA4F1C236D32B40048086D /* tzconversion.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9FA4F17236D32A00048086D /* tzconversion.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9FB5BE822025B040085E1AA /* pcf.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9FB5BC022025AFE0085E1AA /* pcf.o */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C9FB5BE922025B040085E1AA /* winfnt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9FB5BC122025AFE0085E1AA /* winfnt.o */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C9FB5BEA22025B040085E1AA /* fttype1.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9FB5BC222025AFE0085E1AA /* fttype1.o */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -1731,6 +1733,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C9FA4F1B236D32B40048086D /* c_timestamp.framework in Embed Frameworks */,
+				C9FA4F1C236D32B40048086D /* tzconversion.framework in Embed Frameworks */,
 				C981698F235E5E8B0062A91F /* python3_ios.framework in Embed Frameworks */,
 				C9017D5B232E853000986E8A /* _aligners.framework in Embed Frameworks */,
 				C9017D5C232E853000986E8A /* _CKDTree.framework in Embed Frameworks */,
@@ -3488,6 +3492,8 @@
 		C9F8F7722302569B004648F4 /* fpader.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = fpader.o; sourceTree = "<group>"; };
 		C9F8F7732302569B004648F4 /* slacon2.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = slacon2.o; sourceTree = "<group>"; };
 		C9F8FB4E23025A75004648F4 /* vode.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = vode.o; path = SciPy/vode.o; sourceTree = SOURCE_ROOT; };
+		C9FA4F17236D32A00048086D /* tzconversion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = tzconversion.framework; sourceTree = "<group>"; };
+		C9FA4F1A236D32A00048086D /* c_timestamp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = c_timestamp.framework; sourceTree = "<group>"; };
 		C9FB5B9C2202590D0085E1AA /* pngget.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pngget.c; sourceTree = "<group>"; };
 		C9FB5B9D2202590D0085E1AA /* pnginfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pnginfo.h; sourceTree = "<group>"; };
 		C9FB5B9E2202590D0085E1AA /* pngrtran.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pngrtran.c; sourceTree = "<group>"; };
@@ -5275,6 +5281,8 @@
 		C96C6FE222198F7B0056EA64 /* Pandas */ = {
 			isa = PBXGroup;
 			children = (
+				C9FA4F1A236D32A00048086D /* c_timestamp.framework */,
+				C9FA4F17236D32A00048086D /* tzconversion.framework */,
 				C95EE9B6232740B20084EA0C /* _move.framework */,
 				C95EE9BA232740B70084EA0C /* _packer.framework */,
 				C95EE9A3232740980084EA0C /* _sas.framework */,
@@ -7693,7 +7701,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.1.1;
+				MARKETING_VERSION = 11.1.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -7754,7 +7762,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.1.1;
+				MARKETING_VERSION = 11.1.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -7905,7 +7913,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.1.1;
+				MARKETING_VERSION = 11.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Intents";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -7928,7 +7936,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.1.1;
+				MARKETING_VERSION = 11.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Intents";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -8211,7 +8219,7 @@
 					"$(PROJECT_DIR)/PyNacl",
 					"$(PROJECT_DIR)/SciPy",
 				);
-				MARKETING_VERSION = 11.1.1;
+				MARKETING_VERSION = 11.1.2;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
@@ -8322,7 +8330,7 @@
 					"$(PROJECT_DIR)/PyNacl",
 					"$(PROJECT_DIR)/SciPy",
 				);
-				MARKETING_VERSION = 11.1.1;
+				MARKETING_VERSION = 11.1.2;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
