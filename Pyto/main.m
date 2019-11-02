@@ -183,6 +183,8 @@ void init_pandas(){
     [name addObject:@"strptime"];           [key addObject:@"__pandas__libs_tslibs_strptime"];
     [name addObject:@"parsing"];            [key addObject:@"__pandas__libs_tslibs_parsing"];
     [name addObject:@"timestamps"];         [key addObject:@"__pandas__libs_tslibs_timestamps"];
+    [name addObject:@"c_timestamp"];        [key addObject:@"__pandas__libs_tslibs_c_timestamp"];
+    [name addObject:@"tzconversion"];       [key addObject:@"__pandas__libs_tslibs_tzconversion"];
     [name addObject:@"tslib"];              [key addObject:@"__pandas__libs_tslib"];
     [name addObject:@"index"];              [key addObject:@"__pandas__libs_index"];
     [name addObject:@"algos"];              [key addObject:@"__pandas__libs_algos"];
