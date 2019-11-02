@@ -108,8 +108,8 @@ class FilePicker:
 
     def __objcFilePicker__(self):
         filePicker = pyto.FilePicker.new()
-        filePicker.fileTypes = self.fileTypes
-        filePicker.allowsMultipleSelection = self.allowsMultipleSelection
+        filePicker.fileTypes = self.file_types
+        filePicker.allowsMultipleSelection = self.allows_multiple_selection
         filePicker.completion = self.completion
 
         return filePicker
