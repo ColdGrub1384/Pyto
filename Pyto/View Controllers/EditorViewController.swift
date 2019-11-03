@@ -85,6 +85,18 @@ fileprivate func parseArgs(_ args: inout [String]) {
 /// The View controller used to edit source code.
 @objc class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssistantViewDelegate, InputAssistantViewDataSource, UITextViewDelegate, UISearchBarDelegate, UIDocumentPickerDelegate {
     
+    /// Parses a string into a list of arguments.
+    ///
+    /// - Parameters:
+    ///     - arguments: String of arguments.
+    ///
+    /// - Returns: A list of arguments to send to a program.
+    @objc static func parseArguments(_ arguments: String) -> [String] {
+        var arguments_ = arguments.components(separatedBy: " ")
+        parseArgs(&arguments_)
+        return arguments_
+    }
+    
     /// Returns string used for indentation
     static var indentation: String {
         get {

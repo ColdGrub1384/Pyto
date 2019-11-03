@@ -6,6 +6,7 @@ import importlib
 import os
 import sys
 import traceback
+import pyto
 
 if len(sys.argv) == 1:
     usage = "Usage: <module-name> [<args>]"
@@ -14,7 +15,9 @@ if len(sys.argv) == 1:
 def main():
     command = sys.argv[1:]
     if len(command) == 0:
-        command = input("python -m ").split()
+        command = []
+        for arg in list(pyto.EditorViewController.parseArguments(input("python -m "))):
+            command.append(str(arg))
     if len(command) == 0:
         print(usage)
         return
