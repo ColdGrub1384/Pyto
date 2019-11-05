@@ -438,6 +438,7 @@
 		C9BF46EA22E108C100B8FE4B /* PyTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF46E922E108C100B8FE4B /* PyTableViewSection.swift */; };
 		C9BF46EB22E108C100B8FE4B /* PyTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF46E922E108C100B8FE4B /* PyTableViewSection.swift */; };
 		C9BF4E89236B3281001D1883 /* libf2c.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BF4E88236B3281001D1883 /* libf2c.a */; };
+		C9C045B22370F1B5005770E7 /* _gradient_boosting.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C045B12370F1A7005770E7 /* _gradient_boosting.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9C0E77221EE9F4B0057C63E /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E77121EE9F4B0057C63E /* Theme.swift */; };
 		C9C0E77821EEA9BE0057C63E /* XcodeDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E77721EEA9BE0057C63E /* XcodeDark.swift */; };
 		C9C0E77A21EF65BE0057C63E /* ThemableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0E77921EF65BE0057C63E /* ThemableNavigationController.swift */; };
@@ -523,7 +524,6 @@
 		C9EFD4E52370C7CD0000E330 /* _dist_metrics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9EFD4C42370C7B30000E330 /* _dist_metrics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9EFD4E62370C7CD0000E330 /* _expected_mutual_info_fast.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9EFD4CB2370C7B30000E330 /* _expected_mutual_info_fast.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9EFD4E72370C7CD0000E330 /* _fast_dict.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9EFD4B02370C7AE0000E330 /* _fast_dict.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9EFD4E82370C7CD0000E330 /* _gradient_boosting.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9EFD4D92370C7B50000E330 /* _gradient_boosting.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9EFD4E92370C7CD0000E330 /* _hashing_fast.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9EFD4D72370C7B50000E330 /* _hashing_fast.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9EFD4EA2370C7CD0000E330 /* _hierarchical_fast.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9EFD4CF2370C7B40000E330 /* _hierarchical_fast.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9EFD4EB2370C7CD0000E330 /* _hist_gradient_boosting.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9EFD4CD2370C7B40000E330 /* _hist_gradient_boosting.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1735,6 +1735,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C9C045B22370F1B5005770E7 /* _gradient_boosting.framework in Embed Frameworks */,
 				C9EFD4DB2370C7CD0000E330 /* _ball_tree.framework in Embed Frameworks */,
 				C9EFD4DC2370C7CD0000E330 /* _barnes_hut_tsne.framework in Embed Frameworks */,
 				C9EFD4DD2370C7CD0000E330 /* _binning.framework in Embed Frameworks */,
@@ -1748,7 +1749,6 @@
 				C9EFD4E52370C7CD0000E330 /* _dist_metrics.framework in Embed Frameworks */,
 				C9EFD4E62370C7CD0000E330 /* _expected_mutual_info_fast.framework in Embed Frameworks */,
 				C9EFD4E72370C7CD0000E330 /* _fast_dict.framework in Embed Frameworks */,
-				C9EFD4E82370C7CD0000E330 /* _gradient_boosting.framework in Embed Frameworks */,
 				C9EFD4E92370C7CD0000E330 /* _hashing_fast.framework in Embed Frameworks */,
 				C9EFD4EA2370C7CD0000E330 /* _hierarchical_fast.framework in Embed Frameworks */,
 				C9EFD4EB2370C7CD0000E330 /* _hist_gradient_boosting.framework in Embed Frameworks */,
@@ -2408,6 +2408,7 @@
 		C9BF46E622E106D500B8FE4B /* PyTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyTableView.swift; sourceTree = "<group>"; };
 		C9BF46E922E108C100B8FE4B /* PyTableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyTableViewSection.swift; sourceTree = "<group>"; };
 		C9BF4E88236B3281001D1883 /* libf2c.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libf2c.a; sourceTree = "<group>"; };
+		C9C045B12370F1A7005770E7 /* _gradient_boosting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _gradient_boosting.framework; sourceTree = "<group>"; };
 		C9C0E77121EE9F4B0057C63E /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		C9C0E77721EEA9BE0057C63E /* XcodeDark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeDark.swift; sourceTree = "<group>"; };
 		C9C0E77921EF65BE0057C63E /* ThemableNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemableNavigationController.swift; sourceTree = "<group>"; };
@@ -2517,7 +2518,6 @@
 		C9EFD4D62370C7B50000E330 /* _weight_vector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _weight_vector.framework; sourceTree = "<group>"; };
 		C9EFD4D72370C7B50000E330 /* _hashing_fast.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _hashing_fast.framework; sourceTree = "<group>"; };
 		C9EFD4D82370C7B50000E330 /* _quad_tree.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _quad_tree.framework; sourceTree = "<group>"; };
-		C9EFD4D92370C7B50000E330 /* _gradient_boosting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _gradient_boosting.framework; sourceTree = "<group>"; };
 		C9EFD4DA2370C7B50000E330 /* murmurhash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = murmurhash.framework; sourceTree = "<group>"; };
 		C9F04E842173C33400BDD03E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C9F04E892173DD7300BDD03E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -5382,6 +5382,7 @@
 		C982A6E722F8D83600E999AA /* SkLearn */ = {
 			isa = PBXGroup;
 			children = (
+				C9C045B12370F1A7005770E7 /* _gradient_boosting.framework */,
 				C9EFD4C92370C7B30000E330 /* _ball_tree.framework */,
 				C9EFD4B92370C7AF0000E330 /* _barnes_hut_tsne.framework */,
 				C9EFD4B42370C7AE0000E330 /* _binning.framework */,
@@ -5395,7 +5396,6 @@
 				C9EFD4C42370C7B30000E330 /* _dist_metrics.framework */,
 				C9EFD4CB2370C7B30000E330 /* _expected_mutual_info_fast.framework */,
 				C9EFD4B02370C7AE0000E330 /* _fast_dict.framework */,
-				C9EFD4D92370C7B50000E330 /* _gradient_boosting.framework */,
 				C9EFD4D72370C7B50000E330 /* _hashing_fast.framework */,
 				C9EFD4CF2370C7B40000E330 /* _hierarchical_fast.framework */,
 				C9EFD4CD2370C7B40000E330 /* _hist_gradient_boosting.framework */,
