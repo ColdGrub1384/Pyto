@@ -108,7 +108,7 @@ extern "C" {
 #define EXEC_PREFIX "/usr/local"
 #define VERSION "3.8"
 #define VPATH "/usr/local"
-#define PYTHONPATH "~/Documents/modules"
+#define PYTHONPATH "~/Documents/site-packages"
 
 #if !defined(PREFIX) || !defined(EXEC_PREFIX) || !defined(VERSION) || !defined(VPATH)
 #error "PREFIX, EXEC_PREFIX, VERSION, and VPATH must be constant defined"

@@ -84,7 +84,7 @@ import NotificationCenter
                 try FileManager.default.removeItem(at: sharedModulesDir)
             }
             
-            try FileManager.default.copyItem(at: DocumentBrowserViewController.localContainerURL.appendingPathComponent("modules"), to: sharedModulesDir)
+            try FileManager.default.copyItem(at: DocumentBrowserViewController.localContainerURL.appendingPathComponent("site-packages"), to: sharedModulesDir)
         } catch {
             print(error.localizedDescription)
         }
@@ -125,7 +125,15 @@ import NotificationCenter
         let iCloudDriveContainer = DocumentBrowserViewController.iCloudContainerURL
         
         do {
-            let modulesURL = docs.appendingPathComponent("modules")
+            let modulesURL = docs.appendingPathComponent("site-packages")
+            let oldModulesURL = docs.appendingPathComponent("modules")
+            
+            if !UserDefaults.standard.bool(forKey: "movedSitePackages") && FileManager.default.fileExists(atPath: oldModulesURL.path) {
+                try? FileManager.default.moveItem(at: oldModulesURL, to: modulesURL)
+            }
+            
+            UserDefaults.standard.set(true, forKey: "movedSitePackages")
+            
             if !FileManager.default.fileExists(atPath: modulesURL.path) {
                 try FileManager.default.createDirectory(at: modulesURL, withIntermediateDirectories: false, attributes: nil)
             }
