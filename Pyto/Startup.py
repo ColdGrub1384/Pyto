@@ -2,7 +2,7 @@ import sys
 import os
 
 sys.path.insert(-1, os.path.expanduser("~/Documents"))
-sys.path.insert(-1, os.path.expanduser("~/Documents/modules"))
+sys.path.insert(-1, os.path.expanduser("~/Documents/site-packages"))
 
 import io
 import console

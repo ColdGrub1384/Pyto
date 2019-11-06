@@ -110,7 +110,7 @@ class XcodeActivity: UIActivity {
                             (url: DocumentBrowserViewController.localContainerURL,
                              destination: destURL.appendingPathComponent("Python App").appendingPathComponent("Documents")),
                             
-                            (url: DocumentBrowserViewController.localContainerURL.appendingPathComponent("modules"),
+                            (url: DocumentBrowserViewController.localContainerURL.appendingPathComponent("site-packages"),
                              destination: destURL.appendingPathComponent("Python App").appendingPathComponent("modules"))
                         ]
                         
