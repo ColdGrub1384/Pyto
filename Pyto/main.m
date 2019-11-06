@@ -114,8 +114,6 @@ void init_numpy() {
 void init_matplotlib() {
     NSURL *mpl_data = [[NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask].firstObject URLByAppendingPathComponent:@"mpl-data"];
     
-    [NSFileManager.defaultManager removeItemAtPath:mpl_data.path error:NULL];
-    
     if (![NSFileManager.defaultManager fileExistsAtPath:mpl_data.path]) {
         [NSFileManager.defaultManager createDirectoryAtPath:mpl_data.path withIntermediateDirectories:NO attributes:NULL error:NULL];
     }
