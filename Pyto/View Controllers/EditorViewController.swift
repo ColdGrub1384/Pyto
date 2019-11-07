@@ -397,14 +397,27 @@ fileprivate func parseArgs(_ args: inout [String]) {
         space.width = 10
         
         parent?.navigationController?.isToolbarHidden = false
-        parent?.toolbarItems = [
-            shareItem,
-            moreItem,
-            space,
-            docItem,
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            runtimeItem
-        ]
+        
+        if #available(iOS 13.0, *), !FileManager.default.isReadableFile(atPath: currentDirectory.path) {
+            parent?.toolbarItems = [
+                shareItem,
+                moreItem,
+                space,
+                docItem,
+                UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+                UIBarButtonItem(image: UIImage(systemName: "lock.fill"), style: .plain, target: self, action: #selector(setCwd(_:))),
+                runtimeItem
+            ]
+        } else {
+            parent?.toolbarItems = [
+                shareItem,
+                moreItem,
+                space,
+                docItem,
+                UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+                runtimeItem
+            ]
+        }
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -828,6 +841,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     // MARK: - Actions
     
+    /// Shows scripts to run with this script as argument.
     @objc func showEditorScripts(_ sender: UIBarButtonItem) {
         
         class NavigationController: UINavigationController {
@@ -1905,10 +1919,26 @@ fileprivate func parseArgs(_ args: inout [String]) {
     // MARK: - Document picker delegate
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        _ = urls.first?.startAccessingSecurityScopedResource()
+        let success = urls.first?.startAccessingSecurityScopedResource()
         currentDirectory = urls.first ?? currentDirectory
         if !FoldersBrowserViewController.accessibleFolders.contains(currentDirectory.resolvingSymlinksInPath()) {
             FoldersBrowserViewController.accessibleFolders.append(currentDirectory.resolvingSymlinksInPath())
+        }
+        
+        let moreItem = UIBarButtonItem(image: EditorSplitViewController.threeDotsImage, style: .plain, target: self, action: #selector(showEditorScripts(_:)))
+        let runtimeItem = UIBarButtonItem(image: EditorSplitViewController.gearImage, style: .plain, target: self, action: #selector(showRuntimeSettings(_:)))
+        let space = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        space.width = 10
+        
+        if success == true {
+            parent?.toolbarItems = [
+                shareItem,
+                moreItem,
+                space,
+                docItem,
+                UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+                runtimeItem
+            ]
         }
     }
 }
