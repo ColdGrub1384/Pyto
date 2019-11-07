@@ -89,7 +89,7 @@ import WebKit
     
     /// Returns `true` if the currently viewed package is installed.
     var isPackageInstalled: Bool {
-        let index = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("modules/.pypi_packages")
+        let index = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("site-packages/.pypi_packages")
         if let str = (try? String(contentsOf: index)) {
             for line in str.components(separatedBy: .newlines) {
                 if line.hasPrefix("["), let packageName = line.slice(from: "[", to: "]"), currentPackage == packageName {
