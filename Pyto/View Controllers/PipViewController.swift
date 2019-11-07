@@ -64,7 +64,7 @@ import WebKit
     
     /// Installs package.
     @objc func install() {
-        run(command: "install \(currentPackage ?? "")")
+        run(command: "install \(currentPackage ?? "")\(version == nil ? "" : "==\(version!)")")
     }
     
     /// Removes package.
@@ -75,10 +75,16 @@ import WebKit
     /// Bundled modules.
     @objc static var bundled = [String]()
     
+    /// The selected package version.
+    var version: String?
+    
     /// Returns the currently viewing package.
     var currentPackage: String? {
         get {
             if let url = webView.url, let projectIndex = url.pathComponents.firstIndex(of: "project"), url.host == "pypi.org" {
+                if url.pathComponents.indices.contains(projectIndex+2) {
+                    version = url.pathComponents[projectIndex+2]
+                }
                 if url.pathComponents.indices.contains(projectIndex+1) {
                     return url.pathComponents[projectIndex+1]
                 }
