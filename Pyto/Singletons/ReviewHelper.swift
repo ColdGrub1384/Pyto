@@ -17,10 +17,10 @@ import StoreKit
         if minLaunches == nil {
             minLaunches = 0
         } else if (minLaunches as! Int) == 0 {
-            minLaunches = 3
-        } else if launches == 3 {
-            minLaunches = 5
-        } else if launches >= 5 {
+            minLaunches = 6
+        } else if launches == 6 {
+            minLaunches = 10
+        } else if launches >= 10 {
             minLaunches = 0
         }
         
