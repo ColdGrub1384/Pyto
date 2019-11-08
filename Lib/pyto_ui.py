@@ -992,7 +992,7 @@ class Color:
         """
 
         return float(self.__py_color__.blue)
-        
+
     def alpha(self) -> float:
         """
         Returns the alpha value of the color.
