@@ -476,8 +476,8 @@ void init_sklearn() {
     [name addObject:@"_svmlight_format_fast"];      [key addObject:@"__sklearn_datasets__svmlight_format_fast"];
     [name addObject:@"_tree"];                      [key addObject:@"__sklearn_tree__tree"];
     [name addObject:@"_typedefs"];                  [key addObject:@"__sklearn_neighbors__typedefs"];
-    [name addObject:@"_utils"];                     [key addObject:@"__sklearn_tree__utils"];
-    [name addObject:@"_utils"];                     [key addObject:@"__sklearn_manifold__utils"];
+    [name addObject:@"tree_utils"];                 [key addObject:@"__sklearn_tree__utils"];
+    [name addObject:@"manifold_utils"];             [key addObject:@"__sklearn_manifold__utils"];
     [name addObject:@"_weight_vector"];             [key addObject:@"__sklearn_utils__weight_vector"];
     [name addObject:@"arrayfuncs"];                 [key addObject:@"__sklearn_utils_arrayfuncs"];
     [name addObject:@"common"];                     [key addObject:@"__sklearn_ensemble__hist_gradient_boosting_common"];
