@@ -45,6 +45,15 @@ import UIKit
         }
     }
     
+    /// Returns the alpha value.
+    @objc public var alpha: Double {
+        return get {
+            var a: CGFloat = 0
+            self.color.getRed(nil, green: nil, blue: nil, alpha: &a)
+            return Double(a)
+        }
+    }
+    
     /// Initializes a new color with given values.
     ///
     /// - Parameters:

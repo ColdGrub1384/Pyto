@@ -966,32 +966,41 @@ class Color:
 
     __py_color__ = None
 
-    def red(self) -> Color:
+    def red(self) -> float:
         """
         Returns the red value of the color.
 
-        :rtype: Color
+        :rtype: float
         """
 
-        return self.__class__(self.__py_color__.red)
+        return float(self.__py_color__.red)
 
-    def green(self) -> Color:
+    def green(self) -> float:
         """
         Returns the green value of the color.
 
-        :rtype: Color
+        :rtype: float
         """
 
-        return self.__class__(self.__py_color__.green)
+        return float(self.__py_color__.green)
 
-    def blue(self) -> Color:
+    def blue(self) -> float:
         """
         Returns the blue value of the color.
 
-        :rtype: Color
+        :rtype: float
         """
 
-        return self.__class__(self.__py_color__.blue)
+        return float(self.__py_color__.blue)
+        
+    def alpha(self) -> float:
+        """
+        Returns the alpha value of the color.
+
+        :rtype: float
+        """
+
+        return float(self.__py_color__.alpha)
 
     def __init__(self, py_color):
         self.__py_color__ = py_color
