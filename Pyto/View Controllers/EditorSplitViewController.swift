@@ -56,10 +56,18 @@ class EditorSplitViewController: SplitViewController {
             path.addLine(to: CGPoint(x: 11, y: 17))
             path.addLine(to: CGPoint(x: 22, y: 7))
             
-            if ConsoleViewController.choosenTheme.keyboardAppearance == .dark {
-                UIColor.white.setStroke()
+            if #available(iOS 13.0, *) {
+                if UITraitCollection.current.userInterfaceStyle == .dark {
+                    UIColor.white.setStroke()
+                } else {
+                    UIColor.black.setStroke()
+                }
             } else {
-                UIColor.black.setStroke()
+                if ConsoleViewController.choosenTheme.keyboardAppearance == .dark {
+                    UIColor.white.setStroke()
+                } else {
+                    UIColor.black.setStroke()
+                }
             }
             path.lineWidth = 2
             path.stroke()
