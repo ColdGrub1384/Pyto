@@ -394,10 +394,10 @@ import UIKit
         override func viewDidLoad() {
             super.viewDidLoad()
             
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(notification:)), name: UIResponder.keyboardDidShowNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(notification:)), name: UIResponder.keyboardDidHideNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
             
             edgesForExtendedLayout = []
         }
@@ -422,17 +422,22 @@ import UIKit
             }
         }
         
-        @objc func keyboardWillShow(notification: NSNotification) {
+        @objc func keyboardDidShow(notification: NSNotification) {
             guard let userInfo = notification.userInfo else { return }
             
             guard let r = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+            
+            guard r.origin.y > 0 else {
+                view.subviews.first?.frame = view.safeAreaLayoutGuide.layoutFrame
+                return
+            }
             
             let point = (view.window)?.convert(r.origin, to: view) ?? r.origin
             
             view.subviews.first?.frame.size.height = point.y
         }
         
-        @objc func keyboardWillHide(notification: NSNotification) {
+        @objc func keyboardDidHide(notification: NSNotification) {
             view.subviews.first?.frame = view.safeAreaLayoutGuide.layoutFrame
         }
     }
