@@ -7,56 +7,65 @@
 //
 
 import UIKit
-import WebKit
+import SafariServices
 
-/// A View controller for accessing PyPi.
-@objc class PipViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
+/// A View controller for installing PyPi packages.
+@objc class PipViewController: UITableViewController, UISearchBarDelegate, UISearchControllerDelegate {
     
-    /// The Web view displaying PyPi.
-    @IBOutlet weak var webView: WKWebView!
-    
-    /// The button for going back.
-    @IBOutlet weak var goBackButton: UIBarButtonItem!
-    
-    /// The button for going forward.
-    @IBOutlet weak var goForwardButton: UIBarButtonItem!
-
-    /// Goes back.
-    @IBAction func goBack(_ sender: Any) {
-        webView.goBack()
-    }
-    
-    /// Goes forward.
-    @IBAction func goForward(_ sender: Any) {
-        webView.goForward()
-    }
-    
-    /// Reloads page.
-    @IBAction func reload(_ sender: Any) {
-        if webView.url != nil {
-            webView.reload()
-        } else {
-            webView.load(URLRequest(url: URL(string: "https://pypi.org")!))
+    private class VersionSelectorTableViewController: UITableViewController {
+        
+        var versions = [String]() {
+            didSet {
+                tableView.reloadData()
+            }
+        }
+        
+        var origin: PipViewController?
+        
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            
+            title = "Select a version"
+            versions = origin?.currentPackage?.versions ?? []
+            navigationItem.largeTitleDisplayMode = .never
+        }
+        
+        override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return versions.count
+        }
+        
+        override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+            cell.textLabel?.text = versions[indexPath.row]
+            
+            if versions[indexPath.row].rangeOfCharacter(from: CharacterSet.letters) == nil {
+                if #available(iOS 13.0, *) {
+                    cell.textLabel?.textColor = .label
+                } else {
+                    cell.textLabel?.textColor = .white
+                }
+            } else {
+                cell.textLabel?.textColor = .systemOrange
+            }
+            
+            if versions[indexPath.row] == origin?.version {
+                cell.accessoryType = .checkmark
+            } else {
+                cell.accessoryType = .none
+            }
+            
+            return cell
+        }
+        
+        override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            origin?.version = versions[indexPath.row]
+            navigationController?.popViewController(animated: true)
         }
     }
     
-    /// Dismisses this View controller.
-    @IBAction func close(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    /// Progress view.
-    @IBOutlet weak var progressView: UIProgressView!
-    
-    /// Button for installing or removing package.
-    var installButton: UIBarButtonItem!
-    
-    /// Button for removing or removing package.
-    var removeButton: UIBarButtonItem!
-    
     private func run(command: String) {
         let installer = PipInstallerViewController(command: command)
-        installer.webView = webView
+        installer.viewer = self
         let navVC = ThemableNavigationController(rootViewController: installer)
         navVC.modalPresentationStyle = .formSheet
         present(navVC, animated: true, completion: nil)
@@ -64,32 +73,40 @@ import WebKit
     
     /// Installs package.
     @objc func install() {
-        run(command: "install \(currentPackage ?? "")\(version == nil ? "" : "==\(version!)")")
+        run(command: "install \(currentPackage?.name ?? "")\(version == nil ? "" : "==\(version!)")")
     }
     
     /// Removes package.
     @objc func remove() {
-        run(command: "uninstall \(currentPackage ?? "")")
+        run(command: "uninstall \(currentPackage?.name ?? "")")
     }
     
     /// Bundled modules.
     @objc static var bundled = [String]()
     
     /// The selected package version.
-    var version: String?
+    var version: String? {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
     
     /// Returns the currently viewing package.
-    var currentPackage: String? {
-        get {
-            if let url = webView.url, let projectIndex = url.pathComponents.firstIndex(of: "project"), url.host == "pypi.org" {
-                if url.pathComponents.indices.contains(projectIndex+2) {
-                    version = url.pathComponents[projectIndex+2]
-                }
-                if url.pathComponents.indices.contains(projectIndex+1) {
-                    return url.pathComponents[projectIndex+1]
-                }
+    var currentPackage: PyPackage? {
+        didSet {
+            version = currentPackage?.stableVersion
+            DispatchQueue.main.async {
+                (self.tableView.tableHeaderView as? UILabel)?.text = self.currentPackage?.description
+                (self.tableView.tableHeaderView as? UILabel)?.sizeToFit()
+                (self.tableView.tableHeaderView as? UILabel)?.text = self.currentPackage?.description
+                self.tableView.tableHeaderView?.frame.size.height += 80
+                self.tableView.reloadData()
+                
+                self.tableView.tableFooterView?.isHidden = self.currentPackage != nil
+                (self.tableView.tableFooterView as? UILabel)?.text = "Package not found."
             }
-            return nil
         }
     }
     
@@ -98,7 +115,7 @@ import WebKit
         let index = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("site-packages/.pypi_packages")
         if let str = (try? String(contentsOf: index)) {
             for line in str.components(separatedBy: .newlines) {
-                if line.hasPrefix("["), let packageName = line.slice(from: "[", to: "]"), currentPackage == packageName {
+                if line.hasPrefix("["), let packageName = line.slice(from: "[", to: "]"), currentPackage?.name?.lowercased() == packageName.lowercased() {
                     return true
                 }
             }
@@ -106,87 +123,273 @@ import WebKit
         return false
     }
     
-    // MARK: - View controller
-    
-    deinit {
-        webView.removeObserver(self, forKeyPath: "estimatedProgress")
+    /// Closes this View controller.
+    @IBAction func close(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
+    
+    private var _originalTitle: String?
+    
+    // MARK: - Table view controller
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        installButton = UIBarButtonItem(title: Localizable.install, style: .plain, target: self, action: #selector(install))
-        removeButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(remove))
+        _originalTitle = title
         
-        webView.navigationDelegate = self
-        webView.uiDelegate = self
-        webView.load(URLRequest(url: URL(string: "https://pypi.org")!))
-        webView.addObserver(self,
-                            forKeyPath: #keyPath(WKWebView.estimatedProgress),
-                            options: .new,
-                            context: nil)
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.delegate = self
+        searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "Python package"
+        searchController.searchBar.autocorrectionType = .no
+        searchController.searchBar.autocapitalizationType = .none
+        searchController.hidesNavigationBarDuringPresentation = false
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        
+        definesPresentationContext = true
+        
+        navigationItem.largeTitleDisplayMode = .always
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if #available(iOS 13.0, *) {
-            view.window?.windowScene?.title = title
+        if currentPackage == nil {
+            navigationItem.searchController?.isActive = true
         }
     }
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == "estimatedProgress" {
-            progressView.setProgress(Float(webView.estimatedProgress), animated: true)
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        if currentPackage != nil {
+            return 5
+        } else {
+            return 0
         }
     }
     
-    // MARK: - Navigation delegate
-    
-    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        progressView.isHidden = false
-    }
-    
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        goBackButton.isEnabled = webView.canGoBack
-        goForwardButton.isEnabled = webView.canGoForward
-        progressView.isHidden = true
-        progressView.progress = 0
-        
-        if let package = currentPackage, !PipViewController.bundled.contains(package) {
-            if isPackageInstalled {
-                navigationItem.rightBarButtonItem = removeButton
-            } else {
-                installButton.isEnabled = true
-                navigationItem.rightBarButtonItem = installButton
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0: // Version
+            return 1
+        case 1: // Requirements
+            return currentPackage?.requirements.count ?? 0
+        case 2: // Install
+            return 1
+        case 3: // Project
+            
+            var count = 0
+            
+            if currentPackage?.author?.isEmpty == false {
+                count += 1
             }
-        } else {
-            navigationItem.rightBarButtonItem = installButton
-            installButton.isEnabled = false
+            
+            if currentPackage?.maintainer?.isEmpty == false {
+                count += 1
+            }
+            
+            return count
+        case 4: // Links
+            return currentPackage?.links.count ?? 0
+        default:
+            return 0
         }
     }
     
-    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        progressView.isHidden = true
-        progressView.progress = 0
-        navigationItem.rightBarButtonItem = installButton
-        installButton.isEnabled = false
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        webView.loadHTMLString("""
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <h1>Error loading page</h1>
-        <p>\(error.localizedDescription)</p>
-        """, baseURL: nil)
+        guard let package = currentPackage else {
+            return nil
+        }
+        
+        switch section {
+        case 0: // Version
+            return nil
+        case 1: // Requirements
+            if package.requirements.count > 0 {
+                return "Requirements"
+            } else {
+                return nil
+            }
+        case 2: // Install
+            return nil
+        case 3: // Project
+            if package.author?.isEmpty == false || package.maintainer?.isEmpty == false {
+                return "Project"
+            } else {
+                return nil
+            }
+        case 4: // Links
+            if package.links.count > 0 {
+                return "Links"
+            } else {
+                return nil
+            }
+        default:
+            return nil
+        }
     }
     
-    // MARK: - UI Delegate
-    
-    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        if !navigationResponse.canShowMIMEType, let url = navigationResponse.response.url {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            return decisionHandler(.cancel)
-        } else {
-            return decisionHandler(.allow)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        var infoCell: UITableViewCell {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "info") ?? UITableViewCell()
+            if #available(iOS 13.0, *) {
+                cell.detailTextLabel?.textColor = .secondaryLabel
+            } else {
+                cell.detailTextLabel?.textColor = .gray
+            }
+            cell.accessoryType = .none
+            cell.detailTextLabel?.text = ""
+            cell.textLabel?.text = ""
+            cell.imageView?.image = nil
+            cell.contentView.tintColor = nil
+            return cell
         }
+        
+        switch indexPath.section {
+        case 0: // Version
+            let cell = infoCell
+            cell.textLabel?.text = "Version"
+            cell.detailTextLabel?.text = version ?? "UKNOWN"
+            cell.accessoryType = .disclosureIndicator
+            return cell
+        case 1: // Requirements
+            let cell = infoCell
+            cell.textLabel?.text = currentPackage?.requirements[indexPath.row]
+            cell.accessoryType = .disclosureIndicator
+            return cell
+        case 2: // Install
+            let cell = tableView.dequeueReusableCell(withIdentifier: "install") ?? UITableViewCell()
+            
+            if isPackageInstalled {
+                cell.contentView.tintColor = .systemRed
+                (cell.viewWithTag(1) as? UIButton)?.setTitle("Remove \(currentPackage?.name ?? "package")", for: .normal)
+                if #available(iOS 13.0, *) {
+                    cell.imageView?.image = UIImage(systemName: "trash")
+                }
+            } else if let name = currentPackage?.name, PipViewController.bundled.contains(name) {
+                (cell.viewWithTag(1) as? UIButton)?.setTitle("Provided by Pyto", for: .normal)
+                if #available(iOS 13.0, *) {
+                    cell.contentView.tintColor = .secondaryLabel
+                } else {
+                    cell.contentView.tintColor = .gray
+                }
+            } else {
+                cell.contentView.tintColor = nil
+                (cell.viewWithTag(1) as? UIButton)?.setTitle("Install \(currentPackage?.name ?? "package") \(version ?? "")", for: .normal)
+                if #available(iOS 13.0, *) {
+                    cell.imageView?.image = UIImage(systemName: "icloud.and.arrow.down")
+                }
+            }
+            
+            return cell
+        case 3: // Project
+            if indexPath.row == 0 { // Author
+                if let author = currentPackage?.author {
+                    let cell = infoCell
+                    cell.textLabel?.text = "Author"
+                    cell.detailTextLabel?.text = author
+                    return cell
+                } else if let maintainer = currentPackage?.maintainer {
+                    let cell = infoCell
+                    cell.textLabel?.text = "Maintainer"
+                    cell.detailTextLabel?.text = maintainer
+                    return cell
+                } else {
+                    return UITableViewCell()
+                }
+            } else if indexPath.row == 1 { // Maintainer
+                let cell = infoCell
+                cell.textLabel?.text = "Maintainer"
+                cell.detailTextLabel?.text = currentPackage?.maintainer ?? "UKNOWN"
+                return cell
+            } else {
+                return UITableViewCell()
+            }
+        case 4: // Links
+            let cell = tableView.dequeueReusableCell(withIdentifier: "link") ?? UITableViewCell()
+            (cell.contentView.viewWithTag(1) as? UIButton)?.setTitle(currentPackage?.links[indexPath.row].title, for: .normal)
+            cell.accessoryType = .disclosureIndicator
+            if #available(iOS 13.0, *) {
+                cell.imageView?.image = UIImage(systemName: "safari")
+            }
+            return cell
+        default:
+            return UITableViewCell()
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        switch indexPath.section {
+        case 0: // Version
+            let picker = VersionSelectorTableViewController()
+            picker.origin = self
+            navigationController?.pushViewController(picker, animated: true)
+        case 1: // Requirement
+            
+            guard let requirements = currentPackage?.requirements else {
+                return
+            }
+            
+            guard let vc = storyboard?.instantiateViewController(withIdentifier: "pypi") as? PipViewController else {
+                return
+            }
+            
+            let name = requirements[indexPath.row].components(separatedBy: " ")[0]
+            
+            vc.title = name
+            
+            DispatchQueue.global().async {
+                vc.currentPackage = PyPackage(name: name)
+                
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        case 2: // Install / Remove
+            if isPackageInstalled {
+                remove()
+            } else {
+                install()
+            }
+        case 3: // Info
+            break
+        case 4: // Link
+            
+            guard let url = currentPackage?.links[indexPath.row].url else {
+                return
+            }
+            
+            present(SFSafariViewController(url: url), animated: true, completion: nil)
+        default:
+            break
+        }
+    }
+    
+    // MARK: - Search bar delegate
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = searchBar.text?.lowercased()
+        title = searchBar.text
+        if title?.isEmpty != false {
+            title = _originalTitle
+        }
+        
+        if let title = title {
+            DispatchQueue.global().async {
+                self.currentPackage = PyPackage(name: title)
+            }
+        }
+        
+        navigationItem.searchController?.isActive = false
+    }
+        
+    // MARK: - Search controller delegate
+    
+    func presentSearchController(_ searchController: UISearchController) {
+        searchController.searchBar.becomeFirstResponder()
     }
 }

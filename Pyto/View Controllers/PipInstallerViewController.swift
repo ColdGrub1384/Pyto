@@ -12,9 +12,6 @@ import WebKit
 /// A View controller for running `pip` commands.
 @objc class PipInstallerViewController: EditorSplitViewController {
     
-    /// The Web View to reload after the module is installed or removed.
-    var webView: WKWebView?
-    
     /// `true` if pip finished running.
     var done = false
     
@@ -23,9 +20,12 @@ import WebKit
     /// Closes this View controller.
     @objc func closeViewController() {
         return dismiss(animated: true, completion: {
-            self.webView?.reload()
+            self.viewer?.tableView.reloadData()
         })
     }
+    
+    /// The View controller that requested the action.
+    var viewer: PipViewController?
     
     private var command = ""
     
@@ -75,7 +75,7 @@ import WebKit
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        webView?.reload()
+        viewer?.tableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
