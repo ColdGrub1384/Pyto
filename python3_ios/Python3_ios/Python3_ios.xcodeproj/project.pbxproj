@@ -59,6 +59,32 @@
 		22E8FF6121C66D3B00967E21 /* accu.c in Sources */ = {isa = PBXBuildFile; fileRef = 22E8FF3921C66D3B00967E21 /* accu.c */; settings = {COMPILER_FLAGS = "-DPy_BUILD_CORE"; }; };
 		22E8FF6221C66D3B00967E21 /* methodobject.c in Sources */ = {isa = PBXBuildFile; fileRef = 22E8FF3A21C66D3B00967E21 /* methodobject.c */; settings = {COMPILER_FLAGS = "-DPy_BUILD_CORE"; }; };
 		22E8FF6321C66D3B00967E21 /* rangeobject.c in Sources */ = {isa = PBXBuildFile; fileRef = 22E8FF3B21C66D3B00967E21 /* rangeobject.c */; settings = {COMPILER_FLAGS = "-DPy_BUILD_CORE"; }; };
+		C94AC3E92377181E002263CE /* stgdict.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3DD2377181E002263CE /* stgdict.o */; };
+		C94AC3EA2377181E002263CE /* sysv_arm64.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3DE2377181E002263CE /* sysv_arm64.o */; };
+		C94AC3EB2377181E002263CE /* callbacks.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3DF2377181E002263CE /* callbacks.o */; };
+		C94AC3EC2377181E002263CE /* raw_api.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E02377181E002263CE /* raw_api.o */; };
+		C94AC3ED2377181E002263CE /* java_raw_api.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E12377181E002263CE /* java_raw_api.o */; };
+		C94AC3EE2377181E002263CE /* _ctypes.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E22377181E002263CE /* _ctypes.o */; };
+		C94AC3EF2377181E002263CE /* cfield.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E32377181E002263CE /* cfield.o */; };
+		C94AC3F02377181E002263CE /* callproc.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E42377181E002263CE /* callproc.o */; };
+		C94AC3F12377181E002263CE /* closures.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E52377181E002263CE /* closures.o */; };
+		C94AC3F22377181E002263CE /* prep_cif.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E62377181E002263CE /* prep_cif.o */; };
+		C94AC3F32377181E002263CE /* ffi_arm64.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E72377181E002263CE /* ffi_arm64.o */; };
+		C94AC3F42377181E002263CE /* _ctypes_test.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E82377181E002263CE /* _ctypes_test.o */; };
+		C94AC402237718C6002263CE /* stgdict.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3F6237718C6002263CE /* stgdict.o */; };
+		C94AC403237718C6002263CE /* callbacks.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3F7237718C6002263CE /* callbacks.o */; };
+		C94AC404237718C6002263CE /* raw_api.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3F8237718C6002263CE /* raw_api.o */; };
+		C94AC405237718C6002263CE /* java_raw_api.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3F9237718C6002263CE /* java_raw_api.o */; };
+		C94AC406237718C6002263CE /* _ctypes.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3FA237718C6002263CE /* _ctypes.o */; };
+		C94AC407237718C6002263CE /* cfield.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3FB237718C6002263CE /* cfield.o */; };
+		C94AC408237718C6002263CE /* callproc.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3FC237718C6002263CE /* callproc.o */; };
+		C94AC409237718C6002263CE /* closures.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3FD237718C6002263CE /* closures.o */; };
+		C94AC40A237718C6002263CE /* ffiw64_x86_64.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3FE237718C6002263CE /* ffiw64_x86_64.o */; };
+		C94AC40B237718C6002263CE /* ffi64_x86_64.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3FF237718C6002263CE /* ffi64_x86_64.o */; };
+		C94AC40C237718C6002263CE /* prep_cif.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC400237718C6002263CE /* prep_cif.o */; };
+		C94AC40D237718C6002263CE /* _ctypes_test.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC401237718C6002263CE /* _ctypes_test.o */; };
+		C94AC40F23771934002263CE /* unix64_x86_64.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC40E23771934002263CE /* unix64_x86_64.o */; };
+		C94AC41123771948002263CE /* win64_x86_64.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC41023771948002263CE /* win64_x86_64.o */; };
 		C97F5772235B5F5100F289C7 /* python.c in Sources */ = {isa = PBXBuildFile; fileRef = 22E8FEEE21C66BF000967E21 /* python.c */; };
 		C97F57B2235B653200F289C7 /* pathconfig.c in Sources */ = {isa = PBXBuildFile; fileRef = C97F5773235B652D00F289C7 /* pathconfig.c */; };
 		C97F57B8235B653200F289C7 /* getcopyright.c in Sources */ = {isa = PBXBuildFile; fileRef = C97F5774235B652D00F289C7 /* getcopyright.c */; };
@@ -330,18 +356,6 @@
 		C97F632C235B66FC00F289C7 /* _testimportmultiple.c in Sources */ = {isa = PBXBuildFile; fileRef = C97F5AE5235B66F800F289C7 /* _testimportmultiple.c */; };
 		C9816985235E5D4E0062A91F /* getpath.c in Sources */ = {isa = PBXBuildFile; fileRef = C9816984235E5D4E0062A91F /* getpath.c */; };
 		C98169BA235E62080062A91F /* interpreteridobject.c in Sources */ = {isa = PBXBuildFile; fileRef = C98169B9235E62080062A91F /* interpreteridobject.c */; };
-		C981E881235F305B00E19077 /* stgdict.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C981E873235F305A00E19077 /* stgdict.o */; };
-		C981E882235F305B00E19077 /* _ctypes_test.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C981E874235F305A00E19077 /* _ctypes_test.o */; };
-		C981E883235F305B00E19077 /* closures.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C981E875235F305A00E19077 /* closures.o */; };
-		C981E885235F305B00E19077 /* java_raw_api.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C981E877235F305A00E19077 /* java_raw_api.o */; };
-		C981E886235F305B00E19077 /* _ctypes.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C981E878235F305A00E19077 /* _ctypes.o */; };
-		C981E887235F305B00E19077 /* callproc.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C981E879235F305A00E19077 /* callproc.o */; };
-		C981E888235F305B00E19077 /* raw_api.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C981E87A235F305B00E19077 /* raw_api.o */; };
-		C981E88A235F305B00E19077 /* ffi_arm64.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C981E87C235F305B00E19077 /* ffi_arm64.o */; };
-		C981E88C235F305B00E19077 /* callbacks.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C981E87E235F305B00E19077 /* callbacks.o */; };
-		C981E88D235F305B00E19077 /* prep_cif.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C981E87F235F305B00E19077 /* prep_cif.o */; };
-		C981E88E235F305B00E19077 /* sysv_arm64.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C981E880235F305B00E19077 /* sysv_arm64.o */; };
-		C981E88F235F30EB00E19077 /* cfield.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C981E87D235F305B00E19077 /* cfield.o */; };
 		C9FB248C235F346400389EAF /* pyexpat.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB248B235F346400389EAF /* pyexpat.c */; };
 		C9FB24A4235F34EF00389EAF /* xmlrole.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB248E235F34EF00389EAF /* xmlrole.c */; };
 		C9FB24A5235F34EF00389EAF /* expat_config.h in Headers */ = {isa = PBXBuildFile; fileRef = C9FB248F235F34EF00389EAF /* expat_config.h */; };
@@ -487,6 +501,32 @@
 		22E8FF3A21C66D3B00967E21 /* methodobject.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = methodobject.c; path = "../Python-3.8/Objects/methodobject.c"; sourceTree = "<group>"; };
 		22E8FF3B21C66D3B00967E21 /* rangeobject.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = rangeobject.c; path = "../Python-3.8/Objects/rangeobject.c"; sourceTree = "<group>"; };
 		22FDD6A02211C6E1003FABFE /* openblas.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = openblas.framework; path = ../Frameworks/openblas.framework; sourceTree = "<group>"; };
+		C94AC3DD2377181E002263CE /* stgdict.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = stgdict.o; sourceTree = "<group>"; };
+		C94AC3DE2377181E002263CE /* sysv_arm64.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = sysv_arm64.o; sourceTree = "<group>"; };
+		C94AC3DF2377181E002263CE /* callbacks.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = callbacks.o; sourceTree = "<group>"; };
+		C94AC3E02377181E002263CE /* raw_api.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = raw_api.o; sourceTree = "<group>"; };
+		C94AC3E12377181E002263CE /* java_raw_api.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = java_raw_api.o; sourceTree = "<group>"; };
+		C94AC3E22377181E002263CE /* _ctypes.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = _ctypes.o; sourceTree = "<group>"; };
+		C94AC3E32377181E002263CE /* cfield.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = cfield.o; sourceTree = "<group>"; };
+		C94AC3E42377181E002263CE /* callproc.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = callproc.o; sourceTree = "<group>"; };
+		C94AC3E52377181E002263CE /* closures.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = closures.o; sourceTree = "<group>"; };
+		C94AC3E62377181E002263CE /* prep_cif.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = prep_cif.o; sourceTree = "<group>"; };
+		C94AC3E72377181E002263CE /* ffi_arm64.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ffi_arm64.o; sourceTree = "<group>"; };
+		C94AC3E82377181E002263CE /* _ctypes_test.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = _ctypes_test.o; sourceTree = "<group>"; };
+		C94AC3F6237718C6002263CE /* stgdict.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = stgdict.o; sourceTree = "<group>"; };
+		C94AC3F7237718C6002263CE /* callbacks.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = callbacks.o; sourceTree = "<group>"; };
+		C94AC3F8237718C6002263CE /* raw_api.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = raw_api.o; sourceTree = "<group>"; };
+		C94AC3F9237718C6002263CE /* java_raw_api.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = java_raw_api.o; sourceTree = "<group>"; };
+		C94AC3FA237718C6002263CE /* _ctypes.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = _ctypes.o; sourceTree = "<group>"; };
+		C94AC3FB237718C6002263CE /* cfield.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = cfield.o; sourceTree = "<group>"; };
+		C94AC3FC237718C6002263CE /* callproc.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = callproc.o; sourceTree = "<group>"; };
+		C94AC3FD237718C6002263CE /* closures.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = closures.o; sourceTree = "<group>"; };
+		C94AC3FE237718C6002263CE /* ffiw64_x86_64.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ffiw64_x86_64.o; sourceTree = "<group>"; };
+		C94AC3FF237718C6002263CE /* ffi64_x86_64.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ffi64_x86_64.o; sourceTree = "<group>"; };
+		C94AC400237718C6002263CE /* prep_cif.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = prep_cif.o; sourceTree = "<group>"; };
+		C94AC401237718C6002263CE /* _ctypes_test.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = _ctypes_test.o; sourceTree = "<group>"; };
+		C94AC40E23771934002263CE /* unix64_x86_64.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = unix64_x86_64.o; sourceTree = "<group>"; };
+		C94AC41023771948002263CE /* win64_x86_64.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = win64_x86_64.o; sourceTree = "<group>"; };
 		C97F5773235B652D00F289C7 /* pathconfig.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = pathconfig.c; path = "../Python-3.8/Python/pathconfig.c"; sourceTree = "<group>"; };
 		C97F5774235B652D00F289C7 /* getcopyright.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = getcopyright.c; path = "../Python-3.8/Python/getcopyright.c"; sourceTree = "<group>"; };
 		C97F5775235B652D00F289C7 /* dynload_dl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = dynload_dl.c; path = "../Python-3.8/Python/dynload_dl.c"; sourceTree = "<group>"; };
@@ -805,19 +845,6 @@
 		C97F5AE5235B66F800F289C7 /* _testimportmultiple.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = _testimportmultiple.c; path = "../Python-3.8/Modules/_testimportmultiple.c"; sourceTree = "<group>"; };
 		C9816984235E5D4E0062A91F /* getpath.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = getpath.c; path = "../Python-3.8/Modules/getpath.c"; sourceTree = "<group>"; };
 		C98169B9235E62080062A91F /* interpreteridobject.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = interpreteridobject.c; path = "../Python-3.8/Objects/interpreteridobject.c"; sourceTree = "<group>"; };
-		C981E873235F305A00E19077 /* stgdict.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = stgdict.o; path = "../Python-3.8/Modules/_ctypes/stgdict.o"; sourceTree = "<group>"; };
-		C981E874235F305A00E19077 /* _ctypes_test.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = _ctypes_test.o; path = "../Python-3.8/Modules/_ctypes/_ctypes_test.o"; sourceTree = "<group>"; };
-		C981E875235F305A00E19077 /* closures.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = closures.o; path = "../Python-3.8/Modules/_ctypes/closures.o"; sourceTree = "<group>"; };
-		C981E876235F305A00E19077 /* types.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = types.o; path = "../Python-3.8/Modules/_ctypes/types.o"; sourceTree = "<group>"; };
-		C981E877235F305A00E19077 /* java_raw_api.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = java_raw_api.o; path = "../Python-3.8/Modules/_ctypes/java_raw_api.o"; sourceTree = "<group>"; };
-		C981E878235F305A00E19077 /* _ctypes.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = _ctypes.o; path = "../Python-3.8/Modules/_ctypes/_ctypes.o"; sourceTree = "<group>"; };
-		C981E879235F305A00E19077 /* callproc.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = callproc.o; path = "../Python-3.8/Modules/_ctypes/callproc.o"; sourceTree = "<group>"; };
-		C981E87A235F305B00E19077 /* raw_api.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = raw_api.o; path = "../Python-3.8/Modules/_ctypes/raw_api.o"; sourceTree = "<group>"; };
-		C981E87C235F305B00E19077 /* ffi_arm64.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ffi_arm64.o; path = "../Python-3.8/Modules/_ctypes/ffi_arm64.o"; sourceTree = "<group>"; };
-		C981E87D235F305B00E19077 /* cfield.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = cfield.o; path = "../Python-3.8/Modules/_ctypes/cfield.o"; sourceTree = "<group>"; };
-		C981E87E235F305B00E19077 /* callbacks.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = callbacks.o; path = "../Python-3.8/Modules/_ctypes/callbacks.o"; sourceTree = "<group>"; };
-		C981E87F235F305B00E19077 /* prep_cif.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = prep_cif.o; path = "../Python-3.8/Modules/_ctypes/prep_cif.o"; sourceTree = "<group>"; };
-		C981E880235F305B00E19077 /* sysv_arm64.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = sysv_arm64.o; path = "../Python-3.8/Modules/_ctypes/sysv_arm64.o"; sourceTree = "<group>"; };
 		C9B2DD9C235CA71B000BD8C5 /* libffi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libffi.a; path = ../../../Downloads/libffi.a; sourceTree = "<group>"; };
 		C9FB248B235F346400389EAF /* pyexpat.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = pyexpat.c; path = "../Python-3.8/Modules/pyexpat.c"; sourceTree = "<group>"; };
 		C9FB248E235F34EF00389EAF /* xmlrole.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xmlrole.c; sourceTree = "<group>"; };
@@ -915,25 +942,39 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C981E886235F305B00E19077 /* _ctypes.o in Frameworks */,
-				C981E88A235F305B00E19077 /* ffi_arm64.o in Frameworks */,
+				C94AC3EB2377181E002263CE /* callbacks.o in Frameworks */,
+				C94AC405237718C6002263CE /* java_raw_api.o in Frameworks */,
+				C94AC404237718C6002263CE /* raw_api.o in Frameworks */,
+				C94AC3EC2377181E002263CE /* raw_api.o in Frameworks */,
+				C94AC3E92377181E002263CE /* stgdict.o in Frameworks */,
+				C94AC3ED2377181E002263CE /* java_raw_api.o in Frameworks */,
+				C94AC402237718C6002263CE /* stgdict.o in Frameworks */,
+				C94AC3F32377181E002263CE /* ffi_arm64.o in Frameworks */,
+				C94AC40F23771934002263CE /* unix64_x86_64.o in Frameworks */,
+				C94AC40A237718C6002263CE /* ffiw64_x86_64.o in Frameworks */,
+				C94AC3EE2377181E002263CE /* _ctypes.o in Frameworks */,
+				C94AC40D237718C6002263CE /* _ctypes_test.o in Frameworks */,
+				C94AC3F22377181E002263CE /* prep_cif.o in Frameworks */,
+				C94AC3EA2377181E002263CE /* sysv_arm64.o in Frameworks */,
 				C9FDC0F3235B81DB000B0D61 /* libsqlite3.tbd in Frameworks */,
+				C94AC3F12377181E002263CE /* closures.o in Frameworks */,
+				C94AC40B237718C6002263CE /* ffi64_x86_64.o in Frameworks */,
 				C9FDC269235BB771000B0D61 /* libxz.a in Frameworks */,
+				C94AC3F42377181E002263CE /* _ctypes_test.o in Frameworks */,
+				C94AC40C237718C6002263CE /* prep_cif.o in Frameworks */,
+				C94AC408237718C6002263CE /* callproc.o in Frameworks */,
 				22288E082211FAC20081D86C /* Accelerate.framework in Frameworks */,
-				C981E88E235F305B00E19077 /* sysv_arm64.o in Frameworks */,
-				C981E885235F305B00E19077 /* java_raw_api.o in Frameworks */,
-				C981E887235F305B00E19077 /* callproc.o in Frameworks */,
-				C981E881235F305B00E19077 /* stgdict.o in Frameworks */,
+				C94AC409237718C6002263CE /* closures.o in Frameworks */,
+				C94AC3F02377181E002263CE /* callproc.o in Frameworks */,
+				C94AC407237718C6002263CE /* cfield.o in Frameworks */,
 				226ED58B21C784B300A71A20 /* libbz2.tbd in Frameworks */,
+				C94AC403237718C6002263CE /* callbacks.o in Frameworks */,
 				C9FDC268235BB771000B0D61 /* libOpenSSL.a in Frameworks */,
-				C981E888235F305B00E19077 /* raw_api.o in Frameworks */,
 				221CD96421DFAABF00F3B47C /* libc++.tbd in Frameworks */,
-				C981E88C235F305B00E19077 /* callbacks.o in Frameworks */,
-				C981E88D235F305B00E19077 /* prep_cif.o in Frameworks */,
-				C981E88F235F30EB00E19077 /* cfield.o in Frameworks */,
+				C94AC406237718C6002263CE /* _ctypes.o in Frameworks */,
+				C94AC3EF2377181E002263CE /* cfield.o in Frameworks */,
 				C9FDC267235BB771000B0D61 /* libbzip2.a in Frameworks */,
-				C981E882235F305B00E19077 /* _ctypes_test.o in Frameworks */,
-				C981E883235F305B00E19077 /* closures.o in Frameworks */,
+				C94AC41123771948002263CE /* win64_x86_64.o in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1259,6 +1300,48 @@
 				22E8FF1721C66D3800967E21 /* weakrefobject.c */,
 			);
 			name = Objects;
+			sourceTree = "<group>";
+		};
+		C94AC3DC2377181E002263CE /* arm64 */ = {
+			isa = PBXGroup;
+			children = (
+				C94AC3DD2377181E002263CE /* stgdict.o */,
+				C94AC3DE2377181E002263CE /* sysv_arm64.o */,
+				C94AC3DF2377181E002263CE /* callbacks.o */,
+				C94AC3E02377181E002263CE /* raw_api.o */,
+				C94AC3E12377181E002263CE /* java_raw_api.o */,
+				C94AC3E22377181E002263CE /* _ctypes.o */,
+				C94AC3E32377181E002263CE /* cfield.o */,
+				C94AC3E42377181E002263CE /* callproc.o */,
+				C94AC3E52377181E002263CE /* closures.o */,
+				C94AC3E62377181E002263CE /* prep_cif.o */,
+				C94AC3E72377181E002263CE /* ffi_arm64.o */,
+				C94AC3E82377181E002263CE /* _ctypes_test.o */,
+			);
+			name = arm64;
+			path = "../Python-3.8/Modules/_ctypes/arm64";
+			sourceTree = "<group>";
+		};
+		C94AC3F5237718C6002263CE /* x86_64 */ = {
+			isa = PBXGroup;
+			children = (
+				C94AC3F6237718C6002263CE /* stgdict.o */,
+				C94AC3F7237718C6002263CE /* callbacks.o */,
+				C94AC3F8237718C6002263CE /* raw_api.o */,
+				C94AC3F9237718C6002263CE /* java_raw_api.o */,
+				C94AC3FA237718C6002263CE /* _ctypes.o */,
+				C94AC3FB237718C6002263CE /* cfield.o */,
+				C94AC3FC237718C6002263CE /* callproc.o */,
+				C94AC3FD237718C6002263CE /* closures.o */,
+				C94AC3FE237718C6002263CE /* ffiw64_x86_64.o */,
+				C94AC3FF237718C6002263CE /* ffi64_x86_64.o */,
+				C94AC400237718C6002263CE /* prep_cif.o */,
+				C94AC401237718C6002263CE /* _ctypes_test.o */,
+				C94AC40E23771934002263CE /* unix64_x86_64.o */,
+				C94AC41023771948002263CE /* win64_x86_64.o */,
+			);
+			name = x86_64;
+			path = "../Python-3.8/Modules/_ctypes/x86_64";
 			sourceTree = "<group>";
 		};
 		C97F5949235B66EB00F289C7 /* _xxtestfuzz */ = {
@@ -1680,19 +1763,8 @@
 		C9FDC0F4235B8604000B0D61 /* _ctypes */ = {
 			isa = PBXGroup;
 			children = (
-				C981E874235F305A00E19077 /* _ctypes_test.o */,
-				C981E878235F305A00E19077 /* _ctypes.o */,
-				C981E87E235F305B00E19077 /* callbacks.o */,
-				C981E879235F305A00E19077 /* callproc.o */,
-				C981E87D235F305B00E19077 /* cfield.o */,
-				C981E875235F305A00E19077 /* closures.o */,
-				C981E87C235F305B00E19077 /* ffi_arm64.o */,
-				C981E877235F305A00E19077 /* java_raw_api.o */,
-				C981E87F235F305B00E19077 /* prep_cif.o */,
-				C981E87A235F305B00E19077 /* raw_api.o */,
-				C981E873235F305A00E19077 /* stgdict.o */,
-				C981E880235F305B00E19077 /* sysv_arm64.o */,
-				C981E876235F305A00E19077 /* types.o */,
+				C94AC3F5237718C6002263CE /* x86_64 */,
+				C94AC3DC2377181E002263CE /* arm64 */,
 			);
 			name = _ctypes;
 			sourceTree = "<group>";
