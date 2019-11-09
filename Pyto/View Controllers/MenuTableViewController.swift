@@ -27,7 +27,10 @@ class MenuTableViewController: UITableViewController {
     /// Opens PyPi.
     func selectPyPi() {
         if let pypi = self.storyboard?.instantiateViewController(withIdentifier: "pypi") {
-            present(UINavigationController(rootViewController: pypi), animated: true, completion: nil)
+            let navVC = UINavigationController(rootViewController: pypi)
+            navVC.modalPresentationStyle = .formSheet
+            navVC.navigationBar.prefersLargeTitles = true
+            present(navVC, animated: true, completion: nil)
         }
     }
     
