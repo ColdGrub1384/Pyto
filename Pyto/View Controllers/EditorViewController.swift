@@ -942,23 +942,15 @@ fileprivate func parseArgs(_ args: inout [String]) {
         present(alert, animated: true, completion: nil)
     }
     
-    /// Opens an alert for setting current directory.
+    /// Sets current directory.
     @objc func setCwd(_ sender: Any) {
         
-        let alert = UIAlertController(title: Localizable.CurrentDirectoryAlert.title, message: Localizable.CurrentDirectoryAlert.message+"\n\n\(ShortenFilePaths(in: currentDirectory.path)) \(FileManager.default.isReadableFile(atPath: currentDirectory.path) ? Localizable.CurrentDirectoryAlert.readable : Localizable.CurrentDirectoryAlert.notReadable)", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: Localizable.change, style: .default, handler: { _ in
-            let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
-            picker.delegate = self
-            if #available(iOS 13.0, *) {
-                picker.directoryURL = self.currentDirectory
-            }
-            self.present(picker, animated: true, completion: nil)
-        }))
-        
-        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
-        
-        present(alert, animated: true, completion: nil)
+        let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
+        picker.delegate = self
+        if #available(iOS 13.0, *) {
+            picker.directoryURL = self.currentDirectory
+        }
+        self.present(picker, animated: true, completion: nil)
     }
     
     /// Stops the current running script.
@@ -1920,25 +1912,53 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         let success = urls.first?.startAccessingSecurityScopedResource()
-        currentDirectory = urls.first ?? currentDirectory
-        if !FoldersBrowserViewController.accessibleFolders.contains(currentDirectory.resolvingSymlinksInPath()) {
-            FoldersBrowserViewController.accessibleFolders.append(currentDirectory.resolvingSymlinksInPath())
+        
+        let url = urls.first ?? currentDirectory
+        
+        func doChange() {
+            currentDirectory = url
+            if !FoldersBrowserViewController.accessibleFolders.contains(currentDirectory.resolvingSymlinksInPath()) {
+                FoldersBrowserViewController.accessibleFolders.append(currentDirectory.resolvingSymlinksInPath())
+            }
+            
+            let moreItem = UIBarButtonItem(image: EditorSplitViewController.threeDotsImage, style: .plain, target: self, action: #selector(showEditorScripts(_:)))
+            let runtimeItem = UIBarButtonItem(image: EditorSplitViewController.gearImage, style: .plain, target: self, action: #selector(showRuntimeSettings(_:)))
+            let space = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+            space.width = 10
+            
+            if success == true {
+                parent?.toolbarItems = [
+                    shareItem,
+                    moreItem,
+                    space,
+                    docItem,
+                    UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+                    runtimeItem
+                ]
+            }
         }
         
-        let moreItem = UIBarButtonItem(image: EditorSplitViewController.threeDotsImage, style: .plain, target: self, action: #selector(showEditorScripts(_:)))
-        let runtimeItem = UIBarButtonItem(image: EditorSplitViewController.gearImage, style: .plain, target: self, action: #selector(showRuntimeSettings(_:)))
-        let space = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        space.width = 10
-        
-        if success == true {
-            parent?.toolbarItems = [
-                shareItem,
-                moreItem,
-                space,
-                docItem,
-                UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-                runtimeItem
-            ]
+        if let file = document?.fileURL,
+            url.appendingPathComponent(file.lastPathComponent).resolvingSymlinksInPath() == file.resolvingSymlinksInPath() {
+            
+            doChange()
+        } else {
+            
+            let alert = UIAlertController(title: "Couldn't access script", message: "The selected directory doesn't contain this script.", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Use anyway", style: .destructive, handler: { (_) in
+                doChange()
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Select another location", style: .default, handler: { (_) in
+                self.setCwd(alert)
+            }))
+            
+            alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: { (_) in
+                urls.first?.stopAccessingSecurityScopedResource()
+            }))
+            
+            present(alert, animated: true, completion: nil)
         }
     }
 }
