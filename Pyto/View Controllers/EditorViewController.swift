@@ -983,8 +983,16 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     /// Runs script.
     @objc func run() {
-        textView.contentTextView.resignFirstResponder()
-        runScript(debug: false)
+        
+        if textView.contentTextView.isFirstResponder {
+            textView.contentTextView.resignFirstResponder()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                self.runScript(debug: false)
+            }
+        } else {
+            runScript(debug: false)
+        }
     }
     
     /// Run the script represented by `document`.
@@ -992,8 +1000,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// - Parameters:
     ///     - debug: Set to `true` for debugging with `pdb`.
     func runScript(debug: Bool) {
-        
-        textView.contentTextView.resignFirstResponder()
         
         // For error handling
         textView.delegate = nil
