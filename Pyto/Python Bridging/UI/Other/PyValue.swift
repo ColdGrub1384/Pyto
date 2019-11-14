@@ -35,19 +35,22 @@ import Foundation
         if let param = parameter {
             code = """
             import _values
+                        
+            if "\(param.identifier)" in dir(_values) and "\(identifier)" in dir(_values):
             
-            param = _values.\(param.identifier)
-            func = _values.\(identifier)
-            if func.__code__.co_argcount >= 1:
-                func(param)
-            else:
-                func()
+                param = _values.\(param.identifier)
+                func = _values.\(identifier)
+                if func.__code__.co_argcount >= 1:
+                    func(param)
+                else:
+                    func()
             """
         } else {
             code = """
             import _values
             
-            _values.\(identifier)()
+            if "\(identifier)" in dir(_values):
+                _values.\(identifier)()
             """
         }
         

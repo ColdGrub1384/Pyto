@@ -146,9 +146,10 @@ import NotificationCenter
             print(error.localizedDescription)
         }
         
+        print(FoldersBrowserViewController.accessibleFolders)
         DispatchQueue.global().async {
             for folder in FoldersBrowserViewController.accessibleFolders {
-                _ = folder.startAccessingSecurityScopedResource()
+                print(folder.startAccessingSecurityScopedResource())
                 sleep(UInt32(0.2))
             }
         }
