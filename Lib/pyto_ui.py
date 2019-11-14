@@ -4208,7 +4208,7 @@ def __ui_image_from_pil_image__(image):
         return None
 
     buffered = BytesIO()
-    image.save(buffered, format=image.format)
+    image.save(buffered, format='PNG')
     img_str = base64.b64encode(buffered.getvalue())
 
     data = __NSData__.alloc().initWithBase64EncodedString(img_str, options=0)
