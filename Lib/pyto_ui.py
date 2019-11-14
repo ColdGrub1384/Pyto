@@ -4207,9 +4207,9 @@ def __ui_image_from_pil_image__(image):
     if image is None:
         return None
 
-    buffered = BytesIO()
-    image.save(buffered, format='PNG')
-    img_str = base64.b64encode(buffered.getvalue())
+    with BytesIO() as buffered:
+        image.save(buffered, format='PNG')
+        img_str = base64.b64encode(buffered.getvalue())
 
     data = __NSData__.alloc().initWithBase64EncodedString(img_str, options=0)
     return UIImage.alloc().initWithData(data)
@@ -4222,9 +4222,8 @@ def __pil_image_from_ui_image__(image):
 
     img_str = str(image.data.base64EncodedStringWithOptions(0))
     msg = base64.b64decode(img_str)
-    buf = io.BytesIO(msg)
-    img = Image.open(buf)
-    return img
+    with io.BytesIO(msg) as buf:
+        return Image.open(buf)
 
 
 def font_family_names() -> List[str]:
