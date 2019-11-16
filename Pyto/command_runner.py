@@ -4,6 +4,7 @@ This script asks user for input and runs the given command.
 
 import importlib
 import os
+import os.path
 import sys
 import traceback
 import pyto
@@ -27,8 +28,14 @@ def main():
         del sys.modules[module_name]
     except KeyError:
         pass
-
+    
+    bin = os.path.expanduser("~/Documents/stash_extensions/bin")
+    sys.path.insert(-1, bin)
     spec = importlib.util.find_spec(module_name)
+    try:
+        sys.path.remove(bin)
+    except ValueError:
+        pass
     if spec is None:
         print("python: No module named "+module_name)
         return
