@@ -71,6 +71,7 @@ import UIKit
         }
         
         window?.tintColor = ConsoleViewController.choosenTheme.tintColor
+        window?.overrideUserInterfaceStyle = ConsoleViewController.choosenTheme.userInterfaceStyle
         if let window = self.window {
             SceneDelegate.windows.append(window)
         }

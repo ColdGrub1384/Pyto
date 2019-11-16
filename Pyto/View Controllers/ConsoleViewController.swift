@@ -58,6 +58,7 @@ import UIKit
             if #available(iOS 13.0, *) {
                 for scene in UIApplication.shared.connectedScenes {
                     (scene.delegate as? UIWindowSceneDelegate)?.window??.tintColor = newValue.tintColor
+                    (scene.delegate as? UIWindowSceneDelegate)?.window??.overrideUserInterfaceStyle = newValue.userInterfaceStyle
                 }
             }
             
