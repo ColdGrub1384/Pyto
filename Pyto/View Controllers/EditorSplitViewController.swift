@@ -432,7 +432,7 @@ class EditorSplitViewController: SplitViewController {
     }
     
     override var prefersHomeIndicatorAutoHidden: Bool {
-        return editor.textView.contentTextView.isFirstResponder
+        return editor?.textView.contentTextView.isFirstResponder ?? false
     }
     
     // MARK: Symbols
