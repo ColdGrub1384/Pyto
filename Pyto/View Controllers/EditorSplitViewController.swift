@@ -431,6 +431,10 @@ class EditorSplitViewController: SplitViewController {
         return true
     }
     
+    override var prefersHomeIndicatorAutoHidden: Bool {
+        return editor.textView.contentTextView.isFirstResponder
+    }
+    
     // MARK: Symbols
     
     /// The image of the button used for returning the file browser.
@@ -441,7 +445,6 @@ class EditorSplitViewController: SplitViewController {
             return UIImage(named: "Grid") ?? UIImage()
         }
     }
-    
     
     /// The image of the button used for opening settings.
     static var gearImage: UIImage {

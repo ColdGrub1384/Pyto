@@ -7245,7 +7245,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "ZIPFILE=\"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/repo.zip\"\n\nif [ -d \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Contents\" ]\nthen\nexit 0 # Is building for macOS\nfi\n\nif [ -f \"$ZIPFILE\" ]\nthen\nexit 0\nelse\necho \"Doesn't exist\"\nfi\n\nTMPSRC=\"${SRCROOT}/../PytoTmpCopy\"\ncp -r \"${SRCROOT}/Python App\" \"$TMPSRC\"\ncp -r \"${SRCROOT}\" \"$TMPSRC/Pyto\"\n\npushd \"$TMPSRC\"\n\nls\n\nrm -rf Pyto/Pods\nrm -rf Pyto/NumPy\nrm -rf Pyto/Matplotlib\nrm -rf Pyto/Pandas\nrm -rf Pyto/Lxml\nrm -rf Pyto/SciPy\nrm -rf Pyto/SkLearn\nrm -rf Pyto/SkImage\nrm -rf Pyto/OpenCV\nrm -rf Pyto/Pywt\nrm -rf Pyto/docs_build\nrm -rf Pyto/InputAssistant\nrm -rf Pyto/.git\nzip -r \"$ZIPFILE\" *\npopd\n\nrm -rf \"$TMPSRC\"\n";
+			shellScript = "ZIPFILE=\"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/repo.zip\"\n\nif [ -d \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Contents\" ]\nthen\nexit 0 # Is building for macOS\nfi\n\nif [ -f \"$ZIPFILE\" ]\nthen\nexit 0\nelse\necho \"Doesn't exist\"\nfi\n\nTMPSRC=\"${SRCROOT}/../PytoTmpCopy\"\ncp -r \"${SRCROOT}/Python App\" \"$TMPSRC\"\ncp -r \"${SRCROOT}\" \"$TMPSRC/Pyto\"\n\npushd \"$TMPSRC\"\n\nls\n\nrm -rf Pyto/Pods\nrm -rf Pyto/NumPy Pyto/site-packages/numpy\nrm -rf Pyto/Matplotlib Pyto/site-packages/matplotlib Pyto/site-packages/mpl_toolkits\nrm -rf Pyto/Pandas Pyto/site-packages/pandas\nrm -rf Pyto/Lxml Pyto/site-packages/pandas\nrm -rf Pyto/SciPy Pyto/site-packages/scipy\nrm -rf Pyto/SkLearn Pyto/site-packages/sklearn\nrm -rf Pyto/SkImage Pyto/site-packages/skimage\nrm -rf Pyto/OpenCV Pyto/site-packages/cv2\nrm -rf Pyto/Pywt Pyto/site-packages/pywt\nrm -rf Pyto/docs_build\nrm -rf Pyto/InputAssistant\nrm -rf Pyto/.git\n\nzip -r \"$ZIPFILE\" *\npopd\n\nrm -rf \"$TMPSRC\"\n";
 		};
 		D910EE956F1871789C77F1DA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -7717,7 +7717,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.1.10;
+				MARKETING_VERSION = 11.1.12;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -7778,7 +7778,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.1.10;
+				MARKETING_VERSION = 11.1.12;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -7929,7 +7929,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.1.10;
+				MARKETING_VERSION = 11.1.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Intents";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -7952,7 +7952,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.1.10;
+				MARKETING_VERSION = 11.1.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Intents";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -8235,7 +8235,7 @@
 					"$(PROJECT_DIR)/PyNacl",
 					"$(PROJECT_DIR)/SciPy",
 				);
-				MARKETING_VERSION = 11.1.10;
+				MARKETING_VERSION = 11.1.12;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
@@ -8346,7 +8346,7 @@
 					"$(PROJECT_DIR)/PyNacl",
 					"$(PROJECT_DIR)/SciPy",
 				);
-				MARKETING_VERSION = 11.1.10;
+				MARKETING_VERSION = 11.1.12;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (

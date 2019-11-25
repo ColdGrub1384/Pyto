@@ -1599,6 +1599,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         save(completion: nil)
+        parent?.setNeedsUpdateOfHomeIndicatorAutoHidden()
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        parent?.setNeedsUpdateOfHomeIndicatorAutoHidden()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
