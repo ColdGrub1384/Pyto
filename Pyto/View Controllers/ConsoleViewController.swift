@@ -683,7 +683,11 @@ import UIKit
                 return
             }
             
+            #if MAIN
             PyInputHelper.userInput.setObject(text, forKey: (self.editorSplitViewController?.editor.document?.fileURL.path ?? "") as NSCopying)
+            #else
+            PyInputHelper.userInput.setObject(text, forKey: "" as NSCopying)
+            #endif
             if !secureTextEntry {
                 Python.shared.output += text
                 self.textView.text += "\(text)\n"
