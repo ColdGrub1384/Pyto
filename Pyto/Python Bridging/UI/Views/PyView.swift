@@ -111,6 +111,27 @@ import UIKit
         }
     }
     
+    private var _title: String? {
+        didSet {
+            (self.viewController as? UINavigationController)?.title = _title
+        }
+    }
+    
+    /// The title of the view.
+    @objc public var title: String? {
+        set {
+            set {
+                self._title = newValue
+            }
+        }
+        
+        get {
+            return get {
+                return self._title
+            }
+        }
+    }
+    
     /// `true` if the view is presented on the console.
     @objc public var isPresented = false
     
