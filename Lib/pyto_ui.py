@@ -1960,6 +1960,20 @@ class View:
     def __repr__(self):
         return str(self.__py_view__.managed.description)
 
+    @property
+    def title(self) -> str:
+        """
+        If this view is directly presented, the top bar will show this view's title.
+
+        :rtype: str
+        """
+
+        return self.__py_view__.title
+
+    @title.setter
+    def title(self, new_value: str):
+        self.__py_view__.title = new_value
+
     def close(self):
         """
         Closes the view, if the receiver object is the root view presented to the user.

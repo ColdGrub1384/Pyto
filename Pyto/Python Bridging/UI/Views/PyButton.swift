@@ -17,7 +17,7 @@ import UIKit
         }
     }
     
-    @objc public var title: String? {
+    @objc override public var title: String? {
         get {
             return get {
                 return self.button.title(for: .normal) ?? self.button.attributedTitle(for: .normal)?.string

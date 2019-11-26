@@ -446,7 +446,11 @@ import UIKit
     @available(iOS 13.0, *)
     private class NavigationController: UINavigationController {
         
-        var pyView: PyView?
+        var pyView: PyView? {
+            didSet {
+                viewControllers.first?.title = pyView?.title
+            }
+        }
         
         override func viewDidDisappear(_ animated: Bool) {
             super.viewDidDisappear(animated)
