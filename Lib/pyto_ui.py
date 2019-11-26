@@ -2976,7 +2976,29 @@ class TableView(View):
             self.__py_view__ = __PyTableView__.newViewWithStyle(TABLE_VIEW_STYLE_PLAIN)
         else:
             self.__py_view__ = __PyTableView__.newViewWithStyle(style)
+        self.__py_view__.managedValue = _values.value(self)
         self.sections = sections
+
+    @property
+    def reload_action(self) -> Callable[TableView, None]:
+        """
+        A function called when the button item is pressed. Takes the button item as parameter.
+
+        :rtype: Callable[[TableView], None]
+        """
+
+        action = self.__py_view__.reloadAction
+        if action is None:
+            return None
+        else:
+            return _values.globals()[action.identifier]
+
+    @reload_action.setter
+    def reload_action(self, new_value: Callable[[TableView], None]):
+        if new_value is None:
+            self.__py_view__.action = None
+        else:
+            self.__py_view__.reloadAction = _values.value(new_value)
 
     @property
     def edit_button_item(self) -> ButtonItem:

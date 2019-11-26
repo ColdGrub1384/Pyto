@@ -141,10 +141,24 @@ import UIKit
         return sections[section].cells.count
     }
     
+    @objc public var reloadAction: PyValue?
+    
+    @objc public var managedValue: PyValue?
+    
+    @objc func reload() {
+        reloadAction?.call(parameter: managedValue)
+        set {
+            self.tableView.refreshControl?.endRefreshing()
+        }
+    }
+    
     override init(managed: Any! = NSObject()) {
         super.init(managed: managed)
         
         DispatchQueue.main.async {
+            let refreshControl = UIRefreshControl()
+            refreshControl.addTarget(self, action: #selector(self.reload), for: .valueChanged)
+            (managed as? UITableView)?.refreshControl = refreshControl
             (managed as? UITableView)?.dataSource = self
             (managed as? UITableView)?.delegate = self
         }
