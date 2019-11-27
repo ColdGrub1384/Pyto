@@ -37,7 +37,7 @@ import SavannaKit
     /// - Parameters:
     ///     - code: Code to run.
     func run(code: String) {
-        let url = URL(fileURLWithPath: NSTemporaryDirectory()+"/Temporary")
+        let url = URL(fileURLWithPath: NSTemporaryDirectory()+"/Temporary.py")
         if FileManager.default.fileExists(atPath: url.path) {
             try? FileManager.default.removeItem(at: url)
         }
