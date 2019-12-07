@@ -1774,6 +1774,12 @@ fileprivate func parseArgs(_ args: inout [String]) {
             return inputAssistant.reloadData()
         }
         
+        guard let line = textView.currentLine, !line.isEmpty else {
+            self.suggestions = []
+            self.completions = []
+            return inputAssistant.reloadData()
+        }
+        
         ConsoleViewController.ignoresInput = true
         let code = """
         from _codecompletion import suggestForCode
