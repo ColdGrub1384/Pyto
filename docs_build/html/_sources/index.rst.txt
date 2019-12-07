@@ -28,6 +28,7 @@ The following modules are integrated with Pyto:
 
    pyto_ui
    notification_center
+   sound
    pasteboard
    sharing
    UIKit
