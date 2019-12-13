@@ -376,6 +376,11 @@
 		C9A05F6722E400890096DCA8 /* PyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A05F6522E400890096DCA8 /* PyView.swift */; };
 		C9A33B11224FCDA00083F041 /* MovableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A33B0E224FCDA00083F041 /* MovableTextField.swift */; };
 		C9A33B13224FCDAD0083F041 /* TextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9A33B12224FCDAD0083F041 /* TextField.xib */; };
+		C9A4199823A315D700BF5393 /* CustomIconTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A4199723A315D700BF5393 /* CustomIconTableViewController.swift */; };
+		C9A419A523A321EB00BF5393 /* Light.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A419A123A321EA00BF5393 /* Light.png */; };
+		C9A419A623A321EB00BF5393 /* Stripes.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A419A223A321EB00BF5393 /* Stripes.png */; };
+		C9A419A723A321EB00BF5393 /* Dark.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A419A323A321EB00BF5393 /* Dark.png */; };
+		C9A419A823A321EB00BF5393 /* Type.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A419A423A321EB00BF5393 /* Type.png */; };
 		C9A5A5DF2352AEC5001C8E20 /* Template Chooser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9A5A5DE2352AEC5001C8E20 /* Template Chooser.storyboard */; };
 		C9A5A5E32352B2EC001C8E20 /* TemplateChooserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A5A5E22352B2EC001C8E20 /* TemplateChooserTableViewController.swift */; };
 		C9A8F02522DCE184000E320F /* PyGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A8F02422DCE184000E320F /* PyGestureRecognizer.swift */; };
@@ -2351,6 +2356,11 @@
 		C9A05F6522E400890096DCA8 /* PyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PyView.swift; sourceTree = "<group>"; };
 		C9A33B0E224FCDA00083F041 /* MovableTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovableTextField.swift; sourceTree = "<group>"; };
 		C9A33B12224FCDAD0083F041 /* TextField.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextField.xib; sourceTree = "<group>"; };
+		C9A4199723A315D700BF5393 /* CustomIconTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomIconTableViewController.swift; sourceTree = "<group>"; };
+		C9A419A123A321EA00BF5393 /* Light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Light.png; sourceTree = "<group>"; };
+		C9A419A223A321EB00BF5393 /* Stripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Stripes.png; sourceTree = "<group>"; };
+		C9A419A323A321EB00BF5393 /* Dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dark.png; sourceTree = "<group>"; };
+		C9A419A423A321EB00BF5393 /* Type.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Type.png; sourceTree = "<group>"; };
 		C9A5A5DE2352AEC5001C8E20 /* Template Chooser.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Template Chooser.storyboard"; sourceTree = "<group>"; };
 		C9A5A5E22352B2EC001C8E20 /* TemplateChooserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateChooserTableViewController.swift; sourceTree = "<group>"; };
 		C9A8F02422DCE184000E320F /* PyGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyGestureRecognizer.swift; sourceTree = "<group>"; };
@@ -5036,6 +5046,7 @@
 				C972AE3E23467AE30053E1C3 /* FoldersBrowserViewController.swift */,
 				C9A5A5E22352B2EC001C8E20 /* TemplateChooserTableViewController.swift */,
 				C9CED5342353A214000BB464 /* ThemeMakerTableViewController.swift */,
+				C9A4199723A315D700BF5393 /* CustomIconTableViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -5107,6 +5118,10 @@
 				C9F04E852173C33400BDD03E /* Localizable.strings */,
 				C9EA5C7C21F23024000F7FA7 /* Welcome to Pyto.md */,
 				C946A5C52207727600F78C5C /* modules_README.md */,
+				C9A419A323A321EB00BF5393 /* Dark.png */,
+				C9A419A123A321EA00BF5393 /* Light.png */,
+				C9A419A223A321EB00BF5393 /* Stripes.png */,
+				C9A419A423A321EB00BF5393 /* Type.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -7164,12 +7179,14 @@
 				C95AECB82208A688003BCB05 /* cacert.pem in Resources */,
 				C9F04E832173C33400BDD03E /* Localizable.strings in Resources */,
 				C9A33B13224FCDAD0083F041 /* TextField.xib in Resources */,
+				C9A419A823A321EB00BF5393 /* Type.png in Resources */,
 				C954FAB5220A165E0060C488 /* Replace.xib in Resources */,
 				C9B5D84B21F119B100E980BA /* Settings.storyboard in Resources */,
 				C99FDFD5234A24320022685B /* docs_build in Resources */,
 				C9C0E78B21F0B5770057C63E /* Theme Chooser.storyboard in Resources */,
 				C9727C472204D7F100B7AC32 /* LaunchScreen.storyboard in Resources */,
 				C9EA5C7D21F23558000F7FA7 /* Welcome to Pyto.md in Resources */,
+				C9A419A523A321EB00BF5393 /* Light.png in Resources */,
 				C93657252287286400498011 /* ConflictsResolver.storyboard in Resources */,
 				C92FC4462352BCB8000BBF46 /* Hello World.py in Resources */,
 				C98472AE21A05CB1008E16AC /* README.md in Resources */,
@@ -7184,7 +7201,9 @@
 				C9A5A5DF2352AEC5001C8E20 /* Template Chooser.storyboard in Resources */,
 				C92DBD8021F67B9D0098BE43 /* REPL.py in Resources */,
 				C95076FA22DE39A800226497 /* Widget Simulator.storyboard in Resources */,
+				C9A419A623A321EB00BF5393 /* Stripes.png in Resources */,
 				C947C6F822E512CD00B7B35A /* Lib in Resources */,
+				C9A419A723A321EB00BF5393 /* Dark.png in Resources */,
 				C9477BBB21D45D29000680AE /* installer.py in Resources */,
 				C9FCFD60214428B300A07974 /* Assets.xcassets in Resources */,
 			);
@@ -7454,6 +7473,7 @@
 				C954FAB9220A2BB00060C488 /* ReplaceView.swift in Sources */,
 				C9D2AA762215A503006AF527 /* EditorViewController+highlighting.swift in Sources */,
 				C92DBD8221F687480098BE43 /* REPLViewController.swift in Sources */,
+				C9A4199823A315D700BF5393 /* CustomIconTableViewController.swift in Sources */,
 				C9B5D84F21F11AAE00E980BA /* AboutTableViewController.swift in Sources */,
 				C9BF46E222E0DC4F00B8FE4B /* PyTableViewCell.swift in Sources */,
 				C98E2002214F0856002F0178 /* main.m in Sources */,
@@ -7717,7 +7737,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.1.14;
+				MARKETING_VERSION = 11.1.15;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -7778,7 +7798,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.1.14;
+				MARKETING_VERSION = 11.1.15;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -7929,7 +7949,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.1.14;
+				MARKETING_VERSION = 11.1.15;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Intents";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -7952,7 +7972,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.1.14;
+				MARKETING_VERSION = 11.1.15;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Intents";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -8235,7 +8255,7 @@
 					"$(PROJECT_DIR)/PyNacl",
 					"$(PROJECT_DIR)/SciPy",
 				);
-				MARKETING_VERSION = 11.1.14;
+				MARKETING_VERSION = 11.1.15;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
@@ -8346,7 +8366,7 @@
 					"$(PROJECT_DIR)/PyNacl",
 					"$(PROJECT_DIR)/SciPy",
 				);
-				MARKETING_VERSION = 11.1.14;
+				MARKETING_VERSION = 11.1.15;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
