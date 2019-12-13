@@ -2,9 +2,9 @@
 A module for playing sounds. Wraps the AudioToolbox and AVFoundation system framework.
 """
 
-from os.path import abspath, expanduser
+from os.path import abspath
 from rubicon.objc import ObjCClass
-from ctypes import *
+from ctypes import cdll, c_int, byref
 
 AudioToolbox = cdll.LoadLibrary("/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox")
 """
@@ -22,6 +22,7 @@ The AVAudioPlayer class from AVFoundation framework.
 """
 
 NSURL = ObjCClass("NSURL")
+
 
 class AudioPlayer:
     """
@@ -79,7 +80,7 @@ class AudioPlayer:
         """
 
         return float(self.__player__.volume)
- 
+
     @volume.setter
     def volume(self, new_value: float):
         self.__player__.volume = new_value
@@ -97,6 +98,7 @@ class AudioPlayer:
     @current_time.setter
     def current_time(self, new_value: float):
         self.__player__.currentTime = new_value
+
 
 def play_file(path: str):
     """
@@ -116,12 +118,14 @@ def play_file(path: str):
     AudioToolbox.AudioServicesCreateSystemSoundID(url, s)
     AudioToolbox.AudioServicesPlaySystemSound(s._obj)
 
+
 def play_beep():
     """
     Plays a beep sound.
     """
 
     AudioToolbox.AudioServicesPlaySystemSound(1052)
+
 
 def play_system_sound(id: int):
     """
