@@ -88,6 +88,8 @@ Acknowledgments
 Thanks to `Christian Clauss <https://github.com/cclauss>`_ and `goodclass <https://github.com/goodclass>`_ for contributions!
 ``SciPy``, ``OpenCV`` and ``Lxml`` were taken from `goodclass <https://github.com/goodclass>`_.
 
+Thanks to `Daniel Shane <https://twitter.com/DannWai>`_ for alternate icons!
+
 | This application makes use of the following third party libraries:
 
 * `appdirs <https://github.com/ActiveState/appdirs>`__
