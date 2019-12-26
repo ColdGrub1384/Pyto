@@ -163,11 +163,18 @@ import UIKit
                 
                 #if MAIN
                 let font = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
+                let foregroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
                 #else
                 let font = UIFont(name: "Menlo", size: 12) ?? UIFont.systemFont(ofSize: 12)
+                let foregroundColor: UIColor
+                if #available(iOS 13.0, *) {
+                    foregroundColor = .label
+                } else {
+                    foregroundColor = .black
+                }
                 #endif
                 
-                attrStr.append(NSAttributedString(string: output, attributes: [.font : font]))
+                attrStr.append(NSAttributedString(string: output, attributes: [.font : font, .foregroundColor : foregroundColor]))
                 self.textView.attributedText = attrStr
                 
                 self.textViewDidChange(self.textView)
@@ -694,7 +701,7 @@ import UIKit
             #endif
             if !secureTextEntry {
                 Python.shared.output += text
-                self.textView.text += "\(text)\n"
+                self.print_(Notification(name: Notification.Name(rawValue: "DidReceiveOutput"), object: "\(text)\n", userInfo: nil))
             } else {
                 
                 var hiddenPassword = ""
@@ -703,7 +710,7 @@ import UIKit
                 }
                 
                 Python.shared.output += text
-                self.textView.text += "\(hiddenPassword)\n"
+                self.print_(Notification(name: Notification.Name(rawValue: "DidReceiveOutput"), object: "\(hiddenPassword)\n", userInfo: nil))
             }
             self.textView.scrollToBottom()
         }

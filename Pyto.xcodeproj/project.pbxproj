@@ -388,6 +388,10 @@
 		C9AAAB492195016D0042E733 /* InputAssistant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9AAAB44219501600042E733 /* InputAssistant.framework */; };
 		C9AAAB4A2195016D0042E733 /* InputAssistant.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AAAB44219501600042E733 /* InputAssistant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9AAAB5221950E8B0042E733 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* TextView.swift */; };
+		C9B0E55723B4FC0300A4B4A7 /* ANSITextState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B0E55523B4FC0300A4B4A7 /* ANSITextState.swift */; };
+		C9B0E55823B4FC0300A4B4A7 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B0E55623B4FC0300A4B4A7 /* Parser.swift */; };
+		C9B0E56223B5002A00A4B4A7 /* ANSITextState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B0E55523B4FC0300A4B4A7 /* ANSITextState.swift */; };
+		C9B0E56323B5002A00A4B4A7 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B0E55623B4FC0300A4B4A7 /* Parser.swift */; };
 		C9B2DD9A235CA587000BD8C5 /* python38.zip in Resources */ = {isa = PBXBuildFile; fileRef = C9B2DD99235CA587000BD8C5 /* python38.zip */; };
 		C9B2DD9B235CA587000BD8C5 /* python38.zip in Resources */ = {isa = PBXBuildFile; fileRef = C9B2DD99235CA587000BD8C5 /* python38.zip */; };
 		C9B3FDEC21503DE7000FC9A8 /* PyExtensionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */; };
@@ -2366,6 +2370,8 @@
 		C9A8F02422DCE184000E320F /* PyGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyGestureRecognizer.swift; sourceTree = "<group>"; };
 		C9AAAB3D219501600042E733 /* InputAssistant.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = InputAssistant.xcodeproj; path = InputAssistant/InputAssistant.xcodeproj; sourceTree = "<group>"; };
 		C9AAAB5121950E8B0042E733 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		C9B0E55523B4FC0300A4B4A7 /* ANSITextState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANSITextState.swift; sourceTree = "<group>"; };
+		C9B0E55623B4FC0300A4B4A7 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		C9B1BA1022FE2D4D00381AE1 /* _flood_fill_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _flood_fill_cy.framework; sourceTree = "<group>"; };
 		C9B1BA1322FE313000381AE1 /* _max_tree.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _max_tree.framework; sourceTree = "<group>"; };
 		C9B2DD99235CA587000BD8C5 /* python38.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = python38.zip; sourceTree = "<group>"; };
@@ -5510,6 +5516,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		C9B0E55223B4FBDE00A4B4A7 /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				C9B0E55523B4FC0300A4B4A7 /* ANSITextState.swift */,
+				C9B0E55623B4FC0300A4B4A7 /* Parser.swift */,
+			);
+			path = Colors;
+			sourceTree = "<group>";
+		};
 		C9C0E77021EE9EFA0057C63E /* Themes */ = {
 			isa = PBXGroup;
 			children = (
@@ -6801,6 +6816,7 @@
 				C9E4152921513E2300D64E32 /* Views */,
 				C9592D1321D0592C00412CEF /* Models */,
 				C9C0E77021EE9EFA0057C63E /* Themes */,
+				C9B0E55223B4FBDE00A4B4A7 /* Colors */,
 				C98E2001214F0856002F0178 /* main.m */,
 				C904EB6C21445CAE00585C28 /* Pyto-Bridging-Header.h */,
 				C93D61E82145E1D300C8B5E3 /* Resources */,
@@ -7399,6 +7415,7 @@
 				C9F4622B22ECB412007DC3B8 /* PyControl.swift in Sources */,
 				C9CEE20021EB8FFB00316D3C /* PyThread.swift in Sources */,
 				C9CEE1FC21EB8FF100316D3C /* PyOutputHelper.swift in Sources */,
+				C9B0E56323B5002A00A4B4A7 /* Parser.swift in Sources */,
 				C9F4623322ECB412007DC3B8 /* PyTextField.swift in Sources */,
 				C9CEE21A21EB9D6C00316D3C /* PythonApplicationMain.m in Sources */,
 				C9F4622A22ECB412007DC3B8 /* PyImageView.swift in Sources */,
@@ -7406,6 +7423,7 @@
 				C9CEE20321EB95BA00316D3C /* ReviewHelper.swift in Sources */,
 				C92FB43522ECC4BF00A59AC0 /* main.m in Sources */,
 				C95A9DBD22542C4400B90E42 /* MovableTextField.swift in Sources */,
+				C9B0E56223B5002A00A4B4A7 /* ANSITextState.swift in Sources */,
 				C9CEE1FD21EB8FF300316D3C /* PySharingHelper.swift in Sources */,
 				C9F4623522ECB417007DC3B8 /* PyColor.swift in Sources */,
 				C9F4622C22ECB412007DC3B8 /* PySlider.swift in Sources */,
@@ -7461,6 +7479,7 @@
 				C958F8F222EC250E00481712 /* URL.swift in Sources */,
 				C9CED5352353A214000BB464 /* ThemeMakerTableViewController.swift in Sources */,
 				C92495C72151A3E3007EB4DB /* ReviewHelper.swift in Sources */,
+				C9B0E55723B4FC0300A4B4A7 /* ANSITextState.swift in Sources */,
 				C93C8E1E22E01ACA0008DC13 /* PySwitch.swift in Sources */,
 				C9E501AE220C85B1002719CE /* PyMainThread.swift in Sources */,
 				C9425A7821F49B1300E7CC35 /* BlockBasedSelector.swift in Sources */,
@@ -7501,6 +7520,7 @@
 				C9C0E78521EF764F0057C63E /* Sunset.swift in Sources */,
 				C9EA55B3219F752D007546BC /* RelativePathForScript.swift in Sources */,
 				C92ACE3321F0D8CB00FA8904 /* SolarizedLight.swift in Sources */,
+				C9B0E55823B4FC0300A4B4A7 /* Parser.swift in Sources */,
 				C90F7CF1227F494300EEA045 /* RunModuleViewController.swift in Sources */,
 				C972AE3F23467AE30053E1C3 /* FoldersBrowserViewController.swift in Sources */,
 				C949D39B21F8A00C005AF481 /* NSRange.swift in Sources */,
