@@ -65,7 +65,7 @@ class CustomIconTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         UIApplication.shared.setAlternateIconName(indexPath.section == 0 ? nil : icons[indexPath.section], completionHandler: { error in
-            print(error?.localizedDescription)
+            print(error?.localizedDescription ?? "No error")
         })
         
         tableView.reloadData()
