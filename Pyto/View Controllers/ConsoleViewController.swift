@@ -339,7 +339,9 @@ import UIKit
         textView.keyboardAppearance = theme.keyboardAppearance
         textView.backgroundColor = theme.sourceCodeTheme.backgroundColor
         view.backgroundColor = theme.sourceCodeTheme.backgroundColor
-        textView.textColor = theme.sourceCodeTheme.color(for: .plain)
+        if textView.textColor != theme.sourceCodeTheme.color(for: .plain) {
+            textView.textColor = theme.sourceCodeTheme.color(for: .plain)
+        }
     }
     
     /// Called when the user choosed a theme.
