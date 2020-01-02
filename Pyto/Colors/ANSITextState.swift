@@ -214,6 +214,7 @@ struct ANSITextState {
             .foregroundColor: foregroundColor,
             .underlineColor: foregroundColor,
             .strikethroughColor: foregroundColor,
+            .backgroundColor: backgroundColor,
             .font: font
         ]
     }
@@ -221,12 +222,22 @@ struct ANSITextState {
     private static func font(fromTraits traits: UIFontDescriptor.SymbolicTraits) -> UIFont {
         
         #if MAIN
-        let font = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
+        let textSize = CGFloat(ThemeFontSize)
         #else
-        let font = UIFont(name: "Menlo", size: 12) ?? UIFont.systemFont(ofSize: 12)
+        let textSize = 12
         #endif
         
-        return font
+        #if MAIN
+        var descriptor = UIFontDescriptor(name: EditorViewController.font.familyName, size: textSize)
+        #else
+        var descriptor = UIFontDescriptor(name: "Menlo", size: textSize)
+        #endif
+        
+        if let traitDescriptor = descriptor.withSymbolicTraits(traits) {
+            descriptor = traitDescriptor
+        }
+        
+        return UIFont(descriptor: descriptor, size: textSize)
     }
     
     mutating func reset() {
