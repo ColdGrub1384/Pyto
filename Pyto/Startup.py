@@ -84,11 +84,34 @@ def read(text):
 
     console.print(text, end="")
 
+def write(txt):
+
+    try:
+        os
+    except NameError:
+        import os
+    
+    try:
+        threading
+    except NameError:
+        import threading
+
+    if ("widget" not in os.environ) and (threading.currentThread() in console.ignoredThreads):
+        return
+    
+    if txt.__class__ is str:
+        read(txt)
+    elif txt.__class__ is bytes:
+        text = txt.decode()
+        write(text)
+
 standardOutput = Reader(read)
 standardOutput._buffer = io.BufferedWriter(standardOutput)
+standardOutput.buffer.write = write
 
 standardError = Reader(read)
 standardError._buffer = io.BufferedWriter(standardError)
+standardError.buffer.write = write
 
 sys.stdout = standardOutput
 sys.stderr = standardError
