@@ -2,6 +2,8 @@
 The Pyto's console can display colored output, images and progress bars.
 """
 
+from console import clear
+
 # ————————————
 # Progress bar
 # ____________
@@ -15,7 +17,7 @@ for i in range(20):
     bar.next()
 bar.finish()
 
-print()
+clear()
 
 # ———————————————
 # Carriage return
@@ -25,7 +27,7 @@ for i in range(20):
     print(f"\r{i+1}", end="")
     sleep(0.1)
 
-print("\n")
+clear()
 
 # ——————
 # Images
@@ -37,7 +39,24 @@ from scipy import misc
 f = Image.fromarray(misc.face())
 f.show()
 
-print()
+clear()
+
+# —————————————
+# Terminal size
+# _____________
+
+import os
+h = int(os.environ["ROWS"])-1
+w = int(os.environ["COLUMNS"])-1
+
+print("-"*w)
+
+for i in range(h-2):
+    print("|"+(" "*(w-2))+"|")
+
+print("—"*w)
+
+clear()
 
 # ——————
 # Colors
