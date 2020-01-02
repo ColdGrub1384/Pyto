@@ -8,6 +8,24 @@
 
 import UIKit
 
+fileprivate extension ConsoleViewController {
+    
+    struct Holder {
+        
+        static var values = [ConsoleViewController:NSAttributedString]()
+    }
+    
+    var attributedConsole: NSAttributedString? {
+        get {
+            return Holder.values[self]
+        }
+        
+        set {
+            Holder.values[self] = newValue
+        }
+    }
+}
+
 /// A class accessible by Rubicon to print without writting to the stdout.
 @objc class PyOutputHelper: NSObject {
     
@@ -36,6 +54,52 @@ import UIKit
         text_ = ShortenFilePaths(in: text_)
         #endif
         
+        if text_.hasPrefix("\r") {
+            DispatchQueue.main.async {
+                #if WIDGET
+                let visibles = [ConsoleViewController.visible ?? ConsoleViewController()]
+                #else
+                let visibles = ConsoleViewController.visibles
+                #endif
+                
+                for console in visibles {
+                    #if !WIDGET && MAIN
+                    if script != nil {
+                        guard console.editorSplitViewController?.editor.document?.fileURL.path == script else {
+                            continue
+                        }
+                    }
+                    #endif
+                    
+                    if console.textView.text.hasSuffix("\n") {
+                        text_ = text_.components(separatedBy: "\r").last ?? text_
+                        continue
+                    }
+                    
+                    text_ = "\r\(text_.components(separatedBy: "\r").last ?? text_)"
+                    
+                    let attrString = NSMutableAttributedString(attributedString: console.textView.attributedText)
+                    
+                    let range = (console.textView.text as NSString).lineRange(for: NSRange(location: (console.textView.text as NSString).length-1, length: 1))
+                    
+                    let offset: Int
+                    if console.textView.text.contains("\n") || console.textView.text.contains("\r") {
+                        offset = 1
+                    } else {
+                        offset = 0
+                    }
+                    
+                    attrString.replaceCharacters(in: NSRange(location: range.location-offset, length: range.length+offset), with: NSAttributedString(string: ""))
+                    
+                    console.textView.attributedText = attrString
+                    
+                    console.textView.scrollToBottom()
+                }
+            }
+        } else if text_.contains("\r") {
+            text_ = text_.components(separatedBy: "\r").last ?? text_
+        }
+        
         Python.shared.output += text_
         
         #if WIDGET
@@ -57,6 +121,39 @@ import UIKit
             }
         }
         #else
+        let visibles = ConsoleViewController.visibles
+        
+        for console in visibles {
+            
+            #if MAIN
+            if script != nil {
+                guard console.editorSplitViewController?.editor.document?.fileURL.path == script else {
+                    continue
+                }
+            }
+            #endif
+            
+            DispatchQueue.main.async {
+                
+                console.attributedConsole = console.textView.attributedText
+                
+                #if MAIN
+                let font = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
+                let color = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
+                #else
+                let font = UIFont(name: "Menlo", size: 12) ?? UIFont.systemFont(ofSize: 12)
+                let color = UIColor.label
+                #endif
+                
+                if let attrStr = console.textView.attributedText {
+                    let mutable = NSMutableAttributedString(attributedString: attrStr)
+                    mutable.append(NSAttributedString(string: text_, attributes: [.font : font, .foregroundColor : color]))
+                    console.textView.attributedText = mutable
+                    console.textView.scrollToBottom()
+                }
+            }
+        }
+        
         queue.sync {
             outputParser = Parser()
             let delegate = PyOutputHelper()
@@ -195,7 +292,7 @@ extension PyOutputHelper: ParserDelegate {
             #endif
             
             DispatchQueue.main.async {
-                if let attrStr = console.textView.attributedText {
+                if let attrStr = console.attributedConsole {
                     let mutable = NSMutableAttributedString(attributedString: attrStr)
                     
                     /*#if MAIN
@@ -214,7 +311,10 @@ extension PyOutputHelper: ParserDelegate {
                     #endif*/
                     mutable.append(string)
                     console.textView.attributedText = mutable
-                    console.textView.scrollToBottom()
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                        console.textView.scrollToBottom()
+                    }
                     
                     PyOutputHelper.semaphore?.signal()
                     PyOutputHelper.semaphore = nil
