@@ -379,7 +379,7 @@ class EditorSplitViewController: SplitViewController {
             return
         }
         
-        if newCollection.horizontalSizeClass == .compact && !EditorSplitViewController.shouldShowConsoleAtBottom {
+        if (newCollection.horizontalSizeClass == .compact || UIDevice.current.userInterfaceIdiom == .phone) && !EditorSplitViewController.shouldShowConsoleAtBottom {
             arrangement = .vertical
         } else {
             
