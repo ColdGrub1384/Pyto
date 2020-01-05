@@ -356,6 +356,9 @@
 		C97F632C235B66FC00F289C7 /* _testimportmultiple.c in Sources */ = {isa = PBXBuildFile; fileRef = C97F5AE5235B66F800F289C7 /* _testimportmultiple.c */; };
 		C9816985235E5D4E0062A91F /* getpath.c in Sources */ = {isa = PBXBuildFile; fileRef = C9816984235E5D4E0062A91F /* getpath.c */; };
 		C98169BA235E62080062A91F /* interpreteridobject.c in Sources */ = {isa = PBXBuildFile; fileRef = C98169B9235E62080062A91F /* interpreteridobject.c */; };
+		C9C3307E23C242A7003B5971 /* _openssl.c in Sources */ = {isa = PBXBuildFile; fileRef = C9C3307B23C242A7003B5971 /* _openssl.c */; };
+		C9C3307F23C242A7003B5971 /* _padding.c in Sources */ = {isa = PBXBuildFile; fileRef = C9C3307C23C242A7003B5971 /* _padding.c */; };
+		C9C3308023C242A7003B5971 /* _constant_time.c in Sources */ = {isa = PBXBuildFile; fileRef = C9C3307D23C242A7003B5971 /* _constant_time.c */; };
 		C9FB248C235F346400389EAF /* pyexpat.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB248B235F346400389EAF /* pyexpat.c */; };
 		C9FB24A4235F34EF00389EAF /* xmlrole.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB248E235F34EF00389EAF /* xmlrole.c */; };
 		C9FB24A5235F34EF00389EAF /* expat_config.h in Headers */ = {isa = PBXBuildFile; fileRef = C9FB248F235F34EF00389EAF /* expat_config.h */; };
@@ -448,7 +451,7 @@
 		226ED58221C783FC00A71A20 /* openssl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = openssl.framework; path = ../Frameworks/openssl.framework; sourceTree = "<group>"; };
 		226ED58621C7840800A71A20 /* libffi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libffi.a; path = ../libffi.a; sourceTree = "<group>"; };
 		226ED58A21C784B200A71A20 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
-		22E8FEE221C66AD100967E21 /* python3_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = python3_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		22E8FEE221C66AD100967E21 /* pythonA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = pythonA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22E8FEE521C66AD100967E21 /* Python3_ios.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Python3_ios.h; sourceTree = "<group>"; };
 		22E8FEE621C66AD100967E21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22E8FEEE21C66BF000967E21 /* python.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = python.c; path = "../Python-3.8/Programs/python.c"; sourceTree = "<group>"; };
@@ -846,6 +849,10 @@
 		C9816984235E5D4E0062A91F /* getpath.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = getpath.c; path = "../Python-3.8/Modules/getpath.c"; sourceTree = "<group>"; };
 		C98169B9235E62080062A91F /* interpreteridobject.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = interpreteridobject.c; path = "../Python-3.8/Objects/interpreteridobject.c"; sourceTree = "<group>"; };
 		C9B2DD9C235CA71B000BD8C5 /* libffi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libffi.a; path = ../../../Downloads/libffi.a; sourceTree = "<group>"; };
+		C9C3306D23C23EF7003B5971 /* python3_ios copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "python3_ios copy-Info.plist"; path = "/Users/adrianlabbe/Desktop/Pyto/python3_ios/Python3_ios/python3_ios copy-Info.plist"; sourceTree = "<absolute>"; };
+		C9C3307B23C242A7003B5971 /* _openssl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = _openssl.c; sourceTree = "<group>"; };
+		C9C3307C23C242A7003B5971 /* _padding.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = _padding.c; sourceTree = "<group>"; };
+		C9C3307D23C242A7003B5971 /* _constant_time.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = _constant_time.c; sourceTree = "<group>"; };
 		C9FB248B235F346400389EAF /* pyexpat.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = pyexpat.c; path = "../Python-3.8/Modules/pyexpat.c"; sourceTree = "<group>"; };
 		C9FB248E235F34EF00389EAF /* xmlrole.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xmlrole.c; sourceTree = "<group>"; };
 		C9FB248F235F34EF00389EAF /* expat_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = expat_config.h; sourceTree = "<group>"; };
@@ -1113,6 +1120,7 @@
 				C97F5966235B66EC00F289C7 /* cmathmodule.c */,
 				C97F5931235B66EB00F289C7 /* config.c */,
 				C97F5A39235B66F200F289C7 /* config.c.in */,
+				C9C3307A23C242A7003B5971 /* cryptography */,
 				C97F5A66235B66F200F289C7 /* errnomodule.c */,
 				C9FB248D235F34EF00389EAF /* expat */,
 				C97F59C0235B66EF00F289C7 /* faulthandler.c */,
@@ -1209,13 +1217,14 @@
 				22E8FEE421C66AD100967E21 /* Python3_ios */,
 				22E8FEE321C66AD100967E21 /* Products */,
 				226ED57F21C783FB00A71A20 /* Frameworks */,
+				C9C3306D23C23EF7003B5971 /* python3_ios copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
 		22E8FEE321C66AD100967E21 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				22E8FEE221C66AD100967E21 /* python3_ios.framework */,
+				22E8FEE221C66AD100967E21 /* pythonA.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1648,6 +1657,17 @@
 			path = clinic;
 			sourceTree = "<group>";
 		};
+		C9C3307A23C242A7003B5971 /* cryptography */ = {
+			isa = PBXGroup;
+			children = (
+				C9C3307B23C242A7003B5971 /* _openssl.c */,
+				C9C3307C23C242A7003B5971 /* _padding.c */,
+				C9C3307D23C242A7003B5971 /* _constant_time.c */,
+			);
+			name = cryptography;
+			path = "../Python-3.8/Modules/cryptography";
+			sourceTree = "<group>";
+		};
 		C9FB248D235F34EF00389EAF /* expat */ = {
 			isa = PBXGroup;
 			children = (
@@ -1944,7 +1964,7 @@
 			);
 			name = python3_ios;
 			productName = Python3_ios;
-			productReference = 22E8FEE221C66AD100967E21 /* python3_ios.framework */;
+			productReference = 22E8FEE221C66AD100967E21 /* pythonA.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -2049,6 +2069,7 @@
 				C97F61D0235B66FB00F289C7 /* blake2bp-test.c in Sources */,
 				C97F5C3C235B66F900F289C7 /* arraymodule.c in Sources */,
 				C97F5DE6235B66F900F289C7 /* _datetimemodule.c in Sources */,
+				C9C3308023C242A7003B5971 /* _constant_time.c in Sources */,
 				C97F5D1A235B66F900F289C7 /* _sre.c in Sources */,
 				C97F58EA235B653300F289C7 /* pymath.c in Sources */,
 				C97F5B82235B66F800F289C7 /* unicodedata.c in Sources */,
@@ -2149,6 +2170,7 @@
 				C97F58C6235B653300F289C7 /* modsupport.c in Sources */,
 				C97F5824235B653300F289C7 /* ast.c in Sources */,
 				C97F5FC6235B66FA00F289C7 /* _codecs_tw.c in Sources */,
+				C9C3307E23C242A7003B5971 /* _openssl.c in Sources */,
 				C97F5E10235B66F900F289C7 /* _functoolsmodule.c in Sources */,
 				C97F5E28235B66FA00F289C7 /* posixshmem.c in Sources */,
 				C97F6050235B66FB00F289C7 /* winconsoleio.c in Sources */,
@@ -2183,6 +2205,7 @@
 				C97F5842235B653300F289C7 /* mysnprintf.c in Sources */,
 				C97F5E04235B66F900F289C7 /* _collectionsmodule.c in Sources */,
 				C97F57E2235B653300F289C7 /* Python-ast.c in Sources */,
+				C9C3307F23C242A7003B5971 /* _padding.c in Sources */,
 				C97F60C2235B66FB00F289C7 /* zlibmodule.c in Sources */,
 				C97F5BEE235B66F800F289C7 /* rotatingtree.c in Sources */,
 				C97F5896235B653300F289C7 /* getcompiler.c in Sources */,
@@ -2421,7 +2444,7 @@
 					../,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Nicolas-Holzschuch.Python3-ios";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = pythonA;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = "non-global";
@@ -2498,7 +2521,7 @@
 					../,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Nicolas-Holzschuch.Python3-ios";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = pythonA;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = "non-global";

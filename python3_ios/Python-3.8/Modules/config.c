@@ -127,6 +127,10 @@ PyMODINIT_FUNC PyInit__uuid(void);
 // For Jupyter:
 PyMODINIT_FUNC PyInit_libzmq(void);
 PyMODINIT_FUNC PyInit__cffi_ext(void);
+// For Cryptography
+PyMODINIT_FUNC PyInit__padding(void);
+PyMODINIT_FUNC PyInit__constant_time(void);
+PyMODINIT_FUNC PyInit__openssl(void);
 
 struct _inittab _PyImport_Inittab[] = {
 
@@ -245,6 +249,11 @@ struct _inittab _PyImport_Inittab[] = {
     {"_uuid", PyInit__uuid},
     
     {"pyexpat", PyInit_pyexpat},
+    
+    // For Cyrptography
+    {"__cryptography_hazmat_bindings__padding", PyInit__padding},
+    {"__cryptography_hazmat_bindings__constant_time", PyInit__constant_time},
+    {"__cryptography_hazmat_bindings__openssl", PyInit__openssl},
     
     {0, 0}
 };
