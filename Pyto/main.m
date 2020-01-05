@@ -588,10 +588,12 @@ void init_pil() {
 // MARK: - CFFI
 
 #if MAIN
-extern PyMODINIT_FUNC PyInit__cffi_backend(void);
 
 void init_cffi() {
-    PyImport_AppendInittab("_cffi_backend", &PyInit__cffi_backend);
+
+    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
+    [name addObject:@"_cffi_backend"]; [key addObject:@"_cffi_backend"];
+    BandHandle(@"_cffi_backend", name, key);
 }
 #endif
 
