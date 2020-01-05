@@ -9,14 +9,18 @@
 import UIKit
 import SafariServices
 import NotificationCenter
+import CoreLocation
 
 /// The application's delegate.
-@objc public class AppDelegate: UIResponder, UIApplicationDelegate {
+@objc public class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
     
     #if !MAIN
     /// Script to run at startup passed by `PythonApplicationMain`.
     @objc public static var scriptToRun: String?
     #else
+    
+    /// The shared location manager.
+    let locationManager = CLLocationManager()
     
     private let copyModulesQueue = DispatchQueue.global(qos: .background)
     
@@ -103,6 +107,9 @@ import NotificationCenter
     @objc public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         #if MAIN
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         setenv("PWD", FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].path, 1)
         setenv("SSL_CERT_FILE", Bundle.main.path(forResource: "cacert", ofType: "pem"), 1)
