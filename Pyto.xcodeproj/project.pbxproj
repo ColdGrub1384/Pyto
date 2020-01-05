@@ -422,6 +422,8 @@
 		C9C2F47522F0ED8C0062F4D6 /* Pyto Intents.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C9C2F46E22F0ED8C0062F4D6 /* Pyto Intents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C9C32E6423C11029003B5971 /* _cffi_backend.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C32E6323C11015003B5971 /* _cffi_backend.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9C3308323C29040003B5971 /* _bcrypt.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C3308223C2902F003B5971 /* _bcrypt.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9C3308723C29747003B5971 /* PyLocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C3308623C29747003B5971 /* PyLocationHelper.swift */; };
+		C9C3308923C297C8003B5971 /* PyLocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C3308623C29747003B5971 /* PyLocationHelper.swift */; };
 		C9C59F512373887B003DA9A4 /* _move.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C59F3923738868003DA9A4 /* _move.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9C59F522373887B003DA9A4 /* _packer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C59F3F23738868003DA9A4 /* _packer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9C59F532373887B003DA9A4 /* _sas.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C59F2923738866003DA9A4 /* _sas.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -2407,6 +2409,7 @@
 		C9C32E6323C11015003B5971 /* _cffi_backend.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _cffi_backend.framework; sourceTree = "<group>"; };
 		C9C32EB323C23750003B5971 /* libOpenSSL.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOpenSSL.a; path = python3_ios/libOpenSSL.a; sourceTree = "<group>"; };
 		C9C3308223C2902F003B5971 /* _bcrypt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _bcrypt.framework; sourceTree = "<group>"; };
+		C9C3308623C29747003B5971 /* PyLocationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyLocationHelper.swift; sourceTree = "<group>"; };
 		C9C57EB40A56344EEB889161 /* Pods-Pyto Share.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Share.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Share/Pods-Pyto Share.release.xcconfig"; sourceTree = "<group>"; };
 		C9C59F2623738866003DA9A4 /* parsing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = parsing.framework; sourceTree = "<group>"; };
 		C9C59F2723738866003DA9A4 /* internals.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = internals.framework; sourceTree = "<group>"; };
@@ -5069,6 +5072,7 @@
 				C93D61DC2145CD0800C8B5E3 /* PyInputHelper.swift */,
 				C93D61E02145D46700C8B5E3 /* PyOutputHelper.swift */,
 				C97659052147192C001C96A8 /* PySharingHelper.swift */,
+				C9C3308623C29747003B5971 /* PyLocationHelper.swift */,
 				C976592621471D23001C96A8 /* PyFilePicker.swift */,
 				C90E5C9522DECB9F00851BD4 /* PyNotificationCenter.swift */,
 				C93CA8B422022E67008DD049 /* QuickLookHelper.swift */,
@@ -7439,6 +7443,7 @@
 				C95A9DBD22542C4400B90E42 /* MovableTextField.swift in Sources */,
 				C9B0E56223B5002A00A4B4A7 /* ANSITextState.swift in Sources */,
 				C9CEE1FD21EB8FF300316D3C /* PySharingHelper.swift in Sources */,
+				C9C3308923C297C8003B5971 /* PyLocationHelper.swift in Sources */,
 				C9F4623522ECB417007DC3B8 /* PyColor.swift in Sources */,
 				C9F4622C22ECB412007DC3B8 /* PySlider.swift in Sources */,
 				C9CEE20721EB95C900316D3C /* ConsoleTextView.swift in Sources */,
@@ -7546,6 +7551,7 @@
 				C959D50723761FC40001AEAF /* PyPackage.swift in Sources */,
 				C903986922D2CF2600FAD834 /* PyImageView.swift in Sources */,
 				C9CEF4B222AC8DD300B1916D /* SceneDelegate.swift in Sources */,
+				C9C3308723C29747003B5971 /* PyLocationHelper.swift in Sources */,
 				C976592721471D23001C96A8 /* PyFilePicker.swift in Sources */,
 				C9C0E78D21F0B7FA0057C63E /* ThemeChooserTableViewController.swift in Sources */,
 				C9C7AC6E22F5EE9F00659685 /* PyWebView.swift in Sources */,
@@ -7735,7 +7741,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -7771,7 +7777,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.1.17;
+				MARKETING_VERSION = 11.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -7798,7 +7804,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -7832,7 +7838,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.1.17;
+				MARKETING_VERSION = 11.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -7974,7 +7980,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				INFOPLIST_FILE = "Pyto Intents/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -7983,7 +7989,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.1.17;
+				MARKETING_VERSION = 11.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Intents";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -7997,7 +8003,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				INFOPLIST_FILE = "Pyto Intents/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -8006,7 +8012,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.1.17;
+				MARKETING_VERSION = 11.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Intents";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -8227,7 +8233,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -8290,7 +8296,7 @@
 					"$(PROJECT_DIR)/PyNacl",
 					"$(PROJECT_DIR)/SciPy",
 				);
-				MARKETING_VERSION = 11.1.17;
+				MARKETING_VERSION = 11.2;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
@@ -8339,7 +8345,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -8402,7 +8408,7 @@
 					"$(PROJECT_DIR)/PyNacl",
 					"$(PROJECT_DIR)/SciPy",
 				);
-				MARKETING_VERSION = 11.1.17;
+				MARKETING_VERSION = 11.2;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (

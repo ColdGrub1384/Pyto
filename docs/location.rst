@@ -1,0 +1,5 @@
+location
+=======
+
+.. automodule:: location
+   :members:

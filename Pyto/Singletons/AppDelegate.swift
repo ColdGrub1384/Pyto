@@ -204,5 +204,17 @@ import CoreLocation
     }
     
     #endif
+    
+    // MARK: - Location manager delegate
+    
+    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let last = locations.last else {
+            return
+        }
+        
+        PyLocationHelper.latitude = Float(last.coordinate.latitude)
+        PyLocationHelper.longitude = Float(last.coordinate.longitude)
+        PyLocationHelper.altitude = Float(last.altitude)
+    }
 }
 

@@ -1,4 +1,6 @@
 """
+Playing sounds
+
 A module for playing sounds. Wraps the AudioToolbox and AVFoundation system framework.
 """
 
