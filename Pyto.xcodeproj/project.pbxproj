@@ -421,6 +421,7 @@
 		C9C2F47122F0ED8C0062F4D6 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2F47022F0ED8C0062F4D6 /* IntentHandler.swift */; };
 		C9C2F47522F0ED8C0062F4D6 /* Pyto Intents.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C9C2F46E22F0ED8C0062F4D6 /* Pyto Intents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C9C32E6423C11029003B5971 /* _cffi_backend.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C32E6323C11015003B5971 /* _cffi_backend.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9C3308323C29040003B5971 /* _bcrypt.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C3308223C2902F003B5971 /* _bcrypt.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9C59F512373887B003DA9A4 /* _move.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C59F3923738868003DA9A4 /* _move.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9C59F522373887B003DA9A4 /* _packer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C59F3F23738868003DA9A4 /* _packer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9C59F532373887B003DA9A4 /* _sas.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C59F2923738866003DA9A4 /* _sas.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1746,6 +1747,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C9C3308323C29040003B5971 /* _bcrypt.framework in Embed Frameworks */,
 				C9C32E6423C11029003B5971 /* _cffi_backend.framework in Embed Frameworks */,
 				C9C59F512373887B003DA9A4 /* _move.framework in Embed Frameworks */,
 				C9C59F522373887B003DA9A4 /* _packer.framework in Embed Frameworks */,
@@ -2404,6 +2406,7 @@
 		C9C2F47222F0ED8C0062F4D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9C32E6323C11015003B5971 /* _cffi_backend.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _cffi_backend.framework; sourceTree = "<group>"; };
 		C9C32EB323C23750003B5971 /* libOpenSSL.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOpenSSL.a; path = python3_ios/libOpenSSL.a; sourceTree = "<group>"; };
+		C9C3308223C2902F003B5971 /* _bcrypt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _bcrypt.framework; sourceTree = "<group>"; };
 		C9C57EB40A56344EEB889161 /* Pods-Pyto Share.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Share.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Share/Pods-Pyto Share.release.xcconfig"; sourceTree = "<group>"; };
 		C9C59F2623738866003DA9A4 /* parsing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = parsing.framework; sourceTree = "<group>"; };
 		C9C59F2723738866003DA9A4 /* internals.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = internals.framework; sourceTree = "<group>"; };
@@ -5661,6 +5664,14 @@
 			path = "Pyto Intents";
 			sourceTree = "<group>";
 		};
+		C9C3308123C2902F003B5971 /* Bcrypt */ = {
+			isa = PBXGroup;
+			children = (
+				C9C3308223C2902F003B5971 /* _bcrypt.framework */,
+			);
+			path = Bcrypt;
+			sourceTree = "<group>";
+		};
 		C9C7442122EE044A0035EFB9 /* Biopython */ = {
 			isa = PBXGroup;
 			children = (
@@ -6781,6 +6792,7 @@
 				C96D324122F74283007D2289 /* Pywt */,
 				C97868122304E19300BD6FA4 /* OpenCV */,
 				C995FB76233AD2BA00A8D42C /* PyNacl */,
+				C9C3308123C2902F003B5971 /* Bcrypt */,
 				C9CEE1E821EB8D5300316D3C /* PytoCore */,
 				C946A5AB22074EAA00F78C5C /* Pyto Widget */,
 				C9C2F46F22F0ED8C0062F4D6 /* Pyto Intents */,
@@ -8235,6 +8247,7 @@
 					"$(PROJECT_DIR)/SkLearn",
 					"$(PROJECT_DIR)/OpenCV",
 					"$(PROJECT_DIR)/OpenBlas",
+					"$(PROJECT_DIR)/Bcrypt",
 				);
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PREFIX_HEADER = "";
@@ -8346,6 +8359,7 @@
 					"$(PROJECT_DIR)/SkLearn",
 					"$(PROJECT_DIR)/OpenCV",
 					"$(PROJECT_DIR)/OpenBlas",
+					"$(PROJECT_DIR)/Bcrypt",
 				);
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PREFIX_HEADER = "";

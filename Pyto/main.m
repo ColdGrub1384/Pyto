@@ -595,6 +595,15 @@ void init_cffi() {
     [name addObject:@"_cffi_backend"]; [key addObject:@"_cffi_backend"];
     BandHandle(@"_cffi_backend", name, key);
 }
+
+// MARK: - Bcrypt
+
+void init_bcrypt() {
+
+    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
+    [name addObject:@"_bcrypt"]; [key addObject:@"__bcrypt__bcrypt"];
+    BandHandle(@"bcrypt", name, key);
+}
 #endif
 
 #endif
@@ -728,6 +737,7 @@ int initialize_python(int argc, char *argv[]) {
     init_cv2();
     init_cffi();
     init_nacl();
+    init_bcrypt();
     #endif
     init_pil();
     #endif
