@@ -555,7 +555,7 @@ uint8_t Cryptography_check_ansix923_padding(const uint8_t *data,
     return (mismatch & 1) == 0;
 }
 
-#define CRYPTOGRAPHY_PACKAGE_VERSION "2.8"
+#define CRYPTOGRAPHY_PACKAGE_VERSION "2.7"
 
 /************************************************************/
 
