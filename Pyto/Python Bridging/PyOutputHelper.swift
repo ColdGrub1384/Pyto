@@ -142,7 +142,12 @@ fileprivate extension ConsoleViewController {
                 let color = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
                 #else
                 let font = UIFont(name: "Menlo", size: 12) ?? UIFont.systemFont(ofSize: 12)
-                let color = UIColor.label
+                let color: UIColor
+                if #available(iOS 13.0, *) {
+                    color = UIColor.label
+                } else {
+                    color = .black
+                }
                 #endif
                 
                 if let attrStr = console.textView.attributedText {
