@@ -13,6 +13,7 @@ if "widget" in os.environ:
 
 __PyLocationHelper__ = pyto.PyLocationHelper
 
+
 def start_updating():
     """
     Starts receiving location updates. Call this before calling :func:`~location.get_location`.
@@ -20,12 +21,14 @@ def start_updating():
 
     __PyLocationHelper__.startUpdating()
 
+
 def stop_updating():
     """
     Stops receiving location updates.
     """
 
     __PyLocationHelper__.stopUpdating()
+
 
 def get_location() -> Tuple[float]:
     """
