@@ -37,6 +37,10 @@ Libraries included:
   - OpenCV
   - Lxml
   - Biopython
+  - Cyrptography
+  - Bcrypt
+  
+  ... and more!
 ```
 
 ## Building
