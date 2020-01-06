@@ -14,13 +14,13 @@ import CoreLocation
 /// The application's delegate.
 @objc public class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
     
+    /// The shared location manager.
+    let locationManager = CLLocationManager()
+    
     #if !MAIN
     /// Script to run at startup passed by `PythonApplicationMain`.
     @objc public static var scriptToRun: String?
     #else
-    
-    /// The shared location manager.
-    let locationManager = CLLocationManager()
     
     private let copyModulesQueue = DispatchQueue.global(qos: .background)
     
@@ -217,4 +217,3 @@ import CoreLocation
         PyLocationHelper.altitude = Float(last.altitude)
     }
 }
-

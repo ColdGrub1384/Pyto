@@ -230,7 +230,7 @@ struct ANSITextState {
         #if MAIN
         var descriptor = UIFontDescriptor(name: EditorViewController.font.familyName, size: textSize)
         #else
-        var descriptor = UIFontDescriptor(name: "Menlo", size: textSize)
+        var descriptor = UIFontDescriptor(name: "Menlo", size: CGFloat(textSize))
         #endif
         
         if let traitDescriptor = descriptor.withSymbolicTraits(traits) {
@@ -299,3 +299,4 @@ struct ANSITextState {
         }
     }
 }
+
