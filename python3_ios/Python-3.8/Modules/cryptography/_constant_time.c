@@ -512,7 +512,7 @@ uint8_t Cryptography_constant_time_bytes_eq(uint8_t *a, size_t len_a,
     return (mismatch & 1) == 0;
 }
 
-#define CRYPTOGRAPHY_PACKAGE_VERSION "2.8"
+#define CRYPTOGRAPHY_PACKAGE_VERSION "2.7"
 
 /************************************************************/
 
