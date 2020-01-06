@@ -31,4 +31,5 @@ The following modules are integrated with Pyto:
    sound
    pasteboard
    sharing
+   location
    UIKit
