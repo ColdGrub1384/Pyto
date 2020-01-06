@@ -166,7 +166,9 @@ fileprivate extension ConsoleViewController {
             outputParser.delegate = delegate
             PyOutputHelper.semaphore = DispatchSemaphore(value: 0)
             outputParser.parse(text_.data(using: .utf8) ?? Data())
-            PyOutputHelper.semaphore?.wait()
+            if script != nil {
+                PyOutputHelper.semaphore?.wait()
+            }
         }
         #endif
     }
