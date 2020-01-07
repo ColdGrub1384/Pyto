@@ -8,9 +8,6 @@ import os
 import pyto
 from typing import Tuple
 
-if "widget" in os.environ:
-    raise ImportError("Cannot use this module on a widget.")
-
 __PyLocationHelper__ = pyto.PyLocationHelper
 
 

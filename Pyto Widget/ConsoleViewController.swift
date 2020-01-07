@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import CoreLocation
 import NotificationCenter
 
 fileprivate var isPythonSetup = false
 
 /// View controller with console content on the Today widget.
-@objc class ConsoleViewController: UIViewController, NCWidgetProviding {
+@objc class ConsoleViewController: UIViewController, NCWidgetProviding, CLLocationManagerDelegate {
     
     /// The visible instance.
     @objc static var visible: ConsoleViewController!
@@ -28,6 +29,9 @@ fileprivate var isPythonSetup = false
             }
         }
     }
+    
+    /// The shared location manager.
+    static let locationManager = CLLocationManager()
     
     /// The shared directory path to be passed to Python.
     @objc static var sharedDirectoryPath: String?
@@ -179,6 +183,7 @@ fileprivate var isPythonSetup = false
         super.viewDidLoad()
         // Do any additional setup after loading the view from its nib.
         
+        ConsoleViewController.locationManager.delegate = self
         ConsoleViewController.sharedDirectoryPath = FileManager.default.sharedDirectory?.path
         
         if !isPythonSetup {
@@ -376,5 +381,17 @@ fileprivate var isPythonSetup = false
         }
         
         completionHandler(NCUpdateResult.noData)
+    }
+    
+    // MARK: - Location manager delegate
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else {
+            return
+        }
+        
+        PyLocationHelper.altitude = Float(location.altitude)
+        PyLocationHelper.longitude = Float(location.coordinate.longitude)
+        PyLocationHelper.latitude = Float(location.coordinate.latitude)
     }
 }
