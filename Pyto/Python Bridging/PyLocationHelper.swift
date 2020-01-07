@@ -29,15 +29,24 @@ import CoreLocation
     /// Starts updating location.
     @objc static func startUpdating() {
         DispatchQueue.main.async {
+            #if WIDGET
+            ConsoleViewController.locationManager.requestWhenInUseAuthorization()
+            ConsoleViewController.locationManager.startUpdatingLocation()
+            #else
             (UIApplication.shared.delegate as? AppDelegate)?.locationManager.requestWhenInUseAuthorization()
             (UIApplication.shared.delegate as? AppDelegate)?.locationManager.startUpdatingLocation()
+            #endif
         }
     }
     
     /// Stops updating location.
     @objc static func stopUpdating() {
         DispatchQueue.main.async {
+            #if WIDGET
+            ConsoleViewController.locationManager.stopUpdatingLocation()
+            #else
             (UIApplication.shared.delegate as? AppDelegate)?.locationManager.stopUpdatingLocation()
+            #endif
         }
     }
 }
