@@ -71,24 +71,7 @@ import CoreLocation
                 }
                 
                 try FileManager.default.copyItem(at: widgetURL, to: newWidgetURL)
-                
-                for file in ((try? FileManager.default.contentsOfDirectory(at: EditorViewController.directory(for: url!), includingPropertiesForKeys: nil, options: .init(rawValue: 0))) ?? []) {
-                    let newURL = sharedDir.appendingPathComponent(file.lastPathComponent)
-                    if FileManager.default.fileExists(atPath: newURL.path) {
-                        try? FileManager.default.removeItem(at: newURL)
-                    }
-                    
-                    try? FileManager.default.copyItem(at: file, to: newURL)
-                }
             }
-            
-            let sharedModulesDir = sharedDir.appendingPathComponent("modules")
-            
-            if FileManager.default.fileExists(atPath: sharedModulesDir.path) {
-                try FileManager.default.removeItem(at: sharedModulesDir)
-            }
-            
-            try FileManager.default.copyItem(at: DocumentBrowserViewController.localContainerURL.appendingPathComponent("site-packages"), to: sharedModulesDir)
         } catch {
             print(error.localizedDescription)
         }
