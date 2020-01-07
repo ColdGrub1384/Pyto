@@ -419,15 +419,16 @@
         <!--Custom Icon-->
         <scene sceneID="kxg-O5-Rqh">
             <objects>
-                <tableViewController id="8LS-KB-0qR" customClass="CustomIconTableViewController" customModule="Pyto" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="icon" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8LS-KB-0qR" customClass="CustomIconTableViewController" customModule="Pyto" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Sny-wO-Uax">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <textView key="tableFooterView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Alternate icons made by Daniel Shane https://twitter.com/DannWai" textAlignment="center" id="PvM-zC-WMg">
-                            <rect key="frame" x="0.0" y="116" width="375" height="49.5"/>
+                        <textView key="tableFooterView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" id="PvM-zC-WMg">
+                            <rect key="frame" x="0.0" y="116" width="375" height="100"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <string key="text">Alternate icons made by @DannWai https://twitter.com/DannWai  Custom colors on Dark and Light icon by @dlevi309 https://twitter.com/dlevi309</string>
                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
