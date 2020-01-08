@@ -4,7 +4,6 @@ Accessing location
 This module gives access to the devices's location.
 """
 
-import os
 import pyto
 from typing import Tuple
 
