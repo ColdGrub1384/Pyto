@@ -157,10 +157,52 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="location">
-<h1>location<a class="headerlink" href="#location" title="Permalink to this headline">¶</a></h1>
-<span class="target" id="module-location"></span><p>Accessing location</p>
+  <div class="section" id="module-location">
+<span id="location"></span><h1>location<a class="headerlink" href="#module-location" title="Permalink to this headline">¶</a></h1>
+<p>Accessing location</p>
 <p>This module gives access to the devices’s location.</p>
+<dl class="data">
+<dt id="location.LOCATION_ACCURACY_BEST">
+<code class="sig-prename descclassname">location.</code><code class="sig-name descname">LOCATION_ACCURACY_BEST</code><em class="property"> = -1</em><a class="headerlink" href="#location.LOCATION_ACCURACY_BEST" title="Permalink to this definition">¶</a></dt>
+<dd><p>The best level of accuracy available.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="location.LOCATION_ACCURACY_BEST_FOR_NAVIGATION">
+<code class="sig-prename descclassname">location.</code><code class="sig-name descname">LOCATION_ACCURACY_BEST_FOR_NAVIGATION</code><em class="property"> = -2</em><a class="headerlink" href="#location.LOCATION_ACCURACY_BEST_FOR_NAVIGATION" title="Permalink to this definition">¶</a></dt>
+<dd><p>The highest possible accuracy that uses additional sensor data to facilitate navigation apps.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="location.LOCATION_ACCURACY_HUNDRED_METERS">
+<code class="sig-prename descclassname">location.</code><code class="sig-name descname">LOCATION_ACCURACY_HUNDRED_METERS</code><em class="property"> = 100</em><a class="headerlink" href="#location.LOCATION_ACCURACY_HUNDRED_METERS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accurate to within one hundred meters.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="location.LOCATION_ACCURACY_KILOMETER">
+<code class="sig-prename descclassname">location.</code><code class="sig-name descname">LOCATION_ACCURACY_KILOMETER</code><em class="property"> = 1000</em><a class="headerlink" href="#location.LOCATION_ACCURACY_KILOMETER" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accurate to the nearest kilometer.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="location.LOCATION_ACCURACY_NEAREST_TEN_METERS">
+<code class="sig-prename descclassname">location.</code><code class="sig-name descname">LOCATION_ACCURACY_NEAREST_TEN_METERS</code><em class="property"> = 10</em><a class="headerlink" href="#location.LOCATION_ACCURACY_NEAREST_TEN_METERS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accurate to within ten meters of the desired target.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="location.LOCATION_ACCURACY_THREE_KILOMETERS">
+<code class="sig-prename descclassname">location.</code><code class="sig-name descname">LOCATION_ACCURACY_THREE_KILOMETERS</code><em class="property"> = 3000</em><a class="headerlink" href="#location.LOCATION_ACCURACY_THREE_KILOMETERS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accurate to the nearest three kilometers.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="location.accuracy">
+<code class="sig-prename descclassname">location.</code><code class="sig-name descname">accuracy</code><em class="property"> = -1</em><a class="headerlink" href="#location.accuracy" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of meters from the original geographic coordinate that could yield the user’s actual location.</p>
+</dd></dl>
+
 <dl class="function">
 <dt id="location.get_location">
 <code class="sig-prename descclassname">location.</code><code class="sig-name descname">get_location</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Tuple[float]<a class="headerlink" href="#location.get_location" title="Permalink to this definition">¶</a></dt>
