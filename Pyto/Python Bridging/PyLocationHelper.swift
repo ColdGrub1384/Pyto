@@ -26,6 +26,42 @@ import CoreLocation
         return CLLocationManager.authorizationStatus() == .authorizedAlways || CLLocationManager.authorizationStatus() == .authorizedWhenInUse
     }
     
+    /// The number of meters from the original geographic coordinate that could yield the user's actual location.
+    @objc static var desiredAccuracy: Float {
+        get {
+            
+            let semaphore = DispatchSemaphore(value: 0)
+            
+            var value: Float = 0 {
+                didSet {
+                    semaphore.signal()
+                }
+            }
+            
+            DispatchQueue.main.async {
+                #if WIDGET
+                value = Float(ConsoleViewController.locationManager.desiredAccuracy)
+                #else
+                value = Float((UIApplication.shared.delegate as? AppDelegate)?.locationManager.desiredAccuracy ?? 0)
+                #endif
+            }
+            
+            semaphore.wait()
+            
+            return value
+        }
+        
+        set {
+            DispatchQueue.main.async {
+                #if WIDGET
+                ConsoleViewController.locationManager.desiredAccuracy = Double(newValue)
+                #else
+                (UIApplication.shared.delegate as? AppDelegate)?.locationManager.desiredAccuracy = Double(newValue)
+                #endif
+            }
+        }
+    }
+    
     /// Starts updating location.
     @objc static func startUpdating() {
         DispatchQueue.main.async {
