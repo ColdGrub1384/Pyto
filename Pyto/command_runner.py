@@ -2,12 +2,12 @@
 This script asks user for input and runs the given command.
 """
 
-import importlib
 import os
 import os.path
 import sys
 import traceback
 import pyto
+import runpy
 
 if len(sys.argv) == 1:
     usage = "Usage: <module-name> [<args>]"
@@ -31,28 +31,11 @@ def main():
     
     bin = os.path.expanduser("~/Documents/stash_extensions/bin")
     sys.path.insert(-1, bin)
-    spec = importlib.util.find_spec(module_name)
-    try:
-        sys.path.remove(bin)
-    except ValueError:
-        pass
-    if spec is None:
-        print("python: No module named "+module_name)
-        return
-    module_path = spec.origin
-
-    __main__path = os.path.dirname(module_path)+"/main.py"
-    if not os.path.isfile(__main__path):
-        __main__path = os.path.dirname(module_path)+"/__main__.py"
-    if os.path.isfile(__main__path) and os.path.basename(module_path) == "__init__.py":
-        module_path = __main__path
 
     sys.argv = command
 
     try:
-        spec = importlib.util.spec_from_file_location("__main__", module_path)
-        script = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(script)
+        runpy._run_module_as_main(module_name)
     except KeyboardInterrupt:
         pass
     except SystemExit:
