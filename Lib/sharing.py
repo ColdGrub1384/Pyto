@@ -170,4 +170,3 @@ def open_url(url: str):
         raise ValueError("url musts be a String or an Objective-C ``NSURL``.")
 
     __PySharingHelper__.openURL(__url__)
-    
