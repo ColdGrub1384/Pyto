@@ -146,6 +146,7 @@
 		C93B896F23CA6A3D0070B2EF /* _swt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C93B896B23CA6A3C0070B2EF /* _swt.o */; };
 		C93B897023CA6A3D0070B2EF /* _cwt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C93B896C23CA6A3C0070B2EF /* _cwt.o */; };
 		C93B897123CA6A3D0070B2EF /* _pywt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C93B896D23CA6A3D0070B2EF /* _pywt.o */; };
+		C93B897323CA7B0B0070B2EF /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946A5C92207809700F78C5C /* FileManager.swift */; };
 		C93C8E1922DFDEBC0008DC13 /* PySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C8E1822DFDEBC0008DC13 /* PySlider.swift */; };
 		C93C8E1C22E011CE0008DC13 /* PySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C8E1822DFDEBC0008DC13 /* PySlider.swift */; };
 		C93C8E1E22E01ACA0008DC13 /* PySwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C8E1D22E01ACA0008DC13 /* PySwitch.swift */; };
@@ -2067,6 +2068,7 @@
 		C93B896B23CA6A3C0070B2EF /* _swt.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = _swt.o; sourceTree = "<group>"; };
 		C93B896C23CA6A3C0070B2EF /* _cwt.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = _cwt.o; sourceTree = "<group>"; };
 		C93B896D23CA6A3D0070B2EF /* _pywt.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = _pywt.o; sourceTree = "<group>"; };
+		C93B897223CA7ABD0070B2EF /* Pyto Intents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pyto Intents.entitlements"; sourceTree = "<group>"; };
 		C93C8E1822DFDEBC0008DC13 /* PySlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PySlider.swift; sourceTree = "<group>"; };
 		C93C8E1D22E01ACA0008DC13 /* PySwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PySwitch.swift; sourceTree = "<group>"; };
 		C93CA8B422022E67008DD049 /* QuickLookHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLookHelper.swift; sourceTree = "<group>"; };
@@ -5706,6 +5708,7 @@
 		C9C2F46F22F0ED8C0062F4D6 /* Pyto Intents */ = {
 			isa = PBXGroup;
 			children = (
+				C93B897223CA7ABD0070B2EF /* Pyto Intents.entitlements */,
 				C9C2F47022F0ED8C0062F4D6 /* IntentHandler.swift */,
 				C9C7AC6A22F5ED2300659685 /* RunCodeIntentHandler.swift */,
 				C9C7AC6922F5ED2300659685 /* RunScriptIntentHandler.swift */,
@@ -7471,6 +7474,7 @@
 				C93B896923CA54330070B2EF /* ParseArgs.swift in Sources */,
 				C93B896423CA52000070B2EF /* setArgv.m in Sources */,
 				C9C7AC6B22F5ED2300659685 /* RunScriptIntentHandler.swift in Sources */,
+				C93B897323CA7B0B0070B2EF /* FileManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8047,6 +8051,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -8060,7 +8065,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 11.3;
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Intents";
+				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Intents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
@@ -8075,6 +8080,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -8088,7 +8094,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 11.3;
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Intents";
+				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Intents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
