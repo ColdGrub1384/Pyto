@@ -26,6 +26,7 @@ The following modules are integrated with Pyto:
    :maxdepth: 2
    :caption: Pyto Library Reference
 
+   xcallback
    pyto_ui
    notification_center
    sound

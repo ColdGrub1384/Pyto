@@ -5,7 +5,6 @@ Sharing Items
 This module allows you to share items, to import files and to open URLs.
 """
 
-from UIKit import UIApplication as __UIApplication__
 import pyto
 import mainthread
 import threading
@@ -162,16 +161,13 @@ def open_url(url: str):
     :param url: URL to open. Can be a String or an Objective-C ``NSURL``.
     """
 
-    __url__ = None
-
-    def __openURL__() -> None:
-        __UIApplication__.sharedApplication.openURL(__url__)
+    __url__ = None       
 
     if type(url) is str:
         __url__ = NSURL.URLWithString(url)
-        mainthread.run_sync(__openURL__)
     elif __PySharingHelper__.isURL(url):
         __url__ = url
-        mainthread.run_sync(__openURL__)
     else:
         raise ValueError("url musts be a String or an Objective-C ``NSURL``.")
+
+    __PySharingHelper__.openURL(__url__)

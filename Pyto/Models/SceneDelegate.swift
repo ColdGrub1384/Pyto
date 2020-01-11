@@ -237,6 +237,8 @@ import UIKit
                     })
                 })
                 return
+            } else if inputURL.host == "callback" {
+                PyCallbackHelper.url = inputURL.absoluteString
             }
             
             return

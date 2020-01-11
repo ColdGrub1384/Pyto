@@ -1,0 +1,260 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>xcallback &mdash; Pyto  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pyto_ui" href="pyto_ui.html" />
+    <link rel="prev" title="Third Party Libraries" href="third_party.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Pyto
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="opencv.html">OpenCV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="third_party.html">Third Party Libraries</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Pyto Library Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">xcallback</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#example-with-shortcuts">Example with Shortcuts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pyto_ui.html">pyto_ui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notification_center.html">notification_center</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pasteboard.html">pasteboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">sharing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="location.html">location</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UIKit.html">UIKit</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Pyto</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>xcallback</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/xcallback.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-xcallback">
+<span id="xcallback"></span><h1>xcallback<a class="headerlink" href="#module-xcallback" title="Permalink to this headline">¶</a></h1>
+<p>Opening x-callback URLs</p>
+<p>This module is used to interact with other apps with <a class="reference external" href="http://x-callback-url.com">x-callback URLs</a>.</p>
+<dl class="function">
+<dt id="xcallback.open_url">
+<code class="sig-prename descclassname">xcallback.</code><code class="sig-name descname">open_url</code><span class="sig-paren">(</span><em class="sig-param">url: str</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#xcallback.open_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens the given x-callback URL. The function will return only if the request was successfully completed.</p>
+<p>Raises: <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> if there was an error and <code class="docutils literal notranslate"><span class="pre">SystemExit</span></code> if the request was cancelled.
+Returns: The result sent by the opened app.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>url</strong> – The URL to open.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="section" id="example-with-shortcuts">
+<h2>Example with Shortcuts<a class="headerlink" href="#example-with-shortcuts" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Opens a Shortcut and retrieves the result.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">xcallback</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">quote</span>
+
+<span class="n">shortcut_name</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;The name of the shortcut to open: &quot;</span><span class="p">)</span>
+<span class="n">shortcut_input</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;What would you like to send to the Shortcut? &quot;</span><span class="p">)</span>
+
+<span class="c1"># https://support.apple.com/guide/shortcuts/apdcd7f20a6f/ios</span>
+<span class="n">url</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;shortcuts://x-callback-url/run-shortcut?name={quote(shortcut_name)}&amp;input=text&amp;text={quote(shortcut_input)}&quot;</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">xcallback</span><span class="o">.</span><span class="n">open_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="c1"># If successed, returns the result</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Result:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">+</span><span class="n">res</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Error: &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="c1"># If failed, raises ``RuntimeError``</span>
+<span class="k">except</span> <span class="ne">SystemExit</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cancelled&quot;</span><span class="p">)</span> <span class="c1"># If cancelled, raises ``SystemExit``</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pyto_ui.html" class="btn btn-neutral float-right" title="pyto_ui" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="third_party.html" class="btn btn-neutral float-left" title="Third Party Libraries" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Adrian Labbé
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

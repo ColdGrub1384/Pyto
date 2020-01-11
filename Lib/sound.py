@@ -5,25 +5,55 @@ A module for playing sounds. Wraps the AudioToolbox and AVFoundation system fram
 """
 
 from os.path import abspath
-from rubicon.objc import ObjCClass
 from ctypes import cdll, c_int, byref
 
-AudioToolbox = cdll.LoadLibrary("/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox")
-"""
-The AudioToolbox system framework.
-"""
 
-AVFoundation = cdll.LoadLibrary("/System/Library/Frameworks/AVFoundation.framework/AVFoundation")
-"""
-The AVFoundation system framework.
-"""
+rubicon = True
 
-AVAudioPlayer = ObjCClass("AVAudioPlayer")
-"""
-The AVAudioPlayer class from AVFoundation framework.
-"""
 
-NSURL = ObjCClass("NSURL")
+try:
+    from rubicon.objc import ObjCClass
+except ValueError:
+    rubicon = False
+
+
+class Value:
+    def __repr__(self):
+        return None
+
+
+if rubicon:
+    AudioToolbox = cdll.LoadLibrary("/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox")
+    """
+    The AudioToolbox system framework.
+    """
+
+    AVFoundation = cdll.LoadLibrary("/System/Library/Frameworks/AVFoundation.framework/AVFoundation")
+    """
+    The AVFoundation system framework.
+    """
+
+    AVAudioPlayer = ObjCClass("AVAudioPlayer")
+    """
+    The AVAudioPlayer class from AVFoundation framework.
+    """
+
+    NSURL = ObjCClass("NSURL")
+else:
+    AudioToolbox = Value()
+    """
+    The AudioToolbox system framework.
+    """
+
+    AVFoundation = Value()
+    """
+    The AVFoundation system framework.
+    """
+
+    AVAudioPlayer = Value()
+    """
+    The AVAudioPlayer class from AVFoundation framework.
+    """
 
 
 class AudioPlayer:
