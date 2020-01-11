@@ -6,7 +6,8 @@ Shortcuts
 
 Pyto provides Shortcuts for running scripts and code. Shortcuts will open Pyto to execute the code and it's not possible to retrieve the result. See `x-callback URLs <#x-callback URLs>`_ for getting callbacks.
 
-``Run Code with Arguments`` will execute the given code with the given arguments.
+``Run Code with Arguments`` will execute the given code with the given arguments. Code can be executed in app or without leaving Shortcuts. If you uncheck ``Run In App``, the Shortcut will return the output of the code (stdout + stderr). When ``Run In App`` is unchecked, the code will only have access to the standard library and ``stdin`` cannot be sent.
+
 ``Run Script with Arguments`` will execute the given script with the given arguments. Note that ``Script`` is a file, and Shortcuts doesn't provide a way to pick a file as a value. So the only ways to have a valid value passed to this Shortcut are by sharing a file with the Share Sheet and passing the input or by picking each time a script with the ``Get file`` system Shortcut.
 
 Pyto also provides a Shortcut for each script used with the app.
@@ -33,4 +34,4 @@ This is the structure that should be used for running code:
 
 The Shortcuts app supports opening x-callback URLs. `Here <https://www.icloud.com/shortcuts/b85b8afe92e54dc9b54be5ab1495995f>`__ is an example of a Shortcut that shows the current Python version.
 
-Pyto can also open external x-callback URLs with the :ref:`xcallback <xcallback.html>`__ module.
+Pyto can also open external x-callback URLs with the `xcallback <xcallback.html>`__ module.
