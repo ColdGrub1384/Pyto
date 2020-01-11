@@ -5,11 +5,11 @@ This module is used to interact with other apps with `x-callback URLs <http://x-
 """
 
 import webbrowser
-import threading
 from pyto import PyCallbackHelper
 from _add_url_params import add_url_params
-from urllib.parse import quote, urlparse, parse_qs
+from urllib.parse import urlparse, parse_qs
 from time import sleep
+
 
 def open_url(url: str) -> str:
     """
@@ -32,7 +32,7 @@ def open_url(url: str) -> str:
         if PyCallbackHelper.url is not None:
             url = str(PyCallbackHelper.url)
             PyCallbackHelper.url = None
-            
+
             parsed = urlparse(url)
             params = parse_qs(parsed.query)
 

@@ -6,7 +6,6 @@ This module allows you to share items, to import files and to open URLs.
 """
 
 import pyto
-import mainthread
 import threading
 import base64
 import os
@@ -161,7 +160,7 @@ def open_url(url: str):
     :param url: URL to open. Can be a String or an Objective-C ``NSURL``.
     """
 
-    __url__ = None       
+    __url__ = None
 
     if type(url) is str:
         __url__ = NSURL.URLWithString(url)
@@ -171,3 +170,4 @@ def open_url(url: str):
         raise ValueError("url musts be a String or an Objective-C ``NSURL``.")
 
     __PySharingHelper__.openURL(__url__)
+    
