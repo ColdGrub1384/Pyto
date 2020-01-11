@@ -85,4 +85,16 @@ import SafariServices
     @objc static func isURL(_ url: Any) -> Bool {
         return (url is NSURL)
     }
+    
+    #if !WIDGET
+    /// Opens the given URL.
+    ///
+    /// - Parameters:
+    ///     - url: The URL to open.
+    @objc static func openURL(_ url: URL) {
+        DispatchQueue.main.async {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    #endif
 }

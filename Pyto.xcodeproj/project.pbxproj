@@ -375,6 +375,7 @@
 		C98472AE21A05CB1008E16AC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C98472AD21A05CB1008E16AC /* README.md */; };
 		C98A5BB422C7E86900D411CC /* PyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98A5BB122C7E86900D411CC /* PyWrapper.swift */; };
 		C98A5BB622C7E86900D411CC /* PyColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98A5BB322C7E86900D411CC /* PyColor.swift */; };
+		C98CECDB23C9487200E133E3 /* PyCallbackHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98CECDA23C9487200E133E3 /* PyCallbackHelper.swift */; };
 		C98E1FFD214EE6ED002F0178 /* Samples in Resources */ = {isa = PBXBuildFile; fileRef = C98E1FFC214EE6EC002F0178 /* Samples */; };
 		C98E2002214F0856002F0178 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C98E2001214F0856002F0178 /* main.m */; };
 		C99D8E20223E960100489E9B /* PipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99D8E1F223E960100489E9B /* PipViewController.swift */; };
@@ -2375,6 +2376,7 @@
 		C9868E9E22B728490013F108 /* Python3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Python3.framework; path = Library/Frameworks/Python3.framework; sourceTree = DEVELOPER_DIR; };
 		C98A5BB122C7E86900D411CC /* PyWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PyWrapper.swift; sourceTree = "<group>"; };
 		C98A5BB322C7E86900D411CC /* PyColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PyColor.swift; sourceTree = "<group>"; };
+		C98CECDA23C9487200E133E3 /* PyCallbackHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyCallbackHelper.swift; sourceTree = "<group>"; };
 		C98E1FFC214EE6EC002F0178 /* Samples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Samples; sourceTree = "<group>"; };
 		C98E2001214F0856002F0178 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C996931221FDF56D00ED9DA7 /* libboringssl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libboringssl.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/lib/libboringssl.tbd; sourceTree = DEVELOPER_DIR; };
@@ -5098,6 +5100,7 @@
 				C9C3308623C29747003B5971 /* PyLocationHelper.swift */,
 				C976592621471D23001C96A8 /* PyFilePicker.swift */,
 				C90E5C9522DECB9F00851BD4 /* PyNotificationCenter.swift */,
+				C98CECDA23C9487200E133E3 /* PyCallbackHelper.swift */,
 				C93CA8B422022E67008DD049 /* QuickLookHelper.swift */,
 				C9E501AD220C85B1002719CE /* PyMainThread.swift */,
 				C9624EF321A9905400DDA9A7 /* PyThread.swift */,
@@ -7558,6 +7561,7 @@
 				C9D2AA762215A503006AF527 /* EditorViewController+highlighting.swift in Sources */,
 				C92DBD8221F687480098BE43 /* REPLViewController.swift in Sources */,
 				C9A4199823A315D700BF5393 /* CustomIconTableViewController.swift in Sources */,
+				C98CECDB23C9487200E133E3 /* PyCallbackHelper.swift in Sources */,
 				C9B5D84F21F11AAE00E980BA /* AboutTableViewController.swift in Sources */,
 				C9BF46E222E0DC4F00B8FE4B /* PyTableViewCell.swift in Sources */,
 				C98E2002214F0856002F0178 /* main.m in Sources */,
