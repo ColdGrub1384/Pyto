@@ -232,10 +232,10 @@
 			<key>INIntentKeyParameter</key>
 			<string>code</string>
 			<key>INIntentLastParameterTag</key>
-			<integer>2</integer>
+			<integer>4</integer>
 			<key>INIntentManagedParameterCombinations</key>
 			<dict>
-				<key>code,arguments</key>
+				<key>code,arguments,runInApp</key>
 				<dict>
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
@@ -392,6 +392,60 @@
 					<integer>2</integer>
 					<key>INIntentParameterType</key>
 					<string>String</string>
+				</dict>
+				<dict>
+					<key>INIntentParameterCustomDisambiguation</key>
+					<true/>
+					<key>INIntentParameterDisplayName</key>
+					<string>Run In App</string>
+					<key>INIntentParameterDisplayNameID</key>
+					<string>JfkG2c</string>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>3</integer>
+					<key>INIntentParameterMetadata</key>
+					<dict>
+						<key>INIntentParameterMetadataDefaultValue</key>
+						<true/>
+						<key>INIntentParameterMetadataFalseDisplayName</key>
+						<string>no</string>
+						<key>INIntentParameterMetadataFalseDisplayNameID</key>
+						<string>LEajCJ</string>
+						<key>INIntentParameterMetadataTrueDisplayName</key>
+						<string>yes</string>
+						<key>INIntentParameterMetadataTrueDisplayNameID</key>
+						<string>Ta337J</string>
+					</dict>
+					<key>INIntentParameterName</key>
+					<string>runInApp</string>
+					<key>INIntentParameterPromptDialogs</key>
+					<array>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogFormatString</key>
+							<string>Would you like to run the code in app?</string>
+							<key>INIntentParameterPromptDialogFormatStringID</key>
+							<string>MiaQHi</string>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Primary</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogFormatString</key>
+							<string>Just to confirm, you wanted ‘${runInApp}’?</string>
+							<key>INIntentParameterPromptDialogFormatStringID</key>
+							<string>hNsI7V</string>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Confirmation</string>
+						</dict>
+					</array>
+					<key>INIntentParameterSupportsResolution</key>
+					<true/>
+					<key>INIntentParameterTag</key>
+					<integer>4</integer>
+					<key>INIntentParameterType</key>
+					<string>Boolean</string>
 				</dict>
 			</array>
 			<key>INIntentResponse</key>
