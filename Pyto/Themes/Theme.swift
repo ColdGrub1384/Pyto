@@ -152,7 +152,7 @@ func ThemeFromData(_ data: Data) -> Theme? {
         }
         
         var lineNumbersStyle: LineNumbersStyle? {
-            return defaultTheme.lineNumbersStyle
+            return LineNumbersStyle(font: defaultTheme.font.withSize(font.pointSize), textColor: defaultTheme.lineNumbersStyle?.textColor ?? color(for: .plain))
         }
         
         var gutterStyle: GutterStyle {
