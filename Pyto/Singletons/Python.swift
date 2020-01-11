@@ -10,6 +10,7 @@
 import Foundation
 import AVFoundation
 #if MAIN
+import UIKit
 #elseif os(iOS) && !WIDGET
 @_silgen_name("PyRun_SimpleStringFlags")
 func PyRun_SimpleStringFlags(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Any>!)
@@ -156,6 +157,24 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                             item?.rightBarButtonItem = editor.stopBarButtonItem
                         } else {
                             item?.rightBarButtonItem = editor.runBarButtonItem
+                            
+                            if contentVC.editorSplitViewController?.editor.textView.text == PyCallbackHelper.code {
+                                // Run callback
+                                
+                                if PyCallbackHelper.cancelled, let cancel = PyCallbackHelper.cancelURL, let url = URL(string: cancel) {
+                                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                                } else if let msg = PyCallbackHelper.exception, let error = PyCallbackHelper.errorURL, let url = URL(string: error)?.appendingParameters(params: ["errorMessage": msg]) {
+                                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                                } else if let success = PyCallbackHelper.successURL, let url = URL(string: success)?.appendingParameters(params: ["result":contentVC.textView.text]) {
+                                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                                }
+                                
+                                PyCallbackHelper.cancelURL = nil
+                                PyCallbackHelper.errorURL = nil
+                                PyCallbackHelper.successURL = nil
+                                PyCallbackHelper.cancelled = false
+                                PyCallbackHelper.exception = nil
+                            }
                         }
                     }
                 }

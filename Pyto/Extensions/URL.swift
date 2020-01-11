@@ -84,4 +84,21 @@ extension URL {
         return NSError(domain: NSPOSIXErrorDomain, code: Int(err),
                        userInfo: [NSLocalizedDescriptionKey: String(cString: strerror(err))])
     }
+    
+    /// Taken from https://stackoverflow.com/a/41421727/7515957
+    public var queryParameters: [String: String]? {
+        guard
+            let components = URLComponents(url: self, resolvingAgainstBaseURL: true),
+            let queryItems = components.queryItems else { return nil }
+        return queryItems.reduce(into: [String: String]()) { (result, item) in
+            result[item.name] = item.value
+        }
+    }
+    
+    /// Taken from https://stackoverflow.com/a/58534998/7515957
+    public func appendingParameters( params: [String:String]) -> URL? {
+        var components = URLComponents(string: self.absoluteString)
+        components?.queryItems = params.map { element in URLQueryItem(name: element.key, value: element.value) }
+        return components?.url
+    }
 }

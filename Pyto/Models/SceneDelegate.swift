@@ -236,9 +236,25 @@ import UIKit
                         settingsVC?.tableView(settingsVC!.tableView, didSelectRowAt: indexPath)
                     })
                 })
-                return
             } else if inputURL.host == "callback" {
                 PyCallbackHelper.url = inputURL.absoluteString
+            } else if inputURL.host == "x-callback" {
+                PyCallbackHelper.cancelURL = inputURL.queryParameters?["x-cancel"]
+                PyCallbackHelper.errorURL = inputURL.queryParameters?["x-error"]
+                PyCallbackHelper.successURL = inputURL.queryParameters?["x-success"]
+            
+                
+                guard let documentBrowserViewController = documentBrowserViewController else {
+                    window?.rootViewController?.dismiss(animated: true, completion: {
+                        self.scene(scene, openURLContexts: URLContexts)
+                    })
+                    return
+                }
+                
+                if let code = inputURL.queryParameters?["code"] {
+                    PyCallbackHelper.code = code
+                    documentBrowserViewController.run(code: code)
+                }
             }
             
             return
