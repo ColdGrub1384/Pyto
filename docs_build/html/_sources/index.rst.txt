@@ -17,6 +17,7 @@ The app uses the Python C API to run Python code in the same process of the app,
 .. toctree::
    :maxdepth: 2
 
+   automation
    opencv
    third_party
 
