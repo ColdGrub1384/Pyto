@@ -76,6 +76,22 @@ import CoreLocation
             print(error.localizedDescription)
         }
         
+        do {
+            guard let modsDir = FileManager.default.sharedDirectory?.appendingPathComponent("modules") else {
+                return
+            }
+            
+            if FileManager.default.fileExists(atPath: modsDir.path) {
+                try FileManager.default.removeItem(at: modsDir)
+            }
+            
+            let sitePackages = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("site-packages-widget")
+            
+            try FileManager.default.copyItem(at: sitePackages, to: modsDir)
+        } catch {
+            print(error.localizedDescription)
+        }
+        
         if let bundleID = Bundle.main.bundleIdentifier?.appending(".Today-Widget"), let dir = FileManager.default.sharedDirectory?.path {
             let scriptExists = FileManager.default.fileExists(atPath: (dir as NSString).appendingPathComponent("main.py"))
             NCWidgetController().setHasContent(scriptExists, forWidgetWithBundleIdentifier: bundleID)
@@ -128,6 +144,12 @@ import CoreLocation
                 if !FileManager.default.fileExists(atPath: iCloudURL.path) {
                     try? FileManager.default.createDirectory(at: iCloudURL, withIntermediateDirectories: true, attributes: nil)
                 }
+            }
+            
+            let modulesWidgetURL = docs.appendingPathComponent("site-packages-widget")
+            
+            if !FileManager.default.fileExists(atPath: modulesWidgetURL.path) {
+                try FileManager.default.createDirectory(at: modulesWidgetURL, withIntermediateDirectories: false, attributes: nil)
             }
         } catch {
             print(error.localizedDescription)
