@@ -26,7 +26,7 @@ class RunCodeIntentsHandler: NSObject, RunCodeIntentHandling {
             return completion(.init(code: .continueInApp, userActivity: userActivity))
         } else {
             putenv("PYTHONHOME=\(Bundle.main.bundlePath)".cValue)
-            putenv("PYTHONPATH=\(Bundle.main.bundleURL.deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent("Frameworks/Python.framework/python38.zip").path)".cValue)
+            putenv("PYTHONPATH=\(Bundle.main.bundleURL.deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent("Frameworks/Python.framework/python38.zip").path):\(FileManager.default.sharedDirectory?.path ?? "")/modules".cValue)
             putenv("PYTHONOPTIMIZE=".cValue)
             putenv("PYTHONIOENCODING=utf-8".cValue)
             
