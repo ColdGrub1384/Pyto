@@ -40,11 +40,11 @@ def stop_updating():
     __PyLocationHelper__.stopUpdating()
 
 
-def get_location() -> Tuple[float]:
+def get_location() -> Tuple[float, float, float]:
     """
     Returns a tuple with current longitude, latitude and altitude.
 
-    :rtype: Tuple[float]
+    :rtype: Tuple[float, float, float]
     """
 
     return (float(__PyLocationHelper__.longitude), float(__PyLocationHelper__.latitude), float(__PyLocationHelper__.altitude))
