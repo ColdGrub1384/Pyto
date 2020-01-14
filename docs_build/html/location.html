@@ -81,6 +81,7 @@
             
             
               <ul>
+<li class="toctree-l1"><a class="reference internal" href="automation.html">Automation with Shortcuts and x-callback URLs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="opencv.html">OpenCV</a></li>
 <li class="toctree-l1"><a class="reference internal" href="third_party.html">Third Party Libraries</a></li>
 </ul>
@@ -198,6 +199,30 @@
 <dd><p>Accurate to the nearest three kilometers.</p>
 </dd></dl>
 
+<dl class="class">
+<dt id="location.Location">
+<em class="property">class </em><code class="sig-prename descclassname">location.</code><code class="sig-name descname">Location</code><span class="sig-paren">(</span><em class="sig-param">longitude</em>, <em class="sig-param">latitude</em>, <em class="sig-param">altitude</em><span class="sig-paren">)</span><a class="headerlink" href="#location.Location" title="Permalink to this definition">¶</a></dt>
+<dd><p>A tuple containing data about longitude, latitude and altitude.</p>
+<dl class="method">
+<dt id="location.Location.altitude">
+<em class="property">property </em><code class="sig-name descname">altitude</code><a class="headerlink" href="#location.Location.altitude" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="location.Location.latitude">
+<em class="property">property </em><code class="sig-name descname">latitude</code><a class="headerlink" href="#location.Location.latitude" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="location.Location.longitude">
+<em class="property">property </em><code class="sig-name descname">longitude</code><a class="headerlink" href="#location.Location.longitude" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="data">
 <dt id="location.accuracy">
 <code class="sig-prename descclassname">location.</code><code class="sig-name descname">accuracy</code><em class="property"> = -1</em><a class="headerlink" href="#location.accuracy" title="Permalink to this definition">¶</a></dt>
@@ -206,11 +231,11 @@
 
 <dl class="function">
 <dt id="location.get_location">
-<code class="sig-prename descclassname">location.</code><code class="sig-name descname">get_location</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Tuple[float]<a class="headerlink" href="#location.get_location" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">location.</code><code class="sig-name descname">get_location</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; location.Location<a class="headerlink" href="#location.get_location" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a tuple with current longitude, latitude and altitude.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Tuple[float]</p>
+<dd class="field-odd"><p><a class="reference internal" href="#location.Location" title="location.Location">Location</a></p>
 </dd>
 </dl>
 </dd></dl>

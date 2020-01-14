@@ -6,11 +6,16 @@ This module gives access to the devices's location.
 
 import pyto
 import sys
-from typing import Tuple
 from types import ModuleType
+from collections import namedtuple
 from UIKit import UIApplication
 
 __PyLocationHelper__ = pyto.PyLocationHelper
+
+Location = namedtuple("Location", "longitude latitude altitude")
+"""
+A tuple containing data about longitude, latitude and altitude.
+"""
 
 
 class __Location__(ModuleType):
@@ -40,14 +45,14 @@ def stop_updating():
     __PyLocationHelper__.stopUpdating()
 
 
-def get_location() -> Tuple[float, float, float]:
+def get_location() -> Location:
     """
     Returns a tuple with current longitude, latitude and altitude.
 
-    :rtype: Tuple[float, float, float]
+    :rtype: Location
     """
 
-    return (float(__PyLocationHelper__.longitude), float(__PyLocationHelper__.latitude), float(__PyLocationHelper__.altitude))
+    return Location(float(__PyLocationHelper__.longitude), float(__PyLocationHelper__.latitude), float(__PyLocationHelper__.altitude))
 
 
 accuracy = -1
