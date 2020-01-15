@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 This module allows you to run code on the main thread easely. This can be used for modifiying the UI.
 
@@ -22,11 +21,14 @@ from time import sleep
 
 __PyMainThread__ = pyto.PyMainThread
 
+
 def runAsync(code):
     raise NameError("`runAsync` was renamed to `run_async`")
 
+
 def runSync(code):
     raise NameError("`runSync` was renamed to `run_sync`")
+
 
 def run_async(code):
     """
@@ -39,6 +41,7 @@ def run_async(code):
         code()
 
     __PyMainThread__.runAsync(code_)
+
 
 def run_sync(code):
 
