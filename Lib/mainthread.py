@@ -1,15 +1,20 @@
 # -*- coding: utf-8 -*-
 """
 This module allows you to run code on the main thread easely. This can be used for modifiying the UI.
-    
+
 Example:
 
+.. highlight:: python
+.. code-block:: python
+
+    from UIKit import UIScreen
     import mainthread
 
-    def sayHello() -> None:
-        print("Hello World!")
-        
-    mainthread.run_sync(sayHello)
+    def set_brightness():
+        inverted = int(not int(UIScreen.mainScreen.brightness))
+        UIScreen.mainScreen.setBrightness(inverted)
+
+    mainthread.run_async(set_brightness)
 """
 
 import pyto
@@ -26,27 +31,19 @@ def runSync(code):
 def run_async(code):
     """
     Runs the given code asynchronously on the main thread.
-    
-    Args:
-        code: Code to execute in the main thread.
+
+    :param code: Code to execute in the main thread.
     """
-    
+
     def code_() -> None:
         code()
-    
+
     __PyMainThread__.runAsync(code_)
 
 def run_sync(code):
-    """
-    Runs the given code synchronously on the main thread.
-    
-    Args:
-        code: Code to execute in the main thread.
-    """
-    
+
     def code_() -> None:
         code()
-    
+
     __PyMainThread__.runSync(code_)
     sleep(0.1)
-

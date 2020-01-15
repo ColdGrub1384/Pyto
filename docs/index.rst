@@ -35,3 +35,4 @@ The following modules are integrated with Pyto:
    sharing
    location
    UIKit
+   mainthread
