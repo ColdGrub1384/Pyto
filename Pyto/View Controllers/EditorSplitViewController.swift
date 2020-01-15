@@ -253,6 +253,8 @@ class EditorSplitViewController: SplitViewController {
         }
     }
     
+    private var willRun: Bool?
+    
     // MARK: - Split view controller
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
@@ -379,7 +381,11 @@ class EditorSplitViewController: SplitViewController {
             return
         }
         
-        if (newCollection.horizontalSizeClass == .compact || UIDevice.current.userInterfaceIdiom == .phone) && !EditorSplitViewController.shouldShowConsoleAtBottom {
+        if willRun == nil {
+            willRun = editor.shouldRun
+        }
+        
+        if (newCollection.horizontalSizeClass == .compact || UIDevice.current.userInterfaceIdiom == .phone) && !EditorSplitViewController.shouldShowConsoleAtBottom && !willRun! {
             arrangement = .vertical
         } else {
             
