@@ -45,9 +45,8 @@ clear()
 # Terminal size
 # _____________
 
-import os
-h = int(os.environ["ROWS"])-1
-w = int(os.environ["COLUMNS"])-1
+import shutil
+w, h = shutil.get_terminal_size()
 
 print("-"*w)
 
