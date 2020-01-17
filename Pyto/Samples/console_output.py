@@ -11,7 +11,7 @@ from console import clear
 from progress.bar import ChargingBar as Bar
 from time import sleep
 
-bar = Bar('Progress Bar', max=20)
+bar = Bar("Progress Bar", max=20)
 for i in range(20):
     sleep(0.1)
     bar.next()
