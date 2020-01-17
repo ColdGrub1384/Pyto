@@ -358,10 +358,14 @@ import UIKit
     func updateSize() {
         var columns: Int {
             
-            guard let font = textView.font else {
+            #if MAIN
+            let font = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
+            #else
+            guard let font = UIFont(name: "Menlo", size: 12) else {
                 assertionFailure("Expected font")
                 return 0
             }
+            #endif
             
             // TODO: check if the bounds includes the safe area (on iPhone X)
             let viewWidth = textView.bounds.width
@@ -375,10 +379,14 @@ import UIKit
         
         var rows: Int {
             
-            guard let font = textView.font else {
+            #if MAIN
+            let font = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
+            #else
+            guard let font = UIFont(name: "Menlo", size: 12) else {
                 assertionFailure("Expected font")
                 return 0
             }
+            #endif
             
             // TODO: check if the bounds includes the safe area (on iPhone X)
             let viewHeight = textView.bounds.height-textView.contentInset.bottom
@@ -390,10 +398,8 @@ import UIKit
             return Int((viewHeight / charHeight).rounded(.down))
         }
         
-        print(columns)
-        print(rows)
-        setenv("COLUMNS", "\(columns)", 1)
-        setenv("ROWS", "\(rows)", 1)
+        setenv("COLUMNS", "\(columns-1)", 1)
+        setenv("ROWS", "\(rows-1)", 1)
     }
     
     // MARK: - UI Presentation
