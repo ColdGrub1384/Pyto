@@ -735,7 +735,7 @@ def set_queue_with_items(items: List[MediaItem]):
     """
     Sets a music player’s playback queue using a media item collection.
 
-    :param items: An array of ``MediaItem`` that you want as the playback queue.
+    :param items: An array of :class:`~music.MediaItem` that you want as the playback queue.
     """
 
     objc_items = []
