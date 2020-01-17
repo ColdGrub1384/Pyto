@@ -958,6 +958,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 return
             }
             
+            console.updateSize()
+            
             DispatchQueue.main.async {
                 if let url = self.document?.fileURL {
                     func run() {
@@ -973,6 +975,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
                         } else {
                             Python.shared.runScript(at: url)
                         }
+                        
+                        console.updateSize()
                     }
                     
                     let editorSplitViewController = console.editorSplitViewController

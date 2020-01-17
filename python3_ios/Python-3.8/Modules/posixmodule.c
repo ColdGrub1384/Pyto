@@ -12120,67 +12120,16 @@ get_terminal_size(PyObject *self, PyObject *args)
 {
     int columns, lines;
     PyObject *termsize;
-
-    int fd = fileno(stdout);
-    /* Under some conditions stdout may not be connected and
-     * fileno(stdout) may point to an invalid file descriptor. For example
-     * GUI apps don't have valid standard streams by default.
-     *
-     * If this happens, and the optional fd argument is not present,
-     * the ioctl below will fail returning EBADF. This is what we want.
-     */
-
-    if (!PyArg_ParseTuple(args, "|i", &fd))
-        return NULL;
-
-#ifdef TERMSIZE_USE_IOCTL
-    {
-        struct winsize w;
-        if (ioctl(fd, TIOCGWINSZ, &w))
-            return PyErr_SetFromErrno(PyExc_OSError);
-        columns = w.ws_col;
-        lines = w.ws_row;
-    }
-#endif /* TERMSIZE_USE_IOCTL */
-
-#ifdef TERMSIZE_USE_CONIO
-    {
-        DWORD nhandle;
-        HANDLE handle;
-        CONSOLE_SCREEN_BUFFER_INFO csbi;
-        switch (fd) {
-        case 0: nhandle = STD_INPUT_HANDLE;
-            break;
-        case 1: nhandle = STD_OUTPUT_HANDLE;
-            break;
-        case 2: nhandle = STD_ERROR_HANDLE;
-            break;
-        default:
-            return PyErr_Format(PyExc_ValueError, "bad file descriptor");
-        }
-        handle = GetStdHandle(nhandle);
-        if (handle == NULL)
-            return PyErr_Format(PyExc_OSError, "handle cannot be retrieved");
-        if (handle == INVALID_HANDLE_VALUE)
-            return PyErr_SetFromWindowsErr(0);
-
-        if (!GetConsoleScreenBufferInfo(handle, &csbi))
-            return PyErr_SetFromWindowsErr(0);
-
-        columns = csbi.srWindow.Right - csbi.srWindow.Left + 1;
-        lines = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
-    }
-#endif /* TERMSIZE_USE_CONIO */
-
+    
+    columns = atoi(getenv("COLUMNS"));
+    lines = atoi(getenv("ROWS"));
+    
     termsize = PyStructSequence_New(TerminalSizeType);
     if (termsize == NULL)
         return NULL;
     PyStructSequence_SET_ITEM(termsize, 0, PyLong_FromLong(columns));
     PyStructSequence_SET_ITEM(termsize, 1, PyLong_FromLong(lines));
-    if (PyErr_Occurred()) {
-        Py_DECREF(termsize);
-        return NULL;
-    }
+    
     return termsize;
 }
 #endif /* defined(TERMSIZE_USE_CONIO) || defined(TERMSIZE_USE_IOCTL) */
