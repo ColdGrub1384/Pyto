@@ -244,7 +244,7 @@ class MediaItem:
         if val is not None:
             val = str(val)
         return val
-    
+
     @property
     def artwork(self) -> PIL.Image:
         """
@@ -374,7 +374,7 @@ class MediaItem:
         if val is not None:
             val = int(val)
         return val
-    
+
     @property
     def disc_number(self) -> int:
         """
@@ -478,7 +478,7 @@ class MediaItem:
         if val is not None:
             val = int(val)
         return val
-    
+
     @property
     def playback_duration(self) -> float:
         """
@@ -505,7 +505,7 @@ class MediaItem:
             val = str(val)
         return val
 
-    @property 
+    @property
     def podcast_persistent_id(self) -> str:
         """
         The persistent identifier for an audio podcast.
@@ -569,7 +569,7 @@ class MediaItem:
         if val is not None:
             val = str(val)
         return val
-    
+
     @property
     def skip_count(self) -> int:
         """
@@ -661,7 +661,7 @@ class MediaQuery:
 
         :rtype: MediaQuery
         """
-        
+
         return cls(MPMediaQuery.songsQuery())
 
     @classmethod
@@ -749,7 +749,7 @@ def set_queue_with_store_ids(ids: List[str]):
     """
     Sets a music player's playback queue using with media items identified by the store identifiers.
 
-    :param ids: An array of store identifiers associated with the media items to be added to the queue. 
+    :param ids: An array of store identifiers associated with the media items to be added to the queue.
     """
 
     player.setQueueWithStoreIDs(ids)
@@ -873,9 +873,9 @@ def pick_music() -> List[MediaItem]:
         res = PyMusicHelper.pickMusicWithScriptPath(threading.current_thread().script_path)
     except AttributeError:
         res = PyMusicHelper.pickMusicWithScriptPath(None)
-    
+
     items = []
     for item in res:
         items.append(MediaItem(item))
-    
+
     return items
