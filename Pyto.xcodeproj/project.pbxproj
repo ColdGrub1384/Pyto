@@ -311,6 +311,9 @@
 		C95EE6D923273D720084EA0C /* vdot.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE64623273D720084EA0C /* vdot.o */; };
 		C95EE93E23273DC20084EA0C /* openblas.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE7DA23273D9B0084EA0C /* openblas.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9624EF421A9905400DDA9A7 /* PyThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9624EF321A9905400DDA9A7 /* PyThread.swift */; };
+		C969D29E23D14D2900460F05 /* PyMusicHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C969D29D23D14D2900460F05 /* PyMusicHelper.swift */; };
+		C969D29F23D14EE200460F05 /* PyMusicHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C969D29D23D14D2900460F05 /* PyMusicHelper.swift */; };
+		C969D2A023D14EE300460F05 /* PyMusicHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C969D29D23D14D2900460F05 /* PyMusicHelper.swift */; };
 		C9727C472204D7F100B7AC32 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9727C452204D7F100B7AC32 /* LaunchScreen.storyboard */; };
 		C972AE3F23467AE30053E1C3 /* FoldersBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C972AE3E23467AE30053E1C3 /* FoldersBrowserViewController.swift */; };
 		C972AE4223469DC80053E1C3 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91321C821FB500300437845 /* UIColor.swift */; };
@@ -2315,6 +2318,7 @@
 		C95EE64623273D720084EA0C /* vdot.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = vdot.o; sourceTree = "<group>"; };
 		C95EE7DA23273D9B0084EA0C /* openblas.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = openblas.framework; sourceTree = "<group>"; };
 		C9624EF321A9905400DDA9A7 /* PyThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyThread.swift; sourceTree = "<group>"; };
+		C969D29D23D14D2900460F05 /* PyMusicHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyMusicHelper.swift; sourceTree = "<group>"; };
 		C96C1E6A2237098600F5F1DC /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		C9727C462204D7F100B7AC32 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C972AE3E23467AE30053E1C3 /* FoldersBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersBrowserViewController.swift; sourceTree = "<group>"; };
@@ -5112,6 +5116,7 @@
 				C976592621471D23001C96A8 /* PyFilePicker.swift */,
 				C90E5C9522DECB9F00851BD4 /* PyNotificationCenter.swift */,
 				C98CECDA23C9487200E133E3 /* PyCallbackHelper.swift */,
+				C969D29D23D14D2900460F05 /* PyMusicHelper.swift */,
 				C93CA8B422022E67008DD049 /* QuickLookHelper.swift */,
 				C9E501AD220C85B1002719CE /* PyMainThread.swift */,
 				C9624EF321A9905400DDA9A7 /* PyThread.swift */,
@@ -7405,6 +7410,7 @@
 				C9E7061F2207A0760003DA61 /* Python.swift in Sources */,
 				C9A05F6722E400890096DCA8 /* PyView.swift in Sources */,
 				C943E7F622E21DD600B8027C /* PyTextInputTraits.swift in Sources */,
+				C969D29F23D14EE200460F05 /* PyMusicHelper.swift in Sources */,
 				C9BF46E322E0DC4F00B8FE4B /* PyTableViewCell.swift in Sources */,
 				C9E706272207A56B0003DA61 /* Localizable.swift in Sources */,
 				C93C8E1F22E01ACA0008DC13 /* PySwitch.swift in Sources */,
@@ -7484,6 +7490,7 @@
 			files = (
 				C91321D721FB684900437845 /* BlockBasedSelector.m in Sources */,
 				C9F4623222ECB412007DC3B8 /* PyTextView.swift in Sources */,
+				C969D2A023D14EE300460F05 /* PyMusicHelper.swift in Sources */,
 				C9CEE1FB21EB8FEF00316D3C /* PyInputHelper.swift in Sources */,
 				C9F4623922ECB417007DC3B8 /* PyTextInputTraits.swift in Sources */,
 				C9F4623022ECB412007DC3B8 /* PyTableView.swift in Sources */,
@@ -7580,6 +7587,7 @@
 				C954FAB9220A2BB00060C488 /* ReplaceView.swift in Sources */,
 				C9D2AA762215A503006AF527 /* EditorViewController+highlighting.swift in Sources */,
 				C92DBD8221F687480098BE43 /* REPLViewController.swift in Sources */,
+				C969D29E23D14D2900460F05 /* PyMusicHelper.swift in Sources */,
 				C9A4199823A315D700BF5393 /* CustomIconTableViewController.swift in Sources */,
 				C98CECDB23C9487200E133E3 /* PyCallbackHelper.swift in Sources */,
 				C9B5D84F21F11AAE00E980BA /* AboutTableViewController.swift in Sources */,

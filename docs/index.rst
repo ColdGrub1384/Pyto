@@ -31,6 +31,7 @@ The following modules are integrated with Pyto:
    pyto_ui
    notification_center
    sound
+   music
    pasteboard
    sharing
    location
