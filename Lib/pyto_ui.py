@@ -4039,7 +4039,7 @@ class TextField(Control):
         """
         The text contained in the Text Field.
 
-        :rtype:
+        :rtype: str
         """
 
         return str(self.__py_view__.text)
@@ -4258,8 +4258,7 @@ def __pil_image_from_ui_image__(image):
 
     img_str = str(image.data.base64EncodedStringWithOptions(0))
     msg = base64.b64decode(img_str)
-    with io.BytesIO(msg) as buf:
-        return Image.open(buf)
+    return Image.open(BytesIO(msg))
 
 
 def font_family_names() -> List[str]:
