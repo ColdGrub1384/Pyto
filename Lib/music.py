@@ -154,7 +154,7 @@ class MediaItem:
     def __init__(self, item: MPMediaItem):
         self.__item__ = item
 
-    @property 
+    @property
     def album_artist(self) -> str:
         """
         The primary performing artist for an album as a whole.
@@ -167,7 +167,7 @@ class MediaItem:
             val = str(val)
         return val
 
-    @property 
+    @property
     def album_artist_persistent_id(self) -> str:
         """
         The persistent identifier for the primary performing artist for an album as a whole.
@@ -180,7 +180,7 @@ class MediaItem:
             val = str(val)
         return val
     
-    @property 
+    @property
     def album_persistent_id(self) -> str:
         """
         The persistent identifier for an album.
@@ -193,7 +193,7 @@ class MediaItem:
             val = str(val)
         return val
 
-    @property 
+    @property
     def album_title(self) -> str:
         """
         The title of an album, such as “Live On Mars”, as opposed to the title of an individual song on the album, such as “Crater Dance (radio edit)”.
@@ -206,7 +206,7 @@ class MediaItem:
             val = str(val)
         return val
 
-    @property 
+    @property
     def album_track_count(self) -> int:
         """
         The number of tracks in the album that contains the media item.
@@ -219,7 +219,7 @@ class MediaItem:
             val = int(val)
         return val
 
-    @property 
+    @property
     def artist(self) -> str:
         """
         The performing artist(s) for a media item—which may vary from the primary artist for the album that a media item belongs to.
@@ -232,7 +232,7 @@ class MediaItem:
             val = str(val)
         return val
 
-    @property 
+    @property
     def artist_persistent_id(self) -> int:
         """
         The persistent identifier for an artist.
@@ -245,7 +245,7 @@ class MediaItem:
             val = str(val)
         return val
     
-    @property 
+    @property
     def artwork(self) -> PIL.Image:
         """
         The artwork image for the media item.
@@ -258,7 +258,7 @@ class MediaItem:
             val = __pil_image_from_ui_image__(val.imageWithSize(val.bounds.size))
         return val
 
-    @property 
+    @property
     def beats_per_minute(self) -> int:
         """
         The number of musical beats per minute for the media item.
@@ -271,7 +271,7 @@ class MediaItem:
             val = int(val)
         return val
 
-    @property 
+    @property
     def bookmark_time(self) -> float:
         """
         The user’s place in the media item the most recent time it was played.
@@ -284,7 +284,7 @@ class MediaItem:
             val = float(val)
         return val
 
-    @property 
+    @property
     def is_cloud_item(self) -> bool:
         """
         A Boolean value indicating whether the media item is an iCloud Music Library item.
@@ -297,7 +297,7 @@ class MediaItem:
             val = bool(val)
         return val
 
-    @property 
+    @property
     def comments(self) -> str:
         """
         Textual information about the media item.
@@ -310,7 +310,7 @@ class MediaItem:
             val = str(val)
         return val
 
-    @property 
+    @property
     def is_compilation(self) -> bool:
         """
         A Boolean value indicating whether the media item is part of a compilation.
@@ -323,7 +323,7 @@ class MediaItem:
             val = bool(val)
         return val
 
-    @property 
+    @property
     def composer(self) -> str:
         """
         The musical composer for the media item.
@@ -336,7 +336,7 @@ class MediaItem:
             val = str(val)
         return val
 
-    @property 
+    @property
     def composer_persistent_id(self) -> str:
         """
         The persistent identifier for a composer.
@@ -349,7 +349,7 @@ class MediaItem:
             val = str(val)
         return val
 
-    @property 
+    @property
     def date_added(self) -> str:
         """
         The date the item was added to the library.
@@ -362,7 +362,7 @@ class MediaItem:
             val = str(val)
         return val
 
-    @property 
+    @property
     def disc_count(self) -> int:
         """
         The number of discs in the album that contains the media item.
@@ -375,7 +375,7 @@ class MediaItem:
             val = int(val)
         return val
     
-    @property 
+    @property
     def disc_number(self) -> int:
         """
         The disc number of the media item, for a media item that is part of a multi-disc album.
@@ -388,7 +388,7 @@ class MediaItem:
             val = int(val)
         return val
 
-    @property 
+    @property
     def is_explicit_item(self) -> bool:
         """
         A Boolean value that indicates whether the item has explicit (adult) lyrics or language.
@@ -401,7 +401,7 @@ class MediaItem:
             val = bool(val)
         return val
 
-    @property 
+    @property
     def genre(self) -> str:
         """
         The musical or film genre of the media item.
@@ -414,7 +414,7 @@ class MediaItem:
             val = str(val)
         return val
 
-    @property 
+    @property
     def genre_persistent_id(self) -> str:
         """
         The persistent identifier for a genre.
@@ -427,7 +427,7 @@ class MediaItem:
             val = str(val)
         return val
 
-    @property 
+    @property
     def last_played_date(self) -> str:
         """
         The date a media item was last played.
@@ -440,7 +440,7 @@ class MediaItem:
             val = str(val)
         return val
 
-    @property 
+    @property
     def lyrics(self) -> str:
         """
         The lyrics for the media item.
@@ -453,7 +453,7 @@ class MediaItem:
             val = str(val)
         return val
 
-    @property 
+    @property
     def persistent_id(self) -> str:
         """
         The persistent identifier for the media item.
@@ -466,7 +466,7 @@ class MediaItem:
             val = str(val)
         return val
 
-    @property 
+    @property
     def play_count(self) -> int:
         """
         The number of times the user has played the media item.
@@ -479,7 +479,7 @@ class MediaItem:
             val = int(val)
         return val
     
-    @property 
+    @property
     def playback_duration(self) -> float:
         """
         The playback duration of the media item.
@@ -492,7 +492,7 @@ class MediaItem:
             val = float(val)
         return val
 
-    @property 
+    @property
     def playback_store_id(self) -> str:
         """
         The non-library identifier for a media item.
@@ -518,7 +518,7 @@ class MediaItem:
             val = str(val)
         return val
 
-    @property 
+    @property
     def podcast_title(self) -> str:
         """
         The title of a podcast, such as “This Martian Drudgery”, as opposed to the title of an individual episode of a podcast such as “Episode 12: Another Cold Day At The Pole”.
@@ -531,7 +531,7 @@ class MediaItem:
             val = str(val)
         return val
 
-    @property 
+    @property
     def has_protected_asset(self) -> bool:
         """
         A Boolean indicating whether the media item has a protected asset.
@@ -544,7 +544,7 @@ class MediaItem:
             val = bool(val)
         return val
 
-    @property 
+    @property
     def rating(self) -> int:
         """
         The user-specified rating of the object in the range [0...5], where a value of 5 indicates the most favorable rating.
@@ -557,7 +557,7 @@ class MediaItem:
             val = int(val)
         return val
 
-    @property 
+    @property
     def release_date(self) -> str:
         """
         The date on which the media item was first publicly released.
@@ -570,7 +570,7 @@ class MediaItem:
             val = str(val)
         return val
     
-    @property 
+    @property
     def skip_count(self) -> int:
         """
         The number of times the user has skipped playing the item.
@@ -583,7 +583,7 @@ class MediaItem:
             val = int(val)
         return val
 
-    @property 
+    @property
     def title(self) -> str:
         """
         The title (or name) of the media item.
@@ -596,7 +596,7 @@ class MediaItem:
             val = str(val)
         return val
 
-    @property 
+    @property
     def user_grouping(self) -> str:
         """
         Grouping information for the media item.
@@ -619,7 +619,7 @@ class MediaQuery:
 
     def __init__(self, query: MPMediaQuery):
         self.__query__ = query
-    
+
     @property
     def items(self) -> List[MediaItem]:
         """
@@ -651,7 +651,7 @@ class MediaQuery:
 
         :rtype: MediaQuery
         """
-        
+
         return cls(MPMediaQuery.artistsQuery())
 
     @classmethod
@@ -671,7 +671,7 @@ class MediaQuery:
 
         :rtype: MediaQuery
         """
-        
+
         return cls(MPMediaQuery.playlistsQuery())
 
     @classmethod
@@ -681,9 +681,9 @@ class MediaQuery:
 
         :rtype: MediaQuery
         """
-        
+
         return cls(MPMediaQuery.podcastsQuery())
-    
+
     @classmethod
     def audiobook(cls) -> "MediaQuery":
         """
@@ -691,7 +691,7 @@ class MediaQuery:
 
         :rtype: MediaQuery
         """
-        
+
         return cls(MPMediaQuery.audiobookQuery())
 
     @classmethod
@@ -701,7 +701,7 @@ class MediaQuery:
 
         :rtype: MediaQuery
         """
-        
+
         return cls(MPMediaQuery.compilationsQuery())
 
     @classmethod
@@ -711,7 +711,7 @@ class MediaQuery:
 
         :rtype: MediaQuery
         """
-        
+
         return cls(MPMediaQuery.composersQuery())
 
     @classmethod
@@ -721,7 +721,7 @@ class MediaQuery:
 
         :rtype: MediaQuery
         """
-        
+
         return cls(MPMediaQuery.genresQuery())
 
 
@@ -729,6 +729,7 @@ try:
     player = MPMusicPlayerController.systemMusicPlayer
 except AttributeError:
     player = None
+
 
 def set_queue_with_items(items: List[MediaItem]):
     """
@@ -743,6 +744,7 @@ def set_queue_with_items(items: List[MediaItem]):
     collection = MPMediaItemCollection.collectionWithItems(objc_items)
     player.setQueueWithItemCollection(collection)
 
+
 def set_queue_with_store_ids(ids: List[str]):
     """
     Sets a music player's playback queue using with media items identified by the store identifiers.
@@ -751,6 +753,7 @@ def set_queue_with_store_ids(ids: List[str]):
     """
 
     player.setQueueWithStoreIDs(ids)
+
 
 def playback_state() -> int:
     """
@@ -773,6 +776,7 @@ def playback_state() -> int:
     elif state == PLAYBACK_STATE_SEEKING_BACKWARD:
         return PLAYBACK_STATE_SEEKING_BACKWARD
 
+
 def index_of_now_playing_item() -> int:
     """
     The index of the now playing item in the current playback queue.
@@ -781,6 +785,7 @@ def index_of_now_playing_item() -> int:
     """
 
     return int(player.indexOfNowPlayingItem)
+
 
 def now_playing_item() -> MediaItem:
     """
@@ -794,6 +799,7 @@ def now_playing_item() -> MediaItem:
         val = MediaItem(val)
     return val
 
+
 def set_repeat_mode(mode: int):
     """
     Sets the repeat mode of the music player.
@@ -802,6 +808,7 @@ def set_repeat_mode(mode: int):
     """
 
     play.repeatMode = mode
+
 
 def set_shuffle_mode(mode: int):
     """
@@ -812,12 +819,14 @@ def set_shuffle_mode(mode: int):
 
     player.shuffleMode = mode
 
+
 def next():
     """
     Starts playback of the next media item in the playback queue; or, the music player is not playing, designates the next media item as the next to be played.
     """
 
     player.skipToNextItem()
+
 
 def previous():
     """
@@ -826,12 +835,14 @@ def previous():
 
     player.skipToPreviousItem()
 
+
 def restart():
     """
     Restarts playback at the beginning of the currently playing media item.
     """
 
     player.skipToBeginning()
+
 
 def stop():
     """
@@ -840,12 +851,14 @@ def stop():
 
     player.stop()
 
+
 def play():
     """
     Initiates playback of the current item.
     """
 
     player.play()
+
 
 def pick_music() -> List[MediaItem]:
     """

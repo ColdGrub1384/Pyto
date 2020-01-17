@@ -21,7 +21,6 @@ from io import BytesIO
 from threading import Thread
 import os
 import base64
-import io
 import threading
 import _values
 import ui_constants
