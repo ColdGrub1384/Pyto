@@ -179,7 +179,7 @@ class MediaItem:
         if val is not None:
             val = str(val)
         return val
-    
+
     @property
     def album_persistent_id(self) -> str:
         """
