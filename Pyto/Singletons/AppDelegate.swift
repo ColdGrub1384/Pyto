@@ -12,7 +12,7 @@ import NotificationCenter
 import CoreLocation
 
 /// The application's delegate.
-@objc public class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
+@objc public class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate, UNUserNotificationCenterDelegate {
     
     /// The shared location manager.
     let locationManager = CLLocationManager()
@@ -107,6 +107,8 @@ import CoreLocation
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        
+        UNUserNotificationCenter.current().delegate = self
         
         #if MAIN
         
@@ -220,5 +222,34 @@ import CoreLocation
         PyLocationHelper.latitude = Float(last.coordinate.latitude)
         PyLocationHelper.longitude = Float(last.coordinate.longitude)
         PyLocationHelper.altitude = Float(last.altitude)
+    }
+    
+    // MARK: - User notification center delegate
+    
+    public func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        completionHandler([.alert, .sound])
+    }
+    
+    public func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        if response.actionIdentifier != UNNotificationDefaultActionIdentifier && response.actionIdentifier != UNNotificationDismissActionIdentifier {
+            
+            if let url = URL(string: response.actionIdentifier) {
+                UIApplication.shared.open(url, options: [:]) { (_) in
+                    completionHandler()
+                }
+            } else {
+                completionHandler()
+            }
+        } else {
+            if let _url = response.notification.request.content.userInfo["url"] as? String, let url = URL(string: _url) {
+                UIApplication.shared.open(url, options: [:]) { (_) in
+                    completionHandler()
+                }
+            } else {
+                completionHandler()
+            }
+        }
     }
 }
