@@ -26,7 +26,8 @@ Features:
   - Run scripts and code from Siri Shortcuts
   - Interact with other apps thanks to x-callback urls
   
-Included libraries: Numpy, Matplotlib, Pandas, Pillow, SciPy, SciKit-Learn, SciKit-Image, OpenCV, Lxml, Biopython, Cryptography, Bcrypt, and more!
+Included libraries: Numpy, Matplotlib, Pandas, Pillow, SciPy, SciKit-Learn, SciKit-Image, OpenCV,
+                    Lxml, Biopython, Cryptography, Bcrypt, and more!
 
 Exclusive libraries:
 
