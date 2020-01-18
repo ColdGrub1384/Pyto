@@ -44,7 +44,7 @@ class Notification:
     actions = None
     """
     Additional actions on the notification.
-    
+
     A dictionary with the name of the action and the URL to open.
     """
 
@@ -69,8 +69,8 @@ def get_pending_notifications() -> List[Notification]:
 
         notification.actions = actions
 
-        notifications.append(notification) 
-    
+        notifications.append(notification)
+
     return notifications
 
 
