@@ -30,6 +30,7 @@ The following modules are integrated with Pyto:
    xcallback
    pyto_ui
    notification_center
+   notifications
    sound
    music
    pasteboard
