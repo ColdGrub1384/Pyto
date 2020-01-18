@@ -15,7 +15,7 @@ Pyto is a Python 3.8 IDE for iPhone an iPad. Run code directly on your device an
 
 Features:
 
-  - Python 3.8 with all standard library
+  - Python 3.8 with all standard libraries
   - Full Python REPL
   - Code user interfaces
   - Smart code completion
@@ -24,23 +24,21 @@ Features:
   - Preview images and plots on console
   - Multiple windows for iPadOS 13+
   - Run scripts and code from Siri Shortcuts
+  - Interact with other apps thanks to x-callback urls
   
-Libraries included:
-  
-  - Numpy
-  - Matplotlib
-  - Pandas
-  - Pillow
-  - SciPy
-  - SciKit-Learn
-  - SciKit-Image
-  - OpenCV
-  - Lxml
-  - Biopython
-  - Cyrptography
-  - Bcrypt
-  
-  ... and more!
+Included libraries: Numpy, Matplotlib, Pandas, Pillow, SciPy, SciKit-Learn, SciKit-Image, OpenCV, Lxml, Biopython, Cryptography, Bcrypt, and more!
+
+Exclusive libraries:
+
+  - pyto_ui - Build an user interface
+  - notification_center - Customize Today Widgets
+  - notifications - Schedule notifications
+  - sharing - Share items and pick files
+  - pasteboard - Clipboard access
+  - sound - Play sounds
+  - music - Access the Apple Music library
+  - location - Access user's location
+  - xcallback - Interact with other apps
 ```
 
 ## Building
