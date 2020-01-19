@@ -8,28 +8,54 @@
 
 import UIKit
 
-fileprivate var kForegroundColor: UIColor {
-    #if MAIN
-    return ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
-    #else
-    if #available(iOS 13.0, *) {
-        return .label
+fileprivate func get <T: Any>(code: @escaping () -> T) -> T {
+    
+    let semaphore = DispatchSemaphore(value: 0)
+    
+    var value: T!
+    
+    if !Thread.current.isMainThread {
+        DispatchQueue.main.async {
+            value = code()
+            semaphore.signal()
+        }
     } else {
-        return .black
+        value = code()
     }
-    #endif
+    
+    if !Thread.current.isMainThread {
+        semaphore.wait()
+    }
+    
+    return value
+}
+
+fileprivate var kForegroundColor: UIColor {
+    return get {
+        #if MAIN
+        return ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
+        #else
+        if #available(iOS 13.0, *) {
+            return .label
+        } else {
+            return .black
+        }
+        #endif
+    }
 }
 
 fileprivate var kBackgroundColor: UIColor {
-    #if MAIN
-    return ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
-    #else
-    if #available(iOS 13.0, *) {
-        return .systemBackground
-    } else {
-        return .white
+    return get {
+        #if MAIN
+        return ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
+        #else
+        if #available(iOS 13.0, *) {
+            return .systemBackground
+        } else {
+            return .white
+        }
+        #endif
     }
-    #endif
 }
 
 // 0-  7:  standard colors (as in ESC [ 30–37 m)
@@ -221,23 +247,25 @@ struct ANSITextState {
     
     private static func font(fromTraits traits: UIFontDescriptor.SymbolicTraits) -> UIFont {
         
-        #if MAIN
-        let textSize = CGFloat(ThemeFontSize)
-        #else
-        let textSize = 12
-        #endif
-        
-        #if MAIN
-        var descriptor = UIFontDescriptor(name: EditorViewController.font.familyName, size: textSize)
-        #else
-        var descriptor = UIFontDescriptor(name: "Menlo", size: CGFloat(textSize))
-        #endif
-        
-        if let traitDescriptor = descriptor.withSymbolicTraits(traits) {
-            descriptor = traitDescriptor
+        return get {
+            #if MAIN
+            let textSize = CGFloat(ThemeFontSize)
+            #else
+            let textSize = 12
+            #endif
+            
+            #if MAIN
+            var descriptor = UIFontDescriptor(name: EditorViewController.font.familyName, size: textSize)
+            #else
+            var descriptor = UIFontDescriptor(name: "Menlo", size: CGFloat(textSize))
+            #endif
+            
+            if let traitDescriptor = descriptor.withSymbolicTraits(traits) {
+                descriptor = traitDescriptor
+            }
+            
+            return UIFont(descriptor: descriptor, size: textSize)
         }
-        
-        return UIFont(descriptor: descriptor, size: textSize)
     }
     
     mutating func reset() {
