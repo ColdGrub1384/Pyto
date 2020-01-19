@@ -21,21 +21,36 @@ The app uses the Python C API to run Python code in the same process of the app,
    opencv
    third_party
 
-The following modules are integrated with Pyto:
+#################
+  API Reference
+#################
+
+The following modules are integrated with Pyto.
 
 .. toctree::
    :maxdepth: 2
-   :caption: Pyto Library Reference
+   :caption: User Interface
 
-   xcallback
    pyto_ui
    notification_center
-   notifications
    sound
+   sharing
+   mainthread
+   UIKit
+
+.. toctree::
+   :maxdepth: 2
+   :caption: OS Technologies
+
+   notifications
    music
    photos
-   pasteboard
-   sharing
    location
-   UIKit
-   mainthread
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Sharing data
+
+   xcallback
+   userkeys
+   pasteboard

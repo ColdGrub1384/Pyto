@@ -68,7 +68,7 @@ def image() -> UIImage:
 
 def images() -> List[UIImage]:
     """
-    Returns all images contained in the pasteboard as Objective-C ``UIImage``s.
+    Returns all images contained in the pasteboard as Objective-C ``UIImage`` s.
     """
     return general_pasteboard().images
 
@@ -103,7 +103,7 @@ def url() -> NSURL:
 
 def urls() -> List[NSURL]:
     """
-    Returns all URLs contained in the pasteboard as Objective-C ``NSURL``s.
+    Returns all URLs contained in the pasteboard as Objective-C ``NSURL`` s.
     """
     return general_pasteboard().urls
 
@@ -121,6 +121,6 @@ def set_urls(array: List[NSURL]):
     """
     Copy the given URLs to the pasteboard.
 
-    :param array: A list of Objective-C ``NSURL``s to copy.
+    :param array: A list of Objective-C ``NSURL`` s to copy.
     """
     general_pasteboard().urls = array

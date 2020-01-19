@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>xcallback &mdash; Pyto  documentation</title>
+  <title>userkeys &mdash; Pyto  documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="userkeys" href="userkeys.html" />
-    <link rel="prev" title="location" href="location.html" /> 
+    <link rel="next" title="pasteboard" href="pasteboard.html" />
+    <link rel="prev" title="xcallback" href="xcallback.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -103,11 +103,8 @@
 </ul>
 <p class="caption"><span class="caption-text">Sharing data</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">xcallback</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#example-with-shortcuts">Example with Shortcuts</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="userkeys.html">userkeys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xcallback.html">xcallback</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">userkeys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pasteboard.html">pasteboard</a></li>
 </ul>
 
@@ -154,13 +151,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>xcallback</li>
+      <li>userkeys</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/xcallback.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/userkeys.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -173,51 +170,47 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-xcallback">
-<span id="xcallback"></span><h1>xcallback<a class="headerlink" href="#module-xcallback" title="Permalink to this headline">¶</a></h1>
-<p>Opening x-callback URLs</p>
-<p>This module is used to interact with other apps with <a class="reference external" href="http://x-callback-url.com">x-callback URLs</a>.</p>
+  <div class="section" id="module-userkeys">
+<span id="userkeys"></span><h1>userkeys<a class="headerlink" href="#module-userkeys" title="Permalink to this headline">¶</a></h1>
+<p>Save values on disk</p>
+<p>This module makes possible to save values on disk. Values are shared between the Today Widget and the main app.
+Values are stored in a JSON dictionary, so it’s not possible to save every type of data.</p>
 <dl class="function">
-<dt id="xcallback.open_url">
-<code class="sig-prename descclassname">xcallback.</code><code class="sig-name descname">open_url</code><span class="sig-paren">(</span><em class="sig-param">url: str</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#xcallback.open_url" title="Permalink to this definition">¶</a></dt>
-<dd><p>Opens the given x-callback URL. The function will return only if the request was successfully completed.</p>
-<p>Raises: <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> if there was an error and <code class="docutils literal notranslate"><span class="pre">SystemExit</span></code> if the request was cancelled.
-Returns: The result sent by the opened app.</p>
+<dt id="userkeys.delete">
+<code class="sig-prename descclassname">userkeys.</code><code class="sig-name descname">delete</code><span class="sig-paren">(</span><em class="sig-param">key: str</em><span class="sig-paren">)</span><a class="headerlink" href="#userkeys.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes the value stored with the given key.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>url</strong> – The URL to open.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>str</p>
+<dd class="field-odd"><p><strong>key</strong> – The key identifying the value to delete.</p>
 </dd>
 </dl>
 </dd></dl>
 
-<div class="section" id="example-with-shortcuts">
-<h2>Example with Shortcuts<a class="headerlink" href="#example-with-shortcuts" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Opens a Shortcut and retrieves the result.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<dl class="function">
+<dt id="userkeys.get">
+<code class="sig-prename descclassname">userkeys.</code><code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param">key: str</em><span class="sig-paren">)</span><a class="headerlink" href="#userkeys.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value stored with the given key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> – The key identifying the value.</p>
+</dd>
+</dl>
+</dd></dl>
 
-<span class="kn">import</span> <span class="nn">xcallback</span>
-<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">quote</span>
+<dl class="function">
+<dt id="userkeys.set">
+<code class="sig-prename descclassname">userkeys.</code><code class="sig-name descname">set</code><span class="sig-paren">(</span><em class="sig-param">value</em>, <em class="sig-param">key: str</em><span class="sig-paren">)</span><a class="headerlink" href="#userkeys.set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the given value to the database with the given key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> – A JSON compatible value.</p></li>
+<li><p><strong>key</strong> – The key identifying the value.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
-<span class="n">shortcut_name</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;The name of the shortcut to open: &quot;</span><span class="p">)</span>
-<span class="n">shortcut_input</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;What would you like to send to the Shortcut? &quot;</span><span class="p">)</span>
-
-<span class="c1"># https://support.apple.com/guide/shortcuts/apdcd7f20a6f/ios</span>
-<span class="n">url</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;shortcuts://x-callback-url/run-shortcut?name={quote(shortcut_name)}&amp;input=text&amp;text={quote(shortcut_input)}&quot;</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">xcallback</span><span class="o">.</span><span class="n">open_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="c1"># If successed, returns the result</span>
-    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Result:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">+</span><span class="n">res</span><span class="p">)</span>
-<span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Error: &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="c1"># If failed, raises ``RuntimeError``</span>
-<span class="k">except</span> <span class="ne">SystemExit</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cancelled&quot;</span><span class="p">)</span> <span class="c1"># If cancelled, raises ``SystemExit``</span>
-</pre></div>
-</div>
-</div>
 </div>
 
 
@@ -228,10 +221,10 @@ Returns: The result sent by the opened app.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="userkeys.html" class="btn btn-neutral float-right" title="userkeys" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="pasteboard.html" class="btn btn-neutral float-right" title="pasteboard" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="location.html" class="btn btn-neutral float-left" title="location" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="xcallback.html" class="btn btn-neutral float-left" title="xcallback" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
