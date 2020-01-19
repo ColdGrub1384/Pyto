@@ -13,7 +13,7 @@ NSUserDefaults = ObjCClass("NSUserDefaults")
 userDefaults = NSUserDefaults.alloc().initWithSuiteName("group.pyto")
 
 
-if userDefaults.valueForKey("userKeys") == None:
+if userDefaults.valueForKey("userKeys") is None:
     userDefaults.setValue("{}", forKey="userKeys")
 
 

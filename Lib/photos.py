@@ -27,8 +27,8 @@ def pick_photo() -> Image.Image:
         msg = PyPhotosHelper.pickPhotoWithScriptPath(threading.current_thread().script_path)
     except AttributeError:
         msg = PyPhotosHelper.pickPhotoWithScriptPath(None)
-    
-    if msg == None:
+
+    if msg is None:
         return None
 
     msg = str(msg)
@@ -53,8 +53,8 @@ def take_photo() -> Image.Image:
         msg = PyPhotosHelper.takePhotoWithScriptPath(threading.current_thread().script_path)
     except AttributeError:
         msg = PyPhotosHelper.takePhotoWithScriptPath(None)
-    
-    if msg == None:
+
+    if msg is None:
         return None
 
     msg = str(msg)
@@ -63,6 +63,7 @@ def take_photo() -> Image.Image:
     img = Image.open(buf)
 
     return img
+
 
 def save_image(image: Image.Image):
     """
