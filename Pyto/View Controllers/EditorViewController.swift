@@ -18,7 +18,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
 }
 
 /// The View controller used to edit source code.
-@objc class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssistantViewDelegate, InputAssistantViewDataSource, UITextViewDelegate, UISearchBarDelegate, UIDocumentPickerDelegate {
+@objc class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssistantViewDelegate, InputAssistantViewDataSource, UITextViewDelegate, UISearchBarDelegate, UIDocumentPickerDelegate, INUIAddVoiceShortcutButtonDelegate, INUIAddVoiceShortcutViewControllerDelegate, INUIEditVoiceShortcutViewControllerDelegate {
     
     /// Parses a string into a list of arguments.
     ///
@@ -1147,7 +1147,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// Shows runtime settings.
     @objc func showRuntimeSettings(_ sender: UIBarButtonItem) {
         
-        let alert = UIAlertController(title: Localizable.runtime, message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "\n\n", message: nil, preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: Localizable.ArgumentsAlert.title, style: .default, handler: setArgs))
         
@@ -1157,7 +1157,26 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         alert.popoverPresentationController?.barButtonItem = sender
         
-        present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: {
+            
+            if let activity = self.userActivity {
+                
+                let button = INUIAddVoiceShortcutButton(style: .blackOutline)
+                button.translatesAutoresizingMaskIntoConstraints = false
+                button.shortcut = INShortcut(userActivity: activity)
+                button.delegate = self
+                
+                let rect = CGRect(x: 0, y: 0, width: alert.view.bounds.size.width, height: 60)
+                let customView = UIView(frame: rect)
+                customView.autoresizingMask = [.flexibleWidth]
+                
+                customView.addSubview(button)
+                customView.centerXAnchor.constraint(equalTo: button.centerXAnchor).isActive = true
+                customView.centerYAnchor.constraint(equalTo: button.centerYAnchor).isActive = true
+                
+                alert.view.addSubview(customView)
+            }
+        })
     }
     
     // MARK: - Breakpoints
@@ -1916,6 +1935,49 @@ fileprivate func parseArgs(_ args: inout [String]) {
             
             present(alert, animated: true, completion: nil)
         }
+    }
+    
+    // MARK: - Add voice shortcut button delegate
+    
+    func present(_ addVoiceShortcutViewController: INUIAddVoiceShortcutViewController, for addVoiceShortcutButton: INUIAddVoiceShortcutButton) {
+        
+        dismiss(animated: true) {
+            addVoiceShortcutViewController.delegate = self
+            self.present(addVoiceShortcutViewController, animated: true, completion: nil)
+        }
+    }
+    
+    func present(_ editVoiceShortcutViewController: INUIEditVoiceShortcutViewController, for addVoiceShortcutButton: INUIAddVoiceShortcutButton) {
+        
+        editVoiceShortcutViewController.delegate = self
+        
+        dismiss(animated: true) {
+            self.present(editVoiceShortcutViewController, animated: true, completion: nil)
+        }
+    }
+    
+    // MARK: - Add voice shortcut view controller delegate
+    
+    func addVoiceShortcutViewController(_ controller: INUIAddVoiceShortcutViewController, didFinishWith voiceShortcut: INVoiceShortcut?, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
+    func addVoiceShortcutViewControllerDidCancel(_ controller: INUIAddVoiceShortcutViewController) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: - Edit voice shortcut view controller delegate
+    
+    func editVoiceShortcutViewController(_ controller: INUIEditVoiceShortcutViewController, didUpdate voiceShortcut: INVoiceShortcut?, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
+    func editVoiceShortcutViewController(_ controller: INUIEditVoiceShortcutViewController, didDeleteVoiceShortcutWithIdentifier deletedVoiceShortcutIdentifier: UUID) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
+    func editVoiceShortcutViewControllerDidCancel(_ controller: INUIEditVoiceShortcutViewController) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }
 
