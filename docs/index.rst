@@ -33,6 +33,7 @@ The following modules are integrated with Pyto:
    notifications
    sound
    music
+   photos
    pasteboard
    sharing
    location
