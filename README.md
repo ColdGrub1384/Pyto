@@ -36,8 +36,10 @@ Exclusive libraries:
   - notifications - Schedule notifications
   - sharing - Share items and pick files
   - pasteboard - Clipboard access
+  - userkeys - Save values on disk
   - sound - Play sounds
   - music - Access the Apple Music library
+  - photos - Accessing photos and the camera
   - location - Access user's location
   - xcallback - Interact with other apps
 ```
