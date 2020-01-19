@@ -1,0 +1,74 @@
+"""
+Accessing photos and the camera
+
+Use this library to pick and take photos.
+"""
+
+from PIL import Image
+from pyto import PyPhotosHelper
+from pyto_ui import __ui_image_from_pil_image__
+import threading
+import base64
+import io
+import os
+
+
+def pick_photo() -> Image.Image:
+    """
+    Pick a photo from the photos library. Returns the picked image as a PIL Image.
+
+    :rtype: PIL.Image.Image
+    """
+
+    if "widget" in os.environ:
+        raise NotImplementedError("Cannot pick a photo from a widget.")
+
+    try:
+        msg = PyPhotosHelper.pickPhotoWithScriptPath(threading.current_thread().script_path)
+    except AttributeError:
+        msg = PyPhotosHelper.pickPhotoWithScriptPath(None)
+    
+    if msg == None:
+        return None
+
+    msg = str(msg)
+    msg = base64.b64decode(msg)
+    buf = io.BytesIO(msg)
+    img = Image.open(buf)
+
+    return img
+
+
+def take_photo() -> Image.Image:
+    """
+    Take a photo from the photos library. Returns the taken image as a PIL Image.
+
+    :rtype: PIL.Image.Image
+    """
+
+    if "widget" in os.environ:
+        raise NotImplementedError("Cannot take a photo from a widget.")
+
+    try:
+        msg = PyPhotosHelper.takePhotoWithScriptPath(threading.current_thread().script_path)
+    except AttributeError:
+        msg = PyPhotosHelper.takePhotoWithScriptPath(None)
+    
+    if msg == None:
+        return None
+
+    msg = str(msg)
+    msg = base64.b64decode(msg)
+    buf = io.BytesIO(msg)
+    img = Image.open(buf)
+
+    return img
+
+def save_image(image: Image.Image):
+    """
+    Saves the given image to the photos library.
+
+    :param image: A ``PIL`` image to save.
+    """
+
+    PyPhotosHelper.saveImage(__ui_image_from_pil_image__(image))

@@ -1,0 +1,5 @@
+photos
+======
+
+.. automodule:: photos
+   :members:

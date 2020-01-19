@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Python Module Index &mdash; Pyto  documentation</title>
+  <title>photos &mdash; Pyto  documentation</title>
   
 
   
@@ -35,13 +35,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
- 
-
-    <script type="text/javascript">
-      DOCUMENTATION_OPTIONS.COLLAPSE_INDEX = true;
-    </script>
-
-
+    <link rel="next" title="pasteboard" href="pasteboard.html" />
+    <link rel="prev" title="music" href="music.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -91,14 +86,14 @@
 <li class="toctree-l1"><a class="reference internal" href="third_party.html">Third Party Libraries</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Pyto Library Reference</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="xcallback.html">xcallback</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pyto_ui.html">pyto_ui</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notification_center.html">notification_center</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notifications.html">notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
 <li class="toctree-l1"><a class="reference internal" href="music.html">music</a></li>
-<li class="toctree-l1"><a class="reference internal" href="photos.html">photos</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">photos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pasteboard.html">pasteboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="location.html">location</a></li>
@@ -149,10 +144,14 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Python Module Index</li>
+      <li>photos</li>
     
     
       <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/photos.rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -164,103 +163,59 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
+  <div class="section" id="module-photos">
+<span id="photos"></span><h1>photos<a class="headerlink" href="#module-photos" title="Permalink to this headline">¶</a></h1>
+<p>Accessing photos and the camera</p>
+<p>Use this library to pick and take photos.</p>
+<dl class="function">
+<dt id="photos.pick_photo">
+<code class="sig-prename descclassname">photos.</code><code class="sig-name descname">pick_photo</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; PIL.Image.Image<a class="headerlink" href="#photos.pick_photo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pick a photo from the photos library. Returns the picked image as a PIL Image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>PIL.Image.Image</p>
+</dd>
+</dl>
+</dd></dl>
 
-   <h1>Python Module Index</h1>
+<dl class="function">
+<dt id="photos.save_image">
+<code class="sig-prename descclassname">photos.</code><code class="sig-name descname">save_image</code><span class="sig-paren">(</span><em class="sig-param">image: PIL.Image.Image</em><span class="sig-paren">)</span><a class="headerlink" href="#photos.save_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves the given image to the photos library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>image</strong> – A <code class="docutils literal notranslate"><span class="pre">PIL</span></code> image to save.</p>
+</dd>
+</dl>
+</dd></dl>
 
-   <div class="modindex-jumpbox">
-   <a href="#cap-l"><strong>l</strong></a> | 
-   <a href="#cap-m"><strong>m</strong></a> | 
-   <a href="#cap-n"><strong>n</strong></a> | 
-   <a href="#cap-p"><strong>p</strong></a> | 
-   <a href="#cap-s"><strong>s</strong></a> | 
-   <a href="#cap-u"><strong>u</strong></a> | 
-   <a href="#cap-x"><strong>x</strong></a>
-   </div>
+<dl class="function">
+<dt id="photos.take_photo">
+<code class="sig-prename descclassname">photos.</code><code class="sig-name descname">take_photo</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; PIL.Image.Image<a class="headerlink" href="#photos.take_photo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take a photo from the photos library. Returns the taken image as a PIL Image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>PIL.Image.Image</p>
+</dd>
+</dl>
+</dd></dl>
 
-   <table class="indextable modindextable">
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-l"><td></td><td>
-       <strong>l</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="location.html#module-location"><code class="xref">location</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-m"><td></td><td>
-       <strong>m</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="mainthread.html#module-mainthread"><code class="xref">mainthread</code></a></td><td>
-       <em></em></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="music.html#module-music"><code class="xref">music</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-n"><td></td><td>
-       <strong>n</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="notification_center.html#module-notification_center"><code class="xref">notification_center</code></a></td><td>
-       <em></em></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="notifications.html#module-notifications"><code class="xref">notifications</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-p"><td></td><td>
-       <strong>p</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="pasteboard.html#module-pasteboard"><code class="xref">pasteboard</code></a></td><td>
-       <em></em></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="photos.html#module-photos"><code class="xref">photos</code></a></td><td>
-       <em></em></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="pyto_ui.html#module-pyto_ui"><code class="xref">pyto_ui</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-s"><td></td><td>
-       <strong>s</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="sharing.html#module-sharing"><code class="xref">sharing</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-u"><td></td><td>
-       <strong>u</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="UIKit.html#module-UIKit"><code class="xref">UIKit</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-x"><td></td><td>
-       <strong>x</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="xcallback.html#module-xcallback"><code class="xref">xcallback</code></a></td><td>
-       <em></em></td></tr>
-   </table>
+</div>
 
 
            </div>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pasteboard.html" class="btn btn-neutral float-right" title="pasteboard" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="music.html" class="btn btn-neutral float-left" title="music" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
