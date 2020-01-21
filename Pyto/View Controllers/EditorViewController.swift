@@ -884,6 +884,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
         picker.delegate = self
         if #available(iOS 13.0, *) {
             picker.directoryURL = self.currentDirectory
+        } else {
+            picker.allowsMultipleSelection = true
         }
         self.present(picker, animated: true, completion: nil)
     }

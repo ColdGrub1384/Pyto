@@ -34,6 +34,7 @@ import UIKit
     @objc private func setCurrentDirectory() {
         console.movableTextField?.textField.resignFirstResponder()
         let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
+        picker.allowsMultipleSelection = true
         picker.delegate = self
         present(picker, animated: true, completion: nil)
     }
