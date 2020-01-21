@@ -38,6 +38,7 @@ import UIKit
         console.movableTextField?.textField.resignFirstResponder()
         let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
         picker.delegate = self
+        picker.allowsMultipleSelection = true
         present(picker, animated: true, completion: nil)
     }
     

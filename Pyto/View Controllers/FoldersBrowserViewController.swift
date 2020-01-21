@@ -55,6 +55,7 @@ class FoldersBrowserViewController: UITableViewController, UIDocumentPickerDeleg
     @IBAction func addFolder(_ sender: Any) {
         let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
         picker.delegate = self
+        picker.allowsMultipleSelection = true
         present(picker, animated: true, completion: nil)
     }
     
