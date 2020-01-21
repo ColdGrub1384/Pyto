@@ -66,8 +66,11 @@ class Localizable: Static {
     /// 'Runtime' button on the editor
     static let runtime = NSLocalizedString("runtime", comment: "'Runtime' button on the editor")
     
-    // 'Change'
+    /// 'Change'
     static let change = NSLocalizedString("change", comment: "'Change'")
+    
+    /// 'Find'
+    static let find = NSLocalizedString("find", comment: "'Find'")
     
     /// View controller simulating a widget on the Notification Center.
     class WidgetSimulator: Static {

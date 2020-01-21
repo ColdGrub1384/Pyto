@@ -109,6 +109,11 @@ class EditorSplitViewController: SplitViewController {
         editor?.setArgs(true)
     }
     
+    /// Find or replace text.
+    @objc func search() {
+        editor?.search()
+    }
+    
     /// Interrupts current running script.
     @IBAction func interrupt(_ sender: Any) {
         
@@ -275,6 +280,7 @@ class EditorSplitViewController: SplitViewController {
     override var keyCommands: [UIKeyCommand]? {
         var commands = [
             UIKeyCommand(input: "d", modifierFlags: .command, action: #selector(showDocs), discoverabilityTitle: Localizable.Help.documentation),
+            UIKeyCommand(input: "f", modifierFlags: .command, action: #selector(search), discoverabilityTitle: Localizable.find),
             UIKeyCommand(input: "w", modifierFlags: .command, action: #selector(close), discoverabilityTitle: Localizable.close),
         ]
         
