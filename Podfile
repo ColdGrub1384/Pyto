@@ -15,6 +15,7 @@ target 'Pyto' do
   pod 'Down', :git => 'https://github.com/ColdGrub1384/Down.git'
   pod 'FileBrowser', :git => 'https://github.com/ColdGrub1384/FileBrowser.git'
   pod "Color-Picker-for-iOS", :git => 'https://github.com/ColdGrub1384/Color-Picker-for-iOS.git'
+  pod 'MultiPeer'
 end
 
 # post install

@@ -41,6 +41,7 @@ Exclusive libraries:
   - music - Access the Apple Music library
   - photos - Accessing photos and the camera
   - location - Access user's location
+  - multipeer - Peer to peer wireless connection
   - xcallback - Interact with other apps
 ```
 
