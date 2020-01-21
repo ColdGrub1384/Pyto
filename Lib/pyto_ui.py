@@ -2561,7 +2561,7 @@ class View:
         else:
             _recognizers = []
             for recognizer in recognizers:
-                _recognizer = self.__class__()
+                _recognizer = GestureRecognizer(GESTURE_TYPE_TAP)
                 _recognizer.__py_gesture__ = recognizer
                 _recognizers.append(_recognizer)
             return _recognizers
