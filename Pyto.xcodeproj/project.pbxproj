@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6AB6C68D181C2C686D545A61 /* Pods_Pyto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 296FFAAD958315A38A36E2A4 /* Pods_Pyto.framework */; };
+		C90089E023D79C5C00D18AAE /* PyMultipeerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90089DF23D79C5C00D18AAE /* PyMultipeerHelper.swift */; };
 		C9017D5B232E853000986E8A /* _aligners.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C7442F22EE08350035EFB9 /* _aligners.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9017D5C232E853000986E8A /* _CKDTree.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C7442E22EE08350035EFB9 /* _CKDTree.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9017D5D232E853000986E8A /* _cluster.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C7443522EE08350035EFB9 /* _cluster.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1966,6 +1967,7 @@
 		4370DDFAC0113595C1F9BDC5 /* Pods-Pyto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto/Pods-Pyto.release.xcconfig"; sourceTree = "<group>"; };
 		486497B57E25E63492329299 /* Pods-Pyto Mac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Mac.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Mac/Pods-Pyto Mac.release.xcconfig"; sourceTree = "<group>"; };
 		BDF906F857A60D2FF55BE403 /* Pods-Pyto Mac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Mac.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Mac/Pods-Pyto Mac.debug.xcconfig"; sourceTree = "<group>"; };
+		C90089DF23D79C5C00D18AAE /* PyMultipeerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyMultipeerHelper.swift; sourceTree = "<group>"; };
 		C903986822D2CF2600FAD834 /* PyImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyImageView.swift; sourceTree = "<group>"; };
 		C903B98B21598A63004AAD7F /* IO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IO.swift; sourceTree = "<group>"; };
 		C904EB6321445B5800585C28 /* libPython.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPython.a; path = Python/libPython.a; sourceTree = "<group>"; };
@@ -5124,6 +5126,7 @@
 				C98CECDA23C9487200E133E3 /* PyCallbackHelper.swift */,
 				C969D29D23D14D2900460F05 /* PyMusicHelper.swift */,
 				C969D2A423D49B3200460F05 /* PyPhotosHelper.swift */,
+				C90089DF23D79C5C00D18AAE /* PyMultipeerHelper.swift */,
 				C93CA8B422022E67008DD049 /* QuickLookHelper.swift */,
 				C9E501AD220C85B1002719CE /* PyMainThread.swift */,
 				C9624EF321A9905400DDA9A7 /* PyThread.swift */,
@@ -7558,6 +7561,7 @@
 			files = (
 				C9EDF9AB21446FCA00382DCC /* ConsoleViewController.swift in Sources */,
 				C9F1258F22DFD28F00F54D84 /* PySegmentedControl.swift in Sources */,
+				C90089E023D79C5C00D18AAE /* PyMultipeerHelper.swift in Sources */,
 				C927187822C9933A0025341B /* PyButton.swift in Sources */,
 				C9B5D85E21F12E4000E980BA /* PlainTextEditorViewController.swift in Sources */,
 				C9BF46E722E106D500B8FE4B /* PyTableView.swift in Sources */,
@@ -7868,7 +7872,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.3.4;
+				MARKETING_VERSION = 11.3.5;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -7929,7 +7933,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.3.4;
+				MARKETING_VERSION = 11.3.5;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -8084,7 +8088,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.3.4;
+				MARKETING_VERSION = 11.3.5;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Intents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -8113,7 +8117,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.3.4;
+				MARKETING_VERSION = 11.3.5;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Intents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -8398,7 +8402,7 @@
 					"$(PROJECT_DIR)/PyNacl",
 					"$(PROJECT_DIR)/SciPy",
 				);
-				MARKETING_VERSION = 11.3.4;
+				MARKETING_VERSION = 11.3.5;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
@@ -8510,7 +8514,7 @@
 					"$(PROJECT_DIR)/PyNacl",
 					"$(PROJECT_DIR)/SciPy",
 				);
-				MARKETING_VERSION = 11.3.4;
+				MARKETING_VERSION = 11.3.5;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (

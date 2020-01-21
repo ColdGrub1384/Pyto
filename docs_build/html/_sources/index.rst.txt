@@ -46,6 +46,7 @@ The following modules are integrated with Pyto.
    music
    photos
    location
+   multipeer
 
 .. toctree::
    :maxdepth: 2
