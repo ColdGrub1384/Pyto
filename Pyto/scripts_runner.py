@@ -60,6 +60,6 @@ while True:
         Python.shared.scriptsToInterrupt = []
 
     if ConsoleViewController.isPresentingView:
-        sleep(0.02)
+        sleep(0.002)
     else:
         sleep(0.2)
