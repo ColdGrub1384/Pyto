@@ -53,6 +53,11 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         }
         toolbar.isTranslucent = true
         
+        if #available(iOS 13.0, *) {
+        } else {
+            textField.textColor = theme.sourceCodeTheme.color(for: .plain)
+        }
+        
         inputAssistant.attach(to: textField)
         
         (textField.value(forKey: "textInputTraits") as? NSObject)?.setValue(theme.tintColor, forKey: "insertionPointColor")
