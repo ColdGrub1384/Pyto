@@ -538,8 +538,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 UIKeyCommand(input: "c", modifierFlags: [.command, .shift], action: #selector(toggleComment), discoverabilityTitle: Localizable.MenuItems.toggleComment),
                 UIKeyCommand(input: "b", modifierFlags: [.command, .shift], action: #selector(setBreakpoint(_:)), discoverabilityTitle: Localizable.MenuItems.breakpoint)
             ]
-            if suggestions.count > 0 {
-                commands.append(UIKeyCommand(input: "\t", modifierFlags: [.shift], action: #selector(nextSuggestion), discoverabilityTitle: Localizable.nextSuggestion))
+            if numberOfSuggestionsInInputAssistantView() != 0 {
+                commands.append(UIKeyCommand(input: "\t", modifierFlags: [], action: #selector(nextSuggestion), discoverabilityTitle: Localizable.nextSuggestion))
             }
             
             var indented = false
@@ -1582,6 +1582,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     /// Selects a suggestion from hardware tab key.
     @objc func nextSuggestion() {
+        
+        guard numberOfSuggestionsInInputAssistantView() != 0 else {
+            return
+        }
+                
         let new = currentSuggestionIndex+1
         
         if suggestions.indices.contains(new) {
@@ -1850,6 +1855,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
             if textView.contentTextView.text(in: currentTextRange) == "" {
                 
                 range.length += 1
+                
+                if textView.contentTextView.currentWord?.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\t", with: "").isEmpty != false {
+                    return 0
+                }
                 
                 if let textRange = range.toTextRange(textInput: textView.contentTextView), textView.contentTextView.text(in: textRange) == "_" {
                     return 0
