@@ -29,6 +29,11 @@ from pip import BUNDLED_MODULES
 logging.basicConfig(level=logging.INFO)
 
 def __send_warnings_to_log__(message, category, filename, lineno, file=None, line=None):
+
+    import platform
+    if platform.uname()[4] == "x86_64":
+        return
+
     try:
         warnings
     except:
