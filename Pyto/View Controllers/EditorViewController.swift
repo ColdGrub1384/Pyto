@@ -1325,7 +1325,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         textView.contentTextView.verticalScrollIndicatorInsets.bottom = textView.contentInset.bottom
         
         if point.y+50 >= textView.frame.height {
-            textView.contentInset.bottom += 44
+            textView.contentInset.bottom += 50
         }
         
         if searchBar?.window != nil {
