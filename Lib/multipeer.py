@@ -41,7 +41,7 @@ def get_data() -> str:
     """
 
     data = PyMultipeerHelper.data
-    if data == None:
+    if data is None:
         return data
     else:
         PyMultipeerHelper.data = None

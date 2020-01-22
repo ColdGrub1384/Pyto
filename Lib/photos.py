@@ -41,7 +41,7 @@ def pick_photo() -> Image.Image:
 
 def take_photo() -> Image.Image:
     """
-    Take a photo from the photos library. Returns the taken image as a PIL Image.
+    Take a photo from the camera. Returns the taken image as a PIL Image.
 
     :rtype: PIL.Image.Image
     """
