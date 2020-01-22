@@ -262,7 +262,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
         
         if #available(iOS 13.0, *) {
@@ -324,6 +324,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         textView.contentTextView.isEditable = !isSample
@@ -1323,6 +1324,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
         textView.contentInset.bottom = (point.y >= textView.frame.height ? 0 : textView.frame.height-point.y)
         textView.contentTextView.verticalScrollIndicatorInsets.bottom = textView.contentInset.bottom
         
+        if point.y+50 >= textView.frame.height {
+            textView.contentInset.bottom += 44
+        }
+        
         if searchBar?.window != nil {
             textView.contentInset.top = findBarHeight
             textView.contentTextView.verticalScrollIndicatorInsets.top = findBarHeight
@@ -1560,9 +1565,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
     func textViewDidEndEditing(_ textView: UITextView) {
         save(completion: nil)
         parent?.setNeedsUpdateOfHomeIndicatorAutoHidden()
+        parent?.navigationController?.toolbar.frame.origin.y += 50
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
+        parent?.navigationController?.toolbar.frame.origin.y -= 50
         parent?.setNeedsUpdateOfHomeIndicatorAutoHidden()
     }
     
