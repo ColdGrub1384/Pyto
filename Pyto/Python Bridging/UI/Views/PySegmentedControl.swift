@@ -17,6 +17,10 @@ import UIKit
         }
     }
     
+    public override class var pythonName: String {
+        return "SegmentedControl"
+    }
+    
     @objc public var segments: [String] {
         get {
             return get {

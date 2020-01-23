@@ -17,6 +17,10 @@ import UIKit
         }
     }
     
+    public override class var pythonName: String {
+        return "TableView"
+    }
+    
     @objc private func edit(sender: UIBarButtonItem) {
         
         tableView.setEditing(!tableView.isEditing, animated: true)
@@ -152,7 +156,7 @@ import UIKit
         }
     }
     
-    override init(managed: Any! = NSObject()) {
+    required init(managed: Any! = NSObject()) {
         super.init(managed: managed)
         
         DispatchQueue.main.async {

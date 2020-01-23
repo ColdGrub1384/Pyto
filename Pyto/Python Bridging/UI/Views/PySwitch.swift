@@ -17,6 +17,10 @@ import UIKit
         }
     }
     
+    public override class var pythonName: String {
+        return "Switch"
+    }
+    
     @objc public var isOn: Bool {
         get {
             return get {

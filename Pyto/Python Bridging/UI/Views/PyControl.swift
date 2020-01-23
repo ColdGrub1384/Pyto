@@ -10,6 +10,10 @@ import UIKit
 
 @available(iOS 13.0, *) @objc public class PyControl: PyView {
     
+    public override class var pythonName: String {
+        return "Control"
+    }
+    
     @objc public var action: PyValue?
     
     @objc public var managedValue: PyValue?

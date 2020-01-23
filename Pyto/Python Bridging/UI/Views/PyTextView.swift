@@ -49,6 +49,10 @@ fileprivate class _PyTextView: UITextView {
         }
     }
     
+    public override class var pythonName: String {
+        return "TextView"
+    }
+    
     @objc public var managedValue: PyValue?
     
     @objc public var didBeginEditing: PyValue?
@@ -171,7 +175,7 @@ fileprivate class _PyTextView: UITextView {
         }
     }
     
-    override init(managed: Any! = NSObject()) {
+    required init(managed: Any! = NSObject()) {
         super.init(managed: managed)
         
         DispatchQueue.main.async {

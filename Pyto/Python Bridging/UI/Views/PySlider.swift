@@ -17,6 +17,10 @@ import UIKit
         }
     }
     
+    public override class var pythonName: String {
+        return "Slider"
+    }
+    
     @objc public var minimumValue: Double {
         get {
             return get {

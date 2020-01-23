@@ -11,6 +11,10 @@ import WebKit
 
 @available(iOS 13.0, *) @objc public class PyWebView: PyView, WKNavigationDelegate, WKUIDelegate {
     
+    public override class var pythonName: String {
+        return "WebView"
+    }
+    
     @objc public var managedValue: PyValue?
     
     @objc public var didStartLoading: PyValue?
@@ -118,7 +122,7 @@ import WebKit
         }
     }
     
-    override init(managed: Any! = NSObject()) {
+    required init(managed: Any! = NSObject()) {
         super.init(managed: managed)
         
         DispatchQueue.main.async {
@@ -154,7 +158,9 @@ import WebKit
         
         let alert = UIAlertController(title: "Pyto", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
+        #if MAIN && !WIDGET
         webView.window?.topViewController?.present(alert, animated: true, completion: nil)
+        #endif
         
         completionHandler()
     }

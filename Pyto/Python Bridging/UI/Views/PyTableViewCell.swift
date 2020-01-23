@@ -47,6 +47,10 @@ extension UITableViewCell {
         }
     }
     
+    public override class var pythonName: String {
+        return "TableViewCell"
+    }
+    
     @objc public var managedValue: PyValue?
     
     @objc public var removable: Bool {
@@ -129,7 +133,7 @@ extension UITableViewCell {
         }
     }
     
-    override init(managed: Any! = NSObject()) {
+    required init(managed: Any! = NSObject()) {
         super.init(managed: managed)
     }
     
