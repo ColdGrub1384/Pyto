@@ -590,6 +590,18 @@ void init_bcrypt() {
     [name addObject:@"_bcrypt"]; [key addObject:@"__bcrypt__bcrypt"];
     BandHandle(@"bcrypt", name, key);
 }
+
+// MARK: - Pywt
+
+void init_pywt() {
+    
+    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
+    [name addObject:@"_cwt"]; [key addObject:@"__pywt__extensions__cwt"];
+    [name addObject:@"_pywt"]; [key addObject:@"__pywt__extensions__pywt"];
+    [name addObject:@"_swt"]; [key addObject:@"__pywt__extensions__swt"];
+    [name addObject:@"_dwt"]; [key addObject:@"__pywt__extensions__dwt"];
+    BandHandle(@"pywt", name, key);
+}
 #endif
 
 #endif
@@ -602,21 +614,6 @@ extern PyMODINIT_FUNC PyInit_cv2(void);
 
 void init_cv2() {
     PyImport_AppendInittab("__cv2_cv2", &PyInit_cv2);
-}
-
-// MARK: - Pywt
-
-extern PyMODINIT_FUNC PyInit__cwt(void);
-extern PyMODINIT_FUNC PyInit__pywt(void);
-extern PyMODINIT_FUNC PyInit__swt(void);
-extern PyMODINIT_FUNC PyInit__dwt(void);
-
-void init_pywt() {
-    
-    PyImport_AppendInittab("__pywt__extensions__cwt", &PyInit__cwt);
-    PyImport_AppendInittab("__pywt__extensions__pywt", &PyInit__pywt);
-    PyImport_AppendInittab("__pywt__extensions__swt", &PyInit__swt);
-    PyImport_AppendInittab("__pywt__extensions__dwt", &PyInit__dwt);
 }
 
 // MARK: - Nacl

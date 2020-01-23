@@ -143,10 +143,6 @@
 		C93B896423CA52000070B2EF /* setArgv.m in Sources */ = {isa = PBXBuildFile; fileRef = C93B896323CA52000070B2EF /* setArgv.m */; };
 		C93B896823CA53C80070B2EF /* ParseArgs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93B896723CA53C80070B2EF /* ParseArgs.swift */; };
 		C93B896923CA54330070B2EF /* ParseArgs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93B896723CA53C80070B2EF /* ParseArgs.swift */; };
-		C93B896E23CA6A3D0070B2EF /* _dwt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C93B896A23CA6A3C0070B2EF /* _dwt.o */; };
-		C93B896F23CA6A3D0070B2EF /* _swt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C93B896B23CA6A3C0070B2EF /* _swt.o */; };
-		C93B897023CA6A3D0070B2EF /* _cwt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C93B896C23CA6A3C0070B2EF /* _cwt.o */; };
-		C93B897123CA6A3D0070B2EF /* _pywt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C93B896D23CA6A3D0070B2EF /* _pywt.o */; };
 		C93B897323CA7B0B0070B2EF /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946A5C92207809700F78C5C /* FileManager.swift */; };
 		C93C8E1922DFDEBC0008DC13 /* PySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C8E1822DFDEBC0008DC13 /* PySlider.swift */; };
 		C93C8E1C22E011CE0008DC13 /* PySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C8E1822DFDEBC0008DC13 /* PySlider.swift */; };
@@ -1646,6 +1642,10 @@
 		C9FB5C0D22025B040085E1AA /* type42.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9FB5BE522025AFE0085E1AA /* type42.o */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C9FB5C0E22025B040085E1AA /* ftpatent.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9FB5BE622025AFE0085E1AA /* ftpatent.o */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C9FB5C0F22025B040085E1AA /* ftbdf.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9FB5BE722025AFE0085E1AA /* ftbdf.o */; settings = {ATTRIBUTES = (Weak, ); }; };
+		C9FC4C2D23D923AC00792852 /* _cwt.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9FC4C2923D9239900792852 /* _cwt.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9FC4C2E23D923AC00792852 /* _dwt.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9FC4C2A23D9239A00792852 /* _dwt.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9FC4C2F23D923AC00792852 /* _pywt.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9FC4C2B23D9239A00792852 /* _pywt.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9FC4C3023D923AC00792852 /* _swt.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9FC4C2C23D9239A00792852 /* _swt.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9FCFD59214428AE00A07974 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCFD58214428AE00A07974 /* AppDelegate.swift */; };
 		C9FCFD5B214428AE00A07974 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCFD5A214428AE00A07974 /* EditorViewController.swift */; };
 		C9FCFD60214428B300A07974 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9FCFD5F214428B300A07974 /* Assets.xcassets */; };
@@ -1776,6 +1776,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C9FC4C2D23D923AC00792852 /* _cwt.framework in Embed Frameworks */,
+				C9FC4C2E23D923AC00792852 /* _dwt.framework in Embed Frameworks */,
+				C9FC4C2F23D923AC00792852 /* _pywt.framework in Embed Frameworks */,
+				C9FC4C3023D923AC00792852 /* _swt.framework in Embed Frameworks */,
 				C9C3308323C29040003B5971 /* _bcrypt.framework in Embed Frameworks */,
 				C9C32E6423C11029003B5971 /* _cffi_backend.framework in Embed Frameworks */,
 				C9C59F512373887B003DA9A4 /* _move.framework in Embed Frameworks */,
@@ -2073,10 +2077,6 @@
 		C93B6A312200BEA1009D637F /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		C93B896323CA52000070B2EF /* setArgv.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = setArgv.m; sourceTree = "<group>"; };
 		C93B896723CA53C80070B2EF /* ParseArgs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseArgs.swift; sourceTree = "<group>"; };
-		C93B896A23CA6A3C0070B2EF /* _dwt.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = _dwt.o; sourceTree = "<group>"; };
-		C93B896B23CA6A3C0070B2EF /* _swt.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = _swt.o; sourceTree = "<group>"; };
-		C93B896C23CA6A3C0070B2EF /* _cwt.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = _cwt.o; sourceTree = "<group>"; };
-		C93B896D23CA6A3D0070B2EF /* _pywt.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = _pywt.o; sourceTree = "<group>"; };
 		C93B897223CA7ABD0070B2EF /* Pyto Intents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pyto Intents.entitlements"; sourceTree = "<group>"; };
 		C93C8E1822DFDEBC0008DC13 /* PySlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PySlider.swift; sourceTree = "<group>"; };
 		C93C8E1D22E01ACA0008DC13 /* PySwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PySwitch.swift; sourceTree = "<group>"; };
@@ -3632,6 +3632,10 @@
 		C9FB5BE522025AFE0085E1AA /* type42.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = type42.o; sourceTree = "<group>"; };
 		C9FB5BE622025AFE0085E1AA /* ftpatent.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftpatent.o; sourceTree = "<group>"; };
 		C9FB5BE722025AFE0085E1AA /* ftbdf.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftbdf.o; sourceTree = "<group>"; };
+		C9FC4C2923D9239900792852 /* _cwt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _cwt.framework; sourceTree = "<group>"; };
+		C9FC4C2A23D9239A00792852 /* _dwt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _dwt.framework; sourceTree = "<group>"; };
+		C9FC4C2B23D9239A00792852 /* _pywt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _pywt.framework; sourceTree = "<group>"; };
+		C9FC4C2C23D9239A00792852 /* _swt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _swt.framework; sourceTree = "<group>"; };
 		C9FCFD55214428AE00A07974 /* Pyto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pyto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9FCFD58214428AE00A07974 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9FCFD5A214428AE00A07974 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
@@ -3789,7 +3793,6 @@
 				C9FB5C0722025B040085E1AA /* ftlzw.o in Frameworks */,
 				C9F8FA9A2302569D004648F4 /* zgsequ.o in Frameworks */,
 				C9F8FA172302569D004648F4 /* iddr_rsvd_subr_0.o in Frameworks */,
-				C93B897023CA6A3D0070B2EF /* _cwt.o in Frameworks */,
 				C9F8F8CB2302569C004648F4 /* cumf.o in Frameworks */,
 				C9F8F9AC2302569C004648F4 /* ztbmv.o in Frameworks */,
 				C9F8F7A02302569C004648F4 /* sinqi.o in Frameworks */,
@@ -3989,7 +3992,6 @@
 				C9F8F7812302569C004648F4 /* cdff.o in Frameworks */,
 				C9F8F9912302569C004648F4 /* algdiv.o in Frameworks */,
 				C9F8F9112302569C004648F4 /* fprpsp.o in Frameworks */,
-				C93B896E23CA6A3D0070B2EF /* _dwt.o in Frameworks */,
 				C9F8F7892302569C004648F4 /* dmach.o in Frameworks */,
 				C9F8FA662302569D004648F4 /* gamln1.o in Frameworks */,
 				C9F8FAC22302569D004648F4 /* ilu_zcolumn_dfs.o in Frameworks */,
@@ -4133,7 +4135,6 @@
 				C9F8F8B82302569C004648F4 /* getbreak.o in Frameworks */,
 				C9F8FAE82302569D004648F4 /* exp10.o in Frameworks */,
 				C9FB5BFB22025B040085E1AA /* raster.o in Frameworks */,
-				C93B896F23CA6A3D0070B2EF /* _swt.o in Frameworks */,
 				C9F8FADB2302569D004648F4 /* bispev.o in Frameworks */,
 				C9F8F9692302569C004648F4 /* zhpr2.o in Frameworks */,
 				C9F8FA512302569D004648F4 /* ellpe.o in Frameworks */,
@@ -4683,7 +4684,6 @@
 				C9F8F8C02302569C004648F4 /* round.o in Frameworks */,
 				C95EE64B23273D720084EA0C /* matmul.o in Frameworks */,
 				C9F8FB322302569D004648F4 /* libqhull_r.o in Frameworks */,
-				C93B897123CA6A3D0070B2EF /* _pywt.o in Frameworks */,
 				C9F8F90D2302569C004648F4 /* fortranobject.o in Frameworks */,
 				C9F8F85D2302569C004648F4 /* sproot.o in Frameworks */,
 				C97867DC2304DEB000BD6FA4 /* libjpeg.framework in Frameworks */,
@@ -5436,10 +5436,10 @@
 		C96D324122F74283007D2289 /* Pywt */ = {
 			isa = PBXGroup;
 			children = (
-				C93B896C23CA6A3C0070B2EF /* _cwt.o */,
-				C93B896A23CA6A3C0070B2EF /* _dwt.o */,
-				C93B896D23CA6A3D0070B2EF /* _pywt.o */,
-				C93B896B23CA6A3C0070B2EF /* _swt.o */,
+				C9FC4C2923D9239900792852 /* _cwt.framework */,
+				C9FC4C2A23D9239A00792852 /* _dwt.framework */,
+				C9FC4C2B23D9239A00792852 /* _pywt.framework */,
+				C9FC4C2C23D9239A00792852 /* _swt.framework */,
 			);
 			path = Pywt;
 			sourceTree = "<group>";
@@ -7836,7 +7836,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -7899,7 +7899,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -8077,7 +8077,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -8106,7 +8106,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -8339,7 +8339,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -8451,7 +8451,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
