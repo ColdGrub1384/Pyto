@@ -17,6 +17,10 @@ import UIKit
         }
     }
     
+    public override class var pythonName: String {
+        return "Button"
+    }
+    
     @objc override public var title: String? {
         get {
             return get {
@@ -106,7 +110,7 @@ import UIKit
     
     @objc public static let TypeInfoLight = UIButton.ButtonType.infoLight
     
-    override init(managed: Any! = NSObject()) {
+    required init(managed: Any! = NSObject()) {
         super.init(managed: managed)
     }
     

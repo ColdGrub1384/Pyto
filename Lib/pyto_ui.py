@@ -20,6 +20,7 @@ from time import sleep
 from io import BytesIO
 from threading import Thread
 import os
+import sys
 import base64
 import threading
 import _values
@@ -2258,7 +2259,9 @@ class View:
         else:
             _views = []
             for view in views:
-                _view = self.__class__()
+                ui = sys.modules["pyto_ui"]
+                _class = getattr(ui, str(view.objc_class.pythonName))
+                _view = _class()
                 _view.__py_view__ = view
                 _views.append(_view)
             return _views
@@ -2275,7 +2278,9 @@ class View:
         if superview is None:
             return None
         else:
-            view = self.__class__()
+            ui = sys.modules["pyto_ui"]
+            _class = getattr(ui, str(superview.objc_class.pythonName))
+            view = _class()
             view.__py_view__ = superview
             return view
 

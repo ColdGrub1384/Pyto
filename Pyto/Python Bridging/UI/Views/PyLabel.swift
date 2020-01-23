@@ -43,7 +43,7 @@ fileprivate class _PyLabel: UILabel {
 /// A Python wrapper for `UIView`.
 @available(iOS 13.0, *) @objc public class PyLabel: PyView {
     
-    override init(managed: Any! = NSObject()) {
+    required init(managed: Any! = NSObject()) {
         super.init(managed: managed)
     }
     
@@ -60,6 +60,10 @@ fileprivate class _PyLabel: UILabel {
         return get {
             return self.managed as! UILabel
         }
+    }
+    
+    public override class var pythonName: String {
+        return "Label"
     }
     
     @objc public func loadHTML(_ html: String) {

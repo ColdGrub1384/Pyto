@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WebKit
 
 @available(iOS 13.0, *) extension UIView {
     
@@ -54,7 +55,7 @@ import UIKit
 /// A Python wrapper for `UIView`.
 @available(iOS 13.0, *) @objc public class PyView: PyWrapper {
     
-    override init(managed: Any! = NSObject()) {
+    override required init(managed: Any! = NSObject()) {
         super.init(managed: managed)
         
         if self.managed is UIView {
@@ -81,6 +82,11 @@ import UIKit
         }
         viewController = nil
         pyValue = nil
+    }
+    
+    /// The name of the Python class wrapping this.
+    @objc open class var pythonName: String {
+        return "View"
     }
     
     /// The Python instance.
@@ -518,8 +524,8 @@ import UIKit
     @objc public var superView: PyView? {
         self.get {
             if let superView = self.view.superview {
-                return PyView(managed: superView)
-                
+                let cls = classFromUIKit(type(of: superView))
+                return cls.init(managed: superView)
             } else {
                 return nil
             }
@@ -542,7 +548,8 @@ import UIKit
                 }
                 
                 if !found {
-                    subviews.append(PyView(managed: view))
+                    let cls = classFromUIKit(type(of: view))
+                    subviews.append(cls.init(managed: view))
                 }
             }
             
@@ -1003,5 +1010,37 @@ import UIKit
         set {
             ((self.viewController as? UINavigationController) ?? self.viewController?.navigationController)?.popViewController(animated: true)
         }
+    }
+}
+
+@available(iOS 13.0, *)
+fileprivate func classFromUIKit(_ uiClass: UIView.Type) -> PyView.Type {
+    switch uiClass {
+    case is WKWebView.Type:
+        return PyWebView.self
+    case is UITextField.Type:
+        return PyTextField.self
+    case is UITextView.Type:
+        return PyTextView.self
+    case is UITableViewCell.Type:
+        return PyTableViewCell.self
+    case is UITableView.Type:
+        return PyTableView.self
+    case is UIButton.Type:
+        return PyButton.self
+    case is UISwitch.Type:
+        return PySwitch.self
+    case is UISegmentedControl.Type:
+        return PySegmentedControl.self
+    case is UISlider.Type:
+        return PySlider.self
+    case is UIControl.Type:
+        return PyControl.self
+    case is UIImageView.Type:
+        return PyImageView.self
+    case is UILabel.Type:
+        return PyLabel.self
+    default:
+        return PyView.self
     }
 }

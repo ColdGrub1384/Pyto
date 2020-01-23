@@ -31,6 +31,10 @@ extension UIImage {
         }
     }
     
+    public override class var pythonName: String {
+        return "ImageView"
+    }
+    
     /// The Image view associated with this object.
     @objc public var imageView: UIImageView {
         return get {
