@@ -119,7 +119,11 @@ import WebKit
     
     private var _title: String? {
         didSet {
-            (self.viewController as? UINavigationController)?.title = _title
+            for vc in (self.viewController as? UINavigationController)?.viewControllers ?? [] {
+                if vc.view == view {
+                    vc.title = _title
+                }
+            }
         }
     }
     
@@ -1000,6 +1004,7 @@ import WebKit
             
             let vc = ViewController.init()
             vc.view.addSubview(view.view)
+            vc.title = view.title
             navVC?.pushViewController(vc, animated: true)
         }
         
