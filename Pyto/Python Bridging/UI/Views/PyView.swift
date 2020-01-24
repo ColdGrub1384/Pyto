@@ -62,6 +62,7 @@ import WebKit
             DispatchQueue.main.async {
                 self.view.layer.addObserver(self, forKeyPath: "bounds", options: .new, context: nil)
             }
+            PyView.values[self.view] = self
         }
     }
     
@@ -83,6 +84,9 @@ import WebKit
         viewController = nil
         pyValue = nil
     }
+    
+    /// A dictionary containing `PyView`s per `UIView`.
+    static var values = [UIView:PyView]()
     
     /// The name of the Python class wrapping this.
     @objc open class var pythonName: String {
@@ -120,8 +124,9 @@ import WebKit
     private var _title: String? {
         didSet {
             for vc in (self.viewController as? UINavigationController)?.viewControllers ?? [] {
-                if vc.view == view {
+                if vc.view.subviews.first == view {
                     vc.title = _title
+                    vc.navigationItem.title = _title
                 }
             }
         }
@@ -528,8 +533,7 @@ import WebKit
     @objc public var superView: PyView? {
         self.get {
             if let superView = self.view.superview {
-                let cls = classFromUIKit(type(of: superView))
-                return cls.init(managed: superView)
+                return PyView.values[superView]
             } else {
                 return nil
             }
@@ -551,9 +555,8 @@ import WebKit
                     }
                 }
                 
-                if !found {
-                    let cls = classFromUIKit(type(of: view))
-                    subviews.append(cls.init(managed: view))
+                if !found, let v = PyView.values[view] {
+                    subviews.append(v)
                 }
             }
             
@@ -1015,37 +1018,5 @@ import WebKit
         set {
             ((self.viewController as? UINavigationController) ?? self.viewController?.navigationController)?.popViewController(animated: true)
         }
-    }
-}
-
-@available(iOS 13.0, *)
-fileprivate func classFromUIKit(_ uiClass: UIView.Type) -> PyView.Type {
-    switch uiClass {
-    case is WKWebView.Type:
-        return PyWebView.self
-    case is UITextField.Type:
-        return PyTextField.self
-    case is UITextView.Type:
-        return PyTextView.self
-    case is UITableViewCell.Type:
-        return PyTableViewCell.self
-    case is UITableView.Type:
-        return PyTableView.self
-    case is UIButton.Type:
-        return PyButton.self
-    case is UISwitch.Type:
-        return PySwitch.self
-    case is UISegmentedControl.Type:
-        return PySegmentedControl.self
-    case is UISlider.Type:
-        return PySlider.self
-    case is UIControl.Type:
-        return PyControl.self
-    case is UIImageView.Type:
-        return PyImageView.self
-    case is UILabel.Type:
-        return PyLabel.self
-    default:
-        return PyView.self
     }
 }

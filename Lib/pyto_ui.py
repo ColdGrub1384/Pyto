@@ -1566,7 +1566,7 @@ class GestureRecognizer:
         if action is None:
             return None
         else:
-            return _values.globals()[action.identifier]
+            return getattr(_values, str(action.identifier))
 
     @action.setter
     def action(self, new_value: Callable[[GestureRecognizer], None]):
@@ -1658,7 +1658,7 @@ class TableViewSection:
         if action is None:
             return None
         else:
-            return _values.globals()[action.identifier]
+            return getattr(_values, str(action.identifier))
 
     @did_select_cell.setter
     def did_select_cell(self, new_value: Callable[[TableViewSection, int], None]):
@@ -1679,7 +1679,7 @@ class TableViewSection:
         if action is None:
             return None
         else:
-            return _values.globals()[action.identifier]
+            return getattr(_values, str(action.identifier))
 
     @did_tap_cell_accessory_button.setter
     def did_tap_cell_accessory_button(
@@ -1703,7 +1703,7 @@ class TableViewSection:
         if action is None:
             return None
         else:
-            return _values.globals()[action.identifier]
+            return getattr(_values, str(action.identifier))
 
     @did_delete_cell.setter
     def did_delete_cell(self, new_value: Callable[[TableViewSection, int], None]):
@@ -1725,7 +1725,7 @@ class TableViewSection:
         if action is None:
             return None
         else:
-            return _values.globals()[action.identifier]
+            return getattr(_values, str(action.identifier))
 
     @did_move_cell.setter
     def did_move_cell(self, new_value: Callable[[TableViewSection, int, int], None]):
@@ -1849,7 +1849,7 @@ class ButtonItem:
         if action is None:
             return None
         else:
-            return _values.globals()[action.identifier]
+            return getattr(_values, str(action.identifier))
 
     @action.setter
     def action(self, new_value: Callable[[ButtonItem], None]):
@@ -2610,7 +2610,7 @@ class View:
         if action is None:
             return None
         else:
-            return _values.globals()[action.identifier]
+            return getattr(_values, str(action.identifier))
 
     @layout.setter
     def layout(self, new_value: Callable[[View], None]):
@@ -2995,7 +2995,7 @@ class TableView(View):
         if action is None:
             return None
         else:
-            return _values.globals()[action.identifier]
+            return getattr(_values, str(action.identifier))
 
     @reload_action.setter
     def reload_action(self, new_value: Callable[[TableView], None]):
@@ -3072,7 +3072,7 @@ class TextView(View):
         if action is None:
             return None
         else:
-            return _values.globals()[action.identifier]
+            return getattr(_values, str(action.identifier))
 
     @did_begin_editing.setter
     def did_begin_editing(self, new_value: Callable[[TextView], None]):
@@ -3093,7 +3093,7 @@ class TextView(View):
         if action is None:
             return None
         else:
-            return _values.globals()[action.identifier]
+            return getattr(_values, str(action.identifier))
 
     @did_end_editing.setter
     def did_end_editing(self, new_value: Callable[[TextView], None]):
@@ -3114,7 +3114,7 @@ class TextView(View):
         if action is None:
             return None
         else:
-            return _values.globals()[action.identifier]
+            return getattr(_values, str(action.identifier))
 
     @did_change.setter
     def did_change(self, new_value: Callable[[TextView], None]):
@@ -3489,7 +3489,7 @@ class WebView(View):
         if action is None:
             return None
         else:
-            return _values.globals()[action.identifier]
+            return getattr(_values, str(action.identifier))
 
     @did_start_loading.setter
     def did_start_loading(self, new_value: Callable[[WebView], None]):
@@ -3510,7 +3510,7 @@ class WebView(View):
         if action is None:
             return None
         else:
-            return _values.globals()[action.identifier]
+            return getattr(_values, str(action.identifier))
 
     @did_finish_loading.setter
     def did_finish_loading(self, new_value: Callable[[WebView], None]):
@@ -3531,7 +3531,7 @@ class WebView(View):
         if action is None:
             return None
         else:
-            return _values.globals()[action.identifier]
+            return getattr(_values, str(action.identifier))
 
     @did_fail_loading.setter
     def did_fail_loading(self, new_value: Callable[[WebView, str], None]):
@@ -3614,7 +3614,7 @@ class Control(View):
         if action is None:
             return None
         else:
-            return _values.globals()[action.identifier]
+            return getattr(_values, str(action.identifier))
 
     @action.setter
     def action(self, new_value: Callable[[Control], None]):
@@ -4008,7 +4008,7 @@ class TextField(Control):
         if action is None:
             return None
         else:
-            return _values.globals()[action.identifier]
+            return getattr(_values, str(action.identifier))
 
     @did_begin_editing.setter
     def did_begin_editing(self, new_value: Callable[[TextField], None]):
@@ -4029,7 +4029,7 @@ class TextField(Control):
         if action is None:
             return None
         else:
-            return _values.globals()[action.identifier]
+            return getattr(_values, str(action.identifier))
 
     @did_end_editing.setter
     def did_end_editing(self, new_value: Callable[[TextField], None]):
