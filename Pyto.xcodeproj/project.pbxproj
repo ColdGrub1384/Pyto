@@ -461,7 +461,6 @@
 		C9E9DF8423E08188004CF05A /* _qhull.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9DF7923E08172004CF05A /* _qhull.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9E9DF8523E08188004CF05A /* _tri.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9DF7D23E08172004CF05A /* _tri.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9E9DF8623E08188004CF05A /* ft2font.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9DF7B23E08172004CF05A /* ft2font.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9E9DF8723E08188004CF05A /* ttconv.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9DF7E23E08172004CF05A /* ttconv.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9E9E2EB23E0ADC4004CF05A /* _bit_generator.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2E023E0ADB4004CF05A /* _bit_generator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9E9E2EC23E0ADC4004CF05A /* _bounded_integers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2E323E0ADB5004CF05A /* _bounded_integers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9E9E2ED23E0ADC4004CF05A /* _common.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2E823E0ADB5004CF05A /* _common.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1725,7 +1724,6 @@
 				C9E9DF8423E08188004CF05A /* _qhull.framework in Embed Frameworks */,
 				C9E9DF8523E08188004CF05A /* _tri.framework in Embed Frameworks */,
 				C9E9DF8623E08188004CF05A /* ft2font.framework in Embed Frameworks */,
-				C9E9DF8723E08188004CF05A /* ttconv.framework in Embed Frameworks */,
 				C9FC4C2D23D923AC00792852 /* _cwt.framework in Embed Frameworks */,
 				C9FC4C2E23D923AC00792852 /* _dwt.framework in Embed Frameworks */,
 				C9FC4C2F23D923AC00792852 /* _pywt.framework in Embed Frameworks */,
@@ -2388,7 +2386,6 @@
 		C9E9DF7B23E08172004CF05A /* ft2font.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ft2font.framework; sourceTree = "<group>"; };
 		C9E9DF7C23E08172004CF05A /* _image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _image.framework; sourceTree = "<group>"; };
 		C9E9DF7D23E08172004CF05A /* _tri.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _tri.framework; sourceTree = "<group>"; };
-		C9E9DF7E23E08172004CF05A /* ttconv.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ttconv.framework; sourceTree = "<group>"; };
 		C9E9E2D923E0ADB3004CF05A /* _multiarray_tests.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _multiarray_tests.framework; sourceTree = "<group>"; };
 		C9E9E2DA23E0ADB4004CF05A /* _pocketfft_internal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _pocketfft_internal.framework; sourceTree = "<group>"; };
 		C9E9E2DB23E0ADB4004CF05A /* mtrand.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = mtrand.framework; sourceTree = "<group>"; };
@@ -4827,7 +4824,6 @@
 				C9E9DF7923E08172004CF05A /* _qhull.framework */,
 				C9E9DF7D23E08172004CF05A /* _tri.framework */,
 				C9E9DF7B23E08172004CF05A /* ft2font.framework */,
-				C9E9DF7E23E08172004CF05A /* ttconv.framework */,
 			);
 			path = Matplotlib;
 			sourceTree = "<group>";
@@ -7560,7 +7556,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.3.8;
+				MARKETING_VERSION = 11.3.9;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -7621,7 +7617,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.3.8;
+				MARKETING_VERSION = 11.3.9;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -7776,7 +7772,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.3.8;
+				MARKETING_VERSION = 11.3.9;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Intents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -7805,7 +7801,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.3.8;
+				MARKETING_VERSION = 11.3.9;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Intents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -8090,7 +8086,7 @@
 					"$(PROJECT_DIR)/PyNacl",
 					"$(PROJECT_DIR)/SciPy",
 				);
-				MARKETING_VERSION = 11.3.8;
+				MARKETING_VERSION = 11.3.9;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
@@ -8202,7 +8198,7 @@
 					"$(PROJECT_DIR)/PyNacl",
 					"$(PROJECT_DIR)/SciPy",
 				);
-				MARKETING_VERSION = 11.3.8;
+				MARKETING_VERSION = 11.3.9;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
