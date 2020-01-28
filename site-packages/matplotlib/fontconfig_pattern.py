@@ -1,9 +1,8 @@
 """
-A module for parsing and generating fontconfig patterns.
+A module for parsing and generating `fontconfig patterns`_.
 
-See the `fontconfig pattern specification
-<https://www.freedesktop.org/software/fontconfig/fontconfig-user.html>`_ for
-more information.
+.. _fontconfig patterns:
+   https://www.freedesktop.org/software/fontconfig/fontconfig-user.html
 """
 
 # This class is defined here because it must be available in:
@@ -27,12 +26,13 @@ value_punc = r'\\=_:,'
 value_unescape = re.compile(r'\\([%s])' % value_punc).sub
 value_escape = re.compile(r'([%s])' % value_punc).sub
 
-class FontconfigPatternParser(object):
-    """A simple pyparsing-based parser for fontconfig-style patterns.
 
-    See the `fontconfig pattern specification
-    <https://www.freedesktop.org/software/fontconfig/fontconfig-user.html>`_
-    for more information.
+class FontconfigPatternParser(object):
+    """
+    A simple pyparsing-based parser for `fontconfig patterns`_.
+
+    .. _fontconfig patterns:
+       https://www.freedesktop.org/software/fontconfig/fontconfig-user.html
     """
 
     _constants = {
@@ -174,8 +174,6 @@ def generate_fontconfig_pattern(d):
     pattern string.
     """
     props = []
-    families = ''
-    size = ''
     for key in 'family style variant weight stretch file size'.split():
         val = getattr(d, 'get_' + key)()
         if val is not None and val != []:

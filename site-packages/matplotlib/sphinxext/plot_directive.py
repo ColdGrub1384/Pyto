@@ -148,11 +148,8 @@ import textwrap
 import traceback
 import warnings
 
-from docutils.parsers.rst import directives
+from docutils.parsers.rst import directives, Directive
 from docutils.parsers.rst.directives.images import Image
-align = Image.align
-import sphinx
-
 import jinja2  # Sphinx dependency.
 
 import matplotlib
@@ -167,13 +164,17 @@ except UserWarning:
 else:
     import matplotlib.pyplot as plt
 from matplotlib import _pylab_helpers, cbook
+align = Image.align
 
 __version__ = 2
 
-#------------------------------------------------------------------------------
-# Registration hook
-#------------------------------------------------------------------------------
 
+# -----------------------------------------------------------------------------
+# Registration hook
+# -----------------------------------------------------------------------------
+
+
+@cbook.deprecated("3.1", alternative="PlotDirective")
 def plot_directive(name, arguments, options, content, lineno,
                    content_offset, block_text, state, state_machine):
     """Implementation of the ``.. plot::`` directive.
@@ -241,25 +242,42 @@ def mark_plot_labels(app, document):
                     break
 
 
+class PlotDirective(Directive):
+    """Implementation of the ``.. plot::`` directive.
+
+    See the module docstring for details.
+    """
+
+    has_content = True
+    required_arguments = 0
+    optional_arguments = 2
+    final_argument_whitespace = False
+    option_spec = {
+        'alt': directives.unchanged,
+        'height': directives.length_or_unitless,
+        'width': directives.length_or_percentage_or_unitless,
+        'scale': directives.nonnegative_int,
+        'align': _option_align,
+        'class': directives.class_option,
+        'include-source': _option_boolean,
+        'format': _option_format,
+        'context': _option_context,
+        'nofigs': directives.flag,
+        'encoding': directives.encoding,
+        }
+
+    def run(self):
+        """Run the plot directive."""
+        return run(self.arguments, self.content, self.options,
+                   self.state_machine, self.state, self.lineno)
+
+
 def setup(app):
+    import matplotlib
     setup.app = app
     setup.config = app.config
     setup.confdir = app.confdir
-
-    options = {'alt': directives.unchanged,
-               'height': directives.length_or_unitless,
-               'width': directives.length_or_percentage_or_unitless,
-               'scale': directives.nonnegative_int,
-               'align': _option_align,
-               'class': directives.class_option,
-               'include-source': _option_boolean,
-               'format': _option_format,
-               'context': _option_context,
-               'nofigs': directives.flag,
-               'encoding': directives.encoding
-               }
-
-    app.add_directive('plot', plot_directive, True, (0, 2, False), **options)
+    app.add_directive('plot', PlotDirective)
     app.add_config_value('plot_pre_code', None, True)
     app.add_config_value('plot_include_source', False, True)
     app.add_config_value('plot_html_show_source_link', True, True)
@@ -273,12 +291,15 @@ def setup(app):
 
     app.connect('doctree-read', mark_plot_labels)
 
-    metadata = {'parallel_read_safe': True, 'parallel_write_safe': True}
+    metadata = {'parallel_read_safe': True, 'parallel_write_safe': True,
+                'version': matplotlib.__version__}
     return metadata
 
-#------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
 # Doctest handling
-#------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+
 
 def contains_doctest(text):
     try:
@@ -296,7 +317,6 @@ def unescape_doctest(text):
     """
     Extract code from a piece of text, which contains either Python code
     or doctests.
-
     """
     if not contains_doctest(text):
         return text
@@ -314,11 +334,7 @@ def unescape_doctest(text):
 
 
 def split_code_at_show(text):
-    """
-    Split code at plt.show()
-
-    """
-
+    """Split code at plt.show()."""
     parts = []
     is_doctest = contains_doctest(text)
 
@@ -337,22 +353,21 @@ def split_code_at_show(text):
 
 
 def remove_coding(text):
-    r"""
-    Remove the coding comment, which six.exec\_ doesn't like.
-    """
+    r"""Remove the coding comment, which six.exec\_ doesn't like."""
     cbook.warn_deprecated('3.0', name='remove_coding', removal='3.1')
     sub_re = re.compile(r"^#\s*-\*-\s*coding:\s*.*-\*-$", flags=re.MULTILINE)
     return sub_re.sub("", text)
 
-#------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
 # Template
-#------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 
 
 TEMPLATE = """
 {{ source_code }}
 
-{{ only_html }}
+.. only:: html
 
    {% if source_link or (html_show_formats and not multi_image) %}
    (
@@ -388,27 +403,15 @@ TEMPLATE = """
       {{ caption }}
    {% endfor %}
 
-{{ only_latex }}
+.. only:: not html
 
    {% for img in images %}
-   {% if 'pdf' in img.formats -%}
-   .. figure:: {{ build_dir }}/{{ img.basename }}.pdf
+   .. figure:: {{ build_dir }}/{{ img.basename }}.*
       {% for option in options -%}
       {{ option }}
       {% endfor %}
 
       {{ caption }}
-   {% endif -%}
-   {% endfor %}
-
-{{ only_texinfo }}
-
-   {% for img in images %}
-   .. image:: {{ build_dir }}/{{ img.basename }}.png
-      {% for option in options -%}
-      {{ option }}
-      {% endfor %}
-
    {% endfor %}
 
 """
@@ -426,6 +429,7 @@ Exception occurred rendering plot.
 # :context: option
 plot_context = dict()
 
+
 class ImageFile(object):
     def __init__(self, basename, dirname):
         self.basename = basename
@@ -441,8 +445,8 @@ class ImageFile(object):
 
 def out_of_date(original, derived):
     """
-    Returns True if derivative is out-of-date wrt original,
-    both of which are full file paths.
+    Return whether *derived* is out-of-date relative to *original*, both of
+    which are full file paths.
     """
     return (not os.path.exists(derived) or
             (os.path.exists(original) and
@@ -550,10 +554,14 @@ def render_figures(code, code_path, output_dir, output_base, context,
     # Look for single-figure output files first
     all_exists = True
     img = ImageFile(output_base, output_dir)
-    if not any(out_of_date(code_path, img.filename(fmt))
-               for fmt, dpi in formats):
+    for format, dpi in formats:
+        if out_of_date(code_path, img.filename(format)):
+            all_exists = False
+            break
+        img.formats.append(format)
+
+    if all_exists:
         return [(code, [img])]
-    img.formats.extend(fmt for fmt, dpi in formats)
 
     # Then look for multi-figure output files
     results = []
@@ -716,7 +724,7 @@ def run(arguments, content, options, state_machine, state, lineno):
     dest_dir = os.path.abspath(os.path.join(setup.app.builder.outdir,
                                             source_rel_dir))
     if not os.path.exists(dest_dir):
-        os.makedirs(dest_dir) # no problem here for me, but just use built-ins
+        os.makedirs(dest_dir)  # no problem here for me, but just use built-ins
 
     # how to link to files from the RST file
     dest_dir_link = os.path.join(relpath(setup.confdir, rst_dir),
@@ -774,10 +782,6 @@ def run(arguments, content, options, state_machine, state, lineno):
             ':%s: %s' % (key, val) for key, val in options.items()
             if key in ('alt', 'height', 'width', 'scale', 'align', 'class')]
 
-        only_html = ".. only:: html"
-        only_latex = ".. only:: latex"
-        only_texinfo = ".. only:: texinfo"
-
         # Not-None src_link signals the need for a source link in the generated
         # html
         if j == 0 and config.plot_html_show_source_link:
@@ -791,9 +795,6 @@ def run(arguments, content, options, state_machine, state, lineno):
             build_dir=build_dir_link,
             source_link=src_link,
             multi_image=len(images) > 1,
-            only_html=only_html,
-            only_latex=only_latex,
-            only_texinfo=only_texinfo,
             options=opts,
             images=images,
             source_code=source_code,

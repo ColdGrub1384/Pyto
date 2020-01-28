@@ -18,7 +18,6 @@ from functools import reduce
 import operator
 import os
 import re
-import sys
 
 from matplotlib import cbook
 from matplotlib.cbook import ls_mapper
@@ -75,7 +74,8 @@ def _listify_validator(scalar_validator, allow_stringlist=False):
                 if allow_stringlist:
                     # Sometimes, a list of colors might be a single string
                     # of single-letter colornames. So give that a shot.
-                    return [scalar_validator(v.strip()) for v in s if v.strip()]
+                    return [scalar_validator(v.strip())
+                            for v in s if v.strip()]
                 else:
                     raise
         # We should allow any generic sequence type, including generators,
@@ -128,7 +128,7 @@ def validate_bool(b):
 
 
 def validate_bool_maybe_none(b):
-    'Convert b to a boolean or raise'
+    """Convert b to a boolean or raise."""
     if isinstance(b, str):
         b = b.lower()
     if b is None or b == 'none':
@@ -142,7 +142,7 @@ def validate_bool_maybe_none(b):
 
 
 def validate_float(s):
-    """convert s to float or raise"""
+    """Convert s to float or raise."""
     try:
         return float(s)
     except ValueError:
@@ -151,7 +151,7 @@ validate_floatlist = _listify_validator(validate_float)
 
 
 def validate_float_or_None(s):
-    """convert s to float, None or raise"""
+    """Convert s to float, None or raise."""
     # values directly from the rc file can only be strings,
     # so we need to recognize the string "None" and convert
     # it into the object. We will be case-sensitive here to
@@ -166,12 +166,26 @@ def validate_float_or_None(s):
 
 
 def validate_string_or_None(s):
-    """convert s to string or raise"""
+    """Convert s to string or raise."""
     if s is None:
         return None
     try:
         return validate_string(s)
     except ValueError:
+        raise ValueError('Could not convert "%s" to string' % s)
+
+
+def _validate_tex_preamble(s):
+    if s is None or s == 'None':
+        return ""
+    try:
+        if isinstance(s, str):
+            return s
+        elif isinstance(s, Iterable):
+            return '\n'.join(s)
+        else:
+            raise TypeError
+    except TypeError:
         raise ValueError('Could not convert "%s" to string' % s)
 
 
@@ -188,7 +202,7 @@ def validate_axisbelow(s):
 
 
 def validate_dpi(s):
-    """confirm s is string 'figure' or convert s to float or raise"""
+    """Confirm s is string 'figure' or convert s to float or raise."""
     if s == 'figure':
         return s
     try:
@@ -199,7 +213,7 @@ def validate_dpi(s):
 
 
 def validate_int(s):
-    """convert s to int or raise"""
+    """Convert s to int or raise."""
     try:
         return int(s)
     except ValueError:
@@ -207,8 +221,8 @@ def validate_int(s):
 
 
 def validate_int_or_None(s):
-    """if not None, tries to validate as an int"""
-    if s=='None':
+    """Return None if s is None or return ``int(s)``, otherwise raise."""
+    if s == 'None':
         s = None
     if s is None:
         return None
@@ -220,8 +234,8 @@ def validate_int_or_None(s):
 
 def validate_fonttype(s):
     """
-    confirm that this is a Postscript of PDF font type that we know how to
-    convert to
+    Confirm that this is a Postscript or PDF font type that we know how to
+    convert to.
     """
     fonttypes = {'type3':    3,
                  'truetype': 42}
@@ -253,12 +267,14 @@ def validate_backend(s):
     return backend
 
 
+@cbook.deprecated("3.1")
 def validate_qt4(s):
     if s is None:
         return None
     return ValidateInStrings("backend.qt4", ['PyQt4', 'PySide', 'PyQt4v2'])(s)
 
 
+@cbook.deprecated("3.1")
 def validate_qt5(s):
     if s is None:
         return None
@@ -286,7 +302,7 @@ class validate_nseq_float(object):
         self.allow_none = allow_none
 
     def __call__(self, s):
-        """return a seq of n floats or raise"""
+        """Return a list of *n* floats or raise."""
         if isinstance(s, str):
             s = [x.strip() for x in s.split(',')]
             err_msg = _str_err_msg
@@ -310,7 +326,7 @@ class validate_nseq_int(object):
         self.n = n
 
     def __call__(self, s):
-        """return a seq of n ints or raise"""
+        """Return a list of *n* ints or raise."""
         if isinstance(s, str):
             s = [x.strip() for x in s.split(',')]
             err_msg = _str_err_msg
@@ -327,7 +343,7 @@ class validate_nseq_int(object):
 
 
 def validate_color_or_inherit(s):
-    'return a valid color arg'
+    """Return a valid color arg."""
     if s == 'inherit':
         return s
     return validate_color(s)
@@ -356,7 +372,7 @@ def validate_color_for_prop_cycle(s):
 
 
 def validate_color(s):
-    'return a valid color arg'
+    """Return a valid color arg."""
     try:
         if s.lower() == 'none':
             return 'none'
@@ -396,12 +412,14 @@ def validate_color(s):
 validate_colorlist = _listify_validator(validate_color, allow_stringlist=True)
 validate_colorlist.__doc__ = 'return a list of colorspecs'
 
+
 def validate_string(s):
-    if isinstance(s, (str, str)):
+    if isinstance(s, str):
         # Always leave str as str and unicode as unicode
         return s
     else:
         return str(s)
+
 
 validate_stringlist = _listify_validator(str)
 validate_stringlist.__doc__ = 'return a list'
@@ -443,6 +461,19 @@ def validate_fontsize(s):
 validate_fontsizelist = _listify_validator(validate_fontsize)
 
 
+def validate_fontweight(s):
+    weights = [
+        'ultralight', 'light', 'normal', 'regular', 'book', 'medium', 'roman',
+        'semibold', 'demibold', 'demi', 'bold', 'heavy', 'extra bold', 'black']
+    # Note: Historically, weights have been case-sensitive in Matplotlib
+    if s in weights:
+        return s
+    try:
+        return int(s)
+    except (ValueError, TypeError):
+        raise ValueError(f'{s} is not a valid font weight.')
+
+
 def validate_font_properties(s):
     parse_fontconfig_pattern(s)
     return s
@@ -452,18 +483,33 @@ validate_fontset = ValidateInStrings(
     'fontset',
     ['dejavusans', 'dejavuserif', 'cm', 'stix', 'stixsans', 'custom'])
 
-validate_mathtext_default = ValidateInStrings(
-    'default',
-    "rm cal it tt sf bf default bb frak circled scr regular".split())
 
-validate_verbose = ValidateInStrings(
-    'verbose',
-    ['silent', 'helpful', 'debug', 'debug-annoying'])
+def validate_mathtext_default(s):
+    if s == "circled":
+        cbook.warn_deprecated(
+            "3.1", message="Support for setting the mathtext.default rcParam "
+            "to 'circled' is deprecated since %(since)s and will be removed "
+            "%(removal)s.")
+    return ValidateInStrings(
+        'default',
+        "rm cal it tt sf bf default bb frak circled scr regular".split())(s)
+
 
 _validate_alignment = ValidateInStrings(
     'alignment',
     ['center', 'top', 'bottom', 'baseline',
      'center_baseline'])
+
+
+_validate_verbose = ValidateInStrings(
+    'verbose',
+    ['silent', 'helpful', 'debug', 'debug-annoying'])
+
+
+@cbook.deprecated("3.1")
+def validate_verbose(s):
+    return _validate_verbose(s)
+
 
 def validate_whiskers(s):
     if s == 'range':
@@ -511,6 +557,7 @@ def validate_ps_distiller(s):
         raise ValueError('matplotlibrc ps.usedistiller must either be none, '
                          'ghostscript or xpdf')
 
+
 validate_joinstyle = ValidateInStrings('joinstyle',
                                        ['miter', 'round', 'bevel'],
                                        ignorecase=True)
@@ -529,6 +576,8 @@ validate_fillstylelist = _listify_validator(validate_fillstyle)
 _validate_negative_linestyle = ValidateInStrings('negative_linestyle',
                                                  ['solid', 'dashed'],
                                                  ignorecase=True)
+
+
 def validate_markevery(s):
     """
     Validate the markevery property of a Line2D object.
@@ -576,6 +625,7 @@ def validate_markevery(s):
 
     return s
 
+
 validate_markeverylist = _listify_validator(validate_markevery)
 
 validate_legend_loc = ValidateInStrings(
@@ -596,10 +646,6 @@ validate_legend_loc = ValidateInStrings(
 def validate_svg_fonttype(s):
     if s in ["none", "path"]:
         return s
-    if s == "svgfont":
-        cbook.warn_deprecated(
-            "2.2", "'svgfont' support for svg.fonttype is deprecated.")
-        return s
     raise ValueError("Unrecognized svg.fonttype string '{}'; "
                      "valid strings are 'none', 'path'")
 
@@ -610,6 +656,7 @@ def validate_hinting(s):
     if s.lower() in ('auto', 'native', 'either', 'none'):
         return s.lower()
     raise ValueError("hinting should be 'auto', 'native', 'either' or 'none'")
+
 
 validate_pgf_texsystem = ValidateInStrings('pgf.texsystem',
                                            ['xelatex', 'lualatex', 'pdflatex'])
@@ -628,6 +675,7 @@ validate_axis_locator = ValidateInStrings('major', ['minor', 'both', 'major'])
 validate_movie_html_fmt = ValidateInStrings('animation.html',
     ['html5', 'jshtml', 'none'])
 
+
 def validate_bbox(s):
     if isinstance(s, str):
         s = s.lower()
@@ -641,6 +689,7 @@ def validate_bbox(s):
         raise ValueError("bbox should be 'tight' or 'standard'")
     return s
 
+
 def validate_sketch(s):
     if isinstance(s, str):
         s = s.lower()
@@ -653,6 +702,7 @@ def validate_sketch(s):
     if len(result) != 3:
         raise ValueError("path.sketch must be a tuple (scale, length, randomness)")
     return result
+
 
 class ValidateInterval(object):
     """
@@ -685,6 +735,7 @@ class ValidateInterval(object):
                                (self.vmax, s))
         return s
 
+
 validate_grid_axis = ValidateInStrings('axes.grid.axis', ['x', 'y', 'both'])
 
 
@@ -701,8 +752,11 @@ def validate_hatch(s):
     if unknown:
         raise ValueError("Unknown hatch symbol(s): %s" % list(unknown))
     return s
+
+
 validate_hatchlist = _listify_validator(validate_hatch)
 validate_dashlist = _listify_validator(validate_nseq_float(allow_none=True))
+
 
 _prop_validators = {
         'color': _listify_validator(validate_color_for_prop_cycle,
@@ -823,7 +877,7 @@ def cycler(*args, **kwargs):
 
 
 def validate_cycler(s):
-    'return a Cycler object from a string repr or the object itself'
+    """Return a Cycler object from a string repr or the object itself."""
     if isinstance(s, str):
         try:
             # TODO: We might want to rethink this...
@@ -888,20 +942,20 @@ def validate_cycler(s):
 
 
 def validate_hist_bins(s):
-    if cbook._str_equal(s, "auto"):
+    valid_strs = ["auto", "sturges", "fd", "doane", "scott", "rice", "sqrt"]
+    if isinstance(s, str) and s in valid_strs:
         return s
     try:
         return int(s)
     except (TypeError, ValueError):
         pass
-
     try:
         return validate_floatlist(s)
     except ValueError:
         pass
+    raise ValueError("'hist.bins' must be one of {}, an int or"
+                     " a sequence of floats".format(valid_strs))
 
-    raise ValueError("'hist.bins' must be 'auto', an int or " +
-                     "a sequence of floats")
 
 def validate_animation_writer_path(p):
     # Make sure it's a string and then figure out if the animations
@@ -918,6 +972,7 @@ def validate_animation_writer_path(p):
         modules["matplotlib.animation"].writers.set_dirty()
     return p
 
+
 def validate_webagg_address(s):
     if s is not None:
         import socket
@@ -927,6 +982,7 @@ def validate_webagg_address(s):
             raise ValueError("'webagg.address' is not a valid IP address")
         return s
     raise ValueError("'webagg.address' is not a valid IP address")
+
 
 # A validator dedicated to the named line styles, based on the items in
 # ls_mapper, and a list of possible strings read from Line2D.set_linestyle
@@ -969,13 +1025,10 @@ def _validate_linestyle(ls):
 defaultParams = {
     'backend':           [_auto_backend_sentinel, validate_backend],
     'backend_fallback':  [True, validate_bool],
-    'backend.qt4':       [None, validate_qt4],
-    'backend.qt5':       [None, validate_qt5],
     'webagg.port':       [8988, validate_int],
     'webagg.address':    ['127.0.0.1', validate_webagg_address],
     'webagg.open_in_browser': [True, validate_bool],
     'webagg.port_retries': [50, validate_int],
-    'nbagg.transparent':       [True, validate_bool],
     'toolbar':           ['toolbar2', validate_toolbar],
     'datapath':          [None, validate_path_exists],  # handled by
                                                         # _get_data_path_cached
@@ -983,7 +1036,7 @@ defaultParams = {
     'timezone':          ['UTC', validate_string],
 
     # the verbosity setting
-    'verbose.level': ['silent', validate_verbose],
+    'verbose.level': ['silent', _validate_verbose],
     'verbose.fileo': ['sys.stdout', validate_string],
 
     # line props
@@ -1012,7 +1065,7 @@ defaultParams = {
     ## patch props
     'patch.linewidth':   [1.0, validate_float],     # line width in points
     'patch.edgecolor':   ['black', validate_color],
-    'patch.force_edgecolor' : [False, validate_bool],
+    'patch.force_edgecolor': [False, validate_bool],
     'patch.facecolor':   ['C0', validate_color],    # first color in cycle
     'patch.antialiased': [True, validate_bool],     # antialiased (no jaggies)
 
@@ -1039,6 +1092,7 @@ defaultParams = {
     'boxplot.flierprops.marker': ['o', validate_string],
     'boxplot.flierprops.markerfacecolor': ['none', validate_color_or_auto],
     'boxplot.flierprops.markeredgecolor': ['black', validate_color],
+    'boxplot.flierprops.markeredgewidth': [1.0, validate_float],
     'boxplot.flierprops.markersize': [6, validate_float],
     'boxplot.flierprops.linestyle': ['none', _validate_linestyle],
     'boxplot.flierprops.linewidth': [1.0, validate_float],
@@ -1072,7 +1126,7 @@ defaultParams = {
     'font.style':      ['normal', validate_string],
     'font.variant':    ['normal', validate_string],
     'font.stretch':    ['normal', validate_string],
-    'font.weight':     ['normal', validate_string],
+    'font.weight':     ['normal', validate_fontweight],
     'font.size':       [10, validate_float],      # Base font size in points
     'font.serif':      [['DejaVu Serif', 'Bitstream Vera Serif',
                          'Computer Modern Roman',
@@ -1102,9 +1156,8 @@ defaultParams = {
     'text.color':          ['black', validate_color],
     'text.usetex':         [False, validate_bool],
     'text.latex.unicode':  [True, validate_bool],
-    'text.latex.preamble': [[''], validate_stringlist],
+    'text.latex.preamble': ['', _validate_tex_preamble],
     'text.latex.preview':  [False, validate_bool],
-    'text.dvipnghack':     [None, validate_bool_maybe_none],
     'text.hinting':        ['auto', validate_hinting],
     'text.hinting_factor': [8, validate_int],
     'text.antialiased':    [True, validate_bool],
@@ -1121,9 +1174,10 @@ defaultParams = {
 
     'image.aspect':        ['equal', validate_aspect],  # equal, auto, a number
     'image.interpolation': ['nearest', validate_string],
-    'image.cmap':          ['viridis', validate_string],        # one of gray, jet, etc
+    'image.cmap':          ['viridis', validate_string],  # gray, jet, etc.
     'image.lut':           [256, validate_int],  # lookup table
-    'image.origin':        ['upper', validate_string],  # lookup table
+    'image.origin':        ['upper',
+                            ValidateInStrings('image.origin', ['upper', 'lower'])],
     'image.resample':      [True, validate_bool],
     # Specify whether vector graphics backends will combine all images on a
     # set of axes into a single composite image
@@ -1149,19 +1203,19 @@ defaultParams = {
 
     'axes.titlesize':        ['large', validate_fontsize],  # fontsize of the
                                                             # axes title
-    'axes.titleweight':      ['normal', validate_string],  # font weight of axes title
+    'axes.titleweight':      ['normal', validate_fontweight],  # font weight of axes title
     'axes.titlepad':         [6.0, validate_float],  # pad from axes top to title in points
     'axes.grid':             [False, validate_bool],   # display grid or not
     'axes.grid.which':       ['major', validate_axis_locator],  # set whether the gid are by
                                                                 # default draw on 'major'
                                                                 # 'minor' or 'both' kind of
                                                                 # axis locator
-    'axes.grid.axis':        ['both', validate_grid_axis], # grid type.
-                                                      # Can be 'x', 'y', 'both'
+    'axes.grid.axis':        ['both', validate_grid_axis],  # grid type:
+                                                            # 'x', 'y', or 'both'
     'axes.labelsize':        ['medium', validate_fontsize],  # fontsize of the
                                                              # x any y labels
-    'axes.labelpad':         [4.0, validate_float], # space between label and axis
-    'axes.labelweight':      ['normal', validate_string],  # fontsize of the x any y labels
+    'axes.labelpad':         [4.0, validate_float],  # space between label and axis
+    'axes.labelweight':      ['normal', validate_fontweight],  # fontsize of the x any y labels
     'axes.labelcolor':       ['black', validate_color],    # color of axis label
     'axes.formatter.limits': [[-7, 7], validate_nseq_int(2)],
                                # use scientific notation if log10
@@ -1193,7 +1247,7 @@ defaultParams = {
                                             closedmax=True)],  # margin added to xaxis
     'axes.ymargin': [0.05, ValidateInterval(0, 1,
                                             closedmin=True,
-                                            closedmax=True)],# margin added to yaxis
+                                            closedmax=True)],  # margin added to yaxis
 
     'polaraxes.grid': [True, validate_bool],  # display polar grid or
                                                      # not
@@ -1201,6 +1255,7 @@ defaultParams = {
 
     # scatter props
     'scatter.marker': ['o', validate_string],
+    'scatter.edgecolors': ['face', validate_string],
 
     # TODO validate that these are valid datetime format strings
     'date.autoformatter.year': ['%Y', validate_string],
@@ -1290,17 +1345,15 @@ defaultParams = {
     'ytick.direction':   ['out', validate_string],            # direction of yticks
     'ytick.alignment': ["center_baseline", _validate_alignment],
 
-
     'grid.color':        ['#b0b0b0', validate_color],  # grid color
     'grid.linestyle':    ['-', _validate_linestyle],  # solid
     'grid.linewidth':    [0.8, validate_float],     # in points
     'grid.alpha':        [1.0, validate_float],
 
-
     ## figure props
     # figure title
     'figure.titlesize':   ['large', validate_fontsize],
-    'figure.titleweight': ['normal', validate_string],
+    'figure.titleweight': ['normal', validate_fontweight],
 
     # figure size in inches: width by height
     'figure.figsize':    [[6.4, 4.8], validate_nseq_float(2)],
@@ -1342,8 +1395,7 @@ defaultParams = {
     'savefig.facecolor':   ['white', validate_color],
     'savefig.edgecolor':   ['white', validate_color],
     'savefig.frameon':     [True, validate_bool],
-    'savefig.orientation': ['portrait', validate_orientation],  # edgecolor;
-                                                                 #white
+    'savefig.orientation': ['portrait', validate_orientation],
     'savefig.jpeg_quality': [95, validate_int],
     # value checked by backend at runtime
     'savefig.format':     ['png', update_savefig_format],
@@ -1359,7 +1411,7 @@ defaultParams = {
 
     # Set the papersize/type
     'ps.papersize':     ['letter', validate_ps_papersize],
-    'ps.useafm':        [False, validate_bool],  # Set PYTHONINSPECT
+    'ps.useafm':        [False, validate_bool],
     # use ghostscript or xpdf to distill ps output
     'ps.usedistiller':  [False, validate_ps_distiller],
     'ps.distiller.res': [6000, validate_int],     # dpi
@@ -1378,7 +1430,7 @@ defaultParams = {
     # use matplotlib rc settings for font configuration
     'pgf.rcfonts':   [True, validate_bool],
     # provide a custom preamble for the latex process
-    'pgf.preamble':  [[''], validate_stringlist],
+    'pgf.preamble':  ['', _validate_tex_preamble],
 
     # write raster image data directly into the svg file
     'svg.image_inline':     [True, validate_bool],
@@ -1388,8 +1440,6 @@ defaultParams = {
 
     # set this when you want to generate hardcopy docstring
     'docstring.hardcopy': [False, validate_bool],
-    # where plugin directory is locate
-    'plugins.directory':  ['.matplotlib_plugins', validate_string],
 
     'path.simplify': [True, validate_bool],
     'path.simplify_threshold': [1.0 / 9.0, ValidateInterval(0.0, 1.0)],
@@ -1399,10 +1449,12 @@ defaultParams = {
     'agg.path.chunksize': [0, validate_int],       # 0 to disable chunking;
 
     # key-mappings (multi-character mappings should be a list/tuple)
-    'keymap.fullscreen':   [('f', 'ctrl+f'), validate_stringlist],
+    'keymap.fullscreen':   [['f', 'ctrl+f'], validate_stringlist],
     'keymap.home':         [['h', 'r', 'home'], validate_stringlist],
-    'keymap.back':         [['left', 'c', 'backspace'], validate_stringlist],
-    'keymap.forward':      [['right', 'v'], validate_stringlist],
+    'keymap.back':         [['left', 'c', 'backspace', 'MouseButton.BACK'],
+                            validate_stringlist],
+    'keymap.forward':      [['right', 'v', 'MouseButton.FORWARD'],
+                            validate_stringlist],
     'keymap.pan':          [['p'], validate_stringlist],
     'keymap.zoom':         [['o'], validate_stringlist],
     'keymap.save':         [['s', 'ctrl+s'], validate_stringlist],
@@ -1450,11 +1502,3 @@ defaultParams = {
     # altogether.  For that use `matplotlib.style.use('classic')`.
     '_internal.classic_mode': [False, validate_bool]
 }
-
-
-if __name__ == '__main__':
-    rc = defaultParams
-    rc['datapath'][0] = '/'
-    for key in rc:
-        if not rc[key][1](rc[key][0]) == rc[key][0]:
-            print("%s: %s != %s" % (key, rc[key][1](rc[key][0]), rc[key][0]))

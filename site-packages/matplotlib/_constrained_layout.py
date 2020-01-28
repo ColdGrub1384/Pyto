@@ -25,9 +25,9 @@ See Tutorial: :doc:`/tutorials/intermediate/constrainedlayout_guide`
 #         - axes + pos for the axes (i.e. the total area taken by axis and
 #            the actual "position" argument that needs to be sent to
 #             ax.set_position.)
-#           - The axes layout box will also encomapss the legend, and that is
-#             how legends get included (axes legeneds, not figure legends)
-#         - colorbars are sibblings of the axes if they are single-axes
+#           - The axes layout box will also encompass the legend, and that is
+#             how legends get included (axes legends, not figure legends)
+#         - colorbars are siblings of the axes if they are single-axes
 #           colorbars
 #        OR:
 #         - a gridspec can be inside a subplotspec.
@@ -40,17 +40,16 @@ See Tutorial: :doc:`/tutorials/intermediate/constrainedlayout_guide`
 #        colorbars.
 #   - suptitle:
 #      - right now suptitles are just stacked atop everything else in figure.
-#        Could imagine suptitles being gridspec suptitles, but not implimented
+#        Could imagine suptitles being gridspec suptitles, but not implemented
 #
 #   Todo:    AnchoredOffsetbox connected to gridspecs or axes.  This would
 #        be more general way to add extra-axes annotations.
 
-import numpy as np
 import logging
-import warnings
 
-from matplotlib.legend import Legend
-import matplotlib.transforms as transforms
+import numpy as np
+
+import matplotlib.cbook as cbook
 import matplotlib._layoutbox as layoutbox
 
 _log = logging.getLogger(__name__)
@@ -91,10 +90,10 @@ def do_constrained_layout(fig, renderer, h_pad, w_pad,
     ----------
 
 
-    fig: Figure
+    fig : Figure
       is the ``figure`` instance to do the layout in.
 
-    renderer: Renderer
+    renderer : Renderer
       the renderer to use.
 
      h_pad, w_pad : float
@@ -119,9 +118,9 @@ def do_constrained_layout(fig, renderer, h_pad, w_pad,
     the axes (decorations) like the title, ticklabels, x-labels, etc.  This
     can include legends who overspill the axes boundaries.
     4. Constrain gridspec elements to line up:
-        a) if colnum0 neq colnumC, the two subplotspecs are stacked next to
+        a) if colnum0 != colnumC, the two subplotspecs are stacked next to
         each other, with the appropriate order.
-        b) if colnum0 == columnC line up the left or right side of the
+        b) if colnum0 == colnumC, line up the left or right side of the
         _poslayoutbox (depending if it is the min or max num that is equal).
         c) do the same for rows...
     5. The above doesn't constrain relative sizes of the _poslayoutboxes at
@@ -155,9 +154,9 @@ def do_constrained_layout(fig, renderer, h_pad, w_pad,
             if gs._layoutbox is not None:
                 gss.add(gs)
     if len(gss) == 0:
-        warnings.warn('There are no gridspecs with layoutboxes. '
-                      'Possibly did not call parent GridSpec with the figure= '
-                      'keyword')
+        cbook._warn_external('There are no gridspecs with layoutboxes. '
+                             'Possibly did not call parent GridSpec with the'
+                             ' figure= keyword')
 
     if fig._layoutbox.constrained_layout_called < 1:
         for gs in gss:
@@ -165,7 +164,7 @@ def do_constrained_layout(fig, renderer, h_pad, w_pad,
             _make_ghost_gridspec_slots(fig, gs)
 
     for nnn in range(2):
-        # do the algrithm twice.  This has to be done because decorators
+        # do the algorithm twice.  This has to be done because decorators
         # change size after the first re-position (i.e. x/yticklabels get
         # larger/smaller).  This second reposition tends to be much milder,
         # so doing twice makes things work OK.
@@ -177,11 +176,17 @@ def do_constrained_layout(fig, renderer, h_pad, w_pad,
                 _make_layout_margins(ax, renderer, h_pad, w_pad)
 
         # do layout for suptitle.
-        if fig._suptitle is not None and fig._suptitle._layoutbox is not None:
-            sup = fig._suptitle
-            bbox = invTransFig(sup.get_window_extent(renderer=renderer))
+        suptitle = fig._suptitle
+        do_suptitle = (suptitle is not None and
+                       suptitle._layoutbox is not None and
+                       suptitle.get_in_layout())
+        if do_suptitle:
+            bbox = invTransFig(
+                suptitle.get_window_extent(renderer=renderer))
             height = bbox.y1 - bbox.y0
-            sup._layoutbox.edit_height(height+h_pad)
+            if np.isfinite(height):
+                # reserve at top of figure include an h_pad above and below
+                suptitle._layoutbox.edit_height(height + h_pad * 2)
 
         # OK, the above lines up ax._poslayoutbox with ax._layoutbox
         # now we need to
@@ -193,7 +198,7 @@ def do_constrained_layout(fig, renderer, h_pad, w_pad,
 
         if fig._layoutbox.constrained_layout_called < 1:
             # arrange the subplotspecs...  This is all done relative to each
-            # other.  Some subplotspecs conatain axes, and others contain
+            # other.  Some subplotspecs contain axes, and others contain
             # gridspecs the ones that contain gridspecs are a set proportion
             # of their parent gridspec.  The ones that contain axes are
             # not so constrained.
@@ -222,17 +227,23 @@ def do_constrained_layout(fig, renderer, h_pad, w_pad,
                     # this axis, allowing users to hard-code the position,
                     # so this does the same w/o zeroing layout.
                     ax._set_position(newpos, which='original')
+            if do_suptitle:
+                newpos = suptitle._layoutbox.get_rect()
+                suptitle.set_y(1.0 - h_pad)
+            else:
+                if suptitle is not None and suptitle._layoutbox is not None:
+                    suptitle._layoutbox.edit_height(0)
         else:
-            warnings.warn('constrained_layout not applied.  At least '
-                          'one axes collapsed to zero width or height.')
+            cbook._warn_external('constrained_layout not applied.  At least '
+                                 'one axes collapsed to zero width or height.')
 
 
 def _make_ghost_gridspec_slots(fig, gs):
     """
     Check for unoccupied gridspec slots and make ghost axes for these
     slots...  Do for each gs separately.  This is a pretty big kludge
-    but shoudn't have too much ill effect.  The worst is that
-    someone querrying the figure will wonder why there are more
+    but shouldn't have too much ill effect.  The worst is that
+    someone querying the figure will wonder why there are more
     axes than they thought.
     """
     nrows, ncols = gs.get_geometry()
@@ -267,10 +278,18 @@ def _make_layout_margins(ax, renderer, h_pad, w_pad):
     """
     fig = ax.figure
     invTransFig = fig.transFigure.inverted().transform_bbox
-
     pos = ax.get_position(original=True)
     tightbbox = ax.get_tightbbox(renderer=renderer)
-    bbox = invTransFig(tightbbox)
+    if tightbbox is None:
+        bbox = pos
+    else:
+        bbox = invTransFig(tightbbox)
+
+    # this can go wrong:
+    if not (np.isfinite(bbox.width) and np.isfinite(bbox.height)):
+        # just abort, this is likely a bad set of co-ordinates that
+        # is transitory...
+        return
     # use stored h_pad if it exists
     h_padt = ax._poslayoutbox.h_pad
     if h_padt is None:
@@ -288,6 +307,8 @@ def _make_layout_margins(ax, renderer, h_pad, w_pad):
     _log.debug('left %f', (-bbox.x0 + pos.x0 + w_pad))
     _log.debug('right %f', (bbox.x1 - pos.x1 + w_pad))
     _log.debug('bottom %f', (-bbox.y0 + pos.y0 + h_padt))
+    _log.debug('bbox.y0 %f', bbox.y0)
+    _log.debug('pos.y0 %f', pos.y0)
     # Sometimes its possible for the solver to collapse
     # rather than expand axes, so they all have zero height
     # or width.  This stops that...  It *should* have been
@@ -346,8 +367,6 @@ def _align_spines(fig, gs):
                 height_ratios[rownummin[n]:(rownummax[n] + 1)])
 
     for nn, ax in enumerate(axs[:-1]):
-        ss0 = ax.get_subplotspec()
-
         # now compare ax to all the axs:
         #
         # If the subplotspecs have the same colnumXmax, then line
@@ -515,7 +534,7 @@ def _arrange_subplotspecs(gs, hspace=0, wspace=0):
 
 def layoutcolorbarsingle(ax, cax, shrink, aspect, location, pad=0.05):
     """
-    Do the layout for a colorbar, to not oeverly pollute colorbar.py
+    Do the layout for a colorbar, to not overly pollute colorbar.py
 
     `pad` is in fraction of the original axis size.
     """
@@ -604,7 +623,7 @@ def _getmaxminrowcolumn(axs):
 
 def layoutcolorbargridspec(parents, cax, shrink, aspect, location, pad=0.05):
     """
-    Do the layout for a colorbar, to not oeverly pollute colorbar.py
+    Do the layout for a colorbar, to not overly pollute colorbar.py
 
     `pad` is in fraction of the original axis size.
     """

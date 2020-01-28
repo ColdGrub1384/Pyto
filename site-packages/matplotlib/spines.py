@@ -1,9 +1,7 @@
-import warnings
-
 import numpy as np
 
 import matplotlib
-from matplotlib import docstring, rcParams
+from matplotlib import cbook, docstring, rcParams
 from matplotlib.artist import allow_rasterization
 import matplotlib.transforms as mtransforms
 import matplotlib.patches as mpatches
@@ -81,7 +79,7 @@ class Spine(mpatches.Patch):
         self._patch_transform = mtransforms.IdentityTransform()
 
     def set_smart_bounds(self, value):
-        """set the spine and associated axis to have smart bounds"""
+        """Set the spine and associated axis to have smart bounds."""
         self._smart_bounds = value
 
         # also set the axis if possible
@@ -92,11 +90,11 @@ class Spine(mpatches.Patch):
         self.stale = True
 
     def get_smart_bounds(self):
-        """get whether the spine has smart bounds"""
+        """Return whether the spine has smart bounds."""
         return self._smart_bounds
 
     def set_patch_arc(self, center, radius, theta1, theta2):
-        """set the spine to be arc-like"""
+        """Set the spine to be arc-like."""
         self._patch_type = 'arc'
         self._center = center
         self._width = radius * 2
@@ -109,7 +107,7 @@ class Spine(mpatches.Patch):
         self.stale = True
 
     def set_patch_circle(self, center, radius):
-        """set the spine to be circular"""
+        """Set the spine to be circular."""
         self._patch_type = 'circle'
         self._center = center
         self._width = radius * 2
@@ -119,7 +117,7 @@ class Spine(mpatches.Patch):
         self.stale = True
 
     def set_patch_line(self):
-        """set the spine to be linear"""
+        """Set the spine to be linear."""
         self._patch_type = 'line'
         self.stale = True
 
@@ -147,10 +145,62 @@ class Spine(mpatches.Patch):
             return super().get_patch_transform()
 
     def get_window_extent(self, renderer=None):
+        """
+        Return the window extent of the spines in display space, including
+        padding for ticks (but not their labels)
+
+        See Also
+        --------
+        matplotlib.axes.Axes.get_tightbbox
+        matplotlib.axes.Axes.get_window_extent
+
+        """
         # make sure the location is updated so that transforms etc are
         # correct:
         self._adjust_location()
-        return super().get_window_extent(renderer=renderer)
+        bb = super().get_window_extent(renderer=renderer)
+        if self.axis is None:
+            return bb
+        bboxes = [bb]
+        tickstocheck = [self.axis.majorTicks[0]]
+        if len(self.axis.minorTicks) > 1:
+            # only pad for minor ticks if there are more than one
+            # of them.  There is always one...
+            tickstocheck.append(self.axis.minorTicks[1])
+        for tick in tickstocheck:
+            bb0 = bb.frozen()
+            tickl = tick._size
+            tickdir = tick._tickdir
+            if tickdir == 'out':
+                padout = 1
+                padin = 0
+            elif tickdir == 'in':
+                padout = 0
+                padin = 1
+            else:
+                padout = 0.5
+                padin = 0.5
+            padout = padout * tickl / 72 * self.figure.dpi
+            padin = padin * tickl / 72 * self.figure.dpi
+
+            if tick.tick1line.get_visible():
+                if self.spine_type in ['left']:
+                    bb0.x0 = bb0.x0 - padout
+                    bb0.x1 = bb0.x1 + padin
+                elif self.spine_type in ['bottom']:
+                    bb0.y0 = bb0.y0 - padout
+                    bb0.y1 = bb0.y1 + padin
+
+            if tick.tick2line.get_visible():
+                if self.spine_type in ['right']:
+                    bb0.x1 = bb0.x1 + padout
+                    bb0.x0 = bb0.x0 - padin
+                elif self.spine_type in ['top']:
+                    bb0.y1 = bb0.y1 + padout
+                    bb0.y0 = bb0.y0 - padout
+            bboxes.append(bb0)
+
+        return mtransforms.Bbox.union(bboxes)
 
     def get_path(self):
         return self._path
@@ -162,7 +212,7 @@ class Spine(mpatches.Patch):
             self.set_position(self._position)
 
     def register_axis(self, axis):
-        """register an axis
+        """Register an axis.
 
         An axis should be registered with its corresponding spine from
         the Axes instance. This allows the spine to clear any axis
@@ -174,13 +224,14 @@ class Spine(mpatches.Patch):
         self.stale = True
 
     def cla(self):
-        """Clear the current spine"""
+        """Clear the current spine."""
         self._position = None  # clear position
         if self.axis is not None:
             self.axis.cla()
 
+    @cbook.deprecated("3.1")
     def is_frame_like(self):
-        """return True if directly on axes frame
+        """Return True if directly on axes frame.
 
         This is useful for determining if a spine is the edge of an
         old style MPL plot. If so, this function will return True.
@@ -201,7 +252,7 @@ class Spine(mpatches.Patch):
             return False
 
     def _adjust_location(self):
-        """automatically set spine bounds to the view interval"""
+        """Automatically set spine bounds to the view interval."""
 
         if self.spine_type == 'circle':
             return
@@ -316,7 +367,7 @@ class Spine(mpatches.Patch):
         return ret
 
     def _calc_offset_transform(self):
-        """calculate the offset transform performed by the spine"""
+        """Calculate the offset transform performed by the spine."""
         self._ensure_position_is_set()
         position = self._position
         if isinstance(position, str):
@@ -347,8 +398,8 @@ class Spine(mpatches.Patch):
                                              offset_y,
                                              self.figure.dpi_scale_trans))
             else:
-                warnings.warn('unknown spine type "%s": no spine '
-                              'offset performed' % self.spine_type)
+                cbook._warn_external('unknown spine type "%s": no spine '
+                                     'offset performed' % self.spine_type)
                 self._spine_transform = ('identity',
                                          mtransforms.IdentityTransform())
         elif position_type == 'axes':
@@ -365,8 +416,8 @@ class Spine(mpatches.Patch):
                                              # amount
                                              1, 0, 0, 0, 0, amount))
             else:
-                warnings.warn('unknown spine type "%s": no spine '
-                              'offset performed' % self.spine_type)
+                cbook._warn_external('unknown spine type "%s": no spine '
+                                     'offset performed' % self.spine_type)
                 self._spine_transform = ('identity',
                                          mtransforms.IdentityTransform())
         elif position_type == 'data':
@@ -384,13 +435,13 @@ class Spine(mpatches.Patch):
                                          mtransforms.Affine2D().translate(
                                              0, amount))
             else:
-                warnings.warn('unknown spine type "%s": no spine '
-                              'offset performed' % self.spine_type)
+                cbook._warn_external('unknown spine type "%s": no spine '
+                                     'offset performed' % self.spine_type)
                 self._spine_transform = ('identity',
                                          mtransforms.IdentityTransform())
 
     def set_position(self, position):
-        """set the position of the spine
+        """Set the position of the spine.
 
         Spine position is specified by a 2 tuple of (position type,
         amount). The position types are:
@@ -429,12 +480,12 @@ class Spine(mpatches.Patch):
         self.stale = True
 
     def get_position(self):
-        """get the spine position"""
+        """Return the spine position."""
         self._ensure_position_is_set()
         return self._position
 
     def get_spine_transform(self):
-        """get the spine transform"""
+        """Return the spine transform."""
         self._ensure_position_is_set()
         what, how = self._spine_transform
 
@@ -531,14 +582,13 @@ class Spine(mpatches.Patch):
 
         Parameters
         ----------
-        c : color or sequence of rgba tuples
+        c : color
 
-        .. seealso::
-
-            :meth:`set_facecolor`, :meth:`set_edgecolor`
-               For setting the edge or face color individually.
+        Notes
+        -----
+        This method does not modify the facecolor (which defaults to "none"),
+        unlike the `Patch.set_color` method defined in the parent class.  Use
+        `Patch.set_facecolor` to set the facecolor.
         """
-        # The facecolor of a spine is always 'none' by default -- let
-        # the user change it manually if desired.
         self.set_edgecolor(c)
         self.stale = True

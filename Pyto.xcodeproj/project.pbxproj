@@ -548,6 +548,15 @@
 		C9E706272207A56B0003DA61 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1721D0592C00412CEF /* Localizable.swift */; };
 		C9E7062A2207A5700003DA61 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9F04E852173C33400BDD03E /* Localizable.strings */; };
 		C9E7062D2207A6FD0003DA61 /* setup_python.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E7062C2207A6FD0003DA61 /* setup_python.m */; };
+		C9E9DF7F23E08188004CF05A /* _backend_agg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9DF7723E08172004CF05A /* _backend_agg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9DF8023E08188004CF05A /* _contour.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9DF7623E08171004CF05A /* _contour.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9DF8123E08188004CF05A /* _image.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9DF7C23E08172004CF05A /* _image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9DF8223E08188004CF05A /* _path.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9DF7A23E08172004CF05A /* _path.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9DF8323E08188004CF05A /* _png.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9DF7823E08172004CF05A /* _png.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9DF8423E08188004CF05A /* _qhull.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9DF7923E08172004CF05A /* _qhull.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9DF8523E08188004CF05A /* _tri.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9DF7D23E08172004CF05A /* _tri.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9DF8623E08188004CF05A /* ft2font.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9DF7B23E08172004CF05A /* ft2font.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9DF8723E08188004CF05A /* ttconv.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9DF7E23E08172004CF05A /* ttconv.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9EA55B3219F752D007546BC /* RelativePathForScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EA55B2219F752D007546BC /* RelativePathForScript.swift */; };
 		C9EA5C7D21F23558000F7FA7 /* Welcome to Pyto.md in Resources */ = {isa = PBXBuildFile; fileRef = C9EA5C7C21F23024000F7FA7 /* Welcome to Pyto.md */; };
 		C9EDF9AB21446FCA00382DCC /* ConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EDF9AA21446FCA00382DCC /* ConsoleViewController.swift */; };
@@ -628,17 +637,6 @@
 		C9F8660621ECD3360062D1C1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A62144620A00382DCC /* libz.tbd */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C9F8660B21ECD3600062D1C1 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A4214461D300382DCC /* libsqlite3.tbd */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C9F8661A21ED059F0062D1C1 /* site-packages in Resources */ = {isa = PBXBuildFile; fileRef = C9BE01B021530BAF00A8C825 /* site-packages */; };
-		C9F8EBD523021DA5004648F4 /* _backend_agg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8EBD323021D96004648F4 /* _backend_agg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9F8EBD623021DA5004648F4 /* _cntr.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8EBCE23021D95004648F4 /* _cntr.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9F8EBD723021DA5004648F4 /* _contour.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8EBCC23021D95004648F4 /* _contour.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9F8EBD823021DA5004648F4 /* _delaunay.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8EBD023021D95004648F4 /* _delaunay.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9F8EBD923021DA5004648F4 /* _image.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8EBCF23021D95004648F4 /* _image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9F8EBDA23021DA5004648F4 /* _path.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8EBCD23021D95004648F4 /* _path.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9F8EBDB23021DA5004648F4 /* _png.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8EBCA23021D94004648F4 /* _png.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9F8EBDC23021DA5004648F4 /* _qhull.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8EBD123021D95004648F4 /* _qhull.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9F8EBDD23021DA5004648F4 /* _tri.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8EBD223021D96004648F4 /* _tri.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9F8EBDE23021DA5004648F4 /* ft2font.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8EBD423021D96004648F4 /* ft2font.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9F8EBDF23021DA5004648F4 /* ttconv.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8EBCB23021D95004648F4 /* ttconv.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9F8EBE123021DC3004648F4 /* kiwisolver.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8EBE023021DC0004648F4 /* kiwisolver.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9F8F7742302569C004648F4 /* dtrsv.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8F39A23025695004648F4 /* dtrsv.o */; };
 		C9F8F7752302569C004648F4 /* zcolumn_dfs.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8F39B23025695004648F4 /* zcolumn_dfs.o */; };
@@ -1778,6 +1776,15 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C9E9DF7F23E08188004CF05A /* _backend_agg.framework in Embed Frameworks */,
+				C9E9DF8023E08188004CF05A /* _contour.framework in Embed Frameworks */,
+				C9E9DF8123E08188004CF05A /* _image.framework in Embed Frameworks */,
+				C9E9DF8223E08188004CF05A /* _path.framework in Embed Frameworks */,
+				C9E9DF8323E08188004CF05A /* _png.framework in Embed Frameworks */,
+				C9E9DF8423E08188004CF05A /* _qhull.framework in Embed Frameworks */,
+				C9E9DF8523E08188004CF05A /* _tri.framework in Embed Frameworks */,
+				C9E9DF8623E08188004CF05A /* ft2font.framework in Embed Frameworks */,
+				C9E9DF8723E08188004CF05A /* ttconv.framework in Embed Frameworks */,
 				C9FC4C2D23D923AC00792852 /* _cwt.framework in Embed Frameworks */,
 				C9FC4C2E23D923AC00792852 /* _dwt.framework in Embed Frameworks */,
 				C9FC4C2F23D923AC00792852 /* _pywt.framework in Embed Frameworks */,
@@ -1897,17 +1904,6 @@
 				C9AAAB4A2195016D0042E733 /* InputAssistant.framework in Embed Frameworks */,
 				C95EE4E722070224006611CB /* libpng.framework in Embed Frameworks */,
 				C9F8EBE123021DC3004648F4 /* kiwisolver.framework in Embed Frameworks */,
-				C9F8EBD523021DA5004648F4 /* _backend_agg.framework in Embed Frameworks */,
-				C9F8EBD623021DA5004648F4 /* _cntr.framework in Embed Frameworks */,
-				C9F8EBD723021DA5004648F4 /* _contour.framework in Embed Frameworks */,
-				C9F8EBD823021DA5004648F4 /* _delaunay.framework in Embed Frameworks */,
-				C9F8EBD923021DA5004648F4 /* _image.framework in Embed Frameworks */,
-				C9F8EBDA23021DA5004648F4 /* _path.framework in Embed Frameworks */,
-				C9F8EBDB23021DA5004648F4 /* _png.framework in Embed Frameworks */,
-				C9F8EBDC23021DA5004648F4 /* _qhull.framework in Embed Frameworks */,
-				C9F8EBDD23021DA5004648F4 /* _tri.framework in Embed Frameworks */,
-				C9F8EBDE23021DA5004648F4 /* ft2font.framework in Embed Frameworks */,
-				C9F8EBDF23021DA5004648F4 /* ttconv.framework in Embed Frameworks */,
 				C97867DD2304DEB000BD6FA4 /* libjpeg.framework in Embed Frameworks */,
 				C92A7D1622F99AD600D3B4DF /* _multiotsu.framework in Embed Frameworks */,
 				C92A7D1722F99AD600D3B4DF /* _skeletonize_3d_cy.framework in Embed Frameworks */,
@@ -2538,6 +2534,15 @@
 		C9E98D972200BFA100C60946 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C9E98D992200BFFA00C60946 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C9E98D9B2200C08100C60946 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C9E9DF7623E08171004CF05A /* _contour.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _contour.framework; sourceTree = "<group>"; };
+		C9E9DF7723E08172004CF05A /* _backend_agg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _backend_agg.framework; sourceTree = "<group>"; };
+		C9E9DF7823E08172004CF05A /* _png.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _png.framework; sourceTree = "<group>"; };
+		C9E9DF7923E08172004CF05A /* _qhull.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _qhull.framework; sourceTree = "<group>"; };
+		C9E9DF7A23E08172004CF05A /* _path.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _path.framework; sourceTree = "<group>"; };
+		C9E9DF7B23E08172004CF05A /* ft2font.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ft2font.framework; sourceTree = "<group>"; };
+		C9E9DF7C23E08172004CF05A /* _image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _image.framework; sourceTree = "<group>"; };
+		C9E9DF7D23E08172004CF05A /* _tri.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _tri.framework; sourceTree = "<group>"; };
+		C9E9DF7E23E08172004CF05A /* ttconv.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ttconv.framework; sourceTree = "<group>"; };
 		C9EA55B2219F752D007546BC /* RelativePathForScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativePathForScript.swift; sourceTree = "<group>"; };
 		C9EA5C7C21F23024000F7FA7 /* Welcome to Pyto.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Welcome to Pyto.md"; sourceTree = "<group>"; };
 		C9EDF9A4214461D300382DCC /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -2597,17 +2602,6 @@
 		C9F04E892173DD7300BDD03E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C9F1258E22DFD28F00F54D84 /* PySegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PySegmentedControl.swift; sourceTree = "<group>"; };
 		C9F56EAB23D4EE37005C59FD /* 420.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 420.png; sourceTree = "<group>"; };
-		C9F8EBCA23021D94004648F4 /* _png.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _png.framework; sourceTree = "<group>"; };
-		C9F8EBCB23021D95004648F4 /* ttconv.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ttconv.framework; sourceTree = "<group>"; };
-		C9F8EBCC23021D95004648F4 /* _contour.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _contour.framework; sourceTree = "<group>"; };
-		C9F8EBCD23021D95004648F4 /* _path.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _path.framework; sourceTree = "<group>"; };
-		C9F8EBCE23021D95004648F4 /* _cntr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _cntr.framework; sourceTree = "<group>"; };
-		C9F8EBCF23021D95004648F4 /* _image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _image.framework; sourceTree = "<group>"; };
-		C9F8EBD023021D95004648F4 /* _delaunay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _delaunay.framework; sourceTree = "<group>"; };
-		C9F8EBD123021D95004648F4 /* _qhull.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _qhull.framework; sourceTree = "<group>"; };
-		C9F8EBD223021D96004648F4 /* _tri.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _tri.framework; sourceTree = "<group>"; };
-		C9F8EBD323021D96004648F4 /* _backend_agg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _backend_agg.framework; sourceTree = "<group>"; };
-		C9F8EBD423021D96004648F4 /* ft2font.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ft2font.framework; sourceTree = "<group>"; };
 		C9F8EBE023021DC0004648F4 /* kiwisolver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = kiwisolver.framework; sourceTree = "<group>"; };
 		C9F8F39A23025695004648F4 /* dtrsv.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = dtrsv.o; sourceTree = "<group>"; };
 		C9F8F39B23025695004648F4 /* zcolumn_dfs.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = zcolumn_dfs.o; sourceTree = "<group>"; };
@@ -5056,17 +5050,15 @@
 		C9317EF221FF679B0016E422 /* Matplotlib */ = {
 			isa = PBXGroup;
 			children = (
-				C9F8EBD323021D96004648F4 /* _backend_agg.framework */,
-				C9F8EBCE23021D95004648F4 /* _cntr.framework */,
-				C9F8EBCC23021D95004648F4 /* _contour.framework */,
-				C9F8EBD023021D95004648F4 /* _delaunay.framework */,
-				C9F8EBCF23021D95004648F4 /* _image.framework */,
-				C9F8EBCD23021D95004648F4 /* _path.framework */,
-				C9F8EBCA23021D94004648F4 /* _png.framework */,
-				C9F8EBD123021D95004648F4 /* _qhull.framework */,
-				C9F8EBD223021D96004648F4 /* _tri.framework */,
-				C9F8EBD423021D96004648F4 /* ft2font.framework */,
-				C9F8EBCB23021D95004648F4 /* ttconv.framework */,
+				C9E9DF7723E08172004CF05A /* _backend_agg.framework */,
+				C9E9DF7623E08171004CF05A /* _contour.framework */,
+				C9E9DF7C23E08172004CF05A /* _image.framework */,
+				C9E9DF7A23E08172004CF05A /* _path.framework */,
+				C9E9DF7823E08172004CF05A /* _png.framework */,
+				C9E9DF7923E08172004CF05A /* _qhull.framework */,
+				C9E9DF7D23E08172004CF05A /* _tri.framework */,
+				C9E9DF7B23E08172004CF05A /* ft2font.framework */,
+				C9E9DF7E23E08172004CF05A /* ttconv.framework */,
 			);
 			path = Matplotlib;
 			sourceTree = "<group>";

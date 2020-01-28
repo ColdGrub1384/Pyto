@@ -2,10 +2,9 @@
 Interpolation inside triangular grids.
 """
 
-import warnings
-
 import numpy as np
 
+from matplotlib import cbook
 from matplotlib.tri import Triangulation
 from matplotlib.tri.trifinder import TriFinder
 from matplotlib.tri.tritools import TriAnalyzer
@@ -124,7 +123,7 @@ class TriInterpolator(object):
               unnecessary to compute the containing triangles twice)
             - scaling according to self._unit_x, self._unit_y
             - dealing with points outside of the grid (with fill value np.nan)
-            - dealing with multi-dimensionnal *x*, *y* arrays: flattening for
+            - dealing with multi-dimensional *x*, *y* arrays: flattening for
               :meth:`_interpolate_params` call and final reshaping.
 
         (Note that np.vectorize could do most of those things very well for
@@ -461,10 +460,10 @@ class CubicTriInterpolator(TriInterpolator):
 
         Parameters
         ----------
-        kind: {'min_E', 'geom', 'user'}
+        kind : {'min_E', 'geom', 'user'}
             Choice of the _DOF_estimator subclass to perform the gradient
             estimation.
-        dz: tuple of array_likes (dzdx, dzdy), optional
+        dz : tuple of array_likes (dzdx, dzdy), optional
             Used only if *kind*=user; in this case passed to the
             :class:`_DOF_estimator_user`.
 
@@ -820,7 +819,7 @@ class _ReducedHCT_Element():
         Returns
         -------
         Returns the arrays d2sdksi2 (N x 3 x 1) Hessian of shape functions
-        expressed in covariante coordinates in first apex basis.
+        expressed in covariant coordinates in first apex basis.
         """
         subtri = np.argmin(alpha, axis=1)[:, 0]
         ksi = _roll_vectorized(alpha, -subtri, axis=0)
@@ -960,7 +959,7 @@ class _ReducedHCT_Element():
         """
         ntri = np.size(ecc, 0)
         vec_range = np.arange(ntri, dtype=np.int32)
-        c_indices = -np.ones(ntri, dtype=np.int32)  # for unused dofs, -1
+        c_indices = np.full(ntri, -1, dtype=np.int32)  # for unused dofs, -1
         f_dof = [1, 2, 4, 5, 7, 8]
         c_dof = [0, 3, 6]
 
@@ -1078,7 +1077,8 @@ class _DOF_estimator():
 
 
 class _DOF_estimator_user(_DOF_estimator):
-    """ dz is imposed by user / Accounts for scaling if any """
+    """dz is imposed by user; accounts for scaling if any."""
+
     def compute_dz(self, dz):
         (dzdx, dzdy) = dz
         dzdx = dzdx * self._unit_x
@@ -1087,7 +1087,8 @@ class _DOF_estimator_user(_DOF_estimator):
 
 
 class _DOF_estimator_geom(_DOF_estimator):
-    """ Fast 'geometric' approximation, recommended for large arrays. """
+    """Fast 'geometric' approximation, recommended for large arrays."""
+
     def compute_dz(self):
         """
         self.df is computed as weighted average of _triangles sharing a common
@@ -1136,7 +1137,7 @@ class _DOF_estimator_geom(_DOF_estimator):
             alpha2 = np.arctan2(p2[:, 1]-p0[:, 1], p2[:, 0]-p0[:, 0])
             # In the below formula we could take modulo 2. but
             # modulo 1. is safer regarding round-off errors (flat triangles).
-            angle = np.abs(np.mod((alpha2-alpha1) / np.pi, 1.))
+            angle = np.abs(((alpha2-alpha1) / np.pi) % 1)
             # Weight proportional to angle up np.pi/2; null weight for
             # degenerated cases 0 and np.pi (note that `angle` is normalized
             # by np.pi).
@@ -1214,9 +1215,10 @@ class _DOF_estimator_min_E(_DOF_estimator_geom):
         err0 = np.linalg.norm(Kff_coo.dot(Uf0) - Ff)
         if err0 < err:
             # Maybe a good occasion to raise a warning here ?
-            warnings.warn("In TriCubicInterpolator initialization, PCG sparse"
-                          " solver did not converge after 1000 iterations. "
-                          "`geom` approximation is used instead of `min_E`")
+            cbook._warn_external("In TriCubicInterpolator initialization, "
+                                 "PCG sparse solver did not converge after "
+                                 "1000 iterations. `geom` approximation is "
+                                 "used instead of `min_E`")
             Uf = Uf0
 
         # Building dz from Uf
@@ -1307,28 +1309,28 @@ def _cg(A, b, x0=None, tol=1.e-10, maxiter=1000):
 
     Parameters
     ----------
-    A: _Sparse_Matrix_coo
+    A : _Sparse_Matrix_coo
         *A* must have been compressed before by compress_csc or
         compress_csr method.
 
-    b: array
+    b : array
         Right hand side of the linear system.
 
     Returns
     -------
-    x: array.
+    x : array
         The converged solution.
-    err: float
+    err : float
         The absolute error np.linalg.norm(A.dot(x) - b)
 
     Other parameters
     ----------------
-    x0: array.
+    x0 : array
         Starting guess for the solution.
-    tol: float.
+    tol : float
         Tolerance to achieve. The algorithm terminates when the relative
         residual is below tol.
-    maxiter: integer.
+    maxiter : integer
         Maximum number of iterations. Iteration will stop
         after maxiter steps even if the specified tolerance has not
         been achieved.
@@ -1341,7 +1343,7 @@ def _cg(A, b, x0=None, tol=1.e-10, maxiter=1000):
     # Jacobi pre-conditioner
     kvec = A.diag
     # For diag elem < 1e-6 we keep 1e-6.
-    kvec = np.where(kvec > 1.e-6, kvec, 1.e-6)
+    kvec = np.maximum(kvec, 1e-6)
 
     # Initial guess
     if x0 is None:

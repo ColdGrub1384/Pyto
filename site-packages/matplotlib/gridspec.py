@@ -1,21 +1,16 @@
-"""
-:mod:`~matplotlib.gridspec` is a module which specifies the location
-of the subplot in the figure.
+r"""
+:mod:`~matplotlib.gridspec` contains classes that help to layout multiple
+`~axes.Axes` in a grid-like pattern within a figure.
 
-    `GridSpec`
-        specifies the geometry of the grid that a subplot will be
-        placed. The number of rows and number of columns of the grid
-        need to be set. Optionally, the subplot layout parameters
-        (e.g., left, right, etc.) can be tuned.
+The `GridSpec` specifies the overall grid structure. Individual cells within
+the grid are referenced by `SubplotSpec`\s.
 
-    `SubplotSpec`
-        specifies the location of the subplot in the given `GridSpec`.
-
+See the tutorial :ref:`sphx_glr_tutorials_intermediate_gridspec.py` for a
+comprehensive usage guide.
 """
 
 import copy
 import logging
-import warnings
 
 import numpy as np
 
@@ -56,16 +51,16 @@ class GridSpecBase(object):
             )
 
     def get_geometry(self):
-        'get the geometry of the grid, e.g., 2,3'
+        """
+        Return a tuple containing the number of rows and columns in the grid.
+        """
         return self._nrows, self._ncols
 
     def get_subplot_params(self, figure=None, fig=None):
         pass
 
     def new_subplotspec(self, loc, rowspan=1, colspan=1):
-        """
-        create and return a SuplotSpec instance.
-        """
+        """Create and return a `.SubplotSpec` instance."""
         loc1, loc2 = loc
         subplotspec = self[loc1:loc1+rowspan, loc2:loc2+colspan]
         return subplotspec
@@ -90,7 +85,7 @@ class GridSpecBase(object):
 
     def get_grid_positions(self, fig, raw=False):
         """
-        return lists of bottom and top position of rows, left and
+        Return lists of bottom and top position of rows, left and
         right positions of columns.
 
         If raw=True, then these are all in units relative to the container
@@ -143,21 +138,28 @@ class GridSpecBase(object):
         return fig_bottoms, fig_tops, fig_lefts, fig_rights
 
     def __getitem__(self, key):
-        """Create and return a SuplotSpec instance.
-        """
+        """Create and return a `.SubplotSpec` instance."""
         nrows, ncols = self.get_geometry()
 
-        def _normalize(key, size):  # Includes last index.
+        def _normalize(key, size, axis):  # Includes last index.
+            orig_key = key
             if isinstance(key, slice):
                 start, stop, _ = key.indices(size)
                 if stop > start:
                     return start, stop - 1
+                raise IndexError("GridSpec slice would result in no space "
+                                 "allocated for subplot")
             else:
                 if key < 0:
-                    key += size
+                    key = key + size
                 if 0 <= key < size:
                     return key, key
-            raise IndexError("invalid index")
+                elif axis is not None:
+                    raise IndexError(f"index {orig_key} is out of bounds for "
+                                     f"axis {axis} with size {size}")
+                else:  # flat index
+                    raise IndexError(f"index {orig_key} is out of bounds for "
+                                     f"GridSpec with size {size}")
 
         if isinstance(key, tuple):
             try:
@@ -165,20 +167,20 @@ class GridSpecBase(object):
             except ValueError:
                 raise ValueError("unrecognized subplot spec")
             num1, num2 = np.ravel_multi_index(
-                [_normalize(k1, nrows), _normalize(k2, ncols)], (nrows, ncols))
+                [_normalize(k1, nrows, 0), _normalize(k2, ncols, 1)],
+                (nrows, ncols))
         else:  # Single key
-            num1, num2 = _normalize(key, nrows * ncols)
+            num1, num2 = _normalize(key, nrows * ncols, None)
 
         return SubplotSpec(self, num1, num2)
 
 
 class GridSpec(GridSpecBase):
     """
-    A class that specifies the geometry of the grid that a subplot
-    will be placed. The location of grid is determined by similar way
-    as the SubplotParams.
-    """
+    Specifies the geometry of the grid that a subplot can be placed in.
 
+    The location of grid is determined by similar way as the SubplotParams.
+    """
     def __init__(self, nrows, ncols, figure=None,
                  left=None, bottom=None, right=None, top=None,
                  wspace=None, hspace=None,
@@ -196,20 +198,26 @@ class GridSpec(GridSpecBase):
         ncols : int
             Number or columns in grid.
 
-        figure : ~.figure.Figure, optional
+        figure : `~.figure.Figure`, optional
 
-        left, right, top, bottom : float
+        left, right, top, bottom : float, optional
             Extent of the subplots as a fraction of figure width or height.
             Left cannot be larger than right, and bottom cannot be larger than
             top.
 
-        wspace : float
+        wspace : float, optional
             The amount of width reserved for space between subplots,
             expressed as a fraction of the average axis width.
 
-        hspace : float
+        hspace : float, optional
             The amount of height reserved for space between subplots,
             expressed as a fraction of the average axis height.
+
+        width_ratios : length *ncols* iterable, optional
+            Width ratios of the columns.
+
+        height_ratios : length *nrows* iterable, optional
+            Height ratios of the rows.
 
         Notes
         -----
@@ -235,7 +243,7 @@ class GridSpec(GridSpecBase):
                 parent=self.figure._layoutbox,
                 name='gridspec' + layoutbox.seq_id(),
                 artist=self)
-        # by default the layoutbox for a gridsepc will fill a figure.
+        # by default the layoutbox for a gridspec will fill a figure.
         # but this can change below if the gridspec is created from a
         # subplotspec. (GridSpecFromSubplotSpec)
 
@@ -256,16 +264,15 @@ class GridSpec(GridSpecBase):
 
     def update(self, **kwargs):
         """
-        Update the current values.  If any kwarg is None, default to
-        the current value, if set, otherwise to rc.
-        """
+        Update the current values.
 
+        Values set to None use the rcParams value.
+        """
         for k, v in kwargs.items():
             if k in self._AllowedKeys:
                 setattr(self, k, v)
             else:
-                raise AttributeError("%s is unknown keyword" % (k,))
-
+                raise AttributeError(f"{k} is an unknown keyword")
         for figmanager in _pylab_helpers.Gcf.figs.values():
             for ax in figmanager.canvas.figure.axes:
                 # copied from Figure.subplots_adjust
@@ -285,17 +292,11 @@ class GridSpec(GridSpecBase):
                         ax.update_params()
                         ax._set_position(ax.figbox)
 
-    def get_subplot_params(self, figure=None, fig=None):
+    def get_subplot_params(self, figure=None):
         """
         Return a dictionary of subplot layout parameters. The default
         parameters are from rcParams unless a figure attribute is set.
         """
-        if fig is not None:
-            cbook.warn_deprecated("2.2", "fig", obj_type="keyword argument",
-                                  alternative="figure")
-        if figure is None:
-            figure = fig
-
         if figure is None:
             kw = {k: rcParams["figure.subplot."+k] for k in self._AllowedKeys}
             subplotpars = mpl.figure.SubplotParams(**kw)
@@ -322,7 +323,7 @@ class GridSpec(GridSpecBase):
             fraction of the font-size.
         h_pad, w_pad : float, optional
             Padding (height/width) between edges of adjacent subplots.
-            Defaults to ``pad_inches``.
+            Defaults to *pad*.
         rect : tuple of 4 floats, optional
             (left, bottom, right, top) rectangle in normalized figure
             coordinates that the whole subplots area (including labels) will
@@ -332,8 +333,9 @@ class GridSpec(GridSpecBase):
         subplotspec_list = tight_layout.get_subplotspec_list(
             figure.axes, grid_spec=self)
         if None in subplotspec_list:
-            warnings.warn("This figure includes Axes that are not compatible "
-                          "with tight_layout, so results might be incorrect.")
+            cbook._warn_external("This figure includes Axes that are not "
+                                 "compatible with tight_layout, so results "
+                                 "might be incorrect.")
 
         if renderer is None:
             renderer = tight_layout.get_renderer(figure)
@@ -378,15 +380,9 @@ class GridSpecFromSubplotSpec(GridSpecBase):
                     name=subspeclb.name + '.gridspec' + layoutbox.seq_id(),
                     artist=self)
 
-    def get_subplot_params(self, figure=None, fig=None):
+    def get_subplot_params(self, figure=None):
         """Return a dictionary of subplot layout parameters.
         """
-        if fig is not None:
-            cbook.warn_deprecated("2.2", "fig", obj_type="keyword argument",
-                                  alternative="figure")
-        if figure is None:
-            figure = fig
-
         hspace = (self._hspace if self._hspace is not None
                   else figure.subplotpars.hspace if figure is not None
                   else rcParams["figure.subplot.hspace"])
@@ -402,29 +398,40 @@ class GridSpecFromSubplotSpec(GridSpecBase):
                                         wspace=wspace, hspace=hspace)
 
     def get_topmost_subplotspec(self):
-        """Get the topmost SubplotSpec instance associated with the subplot."""
+        """
+        Return the topmost `.SubplotSpec` instance associated with the subplot.
+        """
         return self._subplot_spec.get_topmost_subplotspec()
 
 
-class SubplotSpec(object):
-    """Specifies the location of the subplot in the given `GridSpec`.
+class SubplotSpec:
     """
+    Specifies the location of a subplot in a `GridSpec`.
 
-    def __init__(self, gridspec, num1, num2=None):
-        """
+    .. note::
+
+        Likely, you'll never instantiate a `SubplotSpec` yourself. Instead you
+        will typically obtain one from a `GridSpec` using item-access.
+
+    Parameters
+    ----------
+    gridspec : `~matplotlib.gridspec.GridSpec`
+        The GridSpec, which the subplot is referencing.
+    num1, num2 : int
         The subplot will occupy the num1-th cell of the given
         gridspec.  If num2 is provided, the subplot will span between
         num1-th cell and num2-th cell.
 
         The index starts from 0.
-        """
+    """
+    def __init__(self, gridspec, num1, num2=None):
         self._gridspec = gridspec
         self.num1 = num1
         self.num2 = num2
         if gridspec._layoutbox is not None:
             glb = gridspec._layoutbox
             # So note that here we don't assign any layout yet,
-            # just make the layoutbox that will conatin all items
+            # just make the layoutbox that will contain all items
             # associated w/ this axis.  This can include other axes like
             # a colorbar or a legend.
             self._layoutbox = layoutbox.LayoutBox(
@@ -452,18 +459,19 @@ class SubplotSpec(object):
 
     def get_geometry(self):
         """
-        Get the subplot geometry (``n_rows, n_cols, start, stop``).
+        Return the subplot geometry as tuple ``(n_rows, n_cols, start, stop)``.
 
-        start and stop are the index of the start and stop of the
-        subplot.
+        The indices *start* and *stop* define the range of the subplot within
+        the `GridSpec`. *stop* is inclusive (i.e. for a single cell
+        ``start == stop``).
         """
         rows, cols = self.get_gridspec().get_geometry()
         return rows, cols, self.num1, self.num2
 
     def get_rows_columns(self):
         """
-        Get the subplot row and column numbers:
-        (``n_rows, n_cols, row_start, row_stop, col_start, col_stop``)
+        Return the subplot row and column numbers as a tuple
+        ``(n_rows, n_cols, row_start, row_stop, col_start, col_stop)``.
         """
         gridspec = self.get_gridspec()
         nrows, ncols = gridspec.get_geometry()
@@ -476,7 +484,8 @@ class SubplotSpec(object):
         return nrows, ncols, row_start, row_stop, col_start, col_stop
 
     def get_position(self, figure, return_all=False):
-        """Update the subplot position from ``figure.subplotpars``.
+        """
+        Update the subplot position from ``figure.subplotpars``.
         """
         gridspec = self.get_gridspec()
         nrows, ncols = gridspec.get_geometry()
@@ -498,7 +507,9 @@ class SubplotSpec(object):
             return figbox
 
     def get_topmost_subplotspec(self):
-        'get the topmost SubplotSpec instance associated with the subplot'
+        """
+        Return the topmost `SubplotSpec` instance associated with the subplot.
+        """
         gridspec = self.get_gridspec()
         if hasattr(gridspec, "get_topmost_subplotspec"):
             return gridspec.get_topmost_subplotspec()
@@ -506,6 +517,10 @@ class SubplotSpec(object):
             return self
 
     def __eq__(self, other):
+        """
+        Two SubplotSpecs are considered equal if they refer to the same
+        position(s) in the same `GridSpec`.
+        """
         # other may not even have the attributes we are checking.
         return ((self._gridspec, self.num1, self.num2)
                 == (getattr(other, "_gridspec", object()),
@@ -517,7 +532,9 @@ class SubplotSpec(object):
 
     def subgridspec(self, nrows, ncols, **kwargs):
         """
-        Return a `.GridSpecFromSubplotSpec` that has this subplotspec as
+        Create a GridSpec within this subplot.
+
+        The created `.GridSpecFromSubplotSpec` will have this `SubplotSpec` as
         a parent.
 
         Parameters
@@ -530,12 +547,12 @@ class SubplotSpec(object):
 
         Returns
         -------
-        gridspec : `.GridSpec`
+        gridspec : `.GridSpecFromSubplotSpec`
 
         Other Parameters
         ----------------
         **kwargs
-            All other parameters are passed to `.GridSpec`.
+            All other parameters are passed to `.GridSpecFromSubplotSpec`.
 
         See Also
         --------
@@ -553,5 +570,4 @@ class SubplotSpec(object):
             for i in range(3):
                 fig.add_subplot(gssub[0, i])
         """
-
         return GridSpecFromSubplotSpec(nrows, ncols, self, **kwargs)
