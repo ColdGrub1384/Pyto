@@ -2,8 +2,7 @@
 A collection of functions and objects for creating or placing inset axes.
 """
 
-import warnings
-from matplotlib import docstring
+from matplotlib import cbook, docstring
 from matplotlib.offsetbox import AnchoredOffsetbox
 from matplotlib.patches import Patch, Rectangle
 from matplotlib.path import Path
@@ -132,12 +131,11 @@ class AnchoredZoomLocator(AnchoredLocatorBase):
     def get_extent(self, renderer):
         bb = TransformedBbox(self.axes.viewLim,
                              self.parent_axes.transData)
-
         x, y, w, h = bb.bounds
         fontsize = renderer.points_to_pixels(self.prop.get_size_in_points())
         pad = self.pad * fontsize
-
-        return abs(w * self.zoom) + 2 * pad, abs(h * self.zoom) + 2 * pad, pad, pad
+        return (abs(w * self.zoom) + 2 * pad, abs(h * self.zoom) + 2 * pad,
+                pad, pad)
 
 
 class BboxPatch(Patch):
@@ -163,25 +161,21 @@ class BboxPatch(Patch):
         self.bbox = bbox
 
     def get_path(self):
+        # docstring inherited
         x0, y0, x1, y1 = self.bbox.extents
-
         verts = [(x0, y0),
                  (x1, y0),
                  (x1, y1),
                  (x0, y1),
                  (x0, y0),
                  (0, 0)]
-
         codes = [Path.MOVETO,
                  Path.LINETO,
                  Path.LINETO,
                  Path.LINETO,
                  Path.LINETO,
                  Path.CLOSEPOLY]
-
         return Path(verts, codes)
-
-    get_path.__doc__ = Patch.get_path.__doc__
 
 
 class BboxConnector(Patch):
@@ -309,7 +303,7 @@ class BboxConnector(Patch):
         if 'fill' in kwargs:
             Patch.__init__(self, **kwargs)
         else:
-            fill = ('fc' in kwargs) or ('facecolor' in kwargs) or ('color' in kwargs)
+            fill = bool({'fc', 'facecolor', 'color'}.intersection(kwargs))
             Patch.__init__(self, fill=fill, **kwargs)
         self.bbox1 = bbox1
         self.bbox2 = bbox2
@@ -317,10 +311,9 @@ class BboxConnector(Patch):
         self.loc2 = loc2
 
     def get_path(self):
+        # docstring inherited
         return self.connect_bbox(self.bbox1, self.bbox2,
                                  self.loc1, self.loc2)
-
-    get_path.__doc__ = Patch.get_path.__doc__
 
 
 class BboxConnectorPatch(BboxConnector):
@@ -329,10 +322,10 @@ class BboxConnectorPatch(BboxConnector):
         """
         Connect two bboxes with a quadrilateral.
 
-        The quadrilateral is specified by two lines that start and end at corners
-        of the bboxes. The four sides of the quadrilateral are defined by the two
-        lines given, the line between the two corners specified in *bbox1* and the
-        line between the two corners specified in *bbox2*.
+        The quadrilateral is specified by two lines that start and end at
+        corners of the bboxes. The four sides of the quadrilateral are defined
+        by the two lines given, the line between the two corners specified in
+        *bbox1* and the line between the two corners specified in *bbox2*.
 
         Parameters
         ----------
@@ -368,13 +361,12 @@ class BboxConnectorPatch(BboxConnector):
         self.loc2b = loc2b
 
     def get_path(self):
+        # docstring inherited
         path1 = self.connect_bbox(self.bbox1, self.bbox2, self.loc1, self.loc2)
         path2 = self.connect_bbox(self.bbox2, self.bbox1,
                                   self.loc2b, self.loc1b)
         path_merged = [*path1.vertices, *path2.vertices, path1.vertices[0]]
         return Path(path_merged)
-
-    get_path.__doc__ = BboxConnector.get_path.__doc__
 
 
 def _add_inset_axes(parent_axes, inset_axes):
@@ -400,8 +392,8 @@ def inset_axes(parent_axes, width, height, loc='upper right',
     creates in inset axes in the lower left corner of *parent_axes* which spans
     over 30%% in height and 40%% in width of the *parent_axes*. Since the usage
     of `.inset_axes` may become slightly tricky when exceeding such standard
-    cases, it is recommended to read
-    :ref:`the examples <sphx_glr_gallery_axes_grid1_inset_locator_demo.py>`.
+    cases, it is recommended to read :doc:`the examples
+    </gallery/axes_grid1/inset_locator_demo>`.
 
     Notes
     -----
@@ -504,9 +496,10 @@ def inset_axes(parent_axes, width, height, loc='upper right',
     if bbox_transform in [parent_axes.transAxes,
                           parent_axes.figure.transFigure]:
         if bbox_to_anchor is None:
-            warnings.warn("Using the axes or figure transform requires a "
-                          "bounding box in the respective coordinates. "
-                          "Using bbox_to_anchor=(0,0,1,1) now.")
+            cbook._warn_external("Using the axes or figure transform "
+                                 "requires a bounding box in the respective "
+                                 "coordinates. "
+                                 "Using bbox_to_anchor=(0,0,1,1) now.")
             bbox_to_anchor = (0, 0, 1, 1)
 
     if bbox_to_anchor is None:
@@ -540,7 +533,7 @@ def zoomed_inset_axes(parent_axes, zoom, loc='upper right',
                       borderpad=0.5):
     """
     Create an anchored inset axes by scaling a parent axes. For usage, also see
-    :ref:`the examples <sphx_glr_gallery_axes_grid1_inset_locator_demo2.py>`.
+    :doc:`the examples </gallery/axes_grid1/inset_locator_demo2>`.
 
     Parameters
     ----------
@@ -666,7 +659,7 @@ def mark_inset(parent_axes, inset_axes, loc1, loc2, **kwargs):
     if 'fill' in kwargs:
         pp = BboxPatch(rect, **kwargs)
     else:
-        fill = ('fc' in kwargs) or ('facecolor' in kwargs) or ('color' in kwargs)
+        fill = bool({'fc', 'facecolor', 'color'}.intersection(kwargs))
         pp = BboxPatch(rect, fill=fill, **kwargs)
     parent_axes.add_patch(pp)
 

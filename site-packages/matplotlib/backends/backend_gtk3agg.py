@@ -1,10 +1,7 @@
-import sys
-
 import numpy as np
 
 from .. import cbook
 from . import backend_agg, backend_cairo, backend_gtk3
-from ._gtk3_compat import gi
 from .backend_cairo import cairo
 from .backend_gtk3 import Gtk, _BackendGTK3
 from matplotlib import transforms
@@ -29,7 +26,6 @@ class FigureCanvasGTK3Agg(backend_gtk3.FigureCanvasGTK3,
         w, h = allocation.width, allocation.height
 
         if not len(self._bbox_queue):
-            self._render_figure(w, h)
             Gtk.render_background(
                 self.get_style_context(), ctx,
                 allocation.x, allocation.y,
@@ -73,6 +69,12 @@ class FigureCanvasGTK3Agg(backend_gtk3.FigureCanvasGTK3,
 
         self._bbox_queue.append(bbox)
         self.queue_draw_area(x, y, width, height)
+
+    def draw(self):
+        if self.get_visible() and self.get_mapped():
+            allocation = self.get_allocation()
+            self._render_figure(allocation.width, allocation.height)
+        super().draw()
 
     def print_png(self, filename, *args, **kwargs):
         # Do this so we can save the resolution of figure in the PNG file

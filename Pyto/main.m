@@ -129,8 +129,6 @@ void init_matplotlib() {
     
     NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
     [name addObject:@"_backend_agg"];       [key addObject:@"__matplotlib_backends__backend_agg"];
-    [name addObject:@"ttconv"];             [key addObject:@"__matplotlib_ttconv"];
-    [name addObject:@"_tkagg"];             [key addObject:@"__matplotlib_backends__tkagg"];
     [name addObject:@"_png"];               [key addObject:@"__matplotlib__png"];
     [name addObject:@"_image"];             [key addObject:@"__matplotlib__image"];
     [name addObject:@"_contour"];           [key addObject:@"__matplotlib__contour"];
