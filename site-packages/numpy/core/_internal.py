@@ -8,14 +8,16 @@ from __future__ import division, absolute_import, print_function
 
 import re
 import sys
+import platform
 
 from numpy.compat import unicode
-from numpy.core.overrides import set_module
 from .multiarray import dtype, array, ndarray
 try:
     import ctypes
 except ImportError:
     ctypes = None
+
+IS_PYPY = platform.python_implementation() == 'PyPy'
 
 if (sys.byteorder == 'little'):
     _nbo = b'<'
@@ -144,7 +146,7 @@ def _reconstruct(subtype, shape, dtype):
 # format_re was originally from numarray by J. Todd Miller
 
 format_re = re.compile(br'(?P<order1>[<>|=]?)'
-                       br'(?P<repeats> *[(]?[ ,0-9L]*[)]? *)'
+                       br'(?P<repeats> *[(]?[ ,0-9]*[)]? *)'
                        br'(?P<order2>[<>|=]?)'
                        br'(?P<dtype>[A-Za-z0-9.?]*(?:\[[a-zA-Z0-9,.]+\])?)')
 sep_re = re.compile(br'\s*,\s*')
@@ -245,55 +247,13 @@ class _missing_ctypes(object):
             self.value = ptr
 
 
-class _unsafe_first_element_pointer(object):
-    """
-    Helper to allow viewing an array as a ctypes pointer to the first element
-
-    This avoids:
-      * dealing with strides
-      * `.view` rejecting object-containing arrays
-      * `memoryview` not supporting overlapping fields
-    """
-    def __init__(self, arr):
-        self.base = arr
-
-    @property
-    def __array_interface__(self):
-        i = dict(
-            shape=(),
-            typestr='|V0',
-            data=(self.base.__array_interface__['data'][0], False),
-            strides=(),
-            version=3,
-        )
-        return i
-
-
-def _get_void_ptr(arr):
-    """
-    Get a `ctypes.c_void_p` to arr.data, that keeps a reference to the array
-    """
-    import numpy as np
-    # convert to a 0d array that has a data pointer referrign to the start
-    # of arr. This holds a reference to arr.
-    simple_arr = np.asarray(_unsafe_first_element_pointer(arr))
-
-    # create a `char[0]` using the same memory.
-    c_arr = (ctypes.c_char * 0).from_buffer(simple_arr)
-
-    # finally cast to void*
-    return ctypes.cast(ctypes.pointer(c_arr), ctypes.c_void_p)
-
-
 class _ctypes(object):
     def __init__(self, array, ptr=None):
         self._arr = array
 
         if ctypes:
             self._ctypes = ctypes
-            # get a void pointer to the buffer, which keeps the array alive
-            self._data = _get_void_ptr(array)
-            assert self._data.value == ptr
+            self._data = self._ctypes.c_void_p(ptr)
         else:
             # fake a pointer-like object that holds onto the reference
             self._ctypes = _missing_ctypes()
@@ -315,7 +275,14 @@ class _ctypes(object):
 
         The returned pointer will keep a reference to the array.
         """
-        return self._ctypes.cast(self._data, obj)
+        # _ctypes.cast function causes a circular reference of self._data in
+        # self._data._objects. Attributes of self._data cannot be released
+        # until gc.collect is called. Make a copy of the pointer first then let
+        # it hold the array reference. This is a workaround to circumvent the
+        # CPython bug https://bugs.python.org/issue12836
+        ptr = self._ctypes.cast(self._data, obj)
+        ptr._arr = self._arr
+        return ptr
 
     def shape_as(self, obj):
         """
@@ -346,7 +313,7 @@ class _ctypes(object):
         crashing. User Beware! The value of this attribute is exactly the same
         as ``self._array_interface_['data'][0]``.
 
-        Note that unlike `data_as`, a reference will not be kept to the array:
+        Note that unlike ``data_as``, a reference will not be kept to the array:
         code like ``ctypes.c_void_p((a + b).ctypes.data)`` will result in a
         pointer to a deallocated array, and should be spelt
         ``(a + b).ctypes.data_as(ctypes.c_void_p)``
@@ -383,7 +350,7 @@ class _ctypes(object):
 
         Enables `c_func(some_array.ctypes)`
         """
-        return self._data
+        return self.data_as(ctypes.c_void_p)
 
     # kept for compatibility
     get_data = data.fget
@@ -457,7 +424,7 @@ def _getfield_is_safe(oldtype, newtype, offset):
     if newtype.hasobject or oldtype.hasobject:
         if offset == 0 and newtype == oldtype:
             return
-        if oldtype.names:
+        if oldtype.names is not None:
             for name in oldtype.names:
                 if (oldtype.fields[name][1] == offset and
                         oldtype.fields[name][0] == newtype):
@@ -795,29 +762,6 @@ def _gcd(a, b):
 def _lcm(a, b):
     return a // _gcd(a, b) * b
 
-# Exception used in shares_memory()
-@set_module('numpy')
-class TooHardError(RuntimeError):
-    pass
-
-@set_module('numpy')
-class AxisError(ValueError, IndexError):
-    """ Axis supplied was invalid. """
-    def __init__(self, axis, ndim=None, msg_prefix=None):
-        # single-argument form just delegates to base class
-        if ndim is None and msg_prefix is None:
-            msg = axis
-
-        # do the string formatting here, to save work in the C code
-        else:
-            msg = ("axis {} is out of bounds for array of dimension {}"
-                   .format(axis, ndim))
-            if msg_prefix is not None:
-                msg = "{}: {}".format(msg_prefix, msg)
-
-        super(AxisError, self).__init__(msg)
-
-
 def array_ufunc_errmsg_formatter(dummy, ufunc, method, *inputs, **kwargs):
     """ Format the error message for when __array_ufunc__ gives up. """
     args_string = ', '.join(['{!r}'.format(arg) for arg in inputs] +
@@ -889,7 +833,12 @@ def npy_ctypes_check(cls):
     try:
         # ctypes class are new-style, so have an __mro__. This probably fails
         # for ctypes classes with multiple inheritance.
-        ctype_base = cls.__mro__[-2]
+        if IS_PYPY:
+            # (..., _ctypes.basics._CData, Bufferable, object)
+            ctype_base = cls.__mro__[-3]
+        else:
+            # # (..., _ctypes._CData, object)
+            ctype_base = cls.__mro__[-2]
         # right now, they're part of the _ctypes module
         return 'ctypes' in ctype_base.__module__
     except Exception:

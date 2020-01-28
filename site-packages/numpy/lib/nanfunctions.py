@@ -40,6 +40,33 @@ __all__ = [
     ]
 
 
+def _nan_mask(a, out=None):
+    """
+    Parameters
+    ----------
+    a : array-like
+        Input array with at least 1 dimension.
+    out : ndarray, optional
+        Alternate output array in which to place the result.  The default
+        is ``None``; if provided, it must have the same shape as the
+        expected output and will prevent the allocation of a new array.
+
+    Returns
+    -------
+    y : bool ndarray or True
+        A bool array where ``np.nan`` positions are marked with ``False``
+        and other positions are marked with ``True``. If the type of ``a``
+        is such that it can't possibly contain ``np.nan``, returns ``True``.
+    """
+    # we assume that a is an array for this private function
+
+    if a.dtype.kind not in 'fc':
+        return True
+
+    y = np.isnan(a, out=out)
+    y = np.invert(y, out=y)
+    return y
+
 def _replace_nan(a, val):
     """
     If `a` is of inexact type, make a copy of `a`, replace NaNs with
@@ -68,17 +95,18 @@ def _replace_nan(a, val):
         NaNs, otherwise return None.
 
     """
-    a = np.array(a, subok=True, copy=True)
+    a = np.asanyarray(a)
 
     if a.dtype == np.object_:
         # object arrays do not support `isnan` (gh-9009), so make a guess
-        mask = a != a
+        mask = np.not_equal(a, a, dtype=bool)
     elif issubclass(a.dtype.type, np.inexact):
         mask = np.isnan(a)
     else:
         mask = None
 
     if mask is not None:
+        a = np.array(a, subok=True, copy=True)
         np.copyto(a, val, where=mask)
 
     return a, mask
@@ -138,7 +166,8 @@ def _remove_nan_1d(arr1d, overwrite_input=False):
     c = np.isnan(arr1d)
     s = np.nonzero(c)[0]
     if s.size == arr1d.size:
-        warnings.warn("All-NaN slice encountered", RuntimeWarning, stacklevel=4)
+        warnings.warn("All-NaN slice encountered", RuntimeWarning,
+                      stacklevel=5)
         return arr1d[:0], True
     elif s.size == 0:
         return arr1d, overwrite_input
@@ -216,8 +245,8 @@ def nanmin(a, axis=None, out=None, keepdims=np._NoValue):
     out : ndarray, optional
         Alternate output array in which to place the result.  The default
         is ``None``; if provided, it must have the same shape as the
-        expected output, but the type will be cast if necessary.  See
-        `doc.ufuncs` for details.
+        expected output, but the type will be cast if necessary. See
+        `ufuncs-output-type` for more details.
 
         .. versionadded:: 1.8.0
     keepdims : bool, optional
@@ -271,9 +300,9 @@ def nanmin(a, axis=None, out=None, keepdims=np._NoValue):
     >>> np.nanmin(a)
     1.0
     >>> np.nanmin(a, axis=0)
-    array([ 1.,  2.])
+    array([1.,  2.])
     >>> np.nanmin(a, axis=1)
-    array([ 1.,  3.])
+    array([1.,  3.])
 
     When positive infinity and negative infinity are present:
 
@@ -291,7 +320,8 @@ def nanmin(a, axis=None, out=None, keepdims=np._NoValue):
         # which do not implement isnan (gh-9009), or fmin correctly (gh-8975)
         res = np.fmin.reduce(a, axis=axis, out=out, **kwargs)
         if np.isnan(res).any():
-            warnings.warn("All-NaN slice encountered", RuntimeWarning, stacklevel=2)
+            warnings.warn("All-NaN slice encountered", RuntimeWarning,
+                          stacklevel=3)
     else:
         # Slow, but safe for subclasses of ndarray
         a, mask = _replace_nan(a, +np.inf)
@@ -303,7 +333,8 @@ def nanmin(a, axis=None, out=None, keepdims=np._NoValue):
         mask = np.all(mask, axis=axis, **kwargs)
         if np.any(mask):
             res = _copyto(res, np.nan, mask)
-            warnings.warn("All-NaN axis encountered", RuntimeWarning, stacklevel=2)
+            warnings.warn("All-NaN axis encountered", RuntimeWarning,
+                          stacklevel=3)
     return res
 
 
@@ -329,8 +360,8 @@ def nanmax(a, axis=None, out=None, keepdims=np._NoValue):
     out : ndarray, optional
         Alternate output array in which to place the result.  The default
         is ``None``; if provided, it must have the same shape as the
-        expected output, but the type will be cast if necessary.  See
-        `doc.ufuncs` for details.
+        expected output, but the type will be cast if necessary. See
+        `ufuncs-output-type` for more details.
 
         .. versionadded:: 1.8.0
     keepdims : bool, optional
@@ -384,9 +415,9 @@ def nanmax(a, axis=None, out=None, keepdims=np._NoValue):
     >>> np.nanmax(a)
     3.0
     >>> np.nanmax(a, axis=0)
-    array([ 3.,  2.])
+    array([3.,  2.])
     >>> np.nanmax(a, axis=1)
-    array([ 2.,  3.])
+    array([2.,  3.])
 
     When positive infinity and negative infinity are present:
 
@@ -404,7 +435,8 @@ def nanmax(a, axis=None, out=None, keepdims=np._NoValue):
         # which do not implement isnan (gh-9009), or fmax correctly (gh-8975)
         res = np.fmax.reduce(a, axis=axis, out=out, **kwargs)
         if np.isnan(res).any():
-            warnings.warn("All-NaN slice encountered", RuntimeWarning, stacklevel=2)
+            warnings.warn("All-NaN slice encountered", RuntimeWarning,
+                          stacklevel=3)
     else:
         # Slow, but safe for subclasses of ndarray
         a, mask = _replace_nan(a, -np.inf)
@@ -416,7 +448,8 @@ def nanmax(a, axis=None, out=None, keepdims=np._NoValue):
         mask = np.all(mask, axis=axis, **kwargs)
         if np.any(mask):
             res = _copyto(res, np.nan, mask)
-            warnings.warn("All-NaN axis encountered", RuntimeWarning, stacklevel=2)
+            warnings.warn("All-NaN axis encountered", RuntimeWarning,
+                          stacklevel=3)
     return res
 
 
@@ -553,8 +586,8 @@ def nansum(a, axis=None, dtype=None, out=None, keepdims=np._NoValue):
         Alternate output array in which to place the result.  The default
         is ``None``. If provided, it must have the same shape as the
         expected output, but the type will be cast if necessary.  See
-        `doc.ufuncs` for details. The casting of NaN to integer can yield
-        unexpected results.
+        `ufuncs-output-type` for more details. The casting of NaN to integer
+        can yield unexpected results.
 
         .. versionadded:: 1.8.0
     keepdims : bool, optional
@@ -601,12 +634,15 @@ def nansum(a, axis=None, dtype=None, out=None, keepdims=np._NoValue):
     >>> np.nansum(a)
     3.0
     >>> np.nansum(a, axis=0)
-    array([ 2.,  1.])
+    array([2.,  1.])
     >>> np.nansum([1, np.nan, np.inf])
     inf
     >>> np.nansum([1, np.nan, np.NINF])
     -inf
-    >>> np.nansum([1, np.nan, np.inf, -np.inf]) # both +/- infinity present
+    >>> from numpy.testing import suppress_warnings
+    >>> with suppress_warnings() as sup:
+    ...     sup.filter(RuntimeWarning)
+    ...     np.nansum([1, np.nan, np.inf, -np.inf]) # both +/- infinity present
     nan
 
     """
@@ -646,9 +682,9 @@ def nanprod(a, axis=None, dtype=None, out=None, keepdims=np._NoValue):
     out : ndarray, optional
         Alternate output array in which to place the result.  The default
         is ``None``. If provided, it must have the same shape as the
-        expected output, but the type will be cast if necessary.  See
-        `doc.ufuncs` for details. The casting of NaN to integer can yield
-        unexpected results.
+        expected output, but the type will be cast if necessary. See
+        `ufuncs-output-type` for more details. The casting of NaN to integer
+        can yield unexpected results.
     keepdims : bool, optional
         If True, the axes which are reduced are left in the result as
         dimensions with size one. With this option, the result will
@@ -677,7 +713,7 @@ def nanprod(a, axis=None, dtype=None, out=None, keepdims=np._NoValue):
     >>> np.nanprod(a)
     6.0
     >>> np.nanprod(a, axis=0)
-    array([ 3.,  2.])
+    array([3., 2.])
 
     """
     a, mask = _replace_nan(a, 1)
@@ -715,8 +751,8 @@ def nancumsum(a, axis=None, dtype=None, out=None):
     out : ndarray, optional
         Alternative output array in which to place the result. It must
         have the same shape and buffer length as the expected output
-        but the type will be cast if necessary. See `doc.ufuncs`
-        (Section "Output arguments") for more details.
+        but the type will be cast if necessary. See `ufuncs-output-type` for
+        more details.
 
     Returns
     -------
@@ -738,16 +774,16 @@ def nancumsum(a, axis=None, dtype=None, out=None):
     >>> np.nancumsum([1])
     array([1])
     >>> np.nancumsum([1, np.nan])
-    array([ 1.,  1.])
+    array([1.,  1.])
     >>> a = np.array([[1, 2], [3, np.nan]])
     >>> np.nancumsum(a)
-    array([ 1.,  3.,  6.,  6.])
+    array([1.,  3.,  6.,  6.])
     >>> np.nancumsum(a, axis=0)
-    array([[ 1.,  2.],
-           [ 4.,  2.]])
+    array([[1.,  2.],
+           [4.,  2.]])
     >>> np.nancumsum(a, axis=1)
-    array([[ 1.,  3.],
-           [ 3.,  3.]])
+    array([[1.,  3.],
+           [3.,  3.]])
 
     """
     a, mask = _replace_nan(a, 0)
@@ -805,16 +841,16 @@ def nancumprod(a, axis=None, dtype=None, out=None):
     >>> np.nancumprod([1])
     array([1])
     >>> np.nancumprod([1, np.nan])
-    array([ 1.,  1.])
+    array([1.,  1.])
     >>> a = np.array([[1, 2], [3, np.nan]])
     >>> np.nancumprod(a)
-    array([ 1.,  2.,  6.,  6.])
+    array([1.,  2.,  6.,  6.])
     >>> np.nancumprod(a, axis=0)
-    array([[ 1.,  2.],
-           [ 3.,  2.]])
+    array([[1.,  2.],
+           [3.,  2.]])
     >>> np.nancumprod(a, axis=1)
-    array([[ 1.,  2.],
-           [ 3.,  3.]])
+    array([[1.,  2.],
+           [3.,  3.]])
 
     """
     a, mask = _replace_nan(a, 1)
@@ -853,8 +889,8 @@ def nanmean(a, axis=None, dtype=None, out=None, keepdims=np._NoValue):
     out : ndarray, optional
         Alternate output array in which to place the result.  The default
         is ``None``; if provided, it must have the same shape as the
-        expected output, but the type will be cast if necessary.  See
-        `doc.ufuncs` for details.
+        expected output, but the type will be cast if necessary. See
+        `ufuncs-output-type` for more details.
     keepdims : bool, optional
         If this is set to True, the axes which are reduced are left
         in the result as dimensions with size one. With this option,
@@ -895,9 +931,9 @@ def nanmean(a, axis=None, dtype=None, out=None, keepdims=np._NoValue):
     >>> np.nanmean(a)
     2.6666666666666665
     >>> np.nanmean(a, axis=0)
-    array([ 2.,  4.])
+    array([2.,  4.])
     >>> np.nanmean(a, axis=1)
-    array([ 1.,  3.5])
+    array([1.,  3.5]) # may vary
 
     """
     arr, mask = _replace_nan(a, 0)
@@ -917,7 +953,7 @@ def nanmean(a, axis=None, dtype=None, out=None, keepdims=np._NoValue):
 
     isbad = (cnt == 0)
     if isbad.any():
-        warnings.warn("Mean of empty slice", RuntimeWarning, stacklevel=2)
+        warnings.warn("Mean of empty slice", RuntimeWarning, stacklevel=3)
         # NaN is the only possible bad value, so no further
         # action is needed to handle bad results.
     return avg
@@ -929,7 +965,7 @@ def _nanmedian1d(arr1d, overwrite_input=False):
     See nanmedian for parameter usage
     """
     arr1d, overwrite_input = _remove_nan_1d(arr1d,
-        overwrite_input=overwrite_input)
+                                            overwrite_input=overwrite_input)
     if arr1d.size == 0:
         return np.nan
 
@@ -972,7 +1008,8 @@ def _nanmedian_small(a, axis=None, out=None, overwrite_input=False):
     a = np.ma.masked_array(a, np.isnan(a))
     m = np.ma.median(a, axis=axis, overwrite_input=overwrite_input)
     for i in range(np.count_nonzero(m.mask.ravel())):
-        warnings.warn("All-NaN slice encountered", RuntimeWarning, stacklevel=3)
+        warnings.warn("All-NaN slice encountered", RuntimeWarning,
+                      stacklevel=4)
     if out is not None:
         out[...] = m.filled(np.nan)
         return out
@@ -1049,19 +1086,19 @@ def nanmedian(a, axis=None, out=None, overwrite_input=False, keepdims=np._NoValu
     >>> a = np.array([[10.0, 7, 4], [3, 2, 1]])
     >>> a[0, 1] = np.nan
     >>> a
-    array([[ 10.,  nan,   4.],
-       [  3.,   2.,   1.]])
+    array([[10., nan,  4.],
+           [ 3.,  2.,  1.]])
     >>> np.median(a)
     nan
     >>> np.nanmedian(a)
     3.0
     >>> np.nanmedian(a, axis=0)
-    array([ 6.5,  2.,  2.5])
+    array([6.5, 2. , 2.5])
     >>> np.median(a, axis=1)
-    array([ 7.,  2.])
+    array([nan,  2.])
     >>> b = a.copy()
     >>> np.nanmedian(b, axis=1, overwrite_input=True)
-    array([ 7.,  2.])
+    array([7.,  2.])
     >>> assert not np.all(a==b)
     >>> b = a.copy()
     >>> np.nanmedian(b, axis=None, overwrite_input=True)
@@ -1177,27 +1214,27 @@ def nanpercentile(a, q, axis=None, out=None, overwrite_input=False,
     >>> a = np.array([[10., 7., 4.], [3., 2., 1.]])
     >>> a[0][1] = np.nan
     >>> a
-    array([[ 10.,  nan,   4.],
-          [  3.,   2.,   1.]])
+    array([[10.,  nan,   4.],
+          [ 3.,   2.,   1.]])
     >>> np.percentile(a, 50)
     nan
     >>> np.nanpercentile(a, 50)
-    3.5
+    3.0
     >>> np.nanpercentile(a, 50, axis=0)
-    array([ 6.5,  2.,   2.5])
+    array([6.5, 2. , 2.5])
     >>> np.nanpercentile(a, 50, axis=1, keepdims=True)
-    array([[ 7.],
-           [ 2.]])
+    array([[7.],
+           [2.]])
     >>> m = np.nanpercentile(a, 50, axis=0)
     >>> out = np.zeros_like(m)
     >>> np.nanpercentile(a, 50, axis=0, out=out)
-    array([ 6.5,  2.,   2.5])
+    array([6.5, 2. , 2.5])
     >>> m
-    array([ 6.5,  2. ,  2.5])
+    array([6.5,  2. ,  2.5])
 
     >>> b = a.copy()
     >>> np.nanpercentile(b, 50, axis=1, overwrite_input=True)
-    array([  7.,  2.])
+    array([7., 2.])
     >>> assert not np.all(a==b)
 
     """
@@ -1221,6 +1258,7 @@ def nanquantile(a, q, axis=None, out=None, overwrite_input=False,
     Compute the qth quantile of the data along the specified axis,
     while ignoring nan values.
     Returns the qth quantile(s) of the array elements.
+    
     .. versionadded:: 1.15.0
 
     Parameters
@@ -1291,26 +1329,26 @@ def nanquantile(a, q, axis=None, out=None, overwrite_input=False,
     >>> a = np.array([[10., 7., 4.], [3., 2., 1.]])
     >>> a[0][1] = np.nan
     >>> a
-    array([[ 10.,  nan,   4.],
-          [  3.,   2.,   1.]])
+    array([[10.,  nan,   4.],
+          [ 3.,   2.,   1.]])
     >>> np.quantile(a, 0.5)
     nan
     >>> np.nanquantile(a, 0.5)
-    3.5
+    3.0
     >>> np.nanquantile(a, 0.5, axis=0)
-    array([ 6.5,  2.,   2.5])
+    array([6.5, 2. , 2.5])
     >>> np.nanquantile(a, 0.5, axis=1, keepdims=True)
-    array([[ 7.],
-           [ 2.]])
+    array([[7.],
+           [2.]])
     >>> m = np.nanquantile(a, 0.5, axis=0)
     >>> out = np.zeros_like(m)
     >>> np.nanquantile(a, 0.5, axis=0, out=out)
-    array([ 6.5,  2.,   2.5])
+    array([6.5, 2. , 2.5])
     >>> m
-    array([ 6.5,  2. ,  2.5])
+    array([6.5,  2. ,  2.5])
     >>> b = a.copy()
     >>> np.nanquantile(b, 0.5, axis=1, overwrite_input=True)
-    array([  7.,  2.])
+    array([7., 2.])
     >>> assert not np.all(a==b)
     """
     a = np.asanyarray(a)
@@ -1406,7 +1444,7 @@ def nanvar(a, axis=None, dtype=None, out=None, ddof=0, keepdims=np._NoValue):
         the variance of the flattened array.
     dtype : data-type, optional
         Type to use in computing the variance.  For arrays of integer type
-        the default is `float32`; for arrays of float types it is the same as
+        the default is `float64`; for arrays of float types it is the same as
         the array type.
     out : ndarray, optional
         Alternate output array in which to place the result.  It must have
@@ -1436,7 +1474,7 @@ def nanvar(a, axis=None, dtype=None, out=None, ddof=0, keepdims=np._NoValue):
     mean : Average
     var : Variance while not ignoring NaNs
     nanstd, nanmean
-    numpy.doc.ufuncs : Section "Output arguments"
+    ufuncs-output-type
 
     Notes
     -----
@@ -1465,12 +1503,12 @@ def nanvar(a, axis=None, dtype=None, out=None, ddof=0, keepdims=np._NoValue):
     Examples
     --------
     >>> a = np.array([[1, np.nan], [3, 4]])
-    >>> np.var(a)
+    >>> np.nanvar(a)
     1.5555555555555554
     >>> np.nanvar(a, axis=0)
-    array([ 1.,  0.])
+    array([1.,  0.])
     >>> np.nanvar(a, axis=1)
-    array([ 0.,  0.25])
+    array([0.,  0.25])  # may vary
 
     """
     arr, mask = _replace_nan(a, 0)
@@ -1517,7 +1555,8 @@ def nanvar(a, axis=None, dtype=None, out=None, ddof=0, keepdims=np._NoValue):
 
     isbad = (dof <= 0)
     if np.any(isbad):
-        warnings.warn("Degrees of freedom <= 0 for slice.", RuntimeWarning, stacklevel=2)
+        warnings.warn("Degrees of freedom <= 0 for slice.", RuntimeWarning,
+                      stacklevel=3)
         # NaN, inf, or negative numbers are all possible bad
         # values, so explicitly replace them with NaN.
         var = _copyto(var, np.nan, isbad)
@@ -1587,7 +1626,7 @@ def nanstd(a, axis=None, dtype=None, out=None, ddof=0, keepdims=np._NoValue):
     --------
     var, mean, std
     nanvar, nanmean
-    numpy.doc.ufuncs : Section "Output arguments"
+    ufuncs-output-type
 
     Notes
     -----
@@ -1619,9 +1658,9 @@ def nanstd(a, axis=None, dtype=None, out=None, ddof=0, keepdims=np._NoValue):
     >>> np.nanstd(a)
     1.247219128924647
     >>> np.nanstd(a, axis=0)
-    array([ 1.,  0.])
+    array([1., 0.])
     >>> np.nanstd(a, axis=1)
-    array([ 0.,  0.5])
+    array([0.,  0.5]) # may vary
 
     """
     var = nanvar(a, axis=axis, dtype=dtype, out=out, ddof=ddof,

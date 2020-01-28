@@ -42,7 +42,7 @@ We can think of the scalar ``b`` being *stretched* during the arithmetic
 operation into an array with the same shape as ``a``. The new elements in
 ``b`` are simply copies of the original scalar. The stretching analogy is
 only conceptual.  NumPy is smart enough to use the original scalar value
-without actually making copies, so that broadcasting operations are as
+without actually making copies so that broadcasting operations are as
 memory and computationally efficient as possible.
 
 The code in the second example is more efficient than that in the first
@@ -52,7 +52,7 @@ because broadcasting moves less memory around during the multiplication
 General Broadcasting Rules
 ==========================
 When operating on two arrays, NumPy compares their shapes element-wise.
-It starts with the trailing dimensions, and works its way forward.  Two
+It starts with the trailing dimensions and works its way forward.  Two
 dimensions are compatible when
 
 1) they are equal, or
@@ -61,8 +61,7 @@ dimensions are compatible when
 If these conditions are not met, a
 ``ValueError: operands could not be broadcast together`` exception is 
 thrown, indicating that the arrays have incompatible shapes. The size of 
-the resulting array is the maximum size along each dimension of the input 
-arrays.
+the resulting array is the size that is not 1 along each axis of the inputs.
 
 Arrays do not need to have the same *number* of dimensions.  For example,
 if you have a ``256x256x3`` array of RGB values, and you want to scale

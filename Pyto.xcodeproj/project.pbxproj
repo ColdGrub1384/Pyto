@@ -211,101 +211,6 @@
 		C95EE4F82207029E006611CB /* pngwrite.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BAF2202590F0085E1AA /* pngwrite.c */; };
 		C95EE4F9220702A0006611CB /* pngwtran.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BB02202590F0085E1AA /* pngwtran.c */; };
 		C95EE4FA220702A2006611CB /* pngwutil.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5B9F2202590D0085E1AA /* pngwutil.c */; };
-		C95EE64723273D720084EA0C /* initarray.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5B423273D5E0084EA0C /* initarray.o */; };
-		C95EE64823273D720084EA0C /* array_assign_array.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5B523273D5F0084EA0C /* array_assign_array.o */; };
-		C95EE64A23273D720084EA0C /* iterators.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5B723273D5F0084EA0C /* iterators.o */; };
-		C95EE64B23273D720084EA0C /* matmul.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5B823273D5F0084EA0C /* matmul.o */; };
-		C95EE64D23273D720084EA0C /* ucsnarrow.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5BA23273D5F0084EA0C /* ucsnarrow.o */; };
-		C95EE64E23273D720084EA0C /* datetime_busdaycal.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5BB23273D5F0084EA0C /* datetime_busdaycal.o */; };
-		C95EE65023273D720084EA0C /* fftpack_litemodule.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5BD23273D5F0084EA0C /* fftpack_litemodule.o */; };
-		C95EE65223273D720084EA0C /* nditer_api.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5BF23273D600084EA0C /* nditer_api.o */; };
-		C95EE65323273D720084EA0C /* arrayobject.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5C023273D600084EA0C /* arrayobject.o */; };
-		C95EE65423273D720084EA0C /* ufunc_type_resolution.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5C123273D600084EA0C /* ufunc_type_resolution.o */; };
-		C95EE65523273D720084EA0C /* umath_linalg.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5C223273D600084EA0C /* umath_linalg.o */; };
-		C95EE65723273D720084EA0C /* reduction.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5C423273D600084EA0C /* reduction.o */; };
-		C95EE65923273D720084EA0C /* _struct_ufunc_tests.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5C623273D610084EA0C /* _struct_ufunc_tests.o */; };
-		C95EE65A23273D720084EA0C /* scalarmath.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5C723273D610084EA0C /* scalarmath.o */; };
-		C95EE65B23273D720084EA0C /* cpuid.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5C823273D610084EA0C /* cpuid.o */; };
-		C95EE65C23273D720084EA0C /* mergesort.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5C923273D610084EA0C /* mergesort.o */; };
-		C95EE65D23273D720084EA0C /* temp_elide.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5CA23273D610084EA0C /* temp_elide.o */; };
-		C95EE65E23273D720084EA0C /* nditer_templ.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5CB23273D610084EA0C /* nditer_templ.o */; };
-		C95EE66223273D720084EA0C /* dtype_transfer.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5CF23273D620084EA0C /* dtype_transfer.o */; };
-		C95EE66323273D720084EA0C /* item_selection.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5D023273D620084EA0C /* item_selection.o */; };
-		C95EE66523273D720084EA0C /* randomkit.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5D223273D620084EA0C /* randomkit.o */; };
-		C95EE66623273D720084EA0C /* scalarapi.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5D323273D620084EA0C /* scalarapi.o */; };
-		C95EE66723273D720084EA0C /* ieee754.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5D423273D620084EA0C /* ieee754.o */; };
-		C95EE66823273D720084EA0C /* descriptor.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5D523273D620084EA0C /* descriptor.o */; };
-		C95EE66923273D720084EA0C /* heapsort.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5D623273D630084EA0C /* heapsort.o */; };
-		C95EE66A23273D720084EA0C /* usertypes.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5D723273D630084EA0C /* usertypes.o */; };
-		C95EE66B23273D720084EA0C /* npy_longdouble.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5D823273D630084EA0C /* npy_longdouble.o */; };
-		C95EE66D23273D720084EA0C /* shape.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5DA23273D630084EA0C /* shape.o */; };
-		C95EE66F23273D720084EA0C /* _umath_tests.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5DC23273D640084EA0C /* _umath_tests.o */; };
-		C95EE67123273D720084EA0C /* dummymodule.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5DE23273D640084EA0C /* dummymodule.o */; };
-		C95EE67523273D720084EA0C /* override.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5E223273D640084EA0C /* override.o */; };
-		C95EE67723273D720084EA0C /* number.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5E423273D650084EA0C /* number.o */; };
-		C95EE67823273D720084EA0C /* f2c_config.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5E523273D650084EA0C /* f2c_config.o */; };
-		C95EE67923273D720084EA0C /* f2c_d_lapack.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5E623273D650084EA0C /* f2c_d_lapack.o */; };
-		C95EE67A23273D720084EA0C /* nditer_pywrap.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5E723273D650084EA0C /* nditer_pywrap.o */; };
-		C95EE67B23273D720084EA0C /* methods.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5E823273D650084EA0C /* methods.o */; };
-		C95EE67D23273D720084EA0C /* binsearch.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5EA23273D660084EA0C /* binsearch.o */; };
-		C95EE67E23273D720084EA0C /* ufunc_object.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5EB23273D660084EA0C /* ufunc_object.o */; };
-		C95EE67F23273D720084EA0C /* npy_math.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5EC23273D660084EA0C /* npy_math.o */; };
-		C95EE68223273D720084EA0C /* ctors.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5EF23273D660084EA0C /* ctors.o */; };
-		C95EE68323273D720084EA0C /* f2c_lapack.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5F023273D660084EA0C /* f2c_lapack.o */; };
-		C95EE68523273D720084EA0C /* hashdescr.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5F223273D670084EA0C /* hashdescr.o */; };
-		C95EE68723273D720084EA0C /* einsum.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5F423273D670084EA0C /* einsum.o */; };
-		C95EE68823273D720084EA0C /* _multiarray_tests.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5F523273D670084EA0C /* _multiarray_tests.o */; };
-		C95EE68A23273D720084EA0C /* loops.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5F723273D670084EA0C /* loops.o */; };
-		C95EE68B23273D720084EA0C /* umathmodule.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5F823273D680084EA0C /* umathmodule.o */; };
-		C95EE68C23273D720084EA0C /* getset.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5F923273D680084EA0C /* getset.o */; };
-		C95EE68D23273D720084EA0C /* lapack_litemodule.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5FA23273D680084EA0C /* lapack_litemodule.o */; };
-		C95EE69123273D720084EA0C /* numpyos.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5FE23273D680084EA0C /* numpyos.o */; };
-		C95EE69223273D720084EA0C /* typeinfo.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE5FF23273D680084EA0C /* typeinfo.o */; };
-		C95EE69323273D720084EA0C /* mem_overlap.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE60023273D690084EA0C /* mem_overlap.o */; };
-		C95EE69423273D720084EA0C /* _rational_tests.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE60123273D690084EA0C /* _rational_tests.o */; };
-		C95EE69723273D720084EA0C /* datetime_strings.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE60423273D690084EA0C /* datetime_strings.o */; };
-		C95EE69823273D720084EA0C /* arrayfunction_override.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE60523273D690084EA0C /* arrayfunction_override.o */; };
-		C95EE69923273D720084EA0C /* sequence.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE60623273D690084EA0C /* sequence.o */; };
-		C95EE69A23273D720084EA0C /* scalartypes.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE60723273D6A0084EA0C /* scalartypes.o */; };
-		C95EE69B23273D720084EA0C /* halffloat.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE60823273D6A0084EA0C /* halffloat.o */; };
-		C95EE69C23273D720084EA0C /* common.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE60923273D6A0084EA0C /* common.o */; };
-		C95EE69D23273D720084EA0C /* calculation.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE60A23273D6A0084EA0C /* calculation.o */; };
-		C95EE69F23273D720084EA0C /* _multiarray_module_test.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE60C23273D6A0084EA0C /* _multiarray_module_test.o */; };
-		C95EE6A223273D720084EA0C /* multiarraymodule.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE60F23273D6B0084EA0C /* multiarraymodule.o */; };
-		C95EE6A423273D720084EA0C /* strfuncs.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE61123273D6B0084EA0C /* strfuncs.o */; };
-		C95EE6A523273D720084EA0C /* datetime_busday.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE61223273D6B0084EA0C /* datetime_busday.o */; };
-		C95EE6A723273D720084EA0C /* array_assign_scalar.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE61423273D6B0084EA0C /* array_assign_scalar.o */; };
-		C95EE6A823273D720084EA0C /* arraytypes.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE61523273D6B0084EA0C /* arraytypes.o */; };
-		C95EE6A923273D720084EA0C /* mtrand.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE61623273D6C0084EA0C /* mtrand.o */; };
-		C95EE6AC23273D720084EA0C /* f2c_s_lapack.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE61923273D6C0084EA0C /* f2c_s_lapack.o */; };
-		C95EE6AE23273D720084EA0C /* dragon4.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE61B23273D6C0084EA0C /* dragon4.o */; };
-		C95EE6B023273D720084EA0C /* distributions.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE61D23273D6C0084EA0C /* distributions.o */; };
-		C95EE6B123273D720084EA0C /* fftpack.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE61E23273D6D0084EA0C /* fftpack.o */; };
-		C95EE6B223273D720084EA0C /* f2c_z_lapack.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE61F23273D6D0084EA0C /* f2c_z_lapack.o */; };
-		C95EE6B323273D720084EA0C /* f2c_c_lapack.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE62023273D6D0084EA0C /* f2c_c_lapack.o */; };
-		C95EE6B423273D720084EA0C /* alloc.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE62123273D6D0084EA0C /* alloc.o */; };
-		C95EE6B623273D720084EA0C /* npy_math_complex.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE62323273D6D0084EA0C /* npy_math_complex.o */; };
-		C95EE6B923273D720084EA0C /* convert_datatype.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE62623273D6E0084EA0C /* convert_datatype.o */; };
-		C95EE6BD23273D720084EA0C /* _operand_flag_tests.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE62A23273D6E0084EA0C /* _operand_flag_tests.o */; };
-		C95EE6BE23273D720084EA0C /* flagsobject.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE62B23273D6E0084EA0C /* flagsobject.o */; };
-		C95EE6C223273D720084EA0C /* ufunc_override.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE62F23273D6F0084EA0C /* ufunc_override.o */; };
-		C95EE6C323273D720084EA0C /* nditer_constr.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE63023273D6F0084EA0C /* nditer_constr.o */; };
-		C95EE6C423273D720084EA0C /* cblasfuncs.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE63123273D6F0084EA0C /* cblasfuncs.o */; };
-		C95EE6C523273D720084EA0C /* lowlevel_strided_loops.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE63223273D6F0084EA0C /* lowlevel_strided_loops.o */; };
-		C95EE6C723273D720084EA0C /* array_assign.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE63423273D6F0084EA0C /* array_assign.o */; };
-		C95EE6C823273D720084EA0C /* refcount.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE63523273D700084EA0C /* refcount.o */; };
-		C95EE6CB23273D720084EA0C /* buffer.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE63823273D700084EA0C /* buffer.o */; };
-		C95EE6CC23273D720084EA0C /* convert.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE63923273D700084EA0C /* convert.o */; };
-		C95EE6CE23273D720084EA0C /* datetime.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE63B23273D700084EA0C /* datetime.o */; };
-		C95EE6CF23273D720084EA0C /* mapping.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE63C23273D710084EA0C /* mapping.o */; };
-		C95EE6D023273D720084EA0C /* quicksort.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE63D23273D710084EA0C /* quicksort.o */; };
-		C95EE6D223273D720084EA0C /* extobj.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE63F23273D710084EA0C /* extobj.o */; };
-		C95EE6D323273D720084EA0C /* compiled_base.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE64023273D710084EA0C /* compiled_base.o */; };
-		C95EE6D423273D720084EA0C /* python_xerbla.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE64123273D710084EA0C /* python_xerbla.o */; };
-		C95EE6D523273D720084EA0C /* f2c.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE64223273D710084EA0C /* f2c.o */; };
-		C95EE6D723273D720084EA0C /* selection.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE64423273D720084EA0C /* selection.o */; };
-		C95EE6D823273D720084EA0C /* conversion_utils.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE64523273D720084EA0C /* conversion_utils.o */; };
-		C95EE6D923273D720084EA0C /* vdot.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE64623273D720084EA0C /* vdot.o */; };
 		C95EE93E23273DC20084EA0C /* openblas.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE7DA23273D9B0084EA0C /* openblas.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9624EF421A9905400DDA9A7 /* PyThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9624EF321A9905400DDA9A7 /* PyThread.swift */; };
 		C969D29E23D14D2900460F05 /* PyMusicHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C969D29D23D14D2900460F05 /* PyMusicHelper.swift */; };
@@ -557,6 +462,24 @@
 		C9E9DF8523E08188004CF05A /* _tri.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9DF7D23E08172004CF05A /* _tri.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9E9DF8623E08188004CF05A /* ft2font.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9DF7B23E08172004CF05A /* ft2font.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9E9DF8723E08188004CF05A /* ttconv.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9DF7E23E08172004CF05A /* ttconv.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9E2EB23E0ADC4004CF05A /* _bit_generator.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2E023E0ADB4004CF05A /* _bit_generator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9E2EC23E0ADC4004CF05A /* _bounded_integers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2E323E0ADB5004CF05A /* _bounded_integers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9E2ED23E0ADC4004CF05A /* _common.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2E823E0ADB5004CF05A /* _common.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9E2EE23E0ADC4004CF05A /* _generator.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2DD23E0ADB4004CF05A /* _generator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9E2EF23E0ADC4004CF05A /* _mt19937.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2E523E0ADB5004CF05A /* _mt19937.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9E2F023E0ADC4004CF05A /* _multiarray_tests.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2D923E0ADB3004CF05A /* _multiarray_tests.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9E2F123E0ADC4004CF05A /* _multiarray_umath.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2DC23E0ADB4004CF05A /* _multiarray_umath.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9E2F223E0ADC4004CF05A /* _operand_flag_tests.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2E623E0ADB5004CF05A /* _operand_flag_tests.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9E2F323E0ADC4004CF05A /* _pcg64.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2E223E0ADB5004CF05A /* _pcg64.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9E2F423E0ADC4004CF05A /* _philox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2E123E0ADB4004CF05A /* _philox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9E2F523E0ADC4004CF05A /* _pocketfft_internal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2DA23E0ADB4004CF05A /* _pocketfft_internal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9E2F623E0ADC4004CF05A /* _rational_tests.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2E723E0ADB5004CF05A /* _rational_tests.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9E2F723E0ADC4004CF05A /* _sfc64.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2DE23E0ADB4004CF05A /* _sfc64.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9E2F823E0ADC4004CF05A /* _struct_ufunc_tests.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2E923E0ADB5004CF05A /* _struct_ufunc_tests.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9E2F923E0ADC4004CF05A /* _umath_linalg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2E423E0ADB5004CF05A /* _umath_linalg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9E2FA23E0ADC4004CF05A /* _umath_tests.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2EA23E0ADB6004CF05A /* _umath_tests.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9E2FB23E0ADC4004CF05A /* lapack_lite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2DF23E0ADB4004CF05A /* lapack_lite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9E9E2FC23E0ADC4004CF05A /* mtrand.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2DB23E0ADB4004CF05A /* mtrand.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9EA55B3219F752D007546BC /* RelativePathForScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EA55B2219F752D007546BC /* RelativePathForScript.swift */; };
 		C9EA5C7D21F23558000F7FA7 /* Welcome to Pyto.md in Resources */ = {isa = PBXBuildFile; fileRef = C9EA5C7C21F23024000F7FA7 /* Welcome to Pyto.md */; };
 		C9EDF9AB21446FCA00382DCC /* ConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EDF9AA21446FCA00382DCC /* ConsoleViewController.swift */; };
@@ -1776,6 +1699,24 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C9E9E2EB23E0ADC4004CF05A /* _bit_generator.framework in Embed Frameworks */,
+				C9E9E2EC23E0ADC4004CF05A /* _bounded_integers.framework in Embed Frameworks */,
+				C9E9E2ED23E0ADC4004CF05A /* _common.framework in Embed Frameworks */,
+				C9E9E2EE23E0ADC4004CF05A /* _generator.framework in Embed Frameworks */,
+				C9E9E2EF23E0ADC4004CF05A /* _mt19937.framework in Embed Frameworks */,
+				C9E9E2F023E0ADC4004CF05A /* _multiarray_tests.framework in Embed Frameworks */,
+				C9E9E2F123E0ADC4004CF05A /* _multiarray_umath.framework in Embed Frameworks */,
+				C9E9E2F223E0ADC4004CF05A /* _operand_flag_tests.framework in Embed Frameworks */,
+				C9E9E2F323E0ADC4004CF05A /* _pcg64.framework in Embed Frameworks */,
+				C9E9E2F423E0ADC4004CF05A /* _philox.framework in Embed Frameworks */,
+				C9E9E2F523E0ADC4004CF05A /* _pocketfft_internal.framework in Embed Frameworks */,
+				C9E9E2F623E0ADC4004CF05A /* _rational_tests.framework in Embed Frameworks */,
+				C9E9E2F723E0ADC4004CF05A /* _sfc64.framework in Embed Frameworks */,
+				C9E9E2F823E0ADC4004CF05A /* _struct_ufunc_tests.framework in Embed Frameworks */,
+				C9E9E2F923E0ADC4004CF05A /* _umath_linalg.framework in Embed Frameworks */,
+				C9E9E2FA23E0ADC4004CF05A /* _umath_tests.framework in Embed Frameworks */,
+				C9E9E2FB23E0ADC4004CF05A /* lapack_lite.framework in Embed Frameworks */,
+				C9E9E2FC23E0ADC4004CF05A /* mtrand.framework in Embed Frameworks */,
 				C9E9DF7F23E08188004CF05A /* _backend_agg.framework in Embed Frameworks */,
 				C9E9DF8023E08188004CF05A /* _contour.framework in Embed Frameworks */,
 				C9E9DF8123E08188004CF05A /* _image.framework in Embed Frameworks */,
@@ -2225,101 +2166,6 @@
 		C95AECB72208A688003BCB05 /* cacert.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cacert.pem; sourceTree = "<group>"; };
 		C95EE4DF22070224006611CB /* libpng.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = libpng.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C95EE4EB2207025B006611CB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C95EE5B423273D5E0084EA0C /* initarray.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = initarray.o; sourceTree = "<group>"; };
-		C95EE5B523273D5F0084EA0C /* array_assign_array.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = array_assign_array.o; sourceTree = "<group>"; };
-		C95EE5B723273D5F0084EA0C /* iterators.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = iterators.o; sourceTree = "<group>"; };
-		C95EE5B823273D5F0084EA0C /* matmul.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = matmul.o; sourceTree = "<group>"; };
-		C95EE5BA23273D5F0084EA0C /* ucsnarrow.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ucsnarrow.o; sourceTree = "<group>"; };
-		C95EE5BB23273D5F0084EA0C /* datetime_busdaycal.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = datetime_busdaycal.o; sourceTree = "<group>"; };
-		C95EE5BD23273D5F0084EA0C /* fftpack_litemodule.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = fftpack_litemodule.o; sourceTree = "<group>"; };
-		C95EE5BF23273D600084EA0C /* nditer_api.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = nditer_api.o; sourceTree = "<group>"; };
-		C95EE5C023273D600084EA0C /* arrayobject.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = arrayobject.o; sourceTree = "<group>"; };
-		C95EE5C123273D600084EA0C /* ufunc_type_resolution.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ufunc_type_resolution.o; sourceTree = "<group>"; };
-		C95EE5C223273D600084EA0C /* umath_linalg.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = umath_linalg.o; sourceTree = "<group>"; };
-		C95EE5C423273D600084EA0C /* reduction.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = reduction.o; sourceTree = "<group>"; };
-		C95EE5C623273D610084EA0C /* _struct_ufunc_tests.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = _struct_ufunc_tests.o; sourceTree = "<group>"; };
-		C95EE5C723273D610084EA0C /* scalarmath.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = scalarmath.o; sourceTree = "<group>"; };
-		C95EE5C823273D610084EA0C /* cpuid.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = cpuid.o; sourceTree = "<group>"; };
-		C95EE5C923273D610084EA0C /* mergesort.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = mergesort.o; sourceTree = "<group>"; };
-		C95EE5CA23273D610084EA0C /* temp_elide.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = temp_elide.o; sourceTree = "<group>"; };
-		C95EE5CB23273D610084EA0C /* nditer_templ.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = nditer_templ.o; sourceTree = "<group>"; };
-		C95EE5CF23273D620084EA0C /* dtype_transfer.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = dtype_transfer.o; sourceTree = "<group>"; };
-		C95EE5D023273D620084EA0C /* item_selection.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = item_selection.o; sourceTree = "<group>"; };
-		C95EE5D223273D620084EA0C /* randomkit.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = randomkit.o; sourceTree = "<group>"; };
-		C95EE5D323273D620084EA0C /* scalarapi.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = scalarapi.o; sourceTree = "<group>"; };
-		C95EE5D423273D620084EA0C /* ieee754.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ieee754.o; sourceTree = "<group>"; };
-		C95EE5D523273D620084EA0C /* descriptor.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = descriptor.o; sourceTree = "<group>"; };
-		C95EE5D623273D630084EA0C /* heapsort.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = heapsort.o; sourceTree = "<group>"; };
-		C95EE5D723273D630084EA0C /* usertypes.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = usertypes.o; sourceTree = "<group>"; };
-		C95EE5D823273D630084EA0C /* npy_longdouble.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = npy_longdouble.o; sourceTree = "<group>"; };
-		C95EE5DA23273D630084EA0C /* shape.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = shape.o; sourceTree = "<group>"; };
-		C95EE5DC23273D640084EA0C /* _umath_tests.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = _umath_tests.o; sourceTree = "<group>"; };
-		C95EE5DE23273D640084EA0C /* dummymodule.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = dummymodule.o; sourceTree = "<group>"; };
-		C95EE5E223273D640084EA0C /* override.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = override.o; sourceTree = "<group>"; };
-		C95EE5E423273D650084EA0C /* number.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = number.o; sourceTree = "<group>"; };
-		C95EE5E523273D650084EA0C /* f2c_config.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = f2c_config.o; sourceTree = "<group>"; };
-		C95EE5E623273D650084EA0C /* f2c_d_lapack.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = f2c_d_lapack.o; sourceTree = "<group>"; };
-		C95EE5E723273D650084EA0C /* nditer_pywrap.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = nditer_pywrap.o; sourceTree = "<group>"; };
-		C95EE5E823273D650084EA0C /* methods.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = methods.o; sourceTree = "<group>"; };
-		C95EE5EA23273D660084EA0C /* binsearch.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = binsearch.o; sourceTree = "<group>"; };
-		C95EE5EB23273D660084EA0C /* ufunc_object.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ufunc_object.o; sourceTree = "<group>"; };
-		C95EE5EC23273D660084EA0C /* npy_math.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = npy_math.o; sourceTree = "<group>"; };
-		C95EE5EF23273D660084EA0C /* ctors.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ctors.o; sourceTree = "<group>"; };
-		C95EE5F023273D660084EA0C /* f2c_lapack.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = f2c_lapack.o; sourceTree = "<group>"; };
-		C95EE5F223273D670084EA0C /* hashdescr.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = hashdescr.o; sourceTree = "<group>"; };
-		C95EE5F423273D670084EA0C /* einsum.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = einsum.o; sourceTree = "<group>"; };
-		C95EE5F523273D670084EA0C /* _multiarray_tests.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = _multiarray_tests.o; sourceTree = "<group>"; };
-		C95EE5F723273D670084EA0C /* loops.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = loops.o; sourceTree = "<group>"; };
-		C95EE5F823273D680084EA0C /* umathmodule.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = umathmodule.o; sourceTree = "<group>"; };
-		C95EE5F923273D680084EA0C /* getset.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = getset.o; sourceTree = "<group>"; };
-		C95EE5FA23273D680084EA0C /* lapack_litemodule.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = lapack_litemodule.o; sourceTree = "<group>"; };
-		C95EE5FE23273D680084EA0C /* numpyos.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = numpyos.o; sourceTree = "<group>"; };
-		C95EE5FF23273D680084EA0C /* typeinfo.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = typeinfo.o; sourceTree = "<group>"; };
-		C95EE60023273D690084EA0C /* mem_overlap.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = mem_overlap.o; sourceTree = "<group>"; };
-		C95EE60123273D690084EA0C /* _rational_tests.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = _rational_tests.o; sourceTree = "<group>"; };
-		C95EE60423273D690084EA0C /* datetime_strings.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = datetime_strings.o; sourceTree = "<group>"; };
-		C95EE60523273D690084EA0C /* arrayfunction_override.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = arrayfunction_override.o; sourceTree = "<group>"; };
-		C95EE60623273D690084EA0C /* sequence.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = sequence.o; sourceTree = "<group>"; };
-		C95EE60723273D6A0084EA0C /* scalartypes.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = scalartypes.o; sourceTree = "<group>"; };
-		C95EE60823273D6A0084EA0C /* halffloat.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = halffloat.o; sourceTree = "<group>"; };
-		C95EE60923273D6A0084EA0C /* common.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = common.o; sourceTree = "<group>"; };
-		C95EE60A23273D6A0084EA0C /* calculation.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = calculation.o; sourceTree = "<group>"; };
-		C95EE60C23273D6A0084EA0C /* _multiarray_module_test.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = _multiarray_module_test.o; sourceTree = "<group>"; };
-		C95EE60F23273D6B0084EA0C /* multiarraymodule.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = multiarraymodule.o; sourceTree = "<group>"; };
-		C95EE61123273D6B0084EA0C /* strfuncs.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = strfuncs.o; sourceTree = "<group>"; };
-		C95EE61223273D6B0084EA0C /* datetime_busday.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = datetime_busday.o; sourceTree = "<group>"; };
-		C95EE61423273D6B0084EA0C /* array_assign_scalar.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = array_assign_scalar.o; sourceTree = "<group>"; };
-		C95EE61523273D6B0084EA0C /* arraytypes.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = arraytypes.o; sourceTree = "<group>"; };
-		C95EE61623273D6C0084EA0C /* mtrand.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = mtrand.o; sourceTree = "<group>"; };
-		C95EE61923273D6C0084EA0C /* f2c_s_lapack.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = f2c_s_lapack.o; sourceTree = "<group>"; };
-		C95EE61B23273D6C0084EA0C /* dragon4.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = dragon4.o; sourceTree = "<group>"; };
-		C95EE61D23273D6C0084EA0C /* distributions.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = distributions.o; sourceTree = "<group>"; };
-		C95EE61E23273D6D0084EA0C /* fftpack.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = fftpack.o; sourceTree = "<group>"; };
-		C95EE61F23273D6D0084EA0C /* f2c_z_lapack.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = f2c_z_lapack.o; sourceTree = "<group>"; };
-		C95EE62023273D6D0084EA0C /* f2c_c_lapack.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = f2c_c_lapack.o; sourceTree = "<group>"; };
-		C95EE62123273D6D0084EA0C /* alloc.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = alloc.o; sourceTree = "<group>"; };
-		C95EE62323273D6D0084EA0C /* npy_math_complex.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = npy_math_complex.o; sourceTree = "<group>"; };
-		C95EE62623273D6E0084EA0C /* convert_datatype.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = convert_datatype.o; sourceTree = "<group>"; };
-		C95EE62A23273D6E0084EA0C /* _operand_flag_tests.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = _operand_flag_tests.o; sourceTree = "<group>"; };
-		C95EE62B23273D6E0084EA0C /* flagsobject.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = flagsobject.o; sourceTree = "<group>"; };
-		C95EE62F23273D6F0084EA0C /* ufunc_override.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ufunc_override.o; sourceTree = "<group>"; };
-		C95EE63023273D6F0084EA0C /* nditer_constr.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = nditer_constr.o; sourceTree = "<group>"; };
-		C95EE63123273D6F0084EA0C /* cblasfuncs.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = cblasfuncs.o; sourceTree = "<group>"; };
-		C95EE63223273D6F0084EA0C /* lowlevel_strided_loops.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = lowlevel_strided_loops.o; sourceTree = "<group>"; };
-		C95EE63423273D6F0084EA0C /* array_assign.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = array_assign.o; sourceTree = "<group>"; };
-		C95EE63523273D700084EA0C /* refcount.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = refcount.o; sourceTree = "<group>"; };
-		C95EE63823273D700084EA0C /* buffer.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = buffer.o; sourceTree = "<group>"; };
-		C95EE63923273D700084EA0C /* convert.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = convert.o; sourceTree = "<group>"; };
-		C95EE63B23273D700084EA0C /* datetime.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = datetime.o; sourceTree = "<group>"; };
-		C95EE63C23273D710084EA0C /* mapping.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = mapping.o; sourceTree = "<group>"; };
-		C95EE63D23273D710084EA0C /* quicksort.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = quicksort.o; sourceTree = "<group>"; };
-		C95EE63F23273D710084EA0C /* extobj.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = extobj.o; sourceTree = "<group>"; };
-		C95EE64023273D710084EA0C /* compiled_base.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = compiled_base.o; sourceTree = "<group>"; };
-		C95EE64123273D710084EA0C /* python_xerbla.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = python_xerbla.o; sourceTree = "<group>"; };
-		C95EE64223273D710084EA0C /* f2c.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = f2c.o; sourceTree = "<group>"; };
-		C95EE64423273D720084EA0C /* selection.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = selection.o; sourceTree = "<group>"; };
-		C95EE64523273D720084EA0C /* conversion_utils.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = conversion_utils.o; sourceTree = "<group>"; };
-		C95EE64623273D720084EA0C /* vdot.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = vdot.o; sourceTree = "<group>"; };
 		C95EE7DA23273D9B0084EA0C /* openblas.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = openblas.framework; sourceTree = "<group>"; };
 		C9624EF321A9905400DDA9A7 /* PyThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyThread.swift; sourceTree = "<group>"; };
 		C969D29D23D14D2900460F05 /* PyMusicHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyMusicHelper.swift; sourceTree = "<group>"; };
@@ -2543,6 +2389,24 @@
 		C9E9DF7C23E08172004CF05A /* _image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _image.framework; sourceTree = "<group>"; };
 		C9E9DF7D23E08172004CF05A /* _tri.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _tri.framework; sourceTree = "<group>"; };
 		C9E9DF7E23E08172004CF05A /* ttconv.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ttconv.framework; sourceTree = "<group>"; };
+		C9E9E2D923E0ADB3004CF05A /* _multiarray_tests.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _multiarray_tests.framework; sourceTree = "<group>"; };
+		C9E9E2DA23E0ADB4004CF05A /* _pocketfft_internal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _pocketfft_internal.framework; sourceTree = "<group>"; };
+		C9E9E2DB23E0ADB4004CF05A /* mtrand.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = mtrand.framework; sourceTree = "<group>"; };
+		C9E9E2DC23E0ADB4004CF05A /* _multiarray_umath.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _multiarray_umath.framework; sourceTree = "<group>"; };
+		C9E9E2DD23E0ADB4004CF05A /* _generator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _generator.framework; sourceTree = "<group>"; };
+		C9E9E2DE23E0ADB4004CF05A /* _sfc64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _sfc64.framework; sourceTree = "<group>"; };
+		C9E9E2DF23E0ADB4004CF05A /* lapack_lite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = lapack_lite.framework; sourceTree = "<group>"; };
+		C9E9E2E023E0ADB4004CF05A /* _bit_generator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _bit_generator.framework; sourceTree = "<group>"; };
+		C9E9E2E123E0ADB4004CF05A /* _philox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _philox.framework; sourceTree = "<group>"; };
+		C9E9E2E223E0ADB5004CF05A /* _pcg64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _pcg64.framework; sourceTree = "<group>"; };
+		C9E9E2E323E0ADB5004CF05A /* _bounded_integers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _bounded_integers.framework; sourceTree = "<group>"; };
+		C9E9E2E423E0ADB5004CF05A /* _umath_linalg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _umath_linalg.framework; sourceTree = "<group>"; };
+		C9E9E2E523E0ADB5004CF05A /* _mt19937.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _mt19937.framework; sourceTree = "<group>"; };
+		C9E9E2E623E0ADB5004CF05A /* _operand_flag_tests.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _operand_flag_tests.framework; sourceTree = "<group>"; };
+		C9E9E2E723E0ADB5004CF05A /* _rational_tests.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _rational_tests.framework; sourceTree = "<group>"; };
+		C9E9E2E823E0ADB5004CF05A /* _common.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _common.framework; sourceTree = "<group>"; };
+		C9E9E2E923E0ADB5004CF05A /* _struct_ufunc_tests.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _struct_ufunc_tests.framework; sourceTree = "<group>"; };
+		C9E9E2EA23E0ADB6004CF05A /* _umath_tests.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _umath_tests.framework; sourceTree = "<group>"; };
 		C9EA55B2219F752D007546BC /* RelativePathForScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativePathForScript.swift; sourceTree = "<group>"; };
 		C9EA5C7C21F23024000F7FA7 /* Welcome to Pyto.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Welcome to Pyto.md"; sourceTree = "<group>"; };
 		C9EDF9A4214461D300382DCC /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -3768,7 +3632,6 @@
 				C9F8F8112302569C004648F4 /* dfftf.o in Frameworks */,
 				C9F8FACE2302569D004648F4 /* cgsitrf.o in Frameworks */,
 				C9F8F97D2302569C004648F4 /* cbrt.o in Frameworks */,
-				C95EE65323273D720084EA0C /* arrayobject.o in Frameworks */,
 				C9F8FADC2302569D004648F4 /* dcosqf.o in Frameworks */,
 				C9F8F7B12302569C004648F4 /* spence.o in Frameworks */,
 				C9FB5C0F22025B040085E1AA /* ftbdf.o in Frameworks */,
@@ -3778,7 +3641,6 @@
 				C9F8FAE22302569D004648F4 /* sldperm.o in Frameworks */,
 				C9F8F8EC2302569C004648F4 /* xerror.o in Frameworks */,
 				C9F8F7792302569C004648F4 /* idz_frm_subr_1.o in Frameworks */,
-				C95EE68823273D720084EA0C /* _multiarray_tests.o in Frameworks */,
 				C9F8FB402302569D004648F4 /* idzp_aid_subr_2.o in Frameworks */,
 				C9F8F9FD2302569D004648F4 /* znaitr.o in Frameworks */,
 				C9F8FA752302569D004648F4 /* wrap_dummy_g77_abi.o in Frameworks */,
@@ -3851,9 +3713,7 @@
 				C9F8FB232302569D004648F4 /* idz_id2svd_subr_0.o in Frameworks */,
 				C9F8F8682302569C004648F4 /* ssortc.o in Frameworks */,
 				C9F8F9222302569C004648F4 /* zuchk.o in Frameworks */,
-				C95EE68D23273D720084EA0C /* lapack_litemodule.o in Frameworks */,
 				C9F8F9832302569C004648F4 /* spgrid.o in Frameworks */,
-				C95EE66823273D720084EA0C /* descriptor.o in Frameworks */,
 				C9F8F7B92302569C004648F4 /* hybrj1.o in Frameworks */,
 				C9F8F9992302569C004648F4 /* _minpackmodule.o in Frameworks */,
 				C9F8FAEC2302569D004648F4 /* cstatn.o in Frameworks */,
@@ -3864,7 +3724,6 @@
 				C9F8F8B92302569C004648F4 /* dqk15i.o in Frameworks */,
 				C9F8F9EA2302569C004648F4 /* dnaup2.o in Frameworks */,
 				C9F8F9282302569C004648F4 /* idd_frm_subr_6.o in Frameworks */,
-				C95EE6C223273D720084EA0C /* ufunc_override.o in Frameworks */,
 				C9F8F9DB2302569C004648F4 /* zs1s2.o in Frameworks */,
 				C9F8FB452302569D004648F4 /* strsv.o in Frameworks */,
 				C9F8F93A2302569C004648F4 /* sgstrs.o in Frameworks */,
@@ -3872,9 +3731,7 @@
 				C9F8F86B2302569C004648F4 /* _ppoly.o in Frameworks */,
 				C9F8F7EE2302569C004648F4 /* dcosti.o in Frameworks */,
 				C9F8FA702302569D004648F4 /* cosqb.o in Frameworks */,
-				C95EE6B223273D720084EA0C /* f2c_z_lapack.o in Frameworks */,
 				C9F8FAF82302569D004648F4 /* _ufuncs_cxx.o in Frameworks */,
-				C95EE6C323273D720084EA0C /* nditer_constr.o in Frameworks */,
 				C9F8F9512302569C004648F4 /* drfft.o in Frameworks */,
 				C9F8F7A22302569C004648F4 /* id_rtrans_subr_5.o in Frameworks */,
 				C9F8F8B32302569C004648F4 /* rffti1.o in Frameworks */,
@@ -3894,7 +3751,6 @@
 				C9F8FA0F2302569D004648F4 /* dcomplex.o in Frameworks */,
 				C9F8F8DD2302569C004648F4 /* idzp_asvd_subr_2.o in Frameworks */,
 				C9F8F7B32302569C004648F4 /* dzsum1.o in Frameworks */,
-				C95EE65D23273D720084EA0C /* temp_elide.o in Frameworks */,
 				C9F8F9422302569C004648F4 /* bfrac.o in Frameworks */,
 				C9F8FAFE2302569D004648F4 /* GMRESREVCOM.o in Frameworks */,
 				C9F8F98A2302569C004648F4 /* dldperm.o in Frameworks */,
@@ -3910,7 +3766,6 @@
 				C9F8F7E72302569C004648F4 /* dreadhb.o in Frameworks */,
 				C9F8F8142302569C004648F4 /* rfftf1.o in Frameworks */,
 				C9F8F7A52302569C004648F4 /* sgstrf.o in Frameworks */,
-				C95EE6D523273D720084EA0C /* f2c.o in Frameworks */,
 				C9F8FA182302569D004648F4 /* fpintb.o in Frameworks */,
 				C9F8F9902302569C004648F4 /* creadhb.o in Frameworks */,
 				C9F8FA912302569D004648F4 /* ilu_scolumn_dfs.o in Frameworks */,
@@ -3922,18 +3777,14 @@
 				C9F8660621ECD3360062D1C1 /* libz.tbd in Frameworks */,
 				C9F8F94D2302569C004648F4 /* zacai.o in Frameworks */,
 				C9F8F78E2302569C004648F4 /* csp_blas3.o in Frameworks */,
-				C95EE6B623273D720084EA0C /* npy_math_complex.o in Frameworks */,
 				C9F8FA0E2302569D004648F4 /* dgstrf.o in Frameworks */,
 				C9F8F8802302569C004648F4 /* prini.o in Frameworks */,
 				C9F8F8C52302569C004648F4 /* mio5_utils.o in Frameworks */,
-				C95EE6D323273D720084EA0C /* compiled_base.o in Frameworks */,
 				C937B9CD22EE431100269FC6 /* diff.o in Frameworks */,
 				C92D5E5C2309D14900C82225 /* cv2.o in Frameworks */,
-				C95EE69423273D720084EA0C /* _rational_tests.o in Frameworks */,
 				C9F8F7FB2302569C004648F4 /* CGSREVCOM.o in Frameworks */,
 				C9F8FA592302569D004648F4 /* ztpmv.o in Frameworks */,
 				C9F8F8FC2302569C004648F4 /* fppogr.o in Frameworks */,
-				C95EE65E23273D720084EA0C /* nditer_templ.o in Frameworks */,
 				C9F8FA4E2302569D004648F4 /* cpivotgrowth.o in Frameworks */,
 				C9F8FA792302569D004648F4 /* sinqb.o in Frameworks */,
 				C9F8FA9E2302569D004648F4 /* yv.o in Frameworks */,
@@ -3942,7 +3793,6 @@
 				C9F8FACA2302569D004648F4 /* zdiv.o in Frameworks */,
 				C9F8FAAB2302569D004648F4 /* dsaitr.o in Frameworks */,
 				C9F8F8AC2302569C004648F4 /* zbesy.o in Frameworks */,
-				C95EE67D23273D720084EA0C /* binsearch.o in Frameworks */,
 				C9F8F8F82302569C004648F4 /* cdfbet.o in Frameworks */,
 				C9F8F86D2302569C004648F4 /* idzp_rsvd_subr_1.o in Frameworks */,
 				C9F8F8A02302569C004648F4 /* idz_svd_subr_3.o in Frameworks */,
@@ -3964,7 +3814,6 @@
 				C9FB5BF122025B040085E1AA /* psnames.o in Frameworks */,
 				C9F8F8B62302569C004648F4 /* zasyi.o in Frameworks */,
 				C9F8F9522302569C004648F4 /* geom_r.o in Frameworks */,
-				C95EE68223273D720084EA0C /* ctors.o in Frameworks */,
 				C9F8F8F92302569C004648F4 /* ilu_zpivotL.o in Frameworks */,
 				C9F8F8D42302569C004648F4 /* cython_blas.o in Frameworks */,
 				C9FB5C0522025B040085E1AA /* ftgxval.o in Frameworks */,
@@ -3977,14 +3826,12 @@
 				C9F8FA962302569D004648F4 /* dtpmv.o in Frameworks */,
 				C94B288D233ECEDF00FC95CB /* _sodium.o in Frameworks */,
 				C9F8F93B2302569C004648F4 /* iddp_rsvd_subr_0.o in Frameworks */,
-				C95EE6B123273D720084EA0C /* fftpack.o in Frameworks */,
 				C9F8F8052302569C004648F4 /* ssaup2.o in Frameworks */,
 				C9FB5BFD22025B040085E1AA /* ftgasp.o in Frameworks */,
 				C9F8F8132302569C004648F4 /* profil.o in Frameworks */,
 				C9F8FB0A2302569D004648F4 /* zmout.o in Frameworks */,
 				C9F8FA312302569D004648F4 /* srcma.o in Frameworks */,
 				C9F8F9502302569C004648F4 /* zsymm.o in Frameworks */,
-				C95EE65A23273D720084EA0C /* scalarmath.o in Frameworks */,
 				C9F8F7812302569C004648F4 /* cdff.o in Frameworks */,
 				C9F8F9912302569C004648F4 /* algdiv.o in Frameworks */,
 				C9F8F9112302569C004648F4 /* fprpsp.o in Frameworks */,
@@ -4005,14 +3852,12 @@
 				C9F8F85B2302569C004648F4 /* dfftb.o in Frameworks */,
 				C9F8FABA2302569D004648F4 /* dpmpar.o in Frameworks */,
 				C9BF4E89236B3281001D1883 /* libf2c.a in Frameworks */,
-				C95EE69223273D720084EA0C /* typeinfo.o in Frameworks */,
 				C9FB5BEF22025B040085E1AA /* ftfstype.o in Frameworks */,
 				C9F8F84C2302569C004648F4 /* mvndst.o in Frameworks */,
 				C9F8F8702302569C004648F4 /* dqelg.o in Frameworks */,
 				C9FB5BF522025B040085E1AA /* psaux.o in Frameworks */,
 				C9F8FA452302569D004648F4 /* incbi.o in Frameworks */,
 				C9F8FA3F2302569D004648F4 /* userprintf_r.o in Frameworks */,
-				C95EE6D223273D720084EA0C /* extobj.o in Frameworks */,
 				C9F8FA5C2302569D004648F4 /* zpivotL.o in Frameworks */,
 				C9F8F9E02302569C004648F4 /* ellik.o in Frameworks */,
 				C9F8FA6B2302569D004648F4 /* ilu_heap_relax_snode.o in Frameworks */,
@@ -4031,12 +3876,10 @@
 				C9F8FA372302569D004648F4 /* dneigh.o in Frameworks */,
 				C9F8F7C22302569C004648F4 /* scolumn_dfs.o in Frameworks */,
 				C9F8F8FE2302569C004648F4 /* trlib_eigen_inverse.o in Frameworks */,
-				C95EE69923273D720084EA0C /* sequence.o in Frameworks */,
 				C9F8F8232302569C004648F4 /* dsaupd.o in Frameworks */,
 				C9F8FB492302569D004648F4 /* sp_ienv.o in Frameworks */,
 				C9F8F8F22302569C004648F4 /* ni_interpolation.o in Frameworks */,
 				C9F8FAE12302569D004648F4 /* qselect.o in Frameworks */,
-				C95EE6A223273D720084EA0C /* multiarraymodule.o in Frameworks */,
 				C9F8F97E2302569C004648F4 /* zgstrs.o in Frameworks */,
 				C9F8F9482302569C004648F4 /* claqgs.o in Frameworks */,
 				C9F8FAE42302569D004648F4 /* ssymm.o in Frameworks */,
@@ -4046,11 +3889,9 @@
 				C9F8F9602302569C004648F4 /* scopy_to_ucol.o in Frameworks */,
 				C9F8FAA82302569D004648F4 /* fpcyt2.o in Frameworks */,
 				C9F8F9CE2302569C004648F4 /* _fblasmodule.o in Frameworks */,
-				C95EE66223273D720084EA0C /* dtype_transfer.o in Frameworks */,
 				C9F8F7F52302569C004648F4 /* dtpsv.o in Frameworks */,
 				C9F8F8422302569C004648F4 /* dcolumn_bmod.o in Frameworks */,
 				C9F8F8DB2302569C004648F4 /* creadrb.o in Frameworks */,
-				C95EE6B923273D720084EA0C /* convert_datatype.o in Frameworks */,
 				C9F8F9782302569C004648F4 /* cumt.o in Frameworks */,
 				C9F8F98C2302569C004648F4 /* _lapack_subroutine_wrappers.o in Frameworks */,
 				C9F8F9862302569C004648F4 /* dd_real.o in Frameworks */,
@@ -4062,9 +3903,7 @@
 				C9F8F9D32302569C004648F4 /* surev.o in Frameworks */,
 				C9F8F8952302569C004648F4 /* query_ball_tree.o in Frameworks */,
 				C9F8FB4C2302569D004648F4 /* fpader.o in Frameworks */,
-				C95EE6CE23273D720084EA0C /* datetime.o in Frameworks */,
 				C9F8F8FB2302569C004648F4 /* vodemodule.o in Frameworks */,
-				C95EE65023273D720084EA0C /* fftpack_litemodule.o in Frameworks */,
 				C9F8F9F42302569D004648F4 /* struve.o in Frameworks */,
 				C937B9CF22EE431600269FC6 /* objectify.o in Frameworks */,
 				C9F8F96D2302569C004648F4 /* zairy.o in Frameworks */,
@@ -4072,10 +3911,8 @@
 				C9F8F9EF2302569C004648F4 /* _arpack-f2pywrappers.o in Frameworks */,
 				C9FB5BEE22025B040085E1AA /* cff.o in Frameworks */,
 				C9F8F7902302569C004648F4 /* mio_utils.o in Frameworks */,
-				C95EE65523273D720084EA0C /* umath_linalg.o in Frameworks */,
 				C9F8F9D22302569C004648F4 /* dsortc.o in Frameworks */,
 				C9F8F7E82302569C004648F4 /* csr.o in Frameworks */,
-				C95EE6CB23273D720084EA0C /* buffer.o in Frameworks */,
 				C9F8F85F2302569C004648F4 /* ni_support.o in Frameworks */,
 				C9F8F86A2302569C004648F4 /* idd_svd_subr_0.o in Frameworks */,
 				C9F8F7A42302569C004648F4 /* ansari.o in Frameworks */,
@@ -4102,7 +3939,6 @@
 				C9F8F9F82302569D004648F4 /* wright.o in Frameworks */,
 				C9F8F78F2302569C004648F4 /* _flapack-f2pywrappers.o in Frameworks */,
 				C9F8F8C82302569C004648F4 /* _superluobject.o in Frameworks */,
-				C95EE67A23273D720084EA0C /* nditer_pywrap.o in Frameworks */,
 				C9F8F9762302569C004648F4 /* cumfnc.o in Frameworks */,
 				C9F8F7B22302569C004648F4 /* dawsn.o in Frameworks */,
 				C9FB5BF222025B040085E1AA /* ftdebug.o in Frameworks */,
@@ -4113,11 +3949,8 @@
 				C9F8F80D2302569C004648F4 /* gratio.o in Frameworks */,
 				C9F8FADF2302569D004648F4 /* hybrd.o in Frameworks */,
 				C9F8F9DE2302569C004648F4 /* _quadpackmodule.o in Frameworks */,
-				C95EE67E23273D720084EA0C /* ufunc_object.o in Frameworks */,
 				C9F8FAC82302569D004648F4 /* iddp_rid.o in Frameworks */,
-				C95EE67823273D720084EA0C /* f2c_config.o in Frameworks */,
 				C9F8F8352302569C004648F4 /* sngets.o in Frameworks */,
-				C95EE69123273D720084EA0C /* numpyos.o in Frameworks */,
 				C9F8F8012302569C004648F4 /* cvout.o in Frameworks */,
 				C9F8F7742302569C004648F4 /* dtrsv.o in Frameworks */,
 				C9F8F9932302569C004648F4 /* icopy.o in Frameworks */,
@@ -4155,7 +3988,6 @@
 				C9F8F8B52302569C004648F4 /* cost.o in Frameworks */,
 				C9F8F78D2302569C004648F4 /* sseigt.o in Frameworks */,
 				C9F8FA922302569D004648F4 /* bdtr.o in Frameworks */,
-				C95EE67123273D720084EA0C /* dummymodule.o in Frameworks */,
 				C9F8F7C42302569C004648F4 /* dogleg.o in Frameworks */,
 				C9F8F8F32302569C004648F4 /* ctbsv.o in Frameworks */,
 				C9F8F7AE2302569C004648F4 /* cumgam.o in Frameworks */,
@@ -4193,7 +4025,6 @@
 				C9F8FAC02302569D004648F4 /* geom2_r.o in Frameworks */,
 				C9FB5C0B22025B040085E1AA /* ftglyph.o in Frameworks */,
 				C9F8FB352302569D004648F4 /* splev.o in Frameworks */,
-				C95EE66923273D720084EA0C /* heapsort.o in Frameworks */,
 				C9F8F8602302569C004648F4 /* _cytest.o in Frameworks */,
 				C9F8F9C32302569C004648F4 /* lmder1.o in Frameworks */,
 				C9F8FB1C2302569D004648F4 /* merge_r.o in Frameworks */,
@@ -4227,10 +4058,8 @@
 				C9F8FA9F2302569D004648F4 /* fpdeno.o in Frameworks */,
 				C9F8F91F2302569C004648F4 /* dlaqrb.o in Frameworks */,
 				C9F8FAC72302569D004648F4 /* cumchn.o in Frameworks */,
-				C95EE6D723273D720084EA0C /* selection.o in Frameworks */,
 				C9F8FAB82302569D004648F4 /* lfilter.o in Frameworks */,
 				C9F8F8CE2302569C004648F4 /* tandg.o in Frameworks */,
-				C95EE68C23273D720084EA0C /* getset.o in Frameworks */,
 				C9F8FB472302569D004648F4 /* spruneL.o in Frameworks */,
 				C9F8FA272302569D004648F4 /* cffti1.o in Frameworks */,
 				C9F8F9662302569C004648F4 /* dlangs.o in Frameworks */,
@@ -4246,13 +4075,10 @@
 				C9F8F78C2302569C004648F4 /* scipy_iv.o in Frameworks */,
 				C9F8F9C22302569C004648F4 /* dneupd.o in Frameworks */,
 				C9F8FB002302569D004648F4 /* dgetv0.o in Frameworks */,
-				C95EE65723273D720084EA0C /* reduction.o in Frameworks */,
 				C937B9CE22EE431300269FC6 /* clean.o in Frameworks */,
-				C95EE6C423273D720084EA0C /* cblasfuncs.o in Frameworks */,
 				C9F8F8B22302569C004648F4 /* fpchep.o in Frameworks */,
 				C9F8FA0D2302569D004648F4 /* bispeu.o in Frameworks */,
 				C9F8F7F02302569C004648F4 /* grat1.o in Frameworks */,
-				C95EE68323273D720084EA0C /* f2c_lapack.o in Frameworks */,
 				C9F8F98B2302569C004648F4 /* dsaup2.o in Frameworks */,
 				C9F8F7972302569C004648F4 /* mmd.o in Frameworks */,
 				C9F8FA1F2302569D004648F4 /* snaupd.o in Frameworks */,
@@ -4272,7 +4098,6 @@
 				C9F8FACB2302569D004648F4 /* csnode_bmod.o in Frameworks */,
 				C9F8FB3F2302569D004648F4 /* query_pairs.o in Frameworks */,
 				C9F8F7882302569C004648F4 /* qform.o in Frameworks */,
-				C95EE66D23273D720084EA0C /* shape.o in Frameworks */,
 				C9F8FB0E2302569D004648F4 /* bpser.o in Frameworks */,
 				C9F8F80F2302569C004648F4 /* dstatn.o in Frameworks */,
 				C9F8F9B22302569C004648F4 /* ctbmv.o in Frameworks */,
@@ -4294,7 +4119,6 @@
 				C9F8F7B82302569C004648F4 /* get_perm_c.o in Frameworks */,
 				C9FB5C0122025B040085E1AA /* ftinit.o in Frameworks */,
 				C9F8FAE52302569D004648F4 /* dsesrt.o in Frameworks */,
-				C95EE64D23273D720084EA0C /* ucsnarrow.o in Frameworks */,
 				C9F8F7D02302569C004648F4 /* _ccallback_c.o in Frameworks */,
 				C9F8F9952302569C004648F4 /* ellie.o in Frameworks */,
 				C9F8F83E2302569C004648F4 /* interpnd.o in Frameworks */,
@@ -4310,11 +4134,9 @@
 				C9F8FB4F23025A76004648F4 /* vode.o in Frameworks */,
 				C9FB5BEB22025B040085E1AA /* ftwinfnt.o in Frameworks */,
 				C9F8FA192302569D004648F4 /* insert.o in Frameworks */,
-				C95EE67923273D720084EA0C /* f2c_d_lapack.o in Frameworks */,
 				C9F8F8C72302569C004648F4 /* zfftb.o in Frameworks */,
 				C9F8F8ED2302569C004648F4 /* bup.o in Frameworks */,
 				C9F8F9042302569C004648F4 /* j1.o in Frameworks */,
-				C95EE6A723273D720084EA0C /* array_assign_scalar.o in Frameworks */,
 				C9F8F9382302569C004648F4 /* gdtr.o in Frameworks */,
 				C9F8FB112302569D004648F4 /* parcur.o in Frameworks */,
 				C9F8F9B82302569C004648F4 /* _dopmodule.o in Frameworks */,
@@ -4325,14 +4147,11 @@
 				C9F8FB332302569D004648F4 /* dqagie.o in Frameworks */,
 				C9F8F96A2302569C004648F4 /* _hausdorff.o in Frameworks */,
 				C9F8FA382302569D004648F4 /* dreadtriple.o in Frameworks */,
-				C95EE69F23273D720084EA0C /* _multiarray_module_test.o in Frameworks */,
 				C9F8F96F2302569C004648F4 /* fpclos.o in Frameworks */,
 				C9F8F8512302569C004648F4 /* fpgrre.o in Frameworks */,
-				C95EE6C823273D720084EA0C /* refcount.o in Frameworks */,
 				C9F8FA542302569D004648F4 /* memory.o in Frameworks */,
 				C9F8FAF72302569D004648F4 /* zbesi.o in Frameworks */,
 				C9F8FAB52302569D004648F4 /* fppara.o in Frameworks */,
-				C95EE67B23273D720084EA0C /* methods.o in Frameworks */,
 				C9F8F77B2302569C004648F4 /* zunk2.o in Frameworks */,
 				C9F8F91C2302569C004648F4 /* snaupe.o in Frameworks */,
 				C9F8F7A72302569C004648F4 /* fprank.o in Frameworks */,
@@ -4351,30 +4170,25 @@
 				C9F8FAFB2302569D004648F4 /* zpruneL.o in Frameworks */,
 				C9F8FB0C2302569D004648F4 /* dsdot.o in Frameworks */,
 				C9F8F7B52302569C004648F4 /* id_rtrans_subr_1.o in Frameworks */,
-				C95EE66623273D720084EA0C /* scalarapi.o in Frameworks */,
 				C9F8F9E82302569C004648F4 /* ctpmv.o in Frameworks */,
 				C9F8F8332302569C004648F4 /* sneupd.o in Frameworks */,
 				C9F8F9962302569C004648F4 /* idzp_rid.o in Frameworks */,
 				C9F8F87F2302569C004648F4 /* dpanel_dfs.o in Frameworks */,
-				C95EE65B23273D720084EA0C /* cpuid.o in Frameworks */,
 				C9F8FB062302569D004648F4 /* fporde.o in Frameworks */,
 				C9F8F9CD2302569C004648F4 /* id_rtrans_subr_9.o in Frameworks */,
 				C9F8F8402302569C004648F4 /* solsy.o in Frameworks */,
 				C9F8F7E92302569C004648F4 /* r1updt.o in Frameworks */,
 				C9F8FA472302569D004648F4 /* fpknot.o in Frameworks */,
 				C9F8F9672302569C004648F4 /* csc.o in Frameworks */,
-				C95EE64A23273D720084EA0C /* iterators.o in Frameworks */,
 				C9F8F9EB2302569C004648F4 /* dseigt.o in Frameworks */,
 				C9F8F9362302569C004648F4 /* ctpsv.o in Frameworks */,
 				C9F8F92E2302569C004648F4 /* fpperi.o in Frameworks */,
 				C9F8FAE72302569D004648F4 /* zlaqgs.o in Frameworks */,
 				C9F8F82E2302569C004648F4 /* idz_id.o in Frameworks */,
 				C9F8FB172302569D004648F4 /* polar.o in Frameworks */,
-				C95EE66F23273D720084EA0C /* _umath_tests.o in Frameworks */,
 				C9F8F81D2302569C004648F4 /* io_r.o in Frameworks */,
 				C9F8FA832302569D004648F4 /* percur.o in Frameworks */,
 				C9F8F9252302569C004648F4 /* iddr_rsvd_subr_1.o in Frameworks */,
-				C95EE6B023273D720084EA0C /* distributions.o in Frameworks */,
 				C9F8FA502302569D004648F4 /* apser.o in Frameworks */,
 				C9F8FA782302569D004648F4 /* fpsphe.o in Frameworks */,
 				C9F8FAC62302569D004648F4 /* idd_qrpiv.o in Frameworks */,
@@ -4387,14 +4201,12 @@
 				C9F8F8A42302569C004648F4 /* ilu_dcopy_to_ucol.o in Frameworks */,
 				C9F8F8042302569C004648F4 /* _fitpackmodule.o in Frameworks */,
 				C9F8F9E42302569C004648F4 /* sutil.o in Frameworks */,
-				C95EE6D423273D720084EA0C /* python_xerbla.o in Frameworks */,
 				C9FB5BF922025B040085E1AA /* type1cid.o in Frameworks */,
 				C9F8F8492302569C004648F4 /* other.o in Frameworks */,
 				C9F8F9332302569C004648F4 /* sdsdot.o in Frameworks */,
 				C9F8F82A2302569C004648F4 /* zbesh.o in Frameworks */,
 				C9F8FAF02302569D004648F4 /* unity.o in Frameworks */,
 				C9F8F9E72302569C004648F4 /* fpchec.o in Frameworks */,
-				C95EE64E23273D720084EA0C /* datetime_busdaycal.o in Frameworks */,
 				C9F8F8452302569C004648F4 /* dsinqi.o in Frameworks */,
 				C9F8F86C2302569C004648F4 /* enorm.o in Frameworks */,
 				C9F8FA152302569D004648F4 /* svout.o in Frameworks */,
@@ -4411,7 +4223,6 @@
 				C9F8FA422302569D004648F4 /* fresnl.o in Frameworks */,
 				C9F8F7E02302569C004648F4 /* id_rand_subr_1.o in Frameworks */,
 				C9F8F7AA2302569C004648F4 /* csnode_dfs.o in Frameworks */,
-				C95EE6A923273D720084EA0C /* mtrand.o in Frameworks */,
 				C9F8F8442302569C004648F4 /* count_neighbors.o in Frameworks */,
 				C9F8F9AB2302569C004648F4 /* rfftf.o in Frameworks */,
 				C9F8F8F52302569C004648F4 /* QMRREVCOM.o in Frameworks */,
@@ -4438,7 +4249,6 @@
 				C9F8F9242302569C004648F4 /* ilu_sdrop_row.o in Frameworks */,
 				C9F8FAFF2302569D004648F4 /* trlib_leftmost.o in Frameworks */,
 				C9F8F84F2302569C004648F4 /* zgsitrf.o in Frameworks */,
-				C95EE64823273D720084EA0C /* array_assign_array.o in Frameworks */,
 				C9F8F81E2302569C004648F4 /* zlangs.o in Frameworks */,
 				C9F8F8792302569C004648F4 /* sspmv.o in Frameworks */,
 				C9F8F91E2302569C004648F4 /* cpanel_bmod.o in Frameworks */,
@@ -4456,7 +4266,6 @@
 				C9F8FB122302569D004648F4 /* exp2.o in Frameworks */,
 				C9F8FB2A2302569D004648F4 /* ivout.o in Frameworks */,
 				C9F8FAF22302569D004648F4 /* cgssvx.o in Frameworks */,
-				C95EE6C723273D720084EA0C /* array_assign.o in Frameworks */,
 				C9F8F7822302569C004648F4 /* clacon2.o in Frameworks */,
 				C9FB5BFC22025B040085E1AA /* ftsynth.o in Frameworks */,
 				C9F8FA4D2302569D004648F4 /* poch.o in Frameworks */,
@@ -4470,8 +4279,6 @@
 				C9F8F7F82302569C004648F4 /* dqng.o in Frameworks */,
 				C9F8FA2E2302569D004648F4 /* util.o in Frameworks */,
 				C9F8F7BF2302569C004648F4 /* owens_t.o in Frameworks */,
-				C95EE6A423273D720084EA0C /* strfuncs.o in Frameworks */,
-				C95EE6B423273D720084EA0C /* alloc.o in Frameworks */,
 				C9F8F85E2302569C004648F4 /* BiCGREVCOM.o in Frameworks */,
 				C9F8F9CC2302569C004648F4 /* iddp_asvd_subr_1.o in Frameworks */,
 				C9F8F7CF2302569C004648F4 /* dfftf1.o in Frameworks */,
@@ -4484,9 +4291,7 @@
 				C9F8FABF2302569D004648F4 /* __odrpack.o in Frameworks */,
 				C9F8F9052302569C004648F4 /* crotg.o in Frameworks */,
 				C9F8F88F2302569C004648F4 /* psi.o in Frameworks */,
-				C95EE69723273D720084EA0C /* datetime_strings.o in Frameworks */,
 				C9F8F9582302569C004648F4 /* Faddeeva.o in Frameworks */,
-				C95EE68A23273D720084EA0C /* loops.o in Frameworks */,
 				C9F8F84D2302569C004648F4 /* idz_house.o in Frameworks */,
 				C9F8FA3A2302569D004648F4 /* fptrpe.o in Frameworks */,
 				C9F8F87E2302569C004648F4 /* zabs.o in Frameworks */,
@@ -4498,11 +4303,8 @@
 				C9F8FA802302569D004648F4 /* id_rtrans_subr_4.o in Frameworks */,
 				C9F8F7AB2302569C004648F4 /* dgscon.o in Frameworks */,
 				C9F8FA412302569D004648F4 /* gam1.o in Frameworks */,
-				C95EE6D023273D720084EA0C /* quicksort.o in Frameworks */,
 				C9F8F8A22302569C004648F4 /* cmyblas2.o in Frameworks */,
 				C9F8FB012302569D004648F4 /* dsinqf.o in Frameworks */,
-				C95EE68B23273D720084EA0C /* umathmodule.o in Frameworks */,
-				C95EE67723273D720084EA0C /* number.o in Frameworks */,
 				C9F8F89F2302569C004648F4 /* zfftf.o in Frameworks */,
 				C9F8F9F62302569D004648F4 /* ellpk.o in Frameworks */,
 				C9F8F9BE2302569C004648F4 /* heap_relax_snode.o in Frameworks */,
@@ -4538,7 +4340,6 @@
 				C9F8FA2B2302569D004648F4 /* zreadrb.o in Frameworks */,
 				C9F8F9772302569C004648F4 /* zsnode_dfs.o in Frameworks */,
 				C9F8F8D82302569C004648F4 /* zsp_blas3.o in Frameworks */,
-				C95EE66B23273D720084EA0C /* npy_longdouble.o in Frameworks */,
 				C9F8FA292302569D004648F4 /* zlog.o in Frameworks */,
 				C9F8FA7F2302569D004648F4 /* r1mpyq.o in Frameworks */,
 				C9F8FB142302569D004648F4 /* random_r.o in Frameworks */,
@@ -4558,19 +4359,14 @@
 				C9F8F8D32302569C004648F4 /* _nnlsmodule.o in Frameworks */,
 				C9F8F9CA2302569C004648F4 /* statlibmodule.o in Frameworks */,
 				C9F8F96B2302569C004648F4 /* spmpar.o in Frameworks */,
-				C95EE6CC23273D720084EA0C /* convert.o in Frameworks */,
 				C9F8FAAC2302569D004648F4 /* dgegv.o in Frameworks */,
 				C9F8FA232302569D004648F4 /* idd_svd_subr_2.o in Frameworks */,
 				C9F8F9792302569C004648F4 /* cobyla2.o in Frameworks */,
 				C9F8F7CA2302569C004648F4 /* sreadtriple.o in Frameworks */,
-				C95EE66723273D720084EA0C /* ieee754.o in Frameworks */,
 				C9F8F99A2302569C004648F4 /* D_bspline_util.o in Frameworks */,
 				C9F8F99D2302569C004648F4 /* iset.o in Frameworks */,
 				C9F8FA322302569D004648F4 /* dseupd.o in Frameworks */,
-				C95EE67F23273D720084EA0C /* npy_math.o in Frameworks */,
-				C95EE6BE23273D720084EA0C /* flagsobject.o in Frameworks */,
 				C9F8F9392302569C004648F4 /* zreadhb.o in Frameworks */,
-				C95EE6A523273D720084EA0C /* datetime_busday.o in Frameworks */,
 				C9F8F8A32302569C004648F4 /* cfftb.o in Frameworks */,
 				C9F8F8412302569C004648F4 /* stvaln.o in Frameworks */,
 				C9F8FA972302569D004648F4 /* dstats.o in Frameworks */,
@@ -4591,16 +4387,11 @@
 				C9F8F80B2302569C004648F4 /* cython_special.o in Frameworks */,
 				C9F8FA222302569D004648F4 /* bisect.o in Frameworks */,
 				C9F8F7C62302569C004648F4 /* pardeu.o in Frameworks */,
-				C95EE65923273D720084EA0C /* _struct_ufunc_tests.o in Frameworks */,
-				C95EE65223273D720084EA0C /* nditer_api.o in Frameworks */,
 				C9F8F7922302569C004648F4 /* snaup2.o in Frameworks */,
 				C9F8F9532302569C004648F4 /* fnorm.o in Frameworks */,
-				C95EE69823273D720084EA0C /* arrayfunction_override.o in Frameworks */,
 				C9F8F9D52302569C004648F4 /* fpcyt1.o in Frameworks */,
 				C9F8F95D2302569C004648F4 /* zhemm.o in Frameworks */,
 				C9F8FB2C2302569D004648F4 /* idd_svd_subr_1.o in Frameworks */,
-				C95EE68523273D720084EA0C /* hashdescr.o in Frameworks */,
-				C95EE64723273D720084EA0C /* initarray.o in Frameworks */,
 				C9FB5BE922025B040085E1AA /* winfnt.o in Frameworks */,
 				C9F8F79E2302569C004648F4 /* mark_relax.o in Frameworks */,
 				C9F8F8642302569C004648F4 /* rlog.o in Frameworks */,
@@ -4621,7 +4412,6 @@
 				C9F8FAE32302569D004648F4 /* ddiagonal.o in Frameworks */,
 				C9F8F9172302569C004648F4 /* chemm.o in Frameworks */,
 				C9FB5C0D22025B040085E1AA /* type42.o in Frameworks */,
-				C95EE66523273D720084EA0C /* randomkit.o in Frameworks */,
 				C9F8F8BC2302569C004648F4 /* dvout.o in Frameworks */,
 				C9F8F9E12302569C004648F4 /* bspline_util.o in Frameworks */,
 				C9F8F9D12302569C004648F4 /* fpdisc.o in Frameworks */,
@@ -4634,7 +4424,6 @@
 				C9F8FB102302569D004648F4 /* cmout.o in Frameworks */,
 				C9F8FAD42302569D004648F4 /* slsqp_optmz.o in Frameworks */,
 				C9F8F8BB2302569C004648F4 /* rffti.o in Frameworks */,
-				C95EE69D23273D720084EA0C /* calculation.o in Frameworks */,
 				C9F8FAD72302569D004648F4 /* cumbin.o in Frameworks */,
 				C9F8F8822302569C004648F4 /* sgbmv.o in Frameworks */,
 				C9F8F7BC2302569C004648F4 /* chpr.o in Frameworks */,
@@ -4652,7 +4441,6 @@
 				C9F8F9AA2302569C004648F4 /* zbiry.o in Frameworks */,
 				C9F8F8CF2302569C004648F4 /* cngets.o in Frameworks */,
 				C9F8F8F42302569C004648F4 /* znaupd.o in Frameworks */,
-				C95EE6AC23273D720084EA0C /* f2c_s_lapack.o in Frameworks */,
 				C9F8F8692302569C004648F4 /* zgssv.o in Frameworks */,
 				C9F8FAB12302569D004648F4 /* _slsqpmodule.o in Frameworks */,
 				C9F8F84E2302569C004648F4 /* zfftnd.o in Frameworks */,
@@ -4663,13 +4451,11 @@
 				C9F8F8722302569C004648F4 /* idd_frm_subr_1.o in Frameworks */,
 				C9F8FAC42302569D004648F4 /* id_rand_subr_0.o in Frameworks */,
 				C9F8FAF12302569D004648F4 /* zetac.o in Frameworks */,
-				C95EE69B23273D720084EA0C /* halffloat.o in Frameworks */,
 				C9FB5BFA22025B040085E1AA /* ftgzip.o in Frameworks */,
 				C9F8F9432302569C004648F4 /* idd_id2svd_subr_0.o in Frameworks */,
 				C9F8F98D2302569C004648F4 /* brcomp.o in Frameworks */,
 				C9F8F94F2302569C004648F4 /* cneigh.o in Frameworks */,
 				C9F8FA5B2302569D004648F4 /* dcopy_to_ucol.o in Frameworks */,
-				C95EE6C523273D720084EA0C /* lowlevel_strided_loops.o in Frameworks */,
 				C9F8F99E2302569C004648F4 /* ssaupd.o in Frameworks */,
 				C9F8F8542302569C004648F4 /* _max_len_seq_inner.o in Frameworks */,
 				C9F8FA0A2302569D004648F4 /* idzr_aid.o in Frameworks */,
@@ -4678,7 +4464,6 @@
 				C9F8FAB62302569D004648F4 /* zshch.o in Frameworks */,
 				C9F8F8502302569C004648F4 /* dct.o in Frameworks */,
 				C9F8F8C02302569C004648F4 /* round.o in Frameworks */,
-				C95EE64B23273D720084EA0C /* matmul.o in Frameworks */,
 				C9F8FB322302569D004648F4 /* libqhull_r.o in Frameworks */,
 				C9F8F90D2302569C004648F4 /* fortranobject.o in Frameworks */,
 				C9F8F85D2302569C004648F4 /* sproot.o in Frameworks */,
@@ -4726,7 +4511,6 @@
 				C9F8F9062302569C004648F4 /* igam.o in Frameworks */,
 				C9F8FAB42302569D004648F4 /* cdffnc.o in Frameworks */,
 				C9F8FB022302569D004648F4 /* ilu_zpanel_dfs.o in Frameworks */,
-				C95EE65423273D720084EA0C /* ufunc_type_resolution.o in Frameworks */,
 				C9F8F8522302569C004648F4 /* zeros.o in Frameworks */,
 				C9F8FA852302569D004648F4 /* drotmg.o in Frameworks */,
 				C9F8F9372302569C004648F4 /* sigtoolsmodule.o in Frameworks */,
@@ -4738,9 +4522,7 @@
 				C9F8F9712302569C004648F4 /* igami.o in Frameworks */,
 				C9F8FAAF2302569D004648F4 /* mtherr.o in Frameworks */,
 				C9F8FA872302569D004648F4 /* _blas_subroutine_wrappers.o in Frameworks */,
-				C95EE68723273D720084EA0C /* einsum.o in Frameworks */,
 				C9F8F94E2302569C004648F4 /* lmstr1.o in Frameworks */,
-				C95EE66323273D720084EA0C /* item_selection.o in Frameworks */,
 				C9F8FACF2302569D004648F4 /* cumnor.o in Frameworks */,
 				C9F8F87C2302569C004648F4 /* lsodamodule.o in Frameworks */,
 				C9F8F9F72302569D004648F4 /* sparsetools.o in Frameworks */,
@@ -4765,15 +4547,11 @@
 				C9F8F8632302569C004648F4 /* cmemory.o in Frameworks */,
 				C9F8F8EA2302569C004648F4 /* dstqrb.o in Frameworks */,
 				C9FB5BF722025B040085E1AA /* ftbzip2.o in Frameworks */,
-				C95EE6B323273D720084EA0C /* f2c_c_lapack.o in Frameworks */,
 				C9F8FB262302569D004648F4 /* hyp2f1.o in Frameworks */,
 				C9F8F8942302569C004648F4 /* dqag.o in Frameworks */,
 				C9F8F9212302569C004648F4 /* csymm.o in Frameworks */,
 				C9F8FB432302569D004648F4 /* amos_wrappers.o in Frameworks */,
-				C95EE69A23273D720084EA0C /* scalartypes.o in Frameworks */,
-				C95EE6BD23273D720084EA0C /* _operand_flag_tests.o in Frameworks */,
 				C9F8FA202302569D004648F4 /* lmdif.o in Frameworks */,
-				C95EE67523273D720084EA0C /* override.o in Frameworks */,
 				C9F8F8572302569C004648F4 /* rfftb1.o in Frameworks */,
 				C9F8F9322302569C004648F4 /* ilu_dcolumn_dfs.o in Frameworks */,
 				C9F8F8DA2302569C004648F4 /* ilu_ssnode_dfs.o in Frameworks */,
@@ -4783,7 +4561,6 @@
 				C9FB5C0222025B040085E1AA /* pfr.o in Frameworks */,
 				C9F8F8672302569C004648F4 /* zvout.o in Frameworks */,
 				C9F8FB462302569D004648F4 /* idd_id2svd_subr_2.o in Frameworks */,
-				C95EE69C23273D720084EA0C /* common.o in Frameworks */,
 				C9FB5BF622025B040085E1AA /* smooth.o in Frameworks */,
 				C9F8FA262302569D004648F4 /* idd_frm_subr_3.o in Frameworks */,
 				C9F8FB242302569D004648F4 /* sp_preorder.o in Frameworks */,
@@ -4791,7 +4568,6 @@
 				C9F8FA772302569D004648F4 /* ni_morphology.o in Frameworks */,
 				C9F8F9632302569C004648F4 /* i1mach.o in Frameworks */,
 				C9F8FAC52302569D004648F4 /* ilu_zsnode_dfs.o in Frameworks */,
-				C95EE6AE23273D720084EA0C /* dragon4.o in Frameworks */,
 				C9F8F8212302569C004648F4 /* cdft.o in Frameworks */,
 				C9F8F8102302569C004648F4 /* dqk51.o in Frameworks */,
 				C9F8F7D42302569C004648F4 /* dqawoe.o in Frameworks */,
@@ -4801,12 +4577,9 @@
 				C9F8F9FF2302569D004648F4 /* cgegv.o in Frameworks */,
 				C9F8FA892302569D004648F4 /* zsortc.o in Frameworks */,
 				C9F8FAF92302569D004648F4 /* ssp_blas3.o in Frameworks */,
-				C95EE6D823273D720084EA0C /* conversion_utils.o in Frameworks */,
 				C9F8FB182302569D004648F4 /* const.o in Frameworks */,
 				C9F8F9742302569C004648F4 /* smout.o in Frameworks */,
-				C95EE66A23273D720084EA0C /* usertypes.o in Frameworks */,
 				C9F8F87B2302569C004648F4 /* splder.o in Frameworks */,
-				C95EE65C23273D720084EA0C /* mergesort.o in Frameworks */,
 				C937B9CB22EE430C00269FC6 /* builder.o in Frameworks */,
 				C9F8F83B2302569C004648F4 /* spivotgrowth.o in Frameworks */,
 				C9F8F8162302569C004648F4 /* zfft.o in Frameworks */,
@@ -4822,7 +4595,6 @@
 				C9F8FAED2302569D004648F4 /* esum.o in Frameworks */,
 				C9F8F77D2302569C004648F4 /* cpruneL.o in Frameworks */,
 				C9F8F8202302569C004648F4 /* zpanel_bmod.o in Frameworks */,
-				C95EE6CF23273D720084EA0C /* mapping.o in Frameworks */,
 				C9F8F8E92302569C004648F4 /* iddp_asvd_subr_0.o in Frameworks */,
 				C9F8FABD2302569D004648F4 /* tukey.o in Frameworks */,
 				C9F8FAEE2302569D004648F4 /* poly_r.o in Frameworks */,
@@ -4836,12 +4608,10 @@
 				C9F8FA4C2302569D004648F4 /* zgetv0.o in Frameworks */,
 				C9F8FA7D2302569D004648F4 /* dnapps.o in Frameworks */,
 				C9FB5C0A22025B040085E1AA /* ftcid.o in Frameworks */,
-				C95EE6A823273D720084EA0C /* arraytypes.o in Frameworks */,
 				C9F8F77A2302569C004648F4 /* _group_columns.o in Frameworks */,
 				C9F8F8B12302569C004648F4 /* sspr.o in Frameworks */,
 				C9F8F94C2302569C004648F4 /* idzp_aid_subr_0.o in Frameworks */,
 				C9F8F8092302569C004648F4 /* zffti1.o in Frameworks */,
-				C95EE6D923273D720084EA0C /* vdot.o in Frameworks */,
 				C9F8F8022302569C004648F4 /* dopri5.o in Frameworks */,
 				C9F8F97A2302569C004648F4 /* zgssvx.o in Frameworks */,
 				C9F8F8712302569C004648F4 /* cpanel_dfs.o in Frameworks */,
@@ -4857,7 +4627,6 @@
 				C9F8F83F2302569C004648F4 /* zcopy_to_ucol.o in Frameworks */,
 				C9F8F9D02302569C004648F4 /* C_bspline_util.o in Frameworks */,
 				C9F8F77C2302569C004648F4 /* medianfilter.o in Frameworks */,
-				C95EE69323273D720084EA0C /* mem_overlap.o in Frameworks */,
 				C9F8F80A2302569C004648F4 /* fpbisp.o in Frameworks */,
 				C9F8F8A72302569C004648F4 /* zunk1.o in Frameworks */,
 				C9F8F9162302569C004648F4 /* concur.o in Frameworks */,
@@ -5616,101 +5385,24 @@
 		C9C14A3721DA5D5000FD8A28 /* NumPy */ = {
 			isa = PBXGroup;
 			children = (
-				C95EE60C23273D6A0084EA0C /* _multiarray_module_test.o */,
-				C95EE5F523273D670084EA0C /* _multiarray_tests.o */,
-				C95EE62A23273D6E0084EA0C /* _operand_flag_tests.o */,
-				C95EE60123273D690084EA0C /* _rational_tests.o */,
-				C95EE5C623273D610084EA0C /* _struct_ufunc_tests.o */,
-				C95EE5DC23273D640084EA0C /* _umath_tests.o */,
-				C95EE62123273D6D0084EA0C /* alloc.o */,
-				C95EE5B523273D5F0084EA0C /* array_assign_array.o */,
-				C95EE61423273D6B0084EA0C /* array_assign_scalar.o */,
-				C95EE63423273D6F0084EA0C /* array_assign.o */,
-				C95EE60523273D690084EA0C /* arrayfunction_override.o */,
-				C95EE5C023273D600084EA0C /* arrayobject.o */,
-				C95EE61523273D6B0084EA0C /* arraytypes.o */,
-				C95EE5EA23273D660084EA0C /* binsearch.o */,
-				C95EE63823273D700084EA0C /* buffer.o */,
-				C95EE60A23273D6A0084EA0C /* calculation.o */,
-				C95EE63123273D6F0084EA0C /* cblasfuncs.o */,
-				C95EE60923273D6A0084EA0C /* common.o */,
-				C95EE64023273D710084EA0C /* compiled_base.o */,
-				C95EE64523273D720084EA0C /* conversion_utils.o */,
-				C95EE62623273D6E0084EA0C /* convert_datatype.o */,
-				C95EE63923273D700084EA0C /* convert.o */,
-				C95EE5C823273D610084EA0C /* cpuid.o */,
-				C95EE5EF23273D660084EA0C /* ctors.o */,
-				C95EE61223273D6B0084EA0C /* datetime_busday.o */,
-				C95EE5BB23273D5F0084EA0C /* datetime_busdaycal.o */,
-				C95EE60423273D690084EA0C /* datetime_strings.o */,
-				C95EE63B23273D700084EA0C /* datetime.o */,
-				C95EE5D523273D620084EA0C /* descriptor.o */,
-				C95EE61D23273D6C0084EA0C /* distributions.o */,
-				C95EE61B23273D6C0084EA0C /* dragon4.o */,
-				C95EE5CF23273D620084EA0C /* dtype_transfer.o */,
-				C95EE5DE23273D640084EA0C /* dummymodule.o */,
-				C95EE5F423273D670084EA0C /* einsum.o */,
-				C95EE63F23273D710084EA0C /* extobj.o */,
-				C95EE62023273D6D0084EA0C /* f2c_c_lapack.o */,
-				C95EE5E523273D650084EA0C /* f2c_config.o */,
-				C95EE5E623273D650084EA0C /* f2c_d_lapack.o */,
-				C95EE5F023273D660084EA0C /* f2c_lapack.o */,
-				C95EE61923273D6C0084EA0C /* f2c_s_lapack.o */,
-				C95EE61F23273D6D0084EA0C /* f2c_z_lapack.o */,
-				C95EE64223273D710084EA0C /* f2c.o */,
-				C95EE5BD23273D5F0084EA0C /* fftpack_litemodule.o */,
-				C95EE61E23273D6D0084EA0C /* fftpack.o */,
-				C95EE62B23273D6E0084EA0C /* flagsobject.o */,
-				C95EE5F923273D680084EA0C /* getset.o */,
-				C95EE60823273D6A0084EA0C /* halffloat.o */,
-				C95EE5F223273D670084EA0C /* hashdescr.o */,
-				C95EE5D623273D630084EA0C /* heapsort.o */,
-				C95EE5D423273D620084EA0C /* ieee754.o */,
-				C95EE5B423273D5E0084EA0C /* initarray.o */,
-				C95EE5D023273D620084EA0C /* item_selection.o */,
-				C95EE5B723273D5F0084EA0C /* iterators.o */,
-				C95EE5FA23273D680084EA0C /* lapack_litemodule.o */,
-				C95EE5F723273D670084EA0C /* loops.o */,
-				C95EE63223273D6F0084EA0C /* lowlevel_strided_loops.o */,
-				C95EE63C23273D710084EA0C /* mapping.o */,
-				C95EE5B823273D5F0084EA0C /* matmul.o */,
-				C95EE60023273D690084EA0C /* mem_overlap.o */,
-				C95EE5C923273D610084EA0C /* mergesort.o */,
-				C95EE5E823273D650084EA0C /* methods.o */,
-				C95EE61623273D6C0084EA0C /* mtrand.o */,
-				C95EE60F23273D6B0084EA0C /* multiarraymodule.o */,
-				C95EE5BF23273D600084EA0C /* nditer_api.o */,
-				C95EE63023273D6F0084EA0C /* nditer_constr.o */,
-				C95EE5E723273D650084EA0C /* nditer_pywrap.o */,
-				C95EE5CB23273D610084EA0C /* nditer_templ.o */,
-				C95EE5D823273D630084EA0C /* npy_longdouble.o */,
-				C95EE62323273D6D0084EA0C /* npy_math_complex.o */,
-				C95EE5EC23273D660084EA0C /* npy_math.o */,
-				C95EE5E423273D650084EA0C /* number.o */,
-				C95EE5FE23273D680084EA0C /* numpyos.o */,
-				C95EE5E223273D640084EA0C /* override.o */,
-				C95EE64123273D710084EA0C /* python_xerbla.o */,
-				C95EE63D23273D710084EA0C /* quicksort.o */,
-				C95EE5D223273D620084EA0C /* randomkit.o */,
-				C95EE5C423273D600084EA0C /* reduction.o */,
-				C95EE63523273D700084EA0C /* refcount.o */,
-				C95EE5D323273D620084EA0C /* scalarapi.o */,
-				C95EE5C723273D610084EA0C /* scalarmath.o */,
-				C95EE60723273D6A0084EA0C /* scalartypes.o */,
-				C95EE64423273D720084EA0C /* selection.o */,
-				C95EE60623273D690084EA0C /* sequence.o */,
-				C95EE5DA23273D630084EA0C /* shape.o */,
-				C95EE61123273D6B0084EA0C /* strfuncs.o */,
-				C95EE5CA23273D610084EA0C /* temp_elide.o */,
-				C95EE5FF23273D680084EA0C /* typeinfo.o */,
-				C95EE5BA23273D5F0084EA0C /* ucsnarrow.o */,
-				C95EE5EB23273D660084EA0C /* ufunc_object.o */,
-				C95EE62F23273D6F0084EA0C /* ufunc_override.o */,
-				C95EE5C123273D600084EA0C /* ufunc_type_resolution.o */,
-				C95EE5C223273D600084EA0C /* umath_linalg.o */,
-				C95EE5F823273D680084EA0C /* umathmodule.o */,
-				C95EE5D723273D630084EA0C /* usertypes.o */,
-				C95EE64623273D720084EA0C /* vdot.o */,
+				C9E9E2E023E0ADB4004CF05A /* _bit_generator.framework */,
+				C9E9E2E323E0ADB5004CF05A /* _bounded_integers.framework */,
+				C9E9E2E823E0ADB5004CF05A /* _common.framework */,
+				C9E9E2DD23E0ADB4004CF05A /* _generator.framework */,
+				C9E9E2E523E0ADB5004CF05A /* _mt19937.framework */,
+				C9E9E2D923E0ADB3004CF05A /* _multiarray_tests.framework */,
+				C9E9E2DC23E0ADB4004CF05A /* _multiarray_umath.framework */,
+				C9E9E2E623E0ADB5004CF05A /* _operand_flag_tests.framework */,
+				C9E9E2E223E0ADB5004CF05A /* _pcg64.framework */,
+				C9E9E2E123E0ADB4004CF05A /* _philox.framework */,
+				C9E9E2DA23E0ADB4004CF05A /* _pocketfft_internal.framework */,
+				C9E9E2E723E0ADB5004CF05A /* _rational_tests.framework */,
+				C9E9E2DE23E0ADB4004CF05A /* _sfc64.framework */,
+				C9E9E2E923E0ADB5004CF05A /* _struct_ufunc_tests.framework */,
+				C9E9E2E423E0ADB5004CF05A /* _umath_linalg.framework */,
+				C9E9E2EA23E0ADB6004CF05A /* _umath_tests.framework */,
+				C9E9E2DF23E0ADB4004CF05A /* lapack_lite.framework */,
+				C9E9E2DB23E0ADB4004CF05A /* mtrand.framework */,
 			);
 			path = NumPy;
 			sourceTree = "<group>";

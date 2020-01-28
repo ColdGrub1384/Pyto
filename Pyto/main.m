@@ -93,22 +93,6 @@ void BandHandle(NSString *fkTitle, NSArray *nameArray, NSArray *keyArray) {
 
 #if MAIN
 
-// MARK: - Numpy
-
-extern PyMODINIT_FUNC PyInit__multiarray_umath(void);
-extern PyMODINIT_FUNC PyInit_lapack_lite(void);
-extern PyMODINIT_FUNC PyInit__umath_linalg(void);
-extern PyMODINIT_FUNC PyInit_fftpack_lite(void);
-extern PyMODINIT_FUNC PyInit_mtrand(void);
-
-void init_numpy() {
-    PyImport_AppendInittab("__numpy_core__multiarray_umath", &PyInit__multiarray_umath);
-    PyImport_AppendInittab("__numpy_linalg_lapack_lite", &PyInit_lapack_lite);
-    PyImport_AppendInittab("__numpy_linalg__umath_linalg", &PyInit__umath_linalg);
-    PyImport_AppendInittab("__numpy_fft_fftpack_lite", &PyInit_fftpack_lite);
-    PyImport_AppendInittab("__numpy_random_mtrand", &PyInit_mtrand);
-}
-
 // MARK: - Matplotlib
 
 void init_matplotlib() {
@@ -567,6 +551,32 @@ void init_pil() {
     [name addObject:@"_imagingmorph"];      [key addObject:@"__PIL__imagingmorph"];
     #endif
     BandHandle(@"PIL", name, key);
+}
+
+// MARK: - Numpy
+
+void init_numpy() {
+    
+    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
+    [name addObject:@"_bit_generator"];      [key addObject:@"__numpy_random__bit_generator"];
+    [name addObject:@"_bounded_integers"];   [key addObject:@"__numpy_random__bounded_integers"];
+    [name addObject:@"_common"];             [key addObject:@"__numpy_random__common"];
+    [name addObject:@"_generator"];          [key addObject:@"__numpy_random__generator"];
+    [name addObject:@"_mt19937"];            [key addObject:@"__numpy_random__mt19937"];
+    [name addObject:@"_multiarray_tests"];   [key addObject:@"__numpy_core__multiarray_tests"];
+    [name addObject:@"_operand_flag_tests"]; [key addObject:@"__numpy_core__operand_flag_tests"];
+    [name addObject:@"_pcg64"];              [key addObject:@"__numpy_random__pcg64"];
+    [name addObject:@"_philox"];             [key addObject:@"__numpy_random__philox"];
+    [name addObject:@"_pocketfft_internal"]; [key addObject:@"__numpy_fft__pocketfft_internal"];
+    [name addObject:@"_rational_tests"];     [key addObject:@"__numpy_core__rational_tests"];
+    [name addObject:@"_sfc64"];              [key addObject:@"__numpy_random__sfc64"];
+    [name addObject:@"_struct_ufunc_tests"]; [key addObject:@"__numpy_core__struct_ufunc_tests"];
+    [name addObject:@"_umath_linalg"];       [key addObject:@"__numpy_linalg__umath_linalg"];
+    [name addObject:@"_umath_tests"];        [key addObject:@"__numpy_core__umath_tests"];
+    [name addObject:@"lapack_lite"];         [key addObject:@"__numpy_linalg_lapack_lite"];
+    [name addObject:@"mtrand"];              [key addObject:@"__numpy_random_mtrand"];
+    [name addObject:@"_multiarray_umath"];   [key addObject:@"__numpy_core__multiarray_umath"];
+    BandHandle(@"numpy", name, key);
 }
 
 // MARK: - CFFI
