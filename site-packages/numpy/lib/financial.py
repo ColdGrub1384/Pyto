@@ -12,12 +12,17 @@ otherwise stated.
 """
 from __future__ import division, absolute_import, print_function
 
+import warnings
 from decimal import Decimal
 import functools
 
 import numpy as np
 from numpy.core import overrides
 
+
+_depmsg = ("numpy.{name} is deprecated and will be removed from NumPy 1.20. "
+           "Use numpy_financial.{name} instead "
+           "(https://pypi.org/project/numpy-financial/).")
 
 array_function_dispatch = functools.partial(
     overrides.array_function_dispatch, module='numpy')
@@ -45,6 +50,8 @@ def _convert_when(when):
 
 
 def _fv_dispatcher(rate, nper, pmt, pv, when=None):
+    warnings.warn(_depmsg.format(name='fv'),
+                  DeprecationWarning, stacklevel=3)
     return (rate, nper, pmt, pv)
 
 
@@ -52,6 +59,12 @@ def _fv_dispatcher(rate, nper, pmt, pv, when=None):
 def fv(rate, nper, pmt, pv, when='end'):
     """
     Compute the future value.
+
+    .. deprecated:: 1.18
+
+       `fv` is deprecated; for details, see NEP 32 [1]_.
+       Use the corresponding function in the numpy-financial library,
+       https://pypi.org/project/numpy-financial.
 
     Given:
      * a present value, `pv`
@@ -100,7 +113,9 @@ def fv(rate, nper, pmt, pv, when='end'):
 
     References
     ----------
-    .. [WRW] Wheeler, D. A., E. Rathke, and R. Weir (Eds.) (2009, May).
+    .. [1] NumPy Enhancement Proposal (NEP) 32,
+       https://numpy.org/neps/nep-0032-remove-financial-functions.html
+    .. [2] Wheeler, D. A., E. Rathke, and R. Weir (Eds.) (2009, May).
        Open Document Format for Office Applications (OpenDocument)v1.2,
        Part 2: Recalculated Formula (OpenFormula) Format - Annotated Version,
        Pre-Draft 12. Organization for the Advancement of Structured Information
@@ -108,6 +123,7 @@ def fv(rate, nper, pmt, pv, when='end'):
        Available:
        http://www.oasis-open.org/committees/documents.php?wg_abbrev=office-formula
        OpenDocument-formula-20090508.odt
+
 
     Examples
     --------
@@ -127,7 +143,7 @@ def fv(rate, nper, pmt, pv, when='end'):
 
     >>> a = np.array((0.05, 0.06, 0.07))/12
     >>> np.fv(a, 10*12, -100, -100)
-    array([ 15692.92889434,  16569.87435405,  17509.44688102])
+    array([ 15692.92889434,  16569.87435405,  17509.44688102]) # may vary
 
     """
     when = _convert_when(when)
@@ -139,6 +155,8 @@ def fv(rate, nper, pmt, pv, when='end'):
 
 
 def _pmt_dispatcher(rate, nper, pv, fv=None, when=None):
+    warnings.warn(_depmsg.format(name='pmt'),
+                  DeprecationWarning, stacklevel=3)
     return (rate, nper, pv, fv)
 
 
@@ -146,6 +164,12 @@ def _pmt_dispatcher(rate, nper, pv, fv=None, when=None):
 def pmt(rate, nper, pv, fv=0, when='end'):
     """
     Compute the payment against loan principal plus interest.
+
+    .. deprecated:: 1.18
+
+       `pmt` is deprecated; for details, see NEP 32 [1]_.
+       Use the corresponding function in the numpy-financial library,
+       https://pypi.org/project/numpy-financial.
 
     Given:
      * a present value, `pv` (e.g., an amount borrowed)
@@ -204,7 +228,9 @@ def pmt(rate, nper, pv, fv=0, when='end'):
 
     References
     ----------
-    .. [WRW] Wheeler, D. A., E. Rathke, and R. Weir (Eds.) (2009, May).
+    .. [1] NumPy Enhancement Proposal (NEP) 32,
+       https://numpy.org/neps/nep-0032-remove-financial-functions.html
+    .. [2] Wheeler, D. A., E. Rathke, and R. Weir (Eds.) (2009, May).
        Open Document Format for Office Applications (OpenDocument)v1.2,
        Part 2: Recalculated Formula (OpenFormula) Format - Annotated Version,
        Pre-Draft 12. Organization for the Advancement of Structured Information
@@ -237,6 +263,8 @@ def pmt(rate, nper, pv, fv=0, when='end'):
 
 
 def _nper_dispatcher(rate, pmt, pv, fv=None, when=None):
+    warnings.warn(_depmsg.format(name='nper'),
+                  DeprecationWarning, stacklevel=3)
     return (rate, pmt, pv, fv)
 
 
@@ -244,6 +272,12 @@ def _nper_dispatcher(rate, pmt, pv, fv=None, when=None):
 def nper(rate, pmt, pv, fv=0, when='end'):
     """
     Compute the number of periodic payments.
+
+    .. deprecated:: 1.18
+
+       `nper` is deprecated; for details, see NEP 32 [1]_.
+       Use the corresponding function in the numpy-financial library,
+       https://pypi.org/project/numpy-financial.
 
     :class:`decimal.Decimal` type is not supported.
 
@@ -270,12 +304,17 @@ def nper(rate, pmt, pv, fv=0, when='end'):
 
      fv + pv + pmt*nper = 0
 
+    References
+    ----------
+    .. [1] NumPy Enhancement Proposal (NEP) 32,
+       https://numpy.org/neps/nep-0032-remove-financial-functions.html
+
     Examples
     --------
     If you only had $150/month to pay towards the loan, how long would it take
     to pay-off a loan of $8,000 at 7% annual interest?
 
-    >>> print(round(np.nper(0.07/12, -150, 8000), 5))
+    >>> print(np.round(np.nper(0.07/12, -150, 8000), 5))
     64.07335
 
     So, over 64 months would be required to pay off the loan.
@@ -286,10 +325,10 @@ def nper(rate, pmt, pv, fv=0, when='end'):
     >>> np.nper(*(np.ogrid[0.07/12: 0.08/12: 0.01/12,
     ...                    -150   : -99     : 50    ,
     ...                    8000   : 9001    : 1000]))
-    array([[[  64.07334877,   74.06368256],
-            [ 108.07548412,  127.99022654]],
-           [[  66.12443902,   76.87897353],
-            [ 114.70165583,  137.90124779]]])
+    array([[[ 64.07334877,  74.06368256],
+            [108.07548412, 127.99022654]],
+           [[ 66.12443902,  76.87897353],
+            [114.70165583, 137.90124779]]])
 
     """
     when = _convert_when(when)
@@ -311,6 +350,8 @@ def nper(rate, pmt, pv, fv=0, when='end'):
 
 
 def _ipmt_dispatcher(rate, per, nper, pv, fv=None, when=None):
+    warnings.warn(_depmsg.format(name='ipmt'),
+                  DeprecationWarning, stacklevel=3)
     return (rate, per, nper, pv, fv)
 
 
@@ -318,6 +359,12 @@ def _ipmt_dispatcher(rate, per, nper, pv, fv=None, when=None):
 def ipmt(rate, per, nper, pv, fv=0, when='end'):
     """
     Compute the interest portion of a payment.
+
+    .. deprecated:: 1.18
+
+       `ipmt` is deprecated; for details, see NEP 32 [1]_.
+       Use the corresponding function in the numpy-financial library,
+       https://pypi.org/project/numpy-financial.
 
     Parameters
     ----------
@@ -353,6 +400,11 @@ def ipmt(rate, per, nper, pv, fv=0, when='end'):
     The total payment is made up of payment against principal plus interest.
 
     ``pmt = ppmt + ipmt``
+
+    References
+    ----------
+    .. [1] NumPy Enhancement Proposal (NEP) 32,
+       https://numpy.org/neps/nep-0032-remove-financial-functions.html
 
     Examples
     --------
@@ -422,6 +474,8 @@ def _rbl(rate, per, pmt, pv, when):
 
 
 def _ppmt_dispatcher(rate, per, nper, pv, fv=None, when=None):
+    warnings.warn(_depmsg.format(name='ppmt'),
+                  DeprecationWarning, stacklevel=3)
     return (rate, per, nper, pv, fv)
 
 
@@ -429,6 +483,12 @@ def _ppmt_dispatcher(rate, per, nper, pv, fv=None, when=None):
 def ppmt(rate, per, nper, pv, fv=0, when='end'):
     """
     Compute the payment against loan principal.
+
+    .. deprecated:: 1.18
+
+       `ppmt` is deprecated; for details, see NEP 32 [1]_.
+       Use the corresponding function in the numpy-financial library,
+       https://pypi.org/project/numpy-financial.
 
     Parameters
     ----------
@@ -450,12 +510,19 @@ def ppmt(rate, per, nper, pv, fv=0, when='end'):
     --------
     pmt, pv, ipmt
 
+    References
+    ----------
+    .. [1] NumPy Enhancement Proposal (NEP) 32,
+       https://numpy.org/neps/nep-0032-remove-financial-functions.html
+
     """
     total = pmt(rate, nper, pv, fv, when)
     return total - ipmt(rate, per, nper, pv, fv, when)
 
 
 def _pv_dispatcher(rate, nper, pmt, fv=None, when=None):
+    warnings.warn(_depmsg.format(name='pv'),
+                  DeprecationWarning, stacklevel=3)
     return (rate, nper, nper, pv, fv)
 
 
@@ -463,6 +530,12 @@ def _pv_dispatcher(rate, nper, pmt, fv=None, when=None):
 def pv(rate, nper, pmt, fv=0, when='end'):
     """
     Compute the present value.
+
+    .. deprecated:: 1.18
+
+       `pv` is deprecated; for details, see NEP 32 [1]_.
+       Use the corresponding function in the numpy-financial library,
+       https://pypi.org/project/numpy-financial.
 
     Given:
      * a future value, `fv`
@@ -510,7 +583,9 @@ def pv(rate, nper, pmt, fv=0, when='end'):
 
     References
     ----------
-    .. [WRW] Wheeler, D. A., E. Rathke, and R. Weir (Eds.) (2009, May).
+    .. [1] NumPy Enhancement Proposal (NEP) 32,
+       https://numpy.org/neps/nep-0032-remove-financial-functions.html
+    .. [2] Wheeler, D. A., E. Rathke, and R. Weir (Eds.) (2009, May).
        Open Document Format for Office Applications (OpenDocument)v1.2,
        Part 2: Recalculated Formula (OpenFormula) Format - Annotated Version,
        Pre-Draft 12. Organization for the Advancement of Structured Information
@@ -539,7 +614,7 @@ def pv(rate, nper, pmt, fv=0, when='end'):
 
     >>> a = np.array((0.05, 0.04, 0.03))/12
     >>> np.pv(a, 10*12, -100, 15692.93)
-    array([ -100.00067132,  -649.26771385, -1273.78633713])
+    array([ -100.00067132,  -649.26771385, -1273.78633713]) # may vary
 
     So, to end up with the same $15692.93 under the same $100 per month
     "savings plan," for annual interest rates of 4% and 3%, one would
@@ -567,6 +642,8 @@ def _g_div_gp(r, n, p, x, y, w):
 
 def _rate_dispatcher(nper, pmt, pv, fv, when=None, guess=None, tol=None,
                      maxiter=None):
+    warnings.warn(_depmsg.format(name='rate'),
+                  DeprecationWarning, stacklevel=3)
     return (nper, pmt, pv, fv)
 
 
@@ -581,6 +658,12 @@ def _rate_dispatcher(nper, pmt, pv, fv, when=None, guess=None, tol=None,
 def rate(nper, pmt, pv, fv, when='end', guess=None, tol=None, maxiter=100):
     """
     Compute the rate of interest per period.
+
+    .. deprecated:: 1.18
+
+       `rate` is deprecated; for details, see NEP 32 [1]_.
+       Use the corresponding function in the numpy-financial library,
+       https://pypi.org/project/numpy-financial.
 
     Parameters
     ----------
@@ -612,13 +695,16 @@ def rate(nper, pmt, pv, fv, when='end', guess=None, tol=None, maxiter=100):
 
     References
     ----------
-    Wheeler, D. A., E. Rathke, and R. Weir (Eds.) (2009, May). Open Document
-    Format for Office Applications (OpenDocument)v1.2, Part 2: Recalculated
-    Formula (OpenFormula) Format - Annotated Version, Pre-Draft 12.
-    Organization for the Advancement of Structured Information Standards
-    (OASIS). Billerica, MA, USA. [ODT Document]. Available:
-    http://www.oasis-open.org/committees/documents.php?wg_abbrev=office-formula
-    OpenDocument-formula-20090508.odt
+    .. [1] NumPy Enhancement Proposal (NEP) 32,
+       https://numpy.org/neps/nep-0032-remove-financial-functions.html
+    .. [2] Wheeler, D. A., E. Rathke, and R. Weir (Eds.) (2009, May).
+       Open Document Format for Office Applications (OpenDocument)v1.2,
+       Part 2: Recalculated Formula (OpenFormula) Format - Annotated Version,
+       Pre-Draft 12. Organization for the Advancement of Structured Information
+       Standards (OASIS). Billerica, MA, USA. [ODT Document].
+       Available:
+       http://www.oasis-open.org/committees/documents.php?wg_abbrev=office-formula
+       OpenDocument-formula-20090508.odt
 
     """
     when = _convert_when(when)
@@ -651,6 +737,8 @@ def rate(nper, pmt, pv, fv, when='end', guess=None, tol=None, maxiter=100):
 
 
 def _irr_dispatcher(values):
+    warnings.warn(_depmsg.format(name='irr'),
+                  DeprecationWarning, stacklevel=3)
     return (values,)
 
 
@@ -658,6 +746,12 @@ def _irr_dispatcher(values):
 def irr(values):
     """
     Return the Internal Rate of Return (IRR).
+
+    .. deprecated:: 1.18
+
+       `irr` is deprecated; for details, see NEP 32 [1]_.
+       Use the corresponding function in the numpy-financial library,
+       https://pypi.org/project/numpy-financial.
 
     This is the "average" periodically compounded rate of return
     that gives a net present value of 0.0; for a more complete explanation,
@@ -693,29 +787,29 @@ def irr(values):
      + \\frac{55}{(1+r)^3} + \\frac{20}{(1+r)^4} = 0
 
     In general, for `values` :math:`= [v_0, v_1, ... v_M]`,
-    irr is the solution of the equation: [G]_
+    irr is the solution of the equation: [2]_
 
     .. math:: \\sum_{t=0}^M{\\frac{v_t}{(1+irr)^{t}}} = 0
 
     References
     ----------
-    .. [G] L. J. Gitman, "Principles of Managerial Finance, Brief," 3rd ed.,
+    .. [1] NumPy Enhancement Proposal (NEP) 32,
+       https://numpy.org/neps/nep-0032-remove-financial-functions.html
+    .. [2] L. J. Gitman, "Principles of Managerial Finance, Brief," 3rd ed.,
        Addison-Wesley, 2003, pg. 348.
 
     Examples
     --------
-    >>> round(irr([-100, 39, 59, 55, 20]), 5)
+    >>> round(np.irr([-100, 39, 59, 55, 20]), 5)
     0.28095
-    >>> round(irr([-100, 0, 0, 74]), 5)
+    >>> round(np.irr([-100, 0, 0, 74]), 5)
     -0.0955
-    >>> round(irr([-100, 100, 0, -7]), 5)
+    >>> round(np.irr([-100, 100, 0, -7]), 5)
     -0.0833
-    >>> round(irr([-100, 100, 0, 7]), 5)
+    >>> round(np.irr([-100, 100, 0, 7]), 5)
     0.06206
-    >>> round(irr([-5, 10.5, 1, -8, 1]), 5)
+    >>> round(np.irr([-5, 10.5, 1, -8, 1]), 5)
     0.0886
-
-    (Compare with the Example given for numpy.lib.financial.npv)
 
     """
     # `np.roots` call is why this function does not support Decimal type.
@@ -736,6 +830,8 @@ def irr(values):
 
 
 def _npv_dispatcher(rate, values):
+    warnings.warn(_depmsg.format(name='npv'),
+                  DeprecationWarning, stacklevel=3)
     return (values,)
 
 
@@ -743,6 +839,12 @@ def _npv_dispatcher(rate, values):
 def npv(rate, values):
     """
     Returns the NPV (Net Present Value) of a cash flow series.
+
+    .. deprecated:: 1.18
+
+       `npv` is deprecated; for details, see NEP 32 [1]_.
+       Use the corresponding function in the numpy-financial library,
+       https://pypi.org/project/numpy-financial.
 
     Parameters
     ----------
@@ -763,23 +865,48 @@ def npv(rate, values):
         The NPV of the input cash flow series `values` at the discount
         `rate`.
 
+    Warnings
+    --------
+    ``npv`` considers a series of cashflows starting in the present (t = 0).
+    NPV can also be defined with a series of future cashflows, paid at the
+    end, rather than the start, of each period. If future cashflows are used,
+    the first cashflow `values[0]` must be zeroed and added to the net
+    present value of the future cashflows. This is demonstrated in the
+    examples.
+
     Notes
     -----
-    Returns the result of: [G]_
+    Returns the result of: [2]_
 
     .. math :: \\sum_{t=0}^{M-1}{\\frac{values_t}{(1+rate)^{t}}}
 
     References
     ----------
-    .. [G] L. J. Gitman, "Principles of Managerial Finance, Brief," 3rd ed.,
+    .. [1] NumPy Enhancement Proposal (NEP) 32,
+       https://numpy.org/neps/nep-0032-remove-financial-functions.html
+    .. [2] L. J. Gitman, "Principles of Managerial Finance, Brief," 3rd ed.,
        Addison-Wesley, 2003, pg. 346.
 
     Examples
     --------
-    >>> np.npv(0.281,[-100, 39, 59, 55, 20])
-    -0.0084785916384548798
+    Consider a potential project with an initial investment of $40 000 and
+    projected cashflows of $5 000, $8 000, $12 000 and $30 000 at the end of
+    each period discounted at a rate of 8% per period. To find the project's
+    net present value:
 
-    (Compare with the Example given for numpy.lib.financial.irr)
+    >>> rate, cashflows = 0.08, [-40_000, 5_000, 8_000, 12_000, 30_000]
+    >>> np.npv(rate, cashflows).round(5)
+    3065.22267
+
+    It may be preferable to split the projected cashflow into an initial
+    investment and expected future cashflows. In this case, the value of
+    the initial cashflow is zero and the initial investment is later added
+    to the future cashflows net present value:
+
+    >>> initial_cashflow = cashflows[0]
+    >>> cashflows[0] = 0
+    >>> np.round(np.npv(rate, cashflows) + initial_cashflow, 5)
+    3065.22267
 
     """
     values = np.asarray(values)
@@ -787,6 +914,8 @@ def npv(rate, values):
 
 
 def _mirr_dispatcher(values, finance_rate, reinvest_rate):
+    warnings.warn(_depmsg.format(name='mirr'),
+                  DeprecationWarning, stacklevel=3)
     return (values,)
 
 
@@ -794,6 +923,12 @@ def _mirr_dispatcher(values, finance_rate, reinvest_rate):
 def mirr(values, finance_rate, reinvest_rate):
     """
     Modified internal rate of return.
+
+    .. deprecated:: 1.18
+
+       `mirr` is deprecated; for details, see NEP 32 [1]_.
+       Use the corresponding function in the numpy-financial library,
+       https://pypi.org/project/numpy-financial.
 
     Parameters
     ----------
@@ -811,6 +946,10 @@ def mirr(values, finance_rate, reinvest_rate):
     out : float
         Modified internal rate of return
 
+    References
+    ----------
+    .. [1] NumPy Enhancement Proposal (NEP) 32,
+       https://numpy.org/neps/nep-0032-remove-financial-functions.html
     """
     values = np.asarray(values)
     n = values.size

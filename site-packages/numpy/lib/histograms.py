@@ -3,6 +3,7 @@ Histogram-related functions
 """
 from __future__ import division, absolute_import, print_function
 
+import contextlib
 import functools
 import operator
 import warnings
@@ -19,6 +20,16 @@ array_function_dispatch = functools.partial(
 # range is a keyword argument to many functions, so save the builtin so they can
 # use it.
 _range = range
+
+
+def _ptp(x):
+    """Peak-to-peak value of x.
+
+    This implementation avoids the problem of signed integer arrays having a
+    peak-to-peak value that cannot be represented with the array's data type.
+    This function returns an unsigned value for signed integer arrays.
+    """
+    return _unsigned_subtract(x.max(), x.min())
 
 
 def _hist_bin_sqrt(x, range):
@@ -39,7 +50,7 @@ def _hist_bin_sqrt(x, range):
     h : An estimate of the optimal bin width for the given data.
     """
     del range  # unused
-    return x.ptp() / np.sqrt(x.size)
+    return _ptp(x) / np.sqrt(x.size)
 
 
 def _hist_bin_sturges(x, range):
@@ -62,7 +73,7 @@ def _hist_bin_sturges(x, range):
     h : An estimate of the optimal bin width for the given data.
     """
     del range  # unused
-    return x.ptp() / (np.log2(x.size) + 1.0)
+    return _ptp(x) / (np.log2(x.size) + 1.0)
 
 
 def _hist_bin_rice(x, range):
@@ -86,7 +97,7 @@ def _hist_bin_rice(x, range):
     h : An estimate of the optimal bin width for the given data.
     """
     del range  # unused
-    return x.ptp() / (2.0 * x.size ** (1.0 / 3))
+    return _ptp(x) / (2.0 * x.size ** (1.0 / 3))
 
 
 def _hist_bin_scott(x, range):
@@ -136,7 +147,7 @@ def _hist_bin_stone(x, range):
     """
 
     n = x.size
-    ptp_x = np.ptp(x)
+    ptp_x = _ptp(x)
     if n <= 1 or ptp_x == 0:
         return 0
 
@@ -148,7 +159,8 @@ def _hist_bin_stone(x, range):
     nbins_upper_bound = max(100, int(np.sqrt(n)))
     nbins = min(_range(1, nbins_upper_bound + 1), key=jhat)
     if nbins == nbins_upper_bound:
-        warnings.warn("The number of bins estimated may be suboptimal.", RuntimeWarning, stacklevel=2)
+        warnings.warn("The number of bins estimated may be suboptimal.",
+                      RuntimeWarning, stacklevel=3)
     return ptp_x / nbins
 
 
@@ -182,7 +194,7 @@ def _hist_bin_doane(x, range):
             np.true_divide(temp, sigma, temp)
             np.power(temp, 3, temp)
             g1 = np.mean(temp)
-            return x.ptp() / (1.0 + np.log2(x.size) +
+            return _ptp(x) / (1.0 + np.log2(x.size) +
                                     np.log2(1.0 + np.absolute(g1) / sg1))
     return 0.0
 
@@ -279,7 +291,7 @@ def _ravel_and_check_weights(a, weights):
     if a.dtype == np.bool_:
         warnings.warn("Converting input from {} to {} for compatibility."
                       .format(a.dtype, np.uint8),
-                      RuntimeWarning, stacklevel=2)
+                      RuntimeWarning, stacklevel=3)
         a = a.astype(np.uint8)
 
     if weights is not None:
@@ -461,7 +473,8 @@ def _histogram_bin_edges_dispatcher(a, bins=None, range=None, weights=None):
 @array_function_dispatch(_histogram_bin_edges_dispatcher)
 def histogram_bin_edges(a, bins=10, range=None, weights=None):
     r"""
-    Function to calculate only the edges of the bins used by the `histogram` function.
+    Function to calculate only the edges of the bins used by the `histogram`
+    function.
 
     Parameters
     ----------
@@ -554,14 +567,14 @@ def histogram_bin_edges(a, bins=10, range=None, weights=None):
     using the `ptp` of the data. The final bin count is obtained from
     ``np.round(np.ceil(range / h))``.
 
-    'Auto' (maximum of the 'Sturges' and 'FD' estimators)
+    'auto' (maximum of the 'sturges' and 'fd' estimators)
         A compromise to get a good value. For small datasets the Sturges
         value will usually be chosen, while larger datasets will usually
         default to FD.  Avoids the overly conservative behaviour of FD
         and Sturges for small and large datasets respectively.
         Switchover point is usually :math:`a.size \approx 1000`.
 
-    'FD' (Freedman Diaconis Estimator)
+    'fd' (Freedman Diaconis Estimator)
         .. math:: h = 2 \frac{IQR}{n^{1/3}}
 
         The binwidth is proportional to the interquartile range (IQR)
@@ -569,7 +582,7 @@ def histogram_bin_edges(a, bins=10, range=None, weights=None):
         conservative for small datasets, but is quite good for large
         datasets. The IQR is very robust to outliers.
 
-    'Scott'
+    'scott'
         .. math:: h = \sigma \sqrt[3]{\frac{24 * \sqrt{\pi}}{n}}
 
         The binwidth is proportional to the standard deviation of the
@@ -579,14 +592,14 @@ def histogram_bin_edges(a, bins=10, range=None, weights=None):
         outliers. Values are very similar to the Freedman-Diaconis
         estimator in the absence of outliers.
 
-    'Rice'
+    'rice'
         .. math:: n_h = 2n^{1/3}
 
         The number of bins is only proportional to cube root of
         ``a.size``. It tends to overestimate the number of bins and it
         does not take into account data variability.
 
-    'Sturges'
+    'sturges'
         .. math:: n_h = \log _{2}n+1
 
         The number of bins is the base 2 log of ``a.size``.  This
@@ -594,7 +607,7 @@ def histogram_bin_edges(a, bins=10, range=None, weights=None):
         larger, non-normal datasets. This is the default method in R's
         ``hist`` method.
 
-    'Doane'
+    'doane'
         .. math:: n_h = 1 + \log_{2}(n) +
                         \log_{2}(1 + \frac{|g_1|}{\sigma_{g_1}})
 
@@ -606,8 +619,9 @@ def histogram_bin_edges(a, bins=10, range=None, weights=None):
         estimates for non-normal datasets. This estimator attempts to
         account for the skew of the data.
 
-    'Sqrt'
+    'sqrt'
         .. math:: n_h = \sqrt n
+
         The simplest and fastest estimator. Only takes into account the
         data size.
 
@@ -645,7 +659,7 @@ def histogram_bin_edges(a, bins=10, range=None, weights=None):
 
     >>> hist_0, bins_0 = np.histogram(arr[group_id == 0], bins='auto')
     >>> hist_1, bins_1 = np.histogram(arr[group_id == 1], bins='auto')
-    >>> hist_0; hist1
+    >>> hist_0; hist_1
     array([1, 1, 1])
     array([2, 1, 1, 2])
     >>> bins_0; bins_1
@@ -748,14 +762,14 @@ def histogram(a, bins=10, range=None, normed=None, weights=None,
     >>> np.histogram([1, 2, 1], bins=[0, 1, 2, 3])
     (array([0, 2, 1]), array([0, 1, 2, 3]))
     >>> np.histogram(np.arange(4), bins=np.arange(5), density=True)
-    (array([ 0.25,  0.25,  0.25,  0.25]), array([0, 1, 2, 3, 4]))
+    (array([0.25, 0.25, 0.25, 0.25]), array([0, 1, 2, 3, 4]))
     >>> np.histogram([[1, 2, 1], [1, 0, 1]], bins=[0,1,2,3])
     (array([1, 4, 1]), array([0, 1, 2, 3]))
 
     >>> a = np.arange(5)
     >>> hist, bin_edges = np.histogram(a, density=True)
     >>> hist
-    array([ 0.5,  0. ,  0.5,  0. ,  0. ,  0.5,  0. ,  0.5,  0. ,  0.5])
+    array([0.5, 0. , 0.5, 0. , 0. , 0.5, 0. , 0.5, 0. , 0.5])
     >>> hist.sum()
     2.4999999999999996
     >>> np.sum(hist * np.diff(bin_edges))
@@ -770,8 +784,9 @@ def histogram(a, bins=10, range=None, normed=None, weights=None,
     >>> rng = np.random.RandomState(10)  # deterministic random data
     >>> a = np.hstack((rng.normal(size=1000),
     ...                rng.normal(loc=5, scale=2, size=1000)))
-    >>> plt.hist(a, bins='auto')  # arguments are passed to np.histogram
+    >>> _ = plt.hist(a, bins='auto')  # arguments are passed to np.histogram
     >>> plt.title("Histogram with 'auto' bins")
+    Text(0.5, 1.0, "Histogram with 'auto' bins")
     >>> plt.show()
 
     """
@@ -885,7 +900,7 @@ def histogram(a, bins=10, range=None, normed=None, weights=None,
             warnings.warn(
                     "The normed argument is ignored when density is provided. "
                     "In future passing both will result in an error.",
-                    DeprecationWarning, stacklevel=2)
+                    DeprecationWarning, stacklevel=3)
         normed = None
 
     if density:
@@ -901,7 +916,7 @@ def histogram(a, bins=10, range=None, normed=None, weights=None,
                 "density=True will produce the same result anyway. "
                 "The argument will be removed in a future version of "
                 "numpy.",
-                np.VisibleDeprecationWarning, stacklevel=2)
+                np.VisibleDeprecationWarning, stacklevel=3)
 
         # this normalization is incorrect, but
         db = np.array(np.diff(bin_edges), float)
@@ -912,13 +927,19 @@ def histogram(a, bins=10, range=None, normed=None, weights=None,
             warnings.warn(
                     "Passing normed=False is deprecated, and has no effect. "
                     "Consider passing the density argument instead.",
-                    DeprecationWarning, stacklevel=2)
+                    DeprecationWarning, stacklevel=3)
         return n, bin_edges
 
 
 def _histogramdd_dispatcher(sample, bins=None, range=None, normed=None,
                             weights=None, density=None):
-    return (sample, bins, weights)
+    if hasattr(sample, 'shape'):  # same condition as used in histogramdd
+        yield sample
+    else:
+        yield from sample
+    with contextlib.suppress(TypeError):
+        yield from bins
+    yield weights
 
 
 @array_function_dispatch(_histogramdd_dispatcher)

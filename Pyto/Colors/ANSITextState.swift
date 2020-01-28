@@ -264,7 +264,7 @@ struct ANSITextState {
                 descriptor = traitDescriptor
             }
             
-            return UIFont(descriptor: descriptor, size: textSize)
+            return UIFont(descriptor: descriptor, size: CGFloat(textSize))
         }
     }
     
