@@ -15,10 +15,22 @@ import WebKit
         static var presentationMode = [UIView:Int]()
         static var buttonItems = [UIView:[UIBarButtonItem]]()
         static var viewController = [UIView:UIViewController]()
+        static var name = [UIView:String]()
+    }
+    
+    /// A name to identify the view.
+    public var name: String? {
+        get {
+            return Holder.name[self]
+        }
+        
+        set {
+            Holder.name[self] = newValue
+        }
     }
     
     /// The way the view will be presented, set from Python API. The setter is only used internally and has no effect.
-     public var presentationMode: Int {
+    public var presentationMode: Int {
         get {
             return Holder.presentationMode[self] ?? 0
         }
@@ -108,6 +120,21 @@ import WebKit
             set {
                 self.view.viewController = newValue
                 newValue?.overrideUserInterfaceStyle = self.view.overrideUserInterfaceStyle
+            }
+        }
+    }
+    
+    /// The name identifying the view.
+    @objc public var name: String? {
+        set {
+            set {
+                self.view.name = newValue
+            }
+        }
+        
+        get {
+            return get {
+                return self.view.name
             }
         }
     }
@@ -547,15 +574,13 @@ import WebKit
             
             for view in self.view.subviews {
                 
-                var found = false
                 for pyView in subviews {
                     if pyView.view == view {
-                        found = true
                         break
                     }
                 }
                 
-                if !found, let v = PyView.values[view] {
+                if let v = PyView.values[view] {
                     subviews.append(v)
                 }
             }

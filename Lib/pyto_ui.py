@@ -1974,6 +1974,20 @@ class View:
     def title(self, new_value: str):
         self.__py_view__.title = new_value
 
+    @property
+    def name(self) -> str:
+        """
+        The name identifying the view.
+
+        :rtype: str
+        """
+
+        return self.__py_view__.name
+
+    @name.setter
+    def name(self, new_value: str):
+        self.__py_view__.name = new_value
+
     def close(self):
         """
         Closes the view, if the receiver object is the root view presented to the user.
@@ -2242,6 +2256,21 @@ class View:
             (FLEXIBLE_LEFT_MARGIN in new_value),
             (FLEXIBLE_RIGHT_MARGIN in new_value),
         )
+
+    def subview_with_name(self, name) -> View:
+        """
+        Returns the subview with the given name.
+
+        Raises ``NameError`` if no view is found.
+
+        :rtype: View
+        """
+
+        for view in self.subviews:
+            if view.name == name:
+                return view
+        
+        raise NameError(f"No subview named '{name}'")
 
     @property
     def subviews(self) -> List[View]:
