@@ -497,6 +497,17 @@ This value is a tuple with X, Y, Width and Height values.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="pyto_ui.View.name">
+<em class="property">property </em><code class="sig-name descname">name</code><a class="headerlink" href="#pyto_ui.View.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name identifying the view.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyto_ui.View.navigation_bar_hidden">
 <em class="property">property </em><code class="sig-name descname">navigation_bar_hidden</code><a class="headerlink" href="#pyto_ui.View.navigation_bar_hidden" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean indicating whether the Navigation Bar of the View should be hidden.</p>
@@ -592,6 +603,18 @@ This value is a tuple with height and width values.</p>
 <dt id="pyto_ui.View.size_to_fit">
 <code class="sig-name descname">size_to_fit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.View.size_to_fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sizes the view to fit its content.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyto_ui.View.subview_with_name">
+<code class="sig-name descname">subview_with_name</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span> &#x2192; pyto_ui.View<a class="headerlink" href="#pyto_ui.View.subview_with_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the subview with the given name.</p>
+<p>Raises <code class="docutils literal notranslate"><span class="pre">NameError</span></code> if no view is found.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pyto_ui.View" title="pyto_ui.View">View</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
