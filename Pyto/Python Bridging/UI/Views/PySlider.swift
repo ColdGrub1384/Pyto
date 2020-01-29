@@ -129,6 +129,7 @@ import UIKit
             let slider = UISlider()
             slider.sizeToFit()
             slider.addTarget(pySlider, action: #selector(PyControl.callAction), for: .valueChanged)
+            PyView.values[slider] = pySlider
             return slider
         }
         return pySlider
