@@ -1960,6 +1960,9 @@ class View:
     def __repr__(self):
         return str(self.__py_view__.managed.description)
 
+    def __getitem__(self, item):
+        return self.subview_with_name(item)
+
     @property
     def title(self) -> str:
         """
@@ -1968,7 +1971,11 @@ class View:
         :rtype: str
         """
 
-        return self.__py_view__.title
+        title = self.__py_view__.title
+        if title is None:
+            return title
+        else:
+            return str(title)
 
     @title.setter
     def title(self, new_value: str):
@@ -1977,12 +1984,28 @@ class View:
     @property
     def name(self) -> str:
         """
-        The name identifying the view.
+        The name identifying the view. To access a subview with its name, you can use the :func:`~pyto_ui.View.subview_with_name` function. :class:`~pyto_ui.View` is also subscriptable, so you can do something like that:
+
+        .. highlight:: python
+        .. code-block:: python
+        
+            import pyto_ui as ui
+
+            button = ui.Button()
+            button.name = "Button"
+
+            view = ui.View()
+            view.add_subview(button)
+            view["Button"] # -> Button object
 
         :rtype: str
         """
 
-        return self.__py_view__.name
+        name = self.__py_view__.name
+        if name is None:
+            return name
+        else:
+            return str(name)
 
     @name.setter
     def name(self, new_value: str):
