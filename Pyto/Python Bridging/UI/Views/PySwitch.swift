@@ -84,6 +84,7 @@ import UIKit
             let _switch = UISwitch()
             _switch.sizeToFit()
             _switch.addTarget(pySwitch, action: #selector(PyControl.callAction), for: .valueChanged)
+            PyView.values[_switch] = pySwitch
             return _switch
         }
         return pySwitch

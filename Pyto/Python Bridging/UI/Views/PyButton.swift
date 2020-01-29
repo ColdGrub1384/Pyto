@@ -93,6 +93,7 @@ import UIKit
             button.setTitle("Button", for: .normal)
             button.setTitleColor(nil, for: .normal)
             button.sizeToFit()
+            PyView.values[button] = pyButton
             return button
         }
         return pyButton

@@ -65,6 +65,7 @@ import UIKit
             control.sizeToFit()
             control.removeAllSegments()
             control.addTarget(pyControl, action: #selector(PyControl.callAction), for: .valueChanged)
+            PyView.values[control] = pyControl
             return control
         }
         return pyControl
