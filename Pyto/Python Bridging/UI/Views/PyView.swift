@@ -570,7 +570,7 @@ import WebKit
     /// The subviews of the view.
     @objc public var subviews: [PyView] {
         return get {
-            var subviews = self._subviews
+            var subviews = [PyView]()
             
             for view in self.view.subviews {
                 
