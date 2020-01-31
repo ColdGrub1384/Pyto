@@ -1988,7 +1988,7 @@ class View:
 
         .. highlight:: python
         .. code-block:: python
-        
+
             import pyto_ui as ui
 
             button = ui.Button()
