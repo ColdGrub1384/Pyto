@@ -5,16 +5,18 @@ This module makes possible to save values on disk. Values are shared between the
 Values are stored in a JSON dictionary, so it's not possible to save every type of data.
 """
 
-from rubicon.objc import ObjCClass
-import json
+try:
+    from rubicon.objc import ObjCClass
+    import json
 
 
-NSUserDefaults = ObjCClass("NSUserDefaults")
-userDefaults = NSUserDefaults.alloc().initWithSuiteName("group.pyto")
+    NSUserDefaults = ObjCClass("NSUserDefaults")
+    userDefaults = NSUserDefaults.alloc().initWithSuiteName("group.pyto")
 
-
-if userDefaults.valueForKey("userKeys") is None:
-    userDefaults.setValue("{}", forKey="userKeys")
+    if userDefaults.valueForKey("userKeys") is None:
+        userDefaults.setValue("{}", forKey="userKeys")
+except (NameError, ValueError):
+    pass
 
 
 def __dictionary__():

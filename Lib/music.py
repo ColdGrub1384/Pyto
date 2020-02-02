@@ -37,7 +37,7 @@ try:
     """ The 'MPMusicMPMediaQueryPlayerController' class from the 'MediaPlayer' framework. """
 
     MediaPlayer = cdll.LoadLibrary("/System/Library/Frameworks/MediaPlayer.framework/MediaPlayer")
-except NameError:
+except (NameError, ValueError):
     MPMusicPlayerController = "MPMusicPlayerController"
     """ The 'MPMusicPlayerController' class from the 'MediaPlayer' framework. """
 
