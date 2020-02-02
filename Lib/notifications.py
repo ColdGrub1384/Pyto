@@ -5,8 +5,13 @@ Use the ``notifications`` to schedule notifications that can be delivered even i
 """
 
 from pyto import __Class__
-from rubicon.objc import ObjCClass
 from typing import List
+
+
+try:
+    from rubicon.objc import ObjCClass
+except ValueError:
+    pass
 
 
 __PyNotificationCenter__ = __Class__("PyNotificationCenter")

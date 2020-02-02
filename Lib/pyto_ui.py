@@ -2292,7 +2292,7 @@ class View:
         for view in self.subviews:
             if view.name == name:
                 return view
-        
+
         raise NameError(f"No subview named '{name}'")
 
     @property
