@@ -517,7 +517,12 @@ import UIKit
         (view as? PyView)?.isPresented = true
         
         DispatchQueue.main.async {
+            let size = CGSize(width: ((view as? PyView)?.width) ?? Double((view as! UIView).frame.width), height: ((view as? PyView)?.height) ?? Double((view as! UIView).frame.height))
             let vc = self.viewController((view as? PyView) ?? PyView(managed: view as! UIView), forConsoleWithPath: path)
+            vc.preferredContentSize = size
+            if vc.modalPresentationStyle == .pageSheet && size != .zero {
+                vc.modalPresentationStyle = .formSheet
+            }
             self.showViewController(vc, scriptPath: path, completion: nil)
         }
     }
@@ -599,7 +604,7 @@ import UIKit
             
             let widget = (viewController as? UINavigationController)?.viewControllers.first as? WidgetSimulatorViewController
             
-            viewController.modalPresentationStyle = .formSheet
+            viewController.modalPresentationStyle = .pageSheet
             widget?.pyView = view
             
             if let path = path {

@@ -4356,6 +4356,8 @@ def show_view(view: View, mode: PRESENTATION_MODE):
 
     This function doesn't return until the view is closed. You can use another thread to perform background tasks and modify the UI after it's presented.
 
+    On iPad, if the view has a custom size, it will be used for the presentation.
+
     :param view: The :class:`~pyto_ui.View` object to present.
     :param mode: The presentation mode to use. The value will be ignored on a widget. See `Presentation Mode <constants.html#presentation-mode>`_ constants for possible values.
     """
