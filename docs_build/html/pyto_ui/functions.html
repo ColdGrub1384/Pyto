@@ -216,6 +216,7 @@ More info about symbols on <a class="reference external" href="https://developer
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">show_view</code><span class="sig-paren">(</span><em class="sig-param">view: pyto_ui.View</em>, <em class="sig-param">mode: ui_constants.PRESENTATION_MODE</em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.show_view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Presents the given view.</p>
 <p>This function doesn’t return until the view is closed. You can use another thread to perform background tasks and modify the UI after it’s presented.</p>
+<p>On iPad, if the view has a custom size, it will be used for the presentation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
