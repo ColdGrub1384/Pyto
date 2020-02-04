@@ -9,7 +9,6 @@ try:
     from rubicon.objc import ObjCClass
     import json
 
-
     NSUserDefaults = ObjCClass("NSUserDefaults")
     userDefaults = NSUserDefaults.alloc().initWithSuiteName("group.pyto")
 
