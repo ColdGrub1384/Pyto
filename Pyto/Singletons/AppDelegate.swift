@@ -10,9 +10,30 @@ import UIKit
 import SafariServices
 import NotificationCenter
 import CoreLocation
+#if MAIN
+import WatchConnectivity
+#endif
 
 /// The application's delegate.
 @objc public class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate, UNUserNotificationCenterDelegate {
+    
+    /// The shared instance.
+    @objc static var shared: AppDelegate {
+        if Thread.current.isMainThread {
+            return UIApplication.shared.delegate as! AppDelegate
+        } else {
+            var object: AppDelegate!
+            
+            let semaphore = DispatchSemaphore(value: 0)
+            DispatchQueue.main.async {
+                object = UIApplication.shared.delegate as! AppDelegate
+                semaphore.signal()
+            }
+            semaphore.wait()
+            
+            return object
+        }
+    }
     
     /// The shared location manager.
     let locationManager = CLLocationManager()
@@ -21,6 +42,9 @@ import CoreLocation
     /// Script to run at startup passed by `PythonApplicationMain`.
     @objc public static var scriptToRun: String?
     #else
+    
+    /// The script currently running from an Apple Watch.
+    @objc var watchScript: String?
     
     private let copyModulesQueue = DispatchQueue.global(qos: .background)
     
@@ -165,6 +189,9 @@ import CoreLocation
             }
         }
         
+        WCSession.default.delegate = self
+        WCSession.default.activate()
+        
         #else
         window = UIWindow()
         window?.backgroundColor = .white
@@ -253,3 +280,49 @@ import CoreLocation
         }
     }
 }
+
+#if MAIN
+
+extension AppDelegate: WCSessionDelegate {
+    
+    public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        
+    }
+    
+    public func sessionDidBecomeInactive(_ session: WCSession) {
+        
+    }
+    
+    public func sessionDidDeactivate(_ session: WCSession) {
+        
+    }
+    
+    public func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
+        if messageData == "Run".data(using: .utf8) {
+            
+            var isStale = false
+            if let data = UserDefaults.standard.data(forKey: "watchScriptPath"), let url = (try? URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)) {
+                
+                _ = url.startAccessingSecurityScopedResource()
+                
+                watchScript = url.path
+                
+                Python.shared.run(script: Python.WatchScript(code: """
+                from rubicon.objc import ObjCClass
+                import runpy
+
+                script = str(ObjCClass("Pyto.AppDelegate").shared.watchScript)
+                runpy.run_path(script)
+                """))
+            } else {
+                Python.shared.run(script: Python.WatchScript(code: """
+                print("Setup a script to run here from Pyto's settings.")
+                """))
+            }
+        } else if messageData == "Stop".data(using: .utf8) {
+            Python.shared.stop(script: Python.WatchScript.scriptURL.path)
+        }
+    }
+}
+
+#endif

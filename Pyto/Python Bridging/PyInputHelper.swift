@@ -7,6 +7,9 @@
 //
 
 import Foundation
+#if MAIN
+import WatchConnectivity
+#endif
 
 /// A helper accessible by Rubicon to request user's input.
 @objc class PyInputHelper: NSObject {
@@ -32,6 +35,17 @@ import Foundation
     @objc static func showAlert(prompt: String?, script: String?) {
         let prompt_ = prompt
         DispatchQueue.main.sync {
+            
+            #if MAIN
+            if script == Python.WatchScript.scriptURL.path {
+                WCSession.default.sendMessage(["prompt": prompt_ ?? "", "suggestions": WatchInputSuggestionsTableViewController.suggestions], replyHandler: { (res) in
+                    self.userInput[script!] = res["input"]
+                }, errorHandler: { (_) in
+                    self.userInput[script!] = ""
+                })
+            }
+            #endif
+            
             #if !WIDGET && !MAIN
             ConsoleViewController.visibles.first?.input(prompt: prompt_ ?? "")
             #elseif !WIDGET

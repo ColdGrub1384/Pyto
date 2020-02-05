@@ -10,12 +10,9 @@ import UIKit
 import SafariServices
 import MessageUI
 import NotificationCenter
+import WatchConnectivity
 
 fileprivate extension IndexPath {
-    
-    //
-    // If you modify this, you should check `AppDelegate.application(_:open:options:)` function.
-    //
     
     static let theme = IndexPath(row: 0, section: 0)
     static let indentation = IndexPath(row: 1, section: 0)
@@ -26,15 +23,20 @@ fileprivate extension IndexPath {
     
     static let todayWidget = IndexPath(row: 0, section: 1)
     
-    static let discord = IndexPath(row: 0, section: 3)
-    static let contact = IndexPath(row: 1, section: 3)
+    static let watchScript = IndexPath(row: 0, section: 2)
+    static let inputSugestions = IndexPath(row: 1, section: 2)
     
-    static let acknowledgments = IndexPath(row: 0, section: 4)
-    static let sourceCode = IndexPath(row: 1, section: 4)
+    static let discord = IndexPath(row: 0, section: 4)
+    static let contact = IndexPath(row: 1, section: 4)
+    
+    static let acknowledgments = IndexPath(row: 0, section: 5)
+    static let sourceCode = IndexPath(row: 1, section: 5)
 }
 
 /// A View controller with settings and info.
 class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate, MFMailComposeViewControllerDelegate, UIFontPickerViewControllerDelegate {
+    
+    private var lastIndex: IndexPath?
     
     /// Closes this View controller.
     @IBAction func close(_ sender: Any) {
@@ -160,6 +162,13 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
             } else {
                 cell.detailTextLabel?.text = ""
             }
+        } else if indexPath == .watchScript {
+            var isStale = false
+            if let data = UserDefaults.standard.data(forKey: "watchScriptPath"), let url = (try? URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)) {
+                cell.detailTextLabel?.text = url.lastPathComponent
+            } else {
+                cell.detailTextLabel?.text = ""
+            }
         } else if indexPath == .font {
             if #available(iOS 13.0, *) {
                 cell.detailTextLabel?.text = EditorViewController.font.fontName
@@ -170,10 +179,17 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
             }
         }
         
+        if indexPath == .watchScript || indexPath == .inputSugestions {
+            cell.isUserInteractionEnabled = WCSession.default.isPaired
+            cell.contentView.alpha = WCSession.default.isPaired ? 1 : 0.5
+        }
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        lastIndex = indexPath
         
         let viewControllerToPresent: UIViewController?
         
@@ -191,6 +207,10 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
                 viewControllerToPresent = nil
             }
         case .todayWidget:
+            let picker = UIDocumentPickerViewController(documentTypes: ["public.python-script"], in: .open)
+            picker.delegate = self
+            viewControllerToPresent = picker
+        case .watchScript:
             let picker = UIDocumentPickerViewController(documentTypes: ["public.python-script"], in: .open)
             picker.delegate = self
             viewControllerToPresent = picker
@@ -236,15 +256,24 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
         
         navigationController?.popToRootViewController(animated: true)
         
-        do {
-            UserDefaults.standard.set(try urls[0].bookmarkData(), forKey: "todayWidgetScriptPath")
-        } catch {
-            print(error.localizedDescription)
+        if lastIndex == IndexPath.watchScript {
+            do {
+                UserDefaults.standard.set(try urls[0].bookmarkData(), forKey: "watchScriptPath")
+            } catch {
+                print(error.localizedDescription)
+            }
+            UserDefaults.standard.synchronize()
+        } else if lastIndex == IndexPath.todayWidget {
+            do {
+                UserDefaults.standard.set(try urls[0].bookmarkData(), forKey: "todayWidgetScriptPath")
+            } catch {
+                print(error.localizedDescription)
+            }
+            UserDefaults.standard.synchronize()
+            (UIApplication.shared.delegate as? AppDelegate)?.copyModules()
+            
+            NCWidgetController().setHasContent(true, forWidgetWithBundleIdentifier: Bundle.main.bundleIdentifier!+".Pyto-Widget")
         }
-        UserDefaults.standard.synchronize()
-        (UIApplication.shared.delegate as? AppDelegate)?.copyModules()
-        
-        NCWidgetController().setHasContent(true, forWidgetWithBundleIdentifier: Bundle.main.bundleIdentifier!+".Pyto-Widget")
         
         tableView.reloadData()
     }
