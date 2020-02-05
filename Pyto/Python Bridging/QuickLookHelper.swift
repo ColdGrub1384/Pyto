@@ -8,6 +8,9 @@
 
 import UIKit
 import QuickLook
+#if MAIN
+import WatchConnectivity
+#endif
 
 fileprivate class ImageAttachment: NSTextAttachment {
     
@@ -118,6 +121,20 @@ fileprivate class ImageAttachment: NSTextAttachment {
             guard let data = Data(base64Encoded: data, options: .ignoreUnknownCharacters), let image = UIImage(data: data) else {
                 return
             }
+            
+            #if MAIN
+            
+            if script == Python.WatchScript.scriptURL.path {
+                let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+                let str = String((0..<10).map{ _ in letters.randomElement()! })
+                
+                let url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(str)
+                try? data.write(to: url)
+                
+                WCSession.default.transferFile(url, metadata: [:])
+                return
+            }
+            #endif
             
             let attachment = ImageAttachment()
             attachment.image = image

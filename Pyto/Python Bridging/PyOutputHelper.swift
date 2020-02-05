@@ -7,6 +7,9 @@
 //
 
 import UIKit
+#if MAIN
+import WatchConnectivity
+#endif
 
 fileprivate extension ConsoleViewController {
     
@@ -52,6 +55,11 @@ fileprivate extension ConsoleViewController {
         
         #if MAIN
         text_ = ShortenFilePaths(in: text_)
+        
+        if script == Python.WatchScript.scriptURL.path {
+            WCSession.default.sendMessageData(text_.data(using: .utf8) ?? Data(), replyHandler: nil, errorHandler: nil)
+            return
+        }
         #endif
         
         if text_.hasPrefix("\r") {
@@ -188,6 +196,11 @@ fileprivate extension ConsoleViewController {
         
         #if MAIN
         text_ = ShortenFilePaths(in: text_)
+        
+        if script == Python.WatchScript.scriptURL.path {
+            WCSession.default.sendMessageData(text_.data(using: .utf8) ?? Data(), replyHandler: nil, errorHandler: nil)
+            return
+        }
         #endif
         
         Python.shared.output += text_
@@ -236,6 +249,11 @@ fileprivate extension ConsoleViewController {
         
         #if MAIN
         text_ = ShortenFilePaths(in: text_)
+        
+        if script == Python.WatchScript.scriptURL.path {
+            WCSession.default.sendMessageData(text_.data(using: .utf8) ?? Data(), replyHandler: nil, errorHandler: nil)
+            return
+        }
         #endif
         
         Python.shared.output += text_
@@ -267,6 +285,7 @@ fileprivate extension ConsoleViewController {
                 #endif
                 
                 if let attrStr = console.textView.attributedText {
+                    
                     let mutable = NSMutableAttributedString(attributedString: attrStr)
                     mutable.append(NSAttributedString(string: text_, attributes: [.font : font, .foregroundColor : color]))
                     console.textView.attributedText = mutable

@@ -280,6 +280,15 @@
 		C97ACC57232B1A6300B6CF46 /* _imagingft.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C97ACC54232B19EE00B6CF46 /* _imagingft.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C97ACC58232B1A6300B6CF46 /* _imagingmath.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C97ACC52232B19ED00B6CF46 /* _imagingmath.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C97ACC59232B1A6300B6CF46 /* _imagingmorph.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C97ACC55232B19EE00B6CF46 /* _imagingmorph.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C97B021323E9F82700032925 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C97B021123E9F82700032925 /* Interface.storyboard */; };
+		C97B021523E9F82A00032925 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C97B021423E9F82A00032925 /* Assets.xcassets */; };
+		C97B021C23E9F82A00032925 /* Pyto Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C97B021B23E9F82A00032925 /* Pyto Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C97B022323E9F82A00032925 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97B022223E9F82A00032925 /* InterfaceController.swift */; };
+		C97B022523E9F82A00032925 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97B022423E9F82A00032925 /* ExtensionDelegate.swift */; };
+		C97B022923E9F82B00032925 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C97B022823E9F82B00032925 /* Assets.xcassets */; };
+		C97B023023E9F82B00032925 /* Pyto Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = C97B020F23E9F82700032925 /* Pyto Watch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C97B023C23EA2DEC00032925 /* SessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97B023B23EA2DEC00032925 /* SessionDelegate.swift */; };
+		C97B023E23EAF8C600032925 /* ImageInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97B023D23EAF8C600032925 /* ImageInterfaceController.swift */; };
 		C981698E235E5E780062A91F /* pythonA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C981698D235E5E6C0062A91F /* pythonA.framework */; };
 		C981698F235E5E8B0062A91F /* pythonA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C981698D235E5E6C0062A91F /* pythonA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9816990235E5EB50062A91F /* pythonA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C981698D235E5E6C0062A91F /* pythonA.framework */; };
@@ -307,6 +316,8 @@
 		C9A419A623A321EB00BF5393 /* Stripes.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A419A223A321EB00BF5393 /* Stripes.png */; };
 		C9A419A723A321EB00BF5393 /* Dark.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A419A323A321EB00BF5393 /* Dark.png */; };
 		C9A419A823A321EB00BF5393 /* Type.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A419A423A321EB00BF5393 /* Type.png */; };
+		C9A49E6D23EB2ACC0074B8CC /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A49E6C23EB2ACC0074B8CC /* ComplicationController.swift */; };
+		C9A49E6F23EB5CBF0074B8CC /* WatchInputSuggestionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A49E6E23EB5CBF0074B8CC /* WatchInputSuggestionsTableViewController.swift */; };
 		C9A5A5DF2352AEC5001C8E20 /* Template Chooser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9A5A5DE2352AEC5001C8E20 /* Template Chooser.storyboard */; };
 		C9A5A5E32352B2EC001C8E20 /* TemplateChooserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A5A5E22352B2EC001C8E20 /* TemplateChooserTableViewController.swift */; };
 		C9A8F02522DCE184000E320F /* PyGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A8F02422DCE184000E320F /* PyGestureRecognizer.swift */; };
@@ -1609,6 +1620,20 @@
 			remoteGlobalIDString = C97867D42304DEB000BD6FA4;
 			remoteInfo = libjpeg;
 		};
+		C97B021D23E9F82A00032925 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9FCFD4D214428AE00A07974 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C97B021A23E9F82A00032925;
+			remoteInfo = "Pyto Watch Extension";
+		};
+		C97B022E23E9F82B00032925 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9FCFD4D214428AE00A07974 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C97B020E23E9F82700032925;
+			remoteInfo = "Pyto Watch";
+		};
 		C981698C235E5E6C0062A91F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C9816988235E5E6B0062A91F /* Python3_ios.xcodeproj */;
@@ -1688,6 +1713,28 @@
 				C9C2F47522F0ED8C0062F4D6 /* Pyto Intents.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C97B023423E9F82C00032925 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				C97B021C23E9F82A00032925 /* Pyto Watch Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C97B023823E9F82C00032925 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				C97B023023E9F82B00032925 /* Pyto Watch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C9EAB4CA214D95C500DFC9A4 /* Embed Frameworks */ = {
@@ -2224,6 +2271,17 @@
 		C97ACC53232B19ED00B6CF46 /* _imaging.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _imaging.framework; sourceTree = "<group>"; };
 		C97ACC54232B19EE00B6CF46 /* _imagingft.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _imagingft.framework; sourceTree = "<group>"; };
 		C97ACC55232B19EE00B6CF46 /* _imagingmorph.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _imagingmorph.framework; sourceTree = "<group>"; };
+		C97B020F23E9F82700032925 /* Pyto Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pyto Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C97B021223E9F82700032925 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		C97B021423E9F82A00032925 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C97B021623E9F82A00032925 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C97B021B23E9F82A00032925 /* Pyto Watch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Pyto Watch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C97B022223E9F82A00032925 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		C97B022423E9F82A00032925 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		C97B022823E9F82B00032925 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C97B022D23E9F82B00032925 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C97B023B23EA2DEC00032925 /* SessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDelegate.swift; sourceTree = "<group>"; };
+		C97B023D23EAF8C600032925 /* ImageInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageInterfaceController.swift; sourceTree = "<group>"; };
 		C9816988235E5E6B0062A91F /* Python3_ios.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Python3_ios.xcodeproj; path = python3_ios/Python3_ios/Python3_ios.xcodeproj; sourceTree = "<group>"; };
 		C984729121A05A0E008E16AC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C98472AD21A05CB1008E16AC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -2249,6 +2307,8 @@
 		C9A419A223A321EB00BF5393 /* Stripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Stripes.png; sourceTree = "<group>"; };
 		C9A419A323A321EB00BF5393 /* Dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dark.png; sourceTree = "<group>"; };
 		C9A419A423A321EB00BF5393 /* Type.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Type.png; sourceTree = "<group>"; };
+		C9A49E6C23EB2ACC0074B8CC /* ComplicationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
+		C9A49E6E23EB5CBF0074B8CC /* WatchInputSuggestionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchInputSuggestionsTableViewController.swift; sourceTree = "<group>"; };
 		C9A5A5DE2352AEC5001C8E20 /* Template Chooser.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Template Chooser.storyboard"; sourceTree = "<group>"; };
 		C9A5A5E22352B2EC001C8E20 /* TemplateChooserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateChooserTableViewController.swift; sourceTree = "<group>"; };
 		C9A8F02422DCE184000E320F /* PyGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyGestureRecognizer.swift; sourceTree = "<group>"; };
@@ -3577,6 +3637,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C97B021823E9F82A00032925 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9C2F46B22F0ED8C0062F4D6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -4859,6 +4926,7 @@
 				C93657282287334600498011 /* ResolveConflictsTableViewController.swift */,
 				C95076FB22DE428F00226497 /* WidgetSimulatorViewController.swift */,
 				C972AE3E23467AE30053E1C3 /* FoldersBrowserViewController.swift */,
+				C9A49E6E23EB5CBF0074B8CC /* WatchInputSuggestionsTableViewController.swift */,
 				C9A5A5E22352B2EC001C8E20 /* TemplateChooserTableViewController.swift */,
 				C9CED5342353A214000BB464 /* ThemeMakerTableViewController.swift */,
 				C9A4199723A315D700BF5393 /* CustomIconTableViewController.swift */,
@@ -5211,6 +5279,30 @@
 				C97868152304E1E700BD6FA4 /* cv2.o */,
 			);
 			path = OpenCV;
+			sourceTree = "<group>";
+		};
+		C97B021023E9F82700032925 /* Pyto Watch */ = {
+			isa = PBXGroup;
+			children = (
+				C97B021123E9F82700032925 /* Interface.storyboard */,
+				C97B021423E9F82A00032925 /* Assets.xcassets */,
+				C97B021623E9F82A00032925 /* Info.plist */,
+			);
+			path = "Pyto Watch";
+			sourceTree = "<group>";
+		};
+		C97B021F23E9F82A00032925 /* Pyto Watch Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C97B023B23EA2DEC00032925 /* SessionDelegate.swift */,
+				C97B022223E9F82A00032925 /* InterfaceController.swift */,
+				C97B023D23EAF8C600032925 /* ImageInterfaceController.swift */,
+				C97B022423E9F82A00032925 /* ExtensionDelegate.swift */,
+				C9A49E6C23EB2ACC0074B8CC /* ComplicationController.swift */,
+				C97B022823E9F82B00032925 /* Assets.xcassets */,
+				C97B022D23E9F82B00032925 /* Info.plist */,
+			);
+			path = "Pyto Watch Extension";
 			sourceTree = "<group>";
 		};
 		C97B75FD22046C3500A05C8D /* Kiwisolver */ = {
@@ -6542,6 +6634,8 @@
 				C946A5AB22074EAA00F78C5C /* Pyto Widget */,
 				C9C2F46F22F0ED8C0062F4D6 /* Pyto Intents */,
 				C97867D62304DEB000BD6FA4 /* libjpeg */,
+				C97B021023E9F82700032925 /* Pyto Watch */,
+				C97B021F23E9F82A00032925 /* Pyto Watch Extension */,
 				C9FCFD56214428AE00A07974 /* Products */,
 				E49BBFEA4FF54799EBA99E3A /* Pods */,
 				777F5989381586AA988D5FF0 /* Frameworks */,
@@ -6558,6 +6652,8 @@
 				C946A5A822074EA900F78C5C /* Pyto Widget.appex */,
 				C9C2F46E22F0ED8C0062F4D6 /* Pyto Intents.appex */,
 				C97867D52304DEB000BD6FA4 /* libjpeg.framework */,
+				C97B020F23E9F82700032925 /* Pyto Watch.app */,
+				C97B021B23E9F82A00032925 /* Pyto Watch Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -6708,6 +6804,40 @@
 			productReference = C97867D52304DEB000BD6FA4 /* libjpeg.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		C97B020E23E9F82700032925 /* Pyto Watch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C97B023523E9F82C00032925 /* Build configuration list for PBXNativeTarget "Pyto Watch" */;
+			buildPhases = (
+				C97B020D23E9F82700032925 /* Resources */,
+				C97B023423E9F82C00032925 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C97B021E23E9F82A00032925 /* PBXTargetDependency */,
+			);
+			name = "Pyto Watch";
+			productName = "Pyto Watch";
+			productReference = C97B020F23E9F82700032925 /* Pyto Watch.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		C97B021A23E9F82A00032925 /* Pyto Watch Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C97B023123E9F82C00032925 /* Build configuration list for PBXNativeTarget "Pyto Watch Extension" */;
+			buildPhases = (
+				C97B021723E9F82A00032925 /* Sources */,
+				C97B021823E9F82A00032925 /* Frameworks */,
+				C97B021923E9F82A00032925 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pyto Watch Extension";
+			productName = "Pyto Watch Extension";
+			productReference = C97B021B23E9F82A00032925 /* Pyto Watch Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 		C9C2F46D22F0ED8C0062F4D6 /* Pyto Intents */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C9C2F47622F0ED8C0062F4D6 /* Build configuration list for PBXNativeTarget "Pyto Intents" */;
@@ -6755,6 +6885,7 @@
 				C9FCFD52214428AE00A07974 /* Frameworks */,
 				C9EAB4CA214D95C500DFC9A4 /* Embed Frameworks */,
 				C946A5BA22074EAA00F78C5C /* Embed App Extensions */,
+				C97B023823E9F82C00032925 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
@@ -6766,6 +6897,7 @@
 				C95EE4E522070224006611CB /* PBXTargetDependency */,
 				C946A5B322074EAA00F78C5C /* PBXTargetDependency */,
 				C9C2F47422F0ED8C0062F4D6 /* PBXTargetDependency */,
+				C97B022F23E9F82B00032925 /* PBXTargetDependency */,
 			);
 			name = Pyto;
 			productName = Pyto;
@@ -6779,7 +6911,7 @@
 			isa = PBXProject;
 			attributes = {
 				DefaultBuildSystemTypeForWorkspace = Latest;
-				LastSwiftUpdateCheck = 1100;
+				LastSwiftUpdateCheck = 1120;
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Adrian Labbé";
 				TargetAttributes = {
@@ -6800,6 +6932,12 @@
 					};
 					C97867D42304DEB000BD6FA4 = {
 						CreatedOnToolsVersion = 11.0;
+					};
+					C97B020E23E9F82700032925 = {
+						CreatedOnToolsVersion = 11.2.1;
+					};
+					C97B021A23E9F82A00032925 = {
+						CreatedOnToolsVersion = 11.2.1;
 					};
 					C9C2F46D22F0ED8C0062F4D6 = {
 						CreatedOnToolsVersion = 11.0;
@@ -6856,6 +6994,8 @@
 				C9CEE1E621EB8D5200316D3C /* PytoCore */,
 				C95EE4DE22070224006611CB /* libpng */,
 				C97867D42304DEB000BD6FA4 /* libjpeg */,
+				C97B020E23E9F82700032925 /* Pyto Watch */,
+				C97B021A23E9F82A00032925 /* Pyto Watch Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -6920,6 +7060,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C97B020D23E9F82700032925 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C97B021523E9F82A00032925 /* Assets.xcassets in Resources */,
+				C97B021323E9F82700032925 /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C97B021923E9F82A00032925 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C97B022923E9F82B00032925 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7157,6 +7314,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C97B021723E9F82A00032925 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C97B022323E9F82A00032925 /* InterfaceController.swift in Sources */,
+				C97B023E23EAF8C600032925 /* ImageInterfaceController.swift in Sources */,
+				C9A49E6D23EB2ACC0074B8CC /* ComplicationController.swift in Sources */,
+				C97B023C23EA2DEC00032925 /* SessionDelegate.swift in Sources */,
+				C97B022523E9F82A00032925 /* ExtensionDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9C2F46A22F0ED8C0062F4D6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -7345,6 +7514,7 @@
 				C90ECC52228B8B2000EC91C6 /* ShortenFilePaths.swift in Sources */,
 				C93B896823CA53C80070B2EF /* ParseArgs.swift in Sources */,
 				C99DDCEC21BBED22002A734E /* DocumentationViewController.swift in Sources */,
+				C9A49E6F23EB5CBF0074B8CC /* WatchInputSuggestionsTableViewController.swift in Sources */,
 				C97659062147192C001C96A8 /* PySharingHelper.swift in Sources */,
 				C9E016ED22823186002DF4CA /* EditorScript.swift in Sources */,
 			);
@@ -7378,6 +7548,16 @@
 			target = C97867D42304DEB000BD6FA4 /* libjpeg */;
 			targetProxy = C978680F2304DF0900BD6FA4 /* PBXContainerItemProxy */;
 		};
+		C97B021E23E9F82A00032925 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C97B021A23E9F82A00032925 /* Pyto Watch Extension */;
+			targetProxy = C97B021D23E9F82A00032925 /* PBXContainerItemProxy */;
+		};
+		C97B022F23E9F82B00032925 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C97B020E23E9F82700032925 /* Pyto Watch */;
+			targetProxy = C97B022E23E9F82B00032925 /* PBXContainerItemProxy */;
+		};
 		C98169B8235E61360062A91F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = python3_ios;
@@ -7407,6 +7587,14 @@
 				C9727C462204D7F100B7AC32 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		C97B021123E9F82700032925 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C97B021223E9F82700032925 /* Base */,
+			);
+			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 		C9F04E852173C33400BDD03E /* Localizable.strings */ = {
@@ -7548,7 +7736,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.3.11;
+				MARKETING_VERSION = 11.3.12;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -7609,7 +7797,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.3.11;
+				MARKETING_VERSION = 11.3.12;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -7747,6 +7935,92 @@
 			};
 			name = Release;
 		};
+		C97B023223E9F82C00032925 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "Pyto Watch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Debug;
+		};
+		C97B023323E9F82C00032925 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "Pyto Watch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Release;
+		};
+		C97B023623E9F82C00032925 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				IBSC_MODULE = Pyto_Watch_Extension;
+				INFOPLIST_FILE = "Pyto Watch/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Debug;
+		};
+		C97B023723E9F82C00032925 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				IBSC_MODULE = Pyto_Watch_Extension;
+				INFOPLIST_FILE = "Pyto Watch/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Release;
+		};
 		C9C2F47722F0ED8C0062F4D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -7764,7 +8038,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.3.11;
+				MARKETING_VERSION = 11.3.12;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Intents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -7793,7 +8067,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.3.11;
+				MARKETING_VERSION = 11.3.12;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Intents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -8078,7 +8352,7 @@
 					"$(PROJECT_DIR)/PyNacl",
 					"$(PROJECT_DIR)/SciPy",
 				);
-				MARKETING_VERSION = 11.3.11;
+				MARKETING_VERSION = 11.3.12;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
@@ -8190,7 +8464,7 @@
 					"$(PROJECT_DIR)/PyNacl",
 					"$(PROJECT_DIR)/SciPy",
 				);
-				MARKETING_VERSION = 11.3.11;
+				MARKETING_VERSION = 11.3.12;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
@@ -8259,6 +8533,24 @@
 			buildConfigurations = (
 				C97867DF2304DEB000BD6FA4 /* Debug */,
 				C97867E02304DEB000BD6FA4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C97B023123E9F82C00032925 /* Build configuration list for PBXNativeTarget "Pyto Watch Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C97B023223E9F82C00032925 /* Debug */,
+				C97B023323E9F82C00032925 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C97B023523E9F82C00032925 /* Build configuration list for PBXNativeTarget "Pyto Watch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C97B023623E9F82C00032925 /* Debug */,
+				C97B023723E9F82C00032925 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
