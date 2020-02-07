@@ -2687,7 +2687,7 @@ class View:
             _items = []
             for item in items:
                 _item = ButtonItem()
-                _item.__py_item__ = _item
+                _item.managed = item
                 _items.append(_item)
             return _items
 
