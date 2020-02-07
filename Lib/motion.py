@@ -41,12 +41,14 @@ def start_updating():
 
     __PyMotionHelper__.startUpdating()
 
+
 def stop_updating():
     """
     Stops receiving information from the sensors
     """
 
     __PyMotionHelper__.stopUpdating()
+
 
 def get_gravity() -> Gravity:
     """
@@ -58,6 +60,7 @@ def get_gravity() -> Gravity:
     gravity = __PyMotionHelper__.gravity
     return Gravity(float(gravity[0]), float(gravity[1]), float(gravity[2]))
 
+
 def get_rotation() -> Rotation:
     """
     Returns a tuple with information about rotation (x, y, z).
@@ -67,6 +70,7 @@ def get_rotation() -> Rotation:
 
     rotation = __PyMotionHelper__.rotation
     return Rotation(float(rotation[0]), float(rotation[1]), float(rotation[2]))
+
 
 def get_acceleration() -> Acceleration:
     """
@@ -78,6 +82,7 @@ def get_acceleration() -> Acceleration:
     acceleration = __PyMotionHelper__.acceleration
     return Acceleration(float(acceleration[0]), float(acceleration[1]), float(acceleration[2]))
 
+
 def get_magnetic_field() -> MagneticField:
     """
     Returns a tuple with information about the magnetic field (x, y, z).
@@ -87,6 +92,7 @@ def get_magnetic_field() -> MagneticField:
 
     magnetic_field = __PyMotionHelper__.magneticField
     return MagneticField(float(magnetic_field[0]), float(magnetic_field[1]), float(magnetic_field[2]))
+
 
 def get_attitude() -> Attitude:
     """
