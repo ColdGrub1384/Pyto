@@ -10,6 +10,7 @@ import UIKit
 import SafariServices
 import NotificationCenter
 import CoreLocation
+import CoreMotion
 #if MAIN
 import WatchConnectivity
 #endif
@@ -26,7 +27,7 @@ import WatchConnectivity
             
             let semaphore = DispatchSemaphore(value: 0)
             DispatchQueue.main.async {
-                object = UIApplication.shared.delegate as! AppDelegate
+                object = UIApplication.shared.delegate as? AppDelegate
                 semaphore.signal()
             }
             semaphore.wait()
