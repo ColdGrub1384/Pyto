@@ -37,7 +37,27 @@ class SessionDelegate: NSObject, WCSessionDelegate {
     
     func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
         
-        let str = (String(data: messageData, encoding: .utf8) ?? "")
+        var str = (String(data: messageData, encoding: .utf8) ?? "")
+        
+        if str.hasPrefix("\r") {
+            if console.hasSuffix("\n") {
+                str = str.components(separatedBy: "\r").last ?? str
+            }
+            
+            str = "\r\(str.components(separatedBy: "\r").last ?? str)"
+            
+            if console.contains("\n") || console.contains("\r") {
+                var comp = console.components(separatedBy: "\n")
+                if comp.count > 0 {
+                    comp.removeLast()
+                }
+                console = comp.joined(separator: "\n")
+            }
+            
+        } else if str.contains("\r") {
+            str = str.components(separatedBy: "\r").last ?? str
+        }
+        
         console += str
         (WKExtension.shared().rootInterfaceController as? InterfaceController)?.label.setText(console)
     }
