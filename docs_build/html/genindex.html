@@ -99,6 +99,7 @@
 <li class="toctree-l1"><a class="reference internal" href="music.html">music</a></li>
 <li class="toctree-l1"><a class="reference internal" href="photos.html">photos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="location.html">location</a></li>
+<li class="toctree-l1"><a class="reference internal" href="motion.html">motion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="multipeer.html">multipeer</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Sharing data</span></p>
@@ -196,11 +197,14 @@
  | <a href="#W"><strong>W</strong></a>
  | <a href="#X"><strong>X</strong></a>
  | <a href="#Y"><strong>Y</strong></a>
+ | <a href="#Z"><strong>Z</strong></a>
  
 </div>
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="motion.html#motion.Acceleration">Acceleration (class in motion)</a>
+</li>
       <li><a href="pyto_ui/classes.html#pyto_ui.TableViewCell.accessory_type">accessory_type() (pyto_ui.TableViewCell property)</a>
 </li>
       <li><a href="pyto_ui/constants.html#pyto_ui.ACCESSORY_TYPE_CHECKMARK">ACCESSORY_TYPE_CHECKMARK (in module pyto_ui)</a>
@@ -282,6 +286,8 @@
       <li><a href="music.html#music.MediaQuery.artists">artists() (music.MediaQuery class method)</a>
 </li>
       <li><a href="music.html#music.MediaItem.artwork">artwork() (music.MediaItem property)</a>
+</li>
+      <li><a href="motion.html#motion.Attitude">Attitude (class in motion)</a>
 </li>
       <li><a href="music.html#music.MediaQuery.audiobook">audiobook() (music.MediaQuery class method)</a>
 </li>
@@ -725,27 +731,39 @@
 </li>
       <li><a href="pyto_ui/constants.html#pyto_ui.GESTURE_STATE_RECOGNIZED">GESTURE_STATE_RECOGNIZED (in module pyto_ui)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyto_ui/constants.html#pyto_ui.GESTURE_TYPE_LONG_PRESS">GESTURE_TYPE_LONG_PRESS (in module pyto_ui)</a>
 </li>
       <li><a href="pyto_ui/constants.html#pyto_ui.GESTURE_TYPE_PAN">GESTURE_TYPE_PAN (in module pyto_ui)</a>
 </li>
       <li><a href="pyto_ui/constants.html#pyto_ui.GESTURE_TYPE_TAP">GESTURE_TYPE_TAP (in module pyto_ui)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyto_ui/classes.html#pyto_ui.GestureRecognizer">GestureRecognizer (class in pyto_ui)</a>
 </li>
       <li><a href="userkeys.html#userkeys.get">get() (in module userkeys)</a>
 </li>
+      <li><a href="motion.html#motion.get_acceleration">get_acceleration() (in module motion)</a>
+</li>
+      <li><a href="motion.html#motion.get_attitude">get_attitude() (in module motion)</a>
+</li>
       <li><a href="multipeer.html#multipeer.get_data">get_data() (in module multipeer)</a>
+</li>
+      <li><a href="motion.html#motion.get_gravity">get_gravity() (in module motion)</a>
 </li>
       <li><a href="location.html#location.get_location">get_location() (in module location)</a>
 </li>
+      <li><a href="motion.html#motion.get_magnetic_field">get_magnetic_field() (in module motion)</a>
+</li>
       <li><a href="notifications.html#notifications.get_pending_notifications">get_pending_notifications() (in module notifications)</a>
+</li>
+      <li><a href="motion.html#motion.get_rotation">get_rotation() (in module motion)</a>
 </li>
       <li><a href="pyto_ui/classes.html#pyto_ui.WebView.go_back">go_back() (pyto_ui.WebView method)</a>
 </li>
       <li><a href="pyto_ui/classes.html#pyto_ui.WebView.go_forward">go_forward() (pyto_ui.WebView method)</a>
+</li>
+      <li><a href="motion.html#motion.Gravity">Gravity (class in motion)</a>
 </li>
       <li><a href="pyto_ui/classes.html#pyto_ui.Color.green">green() (pyto_ui.Color method)</a>
 </li>
@@ -943,6 +961,8 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="motion.html#motion.MagneticField">MagneticField (class in motion)</a>
+</li>
       <li><a href="mainthread.html#module-mainthread">mainthread (module)</a>
 </li>
       <li><a href="notification_center.html#notification_center.maximum_height">maximum_height (in module notification_center)</a>
@@ -962,6 +982,8 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyto_ui/classes.html#pyto_ui.Slider.minimum_value">minimum_value() (pyto_ui.Slider property)</a>
+</li>
+      <li><a href="motion.html#module-motion">motion (module)</a>
 </li>
       <li><a href="pyto_ui/classes.html#pyto_ui.TableViewCell.movable">movable() (pyto_ui.TableViewCell property)</a>
 </li>
@@ -1047,6 +1069,8 @@
 </li>
       <li><a href="sharing.html#sharing.picked_files">picked_files() (in module sharing)</a>
 </li>
+      <li><a href="motion.html#motion.Attitude.pitch">pitch() (motion.Attitude property)</a>
+</li>
       <li><a href="pyto_ui/classes.html#pyto_ui.TextField.placeholder">placeholder() (pyto_ui.TextField property)</a>
 </li>
       <li><a href="music.html#music.play">play() (in module music)</a>
@@ -1067,10 +1091,10 @@
 </li>
       <li><a href="music.html#music.playback_state">playback_state() (in module music)</a>
 </li>
-      <li><a href="music.html#music.PLAYBACK_STATE_INTERRUPTED">PLAYBACK_STATE_INTERRUPTED (in module music)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="music.html#music.PLAYBACK_STATE_INTERRUPTED">PLAYBACK_STATE_INTERRUPTED (in module music)</a>
+</li>
       <li><a href="music.html#music.PLAYBACK_STATE_PAUSED">PLAYBACK_STATE_PAUSED (in module music)</a>
 </li>
       <li><a href="music.html#music.PLAYBACK_STATE_PLAYING">PLAYBACK_STATE_PLAYING (in module music)</a>
@@ -1153,14 +1177,14 @@
 </li>
       <li><a href="music.html#music.restart">restart() (in module music)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyto_ui/classes.html#pyto_ui.TextField.return_key_type">return_key_type() (pyto_ui.TextField property)</a>
 
       <ul>
         <li><a href="pyto_ui/classes.html#pyto_ui.TextView.return_key_type">(pyto_ui.TextView property)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyto_ui/constants.html#pyto_ui.RETURN_KEY_TYPE_CONTINUE">RETURN_KEY_TYPE_CONTINUE (in module pyto_ui)</a>
 </li>
       <li><a href="pyto_ui/constants.html#pyto_ui.RETURN_KEY_TYPE_DEFAULT">RETURN_KEY_TYPE_DEFAULT (in module pyto_ui)</a>
@@ -1186,6 +1210,10 @@
       <li><a href="pyto_ui/constants.html#pyto_ui.RETURN_KEY_TYPE_YAHOO">RETURN_KEY_TYPE_YAHOO (in module pyto_ui)</a>
 </li>
       <li><a href="pyto_ui/classes.html#pyto_ui.Color.rgb">rgb() (pyto_ui.Color class method)</a>
+</li>
+      <li><a href="motion.html#motion.Attitude.roll">roll() (motion.Attitude property)</a>
+</li>
+      <li><a href="motion.html#motion.Rotation">Rotation (class in motion)</a>
 </li>
       <li><a href="mainthread.html#mainthread.run_async">run_async() (in module mainthread)</a>
 </li>
@@ -1284,7 +1312,11 @@
       <li><a href="music.html#music.MediaQuery.songs">songs() (music.MediaQuery class method)</a>
 </li>
       <li><a href="location.html#location.start_updating">start_updating() (in module location)</a>
+
+      <ul>
+        <li><a href="motion.html#motion.start_updating">(in module motion)</a>
 </li>
+      </ul></li>
       <li><a href="pyto_ui/classes.html#pyto_ui.GestureRecognizer.state">state() (pyto_ui.GestureRecognizer property)</a>
 </li>
       <li><a href="music.html#music.stop">stop() (in module music)</a>
@@ -1296,7 +1328,11 @@
 </li>
       </ul></li>
       <li><a href="location.html#location.stop_updating">stop_updating() (in module location)</a>
+
+      <ul>
+        <li><a href="motion.html#motion.stop_updating">(in module motion)</a>
 </li>
+      </ul></li>
       <li><a href="pasteboard.html#pasteboard.string">string() (in module pasteboard)</a>
 </li>
       <li><a href="pasteboard.html#pasteboard.strings">strings() (in module pasteboard)</a>
@@ -1543,9 +1579,17 @@
 <h2 id="X">X</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="pyto_ui/classes.html#pyto_ui.GestureRecognizer.x">x() (pyto_ui.GestureRecognizer property)</a>
+      <li><a href="motion.html#motion.Acceleration.x">x() (motion.Acceleration property)</a>
 
       <ul>
+        <li><a href="motion.html#motion.Gravity.x">(motion.Gravity property)</a>
+</li>
+        <li><a href="motion.html#motion.MagneticField.x">(motion.MagneticField property)</a>
+</li>
+        <li><a href="motion.html#motion.Rotation.x">(motion.Rotation property)</a>
+</li>
+        <li><a href="pyto_ui/classes.html#pyto_ui.GestureRecognizer.x">(pyto_ui.GestureRecognizer property)</a>
+</li>
         <li><a href="pyto_ui/classes.html#pyto_ui.View.x">(pyto_ui.View property)</a>
 </li>
       </ul></li>
@@ -1559,10 +1603,38 @@
 <h2 id="Y">Y</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="pyto_ui/classes.html#pyto_ui.GestureRecognizer.y">y() (pyto_ui.GestureRecognizer property)</a>
+      <li><a href="motion.html#motion.Acceleration.y">y() (motion.Acceleration property)</a>
 
       <ul>
+        <li><a href="motion.html#motion.Gravity.y">(motion.Gravity property)</a>
+</li>
+        <li><a href="motion.html#motion.MagneticField.y">(motion.MagneticField property)</a>
+</li>
+        <li><a href="motion.html#motion.Rotation.y">(motion.Rotation property)</a>
+</li>
+        <li><a href="pyto_ui/classes.html#pyto_ui.GestureRecognizer.y">(pyto_ui.GestureRecognizer property)</a>
+</li>
         <li><a href="pyto_ui/classes.html#pyto_ui.View.y">(pyto_ui.View property)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="motion.html#motion.Attitude.yaw">yaw() (motion.Attitude property)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Z">Z</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="motion.html#motion.Acceleration.z">z() (motion.Acceleration property)</a>
+
+      <ul>
+        <li><a href="motion.html#motion.Gravity.z">(motion.Gravity property)</a>
+</li>
+        <li><a href="motion.html#motion.MagneticField.z">(motion.MagneticField property)</a>
+</li>
+        <li><a href="motion.html#motion.Rotation.z">(motion.Rotation property)</a>
 </li>
       </ul></li>
   </ul></td>
