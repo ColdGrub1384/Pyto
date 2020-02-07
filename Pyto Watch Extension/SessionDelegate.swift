@@ -47,7 +47,11 @@ class SessionDelegate: NSObject, WCSessionDelegate {
             DispatchQueue.main.async {
                 WKExtension.shared().rootInterfaceController?.presentTextInputController(withSuggestions: (message["suggestions"] as? [String]) ?? ["yes", "no"], allowedInputMode: .plain, completion: { (result) in
                     if let str = result?.first as? String {
+                        self.console += "\(str)\n"
+                        (WKExtension.shared().rootInterfaceController as? InterfaceController)?.label.setText(self.console)
                         replyHandler(["input": str])
+                    } else {
+                        replyHandler(["input": ""])
                     }
                 })
             }
