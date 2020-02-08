@@ -12,5 +12,10 @@ jobs:
       - name: requirements_for_dependabot_txt
         shell: python
         run: |
-            from temp.pip.py import BUNDLED_MODULES
-            print("\n".join(sorted(set(BUNDLED_MODULES))))
+          with open("site-packages/pip.py") as in_file:
+            for line in in_file:
+              if line.startswith("BUNDLED_MODULES"):
+                exec(line)
+                global BUNDLED_MODULES
+                break
+          print("\n".join(sorted(set(BUNDLED_MODULES))))
