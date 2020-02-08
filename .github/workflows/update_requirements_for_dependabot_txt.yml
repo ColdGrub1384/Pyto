@@ -1,0 +1,14 @@
+# GitHub Action updates the requirements_for_dependabot.txt file (if needed) when doing a git push
+name: requirements_for_dependabot_txt
+on: [push]
+jobs:
+  requirements_for_dependabot_txt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
+      - name: requirements_for_dependabot_txt
+        shell: python
+        run: |
+            from site-packages/pip.py import BUNDLED_MODULES
+            print("\n".join(sorted(set(BUNDLED_MODULES))))
