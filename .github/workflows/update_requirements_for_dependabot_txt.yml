@@ -18,4 +18,4 @@ jobs:
                 exec(line)
                 global BUNDLED_MODULES
                 break
-          print("\n".join(sorted(set(BUNDLED_MODULES))))
+          print("\n".join(sorted(set(BUNDLED_MODULES), key=str.lower)))
