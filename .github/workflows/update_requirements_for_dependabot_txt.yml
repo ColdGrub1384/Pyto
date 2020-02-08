@@ -7,6 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v1
+      - run: mkdir temp
       - run: cp site-packages/pip.py temp/pip.py
       - name: requirements_for_dependabot_txt
         shell: python
