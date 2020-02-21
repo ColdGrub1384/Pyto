@@ -112,6 +112,7 @@ void init_matplotlib() {
     }
     
     NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
+    [name addObject:@"ttconv"];             [key addObject:@"__matplotlib_ttconv"];
     [name addObject:@"_backend_agg"];       [key addObject:@"__matplotlib_backends__backend_agg"];
     [name addObject:@"_png"];               [key addObject:@"__matplotlib__png"];
     [name addObject:@"_image"];             [key addObject:@"__matplotlib__image"];

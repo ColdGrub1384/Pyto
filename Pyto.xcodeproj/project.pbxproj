@@ -51,6 +51,8 @@
 		C91321D821FB684C00437845 /* BlockBasedSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7521F49B1200E7CC35 /* BlockBasedSelector.swift */; };
 		C91321D921FB684E00437845 /* PySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7A21F49B8400E7CC35 /* PySelector.swift */; };
 		C916F44B226CFD4800FA2FB6 /* modules_inspector.py in Resources */ = {isa = PBXBuildFile; fileRef = C916F44A226CFD4700FA2FB6 /* modules_inspector.py */; };
+		C91B639D24007B6200FCED1F /* ttconv.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C91B639A24007B4C00FCED1F /* ttconv.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C91B639E24007B6700FCED1F /* _backend_agg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9DF7723E08172004CF05A /* _backend_agg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C91BE6AB23F99BF600B6ED6B /* FileBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BE6A823F99BF600B6ED6B /* FileBrowserViewController.swift */; };
 		C91BE6B523F9A3E500B6ED6B /* ProjectDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BE6B423F9A3E500B6ED6B /* ProjectDocument.swift */; };
 		C91BE6DF24004E9700B6ED6B /* ProjectsBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BE6DE24004E9700B6ED6B /* ProjectsBrowserViewController.swift */; };
@@ -427,7 +429,6 @@
 		C9E706272207A56B0003DA61 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1721D0592C00412CEF /* Localizable.swift */; };
 		C9E7062A2207A5700003DA61 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9F04E852173C33400BDD03E /* Localizable.strings */; };
 		C9E7062D2207A6FD0003DA61 /* setup_python.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E7062C2207A6FD0003DA61 /* setup_python.m */; };
-		C9E9DF7F23E08188004CF05A /* _backend_agg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9DF7723E08172004CF05A /* _backend_agg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9E9DF8023E08188004CF05A /* _contour.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9DF7623E08171004CF05A /* _contour.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9E9DF8123E08188004CF05A /* _image.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9DF7C23E08172004CF05A /* _image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9E9DF8223E08188004CF05A /* _path.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9DF7A23E08172004CF05A /* _path.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1749,6 +1750,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C91B639E24007B6700FCED1F /* _backend_agg.framework in Embed Frameworks */,
+				C91B639D24007B6200FCED1F /* ttconv.framework in Embed Frameworks */,
 				C9FCD89223E4B22700C6D3D3 /* _sas.framework in Embed Frameworks */,
 				C9FCD89323E4B22700C6D3D3 /* aggregations.framework in Embed Frameworks */,
 				C9FCD89423E4B22700C6D3D3 /* algos.framework in Embed Frameworks */,
@@ -1808,7 +1811,6 @@
 				C9E9E2FA23E0ADC4004CF05A /* _umath_tests.framework in Embed Frameworks */,
 				C9E9E2FB23E0ADC4004CF05A /* lapack_lite.framework in Embed Frameworks */,
 				C9E9E2FC23E0ADC4004CF05A /* mtrand.framework in Embed Frameworks */,
-				C9E9DF7F23E08188004CF05A /* _backend_agg.framework in Embed Frameworks */,
 				C9E9DF8023E08188004CF05A /* _contour.framework in Embed Frameworks */,
 				C9E9DF8123E08188004CF05A /* _image.framework in Embed Frameworks */,
 				C9E9DF8223E08188004CF05A /* _path.framework in Embed Frameworks */,
@@ -1988,6 +1990,7 @@
 		C913202A21DC12A300EEE677 /* AcknowledgmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcknowledgmentsViewController.swift; sourceTree = "<group>"; };
 		C91321C821FB500300437845 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		C916F44A226CFD4700FA2FB6 /* modules_inspector.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = modules_inspector.py; sourceTree = "<group>"; };
+		C91B639A24007B4C00FCED1F /* ttconv.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ttconv.framework; sourceTree = "<group>"; };
 		C91BE6A823F99BF600B6ED6B /* FileBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowserViewController.swift; sourceTree = "<group>"; };
 		C91BE6B423F9A3E500B6ED6B /* ProjectDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDocument.swift; sourceTree = "<group>"; };
 		C91BE6DE24004E9700B6ED6B /* ProjectsBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsBrowserViewController.swift; sourceTree = "<group>"; };
@@ -4894,6 +4897,7 @@
 		C9317EF221FF679B0016E422 /* Matplotlib */ = {
 			isa = PBXGroup;
 			children = (
+				C91B639A24007B4C00FCED1F /* ttconv.framework */,
 				C9E9DF7723E08172004CF05A /* _backend_agg.framework */,
 				C9E9DF7623E08171004CF05A /* _contour.framework */,
 				C9E9DF7C23E08172004CF05A /* _image.framework */,
