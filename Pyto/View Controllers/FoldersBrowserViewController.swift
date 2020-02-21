@@ -41,7 +41,7 @@ class FoldersBrowserViewController: UITableViewController, UIDocumentPickerDeleg
                 
                 do {
                     var isStale = false
-                    urls.append((try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)).resolvingSymlinksInPath())
+                    urls.append((try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)))
                 } catch {
                     continue
                 }
@@ -77,8 +77,7 @@ class FoldersBrowserViewController: UITableViewController, UIDocumentPickerDeleg
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
         
-        cell.textLabel?.text = FoldersBrowserViewController.accessibleFolders[indexPath.row].lastPathComponent
-        cell.detailTextLabel?.text = FoldersBrowserViewController.accessibleFolders[indexPath.row].deletingLastPathComponent().lastPathComponent
+        cell.textLabel?.text = FileManager.default.displayName(atPath: FoldersBrowserViewController.accessibleFolders[indexPath.row].path)
         
         return cell
     }

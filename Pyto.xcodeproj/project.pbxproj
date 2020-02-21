@@ -51,6 +51,9 @@
 		C91321D821FB684C00437845 /* BlockBasedSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7521F49B1200E7CC35 /* BlockBasedSelector.swift */; };
 		C91321D921FB684E00437845 /* PySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7A21F49B8400E7CC35 /* PySelector.swift */; };
 		C916F44B226CFD4800FA2FB6 /* modules_inspector.py in Resources */ = {isa = PBXBuildFile; fileRef = C916F44A226CFD4700FA2FB6 /* modules_inspector.py */; };
+		C91BE6AB23F99BF600B6ED6B /* FileBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BE6A823F99BF600B6ED6B /* FileBrowserViewController.swift */; };
+		C91BE6B523F9A3E500B6ED6B /* ProjectDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BE6B423F9A3E500B6ED6B /* ProjectDocument.swift */; };
+		C91BE6DF24004E9700B6ED6B /* ProjectsBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BE6DE24004E9700B6ED6B /* ProjectsBrowserViewController.swift */; };
 		C91BFF982360A54A0016AFD8 /* Loading Python.xib in Resources */ = {isa = PBXBuildFile; fileRef = C91BFF972360A54A0016AFD8 /* Loading Python.xib */; };
 		C91BFFAE236101110016AFD8 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91321C821FB500300437845 /* UIColor.swift */; };
 		C91BFFB2236105D30016AFD8 /* pythonA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C981698D235E5E6C0062A91F /* pythonA.framework */; };
@@ -1985,6 +1988,9 @@
 		C913202A21DC12A300EEE677 /* AcknowledgmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcknowledgmentsViewController.swift; sourceTree = "<group>"; };
 		C91321C821FB500300437845 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		C916F44A226CFD4700FA2FB6 /* modules_inspector.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = modules_inspector.py; sourceTree = "<group>"; };
+		C91BE6A823F99BF600B6ED6B /* FileBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowserViewController.swift; sourceTree = "<group>"; };
+		C91BE6B423F9A3E500B6ED6B /* ProjectDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDocument.swift; sourceTree = "<group>"; };
+		C91BE6DE24004E9700B6ED6B /* ProjectsBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsBrowserViewController.swift; sourceTree = "<group>"; };
 		C91BFF972360A54A0016AFD8 /* Loading Python.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "Loading Python.xib"; sourceTree = "<group>"; };
 		C91BFF9B2360B7D80016AFD8 /* LoadingPythonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingPythonView.swift; sourceTree = "<group>"; };
 		C921EF6621ECA02E004C750D /* XcodeActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeActivity.swift; sourceTree = "<group>"; };
@@ -3561,6 +3567,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		203EFCAE879C192C58D08D24 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C943AC3A215277A000844368 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -4908,6 +4921,8 @@
 			isa = PBXGroup;
 			children = (
 				C9FCFD6A21442DE700A07974 /* DocumentBrowserViewController.swift */,
+				C91BE6A823F99BF600B6ED6B /* FileBrowserViewController.swift */,
+				C91BE6DE24004E9700B6ED6B /* ProjectsBrowserViewController.swift */,
 				C9FCFD5A214428AE00A07974 /* EditorViewController.swift */,
 				C9B5D85D21F12E4000E980BA /* PlainTextEditorViewController.swift */,
 				C9B5D87121F20F2A00E980BA /* MarkdownPreviewController.swift */,
@@ -5156,6 +5171,7 @@
 				C9E016EC22823186002DF4CA /* EditorScript.swift */,
 				C959D50623761FC40001AEAF /* PyPackage.swift */,
 				C9592D1721D0592C00412CEF /* Localizable.swift */,
+				C91BE6B423F9A3E500B6ED6B /* ProjectDocument.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -6668,8 +6684,8 @@
 			children = (
 				C90E5583227B44AE000F27F4 /* Pyto.entitlements */,
 				C9EA55B2219F752D007546BC /* RelativePathForScript.swift */,
-				C90ECC51228B8B2000EC91C6 /* ShortenFilePaths.swift */,
 				C93B896723CA53C80070B2EF /* ParseArgs.swift */,
+				C90ECC51228B8B2000EC91C6 /* ShortenFilePaths.swift */,
 				C93D61E42145E17D00C8B5E3 /* Singletons */,
 				C93D61E52145E19300C8B5E3 /* View Controllers */,
 				C93D61E62145E1A500C8B5E3 /* Python Bridging */,
@@ -6815,6 +6831,7 @@
 			buildPhases = (
 				C97B020D23E9F82700032925 /* Resources */,
 				C97B023423E9F82C00032925 /* Embed App Extensions */,
+				203EFCAE879C192C58D08D24 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -7452,6 +7469,7 @@
 				C921EF7821ECC388004C750D /* ActivityViewController.swift in Sources */,
 				C9425A7B21F49B8400E7CC35 /* PySelector.swift in Sources */,
 				C9D3586A22EB7A3400F0B9E8 /* Dusk.swift in Sources */,
+				C91BE6DF24004E9700B6ED6B /* ProjectsBrowserViewController.swift in Sources */,
 				C954FAB9220A2BB00060C488 /* ReplaceView.swift in Sources */,
 				C9D2AA762215A503006AF527 /* EditorViewController+highlighting.swift in Sources */,
 				C92DBD8221F687480098BE43 /* REPLViewController.swift in Sources */,
@@ -7473,6 +7491,7 @@
 				C9592D1921D0592C00412CEF /* ViewControllerTransitionCoordinator.swift in Sources */,
 				C9C0E77A21EF65BE0057C63E /* ThemableNavigationController.swift in Sources */,
 				C93CA8B522022E67008DD049 /* QuickLookHelper.swift in Sources */,
+				C91BE6B523F9A3E500B6ED6B /* ProjectDocument.swift in Sources */,
 				C9A8F02522DCE184000E320F /* PyGestureRecognizer.swift in Sources */,
 				C9AAAB5221950E8B0042E733 /* TextView.swift in Sources */,
 				C909A19A2267DB210058C145 /* MenuTableViewController.swift in Sources */,
@@ -7496,6 +7515,7 @@
 				C9FCFD5B214428AE00A07974 /* EditorViewController.swift in Sources */,
 				C959D50723761FC40001AEAF /* PyPackage.swift in Sources */,
 				C903986922D2CF2600FAD834 /* PyImageView.swift in Sources */,
+				C91BE6AB23F99BF600B6ED6B /* FileBrowserViewController.swift in Sources */,
 				C9CEF4B222AC8DD300B1916D /* SceneDelegate.swift in Sources */,
 				C9C3308723C29747003B5971 /* PyLocationHelper.swift in Sources */,
 				C976592721471D23001C96A8 /* PyFilePicker.swift in Sources */,
