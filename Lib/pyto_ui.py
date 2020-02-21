@@ -3081,7 +3081,7 @@ class TableView(View):
         sections = self.__py_view__.sections
         py_sections = []
         for section in sections:
-            py_section = TableViewSection()
+            py_section = TableViewSection("", [])
             py_section.__py_section__ = section
             py_sections.append(py_section)
         return py_sections
