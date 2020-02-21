@@ -23,8 +23,24 @@ import SavannaKit
     /// Store here `EditorSplitViewController`s because it crashes on dealloc. RIP memory
     private static var splitVCs = [UIViewController?]()
     
-    /// If set, will open the document when the view appeared.
+    /// If set, will open the document when the view appears.
     var documentURL: URL?
+    
+    /// If set, will open the folder when the view appears.
+    var folder: FolderDocument?
+    
+    /// Opens a folder picker for opening a project.
+    @objc func openProject() {
+        
+        if #available(iOS 13.0, *) {
+            let vc = ProjectsBrowserViewController(style: .insetGrouped)
+            vc.navigationItem.largeTitleDisplayMode = .always
+            let navVC = UINavigationController(rootViewController: vc)
+            navVC.modalPresentationStyle = .formSheet
+            navVC.navigationBar.prefersLargeTitles = true
+            present(navVC, animated: true, completion: nil)
+        }
+    }
     
     /// Shows more options.
     @objc func showMore(_ sender: UIBarButtonItem) {
@@ -50,9 +66,10 @@ import SavannaKit
     /// - Parameters:
     ///     - documentURL: The URL of the file or directory.
     ///     - run: Set to `true` to run the script inmediately.
+    ///     - folder: If opened from a project, the folder of the project.
     ///     - animated: Set to `true` if the presentation should be animated.
     ///     - completion: Code called after presenting the UI.
-    func openDocument(_ documentURL: URL, run: Bool, animated: Bool = true, completion: (() -> Void)? = nil) {
+    func openDocument(_ documentURL: URL, run: Bool, folder: FolderDocument? = nil, animated: Bool = true, completion: (() -> Void)? = nil) {
         
         let tintColor = ConsoleViewController.choosenTheme.tintColor ?? UIColor(named: "TintColor") ?? .orange
         
@@ -66,7 +83,7 @@ import SavannaKit
         
         if presentedViewController != nil {
             dismiss(animated: true) {
-                self.openDocument(documentURL, run: run, completion: completion)
+                self.openDocument(documentURL, run: run, folder: folder, completion: completion)
             }
             return
         }
@@ -77,6 +94,7 @@ import SavannaKit
         contentVC.view.backgroundColor = .white
         
         let splitVC = EditorSplitViewController()
+        splitVC.folder = folder
         
         if isPip {
             splitVC.ratio = 0
@@ -111,7 +129,28 @@ import SavannaKit
         transitionController?.loadingProgress = document.progress
         transitionController?.targetView = navVC.view
         
-        navVC.transitioningDelegate = self
+        var vc: UIViewController = navVC
+        
+        if let folder = folder {
+            let uiSplitVC = EditorSplitViewController.ProjectSplitViewController()
+            uiSplitVC.editor = splitVC
+            uiSplitVC.preferredDisplayMode = .primaryHidden
+            if #available(iOS 13.0, *) {
+                uiSplitVC.view.backgroundColor = .systemBackground
+            }
+            uiSplitVC.modalPresentationStyle = .fullScreen
+            vc = uiSplitVC
+            
+            let browser = FileBrowserViewController()
+            browser.directory = folder.fileURL
+            browser.document = folder
+            folder.browser = browser
+            let browserNavVC = UINavigationController(rootViewController: browser)
+            
+            uiSplitVC.viewControllers = [browserNavVC, navVC]
+        }
+        
+        vc.transitioningDelegate = self
         
         document.open { (success) in
             guard success else {
@@ -119,7 +158,7 @@ import SavannaKit
             }
             
             document.checkForConflicts(onViewController: self, completion: {
-                self.present(navVC, animated: animated, completion: {
+                self.present(vc, animated: animated, completion: {
                     
                     NotificationCenter.default.removeObserver(splitVC)
                     completion?()
@@ -145,6 +184,11 @@ import SavannaKit
         let runAction = UIDocumentBrowserAction(identifier: "run", localizedTitle: Localizable.MenuItems.run, availability: [.menu, .navigationBar], handler: { (urls) in
             self.openDocument(urls[0], run: true)
         })
+        
+        if #available(iOS 13.0, *) {
+            additionalTrailingNavigationBarButtonItems = [UIBarButtonItem(image: UIImage(systemName: "folder.fill") ?? UIImage(), style: .plain, target: self, action: #selector(openProject))]
+        }
+        
         runAction.image = UIImage(named: "play")
         self.customActions = [runAction]
         
@@ -155,8 +199,9 @@ import SavannaKit
         super.viewDidAppear(animated)
         
         if let docURL = documentURL {
-            openDocument(docURL, run: false, animated: false)
+            openDocument(docURL, run: false, folder: folder, animated: false)
             documentURL = nil
+            folder = nil
         }
         
         /*if !Python.shared.isSetup, let view = Bundle.main.loadNibNamed("Loading Python", owner: nil, options: nil)!.first as? UIView {

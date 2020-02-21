@@ -62,6 +62,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
     @objc var document: PyDocument? {
         didSet {
             
+            isDocOpened = false
+            
             loadViewIfNeeded()
             
             document?.editor = self
@@ -422,6 +424,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
                     activity.addUserInfoEntries(from: ["filePath" : data])
                     activity.suggestedInvocationPhrase = document?.fileURL.deletingPathExtension().lastPathComponent
                 }
+            }
+            
+            if (parent as? EditorSplitViewController)?.folder != nil {
+                scriptsItem = parent?.navigationController?.splitViewController?.displayModeButtonItem ?? scriptsItem
+                parent?.navigationItem.leftBarButtonItems = [scriptsItem, searchItem]
             }
             
             /*if Python.shared.isScriptRunning {

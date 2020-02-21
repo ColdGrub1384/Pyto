@@ -94,6 +94,13 @@ import UIKit
                     let url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
                     
                     (window?.rootViewController as? DocumentBrowserViewController)?.documentURL = url
+                    
+                    if let folder = restorationActivity.userInfo?["folderBookmarkData"] as? Data {
+                        let folderURL = try URL(resolvingBookmarkData: folder, bookmarkDataIsStale: &isStale)
+                        let doc = FolderDocument(fileURL: folderURL)
+                        doc.open(completionHandler: nil)
+                        (self.window?.rootViewController as? DocumentBrowserViewController)?.folder = doc
+                    }
                 } catch {
                     print(error.localizedDescription)
                 }
@@ -304,6 +311,20 @@ import UIKit
 
                 let activity = NSUserActivity(activityType: "stateRestoration")
                 activity.userInfo?["bookmarkData"] = bookmarkData
+                return activity
+            } catch {
+                return nil
+            }
+        } else if let splitVC = ((scene.delegate as? UIWindowSceneDelegate)?.window??.rootViewController?.presentedViewController as? EditorSplitViewController.ProjectSplitViewController), let editor = splitVC.editor, let folder = editor.folder, let url = editor.editor.document?.fileURL {
+            
+            do {
+                
+                let bookmarkData = try url.bookmarkData()
+                let folderBookmarkData = try folder.fileURL.bookmarkData()
+                
+                let activity = NSUserActivity(activityType: "stateRestoration")
+                activity.userInfo?["bookmarkData"] = bookmarkData
+                activity.userInfo?["folderBookmarkData"] = folderBookmarkData
                 return activity
             } catch {
                 return nil

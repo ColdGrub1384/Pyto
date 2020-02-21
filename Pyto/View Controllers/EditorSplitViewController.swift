@@ -47,6 +47,9 @@ class EditorSplitViewController: SplitViewController {
     /// Set to `true` if this View controller was just shown.
     var justShown = true
     
+    /// If the script was opened in a project, the folder of the project.
+    var folder: FolderDocument?
+    
     /// A down arrow image for dismissing keyboard.
     static var downArrow: UIImage {
         return UIGraphicsImageRenderer(size: .init(width: 24, height: 24)).image(actions: { context in
@@ -308,6 +311,7 @@ class EditorSplitViewController: SplitViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.leftItemsSupplementBackButton = true
         closeConsoleBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(showEditor))
     }
     
@@ -508,5 +512,12 @@ class EditorSplitViewController: SplitViewController {
                 NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
             }
         }
+    }
+    
+    /// A Split view controller displaying a file browser and the code editor.
+    class ProjectSplitViewController: UISplitViewController {
+        
+        /// The editor.
+        var editor: EditorSplitViewController?
     }
 }
