@@ -195,6 +195,7 @@ def waitpid(pid, options):
 
 os.fork = fork
 os.waitpid = waitpid
+os._exit = sys.exit
 
 # MARK: - Handle signal called outside main thread
 
