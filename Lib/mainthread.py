@@ -30,6 +30,37 @@ def runSync(code):
     raise NameError("`runSync` was renamed to `run_sync`")
 
 
+def mainthread(func):
+    """
+    A decorator for a function running in the main thread.
+
+    Example:
+
+    code-block::
+        python
+
+        import mainthread
+        from UIKit import UIApplication
+
+        @mainthread.mainthread
+        def run_in_background():
+            app = UIApplication.sharedApplication
+            app.beginBackgroundTaskWithExpirationHandler(None)
+
+        run_in_background()
+    """
+
+    def run(*args, **kwargs):
+        import mainthread
+
+        def _run():
+            func(*args, **kwargs)
+
+        mainthread.run_async(_run)
+
+    return run
+
+
 def run_async(code):
     """
     Runs the given code asynchronously on the main thread.
