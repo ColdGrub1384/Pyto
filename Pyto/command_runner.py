@@ -8,6 +8,7 @@ import sys
 import traceback
 import pyto
 import runpy
+from console import __clear_mods__
 
 if len(sys.argv) == 1:
     usage = "Usage: <module-name> [<args>]"
@@ -33,6 +34,8 @@ def main():
     sys.path.insert(-1, bin)
 
     sys.argv = command
+
+    __clear_mods__()
 
     try:
         runpy._run_module_as_main(module_name)

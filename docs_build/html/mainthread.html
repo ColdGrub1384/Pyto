@@ -100,6 +100,8 @@
 <li class="toctree-l1"><a class="reference internal" href="music.html">music</a></li>
 <li class="toctree-l1"><a class="reference internal" href="photos.html">photos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="location.html">location</a></li>
+<li class="toctree-l1"><a class="reference internal" href="motion.html">motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multipeer.html">multipeer</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Sharing data</span></p>
 <ul>
@@ -184,6 +186,26 @@
 <span class="n">mainthread</span><span class="o">.</span><span class="n">run_async</span><span class="p">(</span><span class="n">set_brightness</span><span class="p">)</span>
 </pre></div>
 </div>
+<dl class="function">
+<dt id="mainthread.mainthread">
+<code class="sig-prename descclassname">mainthread.</code><code class="sig-name descname">mainthread</code><span class="sig-paren">(</span><em class="sig-param">func</em><span class="sig-paren">)</span><a class="headerlink" href="#mainthread.mainthread" title="Permalink to this definition">¶</a></dt>
+<dd><p>A decorator for a function running in the main thread.</p>
+<p>Example:</p>
+<dl>
+<dt>code-block::</dt><dd><p>python</p>
+<p>import mainthread
+from UIKit import UIApplication</p>
+<p>&#64;mainthread.mainthread
+def run_in_background():</p>
+<blockquote>
+<div><p>app = UIApplication.sharedApplication
+app.beginBackgroundTaskWithExpirationHandler(None)</p>
+</div></blockquote>
+<p>run_in_background()</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="function">
 <dt id="mainthread.run_async">
 <code class="sig-prename descclassname">mainthread.</code><code class="sig-name descname">run_async</code><span class="sig-paren">(</span><em class="sig-param">code</em><span class="sig-paren">)</span><a class="headerlink" href="#mainthread.run_async" title="Permalink to this definition">¶</a></dt>

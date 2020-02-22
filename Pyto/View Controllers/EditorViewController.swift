@@ -946,6 +946,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
     ///     - debug: Set to `true` for debugging with `pdb`.
     func runScript(debug: Bool) {
         
+        UIApplication.shared.beginBackgroundTask(expirationHandler: nil)
+        
         // For error handling
         textView.delegate = nil
         textView.delegate = self
