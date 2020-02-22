@@ -19,6 +19,7 @@ The app uses the Python C API to run Python code in the same process of the app,
 
    automation
    opencv
+   django
    third_party
 
 #################

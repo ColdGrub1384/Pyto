@@ -474,7 +474,7 @@ class EditorSplitViewController: SplitViewController {
     /// The image of the button used for showing more.
     static var threeDotsImage: UIImage {
         if #available(iOS 13.0, *) {
-            return UIImage(systemName: "ellipsis") ?? UIImage(named: "more") ?? UIImage()
+            return UIImage(systemName: "list.bullet") ?? UIImage(named: "more") ?? UIImage()
         } else {
             return UIImage(named: "more") ?? UIImage()
         }
