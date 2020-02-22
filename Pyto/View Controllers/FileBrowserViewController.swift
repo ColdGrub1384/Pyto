@@ -49,7 +49,7 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
     func load() {
         tableView.backgroundView = nil
         do {
-            let files = try FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
+            let files = try FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil, options: [])
             self.files = files
         } catch {
             files = []
@@ -206,7 +206,15 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
         
-        cell.textLabel?.text = files[indexPath.row].lastPathComponent
+        let icloud = (files[indexPath.row].pathExtension == "icloud" && files[indexPath.row].lastPathComponent.hasPrefix("."))
+        
+        if icloud {
+            var name = files[indexPath.row].deletingPathExtension().lastPathComponent
+            name.removeFirst()
+            cell.textLabel?.text = name
+        } else {
+            cell.textLabel?.text = files[indexPath.row].lastPathComponent
+        }
         
         var isDir: ObjCBool = false
         if FileManager.default.fileExists(atPath: files[indexPath.row].path, isDirectory: &isDir) && isDir.boolValue {
@@ -216,9 +224,11 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
             cell.accessoryType = .disclosureIndicator
         } else {
             if #available(iOS 13.0, *) {
-                cell.imageView?.image = UIImage(systemName: "doc.fill")
-            } else {
-                // Fallback on earlier versions
+                if !icloud {
+                    cell.imageView?.image = UIImage(systemName: "doc.fill")
+                } else {
+                    cell.imageView?.image = UIImage(systemName: "icloud.and.arrow.down.fill")
+                }
             }
             cell.accessoryType = .none
         }
@@ -242,15 +252,27 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
             browser.document = document
             navigationController?.pushViewController(browser, animated: true)
         } else {
-                        
-            if files[indexPath.row].pathExtension.lowercased() == "py" {
+            
+            var icloud = (files[indexPath.row].pathExtension == "icloud" && files[indexPath.row].lastPathComponent.hasPrefix("."))
+            
+            var last = self.files[indexPath.row].deletingPathExtension().lastPathComponent
+            last.removeFirst()
+            
+            let url: URL
+            if icloud {
+                url = files[indexPath.row].deletingLastPathComponent().appendingPathComponent(last)
+            } else {
+                url = files[indexPath.row]
+            }
+            
+            if url.pathExtension.lowercased() == "py" {
                 
                 if let editor = ((navigationController?.splitViewController as? EditorSplitViewController.ProjectSplitViewController)?.editor)?.editor {
                     
                     editor.document?.editor = nil
                     
                     editor.save { (_) in
-                        let document = PyDocument(fileURL: self.files[indexPath.row])
+                        let document = PyDocument(fileURL: url)
                         document.open { (_) in
                             editor.parent?.title = document.fileURL.deletingPathExtension().lastPathComponent
                             editor.document = document
@@ -275,10 +297,10 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
                         if presenting?.presentingViewController != nil {
                             let presentingPresenting = presenting?.presentingViewController
                             presenting?.dismiss(animated: true, completion: {
-                                (presentingPresenting as? DocumentBrowserViewController)?.openDocument(self.files[indexPath.row], run: false, folder: doc)
+                                (presentingPresenting as? DocumentBrowserViewController)?.openDocument(url, run: false, folder: doc)
                             })
                         } else {
-                            (presenting as? DocumentBrowserViewController)?.openDocument(self.files[indexPath.row], run: false, folder: doc)
+                            (presenting as? DocumentBrowserViewController)?.openDocument(url, run: false, folder: doc)
                         }
                     }
                 }
@@ -301,11 +323,14 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
                     }
                 }
                 
-                let dataSource = DataSource(url: self.files[indexPath.row])
-                
-                let vc = QLPreviewController()
-                vc.dataSource = dataSource
-                self.present(vc, animated: true, completion: nil)
+                let doc = PyDocument(fileURL: url)
+                doc.open { (_) in
+                    let dataSource = DataSource(url: doc.fileURL)
+                    
+                    let vc = QLPreviewController()
+                    vc.dataSource = dataSource
+                    self.present(vc, animated: true, completion: nil)
+                }
             }
         }
     }
