@@ -325,6 +325,11 @@ import UIKit
     /// All visible instances.
     @objc static var visibles = [ConsoleViewController]()
     
+    /// All visible instances.
+    @objc static var objcVisibles: NSArray {
+        return NSArray(array: visibles)
+    }
+    
     // MARK: - Theme
     
     #if MAIN
