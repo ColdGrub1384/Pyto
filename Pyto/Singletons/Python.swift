@@ -203,10 +203,10 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     }
     
     /// Add a script here to send `KeyboardInterrupt`to it.
-    @objc public var scriptsToInterrupt = [String]()
+    @objc public var scriptsToInterrupt = NSMutableArray()
     
     /// Add a script here to send `SystemExit`to it.
-    @objc public var scriptsToExit = [String]()
+    @objc public var scriptsToExit = NSMutableArray()
     
     private var _cwd = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].path
     
@@ -296,8 +296,8 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// - Parameters:
     ///     - script: The path of the script to stop.
     @objc public func stop(script: String) {
-        if scriptsToExit.firstIndex(of: script) == nil {
-            scriptsToExit.append(script)
+        if scriptsToExit.index(of: script) == NSNotFound {
+            scriptsToExit.add(script)
         }
     }
     
@@ -306,8 +306,8 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// - Parameters:
     ///     - script: The path of the script to interrupt.
     @objc public func interrupt(script: String) {
-        if scriptsToInterrupt.firstIndex(of: script) == nil {
-            scriptsToInterrupt.append(script)
+        if scriptsToInterrupt.index(of: script) == NSNotFound {
+            scriptsToInterrupt.add(script)
         }
     }
 
