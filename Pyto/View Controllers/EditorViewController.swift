@@ -1478,6 +1478,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 
                 let range = textView.selectedTextRange
                 
+                closeParentheses = false
+               
                 if !parenthesesFound || closeParentheses {
                     textView.insertText(")")
                 }
@@ -1506,6 +1508,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 
                 let range = textView.selectedTextRange
                 
+                closeBrackets = false
+               
                 if !bracketsFound || closeBrackets {
                     textView.insertText("]")
                 }
@@ -1534,6 +1538,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 
                 let range = textView.selectedTextRange
                 
+                closeCurlyBraces = false
+               
                 if !curlyBracesFound || closeCurlyBraces {
                     textView.insertText("}")
                 }
@@ -1543,10 +1549,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 return false
             }
         }
-        if (characterBeforeCursor() == "(" && text == ")" && characterAfterCursor() == ")") || (characterBeforeCursor() == "[" && text == "]" && characterAfterCursor() == "]") || (characterBeforeCursor() == "{" && text == "}" && characterAfterCursor() == "}") {
+        /*if (characterBeforeCursor() == "(" && text == ")" && characterAfterCursor() == ")") || (characterBeforeCursor() == "[" && text == "]" && characterAfterCursor() == "]") || (characterBeforeCursor() == "{" && text == "}" && characterAfterCursor() == "}") {
             textView.selectedRange = NSRange(location: textView.selectedRange.location+1, length: textView.selectedRange.length)
             return false
-        }
+        }*/
         
         if text == "\n", var currentLine = textView.currentLine, let currentLineRange = textView.currentLineRange, let selectedRange = textView.selectedTextRange {
             
