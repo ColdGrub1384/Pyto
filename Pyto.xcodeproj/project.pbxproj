@@ -46,6 +46,8 @@
 		C90ECC52228B8B2000EC91C6 /* ShortenFilePaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90ECC51228B8B2000EC91C6 /* ShortenFilePaths.swift */; };
 		C90F7CED227F445D00EEA045 /* command_runner.py in Resources */ = {isa = PBXBuildFile; fileRef = C90F7CEC227F445D00EEA045 /* command_runner.py */; };
 		C90F7CF1227F494300EEA045 /* RunModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90F7CF0227F494300EEA045 /* RunModuleViewController.swift */; };
+		C91048CF2414055000DB89A2 /* PyTurtle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91048CE2414055000DB89A2 /* PyTurtle.swift */; };
+		C91048D22414055B00DB89A2 /* PyTurtle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91048CE2414055000DB89A2 /* PyTurtle.swift */; };
 		C913202B21DC12A300EEE677 /* AcknowledgmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C913202A21DC12A300EEE677 /* AcknowledgmentsViewController.swift */; };
 		C91321C921FB500300437845 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91321C821FB500300437845 /* UIColor.swift */; };
 		C91321D421FB664F00437845 /* REPL.py in Resources */ = {isa = PBXBuildFile; fileRef = C92DBD7F21F67B9C0098BE43 /* REPL.py */; };
@@ -235,28 +237,6 @@
 		C9734AEF22D67B7100C5FE4B /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C943AC3D215277A000844368 /* Python.framework */; };
 		C97659062147192C001C96A8 /* PySharingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97659052147192C001C96A8 /* PySharingHelper.swift */; };
 		C976592721471D23001C96A8 /* PyFilePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C976592621471D23001C96A8 /* PyFilePicker.swift */; };
-		C9769215240BF84C002CC38D /* _hamilton_filter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C97691FD240BF83A002CC38D /* _hamilton_filter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9769216240BF84C002CC38D /* _simulation_smoother.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C97691FE240BF83A002CC38D /* _simulation_smoother.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9769217240BF84C002CC38D /* _exponential_smoothers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C97691FF240BF83A002CC38D /* _exponential_smoothers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9769218240BF84C002CC38D /* _filters_conventional.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9769200240BF83A002CC38D /* _filters_conventional.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9769219240BF84C002CC38D /* _classical.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9769201240BF83A002CC38D /* _classical.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C976921A240BF84C002CC38D /* kalman_loglike.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9769202240BF83A002CC38D /* kalman_loglike.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C976921B240BF84C002CC38D /* _smoothers_lowess.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9769203240BF83A002CC38D /* _smoothers_lowess.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C976921C240BF84C002CC38D /* _kim_smoother.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9769204240BF83A002CC38D /* _kim_smoother.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C976921D240BF84C002CC38D /* _kalman_filter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9769205240BF83B002CC38D /* _kalman_filter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C976921E240BF84C002CC38D /* _alternative.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9769206240BF83B002CC38D /* _alternative.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C976921F240BF84C002CC38D /* _filters_univariate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9769207240BF83B002CC38D /* _filters_univariate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9769220240BF84C002CC38D /* _inversions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9769208240BF83B002CC38D /* _inversions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9769221240BF84C002CC38D /* _tools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9769209240BF83B002CC38D /* _tools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9769222240BF84C002CC38D /* _initialization.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C976920A240BF83B002CC38D /* _initialization.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9769223240BF84C002CC38D /* _smoothers_univariate_diffuse.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C976920B240BF83B002CC38D /* _smoothers_univariate_diffuse.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9769224240BF84C002CC38D /* _smoothers_conventional.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C976920C240BF83B002CC38D /* _smoothers_conventional.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9769225240BF84C002CC38D /* _arma_innovations.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C976920D240BF83B002CC38D /* _arma_innovations.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9769226240BF84C002CC38D /* _filters_univariate_diffuse.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C976920E240BF83B002CC38D /* _filters_univariate_diffuse.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9769227240BF84C002CC38D /* linbin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C976920F240BF83B002CC38D /* linbin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9769228240BF84C002CC38D /* _smoothers_univariate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9769210240BF83B002CC38D /* _smoothers_univariate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9769229240BF84C002CC38D /* _representation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9769211240BF83B002CC38D /* _representation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C976922A240BF84C002CC38D /* _kalman_smoother.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9769212240BF83B002CC38D /* _kalman_smoother.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C97867D92304DEB000BD6FA4 /* libjpeg.h in Headers */ = {isa = PBXBuildFile; fileRef = C97867D72304DEB000BD6FA4 /* libjpeg.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C97867DC2304DEB000BD6FA4 /* libjpeg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C97867D52304DEB000BD6FA4 /* libjpeg.framework */; };
 		C97867DD2304DEB000BD6FA4 /* libjpeg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C97867D52304DEB000BD6FA4 /* libjpeg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1774,28 +1754,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C9769215240BF84C002CC38D /* _hamilton_filter.framework in Embed Frameworks */,
-				C9769216240BF84C002CC38D /* _simulation_smoother.framework in Embed Frameworks */,
-				C9769217240BF84C002CC38D /* _exponential_smoothers.framework in Embed Frameworks */,
-				C9769218240BF84C002CC38D /* _filters_conventional.framework in Embed Frameworks */,
-				C9769219240BF84C002CC38D /* _classical.framework in Embed Frameworks */,
-				C976921A240BF84C002CC38D /* kalman_loglike.framework in Embed Frameworks */,
-				C976921B240BF84C002CC38D /* _smoothers_lowess.framework in Embed Frameworks */,
-				C976921C240BF84C002CC38D /* _kim_smoother.framework in Embed Frameworks */,
-				C976921D240BF84C002CC38D /* _kalman_filter.framework in Embed Frameworks */,
-				C976921E240BF84C002CC38D /* _alternative.framework in Embed Frameworks */,
-				C976921F240BF84C002CC38D /* _filters_univariate.framework in Embed Frameworks */,
-				C9769220240BF84C002CC38D /* _inversions.framework in Embed Frameworks */,
-				C9769221240BF84C002CC38D /* _tools.framework in Embed Frameworks */,
-				C9769222240BF84C002CC38D /* _initialization.framework in Embed Frameworks */,
-				C9769223240BF84C002CC38D /* _smoothers_univariate_diffuse.framework in Embed Frameworks */,
-				C9769224240BF84C002CC38D /* _smoothers_conventional.framework in Embed Frameworks */,
-				C9769225240BF84C002CC38D /* _arma_innovations.framework in Embed Frameworks */,
-				C9769226240BF84C002CC38D /* _filters_univariate_diffuse.framework in Embed Frameworks */,
-				C9769227240BF84C002CC38D /* linbin.framework in Embed Frameworks */,
-				C9769228240BF84C002CC38D /* _smoothers_univariate.framework in Embed Frameworks */,
-				C9769229240BF84C002CC38D /* _representation.framework in Embed Frameworks */,
-				C976922A240BF84C002CC38D /* _kalman_smoother.framework in Embed Frameworks */,
 				C91B639E24007B6700FCED1F /* _backend_agg.framework in Embed Frameworks */,
 				C91B639D24007B6200FCED1F /* ttconv.framework in Embed Frameworks */,
 				C9FCD89223E4B22700C6D3D3 /* _sas.framework in Embed Frameworks */,
@@ -2035,6 +1993,7 @@
 		C90ECC51228B8B2000EC91C6 /* ShortenFilePaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortenFilePaths.swift; sourceTree = "<group>"; };
 		C90F7CEC227F445D00EEA045 /* command_runner.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = command_runner.py; sourceTree = "<group>"; };
 		C90F7CF0227F494300EEA045 /* RunModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunModuleViewController.swift; sourceTree = "<group>"; };
+		C91048CE2414055000DB89A2 /* PyTurtle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyTurtle.swift; sourceTree = "<group>"; };
 		C913202A21DC12A300EEE677 /* AcknowledgmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcknowledgmentsViewController.swift; sourceTree = "<group>"; };
 		C91321C821FB500300437845 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		C916F44A226CFD4700FA2FB6 /* modules_inspector.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = modules_inspector.py; sourceTree = "<group>"; };
@@ -2276,28 +2235,6 @@
 		C972AE3E23467AE30053E1C3 /* FoldersBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersBrowserViewController.swift; sourceTree = "<group>"; };
 		C97659052147192C001C96A8 /* PySharingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PySharingHelper.swift; sourceTree = "<group>"; };
 		C976592621471D23001C96A8 /* PyFilePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyFilePicker.swift; sourceTree = "<group>"; };
-		C97691FD240BF83A002CC38D /* _hamilton_filter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _hamilton_filter.framework; sourceTree = "<group>"; };
-		C97691FE240BF83A002CC38D /* _simulation_smoother.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _simulation_smoother.framework; sourceTree = "<group>"; };
-		C97691FF240BF83A002CC38D /* _exponential_smoothers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _exponential_smoothers.framework; sourceTree = "<group>"; };
-		C9769200240BF83A002CC38D /* _filters_conventional.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _filters_conventional.framework; sourceTree = "<group>"; };
-		C9769201240BF83A002CC38D /* _classical.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _classical.framework; sourceTree = "<group>"; };
-		C9769202240BF83A002CC38D /* kalman_loglike.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = kalman_loglike.framework; sourceTree = "<group>"; };
-		C9769203240BF83A002CC38D /* _smoothers_lowess.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _smoothers_lowess.framework; sourceTree = "<group>"; };
-		C9769204240BF83A002CC38D /* _kim_smoother.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _kim_smoother.framework; sourceTree = "<group>"; };
-		C9769205240BF83B002CC38D /* _kalman_filter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _kalman_filter.framework; sourceTree = "<group>"; };
-		C9769206240BF83B002CC38D /* _alternative.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _alternative.framework; sourceTree = "<group>"; };
-		C9769207240BF83B002CC38D /* _filters_univariate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _filters_univariate.framework; sourceTree = "<group>"; };
-		C9769208240BF83B002CC38D /* _inversions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _inversions.framework; sourceTree = "<group>"; };
-		C9769209240BF83B002CC38D /* _tools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _tools.framework; sourceTree = "<group>"; };
-		C976920A240BF83B002CC38D /* _initialization.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _initialization.framework; sourceTree = "<group>"; };
-		C976920B240BF83B002CC38D /* _smoothers_univariate_diffuse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _smoothers_univariate_diffuse.framework; sourceTree = "<group>"; };
-		C976920C240BF83B002CC38D /* _smoothers_conventional.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _smoothers_conventional.framework; sourceTree = "<group>"; };
-		C976920D240BF83B002CC38D /* _arma_innovations.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _arma_innovations.framework; sourceTree = "<group>"; };
-		C976920E240BF83B002CC38D /* _filters_univariate_diffuse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _filters_univariate_diffuse.framework; sourceTree = "<group>"; };
-		C976920F240BF83B002CC38D /* linbin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = linbin.framework; sourceTree = "<group>"; };
-		C9769210240BF83B002CC38D /* _smoothers_univariate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _smoothers_univariate.framework; sourceTree = "<group>"; };
-		C9769211240BF83B002CC38D /* _representation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _representation.framework; sourceTree = "<group>"; };
-		C9769212240BF83B002CC38D /* _kalman_smoother.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _kalman_smoother.framework; sourceTree = "<group>"; };
 		C97867462304D52500BD6FA4 /* jddctmgr.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jddctmgr.o; sourceTree = "<group>"; };
 		C97867472304D52500BD6FA4 /* jdcolor.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jdcolor.o; sourceTree = "<group>"; };
 		C97867482304D52600BD6FA4 /* jquant2.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jquant2.o; sourceTree = "<group>"; };
@@ -5044,6 +4981,7 @@
 				C969D29D23D14D2900460F05 /* PyMusicHelper.swift */,
 				C969D2A423D49B3200460F05 /* PyPhotosHelper.swift */,
 				C90089DF23D79C5C00D18AAE /* PyMultipeerHelper.swift */,
+				C91048CE2414055000DB89A2 /* PyTurtle.swift */,
 				C93CA8B422022E67008DD049 /* QuickLookHelper.swift */,
 				C9E501AD220C85B1002719CE /* PyMainThread.swift */,
 				C9624EF321A9905400DDA9A7 /* PyThread.swift */,
@@ -5358,35 +5296,6 @@
 				C9FC4C2C23D9239A00792852 /* _swt.framework */,
 			);
 			path = Pywt;
-			sourceTree = "<group>";
-		};
-		C97691FC240BF83A002CC38D /* Statsmodels */ = {
-			isa = PBXGroup;
-			children = (
-				C97691FD240BF83A002CC38D /* _hamilton_filter.framework */,
-				C97691FE240BF83A002CC38D /* _simulation_smoother.framework */,
-				C97691FF240BF83A002CC38D /* _exponential_smoothers.framework */,
-				C9769200240BF83A002CC38D /* _filters_conventional.framework */,
-				C9769201240BF83A002CC38D /* _classical.framework */,
-				C9769202240BF83A002CC38D /* kalman_loglike.framework */,
-				C9769203240BF83A002CC38D /* _smoothers_lowess.framework */,
-				C9769204240BF83A002CC38D /* _kim_smoother.framework */,
-				C9769205240BF83B002CC38D /* _kalman_filter.framework */,
-				C9769206240BF83B002CC38D /* _alternative.framework */,
-				C9769207240BF83B002CC38D /* _filters_univariate.framework */,
-				C9769208240BF83B002CC38D /* _inversions.framework */,
-				C9769209240BF83B002CC38D /* _tools.framework */,
-				C976920A240BF83B002CC38D /* _initialization.framework */,
-				C976920B240BF83B002CC38D /* _smoothers_univariate_diffuse.framework */,
-				C976920C240BF83B002CC38D /* _smoothers_conventional.framework */,
-				C976920D240BF83B002CC38D /* _arma_innovations.framework */,
-				C976920E240BF83B002CC38D /* _filters_univariate_diffuse.framework */,
-				C976920F240BF83B002CC38D /* linbin.framework */,
-				C9769210240BF83B002CC38D /* _smoothers_univariate.framework */,
-				C9769211240BF83B002CC38D /* _representation.framework */,
-				C9769212240BF83B002CC38D /* _kalman_smoother.framework */,
-			);
-			path = Statsmodels;
 			sourceTree = "<group>";
 		};
 		C97867D62304DEB000BD6FA4 /* libjpeg */ = {
@@ -6758,7 +6667,6 @@
 				C97868122304E19300BD6FA4 /* OpenCV */,
 				C995FB76233AD2BA00A8D42C /* PyNacl */,
 				C9C3308123C2902F003B5971 /* Bcrypt */,
-				C97691FC240BF83A002CC38D /* Statsmodels */,
 				C9CEE1E821EB8D5300316D3C /* PytoCore */,
 				C946A5AB22074EAA00F78C5C /* Pyto Widget */,
 				C9C2F46F22F0ED8C0062F4D6 /* Pyto Intents */,
@@ -7514,6 +7422,7 @@
 				C9F4622C22ECB412007DC3B8 /* PySlider.swift in Sources */,
 				C9CEE20721EB95C900316D3C /* ConsoleTextView.swift in Sources */,
 				C9CEE20621EB95C400316D3C /* TextView.swift in Sources */,
+				C91048D22414055B00DB89A2 /* PyTurtle.swift in Sources */,
 				C9CEE20221EB8FFF00316D3C /* PyExtensionContext.swift in Sources */,
 				C91BFFAE236101110016AFD8 /* UIColor.swift in Sources */,
 				C9CEE20A21EB960400316D3C /* ViewControllerTransitionCoordinator.swift in Sources */,
@@ -7626,6 +7535,7 @@
 				C91BE6AB23F99BF600B6ED6B /* FileBrowserViewController.swift in Sources */,
 				C9CEF4B222AC8DD300B1916D /* SceneDelegate.swift in Sources */,
 				C9C3308723C29747003B5971 /* PyLocationHelper.swift in Sources */,
+				C91048CF2414055000DB89A2 /* PyTurtle.swift in Sources */,
 				C976592721471D23001C96A8 /* PyFilePicker.swift in Sources */,
 				C9C0E78D21F0B7FA0057C63E /* ThemeChooserTableViewController.swift in Sources */,
 				C9C7AC6E22F5EE9F00659685 /* PyWebView.swift in Sources */,
@@ -8430,7 +8340,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_CPP_STATIC_DESTRUCTORS = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
@@ -8547,7 +8457,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_CPP_STATIC_DESTRUCTORS = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;

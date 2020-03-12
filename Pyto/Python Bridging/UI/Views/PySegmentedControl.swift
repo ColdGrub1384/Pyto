@@ -21,7 +21,7 @@ import UIKit
         return "SegmentedControl"
     }
     
-    @objc public var segments: [String] {
+    @objc public var segments: NSArray {
         get {
             return get {
                 let num = self.segmentedControl.numberOfSegments
@@ -29,7 +29,7 @@ import UIKit
                 for i in 0...num-1 {
                     segments.append(self.segmentedControl.titleForSegment(at: i) ?? "")
                 }
-                return segments
+                return NSArray(array: segments)
             }
         }
         
@@ -37,7 +37,7 @@ import UIKit
             set {
                 self.segmentedControl.removeAllSegments()
                 for (i, segment) in newValue.enumerated() {
-                    self.segmentedControl.insertSegment(withTitle: segment, at: i, animated: false)
+                    self.segmentedControl.insertSegment(withTitle: (segment as? String) ?? "", at: i, animated: false)
                 }
             }
         }

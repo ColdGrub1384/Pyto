@@ -430,7 +430,7 @@ import UIKit
             view.backgroundColor = view.subviews.first?.backgroundColor
             
             navigationItem.leftItemsSupplementBackButton = true
-            navigationItem.leftBarButtonItems = view.subviews.first?.buttonItems
+            navigationItem.leftBarButtonItems = view.subviews.first?.buttonItems as? [UIBarButtonItem]
         }
         
         override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
