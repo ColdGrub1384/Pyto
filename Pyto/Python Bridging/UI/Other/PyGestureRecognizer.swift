@@ -175,7 +175,7 @@ import UIKit
         }
     }
     
-    @objc public var allowedTouchTypes: [Int] {
+    @objc public var allowedTouchTypes: NSArray {
         get {
             return get {
                 let touches = self.gestureRecognizer.allowedTouchTypes
@@ -185,11 +185,16 @@ import UIKit
                     pythonic.append(touch.intValue)
                 }
                 
-                return pythonic
+                return NSArray(array: pythonic)
             }
         }
         
         set {
+            
+            guard let newValue = newValue as? [Int] else {
+                return
+            }
+            
             set {
                 var touches = [NSNumber]()
                 

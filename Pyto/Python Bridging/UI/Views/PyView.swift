@@ -41,13 +41,13 @@ import WebKit
     }
     
     /// Bar button items to be displayed on the navigation bar.
-    public var buttonItems: [UIBarButtonItem] {
+    public var buttonItems: NSArray {
         get {
-            return Holder.buttonItems[self] ?? []
+            return Holder.buttonItems[self] as NSArray? ?? [] as NSArray
         }
         
         set {
-            Holder.buttonItems[self] = newValue
+            Holder.buttonItems[self] = newValue as? [UIBarButtonItem]
         }
     }
     
@@ -217,7 +217,7 @@ import WebKit
             _presentationMode = newValue
             
             for view in subviews {
-                view.presentationMode = presentationMode
+                (view as? PyView)?.presentationMode = presentationMode
             }
         }
         
@@ -568,7 +568,7 @@ import WebKit
     }
     
     /// The subviews of the view.
-    @objc public var subviews: [PyView] {
+    @objc public var subviews: NSArray {
         return get {
             var subviews = [PyView]()
             
@@ -587,7 +587,7 @@ import WebKit
             
             self._subviews = subviews
             
-            return subviews
+            return NSArray(array: subviews)
         }
     }
     
@@ -945,14 +945,14 @@ import WebKit
     }
     
     /// All attached gesture recognizers.
-    @objc public var gestureRecognizers: [PyGestureRecognizer]! {
+    @objc public var gestureRecognizers: NSArray! {
         get {
             return get {
                 var pythonic = [PyGestureRecognizer]()
                 for gesture in self.view.gestureRecognizers ?? [] {
                     pythonic.append(PyGestureRecognizer(managed: gesture))
                 }
-                return pythonic
+                return NSArray(array: pythonic)
             }
         }
         
@@ -966,7 +966,9 @@ import WebKit
                 
                 var gestures = [UIGestureRecognizer]()
                 for gesture in newValue {
-                    gestures.append(gesture.gestureRecognizer)
+                    if let gesture = gesture as? PyGestureRecognizer {
+                        gestures.append(gesture.gestureRecognizer)
+                    }
                 }
                 self.view.gestureRecognizers = gestures
             }
@@ -994,24 +996,29 @@ import WebKit
     }
     
     /// Button items to be displayed on the view's corresponding navigation bar.
-    @objc public var buttonItems: [PyButtonItem] {
+    @objc public var buttonItems: NSArray {
         get {
             return get {
                 var items = [PyButtonItem]()
                 for item in self.view.buttonItems {
                     items.append(PyButtonItem(managed: item))
                 }
-                return items
+                return NSArray(array: items)
             }
         }
         
         set {
+            
+            guard let newValue = newValue as? [PyButtonItem] else {
+                return
+            }
+            
             set {
                 var items = [UIBarButtonItem]()
                 for item in newValue {
                     items.append(item.barButtonItem)
                 }
-                self.view.buttonItems = items
+                self.view.buttonItems = NSArray(array: items)
                 ((self.viewController as? UINavigationController)?.viewControllers.first ?? self.viewController)?.navigationItem.leftBarButtonItems = items
             }
         }

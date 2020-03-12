@@ -30,7 +30,7 @@ import CoreMotion
     }
     
     /// Returns the gravity.
-    @objc static var gravity: [Double] {
+    @objc static var gravity: NSArray {
         guard let gravity = motionManager.deviceMotion?.gravity else {
             return [0, 0, 0]
         }
@@ -38,7 +38,7 @@ import CoreMotion
     }
     
     /// Returns the rotation.
-    @objc static var rotation: [Double] {
+    @objc static var rotation: NSArray {
         guard let rotation = motionManager.gyroData?.rotationRate else {
             return [0, 0, 0]
         }
@@ -46,7 +46,7 @@ import CoreMotion
     }
     
     /// Returns the acceleration.
-    @objc static var acceleration: [Double] {
+    @objc static var acceleration: NSArray {
         guard let acceleration = motionManager.accelerometerData?.acceleration else {
             return [0, 0, 0]
         }
@@ -54,7 +54,7 @@ import CoreMotion
     }
     
     /// Returns the magnetic field.
-    @objc static var magneticField: [Double] {
+    @objc static var magneticField: NSArray {
         guard let magneticField = motionManager.magnetometerData?.magneticField else {
             return [0, 0, 0]
         }
@@ -62,7 +62,7 @@ import CoreMotion
     }
     
     /// Returns the attitude.
-    @objc static var attitude: [Double] {
+    @objc static var attitude: NSArray {
         guard let attitude = motionManager.deviceMotion?.attitude else {
             return [0, 0, 0]
         }
