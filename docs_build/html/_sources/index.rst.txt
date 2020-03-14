@@ -49,6 +49,7 @@ The following modules are integrated with Pyto.
    location
    motion
    multipeer
+   speech
 
 .. toctree::
    :maxdepth: 2
