@@ -15,12 +15,12 @@ import UIKit
     @objc var completion: (() -> Void)?
     
     /// Document types that can be opened.
-    @objc var fileTypes = [NSString]()
+    @objc var fileTypes = NSArray()
     
     /// Allow multiple selection or not.
     @objc var allowsMultipleSelection = false
     
-    @objc static private(set) var urls: [NSURL]?
+    @objc static private(set) var urls: NSArray?
     
     // MARK: - Document picker delegate
     
@@ -30,7 +30,7 @@ import UIKit
             _ = url.startAccessingSecurityScopedResource()
         }
         
-        PyFilePicker.urls = urls as [NSURL]
+        PyFilePicker.urls = NSArray(array: urls)
         Python.shared.queue.async {
             PySharingHelper.semaphore?.signal()
             self.completion?()
@@ -38,7 +38,7 @@ import UIKit
     }
     
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
-        PyFilePicker.urls = []
+        PyFilePicker.urls = NSArray(array: [])
         Python.shared.queue.async {
             PySharingHelper.semaphore?.signal()
         }

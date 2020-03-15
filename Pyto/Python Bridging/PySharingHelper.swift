@@ -56,7 +56,7 @@ import SafariServices
     @objc static func presentFilePicker(_ filePicker: PyFilePicker, scriptPath: String?) {
         semaphore = DispatchSemaphore(value: 0)
         DispatchQueue.main.async {
-            let picker = UIDocumentPickerViewController(documentTypes: filePicker.fileTypes as [String], in: .open)
+            let picker = UIDocumentPickerViewController(documentTypes: (filePicker.fileTypes as? [String]) ?? [], in: .open)
             picker.allowsMultipleSelection = filePicker.allowsMultipleSelection
             picker.delegate = filePicker
             #if WIDGET
