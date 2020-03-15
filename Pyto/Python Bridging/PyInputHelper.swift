@@ -24,7 +24,7 @@ import WatchConnectivity
     ///
     /// - Returns: The input entered by the user.
     @objc static func getUserInput(_ path: String) -> String? {
-        return userInput.object(forKey: path) as? String
+        return userInput.object(forKey: path) as? String ?? userInput.object(forKey: URL(fileURLWithPath: path).resolvingSymlinksInPath().path) as? String
     }
     
     /// Requests for input.
@@ -50,9 +50,8 @@ import WatchConnectivity
             ConsoleViewController.visibles.first?.input(prompt: prompt_ ?? "")
             #elseif !WIDGET
             for console in ConsoleViewController.visibles {
-                
                 if script != nil {
-                    guard console.editorSplitViewController?.editor.document?.fileURL.path == script else {
+                    guard let url = console.editorSplitViewController?.editor.document?.fileURL, url.resolvingSymlinksInPath() == URL(fileURLWithPath: script!).resolvingSymlinksInPath() else {
                         continue
                     }
                 }

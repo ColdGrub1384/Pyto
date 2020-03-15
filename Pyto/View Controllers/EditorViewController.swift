@@ -26,10 +26,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
     ///     - arguments: String of arguments.
     ///
     /// - Returns: A list of arguments to send to a program.
-    @objc static func parseArguments(_ arguments: String) -> [String] {
+    @objc static func parseArguments(_ arguments: String) -> NSArray {
         var arguments_ = arguments.components(separatedBy: " ")
         parseArgs(&arguments_)
-        return arguments_
+        return NSArray(array: arguments_)
     }
     
     /// Returns string used for indentation
@@ -963,7 +963,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         save { (_) in
             var arguments = self.args.components(separatedBy: " ")
             parseArgs(&arguments)
-            Python.shared.args = arguments
+            Python.shared.args = NSMutableArray(array: arguments)
             Python.shared.currentWorkingDirectory = self.currentDirectory.path
             
             guard let console = (self.parent as? EditorSplitViewController)?.console else {

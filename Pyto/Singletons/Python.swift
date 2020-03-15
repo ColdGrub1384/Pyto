@@ -77,7 +77,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     @objc public var errorReason: String?
     
     /// The arguments to pass to scripts.
-    @objc public var args = [String]()
+    @objc public var args = NSMutableArray()
 
     /// A class representing a script to run.
     @objc public class Script: NSObject {
@@ -88,7 +88,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         /// Set to `true` if the script should  be debugged with `pdb`.
         @objc public var debug: Bool
         
-        @objc public var breakpoints: [Int]
+        @objc public var breakpoints: NSArray
         
         /// Initializes the script.
         ///
@@ -99,7 +99,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         @objc public init(path: String, debug: Bool, breakpoints: [Int] = []) {
             self.path = path
             self.debug = debug
-            self.breakpoints = breakpoints
+            self.breakpoints = NSArray(array: breakpoints)
         }
     }
     
@@ -137,19 +137,23 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     @objc public var scriptToRun: Script?
     
     @objc private func removeScriptFromList(_ script: String) {
-        while let i = runningScripts.firstIndex(of: script) {
-            runningScripts.remove(at: i)
+        while runningScripts.index(of: script) != NSNotFound {
+            let arr = NSMutableArray(array: runningScripts)
+            arr.removeObjects(at: IndexSet(integer: runningScripts.index(of: script)))
+            runningScripts = arr
         }
     }
     
     @objc private func addScriptToList(_ script: String) {
-        if runningScripts.firstIndex(of: script) == nil {
-            runningScripts.append(script)
+        if runningScripts.index(of: script) == NSNotFound {
+            let arr = NSMutableArray(array: runningScripts)
+            arr.add(script)
+            runningScripts = arr
         }
     }
     
     /// The path of the scripts running.
-    @objc public var runningScripts = [String]() {
+    @objc public var runningScripts = NSArray() {
         didSet {
             DispatchQueue.main.async {
                 #if MAIN
@@ -231,8 +235,8 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     }
     
     /// Returns the environment.
-    @objc var environment: [String:String] {
-        return ProcessInfo.processInfo.environment
+    @objc var environment: NSDictionary {
+        return ProcessInfo.processInfo.environment as NSDictionary
     }
     
     /// Set to `true` when the REPL is ready to run scripts.
@@ -277,7 +281,9 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
             self.isREPLRunning = true
             
             #if WIDGET
-            self.runningScripts.append(url.path)
+            let arr = NSMutableArray(array: self.runningScripts)
+            arr.add(url.path)
+            self.runningScripts = arr
             PyRun_SimpleFileExFlags(fopen(url.path.cValue, "r"), url.lastPathComponent.cValue, 0, nil)
             #else
             guard let startupURL = Bundle(for: Python.self).url(forResource: "Startup", withExtension: "py"), let src = try? String(contentsOf: startupURL) else {
