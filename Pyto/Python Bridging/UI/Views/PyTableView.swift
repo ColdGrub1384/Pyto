@@ -47,7 +47,19 @@ import UIKit
         }
     }
     
-    @objc public var sections = [PyTableViewSection]() {
+    private var swiftySections: [PyTableViewSection] {
+        var sections = [PyTableViewSection]()
+        
+        for section in self.sections {
+            if let _section = section as? PyTableViewSection {
+                sections.append(_section)
+            }
+        }
+        
+        return sections
+    }
+    
+    @objc public var sections = NSArray() {
         didSet {
             set {
                 self.tableView.reloadData()
@@ -65,7 +77,7 @@ import UIKit
     
     public func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         
-        let section = sections[indexPath.section]
+        let section = swiftySections[indexPath.section]
         guard let action = section.accessoryButtonTapped else {
             return
         }
@@ -73,7 +85,7 @@ import UIKit
     }
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section].title
+        return swiftySections[section].title
     }
     
     public func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
@@ -89,22 +101,26 @@ import UIKit
     }
     
     public func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let section = sections[sourceIndexPath.section]
+        let section = swiftySections[sourceIndexPath.section]
         guard let action = section.didMoveCell else {
             return
         }
         section.reload = false
-        section.cells.insert(section.cells.remove(at: sourceIndexPath.row), at: destinationIndexPath.row)
+        let cells = NSMutableArray(array: section.cells)
+        let obj = cells[sourceIndexPath.row]
+        cells.removeObject(at: sourceIndexPath.row)
+        cells.insert(obj, at: destinationIndexPath.row)
+        section.cells = cells
         section.reload = true
         section.call(action: action, for: sourceIndexPath.row, to: destinationIndexPath.row)
     }
     
     public func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return sections[indexPath.section].cells[indexPath.row].movable
+        return (swiftySections[indexPath.section].cells[indexPath.row] as? PyTableViewCell)?.movable ?? false
     }
     
     public func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return sections[indexPath.section].cells[indexPath.row].removable
+        return (swiftySections[indexPath.section].cells[indexPath.row] as? PyTableViewCell)?.removable ?? false
     }
     
     public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -113,10 +129,13 @@ import UIKit
             return
         }
         
-        let section = sections[indexPath.section]
+        let section = swiftySections[indexPath.section]
+        
+        let cells = NSMutableArray(array: section.cells)
+        cells.removeObject(at: indexPath.row)
         
         section.reload = false
-        section.cells.remove(at: indexPath.row)
+        section.cells = cells
         section.reload = true
         tableView.deleteRows(at: [indexPath], with: .automatic)
         
@@ -126,7 +145,7 @@ import UIKit
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let section = sections[indexPath.section]
+        let section = swiftySections[indexPath.section]
         guard let action = section.didSelectCell else {
             return
         }
@@ -134,15 +153,15 @@ import UIKit
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return sections[indexPath.section].cells[indexPath.row].cell
+        return (swiftySections[indexPath.section].cells[indexPath.row] as? PyTableViewCell)?.cell ?? UITableViewCell()
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+        return swiftySections.count
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].cells.count
+        return swiftySections[section].cells.count
     }
     
     @objc public var reloadAction: PyValue?

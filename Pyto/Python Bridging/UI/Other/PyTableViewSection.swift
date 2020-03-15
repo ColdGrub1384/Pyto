@@ -14,9 +14,9 @@ import UIKit
     
     @objc public var title: String?
     
-    @objc public var cells = [PyTableViewCell]() {
+    @objc public var cells = NSArray() {
         didSet {
-            if self.reload, let index = self.tableView?.sections.firstIndex(of: self) {
+            if self.reload, let index = self.tableView?.sections.index(of: self) {
                 PyWrapper.set {
                     self.tableView?.tableView.reloadSections([index], with: .automatic)
                 }
