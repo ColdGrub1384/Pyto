@@ -44,7 +44,7 @@ def startup_script():
     try:
         plugin_path = threading.current_thread().plugin_path
     except AttributeError:
-        raise RuntimeError("Run this function on the main thread.")
+        pass
 
     if script_path is None:
         __py_core__.startupScript = plugin_path
