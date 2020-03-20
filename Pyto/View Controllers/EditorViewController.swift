@@ -376,6 +376,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 return
             }
             
+            EditorViewController.setupEditorButton(self)
+            
             let path = doc.fileURL.path
             
             self.textView.text = document?.text ?? ""
@@ -781,6 +783,72 @@ fileprivate func parseArgs(_ args: inout [String]) {
             replace = true
         }
     }
+    
+    // MARK: - Plugin
+    
+    /// Setups the plugin button.
+    @objc static func setupEditorButton(_ editor: EditorViewController?) {
+        
+        if !Thread.current.isMainThread {
+            return DispatchQueue.main.async {
+                self.setupEditorButton(editor)
+            }
+        }
+        
+        func addToEditor(_ editor: EditorViewController) {
+            PyCore.editorViewControllers.addObject(editor)
+            let i = PyCore.editorViewControllers.count-1
+            _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true, block: { (timer) in
+                if Python.shared.isSetup {
+                    Python.shared.run(code: """
+                    import pyto_core as pc
+                    pc.__setup_editor_button__(\(i))
+                    """)
+                    timer.invalidate()
+                }
+            })
+        }
+        
+        if let editor = editor, !editor.buttonAdded {
+            addToEditor(editor)
+        } else {
+            if #available(iOS 13.0, *) {
+                for scene in UIApplication.shared.connectedScenes {
+                    let presented = (scene.delegate as? UIWindowSceneDelegate)?.window??.rootViewController?.presentedViewController
+                    let editor = ((presented as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor ?? (presented as? EditorSplitViewController.ProjectSplitViewController)?.editor?.editor
+                    
+                    if let editor = editor, !editor.buttonAdded {
+                        addToEditor(editor)
+                    }
+                }
+            }
+        }
+    }
+    
+    private var buttonAdded = false
+    
+    /// Calls the plugin editor actions.
+    @objc func callPlugin() {
+        Python.shared.runningScripts = NSArray(array: Python.shared.runningScripts.adding(document?.fileURL.path ?? ""))
+        Python.shared.run(code: """
+        import pyto_core as pc
+        pc.__actions__[\(actionIndex)]()
+        """)
+    }
+    
+    /// The icon of the plugin.
+    @objc var editorIcon: UIImage? {
+        didSet {
+            buttonAdded = true
+            DispatchQueue.main.async {
+                let item = UIBarButtonItem(image: self.editorIcon, style: .plain, target: self, action: #selector(self.callPlugin))
+                self.parent?.toolbarItems?.insert(item, at: 2)
+            }
+        }
+    }
+    
+    /// The index of the function to call in the `pyto_core` module.
+    @objc var actionIndex = -1
     
     // MARK: - Actions
     
@@ -1802,7 +1870,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
                     continue
                 }
                 
-                let editor = (((scene.delegate as? UIWindowSceneDelegate)?.window??.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor
+                let presented = (scene.delegate as? UIWindowSceneDelegate)?.window??.rootViewController?.presentedViewController
+                let editor = ((presented as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor ?? (presented as? EditorSplitViewController.ProjectSplitViewController)?.editor?.editor
                 
                 guard editor?.textView.text != syntaxTextView.text, editor?.document?.fileURL.path == document?.fileURL.path else {
                     continue
@@ -1929,20 +1998,13 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 FoldersBrowserViewController.accessibleFolders.append(currentDirectory.resolvingSymlinksInPath())
             }
             
-            let moreItem = UIBarButtonItem(image: EditorSplitViewController.threeDotsImage, style: .plain, target: self, action: #selector(showEditorScripts(_:)))
-            let runtimeItem = UIBarButtonItem(image: EditorSplitViewController.gearImage, style: .plain, target: self, action: #selector(showRuntimeSettings(_:)))
-            let space = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-            space.width = 10
-            
             if success == true {
-                parent?.toolbarItems = [
-                    shareItem,
-                    moreItem,
-                    space,
-                    docItem,
-                    UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-                    runtimeItem
-                ]
+                for item in (parent?.toolbarItems ?? []).enumerated() {
+                    if item.element.action == #selector(setCwd(_:)) {
+                        parent?.toolbarItems?.remove(at: item.offset)
+                        break
+                    }
+                }
             }
         }
         

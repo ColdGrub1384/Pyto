@@ -212,6 +212,10 @@ def signal(signal, handler):
         return None
 _signal.signal = signal
 
+# MARK: - Plugin
+
+__builtins__.__editor_delegate__ = None
+
 # MARK: - Run script
 
 pyto.Python.shared.isSetup = True

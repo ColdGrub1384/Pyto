@@ -33,6 +33,7 @@ The following modules are integrated with Pyto.
    :caption: User Interface
 
    pyto_ui
+   pyto_core
    notification_center
    sound
    sharing

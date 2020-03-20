@@ -16,53 +16,55 @@ import UIKit
     static var choosenTheme: Theme {
         set {
             
-            let themeID: Int
-            
-            switch newValue {
-            case is XcodeLightTheme:
-                themeID = -1
-            case is DefaultTheme:
-                themeID = 0
-            case is XcodeDarkTheme:
-                themeID = 1
-            case is BasicTheme:
-                themeID = 2
-            case is DuskTheme:
-                themeID = 3
-            case is LowKeyTheme:
-                themeID = 4
-            case is MidnightTheme:
-                themeID = 5
-            case is SunsetTheme:
-                themeID = 6
-            case is WWDC16Theme:
-                themeID = 7
-            case is CoolGlowTheme:
-                themeID = 8
-            case is SolarizedLightTheme:
-                themeID = 9
-            case is SolarizedDarkTheme:
-                themeID = 10
-            default:
-                themeID = -2
-            }
-            
-            if themeID == -2 {
-                UserDefaults.standard.set(newValue.data, forKey: "theme")
-                UserDefaults.standard.synchronize()
-            } else {
-                UserDefaults.standard.set(themeID, forKey: "theme")
-                UserDefaults.standard.synchronize()
-            }
-            
-            if #available(iOS 13.0, *) {
-                for scene in UIApplication.shared.connectedScenes {
-                    (scene.delegate as? UIWindowSceneDelegate)?.window??.tintColor = newValue.tintColor
-                    (scene.delegate as? UIWindowSceneDelegate)?.window??.overrideUserInterfaceStyle = newValue.userInterfaceStyle
+            DispatchQueue.main.async {
+                let themeID: Int
+                
+                switch newValue {
+                case is XcodeLightTheme:
+                    themeID = -1
+                case is DefaultTheme:
+                    themeID = 0
+                case is XcodeDarkTheme:
+                    themeID = 1
+                case is BasicTheme:
+                    themeID = 2
+                case is DuskTheme:
+                    themeID = 3
+                case is LowKeyTheme:
+                    themeID = 4
+                case is MidnightTheme:
+                    themeID = 5
+                case is SunsetTheme:
+                    themeID = 6
+                case is WWDC16Theme:
+                    themeID = 7
+                case is CoolGlowTheme:
+                    themeID = 8
+                case is SolarizedLightTheme:
+                    themeID = 9
+                case is SolarizedDarkTheme:
+                    themeID = 10
+                default:
+                    themeID = -2
                 }
+                
+                if themeID == -2 {
+                    UserDefaults.standard.set(newValue.data, forKey: "theme")
+                    UserDefaults.standard.synchronize()
+                } else {
+                    UserDefaults.standard.set(themeID, forKey: "theme")
+                    UserDefaults.standard.synchronize()
+                }
+                
+                if #available(iOS 13.0, *) {
+                    for scene in UIApplication.shared.connectedScenes {
+                        (scene.delegate as? UIWindowSceneDelegate)?.window??.tintColor = newValue.tintColor
+                        (scene.delegate as? UIWindowSceneDelegate)?.window??.overrideUserInterfaceStyle = newValue.userInterfaceStyle
+                    }
+                }
+                
+                NotificationCenter.default.post(name: ThemeDidChangeNotification, object: newValue)
             }
-            
-            NotificationCenter.default.post(name: ThemeDidChangeNotification, object: newValue)
         }
         
         get {
@@ -528,7 +530,16 @@ import UIKit
             if vc.modalPresentationStyle == .pageSheet && size != .zero {
                 vc.modalPresentationStyle = .formSheet
             }
-            self.showViewController(vc, scriptPath: path, completion: nil)
+            if path == nil {
+               for scene in UIApplication.shared.connectedScenes {
+                   let window = (scene as? UIWindowScene)?.windows.first
+                   if window?.isKeyWindow == true {
+                       window?.topViewController?.present(vc, animated: true, completion: nil)
+                   }
+               }
+            } else {
+                self.showViewController(vc, scriptPath: path, completion: nil)
+            }
         }
     }
     

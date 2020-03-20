@@ -225,6 +225,7 @@
 		C95EE93E23273DC20084EA0C /* openblas.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE7DA23273D9B0084EA0C /* openblas.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9624EF421A9905400DDA9A7 /* PyThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9624EF321A9905400DDA9A7 /* PyThread.swift */; };
 		C965606B241D53CC00188779 /* PySpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = C965606A241D53CC00188779 /* PySpeech.swift */; };
+		C966D254242036BF009BB33E /* PyCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C966D253242036BF009BB33E /* PyCore.swift */; };
 		C969D29E23D14D2900460F05 /* PyMusicHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C969D29D23D14D2900460F05 /* PyMusicHelper.swift */; };
 		C969D29F23D14EE200460F05 /* PyMusicHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C969D29D23D14D2900460F05 /* PyMusicHelper.swift */; };
 		C969D2A023D14EE300460F05 /* PyMusicHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C969D29D23D14D2900460F05 /* PyMusicHelper.swift */; };
@@ -2230,6 +2231,7 @@
 		C95EE7DA23273D9B0084EA0C /* openblas.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = openblas.framework; sourceTree = "<group>"; };
 		C9624EF321A9905400DDA9A7 /* PyThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyThread.swift; sourceTree = "<group>"; };
 		C965606A241D53CC00188779 /* PySpeech.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PySpeech.swift; sourceTree = "<group>"; };
+		C966D253242036BF009BB33E /* PyCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyCore.swift; sourceTree = "<group>"; };
 		C969D29D23D14D2900460F05 /* PyMusicHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyMusicHelper.swift; sourceTree = "<group>"; };
 		C969D2A423D49B3200460F05 /* PyPhotosHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyPhotosHelper.swift; sourceTree = "<group>"; };
 		C96C1E6A2237098600F5F1DC /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
@@ -3571,7 +3573,7 @@
 		C9FCD89123E4B21400C6D3D3 /* timedeltas.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = timedeltas.framework; sourceTree = "<group>"; };
 		C9FCFD55214428AE00A07974 /* Pyto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pyto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9FCFD58214428AE00A07974 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C9FCFD5A214428AE00A07974 /* EditorViewController.swift */ = {isa = PBXFileReference; indentWidth = 5; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
+		C9FCFD5A214428AE00A07974 /* EditorViewController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		C9FCFD5F214428B300A07974 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9FCFD64214428B300A07974 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9FCFD6A21442DE700A07974 /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
@@ -4984,6 +4986,7 @@
 				C969D2A423D49B3200460F05 /* PyPhotosHelper.swift */,
 				C90089DF23D79C5C00D18AAE /* PyMultipeerHelper.swift */,
 				C91048CE2414055000DB89A2 /* PyTurtle.swift */,
+				C966D253242036BF009BB33E /* PyCore.swift */,
 				C965606A241D53CC00188779 /* PySpeech.swift */,
 				C93CA8B422022E67008DD049 /* QuickLookHelper.swift */,
 				C9E501AD220C85B1002719CE /* PyMainThread.swift */,
@@ -7513,6 +7516,7 @@
 				C9C0E77A21EF65BE0057C63E /* ThemableNavigationController.swift in Sources */,
 				C93CA8B522022E67008DD049 /* QuickLookHelper.swift in Sources */,
 				C91BE6B523F9A3E500B6ED6B /* ProjectDocument.swift in Sources */,
+				C966D254242036BF009BB33E /* PyCore.swift in Sources */,
 				C9A8F02522DCE184000E320F /* PyGestureRecognizer.swift in Sources */,
 				C9AAAB5221950E8B0042E733 /* TextView.swift in Sources */,
 				C909A19A2267DB210058C145 /* MenuTableViewController.swift in Sources */,

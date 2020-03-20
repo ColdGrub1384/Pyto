@@ -103,6 +103,7 @@
 <li class="toctree-l1"><a class="reference internal" href="location.html">location</a></li>
 <li class="toctree-l1"><a class="reference internal" href="motion.html">motion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="multipeer.html">multipeer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="speech.html">speech</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Sharing data</span></p>
 <ul>
@@ -175,6 +176,7 @@
             
   <div class="section" id="module-mainthread">
 <span id="mainthread"></span><h1>mainthread<a class="headerlink" href="#module-mainthread" title="Permalink to this headline">¶</a></h1>
+<p>Access the main thread</p>
 <p>This module allows you to run code on the main thread easely. This can be used for modifiying the UI.</p>
 <p>Example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">UIKit</span> <span class="kn">import</span> <span class="n">UIScreen</span>
@@ -192,19 +194,17 @@
 <code class="sig-prename descclassname">mainthread.</code><code class="sig-name descname">mainthread</code><span class="sig-paren">(</span><em class="sig-param">func</em><span class="sig-paren">)</span><a class="headerlink" href="#mainthread.mainthread" title="Permalink to this definition">¶</a></dt>
 <dd><p>A decorator for a function running in the main thread.</p>
 <p>Example:</p>
-<dl>
-<dt>code-block::</dt><dd><p>python</p>
-<p>import mainthread
-from UIKit import UIApplication</p>
-<p>&#64;mainthread.mainthread
-def run_in_background():</p>
-<blockquote>
-<div><p>app = UIApplication.sharedApplication
-app.beginBackgroundTaskWithExpirationHandler(None)</p>
-</div></blockquote>
-<p>run_in_background()</p>
-</dd>
-</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mainthread</span>
+<span class="kn">from</span> <span class="nn">UIKit</span> <span class="kn">import</span> <span class="n">UIApplication</span>
+
+<span class="nd">@mainthread.mainthread</span>
+<span class="k">def</span> <span class="nf">run_in_background</span><span class="p">():</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">UIApplication</span><span class="o">.</span><span class="n">sharedApplication</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">beginBackgroundTaskWithExpirationHandler</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+
+<span class="n">run_in_background</span><span class="p">()</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
