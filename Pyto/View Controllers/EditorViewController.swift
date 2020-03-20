@@ -839,10 +839,13 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// The icon of the plugin.
     @objc var editorIcon: UIImage? {
         didSet {
+            let added = buttonAdded
             buttonAdded = true
             DispatchQueue.main.async {
-                let item = UIBarButtonItem(image: self.editorIcon, style: .plain, target: self, action: #selector(self.callPlugin))
-                self.parent?.toolbarItems?.insert(item, at: 2)
+                if !added {
+                    let item = UIBarButtonItem(image: self.editorIcon, style: .plain, target: self, action: #selector(self.callPlugin))
+                    self.parent?.toolbarItems?.insert(item, at: 2)
+                }
             }
         }
     }
