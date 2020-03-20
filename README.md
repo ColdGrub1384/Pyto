@@ -32,6 +32,7 @@ Included libraries: Numpy, Matplotlib, Pandas, Pillow, SciPy, SciKit-Learn, SciK
 Exclusive libraries:
 
   - pyto_ui - Build an user interface
+  - pyto_core - Extend the editor
   - notification_center - Customize Today Widgets
   - notifications - Schedule notifications
   - sharing - Share items and pick files
