@@ -8,24 +8,18 @@ Run a script at the app's startup and extend the code editor.
 """
 
 from pyto import __Class__
-from rubicon.objc import ObjCClass, at
 from typing import List, Callable, Union
 from UIKit import UIDevice, UIImage
-from collections import namedtuple
 from pyto import EditorViewController, Python
 from PIL import Image
 import builtins
 import base64
 import threading
-import sys
 import traceback
 import pyto_ui as ui
 
 
-if (
-    UIDevice is not None
-    and float(str(UIDevice.currentDevice.systemVersion).split(".")[0]) < 13
-):
+if (UIDevice is not None and float(str(UIDevice.currentDevice.systemVersion).split(".")[0]) < 13):
     raise ImportError("PytoCore requires iPadOS / iOS 13")
 
 
@@ -115,7 +109,7 @@ class EditorDelegate:
 
         :param script_path: The path of the script.
         :param local: The ``__dict__`` attribute of the executed script.
-        :param exception: The exception raised by the script. Can be ``None``. 
+        :param exception: The exception raised by the script. Can be ``None``.
         """
 
         raise NotImplementedError("Not implemented")
@@ -182,6 +176,50 @@ class __ScriptThread__(threading.Thread):
     script_path = None
 
 
+def __set_button_icon__(icon, editor):
+    image = icon
+    if isinstance(image, str):
+        image = ui.image_with_system_name(image)
+    elif "objc_class" not in dir(image):
+        image = ui.__ui_image_from_pil_image__(image)
+
+    editor.editorIcon = image
+
+
+def __setup_button__(delegate, editor):
+    script_path = str(editor.document.fileURL.path)
+
+    image = delegate.editor_button_icon(script_path)
+
+    def action():
+        def _action():
+            try:
+                delegate.editor_button_pressed(script_path)
+            except SystemExit:
+                pass
+            except KeyboardInterrupt:
+                pass
+            except Exception:
+                traceback.print_exc()
+
+            try:
+                Python.shared.removeScriptFromList(
+                    threading.current_thread().script_path
+                )
+            except AttributeError:
+                pass
+
+        thread = __ScriptThread__(target=_action)
+        thread.script_path = script_path
+        thread.start()
+
+    __actions__.append(action)
+    index = len(__actions__) - 1
+
+    editor.actionIndex = index
+    __set_button_icon__(image, editor)
+
+
 def __setup_editor_button__(i):
     try:
         delegate = builtins.__editor_delegate__
@@ -192,42 +230,7 @@ def __setup_editor_button__(i):
         if editor is None:
             return
 
-        script_path = str(editor.document.fileURL.path)
-
-        image = delegate.editor_button_icon(script_path)
-
-        def action():
-            def _action():
-                try:
-                    delegate.editor_button_pressed(script_path)
-                except SystemExit:
-                    pass
-                except KeyboardInterrupt:
-                    pass
-                except Exception:
-                    traceback.print_exc()
-
-                try:
-                    Python.shared.removeScriptFromList(
-                        threading.current_thread().script_path
-                    )
-                except AttributeError:
-                    pass
-
-            thread = __ScriptThread__(target=_action)
-            thread.script_path = script_path
-            thread.start()
-
-        __actions__.append(action)
-        index = len(__actions__) - 1
-
-        if isinstance(image, str):
-            image = ui.image_with_system_name(image)
-        elif "objc_class" not in dir(image):
-            image = ui.__ui_image_from_pil_image__(image)
-
-        editor.actionIndex = index
-        editor.editorIcon = image
+        __setup_button__(delegate, editor)
     except NotImplementedError:
         pass
 
