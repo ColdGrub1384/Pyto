@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Functions &mdash; Pyto  documentation</title>
+  <title>Managing editor themes &mdash; Pyto  documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Constants" href="constants.html" />
-    <link rel="prev" title="Classes" href="classes.html" /> 
+    <link rel="next" title="notification_center" href="../notification_center.html" />
+    <link rel="prev" title="Extending the code editor" href="editor.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -88,12 +88,12 @@
 </ul>
 <p class="caption"><span class="caption-text">User Interface</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../pyto_ui.html">pyto_ui</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../pyto_ui.html#getting-started">Getting Started</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../pyto_ui.html#api-reference">API Reference</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="classes.html">Classes</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="constants.html">Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pyto_ui.html">pyto_ui</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../pyto_core.html">pyto_core</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../pyto_core.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../pyto_core.html#api-reference">API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="editor.html">Extending the code editor</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Managing editor themes</a></li>
 </ul>
 </li>
 </ul>
@@ -164,15 +164,15 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../pyto_ui.html">pyto_ui</a> &raquo;</li>
+          <li><a href="../pyto_core.html">pyto_core</a> &raquo;</li>
         
-      <li>Functions</li>
+      <li>Managing editor themes</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/pyto_ui/functions.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/pyto_core/themes.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -185,47 +185,58 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="functions">
-<h1>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h1>
-<p>This page contains a list of functions defined in the <code class="docutils literal notranslate"><span class="pre">pyto_ui</span></code> module.</p>
+  <div class="section" id="managing-editor-themes">
+<h1>Managing editor themes<a class="headerlink" href="#managing-editor-themes" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pyto_core.Theme">
+<em class="property">class </em><code class="sig-prename descclassname">pyto_core.</code><code class="sig-name descname">Theme</code><span class="sig-paren">(</span><em class="sig-param">name: str</em>, <em class="sig-param">data: str</em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_core.Theme" title="Permalink to this definition">¶</a></dt>
+<dd><p>An editor theme.
+There’s no way to create a theme programatically but it can be returned by <a class="reference internal" href="#pyto_core.editor_themes" title="pyto_core.editor_themes"><code class="xref py py-func docutils literal notranslate"><span class="pre">editor_themes()</span></code></a> and be shared to other devices.</p>
+<dl class="attribute">
+<dt id="pyto_core.Theme.data">
+<code class="sig-name descname">data</code><em class="property"> = ''</em><a class="headerlink" href="#pyto_core.Theme.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>A base 64 encoded string containing the theme’s data.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyto_core.Theme.name">
+<code class="sig-name descname">name</code><em class="property"> = ''</em><a class="headerlink" href="#pyto_core.Theme.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The theme’s name.</p>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="function">
-<dt id="pyto_ui.font_family_names">
-<code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">font_family_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#pyto_ui.font_family_names" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns all font family names that can be used to initialize a font.</p>
+<dt id="pyto_core.set_theme">
+<code class="sig-prename descclassname">pyto_core.</code><code class="sig-name descname">set_theme</code><span class="sig-paren">(</span><em class="sig-param">theme: pyto_core.Theme</em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_core.set_theme" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the current editor’s theme.
+This will not install the theme, so if it was created by another device, the theme will disappear after choosing another one.
+To install it just go to the settings and create a new theme, that will copy the current one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>theme</strong> – The theme to be set.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyto_core.current_editor_theme">
+<code class="sig-prename descclassname">pyto_core.</code><code class="sig-name descname">current_editor_theme</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pyto_core.Theme<a class="headerlink" href="#pyto_core.current_editor_theme" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current editor theme.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>List[str]</p>
+<dd class="field-odd"><p><a class="reference internal" href="#pyto_core.Theme" title="pyto_core.Theme">Theme</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyto_ui.image_with_system_name">
-<code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">image_with_system_name</code><span class="sig-paren">(</span><em class="sig-param">name: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#pyto_ui.image_with_system_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a system symbol image from given name. The return value is an UIKit <code class="docutils literal notranslate"><span class="pre">UIImage</span></code> object, so it can only be used on the <code class="docutils literal notranslate"><span class="pre">pyto_ui</span></code> library.
-More info about symbols on <a class="reference external" href="https://developer.apple.com/design/resources/">Apple’s Web Site</a> .</p>
+<dt id="pyto_core.editor_themes">
+<code class="sig-prename descclassname">pyto_core.</code><code class="sig-name descname">editor_themes</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List[pyto_core.Theme]<a class="headerlink" href="#pyto_core.editor_themes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of installed themes. Includes the default ones.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>name</strong> – The name of the SF Symbol.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>UIImage</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyto_ui.show_view">
-<code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">show_view</code><span class="sig-paren">(</span><em class="sig-param">view: pyto_ui.View</em>, <em class="sig-param">mode: ui_constants.PRESENTATION_MODE</em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.show_view" title="Permalink to this definition">¶</a></dt>
-<dd><p>Presents the given view.</p>
-<p>This function doesn’t return until the view is closed. You can use another thread to perform background tasks and modify the UI after it’s presented.</p>
-<p>On iPad, if the view has a custom size, it will be used for the presentation.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>view</strong> – The <a class="reference internal" href="classes.html#pyto_ui.View" title="pyto_ui.View"><code class="xref py py-class docutils literal notranslate"><span class="pre">View</span></code></a> object to present.</p></li>
-<li><p><strong>mode</strong> – The presentation mode to use. The value will be ignored on a widget. See <a class="reference external" href="constants.html#presentation-mode">Presentation Mode</a> constants for possible values.</p></li>
-</ul>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="#pyto_core.Theme" title="pyto_core.Theme">Theme</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -240,10 +251,10 @@ More info about symbols on <a class="reference external" href="https://developer
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="constants.html" class="btn btn-neutral float-right" title="Constants" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../notification_center.html" class="btn btn-neutral float-right" title="notification_center" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="classes.html" class="btn btn-neutral float-left" title="Classes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="editor.html" class="btn btn-neutral float-left" title="Extending the code editor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -54,20 +54,29 @@ import UIKit
             #elseif !MAIN
             ConsoleViewController.visibles.first?.present(alert, animated: true, completion: nil)
             #else
-            for console in ConsoleViewController.visibles {
-                
-                if scriptPath == nil {
-                    (console.presentedViewController ?? console).present(alert, animated: true, completion: nil)
-                    break
+            if #available(iOS 13.0, *), scriptPath == nil {
+                for scene in UIApplication.shared.connectedScenes {
+                    let window = (scene as? UIWindowScene)?.windows.first
+                    if window?.isKeyWindow == true {
+                        window?.topViewController?.present(alert, animated: true, completion: nil)
+                    }
                 }
-                
-                if console.editorSplitViewController?.editor.document?.fileURL.path == scriptPath {
-                    (console.presentedViewController ?? console).present(alert, animated: true, completion: nil)
-                    break
+            } else {
+                for console in ConsoleViewController.visibles {
+                    
+                    if scriptPath == nil {
+                        console.topViewController.present(alert, animated: true, completion: nil)
+                        break
+                    }
+                    
+                    if console.editorSplitViewController?.editor.document?.fileURL.path == scriptPath {
+                        console.topViewController.present(alert, animated: true, completion: nil)
+                        break
+                    }
                 }
-            }
-            if ConsoleViewController.visibles.count == 0 {
-                self.response = ""
+                if ConsoleViewController.visibles.count == 0 {
+                    self.response = ""
+                }
             }
             #endif
         }

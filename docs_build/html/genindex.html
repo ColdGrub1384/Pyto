@@ -88,6 +88,7 @@
 <p class="caption"><span class="caption-text">User Interface</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="pyto_ui.html">pyto_ui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyto_core.html">pyto_core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notification_center.html">notification_center</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">sharing</a></li>
@@ -459,10 +460,10 @@
 </li>
       <li><a href="pyto_ui/constants.html#pyto_ui.COLOR_SYSTEM_GRAY2">COLOR_SYSTEM_GRAY2 (in module pyto_ui)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyto_ui/constants.html#pyto_ui.COLOR_SYSTEM_GRAY3">COLOR_SYSTEM_GRAY3 (in module pyto_ui)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyto_ui/constants.html#pyto_ui.COLOR_SYSTEM_GRAY4">COLOR_SYSTEM_GRAY4 (in module pyto_ui)</a>
 </li>
       <li><a href="pyto_ui/constants.html#pyto_ui.COLOR_SYSTEM_GRAY5">COLOR_SYSTEM_GRAY5 (in module pyto_ui)</a>
@@ -547,6 +548,8 @@
 </li>
       <li><a href="pyto_ui/classes.html#pyto_ui.View.corner_radius">corner_radius() (pyto_ui.View property)</a>
 </li>
+      <li><a href="pyto_core/themes.html#pyto_core.current_editor_theme">current_editor_theme() (in module pyto_core)</a>
+</li>
       <li><a href="sound.html#sound.AudioPlayer.current_time">current_time() (sound.AudioPlayer property)</a>
 </li>
   </ul></td>
@@ -555,6 +558,8 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyto_core/themes.html#pyto_core.Theme.data">data (pyto_core.Theme attribute)</a>
+</li>
       <li><a href="music.html#music.MediaItem.date_added">date_added() (music.MediaItem property)</a>
 </li>
       <li><a href="pyto_ui/classes.html#pyto_ui.GestureRecognizer.delays_touches_began">delays_touches_began() (pyto_ui.GestureRecognizer property)</a>
@@ -591,6 +596,8 @@
 </li>
       <li><a href="pyto_ui/classes.html#pyto_ui.TableViewSection.did_move_cell">did_move_cell() (pyto_ui.TableViewSection property)</a>
 </li>
+      <li><a href="pyto_core/editor.html#pyto_core.EditorDelegate.did_run_script">did_run_script() (pyto_core.EditorDelegate method)</a>
+</li>
       <li><a href="pyto_ui/classes.html#pyto_ui.TableViewSection.did_select_cell">did_select_cell() (pyto_ui.TableViewSection property)</a>
 </li>
       <li><a href="pyto_ui/classes.html#pyto_ui.WebView.did_start_loading">did_start_loading() (pyto_ui.WebView property)</a>
@@ -615,6 +622,16 @@
 </li>
       <li><a href="pyto_ui/classes.html#pyto_ui.TextView.editable">editable() (pyto_ui.TextView property)</a>
 </li>
+      <li><a href="pyto_core/editor.html#pyto_core.EditorDelegate.editor_button_icon">editor_button_icon() (pyto_core.EditorDelegate method)</a>
+</li>
+      <li><a href="pyto_core/editor.html#pyto_core.EditorDelegate.editor_button_pressed">editor_button_pressed() (pyto_core.EditorDelegate method)</a>
+</li>
+      <li><a href="pyto_core/themes.html#pyto_core.editor_themes">editor_themes() (in module pyto_core)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyto_core/editor.html#pyto_core.EditorDelegate">EditorDelegate (class in pyto_core)</a>
+</li>
       <li><a href="pyto_ui/classes.html#pyto_ui.ButtonItem.enabled">enabled() (pyto_ui.ButtonItem property)</a>
 
       <ul>
@@ -623,8 +640,6 @@
         <li><a href="pyto_ui/classes.html#pyto_ui.GestureRecognizer.enabled">(pyto_ui.GestureRecognizer property)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyto_ui/classes.html#pyto_ui.WebView.evaluate_js">evaluate_js() (pyto_ui.WebView method)</a>
 </li>
       <li><a href="notification_center.html#notification_center.expandable">expandable (in module notification_center)</a>
@@ -1013,6 +1028,8 @@
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyto_core/themes.html#pyto_core.Theme.name">name (pyto_core.Theme attribute)</a>
+</li>
       <li><a href="pyto_ui/classes.html#pyto_ui.View.name">name() (pyto_ui.View property)</a>
 </li>
       <li><a href="pyto_ui/classes.html#pyto_ui.View.navigation_bar_hidden">navigation_bar_hidden() (pyto_ui.View property)</a>
@@ -1099,10 +1116,10 @@
 </li>
       <li><a href="music.html#music.playback_state">playback_state() (in module music)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="music.html#music.PLAYBACK_STATE_INTERRUPTED">PLAYBACK_STATE_INTERRUPTED (in module music)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="music.html#music.PLAYBACK_STATE_PAUSED">PLAYBACK_STATE_PAUSED (in module music)</a>
 </li>
       <li><a href="music.html#music.PLAYBACK_STATE_PLAYING">PLAYBACK_STATE_PLAYING (in module music)</a>
@@ -1136,6 +1153,8 @@
       <li><a href="music.html#music.previous">previous() (in module music)</a>
 </li>
       <li><a href="pyto_ui/classes.html#pyto_ui.View.push">push() (pyto_ui.View method)</a>
+</li>
+      <li><a href="pyto_core.html#module-pyto_core">pyto_core (module)</a>
 </li>
       <li><a href="pyto_ui.html#module-pyto_ui">pyto_ui (module)</a>
 </li>
@@ -1225,6 +1244,8 @@
 </li>
       <li><a href="mainthread.html#mainthread.run_async">run_async() (in module mainthread)</a>
 </li>
+      <li><a href="pyto_core/editor.html#pyto_core.EditorDelegate.run_script">run_script() (pyto_core.EditorDelegate method)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -1257,6 +1278,8 @@
 </li>
       <li><a href="userkeys.html#userkeys.set">set() (in module userkeys)</a>
 </li>
+      <li><a href="pyto_core/editor.html#pyto_core.set_editor_delegate">set_editor_delegate() (in module pyto_core)</a>
+</li>
       <li><a href="pasteboard.html#pasteboard.set_image">set_image() (in module pasteboard)</a>
 </li>
       <li><a href="pasteboard.html#pasteboard.set_images">set_images() (in module pasteboard)</a>
@@ -1275,6 +1298,8 @@
 </li>
       <li><a href="pasteboard.html#pasteboard.set_strings">set_strings() (in module pasteboard)</a>
 </li>
+      <li><a href="pyto_core/themes.html#pyto_core.set_theme">set_theme() (in module pyto_core)</a>
+</li>
       <li><a href="pasteboard.html#pasteboard.set_url">set_url() (in module pasteboard)</a>
 </li>
       <li><a href="pasteboard.html#pasteboard.set_urls">set_urls() (in module pasteboard)</a>
@@ -1287,8 +1312,14 @@
 </li>
       <li><a href="pyto_ui/classes.html#pyto_ui.Alert.show">show() (pyto_ui.Alert method)</a>
 </li>
-      <li><a href="pyto_ui/functions.html#pyto_ui.show_view">show_view() (in module pyto_ui)</a>
+      <li><a href="pyto_core/editor.html#pyto_core.EditorDelegate.show_ui">show_ui() (pyto_core.EditorDelegate method)</a>
 </li>
+      <li><a href="pyto_core.html#pyto_core.show_view">show_view() (in module pyto_core)</a>
+
+      <ul>
+        <li><a href="pyto_ui/functions.html#pyto_ui.show_view">(in module pyto_ui)</a>
+</li>
+      </ul></li>
       <li><a href="music.html#music.SHUFFLE_MODE_ALBUMS">SHUFFLE_MODE_ALBUMS (in module music)</a>
 </li>
       <li><a href="music.html#music.SHUFFLE_MODE_DEFAULT">SHUFFLE_MODE_DEFAULT (in module music)</a>
@@ -1311,14 +1342,14 @@
         <li><a href="pyto_ui/classes.html#pyto_ui.TextView.smart_dashes">(pyto_ui.TextView property)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyto_ui/classes.html#pyto_ui.TextField.smart_quotes">smart_quotes() (pyto_ui.TextField property)</a>
 
       <ul>
         <li><a href="pyto_ui/classes.html#pyto_ui.TextView.smart_quotes">(pyto_ui.TextView property)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="music.html#music.MediaQuery.songs">songs() (music.MediaQuery class method)</a>
 </li>
       <li><a href="speech.html#module-speech">speech (module)</a>
@@ -1329,6 +1360,8 @@
         <li><a href="motion.html#motion.start_updating">(in module motion)</a>
 </li>
       </ul></li>
+      <li><a href="pyto_core.html#pyto_core.startup_script">startup_script() (in module pyto_core)</a>
+</li>
       <li><a href="pyto_ui/classes.html#pyto_ui.GestureRecognizer.state">state() (pyto_ui.GestureRecognizer property)</a>
 </li>
       <li><a href="music.html#music.stop">stop() (in module music)</a>
@@ -1482,6 +1515,8 @@
       <li><a href="pyto_ui/classes.html#pyto_ui.TextField">TextField (class in pyto_ui)</a>
 </li>
       <li><a href="pyto_ui/classes.html#pyto_ui.TextView">TextView (class in pyto_ui)</a>
+</li>
+      <li><a href="pyto_core/themes.html#pyto_core.Theme">Theme (class in pyto_core)</a>
 </li>
       <li><a href="pyto_ui/classes.html#pyto_ui.Slider.thumb_color">thumb_color() (pyto_ui.Slider property)</a>
 

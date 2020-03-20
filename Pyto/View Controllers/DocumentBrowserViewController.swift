@@ -20,9 +20,6 @@ import SavannaKit
         return UIApplication.shared.keyWindow?.rootViewController as? DocumentBrowserViewController
     }*/
     
-    /// Store here `EditorSplitViewController`s because it crashes on dealloc. RIP memory
-    private static var splitVCs = [UIViewController?]()
-    
     /// If set, will open the document when the view appears.
     var documentURL: URL?
     
@@ -104,7 +101,6 @@ import SavannaKit
             splitVC.ratio = 1
         }
         
-        DocumentBrowserViewController.splitVCs.append(splitVC)
         let navVC = EditorSplitViewController.NavigationController(rootViewController: splitVC)
         navVC.modalPresentationStyle = .fullScreen
         navVC.navigationBar.isTranslucent = true
@@ -197,6 +193,8 @@ import SavannaKit
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        PyCore.runStartupScriptIfNeeded()
         
         if let docURL = documentURL {
             openDocument(docURL, run: false, folder: folder, animated: false)

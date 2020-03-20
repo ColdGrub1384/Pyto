@@ -25,6 +25,7 @@ import base64
 import threading
 import _values
 import ui_constants
+import builtins
 try:
     from rubicon.objc import ObjCClass, CGFloat
 except ValueError:
@@ -4362,13 +4363,28 @@ def show_view(view: View, mode: PRESENTATION_MODE):
     :param mode: The presentation mode to use. The value will be ignored on a widget. See `Presentation Mode <constants.html#presentation-mode>`_ constants for possible values.
     """
 
-    view.__py_view__.presentationMode = mode
-    try:
-        ConsoleViewController.showView(
-            view.__py_view__, onConsoleForPath=threading.current_thread().script_path
-        )
-    except AttributeError:
-        ConsoleViewController.showView(view.__py_view__, onConsoleForPath=None)
+    def show(view, mode):
+        view.__py_view__.presentationMode = mode
+        try:
+            ConsoleViewController.showView(
+                view.__py_view__, onConsoleForPath=threading.current_thread().script_path
+            )
+        except AttributeError:
+            ConsoleViewController.showView(view.__py_view__, onConsoleForPath=None)
 
-    while view.__py_view__.isPresented:
-        sleep(0.2)
+        while view.__py_view__.isPresented:
+            sleep(0.2)
+
+    if ("__editor_delegate__" in dir(builtins) and builtins.__editor_delegate__ is not None):
+        global show_view
+        _show_view = show_view
+        show_view = show
+        try:
+            builtins.__editor_delegate__.show_ui(view, mode)
+            return
+        except NotImplementedError:
+            pass
+        finally:
+            show_view = _show_view
+
+    show(view, mode)

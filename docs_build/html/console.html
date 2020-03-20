@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>xcallback &mdash; Pyto  documentation</title>
+  <title>console &mdash; Pyto  documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="userkeys" href="userkeys.html" />
-    <link rel="prev" title="speech" href="speech.html" /> 
+    <link rel="next" title="UIKit" href="UIKit.html" />
+    <link rel="prev" title="mainthread" href="mainthread.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,13 +87,13 @@
 <li class="toctree-l1"><a class="reference internal" href="third_party.html">Third Party Libraries</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Interface</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="pyto_ui.html">pyto_ui</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notification_center.html">notification_center</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mainthread.html">mainthread</a></li>
-<li class="toctree-l1"><a class="reference internal" href="console.html">console</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">console</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UIKit.html">UIKit</a></li>
 </ul>
 <p class="caption"><span class="caption-text">OS Technologies</span></p>
@@ -107,11 +107,8 @@
 <li class="toctree-l1"><a class="reference internal" href="speech.html">speech</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Sharing data</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">xcallback</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#example-with-shortcuts">Example with Shortcuts</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="xcallback.html">xcallback</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userkeys.html">userkeys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pasteboard.html">pasteboard</a></li>
 </ul>
@@ -159,13 +156,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>xcallback</li>
+      <li>console</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/xcallback.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/console.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -178,51 +175,97 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-xcallback">
-<span id="xcallback"></span><h1>xcallback<a class="headerlink" href="#module-xcallback" title="Permalink to this headline">¶</a></h1>
-<p>Opening x-callback URLs</p>
-<p>This module is used to interact with other apps with <a class="reference external" href="http://x-callback-url.com">x-callback URLs</a>.</p>
-<dl class="function">
-<dt id="xcallback.open_url">
-<code class="sig-prename descclassname">xcallback.</code><code class="sig-name descname">open_url</code><span class="sig-paren">(</span><em class="sig-param">url: str</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#xcallback.open_url" title="Permalink to this definition">¶</a></dt>
-<dd><p>Opens the given x-callback URL. The function will return only if the request was successfully completed.</p>
-<p>Raises: <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> if there was an error and <code class="docutils literal notranslate"><span class="pre">SystemExit</span></code> if the request was cancelled.
-Returns: The result sent by the opened app.</p>
+  <div class="section" id="module-console">
+<span id="console"></span><h1>console<a class="headerlink" href="#module-console" title="Permalink to this headline">¶</a></h1>
+<p>Some Pyto core functions</p>
+<dl class="class">
+<dt id="console.Alert">
+<em class="property">class </em><code class="sig-prename descclassname">console.</code><code class="sig-name descname">Alert</code><a class="headerlink" href="#console.Alert" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper of <code class="docutils literal notranslate"><span class="pre">UIAlert</span></code>.</p>
+<dl class="method">
+<dt id="console.Alert.addAction">
+<code class="sig-name descname">addAction</code><span class="sig-paren">(</span><em class="sig-param">title: str</em><span class="sig-paren">)</span><a class="headerlink" href="#console.Alert.addAction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an action with given title.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>url</strong> – The URL to open.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>str</p>
+<dd class="field-odd"><p><strong>title</strong> – The title of the action.</p>
 </dd>
 </dl>
 </dd></dl>
 
-<div class="section" id="example-with-shortcuts">
-<h2>Example with Shortcuts<a class="headerlink" href="#example-with-shortcuts" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Opens a Shortcut and retrieves the result.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<dl class="method">
+<dt id="console.Alert.addCancelAction">
+<code class="sig-name descname">addCancelAction</code><span class="sig-paren">(</span><em class="sig-param">title: str</em><span class="sig-paren">)</span><a class="headerlink" href="#console.Alert.addCancelAction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a cancel action with given title. Can only added once.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>title</strong> – The title of the action.</p>
+</dd>
+</dl>
+</dd></dl>
 
-<span class="kn">import</span> <span class="nn">xcallback</span>
-<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">quote</span>
+<dl class="method">
+<dt id="console.Alert.addDestructiveAction">
+<code class="sig-name descname">addDestructiveAction</code><span class="sig-paren">(</span><em class="sig-param">title: str</em><span class="sig-paren">)</span><a class="headerlink" href="#console.Alert.addDestructiveAction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a destructive action with given title.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>title</strong> – The title of the action.</p>
+</dd>
+</dl>
+</dd></dl>
 
-<span class="n">shortcut_name</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;The name of the shortcut to open: &quot;</span><span class="p">)</span>
-<span class="n">shortcut_input</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;What would you like to send to the Shortcut? &quot;</span><span class="p">)</span>
+<dl class="method">
+<dt id="console.Alert.alertWithTitle">
+<em class="property">static </em><code class="sig-name descname">alertWithTitle</code><span class="sig-paren">(</span><em class="sig-param">title: str</em>, <em class="sig-param">message: str</em><span class="sig-paren">)</span> &#x2192; console.Alert<a class="headerlink" href="#console.Alert.alertWithTitle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an alert.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> – The title of the alert.</p></li>
+<li><p><strong>message</strong> – The message of the alert.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
-<span class="c1"># https://support.apple.com/guide/shortcuts/apdcd7f20a6f/ios</span>
-<span class="n">url</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;shortcuts://x-callback-url/run-shortcut?name={quote(shortcut_name)}&amp;input=text&amp;text={quote(shortcut_input)}&quot;</span>
+<dl class="method">
+<dt id="console.Alert.show">
+<code class="sig-name descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#console.Alert.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shows alert.</p>
+<p>Returns the title of the selected action.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">xcallback</span><span class="o">.</span><span class="n">open_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="c1"># If successed, returns the result</span>
-    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Result:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">+</span><span class="n">res</span><span class="p">)</span>
-<span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Error: &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="c1"># If failed, raises ``RuntimeError``</span>
-<span class="k">except</span> <span class="ne">SystemExit</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cancelled&quot;</span><span class="p">)</span> <span class="c1"># If cancelled, raises ``SystemExit``</span>
-</pre></div>
-</div>
-</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="console.clear">
+<code class="sig-prename descclassname">console.</code><code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#console.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears the console.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="console.print">
+<code class="sig-prename descclassname">console.</code><code class="sig-name descname">print</code><span class="sig-paren">(</span><em class="sig-param">*objects</em>, <em class="sig-param">sep: str = None</em>, <em class="sig-param">end: str = None</em><span class="sig-paren">)</span><a class="headerlink" href="#console.print" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints to the Pyto console, not to the stdout. Works as the builtin <cite>print</cite> function but does not support printing to a custom file. Pyto catches by default the stdout and the stderr, so use the builtin function instead. This function is mainly for internal use.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="console.input">
+<code class="sig-prename descclassname">console.</code><code class="sig-name descname">input</code><span class="sig-paren">(</span><em class="sig-param">prompt: str = None</em><span class="sig-paren">)</span><a class="headerlink" href="#console.input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Requests input with given prompt.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>prompt</strong> – Text printed before the user’s input without a newline.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 
@@ -233,10 +276,10 @@ Returns: The result sent by the opened app.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="userkeys.html" class="btn btn-neutral float-right" title="userkeys" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="UIKit.html" class="btn btn-neutral float-right" title="UIKit" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="speech.html" class="btn btn-neutral float-left" title="speech" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="mainthread.html" class="btn btn-neutral float-left" title="mainthread" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

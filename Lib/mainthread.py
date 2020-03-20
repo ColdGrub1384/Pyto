@@ -1,4 +1,6 @@
 """
+Access the main thread
+
 This module allows you to run code on the main thread easely. This can be used for modifiying the UI.
 
 Example:
@@ -36,18 +38,17 @@ def mainthread(func):
 
     Example:
 
-    code-block::
-        python
+    .. code-block:: python
 
-        import mainthread
-        from UIKit import UIApplication
+       import mainthread
+       from UIKit import UIApplication
 
-        @mainthread.mainthread
-        def run_in_background():
-            app = UIApplication.sharedApplication
-            app.beginBackgroundTaskWithExpirationHandler(None)
+       @mainthread.mainthread
+       def run_in_background():
+           app = UIApplication.sharedApplication
+           app.beginBackgroundTaskWithExpirationHandler(None)
 
-        run_in_background()
+       run_in_background()
     """
 
     def run(*args, **kwargs):
