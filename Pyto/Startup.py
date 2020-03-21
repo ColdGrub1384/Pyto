@@ -1,5 +1,13 @@
 import sys
 import os
+import zipfile
+
+zippedLib = os.environ["ZIPPEDLIB"]
+destDir = os.path.expanduser("~/Library/python38")
+
+if not os.path.isdir(destDir):
+    with zipfile.ZipFile(zippedLib, "r") as zip_ref:
+        zip_ref.extractall(destDir)
 
 sys.path.insert(-1, os.path.expanduser("~/Documents"))
 sys.path.insert(-1, os.path.expanduser("~/Documents/site-packages"))

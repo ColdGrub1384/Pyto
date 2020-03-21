@@ -714,9 +714,12 @@ int initialize_python(int argc, char *argv[]) {
     #if !WIDGET
     putenv("PYTHONDONTWRITEBYTECODE=1");
     #endif
+    NSString *zippedLib = [pythonBundle pathForResource:@"python38.zip" ofType:NULL];
+    
+    putenv((char *)[[NSString stringWithFormat:@"ZIPPEDLIB=%@", zippedLib] UTF8String]);
     putenv((char *)[[NSString stringWithFormat:@"TMP=%@", NSTemporaryDirectory()] UTF8String]);
     putenv((char *)[[NSString stringWithFormat:@"PYTHONHOME=%@", pythonBundle.bundlePath] UTF8String]);
-    NSString* path = [NSString stringWithFormat:@"PYTHONPATH=%@:%@:%@:%@", [mainBundle() pathForResource: @"Lib" ofType:NULL], [mainBundle() pathForResource:@"site-packages" ofType:NULL], [pythonBundle pathForResource:@"python38" ofType:NULL], [pythonBundle pathForResource:@"python38.zip" ofType:NULL]];
+    NSString* path = [NSString stringWithFormat:@"PYTHONPATH=%@:%@:%@:%@", [[NSFileManager.defaultManager URLsForDirectory:NSLibraryDirectory inDomains:NSAllDomainsMask].firstObject URLByAppendingPathComponent:@"python38"].path, [mainBundle() pathForResource: @"Lib" ofType:NULL], [mainBundle() pathForResource:@"site-packages" ofType:NULL], zippedLib];
     #if WIDGET
     path = [path stringByAppendingString: [NSString stringWithFormat:@":%@:%@", [NSFileManager.defaultManager sharedDirectory], [NSFileManager.defaultManager.sharedDirectory URLByAppendingPathComponent:@"modules"]]];
     #endif
