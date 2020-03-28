@@ -170,6 +170,9 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                     }
                     
                     guard !(contentVC.editorSplitViewController is REPLViewController) && !(contentVC.editorSplitViewController is RunModuleViewController) && !(contentVC.editorSplitViewController is PipInstallerViewController) else {
+                        let installer = contentVC.editorSplitViewController as? PipInstallerViewController
+                        installer?.done = !(self.runningScripts.contains(scriptPath))
+                        installer?.navigationItem.leftBarButtonItem?.isEnabled = installer?.done ?? false
                         return
                     }
                     
