@@ -71,20 +71,6 @@
 		C94AC3F22377181E002263CE /* prep_cif.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E62377181E002263CE /* prep_cif.o */; };
 		C94AC3F32377181E002263CE /* ffi_arm64.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E72377181E002263CE /* ffi_arm64.o */; };
 		C94AC3F42377181E002263CE /* _ctypes_test.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E82377181E002263CE /* _ctypes_test.o */; };
-		C94AC402237718C6002263CE /* stgdict.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3F6237718C6002263CE /* stgdict.o */; };
-		C94AC403237718C6002263CE /* callbacks.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3F7237718C6002263CE /* callbacks.o */; };
-		C94AC404237718C6002263CE /* raw_api.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3F8237718C6002263CE /* raw_api.o */; };
-		C94AC405237718C6002263CE /* java_raw_api.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3F9237718C6002263CE /* java_raw_api.o */; };
-		C94AC406237718C6002263CE /* _ctypes.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3FA237718C6002263CE /* _ctypes.o */; };
-		C94AC407237718C6002263CE /* cfield.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3FB237718C6002263CE /* cfield.o */; };
-		C94AC408237718C6002263CE /* callproc.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3FC237718C6002263CE /* callproc.o */; };
-		C94AC409237718C6002263CE /* closures.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3FD237718C6002263CE /* closures.o */; };
-		C94AC40A237718C6002263CE /* ffiw64_x86_64.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3FE237718C6002263CE /* ffiw64_x86_64.o */; };
-		C94AC40B237718C6002263CE /* ffi64_x86_64.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3FF237718C6002263CE /* ffi64_x86_64.o */; };
-		C94AC40C237718C6002263CE /* prep_cif.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC400237718C6002263CE /* prep_cif.o */; };
-		C94AC40D237718C6002263CE /* _ctypes_test.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC401237718C6002263CE /* _ctypes_test.o */; };
-		C94AC40F23771934002263CE /* unix64_x86_64.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC40E23771934002263CE /* unix64_x86_64.o */; };
-		C94AC41123771948002263CE /* win64_x86_64.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC41023771948002263CE /* win64_x86_64.o */; };
 		C97F5772235B5F5100F289C7 /* python.c in Sources */ = {isa = PBXBuildFile; fileRef = 22E8FEEE21C66BF000967E21 /* python.c */; };
 		C97F57B2235B653200F289C7 /* pathconfig.c in Sources */ = {isa = PBXBuildFile; fileRef = C97F5773235B652D00F289C7 /* pathconfig.c */; };
 		C97F57B8235B653200F289C7 /* getcopyright.c in Sources */ = {isa = PBXBuildFile; fileRef = C97F5774235B652D00F289C7 /* getcopyright.c */; };
@@ -951,38 +937,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				C94AC3EB2377181E002263CE /* callbacks.o in Frameworks */,
-				C94AC405237718C6002263CE /* java_raw_api.o in Frameworks */,
-				C94AC404237718C6002263CE /* raw_api.o in Frameworks */,
 				C94AC3EC2377181E002263CE /* raw_api.o in Frameworks */,
 				C94AC3E92377181E002263CE /* stgdict.o in Frameworks */,
 				C94AC3ED2377181E002263CE /* java_raw_api.o in Frameworks */,
-				C94AC402237718C6002263CE /* stgdict.o in Frameworks */,
 				C94AC3F32377181E002263CE /* ffi_arm64.o in Frameworks */,
-				C94AC40F23771934002263CE /* unix64_x86_64.o in Frameworks */,
-				C94AC40A237718C6002263CE /* ffiw64_x86_64.o in Frameworks */,
 				C94AC3EE2377181E002263CE /* _ctypes.o in Frameworks */,
-				C94AC40D237718C6002263CE /* _ctypes_test.o in Frameworks */,
 				C94AC3F22377181E002263CE /* prep_cif.o in Frameworks */,
 				C94AC3EA2377181E002263CE /* sysv_arm64.o in Frameworks */,
 				C9FDC0F3235B81DB000B0D61 /* libsqlite3.tbd in Frameworks */,
 				C94AC3F12377181E002263CE /* closures.o in Frameworks */,
-				C94AC40B237718C6002263CE /* ffi64_x86_64.o in Frameworks */,
 				C9FDC269235BB771000B0D61 /* libxz.a in Frameworks */,
 				C94AC3F42377181E002263CE /* _ctypes_test.o in Frameworks */,
-				C94AC40C237718C6002263CE /* prep_cif.o in Frameworks */,
-				C94AC408237718C6002263CE /* callproc.o in Frameworks */,
 				22288E082211FAC20081D86C /* Accelerate.framework in Frameworks */,
-				C94AC409237718C6002263CE /* closures.o in Frameworks */,
 				C94AC3F02377181E002263CE /* callproc.o in Frameworks */,
-				C94AC407237718C6002263CE /* cfield.o in Frameworks */,
 				226ED58B21C784B300A71A20 /* libbz2.tbd in Frameworks */,
-				C94AC403237718C6002263CE /* callbacks.o in Frameworks */,
 				C9FDC268235BB771000B0D61 /* libOpenSSL.a in Frameworks */,
 				221CD96421DFAABF00F3B47C /* libc++.tbd in Frameworks */,
-				C94AC406237718C6002263CE /* _ctypes.o in Frameworks */,
 				C94AC3EF2377181E002263CE /* cfield.o in Frameworks */,
 				C9FDC267235BB771000B0D61 /* libbzip2.a in Frameworks */,
-				C94AC41123771948002263CE /* win64_x86_64.o in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
