@@ -18,13 +18,13 @@ import MediaPlayer
     ///     - scriptPath: The path of the script that called this function.
     ///
     /// - Returns: An array of picked items.
-    @objc static func pickMusic(scriptPath: String?) -> [MPMediaItem] {
+    @objc static func pickMusic(scriptPath: String?) -> NSArray {
         
         class Delegate: NSObject, MPMediaPickerControllerDelegate {
             
             var semaphore: DispatchSemaphore?
             
-            var picked = [MPMediaItem]()
+            var picked = NSMutableArray()
                         
             func mediaPickerDidCancel(_ mediaPicker: MPMediaPickerController) {
                 mediaPicker.dismiss(animated: true, completion: {
@@ -33,7 +33,7 @@ import MediaPlayer
             }
             
             func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
-                picked += mediaItemCollection.items
+                picked.addObjects(from: mediaItemCollection.items)
             }
         }
         
