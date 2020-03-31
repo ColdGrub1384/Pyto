@@ -794,7 +794,7 @@ def now_playing_item() -> MediaItem:
     :rtype: MediaItem
     """
 
-    val = player.nowPlayingItem
+    val = PyMusicHelper.nowPlayingItem
     if val is not None:
         val = MediaItem(val)
     return val
