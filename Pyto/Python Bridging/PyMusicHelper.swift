@@ -12,6 +12,16 @@ import MediaPlayer
 /// A class for helping picking music.
 @objc class PyMusicHelper: NSObject {
     
+    /// Returns the now playing item.
+    @objc static var nowPlayingItem: MPMediaItem? {
+        if let item = MPMusicPlayerController.systemMusicPlayer.nowPlayingItem {
+            let query = MPMediaQuery(filterPredicates: [MPMediaPropertyPredicate(value: item.persistentID, forProperty: MPMediaItemPropertyPersistentID)])
+            return query.items?.first ?? item
+        } else {
+            return nil
+        }
+    }
+    
     /// Picks music.
     ///
     /// - Parameters:
