@@ -94,6 +94,7 @@ import UIKit
         super.viewDidAppear(animated)
         
         if let script = editor.document?.fileURL.path, !Python.shared.isScriptRunning(script) {
+            editor.currentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
             editor.run()
         }
         
