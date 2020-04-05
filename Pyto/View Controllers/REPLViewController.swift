@@ -95,7 +95,9 @@ import UIKit
         
         if let script = editor.document?.fileURL.path, !Python.shared.isScriptRunning(script) {
             editor.currentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            editor.run()
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
+                self.editor.run()
+            }
         }
         
         if #available(iOS 13.0, *) {
