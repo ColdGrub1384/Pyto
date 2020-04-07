@@ -12,6 +12,16 @@ if not os.path.isdir(destDir):
 sys.path.insert(-1, os.path.expanduser("~/Documents"))
 sys.path.insert(-1, os.path.expanduser("~/Documents/site-packages"))
 
+try:
+    os.remove(destDir+"/turtle.py")
+except:
+    pass
+    
+try:
+    os.remove(destDir+"/pydoc.py")
+except:
+    pass
+
 import io
 import console
 import code
