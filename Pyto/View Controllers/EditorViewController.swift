@@ -376,7 +376,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 return
             }
             
-            EditorViewController.setupEditorButton(self)
+            if #available(iOS 13.0, *) {
+                EditorViewController.setupEditorButton(self)
+            }
             
             let path = doc.fileURL.path
             
