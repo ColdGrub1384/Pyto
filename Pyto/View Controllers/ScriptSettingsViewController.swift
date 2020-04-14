@@ -9,21 +9,30 @@
 import UIKit
 import IntentsUI
 
+/// A View controller for scripts settings.
 class ScriptSettingsViewController: UIViewController, UITextFieldDelegate, UIDocumentPickerDelegate, INUIAddVoiceShortcutButtonDelegate, INUIAddVoiceShortcutViewControllerDelegate, INUIEditVoiceShortcutViewControllerDelegate {
     
+    /// The text field for setting arguments.
     @IBOutlet weak var argumentsTextField: UITextField!
     
+    /// The text field for setting current directory.
     @IBOutlet weak var currentDirectoryTextField: UITextField!
     
+    /// The status of the current directory.
     @IBOutlet weak var currentDirectoryStatusLabel: UILabel!
     
+    /// The view containing the Add to Siri button.
     @IBOutlet weak var siriButtonContainerView: UIView!
     
+    /// Closes the View controller.
     @IBAction func close(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
+    /// The editor that presented this vc.
     var editor: EditorViewController!
+    
+    // MARK: - Text field delegate
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if textField == currentDirectoryTextField {
@@ -54,6 +63,8 @@ class ScriptSettingsViewController: UIViewController, UITextFieldDelegate, UIDoc
         }
     }
     
+    // MARK: - View controller
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -69,14 +80,21 @@ class ScriptSettingsViewController: UIViewController, UITextFieldDelegate, UIDoc
             } else {
                 button = INUIAddVoiceShortcutButton(style: .whiteOutline)
             }
+            
             button.shortcut = INShortcut(userActivity: activity)
             button.delegate = self
-            button.autoresizingMask = [.flexibleTopMargin, .flexibleBottomMargin, .flexibleLeftMargin, .flexibleRightMargin]
-            button.center = siriButtonContainerView.center
+            
+            button.translatesAutoresizingMaskIntoConstraints = false
             
             siriButtonContainerView.addSubview(button)
+            
+            siriButtonContainerView.addSubview(button)
+            siriButtonContainerView.centerXAnchor.constraint(equalTo: button.centerXAnchor).isActive = true
+            siriButtonContainerView.centerYAnchor.constraint(equalTo: button.centerYAnchor).isActive = true
         }
     }
+    
+    // MARK: - Document picker delegate
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         let success = urls.first?.startAccessingSecurityScopedResource()
