@@ -137,6 +137,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     @objc public var scriptToRun: Script?
     
     @objc private func removeScriptFromList(_ script: String) {
+        sleep(1)
         while runningScripts.index(of: script) != NSNotFound {
             let arr = NSMutableArray(array: runningScripts)
             arr.removeObjects(at: IndexSet(integer: runningScripts.index(of: script)))

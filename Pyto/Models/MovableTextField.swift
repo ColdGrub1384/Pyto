@@ -39,7 +39,6 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         ]
         inputAssistant.trailingActions = [
             InputAssistantAction(image: UIImage(named: "CtrlC") ?? UIImage(), target: self, action: #selector(interrupt)),
-            InputAssistantAction(image: UIImage(named: "Paste") ?? UIImage(), target: textField, action: #selector(UITextField.paste(_:))),
             ]+(UIApplication.shared.statusBarOrientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])
         
         textField.keyboardAppearance = theme.keyboardAppearance
@@ -126,6 +125,9 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     /// Code called when text is sent. Receives the text.
     var handler: ((String) -> Void)?
     
+    /// Code called when text is modified. Receives the text.
+    var didChangeText: ((String) -> Void)?
+    
     // MARK: - Keyboard
     
     @objc private func keyboardDidShow(_ notification: NSNotification) {
@@ -194,9 +196,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     // MARK: - Text field delegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        textField.resignFirstResponder()
-        
+                
         defer {
             handler?(textField.text ?? "")
             placeholder = ""
@@ -217,13 +217,16 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         
         return true
     }
-    
+        
     #if MAIN
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         defer {
             if historyIndex == -1 {
                 currentInput = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
+                self.didChangeText?(textField.text ?? "")
             }
         }
         

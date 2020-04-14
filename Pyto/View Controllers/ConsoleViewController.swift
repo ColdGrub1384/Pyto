@@ -7,6 +7,9 @@
 //
 
 import UIKit
+#if MAIN
+import InputAssistant
+#endif
 
 /// A View controller containing Python script output.
 @objc open class ConsoleViewController: UIViewController, UITextViewDelegate {
@@ -646,6 +649,112 @@ import UIKit
         dismiss(animated: true, completion: nil)
     }
     
+    #if MAIN
+    /// Code completions for the REPL.
+    @objc static var completions = NSMutableArray() {
+        didSet {
+            if #available(iOS 13.0, *) {
+                DispatchQueue.main.async {
+                    for scene in UIApplication.shared.connectedScenes {
+                        if let window = (scene as? UIWindowScene)?.windows.first {
+                            if let vc = window.topViewController as? REPLViewController {
+                                vc.console.completions = self.completions as? [String] ?? []
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    /// Code suggestions for the REPL.
+    @objc static var suggestions = NSMutableArray() {
+        didSet {
+            if #available(iOS 13.0, *) {
+                DispatchQueue.main.async {
+                    for scene in UIApplication.shared.connectedScenes {
+                        if let window = (scene as? UIWindowScene)?.windows.first {
+                            if let vc = window.topViewController as? REPLViewController {
+                                vc.console.suggestions = self.suggestions as? [String] ?? []
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    /// Returns suggestions for current word.
+    @objc var suggestions: [String] {
+        
+        get {
+            
+            if _suggestions.indices.contains(currentSuggestionIndex) {
+                var completions = _suggestions
+                
+                let completion = completions[currentSuggestionIndex]
+                completions.remove(at: currentSuggestionIndex)
+                completions.insert(completion, at: 0)
+                return completions
+            }
+            
+            return _suggestions
+        }
+        
+        set {
+            
+            currentSuggestionIndex = -1
+            
+            _suggestions = newValue
+            
+            guard !Thread.current.isMainThread else {
+                return
+            }
+        }
+    }
+    
+    private var _completions = [String]()
+    
+    private var _suggestions = [String]()
+    
+    /// Completions corresponding to `suggestions`.
+    @objc var completions: [String] {
+        get {
+            if _completions.indices.contains(currentSuggestionIndex) {
+                var completions = _completions
+                
+                let completion = completions[currentSuggestionIndex]
+                completions.remove(at: currentSuggestionIndex)
+                completions.insert(completion, at: 0)
+        
+                DispatchQueue.main.async {
+                    self.movableTextField?.inputAssistant.reloadData()
+                }
+        
+                return completions
+            }
+            
+            return _completions
+        }
+        
+        set {
+            _completions = newValue
+        
+            DispatchQueue.main.async {
+                self.movableTextField?.inputAssistant.reloadData()
+            }
+        }
+    }
+    
+    private var currentSuggestionIndex = -1 {
+        didSet {
+            DispatchQueue.main.async {
+                self.movableTextField?.inputAssistant.reloadData()
+            }
+        }
+    }
+    #endif
+    
     // MARK: - View controller
     
     override open func viewDidLoad() {
@@ -684,6 +793,10 @@ import UIKit
         super.traitCollectionDidChange(previousTraitCollection)
         
         themeDidChange(nil)
+        
+        let attrString = NSMutableAttributedString(attributedString: textView.attributedText)
+        attrString.removeAttribute(.backgroundColor, range: NSRange(location: 0, length: attrString.length))
+        textView.attributedText = attrString
     }
     #endif
     
@@ -714,7 +827,39 @@ import UIKit
             movableTextField?.placeholder = prompt ?? ""
         }
         movableTextField?.show()
+        #if MAIN
+        if parent is REPLViewController {
+            movableTextField?.inputAssistant.delegate = self
+            movableTextField?.inputAssistant.dataSource = self
+            movableTextField?.didChangeText = { text in
+                Python.shared.run(code: """
+                    import jedi
+                    import console
+                    import pyto
+                    namespace = console.__repl_namespace__
+                    script = jedi.Interpreter('\(text.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "'", with: "\\'"))', [namespace])
+                    
+                    suggestions = []
+                    completions = []
+                    for completion in script.complete():
+                        suggestions.append(completion.name)
+                        completions.append(completion.complete)
+                    
+                    pyto.ConsoleViewController.suggestions = suggestions
+                    pyto.ConsoleViewController.completions = completions
+                    """)
+            }
+        }
+        #endif
         movableTextField?.handler = { text in
+            
+            if self.currentSuggestionIndex != -1 {
+                return self.inputAssistantView(self.movableTextField!.inputAssistant, didSelectSuggestionAtIndex: 0)
+            }
+            
+            self.movableTextField?.textField.resignFirstResponder()
+            
+            self.completions = []
             
             let secureTextEntry = self.movableTextField?.textField.isSecureTextEntry ?? false
             self.movableTextField?.textField.isSecureTextEntry = false
@@ -808,10 +953,16 @@ import UIKit
     }
     
     open override var keyCommands: [UIKeyCommand]? {
-        return [
+        var commands = [
             UIKeyCommand(input: UIKeyCommand.inputDownArrow, modifierFlags: [], action: #selector(down)),
             UIKeyCommand(input: UIKeyCommand.inputUpArrow, modifierFlags: [], action: #selector(up)),
         ]
+        
+        if numberOfSuggestionsInInputAssistantView() != 0 {
+            commands.append(UIKeyCommand(input: "\t", modifierFlags: [], action: #selector(nextSuggestion), discoverabilityTitle: Localizable.nextSuggestion))
+        }
+        
+        return commands
     }
     
     // MARK: - Keyboard
@@ -846,9 +997,109 @@ import UIKit
         movableTextField?.down()
     }
     
+    /// Selects a suggestion from hardware tab key.
+    @objc func nextSuggestion() {
+        
+        guard numberOfSuggestionsInInputAssistantView() != 0 else {
+            return
+        }
+                
+        let new = currentSuggestionIndex+1
+        
+        if suggestions.indices.contains(new) {
+            currentSuggestionIndex = new
+        } else {
+            currentSuggestionIndex = -1
+        }
+    }
+    
     // MARK: - Text view delegate
     
     public func textViewDidChange(_ textView: UITextView) {
         console = textView.text
     }
 }
+
+// MARK: - REPL Code Completion
+
+#if MAIN
+extension ConsoleViewController: InputAssistantViewDelegate, InputAssistantViewDataSource {
+    
+    public func inputAssistantView(_ inputAssistantView: InputAssistantView, didSelectSuggestionAtIndex index: Int) {
+        
+        guard let textField = movableTextField?.textField else {
+            currentSuggestionIndex = -1
+            return
+        }
+        
+        guard completions.indices.contains(index), suggestions.indices.contains(index) else {
+            currentSuggestionIndex = -1
+            return
+        }
+        
+        let completion = completions[index]
+        let suggestion = suggestions[index]
+        
+        guard let range = textField.selectedTextRange else {
+            currentSuggestionIndex = -1
+            return
+        }
+        let _location = textField.offset(from: textField.beginningOfDocument, to: range.start)
+        let _length = textField.offset(from: range.start, to: range.end)
+        let selectedRange = NSRange(location: _location, length: _length)
+                
+        let location = selectedRange.location-(suggestion.count-completion.count)
+        let length = suggestion.count-completion.count
+        
+        /*
+         
+         hello_w HELLO_WORLD ORLD
+         
+         */
+        
+        let iDonTKnowHowToNameThisVariableButItSSomethingWithTheSelectedRangeButFromTheBeginingLikeTheEntireSelectedWordWithUnderscoresIncluded = NSRange(location: location, length: length)
+        
+        textField.selectedTextRange = iDonTKnowHowToNameThisVariableButItSSomethingWithTheSelectedRangeButFromTheBeginingLikeTheEntireSelectedWordWithUnderscoresIncluded.toTextRange(textInput: textField)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
+            textField.insertText(suggestion)
+            if completion.hasSuffix("(") {
+                let range = textField.selectedTextRange
+                textField.insertText(")")
+                textField.selectedTextRange = range
+            }
+            self.suggestions = []
+            self.completions = []
+        }
+                
+        currentSuggestionIndex = -1
+    }
+    
+    public func textForEmptySuggestionsInInputAssistantView() -> String? {
+        return nil
+    }
+    
+    public func numberOfSuggestionsInInputAssistantView() -> Int {
+        if movableTextField?.textField.selectedTextRange?.end == movableTextField?.textField.endOfDocument && movableTextField?.textField.text != "" {
+            return completions.count
+        } else {
+            return 0
+        }
+    }
+    
+    public func inputAssistantView(_ inputAssistantView: InputAssistantView, nameForSuggestionAtIndex index: Int) -> String {
+        let suffix: String = ((currentSuggestionIndex != -1 && index == 0) ? " ⤶" : "")
+        
+        guard suggestions.indices.contains(index) else {
+            return ""
+        }
+        
+        if suggestions[index].hasSuffix("(") {
+            return "()"+suffix
+        }
+        
+        return suggestions[index]+suffix
+    }
+    
+}
+#endif
