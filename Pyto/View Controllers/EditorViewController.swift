@@ -1662,6 +1662,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
     }
     
+    @objc private static var codeToComplete = ""
+    
     /// Selects a suggestion from hardware tab key.
     @objc func nextSuggestion() {
         
@@ -1815,11 +1817,13 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         let textView = self.textView.contentTextView
         
-        guard let range = textView.selectedTextRange, let textRange = textView.textRange(from: textView.beginningOfDocument, to: range.end), let text = textView.text(in: textRange) else {
+        guard let text = textView.text else {
             self.suggestions = []
             self.completions = []
             return inputAssistant.reloadData()
         }
+        
+        EditorViewController.codeToComplete = text
         
         guard let line = textView.currentLine, !line.isEmpty else {
             self.suggestions = []
@@ -1830,6 +1834,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         ConsoleViewController.ignoresInput = true
         let code = """
         from _codecompletion import suggestForCode
+        from pyto import EditorViewController
         import sys
         
         path = '\(currentDirectory.path.replacingOccurrences(of: "'", with: "\\'"))'
@@ -1839,12 +1844,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
           sys.path.append(path)
           should_path_be_deleted = True
         
-        source = '''
-        import
-        
-        \(text.replacingOccurrences(of: "'", with: "\\'").replacingOccurrences(of: "\\", with: "\\\\"));
-        '''
-        suggestForCode(source, '\((document?.fileURL.path ?? "").replacingOccurrences(of: "'", with: "\\'"))')
+        source = str(EditorViewController.codeToComplete)
+        suggestForCode(source, \(textView.selectedRange.location), '\((document?.fileURL.path ?? "").replacingOccurrences(of: "'", with: "\\'"))')
         
         if should_path_be_deleted:
           sys.path.remove(path)
