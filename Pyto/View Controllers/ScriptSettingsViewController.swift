@@ -153,19 +153,15 @@ class ScriptSettingsViewController: UIViewController, UITextFieldDelegate, UIDoc
     
     func present(_ addVoiceShortcutViewController: INUIAddVoiceShortcutViewController, for addVoiceShortcutButton: INUIAddVoiceShortcutButton) {
         
-        dismiss(animated: true) {
-            addVoiceShortcutViewController.delegate = self
-            self.present(addVoiceShortcutViewController, animated: true, completion: nil)
-        }
+        addVoiceShortcutViewController.delegate = self
+        present(addVoiceShortcutViewController, animated: true, completion: nil)
     }
     
     func present(_ editVoiceShortcutViewController: INUIEditVoiceShortcutViewController, for addVoiceShortcutButton: INUIAddVoiceShortcutButton) {
         
         editVoiceShortcutViewController.delegate = self
         
-        dismiss(animated: true) {
-            self.present(editVoiceShortcutViewController, animated: true, completion: nil)
-        }
+        present(editVoiceShortcutViewController, animated: true, completion: nil)
     }
     
     // MARK: - Add voice shortcut view controller delegate
