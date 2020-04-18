@@ -833,20 +833,23 @@ import InputAssistant
             movableTextField?.inputAssistant.dataSource = self
             movableTextField?.didChangeText = { text in
                 Python.shared.run(code: """
-                    import jedi
-                    import console
-                    import pyto
-                    namespace = console.__repl_namespace__
-                    script = jedi.Interpreter('\(text.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "'", with: "\\'"))', [namespace])
-                    
-                    suggestions = []
-                    completions = []
-                    for completion in script.complete():
-                        suggestions.append(completion.name)
-                        completions.append(completion.complete)
-                    
-                    pyto.ConsoleViewController.suggestions = suggestions
-                    pyto.ConsoleViewController.completions = completions
+                    try:
+                        import jedi
+                        import console
+                        import pyto
+                        namespace = console.__repl_namespace__
+                        script = jedi.Interpreter('\(text.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "'", with: "\\'"))', [namespace])
+                        
+                        suggestions = []
+                        completions = []
+                        for completion in script.complete():
+                            suggestions.append(completion.name)
+                            completions.append(completion.complete)
+                        
+                        pyto.ConsoleViewController.suggestions = suggestions
+                        pyto.ConsoleViewController.completions = completions
+                    except Exception as e:
+                        pass
                     """)
             }
         }
@@ -867,6 +870,8 @@ import InputAssistant
             guard self.shouldRequestInput else {
                 return
             }
+            
+            self.movableTextField?.textField.text = ""
             
             #if MAIN
             PyInputHelper.userInput.setObject(text, forKey: (self.editorSplitViewController?.editor.document?.fileURL.path ?? "") as NSCopying)

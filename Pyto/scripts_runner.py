@@ -37,7 +37,7 @@ while True:
         PyOutputHelper.printError(error, script=None)
         Python.shared.codeToRun = None
     
-    if Python.shared.scriptToRun != None:
+    if Python.shared.scriptToRun is not None:
         
         script = Python.shared.scriptToRun
         
