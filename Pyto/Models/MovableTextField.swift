@@ -198,9 +198,6 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
                 
         defer {
-            handler?(textField.text ?? "")
-            placeholder = ""
-            
             #if MAIN
             if let text = textField.text, !text.isEmpty {
                 if let i = history.firstIndex(of: text) {
@@ -210,6 +207,9 @@ class MovableTextField: NSObject, UITextFieldDelegate {
                 historyIndex = -1
             }
             currentInput = nil
+            
+            handler?(textField.text ?? "")
+            placeholder = ""
             #endif
         }
         
@@ -220,18 +220,6 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if string == "\n" {
-            
-            #if MAIN
-            if let text = textField.text, !text.isEmpty {
-                if let i = history.firstIndex(of: text) {
-                    history.remove(at: i)
-                }
-                history.insert(text, at: 0)
-                historyIndex = -1
-            }
-            currentInput = nil
-            #endif
-            
             return false
         }
         
