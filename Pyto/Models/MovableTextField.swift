@@ -211,8 +211,6 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             }
             currentInput = nil
             #endif
-            
-            textField.text = ""
         }
         
         return true
@@ -220,6 +218,22 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         
     #if MAIN
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if string == "\n" {
+            
+            #if MAIN
+            if let text = textField.text, !text.isEmpty {
+                if let i = history.firstIndex(of: text) {
+                    history.remove(at: i)
+                }
+                history.insert(text, at: 0)
+                historyIndex = -1
+            }
+            currentInput = nil
+            #endif
+            
+            return false
+        }
         
         defer {
             if historyIndex == -1 {

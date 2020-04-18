@@ -791,6 +791,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// Setups the plugin button.
     @objc static func setupEditorButton(_ editor: EditorViewController?) {
         
+        if #available(iOS 13.0, *) {
+        } else {
+            return
+        }
+        
         if !Thread.current.isMainThread {
             return DispatchQueue.main.async {
                 self.setupEditorButton(editor)
@@ -1832,7 +1837,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
         
         ConsoleViewController.ignoresInput = true
-        let code = """
+        Python.shared.run(code: """
         from _codecompletion import suggestForCode
         from pyto import EditorViewController
         import sys
@@ -1846,11 +1851,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         source = str(EditorViewController.codeToComplete)
         suggestForCode(source, \(textView.selectedRange.location), '\((document?.fileURL.path ?? "").replacingOccurrences(of: "'", with: "\\'"))')
-        
+            
         if should_path_be_deleted:
           sys.path.remove(path)
-        """
-        Python.shared.run(code: code)
+        """)
     }
     
     // MARK: - Syntax text view delegate
