@@ -22,6 +22,11 @@ try:
 except:
     pass
 
+try:
+    os.remove(destDir+"/pdb.py")
+except:
+    pass
+
 import io
 import console
 import code
