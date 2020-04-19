@@ -1895,7 +1895,14 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
         
         let completion = completions[index]
-        let suggestion = suggestions[index]
+        var suggestion = suggestions[index]
+        
+        var isParam = false
+        
+        if suggestion.hasSuffix("=") {
+            suggestion.removeLast()
+            isParam = true
+        }
         
         let selectedRange = textView.contentTextView.selectedRange
         
@@ -1918,6 +1925,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 let range = self.textView.contentTextView.selectedRange
                 self.textView.contentTextView.insertText(")")
                 self.textView.contentTextView.selectedRange = range
+            }
+            
+            if isParam {
+                self.textView.contentTextView.insertText("=")
             }
         }
                 
