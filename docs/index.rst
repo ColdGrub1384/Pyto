@@ -56,6 +56,7 @@ The following modules are integrated with Pyto.
    :maxdepth: 2
    :caption: Sharing data
 
+   apps
    xcallback
    userkeys
    pasteboard
