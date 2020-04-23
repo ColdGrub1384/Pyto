@@ -44,6 +44,7 @@ Exclusive libraries:
   - location - Access user's location
   - multipeer - Peer to peer wireless connection
   - xcallback - Interact with other apps
+  - apps - Open third party apps
 ```
 
 ## Building

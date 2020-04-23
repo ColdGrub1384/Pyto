@@ -34,4 +34,4 @@ This is the structure that should be used for running code:
 
 The Shortcuts app supports opening x-callback URLs. `Here <https://www.icloud.com/shortcuts/b85b8afe92e54dc9b54be5ab1495995f>`__ is an example of a Shortcut that shows the current Python version.
 
-Pyto can also open external x-callback URLs with the `xcallback <xcallback.html>`__ module.
+Pyto can also open external x-callback URLs with the `xcallback <xcallback.html>`__ and `apps <apps.html>`__ module.
