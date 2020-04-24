@@ -241,10 +241,16 @@ __builtins__.__editor_delegate__ = None
 
 # MARK: - Run script
 
-pyto.Python.shared.isSetup = True
+try:
+    def run():
+
+        pyto.Python.shared.isSetup = True
+        
+        SourceFileLoader("main", "%@").load_module()
+
+    threading.Thread(target=run).start()
+except Exception as e:
+    print(e)
 
 while True:
-    try:
-        SourceFileLoader("main", "%@").load_module()
-    except Exception as e:
-        traceback.print_exc()
+    sleep(5)
