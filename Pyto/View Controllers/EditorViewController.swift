@@ -1042,7 +1042,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             var arguments = self.args.components(separatedBy: " ")
             parseArgs(&arguments)
             
-            sleep(1)
+            //sleep(1)
             
             Python.shared.args = NSMutableArray(array: arguments)
             Python.shared.currentWorkingDirectory = self.currentDirectory.path

@@ -860,6 +860,15 @@ import InputAssistant
                 return self.inputAssistantView(self.movableTextField!.inputAssistant, didSelectSuggestionAtIndex: 0)
             }
             
+            self.movableTextField?.currentInput = nil
+            self.movableTextField?.placeholder = ""
+            
+            if let i = self.movableTextField?.history.firstIndex(of: text) {
+                self.movableTextField?.history.remove(at: i)
+            }
+            self.movableTextField?.history.insert(text, at: 0)
+            self.movableTextField?.historyIndex = -1
+            
             self.movableTextField?.textField.resignFirstResponder()
             
             self.completions = []
