@@ -199,17 +199,9 @@ class MovableTextField: NSObject, UITextFieldDelegate {
                 
         defer {
             #if MAIN
-            if let text = textField.text, !text.isEmpty {
-                if let i = history.firstIndex(of: text) {
-                    history.remove(at: i)
-                }
-                history.insert(text, at: 0)
-                historyIndex = -1
+            if let text = self.textField.text, !text.isEmpty {
+                self.handler?(text)
             }
-            currentInput = nil
-            
-            handler?(textField.text ?? "")
-            placeholder = ""
             #endif
         }
         
