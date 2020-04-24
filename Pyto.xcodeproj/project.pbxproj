@@ -75,7 +75,6 @@
 		C927187922C998520025341B /* PyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C927187722C9933A0025341B /* PyButton.swift */; };
 		C927187B22C99CEA0025341B /* PyControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C927187A22C99CEA0025341B /* PyControl.swift */; };
 		C927187C22C99E920025341B /* PyControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C927187A22C99CEA0025341B /* PyControl.swift */; };
-		C927D36F2452837600B36A96 /* opencv2-contrib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C927D36E2452837600B36A96 /* opencv2-contrib.framework */; };
 		C927D378245353E200B36A96 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C97868132304E1AE00BD6FA4 /* opencv2.framework */; };
 		C929167E22B192A5001C8BA0 /* scripts_runner.py in Resources */ = {isa = PBXBuildFile; fileRef = C929167D22B192A5001C8BA0 /* scripts_runner.py */; };
 		C92A7D1622F99AD600D3B4DF /* _multiotsu.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C92A7CB022F99A4700D3B4DF /* _multiotsu.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -2013,7 +2012,6 @@
 		C927187422C973F60025341B /* PyValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyValue.swift; sourceTree = "<group>"; };
 		C927187722C9933A0025341B /* PyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyButton.swift; sourceTree = "<group>"; };
 		C927187A22C99CEA0025341B /* PyControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyControl.swift; sourceTree = "<group>"; };
-		C927D36E2452837600B36A96 /* opencv2-contrib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "opencv2-contrib.framework"; sourceTree = "<group>"; };
 		C929167D22B192A5001C8BA0 /* scripts_runner.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = scripts_runner.py; sourceTree = "<group>"; };
 		C92A7CB022F99A4700D3B4DF /* _multiotsu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _multiotsu.framework; sourceTree = "<group>"; };
 		C92A7CB122F99A4700D3B4DF /* _skeletonize_3d_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _skeletonize_3d_cy.framework; sourceTree = "<group>"; };
@@ -3844,7 +3842,6 @@
 				C9F8FA0F2302569D004648F4 /* dcomplex.o in Frameworks */,
 				C9F8F8DD2302569C004648F4 /* idzp_asvd_subr_2.o in Frameworks */,
 				C9F8F7B32302569C004648F4 /* dzsum1.o in Frameworks */,
-				C927D36F2452837600B36A96 /* opencv2-contrib.framework in Frameworks */,
 				C9F8F9422302569C004648F4 /* bfrac.o in Frameworks */,
 				C9F8FAFE2302569D004648F4 /* GMRESREVCOM.o in Frameworks */,
 				C9F8F98A2302569C004648F4 /* dldperm.o in Frameworks */,
@@ -5322,7 +5319,6 @@
 		C97868122304E19300BD6FA4 /* OpenCV */ = {
 			isa = PBXGroup;
 			children = (
-				C927D36E2452837600B36A96 /* opencv2-contrib.framework */,
 				C97868132304E1AE00BD6FA4 /* opencv2.framework */,
 				C97868152304E1E700BD6FA4 /* cv2.o */,
 			);
@@ -7798,7 +7794,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.8.5;
+				MARKETING_VERSION = 11.9;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -7859,7 +7855,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.8.5;
+				MARKETING_VERSION = 11.9;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -8012,7 +8008,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.8.5;
+				MARKETING_VERSION = 11.9;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -8038,7 +8034,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.8.5;
+				MARKETING_VERSION = 11.9;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -8059,7 +8055,7 @@
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
-				MARKETING_VERSION = 11.8.5;
+				MARKETING_VERSION = 11.9;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -8080,7 +8076,7 @@
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
-				MARKETING_VERSION = 11.8.5;
+				MARKETING_VERSION = 11.9;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -8108,7 +8104,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.8.5;
+				MARKETING_VERSION = 11.9;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Intents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -8137,7 +8133,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.8.5;
+				MARKETING_VERSION = 11.9;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Intents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -8428,7 +8424,7 @@
 					"$(PROJECT_DIR)/OpenCV",
 				);
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 11.8.5;
+				MARKETING_VERSION = 11.9;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
@@ -8546,7 +8542,7 @@
 					"$(PROJECT_DIR)/OpenCV",
 				);
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 11.8.5;
+				MARKETING_VERSION = 11.9;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
