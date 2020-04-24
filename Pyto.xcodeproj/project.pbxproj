@@ -75,6 +75,8 @@
 		C927187922C998520025341B /* PyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C927187722C9933A0025341B /* PyButton.swift */; };
 		C927187B22C99CEA0025341B /* PyControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C927187A22C99CEA0025341B /* PyControl.swift */; };
 		C927187C22C99E920025341B /* PyControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C927187A22C99CEA0025341B /* PyControl.swift */; };
+		C927D36F2452837600B36A96 /* opencv2-contrib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C927D36E2452837600B36A96 /* opencv2-contrib.framework */; };
+		C927D378245353E200B36A96 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C97868132304E1AE00BD6FA4 /* opencv2.framework */; };
 		C929167E22B192A5001C8BA0 /* scripts_runner.py in Resources */ = {isa = PBXBuildFile; fileRef = C929167D22B192A5001C8BA0 /* scripts_runner.py */; };
 		C92A7D1622F99AD600D3B4DF /* _multiotsu.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C92A7CB022F99A4700D3B4DF /* _multiotsu.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C92A7D1722F99AD600D3B4DF /* _skeletonize_3d_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C92A7CB122F99A4700D3B4DF /* _skeletonize_3d_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -129,7 +131,6 @@
 		C92ACE3321F0D8CB00FA8904 /* SolarizedLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92ACE3221F0D8CB00FA8904 /* SolarizedLight.swift */; };
 		C92ACE3721F0DBF600FA8904 /* SolarizedDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92ACE3621F0DBF600FA8904 /* SolarizedDark.swift */; };
 		C92D5E5C2309D14900C82225 /* cv2.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C97868152304E1E700BD6FA4 /* cv2.o */; };
-		C92D5E5D2309D15B00C82225 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C97868132304E1AE00BD6FA4 /* opencv2.framework */; };
 		C92DBD8021F67B9D0098BE43 /* REPL.py in Resources */ = {isa = PBXBuildFile; fileRef = C92DBD7F21F67B9C0098BE43 /* REPL.py */; };
 		C92DBD8221F687480098BE43 /* REPLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92DBD8121F687480098BE43 /* REPLViewController.swift */; };
 		C92EAC6422D93D2800729970 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A4214461D300382DCC /* libsqlite3.tbd */; };
@@ -2012,6 +2013,7 @@
 		C927187422C973F60025341B /* PyValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyValue.swift; sourceTree = "<group>"; };
 		C927187722C9933A0025341B /* PyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyButton.swift; sourceTree = "<group>"; };
 		C927187A22C99CEA0025341B /* PyControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyControl.swift; sourceTree = "<group>"; };
+		C927D36E2452837600B36A96 /* opencv2-contrib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "opencv2-contrib.framework"; sourceTree = "<group>"; };
 		C929167D22B192A5001C8BA0 /* scripts_runner.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = scripts_runner.py; sourceTree = "<group>"; };
 		C92A7CB022F99A4700D3B4DF /* _multiotsu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _multiotsu.framework; sourceTree = "<group>"; };
 		C92A7CB122F99A4700D3B4DF /* _skeletonize_3d_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _skeletonize_3d_cy.framework; sourceTree = "<group>"; };
@@ -3770,7 +3772,6 @@
 				C9F8F79F2302569C004648F4 /* specfun_wrappers.o in Frameworks */,
 				C937B9C822EE430500269FC6 /* libxml2.a in Frameworks */,
 				C9F8F8C62302569C004648F4 /* surfit.o in Frameworks */,
-				C92D5E5D2309D15B00C82225 /* opencv2.framework in Frameworks */,
 				C9F8FA992302569D004648F4 /* d_mprec.o in Frameworks */,
 				C9F8F8152302569C004648F4 /* dmyblas2.o in Frameworks */,
 				C9F8FB162302569D004648F4 /* dsinqb.o in Frameworks */,
@@ -3843,6 +3844,7 @@
 				C9F8FA0F2302569D004648F4 /* dcomplex.o in Frameworks */,
 				C9F8F8DD2302569C004648F4 /* idzp_asvd_subr_2.o in Frameworks */,
 				C9F8F7B32302569C004648F4 /* dzsum1.o in Frameworks */,
+				C927D36F2452837600B36A96 /* opencv2-contrib.framework in Frameworks */,
 				C9F8F9422302569C004648F4 /* bfrac.o in Frameworks */,
 				C9F8FAFE2302569D004648F4 /* GMRESREVCOM.o in Frameworks */,
 				C9F8F98A2302569C004648F4 /* dldperm.o in Frameworks */,
@@ -3957,6 +3959,7 @@
 				C9F8F9E92302569C004648F4 /* dsint1.o in Frameworks */,
 				C9F8FA812302569D004648F4 /* fpser.o in Frameworks */,
 				C9F8F8E22302569C004648F4 /* expn.o in Frameworks */,
+				C927D378245353E200B36A96 /* opencv2.framework in Frameworks */,
 				C9F8FA392302569D004648F4 /* zher.o in Frameworks */,
 				C9F8F89C2302569C004648F4 /* blkdta000.o in Frameworks */,
 				C9F8F7912302569C004648F4 /* csyrk.o in Frameworks */,
@@ -5319,6 +5322,7 @@
 		C97868122304E19300BD6FA4 /* OpenCV */ = {
 			isa = PBXGroup;
 			children = (
+				C927D36E2452837600B36A96 /* opencv2-contrib.framework */,
 				C97868132304E1AE00BD6FA4 /* opencv2.framework */,
 				C97868152304E1E700BD6FA4 /* cv2.o */,
 			);
@@ -7758,7 +7762,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -7794,7 +7798,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.8.2;
+				MARKETING_VERSION = 11.8.5;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -7821,7 +7825,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -7855,7 +7859,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.8.2;
+				MARKETING_VERSION = 11.8.5;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -7998,7 +8002,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_PREVIEWS = YES;
@@ -8008,7 +8012,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.8.2;
+				MARKETING_VERSION = 11.8.5;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -8024,7 +8028,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_PREVIEWS = YES;
@@ -8034,7 +8038,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.8.2;
+				MARKETING_VERSION = 11.8.5;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -8051,11 +8055,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
-				MARKETING_VERSION = 11.8.2;
+				MARKETING_VERSION = 11.8.5;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -8072,11 +8076,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
-				MARKETING_VERSION = 11.8.2;
+				MARKETING_VERSION = 11.8.5;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -8093,7 +8097,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -8104,7 +8108,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.8.2;
+				MARKETING_VERSION = 11.8.5;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Intents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -8122,7 +8126,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -8133,7 +8137,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.8.2;
+				MARKETING_VERSION = 11.8.5;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Intents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -8357,7 +8361,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -8421,9 +8425,10 @@
 					"$(PROJECT_DIR)/PyNacl",
 					"$(PROJECT_DIR)/SciPy",
 					"$(PROJECT_DIR)/NumPy",
+					"$(PROJECT_DIR)/OpenCV",
 				);
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 11.8.2;
+				MARKETING_VERSION = 11.8.5;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
@@ -8474,7 +8479,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -8538,9 +8543,10 @@
 					"$(PROJECT_DIR)/PyNacl",
 					"$(PROJECT_DIR)/SciPy",
 					"$(PROJECT_DIR)/NumPy",
+					"$(PROJECT_DIR)/OpenCV",
 				);
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 11.8.2;
+				MARKETING_VERSION = 11.8.5;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
