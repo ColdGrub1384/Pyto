@@ -43,7 +43,7 @@ import UIKit
         try:
             from pyto_ui import GestureRecognizer
         
-            if param.__class__ == GestureRecognizer:
+            if param.__class__.__name__ == "GestureRecognizer":
                 param = GestureRecognizer(param.__py_gesture__)
                 param.__number_of_touches__ = \(sender.numberOfTouches)
                 param.__state__ = \(sender.state.rawValue)
