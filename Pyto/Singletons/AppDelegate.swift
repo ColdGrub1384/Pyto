@@ -213,6 +213,16 @@ import WatchConnectivity
         return true
     }
     
+    public func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        RemoteNotifications.deviceToken = nil
+        RemoteNotifications.error = error.localizedDescription
+    }
+    
+    public func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        RemoteNotifications.error = nil
+        RemoteNotifications.deviceToken = deviceToken.map { String(format: "%02hhx", $0) }.joined()
+    }
+    
     #if MAIN
     
     public func applicationWillResignActive(_ application: UIApplication) {
@@ -263,7 +273,13 @@ import WatchConnectivity
         
         if response.actionIdentifier != UNNotificationDefaultActionIdentifier && response.actionIdentifier != UNNotificationDismissActionIdentifier {
             
-            if let url = URL(string: response.actionIdentifier) {
+            var link = response.actionIdentifier
+            
+            if let data = (response.notification.request.content.userInfo["data"] as? String)?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+                link = link.replacingOccurrences(of: "{}", with: data)
+            }
+            
+            if let url = URL(string: link) {
                 UIApplication.shared.open(url, options: [:]) { (_) in
                     completionHandler()
                 }
