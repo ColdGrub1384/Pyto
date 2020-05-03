@@ -1,0 +1,318 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>remote_notifications &mdash; Pyto  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="music" href="music.html" />
+    <link rel="prev" title="notifications" href="notifications.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Pyto
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="automation.html">Automation with Shortcuts and x-callback URLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="opencv.html">OpenCV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="django.html">Using Django</a></li>
+<li class="toctree-l1"><a class="reference internal" href="third_party.html">Third Party Libraries</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Interface</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pyto_ui.html">pyto_ui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyto_core.html">pyto_core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notification_center.html">notification_center</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">sharing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mainthread.html">mainthread</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UIKit.html">UIKit</a></li>
+</ul>
+<p class="caption"><span class="caption-text">OS Technologies</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="notifications.html">notifications</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">remote_notifications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sending-notifications">Sending notifications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="music.html">music</a></li>
+<li class="toctree-l1"><a class="reference internal" href="photos.html">photos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="location.html">location</a></li>
+<li class="toctree-l1"><a class="reference internal" href="motion.html">motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multipeer.html">multipeer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="speech.html">speech</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Sharing data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="apps.html">apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xcallback.html">xcallback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userkeys.html">userkeys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pasteboard.html">pasteboard</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Pyto</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>remote_notifications</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/remote_notifications.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-remote_notifications">
+<span id="remote-notifications"></span><h1>remote_notifications<a class="headerlink" href="#module-remote_notifications" title="Permalink to this headline">¶</a></h1>
+<p>Receive remote notifications</p>
+<p>This module has everything needed to receive push notifications from a server.</p>
+<dl class="function">
+<dt id="remote_notifications.add_category">
+<code class="sig-prename descclassname">remote_notifications.</code><code class="sig-name descname">add_category</code><span class="sig-paren">(</span><em class="sig-param">id: str, actions: Dict[str, str]</em><span class="sig-paren">)</span><a class="headerlink" href="#remote_notifications.add_category" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a category of notification.</p>
+<p>A category contains set of actions for a certain type of notifications.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> – The unique identifier of the category.</p></li>
+<li><p><strong>actions</strong> – A dictionary with actions displayed by the notification.</p></li>
+</ul>
+</dd>
+</dl>
+<p>The actions are in a dictionary. Each key is the name of an action and its value is a URL that will be opened when the action is pressed.
+The <code class="docutils literal notranslate"><span class="pre">&quot;{}&quot;</span></code> characters on URLs will be replaced by a percent encoded data sent by the server.</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">remote_notifications</span> <span class="kn">as</span> <span class="nn">rn</span>
+
+<span class="n">actions</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Google&quot;</span><span class="p">:</span> <span class="s2">&quot;https://www.google.com/search?q={}&quot;</span>
+<span class="p">}</span>
+<span class="n">rn</span><span class="o">.</span><span class="n">add_category</span><span class="p">(</span><span class="s2">&quot;google&quot;</span><span class="p">,</span> <span class="n">actions</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In the example above, if a notification with the category id <cite>“google”</cite> is received, an action will be added to the notification. 
+When it’s pressed, Pyto will search on Google for the data passed by the server.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="remote_notifications.register">
+<code class="sig-prename descclassname">remote_notifications.</code><code class="sig-name descname">register</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#remote_notifications.register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Registers the device for push notifications.</p>
+<p>Returns a token to use with the api.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="remote_notifications.remove_category">
+<code class="sig-prename descclassname">remote_notifications.</code><code class="sig-name descname">remove_category</code><span class="sig-paren">(</span><em class="sig-param">category: str</em><span class="sig-paren">)</span><a class="headerlink" href="#remote_notifications.remove_category" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a category with its given identifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>category</strong> – The identifier of the category to remove.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="section" id="sending-notifications">
+<h2>Sending notifications<a class="headerlink" href="#sending-notifications" title="Permalink to this headline">¶</a></h2>
+<p>To send a notification, first you need a token for the device that will receive the notification. Use the <a class="reference internal" href="#remote_notifications.register" title="remote_notifications.register"><code class="xref py py-func docutils literal notranslate"><span class="pre">register()</span></code></a> function.</p>
+<p>The API endpoint to send remote notifications is <code class="docutils literal notranslate"><span class="pre">https://push.pyto.app</span></code></p>
+<div class="section" id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h3>
+<p>To send a notification, construct a POST request with the following parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">token</dt>
+<dd class="field-odd"><p>The token generated by the device that will receive the notification. (Required)</p>
+</dd>
+<dt class="field-even">title</dt>
+<dd class="field-even"><p>The title of the notification. (Optional)</p>
+</dd>
+<dt class="field-odd">message</dt>
+<dd class="field-odd"><p>The body of the notification. (Optional)</p>
+</dd>
+<dt class="field-even">category</dt>
+<dd class="field-even"><p>The category of the notification. See <a class="reference internal" href="#remote_notifications.add_category" title="remote_notifications.add_category"><code class="xref py py-func docutils literal notranslate"><span class="pre">add_category()</span></code></a>. (Optional)</p>
+</dd>
+<dt class="field-odd">data</dt>
+<dd class="field-odd"><p>Additional data passed to action URLs. See <a class="reference internal" href="#remote_notifications.add_category" title="remote_notifications.add_category"><code class="xref py py-func docutils literal notranslate"><span class="pre">add_category()</span></code></a>. (Optional)</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="music.html" class="btn btn-neutral float-right" title="music" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="notifications.html" class="btn btn-neutral float-left" title="notifications" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Adrian Labbé
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

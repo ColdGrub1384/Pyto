@@ -45,6 +45,7 @@ The following modules are integrated with Pyto.
    :caption: OS Technologies
 
    notifications
+   remote_notifications
    music
    photos
    location

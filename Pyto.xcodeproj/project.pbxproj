@@ -54,6 +54,7 @@
 		C91321D721FB684900437845 /* BlockBasedSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7421F49B1200E7CC35 /* BlockBasedSelector.m */; };
 		C91321D821FB684C00437845 /* BlockBasedSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7521F49B1200E7CC35 /* BlockBasedSelector.swift */; };
 		C91321D921FB684E00437845 /* PySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7A21F49B8400E7CC35 /* PySelector.swift */; };
+		C91376B6245E365E00AA0935 /* RemoteNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91376B5245E365E00AA0935 /* RemoteNotifications.swift */; };
 		C916F44B226CFD4800FA2FB6 /* modules_inspector.py in Resources */ = {isa = PBXBuildFile; fileRef = C916F44A226CFD4700FA2FB6 /* modules_inspector.py */; };
 		C91B639D24007B6200FCED1F /* ttconv.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C91B639A24007B4C00FCED1F /* ttconv.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C91B639E24007B6700FCED1F /* _backend_agg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9DF7723E08172004CF05A /* _backend_agg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1999,6 +2000,7 @@
 		C91048CE2414055000DB89A2 /* PyTurtle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyTurtle.swift; sourceTree = "<group>"; };
 		C913202A21DC12A300EEE677 /* AcknowledgmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcknowledgmentsViewController.swift; sourceTree = "<group>"; };
 		C91321C821FB500300437845 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		C91376B5245E365E00AA0935 /* RemoteNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotifications.swift; sourceTree = "<group>"; };
 		C916F44A226CFD4700FA2FB6 /* modules_inspector.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = modules_inspector.py; sourceTree = "<group>"; };
 		C91B639A24007B4C00FCED1F /* ttconv.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ttconv.framework; sourceTree = "<group>"; };
 		C91BE6A823F99BF600B6ED6B /* FileBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowserViewController.swift; sourceTree = "<group>"; };
@@ -4995,6 +4997,7 @@
 				C9E501AD220C85B1002719CE /* PyMainThread.swift */,
 				C9624EF321A9905400DDA9A7 /* PyThread.swift */,
 				C95A79E7214DC9D0007A1B90 /* PyAlert.swift */,
+				C91376B5245E365E00AA0935 /* RemoteNotifications.swift */,
 				C9425A7921F49B5A00E7CC35 /* Selectors */,
 				C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */,
 			);
@@ -7480,6 +7483,7 @@
 				C924ADE622A9FBF6001C8E94 /* Default.swift in Sources */,
 				C99E8D6C21F0CC7800C71884 /* WWDC16.swift in Sources */,
 				C93D61DD2145CD0800C8B5E3 /* PyInputHelper.swift in Sources */,
+				C91376B6245E365E00AA0935 /* RemoteNotifications.swift in Sources */,
 				C9C0E78F21F0BC640057C63E /* ReadOnlyTheme.swift in Sources */,
 				C904EB7321445D5800585C28 /* Python.swift in Sources */,
 				C927187B22C99CEA0025341B /* PyControl.swift in Sources */,
@@ -7794,7 +7798,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.9;
+				MARKETING_VERSION = 11.9.1;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -7855,7 +7859,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.9;
+				MARKETING_VERSION = 11.9.1;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -8008,7 +8012,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.9;
+				MARKETING_VERSION = 11.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -8034,7 +8038,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.9;
+				MARKETING_VERSION = 11.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -8055,7 +8059,7 @@
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
-				MARKETING_VERSION = 11.9;
+				MARKETING_VERSION = 11.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -8076,7 +8080,7 @@
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
-				MARKETING_VERSION = 11.9;
+				MARKETING_VERSION = 11.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -8104,7 +8108,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.9;
+				MARKETING_VERSION = 11.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Intents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -8133,7 +8137,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.9;
+				MARKETING_VERSION = 11.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Intents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -8424,7 +8428,7 @@
 					"$(PROJECT_DIR)/OpenCV",
 				);
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 11.9;
+				MARKETING_VERSION = 11.9.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
@@ -8542,7 +8546,7 @@
 					"$(PROJECT_DIR)/OpenCV",
 				);
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 11.9;
+				MARKETING_VERSION = 11.9.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (

@@ -35,6 +35,7 @@ Exclusive libraries:
   - pyto_core - Extend the editor
   - notification_center - Customize Today Widgets
   - notifications - Schedule notifications
+  - remote_notifications - Receive remote notifications
   - sharing - Share items and pick files
   - pasteboard - Clipboard access
   - userkeys - Save values on disk
