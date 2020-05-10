@@ -79,6 +79,9 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// The arguments to pass to scripts.
     @objc public var args = NSMutableArray()
 
+    /// A boolean indicating whether the app is running out of memory.
+    @objc public var tooMuchUsedMemory = false
+    
     /// A class representing a script to run.
     @objc public class Script: NSObject {
         

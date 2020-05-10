@@ -4,6 +4,7 @@
 
 #import "../Python/Python.h"
 #import "Python Bridging/Selectors/BlockBasedSelector.h"
+#include <os/proc.h>
 
 PyMODINIT_FUNC (*PyInit__multiarray_umath)(void);
 PyMODINIT_FUNC (*PyInit_fftpack_lite)(void);
