@@ -134,7 +134,6 @@
 		C92DBD8021F67B9D0098BE43 /* REPL.py in Resources */ = {isa = PBXBuildFile; fileRef = C92DBD7F21F67B9C0098BE43 /* REPL.py */; };
 		C92DBD8221F687480098BE43 /* REPLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92DBD8121F687480098BE43 /* REPLViewController.swift */; };
 		C92EAC6422D93D2800729970 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A4214461D300382DCC /* libsqlite3.tbd */; };
-		C92FB43522ECC4BF00A59AC0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C98E2001214F0856002F0178 /* main.m */; };
 		C92FC4462352BCB8000BBF46 /* Hello World.py in Resources */ = {isa = PBXBuildFile; fileRef = C92FC4452352BCB8000BBF46 /* Hello World.py */; };
 		C93071BF23ED98F5000ADFF6 /* PyMotionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98F37BA23ED894700E5D52C /* PyMotionHelper.swift */; };
 		C93071C223ED98F7000ADFF6 /* PyMotionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98F37BA23ED894700E5D52C /* PyMotionHelper.swift */; };
@@ -272,6 +271,34 @@
 		C9622BA52467BE5200D0D697 /* covar1.c in Sources */ = {isa = PBXBuildFile; fileRef = C9622B382467BE2900D0D697 /* covar1.c */; };
 		C9622BA62467BE5200D0D697 /* lmstr1.c in Sources */ = {isa = PBXBuildFile; fileRef = C9622B3B2467BE2900D0D697 /* lmstr1.c */; };
 		C9622BA72467BE5200D0D697 /* enorm_.c in Sources */ = {isa = PBXBuildFile; fileRef = C9622B3C2467BE2900D0D697 /* enorm_.c */; };
+		C9622BFE246891E100D0D697 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9622BFD246891E000D0D697 /* main.m */; };
+		C9622C00246891E100D0D697 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9622BFD246891E000D0D697 /* main.m */; };
+		C9622C01246891E100D0D697 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9622BFD246891E000D0D697 /* main.m */; };
+		C9622C1A2468931700D0D697 /* _alternative.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9622C162468930900D0D697 /* _alternative.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9622C1B2468931700D0D697 /* _arma_innovations.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9622C0A2468930700D0D697 /* _arma_innovations.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9622C1C2468931700D0D697 /* _classical.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9622C032468930600D0D697 /* _classical.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9622C1D2468931700D0D697 /* _exponential_smoothers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9622C062468930700D0D697 /* _exponential_smoothers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9622C1E2468931700D0D697 /* _filters__conventional.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9622C0C2468930800D0D697 /* _filters__conventional.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9622C1F2468931700D0D697 /* _filters__univariate_diffuse.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9622C112468930900D0D697 /* _filters__univariate_diffuse.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9622C202468931700D0D697 /* _filters__univariate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9622C122468930900D0D697 /* _filters__univariate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9622C212468931700D0D697 /* _hamilton_filter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9622C152468930900D0D697 /* _hamilton_filter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9622C222468931700D0D697 /* _initialization.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9622C092468930700D0D697 /* _initialization.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9622C232468931700D0D697 /* _innovations.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9622C102468930800D0D697 /* _innovations.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9622C242468931700D0D697 /* _inversions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9622C0E2468930800D0D697 /* _inversions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9622C252468931700D0D697 /* _kalman_filter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9622C0F2468930800D0D697 /* _kalman_filter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9622C262468931700D0D697 /* _kalman_smoother.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9622C132468930900D0D697 /* _kalman_smoother.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9622C272468931700D0D697 /* _kim_smoother.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9622C072468930700D0D697 /* _kim_smoother.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9622C282468931700D0D697 /* _representation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9622C142468930900D0D697 /* _representation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9622C292468931700D0D697 /* _simulation_smoother.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9622C172468930900D0D697 /* _simulation_smoother.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9622C2A2468931700D0D697 /* _smoothers__conventional.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9622C042468930600D0D697 /* _smoothers__conventional.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9622C2B2468931700D0D697 /* _smoothers__univariate_diffuse.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9622C052468930600D0D697 /* _smoothers__univariate_diffuse.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9622C2C2468931700D0D697 /* _smoothers__univariate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9622C0D2468930800D0D697 /* _smoothers__univariate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9622C2D2468931700D0D697 /* _smoothers_lowess.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9622C022468930600D0D697 /* _smoothers_lowess.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9622C2E2468931700D0D697 /* _stl.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9622C082468930700D0D697 /* _stl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9622C2F2468931700D0D697 /* _tools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9622C182468930900D0D697 /* _tools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9622C302468931700D0D697 /* kalman_loglike.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9622C192468930900D0D697 /* kalman_loglike.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9622C312468931700D0D697 /* linbin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9622C0B2468930700D0D697 /* linbin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9622C332468B56700D0D697 /* MemoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9622C322468B56700D0D697 /* MemoryManager.swift */; };
 		C9624EF421A9905400DDA9A7 /* PyThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9624EF321A9905400DDA9A7 /* PyThread.swift */; };
 		C965606B241D53CC00188779 /* PySpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = C965606A241D53CC00188779 /* PySpeech.swift */; };
 		C966D254242036BF009BB33E /* PyCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C966D253242036BF009BB33E /* PyCore.swift */; };
@@ -364,7 +391,6 @@
 		C98CECF323CA3F7D00E133E3 /* pythonA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C981698D235E5E6C0062A91F /* pythonA.framework */; };
 		C98CECF823CA449400E133E3 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E22145D50A00C8B5E3 /* String.swift */; };
 		C98E1FFD214EE6ED002F0178 /* Samples in Resources */ = {isa = PBXBuildFile; fileRef = C98E1FFC214EE6EC002F0178 /* Samples */; };
-		C98E2002214F0856002F0178 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C98E2001214F0856002F0178 /* main.m */; };
 		C98F37BB23ED894700E5D52C /* PyMotionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98F37BA23ED894700E5D52C /* PyMotionHelper.swift */; };
 		C99D8E20223E960100489E9B /* PipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99D8E1F223E960100489E9B /* PipViewController.swift */; };
 		C99DDCEC21BBED22002A734E /* DocumentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99DDCEB21BBED22002A734E /* DocumentationViewController.swift */; };
@@ -1917,6 +1943,30 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C9622C1A2468931700D0D697 /* _alternative.framework in Embed Frameworks */,
+				C9622C1B2468931700D0D697 /* _arma_innovations.framework in Embed Frameworks */,
+				C9622C1C2468931700D0D697 /* _classical.framework in Embed Frameworks */,
+				C9622C1D2468931700D0D697 /* _exponential_smoothers.framework in Embed Frameworks */,
+				C9622C1E2468931700D0D697 /* _filters__conventional.framework in Embed Frameworks */,
+				C9622C1F2468931700D0D697 /* _filters__univariate_diffuse.framework in Embed Frameworks */,
+				C9622C202468931700D0D697 /* _filters__univariate.framework in Embed Frameworks */,
+				C9622C212468931700D0D697 /* _hamilton_filter.framework in Embed Frameworks */,
+				C9622C222468931700D0D697 /* _initialization.framework in Embed Frameworks */,
+				C9622C232468931700D0D697 /* _innovations.framework in Embed Frameworks */,
+				C9622C242468931700D0D697 /* _inversions.framework in Embed Frameworks */,
+				C9622C252468931700D0D697 /* _kalman_filter.framework in Embed Frameworks */,
+				C9622C262468931700D0D697 /* _kalman_smoother.framework in Embed Frameworks */,
+				C9622C272468931700D0D697 /* _kim_smoother.framework in Embed Frameworks */,
+				C9622C282468931700D0D697 /* _representation.framework in Embed Frameworks */,
+				C9622C292468931700D0D697 /* _simulation_smoother.framework in Embed Frameworks */,
+				C9622C2A2468931700D0D697 /* _smoothers__conventional.framework in Embed Frameworks */,
+				C9622C2B2468931700D0D697 /* _smoothers__univariate_diffuse.framework in Embed Frameworks */,
+				C9622C2C2468931700D0D697 /* _smoothers__univariate.framework in Embed Frameworks */,
+				C9622C2D2468931700D0D697 /* _smoothers_lowess.framework in Embed Frameworks */,
+				C9622C2E2468931700D0D697 /* _stl.framework in Embed Frameworks */,
+				C9622C2F2468931700D0D697 /* _tools.framework in Embed Frameworks */,
+				C9622C302468931700D0D697 /* kalman_loglike.framework in Embed Frameworks */,
+				C9622C312468931700D0D697 /* linbin.framework in Embed Frameworks */,
 				C91B639E24007B6700FCED1F /* _backend_agg.framework in Embed Frameworks */,
 				C91B639D24007B6200FCED1F /* ttconv.framework in Embed Frameworks */,
 				C9FCD89223E4B22700C6D3D3 /* _sas.framework in Embed Frameworks */,
@@ -2742,6 +2792,32 @@
 		C9622B3A2467BE2900D0D697 /* cminpack.sln */ = {isa = PBXFileReference; lastKnownFileType = text; path = cminpack.sln; sourceTree = "<group>"; };
 		C9622B3B2467BE2900D0D697 /* lmstr1.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = lmstr1.c; sourceTree = "<group>"; };
 		C9622B3C2467BE2900D0D697 /* enorm_.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = enorm_.c; sourceTree = "<group>"; };
+		C9622BFD246891E000D0D697 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C9622C022468930600D0D697 /* _smoothers_lowess.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _smoothers_lowess.framework; sourceTree = "<group>"; };
+		C9622C032468930600D0D697 /* _classical.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _classical.framework; sourceTree = "<group>"; };
+		C9622C042468930600D0D697 /* _smoothers__conventional.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _smoothers__conventional.framework; sourceTree = "<group>"; };
+		C9622C052468930600D0D697 /* _smoothers__univariate_diffuse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _smoothers__univariate_diffuse.framework; sourceTree = "<group>"; };
+		C9622C062468930700D0D697 /* _exponential_smoothers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _exponential_smoothers.framework; sourceTree = "<group>"; };
+		C9622C072468930700D0D697 /* _kim_smoother.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _kim_smoother.framework; sourceTree = "<group>"; };
+		C9622C082468930700D0D697 /* _stl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _stl.framework; sourceTree = "<group>"; };
+		C9622C092468930700D0D697 /* _initialization.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _initialization.framework; sourceTree = "<group>"; };
+		C9622C0A2468930700D0D697 /* _arma_innovations.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _arma_innovations.framework; sourceTree = "<group>"; };
+		C9622C0B2468930700D0D697 /* linbin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = linbin.framework; sourceTree = "<group>"; };
+		C9622C0C2468930800D0D697 /* _filters__conventional.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _filters__conventional.framework; sourceTree = "<group>"; };
+		C9622C0D2468930800D0D697 /* _smoothers__univariate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _smoothers__univariate.framework; sourceTree = "<group>"; };
+		C9622C0E2468930800D0D697 /* _inversions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _inversions.framework; sourceTree = "<group>"; };
+		C9622C0F2468930800D0D697 /* _kalman_filter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _kalman_filter.framework; sourceTree = "<group>"; };
+		C9622C102468930800D0D697 /* _innovations.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _innovations.framework; sourceTree = "<group>"; };
+		C9622C112468930900D0D697 /* _filters__univariate_diffuse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _filters__univariate_diffuse.framework; sourceTree = "<group>"; };
+		C9622C122468930900D0D697 /* _filters__univariate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _filters__univariate.framework; sourceTree = "<group>"; };
+		C9622C132468930900D0D697 /* _kalman_smoother.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _kalman_smoother.framework; sourceTree = "<group>"; };
+		C9622C142468930900D0D697 /* _representation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _representation.framework; sourceTree = "<group>"; };
+		C9622C152468930900D0D697 /* _hamilton_filter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _hamilton_filter.framework; sourceTree = "<group>"; };
+		C9622C162468930900D0D697 /* _alternative.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _alternative.framework; sourceTree = "<group>"; };
+		C9622C172468930900D0D697 /* _simulation_smoother.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _simulation_smoother.framework; sourceTree = "<group>"; };
+		C9622C182468930900D0D697 /* _tools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _tools.framework; sourceTree = "<group>"; };
+		C9622C192468930900D0D697 /* kalman_loglike.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = kalman_loglike.framework; sourceTree = "<group>"; };
+		C9622C322468B56700D0D697 /* MemoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryManager.swift; sourceTree = "<group>"; };
 		C9624EF321A9905400DDA9A7 /* PyThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyThread.swift; sourceTree = "<group>"; };
 		C965606A241D53CC00188779 /* PySpeech.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PySpeech.swift; sourceTree = "<group>"; };
 		C966D253242036BF009BB33E /* PyCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyCore.swift; sourceTree = "<group>"; };
@@ -2829,7 +2905,6 @@
 		C98CECDA23C9487200E133E3 /* PyCallbackHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyCallbackHelper.swift; sourceTree = "<group>"; };
 		C98CECF423CA430E00E133E3 /* Pyto Intents-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pyto Intents-Bridging-Header.h"; sourceTree = "<group>"; };
 		C98E1FFC214EE6EC002F0178 /* Samples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Samples; sourceTree = "<group>"; };
-		C98E2001214F0856002F0178 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C98F37BA23ED894700E5D52C /* PyMotionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyMotionHelper.swift; sourceTree = "<group>"; };
 		C996931221FDF56D00ED9DA7 /* libboringssl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libboringssl.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/lib/libboringssl.tbd; sourceTree = DEVELOPER_DIR; };
 		C996931621FDF57C00ED9DA7 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
@@ -5678,6 +5753,7 @@
 			isa = PBXGroup;
 			children = (
 				C9CEF4B122AC8DD300B1916D /* SceneDelegate.swift */,
+				C9622C322468B56700D0D697 /* MemoryManager.swift */,
 				C9A33B0E224FCDA00083F041 /* MovableTextField.swift */,
 				C9592D1421D0592C00412CEF /* PyDocument.swift */,
 				C921EF6621ECA02E004C750D /* XcodeActivity.swift */,
@@ -6161,6 +6237,37 @@
 				C9622B2C2467BE2900D0D697 /* hybrj.f */,
 			);
 			path = fortran;
+			sourceTree = "<group>";
+		};
+		C9622BA824688A5F00D0D697 /* Statsmodels */ = {
+			isa = PBXGroup;
+			children = (
+				C9622C162468930900D0D697 /* _alternative.framework */,
+				C9622C0A2468930700D0D697 /* _arma_innovations.framework */,
+				C9622C032468930600D0D697 /* _classical.framework */,
+				C9622C062468930700D0D697 /* _exponential_smoothers.framework */,
+				C9622C0C2468930800D0D697 /* _filters__conventional.framework */,
+				C9622C112468930900D0D697 /* _filters__univariate_diffuse.framework */,
+				C9622C122468930900D0D697 /* _filters__univariate.framework */,
+				C9622C152468930900D0D697 /* _hamilton_filter.framework */,
+				C9622C092468930700D0D697 /* _initialization.framework */,
+				C9622C102468930800D0D697 /* _innovations.framework */,
+				C9622C0E2468930800D0D697 /* _inversions.framework */,
+				C9622C0F2468930800D0D697 /* _kalman_filter.framework */,
+				C9622C132468930900D0D697 /* _kalman_smoother.framework */,
+				C9622C072468930700D0D697 /* _kim_smoother.framework */,
+				C9622C142468930900D0D697 /* _representation.framework */,
+				C9622C172468930900D0D697 /* _simulation_smoother.framework */,
+				C9622C042468930600D0D697 /* _smoothers__conventional.framework */,
+				C9622C052468930600D0D697 /* _smoothers__univariate_diffuse.framework */,
+				C9622C0D2468930800D0D697 /* _smoothers__univariate.framework */,
+				C9622C022468930600D0D697 /* _smoothers_lowess.framework */,
+				C9622C082468930700D0D697 /* _stl.framework */,
+				C9622C182468930900D0D697 /* _tools.framework */,
+				C9622C192468930900D0D697 /* kalman_loglike.framework */,
+				C9622C0B2468930700D0D697 /* linbin.framework */,
+			);
+			path = Statsmodels;
 			sourceTree = "<group>";
 		};
 		C9697BE222DCCAC5003A2B0A /* Other */ = {
@@ -7625,6 +7732,7 @@
 				C97868122304E19300BD6FA4 /* OpenCV */,
 				C995FB76233AD2BA00A8D42C /* PyNacl */,
 				C9C3308123C2902F003B5971 /* Bcrypt */,
+				C9622BA824688A5F00D0D697 /* Statsmodels */,
 				C9CEE1E821EB8D5300316D3C /* PytoCore */,
 				C946A5AB22074EAA00F78C5C /* Pyto Widget */,
 				C9C2F46F22F0ED8C0062F4D6 /* Pyto Intents */,
@@ -7668,8 +7776,8 @@
 				C9592D1321D0592C00412CEF /* Models */,
 				C9C0E77021EE9EFA0057C63E /* Themes */,
 				C9B0E55223B4FBDE00A4B4A7 /* Colors */,
-				C98E2001214F0856002F0178 /* main.m */,
 				C904EB6C21445CAE00585C28 /* Pyto-Bridging-Header.h */,
+				C9622BFD246891E000D0D697 /* main.m */,
 				C93D61E82145E1D300C8B5E3 /* Resources */,
 			);
 			path = Pyto;
@@ -8471,6 +8579,7 @@
 				C93B896923CA54330070B2EF /* ParseArgs.swift in Sources */,
 				C93B896423CA52000070B2EF /* setArgv.m in Sources */,
 				C9C7AC6B22F5ED2300659685 /* RunScriptIntentHandler.swift in Sources */,
+				C9622C00246891E100D0D697 /* main.m in Sources */,
 				C93B897323CA7B0B0070B2EF /* FileManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -8495,6 +8604,7 @@
 				C9CEE20521EB95C100316D3C /* String.swift in Sources */,
 				C9F4623622ECB417007DC3B8 /* PyGestureRecognizer.swift in Sources */,
 				C9CEE20121EB8FFD00316D3C /* PyAlert.swift in Sources */,
+				C9622C01246891E100D0D697 /* main.m in Sources */,
 				C9CEE20421EB95BE00316D3C /* UIWindow.swift in Sources */,
 				C9CEE21021EB96D300316D3C /* AppDelegate.swift in Sources */,
 				C93CA8B822022E6E008DD049 /* QuickLookHelper.swift in Sources */,
@@ -8508,7 +8618,6 @@
 				C9F4622A22ECB412007DC3B8 /* PyImageView.swift in Sources */,
 				C9F4622F22ECB412007DC3B8 /* PyButton.swift in Sources */,
 				C9CEE20321EB95BA00316D3C /* ReviewHelper.swift in Sources */,
-				C92FB43522ECC4BF00A59AC0 /* main.m in Sources */,
 				C95A9DBD22542C4400B90E42 /* MovableTextField.swift in Sources */,
 				C9B0E56223B5002A00A4B4A7 /* ANSITextState.swift in Sources */,
 				C9CEE1FD21EB8FF300316D3C /* PySharingHelper.swift in Sources */,
@@ -8616,7 +8725,6 @@
 				C9622BA72467BE5200D0D697 /* enorm_.c in Sources */,
 				C9B5D84F21F11AAE00E980BA /* AboutTableViewController.swift in Sources */,
 				C9BF46E222E0DC4F00B8FE4B /* PyTableViewCell.swift in Sources */,
-				C98E2002214F0856002F0178 /* main.m in Sources */,
 				C9592D1821D0592C00412CEF /* PyDocument.swift in Sources */,
 				C9B5D87221F20F2A00E980BA /* MarkdownPreviewController.swift in Sources */,
 				C95A79E8214DC9D0007A1B90 /* PyAlert.swift in Sources */,
@@ -8651,6 +8759,7 @@
 				C92ACE3321F0D8CB00FA8904 /* SolarizedLight.swift in Sources */,
 				C9B0E55823B4FC0300A4B4A7 /* Parser.swift in Sources */,
 				C9622B8E2467BE5200D0D697 /* lmdif1.c in Sources */,
+				C9622C332468B56700D0D697 /* MemoryManager.swift in Sources */,
 				C9622B9F2467BE5200D0D697 /* lmdif_.c in Sources */,
 				C90F7CF1227F494300EEA045 /* RunModuleViewController.swift in Sources */,
 				C972AE3F23467AE30053E1C3 /* FoldersBrowserViewController.swift in Sources */,
@@ -8701,6 +8810,7 @@
 				C9622BA42467BE5200D0D697 /* hybrd1.c in Sources */,
 				C9622B872467BE5200D0D697 /* qrsolv_.c in Sources */,
 				C9622B9E2467BE5200D0D697 /* dpmpar_.c in Sources */,
+				C9622BFE246891E100D0D697 /* main.m in Sources */,
 				C92ACE3721F0DBF600FA8904 /* SolarizedDark.swift in Sources */,
 				C9425A7721F49B1300E7CC35 /* BlockBasedSelector.m in Sources */,
 				C90ECC52228B8B2000EC91C6 /* ShortenFilePaths.swift in Sources */,

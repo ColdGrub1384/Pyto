@@ -159,7 +159,7 @@ webbrowser.register("mobile-safari", None, MobileSafari("MobileSafari.app"))
 
 # MARK: - Modules
 
-for importer in (NumpyImporter, MatplotlibImporter, PandasImporter, PillowImporter, BiopythonImporter, LXMLImporter, ScipyImporter, SkLearnImporter, SkImageImporter, PywtImporter, NaclImporter, CryptographyImporter, BcryptImporter):
+for importer in (NumpyImporter, MatplotlibImporter, PandasImporter, PillowImporter, BiopythonImporter, LXMLImporter, ScipyImporter, SkLearnImporter, SkImageImporter, PywtImporter, NaclImporter, CryptographyImporter, BcryptImporter, StatsmodelsImporter):
     sys.meta_path.insert(0, importer())
 
 # MARK: - Pre-import modules
@@ -189,6 +189,18 @@ def importModules():
                 sharing.quick_look(imgPath)
 
         PIL.ImageShow.show = show_image
+        
+        # For some reason, it fails the first time.
+        try:
+            import statsmodels.tsa.statespace._kalman_smoother
+        except AttributeError:
+            pass
+    
+        try:
+            import statsmodels.tsa.statespace._kalman_filter
+        except AttributeError:
+            pass
+    
     except ImportError:
         pass
 

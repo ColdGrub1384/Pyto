@@ -609,6 +609,38 @@ void init_pywt() {
     [name addObject:@"_dwt"]; [key addObject:@"__pywt__extensions__dwt"];
     BandHandle(@"pywt", name, key);
 }
+
+// MARK: - Statsmodels
+
+void init_statsmodels() {
+    
+    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
+    [name addObject:@"_alternative"]; [key addObject:@"__statsmodels_tsa_statespace__smoothers__alternative"];
+    [name addObject:@"_arma_innovations"]; [key addObject:@"__statsmodels_tsa_innovations__arma_innovations"];
+    [name addObject:@"_classical"]; [key addObject:@"__statsmodels_tsa_statespace__smoothers__classical"];
+    [name addObject:@"_exponential_smoothers"]; [key addObject:@"__statsmodels_tsa__exponential_smoothers"];
+    [name addObject:@"_filters__conventional"]; [key addObject:@"__statsmodels_tsa_statespace__filters__filters__conventional"];
+    [name addObject:@"_filters__univariate_diffuse"]; [key addObject:@"__statsmodels_tsa_statespace__filters__filters__univariate_diffuse"];
+    [name addObject:@"_filters__univariate"]; [key addObject:@"__statsmodels_tsa_statespace__filters__filters__univariate"];
+    [name addObject:@"_hamilton_filter"]; [key addObject:@"__statsmodels_tsa_regime_switching__hamilton_filter"];
+    [name addObject:@"_initialization"]; [key addObject:@"__statsmodels_tsa_statespace__initialization"];
+    [name addObject:@"_innovations"]; [key addObject:@"__statsmodels_tsa__innovations"];
+    [name addObject:@"_inversions"]; [key addObject:@"__statsmodels_tsa_statespace__filters__inversions"];
+    [name addObject:@"_kalman_filter"]; [key addObject:@"__statsmodels_tsa_statespace__kalman_filter"];
+    [name addObject:@"_kalman_smoother"]; [key addObject:@"__statsmodels_tsa_statespace__kalman_smoother"];
+    [name addObject:@"_kim_smoother"]; [key addObject:@"__statsmodels_tsa_regime_switching__kim_smoother"];
+    [name addObject:@"_representation"]; [key addObject:@"__statsmodels_tsa_statespace__representation"];
+    [name addObject:@"_simulation_smoother"]; [key addObject:@"__statsmodels_tsa_statespace__simulation_smoother"];
+    [name addObject:@"_smoothers__conventional"]; [key addObject:@"__statsmodels_tsa_statespace__smoothers__smoothers__conventional"];
+    [name addObject:@"_smoothers__univariate_diffuse"]; [key addObject:@"__statsmodels_tsa_statespace__smoothers__smoothers__univariate_diffuse"];
+    [name addObject:@"_smoothers__univariate"]; [key addObject:@"__statsmodels_tsa_statespace__smoothers__smoothers__univariate"];
+    [name addObject:@"_smoothers_lowess"]; [key addObject:@"__statsmodels_nonparametric__smoothers_lowess"];
+    [name addObject:@"_stl"]; [key addObject:@"__statsmodels_tsa__stl"];
+    [name addObject:@"_tools"]; [key addObject:@"__statsmodels_tsa_statespace__tools"];
+    [name addObject:@"kalman_loglike"]; [key addObject:@"__statsmodels_tsa_kalmanf_kalman_loglike"];
+    [name addObject:@"linbin"]; [key addObject:@"__statsmodels_nonparametric_linbin"];
+    BandHandle(@"statsmodels", name, key);
+}
 #endif
 
 #endif
@@ -746,6 +778,7 @@ int initialize_python(int argc, char *argv[]) {
     init_cffi();
     init_nacl();
     init_bcrypt();
+    init_statsmodels();
     #endif
     init_pil();
     #endif
