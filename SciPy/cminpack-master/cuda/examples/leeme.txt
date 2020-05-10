@@ -1,0 +1,12 @@
+
+man nvcc
+	 --gpu-name 
+
+	  __CUDACC__ and __CUDA_ARCH__. (http://forums.nvidia.com/index.php?showtopic=149501)
+
+http://developer.download.nvidia.com/compute/cuda/4_0/toolkit/docs/CUDA_C_Programming_Guide.pdf
+
+		Function Pointers
+		Function pointers to __global__ functions are supported in host code, but not in device code.
+		Function pointers to __device__ functions are only supported in device code compiled for devices of compute capability 2.x.
+		It is not allowed to take the address of a __device__ function in host code.

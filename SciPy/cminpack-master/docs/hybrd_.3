@@ -1,0 +1,292 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH HYBRD_ 3 "March 8, 2002" Minpack
+.\" Please adjust this date whenever revising the manpage.
+.SH NAME
+hybrd_, hybrd1_ \- find a zero of a system of nonlinear function
+.SH SYNOPSIS
+.B #include <minpack.h>
+.sp
+.nh
+.ad l
+.HP 28
+.BI "void hybrd1_ ( "
+.BI "void (*" fcn ")("
+.BI "int *" n ,
+.BI "double *" x ,
+.br
+.BI "double *" fvec , 
+.BI "int *" iflag  ), 
+.RS 15
+.BI "int *" n , 
+.BI "double *" x , 
+.BI "double *" fvec , 
+.br
+.BI "double *" tol , 
+.BI "int *" info , 
+.BI "double *" wa , 
+.br
+.BI "int *" lwa );
+.RE
+.HP 27
+.BI "void hybrd_" 
+.BI "( void (*" fcn ")("
+.BI "int * " n , 
+.BI "double *" x , 
+.br
+.BI "double *" fvec , 
+.BI "int *" iflag ), 
+.RS 14
+.BI "int *" n , 
+.BI "double *" x , 
+.BI "double *" fvec , 
+.br
+.BI "double *" xtol , 
+.BI "int *" maxfev ,
+.BI "int *" ml , 
+.BI "int *" mu , 
+.br
+.BI "double *" epsfcn , 
+.BI "double *" diag , 
+.BI "int *" mode ,
+.BI "double *" factor , 
+.BI "int *" nprint , 
+.BI "int *" info , 
+.br
+.BI "int *" nfev ,
+.BI "double *" fjac , 
+.BI "int *" ldfjac , 
+.br
+.BI "double *" r , 
+.BI "int *" lr , 
+.BI "double *" qtf ,
+.br
+.BI "double *" wa1 , 
+.BI "double *" wa2 , 
+.BI "double *" wa3 , 
+.BI "double *" wa4 );
+.RE
+.hy
+.ad b
+.br
+.SH DESCRIPTION
+The purpose of \fBhybrd_\fP is to find a zero of a system of
+\fIn\fP nonlinear functions in \fIn\fP variables by a modification
+of the Powell hybrid method. The user must provide a
+subroutine which calculates the functions. The Jacobian is
+then calculated by a forward-difference approximation.
+.PP
+\fBhybrd1_\fP serves the same function but has a simplified calling
+sequence.
+.br
+.SS Language notes
+\fBhybrd_\fP and \fBhybrd1_\fP are written in FORTRAN. If calling from
+C, keep these points in mind:
+.TP
+Name mangling.
+With \fBg77\fP version 2.95 or 3.0, all the function names end in an
+underscore.  This may change with future versions of \fBg77\fP.
+.TP
+Compile with \fBg77\fP.
+Even if your program is all C code, you should link with \fBg77\fP
+so it will pull in the FORTRAN libraries automatically.  It's easiest
+just to use \fBg77\fP to do all the compiling.  (It handles C just fine.)
+.TP
+Call by reference.
+All function parameters must be pointers.
+.TP
+Column-major arrays.
+Suppose a function returns an array with 5 rows and 3 columns in an
+array \fIz\fP and in the call you have declared a leading dimension of
+7.  The FORTRAN and equivalent C references are:
+.sp
+.nf
+	z(1,1)		z[0]
+	z(2,1)		z[1]
+	z(5,1)		z[4]
+	z(1,2)		z[7]
+	z(1,3)		z[14]
+	z(i,j)		z[(i-1) + (j-1)*7]
+.fi
+.SS Parameters for both functions
+\fIfcn\fP is the name of the user-supplied subroutine which calculates
+the functions. In FORTRAN, \fIfcn\fP must be declared in an external
+statement in the user calling program, and should be written as
+follows:
+.sp
+.nf
+subroutine fcn(n,x,fvec,iflag)
+integer n,iflag
+double precision x(n),fvec(n)
+----------
+calculate the functions at x and
+return this vector in fvec.
+---------
+return
+end
+.fi
+.sp
+.sp
+In C, \fIfcn\fP should be written as follows:
+.sp
+.nf
+  void fcn(int n, double *x, double *fvec, int *iflag)
+  {
+    /* calculate the functions at x and
+       return this vector in fvec. */
+  }
+.fi
+.sp
+The value of \fIiflag\fP should not be changed by \fIfcn\fP unless
+the user wants to terminate execution of \fBhybrd_\fP.
+In this case set \fIiflag\fP to a negative integer.
+
+\fIn\fP is a positive integer input variable set to the number
+of functions and variables.
+
+\fIx\fP is an array of length \fIn\fP. On input \fIx\fP must contain
+an initial estimate of the solution vector. On output \fIx\fP
+contains the final estimate of the solution vector.
+
+\fIfvec\fP is an output array of length \fIn\fP which contains
+the functions evaluated at the output \fIx\fP.
+.br
+.SS Parameters for \fBhybrd1_\fP
+
+\fItol\fP is a nonnegative input variable. Termination occurs
+when the algorithm estimates that the relative error
+between \fIx\fP and the solution is at most \fItol\fP.
+
+\fIinfo\fP is an integer output variable. If the user has
+terminated execution, \fIinfo\fP is set to the (negative)
+value of \fIiflag\fP. See description of \fIfcn\fP. Otherwise,
+\fIinfo\fP is set as follows.
+
+\fIinfo\fP = 0   improper input parameters.
+
+\fIinfo\fP = 1   algorithm estimates that the relative error
+           between \fIx\fP and the solution is at most \fItol\fP.
+
+\fIinfo\fP = 2   number of calls to fcn has reached or exceeded
+           200*(\fIn\fP+1).
+
+\fIinfo\fP = 3   \fItol\fP is too small. No further improvement in
+           the approximate solution \fIx\fP is possible.
+
+\fIinfo\fP = 4   iteration is not making good progress.
+
+\fIwa\fP is a work array of length \fIlwa\fP.
+
+\fIlwa\fP is a positive integer input variable not less than
+(\fIn\fP*(3*\fIn\fP+13))/2.
+.br
+.SS Parameters for \fBhybrd_\fP
+
+\fIxtol\fP is a nonnegative input variable. Termination
+occurs when the relative error between two consecutive
+iterates is at most \fIxtol\fP.
+
+\fImaxfev\fP is a positive integer input variable. Termination
+occurs when the number of calls to \fIfcn\fP is at least \fImaxfev\fP
+by the end of an iteration.
+
+\fIml\fP is a nonnegative integer input variable which specifies
+the number of subdiagonals within the band of the
+jacobian matrix. If the Jacobian is not banded, set
+\fIml\fP to at least \fIn\fP - 1.
+
+\fImu\fP is a nonnegative integer input variable which specifies
+the number of superdiagonals within the band of the
+jacobian matrix. If the jacobian is not banded, set
+mu to at least \fIn\fP - 1.
+
+\fIepsfcn\fP is an input variable used in determining a suitable
+step length for the forward-difference approximation. This
+approximation assumes that the relative errors in the
+functions are of the order of \fIepsfcn\fP. If \fIepsfcn\fP is less
+than the machine precision, it is assumed that the relative
+errors in the functions are of the order of the machine
+precision.
+
+\fIdiag\fP is an array of length \fIn\fP. If \fImode\fP = 1 (see
+below), \fIdiag\fP is internally set. If \fImode\fP = 2, \fIdiag\fP
+must contain positive entries that serve as
+multiplicative scale factors for the variables.
+
+\fImode\fP is an integer input variable. If \fImode\fP = 1, the
+variables will be scaled internally. If \fImode\fP = 2,
+the scaling is specified by the input \fIdiag\fP. Other
+values of mode are equivalent to \fImode\fP = 1.
+
+\fIfactor\fP is a positive input variable used in determining the
+initial step bound. This bound is set to the product of
+\fIfactor\fP and the euclidean norm of diag*x if nonzero, or else
+to \fIfactor\fP itself. In most cases factor should lie in the
+interval (.1,100.). 100. Is a generally recommended value.
+
+\fInprint\fP is an integer input variable that enables controlled
+printing of iterates if it is positive. In this case,
+\fIfcn\fP is called with \fIiflag\fP = 0 at the beginning of the first
+iteration and every nprint iterations thereafter and
+immediately prior to return, with \fIx\fP and \fIfvec\fP available
+for printing. If \fInprint\fP is not positive, no special calls
+of \fIfcn\fP with \fIiflag\fP = 0 are made.
+
+\fIinfo\fP is an integer output variable. If the user has
+terminated execution, \fIinfo\fP is set to the (negative)
+value of \fIiflag\fP. See description of \fIfcn\fP. Otherwise,
+\fIinfo\fP is set as follows.
+
+\fIinfo\fP = 0   improper input parameters.
+
+\fIinfo\fP = 1   relative error between two consecutive iterates
+           is at most \fIxtol\fP.
+
+\fIinfo\fP = 2   number of calls to \fIfcn\fP has reached or exceeded
+           \fImaxfev\fP.
+
+\fIinfo\fP = 3   \fIxtol\fP is too small. No further improvement in
+           the approximate solution \fIx\fP is possible.
+
+\fIinfo\fP = 4   iteration is not making good progress, as
+           measured by the improvement from the last
+           five jacobian evaluations.
+
+\fIinfo\fP = 5   iteration is not making good progress, as
+           measured by the improvement from the last
+           ten iterations.
+
+\fInfev\fP is an integer output variable set to the number of
+calls to \fIfcn\fP.
+
+\fIfjac\fP is an output \fIn\fP by \fIn\fP array which contains the
+orthogonal matrix \fIq\fP produced by the \fIqr\fP factorization
+of the final approximate jacobian.
+
+\fIldfjac\fP is a positive integer input variable not less than \fIn\fP
+which specifies the leading dimension of the array \fIfjac\fP.
+
+\fIr\fP is an output array of length \fIlr\fP which contains the
+upper triangular matrix produced by the \fIqr\fP factorization
+of the final approximate Jacobian, stored rowwise.
+
+\fIlr\fP is a positive integer input variable not less than
+(\fIn\fP*(\fIn\fP+1))/2.
+
+\fIqtf\fP is an output array of length \fIn\fP which contains
+the vector (q transpose)*\fIfvec\fP.
+
+\fIwa1\fP, \fIwa2\fP, \fIwa3\fP, and \fIwa4\fP are work arrays of length \fIn\fP.
+
+.SH SEE ALSO
+.BR hybrj (3),
+.BR hybrj1 (3).
+.br
+
+.SH AUTHORS
+Burton S. Garbow, Kenneth E. Hillstrom, Jorge J. More.
+.br
+This manual page was written by Jim Van Zandt <jrv@debian.org>,
+for the Debian GNU/Linux system (but may be used by others).

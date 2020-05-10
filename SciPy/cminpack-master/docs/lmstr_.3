@@ -1,0 +1,340 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.TH LMSTR_ 3 "March 8, 2002" Minpack
+.\" Please adjust this date whenever revising the manpage.
+.SH NAME
+lmstr_, lmstr1_ \- minimize the sum of squares of m nonlinear functions, with user supplied Jacobian and minimal storage
+.SH SYNOPSIS
+.B include <minpack.h>
+.nh
+.ad l
+.HP 28
+.BI "void lmstr1_ ( "
+.BI "void (*" fcn         )
+.BI "(int *"     m        , 
+.BI "int *"      n        ,
+.BI "double *"   x        ,
+.BI "double *"   fvec     ,
+.BI "double *"   fjrow    ,
+.BI "int *"      iflag    ),
+.RS 15
+.BI "int *"      m        ,
+.BI "int * "     n        ,
+.BI "double *"   x        ,
+.BI "double *"   fvec     ,
+.BI "double *"   fjac     ,
+.BI "int *"      ldfjac   ,
+.br
+.BI "double *"   tol      , 
+.BI "int *"      info     ,
+.BI "int *"      iwa      ,
+.br
+.BI "double *"   wa       ,
+.BI "int *"      kwa      );
+.RE
+.HP 27
+.BI "void lmstr_"
+.BI "( void (*" fcn )(
+.BI "int *"      m        , 
+.BI "int *"      n        ,
+.BI "double *"   x        , 
+.BI "double *"   fvec     , 
+.BI "double *"   fjrow    ,
+.BI "int *"      iflag    ),
+.RS 14
+.BI "int *"      m        ,
+.BI "int *"      n        ,
+.BI "double *"   x        ,
+.BI "double *"   fvec     ,
+.BI "double *"   fjac     ,
+.BI "int *"      ldfjac   ,
+.br
+.BI "double *"   ftol     ,
+.BI "double *"   xtol     ,
+.BI "double *"   gtol     ,
+.br
+.BI "int *"      maxfev   ,
+.BI "double *"   diag     ,
+.BI "int *"      mode     ,
+.BI "double *"   factor   ,
+.br
+.BI "int *"      nprint   ,
+.BI "int *"      info     ,
+.BI "int *"      nfev     ,
+.BI "int *"      njev     ,
+.br
+.BI "int *"      ipvt     ,
+.BI "double *"   qtf      ,
+.br
+.BI "double *"   wa1      ,
+.BI "double *"   wa2      ,
+.BI "double *"   wa3      ,
+.BI "double *"   wa4      " );"
+.RE
+.hy
+.ad b
+.br
+.SH DESCRIPTION
+
+The purpose of \fBlmstr_\fP is to minimize the sum of the squares of
+\fIm\fP nonlinear functions in \fIn\fP variables by a modification of
+the Levenberg-Marquardt algorithm. The user must provide a function 
+which calculates the functions and the rows of the Jacobian.
+.PP
+\fBlmstr1_\fP performs the same function but has a simplified calling sequence.
+.PP
+\fBlmder\fP(3) and \fBlmder1\fP(3) perform the same function but do
+not attempt to minimize storage.
+.br
+.SS Language notes
+These functions are written in FORTRAN. If calling from
+C, keep these points in mind:
+.TP
+Name mangling.
+With \fBg77\fP version 2.95 or 3.0, all the function names end in an
+underscore.  This may change with future versions of \fBg77\fP.
+.TP
+Compile with \fBg77\fP.
+Even if your program is all C code, you should link with \fBg77\fP
+so it will pull in the FORTRAN libraries automatically.  It's easiest
+just to use \fBg77\fP to do all the compiling.  (It handles C just fine.)
+.TP
+Call by reference.
+All function parameters must be pointers.
+.TP
+Column-major arrays.
+Suppose a function returns an array with 5 rows and 3 columns in an
+array \fIz\fP and in the call you have declared a leading dimension of
+7.  The FORTRAN and equivalent C references are:
+.sp
+.nf
+	z(1,1)		z[0]
+	z(2,1)		z[1]
+	z(5,1)		z[4]
+	z(1,2)		z[7]
+	z(1,3)		z[14]
+	z(i,j)		z[(i-1) + (j-1)*7]
+.fi
+.br
+.SS User-supplied Function
+
+\fIfcn\fP is the name of the user-supplied subroutine which calculates
+the functions. In FORTRAN, \fIfcn\fP must be declared in an external
+statement in the user calling program, and should be written as
+follows:
+.sp
+.nf
+  subroutine fcn(m,n,x,fvec,fjrow,iflag)
+  integer m,n,iflag
+  double precision x(n),fvec(m),fjrow(n)
+  ----------
+  if iflag = 1 calculate the functions at x and
+  return this vector in fvec. Do not alter fjac.
+  if iflag = i calculate row (i-1) of the
+  Jacobian at x and return this vector in fjrow.
+  ----------
+  return
+  end
+.fi
+.sp
+In C, \fIfcn\fP should be written as follows:
+.sp
+.nf
+  void fcn(int m, int n, double *x, double *fvec, double *fjrow,
+           int *iflag)
+  {
+    /* If iflag = 1 calculate the functions at x and return the
+       values in fvec[0] through fvec[m-1].  Do not alter fjac.
+       If iflag = i calculate row (i-1) of the Jacobian
+       at x and return the vector in fjrow. */
+  }
+.fi
+.sp
+\fIiflag\fP is an input integer which specifies whether a function
+value or Jacobian row is to be calculated.
+The value of \fIiflag\fP should not be changed by \fIfcn\fP unless the
+user wants to terminate execution of \fBlmstr_\fP (or \fBlmstr1_\fP). In
+this case set \fIiflag\fP to a negative integer.
+.br
+.SS Parameters for both \fBlmstr_\fP and \fBlmstr1_\fP
+
+\fIm\fP is a positive integer input variable set to the number
+of functions.
+
+\fIn\fP is a positive integer input variable set to the number
+of variables. \fIn\fP must not exceed \fIm\fP.
+
+\fIx\fP is an array of length \fIn\fP. On input \fIx\fP must contain
+an initial estimate of the solution vector. On output \fIx\fP
+contains the final estimate of the solution vector.
+
+\fIfvec\fP is an output array of length \fIm\fP which contains
+the functions evaluated at the output \fIx\fP.
+
+\fIfjrow\fP is an output array of length \fIn\fP which is set to one
+row of the Jacobian evaluated at \fIx\fP.
+
+\fIfjac\fP is an output \fIm\fP by \fIn\fP array. The upper \fIn\fP by
+\fIn\fP submatrix of \fIfjac\fP contains an upper triangular matrix
+\fBr\fP with diagonal elements of nonincreasing magnitude such that
+
+         t     t           t
+        p *(jac *jac)*p = r *r,
+
+where \fIp\fP is a permutation matrix and \fBjac\fP is the final
+calculated Jacobian. Column \fBj\fP of \fIp\fP is column
+\fIipvt\fP(\fBj\fP) (see below) of the identity matrix. The lower
+trapezoidal part of \fIfjac\fP contains information generated during
+the computation of \fBr\fP.
+
+\fIldfjac\fP is a positive integer input variable not less than
+\fIm\fP which specifies the leading dimension of the array
+\fIfjac\fP.
+.br
+.SS Parameters for \fBlmstr1_\fP
+
+\fItol\fP is a nonnegative input variable.  Termination occurs when
+the algorithm estimates either that the relative error in the sum of
+squares is at most \fItol\fP or that the relative error between
+\fIx\fP and the solution is at most \fItol\fP.
+
+\fIinfo\fP is an integer output variable. if the user has
+terminated execution, \fIinfo\fP is set to the (negative)
+value of iflag. see description of \fIfcn\fP. otherwise,
+\fIinfo\fP is set as follows.
+
+  \fIinfo\fP = 0  improper input parameters.
+
+  \fIinfo\fP = 1  algorithm estimates that the relative error
+in the sum of squares is at most \fItol\fP.
+
+  \fIinfo\fP = 2  algorithm estimates that the relative error
+between x and the solution is at most \fItol\fP.
+
+  \fIinfo\fP = 3  conditions for \fIinfo\fP = 1 and \fIinfo\fP = 2 both hold.
+
+  \fIinfo\fP = 4  \fIfvec\fP is orthogonal to the columns of the
+Jacobian to machine precision.
+
+  \fIinfo\fP = 5  number of calls to \fIfcn\fP has reached or
+exceeded 100*(\fIn\fP+1).
+
+  \fIinfo\fP = 6  \fItol\fP is too small. no further reduction in
+the sum of squares is possible.
+
+  \fIinfo\fP = 7  \fItol\fP is too small. no further improvement in
+the approximate solution x is possible.
+
+\fIwa\fP is a work array of length \fIlwa\fP.
+
+\fIlwa\fP is an integer input variable not less than \fIm\fP*\fIn\fP +
+5*\fIn\fP + \fIm\fP for \fBlmder1\fP, or 5*\fIn\fP+\fIm\fP for \fBlmstr1_\fP.
+.br
+.SS Parameters for \fBlmstr_\fP
+
+\fIftol\fP is a nonnegative input variable. Termination
+occurs when both the actual and predicted relative
+reductions in the sum of squares are at most \fIftol\fP.
+Therefore, \fIftol\fP measures the relative error desired
+in the sum of squares.
+
+\fIxtol\fP is a nonnegative input variable. Termination
+occurs when the relative error between two consecutive
+iterates is at most \fIxtol\fP. Therefore, \fIxtol\fP measures the
+relative error desired in the approximate solution.
+
+\fIgtol\fP is a nonnegative input variable. Termination
+occurs when the cosine of the angle between \fIfvec\fP and
+any column of the Jacobian is at most \fIgtol\fP in absolute
+value. Therefore, \fIgtol\fP measures the orthogonality
+desired between the function vector and the columns
+of the Jacobian.
+
+\fImaxfev\fP is a positive integer input variable. Termination
+occurs when the number of calls to \fIfcn\fP is at least
+\fImaxfev\fP by the end of an iteration.
+
+\fIdiag\fP is an array of length \fIn\fP. If \fImode\fP = 1 (see
+below), \fIdiag\fP is internally set. If \fImode\fP = 2, \fIdiag\fP
+must contain positive entries that serve as
+multiplicative scale factors for the variables.
+
+\fImode\fP is an integer input variable. If \fImode\fP = 1, the
+variables will be scaled internally. If \fImode\fP = 2,
+the scaling is specified by the input \fIdiag\fP. Other
+values of mode are equivalent to \fImode\fP = 1.
+
+\fIfactor\fP is a positive input variable used in determining the
+initial step bound. This bound is set to the product of \fIfactor\fP
+and the euclidean norm of \fIdiag\fP*\fIx\fP if the latter is
+nonzero, or else to \fIfactor\fP itself. In most cases factor should
+lie in the interval (.1,100.). 100. is a generally recommended
+value.
+
+\fInprint\fP is an integer input variable that enables controlled
+printing of iterates if it is positive. In this case, fcn is called
+with \fIiflag\fP = 0 at the beginning of the first iteration and
+every \fInprint\fP iterations thereafter and immediately prior to
+return, with \fIx\fP and \fIfvec\fP available for printing. If
+\fInprint\fP is not positive, no special calls of fcn with
+\fIiflag\fP = 0 are made.
+
+\fIinfo\fP is an integer output variable. If the user has
+terminated execution, info is set to the (negative)
+value of iflag. See description of fcn. Otherwise,
+info is set as follows.
+
+  \fIinfo\fP = 0  improper input parameters.
+
+  \fIinfo\fP = 1  both actual and predicted relative reductions
+in the sum of squares are at most \fIftol\fP.
+
+  \fIinfo\fP = 2  relative error between two consecutive iterates
+is at most \fIxtol\fP.
+
+  \fIinfo\fP = 3  conditions for \fIinfo\fP = 1 and \fIinfo\fP = 2 both hold.
+
+  \fIinfo\fP = 4  the cosine of the angle between fvec and any
+column of the Jacobian is at most gtol in absolute value.
+
+  \fIinfo\fP = 5  number of calls to \fIfcn\fP has reached or
+exceeded maxfev.
+
+  \fIinfo\fP = 6  \fIftol\fP is too small. No further reduction in
+the sum of squares is possible.
+
+  \fIinfo\fP = 7  \fIxtol\fP is too small. No further improvement in
+the approximate solution x is possible.
+
+  \fIinfo\fP = 8 \fIgtol\fP is too small. \fIfvec\fP is orthogonal to
+the columns of the Jacobian to machine precision.
+
+\fInfev\fP is an integer output variable set to the number of
+calls to \fIfcn\fP with \fIiflag\fP = 1.
+
+\fInjev\fP is an integer output variable set to the number of
+calls to fcn with \fIiflag\fP = 2.
+
+\fIipvt\fP is an integer output array of length \fIn\fP. \fIipvt\fP
+defines a permutation matrix \fIp\fP such that \fIjac\fP*\fIp\fP =
+\fIq\fP*\fIr\fP, where \fIjac\fP is the final calculated Jacobian,
+\fIq\fP is orthogonal (not stored), and \fIr\fP is upper triangular
+with diagonal elements of nonincreasing magnitude.  Column \fBj\fP
+of \fIp\fP is column \fIipvt\fP(\fBj\fP) of the identity matrix.
+
+\fIqtf\fP is an output array of length \fIn\fP which contains
+the first \fIn\fP elements of the vector (\fIq\fP transpose)*\fIfvec\fP.
+
+\fIwa1\fP, \fIwa2\fP, and \fIwa3\fP are work arrays of length \fIn\fP.
+
+\fIwa4\fP is a work array of length \fIm\fP.
+.br
+.SH SEE ALSO
+.BR lmdif (3),
+.BR lmdif1 (3),
+.BR lmder (3),
+.BR lmder1 (3).
+.br
+.SH AUTHORS
+Jorge More', Burt Garbow, and Ken Hillstrom at Argonne National Laboratory.
+This manual page was written by Jim Van Zandt <jrv@debian.org>,
+for the Debian GNU/Linux system (but may be used by others).
