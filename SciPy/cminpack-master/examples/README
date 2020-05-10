@@ -1,0 +1,38 @@
+
+This directory has the MINPACK-1 test problems.
+
+   vecfcn.f --- nonlinear equations problems
+   vecjac.f --- nonlinear equations Jacobian matrices
+   ssqfcn.f --- nonlinear least squares problems
+   ssqjac.f --- nonlinear least squares Jacobian matrices
+   objfcn.f --- unconstrained minimization problems 
+   grdfcn.f --- unconstrained minimization gradients
+   hesfcn.f --- unconstrained minimization Hessians
+  lhesfcn.f --- unconstrained minimization Hessians (compressed form)
+   neqipt.f --- starting points for nonlinear equations problems
+   ssqipt.f --- starting points for nonlinear least squares problems
+    umipt.f --- starting points for unconstrained minimization problems
+testdata directory:
+   neq.data --- nonlinear equations sample data
+   ssq.data --- nonlinear least squares sample data
+    um.data --- unconstrained minimization sample data
+
+This software is a Fortran 77 version of the original test problems.
+
+Additional information on this software can be found in the paper
+
+J. J. More', B. S. Garbow and K. E. Hillstrom,
+Testing unconstrained optimization software,
+ACM Trans. Math. Software 7 (1981), 17-41.
+
+J. J. More', B. S. Garbow and K. E. Hillstrom,
+Fortran subroutines for testing unconstrained optimization software,
+ACM Trans. Math. Software 7 (1981), 136-140.
+
+The following test routines were not usable in CMINPACK, and are thus
+provided only in their original Fortran 77 version for reference:
+objfcn.f
+grdfcn.f
+hesfcn.f
+lhesfcn.f
+umipt.f

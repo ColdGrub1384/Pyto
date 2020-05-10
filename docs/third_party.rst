@@ -111,6 +111,7 @@ Thanks to `Daniel Shane <https://twitter.com/DannWai>`_ for alternate icons!
 * `chardet <https://github.com/chardet/chardet>`__
 * `click <https://github.com/pallets/click>`__
 * `cloudpickle <https://github.com/cloudpipe/cloudpickle>`__
+* `cminipack <https://github.com/devernay/cminpack>`__
 * `Color-Picker-for-iOS <https://github.com/ColdGrub1384/Color-Picker-for-iOS>`__
 * `colorama <https://github.com/tartley/colorama>`__
 * `Cpython <https://github.com/python/cpython>`__
