@@ -193,6 +193,24 @@ import WatchConnectivity
         WCSession.default.delegate = self
         WCSession.default.activate()
         
+        #if MAIN
+        if #available(iOS 13.0, *) { // Listen for memory
+            let mem = MemoryManager()
+            mem.memoryLimitAlmostReached = {
+                Python.shared.tooMuchUsedMemory = true
+                
+                for script in Python.shared.runningScripts {
+                    guard let path = script as? String else {
+                        continue
+                    }
+                    
+                    Python.shared.stop(script: path)
+                }
+            }
+            mem.startListening()
+        }
+        #endif
+        
         #else
         window = UIWindow()
         window?.backgroundColor = .white

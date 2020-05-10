@@ -5,6 +5,7 @@ import threading
 import traceback
 import stopit
 import sys
+import os
 
 def raise_exception(script, exception):
     for tid, tobj in threading._active.items():
@@ -27,7 +28,7 @@ class ScriptThread(threading.Thread):
 
 while True:
     
-    try:
+    try: # Run code
         code = str(Python.shared.codeToRun)
         exec(code)
         if code == Python.shared.codeToRun:
@@ -37,7 +38,7 @@ while True:
         PyOutputHelper.printError(error, script=None)
         Python.shared.codeToRun = None
     
-    if Python.shared.scriptToRun is not None:
+    if Python.shared.scriptToRun is not None: # Run Script
         
         script = Python.shared.scriptToRun
         
@@ -49,12 +50,18 @@ while True:
     
     sys.stdout.write("")
     
-    for script in Python.shared.scriptsToExit:
-        raise_exception(str(script), SystemExit)
+    exc = SystemExit
+    if Python.shared.tooMuchUsedMemory:
+        Python.shared.tooMuchUsedMemory = False
+        exc = MemoryError
+
+    for script in Python.shared.scriptsToExit: # Send SystemExit or MemoryError
+        raise_exception(str(script), exc)
+    
     if Python.shared.scriptsToExit.count != 0:
         Python.shared.scriptsToExit = []
         
-    for script in Python.shared.scriptsToInterrupt:
+    for script in Python.shared.scriptsToInterrupt: # Send KeyboardInterrupt
         raise_exception(str(script), KeyboardInterrupt)
     if Python.shared.scriptsToInterrupt.count != 0:
         Python.shared.scriptsToInterrupt = []
