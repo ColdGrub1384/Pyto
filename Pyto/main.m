@@ -12,6 +12,7 @@
 #import "../Python/Python.h"
 #if MAIN
 #import "Pyto-Swift.h"
+#import "../Zmq/zmq.h"
 #elif WIDGET
 #import "Pyto_Widget-Swift.h"
 #endif
@@ -61,6 +62,13 @@ void BandHandle(NSString *fkTitle, NSArray *nameArray, NSArray *keyArray) {
         for( int i=0; i<nameArray.count; i++){
             NSString *fkey  = [keyArray  objectAtIndex:i];
             
+            #if MAIN || WIDGET
+            NSArray *imported = [[NSArray alloc] initWithArray: Python.shared.importedModules];
+            if ([imported containsObject: fkey]) {
+                continue;
+            }
+            #endif
+            
             if ([name isEqualToString:[nameArray objectAtIndex:i]]){
                 void *dllHandle = NULL; load(dllHandle);
                 
@@ -70,18 +78,32 @@ void BandHandle(NSString *fkTitle, NSArray *nameArray, NSArray *keyArray) {
                 
                 NSString *funcName = [nameArray objectAtIndex:i];
                 
-                void *func = dlsym(dllHandle, [NSString stringWithFormat:@"PyInit_%@", funcName].UTF8String);
+                PyObject* (*func)(void);
+                func = dlsym(dllHandle, [NSString stringWithFormat:@"PyInit_%@", funcName].UTF8String);
                 
                 if (!func) {
                     NSMutableArray *comp = [NSMutableArray arrayWithArray:[funcName componentsSeparatedByString:@"_"]];
                     [comp removeObjectAtIndex:0];
                     func = dlsym(dllHandle, [NSString stringWithFormat:@"PyInit__%@", [comp componentsJoinedByString:@"_"]].UTF8String);
+                    if (!func) {
+                        func = dlsym(dllHandle, [NSString stringWithFormat:@"PyInit_%@", [comp componentsJoinedByString:@"_"]].UTF8String);
+                    }
                 }
                 
                 if (!handle) {
                     fprintf(stderr, "%s\n", dlerror());
                 } else {
-                    PyImport_AppendInittab(fkey.UTF8String, func);
+                    if (!func) {
+                        NSLog(@"%@", funcName);
+                    } else {
+                        #if MAIN || WIDGET
+                        //PyObject* pyModule = func();
+                        //PyObject* importer = Pymodule;
+                        //[Python.shared.modules setObject: (__bridge id _Nonnull)(pyModule) forKey: fkey];
+                        PyImport_AppendInittab(fkey.UTF8String, func);
+                        [Python.shared.modules addObject: fkey];
+                        #endif
+                    }
                 }
                 break;
             }
@@ -641,6 +663,25 @@ void init_statsmodels() {
     [name addObject:@"linbin"]; [key addObject:@"__statsmodels_nonparametric_linbin"];
     BandHandle(@"statsmodels", name, key);
 }
+
+// MARK: - Zmq
+
+void init_zmq() {
+    
+    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
+    [name addObject:@"_device"];          [key addObject:@"__zmq_backend_cython__device"];
+    [name addObject:@"_poll"];            [key addObject:@"__zmq_backend_cython__poll"];
+    [name addObject:@"_proxy_steerable"]; [key addObject:@"__zmq_backend_cython__proxy_steerable"];
+    [name addObject:@"_version"];         [key addObject:@"__zmq_backend_cython__version"];
+    [name addObject:@"constants"];        [key addObject:@"__zmq_backend_cython_constants"];
+    [name addObject:@"context"];          [key addObject:@"__zmq_backend_cython_context"];
+    [name addObject:@"error"];            [key addObject:@"__zmq_backend_cython_error"];
+    [name addObject:@"message"];          [key addObject:@"__zmq_backend_cython_message"];
+    [name addObject:@"monitoredqueue"];   [key addObject:@"__zmq_devices_monitoredqueue"];
+    [name addObject:@"socket"];           [key addObject:@"__zmq_backend_cython_socket"];
+    [name addObject:@"zmq_utils"];        [key addObject:@"__zmq_backend_cython_utils"];
+    BandHandle(@"zmq", name, key);
+}
 #endif
 
 #endif
@@ -794,7 +835,17 @@ int initialize_python(int argc, char *argv[]) {
         python_argv[i] = Py_DecodeLocale(argv[i], NULL);
     }
     PySys_SetArgv(argc, python_argv);
-            
+    
+    init_numpy();
+    // Now the app initializes modules when they are imported
+    // That makes the app startup a lot faster
+    // It's not recommended by the Python docs to add builtin modules after PyInitialize
+    // But it works after adding mod names to builtin mod names manually
+    
+    #if MAIN
+    zmq_ctx_new(); // So zmq symbols are included in the app
+    #endif
+    
     // MARK: - Start the REPL that will contain all child modules
     #if !WIDGET
     [Python.shared runScriptAt:[[NSBundle mainBundle] URLForResource:@"scripts_runner" withExtension:@"py"]];
