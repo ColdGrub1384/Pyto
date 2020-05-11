@@ -71,6 +71,13 @@ class ScriptSettingsViewController: UIViewController, UITextFieldDelegate, UIDoc
         argumentsTextField.text = editor.args
         currentDirectoryTextField.text = FileManager.default.displayName(atPath: editor.currentDirectory.path)
         
+        if FileManager.default.isReadableFile(atPath: editor.currentDirectory.path) {
+            currentDirectoryStatusLabel.text = "The current directory is readable"
+            currentDirectoryStatusLabel.textColor = .systemGreen
+        } else {
+            currentDirectoryStatusLabel.textColor = .systemRed
+        }
+        
         title = FileManager.default.displayName(atPath: editor.document!.fileURL.path)
         
         if let activity = editor.userActivity {
@@ -106,6 +113,11 @@ class ScriptSettingsViewController: UIViewController, UITextFieldDelegate, UIDoc
             currentDirectoryTextField.text = FileManager.default.displayName(atPath: editor.currentDirectory.path)
             if !FoldersBrowserViewController.accessibleFolders.contains(editor.currentDirectory.resolvingSymlinksInPath()) {
                 FoldersBrowserViewController.accessibleFolders.append(editor.currentDirectory.resolvingSymlinksInPath())
+            }
+            
+            if FileManager.default.isReadableFile(atPath: editor.currentDirectory.path) {
+                currentDirectoryStatusLabel.text = "The current directory is readable"
+                currentDirectoryStatusLabel.textColor = .systemGreen
             }
             
             if success == true {
