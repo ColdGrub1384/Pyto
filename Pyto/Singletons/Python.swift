@@ -58,6 +58,12 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// The queue running scripts.
     @objc public let queue = DispatchQueue.global(qos: .userInteractive)
         
+    /// Additional builtin modules names.
+    @objc public var modules = NSMutableArray()
+    
+    /// Imported builtin modules.
+    @objc public var importedModules = NSMutableArray()
+    
     /// If set to `true`, scripts will run inside the REPL.
     @objc public var isREPLRunning = false
     
