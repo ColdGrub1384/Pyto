@@ -154,6 +154,13 @@ import WebKit
         Python.shared.run(code: "import _values; param = _values.\(identifier); _values.\(action.identifier)(param, \"\(error.localizedDescription)\")")
     }
     
+    public func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        
+        webView.load(navigationAction.request)
+        
+        return nil
+    }
+    
     public func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
         
         let alert = UIAlertController(title: "Pyto", message: message, preferredStyle: .alert)
