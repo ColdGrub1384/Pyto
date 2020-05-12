@@ -27,5 +27,8 @@ func ShortenFilePaths(in str: String) -> String {
     text = text.replacingOccurrences(of: Bundle.main.bundlePath, with: "Pyto.app")
     text = text.replacingOccurrences(of: "/privatePyto.app", with: "Pyto.app")
     
+    text = text.replacingOccurrences(of: DocumentBrowserViewController.localContainerURL.deletingLastPathComponent().path+"/", with: "")
+    text = text.replacingOccurrences(of: DocumentBrowserViewController.localContainerURL.deletingLastPathComponent().path, with: "")
+    
     return text
 }
