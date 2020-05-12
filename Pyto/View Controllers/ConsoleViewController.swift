@@ -845,7 +845,7 @@ import SourceEditor
                         import jedi
                         import console
                         import pyto
-                        namespace = console.__repl_namespace__
+                        namespace = console.__repl_namespace__['\((self.parent as! REPLViewController).editor.document!.fileURL.lastPathComponent.replacingOccurrences(of: "'", with: "\\'"))']
                         script = jedi.Interpreter('\(text.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "'", with: "\\'"))', [namespace])
                         
                         suggestions = []
