@@ -791,6 +791,12 @@ import InputAssistant
     #if MAIN
     override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+                
+        if #available(iOS 13.0, *) {
+            guard view.window?.windowScene?.activationState != .background else {
+                return
+            }
+        }
         
         themeDidChange(nil)
         
