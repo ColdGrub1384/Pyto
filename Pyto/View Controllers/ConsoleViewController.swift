@@ -9,6 +9,8 @@
 import UIKit
 #if MAIN
 import InputAssistant
+import SavannaKit
+import SourceEditor
 #endif
 
 /// A View controller containing Python script output.
@@ -866,6 +868,8 @@ import InputAssistant
                 return self.inputAssistantView(self.movableTextField!.inputAssistant, didSelectSuggestionAtIndex: 0)
             }
             
+            let prompt = self.movableTextField?.placeholder ?? ""
+            
             self.movableTextField?.currentInput = nil
             self.movableTextField?.placeholder = ""
             
@@ -895,6 +899,42 @@ import InputAssistant
             #endif
             if !secureTextEntry {
                 Python.shared.output += text
+                
+                #if MAIN
+                if self.parent is REPLViewController, prompt == ">>> " || prompt == "... " { // Highlight code
+                    
+                    class Delegate: NSObject, SyntaxTextViewDelegate {
+                        
+                        static let shared = Delegate()
+                        
+                        func didChangeText(_ syntaxTextView: SyntaxTextView) {}
+                        
+                        func didChangeSelectedRange(_ syntaxTextView: SyntaxTextView, selectedRange: NSRange) {}
+                        
+                        func lexerForSource(_ source: String) -> Lexer {
+                            return Python3Lexer()
+                        }
+                    }
+                    
+                    let textView = SyntaxTextView()
+                    textView.theme = ConsoleViewController.choosenTheme.sourceCodeTheme
+                    textView.delegate = Delegate.shared
+                    textView.text = text+"\n"
+                    
+                    self.console += text
+                    
+                    let attrStr = NSMutableAttributedString(attributedString: self.textView.attributedText)
+                                        
+                    attrStr.append(textView.contentTextView.attributedText)
+                    self.textView.attributedText = attrStr
+                    
+                    self.textViewDidChange(self.textView)
+                    self.textView.scrollToBottom()
+                    
+                    return
+                }
+                #endif
+                
                 self.print_(Notification(name: Notification.Name(rawValue: "DidReceiveOutput"), object: "\(text)\n", userInfo: nil))
             } else {
                 
