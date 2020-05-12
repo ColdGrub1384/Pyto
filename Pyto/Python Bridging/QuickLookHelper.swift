@@ -158,6 +158,8 @@ fileprivate class ImageAttachment: NSTextAttachment {
                         attrString.removeAttribute(.attachment, range: attachment)
                     }
                     console.textView.attributedText = attrString
+                } else {
+                    attrString.append(NSMutableAttributedString(string: "\n"))
                 }
                 
                 attachment.textView = console.textView
