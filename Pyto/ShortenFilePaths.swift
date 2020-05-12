@@ -18,7 +18,9 @@ func ShortenFilePaths(in str: String) -> String {
     
     var text = str
     
-    text = str.replacingOccurrences(of: DocumentBrowserViewController.localContainerURL.path, with: "Documents")
+    let docs = DocumentBrowserViewController.localContainerURL
+    
+    text = str.replacingOccurrences(of: docs.path, with: "Documents")
     text = text.replacingOccurrences(of: "/privateDocuments", with: "Documents")
     if let iCloudDrive = DocumentBrowserViewController.iCloudContainerURL {
         text = text.replacingOccurrences(of: iCloudDrive.path, with: "iCloud")
@@ -27,8 +29,10 @@ func ShortenFilePaths(in str: String) -> String {
     text = text.replacingOccurrences(of: Bundle.main.bundlePath, with: "Pyto.app")
     text = text.replacingOccurrences(of: "/privatePyto.app", with: "Pyto.app")
     
-    text = text.replacingOccurrences(of: DocumentBrowserViewController.localContainerURL.deletingLastPathComponent().path+"/", with: "")
-    text = text.replacingOccurrences(of: DocumentBrowserViewController.localContainerURL.deletingLastPathComponent().path, with: "")
+    text = text.replacingOccurrences(of: (URL(fileURLWithPath: "/private").appendingPathComponent(docs.deletingLastPathComponent().path).path).replacingOccurrences(of: "//", with: "/")+"/", with: "")
+    text = text.replacingOccurrences(of: URL(fileURLWithPath: "/private").appendingPathComponent(docs.deletingLastPathComponent().path).path.replacingOccurrences(of: "//", with: "/"), with: "")
+    text = text.replacingOccurrences(of: docs.deletingLastPathComponent().path+"/", with: "")
+    text = text.replacingOccurrences(of: docs.deletingLastPathComponent().path, with: "")
     
     return text
 }

@@ -11,6 +11,8 @@ import UIKit
 /// A View controller with the REPL.
 @objc class REPLViewController: EditorSplitViewController, UIDocumentPickerDelegate {
     
+    @objc private static var scriptsToRun = NSMutableArray() // Selected scripts to run
+    
     /// The shared instance.
     @objc static var shared: REPLViewController?
     
@@ -29,6 +31,14 @@ import UIKit
         DispatchQueue.main.async {
             self.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    /// Runs a selected script in the REPL.
+    @objc func addScript() {
+        let picker = UIDocumentPickerViewController(documentTypes: ["public.python-script"], in: .import)
+        picker.delegate = self
+        picker.allowsMultipleSelection = true
+        present(picker, animated: true, completion: nil)
     }
     
     @objc private func setCurrentDirectory() {
@@ -76,9 +86,14 @@ import UIKit
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        let chdirItem = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(setCurrentDirectory))
+        
         navigationItem.leftBarButtonItems = []
-        navigationItem.rightBarButtonItems = []
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(setCurrentDirectory))
+        if #available(iOS 13.0, *) {
+            navigationItem.rightBarButtonItems = [chdirItem, UIBarButtonItem(image: UIImage(systemName: "arrow.down.doc.fill") ?? UIImage(), style: .plain, target: self, action: #selector(addScript))]
+        } else {
+            navigationItem.rightBarButtonItems = [chdirItem]
+        }
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(goToFileBrowser))
         navigationController?.isToolbarHidden = true
         title = Localizable.repl
@@ -108,8 +123,37 @@ import UIKit
     // MARK: Document picker view controller
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        console.movableTextField?.focus()
-        _ = urls[0].startAccessingSecurityScopedResource()
-        Python.shared.run(code: "import os, sys; path = \"\(urls[0].path.replacingOccurrences(of: "\"", with: "\\\""))\"; os.chdir(path); sys.path.append(path)")
+        var isDir: ObjCBool = false
+        if FileManager.default.fileExists(atPath: urls[0].path, isDirectory: &isDir), isDir.boolValue {
+            console.movableTextField?.focus()
+            _ = urls[0].startAccessingSecurityScopedResource()
+            Python.shared.run(code: "import os, sys; path = \"\(urls[0].path.replacingOccurrences(of: "\"", with: "\\\""))\"; os.chdir(path); sys.path.append(path)")
+        } else {
+            REPLViewController.scriptsToRun = NSMutableArray()
+            for url in urls {
+                _ = url.startAccessingSecurityScopedResource()
+                
+                REPLViewController.scriptsToRun.add(url.path)
+            }
+            
+            let code = """
+            import console
+            import importlib.util
+            from pyto import REPLViewController
+
+            print()
+
+            for script in REPLViewController.scriptsToRun:
+                spec = importlib.util.spec_from_file_location("__main__", str(script))
+                script = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(script)
+
+                console.__repl_namespace__[__file__.split("/")[-1]].update(vars(script))
+            """
+            
+            try? code.write(to: editor.document!.fileURL, atomically: true, encoding: .utf8)
+            
+            Python.shared.run(script: .init(path: editor.document!.fileURL.path, debug: false))
+        }
     }
 }

@@ -2,13 +2,14 @@
 The REPL. Goes to the file browser when exited.
 """
 
-from console import __runREPL__, excepthook
 from pyto import REPLViewController
+import console
 import sys
 
-sys.excepthook = excepthook
+sys.excepthook = console.excepthook
 
 try:
-    __runREPL__()
+    console.__runREPL__(__file__.split("/")[-1])
 finally:
+    del console.__repl_namespace__[__file__.split("/")[-1]]
     REPLViewController.goToFileBrowser()
