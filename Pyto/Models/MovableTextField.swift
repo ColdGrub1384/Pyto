@@ -199,9 +199,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
                 
         defer {
             #if MAIN
-            if let text = self.textField.text, !text.isEmpty {
-                self.handler?(text)
-            }
+            self.handler?(self.textField.text ?? "")
             #endif
         }
         
