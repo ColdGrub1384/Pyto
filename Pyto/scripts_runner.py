@@ -65,14 +65,6 @@ while True:
         raise_exception(str(script), KeyboardInterrupt)
     if Python.shared.scriptsToInterrupt.count != 0:
         Python.shared.scriptsToInterrupt = []
-
-    # Builtins
-    for mod in Python.shared.modules:
-        if str(mod) in sys.builtin_module_names:
-            continue
-        
-        sys.builtin_module_names += (str(mod),)
-        Python.shared.importedModules.addObject(mod)
         
     if ConsoleViewController.isPresentingView:
         sleep(0.002)
