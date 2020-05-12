@@ -46,6 +46,7 @@ Modules
 * `cv2`_
 * `lxml`_
 * `Bio`_
+* `zmq`_
 * `rubicon-objc`_
 * `jedi`_
 
@@ -87,7 +88,8 @@ Modules
 .. _scipy: https://docs.scipy.org/doc/scipy/reference/
 .. _statsmodels: https://www.statsmodels.org/stable/api.html
 .. _cv2: https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_tutorials.html
-.. _bio: https://biopython.org/wiki/Documentation
+.. _Bio: https://biopython.org/wiki/Documentation
+.. _zmq: http://zguide.zeromq.org/py:all
 .. _lxml: https://lxml.de
 .. _rubicon-objc: https://rubicon-objc.readthedocs.io/en/latest/
 .. _jedi: https://jedi.readthedocs.io/en/latest/
@@ -156,6 +158,7 @@ Thanks to `Daniel Shane <https://twitter.com/DannWai>`_ for alternate icons!
 * `pytz <https://pythonhosted.org/pytz/>`__
 * `python-webencodings <https://github.com/gsnedders/python-webencodings>`__
 * `pywt <https://github.com/PyWavelets/pywt>`__
+* `pyzmq <https://github.com/zeromq/pyzmq>`__
 * `requests <https://github.com/requests/requests>`__
 * `rubicon-objc <https://github.com/pybee/rubicon-objc>`__
 * `scipy <http://github.com/scipy/scipy>`__
@@ -3948,6 +3951,43 @@ Thanks to `Daniel Shane <https://twitter.com/DannWai>`_ for alternate icons!
            (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
            OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+*pyzmq*
+
+.. code-block::
+   text
+   
+   PyZMQ is licensed under the terms of the Modified BSD License (also known as
+   New or Revised BSD), as follows:
+
+   Copyright (c) 2009-2012, Brian Granger, Min Ragan-Kelley
+
+   All rights reserved.
+
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions are met:
+
+   Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+   Redistributions in binary form must reproduce the above copyright notice, this
+   list of conditions and the following disclaimer in the documentation and/or
+   other materials provided with the distribution.
+
+   Neither the name of PyZMQ nor the names of its contributors may be used to
+   endorse or promote products derived from this software without specific prior
+   written permission.
+
+
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+   ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+   WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+   DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+   FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+   DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+   SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+   CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+   OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 *requests*
 

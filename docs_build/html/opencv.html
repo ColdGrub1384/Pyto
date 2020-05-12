@@ -93,16 +93,17 @@
 <p class="caption"><span class="caption-text">User Interface</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="pyto_ui.html">pyto_ui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyto_core.html">pyto_core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notification_center.html">notification_center</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mainthread.html">mainthread</a></li>
-<li class="toctree-l1"><a class="reference internal" href="console.html">console</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UIKit.html">UIKit</a></li>
 </ul>
 <p class="caption"><span class="caption-text">OS Technologies</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="notifications.html">notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="remote_notifications.html">remote_notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="music.html">music</a></li>
 <li class="toctree-l1"><a class="reference internal" href="photos.html">photos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="location.html">location</a></li>
@@ -112,6 +113,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Sharing data</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="apps.html">apps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="xcallback.html">xcallback</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userkeys.html">userkeys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pasteboard.html">pasteboard</a></li>
@@ -184,21 +186,6 @@
 <p>Pyto includes OpenCV. However, video output does not work the exact same way that on computers. Frames are displayed on the console and no other window is presented. So <code class="docutils literal notranslate"><span class="pre">cv2.destroyAllWindows</span></code> and <code class="docutils literal notranslate"><span class="pre">cv2.waitKey</span></code> will throw errors.</p>
 <div class="section" id="pyto-specific-api">
 <h2>Pyto specific API<a class="headerlink" href="#pyto-specific-api" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="cv2.autorotate">
-<code class="sig-prename descclassname">cv2.</code><code class="sig-name descname">autorotate</code><span class="sig-paren">(</span><em class="sig-param">frame</em>, <em class="sig-param">cam</em><span class="sig-paren">)</span><a class="headerlink" href="#cv2.autorotate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an auto rotated frame captured with hardware camera.</p>
-<p>By default, frames captured by hardware camera will be rotated correctly only if the device is in portrait mode. By calling this function, you can make sure things like face detection will work on any device orientation.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>frame</strong> – The frame captured by the camera.</p></li>
-<li><p><strong>cam</strong> – The camera used to capture the frame. <code class="docutils literal notranslate"><span class="pre">0</span></code> for back and <code class="docutils literal notranslate"><span class="pre">1</span></code> for front.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
 </div>
 <div class="section" id="face-detection-example">
 <h2>Face detection example<a class="headerlink" href="#face-detection-example" title="Permalink to this headline">¶</a></h2>
