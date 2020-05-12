@@ -46,7 +46,7 @@ def add_category(id: str, actions: Dict[str, str]):
         }
         rn.add_category("google", actions)
 
-    In the example above, if a notification with the category id `"google"` is received, an action will be added to the notification. 
+    In the example above, if a notification with the category id `"google"` is received, an action will be added to the notification.
     When it's pressed, Pyto will search on Google for the data passed by the server.
     """
 
