@@ -816,6 +816,7 @@ int initialize_python(int argc, char *argv[]) {
     PySys_SetArgv(argc, python_argv);
     
     init_numpy();
+    init_pil();
     // Now the app initializes modules when they are imported
     // That makes the app startup a lot faster
     // It's not recommended by the Python docs to add builtin modules after PyInitialize
