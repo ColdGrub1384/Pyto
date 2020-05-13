@@ -17,8 +17,6 @@
 #import "Pyto_Widget-Swift.h"
 #endif
 #include <dlfcn.h>
-#include "../PyNacl/sodium/crypto_pwhash_scryptsalsa208sha256.h"
-#include "../PyNacl/sodium/crypto_shorthash_siphash24.h"
 
 #define load(HANDLE) handle = dlopen(file.path.UTF8String, RTLD_GLOBAL);  HANDLE = handle;
 
@@ -609,6 +607,8 @@ void init_cffi() {
     NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
     [name addObject:@"_cffi_backend"]; [key addObject:@"_cffi_backend"];
     BandHandle(@"_cffi_backend", name, key);
+    
+    [Python.shared.modules addObject: @"_cffi_backend"];
 }
 
 // MARK: - Bcrypt
@@ -682,6 +682,10 @@ void init_zmq() {
     [name addObject:@"zmq_utils"];        [key addObject:@"__zmq_backend_cython_utils"];
     BandHandle(@"zmq", name, key);
 }
+
+void _zmq() { // So zmq symbols are included in the app
+    zmq_ctx_new();
+}
 #endif
 
 #endif
@@ -698,79 +702,11 @@ void init_cv2() {
 
 // MARK: - Nacl
 
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_bytes_min(void) {
-    return crypto_pwhash_scryptsalsa208sha256_BYTES_MIN;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_bytes_max(void) {
-    return crypto_pwhash_scryptsalsa208sha256_BYTES_MAX;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_passwd_min(void) {
-    return crypto_pwhash_scryptsalsa208sha256_PASSWD_MIN;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_passwd_max(void) {
-    return crypto_pwhash_scryptsalsa208sha256_PASSWD_MAX;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_saltbytes(void) {
-    return crypto_pwhash_scryptsalsa208sha256_SALTBYTES;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_strbytes(void) {
-    return crypto_pwhash_scryptsalsa208sha256_STRBYTES;
-}
-
-SODIUM_EXPORT const char *crypto_pwhash_scryptsalsa208sha256_strprefix(void) {
-    return crypto_pwhash_scryptsalsa208sha256_STRPREFIX;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_opslimit_min(void) {
-    return crypto_pwhash_scryptsalsa208sha256_OPSLIMIT_MIN;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_opslimit_max(void) {
-    return crypto_pwhash_scryptsalsa208sha256_OPSLIMIT_MAX;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_memlimit_min(void) {
-    return crypto_pwhash_scryptsalsa208sha256_MEMLIMIT_MIN;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_memlimit_max(void) {
-    return crypto_pwhash_scryptsalsa208sha256_MEMLIMIT_MAX;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_opslimit_interactive(void) {
-    return crypto_pwhash_scryptsalsa208sha256_OPSLIMIT_INTERACTIVE;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_memlimit_interactive(void) {
-    return crypto_pwhash_scryptsalsa208sha256_MEMLIMIT_INTERACTIVE;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_opslimit_sensitive(void) {
-    return crypto_pwhash_scryptsalsa208sha256_OPSLIMIT_SENSITIVE;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_memlimit_sensitive(void) {
-    return crypto_pwhash_scryptsalsa208sha256_MEMLIMIT_SENSITIVE;
-}
-
-
-SODIUM_EXPORT size_t crypto_shorthash_siphashx24_bytes(void) {
-    return crypto_shorthash_siphashx24_BYTES;
-}
-
-SODIUM_EXPORT size_t crypto_shorthash_siphashx24_keybytes(void) {
-    return crypto_shorthash_siphashx24_KEYBYTES;
-}
-
 extern PyMODINIT_FUNC PyInit__sodium(void);
 
 void init_nacl() {
     PyImport_AppendInittab("__nacl__sodium", &PyInit__sodium);
+    [Python.shared.modules addObject: @"__nacl__sodium"];
 }
 
 #endif
@@ -815,15 +751,14 @@ int initialize_python(int argc, char *argv[]) {
     }
     PySys_SetArgv(argc, python_argv);
     
-    init_numpy();
-    init_pil();
     // Now the app initializes modules when they are imported
     // That makes the app startup a lot faster
     // It's not recommended by the Python docs to add builtin modules after PyInitialize
     // But it works after adding mod names to builtin mod names manually
-    
+    init_numpy();
+    init_pil();
     #if MAIN
-    zmq_ctx_new(); // So zmq symbols are included in the app
+    init_cffi();
     #endif
     
     // MARK: - Start the REPL that will contain all child modules
