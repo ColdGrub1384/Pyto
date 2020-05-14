@@ -1661,6 +1661,17 @@
 		C9FCFD60214428B300A07974 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9FCFD5F214428B300A07974 /* Assets.xcassets */; };
 		C9FCFD6B21442DE700A07974 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCFD6A21442DE700A07974 /* DocumentBrowserViewController.swift */; };
 		C9FCFD6D21442FD700A07974 /* Untitled.py in Resources */ = {isa = PBXBuildFile; fileRef = C9FCFD6C21442FD700A07974 /* Untitled.py */; };
+		C9FFF3B2246D8F40004F41D3 /* _regex.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9FFF3B1246D8F1C004F41D3 /* _regex.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9FFF3BE246D966B004F41D3 /* fasttext_inner.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9FFF3B4246D9657004F41D3 /* fasttext_inner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9FFF3BF246D966B004F41D3 /* word2vec_inner.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9FFF3B5246D9657004F41D3 /* word2vec_inner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9FFF3C0246D966B004F41D3 /* nmf_pgd.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9FFF3B6246D9657004F41D3 /* nmf_pgd.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9FFF3C1246D966B004F41D3 /* doc2vec_inner.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9FFF3B7246D9657004F41D3 /* doc2vec_inner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9FFF3C2246D966B004F41D3 /* doc2vec_corpusfile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9FFF3B8246D9657004F41D3 /* doc2vec_corpusfile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9FFF3C3246D966B004F41D3 /* fasttext_corpusfile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9FFF3B9246D9657004F41D3 /* fasttext_corpusfile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9FFF3C4246D966B004F41D3 /* word2vec_corpusfile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9FFF3BA246D9657004F41D3 /* word2vec_corpusfile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9FFF3C5246D966B004F41D3 /* _matutils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9FFF3BB246D9657004F41D3 /* _matutils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9FFF3C6246D966B004F41D3 /* _utils_any2vec.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9FFF3BC246D9657004F41D3 /* _utils_any2vec.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9FFF3C7246D966B004F41D3 /* _mmreader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9FFF3BD246D9657004F41D3 /* _mmreader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1969,6 +1980,17 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C9FFF3BE246D966B004F41D3 /* fasttext_inner.framework in Embed Frameworks */,
+				C9FFF3BF246D966B004F41D3 /* word2vec_inner.framework in Embed Frameworks */,
+				C9FFF3C0246D966B004F41D3 /* nmf_pgd.framework in Embed Frameworks */,
+				C9FFF3C1246D966B004F41D3 /* doc2vec_inner.framework in Embed Frameworks */,
+				C9FFF3C2246D966B004F41D3 /* doc2vec_corpusfile.framework in Embed Frameworks */,
+				C9FFF3C3246D966B004F41D3 /* fasttext_corpusfile.framework in Embed Frameworks */,
+				C9FFF3C4246D966B004F41D3 /* word2vec_corpusfile.framework in Embed Frameworks */,
+				C9FFF3C5246D966B004F41D3 /* _matutils.framework in Embed Frameworks */,
+				C9FFF3C6246D966B004F41D3 /* _utils_any2vec.framework in Embed Frameworks */,
+				C9FFF3C7246D966B004F41D3 /* _mmreader.framework in Embed Frameworks */,
+				C9FFF3B2246D8F40004F41D3 /* _regex.framework in Embed Frameworks */,
 				C9C4289324699B05000CCC53 /* _device.framework in Embed Frameworks */,
 				C9C4289424699B05000CCC53 /* _poll.framework in Embed Frameworks */,
 				C9C4289524699B05000CCC53 /* constants.framework in Embed Frameworks */,
@@ -4217,6 +4239,17 @@
 		C9FCFD64214428B300A07974 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9FCFD6A21442DE700A07974 /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
 		C9FCFD6C21442FD700A07974 /* Untitled.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = Untitled.py; sourceTree = "<group>"; };
+		C9FFF3B1246D8F1C004F41D3 /* _regex.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _regex.framework; sourceTree = "<group>"; };
+		C9FFF3B4246D9657004F41D3 /* fasttext_inner.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = fasttext_inner.framework; sourceTree = "<group>"; };
+		C9FFF3B5246D9657004F41D3 /* word2vec_inner.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = word2vec_inner.framework; sourceTree = "<group>"; };
+		C9FFF3B6246D9657004F41D3 /* nmf_pgd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = nmf_pgd.framework; sourceTree = "<group>"; };
+		C9FFF3B7246D9657004F41D3 /* doc2vec_inner.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = doc2vec_inner.framework; sourceTree = "<group>"; };
+		C9FFF3B8246D9657004F41D3 /* doc2vec_corpusfile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = doc2vec_corpusfile.framework; sourceTree = "<group>"; };
+		C9FFF3B9246D9657004F41D3 /* fasttext_corpusfile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = fasttext_corpusfile.framework; sourceTree = "<group>"; };
+		C9FFF3BA246D9657004F41D3 /* word2vec_corpusfile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = word2vec_corpusfile.framework; sourceTree = "<group>"; };
+		C9FFF3BB246D9657004F41D3 /* _matutils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _matutils.framework; sourceTree = "<group>"; };
+		C9FFF3BC246D9657004F41D3 /* _utils_any2vec.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _utils_any2vec.framework; sourceTree = "<group>"; };
+		C9FFF3BD246D9657004F41D3 /* _mmreader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _mmreader.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -7809,6 +7842,8 @@
 				C9C3308123C2902F003B5971 /* Bcrypt */,
 				C9622BA824688A5F00D0D697 /* Statsmodels */,
 				C9C4287124699AF0000CCC53 /* Zmq */,
+				C9FFF3B0246D8F1C004F41D3 /* Regex */,
+				C9FFF3B3246D9657004F41D3 /* Gensim */,
 				C9CEE1E821EB8D5300316D3C /* PytoCore */,
 				C946A5AB22074EAA00F78C5C /* Pyto Widget */,
 				C9C2F46F22F0ED8C0062F4D6 /* Pyto Intents */,
@@ -7857,6 +7892,31 @@
 				C93D61E82145E1D300C8B5E3 /* Resources */,
 			);
 			path = Pyto;
+			sourceTree = "<group>";
+		};
+		C9FFF3B0246D8F1C004F41D3 /* Regex */ = {
+			isa = PBXGroup;
+			children = (
+				C9FFF3B1246D8F1C004F41D3 /* _regex.framework */,
+			);
+			path = Regex;
+			sourceTree = "<group>";
+		};
+		C9FFF3B3246D9657004F41D3 /* Gensim */ = {
+			isa = PBXGroup;
+			children = (
+				C9FFF3B4246D9657004F41D3 /* fasttext_inner.framework */,
+				C9FFF3B5246D9657004F41D3 /* word2vec_inner.framework */,
+				C9FFF3B6246D9657004F41D3 /* nmf_pgd.framework */,
+				C9FFF3B7246D9657004F41D3 /* doc2vec_inner.framework */,
+				C9FFF3B8246D9657004F41D3 /* doc2vec_corpusfile.framework */,
+				C9FFF3B9246D9657004F41D3 /* fasttext_corpusfile.framework */,
+				C9FFF3BA246D9657004F41D3 /* word2vec_corpusfile.framework */,
+				C9FFF3BB246D9657004F41D3 /* _matutils.framework */,
+				C9FFF3BC246D9657004F41D3 /* _utils_any2vec.framework */,
+				C9FFF3BD246D9657004F41D3 /* _mmreader.framework */,
+			);
+			path = Gensim;
 			sourceTree = "<group>";
 		};
 		E49BBFEA4FF54799EBA99E3A /* Pods */ = {

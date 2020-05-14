@@ -41,71 +41,80 @@ NSBundle* mainBundle() {
 
 void BandHandle(NSString *fkTitle, NSArray *nameArray, NSArray *keyArray) {
     
-    NSError *error;
-    for (NSURL *bundle in [NSFileManager.defaultManager contentsOfDirectoryAtURL:mainBundle().privateFrameworksURL includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:&error]) {
-        
-        NSURL *file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"cpython-37m-darwin.so"].lastPathComponent];
-        if (![NSFileManager.defaultManager fileExistsAtPath:file.path]) {
-            file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"abi3.so"].lastPathComponent];
-        }
-        if (![NSFileManager.defaultManager fileExistsAtPath:file.path]) {
-            file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"cpython-38-darwin.so"].lastPathComponent];
-        }
-        if (![NSFileManager.defaultManager fileExistsAtPath:file.path]) {
-            file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"abi3.so"].lastPathComponent];
-        }
-        NSString *name = file.URLByDeletingPathExtension.URLByDeletingPathExtension.lastPathComponent;
-        
-        void *handle = NULL;
-        for( int i=0; i<nameArray.count; i++){
-            NSString *fkey  = [keyArray  objectAtIndex:i];
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSError *error;
+        for (NSURL *bundle in [NSFileManager.defaultManager contentsOfDirectoryAtURL:mainBundle().privateFrameworksURL includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:&error]) {
             
-            #if MAIN || WIDGET
-            NSArray *imported = [[NSArray alloc] initWithArray: Python.shared.importedModules];
-            if ([imported containsObject: fkey]) {
-                continue;
+            NSURL *file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"cpython-37m-darwin.so"].lastPathComponent];
+            if (![NSFileManager.defaultManager fileExistsAtPath:file.path]) {
+                file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"abi3.so"].lastPathComponent];
             }
-            #endif
+            if (![NSFileManager.defaultManager fileExistsAtPath:file.path]) {
+                file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"cpython-38-darwin.so"].lastPathComponent];
+            }
+            if (![NSFileManager.defaultManager fileExistsAtPath:file.path]) {
+                file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"abi3.so"].lastPathComponent];
+            }
+            NSString *name = file.URLByDeletingPathExtension.URLByDeletingPathExtension.lastPathComponent;
             
-            if ([name isEqualToString:[nameArray objectAtIndex:i]]){
-                void *dllHandle = NULL; load(dllHandle);
+            void *handle = NULL;
+            for( int i=0; i<nameArray.count; i++){
+                NSString *fkey  = [keyArray  objectAtIndex:i];
                 
-                if (!dllHandle) {
-                    fprintf(stderr, "%s\n", dlerror());
+                #if MAIN || WIDGET
+                NSArray *imported = [[NSArray alloc] initWithArray: Python.shared.importedModules];
+                if ([imported containsObject: fkey]) {
+                    continue;
                 }
+                #endif
                 
-                NSString *funcName = [nameArray objectAtIndex:i];
-                
-                PyObject* (*func)(void);
-                func = dlsym(dllHandle, [NSString stringWithFormat:@"PyInit_%@", funcName].UTF8String);
-                
-                if (!func) {
-                    NSMutableArray *comp = [NSMutableArray arrayWithArray:[funcName componentsSeparatedByString:@"_"]];
-                    [comp removeObjectAtIndex:0];
-                    func = dlsym(dllHandle, [NSString stringWithFormat:@"PyInit__%@", [comp componentsJoinedByString:@"_"]].UTF8String);
-                    if (!func) {
-                        func = dlsym(dllHandle, [NSString stringWithFormat:@"PyInit_%@", [comp componentsJoinedByString:@"_"]].UTF8String);
+                if ([name isEqualToString:[nameArray objectAtIndex:i]]){
+                    void *dllHandle = NULL; load(dllHandle);
+                    
+                    if (!dllHandle) {
+                        fprintf(stderr, "%s\n", dlerror());
                     }
-                }
-                
-                if (!handle) {
-                    fprintf(stderr, "%s\n", dlerror());
-                } else {
+                    
+                    NSString *funcName = [nameArray objectAtIndex:i];
+                    
+                    PyObject* (*func)(void);
+                    func = dlsym(dllHandle, [NSString stringWithFormat:@"PyInit_%@", funcName].UTF8String);
+                    
                     if (!func) {
-                        NSLog(@"%@", funcName);
+                        NSMutableArray *comp = [NSMutableArray arrayWithArray:[funcName componentsSeparatedByString:@"_"]];
+                        [comp removeObjectAtIndex:0];
+                        func = dlsym(dllHandle, [NSString stringWithFormat:@"PyInit__%@", [comp componentsJoinedByString:@"_"]].UTF8String);
+                        if (!func) {
+                            func = dlsym(dllHandle, [NSString stringWithFormat:@"PyInit_%@", [comp componentsJoinedByString:@"_"]].UTF8String);
+                        }
+                    }
+                    
+                    if (!handle) {
+                        fprintf(stderr, "%s\n", dlerror());
                     } else {
-                        #if MAIN || WIDGET
-                        //PyObject* pyModule = func();
-                        //PyObject* importer = Pymodule;
-                        //[Python.shared.modules setObject: (__bridge id _Nonnull)(pyModule) forKey: fkey];
-                        PyImport_AppendInittab(fkey.UTF8String, func);
-                        [Python.shared.modules addObject: fkey];
-                        #endif
+                        if (!func) {
+                            NSLog(@"%@", funcName);
+                        } else {
+                            #if MAIN || WIDGET
+                            //PyObject* pyModule = func();
+                            //PyObject* importer = Pymodule;
+                            //[Python.shared.modules setObject: (__bridge id _Nonnull)(pyModule) forKey: fkey];
+                            PyImport_AppendInittab(fkey.UTF8String, func);
+                            [Python.shared.modules addObject: fkey];
+                            #endif
+                        }
                     }
+                    break;
                 }
-                break;
             }
         }
+        
+        dispatch_semaphore_signal(semaphore);
+    });
+    
+    if (![NSThread.currentThread isMainThread]) {
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     }
 }
 
@@ -681,6 +690,34 @@ void init_zmq() {
     [name addObject:@"socket"];           [key addObject:@"__zmq_backend_cython_socket"];
     [name addObject:@"zmq_utils"];        [key addObject:@"__zmq_backend_cython_utils"];
     BandHandle(@"zmq", name, key);
+}
+
+// MARK: - Gensim
+
+void init_gensim() {
+    
+    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
+    [name addObject:@"_matutils"];           [key addObject:@"__gensim__matutils"];
+    [name addObject:@"_mmreader"];           [key addObject:@"__gensim_corpora__mmreader"];
+    [name addObject:@"_utils_any2vec"];      [key addObject:@"__gensim_models__utils_any2vec"];
+    [name addObject:@"doc2vec_corpusfile"];  [key addObject:@"__gensim_models_doc2vec_corpusfile"];
+    [name addObject:@"doc2vec_inner"];       [key addObject:@"__gensim_models_doc2vec_inner"];
+    [name addObject:@"fasttext_corpusfile"]; [key addObject:@"__gensim_models_fasttext_corpusfile"];
+    [name addObject:@"fasttext_inner"];      [key addObject:@"__gensim_models_fasttext_inner"];
+    [name addObject:@"nmf_pgd"];             [key addObject:@"__gensim_models_nmf_pgd"];
+    [name addObject:@"word2vec_corpusfile"]; [key addObject:@"__gensim_models_word2vec_corpusfile"];
+    [name addObject:@"word2vec_inner"];      [key addObject:@"__gensim_models_word2vec_inner"];
+    BandHandle(@"gensim", name, key);
+}
+
+
+// MARK: - Regex
+
+void init_regex() {
+    
+    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
+    [name addObject:@"_regex"]; [key addObject:@"__regex__regex"];
+    BandHandle(@"regex", name, key);
 }
 
 void _zmq() { // So zmq symbols are included in the app
