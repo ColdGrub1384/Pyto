@@ -45,6 +45,7 @@ import webbrowser
 import sharing
 import _signal
 import traceback
+import unittest
 from pip import BUNDLED_MODULES
 
 # MARK: - Warnings
@@ -239,6 +240,27 @@ _signal.signal = signal
 # MARK: - Plugin
 
 __builtins__.__editor_delegate__ = None
+
+# MARK: - Unittest
+
+_original_unittest_main = unittest.main
+def _unittest_main(module='__main__', defaultTest=None, argv=None, testRunner=None, testLoader=unittest.defaultTestLoader, exit=True, verbosity=1, failfast=None, catchbreak=None, buffer=None, warnings=None):
+
+    _module = module
+    
+    if module == "__main__":
+        thread = threading.current_thread()
+
+        try:
+            path = thread.script_path
+            _module = path.split("/")[-1]
+            _module = os.path.splitext(_module)[0]
+        except AttributeError:
+            pass
+
+    _original_unittest_main(_module, defaultTest, argv, testRunner, testLoader, exit, verbosity, failfast, catchbreak, buffer, warnings)
+
+unittest.main = _unittest_main
 
 # MARK: - Run script
 
