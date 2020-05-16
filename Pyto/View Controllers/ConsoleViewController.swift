@@ -794,6 +794,7 @@ import InputAssistant
                 
         if #available(iOS 13.0, *) {
             guard view.window?.windowScene?.activationState != .background else {
+                themeDidChange(nil)
                 return
             }
         }

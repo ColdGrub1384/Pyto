@@ -27,5 +27,9 @@ func ShortenFilePaths(in str: String) -> String {
     text = text.replacingOccurrences(of: Bundle.main.bundlePath, with: "Pyto.app")
     text = text.replacingOccurrences(of: "/privatePyto.app", with: "Pyto.app")
     
+    for mod in Python.shared.downloadedModules {
+        text = text.replacingOccurrences(of: mod, with: "OnDemand")
+    }
+    
     return text
 }

@@ -68,6 +68,8 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         }
     }
     
+    let request = NSBundleResourceRequest(tags: ["docs"])
+    
     // MARK: - View controller
     
     override var keyCommands: [UIKeyCommand]? {
@@ -85,8 +87,16 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(webView)
         
-        if let url = Bundle.main.url(forResource: "docs_build/html", withExtension: "") {
-            webView.loadFileURL(url.appendingPathComponent("index.html"), allowingReadAccessTo: url)
+        request.beginAccessingResources { (error) in
+            DispatchQueue.main.async {
+                if let error = error {
+                    self.webView.loadHTMLString("<h1>Error downloading documentation</h1> <p>\(error.localizedDescription)</p>", baseURL: nil)
+                } else {
+                    if let url = self.request.bundle.url(forResource: "docs_build/html", withExtension: "") {
+                        self.webView.loadFileURL(url.appendingPathComponent("index.html"), allowingReadAccessTo: url)
+                    }
+                }
+            }
         }
         
         goBackButton = UIBarButtonItem(image: UIImage(named: "back"), style: .plain, target: self, action: #selector(goBack))
