@@ -772,20 +772,22 @@ int initialize_python(int argc, char *argv[]) {
     Py_Initialize();
     PyEval_InitThreads();
     
+    #if MAIN
     wchar_t** python_argv = PyMem_RawMalloc(sizeof(wchar_t*) * argc);
     int i;
     for (i = 0; i < argc; i++) {
         python_argv[i] = Py_DecodeLocale(argv[i], NULL);
     }
     PySys_SetArgv(argc, python_argv);
+    #endif
     
     // Now the app initializes modules when they are imported
     // That makes the app startup a lot faster
     // It's not recommended by the Python docs to add builtin modules after PyInitialize
     // But it works after adding mod names to builtin mod names manually
-    init_numpy();
     init_pil();
     #if MAIN
+    init_numpy();
     init_cffi();
     #endif
     

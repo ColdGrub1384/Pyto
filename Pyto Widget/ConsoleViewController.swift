@@ -186,6 +186,14 @@ fileprivate var isPythonSetup = false
         ConsoleViewController.locationManager.delegate = self
         ConsoleViewController.sharedDirectoryPath = FileManager.default.sharedDirectory?.path
         
+        /*if #available(iOSApplicationExtension 13.0, *) {
+            let memory = MemoryManager()
+            memory.memoryLimitAlmostReached = {
+                exit(0)
+            }
+            memory.startListening()
+        }*/
+        
         if !isPythonSetup {
             setup_python()
             isPythonSetup = true
@@ -291,33 +299,25 @@ fileprivate var isPythonSetup = false
         # MARK: - Pillow
 
         sys.meta_path.insert(0, PillowImporter())
+        sys.builtin_module_names += ('__PIL__imaging',)
 
         # MARK: - Run script
 
         directory = pyto.ConsoleViewController.sharedDirectoryPath
 
-        def run_code():
-            while True:
-                code_to_run = pyto.Python.shared.codeToRun
-
-                if code_to_run is None:
-                    sleep(0.2)
-                    continue
-
-                try:
-                    code = str(code_to_run)
-                    exec(code)
-                    if code == pyto.Python.shared.codeToRun:
-                        pyto.Python.shared.codeToRun = None
-                except:
-                    error = traceback.format_exc()
-                    print(error)
-                    pyto.Python.shared.codeToRun = None
-
-        run_code_thread = threading.Thread(target=run_code)
-        run_code_thread.start()
-
         script_path = directory+"/main.py"
+
+        try:
+            del PillowImporter
+            del sys.modules["outputredirector"]
+            del io
+            del sys.modules["io"]
+            del ssl
+            del sys.modules["ssl"]
+            del standardOutput
+            del standardError
+        except Exception as e:
+            print(e)
 
         def run_loop():
             pyto.ConsoleViewController.startScript = False
