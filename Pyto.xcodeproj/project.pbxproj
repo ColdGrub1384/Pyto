@@ -64,7 +64,6 @@
 		C91BFFAE236101110016AFD8 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91321C821FB500300437845 /* UIColor.swift */; };
 		C91BFFB2236105D30016AFD8 /* pythonA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C981698D235E5E6C0062A91F /* pythonA.framework */; };
 		C921B52322CD8660005FF00F /* PyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C956AB6222CD6BD600DBC580 /* PyLabel.swift */; };
-		C921EF6721ECA02E004C750D /* XcodeActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C921EF6621ECA02E004C750D /* XcodeActivity.swift */; };
 		C921EF7821ECC388004C750D /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C921EF7721ECC388004C750D /* ActivityViewController.swift */; };
 		C92495C72151A3E3007EB4DB /* ReviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92495C62151A3E3007EB4DB /* ReviewHelper.swift */; };
 		C924ADE622A9FBF6001C8E94 /* Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = C924ADE522A9FBF6001C8E94 /* Default.swift */; };
@@ -394,7 +393,7 @@
 		C99DDCEC21BBED22002A734E /* DocumentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99DDCEB21BBED22002A734E /* DocumentationViewController.swift */; };
 		C99E8D6C21F0CC7800C71884 /* WWDC16.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99E8D6B21F0CC7800C71884 /* WWDC16.swift */; };
 		C99E8D7021F0D03400C71884 /* CoolGlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99E8D6F21F0D03400C71884 /* CoolGlow.swift */; };
-		C99FDFD5234A24320022685B /* docs_build in Resources */ = {isa = PBXBuildFile; fileRef = C99FDFD4234A24320022685B /* docs_build */; };
+		C99FDFD5234A24320022685B /* docs_build in Resources */ = {isa = PBXBuildFile; fileRef = C99FDFD4234A24320022685B /* docs_build */; settings = {ASSET_TAGS = (docs, ); }; };
 		C9A05F6222E3FF600096DCA8 /* PyButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94E730122E3BBF300F3FB79 /* PyButtonItem.swift */; };
 		C9A05F6622E400890096DCA8 /* PyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A05F6522E400890096DCA8 /* PyView.swift */; };
 		C9A05F6722E400890096DCA8 /* PyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A05F6522E400890096DCA8 /* PyView.swift */; };
@@ -1672,6 +1671,33 @@
 		C9FFF3C5246D966B004F41D3 /* _matutils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9FFF3BB246D9657004F41D3 /* _matutils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9FFF3C6246D966B004F41D3 /* _utils_any2vec.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9FFF3BC246D9657004F41D3 /* _utils_any2vec.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9FFF3C7246D966B004F41D3 /* _mmreader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9FFF3BD246D9657004F41D3 /* _mmreader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9FFF3FA246DBBDB004F41D3 /* OnDemandLibraries.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF3F9246DBBDB004F41D3 /* OnDemandLibraries.plist */; };
+		C9FFF41E246E2392004F41D3 /* regex in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF404246E2389004F41D3 /* regex */; settings = {ASSET_TAGS = (regex, ); }; };
+		C9FFF41F246E2392004F41D3 /* smart_open in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF405246E238A004F41D3 /* smart_open */; settings = {ASSET_TAGS = (smart_open, ); }; };
+		C9FFF420246E2392004F41D3 /* cv2 in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF406246E238A004F41D3 /* cv2 */; settings = {ASSET_TAGS = (cv2, ); }; };
+		C9FFF421246E2392004F41D3 /* botocore in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF407246E238A004F41D3 /* botocore */; settings = {ASSET_TAGS = (botocore, ); }; };
+		C9FFF422246E2392004F41D3 /* sklearn in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF408246E238A004F41D3 /* sklearn */; settings = {ASSET_TAGS = (sklearn, ); }; };
+		C9FFF423246E2392004F41D3 /* scipy in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF409246E238A004F41D3 /* scipy */; settings = {ASSET_TAGS = (scipy, ); }; };
+		C9FFF424246E2392004F41D3 /* pandas in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF40A246E238B004F41D3 /* pandas */; settings = {ASSET_TAGS = (pandas, ); }; };
+		C9FFF425246E2392004F41D3 /* joblib in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF40B246E238B004F41D3 /* joblib */; settings = {ASSET_TAGS = (joblib, ); }; };
+		C9FFF426246E2392004F41D3 /* bcrypt in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF40C246E238B004F41D3 /* bcrypt */; settings = {ASSET_TAGS = (bcrypt, ); }; };
+		C9FFF427246E2392004F41D3 /* pywt in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF40D246E238C004F41D3 /* pywt */; settings = {ASSET_TAGS = (pywt, ); }; };
+		C9FFF428246E2392004F41D3 /* Bio in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF40E246E238C004F41D3 /* Bio */; settings = {ASSET_TAGS = (bio, ); }; };
+		C9FFF429246E2392004F41D3 /* matplotlib in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF40F246E238C004F41D3 /* matplotlib */; settings = {ASSET_TAGS = (matplotlib, ); }; };
+		C9FFF42A246E2392004F41D3 /* boto3 in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF410246E238D004F41D3 /* boto3 */; settings = {ASSET_TAGS = (boto3, ); }; };
+		C9FFF42B246E2392004F41D3 /* nacl in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF411246E238D004F41D3 /* nacl */; settings = {ASSET_TAGS = (nacl, ); }; };
+		C9FFF42C246E2392004F41D3 /* numpy in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF412246E238E004F41D3 /* numpy */; settings = {ASSET_TAGS = (numpy, ); }; };
+		C9FFF42D246E2392004F41D3 /* statsmodels in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF413246E238E004F41D3 /* statsmodels */; settings = {ASSET_TAGS = (statsmodels, ); }; };
+		C9FFF42E246E2392004F41D3 /* gensim in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF414246E238F004F41D3 /* gensim */; settings = {ASSET_TAGS = (gensim, ); }; };
+		C9FFF42F246E2392004F41D3 /* lxml in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF415246E238F004F41D3 /* lxml */; settings = {ASSET_TAGS = (lxml, ); }; };
+		C9FFF430246E2392004F41D3 /* networkx in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF416246E238F004F41D3 /* networkx */; settings = {ASSET_TAGS = (networkx, ); }; };
+		C9FFF431246E2392004F41D3 /* imageio in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF417246E2390004F41D3 /* imageio */; settings = {ASSET_TAGS = (imageio, ); }; };
+		C9FFF432246E2392004F41D3 /* boto in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF418246E2390004F41D3 /* boto */; settings = {ASSET_TAGS = (boto, ); }; };
+		C9FFF433246E2392004F41D3 /* skimage in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF419246E2390004F41D3 /* skimage */; settings = {ASSET_TAGS = (skimage, ); }; };
+		C9FFF434246E2392004F41D3 /* cryptography in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF41A246E2391004F41D3 /* cryptography */; settings = {ASSET_TAGS = (cryptography, ); }; };
+		C9FFF435246E2392004F41D3 /* zmq in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF41B246E2391004F41D3 /* zmq */; settings = {ASSET_TAGS = (zmq, ); }; };
+		C9FFF436246E2392004F41D3 /* dask in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF41C246E2391004F41D3 /* dask */; settings = {ASSET_TAGS = (dask, ); }; };
+		C9FFF437246E2392004F41D3 /* jmespath in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF41D246E2392004F41D3 /* jmespath */; settings = {ASSET_TAGS = (jmespath, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2276,7 +2302,6 @@
 		C91BE6B423F9A3E500B6ED6B /* ProjectDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDocument.swift; sourceTree = "<group>"; };
 		C91BE6DE24004E9700B6ED6B /* ProjectsBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsBrowserViewController.swift; sourceTree = "<group>"; };
 		C91BFF9B2360B7D80016AFD8 /* LoadingPythonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingPythonView.swift; sourceTree = "<group>"; };
-		C921EF6621ECA02E004C750D /* XcodeActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeActivity.swift; sourceTree = "<group>"; };
 		C921EF7721ECC388004C750D /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		C92495C62151A3E3007EB4DB /* ReviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewHelper.swift; sourceTree = "<group>"; };
 		C924ADE522A9FBF6001C8E94 /* Default.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Default.swift; sourceTree = "<group>"; };
@@ -4250,6 +4275,59 @@
 		C9FFF3BB246D9657004F41D3 /* _matutils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _matutils.framework; sourceTree = "<group>"; };
 		C9FFF3BC246D9657004F41D3 /* _utils_any2vec.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _utils_any2vec.framework; sourceTree = "<group>"; };
 		C9FFF3BD246D9657004F41D3 /* _mmreader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _mmreader.framework; sourceTree = "<group>"; };
+		C9FFF3C9246DA8E0004F41D3 /* matplotlib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = matplotlib; sourceTree = "<group>"; };
+		C9FFF3CA246DA8E0004F41D3 /* sklearn */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sklearn; sourceTree = "<group>"; };
+		C9FFF3CB246DA8E0004F41D3 /* pandas */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pandas; sourceTree = "<group>"; };
+		C9FFF3CC246DA8E0004F41D3 /* lxml */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lxml; sourceTree = "<group>"; };
+		C9FFF3CD246DA8E1004F41D3 /* Bio */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Bio; sourceTree = "<group>"; };
+		C9FFF3CE246DA8E1004F41D3 /* bcrypt */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bcrypt; sourceTree = "<group>"; };
+		C9FFF3CF246DA8E1004F41D3 /* numpy */ = {isa = PBXFileReference; lastKnownFileType = folder; path = numpy; sourceTree = "<group>"; };
+		C9FFF3D0246DA8E1004F41D3 /* nacl */ = {isa = PBXFileReference; lastKnownFileType = folder; path = nacl; sourceTree = "<group>"; };
+		C9FFF3D1246DA8E2004F41D3 /* statsmodels */ = {isa = PBXFileReference; lastKnownFileType = folder; path = statsmodels; sourceTree = "<group>"; };
+		C9FFF3D2246DA8E2004F41D3 /* scipy */ = {isa = PBXFileReference; lastKnownFileType = folder; path = scipy; sourceTree = "<group>"; };
+		C9FFF3D3246DA8E2004F41D3 /* skimage */ = {isa = PBXFileReference; lastKnownFileType = folder; path = skimage; sourceTree = "<group>"; };
+		C9FFF3D4246DA8E2004F41D3 /* cryptography */ = {isa = PBXFileReference; lastKnownFileType = folder; path = cryptography; sourceTree = "<group>"; };
+		C9FFF3D5246DA8E3004F41D3 /* zmq */ = {isa = PBXFileReference; lastKnownFileType = folder; path = zmq; sourceTree = "<group>"; };
+		C9FFF3D6246DA8E3004F41D3 /* gensim */ = {isa = PBXFileReference; lastKnownFileType = folder; path = gensim; sourceTree = "<group>"; };
+		C9FFF3D7246DA8E3004F41D3 /* regex */ = {isa = PBXFileReference; lastKnownFileType = folder; path = regex; sourceTree = "<group>"; };
+		C9FFF3D8246DA8E4004F41D3 /* cv2 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = cv2; sourceTree = "<group>"; };
+		C9FFF3E9246DB186004F41D3 /* botocore */ = {isa = PBXFileReference; lastKnownFileType = folder; path = botocore; sourceTree = "<group>"; };
+		C9FFF3EA246DB187004F41D3 /* pywt */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pywt; sourceTree = "<group>"; };
+		C9FFF3EB246DB187004F41D3 /* boto3 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = boto3; sourceTree = "<group>"; };
+		C9FFF3EC246DB187004F41D3 /* boto */ = {isa = PBXFileReference; lastKnownFileType = folder; path = boto; sourceTree = "<group>"; };
+		C9FFF3F1246DB450004F41D3 /* jmespath */ = {isa = PBXFileReference; lastKnownFileType = folder; path = jmespath; sourceTree = "<group>"; };
+		C9FFF3F2246DB450004F41D3 /* smart_open */ = {isa = PBXFileReference; lastKnownFileType = folder; path = smart_open; sourceTree = "<group>"; };
+		C9FFF3F3246DB450004F41D3 /* dask */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dask; sourceTree = "<group>"; };
+		C9FFF3F4246DB451004F41D3 /* joblib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = joblib; sourceTree = "<group>"; };
+		C9FFF3F9246DBBDB004F41D3 /* OnDemandLibraries.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = OnDemandLibraries.plist; sourceTree = "<group>"; };
+		C9FFF3FD246DBFE8004F41D3 /* networkx */ = {isa = PBXFileReference; lastKnownFileType = folder; path = networkx; sourceTree = "<group>"; };
+		C9FFF3FF246DC028004F41D3 /* imageio */ = {isa = PBXFileReference; lastKnownFileType = folder; path = imageio; sourceTree = "<group>"; };
+		C9FFF404246E2389004F41D3 /* regex */ = {isa = PBXFileReference; lastKnownFileType = folder; path = regex; sourceTree = "<group>"; };
+		C9FFF405246E238A004F41D3 /* smart_open */ = {isa = PBXFileReference; lastKnownFileType = folder; path = smart_open; sourceTree = "<group>"; };
+		C9FFF406246E238A004F41D3 /* cv2 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = cv2; sourceTree = "<group>"; };
+		C9FFF407246E238A004F41D3 /* botocore */ = {isa = PBXFileReference; lastKnownFileType = folder; path = botocore; sourceTree = "<group>"; };
+		C9FFF408246E238A004F41D3 /* sklearn */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sklearn; sourceTree = "<group>"; };
+		C9FFF409246E238A004F41D3 /* scipy */ = {isa = PBXFileReference; lastKnownFileType = folder; path = scipy; sourceTree = "<group>"; };
+		C9FFF40A246E238B004F41D3 /* pandas */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pandas; sourceTree = "<group>"; };
+		C9FFF40B246E238B004F41D3 /* joblib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = joblib; sourceTree = "<group>"; };
+		C9FFF40C246E238B004F41D3 /* bcrypt */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bcrypt; sourceTree = "<group>"; };
+		C9FFF40D246E238C004F41D3 /* pywt */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pywt; sourceTree = "<group>"; };
+		C9FFF40E246E238C004F41D3 /* Bio */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Bio; sourceTree = "<group>"; };
+		C9FFF40F246E238C004F41D3 /* matplotlib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = matplotlib; sourceTree = "<group>"; };
+		C9FFF410246E238D004F41D3 /* boto3 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = boto3; sourceTree = "<group>"; };
+		C9FFF411246E238D004F41D3 /* nacl */ = {isa = PBXFileReference; lastKnownFileType = folder; path = nacl; sourceTree = "<group>"; };
+		C9FFF412246E238E004F41D3 /* numpy */ = {isa = PBXFileReference; lastKnownFileType = folder; path = numpy; sourceTree = "<group>"; };
+		C9FFF413246E238E004F41D3 /* statsmodels */ = {isa = PBXFileReference; lastKnownFileType = folder; path = statsmodels; sourceTree = "<group>"; };
+		C9FFF414246E238F004F41D3 /* gensim */ = {isa = PBXFileReference; lastKnownFileType = folder; path = gensim; sourceTree = "<group>"; };
+		C9FFF415246E238F004F41D3 /* lxml */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lxml; sourceTree = "<group>"; };
+		C9FFF416246E238F004F41D3 /* networkx */ = {isa = PBXFileReference; lastKnownFileType = folder; path = networkx; sourceTree = "<group>"; };
+		C9FFF417246E2390004F41D3 /* imageio */ = {isa = PBXFileReference; lastKnownFileType = folder; path = imageio; sourceTree = "<group>"; };
+		C9FFF418246E2390004F41D3 /* boto */ = {isa = PBXFileReference; lastKnownFileType = folder; path = boto; sourceTree = "<group>"; };
+		C9FFF419246E2390004F41D3 /* skimage */ = {isa = PBXFileReference; lastKnownFileType = folder; path = skimage; sourceTree = "<group>"; };
+		C9FFF41A246E2391004F41D3 /* cryptography */ = {isa = PBXFileReference; lastKnownFileType = folder; path = cryptography; sourceTree = "<group>"; };
+		C9FFF41B246E2391004F41D3 /* zmq */ = {isa = PBXFileReference; lastKnownFileType = folder; path = zmq; sourceTree = "<group>"; };
+		C9FFF41C246E2391004F41D3 /* dask */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dask; sourceTree = "<group>"; };
+		C9FFF41D246E2392004F41D3 /* jmespath */ = {isa = PBXFileReference; lastKnownFileType = folder; path = jmespath; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -5838,7 +5916,6 @@
 				C9622C322468B56700D0D697 /* MemoryManager.swift */,
 				C9A33B0E224FCDA00083F041 /* MovableTextField.swift */,
 				C9592D1421D0592C00412CEF /* PyDocument.swift */,
-				C921EF6621ECA02E004C750D /* XcodeActivity.swift */,
 				C9592D1521D0592C00412CEF /* ViewControllerTransitionCoordinator.swift */,
 				C9E016EC22823186002DF4CA /* EditorScript.swift */,
 				C959D50623761FC40001AEAF /* PyPackage.swift */,
@@ -7822,6 +7899,7 @@
 				C9FB5BBF22025AFE0085E1AA /* libfreetype */,
 				C9130D5122D802CF0055A1BE /* libjpeg */,
 				C9B2DD99235CA587000BD8C5 /* python38.zip */,
+				C9FFF3C8246DA8B9004F41D3 /* downloadable-site-packages */,
 				C9FCFD57214428AE00A07974 /* Pyto */,
 				C984729021A059F2008E16AC /* Python iOS */,
 				C95EE98D23273E050084EA0C /* CFFI */,
@@ -7917,6 +7995,74 @@
 				C9FFF3BD246D9657004F41D3 /* _mmreader.framework */,
 			);
 			path = Gensim;
+			sourceTree = "<group>";
+		};
+		C9FFF3C8246DA8B9004F41D3 /* downloadable-site-packages */ = {
+			isa = PBXGroup;
+			children = (
+				C9FFF401246E1F70004F41D3 /* compiled */,
+				C9FFF3FF246DC028004F41D3 /* imageio */,
+				C9FFF3FD246DBFE8004F41D3 /* networkx */,
+				C9FFF3F3246DB450004F41D3 /* dask */,
+				C9FFF3F1246DB450004F41D3 /* jmespath */,
+				C9FFF3F4246DB451004F41D3 /* joblib */,
+				C9FFF3F2246DB450004F41D3 /* smart_open */,
+				C9FFF3EC246DB187004F41D3 /* boto */,
+				C9FFF3EB246DB187004F41D3 /* boto3 */,
+				C9FFF3E9246DB186004F41D3 /* botocore */,
+				C9FFF3EA246DB187004F41D3 /* pywt */,
+				C9FFF3CE246DA8E1004F41D3 /* bcrypt */,
+				C9FFF3CD246DA8E1004F41D3 /* Bio */,
+				C9FFF3D4246DA8E2004F41D3 /* cryptography */,
+				C9FFF3D8246DA8E4004F41D3 /* cv2 */,
+				C9FFF3D6246DA8E3004F41D3 /* gensim */,
+				C9FFF3CC246DA8E0004F41D3 /* lxml */,
+				C9FFF3C9246DA8E0004F41D3 /* matplotlib */,
+				C9FFF3D0246DA8E1004F41D3 /* nacl */,
+				C9FFF3CF246DA8E1004F41D3 /* numpy */,
+				C9FFF3CB246DA8E0004F41D3 /* pandas */,
+				C9FFF3D7246DA8E3004F41D3 /* regex */,
+				C9FFF3D2246DA8E2004F41D3 /* scipy */,
+				C9FFF3D3246DA8E2004F41D3 /* skimage */,
+				C9FFF3CA246DA8E0004F41D3 /* sklearn */,
+				C9FFF3D1246DA8E2004F41D3 /* statsmodels */,
+				C9FFF3D5246DA8E3004F41D3 /* zmq */,
+				C9FFF3F9246DBBDB004F41D3 /* OnDemandLibraries.plist */,
+			);
+			path = "downloadable-site-packages";
+			sourceTree = "<group>";
+		};
+		C9FFF401246E1F70004F41D3 /* compiled */ = {
+			isa = PBXGroup;
+			children = (
+				C9FFF40C246E238B004F41D3 /* bcrypt */,
+				C9FFF40E246E238C004F41D3 /* Bio */,
+				C9FFF418246E2390004F41D3 /* boto */,
+				C9FFF410246E238D004F41D3 /* boto3 */,
+				C9FFF407246E238A004F41D3 /* botocore */,
+				C9FFF41A246E2391004F41D3 /* cryptography */,
+				C9FFF406246E238A004F41D3 /* cv2 */,
+				C9FFF41C246E2391004F41D3 /* dask */,
+				C9FFF414246E238F004F41D3 /* gensim */,
+				C9FFF417246E2390004F41D3 /* imageio */,
+				C9FFF41D246E2392004F41D3 /* jmespath */,
+				C9FFF40B246E238B004F41D3 /* joblib */,
+				C9FFF415246E238F004F41D3 /* lxml */,
+				C9FFF40F246E238C004F41D3 /* matplotlib */,
+				C9FFF411246E238D004F41D3 /* nacl */,
+				C9FFF416246E238F004F41D3 /* networkx */,
+				C9FFF412246E238E004F41D3 /* numpy */,
+				C9FFF40A246E238B004F41D3 /* pandas */,
+				C9FFF40D246E238C004F41D3 /* pywt */,
+				C9FFF404246E2389004F41D3 /* regex */,
+				C9FFF409246E238A004F41D3 /* scipy */,
+				C9FFF419246E2390004F41D3 /* skimage */,
+				C9FFF408246E238A004F41D3 /* sklearn */,
+				C9FFF405246E238A004F41D3 /* smart_open */,
+				C9FFF413246E238E004F41D3 /* statsmodels */,
+				C9FFF41B246E2391004F41D3 /* zmq */,
+			);
+			path = compiled;
 			sourceTree = "<group>";
 		};
 		E49BBFEA4FF54799EBA99E3A /* Pods */ = {
@@ -8117,10 +8263,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C9FCFD67214428B300A07974 /* Build configuration list for PBXNativeTarget "Pyto" */;
 			buildPhases = (
+				C9FFF43C246E292C004F41D3 /* Remove docs sources */,
 				8B77444CB27802637BAB7D62 /* [CP] Check Pods Manifest.lock */,
 				C9FCFD51214428AE00A07974 /* Sources */,
 				C9FCFD53214428AE00A07974 /* Resources */,
-				C9CEE26F21EBEEA700316D3C /* Archive app template */,
 				D910EE956F1871789C77F1DA /* [CP] Embed Pods Frameworks */,
 				C9FCFD52214428AE00A07974 /* Frameworks */,
 				C9EAB4CA214D95C500DFC9A4 /* Embed Frameworks */,
@@ -8152,6 +8298,35 @@
 			isa = PBXProject;
 			attributes = {
 				DefaultBuildSystemTypeForWorkspace = Latest;
+				KnownAssetTags = (
+					bcrypt,
+					bio,
+					boto,
+					boto3,
+					botocore,
+					cryptography,
+					cv2,
+					dask,
+					docs,
+					gensim,
+					imageio,
+					jmespath,
+					joblib,
+					lxml,
+					matplotlib,
+					nacl,
+					networkx,
+					numpy,
+					pandas,
+					pywt,
+					regex,
+					scipy,
+					skimage,
+					sklearn,
+					smart_open,
+					statsmodels,
+					zmq,
+				);
 				LastSwiftUpdateCheck = 1120;
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Adrian Labbé";
@@ -8497,49 +8672,76 @@
 			buildActionMask = 2147483647;
 			files = (
 				C98E1FFD214EE6ED002F0178 /* Samples in Resources */,
+				C9FFF3FA246DBBDB004F41D3 /* OnDemandLibraries.plist in Resources */,
 				C90BA5C723C4CD2B00B2B187 /* Light 3.png in Resources */,
+				C9FFF433246E2392004F41D3 /* skimage in Resources */,
+				C9FFF431246E2392004F41D3 /* imageio in Resources */,
 				C90F7CED227F445D00EEA045 /* command_runner.py in Resources */,
+				C9FFF430246E2392004F41D3 /* networkx in Resources */,
 				C90BA5CB23C4CD2B00B2B187 /* Light 5.png in Resources */,
 				C9F8661A21ED059F0062D1C1 /* site-packages in Resources */,
 				C95AECB82208A688003BCB05 /* cacert.pem in Resources */,
 				C9F04E832173C33400BDD03E /* Localizable.strings in Resources */,
 				C9A33B13224FCDAD0083F041 /* TextField.xib in Resources */,
 				C9A419A823A321EB00BF5393 /* Type.png in Resources */,
+				C9FFF41F246E2392004F41D3 /* smart_open in Resources */,
 				C954FAB5220A165E0060C488 /* Replace.xib in Resources */,
 				C9B5D84B21F119B100E980BA /* Settings.storyboard in Resources */,
 				C99FDFD5234A24320022685B /* docs_build in Resources */,
+				C9FFF434246E2392004F41D3 /* cryptography in Resources */,
 				C9C0E78B21F0B5770057C63E /* Theme Chooser.storyboard in Resources */,
 				C9727C472204D7F100B7AC32 /* LaunchScreen.storyboard in Resources */,
 				C9EA5C7D21F23558000F7FA7 /* Welcome to Pyto.md in Resources */,
+				C9FFF432246E2392004F41D3 /* boto in Resources */,
 				C90BA5BE23C4CD1F00B2B187 /* Dark 6.png in Resources */,
 				C9A419A523A321EB00BF5393 /* Light.png in Resources */,
 				C93657252287286400498011 /* ConflictsResolver.storyboard in Resources */,
+				C9FFF42B246E2392004F41D3 /* nacl in Resources */,
 				C92FC4462352BCB8000BBF46 /* Hello World.py in Resources */,
 				C98472AE21A05CB1008E16AC /* README.md in Resources */,
+				C9FFF426246E2392004F41D3 /* bcrypt in Resources */,
+				C9FFF429246E2392004F41D3 /* matplotlib in Resources */,
+				C9FFF421246E2392004F41D3 /* botocore in Resources */,
 				C9F04E882173DD7300BDD03E /* Main.storyboard in Resources */,
 				C9E116E021F773EB00FB5DD2 /* UserREPL.py in Resources */,
 				C90BA5C123C4CD1F00B2B187 /* Dark 5.png in Resources */,
 				C96BA43424449A15003D5B88 /* ScriptSettingsViewController.storyboard in Resources */,
+				C9FFF42E246E2392004F41D3 /* gensim in Resources */,
 				C9FCFD6D21442FD700A07974 /* Untitled.py in Resources */,
+				C9FFF423246E2392004F41D3 /* scipy in Resources */,
+				C9FFF425246E2392004F41D3 /* joblib in Resources */,
 				C916F44B226CFD4800FA2FB6 /* modules_inspector.py in Resources */,
+				C9FFF435246E2392004F41D3 /* zmq in Resources */,
 				C90BA5C823C4CD2B00B2B187 /* Light 6.png in Resources */,
 				C90BA5BD23C4CD1F00B2B187 /* Dark 3.png in Resources */,
+				C9FFF427246E2392004F41D3 /* pywt in Resources */,
 				C9B5D87621F214DC00E980BA /* body.html in Resources */,
+				C9FFF42F246E2392004F41D3 /* lxml in Resources */,
 				C929167E22B192A5001C8BA0 /* scripts_runner.py in Resources */,
 				C90BA5C023C4CD1F00B2B187 /* Dark 2.png in Resources */,
+				C9FFF41E246E2392004F41D3 /* regex in Resources */,
+				C9FFF428246E2392004F41D3 /* Bio in Resources */,
 				C9F56EAE23D4EE37005C59FD /* 420.png in Resources */,
+				C9FFF42D246E2392004F41D3 /* statsmodels in Resources */,
+				C9FFF420246E2392004F41D3 /* cv2 in Resources */,
 				C9E4152E21514F9100D64E32 /* Startup.py in Resources */,
 				C9A5A5DF2352AEC5001C8E20 /* Template Chooser.storyboard in Resources */,
 				C92DBD8021F67B9D0098BE43 /* REPL.py in Resources */,
 				C95076FA22DE39A800226497 /* Widget Simulator.storyboard in Resources */,
+				C9FFF422246E2392004F41D3 /* sklearn in Resources */,
 				C9A419A623A321EB00BF5393 /* Stripes.png in Resources */,
+				C9FFF436246E2392004F41D3 /* dask in Resources */,
 				C947C6F822E512CD00B7B35A /* Lib in Resources */,
 				C90BA5C923C4CD2B00B2B187 /* Light 4.png in Resources */,
+				C9FFF42A246E2392004F41D3 /* boto3 in Resources */,
 				C9A419A723A321EB00BF5393 /* Dark.png in Resources */,
 				C9477BBB21D45D29000680AE /* installer.py in Resources */,
+				C9FFF42C246E2392004F41D3 /* numpy in Resources */,
 				C90BA5CA23C4CD2B00B2B187 /* Light 2.png in Resources */,
+				C9FFF437246E2392004F41D3 /* jmespath in Resources */,
 				C90BA5BC23C4CD1F00B2B187 /* Dark 7.png in Resources */,
 				C9FCFD60214428B300A07974 /* Assets.xcassets in Resources */,
+				C9FFF424246E2392004F41D3 /* pandas in Resources */,
 				C90BA5BF23C4CD1F00B2B187 /* Dark 4.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -8583,7 +8785,7 @@
 			shellPath = /bin/bash;
 			shellScript = "PYTHONLIB=\"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Versions/A/Resources/python37\"\n\nif [ -d \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Versions\" ]\nthen\n# Is building for macOS\nif [ -d \"$PYTHONLIB\" ]\nthen\nrm -rf \"$PYTHONLIB\"\nfi\nelse\nexit 0\nfi\n\nmkdir \"$PYTHONLIB\"\ncp -r \"${SRCROOT}/Python3_Mac/python/lib/python3.7/\"* \"$PYTHONLIB/\"\n\n";
 		};
-		C9CEE26F21EBEEA700316D3C /* Archive app template */ = {
+		C9FFF43C246E292C004F41D3 /* Remove docs sources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -8592,14 +8794,14 @@
 			);
 			inputPaths = (
 			);
-			name = "Archive app template";
+			name = "Remove docs sources";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "ZIPFILE=\"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/repo.zip\"\n\nif [ -d \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Contents\" ]\nthen\nexit 0 # Is building for macOS\nfi\n\nif [ -f \"$ZIPFILE\" ]\nthen\nexit 0\nelse\necho \"Doesn't exist\"\nfi\n\nTMPSRC=\"${SRCROOT}/../PytoTmpCopy\"\ncp -r \"${SRCROOT}/Python App\" \"$TMPSRC\"\ncp -r \"${SRCROOT}\" \"$TMPSRC/Pyto\"\n\npushd \"$TMPSRC\"\n\nls\n\nrm -rf Pyto/Pods\nrm -rf Pyto/NumPy Pyto/site-packages/numpy\nrm -rf Pyto/Matplotlib Pyto/site-packages/matplotlib Pyto/site-packages/mpl_toolkits\nrm -rf Pyto/Pandas Pyto/site-packages/pandas\nrm -rf Pyto/Lxml Pyto/site-packages/pandas\nrm -rf Pyto/SciPy Pyto/site-packages/scipy\nrm -rf Pyto/SkLearn Pyto/site-packages/sklearn\nrm -rf Pyto/SkImage Pyto/site-packages/skimage\nrm -rf Pyto/OpenCV Pyto/site-packages/cv2\nrm -rf Pyto/Pywt Pyto/site-packages/pywt\nrm -rf Pyto/docs_build\nrm -rf Pyto/InputAssistant\nrm -rf Pyto/.git\n\nzip -r \"$ZIPFILE\" *\npopd\n\nrm -rf \"$TMPSRC\"\n";
+			shellPath = /bin/sh;
+			shellScript = "# txt files cause signature errors :(\n\nrm -rf \"${SRCROOT}/docs_build/html/_sources\"\nrm -rf \"${SRCROOT}/docs_build/html/.buildinfo\"\n";
 		};
 		D910EE956F1871789C77F1DA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -8884,7 +9086,6 @@
 				C9622B932467BE5200D0D697 /* fdjac1.c in Sources */,
 				C93D61E32145D50A00C8B5E3 /* String.swift in Sources */,
 				C9622B8F2467BE5200D0D697 /* hybrd.c in Sources */,
-				C921EF6721ECA02E004C750D /* XcodeActivity.swift in Sources */,
 				C9592D1921D0592C00412CEF /* ViewControllerTransitionCoordinator.swift in Sources */,
 				C9C0E77A21EF65BE0057C63E /* ThemableNavigationController.swift in Sources */,
 				C93CA8B522022E67008DD049 /* QuickLookHelper.swift in Sources */,
@@ -9157,7 +9358,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 4;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -9193,7 +9394,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.10.1;
+				MARKETING_VERSION = 11.11;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -9220,7 +9421,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 4;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -9254,7 +9455,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 11.10.1;
+				MARKETING_VERSION = 11.11;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -9397,7 +9598,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_PREVIEWS = YES;
@@ -9407,7 +9608,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.10.1;
+				MARKETING_VERSION = 11.11;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -9423,7 +9624,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_PREVIEWS = YES;
@@ -9433,7 +9634,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.10.1;
+				MARKETING_VERSION = 11.11;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -9450,11 +9651,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
-				MARKETING_VERSION = 11.10.1;
+				MARKETING_VERSION = 11.11;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -9471,11 +9672,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
-				MARKETING_VERSION = 11.10.1;
+				MARKETING_VERSION = 11.11;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -9492,7 +9693,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -9503,7 +9704,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.10.1;
+				MARKETING_VERSION = 11.11;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Intents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -9521,7 +9722,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -9532,7 +9733,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 11.10.1;
+				MARKETING_VERSION = 11.11;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Intents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -9756,7 +9957,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 4;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -9824,9 +10025,10 @@
 					"$(PROJECT_DIR)/Zmq",
 				);
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 11.10.1;
+				MARKETING_VERSION = 11.11;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
+				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -9875,7 +10077,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 4;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -9943,9 +10145,10 @@
 					"$(PROJECT_DIR)/Zmq",
 				);
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 11.10.1;
+				MARKETING_VERSION = 11.11;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
+				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",

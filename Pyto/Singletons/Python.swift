@@ -57,7 +57,155 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     
     /// The queue running scripts.
     @objc public let queue = DispatchQueue.global(qos: .userInteractive)
+    
+    /// Returns paths for on demand libraries that are already downloaded.
+    @objc public var accessibleOnDemandPaths: NSArray {
         
+        guard let libsURL = Bundle.main.url(forResource: "OnDemandLibraries", withExtension: "plist") else {
+            return NSArray(array: [])
+        }
+        
+        guard let libs = NSDictionary(contentsOf: libsURL) else {
+            return NSArray(array: [])
+        }
+        
+        var paths = [String]()
+        
+        for _key in libs.allKeys {
+            guard let key = _key as? String else {
+                continue
+            }
+            
+            let semaphore = DispatchSemaphore(value: 0)
+            DispatchQueue.main.async {
+                let request = NSBundleResourceRequest(tags: Set([key]))
+                request.conditionallyBeginAccessingResources { (success) in
+                    
+                    if success, let path = request.bundle.url(forResource: key, withExtension: nil)?.deletingLastPathComponent().path {
+                        paths.append(path)
+                        if !self.downloadedModules.contains(path) {
+                            self.downloadedModules.append(path)
+                        }
+                    }
+                    
+                    semaphore.signal()
+                }
+            }
+            semaphore.wait()
+        }
+        
+        return NSArray(array: paths)
+    }
+    
+    /// Downloaded on demand modules paths.
+    public var downloadedModules = [String]()
+    
+    /// Access downloadable library and its dependencies.
+    ///
+    /// - Parameters:
+    ///     - module: The library to download (or not if it's already downloaded).
+    ///
+    /// - Returns: An array of paths to add to `sys.path`.
+    @objc public func access(_ module: String) -> NSArray {
+        
+        #if MAIN
+        DispatchQueue.main.async {
+            if !UserDefaults.standard.bool(forKey: "downloadedModule") {
+                UserDefaults.standard.setValue(true, forKey: "downloadedModule")
+                
+                if #available(iOS 13.0, *) {
+                    let alert = UIAlertController(title: module, message: "Pyto is downloading \(module) scripts. The scripts are not included in the app's bundle so the download size is smaller. Included third party libraries such as numpy, scipy, pandas etc will take longer to import for the first time, but then the scripts will remain on disk. An internet connection will be needed for the first time you import an included module, then you'll not. This popup will not appear again.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "I understand", style: .default, handler: nil))
+                    for scene in UIApplication.shared.connectedScenes {
+                        let window = (scene as? UIWindowScene)?.windows.first
+                        if window?.isKeyWindow == true {
+                            window?.topViewController?.present(alert, animated: true, completion: nil)
+                            break
+                        }
+                    }
+                }
+                
+            }
+        }
+        #endif
+        
+        var modules = [module]
+        
+        let path = Bundle.main.resourcePath ?? Bundle.main.bundlePath
+        
+        guard let libsURL = Bundle.main.url(forResource: "OnDemandLibraries", withExtension: "plist") else {
+            return NSArray(array: [path])
+        }
+        
+        guard let libs = NSDictionary(contentsOf: libsURL) else {
+            return NSArray(array: [path])
+        }
+        
+        if let dependencies = libs[module] as? [String] {
+            modules.append(contentsOf: dependencies)
+        }
+        
+        var paths = [String]()
+        
+        var finished = false
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        DispatchQueue.main.async {
+            let request = NSBundleResourceRequest(tags: Set(modules))
+            request.loadingPriority = 1
+                        
+            request.conditionallyBeginAccessingResources { (downloaded) in
+                if downloaded {
+                    for module in modules {
+                        if let path = request.bundle.url(forResource: module, withExtension: nil)?.deletingLastPathComponent().path, !paths.contains(path) {
+                            paths.append(path)
+                            if !self.downloadedModules.contains(path) {
+                                self.downloadedModules.append(path)
+                            }
+                        }
+                    }
+                    
+                    semaphore.signal()
+                } else {
+                                        
+                    request.beginAccessingResources { (error) in
+                        if let error = error {
+                            paths = ["error", error.localizedDescription]
+                        } else {
+                            for module in modules {
+                                if let path = request.bundle.url(forResource: module.replacingOccurrences(of: "bio", with: "Bio"), withExtension: nil)?.deletingLastPathComponent().path, !paths.contains(path) {
+                                    paths.append(path)
+                                    if !self.downloadedModules.contains(path) {
+                                        self.downloadedModules.append(path)
+                                    }
+                                }
+                            }
+                        }
+                        semaphore.signal()
+                    }
+                }
+            }
+            
+            request.progress.resume()
+            
+            _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
+                
+                PyOutputHelper.print("\rDownloading \(module) \(Int(request.progress.fractionCompleted*100))%", script: nil)
+                
+                if finished {
+                    PyOutputHelper.print("\n", script: nil)
+                    return timer.invalidate()
+                }
+            })
+        }
+        
+        _ =  semaphore.wait(timeout: .now()+600)
+        
+        finished = true
+        
+        return NSArray(array: paths)
+    }
+    
     /// Additional builtin modules names.
     @objc public var modules = NSMutableArray()
     
@@ -306,6 +454,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
             
             let code = String(format: src, url.path)
             PyRun_SimpleStringFlags(code.cValue, nil)
+            fatalError()
             #endif
         }
     }

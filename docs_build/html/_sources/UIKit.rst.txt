@@ -1,4 +1,0 @@
-UIKit
-=====
-
-.. automodule:: UIKit

@@ -41,80 +41,71 @@ NSBundle* mainBundle() {
 
 void BandHandle(NSString *fkTitle, NSArray *nameArray, NSArray *keyArray) {
     
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSError *error;
-        for (NSURL *bundle in [NSFileManager.defaultManager contentsOfDirectoryAtURL:mainBundle().privateFrameworksURL includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:&error]) {
+    NSError *error;
+    for (NSURL *bundle in [NSFileManager.defaultManager contentsOfDirectoryAtURL:mainBundle().privateFrameworksURL includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:&error]) {
+        
+        NSURL *file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"cpython-37m-darwin.so"].lastPathComponent];
+        if (![NSFileManager.defaultManager fileExistsAtPath:file.path]) {
+            file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"abi3.so"].lastPathComponent];
+        }
+        if (![NSFileManager.defaultManager fileExistsAtPath:file.path]) {
+            file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"cpython-38-darwin.so"].lastPathComponent];
+        }
+        if (![NSFileManager.defaultManager fileExistsAtPath:file.path]) {
+            file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"abi3.so"].lastPathComponent];
+        }
+        NSString *name = file.URLByDeletingPathExtension.URLByDeletingPathExtension.lastPathComponent;
+        
+        void *handle = NULL;
+        for( int i=0; i<nameArray.count; i++){
+            NSString *fkey  = [keyArray  objectAtIndex:i];
             
-            NSURL *file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"cpython-37m-darwin.so"].lastPathComponent];
-            if (![NSFileManager.defaultManager fileExistsAtPath:file.path]) {
-                file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"abi3.so"].lastPathComponent];
+            #if MAIN || WIDGET
+            NSArray *imported = [[NSArray alloc] initWithArray: Python.shared.importedModules];
+            if ([imported containsObject: fkey]) {
+                continue;
             }
-            if (![NSFileManager.defaultManager fileExistsAtPath:file.path]) {
-                file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"cpython-38-darwin.so"].lastPathComponent];
-            }
-            if (![NSFileManager.defaultManager fileExistsAtPath:file.path]) {
-                file = [bundle URLByAppendingPathComponent:[bundle.URLByDeletingPathExtension URLByAppendingPathExtension:@"abi3.so"].lastPathComponent];
-            }
-            NSString *name = file.URLByDeletingPathExtension.URLByDeletingPathExtension.lastPathComponent;
+            #endif
             
-            void *handle = NULL;
-            for( int i=0; i<nameArray.count; i++){
-                NSString *fkey  = [keyArray  objectAtIndex:i];
+            if ([name isEqualToString:[nameArray objectAtIndex:i]]){
+                void *dllHandle = NULL; load(dllHandle);
                 
-                #if MAIN || WIDGET
-                NSArray *imported = [[NSArray alloc] initWithArray: Python.shared.importedModules];
-                if ([imported containsObject: fkey]) {
-                    continue;
+                if (!dllHandle) {
+                    fprintf(stderr, "%s\n", dlerror());
                 }
-                #endif
                 
-                if ([name isEqualToString:[nameArray objectAtIndex:i]]){
-                    void *dllHandle = NULL; load(dllHandle);
-                    
-                    if (!dllHandle) {
-                        fprintf(stderr, "%s\n", dlerror());
-                    }
-                    
-                    NSString *funcName = [nameArray objectAtIndex:i];
-                    
-                    PyObject* (*func)(void);
-                    func = dlsym(dllHandle, [NSString stringWithFormat:@"PyInit_%@", funcName].UTF8String);
-                    
+                NSString *funcName = [nameArray objectAtIndex:i];
+                
+                PyObject* (*func)(void);
+                func = dlsym(dllHandle, [NSString stringWithFormat:@"PyInit_%@", funcName].UTF8String);
+                
+                if (!func) {
+                    NSMutableArray *comp = [NSMutableArray arrayWithArray:[funcName componentsSeparatedByString:@"_"]];
+                    [comp removeObjectAtIndex:0];
+                    func = dlsym(dllHandle, [NSString stringWithFormat:@"PyInit__%@", [comp componentsJoinedByString:@"_"]].UTF8String);
                     if (!func) {
-                        NSMutableArray *comp = [NSMutableArray arrayWithArray:[funcName componentsSeparatedByString:@"_"]];
-                        [comp removeObjectAtIndex:0];
-                        func = dlsym(dllHandle, [NSString stringWithFormat:@"PyInit__%@", [comp componentsJoinedByString:@"_"]].UTF8String);
-                        if (!func) {
-                            func = dlsym(dllHandle, [NSString stringWithFormat:@"PyInit_%@", [comp componentsJoinedByString:@"_"]].UTF8String);
-                        }
+                        func = dlsym(dllHandle, [NSString stringWithFormat:@"PyInit_%@", [comp componentsJoinedByString:@"_"]].UTF8String);
                     }
-                    
-                    if (!handle) {
-                        fprintf(stderr, "%s\n", dlerror());
-                    } else {
-                        if (!func) {
-                            NSLog(@"%@", funcName);
-                        } else {
-                            #if MAIN || WIDGET
-                            //PyObject* pyModule = func();
-                            //PyObject* importer = Pymodule;
-                            //[Python.shared.modules setObject: (__bridge id _Nonnull)(pyModule) forKey: fkey];
-                            PyImport_AppendInittab(fkey.UTF8String, func);
-                            [Python.shared.modules addObject: fkey];
-                            #endif
-                        }
-                    }
-                    break;
                 }
+                
+                if (!handle) {
+                    fprintf(stderr, "%s\n", dlerror());
+                } else {
+                    if (!func) {
+                        NSLog(@"%@", funcName);
+                    } else {
+                        #if MAIN || WIDGET
+                        //PyObject* pyModule = func();
+                        //PyObject* importer = Pymodule;
+                        //[Python.shared.modules setObject: (__bridge id _Nonnull)(pyModule) forKey: fkey];
+                        PyImport_AppendInittab(fkey.UTF8String, func);
+                        [Python.shared.modules addObject: fkey];
+                        #endif
+                    }
+                }
+                break;
             }
         }
-        
-        dispatch_semaphore_signal(semaphore);
-    });
-    
-    if (![NSThread.currentThread isMainThread]) {
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     }
 }
 
@@ -133,7 +124,7 @@ void init_matplotlib() {
     
     putenv((char *)[[NSString stringWithFormat:@"MATPLOTLIBDATA=%@", mpl_data.path] UTF8String]);
     
-    for (NSURL *fileURL in [NSFileManager.defaultManager contentsOfDirectoryAtURL:[mainBundle() URLForResource:@"site-packages/matplotlib/mpl-data" withExtension:NULL] includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:NULL]) {
+    for (NSURL *fileURL in [NSFileManager.defaultManager contentsOfDirectoryAtURL:[mainBundle() URLForResource:@"site-packages/mpl-data" withExtension:NULL] includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:NULL]) {
         NSURL *newURL = [mpl_data URLByAppendingPathComponent:fileURL.lastPathComponent];
         if (![NSFileManager.defaultManager fileExistsAtPath:newURL.path]) {
             [NSFileManager.defaultManager copyItemAtURL:fileURL toURL:newURL error:NULL];

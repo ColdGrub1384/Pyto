@@ -163,6 +163,8 @@ webbrowser.register("mobile-safari", None, MobileSafari("MobileSafari.app"))
 for importer in (NumpyImporter, MatplotlibImporter, PandasImporter, PillowImporter, BiopythonImporter, LXMLImporter, ScipyImporter, SkLearnImporter, SkImageImporter, PywtImporter, NaclImporter, CryptographyImporter, BcryptImporter, StatsmodelsImporter, ZmqImporter, RegexImporter, GensimImporter):
     sys.meta_path.insert(0, importer())
 
+sys.meta_path.insert(0, DownloadableImporter()) # Needs to be first
+
 # MARK: - Pre-import modules
 
 def importModules():
@@ -195,6 +197,13 @@ def importModules():
         pass
 
 threading.Thread(target=importModules).start()
+
+def addOnDemandPaths():
+    paths = pyto.Python.shared.accessibleOnDemandPaths
+    for path in paths:
+        sys.path.append(str(path))
+
+threading.Thread(target=addOnDemandPaths).start()
 
 # MARK: - Create a Selector without class.
 

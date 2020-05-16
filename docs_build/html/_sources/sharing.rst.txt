@@ -1,5 +1,0 @@
-sharing
-=======
-
-.. automodule:: sharing
-   :members:
