@@ -160,7 +160,7 @@ webbrowser.register("mobile-safari", None, MobileSafari("MobileSafari.app"))
 
 # MARK: - Modules
 
-for importer in (NumpyImporter, MatplotlibImporter, PandasImporter, PillowImporter, BiopythonImporter, LXMLImporter, ScipyImporter, SkLearnImporter, SkImageImporter, PywtImporter, NaclImporter, CryptographyImporter, BcryptImporter, StatsmodelsImporter, ZmqImporter, RegexImporter, GensimImporter):
+for importer in (NumpyImporter, MatplotlibImporter, PandasImporter, PillowImporter, BiopythonImporter, LXMLImporter, ScipyImporter, SkLearnImporter, SkImageImporter, PywtImporter, NaclImporter, CryptographyImporter, BcryptImporter, StatsmodelsImporter, ZmqImporter, RegexImporter, GensimImporter, AstropyImporter):
     sys.meta_path.insert(0, importer())
 
 sys.meta_path.insert(0, DownloadableImporter()) # Needs to be first
@@ -193,7 +193,7 @@ def importModules():
 
         PIL.ImageShow.show = show_image
     
-    except ImportError:
+    except:
         pass
 
 threading.Thread(target=importModules).start()
