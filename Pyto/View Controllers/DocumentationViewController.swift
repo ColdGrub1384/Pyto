@@ -111,10 +111,10 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
                 
                 _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
                     if done {
-                        self.title = nil
+                        self.navigationItem.title = nil
                         timer.invalidate()
                     } else {
-                        self.title = "\(Int(self.request.progress.fractionCompleted*100))%"
+                        self.navigationItem.title = "\(Int(self.request.progress.fractionCompleted*100))%"
                     }
                 })
             }
