@@ -68,6 +68,8 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         }
     }
     
+    let request = NSBundleResourceRequest(tags: ["docs"])
+    
     // MARK: - View controller
     
     override var keyCommands: [UIKeyCommand]? {
@@ -85,8 +87,37 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(webView)
         
-        if let url = Bundle.main.url(forResource: "docs_build/html", withExtension: "") {
-            webView.loadFileURL(url.appendingPathComponent("index.html"), allowingReadAccessTo: url)
+        request.conditionallyBeginAccessingResources { (downloaded) in
+            if downloaded {
+                if let url = self.request.bundle.url(forResource: "docs_build/html", withExtension: "") {
+                    self.webView.loadFileURL(url.appendingPathComponent("index.html"), allowingReadAccessTo: url)
+                }
+            } else {
+                
+                var done = false
+                
+                self.request.beginAccessingResources { (error) in
+                    done = true
+                    DispatchQueue.main.async {
+                        if let error = error {
+                            self.webView.loadHTMLString("<h1>Error downloading documentation</h1> <p>\(error.localizedDescription)</p>", baseURL: nil)
+                        } else {
+                            if let url = self.request.bundle.url(forResource: "docs_build/html", withExtension: "") {
+                                self.webView.loadFileURL(url.appendingPathComponent("index.html"), allowingReadAccessTo: url)
+                            }
+                        }
+                    }
+                }
+                
+                _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
+                    if done {
+                        self.title = nil
+                        timer.invalidate()
+                    } else {
+                        self.title = "\(Int(self.request.progress.fractionCompleted*100))%"
+                    }
+                })
+            }
         }
         
         goBackButton = UIBarButtonItem(image: UIImage(named: "back"), style: .plain, target: self, action: #selector(goBack))

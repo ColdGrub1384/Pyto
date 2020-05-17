@@ -351,6 +351,13 @@ import SourceEditor
         textView.keyboardAppearance = theme.keyboardAppearance
         textView.backgroundColor = theme.sourceCodeTheme.backgroundColor
         view.backgroundColor = theme.sourceCodeTheme.backgroundColor
+        
+        if #available(iOS 13.0, *) {
+            guard view.window?.windowScene?.activationState != .background else {
+                return
+            }
+        }
+        
         if textView.textColor != theme.sourceCodeTheme.color(for: .plain) {
             textView.textColor = theme.sourceCodeTheme.color(for: .plain)
         }
@@ -796,6 +803,7 @@ import SourceEditor
                 
         if #available(iOS 13.0, *) {
             guard view.window?.windowScene?.activationState != .background else {
+                themeDidChange(nil)
                 return
             }
         }

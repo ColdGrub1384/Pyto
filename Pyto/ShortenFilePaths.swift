@@ -33,6 +33,10 @@ func ShortenFilePaths(in str: String) -> String {
     text = text.replacingOccurrences(of: URL(fileURLWithPath: "/private").appendingPathComponent(docs.deletingLastPathComponent().path).path.replacingOccurrences(of: "//", with: "/"), with: "")
     text = text.replacingOccurrences(of: docs.deletingLastPathComponent().path+"/", with: "")
     text = text.replacingOccurrences(of: docs.deletingLastPathComponent().path, with: "")
+
+    for mod in Python.shared.downloadedModules {
+        text = text.replacingOccurrences(of: mod, with: "OnDemand")
+    }
     
     return text
 }

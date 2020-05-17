@@ -211,6 +211,16 @@ import WatchConnectivity
         }
         #endif
         
+        // Download docs
+        let docsRequest = NSBundleResourceRequest(tags: ["docs"])
+        docsRequest.conditionallyBeginAccessingResources { (downloaded) in
+            if !downloaded {
+                docsRequest.beginAccessingResources { (error) in
+                    print(error?.localizedDescription ?? "")
+                }
+            }
+        }
+        
         #else
         window = UIWindow()
         window?.backgroundColor = .white

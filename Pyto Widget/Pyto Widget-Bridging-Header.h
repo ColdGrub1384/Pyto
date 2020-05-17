@@ -4,5 +4,6 @@
 
 #import "../Python/Python.h"
 #import "../Pyto/Python Bridging/Selectors/BlockBasedSelector.h"
+#include <os/proc.h>
 
 void setup_python();
