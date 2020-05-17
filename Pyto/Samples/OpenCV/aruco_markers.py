@@ -7,9 +7,9 @@ import sys
 import cv2.aruco as aruco
 
 
-device = 0 # Front camera
+device = 0 # Back camera
 try:
-    device = int(sys.argv[1]) # 0 for back camera
+    device = int(sys.argv[1]) # 1 for front camera
 except IndexError:
     pass
 

@@ -190,10 +190,13 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
             
             _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
                 
-                PyOutputHelper.print("\rDownloading \(module) \(Int(request.progress.fractionCompleted*100))%", script: nil)
+                var newline = ""
+                if finished {
+                    newline = "\n"
+                }
+                PyOutputHelper.print("\rDownloading \(module) \(Int(request.progress.fractionCompleted*100))%"+newline, script: nil)
                 
                 if finished {
-                    PyOutputHelper.print("\n", script: nil)
                     return timer.invalidate()
                 }
             })
@@ -202,7 +205,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         _ =  semaphore.wait(timeout: .now()+600)
         
         finished = true
-        
+                
         return NSArray(array: paths)
     }
     
@@ -402,17 +405,6 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     
     /// Set to `true` when the REPL is ready to run scripts.
     @objc var isSetup = false
-    
-    /// Exposes Pyto modules to Pyhon.
-    @available(*, deprecated, message: "The Library is now located on app bundle.")
-    @objc public func importPytoLib() {
-        guard let newLibURL = FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask).first?.appendingPathComponent("pylib") else {
-            fatalError("WHY IS THAT HAPPENING????!!!!!!! HOW THE LIBRARY DIR CANNOT BE FOUND!!!!???")
-        }
-        if FileManager.default.fileExists(atPath: newLibURL.path) {
-            try? FileManager.default.removeItem(at: newLibURL)
-        }
-    }
     
     /// The thread running script.
     @objc public var thread: Thread?
