@@ -666,6 +666,10 @@ void init_statsmodels() {
 
 // MARK: - Zmq
 
+void _zmq() { // So zmq symbols are included in the app
+    zmq_ctx_new();
+}
+
 void init_zmq() {
     
     NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
@@ -711,9 +715,30 @@ void init_regex() {
     BandHandle(@"regex", name, key);
 }
 
-void _zmq() { // So zmq symbols are included in the app
-    zmq_ctx_new();
+// MARK: - Astropy
+
+void init_astropy() {
+    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
+    [name addObject:@"_column_mixins"]; [key addObject:@"__astropy_table__column_mixins"];
+    [name addObject:@"_compiler"]; [key addObject:@"__astropy_utils__compiler"];
+    [name addObject:@"_convolve"]; [key addObject:@"__astropy_convolution__convolve"];
+    [name addObject:@"_impl"]; [key addObject:@"__astropy_timeseries_periodograms_bls__impl"];
+    [name addObject:@"_iterparser"]; [key addObject:@"__astropy_utils_xml__iterparser"];
+    [name addObject:@"_np_utils"]; [key addObject:@"__astropy_table__np_utils"];
+    [name addObject:@"_projections"]; [key addObject:@"__astropy_modeling__projections"];
+    [name addObject:@"_stats"]; [key addObject:@"__astropy_stats__stats"];
+    [name addObject:@"_wcs"]; [key addObject:@"__astropy_wcs__wcs"];
+    [name addObject:@"compiler_version"]; [key addObject:@"__astropy_compiler_version"];
+    [name addObject:@"cparser"]; [key addObject:@"__astropy_io_ascii_cparser"];
+    [name addObject:@"cython_impl"]; [key addObject:@"__astropy_timeseries_periodograms_lombscargle_implementations_cython_impl"];
+    [name addObject:@"fits__utils"]; [key addObject:@"__astropy_io_fits__utils"];
+    [name addObject:@"scalar_inv_efuncs"]; [key addObject:@"__astropy_cosmology_scalar_inv_efuncs"];
+    [name addObject:@"tablewriter"]; [key addObject:@"__astropy_io_votable_tablewriter"];
+    [name addObject:@"ufunc"]; [key addObject:@"__astropy__erfa_ufunc"];
+    [name addObject:@"compression"]; [key addObject:@"__astropy_io_fits_compression"];
+    BandHandle(@"astropy", name, key);
 }
+
 #endif
 
 #endif
@@ -766,6 +791,15 @@ int initialize_python(int argc, char *argv[]) {
     NSString *certPath = [mainBundle() pathForResource:@"cacert.pem" ofType:NULL];
     putenv((char *)[[NSString stringWithFormat:@"SSL_CERT_FILE=%@", certPath] UTF8String]);
     #endif
+    
+    // Astropy caches
+    NSString *caches = [NSFileManager.defaultManager URLsForDirectory:NSCachesDirectory inDomains:NSAllDomainsMask].firstObject.path;
+    NSString *astropyCaches = [caches stringByAppendingPathComponent:@"astropy"];
+    if ([NSFileManager.defaultManager fileExistsAtPath:astropyCaches]) {
+        [NSFileManager.defaultManager removeItemAtPath:astropyCaches error:NULL];
+    }
+    [NSFileManager.defaultManager createDirectoryAtPath:astropyCaches withIntermediateDirectories:YES attributes:NULL error:NULL];
+    putenv((char *)[NSString stringWithFormat:@"XDG_CACHE_HOME=%@", caches].UTF8String);
     
     // MARK: - Init Python
     Py_SetPythonHome(Py_DecodeLocale([pythonBundle.bundlePath UTF8String], NULL));
