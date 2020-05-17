@@ -17,8 +17,6 @@
 #import "Pyto_Widget-Swift.h"
 #endif
 #include <dlfcn.h>
-#include "../PyNacl/sodium/crypto_pwhash_scryptsalsa208sha256.h"
-#include "../PyNacl/sodium/crypto_shorthash_siphash24.h"
 
 #define load(HANDLE) handle = dlopen(file.path.UTF8String, RTLD_GLOBAL);  HANDLE = handle;
 
@@ -126,7 +124,7 @@ void init_matplotlib() {
     
     putenv((char *)[[NSString stringWithFormat:@"MATPLOTLIBDATA=%@", mpl_data.path] UTF8String]);
     
-    for (NSURL *fileURL in [NSFileManager.defaultManager contentsOfDirectoryAtURL:[mainBundle() URLForResource:@"site-packages/matplotlib/mpl-data" withExtension:NULL] includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:NULL]) {
+    for (NSURL *fileURL in [NSFileManager.defaultManager contentsOfDirectoryAtURL:[mainBundle() URLForResource:@"site-packages/mpl-data" withExtension:NULL] includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:NULL]) {
         NSURL *newURL = [mpl_data URLByAppendingPathComponent:fileURL.lastPathComponent];
         if (![NSFileManager.defaultManager fileExistsAtPath:newURL.path]) {
             [NSFileManager.defaultManager copyItemAtURL:fileURL toURL:newURL error:NULL];
@@ -609,6 +607,8 @@ void init_cffi() {
     NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
     [name addObject:@"_cffi_backend"]; [key addObject:@"_cffi_backend"];
     BandHandle(@"_cffi_backend", name, key);
+    
+    [Python.shared.modules addObject: @"_cffi_backend"];
 }
 
 // MARK: - Bcrypt
@@ -666,6 +666,10 @@ void init_statsmodels() {
 
 // MARK: - Zmq
 
+void _zmq() { // So zmq symbols are included in the app
+    zmq_ctx_new();
+}
+
 void init_zmq() {
     
     NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
@@ -682,6 +686,59 @@ void init_zmq() {
     [name addObject:@"zmq_utils"];        [key addObject:@"__zmq_backend_cython_utils"];
     BandHandle(@"zmq", name, key);
 }
+
+// MARK: - Gensim
+
+void init_gensim() {
+    
+    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
+    [name addObject:@"_matutils"];           [key addObject:@"__gensim__matutils"];
+    [name addObject:@"_mmreader"];           [key addObject:@"__gensim_corpora__mmreader"];
+    [name addObject:@"_utils_any2vec"];      [key addObject:@"__gensim_models__utils_any2vec"];
+    [name addObject:@"doc2vec_corpusfile"];  [key addObject:@"__gensim_models_doc2vec_corpusfile"];
+    [name addObject:@"doc2vec_inner"];       [key addObject:@"__gensim_models_doc2vec_inner"];
+    [name addObject:@"fasttext_corpusfile"]; [key addObject:@"__gensim_models_fasttext_corpusfile"];
+    [name addObject:@"fasttext_inner"];      [key addObject:@"__gensim_models_fasttext_inner"];
+    [name addObject:@"nmf_pgd"];             [key addObject:@"__gensim_models_nmf_pgd"];
+    [name addObject:@"word2vec_corpusfile"]; [key addObject:@"__gensim_models_word2vec_corpusfile"];
+    [name addObject:@"word2vec_inner"];      [key addObject:@"__gensim_models_word2vec_inner"];
+    BandHandle(@"gensim", name, key);
+}
+
+
+// MARK: - Regex
+
+void init_regex() {
+    
+    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
+    [name addObject:@"_regex"]; [key addObject:@"__regex__regex"];
+    BandHandle(@"regex", name, key);
+}
+
+// MARK: - Astropy
+
+void init_astropy() {
+    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
+    [name addObject:@"_column_mixins"]; [key addObject:@"__astropy_table__column_mixins"];
+    [name addObject:@"_compiler"]; [key addObject:@"__astropy_utils__compiler"];
+    [name addObject:@"_convolve"]; [key addObject:@"__astropy_convolution__convolve"];
+    [name addObject:@"_impl"]; [key addObject:@"__astropy_timeseries_periodograms_bls__impl"];
+    [name addObject:@"_iterparser"]; [key addObject:@"__astropy_utils_xml__iterparser"];
+    [name addObject:@"_np_utils"]; [key addObject:@"__astropy_table__np_utils"];
+    [name addObject:@"_projections"]; [key addObject:@"__astropy_modeling__projections"];
+    [name addObject:@"_stats"]; [key addObject:@"__astropy_stats__stats"];
+    [name addObject:@"_wcs"]; [key addObject:@"__astropy_wcs__wcs"];
+    [name addObject:@"compiler_version"]; [key addObject:@"__astropy_compiler_version"];
+    [name addObject:@"cparser"]; [key addObject:@"__astropy_io_ascii_cparser"];
+    [name addObject:@"cython_impl"]; [key addObject:@"__astropy_timeseries_periodograms_lombscargle_implementations_cython_impl"];
+    [name addObject:@"fits__utils"]; [key addObject:@"__astropy_io_fits__utils"];
+    [name addObject:@"scalar_inv_efuncs"]; [key addObject:@"__astropy_cosmology_scalar_inv_efuncs"];
+    [name addObject:@"tablewriter"]; [key addObject:@"__astropy_io_votable_tablewriter"];
+    [name addObject:@"ufunc"]; [key addObject:@"__astropy__erfa_ufunc"];
+    [name addObject:@"compression"]; [key addObject:@"__astropy_io_fits_compression"];
+    BandHandle(@"astropy", name, key);
+}
+
 #endif
 
 #endif
@@ -698,79 +755,11 @@ void init_cv2() {
 
 // MARK: - Nacl
 
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_bytes_min(void) {
-    return crypto_pwhash_scryptsalsa208sha256_BYTES_MIN;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_bytes_max(void) {
-    return crypto_pwhash_scryptsalsa208sha256_BYTES_MAX;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_passwd_min(void) {
-    return crypto_pwhash_scryptsalsa208sha256_PASSWD_MIN;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_passwd_max(void) {
-    return crypto_pwhash_scryptsalsa208sha256_PASSWD_MAX;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_saltbytes(void) {
-    return crypto_pwhash_scryptsalsa208sha256_SALTBYTES;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_strbytes(void) {
-    return crypto_pwhash_scryptsalsa208sha256_STRBYTES;
-}
-
-SODIUM_EXPORT const char *crypto_pwhash_scryptsalsa208sha256_strprefix(void) {
-    return crypto_pwhash_scryptsalsa208sha256_STRPREFIX;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_opslimit_min(void) {
-    return crypto_pwhash_scryptsalsa208sha256_OPSLIMIT_MIN;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_opslimit_max(void) {
-    return crypto_pwhash_scryptsalsa208sha256_OPSLIMIT_MAX;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_memlimit_min(void) {
-    return crypto_pwhash_scryptsalsa208sha256_MEMLIMIT_MIN;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_memlimit_max(void) {
-    return crypto_pwhash_scryptsalsa208sha256_MEMLIMIT_MAX;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_opslimit_interactive(void) {
-    return crypto_pwhash_scryptsalsa208sha256_OPSLIMIT_INTERACTIVE;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_memlimit_interactive(void) {
-    return crypto_pwhash_scryptsalsa208sha256_MEMLIMIT_INTERACTIVE;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_opslimit_sensitive(void) {
-    return crypto_pwhash_scryptsalsa208sha256_OPSLIMIT_SENSITIVE;
-}
-
-SODIUM_EXPORT size_t crypto_pwhash_scryptsalsa208sha256_memlimit_sensitive(void) {
-    return crypto_pwhash_scryptsalsa208sha256_MEMLIMIT_SENSITIVE;
-}
-
-
-SODIUM_EXPORT size_t crypto_shorthash_siphashx24_bytes(void) {
-    return crypto_shorthash_siphashx24_BYTES;
-}
-
-SODIUM_EXPORT size_t crypto_shorthash_siphashx24_keybytes(void) {
-    return crypto_shorthash_siphashx24_KEYBYTES;
-}
-
 extern PyMODINIT_FUNC PyInit__sodium(void);
 
 void init_nacl() {
     PyImport_AppendInittab("__nacl__sodium", &PyInit__sodium);
+    [Python.shared.modules addObject: @"__nacl__sodium"];
 }
 
 #endif
@@ -803,26 +792,37 @@ int initialize_python(int argc, char *argv[]) {
     putenv((char *)[[NSString stringWithFormat:@"SSL_CERT_FILE=%@", certPath] UTF8String]);
     #endif
     
+    // Astropy caches
+    NSString *caches = [NSFileManager.defaultManager URLsForDirectory:NSCachesDirectory inDomains:NSAllDomainsMask].firstObject.path;
+    NSString *astropyCaches = [caches stringByAppendingPathComponent:@"astropy"];
+    if ([NSFileManager.defaultManager fileExistsAtPath:astropyCaches]) {
+        [NSFileManager.defaultManager removeItemAtPath:astropyCaches error:NULL];
+    }
+    [NSFileManager.defaultManager createDirectoryAtPath:astropyCaches withIntermediateDirectories:YES attributes:NULL error:NULL];
+    putenv((char *)[NSString stringWithFormat:@"XDG_CACHE_HOME=%@", caches].UTF8String);
+    
     // MARK: - Init Python
     Py_SetPythonHome(Py_DecodeLocale([pythonBundle.bundlePath UTF8String], NULL));
     Py_Initialize();
     PyEval_InitThreads();
     
+    #if MAIN
     wchar_t** python_argv = PyMem_RawMalloc(sizeof(wchar_t*) * argc);
     int i;
     for (i = 0; i < argc; i++) {
         python_argv[i] = Py_DecodeLocale(argv[i], NULL);
     }
     PySys_SetArgv(argc, python_argv);
+    #endif
     
-    init_numpy();
     // Now the app initializes modules when they are imported
     // That makes the app startup a lot faster
     // It's not recommended by the Python docs to add builtin modules after PyInitialize
     // But it works after adding mod names to builtin mod names manually
-    
+    init_pil();
     #if MAIN
-    zmq_ctx_new(); // So zmq symbols are included in the app
+    init_numpy();
+    init_cffi();
     #endif
     
     // MARK: - Start the REPL that will contain all child modules

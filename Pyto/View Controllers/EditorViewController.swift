@@ -916,9 +916,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     /// Shares the current script.
     @objc func share(_ sender: UIBarButtonItem) {
-        let xcodeActivtiy = XcodeActivity()
-        xcodeActivtiy.viewController = self
-        let activityVC = UIActivityViewController(activityItems: [document?.fileURL as Any], applicationActivities: [xcodeActivtiy])
+        let activityVC = UIActivityViewController(activityItems: [document?.fileURL as Any], applicationActivities: nil)
         activityVC.popoverPresentationController?.barButtonItem = sender
         present(activityVC, animated: true, completion: nil)
     }

@@ -25,7 +25,14 @@ import Foundation
     func startListening() {
         // Yes, a timer. But it does not seem to slow down the app.
         _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (_) in
-            if self.memoryBudget <= 300 {
+            
+            #if WIDGET
+            let leftLimit: Float = 0.0
+            #else
+            let leftLimit: Float = 300
+            #endif
+            
+            if self.memoryBudget <= leftLimit {
                 self.memoryLimitAlmostReached?()
             }
         })

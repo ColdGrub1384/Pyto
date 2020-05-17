@@ -45,6 +45,7 @@ import webbrowser
 import sharing
 import _signal
 import traceback
+import unittest
 from pip import BUNDLED_MODULES
 
 # MARK: - Warnings
@@ -159,8 +160,10 @@ webbrowser.register("mobile-safari", None, MobileSafari("MobileSafari.app"))
 
 # MARK: - Modules
 
-for importer in (NumpyImporter, MatplotlibImporter, PandasImporter, PillowImporter, BiopythonImporter, LXMLImporter, ScipyImporter, SkLearnImporter, SkImageImporter, PywtImporter, NaclImporter, CryptographyImporter, BcryptImporter, StatsmodelsImporter, ZmqImporter):
+for importer in (NumpyImporter, MatplotlibImporter, PandasImporter, PillowImporter, BiopythonImporter, LXMLImporter, ScipyImporter, SkLearnImporter, SkImageImporter, PywtImporter, NaclImporter, CryptographyImporter, BcryptImporter, StatsmodelsImporter, ZmqImporter, RegexImporter, GensimImporter, AstropyImporter):
     sys.meta_path.insert(0, importer())
+
+sys.meta_path.insert(0, DownloadableImporter()) # Needs to be first
 
 # MARK: - Pre-import modules
 
@@ -190,10 +193,17 @@ def importModules():
 
         PIL.ImageShow.show = show_image
     
-    except ImportError:
+    except:
         pass
 
 threading.Thread(target=importModules).start()
+
+def addOnDemandPaths():
+    paths = pyto.Python.shared.accessibleOnDemandPaths
+    for path in paths:
+        sys.path.append(str(path))
+
+threading.Thread(target=addOnDemandPaths).start()
 
 # MARK: - Create a Selector without class.
 
@@ -239,6 +249,27 @@ _signal.signal = signal
 # MARK: - Plugin
 
 __builtins__.__editor_delegate__ = None
+
+# MARK: - Unittest
+
+_original_unittest_main = unittest.main
+def _unittest_main(module='__main__', defaultTest=None, argv=None, testRunner=None, testLoader=unittest.defaultTestLoader, exit=True, verbosity=1, failfast=None, catchbreak=None, buffer=None, warnings=None):
+
+    _module = module
+    
+    if module == "__main__":
+        thread = threading.current_thread()
+
+        try:
+            path = thread.script_path
+            _module = path.split("/")[-1]
+            _module = os.path.splitext(_module)[0]
+        except AttributeError:
+            pass
+
+    _original_unittest_main(_module, defaultTest, argv, testRunner, testLoader, exit, verbosity, failfast, catchbreak, buffer, warnings)
+
+unittest.main = _unittest_main
 
 # MARK: - Run script
 
