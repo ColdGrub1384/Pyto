@@ -24,6 +24,15 @@ class Static { private init(){} }
 /// A class containing localizable strings.
 class Localizable: Static {
     
+    /// Add
+    static let add = NSLocalizedString("add", comment: "Add")
+    
+    /// Error
+    static let error = NSLocalizedString("error", comment: "Error")
+    
+    /// Untitled file name
+    static let untitled = NSLocalizedString("untitled", comment: "Untitled")
+    
     /// 'Unindent' key command
     static let unindent = NSLocalizedString("unindent", comment: "'Unindent' key command")
     
@@ -69,8 +78,78 @@ class Localizable: Static {
     /// 'Change'
     static let change = NSLocalizedString("change", comment: "'Change'")
     
+    /// 'Replace'
+    static let replace = NSLocalizedString("replace", comment: "'Replace'")
+    
     /// 'Find'
     static let find = NSLocalizedString("find", comment: "'Find'")
+    
+    /// Strings used in the projects browser.
+    class ProjectsBrowser: Static {
+        
+        /// 'Projects'
+        static let title = NSLocalizedString("projectsBrowser.title", comment: "'Projects'")
+        
+        /// 'Open'
+        static let open = NSLocalizedString("projectsBrowser.open", comment: "'Open'")
+        
+        /// 'Recent'
+        static let recent = NSLocalizedString("projectsBrowser.recent", comment: "'Recent'")
+    }
+    
+    /// Strings used when setting input suggestions for Watch.
+    class WatchInputSuggestions: Static {
+        
+        /// The title of the alert for adding a new suggestion
+        static let title = NSLocalizedString("watchInputSuggestions.title", comment: "The title of the alert for adding a new suggestion")
+        
+        /// The message of the alert for adding a new suggestion
+        static let message = NSLocalizedString("watchInputSuggestions.message", comment: "The message of the alert for adding a new suggestion")
+    }
+    
+    /// Strings used by the PyPi installer.
+    class PyPi: Static {
+
+        /// Select a version
+        static let selectVersion = NSLocalizedString("pypi.selectVersion", comment: "Select a version")
+        
+        /// The placeholder of the search bar
+        static let searchBarPlaceholder = NSLocalizedString("pypi.searchBarPlaceholder", comment: "The placeholder of the search bar")
+        
+        /// The title of the 'Requirements' section
+        static let requirements = NSLocalizedString("pypi.requirements", comment: "The title of the 'Requirements' section")
+        
+        /// The title of the 'Project' section
+        static let project = NSLocalizedString("pypi.project", comment: "The title of the 'Project' section")
+        
+        /// The title of the 'Links' section
+        static let links = NSLocalizedString("pypi.links", comment: "The title of the 'Links' section")
+        
+        /// Version
+        static let version = NSLocalizedString("pypi.version", comment: "Version")
+        
+        /// Author
+        static let author = NSLocalizedString("pypi.author", comment: "Author")
+        
+        /// Maintainer
+        static let maintainer = NSLocalizedString("pypi.maintainer", comment: "Maintainer")
+        
+        /// Package not found
+        static let packageNotFound = NSLocalizedString("pypi.packageNotFound", comment: "Package not found")
+        
+        /// Library is provided by Pyto
+        static let providedByPyto = NSLocalizedString("pypi.providedByPyto", comment: "Library is provided by Pyto")
+        
+        /// Remove (package)
+        static func remove(package: String) -> String {
+            return NSString(format: NSLocalizedString("pypi.remove", comment: "Remove (package)") as NSString, package) as String
+        }
+        
+        /// Install (package)
+        static func install(package: String) -> String {
+            return NSString(format: NSLocalizedString("pypi.install", comment: "Install (package)") as NSString, package) as String
+        }
+    }
     
     /// View controller simulating a widget on the Notification Center.
     class WidgetSimulator: Static {
@@ -88,20 +167,23 @@ class Localizable: Static {
         static let showMore = NSLocalizedString("widget.showMore", comment: "Title of the button for expanding a widget.")
     }
     
-    /// Alert for setting current directory.
-    class CurrentDirectoryAlert: Static {
+    /// Alert shown when setting a current directory not containing the script.
+    class CouldNotAccessScriptAlert: Static {
         
-        /// Message of the alert for setting current directory
-        static let message = NSLocalizedString("directoryAlert.message", comment: "Message of the alert for setting current directory")
+        /// Title of the alert shown when setting a current directory not containing the script
+        static let title = NSLocalizedString("couldNotAccessScriptAlert.title", comment: "Title of the alert shown when setting a current directory not containing the script")
         
-        /// Title of the alert for setting current directory
-        static let title = NSLocalizedString("directoryAlert.title", comment: "Title of the alert for current directory")
+        /// Message of the alert shown when setting a current directory not containing the script
+        static let message = NSLocalizedString("couldNotAccessScriptAlert.message", comment: "Message of the alert shown when setting a current directory not containing the script")
         
-        /// Message shown after the path of a directory that is not readable in the alert for setting the current directory
-        static let notReadable = NSLocalizedString("directoryAlert.notReadable", comment: "Message shown after the path of a directory that is not readable in the alert for setting the current directory")
+        /// Use anyway
+        static let useAnyway = NSLocalizedString("couldNotAccessScriptAlert.useAnyway", comment: "Use anyway")
         
-        /// Message shown after the path of a directory that is readable in the alert for setting the current directory
-        static let readable = NSLocalizedString("directoryAlert.readable", comment: "Message shown after the path of a directory that is readable in the alert for setting the current directory")
+        /// Select another location
+        static let selectAnotherLocation = NSLocalizedString("couldNotAccessScriptAlert.selectAnotherLocation", comment: "Select another location")
+        
+        /// The current directory is readable
+        static let readable = NSLocalizedString("couldNotAccessScriptAlert.readable", comment: "The current directory is readable")
     }
     
     /// Strings used by `EditorActionsTableViewController`.
@@ -224,76 +306,64 @@ class Localizable: Static {
         
         /// Title of the alert shown when code cannot be written
         static let errorWrittingToScript = NSLocalizedString("errors.errorWrittingToScript", comment: "Title of the alert shown when code cannot be written")
+        
+        /// An error message shown in the Watch when a script is not set
+        static let noWatchScript = NSLocalizedString("errors.noWatchScript", comment: "An error message shown in the Watch when a script is not set")
     }
     
     /// Strings used in creating dialogs.
     class Creation: Static {
         
         /// The title of the alert shown for creating a script
+        static let createScriptTitle = NSLocalizedString("creation.createScriptTitle", comment: "The title of the button shown for creating a script")
+        
+        /// The title of the alert shown for creating a file
         static let createFileTitle = NSLocalizedString("creation.createFileTitle", comment: "The title of the button shown for creating a file")
         
-        /// The title of the button for creating a markdown file
-        static let createMarkdown = NSLocalizedString("creation.createMarkdown", comment: "The title of the button for creating a markdown file")
-        
-        /// The title of the button for creating a script
-        static let createScript = NSLocalizedString("creation.createScript", comment: "The title of the button for creating a script")
-        
-        /// The message of the alert shown for creating a script
-        static let typeScriptName = NSLocalizedString("creation.typeScriptName", comment: "The message of the alert shown for creating a script")
-        
         /// The title of the alert shown for creating a folder
-        static let createFolder = NSLocalizedString("creation.createFolder", comment: "The title of the alert shown for creating a folder")
+        static let createFolderTitle = NSLocalizedString("creation.createFolderTitle", comment: "The title of the button shown for creating a folder")
         
-        /// The title of the button shown for creating a plain text file
-        static let createPlainText = NSLocalizedString("creation.createPlainText", comment: "The title of the button shown for creating a plain text file")
-        
-        /// The placeholder of the text field for typing file extension
-        static let fileExtension = NSLocalizedString("creation.extension", comment: "The placeholder of the text field for typing file extension")
-        
-        /// The placeholder of the text field for typing file name
-        static let fileName = NSLocalizedString("creation.name", comment: "The placeholder of the text field for typing file name")
+        /// The message of the alert shown for creating a file
+        static let typeFileName = NSLocalizedString("creation.typeFileName", comment: "The message of the alert shown for creating a file")
         
         /// The message of the alert shown for creating a folder
         static let typeFolderName = NSLocalizedString("creation.typeFolderName", comment: "The message of the alert shown for creating a folder")
+        
+        /// A Python script
+        static let pythonScript =  NSLocalizedString("creation.pythonScript", comment: "A Python script")
+        
+        /// A blank file
+        static let blankFile =  NSLocalizedString("creation.blankFile", comment: "A blank file")
+        
+        /// A folder
+        static let folder =  NSLocalizedString("creation.folder", comment: "A folder")
+        
+        /// Import from Files
+        static let importFromFiles = NSLocalizedString("creation.importFromFiles", comment: "Import from Files")
     }
     
     /// Strings used by the `Python` class.
     class Python: Static {
-                
-        /// The message shown when a script is already running when the user tries to run another one
-        static let alreadyRunning = NSLocalizedString("py.alreadyRunning", comment: "The message shown when a script is already running when the user tries to run another one")
         
-        /// Message shown if Startup.py failed to load
-        static let errorLoadingStartup = NSLocalizedString("py.startupError", comment: "Message shown if Startup.py failed to load")
+        /// A message shown in the console while downloading a module (Downloading module 100%)
+        static func downloading(module: String, completedPercentage: Int) -> String {
+            return NSString(format: NSLocalizedString("python.downloadingModule", comment: "A message shown in the console while downloading a module (Downloading module 100%)") as NSString, module, "\(completedPercentage)%") as String
+        }
+        
+        /// The alert shown when a module is being downloaded for the first time
+        class DownloadingModuleAlert: Static {
+            
+            /// I understand
+            static let iUnderstand = NSLocalizedString("python.downloadingModuleAlert.iUnderstand", comment: "I understand")
+            
+            /// The message of the alert shown when a module is being downloaded for the first time
+            static func explaination(module: String) -> String {
+                return NSString(format: NSLocalizedString("python.downloadingModuleAlert.explaination", comment: "The message of the alert shown when a module is being downloaded for the first time") as NSString, module) as String
+            }
+        }
     }
     
-    /// Strings for handling Objective-C exceptions.
-    class ObjectiveC: Static {
-        
-        /// Message explaining that an Objective-C exception occurred. Takes 2 arguments: The exception name and the reason
-        static let exception = NSLocalizedString("objc.exception", comment: "Message explaining that an Objective-C exception occurred. Takes 2 arguments: The exception name and the reason")
-        
-        /// A message telling the user to press enter to quit Pyto
-        static let quit = NSLocalizedString("objc.quit", comment: "A message telling the user to press enter to quit Pyto")
-        
-        /// The message shown when a script is already running when the user tries to run another one
-        static let alreadyRunning = NSLocalizedString("py.alreadyRunning", comment: "The message shown when a script is already running when the user tries to run another one")
-    }
-    
-    /// Strings for the alert promoting Pisth.
-    class Pisth: Static {
-        
-        /// Pisth app name
-        static let title = NSLocalizedString("pisth.title", comment: "Pisth app name")
-        
-        /// A message for promoting Pisth
-        static let message = NSLocalizedString("pisth.message", comment: "A message for promoting Pisth")
-        
-        /// View Pisth on the App Store
-        static let view = NSLocalizedString("pisth.install", comment: "View Pisth on the App Store")
-    }
-    
-    /// Titles of items in `UIMenuController`.
+    /// Titles of items used in menu controllers, key commands or context menus.
     class MenuItems: Static {
         
         /// The 'Undo' menu item
@@ -324,6 +394,12 @@ class Localizable: Static {
         static let breakpoint = NSLocalizedString("menuItems.breakpoint", comment: "The menu item for setting breakpoint")
         
         /// The menu item for setting breakpoint
-        static let toggleComment = NSLocalizedString("menuItems.toggleComment", comment: "The 'Toggle Comment' menu item")        
+        static let toggleComment = NSLocalizedString("menuItems.toggleComment", comment: "The 'Toggle Comment' menu item")
+        
+        /// The menu item to share a file
+        static let share = NSLocalizedString("menuItems.share", comment: "The menu item to share a file")
+               
+        /// The menu item to save a file to Files
+        static let saveToFiles = NSLocalizedString("menuItems.saveToFiles", comment: "The menu item to save a file to Files")
     }
 }

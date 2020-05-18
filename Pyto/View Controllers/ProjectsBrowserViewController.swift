@@ -102,13 +102,13 @@ class ProjectsBrowserViewController: UITableViewController, UIDocumentPickerDele
             }
         }
         
-        title = "Projects"
+        title = Localizable.ProjectsBrowser.title
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 1 {
-            return "Recent"
+            return Localizable.ProjectsBrowser.recent
         } else {
             return nil
         }
@@ -149,7 +149,7 @@ class ProjectsBrowserViewController: UITableViewController, UIDocumentPickerDele
         case IndexPath(row: 0, section: 0):
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
             cell.imageView?.image = UIImage(systemName: "arrow.up.right.square.fill")
-            cell.textLabel?.text = "Open"
+            cell.textLabel?.text = Localizable.ProjectsBrowser.open
             return cell
         default:
             if indexPath.section == 1 {

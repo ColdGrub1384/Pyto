@@ -72,7 +72,6 @@ class EditorActionsTableViewController: UITableViewController, UIPopoverPresenta
         
         alert.addTextField { (textField) in
             argumentsTextField = textField
-            textField.placeholder = Localizable.ArgumentsAlert.title
             self.textField = textField
             
             let inputAssistant = InputAssistantView()

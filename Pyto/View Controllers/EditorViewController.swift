@@ -699,7 +699,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         searchBar.setShowsCancelButton(true, animated: true)
         searchBar.showsScopeBar = true
-        searchBar.scopeButtonTitles = ["Find", "Replace"]
+        searchBar.scopeButtonTitles = [Localizable.find, Localizable.replace]
         searchBar.delegate = self
         
         func findTextField(_ containerView: UIView) {
@@ -2020,13 +2020,13 @@ fileprivate func parseArgs(_ args: inout [String]) {
             doChange()
         } else {
             
-            let alert = UIAlertController(title: "Couldn't access script", message: "The selected directory doesn't contain this script.", preferredStyle: .alert)
+            let alert = UIAlertController(title: Localizable.CouldNotAccessScriptAlert.title, message: Localizable.CouldNotAccessScriptAlert.message, preferredStyle: .alert)
             
-            alert.addAction(UIAlertAction(title: "Use anyway", style: .destructive, handler: { (_) in
+            alert.addAction(UIAlertAction(title: Localizable.CouldNotAccessScriptAlert.useAnyway, style: .destructive, handler: { (_) in
                 doChange()
             }))
             
-            alert.addAction(UIAlertAction(title: "Select another location", style: .default, handler: { (_) in
+            alert.addAction(UIAlertAction(title: Localizable.CouldNotAccessScriptAlert.selectAnotherLocation, style: .default, handler: { (_) in
                 self.setCwd(alert)
             }))
             

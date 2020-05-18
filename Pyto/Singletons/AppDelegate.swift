@@ -361,7 +361,7 @@ extension AppDelegate: WCSessionDelegate {
                 """))
             } else {
                 Python.shared.run(script: Python.WatchScript(code: """
-                print("Setup a script to run here from Pyto's settings.")
+                    print("\(Localizable.Errors.noWatchScript)")
                 """))
             }
         } else if messageData == "Stop".data(using: .utf8) {

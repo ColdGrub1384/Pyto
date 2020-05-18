@@ -24,11 +24,11 @@ class WatchInputSuggestionsTableViewController: UITableViewController {
     
     /// Adds an entry to `suggestions`.
     @IBAction func addSuggestion(_ sender: Any) {
-        let alert = UIAlertController(title: "Add Suggestion", message: "Type a new suggestion", preferredStyle: .alert)
+        let alert = UIAlertController(title: Localizable.WatchInputSuggestions.title, message: Localizable.WatchInputSuggestions.message, preferredStyle: .alert)
         alert.addTextField(configurationHandler: nil)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
         
-        alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: Localizable.add, style: .default, handler: { (_) in
             guard let text = alert.textFields?.first?.text, !text.isEmpty else {
                 return
             }

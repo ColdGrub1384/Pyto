@@ -283,7 +283,7 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         dismiss(animated: true) {
             if let error = error {
-                let alert = UIAlertController(title: "Error sending email", message: error.localizedDescription, preferredStyle: .alert)
+                let alert = UIAlertController(title: Localizable.error, message: error.localizedDescription, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
