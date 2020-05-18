@@ -114,8 +114,8 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                 UserDefaults.standard.setValue(true, forKey: "downloadedModule")
                 
                 if #available(iOS 13.0, *) {
-                    let alert = UIAlertController(title: module, message: "Pyto is downloading \(module) scripts. The scripts are not included in the app's bundle so the download size is smaller. Included third party libraries such as numpy, scipy, pandas etc will take longer to import for the first time, but then the scripts will remain on disk. An internet connection will be needed for the first time you import an included module, then you'll not. This popup will not appear again.", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "I understand", style: .default, handler: nil))
+                    let alert = UIAlertController(title: module, message: Localizable.Python.DownloadingModuleAlert.explaination(module: module), preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: Localizable.Python.DownloadingModuleAlert.iUnderstand, style: .default, handler: nil))
                     for scene in UIApplication.shared.connectedScenes {
                         let window = (scene as? UIWindowScene)?.windows.first
                         if window?.isKeyWindow == true {
@@ -190,10 +190,13 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
             
             _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
                 
-                PyOutputHelper.print("\rDownloading \(module) \(Int(request.progress.fractionCompleted*100))%", script: nil)
+                var newline = ""
+                if finished {
+                    newline = "\n"
+                }
+                PyOutputHelper.print("\r\(Localizable.Python.downloading(module: module, completedPercentage: Int(request.progress.fractionCompleted*100)))\(newline)", script: nil)
                 
                 if finished {
-                    PyOutputHelper.print("\n", script: nil)
                     return timer.invalidate()
                 }
             })
@@ -403,17 +406,6 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// Set to `true` when the REPL is ready to run scripts.
     @objc var isSetup = false
     
-    /// Exposes Pyto modules to Pyhon.
-    @available(*, deprecated, message: "The Library is now located on app bundle.")
-    @objc public func importPytoLib() {
-        guard let newLibURL = FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask).first?.appendingPathComponent("pylib") else {
-            fatalError("WHY IS THAT HAPPENING????!!!!!!! HOW THE LIBRARY DIR CANNOT BE FOUND!!!!???")
-        }
-        if FileManager.default.fileExists(atPath: newLibURL.path) {
-            try? FileManager.default.removeItem(at: newLibURL)
-        }
-    }
-    
     /// The thread running script.
     @objc public var thread: Thread?
     
@@ -435,7 +427,6 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
             self.thread = Thread.current
             
             guard !self.isREPLRunning else {
-                PyOutputHelper.print(Localizable.Python.alreadyRunning, script: nil) // Should not be called. When the REPL is running, run the script inside it.
                 return
             }
             
@@ -448,7 +439,6 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
             PyRun_SimpleFileExFlags(fopen(url.path.cValue, "r"), url.lastPathComponent.cValue, 0, nil)
             #else
             guard let startupURL = Bundle(for: Python.self).url(forResource: "Startup", withExtension: "py"), let src = try? String(contentsOf: startupURL) else {
-                PyOutputHelper.print(Localizable.Python.alreadyRunning, script: nil)
                 return
             }
             

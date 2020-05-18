@@ -72,7 +72,7 @@ class ScriptSettingsViewController: UIViewController, UITextFieldDelegate, UIDoc
         currentDirectoryTextField.text = FileManager.default.displayName(atPath: editor.currentDirectory.path)
         
         if FileManager.default.isReadableFile(atPath: editor.currentDirectory.path) {
-            currentDirectoryStatusLabel.text = "The current directory is readable"
+            currentDirectoryStatusLabel.text = Localizable.CouldNotAccessScriptAlert.readable
             currentDirectoryStatusLabel.textColor = .systemGreen
         } else {
             currentDirectoryStatusLabel.textColor = .systemRed
@@ -116,7 +116,7 @@ class ScriptSettingsViewController: UIViewController, UITextFieldDelegate, UIDoc
             }
             
             if FileManager.default.isReadableFile(atPath: editor.currentDirectory.path) {
-                currentDirectoryStatusLabel.text = "The current directory is readable"
+                currentDirectoryStatusLabel.text = Localizable.CouldNotAccessScriptAlert.readable
                 currentDirectoryStatusLabel.textColor = .systemGreen
             }
             
@@ -136,13 +136,13 @@ class ScriptSettingsViewController: UIViewController, UITextFieldDelegate, UIDoc
             doChange()
         } else {
             
-            let alert = UIAlertController(title: "Couldn't access script", message: "The selected directory doesn't contain this script.", preferredStyle: .alert)
+            let alert = UIAlertController(title: Localizable.CouldNotAccessScriptAlert.title, message: Localizable.CouldNotAccessScriptAlert.message, preferredStyle: .alert)
             
-            alert.addAction(UIAlertAction(title: "Use anyway", style: .destructive, handler: { (_) in
+            alert.addAction(UIAlertAction(title: Localizable.CouldNotAccessScriptAlert.useAnyway, style: .destructive, handler: { (_) in
                 doChange()
             }))
             
-            alert.addAction(UIAlertAction(title: "Select another location", style: .default, handler: { (_) in
+            alert.addAction(UIAlertAction(title: Localizable.CouldNotAccessScriptAlert.selectAnotherLocation, style: .default, handler: { (_) in
                 let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
                 picker.delegate = self
                 if #available(iOS 13.0, *) {

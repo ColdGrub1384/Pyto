@@ -25,7 +25,7 @@ import SafariServices
         override func viewDidLoad() {
             super.viewDidLoad()
             
-            title = "Select a version"
+            title = Localizable.PyPi.selectVersion
             versions = origin?.currentPackage?.versions ?? []
             navigationItem.largeTitleDisplayMode = .never
         }
@@ -105,7 +105,7 @@ import SafariServices
                 self.tableView.reloadData()
                 
                 self.tableView.tableFooterView?.isHidden = self.currentPackage != nil
-                (self.tableView.tableFooterView as? UILabel)?.text = "Package not found."
+                (self.tableView.tableFooterView as? UILabel)?.text = Localizable.PyPi.packageNotFound
             }
         }
     }
@@ -140,7 +140,7 @@ import SafariServices
         let searchController = UISearchController(searchResultsController: nil)
         searchController.delegate = self
         searchController.searchBar.delegate = self
-        searchController.searchBar.placeholder = "Python package"
+        searchController.searchBar.placeholder = Localizable.PyPi.searchBarPlaceholder
         searchController.searchBar.autocorrectionType = .no
         searchController.searchBar.autocapitalizationType = .none
         searchController.hidesNavigationBarDuringPresentation = false
@@ -207,7 +207,7 @@ import SafariServices
             return nil
         case 1: // Requirements
             if package.requirements.count > 0 {
-                return "Requirements"
+                return Localizable.PyPi.requirements
             } else {
                 return nil
             }
@@ -215,13 +215,13 @@ import SafariServices
             return nil
         case 3: // Project
             if package.author?.isEmpty == false || package.maintainer?.isEmpty == false {
-                return "Project"
+                return Localizable.PyPi.project
             } else {
                 return nil
             }
         case 4: // Links
             if package.links.count > 0 {
-                return "Links"
+                return Localizable.PyPi.links
             } else {
                 return nil
             }
@@ -250,7 +250,7 @@ import SafariServices
         switch indexPath.section {
         case 0: // Version
             let cell = infoCell
-            cell.textLabel?.text = "Version"
+            cell.textLabel?.text = Localizable.PyPi.version
             cell.detailTextLabel?.text = version ?? "UKNOWN"
             cell.accessoryType = .disclosureIndicator
             return cell
@@ -264,12 +264,12 @@ import SafariServices
             
             if isPackageInstalled {
                 cell.contentView.tintColor = .systemRed
-                (cell.viewWithTag(1) as? UIButton)?.setTitle("Remove \(currentPackage?.name ?? "package")", for: .normal)
+                (cell.viewWithTag(1) as? UIButton)?.setTitle(Localizable.PyPi.remove(package: currentPackage?.name ?? "package"), for: .normal)
                 if #available(iOS 13.0, *) {
                     cell.imageView?.image = UIImage(systemName: "trash")
                 }
             } else if let name = currentPackage?.name, PipViewController.bundled.contains(name) {
-                (cell.viewWithTag(1) as? UIButton)?.setTitle("Provided by Pyto", for: .normal)
+                (cell.viewWithTag(1) as? UIButton)?.setTitle(Localizable.PyPi.providedByPyto, for: .normal)
                 if #available(iOS 13.0, *) {
                     cell.contentView.tintColor = .secondaryLabel
                 } else {
@@ -277,7 +277,7 @@ import SafariServices
                 }
             } else {
                 cell.contentView.tintColor = nil
-                (cell.viewWithTag(1) as? UIButton)?.setTitle("Install \(currentPackage?.name ?? "package") \(version ?? "")", for: .normal)
+                (cell.viewWithTag(1) as? UIButton)?.setTitle(Localizable.PyPi.install(package: "\(currentPackage?.name ?? "package") \(version ?? "")"), for: .normal)
                 if #available(iOS 13.0, *) {
                     cell.imageView?.image = UIImage(systemName: "icloud.and.arrow.down")
                 }
@@ -288,12 +288,12 @@ import SafariServices
             if indexPath.row == 0 { // Author
                 if let author = currentPackage?.author {
                     let cell = infoCell
-                    cell.textLabel?.text = "Author"
+                    cell.textLabel?.text = Localizable.PyPi.author
                     cell.detailTextLabel?.text = author
                     return cell
                 } else if let maintainer = currentPackage?.maintainer {
                     let cell = infoCell
-                    cell.textLabel?.text = "Maintainer"
+                    cell.textLabel?.text = Localizable.PyPi.maintainer
                     cell.detailTextLabel?.text = maintainer
                     return cell
                 } else {
@@ -301,7 +301,7 @@ import SafariServices
                 }
             } else if indexPath.row == 1 { // Maintainer
                 let cell = infoCell
-                cell.textLabel?.text = "Maintainer"
+                cell.textLabel?.text = Localizable.PyPi.maintainer
                 cell.detailTextLabel?.text = currentPackage?.maintainer ?? "UKNOWN"
                 return cell
             } else {

@@ -39,7 +39,7 @@ class TemplateChooserTableViewController: UITableViewController, UIDocumentPicke
     /// - Parameters:
     ///     - templateURL: The URL of the template to use.
     func createScript(templateURL: URL) {
-        let alert = UIAlertController(title: Localizable.Creation.createScript, message: Localizable.Creation.typeScriptName, preferredStyle: .alert)
+        let alert = UIAlertController(title: Localizable.Creation.createScriptTitle, message: Localizable.Creation.typeFileName, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: Localizable.create, style: .default, handler: { (_) in
             
@@ -51,7 +51,7 @@ class TemplateChooserTableViewController: UITableViewController, UIDocumentPicke
                     name = alert.textFields?.first?.placeholder ?? ""
                 }
             } else {
-                name = "Untitled"
+                name = Localizable.untitled
             }
             
             if (name as NSString).pathExtension.lowercased() != "py" {
@@ -74,7 +74,7 @@ class TemplateChooserTableViewController: UITableViewController, UIDocumentPicke
             }
         }))
         alert.addTextField { (textField) in
-            textField.placeholder = "Untitled"
+            textField.placeholder = Localizable.untitled
         }
         present(alert, animated: true, completion: nil)
     }

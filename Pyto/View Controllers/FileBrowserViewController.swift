@@ -88,21 +88,21 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
         }
         
         func present(error: Error) {
-            let alert = UIAlertController(title: "Error creating file", message: error.localizedDescription, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: error.localizedDescription, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
         
-        let alert = UIAlertController(title: "New \(type == .python ? "Python script" : (type == .folder ? "Folder" : "Blank file"))", message: "Type the new \(type == .folder ? "folder" : "file") name", preferredStyle: .alert)
+        let alert = UIAlertController(title: (type == .python ? Localizable.Creation.createScriptTitle : (type == .folder ? Localizable.Creation.createFolderTitle : Localizable.Creation.createFileTitle)), message: (type == .folder ? Localizable.Creation.typeFolderName : Localizable.Creation.typeFileName), preferredStyle: .alert)
         
         var textField: UITextField!
         
-        alert.addAction(UIAlertAction(title: "Create", style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: Localizable.create, style: .default, handler: { (_) in
             if true {
                 do {
-                    var name = textField.text ?? "Untitled"
+                    var name = textField.text ?? Localizable.untitled
                     if name.replacingOccurrences(of: " ", with: "").isEmpty {
-                        name = "Untitled"
+                        name =  Localizable.untitled
                     }
                     
                     if type == .folder {
@@ -118,11 +118,11 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
             }
         }))
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
         
         alert.addTextField { (_textField) in
             textField = _textField
-            textField.placeholder = "Untitled"
+            textField.placeholder = Localizable.untitled
         }
         
         self.present(alert, animated: true, completion: nil)
@@ -130,28 +130,28 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
     
     /// Creates a new file.
     @objc func createNewFile(_ sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "New file", message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: Localizable.Creation.createFileTitle, message: nil, preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "Python script", style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: Localizable.Creation.pythonScript, style: .default, handler: { (_) in
             self.createFile(type: .python)
         }))
         
-        alert.addAction(UIAlertAction(title: "Blank file", style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: Localizable.Creation.blankFile, style: .default, handler: { (_) in
             self.createFile(type: .blank)
         }))
         
-        alert.addAction(UIAlertAction(title: "Folder", style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: Localizable.Creation.folder, style: .default, handler: { (_) in
             self.createFile(type: .folder)
         }))
         
-        alert.addAction(UIAlertAction(title: "Import from Files", style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: Localizable.Creation.importFromFiles, style: .default, handler: { (_) in
             let vc = UIDocumentPickerViewController(documentTypes: ["public.item"], in: .import)
             vc.allowsMultipleSelection = true
             vc.delegate = self
             self.present(vc, animated: true, completion: nil)
         }))
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
         
         alert.popoverPresentationController?.barButtonItem = sender
         present(alert, animated: true, completion: nil)
@@ -253,7 +253,7 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
             navigationController?.pushViewController(browser, animated: true)
         } else {
             
-            var icloud = (files[indexPath.row].pathExtension == "icloud" && files[indexPath.row].lastPathComponent.hasPrefix("."))
+            let icloud = (files[indexPath.row].pathExtension == "icloud" && files[indexPath.row].lastPathComponent.hasPrefix("."))
             
             var last = self.files[indexPath.row].deletingPathExtension().lastPathComponent
             last.removeFirst()
@@ -346,8 +346,8 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
                 files.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .automatic)
             } catch {
-                let alert = UIAlertController(title: "Error deleting file", message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                let alert = UIAlertController(title: Localizable.Errors.errorRemovingFile, message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
                 present(alert, animated: true, completion: nil)
             }
         }
@@ -460,8 +460,8 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
                 }
                 
             } catch {
-                let alert = UIAlertController(title: "Error importing file", message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: { _ in
                     if urls.indices.contains(index+1) {
                         move(at: index+1)
                     } else {
@@ -484,7 +484,7 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
             return nil
         }
         
-        let share = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up")) { action in
+        let share = UIAction(title: Localizable.MenuItems.share, image: UIImage(systemName: "square.and.arrow.up")) { action in
             
             guard let index = self.tableView.indexPath(for: cell), self.files.indices.contains(index.row) else {
                 return
@@ -496,7 +496,7 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
             self.present(activityVC, animated: true, completion: nil)
         }
         
-        let saveTo = UIAction(title: "Save to Files", image: UIImage(systemName: "folder")) { action in
+        let saveTo = UIAction(title: Localizable.MenuItems.saveToFiles, image: UIImage(systemName: "folder")) { action in
             
             guard let index = self.tableView.indexPath(for: cell), self.files.indices.contains(index.row) else {
                 return
@@ -505,7 +505,7 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
             self.present(UIDocumentPickerViewController(url: self.files[index.row], in: .exportToService), animated: true, completion: nil)
         }
         
-        let rename = UIAction(title: "Rename", image: UIImage(systemName: "pencil")) { action in
+        let rename = UIAction(title: Localizable.MenuItems.rename, image: UIImage(systemName: "pencil")) { action in
             
             guard let index = self.tableView.indexPath(for: cell), self.files.indices.contains(index.row) else {
                 return
@@ -514,9 +514,9 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
             let file = self.files[index.row]
             
             var textField: UITextField!
-            let alert = UIAlertController(title: "Rename '\(file.lastPathComponent)'", message: "Type the new name", preferredStyle: .alert)
+            let alert = UIAlertController(title: "\(Localizable.MenuItems.rename) '\(file.lastPathComponent)'", message: Localizable.Creation.typeFileName, preferredStyle: .alert)
             
-            alert.addAction(UIAlertAction(title: "Rename", style: .default, handler: { (_) in
+            alert.addAction(UIAlertAction(title: Localizable.MenuItems.rename, style: .default, handler: { (_) in
                 do {
                     
                     let name = textField.text ?? ""
@@ -525,23 +525,23 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
                         try FileManager.default.moveItem(at: file, to: file.deletingLastPathComponent().appendingPathComponent(name))
                     }
                 } catch {
-                    let alert = UIAlertController(title: "Error renaming file", message: error.localizedDescription, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                    let alert = UIAlertController(title: Localizable.Errors.errorRenamingFile, message: error.localizedDescription, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
                     self.present(alert, animated: true, completion: nil)
                 }
             }))
             
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
             alert.addTextField { (_textField) in
                 textField = _textField
-                textField.placeholder = "Untitled"
+                textField.placeholder = Localizable.untitled
                 textField.text = file.lastPathComponent
             }
             
             self.present(alert, animated: true, completion: nil)
         }
         
-        let delete = UIAction(title: "Delete", image: UIImage(systemName: "trash.fill"), attributes: .destructive) { action in
+        let delete = UIAction(title: Localizable.MenuItems.remove, image: UIImage(systemName: "trash.fill"), attributes: .destructive) { action in
             
             guard let index = self.tableView.indexPath(for: cell), self.files.indices.contains(index.row) else {
                 return
