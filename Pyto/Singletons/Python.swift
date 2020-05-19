@@ -194,6 +194,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                 if finished {
                     newline = "\n"
                 }
+                
                 PyOutputHelper.print("\r\(Localizable.Python.downloading(module: module, completedPercentage: Int(request.progress.fractionCompleted*100)))\(newline)", script: nil)
                 
                 if finished {
@@ -205,7 +206,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         _ =  semaphore.wait(timeout: .now()+600)
         
         finished = true
-        
+                
         return NSArray(array: paths)
     }
     
@@ -444,6 +445,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
             
             let code = String(format: src, url.path)
             PyRun_SimpleStringFlags(code.cValue, nil)
+            NSLog("Will throw fatal error")
             fatalError()
             #endif
         }
