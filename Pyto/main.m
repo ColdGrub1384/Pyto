@@ -20,6 +20,10 @@
 
 #define load(HANDLE) handle = dlopen(file.path.UTF8String, RTLD_GLOBAL);  HANDLE = handle;
 
+void logToNSLog(const char* text) {
+    NSLog(@"Log from Python: %s", text);
+}
+
 /// Returns the main bundle.
 NSBundle* mainBundle() {
     #if MAIN

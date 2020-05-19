@@ -82,7 +82,7 @@ import SafariServices
     }
     
     /// Bundled modules.
-    @objc static var bundled = [String]()
+    @objc static var bundled = NSArray()
     
     /// The selected package version.
     var version: String? {
