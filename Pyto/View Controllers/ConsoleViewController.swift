@@ -11,6 +11,8 @@ import UIKit
 import InputAssistant
 import SavannaKit
 import SourceEditor
+import SwiftUI
+import SwiftUI_Views
 #endif
 
 /// A View controller containing Python script output.
@@ -1086,6 +1088,33 @@ import SourceEditor
     public func textViewDidChange(_ textView: UITextView) {
         console = textView.text
     }
+    
+    #if MAIN
+    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        
+        NSLog("%@", "Interacting")
+        guard let data = Data(base64Encoded: URL.host ?? URL.path) else {
+            return false
+        }
+        
+        NSLog("DATA: %@", String(data: data, encoding: .utf8) ?? "")
+        
+        UIPasteboard.general.string = String(data: data, encoding: .utf8)
+        
+        do {
+            let dict = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            
+            if #available(iOS 13.0, *) {
+                let controller = UIHostingController(rootView: JSONBrowserNavigationView(items: dict ?? [:]))
+                present(controller, animated: true, completion: nil)
+            }
+        } catch {
+            NSLog("%@", error.localizedDescription)
+        }
+        
+        return false
+    }
+    #endif
 }
 
 // MARK: - REPL Code Completion

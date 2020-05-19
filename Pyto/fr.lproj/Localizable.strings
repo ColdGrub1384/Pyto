@@ -70,7 +70,7 @@
 "creation.typeFolderName" = "Entrez le nom du dossier";
 
 /* The message of the alert for adding an editor action. */
-"editorActionsTableViewController.createEditorActionAlertMessage" = "Entrez la command à exécuter. Le premier argument est le programme Python. Entrez \"$SCRIPT\" pour passer le chemin script edité.";
+"editorActionsTableViewController.createEditorActionAlertMessage" = "Entrez la command à exécuter. Le premier argument est le programme Python. Entrez \"$SCRIPT\" pour passer le chemin script edité.\n\n Exemple:\npy2to3 -w $SCRIPT";
 
 /* The title of the alert for adding an editor action. */
 "editorActionsTableViewController.createEditorActionAlertTitle" = "Ajouter un script";
@@ -250,7 +250,7 @@
 "python.downloadingModule" = "Téléchargement de %@ %@"; /* NEW */
 
 /* The message of the alert shown when a module is being downloaded for the first time */
-"python.downloadingModuleAlert.explaination" = "Pyto est entrain de télécharger les scripts de %@. Les scripts ne sont pas inclus dans le paquet de l'application. Les libraires tierces incluses comme numpy, scipy, pandas etc prendront plus long pour importer la primière fois, mais les scripts resteront dans le disque après. Une conection à internet sera requise pour la première fois lors de l'importation d'un module inclus, mais pas pour la prochaine fois que le module sera importé. Ce popup n'apparaîtra plus."; /* NEW */
+"python.downloadingModuleAlert.explaination" = "Pyto est entrain de télécharger les scripts de %@. Les scripts ne sont pas inclus dans le paquet de l'application. Les libraires tierces incluses comme numpy, scipy, pandas etc prendront plus long pour importer la primière fois, mais les scripts resteront dans le stockage après. Une conection à internet sera requise pour la première fois lors de l'importation d'un module inclus, mais pas pour la prochaine fois que le module sera importé. Ce popup n'apparaîtra plus."; /* NEW */
 
 /* I understand */
 "python.downloadingModuleAlert.iUnderstand" = "Je comprends"; /* NEW */
