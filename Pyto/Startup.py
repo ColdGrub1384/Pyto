@@ -217,14 +217,10 @@ try:
 
     # MARK: - Pip bundled modules
     
-    # Setting Objective-C values on the Python main thread seems to throw an exception sometimes.
-    # If an exception is thrown here, the entire app is useless.
-    # Also an exception in another thread will not stop the main thread
-    def setBundledModules():
-        if pyto.PipViewController is not None:
-            pyto.PipViewController.bundled = BUNDLED_MODULES
+    # Add modules to `bundled`. I add it one by one because for some reason setting directly an array fails **sometimes**. Seems like something new in iOS 13.5 but I'm not sure.
+    for module in BUNDLED_MODULES:
+        pyto.PipViewController.addBundledModule(module)
 
-    threading.Thread(target=setBundledModules).start()
 
     # MARK: - OS
 
