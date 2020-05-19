@@ -23,14 +23,16 @@ fileprivate extension IndexPath {
     
     static let todayWidget = IndexPath(row: 0, section: 1)
     
-    static let watchScript = IndexPath(row: 0, section: 2)
-    static let inputSugestions = IndexPath(row: 1, section: 2)
+    static let downloadAll = IndexPath(row: 0, section: 2)
     
-    static let discord = IndexPath(row: 0, section: 4)
-    static let contact = IndexPath(row: 1, section: 4)
+    static let watchScript = IndexPath(row: 0, section: 3)
+    static let inputSugestions = IndexPath(row: 1, section: 3)
     
-    static let acknowledgments = IndexPath(row: 0, section: 5)
-    static let sourceCode = IndexPath(row: 1, section: 5)
+    static let discord = IndexPath(row: 0, section: 5)
+    static let contact = IndexPath(row: 1, section: 5)
+    
+    static let acknowledgments = IndexPath(row: 0, section: 6)
+    static let sourceCode = IndexPath(row: 1, section: 6)
 }
 
 /// A View controller with settings and info.
@@ -210,6 +212,24 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
             let picker = UIDocumentPickerViewController(documentTypes: ["public.python-script"], in: .open)
             picker.delegate = self
             viewControllerToPresent = picker
+        case .downloadAll:
+            
+            viewControllerToPresent = nil
+            
+            NSLog("Download")
+            guard let script = Bundle.main.url(forResource: "download_all", withExtension: "py") else {
+                NSLog("Nil")
+                return
+            }
+            
+            NSLog("Will present")
+            let presenting = presentingViewController
+            dismiss(animated: true) {
+                let docBrowser = presenting?.presentingViewController as? DocumentBrowserViewController
+                presenting?.dismiss(animated: true, completion: {
+                    docBrowser?.openDocument(script, run: true)
+                })
+            }
         case .watchScript:
             let picker = UIDocumentPickerViewController(documentTypes: ["public.python-script"], in: .open)
             picker.delegate = self
