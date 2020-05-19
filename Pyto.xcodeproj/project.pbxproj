@@ -2396,7 +2396,6 @@
 		C90BC0492472103900EF7F09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C90BC04B2472105300EF7F09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		C90BC04D2472105C00EF7F09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/Theme Chooser.strings"; sourceTree = "<group>"; };
-		C90BC04F2472106100EF7F09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Settings.strings; sourceTree = "<group>"; };
 		C90BC0512472106400EF7F09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ConflictsResolver.strings; sourceTree = "<group>"; };
 		C90BC0532472107000EF7F09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/Widget Simulator.strings"; sourceTree = "<group>"; };
 		C90BC0552472107600EF7F09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/Template Chooser.strings"; sourceTree = "<group>"; };
@@ -3321,6 +3320,7 @@
 		C9F1E4DD247379F100A28F2A /* ValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueView.swift; sourceTree = "<group>"; };
 		C9F1E4DF247386AF00A28F2A /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		C9F1E4FB2474083B00A28F2A /* download_all.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = download_all.py; sourceTree = "<group>"; };
+		C9F1E51E2474208300A28F2A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Settings.strings; sourceTree = "<group>"; };
 		C9F56EAB23D4EE37005C59FD /* 420.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 420.png; sourceTree = "<group>"; };
 		C9F8EBE023021DC0004648F4 /* kiwisolver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = kiwisolver.framework; sourceTree = "<group>"; };
 		C9F8F39A23025695004648F4 /* dtrsv.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = dtrsv.o; sourceTree = "<group>"; };
@@ -9019,7 +9019,6 @@
 				C90BC03F24720F8A00EF7F09 /* Template Chooser.storyboard in Resources */,
 				C92DBD8021F67B9D0098BE43 /* REPL.py in Resources */,
 				C90BC03B24720F7B00EF7F09 /* Widget Simulator.storyboard in Resources */,
-				C95076FA22DE39A800226497 /* Widget Simulator.storyboard in Resources */,
 				C9F1E4FC2474083B00A28F2A /* download_all.py in Resources */,
 				C9FFF422246E2392004F41D3 /* sklearn in Resources */,
 				C9A419A623A321EB00BF5393 /* Stripes.png in Resources */,
@@ -9581,9 +9580,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				C90BC0452472103600EF7F09 /* Base */,
-				C90BC04F2472106100EF7F09 /* en */,
 				C90BC05B247210EE00EF7F09 /* fr */,
 				C90BC08B2472EDCF00EF7F09 /* es */,
+				C9F1E51E2474208300A28F2A /* en */,
 			);
 			name = Settings.storyboard;
 			sourceTree = "<group>";
@@ -9852,7 +9851,6 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 12.0;
 				MARKETING_VERSION = 11.11.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
@@ -9914,7 +9912,6 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 12.0;
 				MARKETING_VERSION = 11.11.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
@@ -10068,7 +10065,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 12.0;
 				MARKETING_VERSION = 11.11.2;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -10095,7 +10091,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 12.0;
 				MARKETING_VERSION = 11.11.2;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -10117,7 +10112,6 @@
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
-				MARKETING_VERSION = 12.0;
 				MARKETING_VERSION = 11.11.2;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -10139,7 +10133,6 @@
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
-				MARKETING_VERSION = 12.0;
 				MARKETING_VERSION = 11.11.2;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -10168,7 +10161,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 12.0;
 				MARKETING_VERSION = 11.11.2;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Intents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -10198,7 +10190,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 12.0;
 				MARKETING_VERSION = 11.11.2;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Intents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -10535,7 +10526,6 @@
 					"$(PROJECT_DIR)/Zmq",
 				);
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 12.0;
 				MARKETING_VERSION = 11.11.2;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
@@ -10656,7 +10646,6 @@
 					"$(PROJECT_DIR)/Zmq",
 				);
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 12.0;
 				MARKETING_VERSION = 11.11.2;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
