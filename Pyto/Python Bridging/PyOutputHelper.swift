@@ -343,10 +343,15 @@ fileprivate extension ConsoleViewController {
             let color = #colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1)
             #endif
             
+            let url = "pyto://inspector/?\(value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")"
+            
+            NSLog("%@", url)
+            NSLog("%@", value)
+            
             DispatchQueue.main.async {
                 if let attrStr = console.textView.attributedText {
                     let mutable = NSMutableAttributedString(attributedString: attrStr)
-                    mutable.append(NSAttributedString(string: text_, attributes: [.font : font, .foregroundColor : color, .link : "pyto://\((value.data(using: .utf8) ?? Data()).base64EncodedString())", .underlineStyle: NSUnderlineStyle.single.rawValue]))
+                    mutable.append(NSAttributedString(string: text_, attributes: [.font : font, .foregroundColor : color, .link : url, .underlineStyle: NSUnderlineStyle.single.rawValue]))
                     console.textView.attributedText = mutable
                     console.textView.scrollToBottom()
                 }
