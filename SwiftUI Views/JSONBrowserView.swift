@@ -68,15 +68,16 @@ public struct JSONBrowserView: View {
     public var body: some View {
         List(sorted(Array(items.keys), sorted: isArray), id:\.self) { item in
             if self.items[item] is Dictionary<String, Any> || self.items[item] is Array<Any> {
-                NavigationLink(destination: JSONBrowserView(title: item, navBarMode: self.$displayMode, items: asDictionary(self.items[item]), isArray: (self.items[item] is Array<Any>))) {
-                    Cell(title: item, detail: "\(self.items[item] ?? "")")
+                NavigationLink(destination: JSONBrowserView(title: item, dismiss: self.dismiss, navBarMode: self.$displayMode, items: asDictionary(self.items[item]), isArray: (self.items[item] is Array<Any>))) {
+                    Cell(title: item, detail: String("\(self.items[item] ?? "")".prefix(100)))
                 }
             } else {
                 NavigationLink(destination: ValueView(title: item, text: "\(self.items[item] ?? "")")) {
-                    Cell(title: item, detail: "\(self.items[item] ?? "")")
+                    Cell(title: item, detail: String("\(self.items[item] ?? "")".prefix(100)))
                 }
             }
         }
+        .id(UUID())
         .navigationBarTitle(Text(title), displayMode: navBarMode)
         .navigationBarItems(trailing:
             Button(action: {
@@ -97,13 +98,17 @@ public struct JSONBrowserNavigationView: View {
     
     let items: [String:Any]
     
-    public init(items: [String:Any]) {
+    let dismiss: (() -> Void)?
+    
+    public init(items: [String:Any], dismiss: (() -> Void)? = nil) {
         self.items = items
+        self.dismiss = dismiss
     }
     
     public var body: some View {
         NavigationView {
-            JSONBrowserView(navBarMode: self.$displayMode, items: items)
+            JSONBrowserView(dismiss: dismiss, navBarMode: self.$displayMode, items: items)
+            JSONBrowserView(dismiss: dismiss, navBarMode: self.$displayMode, items: items)
         }
     }
 }
@@ -112,5 +117,7 @@ public struct JSONBrowserNavigationView: View {
 struct JSONBrowserView_Previews: PreviewProvider {
     static var previews: some View {
         JSONBrowserNavigationView(items: ["'Foo'":"Bar", "Hello": ["World": "Foo", "Array": [1, 2, "Foo", "Bar", 4]]])
+        .previewDevice(PreviewDevice(rawValue: "iPhone 8 Plus"))
+        .previewDisplayName("iPhone 8 Plus")
     }
 }

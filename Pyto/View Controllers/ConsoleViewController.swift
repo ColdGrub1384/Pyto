@@ -1093,7 +1093,7 @@ import SwiftUI_Views
     public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         
         NSLog("%@", "Interacting")
-        guard let data = Data(base64Encoded: URL.host ?? URL.path) else {
+        guard let query = URL.query?.removingPercentEncoding, let data = query.data(using: .utf8) else {
             return false
         }
         
@@ -1105,7 +1105,9 @@ import SwiftUI_Views
             let dict = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
             
             if #available(iOS 13.0, *) {
-                let controller = UIHostingController(rootView: JSONBrowserNavigationView(items: dict ?? [:]))
+                let controller = UIHostingController(rootView: JSONBrowserNavigationView(items: dict ?? [:], dismiss: {
+                    self.dismiss(animated: true, completion: nil)
+                }))
                 present(controller, animated: true, completion: nil)
             }
         } catch {
