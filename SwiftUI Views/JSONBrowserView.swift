@@ -69,11 +69,11 @@ public struct JSONBrowserView: View {
         List(sorted(Array(items.keys), sorted: isArray), id:\.self) { item in
             if self.items[item] is Dictionary<String, Any> || self.items[item] is Array<Any> {
                 NavigationLink(destination: JSONBrowserView(title: item, dismiss: self.dismiss, navBarMode: self.$displayMode, items: asDictionary(self.items[item]), isArray: (self.items[item] is Array<Any>))) {
-                    Cell(title: item, detail: String("\(self.items[item] ?? "")".prefix(100)))
+                    Cell(title: item, detail: String("\(self.items[item] ?? "")".prefix(300)))
                 }
             } else {
                 NavigationLink(destination: ValueView(title: item, text: "\(self.items[item] ?? "")")) {
-                    Cell(title: item, detail: String("\(self.items[item] ?? "")".prefix(100)))
+                    Cell(title: item, detail: String("\(self.items[item] ?? "")".prefix(300)))
                 }
             }
         }
@@ -108,8 +108,8 @@ public struct JSONBrowserNavigationView: View {
     public var body: some View {
         NavigationView {
             JSONBrowserView(dismiss: dismiss, navBarMode: self.$displayMode, items: items)
-            JSONBrowserView(dismiss: dismiss, navBarMode: self.$displayMode, items: items)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
@@ -117,7 +117,7 @@ public struct JSONBrowserNavigationView: View {
 struct JSONBrowserView_Previews: PreviewProvider {
     static var previews: some View {
         JSONBrowserNavigationView(items: ["'Foo'":"Bar", "Hello": ["World": "Foo", "Array": [1, 2, "Foo", "Bar", 4]]])
-        .previewDevice(PreviewDevice(rawValue: "iPhone 8 Plus"))
-        .previewDisplayName("iPhone 8 Plus")
+        .previewDevice(PreviewDevice(rawValue: "iPad (7th generation)"))
+        .previewDisplayName("iPad")
     }
 }
