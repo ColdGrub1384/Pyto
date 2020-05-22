@@ -349,6 +349,15 @@ fileprivate extension ConsoleViewController {
             NSLog("%@", value)
             
             DispatchQueue.main.async {
+                
+                #if MAIN
+                let font = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
+                let color = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .identifier)
+                #else
+                let font = UIFont(name: "Menlo", size: 12) ?? UIFont.systemFont(ofSize: 12)
+                let color = #colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1)
+                #endif
+                
                 if let attrStr = console.textView.attributedText {
                     let mutable = NSMutableAttributedString(attributedString: attrStr)
                     mutable.append(NSAttributedString(string: text_, attributes: [.font : font, .foregroundColor : color, .link : url, .underlineStyle: NSUnderlineStyle.single.rawValue]))
