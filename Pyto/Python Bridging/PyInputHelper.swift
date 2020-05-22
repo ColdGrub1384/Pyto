@@ -32,7 +32,8 @@ import WatchConnectivity
     /// - Parameters:
     ///     - prompt: The prompt sent by Python function.
     ///     - script: The script that asked for input. Set to `nil` to request input on every console.
-    @objc static func showAlert(prompt: String?, script: String?) {
+    ///     - highlight: A boolean idicating whether the line should be syntax colored.
+    @objc static func showAlert(prompt: String?, script: String?, highlight: Bool) {
         let prompt_ = prompt
         DispatchQueue.main.sync {
             
@@ -56,7 +57,7 @@ import WatchConnectivity
                     }
                 }
                 
-                console.input(prompt: prompt_ ?? "")
+                console.input(prompt: prompt_ ?? "", highlight:highlight)
             }
             #endif
         }

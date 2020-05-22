@@ -230,16 +230,22 @@ import SwiftUI
     /// Requests the user for input.
     ///
     /// - Parameters:
-    ///     - prompt: The prompt from the Python function
-    func input(prompt: String) {
+    ///     - prompt: The prompt from the Python function.
+    ///     - highlight: A boolean indicating whether the line should be syntax colored.
+    func input(prompt: String, highlight: Bool) {
         
         guard shouldRequestInput else {
             return
         }
         
+        highlightInput = highlight
+        
         self.prompt = prompt
         movableTextField?.placeholder = prompt
-        movableTextField?.focus()
+        if !highlight || self.parent is REPLViewController {
+            // Don't automatically focus after a script was executed and the REPL is shown
+            movableTextField?.focus()
+        }
     }
     
     /// Requests the user for a password.
@@ -876,9 +882,7 @@ import SwiftUI
             if self.currentSuggestionIndex != -1 {
                 return self.inputAssistantView(self.movableTextField!.inputAssistant, didSelectSuggestionAtIndex: 0)
             }
-            
-            let prompt = self.movableTextField?.placeholder ?? ""
-            
+                        
             self.movableTextField?.currentInput = nil
             self.movableTextField?.placeholder = ""
             
@@ -888,7 +892,9 @@ import SwiftUI
             self.movableTextField?.history.insert(text, at: 0)
             self.movableTextField?.historyIndex = -1
             
-            self.movableTextField?.textField.resignFirstResponder()
+            if !self.highlightInput {
+                self.movableTextField?.textField.resignFirstResponder()
+            }
             
             self.completions = []
             
@@ -910,7 +916,7 @@ import SwiftUI
                 Python.shared.output += text
                 
                 #if MAIN
-                if self.parent is REPLViewController, prompt == ">>> " || prompt == "... " { // Highlight code
+                if self.highlightInput { // Highlight code
                     
                     class Delegate: NSObject, SyntaxTextViewDelegate {
                         
