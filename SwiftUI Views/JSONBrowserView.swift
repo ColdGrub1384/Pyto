@@ -57,7 +57,7 @@ public struct JSONBrowserView: View {
     
     let dismiss: (() -> Void)?
     
-    init(title: String = "Inspector", dismiss: (() -> Void)? = nil, navBarMode: Binding<NavigationBarItem.TitleDisplayMode>, items: [String:Any], isArray: Bool = false) {
+    init(title: String = NSLocalizedString("inspector", bundle: SwiftUIBundle, comment: "The inspector title"), dismiss: (() -> Void)? = nil, navBarMode: Binding<NavigationBarItem.TitleDisplayMode>, items: [String:Any], isArray: Bool = false) {
         self.title = title
         self.dismiss = dismiss
         self._navBarMode = navBarMode
@@ -84,7 +84,7 @@ public struct JSONBrowserView: View {
                 self.dismiss?()
             }) {
                 if self.dismiss != nil {
-                    Text("Done").fontWeight(.bold)
+                    Text("done", bundle: SwiftUIBundle, comment: "Done button").fontWeight(.bold)
                 }
             }
         )
