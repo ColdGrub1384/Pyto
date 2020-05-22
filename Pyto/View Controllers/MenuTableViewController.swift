@@ -10,7 +10,29 @@ import UIKit
 import FileBrowser
 
 /// A View controller for choosing from `REPL`, `PyPi` and `Settings` from an `UIDocumentBrowserViewController`.
-class MenuTableViewController: UITableViewController {
+@objc class MenuTableViewController: UITableViewController {
+    
+    /// The Pyto version.
+    @objc static var pytoVersion: String {
+        
+        var buildDate: Date {
+            if let infoPath = Bundle.main.path(forResource: "Info", ofType: "plist"), let infoAttr = try? FileManager.default.attributesOfItem(atPath: infoPath), let infoDate = infoAttr[.creationDate] as? Date {
+                return infoDate
+            } else {
+                return Date()
+            }
+        }
+        
+        guard let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, let build = Bundle.main.infoDictionary?[kCFBundleVersionKey as String] as? String else {
+            return ""
+        }
+        
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        
+        return "Pyto version \(version) (\(build)) \(formatter.string(from: buildDate))"
+    }
     
     /// Closes this View controller.
     @IBAction func close(_ sender: Any) {
@@ -141,22 +163,14 @@ class MenuTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         
-        var buildDate: Date {
-            if let infoPath = Bundle.main.path(forResource: "Info", ofType: "plist"), let infoAttr = try? FileManager.default.attributesOfItem(atPath: infoPath), let infoDate = infoAttr[.creationDate] as? Date {
-                return infoDate
-            } else {
-                return Date()
-            }
-        }
-        
-        if section == 3, let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, let build = Bundle.main.infoDictionary?[kCFBundleVersionKey as String] as? String {
+        if section == 3 {
             
             let formatter = DateFormatter()
             formatter.dateStyle = .medium
             formatter.timeStyle = .short
             
             return """
-            \nPyto version \(version) (\(build)) \(formatter.string(from: buildDate))
+            \n\(MenuTableViewController.pytoVersion)
             
             Python \(Python.shared.version)
             """
