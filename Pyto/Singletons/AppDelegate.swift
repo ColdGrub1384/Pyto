@@ -221,6 +221,36 @@ import WatchConnectivity
             }
         }
         
+        // Listen to the pasteboard
+        // Converts a value URL from the REPL to its representation
+        NotificationCenter.default.addObserver(forName: UIPasteboard.changedNotification, object: nil, queue: nil) { (_) in
+                        
+            guard let pasteboard = UIPasteboard.general.string else {
+                return
+            }
+            
+            guard let url = URL(string: pasteboard) else {
+                return
+            }
+            
+            guard url.scheme == "pyto" && url.host == "inspector" else {
+                return
+            }
+            
+            guard var description = url.path.removingPercentEncoding else {
+                return
+            }
+            
+            if url.path.hasPrefix("/") {
+                description.removeFirst()
+            }
+            if url.path.hasSuffix("\n") {
+                description.removeLast()
+            }
+            
+            UIPasteboard.general.string = description
+        }
+        
         #else
         window = UIWindow()
         window?.backgroundColor = .white
