@@ -203,7 +203,11 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             #endif
         }
         
-        return true
+        if console.parent is REPLViewController {
+            return false
+        } else {
+            return true
+        }
     }
         
     #if MAIN
