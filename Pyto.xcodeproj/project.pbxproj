@@ -25,6 +25,8 @@
 		C904FA2621DA4C7600B70A39 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C904FA1F21DA4C7600B70A39 /* Accelerate.framework */; };
 		C9064E372413083000E386C2 /* libnpymath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9064E352413082F00E386C2 /* libnpymath.a */; };
 		C9064E382413083000E386C2 /* libnpysort.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9064E362413082F00E386C2 /* libnpysort.a */; };
+		C90951012478540500931684 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C90951032478540500931684 /* Localizable.strings */; };
+		C9095107247856F600931684 /* SwiftUIBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9095106247856F600931684 /* SwiftUIBundle.swift */; };
 		C909A19A2267DB210058C145 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C909A1992267DB210058C145 /* MenuTableViewController.swift */; };
 		C909A19C2267E6E30058C145 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C909A19B2267E6E30058C145 /* UIViewController.swift */; };
 		C90A8029220CFE2200C9A5A1 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* TextView.swift */; };
@@ -2355,6 +2357,10 @@
 		C904FA1F21DA4C7600B70A39 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C9064E352413082F00E386C2 /* libnpymath.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libnpymath.a; sourceTree = "<group>"; };
 		C9064E362413082F00E386C2 /* libnpysort.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libnpysort.a; sourceTree = "<group>"; };
+		C90951022478540500931684 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C90951042478540A00931684 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C90951052478540E00931684 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C9095106247856F600931684 /* SwiftUIBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIBundle.swift; sourceTree = "<group>"; };
 		C909A1992267DB210058C145 /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 		C909A19B2267E6E30058C145 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		C90BA5B423C4CD1D00B2B187 /* Dark 7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Dark 7.png"; sourceTree = "<group>"; };
@@ -5705,6 +5711,8 @@
 				C90BC0C12473524300EF7F09 /* JSONBrowserView.swift */,
 				C9F1E4DD247379F100A28F2A /* ValueView.swift */,
 				C9F1E4DF247386AF00A28F2A /* Cell.swift */,
+				C9095106247856F600931684 /* SwiftUIBundle.swift */,
+				C90951032478540500931684 /* Localizable.strings */,
 				C90BC0B82473522400EF7F09 /* Info.plist */,
 			);
 			path = "SwiftUI Views";
@@ -8874,6 +8882,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C90951012478540500931684 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9122,6 +9131,7 @@
 				C9F1E4DE247379F100A28F2A /* ValueView.swift in Sources */,
 				C90BC0C22473524300EF7F09 /* JSONBrowserView.swift in Sources */,
 				C9F1E4E0247386AF00A28F2A /* Cell.swift in Sources */,
+				C9095107247856F600931684 /* SwiftUIBundle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9565,6 +9575,16 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		C90951032478540500931684 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C90951022478540500931684 /* en */,
+				C90951042478540A00931684 /* fr */,
+				C90951052478540E00931684 /* es */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		C90BC03124720F3F00EF7F09 /* Theme Chooser.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
