@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SwiftUI
+import SwiftUI_Views
 
 /// The scene delegate.
 @objc class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -233,7 +235,23 @@ import UIKit
         
         if inputURL.scheme == "pyto" { // Select script for Today widget
             
-            if inputURL.host == "select-script", let vc = UIStoryboard(name: "Settings", bundle: Bundle.main).instantiateInitialViewController() {
+            if inputURL.host == "inspector" {
+                guard let query = inputURL.query?.removingPercentEncoding, let data = query.data(using: .utf8) else {
+                    return
+                }
+                                
+                do {
+                    let dict = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                    
+                    let vc = (scene as? UIWindowScene)?.windows.first?.topViewController
+                    let controller = UIHostingController(rootView: JSONBrowserNavigationView(items: dict ?? [:], dismiss: {
+                        vc?.dismiss(animated: true, completion: nil)
+                    }))
+                    vc?.present(controller, animated: true, completion: nil)
+                } catch {
+                    NSLog("%@", error.localizedDescription)
+                }
+            } else if inputURL.host == "select-script", let vc = UIStoryboard(name: "Settings", bundle: Bundle.main).instantiateInitialViewController() {
                 window?.topViewController?.present(vc, animated: true, completion: {
                     let settingsVC = (vc as? UINavigationController)?.visibleViewController as? AboutTableViewController
                     
