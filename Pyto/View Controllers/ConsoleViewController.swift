@@ -217,15 +217,10 @@ import SwiftUI
             return false
         }
         
-        #if MAIN
-        if !(self.parent is REPLViewController) {
-            guard let script = scriptPath, Python.shared.isScriptRunning(script) else {
-                return false
-            }
-        }
-        #endif
         return true
     }
+    
+    private var highlightInput = false
     
     /// Requests the user for input.
     ///

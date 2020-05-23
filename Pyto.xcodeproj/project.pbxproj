@@ -2361,6 +2361,16 @@
 		C90951042478540A00931684 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C90951052478540E00931684 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C9095106247856F600931684 /* SwiftUIBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIBundle.swift; sourceTree = "<group>"; };
+		C90951082478859D00931684 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		C90951092478859F00931684 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "de.lproj/Theme Chooser.strings"; sourceTree = "<group>"; };
+		C909510A2478859F00931684 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Settings.strings; sourceTree = "<group>"; };
+		C909510B247885A000931684 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/ConflictsResolver.strings; sourceTree = "<group>"; };
+		C909510C247885A100931684 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "de.lproj/Widget Simulator.strings"; sourceTree = "<group>"; };
+		C909510D247885A100931684 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "de.lproj/Template Chooser.strings"; sourceTree = "<group>"; };
+		C909510E247885A200931684 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/ScriptSettingsViewController.strings; sourceTree = "<group>"; };
+		C909510F247885A300931684 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		C9095110247885A400931684 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C9095111247885A400931684 /* de */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C909A1992267DB210058C145 /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 		C909A19B2267E6E30058C145 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		C90BA5B423C4CD1D00B2B187 /* Dark 7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Dark 7.png"; sourceTree = "<group>"; };
@@ -8667,6 +8677,7 @@
 				Base,
 				fr,
 				es,
+				de,
 			);
 			mainGroup = C9FCFD4C214428AE00A07974;
 			productRefGroup = C9FCFD56214428AE00A07974 /* Products */;
@@ -9581,6 +9592,7 @@
 				C90951022478540500931684 /* en */,
 				C90951042478540A00931684 /* fr */,
 				C90951052478540E00931684 /* es */,
+				C9095110247885A400931684 /* de */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -9592,6 +9604,7 @@
 				C90BC04D2472105C00EF7F09 /* en */,
 				C90BC05A247210ED00EF7F09 /* fr */,
 				C90BC0812472E02F00EF7F09 /* es */,
+				C90951092478859F00931684 /* de */,
 			);
 			name = "Theme Chooser.storyboard";
 			sourceTree = "<group>";
@@ -9603,6 +9616,7 @@
 				C90BC05B247210EE00EF7F09 /* fr */,
 				C90BC08B2472EDCF00EF7F09 /* es */,
 				C9F1E51E2474208300A28F2A /* en */,
+				C909510A2478859F00931684 /* de */,
 			);
 			name = Settings.storyboard;
 			sourceTree = "<group>";
@@ -9614,6 +9628,7 @@
 				C90BC0512472106400EF7F09 /* en */,
 				C90BC05C247210EE00EF7F09 /* fr */,
 				C90BC0832472E03000EF7F09 /* es */,
+				C909510B247885A000931684 /* de */,
 			);
 			name = ConflictsResolver.storyboard;
 			sourceTree = "<group>";
@@ -9625,6 +9640,7 @@
 				C90BC0532472107000EF7F09 /* en */,
 				C90BC05D247210EF00EF7F09 /* fr */,
 				C90BC0842472E03300EF7F09 /* es */,
+				C909510C247885A100931684 /* de */,
 			);
 			name = "Widget Simulator.storyboard";
 			sourceTree = "<group>";
@@ -9636,6 +9652,7 @@
 				C90BC0552472107600EF7F09 /* en */,
 				C90BC05E247210F000EF7F09 /* fr */,
 				C90BC0852472E03400EF7F09 /* es */,
+				C909510D247885A100931684 /* de */,
 			);
 			name = "Template Chooser.storyboard";
 			sourceTree = "<group>";
@@ -9646,6 +9663,7 @@
 				C90BC0572472108100EF7F09 /* Base */,
 				C90BC05F247210F200EF7F09 /* fr */,
 				C90BC0862472E03400EF7F09 /* es */,
+				C909510E247885A200931684 /* de */,
 			);
 			name = ScriptSettingsViewController.storyboard;
 			sourceTree = "<group>";
@@ -9656,6 +9674,7 @@
 				C90BC0492472103900EF7F09 /* Base */,
 				C90BC060247210F300EF7F09 /* fr */,
 				C90BC0872472E03500EF7F09 /* es */,
+				C909510F247885A300931684 /* de */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -9666,6 +9685,7 @@
 				C9F04E842173C33400BDD03E /* en */,
 				C90BC0612472111100EF7F09 /* fr */,
 				C90BC0882472E03600EF7F09 /* es */,
+				C9095111247885A400931684 /* de */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -9677,6 +9697,7 @@
 				C90BC04B2472105300EF7F09 /* en */,
 				C90BC059247210EC00EF7F09 /* fr */,
 				C90BC0802472E02F00EF7F09 /* es */,
+				C90951082478859D00931684 /* de */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
