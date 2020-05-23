@@ -29,6 +29,15 @@ class CustomIconTableViewController: UITableViewController {
     
     // MARK: - Custom icon table view controller
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Fix localized string for the text view
+        if let tv = tableView.tableFooterView as? UITextView, let ident = tv.restorationIdentifier {
+            tv.text = NSLocalizedString("\(ident).text", tableName: "Settings", comment: "")
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidLoad()
         

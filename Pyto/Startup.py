@@ -276,7 +276,7 @@ try:
 
     # MARK: - Run script
 
-    try:
+    def _run():
         def run():
 
             pyto.Python.shared.isSetup = True
@@ -284,8 +284,11 @@ try:
             SourceFileLoader("main", "%@").load_module()
 
         threading.Thread(target=run).start()
-    except Exception as e:
-        print(e)
+
+    try:
+        _run()
+    except:
+        _run() # Yes
 
     while True:
         sleep(5)
