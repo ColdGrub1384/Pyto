@@ -25,6 +25,7 @@
 		C904FA2621DA4C7600B70A39 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C904FA1F21DA4C7600B70A39 /* Accelerate.framework */; };
 		C9064E372413083000E386C2 /* libnpymath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9064E352413082F00E386C2 /* libnpymath.a */; };
 		C9064E382413083000E386C2 /* libnpysort.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9064E362413082F00E386C2 /* libnpysort.a */; };
+		C9095136247A000C00931684 /* emd.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C909511F2479FFF300931684 /* emd.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C909A19A2267DB210058C145 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C909A1992267DB210058C145 /* MenuTableViewController.swift */; };
 		C909A19C2267E6E30058C145 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C909A19B2267E6E30058C145 /* UIViewController.swift */; };
 		C90A8029220CFE2200C9A5A1 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* TextView.swift */; };
@@ -412,7 +413,7 @@
 		C99DDCEC21BBED22002A734E /* DocumentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99DDCEB21BBED22002A734E /* DocumentationViewController.swift */; };
 		C99E8D6C21F0CC7800C71884 /* WWDC16.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99E8D6B21F0CC7800C71884 /* WWDC16.swift */; };
 		C99E8D7021F0D03400C71884 /* CoolGlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99E8D6F21F0D03400C71884 /* CoolGlow.swift */; };
-		C99FDFD5234A24320022685B /* docs_build in Resources */ = {isa = PBXBuildFile; fileRef = C99FDFD4234A24320022685B /* docs_build */; settings = {ASSET_TAGS = (docs, ); }; };
+		C99FDFD5234A24320022685B /* docs_build in Resources */ = {isa = PBXBuildFile; fileRef = C99FDFD4234A24320022685B /* docs_build */; };
 		C9A05F6222E3FF600096DCA8 /* PyButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94E730122E3BBF300F3FB79 /* PyButtonItem.swift */; };
 		C9A05F6622E400890096DCA8 /* PyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A05F6522E400890096DCA8 /* PyView.swift */; };
 		C9A05F6722E400890096DCA8 /* PyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A05F6522E400890096DCA8 /* PyView.swift */; };
@@ -2026,6 +2027,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C9095136247A000C00931684 /* emd.framework in Embed Frameworks */,
 				C90BBB2B24709E9E00EF7F09 /* compression.framework in Embed Frameworks */,
 				C90BBB1A24709BD800EF7F09 /* _iterparser.framework in Embed Frameworks */,
 				C90BBB1B24709BD800EF7F09 /* cparser.framework in Embed Frameworks */,
@@ -2311,6 +2313,7 @@
 		C904FA1F21DA4C7600B70A39 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C9064E352413082F00E386C2 /* libnpymath.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libnpymath.a; sourceTree = "<group>"; };
 		C9064E362413082F00E386C2 /* libnpysort.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libnpysort.a; sourceTree = "<group>"; };
+		C909511F2479FFF300931684 /* emd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = emd.framework; sourceTree = "<group>"; };
 		C909A1992267DB210058C145 /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 		C909A19B2267E6E30058C145 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		C90BA5B423C4CD1D00B2B187 /* Dark 7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Dark 7.png"; sourceTree = "<group>"; };
@@ -5579,6 +5582,14 @@
 			path = PIL;
 			sourceTree = "<group>";
 		};
+		C909511E2479FFF300931684 /* Emd */ = {
+			isa = PBXGroup;
+			children = (
+				C909511F2479FFF300931684 /* emd.framework */,
+			);
+			path = Emd;
+			sourceTree = "<group>";
+		};
 		C90BBB0924709BA700EF7F09 /* Astropy */ = {
 			isa = PBXGroup;
 			children = (
@@ -8005,6 +8016,7 @@
 				C9FFF3B0246D8F1C004F41D3 /* Regex */,
 				C9FFF3B3246D9657004F41D3 /* Gensim */,
 				C90BBB0924709BA700EF7F09 /* Astropy */,
+				C909511E2479FFF300931684 /* Emd */,
 				C9CEE1E821EB8D5300316D3C /* PytoCore */,
 				C946A5AB22074EAA00F78C5C /* Pyto Widget */,
 				C9C2F46F22F0ED8C0062F4D6 /* Pyto Intents */,

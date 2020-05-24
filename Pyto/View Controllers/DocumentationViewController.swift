@@ -87,37 +87,8 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(webView)
         
-        request.conditionallyBeginAccessingResources { (downloaded) in
-            if downloaded {
-                if let url = self.request.bundle.url(forResource: "docs_build/html", withExtension: "") {
-                    self.webView.loadFileURL(url.appendingPathComponent("index.html"), allowingReadAccessTo: url)
-                }
-            } else {
-                
-                var done = false
-                
-                self.request.beginAccessingResources { (error) in
-                    done = true
-                    DispatchQueue.main.async {
-                        if let error = error {
-                            self.webView.loadHTMLString("<h1>Error downloading documentation</h1> <p>\(error.localizedDescription)</p>", baseURL: nil)
-                        } else {
-                            if let url = self.request.bundle.url(forResource: "docs_build/html", withExtension: "") {
-                                self.webView.loadFileURL(url.appendingPathComponent("index.html"), allowingReadAccessTo: url)
-                            }
-                        }
-                    }
-                }
-                
-                _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
-                    if done {
-                        self.navigationItem.title = nil
-                        timer.invalidate()
-                    } else {
-                        self.navigationItem.title = "\(Int(self.request.progress.fractionCompleted*100))%"
-                    }
-                })
-            }
+        if let url = self.request.bundle.url(forResource: "docs_build/html", withExtension: "") {
+            self.webView.loadFileURL(url.appendingPathComponent("index.html"), allowingReadAccessTo: url)
         }
         
         goBackButton = UIBarButtonItem(image: UIImage(named: "back"), style: .plain, target: self, action: #selector(goBack))
@@ -147,7 +118,7 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
-        if let url = navigationAction.request.url, url.scheme == "http" || url.scheme == "https" {
+        if let url = navigationAction.request.url, url.scheme == "http" || url.scheme == "https", url.host != "pyto.readthedocs.io" {
             present(SFSafariViewController(url: url), animated: true, completion: nil)
             decisionHandler(.cancel)
         } else {
