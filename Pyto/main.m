@@ -743,6 +743,14 @@ void init_astropy() {
     BandHandle(@"astropy", name, key);
 }
 
+// MARK: - Emd
+
+void init_emd() {
+    NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
+    [name addObject:@"emd"]; [key addObject:@"__pyemd_emd"];
+    BandHandle(@"emd", name, key);
+}
+
 #endif
 
 #endif

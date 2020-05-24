@@ -73,7 +73,23 @@ struct PyPackage {
     ///     - name: The name of the package.
     init?(name: String) {
         
-        guard let url = URL(string: "https://pypi.org/pypi/\(name)/json") else {
+        let mirror: String
+        if let _mirror = ProcessInfo.processInfo.environment["PYPI_MIRROR"] {
+            var splitted = _mirror.components(separatedBy: "/")
+            if splitted.last == "" {
+                splitted.removeLast()
+            }
+            if splitted.last == "simple" {
+                splitted.removeLast()
+            }
+            splitted.append("pypi")
+            
+            mirror = splitted.joined(separator: "/")
+        } else {
+            mirror = "https://pypi.python.org/pypi"
+        }
+        
+        guard let url = URL(string: "\(mirror)/\(name)/json") else {
             return nil
         }
         

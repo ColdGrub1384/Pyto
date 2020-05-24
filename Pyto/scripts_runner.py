@@ -6,6 +6,9 @@ import traceback
 import stopit
 import sys
 import os
+import ctypes
+
+c = ctypes.CDLL(None)
 
 def raise_exception(script, exception):
     for tid, tobj in threading._active.items():
@@ -65,7 +68,11 @@ while True:
         raise_exception(str(script), KeyboardInterrupt)
     if Python.shared.scriptsToInterrupt.count != 0:
         Python.shared.scriptsToInterrupt = []
-        
+    
+    if "PYPI_MIRROR" in os.environ:
+        mirror = os.environ["PYPI_MIRROR"]
+        c.setenv(b"PYPI_MIRROR", mirror.encode())
+    
     if ConsoleViewController.isPresentingView:
         sleep(0.002)
     else:

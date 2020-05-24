@@ -193,7 +193,6 @@ import WatchConnectivity
         WCSession.default.delegate = self
         WCSession.default.activate()
         
-        #if MAIN
         if #available(iOS 13.0, *) { // Listen for memory
             let mem = MemoryManager()
             mem.memoryLimitAlmostReached = {
@@ -208,17 +207,6 @@ import WatchConnectivity
                 }
             }
             mem.startListening()
-        }
-        #endif
-        
-        // Download docs
-        let docsRequest = NSBundleResourceRequest(tags: ["docs"])
-        docsRequest.conditionallyBeginAccessingResources { (downloaded) in
-            if !downloaded {
-                docsRequest.beginAccessingResources { (error) in
-                    print(error?.localizedDescription ?? "")
-                }
-            }
         }
         
         // Listen to the pasteboard
