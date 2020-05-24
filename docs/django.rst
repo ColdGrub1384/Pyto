@@ -9,5 +9,5 @@ You can now open the ``manage.py`` file inside the project. Press the Settings i
 .. raw:: html
 
     <video width="100%" controls>
-      <source src="_static/django.mp4" type="video/mp4">
+      <source src="https://pyto.app/assets/django.mp4" type="video/mp4">
     </video>
