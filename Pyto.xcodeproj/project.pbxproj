@@ -448,6 +448,7 @@
 		C9B5D87621F214DC00E980BA /* body.html in Resources */ = {isa = PBXBuildFile; fileRef = C9B5D87521F214DC00E980BA /* body.html */; };
 		C9BB255C246BBD14001EBA8A /* _sodium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BB2540246BBBB0001EBA8A /* _sodium.framework */; };
 		C9BB255D246BBD1A001EBA8A /* _sodium.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9BB2540246BBBB0001EBA8A /* _sodium.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9BBB05F247C01330050D5E3 /* InternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BBB05E247C01330050D5E3 /* InternetConnection.swift */; };
 		C9BF46E222E0DC4F00B8FE4B /* PyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF46E122E0DC4F00B8FE4B /* PyTableViewCell.swift */; };
 		C9BF46E322E0DC4F00B8FE4B /* PyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF46E122E0DC4F00B8FE4B /* PyTableViewCell.swift */; };
 		C9BF46E722E106D500B8FE4B /* PyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF46E622E106D500B8FE4B /* PyTableView.swift */; };
@@ -3083,6 +3084,7 @@
 		C9B5D87121F20F2A00E980BA /* MarkdownPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownPreviewController.swift; sourceTree = "<group>"; };
 		C9B5D87521F214DC00E980BA /* body.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = body.html; sourceTree = "<group>"; };
 		C9BB253B246BBBAF001EBA8A /* _sodium.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = _sodium.xcodeproj; path = PyNacl/_sodium/_sodium.xcodeproj; sourceTree = SOURCE_ROOT; };
+		C9BBB05E247C01330050D5E3 /* InternetConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnection.swift; sourceTree = "<group>"; };
 		C9BE01B021530BAF00A8C825 /* site-packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "site-packages"; sourceTree = "<group>"; };
 		C9BF46E122E0DC4F00B8FE4B /* PyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyTableViewCell.swift; sourceTree = "<group>"; };
 		C9BF46E622E106D500B8FE4B /* PyTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyTableView.swift; sourceTree = "<group>"; };
@@ -5813,6 +5815,7 @@
 				C9624EF321A9905400DDA9A7 /* PyThread.swift */,
 				C95A79E7214DC9D0007A1B90 /* PyAlert.swift */,
 				C91376B5245E365E00AA0935 /* RemoteNotifications.swift */,
+				C9BBB05E247C01330050D5E3 /* InternetConnection.swift */,
 				C9425A7921F49B5A00E7CC35 /* Selectors */,
 				C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */,
 			);
@@ -9248,6 +9251,7 @@
 				C98A5BB422C7E86900D411CC /* PyWrapper.swift in Sources */,
 				C9622B7E2467BE5200D0D697 /* lmstr_.c in Sources */,
 				C93D61DF2145D03200C8B5E3 /* UIWindow.swift in Sources */,
+				C9BBB05F247C01330050D5E3 /* InternetConnection.swift in Sources */,
 				C98F37BB23ED894700E5D52C /* PyMotionHelper.swift in Sources */,
 				C95076FC22DE428F00226497 /* WidgetSimulatorViewController.swift in Sources */,
 				C9622B852467BE5200D0D697 /* fdjac2_.c in Sources */,
