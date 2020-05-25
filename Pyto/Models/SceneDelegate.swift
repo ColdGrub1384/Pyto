@@ -131,6 +131,19 @@ import SwiftUI_Views
     }
     
     @available(iOS 13.0, *)
+    func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        
+        if shortcutItem.type == "PyPi" {
+            let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "pypi")
+            let navVC = UINavigationController(rootViewController: vc)
+            navVC.modalPresentationStyle = .formSheet
+            windowScene.windows.first?.topViewController?.present(navVC, animated: true, completion: nil)
+        } else if shortcutItem.type == "REPL" {
+            windowScene.windows.first?.topViewController?.present(UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "repl"), animated: true, completion: nil)
+        }
+    }
+    
+    @available(iOS 13.0, *)
     func sceneWillResignActive(_ scene: UIScene) {
         #if MAIN
         (UIApplication.shared.delegate as? AppDelegate)?.copyModules()
