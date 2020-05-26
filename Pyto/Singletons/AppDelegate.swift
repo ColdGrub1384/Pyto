@@ -122,6 +122,52 @@ import WatchConnectivity
             print(error.localizedDescription)
         }
     }
+    
+    /// Adds an URL bookmark to Siri Shortcuts.
+    func addURLToShortcuts(_ url: URL) {
+        
+        guard !url.resolvingSymlinksInPath().path.hasPrefix(URL(fileURLWithPath: NSTemporaryDirectory()).resolvingSymlinksInPath().path) else {
+            return
+        }
+        
+        guard let group = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.pyto") else {
+            return
+        }
+        
+        let docs = group.appendingPathComponent("Shortcuts")
+        
+        if !FileManager.default.fileExists(atPath: docs.path) {
+            try? FileManager.default.createDirectory(at: docs, withIntermediateDirectories: true, attributes: nil)
+        }
+        
+        do {
+            let data = try url.bookmarkData()
+            try data.write(to: docs.appendingPathComponent(url.lastPathComponent))
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        DispatchQueue.global().async {
+            var urls = [URL]()
+            do {
+                for file in try FileManager.default.contentsOfDirectory(at: docs, includingPropertiesForKeys: nil, options: []) {
+                    do {
+                        var isStale = false
+                        let data = try Data(contentsOf: file)
+                        let url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
+                        if !FileManager.default.fileExists(atPath: url.path) || (urls.contains(url) && url.lastPathComponent != file.lastPathComponent) {
+                            try FileManager.default.removeItem(at: file)
+                        }
+                        urls.append(url)
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
     #endif
     
     // MARK: - Application delegate

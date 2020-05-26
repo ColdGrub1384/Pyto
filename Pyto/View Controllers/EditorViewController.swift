@@ -1037,12 +1037,12 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
         
         save { (_) in
-            var arguments = self.args.components(separatedBy: " ")
-            parseArgs(&arguments)
-            
-            //sleep(1)
-            
-            Python.shared.args = NSMutableArray(array: arguments)
+            if !(UserDefaults.standard.value(forKey: "arguments\(self.document?.fileURL.path.replacingOccurrences(of: "//", with: "/") ?? "")") is [String]) {
+                var arguments = self.args.components(separatedBy: " ")
+                parseArgs(&arguments)
+                            
+                Python.shared.args = NSMutableArray(array: arguments)
+            }
             Python.shared.currentWorkingDirectory = self.currentDirectory.path
             
             guard let console = (self.parent as? EditorSplitViewController)?.console else {
@@ -1050,6 +1050,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
             }
             
             console.updateSize()
+            
+            (UIApplication.shared.delegate as? AppDelegate)?.addURLToShortcuts(self.document!.fileURL)
             
             DispatchQueue.main.async {
                 if let url = self.document?.fileURL {
