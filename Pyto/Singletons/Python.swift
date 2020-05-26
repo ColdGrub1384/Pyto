@@ -446,7 +446,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
             let code = String(format: src, url.path)
             PyRun_SimpleStringFlags(code.cValue, nil)
             NSLog("Will throw fatal error")
-            fatalError()
+            Swift.fatalError()
             #endif
         }
     }

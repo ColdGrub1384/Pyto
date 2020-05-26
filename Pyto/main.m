@@ -98,11 +98,11 @@ void BandHandle(NSString *fkTitle, NSArray *nameArray, NSArray *keyArray) {
                     if (!func) {
                         NSLog(@"%@", funcName);
                     } else {
-                        #if MAIN || WIDGET
                         //PyObject* pyModule = func();
                         //PyObject* importer = Pymodule;
                         //[Python.shared.modules setObject: (__bridge id _Nonnull)(pyModule) forKey: fkey];
                         PyImport_AppendInittab(fkey.UTF8String, func);
+                        #if MAIN
                         [Python.shared.modules addObject: fkey];
                         #endif
                     }

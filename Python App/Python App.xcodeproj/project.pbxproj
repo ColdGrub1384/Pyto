@@ -8,173 +8,206 @@
 
 /* Begin PBXBuildFile section */
 		C921EF5E21EC0CFB004C750D /* app in Resources */ = {isa = PBXBuildFile; fileRef = C921EF5D21EC0CFB004C750D /* app */; };
-		C921EF6021EC0D0B004C750D /* modules in Resources */ = {isa = PBXBuildFile; fileRef = C921EF5F21EC0D0B004C750D /* modules */; };
-		C921EF6221EC0D10004C750D /* iCloudDrive in Resources */ = {isa = PBXBuildFile; fileRef = C921EF6121EC0D10004C750D /* iCloudDrive */; };
-		C921EF6C21ECAFA1004C750D /* site-packages in Resources */ = {isa = PBXBuildFile; fileRef = C921EF6B21ECAFA1004C750D /* site-packages */; };
-		C92FB3B722ECC41500A59AC0 /* jquant1.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB38922ECC41300A59AC0 /* jquant1.o */; };
-		C92FB3B822ECC41500A59AC0 /* jcsample.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB38A22ECC41300A59AC0 /* jcsample.o */; };
-		C92FB3B922ECC41500A59AC0 /* jcapimin.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB38B22ECC41300A59AC0 /* jcapimin.o */; };
-		C92FB3BA22ECC41500A59AC0 /* jdcoefct.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB38C22ECC41300A59AC0 /* jdcoefct.o */; };
-		C92FB3BB22ECC41500A59AC0 /* jfdctint.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB38D22ECC41300A59AC0 /* jfdctint.o */; };
-		C92FB3BC22ECC41500A59AC0 /* jdmaster.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB38E22ECC41300A59AC0 /* jdmaster.o */; };
-		C92FB3BD22ECC41500A59AC0 /* jctrans.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB38F22ECC41400A59AC0 /* jctrans.o */; };
-		C92FB3BE22ECC41500A59AC0 /* jdapistd.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39022ECC41400A59AC0 /* jdapistd.o */; };
-		C92FB3BF22ECC41500A59AC0 /* jdmarker.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39122ECC41400A59AC0 /* jdmarker.o */; };
-		C92FB3C022ECC41500A59AC0 /* jmemnobs.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39222ECC41400A59AC0 /* jmemnobs.o */; };
-		C92FB3C122ECC41500A59AC0 /* jcdctmgr.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39322ECC41400A59AC0 /* jcdctmgr.o */; };
-		C92FB3C222ECC41500A59AC0 /* jidctfst.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39422ECC41400A59AC0 /* jidctfst.o */; };
-		C92FB3C322ECC41500A59AC0 /* jutils.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39522ECC41400A59AC0 /* jutils.o */; };
-		C92FB3C422ECC41500A59AC0 /* jidctflt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39622ECC41400A59AC0 /* jidctflt.o */; };
-		C92FB3C522ECC41500A59AC0 /* jdatadst.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39722ECC41400A59AC0 /* jdatadst.o */; };
-		C92FB3C622ECC41500A59AC0 /* jdmerge.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39822ECC41400A59AC0 /* jdmerge.o */; };
-		C92FB3C722ECC41500A59AC0 /* jcinit.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39922ECC41400A59AC0 /* jcinit.o */; };
-		C92FB3C822ECC41500A59AC0 /* jccolor.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39A22ECC41400A59AC0 /* jccolor.o */; };
-		C92FB3C922ECC41500A59AC0 /* jfdctflt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39B22ECC41400A59AC0 /* jfdctflt.o */; };
-		C92FB3CA22ECC41500A59AC0 /* jdhuff.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39C22ECC41400A59AC0 /* jdhuff.o */; };
-		C92FB3CB22ECC41500A59AC0 /* jquant2.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39D22ECC41400A59AC0 /* jquant2.o */; };
-		C92FB3CC22ECC41500A59AC0 /* jddctmgr.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39E22ECC41400A59AC0 /* jddctmgr.o */; };
-		C92FB3CD22ECC41500A59AC0 /* jcparam.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB39F22ECC41400A59AC0 /* jcparam.o */; };
-		C92FB3CE22ECC41500A59AC0 /* jcmainct.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3A022ECC41400A59AC0 /* jcmainct.o */; };
-		C92FB3CF22ECC41500A59AC0 /* jfdctfst.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3A122ECC41400A59AC0 /* jfdctfst.o */; };
-		C92FB3D022ECC41500A59AC0 /* jcomapi.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3A222ECC41400A59AC0 /* jcomapi.o */; };
-		C92FB3D122ECC41500A59AC0 /* jdinput.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3A322ECC41400A59AC0 /* jdinput.o */; };
-		C92FB3D222ECC41500A59AC0 /* jdtrans.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3A422ECC41400A59AC0 /* jdtrans.o */; };
-		C92FB3D322ECC41500A59AC0 /* jdatasrc.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3A522ECC41400A59AC0 /* jdatasrc.o */; };
-		C92FB3D422ECC41500A59AC0 /* jcprepct.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3A622ECC41500A59AC0 /* jcprepct.o */; };
-		C92FB3D522ECC41500A59AC0 /* jdarith.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3A722ECC41500A59AC0 /* jdarith.o */; };
-		C92FB3D622ECC41500A59AC0 /* jchuff.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3A822ECC41500A59AC0 /* jchuff.o */; };
-		C92FB3D722ECC41500A59AC0 /* jcmarker.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3A922ECC41500A59AC0 /* jcmarker.o */; };
-		C92FB3D822ECC41500A59AC0 /* jaricom.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3AA22ECC41500A59AC0 /* jaricom.o */; };
-		C92FB3D922ECC41500A59AC0 /* jcarith.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3AB22ECC41500A59AC0 /* jcarith.o */; };
-		C92FB3DA22ECC41500A59AC0 /* jdcolor.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3AC22ECC41500A59AC0 /* jdcolor.o */; };
-		C92FB3DB22ECC41500A59AC0 /* jdapimin.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3AD22ECC41500A59AC0 /* jdapimin.o */; };
-		C92FB3DC22ECC41500A59AC0 /* jccoefct.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3AE22ECC41500A59AC0 /* jccoefct.o */; };
-		C92FB3DD22ECC41500A59AC0 /* jdpostct.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3AF22ECC41500A59AC0 /* jdpostct.o */; };
-		C92FB3DE22ECC41500A59AC0 /* jcapistd.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3B022ECC41500A59AC0 /* jcapistd.o */; };
-		C92FB3DF22ECC41500A59AC0 /* jidctint.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3B122ECC41500A59AC0 /* jidctint.o */; };
-		C92FB3E022ECC41500A59AC0 /* jdmainct.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3B222ECC41500A59AC0 /* jdmainct.o */; };
-		C92FB3E122ECC41500A59AC0 /* jerror.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3B322ECC41500A59AC0 /* jerror.o */; };
-		C92FB3E222ECC41500A59AC0 /* jmemmgr.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3B422ECC41500A59AC0 /* jmemmgr.o */; };
-		C92FB3E322ECC41500A59AC0 /* jcmaster.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3B522ECC41500A59AC0 /* jcmaster.o */; };
-		C92FB3E422ECC41500A59AC0 /* jdsample.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3B622ECC41500A59AC0 /* jdsample.o */; };
-		C92FB40D22ECC42F00A59AC0 /* type1cid.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3E522ECC42D00A59AC0 /* type1cid.o */; };
-		C92FB40E22ECC42F00A59AC0 /* fttype1.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3E622ECC42D00A59AC0 /* fttype1.o */; };
-		C92FB40F22ECC42F00A59AC0 /* smooth.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3E722ECC42D00A59AC0 /* smooth.o */; };
-		C92FB41022ECC42F00A59AC0 /* ftcid.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3E822ECC42D00A59AC0 /* ftcid.o */; };
-		C92FB41122ECC42F00A59AC0 /* ftpfr.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3E922ECC42D00A59AC0 /* ftpfr.o */; };
-		C92FB41222ECC42F00A59AC0 /* type42.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3EA22ECC42D00A59AC0 /* type42.o */; };
-		C92FB41322ECC42F00A59AC0 /* bdf.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3EB22ECC42D00A59AC0 /* bdf.o */; };
-		C92FB41422ECC42F00A59AC0 /* ftsystem.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3EC22ECC42E00A59AC0 /* ftsystem.o */; };
-		C92FB41522ECC42F00A59AC0 /* ftgzip.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3ED22ECC42E00A59AC0 /* ftgzip.o */; };
-		C92FB41622ECC42F00A59AC0 /* ftbbox.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3EE22ECC42E00A59AC0 /* ftbbox.o */; };
-		C92FB41722ECC42F00A59AC0 /* psnames.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3EF22ECC42E00A59AC0 /* psnames.o */; };
-		C92FB41822ECC42F00A59AC0 /* ftbdf.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3F022ECC42E00A59AC0 /* ftbdf.o */; };
-		C92FB41922ECC42F00A59AC0 /* ftinit.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3F122ECC42E00A59AC0 /* ftinit.o */; };
-		C92FB41A22ECC42F00A59AC0 /* ftwinfnt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3F222ECC42E00A59AC0 /* ftwinfnt.o */; };
-		C92FB41B22ECC42F00A59AC0 /* autofit.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3F322ECC42E00A59AC0 /* autofit.o */; };
-		C92FB41C22ECC42F00A59AC0 /* ftotval.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3F422ECC42E00A59AC0 /* ftotval.o */; };
-		C92FB41D22ECC42F00A59AC0 /* cff.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3F522ECC42E00A59AC0 /* cff.o */; };
-		C92FB41E22ECC42F00A59AC0 /* ftbase.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3F622ECC42E00A59AC0 /* ftbase.o */; };
-		C92FB41F22ECC42F00A59AC0 /* sfnt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3F722ECC42E00A59AC0 /* sfnt.o */; };
-		C92FB42022ECC42F00A59AC0 /* pshinter.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3F822ECC42E00A59AC0 /* pshinter.o */; };
-		C92FB42122ECC42F00A59AC0 /* type1.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3F922ECC42E00A59AC0 /* type1.o */; };
-		C92FB42222ECC42F00A59AC0 /* winfnt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3FA22ECC42E00A59AC0 /* winfnt.o */; };
-		C92FB42322ECC42F00A59AC0 /* ftgasp.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3FB22ECC42E00A59AC0 /* ftgasp.o */; };
-		C92FB42422ECC42F00A59AC0 /* truetype.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3FC22ECC42E00A59AC0 /* truetype.o */; };
-		C92FB42522ECC42F00A59AC0 /* psaux.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3FD22ECC42E00A59AC0 /* psaux.o */; };
-		C92FB42622ECC42F00A59AC0 /* ftlzw.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3FE22ECC42E00A59AC0 /* ftlzw.o */; };
-		C92FB42722ECC42F00A59AC0 /* ftdebug.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB3FF22ECC42E00A59AC0 /* ftdebug.o */; };
-		C92FB42822ECC42F00A59AC0 /* ftgxval.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40022ECC42E00A59AC0 /* ftgxval.o */; };
-		C92FB42922ECC42F00A59AC0 /* ftbzip2.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40122ECC42E00A59AC0 /* ftbzip2.o */; };
-		C92FB42A22ECC42F00A59AC0 /* ftsynth.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40222ECC42F00A59AC0 /* ftsynth.o */; };
-		C92FB42B22ECC42F00A59AC0 /* ftfstype.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40322ECC42F00A59AC0 /* ftfstype.o */; };
-		C92FB42C22ECC42F00A59AC0 /* ftcache.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40422ECC42F00A59AC0 /* ftcache.o */; };
-		C92FB42D22ECC42F00A59AC0 /* ftstroke.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40522ECC42F00A59AC0 /* ftstroke.o */; };
-		C92FB42E22ECC42F00A59AC0 /* pcf.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40622ECC42F00A59AC0 /* pcf.o */; };
-		C92FB42F22ECC42F00A59AC0 /* ftmm.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40722ECC42F00A59AC0 /* ftmm.o */; };
-		C92FB43022ECC42F00A59AC0 /* ftglyph.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40822ECC42F00A59AC0 /* ftglyph.o */; };
-		C92FB43122ECC42F00A59AC0 /* ftbitmap.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40922ECC42F00A59AC0 /* ftbitmap.o */; };
-		C92FB43222ECC42F00A59AC0 /* pfr.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40A22ECC42F00A59AC0 /* pfr.o */; };
-		C92FB43322ECC42F00A59AC0 /* raster.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40B22ECC42F00A59AC0 /* raster.o */; };
-		C92FB43422ECC42F00A59AC0 /* ftpatent.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB40C22ECC42F00A59AC0 /* ftpatent.o */; };
-		C93AE16521EC017E00B588B6 /* PytoCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C93AE16421EC017700B588B6 /* PytoCore.framework */; };
-		C93AE16621EC017E00B588B6 /* PytoCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C93AE16421EC017700B588B6 /* PytoCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C97B57632363DA850066BE05 /* python3_ios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C97B57082363C4FA0066BE05 /* python3_ios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C97EBD5C22ED216900FD4A84 /* libpng.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F4625B22ECBB9E007DC3B8 /* libpng.framework */; };
-		C97EBD5D22ED216900FD4A84 /* libpng.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9F4625B22ECBB9E007DC3B8 /* libpng.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C92F6EEA247DA552006CC037 /* pythonA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6EDF247DA544006CC037 /* pythonA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C92F6EEB247DA55A006CC037 /* pythonA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6EDF247DA544006CC037 /* pythonA.framework */; };
+		C92F6EF1247DAAAF006CC037 /* _imagingmorph.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6EED247DAAA6006CC037 /* _imagingmorph.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C92F6EF2247DAAAF006CC037 /* _imagingft.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6EEE247DAAA6006CC037 /* _imagingft.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C92F6EF3247DAAAF006CC037 /* _imagingmath.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6EEF247DAAA6006CC037 /* _imagingmath.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C92F6EF4247DAAAF006CC037 /* _imaging.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6EF0247DAAA6006CC037 /* _imaging.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C92F6F4F247DAB18006CC037 /* pcf.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6EF6247DAB17006CC037 /* pcf.o */; };
+		C92F6F50247DAB18006CC037 /* winfnt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6EF7247DAB17006CC037 /* winfnt.o */; };
+		C92F6F51247DAB18006CC037 /* fttype1.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6EF8247DAB17006CC037 /* fttype1.o */; };
+		C92F6F52247DAB18006CC037 /* ftwinfnt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6EF9247DAB17006CC037 /* ftwinfnt.o */; };
+		C92F6F53247DAB18006CC037 /* sfnt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6EFA247DAB17006CC037 /* sfnt.o */; };
+		C92F6F54247DAB18006CC037 /* pshinter.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6EFB247DAB17006CC037 /* pshinter.o */; };
+		C92F6F55247DAB18006CC037 /* cff.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6EFC247DAB17006CC037 /* cff.o */; };
+		C92F6F56247DAB18006CC037 /* ftfstype.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6EFD247DAB17006CC037 /* ftfstype.o */; };
+		C92F6F57247DAB18006CC037 /* type1.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6EFE247DAB17006CC037 /* type1.o */; };
+		C92F6F58247DAB18006CC037 /* psnames.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6EFF247DAB17006CC037 /* psnames.o */; };
+		C92F6F59247DAB18006CC037 /* ftdebug.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F00247DAB17006CC037 /* ftdebug.o */; };
+		C92F6F5A247DAB18006CC037 /* ftmm.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F01247DAB17006CC037 /* ftmm.o */; };
+		C92F6F5B247DAB18006CC037 /* autofit.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F02247DAB17006CC037 /* autofit.o */; };
+		C92F6F5C247DAB18006CC037 /* psaux.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F03247DAB17006CC037 /* psaux.o */; };
+		C92F6F5D247DAB18006CC037 /* smooth.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F04247DAB17006CC037 /* smooth.o */; };
+		C92F6F5E247DAB18006CC037 /* ftbzip2.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F05247DAB17006CC037 /* ftbzip2.o */; };
+		C92F6F5F247DAB18006CC037 /* ftbbox.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F06247DAB17006CC037 /* ftbbox.o */; };
+		C92F6F60247DAB18006CC037 /* type1cid.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F07247DAB17006CC037 /* type1cid.o */; };
+		C92F6F61247DAB18006CC037 /* ftgzip.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F08247DAB17006CC037 /* ftgzip.o */; };
+		C92F6F62247DAB18006CC037 /* raster.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F09247DAB17006CC037 /* raster.o */; };
+		C92F6F63247DAB18006CC037 /* ftsynth.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F0A247DAB17006CC037 /* ftsynth.o */; };
+		C92F6F64247DAB18006CC037 /* ftgasp.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F0B247DAB17006CC037 /* ftgasp.o */; };
+		C92F6F65247DAB18006CC037 /* ftcache.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F0C247DAB17006CC037 /* ftcache.o */; };
+		C92F6F66247DAB18006CC037 /* ftstroke.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F0D247DAB17006CC037 /* ftstroke.o */; };
+		C92F6F67247DAB18006CC037 /* ftotval.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F0E247DAB17006CC037 /* ftotval.o */; };
+		C92F6F68247DAB18006CC037 /* ftinit.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F0F247DAB17006CC037 /* ftinit.o */; };
+		C92F6F69247DAB18006CC037 /* pfr.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F10247DAB17006CC037 /* pfr.o */; };
+		C92F6F6A247DAB18006CC037 /* ftpfr.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F11247DAB17006CC037 /* ftpfr.o */; };
+		C92F6F6B247DAB18006CC037 /* truetype.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F12247DAB17006CC037 /* truetype.o */; };
+		C92F6F6C247DAB18006CC037 /* ftgxval.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F13247DAB17006CC037 /* ftgxval.o */; };
+		C92F6F6D247DAB18006CC037 /* ftbase.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F14247DAB17006CC037 /* ftbase.o */; };
+		C92F6F6E247DAB18006CC037 /* ftlzw.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F15247DAB17006CC037 /* ftlzw.o */; };
+		C92F6F6F247DAB18006CC037 /* bdf.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F16247DAB17006CC037 /* bdf.o */; };
+		C92F6F70247DAB18006CC037 /* ftsystem.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F17247DAB17006CC037 /* ftsystem.o */; };
+		C92F6F71247DAB18006CC037 /* ftcid.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F18247DAB17006CC037 /* ftcid.o */; };
+		C92F6F72247DAB18006CC037 /* ftglyph.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F19247DAB17006CC037 /* ftglyph.o */; };
+		C92F6F73247DAB18006CC037 /* ftbitmap.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F1A247DAB17006CC037 /* ftbitmap.o */; };
+		C92F6F74247DAB18006CC037 /* type42.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F1B247DAB17006CC037 /* type42.o */; };
+		C92F6F75247DAB18006CC037 /* ftpatent.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F1C247DAB17006CC037 /* ftpatent.o */; };
+		C92F6F76247DAB18006CC037 /* ftbdf.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F1D247DAB17006CC037 /* ftbdf.o */; };
+		C92F6F77247DAB18006CC037 /* jutils.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F1F247DAB17006CC037 /* jutils.o */; };
+		C92F6F78247DAB18006CC037 /* jquant1.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F20247DAB17006CC037 /* jquant1.o */; };
+		C92F6F79247DAB18006CC037 /* jcdctmgr.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F21247DAB17006CC037 /* jcdctmgr.o */; };
+		C92F6F7A247DAB18006CC037 /* jccolor.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F22247DAB17006CC037 /* jccolor.o */; };
+		C92F6F7B247DAB18006CC037 /* jerror.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F23247DAB17006CC037 /* jerror.o */; };
+		C92F6F7C247DAB18006CC037 /* jcprepct.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F24247DAB17006CC037 /* jcprepct.o */; };
+		C92F6F7D247DAB18006CC037 /* jaricom.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F25247DAB17006CC037 /* jaricom.o */; };
+		C92F6F7E247DAB18006CC037 /* jdmaster.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F26247DAB17006CC037 /* jdmaster.o */; };
+		C92F6F7F247DAB18006CC037 /* jdarith.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F27247DAB17006CC037 /* jdarith.o */; };
+		C92F6F80247DAB18006CC037 /* jcapistd.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F28247DAB17006CC037 /* jcapistd.o */; };
+		C92F6F81247DAB18006CC037 /* jfdctfst.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F29247DAB17006CC037 /* jfdctfst.o */; };
+		C92F6F82247DAB18006CC037 /* jcmarker.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F2A247DAB17006CC037 /* jcmarker.o */; };
+		C92F6F83247DAB18006CC037 /* jquant2.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F2B247DAB17006CC037 /* jquant2.o */; };
+		C92F6F84247DAB18006CC037 /* jdapimin.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F2C247DAB17006CC037 /* jdapimin.o */; };
+		C92F6F85247DAB18006CC037 /* jidctint.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F2D247DAB17006CC037 /* jidctint.o */; };
+		C92F6F86247DAB18006CC037 /* jdatadst.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F2E247DAB17006CC037 /* jdatadst.o */; };
+		C92F6F87247DAB18006CC037 /* jmemmgr.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F2F247DAB17006CC037 /* jmemmgr.o */; };
+		C92F6F88247DAB18006CC037 /* jcomapi.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F30247DAB17006CC037 /* jcomapi.o */; };
+		C92F6F89247DAB18006CC037 /* jdsample.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F31247DAB17006CC037 /* jdsample.o */; };
+		C92F6F8A247DAB18006CC037 /* jdcoefct.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F32247DAB17006CC037 /* jdcoefct.o */; };
+		C92F6F8B247DAB18006CC037 /* jdpostct.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F33247DAB17006CC037 /* jdpostct.o */; };
+		C92F6F8C247DAB18006CC037 /* jdmainct.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F34247DAB17006CC037 /* jdmainct.o */; };
+		C92F6F8D247DAB18006CC037 /* jidctflt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F35247DAB17006CC037 /* jidctflt.o */; };
+		C92F6F8E247DAB18006CC037 /* jcinit.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F36247DAB17006CC037 /* jcinit.o */; };
+		C92F6F8F247DAB18006CC037 /* jctrans.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F37247DAB17006CC037 /* jctrans.o */; };
+		C92F6F90247DAB18006CC037 /* jdhuff.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F38247DAB17006CC037 /* jdhuff.o */; };
+		C92F6F91247DAB18006CC037 /* jidctfst.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F39247DAB17006CC037 /* jidctfst.o */; };
+		C92F6F92247DAB18006CC037 /* jdatasrc.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F3A247DAB17006CC037 /* jdatasrc.o */; };
+		C92F6F93247DAB18006CC037 /* jddctmgr.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F3B247DAB17006CC037 /* jddctmgr.o */; };
+		C92F6F94247DAB18006CC037 /* jdapistd.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F3C247DAB17006CC037 /* jdapistd.o */; };
+		C92F6F95247DAB18006CC037 /* jcmaster.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F3D247DAB17006CC037 /* jcmaster.o */; };
+		C92F6F96247DAB18006CC037 /* jdtrans.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F3E247DAB17006CC037 /* jdtrans.o */; };
+		C92F6F97247DAB18006CC037 /* jdinput.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F3F247DAB17006CC037 /* jdinput.o */; };
+		C92F6F98247DAB18006CC037 /* jdmerge.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F40247DAB17006CC037 /* jdmerge.o */; };
+		C92F6F99247DAB18006CC037 /* jfdctflt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F41247DAB17006CC037 /* jfdctflt.o */; };
+		C92F6F9A247DAB18006CC037 /* jdcolor.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F42247DAB17006CC037 /* jdcolor.o */; };
+		C92F6F9B247DAB18006CC037 /* jcapimin.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F43247DAB17006CC037 /* jcapimin.o */; };
+		C92F6F9C247DAB18006CC037 /* jdmarker.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F44247DAB17006CC037 /* jdmarker.o */; };
+		C92F6F9D247DAB18006CC037 /* jmemnobs.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F45247DAB17006CC037 /* jmemnobs.o */; };
+		C92F6F9E247DAB18006CC037 /* jcarith.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F46247DAB17006CC037 /* jcarith.o */; };
+		C92F6FA0247DAB18006CC037 /* jcmainct.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F49247DAB17006CC037 /* jcmainct.o */; };
+		C92F6FA1247DAB18006CC037 /* jchuff.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F4A247DAB17006CC037 /* jchuff.o */; };
+		C92F6FA2247DAB18006CC037 /* jcparam.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F4B247DAB17006CC037 /* jcparam.o */; };
+		C92F6FA3247DAB18006CC037 /* jcsample.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F4C247DAB17006CC037 /* jcsample.o */; };
+		C92F6FA4247DAB18006CC037 /* jfdctint.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F4D247DAB17006CC037 /* jfdctint.o */; };
+		C92F6FA5247DAB18006CC037 /* jccoefct.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C92F6F4E247DAB17006CC037 /* jccoefct.o */; };
+		C92F6FA7247DACB4006CC037 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92F6FA6247DACB4006CC037 /* Application.swift */; };
+		C92F6FAD247DAECB006CC037 /* application.py in Resources */ = {isa = PBXBuildFile; fileRef = C92F6FAC247DAECB006CC037 /* application.py */; };
+		C96C8087247DA48E00BB4D2F /* PytoCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C96C807C247DA43500BB4D2F /* PytoCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C96C8088247DA49800BB4D2F /* PytoCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C96C807C247DA43500BB4D2F /* PytoCore.framework */; };
 		C97EBD5E22ED217300FD4A84 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C92FB45E22ED074300A59AC0 /* libz.tbd */; };
-		C9BC8086236622A5002B8CB4 /* _imaging.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9BC8084236622A5002B8CB4 /* _imaging.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9BC8088236622AB002B8CB4 /* _imagingft.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9BC8087236622AA002B8CB4 /* _imagingft.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9BC808A236622AE002B8CB4 /* _imagingmath.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9BC8089236622AE002B8CB4 /* _imagingmath.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9BC808C236622B3002B8CB4 /* _imagingmorph.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9BC808B236622B2002B8CB4 /* _imagingmorph.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9CEE23321EBA6C100316D3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9CEE23221EBA6C100316D3C /* Assets.xcassets */; };
 		C9CEE23621EBA6C100316D3C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9CEE23421EBA6C100316D3C /* LaunchScreen.storyboard */; };
 		C9CEE26C21EBDD9100316D3C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CEE26B21EBDD9100316D3C /* main.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C93AE15F21EC017700B588B6 /* PBXContainerItemProxy */ = {
+		C92F6EDE247DA544006CC037 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C93AE15721EC017700B588B6 /* Pyto.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C9FCFD55214428AE00A07974;
-			remoteInfo = Pyto;
-		};
-		C93AE16121EC017700B588B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C93AE15721EC017700B588B6 /* Pyto.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C943AC3D215277A000844368;
-			remoteInfo = Python;
-		};
-		C93AE16321EC017700B588B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C93AE15721EC017700B588B6 /* Pyto.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C9CEE1E721EB8D5200316D3C;
-			remoteInfo = PytoCore;
-		};
-		C93AE16721EC017E00B588B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C93AE15721EC017700B588B6 /* Pyto.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = C9CEE1E621EB8D5200316D3C;
-			remoteInfo = PytoCore;
-		};
-		C97B56FF2363C4E70066BE05 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C93AE15721EC017700B588B6 /* Pyto.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C9C2F46E22F0ED8C0062F4D6;
-			remoteInfo = "Pyto Intents";
-		};
-		C97B57012363C4E70066BE05 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C93AE15721EC017700B588B6 /* Pyto.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C97867D52304DEB000BD6FA4;
-			remoteInfo = libjpeg;
-		};
-		C97B57072363C4FA0066BE05 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C97B57032363C4FA0066BE05 /* Python3_ios.xcodeproj */;
+			containerPortal = C92F6EDA247DA544006CC037 /* Python3_ios.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 22E8FEE221C66AD100967E21;
 			remoteInfo = python3_ios;
 		};
-		C9F4625822ECBB9E007DC3B8 /* PBXContainerItemProxy */ = {
+		C92F6EE8247DA54D006CC037 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C93AE15721EC017700B588B6 /* Pyto.xcodeproj */;
+			containerPortal = C92F6EDA247DA544006CC037 /* Python3_ios.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 22E8FEE121C66AD100967E21;
+			remoteInfo = python3_ios;
+		};
+		C92F6FC4247DBA63006CC037 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C96C8063247DA42D00BB4D2F /* Pyto.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C90BC0B52473522300EF7F09;
+			remoteInfo = "SwiftUI Views";
+		};
+		C92F6FC6247DBA63006CC037 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C96C8063247DA42D00BB4D2F /* Pyto.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C9F1E4AC2473721A00A28F2A;
+			remoteInfo = "SwiftUI Preview";
+		};
+		C96C8073247DA43500BB4D2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C96C8063247DA42D00BB4D2F /* Pyto.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C9FCFD55214428AE00A07974;
+			remoteInfo = Pyto;
+		};
+		C96C8075247DA43500BB4D2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C96C8063247DA42D00BB4D2F /* Pyto.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = C946A5A822074EA900F78C5C;
 			remoteInfo = "Pyto Widget";
 		};
-		C9F4625A22ECBB9E007DC3B8 /* PBXContainerItemProxy */ = {
+		C96C8077247DA43500BB4D2F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C93AE15721EC017700B588B6 /* Pyto.xcodeproj */;
+			containerPortal = C96C8063247DA42D00BB4D2F /* Pyto.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C9C2F46E22F0ED8C0062F4D6;
+			remoteInfo = "Pyto Intents";
+		};
+		C96C8079247DA43500BB4D2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C96C8063247DA42D00BB4D2F /* Pyto.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C943AC3D215277A000844368;
+			remoteInfo = Python;
+		};
+		C96C807B247DA43500BB4D2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C96C8063247DA42D00BB4D2F /* Pyto.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C9CEE1E721EB8D5200316D3C;
+			remoteInfo = PytoCore;
+		};
+		C96C807D247DA43500BB4D2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C96C8063247DA42D00BB4D2F /* Pyto.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = C95EE4DF22070224006611CB;
 			remoteInfo = libpng;
+		};
+		C96C807F247DA43500BB4D2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C96C8063247DA42D00BB4D2F /* Pyto.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C97867D52304DEB000BD6FA4;
+			remoteInfo = libjpeg;
+		};
+		C96C8081247DA43500BB4D2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C96C8063247DA42D00BB4D2F /* Pyto.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C97B020F23E9F82700032925;
+			remoteInfo = "Pyto Watch";
+		};
+		C96C8083247DA43500BB4D2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C96C8063247DA42D00BB4D2F /* Pyto.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C97B021B23E9F82A00032925;
+			remoteInfo = "Pyto Watch Extension";
+		};
+		C96C8085247DA48600BB4D2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C96C8063247DA42D00BB4D2F /* Pyto.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C9CEE1E621EB8D5200316D3C;
+			remoteInfo = PytoCore;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -185,13 +218,12 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C97B57632363DA850066BE05 /* python3_ios.framework in Embed Frameworks */,
-				C97EBD5D22ED216900FD4A84 /* libpng.framework in Embed Frameworks */,
-				C93AE16621EC017E00B588B6 /* PytoCore.framework in Embed Frameworks */,
-				C9BC8086236622A5002B8CB4 /* _imaging.framework in Embed Frameworks */,
-				C9BC8088236622AB002B8CB4 /* _imagingft.framework in Embed Frameworks */,
-				C9BC808A236622AE002B8CB4 /* _imagingmath.framework in Embed Frameworks */,
-				C9BC808C236622B3002B8CB4 /* _imagingmorph.framework in Embed Frameworks */,
+				C92F6EEA247DA552006CC037 /* pythonA.framework in Embed Frameworks */,
+				C96C8087247DA48E00BB4D2F /* PytoCore.framework in Embed Frameworks */,
+				C92F6EF1247DAAAF006CC037 /* _imagingmorph.framework in Embed Frameworks */,
+				C92F6EF2247DAAAF006CC037 /* _imagingft.framework in Embed Frameworks */,
+				C92F6EF3247DAAAF006CC037 /* _imagingmath.framework in Embed Frameworks */,
+				C92F6EF4247DAAAF006CC037 /* _imaging.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -200,103 +232,104 @@
 
 /* Begin PBXFileReference section */
 		C921EF5D21EC0CFB004C750D /* app */ = {isa = PBXFileReference; lastKnownFileType = folder; path = app; sourceTree = "<group>"; };
-		C921EF5F21EC0D0B004C750D /* modules */ = {isa = PBXFileReference; lastKnownFileType = folder; path = modules; sourceTree = "<group>"; };
-		C921EF6121EC0D10004C750D /* iCloudDrive */ = {isa = PBXFileReference; lastKnownFileType = folder; path = iCloudDrive; sourceTree = "<group>"; };
-		C921EF6B21ECAFA1004C750D /* site-packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "site-packages"; sourceTree = "<group>"; };
-		C92FB38922ECC41300A59AC0 /* jquant1.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jquant1.o; path = Pyto/libjpeg/jquant1.o; sourceTree = "<group>"; };
-		C92FB38A22ECC41300A59AC0 /* jcsample.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcsample.o; path = Pyto/libjpeg/jcsample.o; sourceTree = "<group>"; };
-		C92FB38B22ECC41300A59AC0 /* jcapimin.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcapimin.o; path = Pyto/libjpeg/jcapimin.o; sourceTree = "<group>"; };
-		C92FB38C22ECC41300A59AC0 /* jdcoefct.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdcoefct.o; path = Pyto/libjpeg/jdcoefct.o; sourceTree = "<group>"; };
-		C92FB38D22ECC41300A59AC0 /* jfdctint.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jfdctint.o; path = Pyto/libjpeg/jfdctint.o; sourceTree = "<group>"; };
-		C92FB38E22ECC41300A59AC0 /* jdmaster.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdmaster.o; path = Pyto/libjpeg/jdmaster.o; sourceTree = "<group>"; };
-		C92FB38F22ECC41400A59AC0 /* jctrans.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jctrans.o; path = Pyto/libjpeg/jctrans.o; sourceTree = "<group>"; };
-		C92FB39022ECC41400A59AC0 /* jdapistd.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdapistd.o; path = Pyto/libjpeg/jdapistd.o; sourceTree = "<group>"; };
-		C92FB39122ECC41400A59AC0 /* jdmarker.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdmarker.o; path = Pyto/libjpeg/jdmarker.o; sourceTree = "<group>"; };
-		C92FB39222ECC41400A59AC0 /* jmemnobs.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jmemnobs.o; path = Pyto/libjpeg/jmemnobs.o; sourceTree = "<group>"; };
-		C92FB39322ECC41400A59AC0 /* jcdctmgr.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcdctmgr.o; path = Pyto/libjpeg/jcdctmgr.o; sourceTree = "<group>"; };
-		C92FB39422ECC41400A59AC0 /* jidctfst.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jidctfst.o; path = Pyto/libjpeg/jidctfst.o; sourceTree = "<group>"; };
-		C92FB39522ECC41400A59AC0 /* jutils.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jutils.o; path = Pyto/libjpeg/jutils.o; sourceTree = "<group>"; };
-		C92FB39622ECC41400A59AC0 /* jidctflt.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jidctflt.o; path = Pyto/libjpeg/jidctflt.o; sourceTree = "<group>"; };
-		C92FB39722ECC41400A59AC0 /* jdatadst.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdatadst.o; path = Pyto/libjpeg/jdatadst.o; sourceTree = "<group>"; };
-		C92FB39822ECC41400A59AC0 /* jdmerge.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdmerge.o; path = Pyto/libjpeg/jdmerge.o; sourceTree = "<group>"; };
-		C92FB39922ECC41400A59AC0 /* jcinit.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcinit.o; path = Pyto/libjpeg/jcinit.o; sourceTree = "<group>"; };
-		C92FB39A22ECC41400A59AC0 /* jccolor.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jccolor.o; path = Pyto/libjpeg/jccolor.o; sourceTree = "<group>"; };
-		C92FB39B22ECC41400A59AC0 /* jfdctflt.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jfdctflt.o; path = Pyto/libjpeg/jfdctflt.o; sourceTree = "<group>"; };
-		C92FB39C22ECC41400A59AC0 /* jdhuff.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdhuff.o; path = Pyto/libjpeg/jdhuff.o; sourceTree = "<group>"; };
-		C92FB39D22ECC41400A59AC0 /* jquant2.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jquant2.o; path = Pyto/libjpeg/jquant2.o; sourceTree = "<group>"; };
-		C92FB39E22ECC41400A59AC0 /* jddctmgr.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jddctmgr.o; path = Pyto/libjpeg/jddctmgr.o; sourceTree = "<group>"; };
-		C92FB39F22ECC41400A59AC0 /* jcparam.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcparam.o; path = Pyto/libjpeg/jcparam.o; sourceTree = "<group>"; };
-		C92FB3A022ECC41400A59AC0 /* jcmainct.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcmainct.o; path = Pyto/libjpeg/jcmainct.o; sourceTree = "<group>"; };
-		C92FB3A122ECC41400A59AC0 /* jfdctfst.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jfdctfst.o; path = Pyto/libjpeg/jfdctfst.o; sourceTree = "<group>"; };
-		C92FB3A222ECC41400A59AC0 /* jcomapi.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcomapi.o; path = Pyto/libjpeg/jcomapi.o; sourceTree = "<group>"; };
-		C92FB3A322ECC41400A59AC0 /* jdinput.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdinput.o; path = Pyto/libjpeg/jdinput.o; sourceTree = "<group>"; };
-		C92FB3A422ECC41400A59AC0 /* jdtrans.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdtrans.o; path = Pyto/libjpeg/jdtrans.o; sourceTree = "<group>"; };
-		C92FB3A522ECC41400A59AC0 /* jdatasrc.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdatasrc.o; path = Pyto/libjpeg/jdatasrc.o; sourceTree = "<group>"; };
-		C92FB3A622ECC41500A59AC0 /* jcprepct.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcprepct.o; path = Pyto/libjpeg/jcprepct.o; sourceTree = "<group>"; };
-		C92FB3A722ECC41500A59AC0 /* jdarith.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdarith.o; path = Pyto/libjpeg/jdarith.o; sourceTree = "<group>"; };
-		C92FB3A822ECC41500A59AC0 /* jchuff.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jchuff.o; path = Pyto/libjpeg/jchuff.o; sourceTree = "<group>"; };
-		C92FB3A922ECC41500A59AC0 /* jcmarker.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcmarker.o; path = Pyto/libjpeg/jcmarker.o; sourceTree = "<group>"; };
-		C92FB3AA22ECC41500A59AC0 /* jaricom.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jaricom.o; path = Pyto/libjpeg/jaricom.o; sourceTree = "<group>"; };
-		C92FB3AB22ECC41500A59AC0 /* jcarith.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcarith.o; path = Pyto/libjpeg/jcarith.o; sourceTree = "<group>"; };
-		C92FB3AC22ECC41500A59AC0 /* jdcolor.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdcolor.o; path = Pyto/libjpeg/jdcolor.o; sourceTree = "<group>"; };
-		C92FB3AD22ECC41500A59AC0 /* jdapimin.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdapimin.o; path = Pyto/libjpeg/jdapimin.o; sourceTree = "<group>"; };
-		C92FB3AE22ECC41500A59AC0 /* jccoefct.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jccoefct.o; path = Pyto/libjpeg/jccoefct.o; sourceTree = "<group>"; };
-		C92FB3AF22ECC41500A59AC0 /* jdpostct.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdpostct.o; path = Pyto/libjpeg/jdpostct.o; sourceTree = "<group>"; };
-		C92FB3B022ECC41500A59AC0 /* jcapistd.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcapistd.o; path = Pyto/libjpeg/jcapistd.o; sourceTree = "<group>"; };
-		C92FB3B122ECC41500A59AC0 /* jidctint.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jidctint.o; path = Pyto/libjpeg/jidctint.o; sourceTree = "<group>"; };
-		C92FB3B222ECC41500A59AC0 /* jdmainct.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdmainct.o; path = Pyto/libjpeg/jdmainct.o; sourceTree = "<group>"; };
-		C92FB3B322ECC41500A59AC0 /* jerror.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jerror.o; path = Pyto/libjpeg/jerror.o; sourceTree = "<group>"; };
-		C92FB3B422ECC41500A59AC0 /* jmemmgr.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jmemmgr.o; path = Pyto/libjpeg/jmemmgr.o; sourceTree = "<group>"; };
-		C92FB3B522ECC41500A59AC0 /* jcmaster.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jcmaster.o; path = Pyto/libjpeg/jcmaster.o; sourceTree = "<group>"; };
-		C92FB3B622ECC41500A59AC0 /* jdsample.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = jdsample.o; path = Pyto/libjpeg/jdsample.o; sourceTree = "<group>"; };
-		C92FB3E522ECC42D00A59AC0 /* type1cid.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = type1cid.o; path = Pyto/libfreetype/type1cid.o; sourceTree = "<group>"; };
-		C92FB3E622ECC42D00A59AC0 /* fttype1.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = fttype1.o; path = Pyto/libfreetype/fttype1.o; sourceTree = "<group>"; };
-		C92FB3E722ECC42D00A59AC0 /* smooth.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = smooth.o; path = Pyto/libfreetype/smooth.o; sourceTree = "<group>"; };
-		C92FB3E822ECC42D00A59AC0 /* ftcid.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftcid.o; path = Pyto/libfreetype/ftcid.o; sourceTree = "<group>"; };
-		C92FB3E922ECC42D00A59AC0 /* ftpfr.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftpfr.o; path = Pyto/libfreetype/ftpfr.o; sourceTree = "<group>"; };
-		C92FB3EA22ECC42D00A59AC0 /* type42.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = type42.o; path = Pyto/libfreetype/type42.o; sourceTree = "<group>"; };
-		C92FB3EB22ECC42D00A59AC0 /* bdf.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = bdf.o; path = Pyto/libfreetype/bdf.o; sourceTree = "<group>"; };
-		C92FB3EC22ECC42E00A59AC0 /* ftsystem.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftsystem.o; path = Pyto/libfreetype/ftsystem.o; sourceTree = "<group>"; };
-		C92FB3ED22ECC42E00A59AC0 /* ftgzip.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftgzip.o; path = Pyto/libfreetype/ftgzip.o; sourceTree = "<group>"; };
-		C92FB3EE22ECC42E00A59AC0 /* ftbbox.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftbbox.o; path = Pyto/libfreetype/ftbbox.o; sourceTree = "<group>"; };
-		C92FB3EF22ECC42E00A59AC0 /* psnames.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = psnames.o; path = Pyto/libfreetype/psnames.o; sourceTree = "<group>"; };
-		C92FB3F022ECC42E00A59AC0 /* ftbdf.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftbdf.o; path = Pyto/libfreetype/ftbdf.o; sourceTree = "<group>"; };
-		C92FB3F122ECC42E00A59AC0 /* ftinit.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftinit.o; path = Pyto/libfreetype/ftinit.o; sourceTree = "<group>"; };
-		C92FB3F222ECC42E00A59AC0 /* ftwinfnt.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftwinfnt.o; path = Pyto/libfreetype/ftwinfnt.o; sourceTree = "<group>"; };
-		C92FB3F322ECC42E00A59AC0 /* autofit.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = autofit.o; path = Pyto/libfreetype/autofit.o; sourceTree = "<group>"; };
-		C92FB3F422ECC42E00A59AC0 /* ftotval.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftotval.o; path = Pyto/libfreetype/ftotval.o; sourceTree = "<group>"; };
-		C92FB3F522ECC42E00A59AC0 /* cff.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = cff.o; path = Pyto/libfreetype/cff.o; sourceTree = "<group>"; };
-		C92FB3F622ECC42E00A59AC0 /* ftbase.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftbase.o; path = Pyto/libfreetype/ftbase.o; sourceTree = "<group>"; };
-		C92FB3F722ECC42E00A59AC0 /* sfnt.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = sfnt.o; path = Pyto/libfreetype/sfnt.o; sourceTree = "<group>"; };
-		C92FB3F822ECC42E00A59AC0 /* pshinter.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = pshinter.o; path = Pyto/libfreetype/pshinter.o; sourceTree = "<group>"; };
-		C92FB3F922ECC42E00A59AC0 /* type1.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = type1.o; path = Pyto/libfreetype/type1.o; sourceTree = "<group>"; };
-		C92FB3FA22ECC42E00A59AC0 /* winfnt.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = winfnt.o; path = Pyto/libfreetype/winfnt.o; sourceTree = "<group>"; };
-		C92FB3FB22ECC42E00A59AC0 /* ftgasp.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftgasp.o; path = Pyto/libfreetype/ftgasp.o; sourceTree = "<group>"; };
-		C92FB3FC22ECC42E00A59AC0 /* truetype.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = truetype.o; path = Pyto/libfreetype/truetype.o; sourceTree = "<group>"; };
-		C92FB3FD22ECC42E00A59AC0 /* psaux.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = psaux.o; path = Pyto/libfreetype/psaux.o; sourceTree = "<group>"; };
-		C92FB3FE22ECC42E00A59AC0 /* ftlzw.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftlzw.o; path = Pyto/libfreetype/ftlzw.o; sourceTree = "<group>"; };
-		C92FB3FF22ECC42E00A59AC0 /* ftdebug.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftdebug.o; path = Pyto/libfreetype/ftdebug.o; sourceTree = "<group>"; };
-		C92FB40022ECC42E00A59AC0 /* ftgxval.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftgxval.o; path = Pyto/libfreetype/ftgxval.o; sourceTree = "<group>"; };
-		C92FB40122ECC42E00A59AC0 /* ftbzip2.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftbzip2.o; path = Pyto/libfreetype/ftbzip2.o; sourceTree = "<group>"; };
-		C92FB40222ECC42F00A59AC0 /* ftsynth.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftsynth.o; path = Pyto/libfreetype/ftsynth.o; sourceTree = "<group>"; };
-		C92FB40322ECC42F00A59AC0 /* ftfstype.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftfstype.o; path = Pyto/libfreetype/ftfstype.o; sourceTree = "<group>"; };
-		C92FB40422ECC42F00A59AC0 /* ftcache.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftcache.o; path = Pyto/libfreetype/ftcache.o; sourceTree = "<group>"; };
-		C92FB40522ECC42F00A59AC0 /* ftstroke.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftstroke.o; path = Pyto/libfreetype/ftstroke.o; sourceTree = "<group>"; };
-		C92FB40622ECC42F00A59AC0 /* pcf.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = pcf.o; path = Pyto/libfreetype/pcf.o; sourceTree = "<group>"; };
-		C92FB40722ECC42F00A59AC0 /* ftmm.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftmm.o; path = Pyto/libfreetype/ftmm.o; sourceTree = "<group>"; };
-		C92FB40822ECC42F00A59AC0 /* ftglyph.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftglyph.o; path = Pyto/libfreetype/ftglyph.o; sourceTree = "<group>"; };
-		C92FB40922ECC42F00A59AC0 /* ftbitmap.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftbitmap.o; path = Pyto/libfreetype/ftbitmap.o; sourceTree = "<group>"; };
-		C92FB40A22ECC42F00A59AC0 /* pfr.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = pfr.o; path = Pyto/libfreetype/pfr.o; sourceTree = "<group>"; };
-		C92FB40B22ECC42F00A59AC0 /* raster.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = raster.o; path = Pyto/libfreetype/raster.o; sourceTree = "<group>"; };
-		C92FB40C22ECC42F00A59AC0 /* ftpatent.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ftpatent.o; path = Pyto/libfreetype/ftpatent.o; sourceTree = "<group>"; };
+		C92F6EDA247DA544006CC037 /* Python3_ios.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Python3_ios.xcodeproj; path = ../python3_ios/Python3_ios/Python3_ios.xcodeproj; sourceTree = "<group>"; };
+		C92F6EED247DAAA6006CC037 /* _imagingmorph.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _imagingmorph.framework; sourceTree = "<group>"; };
+		C92F6EEE247DAAA6006CC037 /* _imagingft.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _imagingft.framework; sourceTree = "<group>"; };
+		C92F6EEF247DAAA6006CC037 /* _imagingmath.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _imagingmath.framework; sourceTree = "<group>"; };
+		C92F6EF0247DAAA6006CC037 /* _imaging.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _imaging.framework; sourceTree = "<group>"; };
+		C92F6EF6247DAB17006CC037 /* pcf.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = pcf.o; sourceTree = "<group>"; };
+		C92F6EF7247DAB17006CC037 /* winfnt.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = winfnt.o; sourceTree = "<group>"; };
+		C92F6EF8247DAB17006CC037 /* fttype1.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = fttype1.o; sourceTree = "<group>"; };
+		C92F6EF9247DAB17006CC037 /* ftwinfnt.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftwinfnt.o; sourceTree = "<group>"; };
+		C92F6EFA247DAB17006CC037 /* sfnt.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = sfnt.o; sourceTree = "<group>"; };
+		C92F6EFB247DAB17006CC037 /* pshinter.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = pshinter.o; sourceTree = "<group>"; };
+		C92F6EFC247DAB17006CC037 /* cff.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = cff.o; sourceTree = "<group>"; };
+		C92F6EFD247DAB17006CC037 /* ftfstype.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftfstype.o; sourceTree = "<group>"; };
+		C92F6EFE247DAB17006CC037 /* type1.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = type1.o; sourceTree = "<group>"; };
+		C92F6EFF247DAB17006CC037 /* psnames.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = psnames.o; sourceTree = "<group>"; };
+		C92F6F00247DAB17006CC037 /* ftdebug.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftdebug.o; sourceTree = "<group>"; };
+		C92F6F01247DAB17006CC037 /* ftmm.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftmm.o; sourceTree = "<group>"; };
+		C92F6F02247DAB17006CC037 /* autofit.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = autofit.o; sourceTree = "<group>"; };
+		C92F6F03247DAB17006CC037 /* psaux.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = psaux.o; sourceTree = "<group>"; };
+		C92F6F04247DAB17006CC037 /* smooth.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = smooth.o; sourceTree = "<group>"; };
+		C92F6F05247DAB17006CC037 /* ftbzip2.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftbzip2.o; sourceTree = "<group>"; };
+		C92F6F06247DAB17006CC037 /* ftbbox.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftbbox.o; sourceTree = "<group>"; };
+		C92F6F07247DAB17006CC037 /* type1cid.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = type1cid.o; sourceTree = "<group>"; };
+		C92F6F08247DAB17006CC037 /* ftgzip.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftgzip.o; sourceTree = "<group>"; };
+		C92F6F09247DAB17006CC037 /* raster.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = raster.o; sourceTree = "<group>"; };
+		C92F6F0A247DAB17006CC037 /* ftsynth.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftsynth.o; sourceTree = "<group>"; };
+		C92F6F0B247DAB17006CC037 /* ftgasp.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftgasp.o; sourceTree = "<group>"; };
+		C92F6F0C247DAB17006CC037 /* ftcache.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftcache.o; sourceTree = "<group>"; };
+		C92F6F0D247DAB17006CC037 /* ftstroke.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftstroke.o; sourceTree = "<group>"; };
+		C92F6F0E247DAB17006CC037 /* ftotval.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftotval.o; sourceTree = "<group>"; };
+		C92F6F0F247DAB17006CC037 /* ftinit.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftinit.o; sourceTree = "<group>"; };
+		C92F6F10247DAB17006CC037 /* pfr.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = pfr.o; sourceTree = "<group>"; };
+		C92F6F11247DAB17006CC037 /* ftpfr.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftpfr.o; sourceTree = "<group>"; };
+		C92F6F12247DAB17006CC037 /* truetype.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = truetype.o; sourceTree = "<group>"; };
+		C92F6F13247DAB17006CC037 /* ftgxval.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftgxval.o; sourceTree = "<group>"; };
+		C92F6F14247DAB17006CC037 /* ftbase.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftbase.o; sourceTree = "<group>"; };
+		C92F6F15247DAB17006CC037 /* ftlzw.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftlzw.o; sourceTree = "<group>"; };
+		C92F6F16247DAB17006CC037 /* bdf.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = bdf.o; sourceTree = "<group>"; };
+		C92F6F17247DAB17006CC037 /* ftsystem.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftsystem.o; sourceTree = "<group>"; };
+		C92F6F18247DAB17006CC037 /* ftcid.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftcid.o; sourceTree = "<group>"; };
+		C92F6F19247DAB17006CC037 /* ftglyph.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftglyph.o; sourceTree = "<group>"; };
+		C92F6F1A247DAB17006CC037 /* ftbitmap.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftbitmap.o; sourceTree = "<group>"; };
+		C92F6F1B247DAB17006CC037 /* type42.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = type42.o; sourceTree = "<group>"; };
+		C92F6F1C247DAB17006CC037 /* ftpatent.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftpatent.o; sourceTree = "<group>"; };
+		C92F6F1D247DAB17006CC037 /* ftbdf.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ftbdf.o; sourceTree = "<group>"; };
+		C92F6F1F247DAB17006CC037 /* jutils.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jutils.o; sourceTree = "<group>"; };
+		C92F6F20247DAB17006CC037 /* jquant1.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jquant1.o; sourceTree = "<group>"; };
+		C92F6F21247DAB17006CC037 /* jcdctmgr.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jcdctmgr.o; sourceTree = "<group>"; };
+		C92F6F22247DAB17006CC037 /* jccolor.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jccolor.o; sourceTree = "<group>"; };
+		C92F6F23247DAB17006CC037 /* jerror.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jerror.o; sourceTree = "<group>"; };
+		C92F6F24247DAB17006CC037 /* jcprepct.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jcprepct.o; sourceTree = "<group>"; };
+		C92F6F25247DAB17006CC037 /* jaricom.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jaricom.o; sourceTree = "<group>"; };
+		C92F6F26247DAB17006CC037 /* jdmaster.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jdmaster.o; sourceTree = "<group>"; };
+		C92F6F27247DAB17006CC037 /* jdarith.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jdarith.o; sourceTree = "<group>"; };
+		C92F6F28247DAB17006CC037 /* jcapistd.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jcapistd.o; sourceTree = "<group>"; };
+		C92F6F29247DAB17006CC037 /* jfdctfst.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jfdctfst.o; sourceTree = "<group>"; };
+		C92F6F2A247DAB17006CC037 /* jcmarker.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jcmarker.o; sourceTree = "<group>"; };
+		C92F6F2B247DAB17006CC037 /* jquant2.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jquant2.o; sourceTree = "<group>"; };
+		C92F6F2C247DAB17006CC037 /* jdapimin.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jdapimin.o; sourceTree = "<group>"; };
+		C92F6F2D247DAB17006CC037 /* jidctint.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jidctint.o; sourceTree = "<group>"; };
+		C92F6F2E247DAB17006CC037 /* jdatadst.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jdatadst.o; sourceTree = "<group>"; };
+		C92F6F2F247DAB17006CC037 /* jmemmgr.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jmemmgr.o; sourceTree = "<group>"; };
+		C92F6F30247DAB17006CC037 /* jcomapi.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jcomapi.o; sourceTree = "<group>"; };
+		C92F6F31247DAB17006CC037 /* jdsample.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jdsample.o; sourceTree = "<group>"; };
+		C92F6F32247DAB17006CC037 /* jdcoefct.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jdcoefct.o; sourceTree = "<group>"; };
+		C92F6F33247DAB17006CC037 /* jdpostct.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jdpostct.o; sourceTree = "<group>"; };
+		C92F6F34247DAB17006CC037 /* jdmainct.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jdmainct.o; sourceTree = "<group>"; };
+		C92F6F35247DAB17006CC037 /* jidctflt.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jidctflt.o; sourceTree = "<group>"; };
+		C92F6F36247DAB17006CC037 /* jcinit.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jcinit.o; sourceTree = "<group>"; };
+		C92F6F37247DAB17006CC037 /* jctrans.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jctrans.o; sourceTree = "<group>"; };
+		C92F6F38247DAB17006CC037 /* jdhuff.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jdhuff.o; sourceTree = "<group>"; };
+		C92F6F39247DAB17006CC037 /* jidctfst.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jidctfst.o; sourceTree = "<group>"; };
+		C92F6F3A247DAB17006CC037 /* jdatasrc.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jdatasrc.o; sourceTree = "<group>"; };
+		C92F6F3B247DAB17006CC037 /* jddctmgr.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jddctmgr.o; sourceTree = "<group>"; };
+		C92F6F3C247DAB17006CC037 /* jdapistd.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jdapistd.o; sourceTree = "<group>"; };
+		C92F6F3D247DAB17006CC037 /* jcmaster.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jcmaster.o; sourceTree = "<group>"; };
+		C92F6F3E247DAB17006CC037 /* jdtrans.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jdtrans.o; sourceTree = "<group>"; };
+		C92F6F3F247DAB17006CC037 /* jdinput.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jdinput.o; sourceTree = "<group>"; };
+		C92F6F40247DAB17006CC037 /* jdmerge.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jdmerge.o; sourceTree = "<group>"; };
+		C92F6F41247DAB17006CC037 /* jfdctflt.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jfdctflt.o; sourceTree = "<group>"; };
+		C92F6F42247DAB17006CC037 /* jdcolor.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jdcolor.o; sourceTree = "<group>"; };
+		C92F6F43247DAB17006CC037 /* jcapimin.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jcapimin.o; sourceTree = "<group>"; };
+		C92F6F44247DAB17006CC037 /* jdmarker.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jdmarker.o; sourceTree = "<group>"; };
+		C92F6F45247DAB17006CC037 /* jmemnobs.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jmemnobs.o; sourceTree = "<group>"; };
+		C92F6F46247DAB17006CC037 /* jcarith.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jcarith.o; sourceTree = "<group>"; };
+		C92F6F47247DAB17006CC037 /* libjpeg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libjpeg.h; sourceTree = "<group>"; };
+		C92F6F48247DAB17006CC037 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C92F6F49247DAB17006CC037 /* jcmainct.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jcmainct.o; sourceTree = "<group>"; };
+		C92F6F4A247DAB17006CC037 /* jchuff.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jchuff.o; sourceTree = "<group>"; };
+		C92F6F4B247DAB17006CC037 /* jcparam.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jcparam.o; sourceTree = "<group>"; };
+		C92F6F4C247DAB17006CC037 /* jcsample.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jcsample.o; sourceTree = "<group>"; };
+		C92F6F4D247DAB17006CC037 /* jfdctint.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jfdctint.o; sourceTree = "<group>"; };
+		C92F6F4E247DAB17006CC037 /* jccoefct.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = jccoefct.o; sourceTree = "<group>"; };
+		C92F6FA6247DACB4006CC037 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
+		C92F6FAC247DAECB006CC037 /* application.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = application.py; sourceTree = "<group>"; };
 		C92FB45E22ED074300A59AC0 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		C93AE15721EC017700B588B6 /* Pyto.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pyto.xcodeproj; path = Pyto/Pyto.xcodeproj; sourceTree = "<group>"; };
-		C97B57032363C4FA0066BE05 /* Python3_ios.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Python3_ios.xcodeproj; path = Pyto/python3_ios/Python3_ios/Python3_ios.xcodeproj; sourceTree = "<group>"; };
-		C9BC8084236622A5002B8CB4 /* _imaging.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = _imaging.framework; path = Pyto/PIL/_imaging.framework; sourceTree = "<group>"; };
-		C9BC8087236622AA002B8CB4 /* _imagingft.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = _imagingft.framework; path = Pyto/PIL/_imagingft.framework; sourceTree = "<group>"; };
-		C9BC8089236622AE002B8CB4 /* _imagingmath.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = _imagingmath.framework; path = Pyto/PIL/_imagingmath.framework; sourceTree = "<group>"; };
-		C9BC808B236622B2002B8CB4 /* _imagingmorph.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = _imagingmorph.framework; path = Pyto/PIL/_imagingmorph.framework; sourceTree = "<group>"; };
-		C9CEE22621EBA6BB00316D3C /* Python App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Python App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C96C8063247DA42D00BB4D2F /* Pyto.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pyto.xcodeproj; path = ../Pyto.xcodeproj; sourceTree = "<group>"; };
+		C9CEE22621EBA6BB00316D3C /* Python.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Python.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9CEE23221EBA6C100316D3C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9CEE23521EBA6C100316D3C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9CEE23721EBA6C100316D3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -309,101 +342,225 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C92FB42E22ECC42F00A59AC0 /* pcf.o in Frameworks */,
-				C92FB3C922ECC41500A59AC0 /* jfdctflt.o in Frameworks */,
-				C92FB3B722ECC41500A59AC0 /* jquant1.o in Frameworks */,
-				C92FB3DD22ECC41500A59AC0 /* jdpostct.o in Frameworks */,
-				C92FB42922ECC42F00A59AC0 /* ftbzip2.o in Frameworks */,
-				C92FB41722ECC42F00A59AC0 /* psnames.o in Frameworks */,
-				C92FB3DC22ECC41500A59AC0 /* jccoefct.o in Frameworks */,
-				C92FB3C122ECC41500A59AC0 /* jcdctmgr.o in Frameworks */,
-				C92FB3D322ECC41500A59AC0 /* jdatasrc.o in Frameworks */,
-				C92FB3E022ECC41500A59AC0 /* jdmainct.o in Frameworks */,
-				C92FB3CB22ECC41500A59AC0 /* jquant2.o in Frameworks */,
-				C92FB3C022ECC41500A59AC0 /* jmemnobs.o in Frameworks */,
-				C93AE16521EC017E00B588B6 /* PytoCore.framework in Frameworks */,
-				C92FB42622ECC42F00A59AC0 /* ftlzw.o in Frameworks */,
-				C92FB3D022ECC41500A59AC0 /* jcomapi.o in Frameworks */,
-				C92FB42B22ECC42F00A59AC0 /* ftfstype.o in Frameworks */,
-				C92FB42C22ECC42F00A59AC0 /* ftcache.o in Frameworks */,
-				C92FB41622ECC42F00A59AC0 /* ftbbox.o in Frameworks */,
-				C92FB42A22ECC42F00A59AC0 /* ftsynth.o in Frameworks */,
-				C92FB3DE22ECC41500A59AC0 /* jcapistd.o in Frameworks */,
-				C92FB3C322ECC41500A59AC0 /* jutils.o in Frameworks */,
-				C92FB3D122ECC41500A59AC0 /* jdinput.o in Frameworks */,
-				C92FB3CF22ECC41500A59AC0 /* jfdctfst.o in Frameworks */,
-				C92FB41822ECC42F00A59AC0 /* ftbdf.o in Frameworks */,
-				C92FB3D222ECC41500A59AC0 /* jdtrans.o in Frameworks */,
-				C92FB41422ECC42F00A59AC0 /* ftsystem.o in Frameworks */,
-				C92FB3D522ECC41500A59AC0 /* jdarith.o in Frameworks */,
-				C92FB3B922ECC41500A59AC0 /* jcapimin.o in Frameworks */,
-				C92FB41122ECC42F00A59AC0 /* ftpfr.o in Frameworks */,
-				C92FB42222ECC42F00A59AC0 /* winfnt.o in Frameworks */,
-				C92FB3C722ECC41500A59AC0 /* jcinit.o in Frameworks */,
-				C92FB41B22ECC42F00A59AC0 /* autofit.o in Frameworks */,
-				C92FB3DB22ECC41500A59AC0 /* jdapimin.o in Frameworks */,
-				C92FB3D922ECC41500A59AC0 /* jcarith.o in Frameworks */,
-				C92FB43122ECC42F00A59AC0 /* ftbitmap.o in Frameworks */,
-				C92FB41022ECC42F00A59AC0 /* ftcid.o in Frameworks */,
-				C92FB43322ECC42F00A59AC0 /* raster.o in Frameworks */,
-				C92FB42422ECC42F00A59AC0 /* truetype.o in Frameworks */,
-				C92FB41922ECC42F00A59AC0 /* ftinit.o in Frameworks */,
-				C92FB42322ECC42F00A59AC0 /* ftgasp.o in Frameworks */,
-				C92FB3C522ECC41500A59AC0 /* jdatadst.o in Frameworks */,
-				C92FB3DA22ECC41500A59AC0 /* jdcolor.o in Frameworks */,
-				C92FB41A22ECC42F00A59AC0 /* ftwinfnt.o in Frameworks */,
-				C92FB41F22ECC42F00A59AC0 /* sfnt.o in Frameworks */,
-				C92FB42D22ECC42F00A59AC0 /* ftstroke.o in Frameworks */,
-				C92FB3BF22ECC41500A59AC0 /* jdmarker.o in Frameworks */,
-				C92FB3BD22ECC41500A59AC0 /* jctrans.o in Frameworks */,
-				C92FB3E422ECC41500A59AC0 /* jdsample.o in Frameworks */,
-				C97EBD5C22ED216900FD4A84 /* libpng.framework in Frameworks */,
-				C92FB40D22ECC42F00A59AC0 /* type1cid.o in Frameworks */,
-				C92FB40F22ECC42F00A59AC0 /* smooth.o in Frameworks */,
-				C92FB3CD22ECC41500A59AC0 /* jcparam.o in Frameworks */,
-				C92FB3C822ECC41500A59AC0 /* jccolor.o in Frameworks */,
-				C92FB43222ECC42F00A59AC0 /* pfr.o in Frameworks */,
-				C92FB41522ECC42F00A59AC0 /* ftgzip.o in Frameworks */,
-				C92FB42722ECC42F00A59AC0 /* ftdebug.o in Frameworks */,
-				C92FB3D622ECC41500A59AC0 /* jchuff.o in Frameworks */,
+				C92F6F94247DAB18006CC037 /* jdapistd.o in Frameworks */,
+				C92F6F8E247DAB18006CC037 /* jcinit.o in Frameworks */,
+				C92F6F7F247DAB18006CC037 /* jdarith.o in Frameworks */,
+				C92F6F76247DAB18006CC037 /* ftbdf.o in Frameworks */,
+				C92F6EEB247DA55A006CC037 /* pythonA.framework in Frameworks */,
+				C92F6F98247DAB18006CC037 /* jdmerge.o in Frameworks */,
+				C92F6F99247DAB18006CC037 /* jfdctflt.o in Frameworks */,
+				C92F6F54247DAB18006CC037 /* pshinter.o in Frameworks */,
+				C92F6F96247DAB18006CC037 /* jdtrans.o in Frameworks */,
+				C92F6F6E247DAB18006CC037 /* ftlzw.o in Frameworks */,
+				C92F6F9D247DAB18006CC037 /* jmemnobs.o in Frameworks */,
+				C92F6F9E247DAB18006CC037 /* jcarith.o in Frameworks */,
+				C92F6F68247DAB18006CC037 /* ftinit.o in Frameworks */,
+				C92F6F5B247DAB18006CC037 /* autofit.o in Frameworks */,
+				C92F6F5E247DAB18006CC037 /* ftbzip2.o in Frameworks */,
+				C96C8088247DA49800BB4D2F /* PytoCore.framework in Frameworks */,
+				C92F6F69247DAB18006CC037 /* pfr.o in Frameworks */,
+				C92F6F7A247DAB18006CC037 /* jccolor.o in Frameworks */,
+				C92F6F8D247DAB18006CC037 /* jidctflt.o in Frameworks */,
+				C92F6F79247DAB18006CC037 /* jcdctmgr.o in Frameworks */,
+				C92F6F9A247DAB18006CC037 /* jdcolor.o in Frameworks */,
+				C92F6F93247DAB18006CC037 /* jddctmgr.o in Frameworks */,
+				C92F6F57247DAB18006CC037 /* type1.o in Frameworks */,
+				C92F6F89247DAB18006CC037 /* jdsample.o in Frameworks */,
+				C92F6FA0247DAB18006CC037 /* jcmainct.o in Frameworks */,
+				C92F6FA5247DAB18006CC037 /* jccoefct.o in Frameworks */,
+				C92F6F62247DAB18006CC037 /* raster.o in Frameworks */,
+				C92F6F6B247DAB18006CC037 /* truetype.o in Frameworks */,
+				C92F6F84247DAB18006CC037 /* jdapimin.o in Frameworks */,
+				C92F6F58247DAB18006CC037 /* psnames.o in Frameworks */,
+				C92F6F8B247DAB18006CC037 /* jdpostct.o in Frameworks */,
+				C92F6F8A247DAB18006CC037 /* jdcoefct.o in Frameworks */,
+				C92F6F65247DAB18006CC037 /* ftcache.o in Frameworks */,
+				C92F6F7C247DAB18006CC037 /* jcprepct.o in Frameworks */,
+				C92F6F61247DAB18006CC037 /* ftgzip.o in Frameworks */,
+				C92F6F71247DAB18006CC037 /* ftcid.o in Frameworks */,
+				C92F6F95247DAB18006CC037 /* jcmaster.o in Frameworks */,
+				C92F6F7D247DAB18006CC037 /* jaricom.o in Frameworks */,
+				C92F6F88247DAB18006CC037 /* jcomapi.o in Frameworks */,
+				C92F6F66247DAB18006CC037 /* ftstroke.o in Frameworks */,
+				C92F6F6C247DAB18006CC037 /* ftgxval.o in Frameworks */,
+				C92F6F7E247DAB18006CC037 /* jdmaster.o in Frameworks */,
+				C92F6F75247DAB18006CC037 /* ftpatent.o in Frameworks */,
+				C92F6F85247DAB18006CC037 /* jidctint.o in Frameworks */,
+				C92F6F81247DAB18006CC037 /* jfdctfst.o in Frameworks */,
+				C92F6F5A247DAB18006CC037 /* ftmm.o in Frameworks */,
+				C92F6F9C247DAB18006CC037 /* jdmarker.o in Frameworks */,
+				C92F6F8F247DAB18006CC037 /* jctrans.o in Frameworks */,
+				C92F6F86247DAB18006CC037 /* jdatadst.o in Frameworks */,
+				C92F6FA2247DAB18006CC037 /* jcparam.o in Frameworks */,
+				C92F6F64247DAB18006CC037 /* ftgasp.o in Frameworks */,
+				C92F6F6F247DAB18006CC037 /* bdf.o in Frameworks */,
+				C92F6F72247DAB18006CC037 /* ftglyph.o in Frameworks */,
+				C92F6F56247DAB18006CC037 /* ftfstype.o in Frameworks */,
+				C92F6FA4247DAB18006CC037 /* jfdctint.o in Frameworks */,
+				C92F6F55247DAB18006CC037 /* cff.o in Frameworks */,
+				C92F6F74247DAB18006CC037 /* type42.o in Frameworks */,
+				C92F6F9B247DAB18006CC037 /* jcapimin.o in Frameworks */,
+				C92F6F5F247DAB18006CC037 /* ftbbox.o in Frameworks */,
+				C92F6F97247DAB18006CC037 /* jdinput.o in Frameworks */,
+				C92F6FA1247DAB18006CC037 /* jchuff.o in Frameworks */,
+				C92F6F6D247DAB18006CC037 /* ftbase.o in Frameworks */,
+				C92F6F83247DAB18006CC037 /* jquant2.o in Frameworks */,
+				C92F6F8C247DAB18006CC037 /* jdmainct.o in Frameworks */,
+				C92F6F50247DAB18006CC037 /* winfnt.o in Frameworks */,
+				C92F6F63247DAB18006CC037 /* ftsynth.o in Frameworks */,
+				C92F6F5C247DAB18006CC037 /* psaux.o in Frameworks */,
+				C92F6FA3247DAB18006CC037 /* jcsample.o in Frameworks */,
 				C97EBD5E22ED217300FD4A84 /* libz.tbd in Frameworks */,
-				C92FB42522ECC42F00A59AC0 /* psaux.o in Frameworks */,
-				C92FB3D422ECC41500A59AC0 /* jcprepct.o in Frameworks */,
-				C92FB3C622ECC41500A59AC0 /* jdmerge.o in Frameworks */,
-				C92FB42822ECC42F00A59AC0 /* ftgxval.o in Frameworks */,
-				C92FB42F22ECC42F00A59AC0 /* ftmm.o in Frameworks */,
-				C92FB41222ECC42F00A59AC0 /* type42.o in Frameworks */,
-				C92FB41322ECC42F00A59AC0 /* bdf.o in Frameworks */,
-				C92FB3C222ECC41500A59AC0 /* jidctfst.o in Frameworks */,
-				C92FB43022ECC42F00A59AC0 /* ftglyph.o in Frameworks */,
-				C92FB3D822ECC41500A59AC0 /* jaricom.o in Frameworks */,
-				C92FB41E22ECC42F00A59AC0 /* ftbase.o in Frameworks */,
-				C92FB3BA22ECC41500A59AC0 /* jdcoefct.o in Frameworks */,
-				C92FB43422ECC42F00A59AC0 /* ftpatent.o in Frameworks */,
-				C92FB3E122ECC41500A59AC0 /* jerror.o in Frameworks */,
-				C92FB41D22ECC42F00A59AC0 /* cff.o in Frameworks */,
-				C92FB3CC22ECC41500A59AC0 /* jddctmgr.o in Frameworks */,
-				C92FB41C22ECC42F00A59AC0 /* ftotval.o in Frameworks */,
-				C92FB3B822ECC41500A59AC0 /* jcsample.o in Frameworks */,
-				C92FB40E22ECC42F00A59AC0 /* fttype1.o in Frameworks */,
-				C92FB42022ECC42F00A59AC0 /* pshinter.o in Frameworks */,
-				C92FB3E322ECC41500A59AC0 /* jcmaster.o in Frameworks */,
-				C92FB3CE22ECC41500A59AC0 /* jcmainct.o in Frameworks */,
-				C92FB3C422ECC41500A59AC0 /* jidctflt.o in Frameworks */,
-				C92FB3CA22ECC41500A59AC0 /* jdhuff.o in Frameworks */,
-				C92FB3BE22ECC41500A59AC0 /* jdapistd.o in Frameworks */,
-				C92FB3BB22ECC41500A59AC0 /* jfdctint.o in Frameworks */,
-				C92FB3D722ECC41500A59AC0 /* jcmarker.o in Frameworks */,
-				C92FB3E222ECC41500A59AC0 /* jmemmgr.o in Frameworks */,
-				C92FB3DF22ECC41500A59AC0 /* jidctint.o in Frameworks */,
-				C92FB3BC22ECC41500A59AC0 /* jdmaster.o in Frameworks */,
-				C92FB42122ECC42F00A59AC0 /* type1.o in Frameworks */,
+				C92F6F59247DAB18006CC037 /* ftdebug.o in Frameworks */,
+				C92F6F4F247DAB18006CC037 /* pcf.o in Frameworks */,
+				C92F6F67247DAB18006CC037 /* ftotval.o in Frameworks */,
+				C92F6F51247DAB18006CC037 /* fttype1.o in Frameworks */,
+				C92F6F77247DAB18006CC037 /* jutils.o in Frameworks */,
+				C92F6F91247DAB18006CC037 /* jidctfst.o in Frameworks */,
+				C92F6F82247DAB18006CC037 /* jcmarker.o in Frameworks */,
+				C92F6F60247DAB18006CC037 /* type1cid.o in Frameworks */,
+				C92F6F53247DAB18006CC037 /* sfnt.o in Frameworks */,
+				C92F6F90247DAB18006CC037 /* jdhuff.o in Frameworks */,
+				C92F6F7B247DAB18006CC037 /* jerror.o in Frameworks */,
+				C92F6F80247DAB18006CC037 /* jcapistd.o in Frameworks */,
+				C92F6F52247DAB18006CC037 /* ftwinfnt.o in Frameworks */,
+				C92F6F6A247DAB18006CC037 /* ftpfr.o in Frameworks */,
+				C92F6F5D247DAB18006CC037 /* smooth.o in Frameworks */,
+				C92F6F78247DAB18006CC037 /* jquant1.o in Frameworks */,
+				C92F6F87247DAB18006CC037 /* jmemmgr.o in Frameworks */,
+				C92F6F73247DAB18006CC037 /* ftbitmap.o in Frameworks */,
+				C92F6F70247DAB18006CC037 /* ftsystem.o in Frameworks */,
+				C92F6F92247DAB18006CC037 /* jdatasrc.o in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C92F6EDB247DA544006CC037 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C92F6EDF247DA544006CC037 /* pythonA.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C92F6EEC247DAAA6006CC037 /* PIL */ = {
+			isa = PBXGroup;
+			children = (
+				C92F6EED247DAAA6006CC037 /* _imagingmorph.framework */,
+				C92F6EEE247DAAA6006CC037 /* _imagingft.framework */,
+				C92F6EEF247DAAA6006CC037 /* _imagingmath.framework */,
+				C92F6EF0247DAAA6006CC037 /* _imaging.framework */,
+			);
+			name = PIL;
+			path = ../PIL;
+			sourceTree = "<group>";
+		};
+		C92F6EF5247DAB17006CC037 /* libfreetype */ = {
+			isa = PBXGroup;
+			children = (
+				C92F6EF6247DAB17006CC037 /* pcf.o */,
+				C92F6EF7247DAB17006CC037 /* winfnt.o */,
+				C92F6EF8247DAB17006CC037 /* fttype1.o */,
+				C92F6EF9247DAB17006CC037 /* ftwinfnt.o */,
+				C92F6EFA247DAB17006CC037 /* sfnt.o */,
+				C92F6EFB247DAB17006CC037 /* pshinter.o */,
+				C92F6EFC247DAB17006CC037 /* cff.o */,
+				C92F6EFD247DAB17006CC037 /* ftfstype.o */,
+				C92F6EFE247DAB17006CC037 /* type1.o */,
+				C92F6EFF247DAB17006CC037 /* psnames.o */,
+				C92F6F00247DAB17006CC037 /* ftdebug.o */,
+				C92F6F01247DAB17006CC037 /* ftmm.o */,
+				C92F6F02247DAB17006CC037 /* autofit.o */,
+				C92F6F03247DAB17006CC037 /* psaux.o */,
+				C92F6F04247DAB17006CC037 /* smooth.o */,
+				C92F6F05247DAB17006CC037 /* ftbzip2.o */,
+				C92F6F06247DAB17006CC037 /* ftbbox.o */,
+				C92F6F07247DAB17006CC037 /* type1cid.o */,
+				C92F6F08247DAB17006CC037 /* ftgzip.o */,
+				C92F6F09247DAB17006CC037 /* raster.o */,
+				C92F6F0A247DAB17006CC037 /* ftsynth.o */,
+				C92F6F0B247DAB17006CC037 /* ftgasp.o */,
+				C92F6F0C247DAB17006CC037 /* ftcache.o */,
+				C92F6F0D247DAB17006CC037 /* ftstroke.o */,
+				C92F6F0E247DAB17006CC037 /* ftotval.o */,
+				C92F6F0F247DAB17006CC037 /* ftinit.o */,
+				C92F6F10247DAB17006CC037 /* pfr.o */,
+				C92F6F11247DAB17006CC037 /* ftpfr.o */,
+				C92F6F12247DAB17006CC037 /* truetype.o */,
+				C92F6F13247DAB17006CC037 /* ftgxval.o */,
+				C92F6F14247DAB17006CC037 /* ftbase.o */,
+				C92F6F15247DAB17006CC037 /* ftlzw.o */,
+				C92F6F16247DAB17006CC037 /* bdf.o */,
+				C92F6F17247DAB17006CC037 /* ftsystem.o */,
+				C92F6F18247DAB17006CC037 /* ftcid.o */,
+				C92F6F19247DAB17006CC037 /* ftglyph.o */,
+				C92F6F1A247DAB17006CC037 /* ftbitmap.o */,
+				C92F6F1B247DAB17006CC037 /* type42.o */,
+				C92F6F1C247DAB17006CC037 /* ftpatent.o */,
+				C92F6F1D247DAB17006CC037 /* ftbdf.o */,
+			);
+			name = libfreetype;
+			path = ../libfreetype;
+			sourceTree = "<group>";
+		};
+		C92F6F1E247DAB17006CC037 /* libjpeg */ = {
+			isa = PBXGroup;
+			children = (
+				C92F6F1F247DAB17006CC037 /* jutils.o */,
+				C92F6F20247DAB17006CC037 /* jquant1.o */,
+				C92F6F21247DAB17006CC037 /* jcdctmgr.o */,
+				C92F6F22247DAB17006CC037 /* jccolor.o */,
+				C92F6F23247DAB17006CC037 /* jerror.o */,
+				C92F6F24247DAB17006CC037 /* jcprepct.o */,
+				C92F6F25247DAB17006CC037 /* jaricom.o */,
+				C92F6F26247DAB17006CC037 /* jdmaster.o */,
+				C92F6F27247DAB17006CC037 /* jdarith.o */,
+				C92F6F28247DAB17006CC037 /* jcapistd.o */,
+				C92F6F29247DAB17006CC037 /* jfdctfst.o */,
+				C92F6F2A247DAB17006CC037 /* jcmarker.o */,
+				C92F6F2B247DAB17006CC037 /* jquant2.o */,
+				C92F6F2C247DAB17006CC037 /* jdapimin.o */,
+				C92F6F2D247DAB17006CC037 /* jidctint.o */,
+				C92F6F2E247DAB17006CC037 /* jdatadst.o */,
+				C92F6F2F247DAB17006CC037 /* jmemmgr.o */,
+				C92F6F30247DAB17006CC037 /* jcomapi.o */,
+				C92F6F31247DAB17006CC037 /* jdsample.o */,
+				C92F6F32247DAB17006CC037 /* jdcoefct.o */,
+				C92F6F33247DAB17006CC037 /* jdpostct.o */,
+				C92F6F34247DAB17006CC037 /* jdmainct.o */,
+				C92F6F35247DAB17006CC037 /* jidctflt.o */,
+				C92F6F36247DAB17006CC037 /* jcinit.o */,
+				C92F6F37247DAB17006CC037 /* jctrans.o */,
+				C92F6F38247DAB17006CC037 /* jdhuff.o */,
+				C92F6F39247DAB17006CC037 /* jidctfst.o */,
+				C92F6F3A247DAB17006CC037 /* jdatasrc.o */,
+				C92F6F3B247DAB17006CC037 /* jddctmgr.o */,
+				C92F6F3C247DAB17006CC037 /* jdapistd.o */,
+				C92F6F3D247DAB17006CC037 /* jcmaster.o */,
+				C92F6F3E247DAB17006CC037 /* jdtrans.o */,
+				C92F6F3F247DAB17006CC037 /* jdinput.o */,
+				C92F6F40247DAB17006CC037 /* jdmerge.o */,
+				C92F6F41247DAB17006CC037 /* jfdctflt.o */,
+				C92F6F42247DAB17006CC037 /* jdcolor.o */,
+				C92F6F43247DAB17006CC037 /* jcapimin.o */,
+				C92F6F44247DAB17006CC037 /* jdmarker.o */,
+				C92F6F45247DAB17006CC037 /* jmemnobs.o */,
+				C92F6F46247DAB17006CC037 /* jcarith.o */,
+				C92F6F47247DAB17006CC037 /* libjpeg.h */,
+				C92F6F48247DAB17006CC037 /* Info.plist */,
+				C92F6F49247DAB17006CC037 /* jcmainct.o */,
+				C92F6F4A247DAB17006CC037 /* jchuff.o */,
+				C92F6F4B247DAB17006CC037 /* jcparam.o */,
+				C92F6F4C247DAB17006CC037 /* jcsample.o */,
+				C92F6F4D247DAB17006CC037 /* jfdctint.o */,
+				C92F6F4E247DAB17006CC037 /* jccoefct.o */,
+			);
+			name = libjpeg;
+			path = ../libjpeg;
+			sourceTree = "<group>";
+		};
 		C92FB37F22ECC3B200A59AC0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -412,124 +569,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		C92FB38722ECC3F000A59AC0 /* libjpeg */ = {
+		C96C8064247DA42D00BB4D2F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C92FB3AA22ECC41500A59AC0 /* jaricom.o */,
-				C92FB38B22ECC41300A59AC0 /* jcapimin.o */,
-				C92FB3B022ECC41500A59AC0 /* jcapistd.o */,
-				C92FB3AB22ECC41500A59AC0 /* jcarith.o */,
-				C92FB3AE22ECC41500A59AC0 /* jccoefct.o */,
-				C92FB39A22ECC41400A59AC0 /* jccolor.o */,
-				C92FB39322ECC41400A59AC0 /* jcdctmgr.o */,
-				C92FB3A822ECC41500A59AC0 /* jchuff.o */,
-				C92FB39922ECC41400A59AC0 /* jcinit.o */,
-				C92FB3A022ECC41400A59AC0 /* jcmainct.o */,
-				C92FB3A922ECC41500A59AC0 /* jcmarker.o */,
-				C92FB3B522ECC41500A59AC0 /* jcmaster.o */,
-				C92FB3A222ECC41400A59AC0 /* jcomapi.o */,
-				C92FB39F22ECC41400A59AC0 /* jcparam.o */,
-				C92FB3A622ECC41500A59AC0 /* jcprepct.o */,
-				C92FB38A22ECC41300A59AC0 /* jcsample.o */,
-				C92FB38F22ECC41400A59AC0 /* jctrans.o */,
-				C92FB3AD22ECC41500A59AC0 /* jdapimin.o */,
-				C92FB39022ECC41400A59AC0 /* jdapistd.o */,
-				C92FB3A722ECC41500A59AC0 /* jdarith.o */,
-				C92FB39722ECC41400A59AC0 /* jdatadst.o */,
-				C92FB3A522ECC41400A59AC0 /* jdatasrc.o */,
-				C92FB38C22ECC41300A59AC0 /* jdcoefct.o */,
-				C92FB3AC22ECC41500A59AC0 /* jdcolor.o */,
-				C92FB39E22ECC41400A59AC0 /* jddctmgr.o */,
-				C92FB39C22ECC41400A59AC0 /* jdhuff.o */,
-				C92FB3A322ECC41400A59AC0 /* jdinput.o */,
-				C92FB3B222ECC41500A59AC0 /* jdmainct.o */,
-				C92FB39122ECC41400A59AC0 /* jdmarker.o */,
-				C92FB38E22ECC41300A59AC0 /* jdmaster.o */,
-				C92FB39822ECC41400A59AC0 /* jdmerge.o */,
-				C92FB3AF22ECC41500A59AC0 /* jdpostct.o */,
-				C92FB3B622ECC41500A59AC0 /* jdsample.o */,
-				C92FB3A422ECC41400A59AC0 /* jdtrans.o */,
-				C92FB3B322ECC41500A59AC0 /* jerror.o */,
-				C92FB39B22ECC41400A59AC0 /* jfdctflt.o */,
-				C92FB3A122ECC41400A59AC0 /* jfdctfst.o */,
-				C92FB38D22ECC41300A59AC0 /* jfdctint.o */,
-				C92FB39622ECC41400A59AC0 /* jidctflt.o */,
-				C92FB39422ECC41400A59AC0 /* jidctfst.o */,
-				C92FB3B122ECC41500A59AC0 /* jidctint.o */,
-				C92FB3B422ECC41500A59AC0 /* jmemmgr.o */,
-				C92FB39222ECC41400A59AC0 /* jmemnobs.o */,
-				C92FB38922ECC41300A59AC0 /* jquant1.o */,
-				C92FB39D22ECC41400A59AC0 /* jquant2.o */,
-				C92FB39522ECC41400A59AC0 /* jutils.o */,
-			);
-			name = libjpeg;
-			sourceTree = "<group>";
-		};
-		C92FB38822ECC3FC00A59AC0 /* libfreetype */ = {
-			isa = PBXGroup;
-			children = (
-				C92FB3F322ECC42E00A59AC0 /* autofit.o */,
-				C92FB3EB22ECC42D00A59AC0 /* bdf.o */,
-				C92FB3F522ECC42E00A59AC0 /* cff.o */,
-				C92FB3F622ECC42E00A59AC0 /* ftbase.o */,
-				C92FB3EE22ECC42E00A59AC0 /* ftbbox.o */,
-				C92FB3F022ECC42E00A59AC0 /* ftbdf.o */,
-				C92FB40922ECC42F00A59AC0 /* ftbitmap.o */,
-				C92FB40122ECC42E00A59AC0 /* ftbzip2.o */,
-				C92FB40422ECC42F00A59AC0 /* ftcache.o */,
-				C92FB3E822ECC42D00A59AC0 /* ftcid.o */,
-				C92FB3FF22ECC42E00A59AC0 /* ftdebug.o */,
-				C92FB40322ECC42F00A59AC0 /* ftfstype.o */,
-				C92FB3FB22ECC42E00A59AC0 /* ftgasp.o */,
-				C92FB40822ECC42F00A59AC0 /* ftglyph.o */,
-				C92FB40022ECC42E00A59AC0 /* ftgxval.o */,
-				C92FB3ED22ECC42E00A59AC0 /* ftgzip.o */,
-				C92FB3F122ECC42E00A59AC0 /* ftinit.o */,
-				C92FB3FE22ECC42E00A59AC0 /* ftlzw.o */,
-				C92FB40722ECC42F00A59AC0 /* ftmm.o */,
-				C92FB3F422ECC42E00A59AC0 /* ftotval.o */,
-				C92FB40C22ECC42F00A59AC0 /* ftpatent.o */,
-				C92FB3E922ECC42D00A59AC0 /* ftpfr.o */,
-				C92FB40522ECC42F00A59AC0 /* ftstroke.o */,
-				C92FB40222ECC42F00A59AC0 /* ftsynth.o */,
-				C92FB3EC22ECC42E00A59AC0 /* ftsystem.o */,
-				C92FB3E622ECC42D00A59AC0 /* fttype1.o */,
-				C92FB3F222ECC42E00A59AC0 /* ftwinfnt.o */,
-				C92FB40622ECC42F00A59AC0 /* pcf.o */,
-				C92FB40A22ECC42F00A59AC0 /* pfr.o */,
-				C92FB3FD22ECC42E00A59AC0 /* psaux.o */,
-				C92FB3F822ECC42E00A59AC0 /* pshinter.o */,
-				C92FB3EF22ECC42E00A59AC0 /* psnames.o */,
-				C92FB40B22ECC42F00A59AC0 /* raster.o */,
-				C92FB3F722ECC42E00A59AC0 /* sfnt.o */,
-				C92FB3E722ECC42D00A59AC0 /* smooth.o */,
-				C92FB3FC22ECC42E00A59AC0 /* truetype.o */,
-				C92FB3F922ECC42E00A59AC0 /* type1.o */,
-				C92FB3E522ECC42D00A59AC0 /* type1cid.o */,
-				C92FB3EA22ECC42D00A59AC0 /* type42.o */,
-				C92FB3FA22ECC42E00A59AC0 /* winfnt.o */,
-			);
-			name = libfreetype;
-			sourceTree = "<group>";
-		};
-		C93AE15821EC017700B588B6 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C93AE16021EC017700B588B6 /* Pyto.app */,
-				C9F4625922ECBB9E007DC3B8 /* Pyto Widget.appex */,
-				C97B57002363C4E70066BE05 /* Pyto Intents.appex */,
-				C93AE16221EC017700B588B6 /* Python.framework */,
-				C93AE16421EC017700B588B6 /* PytoCore.framework */,
-				C9F4625B22ECBB9E007DC3B8 /* libpng.framework */,
-				C97B57022363C4E70066BE05 /* libjpeg.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		C97B57042363C4FA0066BE05 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C97B57082363C4FA0066BE05 /* python3_ios.framework */,
+				C96C8074247DA43500BB4D2F /* Pyto.app */,
+				C96C8076247DA43500BB4D2F /* Pyto Widget.appex */,
+				C96C8078247DA43500BB4D2F /* Pyto Intents.appex */,
+				C96C807A247DA43500BB4D2F /* Python.framework */,
+				C96C807C247DA43500BB4D2F /* PytoCore.framework */,
+				C96C807E247DA43500BB4D2F /* libpng.framework */,
+				C96C8080247DA43500BB4D2F /* libjpeg.framework */,
+				C96C8082247DA43500BB4D2F /* Pyto Watch.app */,
+				C96C8084247DA43500BB4D2F /* Pyto Watch Extension.appex */,
+				C92F6FC5247DBA63006CC037 /* SwiftUI_Views.framework */,
+				C92F6FC7247DBA63006CC037 /* SwiftUI Preview.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -537,15 +590,12 @@
 		C9CEE21D21EBA6BA00316D3C = {
 			isa = PBXGroup;
 			children = (
-				C9BC808B236622B2002B8CB4 /* _imagingmorph.framework */,
-				C9BC8089236622AE002B8CB4 /* _imagingmath.framework */,
-				C9BC8087236622AA002B8CB4 /* _imagingft.framework */,
-				C9BC8084236622A5002B8CB4 /* _imaging.framework */,
-				C97B57032363C4FA0066BE05 /* Python3_ios.xcodeproj */,
 				C9F4A4C8229F59E80052E20A /* README.md */,
-				C92FB38822ECC3FC00A59AC0 /* libfreetype */,
-				C92FB38722ECC3F000A59AC0 /* libjpeg */,
-				C93AE15721EC017700B588B6 /* Pyto.xcodeproj */,
+				C92F6EF5247DAB17006CC037 /* libfreetype */,
+				C92F6F1E247DAB17006CC037 /* libjpeg */,
+				C92F6EEC247DAAA6006CC037 /* PIL */,
+				C92F6EDA247DA544006CC037 /* Python3_ios.xcodeproj */,
+				C96C8063247DA42D00BB4D2F /* Pyto.xcodeproj */,
 				C9CEE22821EBA6BB00316D3C /* Python App */,
 				C9CEE22721EBA6BB00316D3C /* Products */,
 				C92FB37F22ECC3B200A59AC0 /* Frameworks */,
@@ -555,7 +605,7 @@
 		C9CEE22721EBA6BB00316D3C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C9CEE22621EBA6BB00316D3C /* Python App.app */,
+				C9CEE22621EBA6BB00316D3C /* Python.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -564,10 +614,9 @@
 			isa = PBXGroup;
 			children = (
 				C9CEE26B21EBDD9100316D3C /* main.swift */,
+				C92F6FA6247DACB4006CC037 /* Application.swift */,
+				C92F6FAC247DAECB006CC037 /* application.py */,
 				C921EF5D21EC0CFB004C750D /* app */,
-				C921EF5F21EC0D0B004C750D /* modules */,
-				C921EF6121EC0D10004C750D /* iCloudDrive */,
-				C921EF6B21ECAFA1004C750D /* site-packages */,
 				C9CEE23221EBA6C100316D3C /* Assets.xcassets */,
 				C9CEE23421EBA6C100316D3C /* LaunchScreen.storyboard */,
 				C9CEE23721EBA6C100316D3C /* Info.plist */,
@@ -590,11 +639,12 @@
 			buildRules = (
 			);
 			dependencies = (
-				C93AE16821EC017E00B588B6 /* PBXTargetDependency */,
+				C92F6EE9247DA54D006CC037 /* PBXTargetDependency */,
+				C96C8086247DA48600BB4D2F /* PBXTargetDependency */,
 			);
 			name = "Python App";
 			productName = "Python App";
-			productReference = C9CEE22621EBA6BB00316D3C /* Python App.app */;
+			productReference = C9CEE22621EBA6BB00316D3C /* Python.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -625,12 +675,12 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = C97B57042363C4FA0066BE05 /* Products */;
-					ProjectRef = C97B57032363C4FA0066BE05 /* Python3_ios.xcodeproj */;
+					ProductGroup = C92F6EDB247DA544006CC037 /* Products */;
+					ProjectRef = C92F6EDA247DA544006CC037 /* Python3_ios.xcodeproj */;
 				},
 				{
-					ProductGroup = C93AE15821EC017700B588B6 /* Products */;
-					ProjectRef = C93AE15721EC017700B588B6 /* Pyto.xcodeproj */;
+					ProductGroup = C96C8064247DA42D00BB4D2F /* Products */;
+					ProjectRef = C96C8063247DA42D00BB4D2F /* Pyto.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -641,60 +691,88 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		C93AE16021EC017700B588B6 /* Pyto.app */ = {
+		C92F6EDF247DA544006CC037 /* pythonA.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = pythonA.framework;
+			remoteRef = C92F6EDE247DA544006CC037 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C92F6FC5247DBA63006CC037 /* SwiftUI_Views.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftUI_Views.framework;
+			remoteRef = C92F6FC4247DBA63006CC037 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C92F6FC7247DBA63006CC037 /* SwiftUI Preview.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "SwiftUI Preview.app";
+			remoteRef = C92F6FC6247DBA63006CC037 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C96C8074247DA43500BB4D2F /* Pyto.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = Pyto.app;
-			remoteRef = C93AE15F21EC017700B588B6 /* PBXContainerItemProxy */;
+			remoteRef = C96C8073247DA43500BB4D2F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C93AE16221EC017700B588B6 /* Python.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Python.framework;
-			remoteRef = C93AE16121EC017700B588B6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C93AE16421EC017700B588B6 /* PytoCore.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = PytoCore.framework;
-			remoteRef = C93AE16321EC017700B588B6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C97B57002363C4E70066BE05 /* Pyto Intents.appex */ = {
-			isa = PBXReferenceProxy;
-			fileType = "wrapper.app-extension";
-			path = "Pyto Intents.appex";
-			remoteRef = C97B56FF2363C4E70066BE05 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C97B57022363C4E70066BE05 /* libjpeg.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = libjpeg.framework;
-			remoteRef = C97B57012363C4E70066BE05 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C97B57082363C4FA0066BE05 /* python3_ios.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = python3_ios.framework;
-			remoteRef = C97B57072363C4FA0066BE05 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C9F4625922ECBB9E007DC3B8 /* Pyto Widget.appex */ = {
+		C96C8076247DA43500BB4D2F /* Pyto Widget.appex */ = {
 			isa = PBXReferenceProxy;
 			fileType = "wrapper.app-extension";
 			path = "Pyto Widget.appex";
-			remoteRef = C9F4625822ECBB9E007DC3B8 /* PBXContainerItemProxy */;
+			remoteRef = C96C8075247DA43500BB4D2F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C9F4625B22ECBB9E007DC3B8 /* libpng.framework */ = {
+		C96C8078247DA43500BB4D2F /* Pyto Intents.appex */ = {
+			isa = PBXReferenceProxy;
+			fileType = "wrapper.app-extension";
+			path = "Pyto Intents.appex";
+			remoteRef = C96C8077247DA43500BB4D2F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C96C807A247DA43500BB4D2F /* Python.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Python.framework;
+			remoteRef = C96C8079247DA43500BB4D2F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C96C807C247DA43500BB4D2F /* PytoCore.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = PytoCore.framework;
+			remoteRef = C96C807B247DA43500BB4D2F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C96C807E247DA43500BB4D2F /* libpng.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = libpng.framework;
-			remoteRef = C9F4625A22ECBB9E007DC3B8 /* PBXContainerItemProxy */;
+			remoteRef = C96C807D247DA43500BB4D2F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C96C8080247DA43500BB4D2F /* libjpeg.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = libjpeg.framework;
+			remoteRef = C96C807F247DA43500BB4D2F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C96C8082247DA43500BB4D2F /* Pyto Watch.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Pyto Watch.app";
+			remoteRef = C96C8081247DA43500BB4D2F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C96C8084247DA43500BB4D2F /* Pyto Watch Extension.appex */ = {
+			isa = PBXReferenceProxy;
+			fileType = "wrapper.app-extension";
+			path = "Pyto Watch Extension.appex";
+			remoteRef = C96C8083247DA43500BB4D2F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -704,11 +782,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C921EF6021EC0D0B004C750D /* modules in Resources */,
-				C921EF6221EC0D10004C750D /* iCloudDrive in Resources */,
 				C921EF5E21EC0CFB004C750D /* app in Resources */,
 				C9CEE23621EBA6C100316D3C /* LaunchScreen.storyboard in Resources */,
-				C921EF6C21ECAFA1004C750D /* site-packages in Resources */,
+				C92F6FAD247DAECB006CC037 /* application.py in Resources */,
 				C9CEE23321EBA6C100316D3C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -720,6 +796,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C92F6FA7247DACB4006CC037 /* Application.swift in Sources */,
 				C9CEE26C21EBDD9100316D3C /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -727,10 +804,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C93AE16821EC017E00B588B6 /* PBXTargetDependency */ = {
+		C92F6EE9247DA54D006CC037 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = python3_ios;
+			targetProxy = C92F6EE8247DA54D006CC037 /* PBXContainerItemProxy */;
+		};
+		C96C8086247DA48600BB4D2F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = PytoCore;
-			targetProxy = C93AE16721EC017E00B588B6 /* PBXContainerItemProxy */;
+			targetProxy = C96C8085247DA48600BB4D2F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -864,20 +946,24 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Python App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"-undefined",
 					dynamic_lookup,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.pythonapp;
+				PRODUCT_NAME = Python;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -890,20 +976,24 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Python App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"-undefined",
 					dynamic_lookup,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.pythonapp;
+				PRODUCT_NAME = Python;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
