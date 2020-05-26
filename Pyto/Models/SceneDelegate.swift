@@ -179,9 +179,15 @@ import SwiftUI_Views
             } else if let data = userActivity.userInfo?["filePath"] as? Data {
                 do {
                     var isStale = false
-                    let url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
+                    var url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
                     
-                    if let arguments = userActivity.userInfo?["arguments"] as? String {
+                    if (try? String(contentsOf: url)) == nil { // Is bookmark
+                        let data = try Data(contentsOf: url)
+                        url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
+                    }
+                    
+                    if let arguments = userActivity.userInfo?["arguments"] as? [String] {
+                        Python.shared.args = NSMutableArray(array: arguments)
                         UserDefaults.standard.set(arguments, forKey: "arguments\(url.path.replacingOccurrences(of: "//", with: "/"))")
                     }
                     
@@ -204,7 +210,8 @@ import SwiftUI_Views
                     try? FileManager.default.removeItem(at: fileURL)
                 }
                 
-                if let arguments = userActivity.userInfo?["arguments"] as? String {
+                if let arguments = userActivity.userInfo?["arguments"] as? [String] {
+                    Python.shared.args = NSMutableArray(array: arguments)
                     UserDefaults.standard.set(arguments, forKey: "arguments\(fileURL.path.replacingOccurrences(of: "//", with: "/"))")
                 }
                 

@@ -9,7 +9,7 @@
 import Intents
 
 class RunCodeIntentsHandler: NSObject, RunCodeIntentHandling {
-    
+
     static var isPythonInitialized = false
     
     static let pipe = Pipe()
@@ -20,7 +20,7 @@ class RunCodeIntentsHandler: NSObject, RunCodeIntentHandling {
             return completion(.init(code: .failure, userActivity: nil))
         }
         
-        userActivity.userInfo = ["code" : code, "arguments" : intent.arguments ?? ""]
+        userActivity.userInfo = ["code" : code, "arguments" : intent.arguments ?? []]
         
         if intent.runInApp?.boolValue == true {
             return completion(.init(code: .continueInApp, userActivity: userActivity))
@@ -41,11 +41,8 @@ class RunCodeIntentsHandler: NSObject, RunCodeIntentHandling {
                     RunCodeIntentsHandler.isPythonInitialized = true
                 }
                 
-                let args = intent.arguments ?? ""
-                var components = args.components(separatedBy: " ")
-                ParseArgs(&components)
-                
-                setArgv(["pyto"]+components)
+                let args = intent.arguments ?? []
+                setArgv(["pyto"]+args)
                 
                 PyRun_SimpleString(code)
                 PyRun_SimpleString("import sys; sys.stdout.flush(); sys.stderr.flush()")
@@ -71,8 +68,14 @@ class RunCodeIntentsHandler: NSObject, RunCodeIntentHandling {
         return completion(.success(with: intent.code ?? ""))
     }
     
-    func resolveArguments(for intent: RunCodeIntent, with completion: @escaping (INStringResolutionResult) -> Void) {
-        return completion(.success(with: intent.arguments ?? ""))
+    func resolveArguments(for intent: RunCodeIntent, with completion: @escaping ([INStringResolutionResult]) -> Void) {
+        var result = [INStringResolutionResult]()
+        
+        for arg in intent.arguments ?? [] {
+            result.append(.success(with: arg))
+        }
+        
+        completion(result)
     }
     
     func resolveRunInApp(for intent: RunCodeIntent, with completion: @escaping (INBooleanResolutionResult) -> Void) {
