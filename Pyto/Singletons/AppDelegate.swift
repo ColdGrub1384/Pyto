@@ -251,13 +251,15 @@ import WatchConnectivity
             self.window?.rootViewController?.present(console, animated: true, completion: {
                 console.textView.text = ""
                 Python.shared.runningScripts = [AppDelegate.scriptToRun!]
-                PyInputHelper.userInput[""] = "import console as __console__; script = __console__.run_script('\(AppDelegate.scriptToRun!)'); import code; code.interact(banner='', local=vars(script))"
+                PyInputHelper.userInput[""] = "import console as __console__; script = __console__.run_script('\(AppDelegate.scriptToRun!)'); import code; code.interact(banner='', local=script)"
             })
         }
         #endif
         
         return true
     }
+    
+    #if MAIN
     
     public func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         RemoteNotifications.deviceToken = nil
@@ -268,8 +270,6 @@ import WatchConnectivity
         RemoteNotifications.error = nil
         RemoteNotifications.deviceToken = deviceToken.map { String(format: "%02hhx", $0) }.joined()
     }
-    
-    #if MAIN
     
     public func applicationWillResignActive(_ application: UIApplication) {
         guard #available(iOS 13.0, *) else {

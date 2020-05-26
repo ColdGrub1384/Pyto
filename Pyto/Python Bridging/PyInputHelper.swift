@@ -48,7 +48,7 @@ import WatchConnectivity
             #endif
             
             #if !WIDGET && !MAIN
-            ConsoleViewController.visibles.first?.input(prompt: prompt_ ?? "")
+            ConsoleViewController.visibles.first?.input(prompt: prompt_ ?? "", highlight: false)
             #elseif !WIDGET
             for console in ConsoleViewController.visibles {
                 if script != nil {

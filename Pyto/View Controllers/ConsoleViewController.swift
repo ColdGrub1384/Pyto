@@ -237,10 +237,14 @@ import SwiftUI
         
         self.prompt = prompt
         movableTextField?.placeholder = prompt
+        #if MAIN
         if !highlight || self.parent is REPLViewController {
             // Don't automatically focus after a script was executed and the REPL is shown
             movableTextField?.focus()
         }
+        #else
+        movableTextField?.focus()
+        #endif
     }
     
     /// Requests the user for a password.
@@ -874,12 +878,17 @@ import SwiftUI
         #endif
         movableTextField?.handler = { text in
             
+            #if MAIN
             if self.currentSuggestionIndex != -1 {
                 return self.inputAssistantView(self.movableTextField!.inputAssistant, didSelectSuggestionAtIndex: 0)
             }
                         
+            #endif
+            
             self.movableTextField?.currentInput = nil
             self.movableTextField?.placeholder = ""
+            
+            #if MAIN
             
             if let i = self.movableTextField?.history.firstIndex(of: text) {
                 self.movableTextField?.history.remove(at: i)
@@ -891,7 +900,9 @@ import SwiftUI
                 self.movableTextField?.textField.resignFirstResponder()
             }
             
+            self.movableTextField?.textField.resignFirstResponder()
             self.completions = []
+            #endif
             
             let secureTextEntry = self.movableTextField?.textField.isSecureTextEntry ?? false
             self.movableTextField?.textField.isSecureTextEntry = false
@@ -1028,9 +1039,11 @@ import SwiftUI
             UIKeyCommand(input: UIKeyCommand.inputUpArrow, modifierFlags: [], action: #selector(up)),
         ]
         
+        #if MAIN
         if numberOfSuggestionsInInputAssistantView() != 0 {
             commands.append(UIKeyCommand(input: "\t", modifierFlags: [], action: #selector(nextSuggestion), discoverabilityTitle: Localizable.nextSuggestion))
         }
+        #endif
         
         return commands
     }
@@ -1044,7 +1057,11 @@ import SwiftUI
             
             let point = (view.window)?.convert(r.origin, to: view) ?? r.origin
             
+            #if MAIN
             textView.frame.size.height = point.y-44
+            #else
+            textView.frame.size.height = point.y-(44+(view.safeAreaInsets.top))
+            #endif
         } else {
             textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
         }
@@ -1055,8 +1072,13 @@ import SwiftUI
     }
     
     @objc func keyboardWillHide(_ notification:Notification) {
+        #if MAIN
         textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
         textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
+        #else
+        textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height
+        textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
+        #endif
     }
     
     @objc private func up() {
@@ -1070,6 +1092,7 @@ import SwiftUI
     /// Selects a suggestion from hardware tab key.
     @objc func nextSuggestion() {
         
+        #if MAIN
         guard numberOfSuggestionsInInputAssistantView() != 0 else {
             return
         }
@@ -1081,6 +1104,9 @@ import SwiftUI
         } else {
             currentSuggestionIndex = -1
         }
+        #else
+        fatalError("Not implemented")
+        #endif
     }
     
     // MARK: - Text view delegate

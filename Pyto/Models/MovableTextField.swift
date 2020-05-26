@@ -170,7 +170,11 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     }
     
     @objc private func keyboardDidHide(_ notification: NSNotification) {
+        #if MAIN
         toolbar.frame.origin.y = console.view.safeAreaLayoutGuide.layoutFrame.height-toolbar.frame.height
+        #else
+        toolbar.frame.origin.y = console.view.safeAreaLayoutGuide.layoutFrame.height
+        #endif
         
         if textField.isFirstResponder { // Still editing, but with a hardware keyboard
             keyboardDidShow(notification)
@@ -198,16 +202,18 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
                 
         defer {
-            #if MAIN
             self.handler?(self.textField.text ?? "")
-            #endif
         }
         
+        #if MAIN
         if console.parent is REPLViewController {
             return false
         } else {
             return true
         }
+        #else
+        return false
+        #endif
     }
         
     #if MAIN
