@@ -119,8 +119,6 @@
 					<string>File</string>
 				</dict>
 				<dict>
-					<key>INIntentParameterCustomDisambiguation</key>
-					<true/>
 					<key>INIntentParameterDisplayName</key>
 					<string>Arguments</string>
 					<key>INIntentParameterDisplayNameID</key>
@@ -151,34 +149,6 @@
 							<string>8HDbQ2</string>
 							<key>INIntentParameterPromptDialogType</key>
 							<string>Primary</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>There are ${count} options matching ‘${arguments}’.</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>QTAIsV</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>DisambiguationIntroduction</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>Which one?</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>5FNs5F</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>DisambiguationSelection</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>Just to confirm, you wanted ‘${arguments}’?</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>aTzpNy</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Confirmation</string>
 						</dict>
 					</array>
 					<key>INIntentParameterSupportsMultipleValues</key>
@@ -256,8 +226,6 @@
 			<key>INIntentParameters</key>
 			<array>
 				<dict>
-					<key>INIntentParameterCustomDisambiguation</key>
-					<true/>
 					<key>INIntentParameterDisplayName</key>
 					<string>Code</string>
 					<key>INIntentParameterDisplayNameID</key>
@@ -291,34 +259,6 @@
 							<key>INIntentParameterPromptDialogType</key>
 							<string>Primary</string>
 						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>There are ${count} options matching ‘${code}’.</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>FHd4Qz</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>DisambiguationIntroduction</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>Which one?</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>mbeQ4T</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>DisambiguationSelection</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>Just to confirm, you wanted ‘${code}’?</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>1Bojv8</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Confirmation</string>
-						</dict>
 					</array>
 					<key>INIntentParameterSupportsResolution</key>
 					<true/>
@@ -328,8 +268,6 @@
 					<string>String</string>
 				</dict>
 				<dict>
-					<key>INIntentParameterCustomDisambiguation</key>
-					<true/>
 					<key>INIntentParameterDisplayName</key>
 					<string>Arguments</string>
 					<key>INIntentParameterDisplayNameID</key>
@@ -361,34 +299,6 @@
 							<key>INIntentParameterPromptDialogType</key>
 							<string>Primary</string>
 						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>There are ${count} options matching ‘${arguments}’.</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>pMfxt2</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>DisambiguationIntroduction</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>Which one?</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>DDODtD</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>DisambiguationSelection</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>Just to confirm, you wanted ‘${arguments}’?</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>afxEMw</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Confirmation</string>
-						</dict>
 					</array>
 					<key>INIntentParameterSupportsMultipleValues</key>
 					<true/>
@@ -400,8 +310,6 @@
 					<string>String</string>
 				</dict>
 				<dict>
-					<key>INIntentParameterCustomDisambiguation</key>
-					<true/>
 					<key>INIntentParameterDisplayName</key>
 					<string>Run In App</string>
 					<key>INIntentParameterDisplayNameID</key>
@@ -434,16 +342,6 @@
 							<string>MiaQHi</string>
 							<key>INIntentParameterPromptDialogType</key>
 							<string>Primary</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>Just to confirm, you wanted ‘${runInApp}’?</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>hNsI7V</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Confirmation</string>
 						</dict>
 					</array>
 					<key>INIntentParameterSupportsResolution</key>
