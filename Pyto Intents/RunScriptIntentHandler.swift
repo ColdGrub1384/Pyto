@@ -54,6 +54,8 @@ class RunScriptIntentHandler: NSObject, RunScriptIntentHandling {
                 if success {
                     fileURL.stopAccessingSecurityScopedResource()
                 }
+            } else if let data = intent.script?.data {
+                userActivity.userInfo = ["filePath" : data, "arguments" : intent.arguments ?? ""]
             }
         } catch {
             print(error.localizedDescription)
@@ -78,10 +80,10 @@ class RunScriptIntentHandler: NSObject, RunScriptIntentHandling {
         do {
             for file in (try FileManager.default.contentsOfDirectory(atURL: docs, sortedBy: .created) ?? []) {
                 let fileURL = docs.appendingPathComponent(file)
-                files.append(INFile(fileURL: fileURL, filename: fileURL.lastPathComponent, typeIdentifier: "public.pyhon-script"))
+                files.append(INFile(data: try Data(contentsOf: fileURL), filename: fileURL.lastPathComponent, typeIdentifier: nil))
             }
         } catch {
-            return completion([], error)
+            return completion([], nil)
         }
         
         completion(files.reversed(), nil)

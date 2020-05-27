@@ -179,12 +179,7 @@ import SwiftUI_Views
             } else if let data = userActivity.userInfo?["filePath"] as? Data {
                 do {
                     var isStale = false
-                    var url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
-                    
-                    if (try? String(contentsOf: url)) == nil { // Is bookmark
-                        let data = try Data(contentsOf: url)
-                        url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
-                    }
+                    let url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
                     
                     if let arguments = userActivity.userInfo?["arguments"] as? [String] {
                         Python.shared.args = NSMutableArray(array: arguments)
