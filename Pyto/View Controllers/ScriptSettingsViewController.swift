@@ -110,7 +110,7 @@ class ScriptSettingsViewController: UIViewController, UITextFieldDelegate, UIDoc
         
         func doChange() {
             editor.currentDirectory = url
-            currentDirectoryTextField.text = FileManager.default.displayName(atPath: editor.currentDirectory.path)
+            currentDirectoryTextField.text = FileManager.default.displayName(atPath: url.path)
             if !FoldersBrowserViewController.accessibleFolders.contains(editor.currentDirectory.resolvingSymlinksInPath()) {
                 FoldersBrowserViewController.accessibleFolders.append(editor.currentDirectory.resolvingSymlinksInPath())
             }
