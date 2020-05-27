@@ -1142,6 +1142,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     /// Shows documentation
     @objc func showDocs(_ sender: UIBarButtonItem) {
+        
+        guard presentedViewController == nil else {
+            return
+        }
+        
         if documentationNavigationController == nil {
             documentationNavigationController = ThemableNavigationController(rootViewController: DocumentationViewController())
         }
