@@ -157,7 +157,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
             request.conditionallyBeginAccessingResources { (downloaded) in
                 if downloaded {
                     for module in modules {
-                        if let path = request.bundle.url(forResource: module, withExtension: nil)?.deletingLastPathComponent().path, !paths.contains(path) {
+                        if let path = request.bundle.url(forResource: module.replacingOccurrences(of: "bio", with: "Bio"), withExtension: nil)?.deletingLastPathComponent().path, !paths.contains(path) {
                             paths.append(path)
                             if !self.downloadedModules.contains(path) {
                                 self.downloadedModules.append(path)

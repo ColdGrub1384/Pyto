@@ -103,6 +103,7 @@
 <p class="caption"><span class="caption-text">OS Technologies</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="notifications.html">notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="remote_notifications.html">remote_notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="music.html">music</a></li>
 <li class="toctree-l1"><a class="reference internal" href="photos.html">photos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="location.html">location</a></li>
@@ -186,7 +187,7 @@
 <h2>Shortcuts<a class="headerlink" href="#shortcuts" title="Permalink to this headline">¶</a></h2>
 <p>Pyto provides Shortcuts for running scripts and code. Shortcuts will open Pyto to execute the code and it’s not possible to retrieve the result. See <a class="reference external" href="#x-callbackURLs">x-callback URLs</a> for getting callbacks.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">Code</span> <span class="pre">with</span> <span class="pre">Arguments</span></code> will execute the given code with the given arguments. Code can be executed in app or without leaving Shortcuts. If you uncheck <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">In</span> <span class="pre">App</span></code>, the Shortcut will return the output of the code (stdout + stderr). When <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">In</span> <span class="pre">App</span></code> is unchecked, the code will only have access to the standard library and <code class="docutils literal notranslate"><span class="pre">stdin</span></code> cannot be sent.</p>
-<p><code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">Script</span> <span class="pre">with</span> <span class="pre">Arguments</span></code> will execute the given script with the given arguments. Note that <code class="docutils literal notranslate"><span class="pre">Script</span></code> is a file, and Shortcuts doesn’t provide a way to pick a file as a value. So the only ways to have a valid value passed to this Shortcut are by sharing a file with the Share Sheet and passing the input or by picking each time a script with the <code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">file</span></code> system Shortcut.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">Script</span> <span class="pre">with</span> <span class="pre">Arguments</span></code> will execute the given script with the given arguments.</p>
 <p>Pyto also provides a Shortcut for each script used with the app.</p>
 </div>
 <div class="section" id="id1">

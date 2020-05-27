@@ -13,6 +13,7 @@ import CoreLocation
 import CoreMotion
 #if MAIN
 import WatchConnectivity
+import Intents
 #endif
 
 /// The application's delegate.

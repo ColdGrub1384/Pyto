@@ -19,6 +19,8 @@
 		<dict>
 			<key>INIntentCategory</key>
 			<string>generic</string>
+			<key>INIntentClassName</key>
+			<string>RunScriptIntent</string>
 			<key>INIntentConfigurable</key>
 			<true/>
 			<key>INIntentDescription</key>
@@ -27,6 +29,10 @@
 			<string>fYwWoa</string>
 			<key>INIntentIneligibleForSuggestions</key>
 			<true/>
+			<key>INIntentInput</key>
+			<string>arguments</string>
+			<key>INIntentKeyParameter</key>
+			<string>script</string>
 			<key>INIntentLastParameterTag</key>
 			<integer>20</integer>
 			<key>INIntentManagedParameterCombinations</key>
@@ -36,7 +42,7 @@
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
 					<key>INIntentParameterCombinationTitle</key>
-					<string>Run ${script} with ${arguments}</string>
+					<string>Run ${script}  with ${arguments}</string>
 					<key>INIntentParameterCombinationTitleID</key>
 					<string>0G2PVr</string>
 				</dict>
@@ -185,8 +191,6 @@
 			<string>3WK88C</string>
 			<key>INIntentType</key>
 			<string>Custom</string>
-			<key>INIntentUserConfirmationRequired</key>
-			<true/>
 			<key>INIntentVerb</key>
 			<string>Run</string>
 		</dict>
