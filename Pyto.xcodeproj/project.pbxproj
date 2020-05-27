@@ -165,6 +165,8 @@
 		C92DBD8021F67B9D0098BE43 /* REPL.py in Resources */ = {isa = PBXBuildFile; fileRef = C92DBD7F21F67B9C0098BE43 /* REPL.py */; };
 		C92DBD8221F687480098BE43 /* REPLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92DBD8121F687480098BE43 /* REPLViewController.swift */; };
 		C92EAC6422D93D2800729970 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A4214461D300382DCC /* libsqlite3.tbd */; };
+		C92F6FE2247DD1A5006CC037 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = C92F6FE5247DD1A5006CC037 /* Intents.intentdefinition */; };
+		C92F6FE3247DD1A5006CC037 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = C92F6FE5247DD1A5006CC037 /* Intents.intentdefinition */; };
 		C92FC4462352BCB8000BBF46 /* Hello World.py in Resources */ = {isa = PBXBuildFile; fileRef = C92FC4452352BCB8000BBF46 /* Hello World.py */; };
 		C93071BF23ED98F5000ADFF6 /* PyMotionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98F37BA23ED894700E5D52C /* PyMotionHelper.swift */; };
 		C93071C223ED98F7000ADFF6 /* PyMotionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98F37BA23ED894700E5D52C /* PyMotionHelper.swift */; };
@@ -488,8 +490,6 @@
 		C9C4289D24699B05000CCC53 /* socket.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9C4287C24699AF1000CCC53 /* socket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9C5BC7323DA02D800420DD5 /* PyWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C7AC6D22F5EE9F00659685 /* PyWebView.swift */; };
 		C9C5BC7623DA02D800420DD5 /* PyWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C7AC6D22F5EE9F00659685 /* PyWebView.swift */; };
-		C9C7AC6722F5EB3F00659685 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = C9C7AC6622F5EB3E00659685 /* Intents.intentdefinition */; };
-		C9C7AC6822F5EB3F00659685 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = C9C7AC6622F5EB3E00659685 /* Intents.intentdefinition */; };
 		C9C7AC6B22F5ED2300659685 /* RunScriptIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C7AC6922F5ED2300659685 /* RunScriptIntentHandler.swift */; };
 		C9C7AC6C22F5ED2300659685 /* RunCodeIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C7AC6A22F5ED2300659685 /* RunCodeIntentHandler.swift */; };
 		C9C7AC6E22F5EE9F00659685 /* PyWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C7AC6D22F5EE9F00659685 /* PyWebView.swift */; };
@@ -2517,6 +2517,11 @@
 		C92ACE3621F0DBF600FA8904 /* SolarizedDark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarizedDark.swift; sourceTree = "<group>"; };
 		C92DBD7F21F67B9C0098BE43 /* REPL.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = REPL.py; sourceTree = "<group>"; };
 		C92DBD8121F687480098BE43 /* REPLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REPLViewController.swift; sourceTree = "<group>"; };
+		C92F6FE4247DD1A5006CC037 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Intents.intentdefinition; sourceTree = "<group>"; };
+		C92F6FF1247DD252006CC037 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Intents.strings; sourceTree = "<group>"; };
+		C92F6FF5247DD257006CC037 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Intents.strings; sourceTree = "<group>"; };
+		C92F6FFB247DD25E006CC037 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Intents.strings; sourceTree = "<group>"; };
+		C92F6FFD247DD261006CC037 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Intents.strings; sourceTree = "<group>"; };
 		C92FC4452352BCB8000BBF46 /* Hello World.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = "Hello World.py"; sourceTree = "<group>"; };
 		C93657282287334600498011 /* ResolveConflictsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolveConflictsTableViewController.swift; sourceTree = "<group>"; };
 		C937B9C422EE430500269FC6 /* libexslt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libexslt.a; sourceTree = "<group>"; };
@@ -3213,7 +3218,6 @@
 		C9C7443322EE08350035EFB9 /* qcprotmodule.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = qcprotmodule.framework; sourceTree = "<group>"; };
 		C9C7443422EE08350035EFB9 /* trie.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = trie.framework; sourceTree = "<group>"; };
 		C9C7443522EE08350035EFB9 /* _cluster.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _cluster.framework; sourceTree = "<group>"; };
-		C9C7AC6622F5EB3E00659685 /* Intents.intentdefinition */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.intentdefinition; path = Intents.intentdefinition; sourceTree = "<group>"; };
 		C9C7AC6922F5ED2300659685 /* RunScriptIntentHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunScriptIntentHandler.swift; sourceTree = "<group>"; };
 		C9C7AC6A22F5ED2300659685 /* RunCodeIntentHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunCodeIntentHandler.swift; sourceTree = "<group>"; };
 		C9C7AC6D22F5EE9F00659685 /* PyWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PyWebView.swift; sourceTree = "<group>"; };
@@ -5972,7 +5976,7 @@
 				C90BC03D24720F7B00EF7F09 /* Widget Simulator.storyboard */,
 				C90BC04124720F8A00EF7F09 /* Template Chooser.storyboard */,
 				C90BC0582472108100EF7F09 /* ScriptSettingsViewController.storyboard */,
-				C9C7AC6622F5EB3E00659685 /* Intents.intentdefinition */,
+				C92F6FE5247DD1A5006CC037 /* Intents.intentdefinition */,
 				C9FCFD5F214428B300A07974 /* Assets.xcassets */,
 				C9FCFD64214428B300A07974 /* Info.plist */,
 				C9477BBA21D45D28000680AE /* installer.py */,
@@ -9261,7 +9265,7 @@
 				C9C2F47122F0ED8C0062F4D6 /* IntentHandler.swift in Sources */,
 				C9C7AC6C22F5ED2300659685 /* RunCodeIntentHandler.swift in Sources */,
 				C98CECF823CA449400E133E3 /* String.swift in Sources */,
-				C9C7AC6822F5EB3F00659685 /* Intents.intentdefinition in Sources */,
+				C92F6FE3247DD1A5006CC037 /* Intents.intentdefinition in Sources */,
 				C93B896923CA54330070B2EF /* ParseArgs.swift in Sources */,
 				C93B896423CA52000070B2EF /* setArgv.m in Sources */,
 				C9C7AC6B22F5ED2300659685 /* RunScriptIntentHandler.swift in Sources */,
@@ -9352,7 +9356,7 @@
 				C927187822C9933A0025341B /* PyButton.swift in Sources */,
 				C9BF46E722E106D500B8FE4B /* PyTableView.swift in Sources */,
 				C94E730222E3BBF300F3FB79 /* PyButtonItem.swift in Sources */,
-				C9C7AC6722F5EB3F00659685 /* Intents.intentdefinition in Sources */,
+				C92F6FE2247DD1A5006CC037 /* Intents.intentdefinition in Sources */,
 				C969D2A523D49B3200460F05 /* PyPhotosHelper.swift in Sources */,
 				C9622B882467BE5200D0D697 /* lmder1_.c in Sources */,
 				C946A5CA2207809700F78C5C /* FileManager.swift in Sources */,
@@ -9678,6 +9682,18 @@
 				C909510E247885A200931684 /* de */,
 			);
 			name = ScriptSettingsViewController.storyboard;
+			sourceTree = "<group>";
+		};
+		C92F6FE5247DD1A5006CC037 /* Intents.intentdefinition */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C92F6FE4247DD1A5006CC037 /* Base */,
+				C92F6FF1247DD252006CC037 /* en */,
+				C92F6FF5247DD257006CC037 /* fr */,
+				C92F6FFB247DD25E006CC037 /* de */,
+				C92F6FFD247DD261006CC037 /* es */,
+			);
+			name = Intents.intentdefinition;
 			sourceTree = "<group>";
 		};
 		C9727C452204D7F100B7AC32 /* LaunchScreen.storyboard */ = {
