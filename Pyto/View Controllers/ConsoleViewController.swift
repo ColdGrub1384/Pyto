@@ -900,7 +900,6 @@ import SwiftUI
                 self.movableTextField?.textField.resignFirstResponder()
             }
             
-            self.movableTextField?.textField.resignFirstResponder()
             self.completions = []
             #endif
             

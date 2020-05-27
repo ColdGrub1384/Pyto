@@ -80,15 +80,34 @@ class ScriptSettingsViewController: UIViewController, UITextFieldDelegate, UIDoc
         
         title = FileManager.default.displayName(atPath: editor.document!.fileURL.path)
         
-        if let activity = editor.userActivity {
+        if let url = editor.document?.fileURL {
+            
+            (UIApplication.shared.delegate as? AppDelegate)?.addURLToShortcuts(url)
+            
             let button: INUIAddVoiceShortcutButton
+            
             if #available(iOS 13.0, *) {
                 button = INUIAddVoiceShortcutButton(style: .automatic)
             } else {
                 button = INUIAddVoiceShortcutButton(style: .whiteOutline)
             }
             
-            button.shortcut = INShortcut(userActivity: activity)
+            if #available(iOS 13.0, *) {
+                do {
+                    var args = editor.args.components(separatedBy: " ")
+                    ParseArgs(&args)
+                    
+                    let intent = RunScriptIntent()
+                    intent.script = INFile(data: try url.bookmarkData(), filename: url.lastPathComponent, typeIdentifier: "public.python-script")
+                    intent.arguments = args
+                    intent.suggestedInvocationPhrase = url.deletingPathExtension().lastPathComponent
+                    button.shortcut = INShortcut(intent: intent)
+                } catch {
+                    print(error.localizedDescription)
+                }
+            } else if let activity = editor.userActivity {
+                button.shortcut = INShortcut(userActivity: activity)
+            }
             button.delegate = self
             
             button.translatesAutoresizingMaskIntoConstraints = false
