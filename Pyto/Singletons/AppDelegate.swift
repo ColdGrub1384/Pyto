@@ -430,7 +430,7 @@ extension AppDelegate: WCSessionDelegate {
                 """))
             }
         } else if messageData == "Stop".data(using: .utf8) {
-            Python.shared.stop(script: Python.WatchScript.scriptURL.path)
+            Python.shared.stop(script: Python.watchScriptURL.path)
         }
     }
 }

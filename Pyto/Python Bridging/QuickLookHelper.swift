@@ -124,7 +124,7 @@ fileprivate class ImageAttachment: NSTextAttachment {
             
             #if MAIN
             
-            if script == Python.WatchScript.scriptURL.path {
+            if script == Python.watchScriptURL.path {
                 let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
                 let str = String((0..<10).map{ _ in letters.randomElement()! })
                 

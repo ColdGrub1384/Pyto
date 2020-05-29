@@ -56,7 +56,7 @@ fileprivate extension ConsoleViewController {
         #if MAIN
         text_ = ShortenFilePaths(in: text_)
         
-        if script == Python.WatchScript.scriptURL.path {
+        if script == Python.watchScriptURL.path {
             WCSession.default.sendMessageData(text_.data(using: .utf8) ?? Data(), replyHandler: nil, errorHandler: nil)
             return
         }
@@ -197,7 +197,7 @@ fileprivate extension ConsoleViewController {
         #if MAIN
         text_ = ShortenFilePaths(in: text_)
         
-        if script == Python.WatchScript.scriptURL.path {
+        if script == Python.watchScriptURL.path {
             WCSession.default.sendMessageData(text_.data(using: .utf8) ?? Data(), replyHandler: nil, errorHandler: nil)
             return
         }
@@ -250,7 +250,7 @@ fileprivate extension ConsoleViewController {
         #if MAIN
         text_ = ShortenFilePaths(in: text_)
         
-        if script == Python.WatchScript.scriptURL.path {
+        if script == Python.watchScriptURL.path {
             WCSession.default.sendMessageData(text_.data(using: .utf8) ?? Data(), replyHandler: nil, errorHandler: nil)
             return
         }
@@ -312,7 +312,7 @@ fileprivate extension ConsoleViewController {
         #if MAIN
         text_ = ShortenFilePaths(in: text_)
         
-        if script == Python.WatchScript.scriptURL.path {
+        if script == Python.watchScriptURL.path {
             WCSession.default.sendMessageData(text_.data(using: .utf8) ?? Data(), replyHandler: nil, errorHandler: nil)
             return
         }
