@@ -38,7 +38,7 @@ import WatchConnectivity
         DispatchQueue.main.sync {
             
             #if MAIN
-            if script == Python.WatchScript.scriptURL.path {
+            if script == Python.watchScriptURL.path {
                 WCSession.default.sendMessage(["prompt": prompt_ ?? "", "suggestions": WatchInputSuggestionsTableViewController.suggestions], replyHandler: { (res) in
                     self.userInput[script!] = res["input"]
                 }, errorHandler: { (_) in

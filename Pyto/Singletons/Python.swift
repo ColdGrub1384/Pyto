@@ -264,18 +264,17 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         }
     }
     
+    /// The URL where the Apple Watch script is stored.
+    @objc public static let watchScriptURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("Watch.py")
+    
     /// A script to be executed from the Watch app.
     @objc public class WatchScript: Script {
-     
-        /// The URL where the script is stored.
-        public static let scriptURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("Watch.py")
-        
         /// Initilializes the script with given code.
         ///
         /// - Parameters:
         ///     - code: The code to run.
         init(code: String) {
-            let url = WatchScript.scriptURL
+            let url = Python.watchScriptURL
             FileManager.default.createFile(atPath: url.path, contents: nil, attributes: nil)
             try? code.write(to: url, atomically: true, encoding: .utf8)
             
