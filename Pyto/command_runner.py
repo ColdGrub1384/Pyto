@@ -14,7 +14,12 @@ if len(sys.argv) == 1:
     usage = "Usage: <module-name> [<args>]"
     print(usage)
 
-def main():
+# For some reason, after running a module that has a `main()` function,
+# the `main()` function from here was replaced by the `main()` function
+# from the executed module, like if the namespace from here was merged
+# from the namespace of the executed module. Idk how, that's why the weird name.
+# I'm pretty sure it's for something I did recently because it worked before.
+def _main_function_no_one_calls_a_function_like_that():
     command = sys.argv[1:]
     if len(command) == 0:
         command = []
@@ -49,7 +54,7 @@ def main():
     sys.argv = [sys.argv[0]]
 
 if len(sys.argv) > 1:
-    main()
+    _main_function_no_one_calls_a_function_like_that()
 else:
     while True:
-        main()
+        _main_function_no_one_calls_a_function_like_that()
