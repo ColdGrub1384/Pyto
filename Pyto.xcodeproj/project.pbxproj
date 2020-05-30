@@ -338,6 +338,7 @@
 		C969D2A623D49B3700460F05 /* PyPhotosHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C969D2A423D49B3200460F05 /* PyPhotosHelper.swift */; };
 		C969D2A923D49ECB00460F05 /* PyPhotosHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C969D2A423D49B3200460F05 /* PyPhotosHelper.swift */; };
 		C96A199B2480C2D400AFD7BD /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C96A199A2480C2D400AFD7BD /* Interface.storyboard */; };
+		C96A19BD2481EA0E00AFD7BD /* GetScriptOutputIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96A19BC2481EA0E00AFD7BD /* GetScriptOutputIntentHandler.swift */; };
 		C96BA43824449CB0003D5B88 /* ScriptSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96BA43724449CB0003D5B88 /* ScriptSettingsViewController.swift */; };
 		C9727C472204D7F100B7AC32 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9727C452204D7F100B7AC32 /* LaunchScreen.storyboard */; };
 		C972AE3F23467AE30053E1C3 /* FoldersBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C972AE3E23467AE30053E1C3 /* FoldersBrowserViewController.swift */; };
@@ -2519,7 +2520,6 @@
 		C92DBD7F21F67B9C0098BE43 /* REPL.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = REPL.py; sourceTree = "<group>"; };
 		C92DBD8121F687480098BE43 /* REPLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REPLViewController.swift; sourceTree = "<group>"; };
 		C92F6FE4247DD1A5006CC037 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Intents.intentdefinition; sourceTree = "<group>"; };
-		C92F6FFE247EA4C9006CC037 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Intents.strings; sourceTree = "<group>"; };
 		C92F6FFF247EA4CB006CC037 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Intents.strings; sourceTree = "<group>"; };
 		C92F7000247EA4CD006CC037 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Intents.strings; sourceTree = "<group>"; };
 		C92F7001247EA4D0006CC037 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Intents.strings; sourceTree = "<group>"; };
@@ -3066,6 +3066,8 @@
 		C969D29D23D14D2900460F05 /* PyMusicHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyMusicHelper.swift; sourceTree = "<group>"; };
 		C969D2A423D49B3200460F05 /* PyPhotosHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyPhotosHelper.swift; sourceTree = "<group>"; };
 		C96A199A2480C2D400AFD7BD /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
+		C96A19BC2481EA0E00AFD7BD /* GetScriptOutputIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetScriptOutputIntentHandler.swift; sourceTree = "<group>"; };
+		C96A19BF2481FD5800AFD7BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Intents.strings; sourceTree = "<group>"; };
 		C96BA43724449CB0003D5B88 /* ScriptSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptSettingsViewController.swift; sourceTree = "<group>"; };
 		C96C1E6A2237098600F5F1DC /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		C972AE3E23467AE30053E1C3 /* FoldersBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersBrowserViewController.swift; sourceTree = "<group>"; };
@@ -6985,6 +6987,7 @@
 				C9C2F47022F0ED8C0062F4D6 /* IntentHandler.swift */,
 				C9C7AC6A22F5ED2300659685 /* RunCodeIntentHandler.swift */,
 				C9C7AC6922F5ED2300659685 /* RunScriptIntentHandler.swift */,
+				C96A19BC2481EA0E00AFD7BD /* GetScriptOutputIntentHandler.swift */,
 				C93B896323CA52000070B2EF /* setArgv.m */,
 				C9C2F47222F0ED8C0062F4D6 /* Info.plist */,
 				C98CECF423CA430E00E133E3 /* Pyto Intents-Bridging-Header.h */,
@@ -9271,6 +9274,7 @@
 				C9C2F47122F0ED8C0062F4D6 /* IntentHandler.swift in Sources */,
 				C9C7AC6C22F5ED2300659685 /* RunCodeIntentHandler.swift in Sources */,
 				C98CECF823CA449400E133E3 /* String.swift in Sources */,
+				C96A19BD2481EA0E00AFD7BD /* GetScriptOutputIntentHandler.swift in Sources */,
 				C92F6FE3247DD1A5006CC037 /* Intents.intentdefinition in Sources */,
 				C93B896923CA54330070B2EF /* ParseArgs.swift in Sources */,
 				C93B896423CA52000070B2EF /* setArgv.m in Sources */,
@@ -9694,10 +9698,10 @@
 			isa = PBXVariantGroup;
 			children = (
 				C92F6FE4247DD1A5006CC037 /* Base */,
-				C92F6FFE247EA4C9006CC037 /* en */,
 				C92F6FFF247EA4CB006CC037 /* fr */,
 				C92F7000247EA4CD006CC037 /* de */,
 				C92F7001247EA4D0006CC037 /* es */,
+				C96A19BF2481FD5800AFD7BD /* en */,
 			);
 			name = Intents.intentdefinition;
 			sourceTree = "<group>";
@@ -9934,7 +9938,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 12.0.2;
+				MARKETING_VERSION = 12.0.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -9995,7 +9999,7 @@
 					"$(PROJECT_DIR)/Pyto\\ Widget",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
-				MARKETING_VERSION = 12.0.2;
+				MARKETING_VERSION = 12.0.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
@@ -10148,7 +10152,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 12.0.2;
+				MARKETING_VERSION = 12.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -10174,7 +10178,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 12.0.2;
+				MARKETING_VERSION = 12.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -10195,7 +10199,7 @@
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
-				MARKETING_VERSION = 12.0.2;
+				MARKETING_VERSION = 12.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -10216,7 +10220,7 @@
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
-				MARKETING_VERSION = 12.0.2;
+				MARKETING_VERSION = 12.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -10244,7 +10248,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 12.0.2;
+				MARKETING_VERSION = 12.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Intents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -10273,7 +10277,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 12.0.2;
+				MARKETING_VERSION = 12.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Intents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -10609,7 +10613,7 @@
 					"$(PROJECT_DIR)/Zmq",
 				);
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 12.0.2;
+				MARKETING_VERSION = 12.0.3;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_CODE_SIGN_FLAGS = "";
@@ -10729,7 +10733,7 @@
 					"$(PROJECT_DIR)/Zmq",
 				);
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 12.0.2;
+				MARKETING_VERSION = 12.0.3;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
 				OTHER_CODE_SIGN_FLAGS = "";

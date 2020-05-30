@@ -10,6 +10,8 @@ Pyto provides Shortcuts for running scripts and code. Shortcuts will open Pyto t
 
 ``Run Script with Arguments`` will execute the given script with the given arguments.
 
+``Get Script Output`` will wait for a script to be executed and will return its output.
+
 Pyto also provides a Shortcut for each script used with the app.
 
 x-callback URLs
@@ -17,7 +19,7 @@ x-callback URLs
 
 Pyto supports `x-callback URLs <http://x-callback-url.com>`__ for running scripts from other apps and getting the result.
 
-Use x-callback URLs instead of Shortcuts if you need to get the output of the executed code. With this method you can only run code and not a script but you can use the `runpy <https://docs.python.org/3/library/runpy.html>`__ module for running scripts in a location like ``~/Documents`` or ``~/Documents/site-packages``.
+With this method you can only run code and not a script but you can use the `runpy <https://docs.python.org/3/library/runpy.html>`__ module for running scripts in a location like ``~/Documents`` or ``~/Documents/site-packages``.
 
 This is the structure that should be used for running code:
 

@@ -60,6 +60,15 @@ class RunScriptIntentHandler: NSObject, RunScriptIntentHandling {
         } catch {
             print(error.localizedDescription)
         }
+        
+        if let group = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.pyto") {
+            do {
+                try FileManager.default.removeItem(at: group.appendingPathComponent("ShortcutOutput.txt"))
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        
         return completion(.init(code: .continueInApp, userActivity: userActivity))
     }
     

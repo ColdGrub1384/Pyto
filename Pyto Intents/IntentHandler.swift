@@ -17,7 +17,9 @@ class IntentHandler: INExtension {
         if intent is RunScriptIntent {
             return RunScriptIntentHandler()
         } else if intent is RunCodeIntent {
-            return RunCodeIntentsHandler()
+            return RunCodeIntentHandler()
+        } else if intent is GetScriptOutputIntent {
+            return GetScriptOutputIntentHandler()
         } else {
             return self
         }

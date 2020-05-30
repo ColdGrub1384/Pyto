@@ -82,6 +82,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
         return !FileManager.default.isWritableFile(atPath: document!.fileURL.path)
     }
     
+    /// A boolean indicating whether the opened script is a shortcut.
+    var isShortcut = false
+    
     /// The Input assistant view containing `suggestions`.
     var inputAssistant = InputAssistantView()
     

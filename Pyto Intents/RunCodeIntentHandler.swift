@@ -8,7 +8,7 @@
 
 import Intents
 
-class RunCodeIntentsHandler: NSObject, RunCodeIntentHandling {
+class RunCodeIntentHandler: NSObject, RunCodeIntentHandling {
 
     static var isPythonInitialized = false
     
@@ -23,6 +23,15 @@ class RunCodeIntentsHandler: NSObject, RunCodeIntentHandling {
         userActivity.userInfo = ["code" : code, "arguments" : intent.arguments ?? []]
         
         if intent.runInApp?.boolValue == true {
+            
+            if let group = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.pyto") {
+                do {
+                    try FileManager.default.removeItem(at: group.appendingPathComponent("ShortcutOutput.txt"))
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+            
             return completion(.init(code: .continueInApp, userActivity: userActivity))
         } else {
             putenv("PYTHONHOME=\(Bundle.main.bundlePath)".cValue)
@@ -35,10 +44,10 @@ class RunCodeIntentsHandler: NSObject, RunCodeIntentHandling {
             let semaphore = DispatchSemaphore(value: 0)
             
             DispatchQueue.global().async {
-                if !RunCodeIntentsHandler.isPythonInitialized {
+                if !RunCodeIntentHandler.isPythonInitialized {
                     Py_Initialize()
-                    PyRun_SimpleString("import sys, os; out = os.fdopen(\(RunCodeIntentsHandler.pipe.fileHandleForWriting.fileDescriptor), 'w'); sys.stdout = out; sys.stderr = out; del sys; del os; del out")
-                    RunCodeIntentsHandler.isPythonInitialized = true
+                    PyRun_SimpleString("import sys, os; out = os.fdopen(\(RunCodeIntentHandler.pipe.fileHandleForWriting.fileDescriptor), 'w'); sys.stdout = out; sys.stderr = out; del sys; del os; del out")
+                    RunCodeIntentHandler.isPythonInitialized = true
                 }
                 
                 let args = intent.arguments ?? []
@@ -52,7 +61,7 @@ class RunCodeIntentsHandler: NSObject, RunCodeIntentHandling {
             
             semaphore.wait()
             
-            output = String(data: RunCodeIntentsHandler.pipe.fileHandleForReading.availableData, encoding: .utf8) ?? ""
+            output = String(data: RunCodeIntentHandler.pipe.fileHandleForReading.availableData, encoding: .utf8) ?? ""
             
             if output.hasSuffix("\n") {
                 output.removeLast()
