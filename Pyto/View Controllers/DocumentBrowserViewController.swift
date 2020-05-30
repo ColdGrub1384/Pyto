@@ -63,10 +63,11 @@ import SavannaKit
     /// - Parameters:
     ///     - documentURL: The URL of the file or directory.
     ///     - run: Set to `true` to run the script inmediately.
+    ///     - isShortcut: A boolean indicating if the opened script is a shortcut.
     ///     - folder: If opened from a project, the folder of the project.
     ///     - animated: Set to `true` if the presentation should be animated.
     ///     - completion: Code called after presenting the UI.
-    func openDocument(_ documentURL: URL, run: Bool, folder: FolderDocument? = nil, animated: Bool = true, completion: (() -> Void)? = nil) {
+    func openDocument(_ documentURL: URL, run: Bool, isShortcut: Bool = false, folder: FolderDocument? = nil, animated: Bool = true, completion: (() -> Void)? = nil) {
         
         let tintColor = ConsoleViewController.choosenTheme.tintColor ?? UIColor(named: "TintColor") ?? .orange
         
@@ -87,6 +88,7 @@ import SavannaKit
                 
         let editor = EditorViewController(document: document)
         editor.shouldRun = run
+        editor.isShortcut = isShortcut
         let contentVC = ConsoleViewController()
         contentVC.view.backgroundColor = .white
         

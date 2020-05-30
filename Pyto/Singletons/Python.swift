@@ -362,6 +362,23 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                                 PyCallbackHelper.cancelled = false
                                 PyCallbackHelper.exception = nil
                             }
+                            
+                            if editor.isShortcut {
+                                
+                                editor.isShortcut = false
+                                
+                                // Send result to Shortcuts
+                                
+                                guard let group = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.pyto") else {
+                                    return
+                                }
+                                
+                                do {
+                                    try contentVC.textView.text.write(to: group.appendingPathComponent("ShortcutOutput.txt"), atomically: true, encoding: .utf8)
+                                } catch {
+                                    print(error.localizedDescription)
+                                }
+                            }
                         }
                     }
                 }

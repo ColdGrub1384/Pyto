@@ -189,7 +189,7 @@ import SwiftUI_Views
                     _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
                         if let doc = self.documentBrowserViewController {
                             doc.revealDocument(at: url, importIfNeeded: true) { (url_, _) in
-                                doc.openDocument(url_ ?? url, run: true)
+                                doc.openDocument(url_ ?? url, run: true, isShortcut: true)
                             }
                             timer.invalidate()
                         }
@@ -213,7 +213,7 @@ import SwiftUI_Views
                 FileManager.default.createFile(atPath: fileURL.path, contents: code.data(using: .utf8), attributes: nil)
                 _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
                     if let doc = self.documentBrowserViewController {
-                        doc.openDocument(fileURL, run: true)
+                        doc.openDocument(fileURL, run: true, isShortcut: true)
                         timer.invalidate()
                     }
                 })
