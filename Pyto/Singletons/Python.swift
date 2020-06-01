@@ -373,11 +373,20 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                                     return
                                 }
                                 
+                                #if MAIN
+                                let prefix: String
+                                if PyCallbackHelper.exception != nil {
+                                    prefix = "Fail"
+                                } else {
+                                    prefix = "Success"
+                                }
+                                
                                 do {
-                                    try contentVC.textView.text.write(to: group.appendingPathComponent("ShortcutOutput.txt"), atomically: true, encoding: .utf8)
+                                    try ("\(prefix)\n"+contentVC.textView.text).write(to: group.appendingPathComponent("ShortcutOutput.txt"), atomically: true, encoding: .utf8)
                                 } catch {
                                     print(error.localizedDescription)
                                 }
+                                #endif
                             }
                         }
                     }

@@ -196,6 +196,16 @@
 		C93D61DF2145D03200C8B5E3 /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61DE2145D03200C8B5E3 /* UIWindow.swift */; };
 		C93D61E12145D46700C8B5E3 /* PyOutputHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E02145D46700C8B5E3 /* PyOutputHelper.swift */; };
 		C93D61E32145D50A00C8B5E3 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E22145D50A00C8B5E3 /* String.swift */; };
+		C942474724844DCD00C9FF02 /* ShortcutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96A19DE2484297700AFD7BD /* ShortcutsView.swift */; };
+		C942475E24844DD400C9FF02 /* JSONBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90BC0C12473524300EF7F09 /* JSONBrowserView.swift */; };
+		C942475F24844DD400C9FF02 /* ValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F1E4DD247379F100A28F2A /* ValueView.swift */; };
+		C942476024844DD400C9FF02 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F1E4DF247386AF00A28F2A /* Cell.swift */; };
+		C942476124844DD400C9FF02 /* SwiftUIBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9095106247856F600931684 /* SwiftUIBundle.swift */; };
+		C942476624844F2800C9FF02 /* Shortcuts.json in Resources */ = {isa = PBXBuildFile; fileRef = C942476524844F2800C9FF02 /* Shortcuts.json */; };
+		C9424768248456F000C9FF02 /* UIImage+color.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9424767248456F000C9FF02 /* UIImage+color.swift */; };
+		C94247692484579800C9FF02 /* UIImage+color.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9424767248456F000C9FF02 /* UIImage+color.swift */; };
+		C942476B2484759D00C9FF02 /* SamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C942476A2484759D00C9FF02 /* SamplesView.swift */; };
+		C942476C2484759F00C9FF02 /* SamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C942476A2484759D00C9FF02 /* SamplesView.swift */; };
 		C9425A7721F49B1300E7CC35 /* BlockBasedSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7421F49B1200E7CC35 /* BlockBasedSelector.m */; };
 		C9425A7821F49B1300E7CC35 /* BlockBasedSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7521F49B1200E7CC35 /* BlockBasedSelector.swift */; };
 		C9425A7B21F49B8400E7CC35 /* PySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7A21F49B8400E7CC35 /* PySelector.swift */; };
@@ -337,8 +347,11 @@
 		C969D2A523D49B3200460F05 /* PyPhotosHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C969D2A423D49B3200460F05 /* PyPhotosHelper.swift */; };
 		C969D2A623D49B3700460F05 /* PyPhotosHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C969D2A423D49B3200460F05 /* PyPhotosHelper.swift */; };
 		C969D2A923D49ECB00460F05 /* PyPhotosHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C969D2A423D49B3200460F05 /* PyPhotosHelper.swift */; };
+		C96A03DB2484478700A066BE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C96A03D82484478700A066BE /* Preview Assets.xcassets */; };
+		C96A03DC2484478700A066BE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C96A03D82484478700A066BE /* Preview Assets.xcassets */; };
 		C96A199B2480C2D400AFD7BD /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C96A199A2480C2D400AFD7BD /* Interface.storyboard */; };
 		C96A19BD2481EA0E00AFD7BD /* GetScriptOutputIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96A19BC2481EA0E00AFD7BD /* GetScriptOutputIntentHandler.swift */; };
+		C96A19DF2484297700AFD7BD /* ShortcutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96A19DE2484297700AFD7BD /* ShortcutsView.swift */; };
 		C96BA43824449CB0003D5B88 /* ScriptSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96BA43724449CB0003D5B88 /* ScriptSettingsViewController.swift */; };
 		C9727C472204D7F100B7AC32 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9727C452204D7F100B7AC32 /* LaunchScreen.storyboard */; };
 		C972AE3F23467AE30053E1C3 /* FoldersBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C972AE3E23467AE30053E1C3 /* FoldersBrowserViewController.swift */; };
@@ -634,7 +647,6 @@
 		C9F1E4B12473721A00A28F2A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F1E4B02473721A00A28F2A /* SceneDelegate.swift */; };
 		C9F1E4B32473721A00A28F2A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F1E4B22473721A00A28F2A /* ContentView.swift */; };
 		C9F1E4B52473721D00A28F2A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9F1E4B42473721D00A28F2A /* Assets.xcassets */; };
-		C9F1E4B82473721D00A28F2A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9F1E4B72473721D00A28F2A /* Preview Assets.xcassets */; };
 		C9F1E4BB2473721E00A28F2A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9F1E4B92473721E00A28F2A /* LaunchScreen.storyboard */; };
 		C9F1E4D82473727900A28F2A /* SwiftUI_Views.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90BC0B52473522300EF7F09 /* SwiftUI_Views.framework */; };
 		C9F1E4D92473727900A28F2A /* SwiftUI_Views.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C90BC0B52473522300EF7F09 /* SwiftUI_Views.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -2566,6 +2578,9 @@
 		C942434E22B8838C00274AED /* libbz2.1.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.1.0.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libbz2.1.0.tbd; sourceTree = DEVELOPER_DIR; };
 		C942434F22B883A400274AED /* libbz2.1.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.1.0.tbd; path = usr/lib/libbz2.1.0.tbd; sourceTree = SDKROOT; };
 		C942435D22B9BEB800274AED /* libpython3.7m.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpython3.7m.a; path = "Python-3.7-macOS-support.b1/python/lib/libpython3.7m.a"; sourceTree = "<group>"; };
+		C942476524844F2800C9FF02 /* Shortcuts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Shortcuts.json; sourceTree = "<group>"; };
+		C9424767248456F000C9FF02 /* UIImage+color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+color.swift"; sourceTree = "<group>"; };
+		C942476A2484759D00C9FF02 /* SamplesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplesView.swift; sourceTree = "<group>"; };
 		C9425A7421F49B1200E7CC35 /* BlockBasedSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockBasedSelector.m; sourceTree = "<group>"; };
 		C9425A7521F49B1200E7CC35 /* BlockBasedSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockBasedSelector.swift; sourceTree = "<group>"; };
 		C9425A7621F49B1300E7CC35 /* BlockBasedSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockBasedSelector.h; sourceTree = "<group>"; };
@@ -3065,9 +3080,11 @@
 		C966D253242036BF009BB33E /* PyCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyCore.swift; sourceTree = "<group>"; };
 		C969D29D23D14D2900460F05 /* PyMusicHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyMusicHelper.swift; sourceTree = "<group>"; };
 		C969D2A423D49B3200460F05 /* PyPhotosHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyPhotosHelper.swift; sourceTree = "<group>"; };
+		C96A03D82484478700A066BE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C96A199A2480C2D400AFD7BD /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
 		C96A19BC2481EA0E00AFD7BD /* GetScriptOutputIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetScriptOutputIntentHandler.swift; sourceTree = "<group>"; };
 		C96A19BF2481FD5800AFD7BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Intents.strings; sourceTree = "<group>"; };
+		C96A19DE2484297700AFD7BD /* ShortcutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutsView.swift; sourceTree = "<group>"; };
 		C96BA43724449CB0003D5B88 /* ScriptSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptSettingsViewController.swift; sourceTree = "<group>"; };
 		C96C1E6A2237098600F5F1DC /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		C972AE3E23467AE30053E1C3 /* FoldersBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersBrowserViewController.swift; sourceTree = "<group>"; };
@@ -3342,7 +3359,6 @@
 		C9F1E4B02473721A00A28F2A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C9F1E4B22473721A00A28F2A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C9F1E4B42473721D00A28F2A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C9F1E4B72473721D00A28F2A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C9F1E4BA2473721E00A28F2A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9F1E4BC2473721E00A28F2A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9F1E4DD247379F100A28F2A /* ValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueView.swift; sourceTree = "<group>"; };
@@ -5739,12 +5755,16 @@
 			isa = PBXGroup;
 			children = (
 				C90BC0B72473522400EF7F09 /* SwiftUI_Views.h */,
+				C96A19DE2484297700AFD7BD /* ShortcutsView.swift */,
+				C942476A2484759D00C9FF02 /* SamplesView.swift */,
 				C90BC0C12473524300EF7F09 /* JSONBrowserView.swift */,
 				C9F1E4DD247379F100A28F2A /* ValueView.swift */,
 				C9F1E4DF247386AF00A28F2A /* Cell.swift */,
 				C9095106247856F600931684 /* SwiftUIBundle.swift */,
+				C9424767248456F000C9FF02 /* UIImage+color.swift */,
 				C90951032478540500931684 /* Localizable.strings */,
 				C90BC0B82473522400EF7F09 /* Info.plist */,
+				C96A03D62484478700A066BE /* Preview Content */,
 			);
 			path = "SwiftUI Views";
 			sourceTree = "<group>";
@@ -5985,6 +6005,7 @@
 				C92F6FE5247DD1A5006CC037 /* Intents.intentdefinition */,
 				C9FCFD5F214428B300A07974 /* Assets.xcassets */,
 				C9FCFD64214428B300A07974 /* Info.plist */,
+				C942476524844F2800C9FF02 /* Shortcuts.json */,
 				C9477BBA21D45D28000680AE /* installer.py */,
 				C929167D22B192A5001C8BA0 /* scripts_runner.py */,
 				C9727C452204D7F100B7AC32 /* LaunchScreen.storyboard */,
@@ -6688,6 +6709,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		C96A03D62484478700A066BE /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				C96A03D82484478700A066BE /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		C96C6FE222198F7B0056EA64 /* Pandas */ = {
 			isa = PBXGroup;
 			children = (
@@ -7072,17 +7101,8 @@
 				C9F1E4B42473721D00A28F2A /* Assets.xcassets */,
 				C9F1E4B92473721E00A28F2A /* LaunchScreen.storyboard */,
 				C9F1E4BC2473721E00A28F2A /* Info.plist */,
-				C9F1E4B62473721D00A28F2A /* Preview Content */,
 			);
 			path = "SwiftUI Preview";
-			sourceTree = "<group>";
-		};
-		C9F1E4B62473721D00A28F2A /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				C9F1E4B72473721D00A28F2A /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		C9F8F39923025695004648F4 /* SciPy */ = {
@@ -8918,6 +8938,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C90951012478540500931684 /* Localizable.strings in Resources */,
+				C96A03DB2484478700A066BE /* Preview Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8996,8 +9017,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C96A03DC2484478700A066BE /* Preview Assets.xcassets in Resources */,
 				C9F1E4BB2473721E00A28F2A /* LaunchScreen.storyboard in Resources */,
-				C9F1E4B82473721D00A28F2A /* Preview Assets.xcassets in Resources */,
 				C9F1E4B52473721D00A28F2A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -9015,6 +9036,7 @@
 				C9FFF430246E2392004F41D3 /* networkx in Resources */,
 				C90BA5CB23C4CD2B00B2B187 /* Light 5.png in Resources */,
 				C9F8661A21ED059F0062D1C1 /* site-packages in Resources */,
+				C942476624844F2800C9FF02 /* Shortcuts.json in Resources */,
 				C95AECB82208A688003BCB05 /* cacert.pem in Resources */,
 				C9F04E832173C33400BDD03E /* Localizable.strings in Resources */,
 				C9A33B13224FCDAD0083F041 /* TextField.xib in Resources */,
@@ -9166,7 +9188,10 @@
 			files = (
 				C9F1E4DE247379F100A28F2A /* ValueView.swift in Sources */,
 				C90BC0C22473524300EF7F09 /* JSONBrowserView.swift in Sources */,
+				C942476B2484759D00C9FF02 /* SamplesView.swift in Sources */,
 				C9F1E4E0247386AF00A28F2A /* Cell.swift in Sources */,
+				C9424768248456F000C9FF02 /* UIImage+color.swift in Sources */,
+				C96A19DF2484297700AFD7BD /* ShortcutsView.swift in Sources */,
 				C9095107247856F600931684 /* SwiftUIBundle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -9349,6 +9374,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C942476C2484759F00C9FF02 /* SamplesView.swift in Sources */,
+				C94247692484579800C9FF02 /* UIImage+color.swift in Sources */,
+				C942475F24844DD400C9FF02 /* ValueView.swift in Sources */,
+				C942475E24844DD400C9FF02 /* JSONBrowserView.swift in Sources */,
+				C942476024844DD400C9FF02 /* Cell.swift in Sources */,
+				C942476124844DD400C9FF02 /* SwiftUIBundle.swift in Sources */,
+				C942474724844DCD00C9FF02 /* ShortcutsView.swift in Sources */,
 				C9F1E4AF2473721A00A28F2A /* AppDelegate.swift in Sources */,
 				C9F1E4B12473721A00A28F2A /* SceneDelegate.swift in Sources */,
 				C9F1E4B32473721A00A28F2A /* ContentView.swift in Sources */,
@@ -9758,6 +9790,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"$(SRCROOT)/SwiftUI Views/Preview Content\"";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -9792,6 +9825,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"$(SRCROOT)/SwiftUI Views/Preview Content\"";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -10374,7 +10408,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"SwiftUI Preview/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"$(SRCROOT)/SwiftUI Views/Preview Content\"";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "SwiftUI Preview/Info.plist";
@@ -10395,7 +10429,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"SwiftUI Preview/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"$(SRCROOT)/SwiftUI Views/Preview Content\"";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "SwiftUI Preview/Info.plist";

@@ -415,7 +415,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 let attributes = CSSearchableItemAttributeSet(itemContentType: "public.item")
                 attributes.contentDescription = document?.fileURL.lastPathComponent
                 attributes.kind = "Python Script"
-                let activity = NSUserActivity(activityType: "ch.marcela.ada.Pyto.script")
+                let activity = NSUserActivity(activityType: "PythonScript")
                 activity.title = "Run \(title ?? document?.fileURL.deletingPathExtension().lastPathComponent ?? "script")"
                 activity.contentAttributeSet = attributes
                 activity.isEligibleForSearch = true

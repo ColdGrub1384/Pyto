@@ -21,8 +21,19 @@ class GetScriptOutputIntentHandler: NSObject, GetScriptOutputIntentHandling {
         while true {
             if FileManager.default.fileExists(atPath: outputURL.path) {
                 do {
-                    let out = try String(contentsOf: outputURL)
-                    let res = GetScriptOutputIntentResponse(code: .success, userActivity: nil)
+                    var out = try String(contentsOf: outputURL)
+                    var comp = out.components(separatedBy: "\n")
+                    let prefix = comp.removeFirst()
+                    out = comp.joined(separator: "\n")
+                    
+                    let res: GetScriptOutputIntentResponse
+                    
+                    if prefix == "Success" {
+                        res = GetScriptOutputIntentResponse(code: .success, userActivity: nil)
+                    } else {
+                        res = GetScriptOutputIntentResponse(code: .failure, userActivity: nil)
+                    }
+                    
                     res.output = out
                     completion(res)
                     break
