@@ -3114,6 +3114,16 @@ class TextView(View):
         self.text = text
 
     @property
+    def selected_range(self) -> Tuple[int, int]:
+        """
+        Returns the selected text range. A tuple of two integers (start, end).
+
+        :rtype: Tuple[int, int]
+        """
+
+        return (int(self.__py_view__.range[0]), int(self.__py_view__.range[1]))
+
+    @property
     def did_begin_editing(self) -> Callable[[TextView], None]:
         """
         A function called when the Text View begins editing. Takes the sender Text View as parameter.

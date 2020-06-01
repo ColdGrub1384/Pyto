@@ -84,6 +84,19 @@ fileprivate class _PyTextView: UITextView {
         }
     }
     
+    @objc public var range: NSArray {
+        return get {
+            guard let start = self.textView.selectedTextRange?.start, let end = self.textView.selectedTextRange?.end else {
+                return NSArray(array: [0, 0])
+            }
+            
+            let startInt = self.textView.offset(from: self.textView.beginningOfDocument, to: start)
+            let endInt = self.textView.offset(from: self.textView.beginningOfDocument, to: end)
+            
+            return NSArray(array: [startInt, endInt])
+        }
+    }
+    
     @objc public var selectable: Bool {
         get {
             return get {
