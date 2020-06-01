@@ -230,9 +230,27 @@ try:
     def waitpid(pid, options):
         return (-1, 0)
 
-    os.fork = fork
-    os.waitpid = waitpid
-    os._exit = sys.exit
+    if os.system("ls") != 0: # App is sandboxed
+        os.fork = fork
+        os.waitpid = waitpid
+        os._exit = sys.exit
+    else: # Not sanboxed
+        _system = os.system
+        def system(cmd):
+            res = _system(cmd+(f" >>{out.txt} 2>&1"))
+            
+            try:
+                f = open("out.txt", "r")
+                sys.stdout.write(f.read())
+                f.close()
+                _system("rm out.txt")
+            except FileNotFoundError:
+                pass
+            
+            return res
+    
+        os.system = system
+            
 
     # MARK: - Handle signal called outside main thread
 
