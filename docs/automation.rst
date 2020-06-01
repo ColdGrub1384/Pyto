@@ -6,13 +6,11 @@ Shortcuts
 
 Pyto provides Shortcuts for running scripts and code. Shortcuts will open Pyto to execute the code and it's not possible to retrieve the result. See `x-callback URLs <#x-callback URLs>`_ for getting callbacks.
 
-``Run Code with Arguments`` will execute the given code with the given arguments. Code can be executed in app or without leaving Shortcuts. If you uncheck ``Run In App``, the Shortcut will return the output of the code (stdout + stderr). When ``Run In App`` is unchecked, the code will only have access to the standard library and ``stdin`` cannot be sent.
+``Run Code`` will execute the given code with the given arguments. Code can be executed in app or without leaving Shortcuts. If you uncheck ``Run In App``, the Shortcut will return the output of the code (stdout + stderr). When ``Run In App`` is unchecked, the code will only have access to the standard library and ``stdin`` cannot be sent.
 
-``Run Script with Arguments`` will execute the given script with the given arguments.
+``Run Script`` will execute the given script with the given arguments.
 
 ``Get Script Output`` will wait for a script to be executed and will return its output.
-
-Pyto also provides a Shortcut for each script used with the app.
 
 x-callback URLs
 ---------------
