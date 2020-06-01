@@ -8,6 +8,8 @@
 
 import UIKit
 import FileBrowser
+import SwiftUI_Views
+import SwiftUI
 
 /// A View controller for choosing from `REPL`, `PyPi` and `Settings` from an `UIDocumentBrowserViewController`.
 @objc class MenuTableViewController: UITableViewController {
@@ -64,18 +66,35 @@ import FileBrowser
         
         let presentingVC = presentingViewController
         
-        let fileBrowser = FileBrowser(initialPath: samples, allowEditing: false, showCancelButton: true)
-        fileBrowser.didSelectFile = { file in
-            guard file.filePath.pathExtension.lowercased() == "py" else {
-                return
+        if #available(iOS 13.4, *) {
+            let controller = UIHostingController(rootView: SamplesNavigationView(url: samples, selectScript: { _ in }))
+            
+            let view = SamplesNavigationView(url: samples, selectScript: { (file) in
+                
+                guard file.pathExtension.lowercased() == "py" else {
+                    return
+                }
+                
+                (presentingVC as? DocumentBrowserViewController)?.openDocument(file, run: false, viewController: controller)
+                
+            }, hostController: controller)
+            controller.rootView = view
+            present(controller, animated: true, completion: nil)
+        } else {
+            
+            let fileBrowser = FileBrowser(initialPath: samples, allowEditing: false, showCancelButton: true)
+            fileBrowser.didSelectFile = { file in
+                guard file.filePath.pathExtension.lowercased() == "py" else {
+                    return
+                }
+                
+                fileBrowser.presentingViewController?.dismiss(animated: true) {
+                    (presentingVC as? DocumentBrowserViewController)?.openDocument(file.filePath, run: false)
+                }
             }
             
-            fileBrowser.presentingViewController?.dismiss(animated: true) {
-                (presentingVC as? DocumentBrowserViewController)?.openDocument(file.filePath, run: false)
-            }
+            present(fileBrowser, animated: true, completion: nil)
         }
-        
-        present(fileBrowser, animated: true, completion: nil)
     }
     
     /// Opens documentation.

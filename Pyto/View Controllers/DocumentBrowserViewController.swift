@@ -63,11 +63,12 @@ import SavannaKit
     /// - Parameters:
     ///     - documentURL: The URL of the file or directory.
     ///     - run: Set to `true` to run the script inmediately.
+    ///     - viewController: The view controller where the editor will be presented.
     ///     - isShortcut: A boolean indicating if the opened script is a shortcut.
     ///     - folder: If opened from a project, the folder of the project.
     ///     - animated: Set to `true` if the presentation should be animated.
     ///     - completion: Code called after presenting the UI.
-    func openDocument(_ documentURL: URL, run: Bool, isShortcut: Bool = false, folder: FolderDocument? = nil, animated: Bool = true, completion: (() -> Void)? = nil) {
+    func openDocument(_ documentURL: URL, run: Bool, viewController: UIViewController? = nil, isShortcut: Bool = false, folder: FolderDocument? = nil, animated: Bool = true, completion: (() -> Void)? = nil) {
         
         let tintColor = ConsoleViewController.choosenTheme.tintColor ?? UIColor(named: "TintColor") ?? .orange
         
@@ -79,7 +80,7 @@ import SavannaKit
         
         let isPip = (documentURL.path == Bundle.main.path(forResource: "installer", ofType: "py"))
         
-        if presentedViewController != nil {
+        if presentedViewController != nil && viewController == nil {
             dismiss(animated: true) {
                 self.openDocument(documentURL, run: run, folder: folder, completion: completion)
             }
@@ -123,9 +124,11 @@ import SavannaKit
         
         splitVC.arrangement = .horizontal
         
-        transitionController = transitionController(forDocumentAt: documentURL)
-        transitionController?.loadingProgress = document.progress
-        transitionController?.targetView = navVC.view
+        if viewController == nil {
+            transitionController = transitionController(forDocumentAt: documentURL)
+            transitionController?.loadingProgress = document.progress
+            transitionController?.targetView = navVC.view
+        }
         
         var vc: UIViewController = navVC
         
@@ -148,7 +151,9 @@ import SavannaKit
             uiSplitVC.viewControllers = [browserNavVC, navVC]
         }
         
-        vc.transitioningDelegate = self
+        if viewController == nil {
+            vc.transitioningDelegate = self
+        }
         
         document.open { (success) in
             guard success else {
@@ -156,7 +161,7 @@ import SavannaKit
             }
             
             document.checkForConflicts(onViewController: self, completion: {
-                self.present(vc, animated: animated, completion: {
+                (viewController ?? self).present(vc, animated: animated, completion: {
                     
                     NotificationCenter.default.removeObserver(splitVC)
                     completion?()

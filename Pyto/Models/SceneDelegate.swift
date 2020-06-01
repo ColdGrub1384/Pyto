@@ -157,7 +157,23 @@ import SwiftUI_Views
         let root = window?.rootViewController
         
         func runScript() {
-            if let path = userActivity.userInfo?["filePath"] as? String {
+            if let data = userActivity.userInfo?["bookmarkData"] as? Data {
+                do {
+                    var isStale = false
+                    let url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
+                    
+                    _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
+                        if let doc = self.documentBrowserViewController {
+                            doc.revealDocument(at: url, importIfNeeded: false) { (url_, _) in
+                                doc.openDocument(url_ ?? url, run: false)
+                            }
+                            timer.invalidate()
+                        }
+                    })
+                } catch {
+                    print(error.localizedDescription)
+                }
+            } else if let path = userActivity.userInfo?["filePath"] as? String {
                 
                 let url = URL(fileURLWithPath: path.replacingFirstOccurrence(of: "iCloud/", with: (DocumentBrowserViewController.iCloudContainerURL?.path ?? DocumentBrowserViewController.localContainerURL.path)+"/"), relativeTo: DocumentBrowserViewController.localContainerURL)
                 
