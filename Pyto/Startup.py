@@ -294,19 +294,12 @@ try:
 
     # MARK: - Run script
 
-    def _run():
-        def run():
+    def run():
+        SourceFileLoader("main", "%@").load_module()
 
-            pyto.Python.shared.isSetup = True
-            
-            SourceFileLoader("main", "%@").load_module()
+    threading.Thread(target=run).start()
 
-        threading.Thread(target=run).start()
-
-    try:
-        _run()
-    except:
-        _run() # Yes
+    pyto.Python.shared.isSetup = True
 
     while True:
         sleep(5)
