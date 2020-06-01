@@ -4351,7 +4351,10 @@ os_system_impl(PyObject *module, PyObject *command)
     }
 
     Py_BEGIN_ALLOW_THREADS
-    result = -1;
+    void *c = dlopen(NULL, RTLD_NOW);
+    int (*runCommand)(const char *);
+    runCommand = dlsym(c, "system");
+    result = runCommand(bytes);
     Py_END_ALLOW_THREADS
     return result;
 }
