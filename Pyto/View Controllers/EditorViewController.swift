@@ -1059,8 +1059,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
             DispatchQueue.main.async {
                 if let url = self.document?.fileURL {
                     func run() {
-                        console.textView.text = ""
-                        console.console = ""
+                        if !(self.parent is REPLViewController) {
+                            console.textView.text = ""
+                            console.console = ""
+                        }
                         console.movableTextField?.placeholder = ""
                         if Python.shared.isREPLRunning {
                             if Python.shared.isScriptRunning(path) {
