@@ -90,7 +90,27 @@ import SwiftUI_Views
         
         if let restorationActivity = session.stateRestorationActivity {
             
-            if let data = restorationActivity.userInfo?["bookmarkData"] as? Data {
+            if let console = restorationActivity.userInfo?["replConsole"] as? String {
+                guard let navVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "repl") as? UINavigationController else {
+                    return
+                }
+                
+                guard let repl = navVC.viewControllers.first as? REPLViewController else {
+                    return
+                }
+                
+                repl.loadViewIfNeeded()
+                repl.console.print_(Notification(name: .init("Output"), object: console, userInfo: nil))
+                
+                repl.noBanner = true
+                
+                _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
+                    if let doc = self.documentBrowserViewController, Python.shared.isSetup {
+                        doc.present(navVC, animated: true, completion: nil)
+                        timer.invalidate()
+                    }
+                })
+            } else if let data = restorationActivity.userInfo?["bookmarkData"] as? Data {
                 do {
                     var isStale = false
                     let url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
@@ -352,17 +372,23 @@ import SwiftUI_Views
     
     @available(iOS 13.0, *)
     func stateRestorationActivity(for scene: UIScene) -> NSUserActivity? {
-        if let presented = ((scene.delegate as? UIWindowSceneDelegate)?.window??.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController, let url = presented.editor.document?.fileURL {
+        if let presented = (scene.delegate as? UIWindowSceneDelegate)?.window??.topViewController as? EditorSplitViewController, let url = presented.editor.document?.fileURL {
             
-            do {
-                
-                let bookmarkData = try url.bookmarkData()
-
+            if presented is REPLViewController {
                 let activity = NSUserActivity(activityType: "stateRestoration")
-                activity.userInfo?["bookmarkData"] = bookmarkData
+                activity.userInfo?["replConsole"] = presented.console.textView.text
                 return activity
-            } catch {
-                return nil
+            } else {
+                do {
+                    
+                    let bookmarkData = try url.bookmarkData()
+
+                    let activity = NSUserActivity(activityType: "stateRestoration")
+                    activity.userInfo?["bookmarkData"] = bookmarkData
+                    return activity
+                } catch {
+                    return nil
+                }
             }
         } else if let splitVC = ((scene.delegate as? UIWindowSceneDelegate)?.window??.rootViewController?.presentedViewController as? EditorSplitViewController.ProjectSplitViewController), let editor = splitVC.editor, let folder = editor.folder, let url = editor.editor.document?.fileURL {
             

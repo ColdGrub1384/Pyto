@@ -49,6 +49,14 @@ import UIKit
         present(picker, animated: true, completion: nil)
     }
     
+    /// Set to `true` to disable the REPL banner.
+    var noBanner = false {
+        didSet {
+            loadViewIfNeeded()
+            editor.args = "no-banner"
+        }
+    }
+    
     // MARK: - Editor split view controller
     
     override var keyCommands: [UIKeyCommand]? {
