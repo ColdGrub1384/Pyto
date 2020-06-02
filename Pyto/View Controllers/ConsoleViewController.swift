@@ -672,7 +672,7 @@ import SwiftUI
                 DispatchQueue.main.async {
                     for scene in UIApplication.shared.connectedScenes {
                         if let window = (scene as? UIWindowScene)?.windows.first {
-                            if let vc = window.topViewController as? REPLViewController {
+                            if let vc = window.topViewController as? EditorSplitViewController {
                                 vc.console.completions = self.completions as? [String] ?? []
                             }
                         }
@@ -689,7 +689,7 @@ import SwiftUI
                 DispatchQueue.main.async {
                     for scene in UIApplication.shared.connectedScenes {
                         if let window = (scene as? UIWindowScene)?.windows.first {
-                            if let vc = window.topViewController as? REPLViewController {
+                            if let vc = window.topViewController as? EditorSplitViewController {
                                 vc.console.suggestions = self.suggestions as? [String] ?? []
                             }
                         }
@@ -850,30 +850,33 @@ import SwiftUI
         }
         movableTextField?.show()
         #if MAIN
-        if parent is REPLViewController {
-            movableTextField?.inputAssistant.delegate = self
-            movableTextField?.inputAssistant.dataSource = self
-            movableTextField?.didChangeText = { text in
-                Python.shared.run(code: """
-                    try:
-                        import jedi
-                        import console
-                        import pyto
-                        namespace = console.__repl_namespace__['\((self.parent as! REPLViewController).editor.document!.fileURL.lastPathComponent.replacingOccurrences(of: "'", with: "\\'"))']
-                        script = jedi.Interpreter('\(text.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "'", with: "\\'"))', [namespace])
-                        
-                        suggestions = []
-                        completions = []
-                        for completion in script.complete():
-                            suggestions.append(completion.name)
-                            completions.append(completion.complete)
-                        
-                        pyto.ConsoleViewController.suggestions = suggestions
-                        pyto.ConsoleViewController.completions = completions
-                    except Exception as e:
-                        pass
-                    """)
+        movableTextField?.inputAssistant.delegate = self
+        movableTextField?.inputAssistant.dataSource = self
+        movableTextField?.didChangeText = { text in
+            
+            guard self.highlightInput else {
+                return
             }
+            
+            Python.shared.run(code: """
+                try:
+                    import jedi
+                    import console
+                    import pyto
+                    namespace = console.__repl_namespace__['\((self.parent as! EditorSplitViewController).editor.document!.fileURL.lastPathComponent.replacingOccurrences(of: "'", with: "\\'"))']
+                    script = jedi.Interpreter('\(text.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "'", with: "\\'"))', [namespace])
+                    
+                    suggestions = []
+                    completions = []
+                    for completion in script.complete():
+                        suggestions.append(completion.name)
+                        completions.append(completion.complete)
+                    
+                    pyto.ConsoleViewController.suggestions = suggestions
+                    pyto.ConsoleViewController.completions = completions
+                except Exception as e:
+                    pass
+                """)
         }
         #endif
         movableTextField?.handler = { text in
