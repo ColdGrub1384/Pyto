@@ -48,6 +48,7 @@ try:
     import traceback
     import unittest
     from pip import BUNDLED_MODULES
+    from ctypes import CDLL
 
     # MARK: - Warnings
 
@@ -295,11 +296,10 @@ try:
     # MARK: - Run script
 
     def run():
+        CDLL(None).putenv(b"IS_PYTHON_RUNNING=1")
         SourceFileLoader("main", "%@").load_module()
 
     threading.Thread(target=run).start()
-
-    pyto.Python.shared.isSetup = True
 
     while True:
         sleep(5)
@@ -308,6 +308,5 @@ except Exception as e:
     import traceback
     s = traceback.format_exc()
     
-    from ctypes import CDLL
     CDLL(None).logToNSLog(s.encode())
     CDLL(None).logToNSLog(str(e).encode())
