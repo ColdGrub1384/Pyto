@@ -430,7 +430,9 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     }
     
     /// Set to `true` when the REPL is ready to run scripts.
-    @objc var isSetup = false
+    @objc var isSetup: Bool {
+        return ProcessInfo.processInfo.environment.keys.contains("IS_PYTHON_RUNNING")
+    }
     
     /// The thread running script.
     @objc public var thread: Thread?
