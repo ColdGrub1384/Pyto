@@ -207,11 +207,6 @@ try:
 
     threading.Thread(target=addOnDemandPaths).start()
 
-    # MARK: - Create a Selector without class.
-
-    __builtins__.Selector = pyto.PySelector.makeSelector
-    __builtins__.Target = pyto.SelectorTarget.shared
-
     # MARK: - Deprecations
 
     __builtins__.deprecated = []

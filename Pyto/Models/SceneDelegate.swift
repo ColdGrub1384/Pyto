@@ -372,7 +372,7 @@ import SwiftUI_Views
     
     @available(iOS 13.0, *)
     func stateRestorationActivity(for scene: UIScene) -> NSUserActivity? {
-        if let presented = (scene.delegate as? UIWindowSceneDelegate)?.window??.topViewController as? EditorSplitViewController, let url = presented.editor.document?.fileURL {
+        if let presented = (scene.delegate as? UIWindowSceneDelegate)?.window??.topViewController as? EditorSplitViewController, let url = presented.editor.document?.fileURL, !(presented is PipInstallerViewController), !(presented is RunModuleViewController) {
             
             if presented is REPLViewController {
                 let activity = NSUserActivity(activityType: "stateRestoration")
