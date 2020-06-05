@@ -14,6 +14,8 @@ import CoreMotion
 #if MAIN
 import WatchConnectivity
 import Intents
+import SwiftyStoreKit
+import TrueTime
 #endif
 
 /// The application's delegate.
@@ -286,6 +288,23 @@ import Intents
             UIPasteboard.general.string = description
         }
         
+        SwiftyStoreKit.completeTransactions { (purchases) in
+            for purchase in purchases {
+                switch purchase.transaction.transactionState {
+                case .purchased, .restored:
+                    if purchase.needsFinishTransaction {
+                        SwiftyStoreKit.finishTransaction(purchase.transaction)
+                    }
+                    
+                    completePurchase(id: purchase.productId)
+                case .failed, .purchasing, .deferred:
+                    break
+                }
+            }
+        }
+        
+        TrueTimeClient.sharedInstance.start()
+        
         #else
         window = UIWindow()
         window?.backgroundColor = .white
@@ -426,7 +445,7 @@ extension AppDelegate: WCSessionDelegate {
                 """))
             } else {
                 Python.shared.run(script: Python.WatchScript(code: """
-                    print("\(Localizable.Errors.noWatchScript)")
+                print("\(Localizable.Errors.noWatchScript)")
                 """))
             }
         } else if messageData == "Stop".data(using: .utf8) {
