@@ -164,7 +164,7 @@ func completePurchase(id: String) {
             return
         }
         
-        guard let date = validator.trialExpirationDate else {
+        guard let date = validator.trialStartDate else {
             return
         }
         
@@ -182,6 +182,23 @@ func completePurchase(id: String) {
             
             if days <= 3 { // Free trial
                 unlock()
+            } else {
+                
+                if #available(iOS 13.0, *) {
+                    for scene in UIApplication.shared.connectedScenes {
+                        guard let window = (scene as? UIWindowScene)?.windows.first else {
+                            continue
+                        }
+                        
+                        let vc = window.topViewController
+                        
+                        if vc is UIHostingController<OnboardingView> {
+                            vc?.dismiss(animated: true, completion: {
+                                Pyto.showOnboarding(window: window, isTrialExpired: true)
+                            })
+                        }
+                    }
+                }
             }
         }) { (error) in
             print(error.localizedDescription)
