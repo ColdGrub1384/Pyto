@@ -173,24 +173,20 @@ import SwiftUI_Views
             }
         }
         
-        if documentBrowserViewController == nil {
-            _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
+        _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
+            
+            var otherCondition = true
+            if shortcutItem.type == "REPL" {
+                otherCondition = Python.shared.isSetup
+            }
+            
+            if self.documentBrowserViewController != nil && otherCondition {
                 
-                var otherCondition = true
-                if shortcutItem.type == "REPL" {
-                    otherCondition = Python.shared.isSetup
-                }
+                open()
                 
-                if self.documentBrowserViewController != nil && otherCondition {
-                    
-                    open()
-                    
-                    timer.invalidate()
-                }
-            })
-        } else {
-            open()
-        }
+                timer.invalidate()
+            }
+        })
     }
     
     @available(iOS 13.0, *)
