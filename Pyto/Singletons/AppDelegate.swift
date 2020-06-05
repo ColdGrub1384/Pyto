@@ -331,7 +331,9 @@ import Intents
     
     public func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         
-        if UIDevice.current.systemVersion.components(separatedBy: ".")[0] == "12" {
+        if #available(iOS 13.0, *) {
+            completionHandler(false) // Use SceneDelegate
+        } else {
             func open() {
                 if shortcutItem.type == "PyPi" {
                     let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "pypi")
@@ -365,8 +367,6 @@ import Intents
             } else {
                 open()
             }
-        } else {
-            completionHandler(false) // Use SceneDelegate
         }
     }
     
