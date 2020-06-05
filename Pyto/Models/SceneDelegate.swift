@@ -80,7 +80,7 @@ import TrueTime
         
         TrueTimeClient.sharedInstance.fetchIfNeeded(success: { (time) in
             
-            if let date = validator.trialExpirationDate { // Free trial started
+            if let date = validator.trialStartDate { // Free trial started
                 let calendar = Calendar.current
 
                 let date1 = calendar.startOfDay(for: date)
