@@ -329,6 +329,47 @@ import Intents
         ((window?.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor.save()
     }
     
+    public func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        
+        if UIDevice.current.systemVersion.components(separatedBy: ".")[0] == "12" {
+            func open() {
+                if shortcutItem.type == "PyPi" {
+                    let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "pypi")
+                    let navVC = UINavigationController(rootViewController: vc)
+                    navVC.modalPresentationStyle = .formSheet
+                    window?.topViewController?.present(navVC, animated: true, completion: nil)
+                    completionHandler(true)
+                } else if shortcutItem.type == "REPL" {
+                    window?.topViewController?.present(UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "repl"), animated: true, completion: nil)
+                    completionHandler(true)
+                } else {
+                    completionHandler(false)
+                }
+            }
+            
+            if window?.rootViewController == nil {
+                _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true, block: { (timer) in
+                    
+                    var otherCondition = true
+                    if shortcutItem.type == "REPL" {
+                        otherCondition = Python.shared.isSetup
+                    }
+                    
+                    if self.window?.rootViewController != nil && otherCondition {
+                        
+                        open()
+                        
+                        timer.invalidate()
+                    }
+                })
+            } else {
+                open()
+            }
+        } else {
+            completionHandler(false) // Use SceneDelegate
+        }
+    }
+    
     @available(iOS 13.0, *)
     public func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
         
