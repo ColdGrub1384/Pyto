@@ -305,6 +305,8 @@ import TrueTime
         
         TrueTimeClient.sharedInstance.start()
         
+        observeUserDefaults()
+        
         #else
         window = UIWindow()
         window?.backgroundColor = .white

@@ -61,6 +61,12 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// Returns paths for on demand libraries that are already downloaded.
     @objc public var accessibleOnDemandPaths: NSArray {
         
+        #if MAIN
+        if isLiteVersion.boolValue {
+            return NSArray(array: [])
+        }
+        #endif
+        
         guard let libsURL = Bundle.main.url(forResource: "OnDemandLibraries", withExtension: "plist") else {
             return NSArray(array: [])
         }
@@ -109,6 +115,22 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     @objc public func access(_ module: String) -> NSArray {
         
         #if MAIN
+        
+        // Pure Python modules included in Pyto because it's required by a library with C extensions.
+        let purePython = [
+            "dask",
+            "jmespath",
+            "joblib",
+            "smart_open",
+            "boto",
+            "boto3",
+            "botocore"
+        ]
+        
+        if isLiteVersion.boolValue, !purePython.contains(module) {
+            return NSArray(array: ["error", "Purchase the full Pyto version to import \(module).", "upgrade"])
+        }
+        
         DispatchQueue.main.async {
             if !UserDefaults.standard.bool(forKey: "downloadedModule") {
                 UserDefaults.standard.setValue(true, forKey: "downloadedModule")
@@ -124,7 +146,6 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                         }
                     }
                 }
-                
             }
         }
         #endif
@@ -211,7 +232,15 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     }
     
     /// Additional builtin modules names.
-    @objc public var modules = NSMutableArray()
+    @objc public var modules = NSMutableArray() {
+        didSet {
+            #if MAIN
+            if modules.count != 0, isLiteVersion.boolValue {
+                modules = []
+            }
+            #endif
+        }
+    }
     
     /// Imported builtin modules.
     @objc public var importedModules = NSMutableArray()

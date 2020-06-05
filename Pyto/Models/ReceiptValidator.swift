@@ -269,6 +269,7 @@ struct ReceiptValidator {
     /// A dictionary containing the receipt's data.
     let receipt: [ReceiptField:Any]
     
+    /// The free trial expiration date.
     var trialExpirationDate: Date? {
         for inApp in (receipt[.inApp] as? [RMAppReceiptIAP]) ?? [] {
             if inApp.productIdentifier.hasSuffix("freetrial") {

@@ -359,6 +359,66 @@ fileprivate extension ConsoleViewController {
             }
         }
     }
+    
+    /// Shows link
+    ///
+    /// - Parameters:
+    ///     - text: Text to print.
+    ///     - url: URL to open.
+    ///     - script: Script that printed the output. Set to `nil` to be printed in every console.
+    @objc static func printLink(_ text: String, url: String, script: String?) {
+        
+        var text_ = text
+        
+        guard !text_.isEmpty else {
+            return
+        }
+        
+        #if MAIN
+        text_ = ShortenFilePaths(in: text_)
+        
+        if script == Python.watchScriptURL.path {
+            WCSession.default.sendMessageData(text_.data(using: .utf8) ?? Data(), replyHandler: nil, errorHandler: nil)
+            return
+        }
+        #endif
+        
+        Python.shared.output += text_
+        
+        #if WIDGET
+        let visibles = [ConsoleViewController.visible ?? ConsoleViewController()]
+        #else
+        let visibles = ConsoleViewController.visibles
+        #endif
+        
+        for console in visibles {
+            #if !WIDGET && MAIN
+            if script != nil {
+                guard console.editorSplitViewController?.editor.document?.fileURL.path == script else {
+                    continue
+                }
+            }
+            #endif
+            
+            DispatchQueue.main.async {
+                
+                #if MAIN
+                let font = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
+                let color = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .identifier)
+                #else
+                let font = UIFont(name: "Menlo", size: 12) ?? UIFont.systemFont(ofSize: 12)
+                let color = #colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1)
+                #endif
+                
+                if let attrStr = console.textView.attributedText {
+                    let mutable = NSMutableAttributedString(attributedString: attrStr)
+                    mutable.append(NSAttributedString(string: text_, attributes: [.font : font, .foregroundColor : color, .link : url, .underlineStyle: NSUnderlineStyle.single.rawValue]))
+                    console.textView.attributedText = mutable
+                    console.textView.scrollToBottom()
+                }
+            }
+        }
+    }
 }
 
 #if !WIDGET
