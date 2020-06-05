@@ -460,6 +460,13 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     
     /// Set to `true` when the REPL is ready to run scripts.
     @objc var isSetup: Bool {
+        
+        #if MAIN
+        if !isUnlocked {
+            return false
+        }
+        #endif
+        
         return ProcessInfo.processInfo.environment.keys.contains("IS_PYTHON_RUNNING")
     }
     
