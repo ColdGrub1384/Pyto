@@ -426,7 +426,7 @@ extension AppDelegate: WCSessionDelegate {
                 """))
             } else {
                 Python.shared.run(script: Python.WatchScript(code: """
-                    print("\(Localizable.Errors.noWatchScript)")
+                print("\(Localizable.Errors.noWatchScript)")
                 """))
             }
         } else if messageData == "Stop".data(using: .utf8) {
