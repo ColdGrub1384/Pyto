@@ -74,11 +74,47 @@ public struct OnboardingView: View {
     public var body: some View {
         VStack {
             VStack {
+                
                 Text("Welcome to Pyto\n")
-                    .font(.largeTitle)
+                .font(.largeTitle)
                             
                 Text("You can try Pyto for free during 3 days. Once your free trial expired, you'll need to purchase one of the two options bellow to continue using the app.")
                     .padding()
+                
+                ScrollView {
+                    VStack {
+                        
+                        HStack {
+                            Image(systemName: "play")
+                            Text("Run Python code locally.")
+                            Spacer()
+                        }
+                        
+                        Divider()
+                        
+                        HStack {
+                            Image(systemName: "keyboard")
+                            Text("Edit code with syntax highlighting and code completion.")
+                            Spacer()
+                        }
+                        
+                        Divider()
+                        
+                        HStack {
+                            Image(systemName: "cube.box")
+                            Text("Install pure Python modules from PyPi.")
+                            Spacer()
+                        }
+                        
+                        Divider()
+                        
+                        HStack {
+                            Image(systemName: "mic")
+                            Text("Run scripts or custom code with Siri Shortcuts.")
+                            Spacer()
+                        }
+                    }.padding()
+                }
                 
                 Spacer()
             }
@@ -119,7 +155,7 @@ public struct OnboardingView: View {
                     List(fullVersionLibrairies, id: \.self) { item in
                         Text(item)
                     }
-                }.accentColor(.blue)
+                }
             }
             .accentColor(.primary)
             
@@ -165,7 +201,7 @@ public struct OnboardingView: View {
             }) {
                 Text("Restore")
             }.padding()
-        }.accentColor(.blue)
+        }
     }
 }
 

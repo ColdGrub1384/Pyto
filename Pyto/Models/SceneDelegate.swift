@@ -63,9 +63,12 @@ import TrueTime
         }
                 
         // Return if app is purchased before the free trial update
-        guard version.compare("1.0") != .orderedAscending else {
+        guard version.compare(initialVersionRequiringUserToPay) != .orderedAscending else {
             isUnlocked = true
+            changingUserDefaultsInAppPurchasesValues = true
             isPurchased.boolValue = true
+            changingUserDefaultsInAppPurchasesValues = true
+            isLiteVersion.boolValue = false
             return
         }
         
@@ -207,11 +210,19 @@ import TrueTime
         
         if let receiptUrl = Bundle.main.appStoreReceiptURL, let _ = try? Data(contentsOf: receiptUrl) {
              showOnboarding()
-         } else {
-             let request = SKReceiptRefreshRequest()
-             request.delegate = self
-             request.start()
-         }
+        } else {
+            let request = SKReceiptRefreshRequest()
+            request.delegate = self
+            request.start()
+        }
+        
+        SwiftyStoreKit.retrieveProductsInfo(Set([Product.upgrade.rawValue])) { (results) in
+            for result in results.retrievedProducts {
+                if let price = result.localizedPrice {
+                    setenv("UPGRADE_PRICE", "\(price)", 1)
+                }
+            }
+        }
     }
     
     @available(iOS 13.0, *)
@@ -349,8 +360,11 @@ import TrueTime
         }
         
         if inputURL.scheme == "pyto" { // Select script for Today widget
-            
-            if inputURL.host == "inspector" {
+            if inputURL.host == "upgrade" {
+                if isLiteVersion.boolValue, isPurchased.boolValue {
+                    purchase(id: .upgrade, window: window)
+                }
+            } else if inputURL.host == "inspector" {
                 guard let query = inputURL.query?.removingPercentEncoding, let data = query.data(using: .utf8) else {
                     return
                 }
