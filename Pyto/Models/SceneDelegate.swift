@@ -59,6 +59,10 @@ import TrueTime
     /// Shows onboarding if needed.
     func showOnboarding() {
         guard let validator = ReceiptValidator(), let version = validator.receipt[.originalAppVersion] as? String else {
+            if #available(iOS 13.0.0, *) {
+                Pyto.showOnboarding(window: self.window)
+            }
+            
             return
         }
                 
