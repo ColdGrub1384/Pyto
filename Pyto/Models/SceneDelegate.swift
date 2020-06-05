@@ -88,6 +88,11 @@ import SwiftUI_Views
             return
         }
         
+        if let item = connectionOptions.shortcutItem, let windowScene = scene as? UIWindowScene {
+            self.windowScene(windowScene, performActionFor: item, completionHandler: { _ in })
+            return
+        }
+        
         if let restorationActivity = session.stateRestorationActivity {
             
             if let console = restorationActivity.userInfo?["replConsole"] as? String {
@@ -153,13 +158,38 @@ import SwiftUI_Views
     @available(iOS 13.0, *)
     func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         
-        if shortcutItem.type == "PyPi" {
-            let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "pypi")
-            let navVC = UINavigationController(rootViewController: vc)
-            navVC.modalPresentationStyle = .formSheet
-            windowScene.windows.first?.topViewController?.present(navVC, animated: true, completion: nil)
-        } else if shortcutItem.type == "REPL" {
-            windowScene.windows.first?.topViewController?.present(UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "repl"), animated: true, completion: nil)
+        func open() {
+            if shortcutItem.type == "PyPi" {
+                let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "pypi")
+                let navVC = UINavigationController(rootViewController: vc)
+                navVC.modalPresentationStyle = .formSheet
+                windowScene.windows.first?.topViewController?.present(navVC, animated: true, completion: nil)
+                completionHandler(true)
+            } else if shortcutItem.type == "REPL" {
+                windowScene.windows.first?.topViewController?.present(UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "repl"), animated: true, completion: nil)
+                completionHandler(true)
+            } else {
+                completionHandler(false)
+            }
+        }
+        
+        if documentBrowserViewController == nil {
+            _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
+                
+                var otherCondition = true
+                if shortcutItem.type == "REPL" {
+                    otherCondition = Python.shared.isSetup
+                }
+                
+                if self.documentBrowserViewController != nil && otherCondition {
+                    
+                    open()
+                    
+                    timer.invalidate()
+                }
+            })
+        } else {
+            open()
         }
     }
     
