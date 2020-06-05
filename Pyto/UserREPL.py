@@ -10,7 +10,7 @@ try:
 
     banner = None
     if "no-banner" in sys.argv:
-        banner = "\n\n* REPL restaured *\n"
+        banner = "\n\n* REPL restored *\n"
 
     console.__runREPL__(__file__.split("/")[-1], banner=banner)
 finally:
