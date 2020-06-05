@@ -3,10 +3,13 @@ PODS:
   - Down (0.8.6)
   - FileBrowser (1.0.0)
   - MultiPeer (0.1.0)
+  - ObjectUserDefaults (1.0)
   - SavannaKit (0.9.0)
   - SourceEditor (1.0.1):
     - SavannaKit (~> 0.9)
   - SplitKit (1.0.3)
+  - SwiftyStoreKit (0.15.0)
+  - TrueTime (5.0.3)
   - Zip (1.1.0)
 
 DEPENDENCIES:
@@ -14,14 +17,20 @@ DEPENDENCIES:
   - Down (from `https://github.com/ColdGrub1384/Down.git`)
   - FileBrowser (from `https://github.com/ColdGrub1384/FileBrowser.git`)
   - MultiPeer
+  - ObjectUserDefaults
   - SourceEditor (from `https://github.com/ColdGrub1384/source-editor.git`)
   - SplitKit (from `https://github.com/ColdGrub1384/SplitKit.git`)
+  - SwiftyStoreKit
+  - TrueTime
   - Zip
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - MultiPeer
+    - ObjectUserDefaults
     - SavannaKit
+    - SwiftyStoreKit
+    - TrueTime
     - Zip
 
 EXTERNAL SOURCES:
@@ -58,11 +67,14 @@ SPEC CHECKSUMS:
   Down: 065ea594046e99ea02a0990a53ebf585e9a50a7b
   FileBrowser: 42fe0e5dbb9602f13c6f7f742f4a4193b018eafd
   MultiPeer: 8be1b3b47faa9d2e94b4c8c29a2d984eb0d68007
+  ObjectUserDefaults: 72b8d13aea15090168579b079a21cae312a1cefd
   SavannaKit: 920c240bde011900df8156200a960dad3ee5edfd
   SourceEditor: 4d590385d642c812d08a91941a4bfc90eccf20af
   SplitKit: 59ed3e834cdcd8e395cbd06c6768d1b152a13533
+  SwiftyStoreKit: 033d06b6f87955405d3f844a18a7687c2438592a
+  TrueTime: b49551ffafb28a9dee04e51b226f42a416010842
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 233fbbabd6a17a2fdb458a75109a3cb1b289ff4a
+PODFILE CHECKSUM: f85afec0f26f4a285dc50c3bfec2d0c20578948c
 
 COCOAPODS: 1.7.5
