@@ -78,7 +78,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
             
             let semaphore = DispatchSemaphore(value: 0)
             DispatchQueue.main.async {
-                let request = NSBundleResourceRequest(tags: Set([key]))
+                let request = NSBundleResourceRequest(tags: Set([key.replacingOccurrences(of: "Bio", with: "bio")]))
                 request.conditionallyBeginAccessingResources { (success) in
                     
                     if success, let path = request.bundle.url(forResource: key, withExtension: nil)?.deletingLastPathComponent().path {
