@@ -35,7 +35,7 @@ except ValueError:
 
 if "widget" not in os.environ:
     from urllib.request import urlopen
-    
+
     try:
         from PIL import Image
     except ImportError:
@@ -3685,7 +3685,7 @@ class Control(View):
             self.__py_view__.action = None
         else:
             self.__py_view__.action = _values.value(new_value)
-            
+
         print(dir(_values))
 
 
