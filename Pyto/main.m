@@ -494,8 +494,6 @@ void init_sklearn() {
     [name addObject:@"utils"];                      [key addObject:@"__sklearn_ensemble__hist_gradient_boosting_utils"];
     
     BandHandle(@"sklearn", name, key);
-    
-    putenv((char *)[NSString stringWithFormat:@"SCIKIT_LEARN_DATA=%@", [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask].firstObject.path].UTF8String);
 }
 
 // MARK: - SKImage
@@ -813,6 +811,9 @@ int initialize_python(int argc, char *argv[]) {
     }
     [NSFileManager.defaultManager createDirectoryAtPath:astropyCaches withIntermediateDirectories:YES attributes:NULL error:NULL];
     putenv((char *)[NSString stringWithFormat:@"XDG_CACHE_HOME=%@", caches].UTF8String);
+    
+    // SKLearn data
+    putenv((char *)[NSString stringWithFormat:@"SCIKIT_LEARN_DATA=%@", [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask].firstObject.path].UTF8String);
     
     // MARK: - Init Python
     Py_SetPythonHome(Py_DecodeLocale([pythonBundle.bundlePath UTF8String], NULL));
