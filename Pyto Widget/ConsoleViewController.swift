@@ -272,6 +272,7 @@ fileprivate var isPythonSetup = false
             import threading
             import os
             import ssl
+            import runpy
         except Exception as e:
             ex_type, ex, tb = sys.exc_info()
             traceback.print_tb(tb)
@@ -319,6 +320,18 @@ fileprivate var isPythonSetup = false
         except Exception as e:
             print(e)
 
+        def check_for_code():
+            while True:
+                if pyto.Python.shared.codeToRun is not None:
+                    code = str(pyto.Python.shared.codeToRun)
+                    pyto.Python.shared.codeToRun = None
+                
+                    exec(code)
+
+                sleep(0.2)
+
+        threading.Thread(target=check_for_code).start()
+
         def run_loop():
             pyto.ConsoleViewController.startScript = False
             
@@ -338,9 +351,7 @@ fileprivate var isPythonSetup = false
                 sys.path.append(directory)
 
             try:
-                spec = importlib.util.spec_from_file_location("__main__", script_path)
-                script = importlib.util.module_from_spec(spec)
-                spec.loader.exec_module(script)
+                runpy.run_path(str(script_path))
             except FileNotFoundError:
                 print("A script can be executed from this widget. To to that, go to Pyto's settings and select a script in 'Today Widget'.")
             except Exception as e:

@@ -33,14 +33,13 @@ except ValueError:
         return None
 
 
-try:
-    from PIL import Image
-except ImportError:
-    pass
-
-
 if "widget" not in os.environ:
     from urllib.request import urlopen
+    
+    try:
+        from PIL import Image
+    except ImportError:
+        pass
 
 
 class __v__:
@@ -1749,7 +1748,7 @@ class ButtonItem:
     def __init__(
         self,
         title: str = None,
-        image: Image.Image = None,
+        image: "Image" = None,
         system_item: SYSTEM_ITEM = None,
         style: BUTTON_ITEM_STYLE = __v__("BUTTON_ITEM_STYLE_PLAIN"),
     ):
@@ -1788,7 +1787,7 @@ class ButtonItem:
         self.__py_item__.title = new_value
 
     @property
-    def image(self) -> Image.Image:
+    def image(self) -> "Image":
         """
         A ``PIL`` image object displayed on screen. May also be an ``UIKit`` ``UIImage`` symbol. See :func:`~pyto_ui.image_with_system_name`.
 
@@ -1804,7 +1803,7 @@ class ButtonItem:
             return __pil_image_from_ui_image__(ui_image)
 
     @image.setter
-    def image(self, new_value: Image.Image):
+    def image(self, new_value: "Image"):
         if new_value is None:
             self.__py_item__.image = None
         elif "objc_class" in dir(new_value) and new_value.objc_class == UIImage:
@@ -2706,14 +2705,14 @@ class ImageView(View):
     A view displaying an image. The displayed image can be a ``PIL`` image, an ``UIKit`` ``UIImage`` (see :func:`~pyto_ui.image_with_system_name`) or can be directly downloaded from an URL.
     """
 
-    def __init__(self, image: Image.Image = None, url: str = None):
+    def __init__(self, image: "Image" = None, url: str = None):
         self.__py_view__ = __UIImageView__.newView()
         self.image = image
         if url is not None:
             self.load_from_url(url)
 
     @property
-    def image(self) -> Image.Image:
+    def image(self) -> "Image":
         """
         The image displayed on screen. Can be a ``PIL`` image or an ``UIKit`` ``UIImage``. See :func:`~pyto_ui.image_with_system_name` for more information about how to get a symbol image.
 
@@ -2729,7 +2728,7 @@ class ImageView(View):
             return __pil_image_from_ui_image__(ui_image)
 
     @image.setter
-    def image(self, new_value: Image.Image):
+    def image(self, new_value: "Image"):
 
         if new_value is None:
             self.__py_view__.image = None
@@ -2749,6 +2748,7 @@ class ImageView(View):
             raise EnvironmentError("'load_from_url' is not supported in Today Widget.")
 
         def _set_image(self, url):
+            from PIL import Image
             self.image = Image.open(urlopen(url))
 
         Thread(target=_set_image, args=(self, url)).start()
@@ -3685,6 +3685,8 @@ class Control(View):
             self.__py_view__.action = None
         else:
             self.__py_view__.action = _values.value(new_value)
+            
+        print(dir(_values))
 
 
 class SegmentedControl(Control):
@@ -3942,7 +3944,7 @@ class Button(Control):
         self,
         type: BUTTON_TYPE = __v__("BUTTON_TYPE_SYSTEM"),
         title: str = "",
-        image: Image.Image = None,
+        image: "Image" = None,
     ):
         if type == "BUTTON_TYPE_SYSTEM":
             self.__py_view__ = __PyButton__.newButtonWithType(BUTTON_TYPE_SYSTEM)
@@ -3992,7 +3994,7 @@ class Button(Control):
             self.__py_view__.titleColor = new_value.__py_color__
 
     @property
-    def image(self) -> Image.Image:
+    def image(self) -> "Image":
         """
         The image displayed on the button. Can be a ``PIL`` image or an ``UIKit`` symbol image. For more information about symbols, see :func:`~pyto_ui.image_with_system_name`.
 
@@ -4008,7 +4010,7 @@ class Button(Control):
             return __pil_image_from_ui_image__(ui_image)
 
     @image.setter
-    def image(self, new_value: Image.Image):
+    def image(self, new_value: "Image"):
         if new_value is None:
             self.__py_view__.image = None
         elif "objc_class" in dir(new_value) and new_value.objc_class == UIImage:
@@ -4319,6 +4321,8 @@ def __ui_image_from_pil_image__(image):
 
 
 def __pil_image_from_ui_image__(image):
+
+    from PIL import Image
 
     if image is None:
         return None
