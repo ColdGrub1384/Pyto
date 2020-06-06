@@ -92,7 +92,7 @@ import TrueTime
 
                 let components = calendar.dateComponents([.day], from: date1, to: date2)
                 
-                if let days = components.day, days <= 3 { // Free trial active
+                if let days = components.day, days <= freeTrialDuration { // Free trial active
                     isUnlocked = true
                     return
                 } else { // Expired

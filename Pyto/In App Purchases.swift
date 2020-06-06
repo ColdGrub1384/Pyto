@@ -85,6 +85,17 @@ var initialVersionRequiringUserToPay: String {
     return "12.2"
 }
 
+/// The free trial duration in days.
+var freeTrialDuration: Int {
+    if let url = Bundle.main.appStoreReceiptURL {
+        if url.lastPathComponent.contains("sandbox") {
+            return 0 // Sandbox
+        }
+    }
+    
+    return 3
+}
+
 /// A boolean indicating whether Pyto was either purchased from the App Store or if an IAP was purchased.
 let isPurchased = ObjectUserDefaults.standard.item(forKey: "isPurchased")
 
@@ -180,7 +191,7 @@ func completePurchase(id: String) {
                 return
             }
             
-            if days <= 3 { // Free trial
+            if days <= freeTrialDuration { // Free trial
                 unlock()
             } else {
                 
