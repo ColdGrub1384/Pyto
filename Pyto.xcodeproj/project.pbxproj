@@ -87,6 +87,7 @@
 		C91321D921FB684E00437845 /* PySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7A21F49B8400E7CC35 /* PySelector.swift */; };
 		C91376B6245E365E00AA0935 /* RemoteNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91376B5245E365E00AA0935 /* RemoteNotifications.swift */; };
 		C916F44B226CFD4800FA2FB6 /* modules_inspector.py in Resources */ = {isa = PBXBuildFile; fileRef = C916F44A226CFD4700FA2FB6 /* modules_inspector.py */; };
+		C916FD04248B36DC000AAE76 /* InternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C916FD03248B36DC000AAE76 /* InternetConnection.swift */; };
 		C91B639D24007B6200FCED1F /* ttconv.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C91B639A24007B4C00FCED1F /* ttconv.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C91B639E24007B6700FCED1F /* _backend_agg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9DF7723E08172004CF05A /* _backend_agg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C91BE6AB23F99BF600B6ED6B /* FileBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BE6A823F99BF600B6ED6B /* FileBrowserViewController.swift */; };
@@ -2463,6 +2464,7 @@
 		C91321C821FB500300437845 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		C91376B5245E365E00AA0935 /* RemoteNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotifications.swift; sourceTree = "<group>"; };
 		C916F44A226CFD4700FA2FB6 /* modules_inspector.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = modules_inspector.py; sourceTree = "<group>"; };
+		C916FD03248B36DC000AAE76 /* InternetConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnection.swift; sourceTree = "<group>"; };
 		C91B639A24007B4C00FCED1F /* ttconv.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ttconv.framework; sourceTree = "<group>"; };
 		C91BE6A823F99BF600B6ED6B /* FileBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowserViewController.swift; sourceTree = "<group>"; };
 		C91BE6B423F9A3E500B6ED6B /* ProjectDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDocument.swift; sourceTree = "<group>"; };
@@ -5901,6 +5903,7 @@
 				C9FCFD58214428AE00A07974 /* AppDelegate.swift */,
 				C904EB7221445D5800585C28 /* Python.swift */,
 				C92495C62151A3E3007EB4DB /* ReviewHelper.swift */,
+				C916FD03248B36DC000AAE76 /* InternetConnection.swift */,
 			);
 			path = Singletons;
 			sourceTree = "<group>";
@@ -9503,6 +9506,7 @@
 				C99D8E20223E960100489E9B /* PipViewController.swift in Sources */,
 				C9622B972467BE5200D0D697 /* dogleg_.c in Sources */,
 				C909A19C2267E6E30058C145 /* UIViewController.swift in Sources */,
+				C916FD04248B36DC000AAE76 /* InternetConnection.swift in Sources */,
 				C9592D1A21D0592C00412CEF /* XcodeLight.swift in Sources */,
 				C9FCFD5B214428AE00A07974 /* EditorViewController.swift in Sources */,
 				C959D50723761FC40001AEAF /* PyPackage.swift in Sources */,
@@ -9932,7 +9936,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -9995,7 +9999,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -10172,7 +10176,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_PREVIEWS = YES;
@@ -10198,7 +10202,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_PREVIEWS = YES;
@@ -10225,7 +10229,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
@@ -10246,7 +10250,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
@@ -10267,7 +10271,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -10296,7 +10300,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -10575,7 +10579,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -10695,7 +10699,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;

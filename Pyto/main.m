@@ -802,6 +802,7 @@ int initialize_python(int argc, char *argv[]) {
     #if WIDGET
     NSString *certPath = [mainBundle() pathForResource:@"cacert.pem" ofType:NULL];
     putenv((char *)[[NSString stringWithFormat:@"SSL_CERT_FILE=%@", certPath] UTF8String]);
+    putenv("PYTHONMALLOC=malloc");
     #endif
     
     // Astropy caches
