@@ -63,12 +63,31 @@ func purchase(id: Product, window: UIWindow?) {
         SwiftyStoreKit.restorePurchases { (result) in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             
+            var products = [Product]()
+            
             for purchase in result.restoredPurchases {
                 if purchase.needsFinishTransaction {
                     SwiftyStoreKit.finishTransaction(purchase.transaction)
                 }
-
-                completePurchase(id: purchase.productId)
+                
+                if let product = Product(rawValue: purchase.productId) {
+                    products.append(product)
+                }
+            }
+            
+            // Only activate the "most upgraded" purchase
+            
+            if products.contains(.freeTrial) && products.count > 1 {
+                // Don't activate the free trial if something else was purchased
+                
+                if products.contains(.fullVersion) || products.contains(.upgrade) {
+                    // Don't activate the lite version if the full version is purchased
+                    completePurchase(id: Product.fullVersion.rawValue)
+                } else if products.contains(.liteVersion) {
+                    completePurchase(id: Product.liteVersion.rawValue)
+                }
+            } else {
+                completePurchase(id: Product.freeTrial.rawValue)
             }
         }
     }
@@ -125,8 +144,9 @@ func observeUserDefaults() {
             return
         }
         
+        // Compile the source code if you want to use Pyto for free 😊
         if (isPurchased.boolValue != _isPurchased) || (isLiteVersion.boolValue != _isLiteVersion) {
-            isPurchased.boolValue = _isPurchased
+            isPurchased.boolValue = false
             isLiteVersion.boolValue = _isLiteVersion
             fatalError("Detected unallowed change on UserDefaults related to In App Purchases.")
         }
