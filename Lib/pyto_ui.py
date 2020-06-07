@@ -3686,8 +3686,6 @@ class Control(View):
         else:
             self.__py_view__.action = _values.value(new_value)
 
-        print(dir(_values))
-
 
 class SegmentedControl(Control):
     """
