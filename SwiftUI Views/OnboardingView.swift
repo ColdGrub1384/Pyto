@@ -75,10 +75,10 @@ public struct OnboardingView: View {
         VStack {
             VStack {
                 
-                Text("Welcome to Pyto\n")
+                Text("onboarding.title", bundle: SwiftUIBundle, comment: "The title of the onboarding view")
                 .font(.largeTitle)
                             
-                Text("You can try Pyto for free during 3 days. Once your free trial expired, you'll need to purchase one of the two options bellow to continue using the app.")
+                Text("onboarding.subtitle", bundle: SwiftUIBundle, comment: "The text below the title")
                     .padding()
                 
                 ScrollView {
@@ -86,7 +86,7 @@ public struct OnboardingView: View {
                         
                         HStack {
                             Image(systemName: "play")
-                            Text("Run Python code locally.")
+                            Text("onboarding.runCode", bundle: SwiftUIBundle, comment: "The first presented feature")
                             Spacer()
                         }
                         
@@ -94,7 +94,7 @@ public struct OnboardingView: View {
                         
                         HStack {
                             Image(systemName: "keyboard")
-                            Text("Edit code with syntax highlighting and code completion.")
+                            Text("onboarding.editor", bundle: SwiftUIBundle, comment: "The second presented feature")
                             Spacer()
                         }
                         
@@ -102,7 +102,7 @@ public struct OnboardingView: View {
                         
                         HStack {
                             Image(systemName: "cube.box")
-                            Text("Install pure Python modules from PyPi.")
+                            Text("onboarding.pypi", bundle: SwiftUIBundle, comment: "The third presented feature")
                             Spacer()
                         }
                         
@@ -110,7 +110,7 @@ public struct OnboardingView: View {
                         
                         HStack {
                             Image(systemName: "mic")
-                            Text("Run scripts or custom code with Siri Shortcuts.")
+                            Text("onboarding.shortcuts", bundle: SwiftUIBundle, comment: "The fourth presented feature")
                             Spacer()
                         }
                     }.padding()
@@ -122,7 +122,7 @@ public struct OnboardingView: View {
             Button(action: {
                 self.purchaseFull()
             }) {
-                Text("Full featured \(self.fullFeaturedPrice)")
+                Text("onboarding.fullFeatured \(self.fullFeaturedPrice)", bundle: SwiftUIBundle, comment: "The button for purchasing the full featured version")
                     .foregroundColor(.white)
                 .frame(width: 200)
             }
@@ -133,7 +133,7 @@ public struct OnboardingView: View {
             Button(action: {
                 self.showingDetail.toggle()
             }) {
-                Text("Contains these libraries")
+                Text("onboarding.libraries", bundle: SwiftUIBundle, comment: "The button linking to a list of contained libraries in the pro version")
                 .font(.footnote)
                 .underline()
                 .padding()
@@ -164,7 +164,7 @@ public struct OnboardingView: View {
             Button(action: {
                 self.purchaseLite()
             }) {
-                Text("No C extensions \(self.noExtensionsPrice)")
+                Text("onboarding.limitedVersion \(self.noExtensionsPrice)", bundle: SwiftUIBundle, comment: "The button for purchasing the limited version")
                     .foregroundColor(.white)
                 .frame(width: 200)
             }
@@ -172,8 +172,9 @@ public struct OnboardingView: View {
             .background(Color.accentColor)
             .cornerRadius(12)
             
-            Text("Doesn't contain any C extension")
+            Text("onboarding.noExtensionsFootnote", bundle: SwiftUIBundle, comment: "The footnote below the button for purchasing the limited version")
             .font(.footnote)
+            .frame(width: 200)
             .padding()
             
             Spacer()
@@ -185,7 +186,7 @@ public struct OnboardingView: View {
                 
                 self.startFreeTrial()
             }) {
-                Text(self.isTrialEnded ? "Trial period ended" : "Begin free trial (3 days)")
+                Text(self.isTrialEnded ? "onboarding.trialEnded" : "onboarding.beginFreeTrial", bundle: SwiftUIBundle)
                 .foregroundColor(.white)
                 .frame(width: 200)
             }
@@ -199,7 +200,7 @@ public struct OnboardingView: View {
             Button(action: {
                 self.restore()
             }) {
-                Text("Restore")
+                Text("onboarding.restore", bundle: SwiftUIBundle, comment: "The button for restoring purchases")
             }.padding()
         }
     }
