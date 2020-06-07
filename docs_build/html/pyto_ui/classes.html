@@ -726,7 +726,7 @@ This value is a tuple with height and width values.</p>
 
 <dl class="class">
 <dt id="pyto_ui.ImageView">
-<em class="property">class </em><code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">ImageView</code><span class="sig-paren">(</span><em class="sig-param">image: Optional[PIL.Image.Image] = None</em>, <em class="sig-param">url: Optional[str] = None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.ImageView" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">ImageView</code><span class="sig-paren">(</span><em class="sig-param">image: Optional[Image] = None</em>, <em class="sig-param">url: Optional[str] = None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.ImageView" title="Permalink to this definition">¶</a></dt>
 <dd><p>A view displaying an image. The displayed image can be a <code class="docutils literal notranslate"><span class="pre">PIL</span></code> image, an <code class="docutils literal notranslate"><span class="pre">UIKit</span></code> <code class="docutils literal notranslate"><span class="pre">UIImage</span></code> (see <a class="reference internal" href="functions.html#pyto_ui.image_with_system_name" title="pyto_ui.image_with_system_name"><code class="xref py py-func docutils literal notranslate"><span class="pre">image_with_system_name()</span></code></a>) or can be directly downloaded from an URL.</p>
 <dl class="method">
 <dt id="pyto_ui.ImageView.image">
@@ -1576,7 +1576,7 @@ The function passed to <a class="reference internal" href="#pyto_ui.Control.acti
 
 <dl class="class">
 <dt id="pyto_ui.Button">
-<em class="property">class </em><code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">Button</code><span class="sig-paren">(</span><em class="sig-param">type: ui_constants.BUTTON_TYPE = BUTTON_TYPE_SYSTEM</em>, <em class="sig-param">title: str = ''</em>, <em class="sig-param">image: Optional[PIL.Image.Image] = None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.Button" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">Button</code><span class="sig-paren">(</span><em class="sig-param">type: ui_constants.BUTTON_TYPE = BUTTON_TYPE_SYSTEM</em>, <em class="sig-param">title: str = ''</em>, <em class="sig-param">image: Optional[Image] = None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.Button" title="Permalink to this definition">¶</a></dt>
 <dd><p>A control that executes your custom code in response to user interactions.
 To add an action, set <a class="reference internal" href="#pyto_ui.Control.action" title="pyto_ui.Control.action"><code class="xref py py-data docutils literal notranslate"><span class="pre">action</span></code></a>.</p>
 <p>For types of buttons, see <a class="reference external" href="constants.html#button-type">Button Type</a> constants.</p>
@@ -2291,7 +2291,7 @@ This function should be used to move the data corresponding to the cell from the
 
 <dl class="class">
 <dt id="pyto_ui.ButtonItem">
-<em class="property">class </em><code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">ButtonItem</code><span class="sig-paren">(</span><em class="sig-param">title: Optional[str] = None</em>, <em class="sig-param">image: Optional[PIL.Image.Image] = None</em>, <em class="sig-param">system_item: Optional[ui_constants.SYSTEM_ITEM] = None</em>, <em class="sig-param">style: ui_constants.BUTTON_ITEM_STYLE = BUTTON_ITEM_STYLE_PLAIN</em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.ButtonItem" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">ButtonItem</code><span class="sig-paren">(</span><em class="sig-param">title: Optional[str] = None</em>, <em class="sig-param">image: Optional[Image] = None</em>, <em class="sig-param">system_item: Optional[ui_constants.SYSTEM_ITEM] = None</em>, <em class="sig-param">style: ui_constants.BUTTON_ITEM_STYLE = BUTTON_ITEM_STYLE_PLAIN</em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.ButtonItem" title="Permalink to this definition">¶</a></dt>
 <dd><p>A special kind of button that can be placed on the view’s navigation bar. Can have a title, and image or a system type.</p>
 <dl class="method">
 <dt id="pyto_ui.ButtonItem.action">
