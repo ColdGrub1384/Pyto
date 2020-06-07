@@ -39,58 +39,62 @@ enum Product: String {
 ///     - id: The product id.
 ///     - window: The window where errors will be presented.
 func purchase(id: Product, window: UIWindow?) {
-    if id.rawValue != Product.restore.rawValue {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        SwiftyStoreKit.purchaseProduct(id.rawValue) { (result) in
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            switch result {
-            case .error(error: let error):
-                if error.code != .paymentCancelled {
-                    let alert = UIAlertController(title: Localizable.error, message: error.localizedDescription, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
-                    window?.topViewController?.present(alert, animated: true, completion: nil)
+    
+    let vc = ActivityViewController(message: "")
+    
+    window?.topViewController?.present(vc, animated: true, completion: {
+        if id.rawValue != Product.restore.rawValue {
+            SwiftyStoreKit.purchaseProduct(id.rawValue) { (result) in
+                vc.dismiss(animated: true) {
+                    switch result {
+                    case .error(error: let error):
+                        if error.code != .paymentCancelled {
+                            let alert = UIAlertController(title: Localizable.error, message: error.localizedDescription, preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+                            window?.topViewController?.present(alert, animated: true, completion: nil)
+                        }
+                    case .success(purchase: let details):
+                        if details.needsFinishTransaction {
+                            SwiftyStoreKit.finishTransaction(details.transaction)
+                        }
+                                                
+                        completePurchase(id: details.productId)
+                    }
                 }
-            case .success(purchase: let details):
-                if details.needsFinishTransaction {
-                    SwiftyStoreKit.finishTransaction(details.transaction)
+            }
+        } else {
+            SwiftyStoreKit.restorePurchases { (result) in
+                vc.dismiss(animated: true) {
+                    var products = [Product]()
+                    
+                    for purchase in result.restoredPurchases {
+                        if purchase.needsFinishTransaction {
+                            SwiftyStoreKit.finishTransaction(purchase.transaction)
+                        }
+                        
+                        if let product = Product(rawValue: purchase.productId) {
+                            products.append(product)
+                        }
+                    }
+                    
+                    // Only activate the "most upgraded" purchase
+                    
+                    if products.contains(.freeTrial) && products.count > 1 {
+                        // Don't activate the free trial if something else was purchased
+                        
+                        if products.contains(.fullVersion) || products.contains(.upgrade) {
+                            // Don't activate the lite version if the full version is purchased
+                            completePurchase(id: Product.fullVersion.rawValue)
+                        } else if products.contains(.liteVersion) {
+                            completePurchase(id: Product.liteVersion.rawValue)
+                        }
+                    } else {
+                        completePurchase(id: Product.freeTrial.rawValue)
+                    }
                 }
-                                        
-                completePurchase(id: details.productId)
             }
         }
-    } else {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        SwiftyStoreKit.restorePurchases { (result) in
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            
-            var products = [Product]()
-            
-            for purchase in result.restoredPurchases {
-                if purchase.needsFinishTransaction {
-                    SwiftyStoreKit.finishTransaction(purchase.transaction)
-                }
-                
-                if let product = Product(rawValue: purchase.productId) {
-                    products.append(product)
-                }
-            }
-            
-            // Only activate the "most upgraded" purchase
-            
-            if products.contains(.freeTrial) && products.count > 1 {
-                // Don't activate the free trial if something else was purchased
-                
-                if products.contains(.fullVersion) || products.contains(.upgrade) {
-                    // Don't activate the lite version if the full version is purchased
-                    completePurchase(id: Product.fullVersion.rawValue)
-                } else if products.contains(.liteVersion) {
-                    completePurchase(id: Product.liteVersion.rawValue)
-                }
-            } else {
-                completePurchase(id: Product.freeTrial.rawValue)
-            }
-        }
-    }
+    })
 }
 
 /// The version of Pyto introducing free trials.
@@ -108,7 +112,7 @@ var initialVersionRequiringUserToPay: String {
 var freeTrialDuration: Int {
     if let url = Bundle.main.appStoreReceiptURL {
         if url.lastPathComponent.contains("sandbox") {
-            return 0 // Sandbox
+            return 3 // Sandbox
         }
     }
     
