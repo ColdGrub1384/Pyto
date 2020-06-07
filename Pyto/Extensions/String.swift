@@ -86,4 +86,8 @@ extension String {
         UIGraphicsEndImageContext()
         return image
     }
+    
+    func versionCompare(_ otherVersion: String) -> ComparisonResult {
+        return self.compare(otherVersion, options: .numeric)
+    }
 }

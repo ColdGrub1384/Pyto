@@ -9,9 +9,12 @@
 import UIKit
 import SwiftUI
 import SwiftUI_Views
+import StoreKit
+import SwiftyStoreKit
+import TrueTime
 
 /// The scene delegate.
-@objc class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+@objc class SceneDelegate: UIResponder, UIWindowSceneDelegate, SKRequestDelegate {
 
     /// A View controller to present in a new created scene.
     static var viewControllerToShow: UIViewController?
@@ -51,6 +54,66 @@ import SwiftUI_Views
     /// The document browser associated with this scene.
     var documentBrowserViewController: DocumentBrowserViewController? {
         return window?.rootViewController as? DocumentBrowserViewController
+    }
+    
+    /// Shows onboarding if needed.
+    func showOnboarding() {
+        guard let validator = ReceiptValidator(), let version = validator.receipt[.originalAppVersion] as? String else {
+            if #available(iOS 13.0.0, *) {
+                Pyto.showOnboarding(window: self.window)
+            }
+            
+            return
+        }
+                
+        // Return if app is purchased before the free trial update
+        guard version.compare(initialVersionRequiringUserToPay) != .orderedAscending else {
+            isUnlocked = true
+            changingUserDefaultsInAppPurchasesValues = true
+            isPurchased.boolValue = true
+            changingUserDefaultsInAppPurchasesValues = true
+            isLiteVersion.boolValue = false
+            return
+        }
+        
+        // Return if already purchased
+        guard !isPurchased.boolValue else {
+            isUnlocked = true
+            return
+        }
+        
+        TrueTimeClient.sharedInstance.fetchIfNeeded(success: { (time) in
+            
+            if let date = validator.trialStartDate { // Free trial started
+                let calendar = Calendar.current
+
+                let date1 = calendar.startOfDay(for: date)
+                let date2 = calendar.startOfDay(for: time.now())
+
+                let components = calendar.dateComponents([.day], from: date1, to: date2)
+                
+                if let days = components.day, days <= freeTrialDuration { // Free trial active
+                    isUnlocked = true
+                    return
+                } else { // Expired
+                    if #available(iOS 13.0.0, *) {
+                        Pyto.showOnboarding(window: self.window, isTrialExpired: true)
+                    }
+                    
+                    return
+                }
+            }
+            
+            if #available(iOS 13.0.0, *) {
+                Pyto.showOnboarding(window: self.window)
+            }
+        }) { (error) in
+            print(error.localizedDescription)
+            
+            if #available(iOS 13.0.0, *) {
+                Pyto.showOnboarding(window: self.window)
+            }
+        }
     }
     
     // MARK: - Scene delegate
@@ -151,6 +214,22 @@ import SwiftUI_Views
                 
             } else if restorationActivity.userInfo?["filePath"] != nil {
                 self.scene(scene, continue: restorationActivity)
+            }
+        }
+        
+        if let receiptUrl = Bundle.main.appStoreReceiptURL, let _ = try? Data(contentsOf: receiptUrl) {
+             showOnboarding()
+        } else {
+            let request = SKReceiptRefreshRequest()
+            request.delegate = self
+            request.start()
+        }
+        
+        SwiftyStoreKit.retrieveProductsInfo(Set([Product.upgrade.rawValue])) { (results) in
+            for result in results.retrievedProducts {
+                if let price = result.localizedPrice {
+                    setenv("UPGRADE_PRICE", "\(price)", 1)
+                }
             }
         }
     }
@@ -311,8 +390,11 @@ import SwiftUI_Views
         }
         
         if inputURL.scheme == "pyto" { // Select script for Today widget
-            
-            if inputURL.host == "inspector" {
+            if inputURL.host == "upgrade" {
+                if isLiteVersion.boolValue, isPurchased.boolValue {
+                    purchase(id: .upgrade, window: window)
+                }
+            } else if inputURL.host == "inspector" {
                 guard let query = inputURL.query?.removingPercentEncoding, let data = query.data(using: .utf8) else {
                     return
                 }
@@ -445,5 +527,11 @@ import SwiftUI_Views
         }
         
         return nil
+    }
+    
+    // MARK: - Request delegate
+    
+    func requestDidFinish(_ request: SKRequest) {
+        showOnboarding()
     }
 }

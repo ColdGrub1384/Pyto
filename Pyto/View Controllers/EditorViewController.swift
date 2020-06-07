@@ -1025,6 +1025,13 @@ fileprivate func parseArgs(_ args: inout [String]) {
     ///     - debug: Set to `true` for debugging with `pdb`.
     func runScript(debug: Bool) {
         
+        guard isUnlocked else {
+            if #available(iOS 13.0, *) {
+                (view.window?.windowScene?.delegate as? SceneDelegate)?.showOnboarding()
+            }
+            return
+        }
+        
         UIApplication.shared.beginBackgroundTask(expirationHandler: nil)
         
         // For error handling

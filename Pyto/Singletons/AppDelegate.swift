@@ -14,6 +14,8 @@ import CoreMotion
 #if MAIN
 import WatchConnectivity
 import Intents
+import SwiftyStoreKit
+import TrueTime
 #endif
 
 /// The application's delegate.
@@ -285,6 +287,64 @@ import Intents
             
             UIPasteboard.general.string = description
         }
+        
+        SwiftyStoreKit.completeTransactions { (purchases) in
+            for purchase in purchases {
+                switch purchase.transaction.transactionState {
+                case .purchased, .restored:
+                    if purchase.needsFinishTransaction {
+                        SwiftyStoreKit.finishTransaction(purchase.transaction)
+                    }
+                    
+                    completePurchase(id: purchase.productId)
+                case .failed, .purchasing, .deferred:
+                    break
+                }
+            }
+        }
+        
+        SwiftyStoreKit.shouldAddStorePaymentHandler = { payment, product in
+            
+            switch Product(rawValue: product.productIdentifier) {
+            case .freeTrial:
+                return true
+            case .liteVersion, .upgrade:
+                return false // Not purchasable from the App Store
+            case .fullVersion:
+                // Give a discount if the lite version was purchased
+                
+                SwiftyStoreKit.restorePurchases { (results) in
+                    
+                    var product = Product.fullVersion
+                    
+                    for purchase in results.restoredPurchases {
+                        if purchase.productId == Product.liteVersion.rawValue || purchase.productId == Product.upgrade.rawValue {
+                            product = .upgrade
+                            break
+                        }
+                    }
+                    
+                    if #available(iOS 13.0, *) {
+                        let keyWindow = UIApplication.shared.connectedScenes
+                        .filter({$0.activationState == .foregroundActive})
+                        .map({$0 as? UIWindowScene})
+                        .compactMap({$0})
+                        .first?.windows
+                        .filter({$0.isKeyWindow}).first
+                        
+                        purchase(id: product, window: keyWindow)
+                    }
+                }
+                
+                return false
+            default:
+                return false
+            }
+        }
+        
+        TrueTimeClient.sharedInstance.start()
+        
+        observeUserDefaults()
         
         #else
         window = UIWindow()

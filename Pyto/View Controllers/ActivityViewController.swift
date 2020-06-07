@@ -34,6 +34,8 @@ private class ActivityView: UIView {
     init() {
         super.init(frame: .zero)
         
+        activityIndicatorView.color = .white
+        
         backgroundColor = UIColor(white: 0.0, alpha: 0.5)
         
         boundingBoxView.backgroundColor = UIColor(white: 0.0, alpha: 0.5)

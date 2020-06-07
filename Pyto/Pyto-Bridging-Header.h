@@ -4,6 +4,16 @@
 
 #import "../Python/Python.h"
 #import "Python Bridging/Selectors/BlockBasedSelector.h"
+
+#if MAIN
+#import <openssl/pkcs7.h>
+#import <openssl/objects.h>
+#import <openssl/evp.h>
+#import <openssl/ssl.h>
+#import <openssl/asn1.h>
+#import "RMStore/RMAppReceipt.h"
+#endif
+
 #include <os/proc.h>
 
 PyMODINIT_FUNC (*PyInit__multiarray_umath)(void);
