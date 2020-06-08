@@ -103,7 +103,7 @@ var initialVersionRequiringUserToPay: String {
         return "1.0" // Sandbox
     }
     
-    return "12.2"
+    return "275"
 }
 
 /// The free trial duration in days.
