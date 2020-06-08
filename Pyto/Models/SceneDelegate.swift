@@ -88,7 +88,7 @@ import TrueTime
                 let calendar = Calendar.current
 
                 let date1 = calendar.startOfDay(for: date)
-                let date2 = calendar.startOfDay(for: time.now())
+                let date2 = calendar.startOfDay(for: isSandbox ? Date() : time.now()) // Make the date fakable in sandbox
 
                 let components = calendar.dateComponents([.day], from: date1, to: date2)
                 

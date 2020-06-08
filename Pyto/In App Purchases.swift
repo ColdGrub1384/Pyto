@@ -99,10 +99,8 @@ func purchase(id: Product, window: UIWindow?) {
 
 /// The version of Pyto introducing free trials.
 var initialVersionRequiringUserToPay: String {
-    if let url = Bundle.main.appStoreReceiptURL {
-        if url.lastPathComponent.contains("sandbox") {
-            return "1.0" // Sandbox
-        }
+    if isSandbox {
+        return "1.0" // Sandbox
     }
     
     return "12.2"
@@ -110,13 +108,12 @@ var initialVersionRequiringUserToPay: String {
 
 /// The free trial duration in days.
 var freeTrialDuration: Int {
-    if let url = Bundle.main.appStoreReceiptURL {
-        if url.lastPathComponent.contains("sandbox") {
-            return 3 // Sandbox
-        }
-    }
-    
     return 3
+}
+
+/// Returns a boolean indicating whether the app is in sandbox environment.
+var isSandbox: Bool {
+    return Bundle.main.appStoreReceiptURL?.lastPathComponent.contains("sandbox") == true
 }
 
 /// A boolean indicating whether Pyto was either purchased from the App Store or if an IAP was purchased.
@@ -207,7 +204,7 @@ func completePurchase(id: String) {
             let calendar = Calendar.current
 
             let date1 = calendar.startOfDay(for: date)
-            let date2 = calendar.startOfDay(for: time.now())
+            let date2 = calendar.startOfDay(for: isSandbox ? Date() : time.now()) // Make the date fakable in sandbox
 
             let components = calendar.dateComponents([.day], from: date1, to: date2)
             
