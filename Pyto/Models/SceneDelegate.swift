@@ -67,7 +67,7 @@ import TrueTime
         }
                 
         // Return if app is purchased before the free trial update
-        guard version.compare(initialVersionRequiringUserToPay) != .orderedAscending else {
+        guard version.versionCompare(initialVersionRequiringUserToPay) != .orderedAscending else {
             isUnlocked = true
             changingUserDefaultsInAppPurchasesValues = true
             isPurchased.boolValue = true
