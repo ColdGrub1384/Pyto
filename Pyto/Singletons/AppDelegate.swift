@@ -305,6 +305,12 @@ import TrueTime
         
         SwiftyStoreKit.shouldAddStorePaymentHandler = { payment, product in
             
+            if let validator = ReceiptValidator(), let version = validator.receipt[.originalAppVersion] as? String {
+                guard version.versionCompare(initialVersionRequiringUserToPay) != .orderedAscending else {
+                    return false
+                }
+            }
+            
             switch Product(rawValue: product.productIdentifier) {
             case .freeTrial:
                 return true
