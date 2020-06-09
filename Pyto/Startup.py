@@ -301,6 +301,8 @@ try:
 
 except Exception as e:
     import traceback
+    from ctypes import CDLL
+    
     s = traceback.format_exc()
     
     CDLL(None).logToNSLog(s.encode())

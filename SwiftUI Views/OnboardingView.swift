@@ -45,6 +45,8 @@ fileprivate var fullVersionLibrairies: [String] {
 @available(iOS 13.0.0, *)
 public struct OnboardingView: View {
     
+    @Environment(\.verticalSizeClass) var vertical
+    
     @State var showingDetail = false
     
     public var isTrialEnded: Bool
@@ -71,54 +73,34 @@ public struct OnboardingView: View {
         self.restore = restore
     }
     
-    public var body: some View {
-        VStack {
-            VStack {
-                
-                Text("onboarding.title", bundle: SwiftUIBundle, comment: "The title of the onboarding view")
-                .font(.largeTitle)
-                            
-                Text("onboarding.subtitle", bundle: SwiftUIBundle, comment: "The text below the title")
-                    .padding()
-                
-                ScrollView {
-                    VStack {
-                        
-                        HStack {
-                            Image(systemName: "play")
-                            Text("onboarding.runCode", bundle: SwiftUIBundle, comment: "The first presented feature")
-                            Spacer()
-                        }
-                        
-                        Divider()
-                        
-                        HStack {
-                            Image(systemName: "keyboard")
-                            Text("onboarding.editor", bundle: SwiftUIBundle, comment: "The second presented feature")
-                            Spacer()
-                        }
-                        
-                        Divider()
-                        
-                        HStack {
-                            Image(systemName: "cube.box")
-                            Text("onboarding.pypi", bundle: SwiftUIBundle, comment: "The third presented feature")
-                            Spacer()
-                        }
-                        
-                        Divider()
-                        
-                        HStack {
-                            Image(systemName: "mic")
-                            Text("onboarding.shortcuts", bundle: SwiftUIBundle, comment: "The fourth presented feature")
-                            Spacer()
-                        }
-                    }.padding()
-                }
-                
-                Spacer()
+    var restoreButton: some View {
+        Button(action: {
+            self.restore()
+        }) {
+            Text("onboarding.restore", bundle: SwiftUIBundle, comment: "The button for restoring purchases")
+        }.padding()
+    }
+    
+    var trialButton: some View {
+        Button(action: {
+            guard !self.isTrialEnded else {
+                return
             }
             
+            self.startFreeTrial()
+        }) {
+            Text(self.isTrialEnded ? "onboarding.trialEnded" : "onboarding.beginFreeTrial", bundle: SwiftUIBundle)
+            .foregroundColor(.white)
+            .frame(width: 200)
+        }
+        .padding()
+        .background(Color.accentColor)
+        .cornerRadius(12)
+        .disabled(self.isTrialEnded)
+    }
+    
+    var fullFeaturedView: some View {
+        VStack {
             Button(action: {
                 self.purchaseFull()
             }) {
@@ -158,9 +140,11 @@ public struct OnboardingView: View {
                 }
             }
             .accentColor(.primary)
-            
-            Spacer()
-            
+        }
+    }
+    
+    var liteView: some View {
+        VStack {
             Button(action: {
                 self.purchaseLite()
             }) {
@@ -176,32 +160,98 @@ public struct OnboardingView: View {
             .font(.footnote)
             .frame(width: 200)
             .padding()
+        }
+    }
+    
+    public var body: some View {
+        VStack {
+            
+            Text("onboarding.title", bundle: SwiftUIBundle, comment: "The title of the onboarding view")
+                .font(.largeTitle)
+                .padding()
+                            
+            Text("onboarding.subtitle", bundle: SwiftUIBundle, comment: "The text below the title")
+                .padding()
             
             Spacer()
             
-            Button(action: {
-                guard !self.isTrialEnded else {
-                    return
+            if vertical != .compact {
+                VStack {
+                    ScrollView {
+                        VStack {
+                            
+                            HStack {
+                                Image(systemName: "play")
+                                Text("onboarding.runCode", bundle: SwiftUIBundle, comment: "The first presented feature")
+                                Spacer()
+                            }
+                            
+                            Divider()
+                            
+                            HStack {
+                                Image(systemName: "keyboard")
+                                Text("onboarding.editor", bundle: SwiftUIBundle, comment: "The second presented feature")
+                                Spacer()
+                            }
+                            
+                            Divider()
+                            
+                            HStack {
+                                Image(systemName: "cube.box")
+                                Text("onboarding.pypi", bundle: SwiftUIBundle, comment: "The third presented feature")
+                                Spacer()
+                            }
+                            
+                            Divider()
+                            
+                            HStack {
+                                Image(systemName: "mic")
+                                Text("onboarding.shortcuts", bundle: SwiftUIBundle, comment: "The fourth presented feature")
+                                Spacer()
+                            }
+                        }.padding()
+                    }
+                    
+                    Spacer()
                 }
-                
-                self.startFreeTrial()
-            }) {
-                Text(self.isTrialEnded ? "onboarding.trialEnded" : "onboarding.beginFreeTrial", bundle: SwiftUIBundle)
-                .foregroundColor(.white)
-                .frame(width: 200)
             }
-            .padding()
-            .background(Color.accentColor)
-            .cornerRadius(12)
-            .disabled(self.isTrialEnded)
             
-            Spacer()
+            //Spacer()
             
-            Button(action: {
-                self.restore()
-            }) {
-                Text("onboarding.restore", bundle: SwiftUIBundle, comment: "The button for restoring purchases")
-            }.padding()
+            if vertical == .compact {
+                HStack {
+                    VStack {
+                        fullFeaturedView
+                        Spacer()
+                    }
+                    
+                    VStack {
+                        liteView
+                        Spacer()
+                    }
+                }
+            } else {
+                fullFeaturedView
+                
+                Spacer()
+                
+                liteView
+            }
+            
+            if vertical == .compact {
+                HStack {
+                    trialButton
+                    //Spacer()
+                    restoreButton
+                }
+                Spacer()
+            } else {
+                trialButton
+                
+                Spacer()
+                
+                restoreButton
+            }
         }
     }
 }
@@ -209,6 +259,6 @@ public struct OnboardingView: View {
 @available(iOS 13.0.0, *)
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
-        OnboardingView(isTrialEnded: false, fullFeaturedPrice: "9.99$", noExtensionsPrice: "3.99$", startFreeTrial: {}, purchaseFull: {}, purchaseLite: {}, restore: {})
+        OnboardingView(isTrialEnded: false, fullFeaturedPrice: "9.99$", noExtensionsPrice: "3.99$", startFreeTrial: {}, purchaseFull: {}, purchaseLite: {}, restore: {}).previewLayout(.fixed(width: 568, height: 320))
     }
 }
