@@ -439,6 +439,7 @@
 		C98472AE21A05CB1008E16AC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C98472AD21A05CB1008E16AC /* README.md */; };
 		C98A5BB422C7E86900D411CC /* PyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98A5BB122C7E86900D411CC /* PyWrapper.swift */; };
 		C98A5BB622C7E86900D411CC /* PyColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98A5BB322C7E86900D411CC /* PyColor.swift */; };
+		C98C5A422491194000535EA7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E98D932200BF5100C60946 /* StoreKit.framework */; };
 		C98CECDB23C9487200E133E3 /* PyCallbackHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98CECDA23C9487200E133E3 /* PyCallbackHelper.swift */; };
 		C98CECF323CA3F7D00E133E3 /* pythonA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C981698D235E5E6C0062A91F /* pythonA.framework */; };
 		C98CECF823CA449400E133E3 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E22145D50A00C8B5E3 /* String.swift */; };
@@ -663,6 +664,8 @@
 		C9F1E4DE247379F100A28F2A /* ValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F1E4DD247379F100A28F2A /* ValueView.swift */; };
 		C9F1E4E0247386AF00A28F2A /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F1E4DF247386AF00A28F2A /* Cell.swift */; };
 		C9F1E4FC2474083B00A28F2A /* download_all.py in Resources */ = {isa = PBXBuildFile; fileRef = C9F1E4FB2474083B00A28F2A /* download_all.py */; };
+		C9F311BE2492B96C00488BD7 /* BackgroundTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98C5A3C2490142A00535EA7 /* BackgroundTask.swift */; };
+		C9F311BF2492B96C00488BD7 /* blank.wav in Resources */ = {isa = PBXBuildFile; fileRef = C98C5A3D2490142B00535EA7 /* blank.wav */; };
 		C9F4622522ECB40C007DC3B8 /* PyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98A5BB122C7E86900D411CC /* PyWrapper.swift */; };
 		C9F4622822ECB412007DC3B8 /* PyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A05F6522E400890096DCA8 /* PyView.swift */; };
 		C9F4622922ECB412007DC3B8 /* PyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C956AB6222CD6BD600DBC580 /* PyLabel.swift */; };
@@ -3182,6 +3185,8 @@
 		C9868E9E22B728490013F108 /* Python3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Python3.framework; path = Library/Frameworks/Python3.framework; sourceTree = DEVELOPER_DIR; };
 		C98A5BB122C7E86900D411CC /* PyWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PyWrapper.swift; sourceTree = "<group>"; };
 		C98A5BB322C7E86900D411CC /* PyColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PyColor.swift; sourceTree = "<group>"; };
+		C98C5A3C2490142A00535EA7 /* BackgroundTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundTask.swift; sourceTree = "<group>"; };
+		C98C5A3D2490142B00535EA7 /* blank.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = blank.wav; sourceTree = "<group>"; };
 		C98CECDA23C9487200E133E3 /* PyCallbackHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyCallbackHelper.swift; sourceTree = "<group>"; };
 		C98CECF423CA430E00E133E3 /* Pyto Intents-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pyto Intents-Bridging-Header.h"; sourceTree = "<group>"; };
 		C98E1FFC214EE6EC002F0178 /* Samples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Samples; sourceTree = "<group>"; };
@@ -4762,6 +4767,7 @@
 				C9F8FA602302569D004648F4 /* smemory.o in Frameworks */,
 				C9F8FA3C2302569D004648F4 /* erf.o in Frameworks */,
 				C9F8F8172302569C004648F4 /* dqk15.o in Frameworks */,
+				C98C5A422491194000535EA7 /* StoreKit.framework in Frameworks */,
 				C9F8F8932302569C004648F4 /* parder.o in Frameworks */,
 				C9F8F7A12302569C004648F4 /* _stats.o in Frameworks */,
 				C9F8F8D22302569C004648F4 /* dqaws.o in Frameworks */,
@@ -6948,6 +6954,15 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		C98C5A25249013D700535EA7 /* Background */ = {
+			isa = PBXGroup;
+			children = (
+				C98C5A3C2490142A00535EA7 /* BackgroundTask.swift */,
+				C98C5A3D2490142B00535EA7 /* blank.wav */,
+			);
+			path = Background;
+			sourceTree = "<group>";
+		};
 		C995FB76233AD2BA00A8D42C /* PyNacl */ = {
 			isa = PBXGroup;
 			children = (
@@ -8271,6 +8286,7 @@
 				C93B896723CA53C80070B2EF /* ParseArgs.swift */,
 				C90ECC51228B8B2000EC91C6 /* ShortenFilePaths.swift */,
 				C97AA8DB24898BE40063B6F8 /* In App Purchases.swift */,
+				C98C5A25249013D700535EA7 /* Background */,
 				C976DF072489BE53006D4EF7 /* RMStore */,
 				C93D61E42145E17D00C8B5E3 /* Singletons */,
 				C93D61E52145E19300C8B5E3 /* View Controllers */,
@@ -9107,6 +9123,7 @@
 				C90BA5C123C4CD1F00B2B187 /* Dark 5.png in Resources */,
 				C90BC0562472108100EF7F09 /* ScriptSettingsViewController.storyboard in Resources */,
 				C9FFF42E246E2392004F41D3 /* gensim in Resources */,
+				C9F311BF2492B96C00488BD7 /* blank.wav in Resources */,
 				C9FCFD6D21442FD700A07974 /* Untitled.py in Resources */,
 				C9FFF423246E2392004F41D3 /* scipy in Resources */,
 				C9FFF425246E2392004F41D3 /* joblib in Resources */,
@@ -9509,6 +9526,7 @@
 				C9A4199823A315D700BF5393 /* CustomIconTableViewController.swift in Sources */,
 				C98CECDB23C9487200E133E3 /* PyCallbackHelper.swift in Sources */,
 				C9622B7F2467BE5200D0D697 /* covar_.c in Sources */,
+				C9F311BE2492B96C00488BD7 /* BackgroundTask.swift in Sources */,
 				C9622BA72467BE5200D0D697 /* enorm_.c in Sources */,
 				C9B5D84F21F11AAE00E980BA /* AboutTableViewController.swift in Sources */,
 				C9BF46E222E0DC4F00B8FE4B /* PyTableViewCell.swift in Sources */,
@@ -9986,7 +10004,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 279;
+				CURRENT_PROJECT_VERSION = 282;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -10049,7 +10067,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 279;
+				CURRENT_PROJECT_VERSION = 282;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -10226,7 +10244,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 279;
+				CURRENT_PROJECT_VERSION = 282;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_PREVIEWS = YES;
@@ -10252,7 +10270,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 279;
+				CURRENT_PROJECT_VERSION = 282;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_PREVIEWS = YES;
@@ -10279,7 +10297,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 279;
+				CURRENT_PROJECT_VERSION = 282;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
@@ -10300,7 +10318,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 279;
+				CURRENT_PROJECT_VERSION = 282;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
@@ -10321,7 +10339,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 279;
+				CURRENT_PROJECT_VERSION = 282;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -10350,7 +10368,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 279;
+				CURRENT_PROJECT_VERSION = 282;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -10629,7 +10647,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 279;
+				CURRENT_PROJECT_VERSION = 282;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -10751,7 +10769,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 279;
+				CURRENT_PROJECT_VERSION = 282;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
