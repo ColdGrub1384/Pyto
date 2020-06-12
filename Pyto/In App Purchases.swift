@@ -125,6 +125,9 @@ let isLiteVersion = ObjectUserDefaults.standard.item(forKey: "isLiteVersion")
 /// A boolean indicating wheter the app is usable.
 var isUnlocked = false
 
+/// A boolean indicating whether the app finished verifying the receipt at startup.
+var isReceiptChecked = false
+
 fileprivate var _isPurchased = isPurchased.boolValue
 
 fileprivate var _isLiteVersion = isLiteVersion.boolValue

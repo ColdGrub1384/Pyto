@@ -73,12 +73,14 @@ import TrueTime
             isPurchased.boolValue = true
             changingUserDefaultsInAppPurchasesValues = true
             isLiteVersion.boolValue = false
+            isReceiptChecked = true
             return
         }
         
         // Return if already purchased
         guard !isPurchased.boolValue else {
             isUnlocked = true
+            isReceiptChecked = true
             return
         }
         
@@ -94,12 +96,13 @@ import TrueTime
                 
                 if let days = components.day, days <= freeTrialDuration { // Free trial active
                     isUnlocked = true
+                    isReceiptChecked = true
                     return
                 } else { // Expired
                     if #available(iOS 13.0.0, *) {
                         Pyto.showOnboarding(window: self.window, isTrialExpired: true)
                     }
-                    
+                    isReceiptChecked = true
                     return
                 }
             }
@@ -107,12 +110,16 @@ import TrueTime
             if #available(iOS 13.0.0, *) {
                 Pyto.showOnboarding(window: self.window)
             }
+            
+            isReceiptChecked = true
         }) { (error) in
             print(error.localizedDescription)
             
             if #available(iOS 13.0.0, *) {
                 Pyto.showOnboarding(window: self.window)
             }
+            
+            isReceiptChecked = true
         }
     }
     
@@ -122,6 +129,24 @@ import TrueTime
     
     @available(iOS 13.0, *)
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        
+        if let receiptUrl = Bundle.main.appStoreReceiptURL, let _ = try? Data(contentsOf: receiptUrl) {
+             showOnboarding()
+        } else {
+            let request = SKReceiptRefreshRequest()
+            request.delegate = self
+            request.start()
+        }
+        
+        if !ProcessInfo.processInfo.environment.keys.contains("UPGRADE_PRICE") {
+            SwiftyStoreKit.retrieveProductsInfo(Set([Product.upgrade.rawValue])) { (results) in
+                for result in results.retrievedProducts {
+                    if let price = result.localizedPrice {
+                        setenv("UPGRADE_PRICE", "\(price)", 1)
+                    }
+                }
+            }
+        }
         
         if let vc = SceneDelegate.viewControllerToShow {
             SceneDelegate.viewControllerToShow = nil
@@ -214,22 +239,6 @@ import TrueTime
                 
             } else if restorationActivity.userInfo?["filePath"] != nil {
                 self.scene(scene, continue: restorationActivity)
-            }
-        }
-        
-        if let receiptUrl = Bundle.main.appStoreReceiptURL, let _ = try? Data(contentsOf: receiptUrl) {
-             showOnboarding()
-        } else {
-            let request = SKReceiptRefreshRequest()
-            request.delegate = self
-            request.start()
-        }
-        
-        SwiftyStoreKit.retrieveProductsInfo(Set([Product.upgrade.rawValue])) { (results) in
-            for result in results.retrievedProducts {
-                if let price = result.localizedPrice {
-                    setenv("UPGRADE_PRICE", "\(price)", 1)
-                }
             }
         }
     }
@@ -533,5 +542,9 @@ import TrueTime
     
     func requestDidFinish(_ request: SKRequest) {
         showOnboarding()
+    }
+    
+    func request(_ request: SKRequest, didFailWithError error: Error) {
+        isReceiptChecked = true
     }
 }

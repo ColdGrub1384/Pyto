@@ -1025,6 +1025,16 @@ fileprivate func parseArgs(_ args: inout [String]) {
     ///     - debug: Set to `true` for debugging with `pdb`.
     func runScript(debug: Bool) {
         
+        guard isReceiptChecked else {
+            _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
+                if isReceiptChecked {
+                    self.runScript(debug: debug)
+                    timer.invalidate()
+                }
+            })
+            return
+        }
+        
         guard isUnlocked else {
             if #available(iOS 13.0, *) {
                 (view.window?.windowScene?.delegate as? SceneDelegate)?.showOnboarding()
@@ -1045,7 +1055,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         guard Python.shared.isSetup else {
             return
         }
-        
+                
         save { (_) in
             if !(UserDefaults.standard.value(forKey: "arguments\(self.document?.fileURL.path.replacingOccurrences(of: "//", with: "/") ?? "")") is [String]) {
                 var arguments = self.args.components(separatedBy: " ")
