@@ -73,12 +73,12 @@ import SafariServices
     
     /// Installs package.
     @objc func install() {
-        run(command: "install \(currentPackage?.name ?? "")\(version == nil ? "" : "==\(version!)")")
+        run(command: "--verbose install \(currentPackage?.name ?? "")\(version == nil ? "" : "==\(version!)")")
     }
     
     /// Removes package.
     @objc func remove() {
-        run(command: "uninstall \(currentPackage?.name ?? "")")
+        run(command: "--verbose uninstall \(currentPackage?.name ?? "") ")
     }
     
     /// Bundled modules.
