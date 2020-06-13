@@ -83,7 +83,7 @@ import UIKit
                     }
                     
                     if self.sendNotification, let str = formatter.string(from: TimeInterval(time)) {
-                        PyNotificationCenter.scheduleNotification(title: self.scriptName, message: "\(self.scriptName) is running since \(str)", delay: 1)
+                        PyNotificationCenter.scheduleNotification(title: self.scriptName, message: Localizable.Python.isRunning(script: self.scriptName, since: str), delay: 1)
                         i = 0
                     }
                 }

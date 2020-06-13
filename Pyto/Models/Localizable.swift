@@ -350,6 +350,11 @@ class Localizable: Static {
             return NSString(format: NSLocalizedString("python.downloadingModule", comment: "A message shown in the console while downloading a module (Downloading module 100%)") as NSString, module, "\(completedPercentage)%") as String
         }
         
+        /// A notification sent to remind that a script is running in background
+        static func isRunning(script: String, since time: String) -> String {
+            return NSString(format: NSLocalizedString("python.isRunningScript", comment: "A notification sent to remind that a script is running in background") as NSString, script, time) as String
+        }
+        
         /// The alert shown when a module is being downloaded for the first time
         class DownloadingModuleAlert: Static {
             
