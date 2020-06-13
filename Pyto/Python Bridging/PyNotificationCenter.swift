@@ -68,6 +68,26 @@ import UserNotifications
         return notifications
     }
     
+    static func scheduleNotification(title: String, message: String, delay: Double) {
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            if settings.authorizationStatus == .notDetermined {
+                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (_, _) in
+                    self.scheduleNotification(title: title, message: message, delay: delay)
+                }
+            } else {
+                
+                let notification = UNMutableNotificationContent()
+                notification.title = title
+                notification.body = message
+                notification.sound = UNNotificationSound.default
+                
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: delay, repeats: false)
+                let request = UNNotificationRequest(identifier: UUID().uuidString, content: notification, trigger: trigger)
+                UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+            }
+        }
+    }
+    
     @objc static func scheduleNotification(message: String, delay: Double, url: String?, actions: [String:String]?, repeats: Bool) {
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .notDetermined {

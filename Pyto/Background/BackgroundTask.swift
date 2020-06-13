@@ -8,6 +8,7 @@
 // https://github.com/yarodevuci/backgroundTask
 
 import AVFoundation
+import UIKit
 
 @objc class BackgroundTask: NSObject {
     
@@ -17,19 +18,81 @@ import AVFoundation
     
     var player = AVAudioPlayer()
     var timer = Timer()
+    var isActive = false
+    
+    @objc var scriptName = "Script"
+    
+    @objc var sendNotification = true
+    
+    @objc var delay: Double = 3600*6 // send a notification every 6 hour
     
     // MARK: - Methods
     
     @objc func startBackgroundTask() {
+        
+        isActive = true
+        
         BackgroundTask.count += 1
         NotificationCenter.default.addObserver(self, selector: #selector(interruptedAudio), name: AVAudioSession.interruptionNotification, object: AVAudioSession.sharedInstance())
         
         if BackgroundTask.count == 1 {
             playAudio()
         }
+        
+        if sendNotification {
+            UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+                if settings.authorizationStatus == .notDetermined {
+                    UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (_, _) in }
+                }
+            }
+        }
+        
+        var time = 0
+        var i = 0
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .abbreviated
+        formatter.zeroFormattingBehavior = [.pad]
+        DispatchQueue.main.async {
+            _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
+                time += 1
+                i += 1
+                
+                for scene in UIApplication.shared.connectedScenes {
+                    if scene.activationState == .foregroundActive || scene.activationState == .foregroundInactive {
+                        i = 0
+                        break
+                    }
+                }
+                
+                if !self.isActive {
+                    timer.invalidate()
+                    return
+                }
+                                
+                if Double(i) >= self.delay {
+                    if time >= 3600*24 { // Running since more than a day
+                        formatter.allowedUnits = [.day, .hour]
+                    } else if time >= 3600 { // Running since more than an hour
+                        formatter.allowedUnits = [.hour, .minute]
+                    } else if time >= 60 { // Running since more than a minute
+                        formatter.allowedUnits = [.minute, .second]
+                    } else {
+                        formatter.allowedUnits = [.second]
+                    }
+                    
+                    if self.sendNotification, let str = formatter.string(from: TimeInterval(time)) {
+                        PyNotificationCenter.scheduleNotification(title: self.scriptName, message: "\(self.scriptName) is running since \(str)", delay: 1)
+                        i = 0
+                    }
+                }
+            })
+        }
     }
     
     @objc func stopBackgroundTask() {
+        
+        isActive = false
+        
         BackgroundTask.count -= 1
         NotificationCenter.default.removeObserver(self, name: AVAudioSession.interruptionNotification, object: nil)
         

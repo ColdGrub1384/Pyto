@@ -1,7 +1,7 @@
 """
 Open third party apps
 
-This modules contains functions to run actions on third party apps. Some apps support returning the result, but a lot of actions will just return None.
+This module contains functions to run actions on third party apps. Some apps support returning the result, but a lot of actions will just return None.
 
 A list of supported apps can be found at https://app-talk.com.
 """

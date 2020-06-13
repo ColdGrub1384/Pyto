@@ -46,6 +46,7 @@ The following modules are integrated with Pyto.
 
    notifications
    remote_notifications
+   background
    music
    photos
    location
