@@ -24,7 +24,9 @@ import UIKit
     
     @objc var sendNotification = true
     
-    @objc var delay: Double = 3600*6 // send a notification every 6 hour
+    @objc var delay: Double = 3600*6
+    
+    @objc var soundPath = Bundle.main.path(forResource: "blank", ofType: "wav")
     
     // MARK: - Methods
     
@@ -111,16 +113,19 @@ import UIKit
     }
     
     fileprivate func playAudio() {
+        
+        guard let soundPath = soundPath else {
+            return
+        }
+        
         do {
-            let bundle = Bundle.main.path(forResource: "blank", ofType: "wav")
-            let alertSound = URL(fileURLWithPath: bundle!)
+            let alertSound = URL(fileURLWithPath: soundPath)
             let session = AVAudioSession.sharedInstance()
             try session.setCategory(.playback, options: .mixWithOthers)
             try session.setActive(true, options: .notifyOthersOnDeactivation)
             try self.player = AVAudioPlayer(contentsOf: alertSound)
             // Play audio forever by setting num of loops to -1
             self.player.numberOfLoops = -1
-            self.player.volume = 0.01
             self.player.prepareToPlay()
             self.player.play()
         } catch { print(error.localizedDescription) }

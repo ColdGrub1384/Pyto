@@ -10,12 +10,14 @@ Note: Because of privacy, apps cannot access to the clipboard in background, so 
 from pyto import __Class__
 from datetime import datetime
 from time import sleep
+from os.path import abspath
 import sys
 import threading
 
 class BackgroundTask:
     """
-    A task to run in background.
+    Represents a task to run in background.
+    When started, the audio at the path passed to the initializer is played. If no audio is passed, a blank audio is used so Pyto isn't killed by the system.
 
     Usage:
 
@@ -79,8 +81,10 @@ class BackgroundTask:
     def reminder_notifications(self, new_value: bool):
         self.__background_task__.sendNotification = new_value
 
-    def __init__(self):
+    def __init__(self, audio_path=None):
         self.__background_task__ = __Class__("BackgroundTask").new()
+        if audio_path is not None:
+            self.__background_task__.soundPath = abspath(audio_path)
 
     def start(self):
         """

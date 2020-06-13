@@ -186,8 +186,9 @@ A great usage of this is fetching data in background and sending notifications w
 <p>Note: Because of privacy, apps cannot access to the clipboard in background, so coding a clipboard manager is not possible.</p>
 <dl class="class">
 <dt id="background.BackgroundTask">
-<em class="property">class </em><code class="sig-prename descclassname">background.</code><code class="sig-name descname">BackgroundTask</code><a class="headerlink" href="#background.BackgroundTask" title="Permalink to this definition">¶</a></dt>
-<dd><p>A task to run in background.</p>
+<em class="property">class </em><code class="sig-prename descclassname">background.</code><code class="sig-name descname">BackgroundTask</code><span class="sig-paren">(</span><em class="sig-param">audio_path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#background.BackgroundTask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a task to run in background.
+When started, the audio at the path passed to the initializer is played. If no audio is passed, a blank audio is used so Pyto isn’t killed by the system.</p>
 <p>Usage:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">background</span> <span class="kn">as</span> <span class="nn">bg</span>
 
