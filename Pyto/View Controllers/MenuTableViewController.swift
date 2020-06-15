@@ -49,13 +49,48 @@ import SwiftUI
     }
     
     /// Opens PyPi.
+    @available(iOS 13.0, *)
     func selectPyPi() {
-        if let pypi = self.storyboard?.instantiateViewController(withIdentifier: "pypi") {
-            let navVC = UINavigationController(rootViewController: pypi)
-            navVC.modalPresentationStyle = .formSheet
-            navVC.navigationBar.prefersLargeTitles = true
-            present(navVC, animated: true, completion: nil)
+        
+        let navVC = UINavigationController(rootViewController: UIViewController())
+                
+        func run(command: String) {
+            let installer = PipInstallerViewController(command: command)
+            let _navVC = ThemableNavigationController(rootViewController: installer)
+            _navVC.modalPresentationStyle = .formSheet
+            navVC.present(_navVC, animated: true, completion: nil)
         }
+        
+        let view = PyPiView(hostingController: navVC) { package, install, remove in
+            
+            if install {
+                run(command: "--verbose install \(package)")
+            } else if remove {
+                run(command: "--verbose uninstall \(package)")
+            } else {
+                if let pypi = self.storyboard?.instantiateViewController(withIdentifier: "pypi") as? PipViewController {
+                    DispatchQueue.global().async {
+                        let pyPackage = PyPackage(name: package)
+                        
+                        DispatchQueue.main.async {
+                            
+                            pypi.currentPackage = pyPackage
+                            if let name = pyPackage?.name {
+                                pypi.title = name
+                            }
+                            
+                            navVC.show(pypi, sender: nil)
+                        }
+                    }
+                }
+            }
+        }
+        
+        navVC.setViewControllers([UIHostingController(rootView: view)], animated: false)
+        navVC.modalPresentationStyle = .formSheet
+        navVC.navigationBar.prefersLargeTitles = true
+                
+        present(navVC, animated: true, completion: nil)
     }
     
     /// Show samples..

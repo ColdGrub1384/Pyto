@@ -52,6 +52,30 @@ import TrueTime
     
     private let copyModulesQueue = DispatchQueue.global(qos: .background)
     
+    /// Updates the PyPi index cache.
+    func updatePyPiCache() {
+        
+        
+        
+        URLSession.shared.downloadTask(with: URL(string: "https://pypi.org/simple")!) { (fileURL, _, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else if let url = fileURL {
+                
+                let cacheURL = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0].appendingPathComponent("pypi_index.html")
+                if FileManager.default.fileExists(atPath: cacheURL.path) {
+                    try? FileManager.default.removeItem(at: cacheURL)
+                }
+                
+                do {
+                    try FileManager.default.copyItem(at: url, to: cacheURL)
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }.resume()
+    }
+    
     /// Copies modules to shared container.
     func copyModules() {
         
@@ -185,7 +209,6 @@ import TrueTime
         UNUserNotificationCenter.current().delegate = self
         
         #if MAIN
-        
         setenv("PWD", FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].path, 1)
         setenv("SSL_CERT_FILE", Bundle.main.path(forResource: "cacert", ofType: "pem"), 1)
         
@@ -352,6 +375,7 @@ import TrueTime
         
         observeUserDefaults()
         
+        updatePyPiCache()
         #else
         window = UIWindow()
         window?.backgroundColor = .white

@@ -10,7 +10,7 @@ import UIKit
 import SafariServices
 
 /// A View controller for installing PyPi packages.
-@objc class PipViewController: UITableViewController, UISearchBarDelegate, UISearchControllerDelegate {
+@objc class PipViewController: UITableViewController {
     
     private class VersionSelectorTableViewController: UITableViewController {
         
@@ -144,20 +144,6 @@ import SafariServices
         super.viewDidLoad()
         
         _originalTitle = title
-        
-        let searchController = UISearchController(searchResultsController: nil)
-        searchController.delegate = self
-        searchController.searchBar.delegate = self
-        searchController.searchBar.placeholder = Localizable.PyPi.searchBarPlaceholder
-        searchController.searchBar.autocorrectionType = .no
-        searchController.searchBar.autocapitalizationType = .none
-        searchController.hidesNavigationBarDuringPresentation = false
-        navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
-        
-        definesPresentationContext = true
-        
-        navigationItem.largeTitleDisplayMode = .always
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -375,29 +361,5 @@ import SafariServices
         default:
             break
         }
-    }
-    
-    // MARK: - Search bar delegate
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = searchBar.text?.lowercased()
-        title = searchBar.text
-        if title?.isEmpty != false {
-            title = _originalTitle
-        }
-        
-        if let title = title {
-            DispatchQueue.global().async {
-                self.currentPackage = PyPackage(name: title)
-            }
-        }
-        
-        navigationItem.searchController?.isActive = false
-    }
-        
-    // MARK: - Search controller delegate
-    
-    func presentSearchController(_ searchController: UISearchController) {
-        searchController.searchBar.becomeFirstResponder()
     }
 }
