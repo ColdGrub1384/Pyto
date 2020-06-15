@@ -36,7 +36,8 @@ def _main_function_no_one_calls_a_function_like_that():
         pass
     
     bin = os.path.expanduser("~/Documents/stash_extensions/bin")
-    sys.path.insert(-1, bin)
+    if not bin in sys.path:
+        sys.path.insert(-1, bin)
 
     sys.argv = command
 
@@ -52,6 +53,9 @@ def _main_function_no_one_calls_a_function_like_that():
         print(traceback.format_exc())
 
     sys.argv = [sys.argv[0]]
+    
+    if bin in sys.path:
+        sys.path.remove(bin)
 
 if len(sys.argv) > 1:
     _main_function_no_one_calls_a_function_like_that()
