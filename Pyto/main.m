@@ -12,7 +12,7 @@
 #import "../Python/Python.h"
 #if MAIN
 #import "Pyto-Swift.h"
-#import "../Zmq/zmq.h"
+#import "../Extensions/Zmq/zmq.h"
 #elif WIDGET
 #import "Pyto_Widget-Swift.h"
 #endif

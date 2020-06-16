@@ -14,6 +14,7 @@ from os.path import abspath
 import sys
 import threading
 
+
 class BackgroundTask:
     """
     Represents a task to run in background.
@@ -48,7 +49,7 @@ class BackgroundTask:
         else:
             date = datetime.now()
 
-        return int((date-self.start_date).total_seconds())
+        return int((date - self.start_date).total_seconds())
 
     @property
     def notification_delay(self) -> int:
@@ -122,7 +123,7 @@ class BackgroundTask:
 
     def __enter__(self):
         self.start()
-        
+
         return self
 
     def __exit__(self, type, value, traceback):
