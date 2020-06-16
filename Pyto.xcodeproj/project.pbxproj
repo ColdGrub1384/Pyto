@@ -555,8 +555,7 @@
 		C9D2AA762215A503006AF527 /* EditorViewController+highlighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D2AA752215A503006AF527 /* EditorViewController+highlighting.swift */; };
 		C9D3586A22EB7A3400F0B9E8 /* Dusk.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D3586922EB7A3400F0B9E8 /* Dusk.swift */; };
 		C9DCD2D62469B3DD00E89F7A /* libzmq-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9DCD2BF2469B3DD00E89F7A /* libzmq-ios.a */; };
-		C9DF049C24995A4A0073A871 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C95FA6E024994A54004A4197 /* opencv2.framework */; };
-		C9DF049D24995A4C0073A871 /* opencv2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C95FA6E024994A54004A4197 /* opencv2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9DF04C524996DB20073A871 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF04C424996DB20073A871 /* opencv2.framework */; };
 		C9DF71062171768A00981B4F /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C943AC3D215277A000844368 /* Python.framework */; };
 		C9DF71072171768A00981B4F /* Python.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C943AC3D215277A000844368 /* Python.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9E016ED22823186002DF4CA /* EditorScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E016EC22823186002DF4CA /* EditorScript.swift */; };
@@ -2340,7 +2339,6 @@
 				C92A7D3822F99AD700D3B4DF /* _greyreconstruct.framework in Embed Frameworks */,
 				C92A7D3A22F99AD700D3B4DF /* geometry.framework in Embed Frameworks */,
 				C92A7D3B22F99AD700D3B4DF /* _histograms.framework in Embed Frameworks */,
-				C9DF049D24995A4C0073A871 /* opencv2.framework in Embed Frameworks */,
 				C92A7D3C22F99AD700D3B4DF /* _unwrap_2d.framework in Embed Frameworks */,
 				C92A7D3D22F99AD700D3B4DF /* core_cy.framework in Embed Frameworks */,
 				C92A7D3E22F99AD700D3B4DF /* _cascade.framework in Embed Frameworks */,
@@ -2716,7 +2714,6 @@
 		C95EE4EB2207025B006611CB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C95EE7DA23273D9B0084EA0C /* openblas.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = openblas.framework; sourceTree = "<group>"; };
 		C95FA6DF24994A54004A4197 /* cv2.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = cv2.o; sourceTree = "<group>"; };
-		C95FA6E024994A54004A4197 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		C96229D22467BE2600D0D697 /* lmpar.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = lmpar.c; sourceTree = "<group>"; };
 		C96229D32467BE2600D0D697 /* lmder.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = lmder.c; sourceTree = "<group>"; };
 		C96229D42467BE2600D0D697 /* chkder_.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = chkder_.c; sourceTree = "<group>"; };
@@ -3291,6 +3288,7 @@
 		C9D2AA752215A503006AF527 /* EditorViewController+highlighting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorViewController+highlighting.swift"; sourceTree = "<group>"; };
 		C9D3586922EB7A3400F0B9E8 /* Dusk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dusk.swift; sourceTree = "<group>"; };
 		C9DCD2BF2469B3DD00E89F7A /* libzmq-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libzmq-ios.a"; sourceTree = "<group>"; };
+		C9DF04C424996DB20073A871 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		C9E016EC22823186002DF4CA /* EditorScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorScript.swift; sourceTree = "<group>"; };
 		C9E016F022823E30002DF4CA /* EditorActionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorActionsTableViewController.swift; sourceTree = "<group>"; };
 		C9E116DF21F773EB00FB5DD2 /* UserREPL.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = UserREPL.py; sourceTree = "<group>"; };
@@ -5678,7 +5676,7 @@
 				C9F8F80A2302569C004648F4 /* fpbisp.o in Frameworks */,
 				C9F8F8A72302569C004648F4 /* zunk1.o in Frameworks */,
 				C9F8F9162302569C004648F4 /* concur.o in Frameworks */,
-				C9DF049C24995A4A0073A871 /* opencv2.framework in Frameworks */,
+				C9DF04C524996DB20073A871 /* opencv2.framework in Frameworks */,
 				C9F8F8CA2302569C004648F4 /* shichi.o in Frameworks */,
 				C9F8F8312302569C004648F4 /* stpmv.o in Frameworks */,
 				C9F8F8D12302569C004648F4 /* cfftf.o in Frameworks */,
@@ -6233,7 +6231,6 @@
 			isa = PBXGroup;
 			children = (
 				C95FA6DF24994A54004A4197 /* cv2.o */,
-				C95FA6E024994A54004A4197 /* opencv2.framework */,
 			);
 			path = OpenCV;
 			sourceTree = "<group>";
@@ -7016,6 +7013,7 @@
 		C9AC411E249811BF00847A13 /* Subprojects */ = {
 			isa = PBXGroup;
 			children = (
+				C9DF04C424996DB20073A871 /* opencv2.framework */,
 				C9816988235E5E6B0062A91F /* Python3_ios.xcodeproj */,
 				C9AC411F249811C500847A13 /* InputAssistant.xcodeproj */,
 				C984729021A059F2008E16AC /* Python iOS */,
@@ -10023,7 +10021,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 285;
+				CURRENT_PROJECT_VERSION = 286;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -10087,7 +10085,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 285;
+				CURRENT_PROJECT_VERSION = 286;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -10265,7 +10263,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 285;
+				CURRENT_PROJECT_VERSION = 286;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_PREVIEWS = YES;
@@ -10291,7 +10289,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 285;
+				CURRENT_PROJECT_VERSION = 286;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_PREVIEWS = YES;
@@ -10318,7 +10316,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 285;
+				CURRENT_PROJECT_VERSION = 286;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
@@ -10339,7 +10337,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 285;
+				CURRENT_PROJECT_VERSION = 286;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
@@ -10360,7 +10358,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 285;
+				CURRENT_PROJECT_VERSION = 286;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -10389,7 +10387,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 285;
+				CURRENT_PROJECT_VERSION = 286;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -10668,7 +10666,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 285;
+				CURRENT_PROJECT_VERSION = 286;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -10788,7 +10786,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 285;
+				CURRENT_PROJECT_VERSION = 286;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
