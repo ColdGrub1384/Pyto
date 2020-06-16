@@ -259,6 +259,6 @@ public struct OnboardingView: View {
 @available(iOS 13.0.0, *)
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
-        OnboardingView(isTrialEnded: false, fullFeaturedPrice: "9.99$", noExtensionsPrice: "3.99$", startFreeTrial: {}, purchaseFull: {}, purchaseLite: {}, restore: {}).previewLayout(.fixed(width: 568, height: 320))
+        OnboardingView(isTrialEnded: false, fullFeaturedPrice: "9.99$", noExtensionsPrice: "2.99$", startFreeTrial: {}, purchaseFull: {}, purchaseLite: {}, restore: {}).previewLayout(.fixed(width: 568, height: 320))
     }
 }

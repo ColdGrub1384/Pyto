@@ -252,7 +252,7 @@ func completePurchase(id: String) {
 func showOnboarding(window: UIWindow?, isTrialExpired: Bool = false) {
     SwiftyStoreKit.retrieveProductsInfo(Set([Product.fullVersion.rawValue, Product.liteVersion.rawValue])) { (results) in
         var fullPrice = "9.99$"
-        var litePrice = "3.99$"
+        var litePrice = "2.99$"
         
         for result in results.retrievedProducts {
             if result.productIdentifier == Product.fullVersion.rawValue {

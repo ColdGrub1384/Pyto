@@ -160,7 +160,6 @@
 		C92A7D4722F99AD700D3B4DF /* _denoise_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C92A7CE122F99A4700D3B4DF /* _denoise_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C92ACE3321F0D8CB00FA8904 /* SolarizedLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92ACE3221F0D8CB00FA8904 /* SolarizedLight.swift */; };
 		C92ACE3721F0DBF600FA8904 /* SolarizedDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92ACE3621F0DBF600FA8904 /* SolarizedDark.swift */; };
-		C92D5E5C2309D14900C82225 /* cv2.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C97868152304E1E700BD6FA4 /* cv2.o */; };
 		C92DBD8021F67B9D0098BE43 /* REPL.py in Resources */ = {isa = PBXBuildFile; fileRef = C92DBD7F21F67B9C0098BE43 /* REPL.py */; };
 		C92DBD8221F687480098BE43 /* REPLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92DBD8121F687480098BE43 /* REPLViewController.swift */; };
 		C92EAC6422D93D2800729970 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A4214461D300382DCC /* libsqlite3.tbd */; };
@@ -198,8 +197,6 @@
 		C93D62DC24981A7700CE60BE /* InputAssistant.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AC4126249811C500847A13 /* InputAssistant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C93D62DD24981A9000CE60BE /* InputAssistant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9AC4126249811C500847A13 /* InputAssistant.framework */; };
 		C93D62DE24981F8E00CE60BE /* _sodium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9AC4132249813C600847A13 /* _sodium.framework */; };
-		C93D62E824984CD500CE60BE /* opencv2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C93D62E32498310B00CE60BE /* opencv2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C93D62E92498574900CE60BE /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C93D62E32498310B00CE60BE /* opencv2.framework */; };
 		C942474724844DCD00C9FF02 /* ShortcutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96A19DE2484297700AFD7BD /* ShortcutsView.swift */; };
 		C942475E24844DD400C9FF02 /* JSONBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90BC0C12473524300EF7F09 /* JSONBrowserView.swift */; };
 		C942475F24844DD400C9FF02 /* ValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F1E4DD247379F100A28F2A /* ValueView.swift */; };
@@ -265,6 +262,7 @@
 		C95EE4F9220702A0006611CB /* pngwtran.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BB02202590F0085E1AA /* pngwtran.c */; };
 		C95EE4FA220702A2006611CB /* pngwutil.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5B9F2202590D0085E1AA /* pngwutil.c */; };
 		C95EE93E23273DC20084EA0C /* openblas.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE7DA23273D9B0084EA0C /* openblas.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C95FA6E224994A54004A4197 /* cv2.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95FA6DF24994A54004A4197 /* cv2.o */; };
 		C9622B772467BE5200D0D697 /* lmpar.c in Sources */ = {isa = PBXBuildFile; fileRef = C96229D22467BE2600D0D697 /* lmpar.c */; };
 		C9622B782467BE5200D0D697 /* lmder.c in Sources */ = {isa = PBXBuildFile; fileRef = C96229D32467BE2600D0D697 /* lmder.c */; };
 		C9622B792467BE5200D0D697 /* chkder_.c in Sources */ = {isa = PBXBuildFile; fileRef = C96229D42467BE2600D0D697 /* chkder_.c */; };
@@ -557,6 +555,8 @@
 		C9D2AA762215A503006AF527 /* EditorViewController+highlighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D2AA752215A503006AF527 /* EditorViewController+highlighting.swift */; };
 		C9D3586A22EB7A3400F0B9E8 /* Dusk.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D3586922EB7A3400F0B9E8 /* Dusk.swift */; };
 		C9DCD2D62469B3DD00E89F7A /* libzmq-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9DCD2BF2469B3DD00E89F7A /* libzmq-ios.a */; };
+		C9DF049C24995A4A0073A871 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C95FA6E024994A54004A4197 /* opencv2.framework */; };
+		C9DF049D24995A4C0073A871 /* opencv2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C95FA6E024994A54004A4197 /* opencv2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9DF71062171768A00981B4F /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C943AC3D215277A000844368 /* Python.framework */; };
 		C9DF71072171768A00981B4F /* Python.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C943AC3D215277A000844368 /* Python.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9E016ED22823186002DF4CA /* EditorScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E016EC22823186002DF4CA /* EditorScript.swift */; };
@@ -2092,7 +2092,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C93D62E824984CD500CE60BE /* opencv2.framework in Embed Frameworks */,
 				C93D62DC24981A7700CE60BE /* InputAssistant.framework in Embed Frameworks */,
 				C9AC41352498143000847A13 /* _sodium.framework in Embed Frameworks */,
 				C9095136247A000C00931684 /* emd.framework in Embed Frameworks */,
@@ -2341,6 +2340,7 @@
 				C92A7D3822F99AD700D3B4DF /* _greyreconstruct.framework in Embed Frameworks */,
 				C92A7D3A22F99AD700D3B4DF /* geometry.framework in Embed Frameworks */,
 				C92A7D3B22F99AD700D3B4DF /* _histograms.framework in Embed Frameworks */,
+				C9DF049D24995A4C0073A871 /* opencv2.framework in Embed Frameworks */,
 				C92A7D3C22F99AD700D3B4DF /* _unwrap_2d.framework in Embed Frameworks */,
 				C92A7D3D22F99AD700D3B4DF /* core_cy.framework in Embed Frameworks */,
 				C92A7D3E22F99AD700D3B4DF /* _cascade.framework in Embed Frameworks */,
@@ -2572,7 +2572,6 @@
 		C93D61DE2145D03200C8B5E3 /* UIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
 		C93D61E02145D46700C8B5E3 /* PyOutputHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyOutputHelper.swift; sourceTree = "<group>"; };
 		C93D61E22145D50A00C8B5E3 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		C93D62E32498310B00CE60BE /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		C93E9F0222BAC7F00065A3F2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
 		C93E9F0322BAC7F50065A3F2 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/libbz2.tbd; sourceTree = DEVELOPER_DIR; };
 		C93E9F0422BAC7FA0065A3F2 /* libbz2.1.0.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.1.0.5.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/libbz2.1.0.5.tbd; sourceTree = DEVELOPER_DIR; };
@@ -2716,6 +2715,8 @@
 		C95EE4DF22070224006611CB /* libpng.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = libpng.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C95EE4EB2207025B006611CB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C95EE7DA23273D9B0084EA0C /* openblas.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = openblas.framework; sourceTree = "<group>"; };
+		C95FA6DF24994A54004A4197 /* cv2.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = cv2.o; sourceTree = "<group>"; };
+		C95FA6E024994A54004A4197 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		C96229D22467BE2600D0D697 /* lmpar.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = lmpar.c; sourceTree = "<group>"; };
 		C96229D32467BE2600D0D697 /* lmder.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = lmder.c; sourceTree = "<group>"; };
 		C96229D42467BE2600D0D697 /* chkder_.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = chkder_.c; sourceTree = "<group>"; };
@@ -3164,7 +3165,6 @@
 		C97867D52304DEB000BD6FA4 /* libjpeg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = libjpeg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C97867D72304DEB000BD6FA4 /* libjpeg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libjpeg.h; sourceTree = "<group>"; };
 		C97867D82304DEB000BD6FA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C97868152304E1E700BD6FA4 /* cv2.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = cv2.o; sourceTree = "<group>"; };
 		C97AA89A248947BD0063B6F8 /* ReceiptValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptValidator.swift; sourceTree = "<group>"; };
 		C97AA8B22489495D0063B6F8 /* AppleIncRootCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleIncRootCertificate.cer; sourceTree = "<group>"; };
 		C97AA8D12489584A0063B6F8 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -4676,7 +4676,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C93D62E92498574900CE60BE /* opencv2.framework in Frameworks */,
+				C95FA6E224994A54004A4197 /* cv2.o in Frameworks */,
 				C93D62DE24981F8E00CE60BE /* _sodium.framework in Frameworks */,
 				C93D62DD24981A9000CE60BE /* InputAssistant.framework in Frameworks */,
 				C9816990235E5EB50062A91F /* pythonA.framework in Frameworks */,
@@ -4851,7 +4851,6 @@
 				C9F8F8802302569C004648F4 /* prini.o in Frameworks */,
 				C9F8F8C52302569C004648F4 /* mio5_utils.o in Frameworks */,
 				C937B9CD22EE431100269FC6 /* diff.o in Frameworks */,
-				C92D5E5C2309D14900C82225 /* cv2.o in Frameworks */,
 				C9F8F7FB2302569C004648F4 /* CGSREVCOM.o in Frameworks */,
 				C9F8FA592302569D004648F4 /* ztpmv.o in Frameworks */,
 				C9F8F8FC2302569C004648F4 /* fppogr.o in Frameworks */,
@@ -5679,6 +5678,7 @@
 				C9F8F80A2302569C004648F4 /* fpbisp.o in Frameworks */,
 				C9F8F8A72302569C004648F4 /* zunk1.o in Frameworks */,
 				C9F8F9162302569C004648F4 /* concur.o in Frameworks */,
+				C9DF049C24995A4A0073A871 /* opencv2.framework in Frameworks */,
 				C9F8F8CA2302569C004648F4 /* shichi.o in Frameworks */,
 				C9F8F8312302569C004648F4 /* stpmv.o in Frameworks */,
 				C9F8F8D12302569C004648F4 /* cfftf.o in Frameworks */,
@@ -6227,6 +6227,15 @@
 				C9C32E6323C11015003B5971 /* _cffi_backend.framework */,
 			);
 			path = CFFI;
+			sourceTree = "<group>";
+		};
+		C95FA6DD24994A54004A4197 /* OpenCV */ = {
+			isa = PBXGroup;
+			children = (
+				C95FA6DF24994A54004A4197 /* cv2.o */,
+				C95FA6E024994A54004A4197 /* opencv2.framework */,
+			);
+			path = OpenCV;
 			sourceTree = "<group>";
 		};
 		C96229D12467BE2600D0D697 /* cminpack-master */ = {
@@ -6841,15 +6850,6 @@
 			path = libjpeg;
 			sourceTree = "<group>";
 		};
-		C97868122304E19300BD6FA4 /* OpenCV */ = {
-			isa = PBXGroup;
-			children = (
-				C93D62E32498310B00CE60BE /* opencv2.framework */,
-				C97868152304E1E700BD6FA4 /* cv2.o */,
-			);
-			path = OpenCV;
-			sourceTree = "<group>";
-		};
 		C97B021023E9F82700032925 /* Pyto Watch */ = {
 			isa = PBXGroup;
 			children = (
@@ -7040,6 +7040,7 @@
 		C9AC412C249812F600847A13 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C95FA6DD24994A54004A4197 /* OpenCV */,
 				C95EE98D23273E050084EA0C /* CFFI */,
 				C95EE6DA23273D9A0084EA0C /* OpenBlas */,
 				C97B75FD22046C3500A05C8D /* Kiwisolver */,
@@ -7053,7 +7054,6 @@
 				C982A6E722F8D83600E999AA /* SkLearn */,
 				C92A7CAF22F99A4700D3B4DF /* SkImage */,
 				C96D324122F74283007D2289 /* Pywt */,
-				C97868122304E19300BD6FA4 /* OpenCV */,
 				C995FB76233AD2BA00A8D42C /* PyNacl */,
 				C9C3308123C2902F003B5971 /* Bcrypt */,
 				C9622BA824688A5F00D0D697 /* Statsmodels */,
@@ -10023,7 +10023,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 284;
+				CURRENT_PROJECT_VERSION = 285;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -10045,6 +10045,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
+					/usr/lib/swift,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -10086,7 +10087,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 284;
+				CURRENT_PROJECT_VERSION = 285;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
@@ -10106,6 +10107,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
+					/usr/lib/swift,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -10263,7 +10265,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 284;
+				CURRENT_PROJECT_VERSION = 285;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_PREVIEWS = YES;
@@ -10289,7 +10291,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 284;
+				CURRENT_PROJECT_VERSION = 285;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_PREVIEWS = YES;
@@ -10316,7 +10318,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 284;
+				CURRENT_PROJECT_VERSION = 285;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
@@ -10337,7 +10339,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 284;
+				CURRENT_PROJECT_VERSION = 285;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
@@ -10358,7 +10360,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 284;
+				CURRENT_PROJECT_VERSION = 285;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -10387,7 +10389,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 284;
+				CURRENT_PROJECT_VERSION = 285;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -10666,7 +10668,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 284;
+				CURRENT_PROJECT_VERSION = 285;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -10687,6 +10689,7 @@
 					"$(PROJECT_DIR)/Extensions/OpenCV",
 					"$(PROJECT_DIR)/Extensions/OpenBlas",
 					"$(PROJECT_DIR)/Extensions/Bcrypt",
+					"$(PROJECT_DIR)/OpenCV",
 				);
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_OPTIMIZATION_LEVEL = s;
@@ -10785,7 +10788,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 284;
+				CURRENT_PROJECT_VERSION = 285;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -10806,6 +10809,7 @@
 					"$(PROJECT_DIR)/Extensions/OpenCV",
 					"$(PROJECT_DIR)/Extensions/OpenBlas",
 					"$(PROJECT_DIR)/Extensions/Bcrypt",
+					"$(PROJECT_DIR)/OpenCV",
 				);
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_OPTIMIZATION_LEVEL = s;
