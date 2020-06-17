@@ -49,7 +49,7 @@ extension NSPointerArray {
     private static var isScriptExecuted = false
     
     static func runStartupScriptIfNeeded() {
-        guard !isScriptExecuted, let path = startupScript else {
+        guard !isScriptExecuted, let _ = startupScript else {
             return
         }
         
