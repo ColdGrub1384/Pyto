@@ -1550,101 +1550,35 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
         
         // Close parentheses and brackets.
-        if let start = textView.selectedTextRange?.start, let textRange = textView.textRange(from: start, to: textView.endOfDocument) {
-         
-            if text == "(" {
-                var parenthesesFound = false
-                var closeParentheses = false
-                for char in textView.text(in: textRange) ?? "" {
-                    if char == "(" {
-                        closeParentheses = true
-                        parenthesesFound = true
-                        break
-                    } else if char == ")" {
-                        parenthesesFound = true
-                        break
-                    }
-                }
-                
-                textView.insertText("(")
-                
+        let completable: [(String, String)] = [
+            ("(", ")"),
+            ("[", "]"),
+            ("{", "}"),
+            ("\"", "\""),
+            ("'", "'")
+        ]
+        
+        for chars in completable {
+            if text == chars.0 {
+                textView.insertText(chars.0)
                 let range = textView.selectedTextRange
-                
-                closeParentheses = false
-               
-                if !parenthesesFound || closeParentheses {
-                    textView.insertText(")")
-                }
-                
+                textView.insertText(chars.1)
                 textView.selectedTextRange = range
                 
                 return false
             }
             
-            if text == "[" {
+            if text == chars.1 {
+                let range = textView.selectedRange
+                let nextCharRange = NSRange(location: range.location, length: 1)
+                let nsText = NSString(string: textView.text)
                 
-                var bracketsFound = false
-                var closeBrackets = false
-                for char in textView.text(in: textRange) ?? "" {
-                    if char == "[" {
-                        closeBrackets = true
-                        bracketsFound = true
-                        break
-                    } else if char == "]" {
-                        bracketsFound = true
-                        break
-                    }
+                if nsText.length > nextCharRange.location, nsText.substring(with: nextCharRange) == ")" {
+                    textView.selectedTextRange = NSRange(location: range.location+1, length: 0).toTextRange(textInput: textView)
+                    return false
                 }
-                
-                textView.insertText("[")
-                
-                let range = textView.selectedTextRange
-                
-                closeBrackets = false
-               
-                if !bracketsFound || closeBrackets {
-                    textView.insertText("]")
-                }
-                
-                textView.selectedTextRange = range
-                
-                return false
-            }
-            
-            if text == "{" {
-                
-                var curlyBracesFound = false
-                var closeCurlyBraces = false
-                for char in textView.text(in: textRange) ?? "" {
-                    if char == "{" {
-                        closeCurlyBraces = true
-                        curlyBracesFound = true
-                        break
-                    } else if char == "}" {
-                        curlyBracesFound = true
-                        break
-                    }
-                }
-                
-                textView.insertText("{")
-                
-                let range = textView.selectedTextRange
-                
-                closeCurlyBraces = false
-               
-                if !curlyBracesFound || closeCurlyBraces {
-                    textView.insertText("}")
-                }
-                
-                textView.selectedTextRange = range
-                
-                return false
             }
         }
-        /*if (characterBeforeCursor() == "(" && text == ")" && characterAfterCursor() == ")") || (characterBeforeCursor() == "[" && text == "]" && characterAfterCursor() == "]") || (characterBeforeCursor() == "{" && text == "}" && characterAfterCursor() == "}") {
-            textView.selectedRange = NSRange(location: textView.selectedRange.location+1, length: textView.selectedRange.length)
-            return false
-        }*/
         
         if text == "\n", var currentLine = textView.currentLine, let currentLineRange = textView.currentLineRange, let selectedRange = textView.selectedTextRange {
             
