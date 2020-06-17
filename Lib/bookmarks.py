@@ -53,6 +53,8 @@ class StoredBookmark:
 
     __type__ = None
 
+    __bookmark_name__ = None
+
     path: str = None
     """
     The file path stored in the bookmark,
@@ -64,10 +66,12 @@ class StoredBookmark:
         """
 
         bm = __stored_bookmarks__()
-        del bm[self.name]
+        del bm[self.__bookmark_name__]
         userkeys.set(bm, __key__)
 
     def __init__(self, name: str = None, path: str = None):
+
+        self.__bookmark_name__ = name
 
         if self.__type__ is None:
             raise NotImplementedError("Initialized an instance of StoredBookmark. Use FileBookmark or FolderBookmark instead.")
