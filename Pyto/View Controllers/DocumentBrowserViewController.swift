@@ -13,7 +13,7 @@ import SplitKit
 import SavannaKit
 
 /// The main file browser used to edit scripts.
-@objc class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate, UIViewControllerTransitioningDelegate {
+@objc public class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate, UIViewControllerTransitioningDelegate {
     
     /// The visible instance.
     /*@available(*, deprecated, message: "Use scenes APIs instead.") static var visible: DocumentBrowserViewController? {
@@ -68,7 +68,7 @@ import SavannaKit
     ///     - folder: If opened from a project, the folder of the project.
     ///     - animated: Set to `true` if the presentation should be animated.
     ///     - completion: Code called after presenting the UI.
-    func openDocument(_ documentURL: URL, run: Bool, viewController: UIViewController? = nil, isShortcut: Bool = false, folder: FolderDocument? = nil, animated: Bool = true, completion: (() -> Void)? = nil) {
+    public func openDocument(_ documentURL: URL, run: Bool, viewController: UIViewController? = nil, isShortcut: Bool = false, folder: FolderDocument? = nil, animated: Bool = true, completion: (() -> Void)? = nil) {
         
         let tintColor = ConsoleViewController.choosenTheme.tintColor ?? UIColor(named: "TintColor") ?? .orange
         
@@ -180,7 +180,7 @@ import SavannaKit
     
     // MARK: - Document browser view controller
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         
         additionalLeadingNavigationBarButtonItems = [UIBarButtonItem(image: EditorSplitViewController.threeDotsImage, style: .plain, target: self, action: #selector(showMore(_:)))]
@@ -198,7 +198,7 @@ import SavannaKit
         delegate = self
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         PyCore.runStartupScriptIfNeeded()
@@ -216,12 +216,12 @@ import SavannaKit
     
     // MARK: - Document browser view controller delegate
     
-    func documentBrowser(_ controller: UIDocumentBrowserViewController, didPickDocumentsAt documentURLs: [URL]) {
+    public func documentBrowser(_ controller: UIDocumentBrowserViewController, didPickDocumentsAt documentURLs: [URL]) {
         
         openDocument(documentURLs[0], run: false)
     }
     
-    func documentBrowser(_ controller: UIDocumentBrowserViewController, didRequestDocumentCreationWithHandler importHandler: @escaping (URL?, UIDocumentBrowserViewController.ImportMode) -> Void) {
+    public func documentBrowser(_ controller: UIDocumentBrowserViewController, didRequestDocumentCreationWithHandler importHandler: @escaping (URL?, UIDocumentBrowserViewController.ImportMode) -> Void) {
         
         let navVC = UIStoryboard(name: "Template Chooser", bundle: nil).instantiateInitialViewController()!
         ((navVC as? UINavigationController)?.topViewController as? TemplateChooserTableViewController)?.importHandler = importHandler
@@ -229,7 +229,7 @@ import SavannaKit
         present(navVC, animated: true, completion: nil)
     }
     
-    func documentBrowser(_ controller: UIDocumentBrowserViewController, didImportDocumentAt sourceURL: URL, toDestinationURL destinationURL: URL) {
+    public func documentBrowser(_ controller: UIDocumentBrowserViewController, didImportDocumentAt sourceURL: URL, toDestinationURL destinationURL: URL) {
         
         openDocument(destinationURL, run: false)
     }
@@ -241,11 +241,11 @@ import SavannaKit
     
     // MARK: - View controller transition delegate
     
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return transitionController
     }
     
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return transitionController
     }
 }

@@ -11,7 +11,7 @@ import QuickLook
 import MobileCoreServices
 
 /// The file browser used to manage files inside a project.
-class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate, UIContextMenuInteractionDelegate, UITableViewDragDelegate, UITableViewDropDelegate {
+public class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate, UIContextMenuInteractionDelegate, UITableViewDragDelegate, UITableViewDropDelegate {
         
     private struct LocalFile {
         var url: URL
@@ -172,7 +172,7 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
     
     // MARK: - Table view controller
     
-    override func viewWillAppear(_ animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         tableView.reloadData()
@@ -187,7 +187,7 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
         }
     }
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         
         clearsSelectionOnViewWillAppear = true
@@ -199,11 +199,11 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
         navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createNewFile(_:)))]
     }
         
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return files.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
         
         let icloud = (files[indexPath.row].pathExtension == "icloud" && files[indexPath.row].lastPathComponent.hasPrefix("."))
@@ -243,7 +243,7 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         var isDir: ObjCBool = false
         if FileManager.default.fileExists(atPath: files[indexPath.row].path, isDirectory: &isDir) && isDir.boolValue {
@@ -335,11 +335,11 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
         }
     }
     
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    public override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    public override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             do {
                 try FileManager.default.removeItem(at: files[indexPath.row])
@@ -355,7 +355,7 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
     
     // MARK: - Table view drag delegate
     
-    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+    public func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         
         let file = files[indexPath.row]
         
@@ -377,11 +377,11 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
     
     // MARK: - Table view drop delegate
     
-    func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
+    public func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
         return session.hasItemsConforming(toTypeIdentifiers: [kUTTypeItem as String])
     }
     
-    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+    public func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
         
         for item in coordinator.items {
             if item.dragItem.itemProvider.hasItemConformingToTypeIdentifier(kUTTypeItem as String) {
@@ -418,7 +418,7 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
         }
     }
     
-    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+    public func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
         
         if let local = session.items.first?.localObject as? LocalFile, local.url.deletingLastPathComponent() != directory {
             return UITableViewDropProposal(operation: .move)
@@ -447,7 +447,7 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
         
     // MARK: - Document picker view controller delegate
     
-    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+    public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         
         func move(at index: Int) {
             do {
@@ -478,7 +478,7 @@ class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate
     // MARK: - Context menu interaction delegate
     
     @available(iOS 13.0, *)
-    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+    public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
         
         guard let cell = interaction.view as? UITableViewCell else {
             return nil

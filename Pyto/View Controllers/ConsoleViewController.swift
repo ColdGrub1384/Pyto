@@ -150,7 +150,7 @@ import SwiftUI
     @objc var console = ""
     
     /// The Text view containing the console.
-    @objc var textView = ConsoleTextView()
+    @objc public var textView = ConsoleTextView()
     
     /// If set to `true`, the user will not be able to input.
     var ignoresInput = false

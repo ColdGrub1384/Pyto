@@ -10,7 +10,7 @@ import UIKit
 import SplitKit
 
 /// A Split view controller for displaying the editor and the console.
-class EditorSplitViewController: SplitViewController {
+public class EditorSplitViewController: SplitViewController {
     
     /// If set to `true`, console will be shown at bottom.
     static var shouldShowConsoleAtBottom: Bool {
@@ -38,7 +38,7 @@ class EditorSplitViewController: SplitViewController {
     @objc var editor: EditorViewController!
     
     /// The console.
-    @objc var console: ConsoleViewController! {
+    @objc public var console: ConsoleViewController! {
         didSet {
             console.editorSplitViewController = self
         }
@@ -79,9 +79,6 @@ class EditorSplitViewController: SplitViewController {
             
         }).withRenderingMode(.alwaysOriginal)
     }
-    
-    /// Last visible controller.
-    //@available(*, deprecated, message: "Use scenes APIs instead.") @objc static var visible: EditorSplitViewController?
     
     // MARK: - Key commands
     
@@ -265,7 +262,7 @@ class EditorSplitViewController: SplitViewController {
     
     // MARK: - Split view controller
     
-    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+    public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         
         guard let path = editor.document?.fileURL.path else {
             return super.canPerformAction(action, withSender: sender)
@@ -280,7 +277,7 @@ class EditorSplitViewController: SplitViewController {
         }
     }
     
-    override var keyCommands: [UIKeyCommand]? {
+    public override var keyCommands: [UIKeyCommand]? {
         var commands = [
             UIKeyCommand(input: "d", modifierFlags: .command, action: #selector(showDocs), discoverabilityTitle: Localizable.Help.documentation),
             UIKeyCommand(input: "f", modifierFlags: .command, action: #selector(search), discoverabilityTitle: Localizable.find),
@@ -308,14 +305,14 @@ class EditorSplitViewController: SplitViewController {
         return commands
     }
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.leftItemsSupplementBackButton = true
         closeConsoleBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(showEditor))
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         view.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
@@ -335,7 +332,7 @@ class EditorSplitViewController: SplitViewController {
         secondChild?.view.superview?.backgroundColor = view.backgroundColor
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if #available(iOS 13.0, *) {
@@ -348,7 +345,7 @@ class EditorSplitViewController: SplitViewController {
         removeGestures()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         if #available(iOS 13.0, *) {
@@ -356,7 +353,7 @@ class EditorSplitViewController: SplitViewController {
         }
     }
     
-    override func viewDidLayoutSubviews() {
+    public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         guard let firstChild = self.firstChild, let secondChild = self.secondChild else {
@@ -373,7 +370,7 @@ class EditorSplitViewController: SplitViewController {
         secondChild.view.superview?.backgroundColor = view.backgroundColor
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         guard view != nil else {
             return
         }
@@ -381,7 +378,7 @@ class EditorSplitViewController: SplitViewController {
         super.viewWillTransition(to: size, with: coordinator)
     }
     
-    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+    public override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         
         guard view != nil else {
             return
@@ -435,7 +432,7 @@ class EditorSplitViewController: SplitViewController {
         }
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
         view.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
@@ -443,11 +440,11 @@ class EditorSplitViewController: SplitViewController {
         secondChild?.view.backgroundColor = view.backgroundColor
     }
     
-    override var canBecomeFirstResponder: Bool {
+    public override var canBecomeFirstResponder: Bool {
         return true
     }
     
-    override var prefersHomeIndicatorAutoHidden: Bool {
+    public override var prefersHomeIndicatorAutoHidden: Bool {
         return editor?.textView.contentTextView.isFirstResponder ?? false
     }
     

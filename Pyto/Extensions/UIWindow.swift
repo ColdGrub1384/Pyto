@@ -1,6 +1,6 @@
 import UIKit
 
-extension UIWindow {
+public extension UIWindow {
     
     /// Returns the top View controller of the window usable to present modally a View controller.
     @objc var topViewController: UIViewController? {

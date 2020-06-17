@@ -117,13 +117,13 @@ var isSandbox: Bool {
 }
 
 /// A boolean indicating whether Pyto was either purchased from the App Store or if an IAP was purchased.
-let isPurchased = ObjectUserDefaults.standard.item(forKey: "isPurchased")
+public let isPurchased = ObjectUserDefaults.standard.item(forKey: "isPurchased")
 
 /// A boolean indicating whether Pyto should not allow importing C extensions.
-let isLiteVersion = ObjectUserDefaults.standard.item(forKey: "isLiteVersion")
+public let isLiteVersion = ObjectUserDefaults.standard.item(forKey: "isLiteVersion")
 
 /// A boolean indicating wheter the app is usable.
-var isUnlocked = false
+public var isUnlocked = false
 
 /// A boolean indicating whether the app finished verifying the receipt at startup.
 var isReceiptChecked = false
@@ -133,7 +133,7 @@ fileprivate var _isPurchased = isPurchased.boolValue
 fileprivate var _isLiteVersion = isLiteVersion.boolValue
 
 /// A boolean indicating whether changes to UserDefaults for unlocking extra content are allowed.
-var changingUserDefaultsInAppPurchasesValues = false
+public var changingUserDefaultsInAppPurchasesValues = false
 
 /// Adds a notification observer that checks if a change in UserDefaults for unlocking extra content is made without allowing it with a Swift variable.
 func observeUserDefaults() {

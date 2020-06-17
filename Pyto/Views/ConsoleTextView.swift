@@ -9,7 +9,7 @@
 import UIKit
 
 /// A text view containing the output of a Python program.
-class ConsoleTextView: UITextView {
+public class ConsoleTextView: UITextView {
 
     private func setupView() {
         backgroundColor = .clear
@@ -21,7 +21,7 @@ class ConsoleTextView: UITextView {
         autocorrectionType = .no
     }
     
-    override func caretRect(for position: UITextPosition) -> CGRect {
+    public override func caretRect(for position: UITextPosition) -> CGRect {
         
         if position != endOfDocument {
             if selectedRange.length == 0 {
@@ -37,13 +37,13 @@ class ConsoleTextView: UITextView {
         return rect
     }
     
-    override init(frame: CGRect, textContainer: NSTextContainer?) {
+    public override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
         
         setupView()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         setupView()
