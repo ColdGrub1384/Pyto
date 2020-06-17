@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bookmarks &mdash; Pyto  documentation</title>
+  <title>Accessing external files &mdash; Pyto  documentation</title>
   
 
   
@@ -34,9 +34,7 @@
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="music" href="music.html" />
-    <link rel="prev" title="background" href="background.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -97,11 +95,11 @@
 <li class="toctree-l1"><a class="reference internal" href="UIKit.html">UIKit</a></li>
 </ul>
 <p class="caption"><span class="caption-text">OS Technologies</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="notifications.html">notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="remote_notifications.html">remote_notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="background.html">background</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">bookmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bookmarks.html">bookmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="music.html">music</a></li>
 <li class="toctree-l1"><a class="reference internal" href="photos.html">photos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="location.html">location</a></li>
@@ -160,13 +158,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>bookmarks</li>
+      <li>Accessing external files</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/bookmarks.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/external.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -179,57 +177,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-bookmarks">
-<span id="bookmarks"></span><h1>bookmarks<a class="headerlink" href="#module-bookmarks" title="Permalink to this headline">¶</a></h1>
-<p>Bookmark files and folders</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">bookmark</span></code> module is a pythonic API for <code class="docutils literal notranslate"><span class="pre">NSURL</span></code> bookmarks.
-On iOS and iPadOS, files and folders can often change their path. So hard coding paths isn’t a good idea.
-Instead, this module saves bookmarks in the disk for selected files.
-Also, the OS only gives the permission to read and write external files when manually selected. This module takes care of that.</p>
-<p>See <a class="reference external" href="externals.html">Accessing external files</a> for more information.</p>
-<p>Example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">bookmarks</span> <span class="kn">as</span> <span class="nn">bm</span>
-
-<span class="c1"># Pick a csv file for the first time.</span>
-<span class="c1"># Then, the previously picked file will be reused.</span>
-<span class="n">csv_file</span> <span class="o">=</span> <span class="n">bm</span><span class="o">.</span><span class="n">FileBookmark</span><span class="p">(</span><span class="s2">&quot;my_csv_file&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">path</span>
-<span class="n">dt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
-</pre></div>
+  <div class="section" id="accessing-external-files">
+<h1>Accessing external files<a class="headerlink" href="#accessing-external-files" title="Permalink to this headline">¶</a></h1>
+<p>The iOS / iPadOS file system is very different than the file system on other operating systems. Files are placed inside containers. These containers are owned by different apps. They are all visible from the Files app but other apps don’t have access to files owned by other ones. Instead, the system gives access to individual files or folders selected by the user to be edited with the desired app.</p>
+<div class="section" id="current-directory">
+<h2>Current Directory<a class="headerlink" href="#current-directory" title="Permalink to this headline">¶</a></h2>
+<p>Scripts stored in the Pyto container can access scripts in the same directory. If acess isn’t granted, a lock icon is displayed at the bottom of the code editor. Pressing this button shows a folder picker. You can change the current directory, or just select the folder containing the script. This will not work for third party cloud providers such as Google Drive or Dropbox because they don’t have a real file system.</p>
 </div>
-<dl class="class">
-<dt id="bookmarks.FileBookmark">
-<em class="property">class </em><code class="sig-prename descclassname">bookmarks.</code><code class="sig-name descname">FileBookmark</code><span class="sig-paren">(</span><em class="sig-param">name: str = None</em>, <em class="sig-param">path: str = None</em><span class="sig-paren">)</span><a class="headerlink" href="#bookmarks.FileBookmark" title="Permalink to this definition">¶</a></dt>
-<dd><p>A bookmark for storing file paths.</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="bookmarks.FolderBookmark">
-<em class="property">class </em><code class="sig-prename descclassname">bookmarks.</code><code class="sig-name descname">FolderBookmark</code><span class="sig-paren">(</span><em class="sig-param">name: str = None</em>, <em class="sig-param">path: str = None</em><span class="sig-paren">)</span><a class="headerlink" href="#bookmarks.FolderBookmark" title="Permalink to this definition">¶</a></dt>
-<dd><p>A bookmark for storing folder paths.</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="bookmarks.StoredBookmark">
-<em class="property">class </em><code class="sig-prename descclassname">bookmarks.</code><code class="sig-name descname">StoredBookmark</code><span class="sig-paren">(</span><em class="sig-param">name: str = None</em>, <em class="sig-param">path: str = None</em><span class="sig-paren">)</span><a class="headerlink" href="#bookmarks.StoredBookmark" title="Permalink to this definition">¶</a></dt>
-<dd><p>A bookmark for storing a file path in the disk.</p>
-<p>The bookmark is identified by its name. When a bookmark is initialized with a name for the first time, a file picker will appear.</p>
-<p>This is a base class and should not be directly used.
-Instead, use <a class="reference internal" href="#bookmarks.FileBookmark" title="bookmarks.FileBookmark"><code class="xref py py-class docutils literal notranslate"><span class="pre">FileBookmark</span></code></a> or <a class="reference internal" href="#bookmarks.FolderBookmark" title="bookmarks.FolderBookmark"><code class="xref py py-class docutils literal notranslate"><span class="pre">FolderBookmark</span></code></a>.</p>
-<dl class="method">
-<dt id="bookmarks.StoredBookmark.delete_from_disk">
-<code class="sig-name descname">delete_from_disk</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bookmarks.StoredBookmark.delete_from_disk" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes the bookmark from the disk.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="bookmarks.StoredBookmark.path">
-<code class="sig-name descname">path</code><em class="property"> = None</em><a class="headerlink" href="#bookmarks.StoredBookmark.path" title="Permalink to this definition">¶</a></dt>
-<dd><p>The file path stored in the bookmark,</p>
-</dd></dl>
-
-</dd></dl>
-
+<div class="section" id="bookmarks">
+<h2>Bookmarks<a class="headerlink" href="#bookmarks" title="Permalink to this headline">¶</a></h2>
+<p>Another good option to open external files is to use the <a class="reference external" href="bookmarks.html">bookmarks</a> module. This can be used to access files from different places without having to change the current directory.</p>
+</div>
 </div>
 
 
@@ -237,15 +195,6 @@ Instead, use <a class="reference internal" href="#bookmarks.FileBookmark" title=
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="music.html" class="btn btn-neutral float-right" title="music" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="background.html" class="btn btn-neutral float-left" title="background" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

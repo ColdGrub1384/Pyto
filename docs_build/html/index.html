@@ -81,6 +81,7 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="automation.html">Automation with Shortcuts and x-callback URLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external.html">Accessing external files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="opencv.html">OpenCV</a></li>
 <li class="toctree-l1"><a class="reference internal" href="django.html">Using Django</a></li>
 <li class="toctree-l1"><a class="reference internal" href="third_party.html">Third Party Libraries</a></li>
@@ -185,12 +186,38 @@
 <div class="section" id="welcome-to-pyto-s-documentation">
 <h1>Welcome to Pyto’s documentation!<a class="headerlink" href="#welcome-to-pyto-s-documentation" title="Permalink to this headline">¶</a></h1>
 <p>Pyto is an open source app to code and run Python code locally on an iPad or iPhone.
-The app uses the Python C API to run Python code in the same process of the app, due to iOS restrictions. Third party pure Python modules can be installed from PyPi and some modules are bundled in the app, like <code class="docutils literal notranslate"><span class="pre">Numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">Matplotlib</span></code>, <code class="docutils literal notranslate"><span class="pre">Pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">SciPy</span></code>, <code class="docutils literal notranslate"><span class="pre">SciKit-Learn</span></code>, <code class="docutils literal notranslate"><span class="pre">SciKit-Image</span></code>, <code class="docutils literal notranslate"><span class="pre">OpenCV</span></code>, <code class="docutils literal notranslate"><span class="pre">Pillow</span></code> and <code class="docutils literal notranslate"><span class="pre">Biopython</span></code>. To set a PyPi mirror, set the “PYPI_MIRROR” environment variable.</p>
+The app uses the Python C API to run Python code in the same process of the app, due to iOS restrictions. Third party pure Python modules can be installed from PyPi and some libraries with C extensions are bundled in the app. For a list of included libraries, see <a class="reference external" href="third_party.html">Third Party</a>.</p>
+<div class="section" id="frequently-asked">
+<h2>Frequently asked<a class="headerlink" href="#frequently-asked" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="how-to-use-external-files-in-a-script">
+<h3><em>How to use external files in a script?</em><a class="headerlink" href="#how-to-use-external-files-in-a-script" title="Permalink to this headline">¶</a></h3>
+<p>See <a class="reference external" href="external.html">Accessing external files</a>.</p>
+</div>
+<div class="section" id="why-can-t-i-install-xxx-package">
+<h3><em>Why can’t I install xxx package?</em><a class="headerlink" href="#why-can-t-i-install-xxx-package" title="Permalink to this headline">¶</a></h3>
+<p>Some libraries contain native code (C extensions). They cannot be installed because iOS / iPadOS apps must be self contained. That’s why libraries like Numpy, Pandas, Matplotlib or OpenCV are included in the app and cannot be updated.</p>
+</div>
+<div class="section" id="how-to-run-a-web-server">
+<h3><em>How to run a web server?</em><a class="headerlink" href="#how-to-run-a-web-server" title="Permalink to this headline">¶</a></h3>
+<p>Use the <a class="reference external" href="background.html">background</a> module to run a script in background. See <a class="reference external" href="django.html">Using Django</a> for an example.</p>
+</div>
+<div class="section" id="why-is-the-widget-crashing-unable-to-load">
+<h3><em>Why is the widget crashing (Unable to Load)?</em><a class="headerlink" href="#why-is-the-widget-crashing-unable-to-load" title="Permalink to this headline">¶</a></h3>
+<p>Widgets run with a limited amount of RAM. Only very basic scripts work and fetching data is only possible with a very limited size.</p>
+</div>
+</div>
+<div class="section" id="documents">
+<h2>Documents<a class="headerlink" href="#documents" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="automation.html">Automation with Shortcuts and x-callback URLs</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="automation.html#shortcuts">Shortcuts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="automation.html#id1">x-callback URLs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="external.html">Accessing external files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="external.html#current-directory">Current Directory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="external.html#bookmarks">Bookmarks</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="opencv.html">OpenCV</a><ul>
@@ -200,11 +227,11 @@ The app uses the Python C API to run Python code in the same process of the app,
 </li>
 <li class="toctree-l1"><a class="reference internal" href="django.html">Using Django</a></li>
 <li class="toctree-l1"><a class="reference internal" href="third_party.html">Third Party Libraries</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="third_party.html#modules">Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="third_party.html#acknowledgments">Acknowledgments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="third_party.html#with-c-extensions">With C Extensions</a></li>
 </ul>
 </li>
 </ul>
+</div>
 </div>
 <div class="section" id="api-reference">
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
