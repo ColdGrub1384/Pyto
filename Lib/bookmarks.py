@@ -6,6 +6,8 @@ On iOS and iPadOS, files and folders can often change their path. So hard coding
 Instead, this module saves bookmarks in the disk for selected files.
 Also, the OS only gives the permission to read and write external files when manually selected. This module takes care of that.
 
+See `Accessing external files <externals.html>`__ for more information.
+
 Example:
 
 .. highlight:: python
