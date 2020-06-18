@@ -1,0 +1,29 @@
+diff --git a/Sources/InputAssistantCollectionView.swift b/Sources/InputAssistantCollectionView.swift
+index edaa2c6..57d5380 100644
+--- a/Sources/InputAssistantCollectionView.swift
++++ b/Sources/InputAssistantCollectionView.swift
+@@ -8,6 +8,10 @@
+ 
+ import UIKit
+ 
++public var NoSuggestionsLabel: (() -> UILabel) = {
++    return UILabel()
++}
++
+ class InputAssistantCollectionView: UICollectionView {
+     
+     /// Reference to the containing input assistant view
+@@ -17,7 +21,7 @@ class InputAssistantCollectionView: UICollectionView {
+     var widthConstraint: NSLayoutConstraint?
+     
+     /// Label to display when there are no suggestions
+-    private let noSuggestionsLabel = UILabel()
++    private let noSuggestionsLabel = NoSuggestionsLabel()
+     
+     init() {
+         let layout = UICollectionViewFlowLayout()
+@@ -151,3 +155,4 @@ private class InputAssistantCollectionViewCell: UICollectionViewCell {
+         self.label.textColor = isHighlighted ? .black : .white
+     }
+ }
++
