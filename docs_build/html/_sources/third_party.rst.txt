@@ -184,6 +184,7 @@ Thanks to `Daniel Shane <https://twitter.com/DannWai>`_ for alternate icons!
 * `lipjpeg <https://libjpeg.sourceforge.io>`__
 * `libpng <https://libpng.sourceforge.io>`__
 * `lxml <https://github.com/lxml/lxml>`__
+* `MarqueeLabel <https://github.com/cbpowell/MarqueeLabel>`__
 * `matplotlib <https://github.com/matplotlib/matplotlib>`__
 * `MultiPeer <https://github.com/dingwilson/MultiPeer>`__
 * `networkx <https://github.com/networkx/networkx>`__
@@ -3522,6 +3523,26 @@ Thanks to `Daniel Shane <https://twitter.com/DannWai>`_ for alternate icons!
        and copyright the respective authors as noted (see
        src/lxml/isoschematron/resources/xsl/RNG2Schtrn.xsl and
        src/lxml/isoschematron/resources/xsl/XSD2Schtrn.xsl)
+
+*MarqueeLabel*
+
+.. code-block::
+    text
+    
+    Copyright (c) 2011-2017 Charles Powell
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+    documentation files (the "Software"), to deal in the Software without restriction, including without limitation
+    the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and
+    to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+    TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+    THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+    CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+    IN THE SOFTWARE.
 
 *matplotlib*
 
