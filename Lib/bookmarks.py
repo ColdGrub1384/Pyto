@@ -45,8 +45,8 @@ except KeyError:
 
 class StoredBookmark:
     """
-    A bookmark for storing a file path in the disk. 
-    
+    A bookmark for storing a file path in the disk.
+
     The bookmark is identified by its name. When a bookmark is initialized with a name for the first time, a file picker will appear.
 
     This is a base class and should not be directly used.
