@@ -1515,6 +1515,14 @@ fileprivate func parseArgs(_ args: inout [String]) {
             UIMenuController.shared.menuItems?.insert(UIMenuItem(title: Localizable.MenuItems.undo, action: #selector(EditorViewController.undo)), at: 0)
         }
         
+        let text = textView.text
+        EditorViewController.isCompleting = true
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+            if textView.text == text {
+                EditorViewController.isCompleting = false
+            }
+        }
+        
         return self.textView.textViewDidChange(textView)
     }
     
@@ -1645,6 +1653,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
             currentSuggestionIndex = -1
         }
     }
+    
+    /// A boolean indicating whether the editor is completing code.
+    @objc static var isCompleting = false
     
     /// Returns suggestions for current word.
     @objc var suggestions: [String] {

@@ -1,4 +1,4 @@
-from pyto import Python, PyOutputHelper, ConsoleViewController
+from pyto import Python, PyOutputHelper, ConsoleViewController, EditorViewController
 from time import sleep
 from console import run_script
 import threading
@@ -31,49 +31,56 @@ class ScriptThread(threading.Thread):
 
 while True:
     
-    try: # Run code
-        code = str(Python.shared.codeToRun)
-        exec(code)
-        if code == Python.shared.codeToRun:
+    try:
+        try: # Run code
+            code = str(Python.shared.codeToRun)
+            exec(code)
+            if code == Python.shared.codeToRun:
+                Python.shared.codeToRun = None
+        except:
+            error = traceback.format_exc()
+            PyOutputHelper.printError(error, script=None)
             Python.shared.codeToRun = None
-    except:
-        error = traceback.format_exc()
-        PyOutputHelper.printError(error, script=None)
-        Python.shared.codeToRun = None
-    
-    if Python.shared.scriptToRun is not None: # Run Script
         
-        script = Python.shared.scriptToRun
+        if Python.shared.scriptToRun is not None: # Run Script
+            
+            script = Python.shared.scriptToRun
+            
+            thread = ScriptThread(target=run_script, args=(str(script.path), False, script.debug, script.breakpoints))
+            thread.script_path = str(script.path)
+            thread.start()
+            
+            Python.shared.scriptToRun = None
         
-        thread = ScriptThread(target=run_script, args=(str(script.path), False, script.debug, script.breakpoints))
-        thread.script_path = str(script.path)
-        thread.start()
+        sys.stdout.write("")
         
-        Python.shared.scriptToRun = None
-    
-    sys.stdout.write("")
-    
-    exc = SystemExit
-    if Python.shared.tooMuchUsedMemory:
-        Python.shared.tooMuchUsedMemory = False
-        exc = MemoryError
+        exc = SystemExit
+        if Python.shared.tooMuchUsedMemory:
+            Python.shared.tooMuchUsedMemory = False
+            exc = MemoryError
 
-    for script in Python.shared.scriptsToExit: # Send SystemExit or MemoryError
-        raise_exception(str(script), exc)
-    
-    if Python.shared.scriptsToExit.count != 0:
-        Python.shared.scriptsToExit = []
+        for script in Python.shared.scriptsToExit: # Send SystemExit or MemoryError
+            raise_exception(str(script), exc)
         
-    for script in Python.shared.scriptsToInterrupt: # Send KeyboardInterrupt
-        raise_exception(str(script), KeyboardInterrupt)
-    if Python.shared.scriptsToInterrupt.count != 0:
-        Python.shared.scriptsToInterrupt = []
-    
-    if "PYPI_MIRROR" in os.environ:
-        mirror = os.environ["PYPI_MIRROR"]
-        c.setenv(b"PYPI_MIRROR", mirror.encode())
-    
-    if ConsoleViewController.isPresentingView:
-        sleep(0.002)
-    else:
-        sleep(0.2)
+        if Python.shared.scriptsToExit.count != 0:
+            Python.shared.scriptsToExit = []
+            
+        for script in Python.shared.scriptsToInterrupt: # Send KeyboardInterrupt
+            raise_exception(str(script), KeyboardInterrupt)
+        if Python.shared.scriptsToInterrupt.count != 0:
+            Python.shared.scriptsToInterrupt = []
+        
+        if "PYPI_MIRROR" in os.environ:
+            mirror = os.environ["PYPI_MIRROR"]
+            c.setenv(b"PYPI_MIRROR", mirror.encode())
+        
+        if EditorViewController.isCompleting:
+            sleep(0.02)
+        elif ConsoleViewController.isPresentingView:
+            sleep(0.002)
+        else:
+            sleep(0.2)
+    except AttributeError as e: # May happen very rarely
+        print(e)
+    except NameError as e: # May happen very rarely
+        print(e)
