@@ -125,11 +125,11 @@ import UIKit
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let url = URL(fileURLWithPath: ModulesTableViewController.paths[indexPath.row])
+        let window = view.window
         if FileManager.default.fileExists(atPath: url.path) {
             presentingViewController?.dismiss(animated: true, completion: {
-                if let docBrowser = self.presentingViewController as? DocumentBrowserViewController {
-                    docBrowser.openDocument(url, run: false)
-                } else {
+                
+                if UIDevice.current.userInterfaceIdiom == .pad {
                     let docBrowser = DocumentBrowserViewController()
                     SceneDelegate.viewControllerToShow = docBrowser
                     if #available(iOS 13.0, *) {
@@ -139,6 +139,8 @@ import UIKit
                         docBrowser.view.window?.tintColor = ConsoleViewController.choosenTheme.tintColor
                         docBrowser.openDocument(url, run: false)
                     }
+                } else if let docBrowser = window?.rootViewController as? DocumentBrowserViewController {
+                    docBrowser.openDocument(url, run: false)
                 }
             })
         }
