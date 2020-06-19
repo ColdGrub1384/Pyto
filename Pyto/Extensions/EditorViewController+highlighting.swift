@@ -106,23 +106,12 @@ extension EditorViewController {
             
             class ErrorViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
                 
-                override func viewLayoutMarginsDidChange() {
-                    super.viewLayoutMarginsDidChange()
+                override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+                    super.traitCollectionDidChange(previousTraitCollection)
                     
-                    view.subviews.first?.frame = view.safeAreaLayoutGuide.layoutFrame
-                }
-                
-                override func viewWillAppear(_ animated: Bool) {
-                    super.viewWillAppear(animated)
-                    
-                    view.subviews.first?.isHidden = true
-                }
-                
-                override func viewDidAppear(_ animated: Bool) {
-                    super.viewDidAppear(animated)
-                    
-                    view.subviews.first?.isHidden = false
-                    view.subviews.first?.frame = view.safeAreaLayoutGuide.layoutFrame
+                    if UIDevice.current.userInterfaceIdiom != .pad && traitCollection.horizontalSizeClass == .regular {
+                        dismiss(animated: true, completion: nil)
+                    }
                 }
                 
                 func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -131,9 +120,8 @@ extension EditorViewController {
             }
             
             let errorVC = ErrorViewController()
-            errorView.frame = errorVC.view.safeAreaLayoutGuide.layoutFrame
-            errorVC.view.backgroundColor = errorColor
-            errorVC.view.addSubview(errorView)
+            errorView.backgroundColor = errorColor
+            errorVC.view = errorView
             errorVC.preferredContentSize = CGSize(width: 300, height: 100)
             errorVC.modalPresentationStyle = .popover
             errorVC.presentationController?.delegate = errorVC
@@ -148,8 +136,14 @@ extension EditorViewController {
             }
             
             if self.view.frame.height > 0 {
-                self.textView.contentTextView.becomeFirstResponder()
-                self.present(errorVC, animated: true, completion: nil)
+                
+                if UIDevice.current.userInterfaceIdiom != .pad && self.traitCollection.horizontalSizeClass == .regular {
+                    // My brain isn't able to invert this boolean lol I'm dumb
+                    print("Nein")
+                } else {
+                    self.textView.contentTextView.becomeFirstResponder()
+                    self.present(errorVC, animated: true, completion: nil)
+                }
             }
             
             self.highlight(at: lineNumber-1, with: errorColor.withAlphaComponent(0.5))
