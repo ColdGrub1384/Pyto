@@ -14,11 +14,3 @@ rm -rf __MACOSX
 
 pod install
 git submodule update --init --recursive
-
-# InputAssistant
-
-cd InputAssistant
-
-git apply ../InputAssistant.patch
-
-cd ../
