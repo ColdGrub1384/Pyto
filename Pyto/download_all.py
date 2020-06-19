@@ -1,5 +1,5 @@
 """
-All included third party librairies will be downloaded for offline usage.
+All included third party libraries will be downloaded for offline usage.
 This may take a while. Some libraries will be stuck at 0% for a few moments but will be downloaded after a while.
 """
 
