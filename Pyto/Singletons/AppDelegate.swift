@@ -54,8 +54,7 @@ import TrueTime
     
     /// Updates the PyPi index cache.
     func updatePyPiCache() {
-        
-        
+        UIApplication.shared.beginBackgroundTask(expirationHandler: nil)
         
         URLSession.shared.downloadTask(with: URL(string: "https://pypi.org/simple")!) { (fileURL, _, error) in
             if let error = error {
