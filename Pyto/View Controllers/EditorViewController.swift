@@ -1590,6 +1590,18 @@ fileprivate func parseArgs(_ args: inout [String]) {
         ]
         
         for chars in completable {
+            
+            if text == chars.1 {
+                let range = textView.selectedRange
+                let nextCharRange = NSRange(location: range.location, length: 1)
+                let nsText = NSString(string: textView.text)
+                
+                if nsText.length > nextCharRange.location, nsText.substring(with: nextCharRange) == chars.1 {
+                    textView.selectedTextRange = NSRange(location: range.location+1, length: 0).toTextRange(textInput: textView)
+                    return false
+                }
+            }
+            
             if text == chars.0 {
                 textView.insertText(chars.0)
                 let range = textView.selectedTextRange
@@ -1597,17 +1609,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 textView.selectedTextRange = range
                 
                 return false
-            }
-            
-            if text == chars.1 {
-                let range = textView.selectedRange
-                let nextCharRange = NSRange(location: range.location, length: 1)
-                let nsText = NSString(string: textView.text)
-                
-                if nsText.length > nextCharRange.location, nsText.substring(with: nextCharRange) == ")" {
-                    textView.selectedTextRange = NSRange(location: range.location+1, length: 0).toTextRange(textInput: textView)
-                    return false
-                }
             }
         }
         
