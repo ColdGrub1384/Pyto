@@ -84,6 +84,12 @@ class Localizable: Static {
     /// 'Find'
     static let find = NSLocalizedString("find", comment: "'Find'")
     
+    /// The title of the notification shown when the free trial expired
+    static let trialExpiredTitle = NSLocalizedString("freetrial.expired.title", comment: "The title of the notification shown when the free trial expired")
+    
+    /// The body of the notification shown when the free trial expired
+    static let trialExpiredMessage = NSLocalizedString("freetrial.expired.message", comment: "The body of the notification shown when the free trial expired")
+    
     /// Strings used in the projects browser.
     class ProjectsBrowser: Static {
         

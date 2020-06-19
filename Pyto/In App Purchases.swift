@@ -13,6 +13,7 @@ import SwiftUI_Views
 import ObjectUserDefaults
 import StoreKit
 import TrueTime
+import UserNotifications
 
 /// Purchasable products.
 enum Product: String {
@@ -164,6 +165,11 @@ func observeUserDefaults() {
 func completePurchase(id: String) {
     
     func unlock() {
+        
+        if id != Product.freeTrial.rawValue {
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        }
+        
         isUnlocked = true
         
         if #available(iOS 13.0, *) {
@@ -216,6 +222,7 @@ func completePurchase(id: String) {
             }
             
             if days <= freeTrialDuration { // Free trial
+                PyNotificationCenter.scheduleNotification(title: Localizable.trialExpiredTitle, message: Localizable.trialExpiredMessage, delay: Double(((freeTrialDuration*24)*60)*60))
                 unlock()
             } else {
                 
