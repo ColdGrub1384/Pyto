@@ -1259,25 +1259,55 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     /// Comments / Uncomments line.
     @objc func toggleComment() {
-        guard var line = textView.contentTextView.currentLine else {
-            return
-        }
-        
-        let currentLine = line
-        
-        line = line.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\t", with: "")
         
         guard textView.contentTextView.isFirstResponder else {
             return
         }
         
-        if line.hasPrefix("#") {
-            line = currentLine.replacingFirstOccurrence(of: "#", with: "")
-        } else {
-            line = "#"+currentLine
+        guard let selected = textView.contentTextView.selectedTextRange else {
+            return
         }
-        if let lineRange = textView.contentTextView.currentLineRange {
-            textView.contentTextView.replace(lineRange, withText: line)
+        
+        if (textView.contentTextView.text(in: selected)?.components(separatedBy: "\n").count ?? 0) > 1 { // Multiple lines
+            guard let line = textView.contentTextView.selectedTextRange else {
+                return
+            }
+            
+            guard let text = textView.contentTextView.text(in: line) else {
+                return
+            }
+            
+            var newText = [String]()
+            
+            for line in text.components(separatedBy: "\n") {
+                let _line = line.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\t", with: "")
+                if _line == "" {
+                    newText.append(line)
+                } else if _line.hasPrefix("#") {
+                    newText.append(line.replacingFirstOccurrence(of: "#", with: ""))
+                } else {
+                    newText.append("#"+line)
+                }
+            }
+            
+            textView.contentTextView.replace(line, withText: newText.joined(separator: "\n"))
+        } else { // Current line
+            guard var line = textView.contentTextView.currentLine else {
+                return
+            }
+            
+            let currentLine = line
+            
+            line = line.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\t", with: "")
+            
+            if line.hasPrefix("#") {
+                line = currentLine.replacingFirstOccurrence(of: "#", with: "")
+            } else {
+                line = "#"+currentLine
+            }
+            if let lineRange = textView.contentTextView.currentLineRange {
+                textView.contentTextView.replace(lineRange, withText: line)
+            }
         }
     }
     
