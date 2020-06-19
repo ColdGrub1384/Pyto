@@ -1,4 +1,4 @@
-from pyto import Python, PyOutputHelper, ConsoleViewController, EditorViewController
+from pyto import Python, PyOutputHelper, ConsoleViewController, EditorViewController, __Class__
 from time import sleep
 from console import run_script
 import threading
@@ -30,7 +30,7 @@ class ScriptThread(threading.Thread):
     """
 
 while True:
-    
+    global Python
     try:
         try: # Run code
             code = str(Python.shared.codeToRun)
@@ -81,6 +81,10 @@ while True:
         else:
             sleep(0.2)
     except AttributeError as e: # May happen very rarely
+        print(Python.shared)
+        Python = __Class__("Python")
         print(e)
     except NameError as e: # May happen very rarely
+        print(Python.shared)
+        Python = __Class__("Python")
         print(e)

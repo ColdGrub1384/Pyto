@@ -194,6 +194,23 @@ import TrueTime
             }
         }
     }
+    
+    private let exceptionHandler: Void = NSSetUncaughtExceptionHandler { (exception) in
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "\(exception.name.rawValue)", message: exception.reason, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
+            for scene in UIApplication.shared.connectedScenes {
+                if scene.activationState == .foregroundActive {
+                    (scene as? UIWindowScene)?.windows.first?.topViewController?.present(alert, animated: true, completion: nil)
+                    break
+                }
+            }
+        }
+        
+        if !Thread.current.isMainThread {
+            DispatchSemaphore(value: 0).wait()
+        }
+    }
     #endif
     
     // MARK: - Application delegate
