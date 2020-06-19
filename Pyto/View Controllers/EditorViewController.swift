@@ -738,6 +738,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
         
         textView.contentTextView.attributedText = attributed
+        
+        if let range = ranges.first {
+            textView.contentTextView.scrollRangeToVisible(range)
+        }
     }
     
     // MARK: - Search bar delegate
