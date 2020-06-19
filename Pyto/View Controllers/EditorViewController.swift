@@ -284,6 +284,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
         textView.delegate = self
         textView.contentTextView.delegate = self
         
+        NoSuggestionsLabel = {
+            let label = MarqueeLabel(frame: .zero, rate: 100, fadeLength: 1)
+            return label
+        }
         inputAssistant.dataSource = self
         inputAssistant.delegate = self
         
@@ -1761,6 +1765,21 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
     }
     
+    private var _signature = ""
+    
+    /// Function or class signature displayed in the completion bar.
+    @objc var signature: String {
+        get {
+            return _signature
+        }
+        
+        set {
+            if newValue != "NoneType()" {
+                _signature = newValue
+            }
+        }
+    }
+    
     /// Returns doc strings per suggestions.
     @objc var docStrings = [String:String]()
     
@@ -1959,10 +1978,31 @@ fileprivate func parseArgs(_ args: inout [String]) {
     // MARK: - Input assistant view data source
     
     func textForEmptySuggestionsInInputAssistantView() -> String? {
-        return nil
+        
+        // Color for dark mode
+        for view in inputAssistant.subviews {
+            for view in view.subviews {
+                if let collectionView = view as? UICollectionView {
+                    for view in collectionView.subviews {
+                        if let label = view as? UILabel {
+                            label.textColor = .label
+                            label.font = textView.contentTextView.font?.withSize(12)
+                        }
+                    }
+                    break
+                }
+            }
+        }
+        
+        return signature+" "
     }
     
     func numberOfSuggestionsInInputAssistantView() -> Int {
+        
+        var zero: Int {
+            signature = ""
+            return 0
+        }
         
         if let currentTextRange = textView.contentTextView.selectedTextRange {
             
