@@ -138,6 +138,7 @@ import TrueTime
         changingUserDefaultsInAppPurchasesValues = true
         isLiteVersion.boolValue = false
         isUnlocked = true
+        isReceiptChecked = true
         #else
         if let receiptUrl = Bundle.main.appStoreReceiptURL, let _ = try? Data(contentsOf: receiptUrl) {
              showOnboarding()
