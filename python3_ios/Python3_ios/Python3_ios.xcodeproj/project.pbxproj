@@ -2504,6 +2504,145 @@
 			};
 			name = Release;
 		};
+		C967A079249D393500EE3871 /* VPP */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = VPP;
+		};
+		C967A07A249D393500EE3871 /* VPP */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEAD_CODE_STRIPPING = NO;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../Python-3.8/Include\"",
+					"\"$(SRCROOT)/../Python-3.8/Include/internal\"",
+					"\"$(SRCROOT)/../libffi\"",
+				);
+				INFOPLIST_FILE = Python3_ios/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/..\"";
+				MACH_O_TYPE = mh_dylib;
+				OTHER_CFLAGS = (
+					"-Wno-unused-result",
+					"-Wsign-compare",
+					"-Wunreachable-code",
+					"-g",
+					"-fwrapv",
+					"-O3",
+					"-Wall",
+					"-std=c99",
+					"-Wextra",
+					"-Wno-unused-result",
+					"-Wno-unused-parameter",
+					"-Wno-missing-field-initializers",
+					"-Wstrict-prototypes",
+					"-Werror=implicit-function-declaration",
+					"-I../Python-3.8/",
+					"-I../Python-3.8/Include",
+					"-F",
+					../Frameworks/,
+					"-I..",
+					"-DNDEBUG",
+					"-DWITH_PYMALLOC",
+					"-DPy_BUILD_CORE=1",
+					"-DPy_BUILD_CORE_BUILTIN=1",
+					"-DCONFIG_64=1",
+					"-DANSI=1",
+					"-DHAVE_UINT128_T=1",
+					"-UHAVE_LOAD_EXTENSION",
+					"-UHAVE_OPENPTY",
+					"-DHAVE_DEV_PTC=1",
+					"-UHAVE_FORKPTY",
+					"-UHAVE_DYNAMIC_LOADING",
+				);
+				OTHER_CPLUSPLUSFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-F",
+					../Frameworks/,
+					"-L",
+					../,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Nicolas-Holzschuch.Python3-ios";
+				PRODUCT_NAME = pythonA;
+				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_STYLE = "non-global";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "i386 x86_64 arm64 arm64e armv7 armv7s ";
+			};
+			name = VPP;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2511,6 +2650,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				22E8FEE821C66AD100967E21 /* Debug */,
+				C967A079249D393500EE3871 /* VPP */,
 				22E8FEE921C66AD100967E21 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2520,6 +2660,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				22E8FEEB21C66AD100967E21 /* Debug */,
+				C967A07A249D393500EE3871 /* VPP */,
 				22E8FEEC21C66AD100967E21 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

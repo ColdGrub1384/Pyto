@@ -58,6 +58,7 @@ import TrueTime
     
     /// Shows onboarding if needed.
     func showOnboarding() {
+        #if !VPP
         guard let validator = ReceiptValidator(), let version = validator.receipt[.originalAppVersion] as? String else {
             if #available(iOS 13.0.0, *) {
                 Pyto.showOnboarding(window: self.window)
@@ -121,6 +122,7 @@ import TrueTime
             
             isReceiptChecked = true
         }
+        #endif
     }
     
     // MARK: - Scene delegate
@@ -130,6 +132,13 @@ import TrueTime
     @available(iOS 13.0, *)
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
+        #if VPP
+        changingUserDefaultsInAppPurchasesValues = true
+        isPurchased.boolValue = true
+        changingUserDefaultsInAppPurchasesValues = true
+        isLiteVersion.boolValue = false
+        isUnlocked = true
+        #else
         if let receiptUrl = Bundle.main.appStoreReceiptURL, let _ = try? Data(contentsOf: receiptUrl) {
              showOnboarding()
         } else {
@@ -147,6 +156,7 @@ import TrueTime
                 }
             }
         }
+        #endif
         
         if let vc = SceneDelegate.viewControllerToShow {
             SceneDelegate.viewControllerToShow = nil

@@ -1778,13 +1778,6 @@
 			remoteGlobalIDString = C90BC0B42473522300EF7F09;
 			remoteInfo = "SwiftUI Views";
 		};
-		C93D62DA24981A6B00CE60BE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C9AC411F249811C500847A13 /* InputAssistant.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 3C2E4346201E7E6C00E4254A;
-			remoteInfo = InputAssistant;
-		};
 		C946A5B222074EAA00F78C5C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C9FCFD4D214428AE00A07974 /* Project object */;
@@ -1931,6 +1924,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 1EA5C2AB15877AC900F5CFF7;
 			remoteInfo = chkdrvc;
+		};
+		C967A07B249D39B200EE3871 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9AC411F249811C500847A13 /* InputAssistant.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 3C2E4346201E7E6C00E4254A;
+			remoteInfo = InputAssistant;
 		};
 		C9734AF122D67B7100C5FE4B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2389,6 +2389,7 @@
 		2F8F8D2B8DAB35A84F3DD8B0 /* Pods_Pyto_Mac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pyto_Mac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4370DDFAC0113595C1F9BDC5 /* Pods-Pyto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto/Pods-Pyto.release.xcconfig"; sourceTree = "<group>"; };
 		486497B57E25E63492329299 /* Pods-Pyto Mac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Mac.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Mac/Pods-Pyto Mac.release.xcconfig"; sourceTree = "<group>"; };
+		5A551608C0BA6AF005713E70 /* Pods-Pyto.vpp.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto.vpp.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto/Pods-Pyto.vpp.xcconfig"; sourceTree = "<group>"; };
 		BDF906F857A60D2FF55BE403 /* Pods-Pyto Mac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Mac.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Mac/Pods-Pyto Mac.debug.xcconfig"; sourceTree = "<group>"; };
 		C90089DF23D79C5C00D18AAE /* PyMultipeerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyMultipeerHelper.swift; sourceTree = "<group>"; };
 		C903986822D2CF2600FAD834 /* PyImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyImageView.swift; sourceTree = "<group>"; };
@@ -8479,6 +8480,7 @@
 				C9C57EB40A56344EEB889161 /* Pods-Pyto Share.release.xcconfig */,
 				BDF906F857A60D2FF55BE403 /* Pods-Pyto Mac.debug.xcconfig */,
 				486497B57E25E63492329299 /* Pods-Pyto Mac.release.xcconfig */,
+				5A551608C0BA6AF005713E70 /* Pods-Pyto.vpp.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -8744,7 +8746,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				C93D62DB24981A6B00CE60BE /* PBXTargetDependency */,
+				C967A07C249D39B200EE3871 /* PBXTargetDependency */,
 				C9AC4134249813F100847A13 /* PBXTargetDependency */,
 				C98169B8235E61360062A91F /* PBXTargetDependency */,
 				C97867DB2304DEB000BD6FA4 /* PBXTargetDependency */,
@@ -9743,11 +9745,6 @@
 			target = C90BC0B42473522300EF7F09 /* SwiftUI Views */;
 			targetProxy = C90BC0BA2473522400EF7F09 /* PBXContainerItemProxy */;
 		};
-		C93D62DB24981A6B00CE60BE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = InputAssistant;
-			targetProxy = C93D62DA24981A6B00CE60BE /* PBXContainerItemProxy */;
-		};
 		C946A5B322074EAA00F78C5C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C946A5A722074EA900F78C5C /* Pyto Widget */;
@@ -9757,6 +9754,11 @@
 			isa = PBXTargetDependency;
 			target = C95EE4DE22070224006611CB /* libpng */;
 			targetProxy = C95EE4E422070224006611CB /* PBXContainerItemProxy */;
+		};
+		C967A07C249D39B200EE3871 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = InputAssistant;
+			targetProxy = C967A07B249D39B200EE3871 /* PBXContainerItemProxy */;
 		};
 		C9734AF222D67B7100C5FE4B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -10153,7 +10155,7 @@
 				MARKETING_VERSION = 12.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).Pyto-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -10215,7 +10217,7 @@
 				MARKETING_VERSION = 12.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).Pyto-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -10289,6 +10291,549 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
+		};
+		C967A03C249D142F00EE3871 /* VPP */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_ID = ch.ada.PytoVPP;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = VPP;
+		};
+		C967A03D249D142F00EE3871 /* VPP */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A551608C0BA6AF005713E70 /* Pods-Pyto.vpp.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_CPP_STATIC_DESTRUCTORS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
+				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 287;
+				DEAD_CODE_STRIPPING = NO;
+				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				ENABLE_BITCODE = NO;
+				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pyto",
+					"$(PROJECT_DIR)/Extensions/NumPy",
+					"$(PROJECT_DIR)/Extensions/Matplotlib",
+					"$(PROJECT_DIR)/Extensions/Kiwisolver",
+					"$(PROJECT_DIR)/Extensions/Pandas",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/libjpeg",
+					"$(PROJECT_DIR)/Extensions/SkImage",
+					"$(PROJECT_DIR)/Extensions/Pywt",
+					"$(PROJECT_DIR)/Extensions/SkLearn",
+					"$(PROJECT_DIR)/Extensions/OpenCV",
+					"$(PROJECT_DIR)/Extensions/OpenBlas",
+					"$(PROJECT_DIR)/Extensions/Bcrypt",
+					"$(PROJECT_DIR)/OpenCV",
+				);
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"MAIN=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Color-Picker-for-iOS/Color_Picker_for_iOS.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Down/Down.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FileBrowser/FileBrowser.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/SavannaKit/SavannaKit.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/SourceEditor/SourceEditor.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/SplitKit/SplitKit.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Zip/Zip.framework/Headers\"",
+					"\"$(SRCROOT)/Python\"",
+					"\"$(SRCROOT)/python3_ios\"",
+				);
+				INFOPLIST_FILE = Pyto/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				KEEP_PRIVATE_EXTERNS = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/lib/swift,
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Python",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Pyto",
+					"$(PROJECT_DIR)/Extensions/Matplotlib",
+					"$(PROJECT_DIR)/Extensions/Kiwisolver",
+					"$(PROJECT_DIR)/Extensions/PIL",
+					"$(PROJECT_DIR)/libjpeg",
+					"$(PROJECT_DIR)/Extensions/Lxml",
+					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
+					"$(PROJECT_DIR)/Extensions/PyNacl",
+					"$(PROJECT_DIR)/Extensions/SciPy",
+					"$(PROJECT_DIR)/Extensions/NumPy",
+					"$(PROJECT_DIR)/Extensions/OpenCV",
+					"$(PROJECT_DIR)/Extensions/Zmq",
+				);
+				LLVM_LTO = YES_THIN;
+				MARKETING_VERSION = 12.3;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "";
+				OTHER_CODE_SIGN_FLAGS = "--deep";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"Down\"",
+					"-framework",
+					"\"SavannaKit\"",
+					"-framework",
+					"\"SourceEditor\"",
+					"-framework",
+					"\"SplitKit\"",
+					"-framework",
+					"\"Zip\"",
+					"-Wl",
+					"-undefined",
+					dynamic_lookup,
+				);
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_STYLE = "non-global";
+				STRIP_SWIFT_SYMBOLS = NO;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "MAIN DEBUG VPP";
+				SWIFT_OBJC_BRIDGING_HEADER = "Pyto/Pyto-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 arm64e";
+			};
+			name = VPP;
+		};
+		C967A03E249D142F00EE3871 /* VPP */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_DEADCODE_DEADSTORES = NO;
+				CLANG_ENABLE_CPP_STATIC_DESTRUCTORS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Pyto Widget/Pyto Widget.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 287;
+				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libjpeg",
+					"$(PROJECT_DIR)",
+				);
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"WIDGET=1",
+					"DEBUG=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
+				INFOPLIST_FILE = "Pyto Widget/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+					/usr/lib/swift,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Python",
+					"$(PROJECT_DIR)/BZip2",
+					"$(PROJECT_DIR)/OpenSSL",
+					"$(PROJECT_DIR)/XZ",
+					"$(PROJECT_DIR)/PIL",
+					"$(PROJECT_DIR)/libjpeg",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Pyto\\ Widget",
+					"$(PROJECT_DIR)/Pyto\\ Widget",
+					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
+				);
+				MARKETING_VERSION = 12.3;
+				OTHER_LDFLAGS = "-ObjC";
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).Pyto-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_STYLE = "non-global";
+				STRIP_SWIFT_SYMBOLS = NO;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "WIDGET DEBUG";
+				SWIFT_OBJC_BRIDGING_HEADER = "Pyto Widget/Pyto Widget-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 arm64e";
+			};
+			name = VPP;
+		};
+		C967A03F249D142F00EE3871 /* VPP */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 287;
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				ENABLE_BITCODE = NO;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
+				INFOPLIST_FILE = "Pyto Intents/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 12.3;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).Intents";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Pyto Intents/Pyto Intents-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = VPP;
+		};
+		C967A040249D142F00EE3871 /* VPP */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "$(SRCROOT)/Python iOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Python",
+					"$(PROJECT_DIR)/BZip2",
+					"$(PROJECT_DIR)/OpenSSL",
+					"$(PROJECT_DIR)/XZ",
+					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ch.ada.Python;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = VPP;
+		};
+		C967A041249D142F00EE3871 /* VPP */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
+				INFOPLIST_FILE = PytoCore/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Python",
+					"$(PROJECT_DIR)/BZip2",
+					"$(PROJECT_DIR)/OpenSSL",
+					"$(PROJECT_DIR)/XZ",
+					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ch.ada.PytoCore;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = VPP;
+		};
+		C967A042249D142F00EE3871 /* VPP */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = libpng/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.libpng;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = VPP;
+		};
+		C967A043249D142F00EE3871 /* VPP */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = libjpeg/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ch.ada.libjpeg;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = VPP;
+		};
+		C967A044249D142F00EE3871 /* VPP */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 287;
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				IBSC_MODULE = Pyto_Watch_Extension;
+				INFOPLIST_FILE = "Pyto Watch/Info.plist";
+				MARKETING_VERSION = 12.3;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = VPP;
+		};
+		C967A045249D142F00EE3871 /* VPP */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 287;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "Pyto Watch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 12.3;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp.watchkitextension";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = VPP;
+		};
+		C967A046249D142F00EE3871 /* VPP */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"$(SRCROOT)/SwiftUI Views/Preview Content\"";
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "SwiftUI Views/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-weak_framework",
+					SwiftUI,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.ada.SwiftUI-Views";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = VPP;
+		};
+		C967A047249D142F00EE3871 /* VPP */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"$(SRCROOT)/SwiftUI Views/Preview Content\"";
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "SwiftUI Preview/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.ada.SwiftUI-Preview";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = VPP;
+		};
+		C967A048249D142F00EE3871 /* VPP */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/Python\"",
+					"\"$(SRCROOT)/python3_ios\"",
+				);
+				INFOPLIST_FILE = PytoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ch.ada.PytoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pyto.app/Pyto";
+			};
+			name = VPP;
 		};
 		C97867DF2304DEB000BD6FA4 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -10366,7 +10911,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 12.3;
-				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp.watchkitextension";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -10392,7 +10937,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 12.3;
-				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp.watchkitextension";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -10413,7 +10958,7 @@
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
 				MARKETING_VERSION = 12.3;
-				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -10434,7 +10979,7 @@
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
 				MARKETING_VERSION = 12.3;
-				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -10462,7 +11007,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 12.3;
-				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Intents;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).Intents";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
@@ -10491,7 +11036,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 12.3;
-				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Intents;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).Intents";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
@@ -10678,6 +11223,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_ID = ch.marcela.ada.Pyto;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -10740,6 +11286,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_ID = ch.marcela.ada.Pyto;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -10897,7 +11444,7 @@
 					dynamic_lookup,
 				);
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = "non-global";
@@ -11017,7 +11564,7 @@
 					dynamic_lookup,
 				);
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = "non-global";
@@ -11038,6 +11585,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C90BC0BF2473522400EF7F09 /* Debug */,
+				C967A046249D142F00EE3871 /* VPP */,
 				C90BC0C02473522400EF7F09 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -11047,6 +11595,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C943AC47215277A000844368 /* Debug */,
+				C967A040249D142F00EE3871 /* VPP */,
 				C943AC48215277A000844368 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -11056,6 +11605,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C946A5B522074EAA00F78C5C /* Debug */,
+				C967A03E249D142F00EE3871 /* VPP */,
 				C946A5B622074EAA00F78C5C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -11065,6 +11615,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C95EE4E922070224006611CB /* Debug */,
+				C967A042249D142F00EE3871 /* VPP */,
 				C95EE4EA22070224006611CB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -11074,6 +11625,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C97867DF2304DEB000BD6FA4 /* Debug */,
+				C967A043249D142F00EE3871 /* VPP */,
 				C97867E02304DEB000BD6FA4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -11083,6 +11635,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C97B023223E9F82C00032925 /* Debug */,
+				C967A045249D142F00EE3871 /* VPP */,
 				C97B023323E9F82C00032925 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -11092,6 +11645,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C97B023623E9F82C00032925 /* Debug */,
+				C967A044249D142F00EE3871 /* VPP */,
 				C97B023723E9F82C00032925 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -11101,6 +11655,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C9C2F47722F0ED8C0062F4D6 /* Debug */,
+				C967A03F249D142F00EE3871 /* VPP */,
 				C9C2F47822F0ED8C0062F4D6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -11110,6 +11665,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C9CEE1EC21EB8D5300316D3C /* Debug */,
+				C967A041249D142F00EE3871 /* VPP */,
 				C9CEE1ED21EB8D5300316D3C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -11119,6 +11675,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C9DF04D224998BCE0073A871 /* Debug */,
+				C967A048249D142F00EE3871 /* VPP */,
 				C9DF04D324998BCE0073A871 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -11128,6 +11685,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C9F1E4BD2473721E00A28F2A /* Debug */,
+				C967A047249D142F00EE3871 /* VPP */,
 				C9F1E4BE2473721E00A28F2A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -11137,6 +11695,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C9FCFD65214428B300A07974 /* Debug */,
+				C967A03C249D142F00EE3871 /* VPP */,
 				C9FCFD66214428B300A07974 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -11146,6 +11705,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C9FCFD68214428B300A07974 /* Debug */,
+				C967A03D249D142F00EE3871 /* VPP */,
 				C9FCFD69214428B300A07974 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
