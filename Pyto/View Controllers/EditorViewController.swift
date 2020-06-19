@@ -916,13 +916,17 @@ fileprivate func parseArgs(_ args: inout [String]) {
                     lines.append(range)
                 }
                 
-                if lines.indices.contains(def.line-1) {
+                if lines.indices.contains(def.line-1), textView.contentSize.height > textView.frame.height {
                     let substringRange = lines[def.line-1]
                     let glyphRange = textView.layoutManager.glyphRange(forCharacterRange: substringRange, actualCharacterRange: nil)
                     let rect = textView.layoutManager.boundingRect(forGlyphRange: glyphRange, in: textView.textContainer)
                     let topTextInset = textView.textContainerInset.top
                     let contentOffset = CGPoint(x: 0, y: topTextInset + rect.origin.y)
-                    textView.setContentOffset(contentOffset, animated: true)
+                    if textView.contentSize.height-contentOffset.y > textView.frame.height {
+                        textView.setContentOffset(contentOffset, animated: true)
+                    } else {
+                        textView.scrollToBottom()
+                    }
                 }
             }
         }) {
