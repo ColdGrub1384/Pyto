@@ -11,7 +11,9 @@ import SourceEditor
 import SavannaKit
 import InputAssistant
 import IntentsUI
-import CoreSpotlight
+import MarqueeLabel
+import SwiftUI
+import SwiftUI_Views
 
 fileprivate func parseArgs(_ args: inout [String]) {
     ParseArgs(&args)
@@ -184,6 +186,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 if let doc = self.document, let data = try? Data(contentsOf: doc.fileURL) {
                     try? doc.load(fromContents: data, ofType: "public.python-script")
                     self.textView.text = doc.text
+                    self.updateSuggestions(force: true)
                 }
             })
         }
@@ -225,6 +228,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     /// Button for debugging script.
     var debugItem: UIBarButtonItem!
+    
+    /// The button for seeing definitions.
+    var definitionsItem: UIBarButtonItem!
     
     // MARK: - Theme
     
@@ -299,6 +305,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
         scriptsButton.addTarget(self, action: #selector(close), for: .touchUpInside)
         scriptsItem = UIBarButtonItem(customView: scriptsButton)
         
+        let defintionsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        defintionsButton.setImage(UIImage(systemName: "arrowtriangle.down.fill"), for: .normal)
+        defintionsButton.addTarget(self, action: #selector(showDefintions(_:)), for: .touchUpInside)
+        definitionsItem = UIBarButtonItem(customView: defintionsButton)
+        
         let searchButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         if #available(iOS 13.0, *) {
             searchButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
@@ -325,7 +336,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                     debugItem,
                 ]
             }
-            parent?.navigationItem.leftBarButtonItems = [scriptsItem, searchItem]
+            parent?.navigationItem.leftBarButtonItems = [scriptsItem, searchItem, definitionsItem]
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
@@ -402,45 +413,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 }
             }
             
-            // Siri shortcut
-            
-            if #available(iOS 12.0, *), UIDevice.current.systemVersion.components(separatedBy: ".")[0] == "12", doc.fileURL != Bundle.main.url(forResource: "installer", withExtension: "py") && !doc.fileURL.path.hasSuffix(".repl.py") && !doc.fileURL.resolvingSymlinksInPath().path.hasPrefix(URL(fileURLWithPath: NSTemporaryDirectory()).resolvingSymlinksInPath().path) {
-                let filePath: String?
-                if let doc = document {
-                    filePath = RelativePathForScript(doc.fileURL)
-                } else {
-                    filePath = nil
-                }
-                
-                let attributes = CSSearchableItemAttributeSet(itemContentType: "public.item")
-                attributes.contentDescription = document?.fileURL.lastPathComponent
-                attributes.kind = "Python Script"
-                let activity = NSUserActivity(activityType: "PythonScript")
-                activity.title = "Run \(title ?? document?.fileURL.deletingPathExtension().lastPathComponent ?? "script")"
-                activity.contentAttributeSet = attributes
-                activity.isEligibleForSearch = true
-                activity.isEligibleForPrediction = true
-                activity.isEligibleForHandoff = false
-                activity.keywords = ["python", "pyto", "run", "script", title ?? "Untitled"]
-                activity.requiredUserInfoKeys = ["filePath"]
-                attributes.relatedUniqueIdentifier = filePath
-                attributes.identifier = filePath
-                attributes.domainIdentifier = filePath
-                userActivity = activity
-                if let d = try? document?.fileURL.bookmarkData(), let data = d {
-                    activity.addUserInfoEntries(from: ["filePath" : data])
-                    activity.suggestedInvocationPhrase = document?.fileURL.deletingPathExtension().lastPathComponent
-                }
-            }
-            
             if (parent as? EditorSplitViewController)?.folder != nil {
                 scriptsItem = parent?.navigationController?.splitViewController?.displayModeButtonItem ?? scriptsItem
-                parent?.navigationItem.leftBarButtonItems = [scriptsItem, searchItem]
+                parent?.navigationItem.leftBarButtonItems = [scriptsItem, searchItem, definitionsItem]
             }
-            
-            /*if Python.shared.isScriptRunning {
-                Python.shared.stop()
-            }*/
         }
     }
     
@@ -499,6 +475,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
                     self.run()
                 }
             }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
+            self.updateSuggestions(force: true)
         }
         
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
@@ -915,6 +895,41 @@ fileprivate func parseArgs(_ args: inout [String]) {
             
             presentPopover()
         }
+    }
+    
+    /// Shows function definitions.
+    @objc func showDefintions(_ sender: Any) {
+        var navVC: UINavigationController!
+                
+        let view = DefinitionsView(defintions: definitionsList, handler: { (def) in
+            navVC.dismiss(animated: true) {
+                
+                var lines = [NSRange]()
+                
+                let textView = self.textView.contentTextView
+                let text = NSString(string: textView.text)
+                text.enumerateSubstrings(in: text.range(of: text as String), options: .byLines) { (_, range, _, _) in
+                    lines.append(range)
+                }
+                
+                if lines.indices.contains(def.line-1) {
+                    let substringRange = lines[def.line-1]
+                    let glyphRange = textView.layoutManager.glyphRange(forCharacterRange: substringRange, actualCharacterRange: nil)
+                    let rect = textView.layoutManager.boundingRect(forGlyphRange: glyphRange, in: textView.textContainer)
+                    let topTextInset = textView.textContainerInset.top
+                    let contentOffset = CGPoint(x: 0, y: topTextInset + rect.origin.y)
+                    textView.setContentOffset(contentOffset, animated: true)
+                }
+            }
+        }) {
+            navVC.dismiss(animated: true, completion: nil)
+        }
+        
+        navVC = UINavigationController(rootViewController: UIHostingController(rootView: view))
+        navVC.modalPresentationStyle = .popover
+        navVC.popoverPresentationController?.barButtonItem = definitionsItem
+        
+        present(navVC, animated: true, completion: nil)
     }
     
     /// Shares the current script.
@@ -1628,6 +1643,38 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     // MARK: - Suggestions
     
+    /// The defintions of the scripts. Array of arrays: [["content", lineNumber]]
+    @objc var definitions = NSMutableArray() {
+        didSet {
+            DispatchQueue.main.async {
+                if let hostC = (self.presentedViewController as? UINavigationController)?.visibleViewController as? UIHostingController<DefinitionsView> {
+                    hostC.rootView.dataSource.definitions = self.definitionsList
+                }
+            }
+        }
+    }
+    
+    /// Defintions of the scripts.
+    var definitionsList: [Definiton] {
+        var definitions = [Definiton]()
+        for def in self.definitions {
+            if let content = def as? [Any], content.count == 2 {
+                guard let description = content[0] as? String else {
+                    continue
+                }
+                
+                guard let line = content[1] as? Int else {
+                    continue
+                }
+                
+                definitions.append(Definiton(signature: description, line: line))
+            }
+        
+        }
+        
+        return definitions
+    }
+    
     private var currentSuggestionIndex = -1 {
         didSet {
             DispatchQueue.main.async {
@@ -1790,23 +1837,25 @@ fileprivate func parseArgs(_ args: inout [String]) {
     }
     
     /// Updates suggestions.
-    func updateSuggestions() {
+    ///
+    /// - Parameters:
+    ///     - force: If set to `true`, the Python code will be called without doing any check.
+    func updateSuggestions(force: Bool = false) {
         
         let textView = self.textView.contentTextView
         
-        guard let text = textView.text else {
-            self.suggestions = []
-            self.completions = []
-            return inputAssistant.reloadData()
+        let text = textView.text ?? ""
+        
+        if !force {
+            guard let line = textView.currentLine, !line.isEmpty else {
+                self.suggestions = []
+                self.completions = []
+                self.signature = ""
+                return inputAssistant.reloadData()
+            }
         }
         
         EditorViewController.codeToComplete = text
-        
-        guard let line = textView.currentLine, !line.isEmpty else {
-            self.suggestions = []
-            self.completions = []
-            return inputAssistant.reloadData()
-        }
         
         ConsoleViewController.ignoresInput = true
         Python.shared.run(code: """
