@@ -109,7 +109,7 @@ var initialVersionRequiringUserToPay: String {
 
 /// The free trial duration in days.
 var freeTrialDuration: Int {
-    return 3
+    return 20
 }
 
 /// Returns a boolean indicating whether the app is in sandbox environment.
