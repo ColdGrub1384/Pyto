@@ -10,7 +10,7 @@ import UIKit
 import SplitKit
 
 /// A Split view controller for displaying the editor and the console.
-public class EditorSplitViewController: SplitViewController {
+public class EditorSplitViewController: SplitViewController, ContainedViewController {
     
     /// If set to `true`, console will be shown at bottom.
     static var shouldShowConsoleAtBottom: Bool {
@@ -308,7 +308,12 @@ public class EditorSplitViewController: SplitViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
+        // In SwiftUI
+        parent?.navigationItem.leftItemsSupplementBackButton = true
+        
+        // In UIKit
         navigationItem.leftItemsSupplementBackButton = true
+        
         closeConsoleBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(showEditor))
     }
     
@@ -335,8 +340,10 @@ public class EditorSplitViewController: SplitViewController {
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        becomeFirstResponder()
+        
         if #available(iOS 13.0, *) {
-            view.window?.windowScene?.title = editor.document?.fileURL.deletingPathExtension().lastPathComponent
+            view.window?.windowScene?.title = editor?.document?.fileURL.deletingPathExtension().lastPathComponent
         }
         
         willTransition(to: traitCollection, with: ViewControllerTransitionCoordinator())
@@ -511,10 +518,14 @@ public class EditorSplitViewController: SplitViewController {
         }
     }
     
-    /// A Split view controller displaying a file browser and the code editor.
+    /// A Split view controller displaying a file browser and the code editor?.
     class ProjectSplitViewController: UISplitViewController {
         
         /// The editor.
         var editor: EditorSplitViewController?
     }
+    
+    // MARK: - Contained view controller
+    
+    public var container: ContainerViewController?
 }

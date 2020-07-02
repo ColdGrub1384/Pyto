@@ -13,7 +13,6 @@ import InputAssistant
 import IntentsUI
 import MarqueeLabel
 import SwiftUI
-import SwiftUI_Views
 
 fileprivate func parseArgs(_ args: inout [String]) {
     ParseArgs(&args)
@@ -242,6 +241,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         textView.contentTextView.inputAccessoryView = nil
         
+        // SwiftUI
+        parent?.parent?.parent?.view.backgroundColor = theme.sourceCodeTheme.backgroundColor
+        
         let text = textView.text
         textView.delegate = nil
         textView.delegate = self
@@ -257,9 +259,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
         inputAssistant = InputAssistantView()
         inputAssistant.delegate = self
         inputAssistant.dataSource = self
-        inputAssistant.leadingActions = (UIApplication.shared.statusBarOrientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])+[InputAssistantAction(image: "⇥".image() ?? UIImage(), target: self, action: #selector(insertTab))]
+        inputAssistant.leadingActions = (UIDevice.current.orientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])+[InputAssistantAction(image: "⇥".image() ?? UIImage(), target: self, action: #selector(insertTab))]
         inputAssistant.attach(to: textView.contentTextView)
-        inputAssistant.trailingActions = [InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView.contentTextView, action: #selector(textView.contentTextView.resignFirstResponder))]+(UIApplication.shared.statusBarOrientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])
+        inputAssistant.trailingActions = [InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView.contentTextView, action: #selector(textView.contentTextView.resignFirstResponder))]+(UIDevice.current.orientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])
         
         textView.contentTextView.reloadInputViews()
     }
@@ -269,33 +271,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         setup(theme: ConsoleViewController.choosenTheme)
     }
     
-    // MARK: - View controller
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-                
-        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
-        
-        if #available(iOS 13.0, *) {
-            view.backgroundColor = .systemBackground
-        }
-        
-        view.addSubview(textView)
-        textView.delegate = self
-        textView.contentTextView.delegate = self
-        
-        NoSuggestionsLabel = {
-            let label = MarqueeLabel(frame: .zero, rate: 100, fadeLength: 1)
-            return label
-        }
-        inputAssistant.dataSource = self
-        inputAssistant.delegate = self
-        
-        parent?.title = document?.fileURL.deletingPathExtension().lastPathComponent
-        
-        if document?.fileURL == URL(fileURLWithPath: NSTemporaryDirectory()+"/Temporary") {
-            title = nil
-        }
+    private func setBarItems() {
         
         runBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(run))
         stopBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(stop))
@@ -330,32 +306,44 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         if !(parent is REPLViewController) && !(parent is RunModuleViewController) && !(parent is PipInstallerViewController) {
             if let path = document?.fileURL.path, Python.shared.isScriptRunning(path) {
-                parent?.navigationItem.rightBarButtonItems = [
+                parentNavigationItem?.rightBarButtonItems = [
                     stopBarButtonItem,
                     debugItem,
                 ]
             } else {
-                parent?.navigationItem.rightBarButtonItems = [
+                parentNavigationItem?.rightBarButtonItems = [
                     runBarButtonItem,
                     debugItem,
                 ]
             }
-            parent?.navigationItem.leftBarButtonItems = [scriptsItem, searchItem, definitionsItem]
+            
+            if (parent as? EditorSplitViewController)?.folder != nil {
+                scriptsItem = splitViewController?.displayModeButtonItem ?? scriptsItem
+            }
+            
+            if #available(iOS 14.0, *), (parent as? EditorSplitViewController)?.folder == nil, traitCollection.horizontalSizeClass != .compact {
+                parentNavigationItem?.leftBarButtonItems = [searchItem, definitionsItem]
+            } else {
+                parentNavigationItem?.leftBarButtonItems = [scriptsItem, searchItem, definitionsItem]
+            }
         }
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
-        textView.contentTextView.isEditable = !isSample
+    
+        if !(parent is REPLViewController) && !(parent is RunModuleViewController) && !(parent is PipInstallerViewController) {
+            parent?.title = document?.fileURL.deletingPathExtension().lastPathComponent
+            parent?.parent?.title = document?.fileURL.deletingPathExtension().lastPathComponent
+        }
         
         let space = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         space.width = 10
         
-        parent?.navigationController?.isToolbarHidden = false
+        if !(parent is REPLViewController) && !(parent is PipInstallerViewController) && !(parent is RunModuleViewController) {
+            parent?.navigationController?.isToolbarHidden = false
+        } else {
+            parent?.navigationController?.isToolbarHidden = true
+        }
         
         if #available(iOS 13.0, *), !FileManager.default.isReadableFile(atPath: currentDirectory.path) {
-            parent?.toolbarItems = [
+            parentVC?.toolbarItems = [
                 shareItem,
                 moreItem,
                 space,
@@ -365,7 +353,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 runtimeItem
             ]
         } else {
-            parent?.toolbarItems = [
+            parentVC?.toolbarItems = [
                 shareItem,
                 moreItem,
                 space,
@@ -374,6 +362,41 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 runtimeItem
             ]
         }
+    }
+    
+    // MARK: - View controller
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+                
+        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
+        
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemBackground
+        }
+        
+        view.addSubview(textView)
+        textView.delegate = self
+        textView.contentTextView.delegate = self
+        
+        NoSuggestionsLabel = {
+            let label = MarqueeLabel(frame: .zero, rate: 100, fadeLength: 1)
+            return label
+        }
+        inputAssistant.dataSource = self
+        inputAssistant.delegate = self
+        
+        if document?.fileURL == URL(fileURLWithPath: NSTemporaryDirectory()+"/Temporary") {
+            title = nil
+        }
+        
+        setBarItems()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        textView.contentTextView.isEditable = !isSample
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -387,9 +410,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         setup(theme: ConsoleViewController.choosenTheme)
         
-        if !isDocOpened {
-            isDocOpened = true
-            
+        func openDoc() {
             guard let doc = self.document else {
                 return
             }
@@ -409,17 +430,24 @@ fileprivate func parseArgs(_ args: inout [String]) {
             }
             
             if doc.fileURL.path == Bundle.main.path(forResource: "installer", ofType: "py") && (!(parent is REPLViewController) && !(parent is RunModuleViewController) && !(parent is PipInstallerViewController)) {
-                self.parent?.navigationItem.leftBarButtonItems = []
+                self.parentNavigationItem?.leftBarButtonItems = []
                 if Python.shared.isScriptRunning(path) {
-                    self.parent?.navigationItem.rightBarButtonItems = [self.stopBarButtonItem]
+                    self.parentNavigationItem?.rightBarButtonItems = [self.stopBarButtonItem]
                 } else {
-                    self.parent?.navigationItem.rightBarButtonItems = [self.runBarButtonItem]
+                    self.parentNavigationItem?.rightBarButtonItems = [self.runBarButtonItem]
                 }
             }
+        }
+        
+        if !isDocOpened {
+            isDocOpened = true
             
-            if (parent as? EditorSplitViewController)?.folder != nil {
-                scriptsItem = parent?.navigationController?.splitViewController?.displayModeButtonItem ?? scriptsItem
-                parent?.navigationItem.leftBarButtonItems = [scriptsItem, searchItem, definitionsItem]
+            if document?.hasBeenOpened != true {
+                document?.open(completionHandler: { (_) in
+                    openDoc()
+                })
+            } else {
+                openDoc()
             }
         }
     }
@@ -492,6 +520,16 @@ fileprivate func parseArgs(_ args: inout [String]) {
         super.viewWillDisappear(animated)
         
         save()
+        
+        parent?.navigationController?.isToolbarHidden = true
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        if let parent = parent {
+            compactNavigationController?.setViewControllers([parent], animated: true)
+        }
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -500,6 +538,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
         guard view != nil else {
             return
         }
+        
+        setBarItems()
         
         for (_, marker) in breakpointMarkers {
             marker.backgroundColor = .clear
@@ -842,7 +882,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             DispatchQueue.main.async {
                 if !added {
                     let item = UIBarButtonItem(image: self.editorIcon, style: .plain, target: self, action: #selector(self.callPlugin))
-                    self.parent?.toolbarItems?.insert(item, at: 2)
+                    self.parentVC?.toolbarItems?.insert(item, at: 2)
                 }
             }
         }
@@ -2107,9 +2147,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
             }
             
             if success == true {
-                for item in (parent?.toolbarItems ?? []).enumerated() {
+                for item in (parentVC?.toolbarItems ?? []).enumerated() {
                     if item.element.action == #selector(setCwd(_:)) {
-                        parent?.toolbarItems?.remove(at: item.offset)
+                        parentVC?.toolbarItems?.remove(at: item.offset)
                         break
                     }
                 }

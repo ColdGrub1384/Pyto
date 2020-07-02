@@ -217,9 +217,7 @@ import TrueTime
     #endif
     
     // MARK: - Application delegate
-    
-    @objc public var window: UIWindow?
-    
+        
     @objc public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         locationManager.delegate = self
@@ -425,6 +423,14 @@ import TrueTime
         observeUserDefaults()
         
         updatePyPiCache()
+        
+        if #available(iOS 14.0, *) {
+            SidebarNavigation.footer = """
+            \n\(MenuTableViewController.pytoVersion)
+                
+            Python \(Python.shared.version)
+            """
+        }
         #else
         window = UIWindow()
         window?.backgroundColor = .white
@@ -467,63 +473,11 @@ import TrueTime
         RemoteNotifications.deviceToken = deviceToken.map { String(format: "%02hhx", $0) }.joined()
     }
     
-    public func applicationWillResignActive(_ application: UIApplication) {
-        guard #available(iOS 13.0, *) else {
-            ((window?.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor.save()
-            return
-        }
-    }
-    
-    public func applicationDidEnterBackground(_ application: UIApplication) {
-        ((window?.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor.save()
-    }
-    
-    public func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
-        
-        if #available(iOS 13.0, *) {
-            completionHandler(false) // Use SceneDelegate
-        } else {
-            func open() {
-                if shortcutItem.type == "PyPi" {
-                    let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "pypi")
-                    let navVC = UINavigationController(rootViewController: vc)
-                    navVC.modalPresentationStyle = .formSheet
-                    window?.topViewController?.present(navVC, animated: true, completion: nil)
-                    completionHandler(true)
-                } else if shortcutItem.type == "REPL" {
-                    window?.topViewController?.present(UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "repl"), animated: true, completion: nil)
-                    completionHandler(true)
-                } else {
-                    completionHandler(false)
-                }
-            }
-            
-            if window?.rootViewController == nil {
-                _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true, block: { (timer) in
-                    
-                    var otherCondition = true
-                    if shortcutItem.type == "REPL" {
-                        otherCondition = Python.shared.isSetup
-                    }
-                    
-                    if self.window?.rootViewController != nil && otherCondition {
-                        
-                        open()
-                        
-                        timer.invalidate()
-                    }
-                })
-            } else {
-                open()
-            }
-        }
-    }
-    
     @available(iOS 13.0, *)
     public func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
         
         for session in sceneSessions {
-            (((session.scene?.delegate as? UIWindowSceneDelegate)?.window??.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor.save()
+            (((session.scene?.delegate as? UIWindowSceneDelegate)?.window??.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor?.save()
         }
     }
             
@@ -549,7 +503,11 @@ import TrueTime
     
     public func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
-        completionHandler([.alert, .sound])
+        if #available(iOS 14.0, *) {
+            completionHandler([.banner, .sound])
+        } else {
+            completionHandler([.alert, .sound])
+        }
     }
     
     public func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {

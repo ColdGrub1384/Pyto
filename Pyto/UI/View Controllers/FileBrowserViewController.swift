@@ -274,6 +274,11 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
                     editor.save { (_) in
                         let document = PyDocument(fileURL: url)
                         document.open { (_) in
+                            
+                            if #available(iOS 14.0, *) {
+                                RecentDataSource.shared.recent.append(url)
+                            }
+                            
                             editor.parent?.title = document.fileURL.deletingPathExtension().lastPathComponent
                             editor.document = document
                             editor.viewWillAppear(false)
@@ -300,7 +305,8 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
                                 (presentingPresenting as? DocumentBrowserViewController)?.openDocument(url, run: false, folder: doc)
                             })
                         } else {
-                            (presenting as? DocumentBrowserViewController)?.openDocument(url, run: false, folder: doc)
+                            let browser = presenting as? DocumentBrowserViewController
+                            browser?.openDocument(url, run: false, folder: doc)
                         }
                     }
                 }

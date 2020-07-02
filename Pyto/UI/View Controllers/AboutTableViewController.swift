@@ -121,6 +121,8 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Settings" // TODO: Localize
+        
         switch EditorViewController.indentation {
         case "\t":
             identationSegmentedControl.selectedSegmentIndex = 0
@@ -141,13 +143,23 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
         fontSizeLabel.font = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
         showConsoleAtBottom.isOn = EditorSplitViewController.shouldShowConsoleAtBottom
         showSeparator.isOn = EditorSplitViewController.shouldShowSeparator
+        
+        tableView.backgroundColor = .systemGroupedBackground
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if #available(iOS 13.0, *) {
-            view.window?.windowScene?.title = title
+            view.window?.windowScene?.title = navigationItem.title
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if #available(iOS 13.0, *) {
+            view.window?.windowScene?.title = ""
         }
     }
     

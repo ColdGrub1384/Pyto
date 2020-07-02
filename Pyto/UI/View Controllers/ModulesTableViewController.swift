@@ -61,13 +61,17 @@ import UIKit
         navigationItem.searchController = searchController
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
+        
+        tableView.backgroundColor = .systemBackground
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         ModulesTableViewController.visible = self
-        navigationController?.navigationBar.prefersLargeTitles = true        
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        Python.shared.run(code: "import modules_inspector; modules_inspector.main()")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -75,6 +79,14 @@ import UIKit
         
         if #available(iOS 13.0, *) {
             view.window?.windowScene?.title = title
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if #available(iOS 13.0, *) {
+            view.window?.windowScene?.title = ""
         }
     }
     
@@ -127,22 +139,22 @@ import UIKit
         let url = URL(fileURLWithPath: ModulesTableViewController.paths[indexPath.row])
         let window = view.window
         if FileManager.default.fileExists(atPath: url.path) {
-            presentingViewController?.dismiss(animated: true, completion: {
-                
-                if UIDevice.current.userInterfaceIdiom == .pad {
-                    let docBrowser = DocumentBrowserViewController()
-                    SceneDelegate.viewControllerToShow = docBrowser
-                    if #available(iOS 13.0, *) {
-                        UIApplication.shared.requestSceneSessionActivation(nil, userActivity: nil, options: nil, errorHandler: nil)
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                        docBrowser.view.window?.tintColor = ConsoleViewController.choosenTheme.tintColor
-                        docBrowser.openDocument(url, run: false)
-                    }
-                } else if let docBrowser = window?.rootViewController as? DocumentBrowserViewController {
+            
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                let docBrowser = DocumentBrowserViewController()
+                SceneDelegate.viewControllerToShow = docBrowser
+                if #available(iOS 13.0, *) {
+                    UIApplication.shared.requestSceneSessionActivation(nil, userActivity: nil, options: nil, errorHandler: nil)
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                    docBrowser.view.window?.tintColor = ConsoleViewController.choosenTheme.tintColor
                     docBrowser.openDocument(url, run: false)
                 }
-            })
+            } else if let docBrowser = window?.rootViewController as? DocumentBrowserViewController {
+                presentingViewController?.dismiss(animated: true, completion: {
+                    docBrowser.openDocument(url, run: false)
+                })
+            }
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }

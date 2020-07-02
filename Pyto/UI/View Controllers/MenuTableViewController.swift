@@ -8,7 +8,6 @@
 
 import UIKit
 import FileBrowser
-import SwiftUI_Views
 import SwiftUI
 
 /// A View controller for choosing from `REPL`, `PyPi` and `Settings` from an `UIDocumentBrowserViewController`.
@@ -48,27 +47,36 @@ import SwiftUI
         }
     }
     
-    /// Opens PyPi.
-    @available(iOS 13.0, *)
-    func selectPyPi() {
+    /// Makes a View Controller for PyPi.
+    ///
+    /// - Returns: A View Controller (without Navigation Controller).
+    static func makePyPiView() -> UIViewController {
         
-        let navVC = UINavigationController(rootViewController: UIViewController())
-                
+        class ViewController: UIViewController {
+            
+            @objc func close() {
+                dismiss(animated: true, completion: nil)
+            }
+        }
+        
+        let vc = ViewController()
+        vc.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: vc, action: #selector(vc.close))
+        
         func run(command: String) {
             let installer = PipInstallerViewController(command: command)
             let _navVC = ThemableNavigationController(rootViewController: installer)
             _navVC.modalPresentationStyle = .formSheet
-            navVC.present(_navVC, animated: true, completion: nil)
+            vc.present(_navVC, animated: true, completion: nil)
         }
         
-        let view = PyPiView(hostingController: navVC) { package, install, remove in
+        let view = PyPiView(hostingController: vc) { package, install, remove in
             
             if install {
                 run(command: "--verbose install \(package)")
             } else if remove {
                 run(command: "--verbose uninstall \(package)")
             } else {
-                if let pypi = self.storyboard?.instantiateViewController(withIdentifier: "pypi") as? PipViewController {
+                if let pypi = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "pypi") as? PipViewController {
                     DispatchQueue.global().async {
                         let pyPackage = PyPackage(name: package)
                         
@@ -79,17 +87,33 @@ import SwiftUI
                                 pypi.title = name
                             }
                             
-                            navVC.show(pypi, sender: nil)
+                            vc.show(pypi, sender: nil)
                         }
                     }
                 }
             }
         }
         
-        navVC.setViewControllers([UIHostingController(rootView: view)], animated: false)
+        let hostVC = UIHostingController(rootView: view)
+        vc.addChild(hostVC)
+        vc.view.addSubview(hostVC.view)
+        hostVC.view.frame = vc.view.frame
+        hostVC.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        vc.title = "PyPI" // TODO: Localization
+        
+        return vc
+    }
+    
+    /// Opens PyPi.
+    @available(iOS 13.0, *)
+    func selectPyPi() {
+        
+        let vc = MenuTableViewController.makePyPiView()
+        let navVC = UINavigationController(rootViewController: vc)
         navVC.modalPresentationStyle = .formSheet
         navVC.navigationBar.prefersLargeTitles = true
-                
+        
         present(navVC, animated: true, completion: nil)
     }
     
@@ -110,7 +134,7 @@ import SwiftUI
                     return
                 }
                 
-                (presentingVC as? DocumentBrowserViewController)?.openDocument(file, run: false, viewController: controller)
+                (presentingVC?.view.window?.rootViewController as? DocumentBrowserViewController)?.openDocument(file, run: false, viewController: controller)
                 
             }, hostController: controller)
             controller.rootView = view
@@ -140,14 +164,7 @@ import SwiftUI
     
     /// Shows loaded modules.
     func selectLoadedModules() {
-                
-        func checkModules() {
-            Python.shared.run(code: "import modules_inspector; modules_inspector.main()")
-        }
-        
         present(UINavigationController(rootViewController: ModulesTableViewController(style: .grouped)), animated: true, completion: nil)
-        
-        checkModules()
     }
     
     /// Opens settings.

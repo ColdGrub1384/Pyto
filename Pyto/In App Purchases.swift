@@ -9,7 +9,6 @@
 import UIKit
 import SwiftyStoreKit
 import SwiftUI
-import SwiftUI_Views
 import ObjectUserDefaults
 import StoreKit
 import TrueTime
@@ -283,4 +282,76 @@ func showOnboarding(window: UIWindow?, isTrialExpired: Bool = false) {
         controller.modalTransitionStyle = .crossDissolve
         window?.topViewController?.present(controller, animated: true, completion: nil)
     }
+}
+
+/// Unlocks the app if purchased or if a free trial is active. If not, an onboarding screen is presented on the passed window.
+///
+/// - Parameters:
+///     - window: The window where an onboarding screen should be presented if the app is locked. If `nil`, nothing will be presented.
+func checkIfUnlocked(on window: UIWindow?) {
+    #if !VPP
+    guard let validator = ReceiptValidator(), let version = validator.receipt[.originalAppVersion] as? String else {
+        if #available(iOS 13.0.0, *) {
+            Pyto.showOnboarding(window: window)
+        }
+        
+        return
+    }
+            
+    // Return if app is purchased before the free trial update
+    guard version.versionCompare(initialVersionRequiringUserToPay) != .orderedAscending else {
+        isUnlocked = true
+        changingUserDefaultsInAppPurchasesValues = true
+        isPurchased.boolValue = true
+        changingUserDefaultsInAppPurchasesValues = true
+        isLiteVersion.boolValue = false
+        isReceiptChecked = true
+        return
+    }
+    
+    // Return if already purchased
+    guard !isPurchased.boolValue else {
+        isUnlocked = true
+        isReceiptChecked = true
+        return
+    }
+    
+    TrueTimeClient.sharedInstance.fetchIfNeeded(success: { (time) in
+        
+        if let date = validator.trialStartDate { // Free trial started
+            let calendar = Calendar.current
+
+            let date1 = calendar.startOfDay(for: date)
+            let date2 = calendar.startOfDay(for: isSandbox ? Date() : time.now()) // Make the date fakable in sandbox
+
+            let components = calendar.dateComponents([.day], from: date1, to: date2)
+            
+            if let days = components.day, days <= freeTrialDuration { // Free trial active
+                isUnlocked = true
+                isReceiptChecked = true
+                return
+            } else { // Expired
+                if #available(iOS 13.0.0, *) {
+                    Pyto.showOnboarding(window: window, isTrialExpired: true)
+                }
+                isReceiptChecked = true
+                return
+            }
+        }
+        
+        if #available(iOS 13.0.0, *) {
+            Pyto.showOnboarding(window: window)
+        }
+        
+        isReceiptChecked = true
+    }) { (error) in
+        print(error.localizedDescription)
+        
+        if #available(iOS 13.0.0, *) {
+            Pyto.showOnboarding(window: window)
+        }
+        
+        isReceiptChecked = true
+    }
+    #endif
 }

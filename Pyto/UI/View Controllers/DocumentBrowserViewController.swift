@@ -11,14 +11,15 @@ import SafariServices
 import CoreSpotlight
 import SplitKit
 import SavannaKit
+import SwiftUI
 
 /// The main file browser used to edit scripts.
-@objc public class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate, UIViewControllerTransitioningDelegate {
+@objc public class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate, ObservableObject {
     
-    /// The visible instance.
-    /*@available(*, deprecated, message: "Use scenes APIs instead.") static var visible: DocumentBrowserViewController? {
-        return UIApplication.shared.keyWindow?.rootViewController as? DocumentBrowserViewController
-    }*/
+    /// The delegate for the scene where this document browser is contained.
+    var sceneDelegate: SceneDelegate? {
+        return view.window?.windowScene?.delegate as? SceneDelegate
+    }
     
     /// If set, will open the document when the view appears.
     var documentURL: URL?
@@ -41,8 +42,18 @@ import SavannaKit
     
     /// Shows more options.
     @objc func showMore(_ sender: UIBarButtonItem) {
-        let menu = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "menu")
-        present(menu, animated: true, completion: nil)
+        if #available(iOS 14.0, *) {
+            let sidebar = makeSidebarNavigation(url: nil)
+            let vc = UIHostingController(rootView: sidebar)
+            vc.modalTransitionStyle = .crossDissolve
+            vc.modalPresentationStyle = .fullScreen
+            sidebar.viewControllerStore.vc = vc
+            
+            present(vc, animated: true, completion: nil)
+        } else {
+            let menu = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "menu")
+            present(menu, animated: true, completion: nil)
+        }
     }
     
     /// Runs the given code.
@@ -58,6 +69,42 @@ import SavannaKit
         openDocument(url, run: true)
     }
     
+    /// Makes a SwiftUI view for the navigation.
+    ///
+    /// - Parameters:
+    ///     - url: The URL of the file to edit.
+    @available(iOS 14.0, *)
+    func makeSidebarNavigation(url: URL?) -> SidebarNavigation {
+        var navView: SidebarNavigation!
+        navView = SidebarNavigation(url: url,
+                                    scene: view.window?.windowScene,
+                                    sceneStateStore: sceneDelegate?.sceneStateStore ?? SceneStateStore(),
+                                    pypiViewController: MenuTableViewController.makePyPiView(),
+                                    samplesView: SamplesNavigationView(url: Bundle.main.url(forResource: "Samples", withExtension: nil)!,
+                                    selectScript: { (file) in
+                                            
+                                        guard file.pathExtension.lowercased() == "py" else {
+                                            return
+                                        }
+            
+                                        guard let editor = self.openDocument(file, run: false, show: false) else {
+                                            return
+                                        }
+            
+                                        editor.navigationItem.largeTitleDisplayMode = .never
+                                            
+                                        ((navView.viewControllerStore.vc?.children.first as? UISplitViewController)?.viewControllers.last as? UINavigationController)?.show(editor, sender: nil)
+                                            
+                                    }),
+                                    documentationViewController: DocumentationViewController(),
+                                    modulesViewController: ModulesTableViewController(style: .grouped),
+                                    makeEditor: { url in
+            return self.openDocument(url, run: false, show: false) ?? UIViewController()
+        })
+        
+        return navView
+    }
+    
     /// Opens the given file.
     ///
     /// - Parameters:
@@ -67,24 +114,25 @@ import SavannaKit
     ///     - isShortcut: A boolean indicating if the opened script is a shortcut.
     ///     - folder: If opened from a project, the folder of the project.
     ///     - animated: Set to `true` if the presentation should be animated.
+    ///     - show: Set to `false` to not present the editor and just return it.
     ///     - completion: Code called after presenting the UI.
-    public func openDocument(_ documentURL: URL, run: Bool, viewController: UIViewController? = nil, isShortcut: Bool = false, folder: FolderDocument? = nil, animated: Bool = true, completion: (() -> Void)? = nil) {
+    @discardableResult public func openDocument(_ documentURL: URL, run: Bool, viewController: UIViewController? = nil, isShortcut: Bool = false, folder: FolderDocument? = nil, animated: Bool = true, show: Bool = true, completion: (() -> Void)? = nil) -> EditorSplitViewController? {
         
         let tintColor = ConsoleViewController.choosenTheme.tintColor ?? UIColor(named: "TintColor") ?? .orange
         
         let document = PyDocument(fileURL: documentURL)
         
         guard documentURL.pathExtension.lowercased() == "py" else {
-            return
+            return nil
         }
         
         let isPip = (documentURL.path == Bundle.main.path(forResource: "installer", ofType: "py"))
         
-        if presentedViewController != nil && viewController == nil {
+        if presentedViewController != nil && viewController == nil && show {
             dismiss(animated: true) {
                 self.openDocument(documentURL, run: run, folder: folder, completion: completion)
             }
-            return
+            return nil
         }
                 
         let editor = EditorViewController(document: document)
@@ -124,18 +172,13 @@ import SavannaKit
         
         splitVC.arrangement = .horizontal
         
-        if viewController == nil {
-            transitionController = transitionController(forDocumentAt: documentURL)
-            transitionController?.loadingProgress = document.progress
-            transitionController?.targetView = navVC.view
-        }
-        
         var vc: UIViewController = navVC
         
         if let folder = folder {
             let uiSplitVC = EditorSplitViewController.ProjectSplitViewController()
+            
             uiSplitVC.editor = splitVC
-            uiSplitVC.preferredDisplayMode = .primaryHidden
+            uiSplitVC.preferredDisplayMode = .secondaryOnly
             if #available(iOS 13.0, *) {
                 uiSplitVC.view.backgroundColor = .systemBackground
             }
@@ -149,25 +192,45 @@ import SavannaKit
             let browserNavVC = UINavigationController(rootViewController: browser)
             
             uiSplitVC.viewControllers = [browserNavVC, navVC]
-        }
-        
-        if viewController == nil {
-            vc.transitioningDelegate = self
-        }
-        
-        document.open { (success) in
-            guard success else {
-                return
-            }
+        } else if #available(iOS 14.0, *) {
             
-            document.checkForConflicts(onViewController: self, completion: {
-                (viewController ?? self).present(vc, animated: animated, completion: {
-                    
-                    NotificationCenter.default.removeObserver(splitVC)
-                    completion?()
-                })
-            })
+            let navView = makeSidebarNavigation(url: documentURL)
+            
+            vc = UIHostingController(rootView: navView)
+            vc.modalPresentationStyle = .fullScreen
+            
+            navView.viewControllerStore.vc = vc as? UIHostingController<SidebarNavigation>
         }
+        
+        if #available(iOS 14.0, *) {
+            if !run && !isShortcut && show {
+                RecentDataSource.shared.recent.append(documentURL)
+            }
+        }
+        
+        vc.modalTransitionStyle = .crossDissolve
+        
+        if show {
+            document.open { (success) in
+                guard success else {
+                    return
+                }
+                
+                document.checkForConflicts(onViewController: self, completion: {
+                    
+                    (viewController ?? self).present(vc, animated: animated, completion: {
+                        UIView.animate(withDuration: 0.15) {
+                            (vc.children.first as? UISplitViewController)?.preferredDisplayMode = .secondaryOnly
+                        }
+                        
+                        NotificationCenter.default.removeObserver(splitVC)
+                        completion?()
+                    })
+                })
+            }
+        }
+        
+        return splitVC
     }
     
     // MARK: - Paths
@@ -232,20 +295,5 @@ import SavannaKit
     public func documentBrowser(_ controller: UIDocumentBrowserViewController, didImportDocumentAt sourceURL: URL, toDestinationURL destinationURL: URL) {
         
         openDocument(destinationURL, run: false)
-    }
-    
-    // MARK: - Animation
-    
-    /// Transition controller for presenting and dismissing View controllers.
-    var transitionController: UIDocumentBrowserTransitionController?
-    
-    // MARK: - View controller transition delegate
-    
-    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return transitionController
-    }
-    
-    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return transitionController
     }
 }

@@ -40,11 +40,12 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
     /// Opens the documentation in a new window.
     @objc func openInNewWindow() {
         let presenting = presentingViewController
-        let navVC = navigationController
         ((presenting as? EditorSplitViewController.NavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor?.documentationNavigationController = nil
         dismiss(animated: true) {
             func showDocs() {
-                SceneDelegate.viewControllerToShow = navVC ?? self
+                let navVC = UINavigationController(rootViewController: self)
+                navVC.view.backgroundColor = .systemBackground
+                SceneDelegate.viewControllerToShow = navVC
                 SceneDelegate.viewControllerDidShow = {
                     self.view.window?.tintColor = ConsoleViewController.choosenTheme.tintColor
                 }
@@ -53,9 +54,8 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
                         print(error.localizedDescription)
                     })
                 }
-                if self.navigationItem.rightBarButtonItems?.count == 2 {
-                    self.navigationItem.rightBarButtonItems?.removeLast()
-                }
+                
+                self.navigationItem.rightBarButtonItem = nil
             }
             
             if presenting?.modalPresentationStyle == .formSheet {
@@ -67,17 +67,13 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
             }
         }
     }
-    
-    let request = NSBundleResourceRequest(tags: ["docs"])
-    
+        
     // MARK: - View controller
-    
-    override var keyCommands: [UIKeyCommand]? {
-        return [UIKeyCommand(input: "w", modifierFlags: .command, action: #selector(close), discoverabilityTitle: Localizable.close)]
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "Documentation" // TODO: Localize
         
         edgesForExtendedLayout = []
         
@@ -87,7 +83,7 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(webView)
         
-        if let url = self.request.bundle.url(forResource: "docs_build/html", withExtension: "") {
+        if let url = Bundle.main.url(forResource: "docs_build/html", withExtension: "") {
             self.webView.loadFileURL(url.appendingPathComponent("index.html"), allowingReadAccessTo: url)
         }
         
@@ -96,17 +92,30 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         
         toolbarItems = [goBackButton, UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), goForwardButton]
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(close))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(close))
         
         if UIDevice.current.userInterfaceIdiom == .pad, #available(iOS 13.0, *) {
-            navigationItem.rightBarButtonItems?.append(UIBarButtonItem(image: UIImage(systemName: "chevron.down.square.fill"), style: .plain, target: self, action: #selector(openInNewWindow)))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.down.square.fill"), style: .plain, target: self, action: #selector(openInNewWindow))
         }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        parent?.toolbarItems = toolbarItems
         navigationController?.setToolbarHidden(false, animated: true)
+                
+        if #available(iOS 13.0, *) {
+            view.window?.windowScene?.title = "Documentation" // TODO: Localize
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if #available(iOS 13.0, *) {
+            view.window?.windowScene?.title = ""
+        }
     }
     
     // MARK: - Navigation delegate
