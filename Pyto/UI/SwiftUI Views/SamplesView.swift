@@ -8,6 +8,12 @@
 
 import SwiftUI
 
+@available(iOS 13.0, *)
+fileprivate class SelectedItemStore: ObservableObject {
+        
+    @Published var selectedItem: URL?
+}
+
 var exampleShortcuts: [Shortcut] {
     do {
         guard let shortcutsURL = Bundle.main.url(forResource: "Shortcuts", withExtension: "json") else {
@@ -38,16 +44,19 @@ public struct SamplesView: View {
     
     let contents: [URL]
     
+    @ObservedObject fileprivate var selectedItemStore = SelectedItemStore()
+    
     public init(url: URL, title: String? = nil, selectScript: @escaping ((URL) -> Void), shortcuts: [Shortcut]? = nil, hostController: UIViewController? = nil) {
+        
         self.url = url
-        self.title = title ?? NSLocalizedString("samplesTitle", bundle: SwiftUIBundle, comment: "The title of the Shortcuts gallery")
+        self.title = title ?? NSLocalizedString("samplesTitle", comment: "The title of the examples gallery")
         self.selectScript = selectScript
         self.shortcuts = shortcuts ?? exampleShortcuts
         self.hostController = hostController
         
         var samples = (try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)) ?? []
         samples.sort { (a, _) -> Bool in
-            return !SamplesView.isDirectory(a)
+            return SamplesView.isDirectory(a)
         }
         
         if shortcuts?.isEmpty == false {
@@ -72,7 +81,7 @@ public struct SamplesView: View {
                 ShortcutsView(shortcuts: self.shortcuts, hostController: self.hostController)
             } else {
                 if SamplesView.isDirectory(item) {
-                    NavigationLink(destination: SamplesView(url: item, title: item.lastPathComponent, selectScript: self.selectScript, shortcuts: [], hostController: self.hostController)) {
+                    NavigationLink(destination: SamplesView(url: item, title: item.lastPathComponent, selectScript: self.selectScript, shortcuts: [], hostController: self.hostController), tag: item, selection: $selectedItemStore.selectedItem) {
                         Image(systemName: "folder.fill")
                         Text(item.lastPathComponent)
                     }
@@ -115,18 +124,19 @@ public struct SamplesNavigationView: View {
         self.selectScript = selectScript
         self.shortcuts = shortcuts ?? exampleShortcuts
         self.hostController = hostController
+        self.withoutNavigation = SamplesView(url: self.url, selectScript: self.selectScript, shortcuts: self.shortcuts, hostController: self.hostController)
     }
+    
+    let withoutNavigation: SamplesView
         
     public var body: some View {
         NavigationView {
-                
-            SamplesView(url: self.url, selectScript: self.selectScript, shortcuts: self.shortcuts, hostController: self.hostController)
-
-            .navigationBarItems(trailing: Button(action: {
+            withoutNavigation.navigationBarItems(trailing: Button(action: {
                 self.hostController?.dismiss(animated: true, completion: nil)
             }, label: {
-                Text("done", bundle: SwiftUIBundle, comment: "Done button").fontWeight(.bold)
+                Text("done").fontWeight(.bold)
             }))
+
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }

@@ -13,7 +13,7 @@ struct SearchBar: View {
             .foregroundColor(.secondary)
             .padding(.horizontal, -20)
             
-            TextField(NSLocalizedString("search", bundle: SwiftUIBundle, comment: "Placeholder of the search bar"), text: $text)
+            TextField(NSLocalizedString("search", comment: "Placeholder of the search bar"), text: $text)
             .autocapitalization(.none)
             .disableAutocorrection(true)
             

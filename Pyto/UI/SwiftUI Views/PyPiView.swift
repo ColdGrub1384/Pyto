@@ -10,18 +10,6 @@ import Foundation
 import SwiftUI
 import Combine
 
-extension String {
-
-    func slice(from: String, to: String) -> String? {
-
-        return (range(of: from)?.upperBound).flatMap { substringFrom in
-            (range(of: to, range: substringFrom..<endIndex)?.lowerBound).map { substringTo in
-                String(self[substringFrom..<substringTo])
-            }
-        }
-    }
-}
-
 func search(for package: String) -> [String] {
     let index = Bundle.main.url(forResource: "pypi_index", withExtension: "html") ?? FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask)[0].appendingPathComponent("pypi_index.html")
     
@@ -174,7 +162,7 @@ public struct PyPiView: View {
                             Button(action: {
                                 UIApplication.shared.open(URL(string: "https://pypi.org/project/\(item)")!, options: [:], completionHandler: nil)
                             }) {
-                                Text("pypi.viewOnPyPi", bundle: SwiftUIBundle, comment: "A button on the context menu to show the package on PyPi")
+                                Text("pypi.viewOnPyPi", comment: "A button on the context menu to show the package on PyPi")
                                 Image(systemName: "globe")
                             }
                             
@@ -197,19 +185,19 @@ public struct PyPiView: View {
                             Button(action: {
                                 self.didSelectPackage(item, false, false)
                             }) {
-                                Text("pypi.moreInfo", bundle: SwiftUIBundle, comment: "")
+                                Text("pypi.moreInfo", comment: "")
                                 Image(systemName: "ellipsis")
                             }
                         }
                     }
                 })
             } else {
-                Text("pypi.info", bundle: SwiftUIBundle, comment: "Text displayed on the PyPi installer")
+                Text("pypi.info", comment: "Text displayed on the PyPi installer")
                     .foregroundColor(.secondary)
                     .padding()
                 Spacer()
                 HStack(spacing: 0) {
-                    Text("pypi.credits", bundle: SwiftUIBundle, comment: "Credits displayed on the bottom of the PyPi installer")
+                    Text("pypi.credits", comment: "Credits displayed on the bottom of the PyPi installer")
                         .foregroundColor(.secondary)
                         .font(.footnote)
                     
@@ -230,7 +218,7 @@ public struct PyPiView: View {
             Button(action: {
                 self.hostingController?.dismiss(animated: true, completion: nil)
             }) {
-                Text("done", bundle: SwiftUIBundle, comment: "Done button").fontWeight(.bold)
+                Text("done", comment: "Done button").fontWeight(.bold)
             }
         )
     }

@@ -77,7 +77,7 @@ public struct OnboardingView: View {
         Button(action: {
             self.restore()
         }) {
-            Text("onboarding.restore", bundle: SwiftUIBundle, comment: "The button for restoring purchases")
+            Text("onboarding.restore", comment: "The button for restoring purchases")
         }.padding()
     }
     
@@ -89,7 +89,7 @@ public struct OnboardingView: View {
             
             self.startFreeTrial()
         }) {
-            Text(self.isTrialEnded ? "onboarding.trialEnded" : "onboarding.beginFreeTrial", bundle: SwiftUIBundle)
+            Text(self.isTrialEnded ? "onboarding.trialEnded" : "onboarding.beginFreeTrial")
             .foregroundColor(.white)
             .frame(width: 200)
         }
@@ -104,7 +104,7 @@ public struct OnboardingView: View {
             Button(action: {
                 self.purchaseFull()
             }) {
-                Text("onboarding.fullFeatured \(self.fullFeaturedPrice)", bundle: SwiftUIBundle, comment: "The button for purchasing the full featured version")
+                Text("onboarding.fullFeatured \(self.fullFeaturedPrice)", comment: "The button for purchasing the full featured version")
                     .foregroundColor(.white)
                 .frame(width: 200)
             }
@@ -115,7 +115,7 @@ public struct OnboardingView: View {
             Button(action: {
                 self.showingDetail.toggle()
             }) {
-                Text("onboarding.libraries", bundle: SwiftUIBundle, comment: "The button linking to a list of contained libraries in the pro version")
+                Text("onboarding.libraries", comment: "The button linking to a list of contained libraries in the pro version")
                 .font(.footnote)
                 .underline()
                 .padding()
@@ -128,7 +128,7 @@ public struct OnboardingView: View {
                         HStack {
                             Spacer()
                             
-                            Text("done", bundle: SwiftUIBundle, comment: "Done button")
+                            Text("done", comment: "Done button")
                             .fontWeight(.bold)
                             .padding()
                         }
@@ -148,7 +148,7 @@ public struct OnboardingView: View {
             Button(action: {
                 self.purchaseLite()
             }) {
-                Text("onboarding.limitedVersion \(self.noExtensionsPrice)", bundle: SwiftUIBundle, comment: "The button for purchasing the limited version")
+                Text("onboarding.limitedVersion \(self.noExtensionsPrice)", comment: "The button for purchasing the limited version")
                     .foregroundColor(.white)
                 .frame(width: 200)
             }
@@ -156,7 +156,7 @@ public struct OnboardingView: View {
             .background(Color.accentColor)
             .cornerRadius(12)
             
-            Text("onboarding.noExtensionsFootnote", bundle: SwiftUIBundle, comment: "The footnote below the button for purchasing the limited version")
+            Text("onboarding.noExtensionsFootnote", comment: "The footnote below the button for purchasing the limited version")
             .font(.footnote)
             .frame(width: 200)
             .padding()
@@ -166,11 +166,11 @@ public struct OnboardingView: View {
     public var body: some View {
         VStack {
             
-            Text("onboarding.title", bundle: SwiftUIBundle, comment: "The title of the onboarding view")
+            Text("onboarding.title", comment: "The title of the onboarding view")
                 .font(.largeTitle)
                 .padding()
                             
-            Text("onboarding.subtitle", bundle: SwiftUIBundle, comment: "The text below the title")
+            Text("onboarding.subtitle", comment: "The text below the title")
                 .padding()
             
             Spacer()
@@ -182,7 +182,7 @@ public struct OnboardingView: View {
                             
                             HStack {
                                 Image(systemName: "play")
-                                Text("onboarding.runCode", bundle: SwiftUIBundle, comment: "The first presented feature")
+                                Text("onboarding.runCode", comment: "The first presented feature")
                                 Spacer()
                             }
                             
@@ -190,7 +190,7 @@ public struct OnboardingView: View {
                             
                             HStack {
                                 Image(systemName: "keyboard")
-                                Text("onboarding.editor", bundle: SwiftUIBundle, comment: "The second presented feature")
+                                Text("onboarding.editor", comment: "The second presented feature")
                                 Spacer()
                             }
                             
@@ -198,7 +198,7 @@ public struct OnboardingView: View {
                             
                             HStack {
                                 Image(systemName: "cube.box")
-                                Text("onboarding.pypi", bundle: SwiftUIBundle, comment: "The third presented feature")
+                                Text("onboarding.pypi", comment: "The third presented feature")
                                 Spacer()
                             }
                             
@@ -206,7 +206,7 @@ public struct OnboardingView: View {
                             
                             HStack {
                                 Image(systemName: "mic")
-                                Text("onboarding.shortcuts", bundle: SwiftUIBundle, comment: "The fourth presented feature")
+                                Text("onboarding.shortcuts", comment: "The fourth presented feature")
                                 Spacer()
                             }
                         }.padding()
