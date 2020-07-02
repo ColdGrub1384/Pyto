@@ -93,18 +93,10 @@ class ScriptSettingsViewController: UIViewController, UITextFieldDelegate, UIDoc
             }
             
             if #available(iOS 13.0, *) {
-                do {
-                    var args = editor.args.components(separatedBy: " ")
-                    ParseArgs(&args)
-                    
-                    let intent = RunScriptIntent()
-                    intent.script = INFile(data: try url.bookmarkData(), filename: url.lastPathComponent, typeIdentifier: "public.python-script")
-                    intent.arguments = args
-                    intent.suggestedInvocationPhrase = url.deletingPathExtension().lastPathComponent
-                    button.shortcut = INShortcut(intent: intent)
-                } catch {
-                    print(error.localizedDescription)
-                }
+                let intent = editor.runScriptIntent
+                intent.suggestedInvocationPhrase = url.deletingPathExtension().lastPathComponent
+                intent.showConsole = true
+                button.shortcut = INShortcut(intent: intent)
             } else if let activity = editor.userActivity {
                 button.shortcut = INShortcut(userActivity: activity)
             }

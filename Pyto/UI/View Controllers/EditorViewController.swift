@@ -191,6 +191,33 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
     }
     
+    private var parentNavigationItem: UINavigationItem? {
+        return parent?.navigationItem
+    }
+    
+    private var parentVC: UIViewController? {
+        return parent
+    }
+    
+    /// A navigation controller showing this editor on compact views.
+    var compactNavigationController: UINavigationController?
+    
+    /// An intent for running the script.
+    var runScriptIntent: RunScriptIntent {
+        var args = self.args.components(separatedBy: " ")
+        ParseArgs(&args)
+        
+        let intent = RunScriptIntent()
+        do {
+            intent.script = INFile(data: try self.document!.fileURL.bookmarkData(), filename: document!.fileURL.lastPathComponent, typeIdentifier: "public.python-script")
+        } catch {
+            print(error.localizedDescription)
+        }
+        intent.arguments = args
+        
+        return intent
+    }
+    
     /// Initialize with given document.
     ///
     /// - Parameters:
@@ -1125,7 +1152,23 @@ fileprivate func parseArgs(_ args: inout [String]) {
         guard Python.shared.isSetup else {
             return
         }
-                
+        
+        // Shortcuts
+        let caches = FileManager.default.urls(for: .cachesDirectory, in: .allDomainsMask)[0]
+        if let doc = document?.fileURL,
+           (!doc.path.hasPrefix(NSTemporaryDirectory()) && !doc.resolvingSymlinksInPath().path.hasPrefix(NSTemporaryDirectory())),
+           (!doc.path.hasPrefix(caches.path) && !doc.resolvingSymlinksInPath().path.hasPrefix(caches.path)) {
+            let interaction = INInteraction(intent: runScriptIntent, response: nil)
+            interaction.donate { (error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+            }
+            if let shortcut = INShortcut(intent: runScriptIntent) {
+                INVoiceShortcutCenter.shared.setShortcutSuggestions([shortcut])
+            }
+        }
+        
         save { (_) in
             if !(UserDefaults.standard.value(forKey: "arguments\(self.document?.fileURL.path.replacingOccurrences(of: "//", with: "/") ?? "")") is [String]) {
                 var arguments = self.args.components(separatedBy: " ")
