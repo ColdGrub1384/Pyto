@@ -374,6 +374,11 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>INIntentsSupported</key>
+	<array>
+		<string>RunScriptIntent</string>
+		<string>RunCodeIntent</string>
+	</array>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.developer-tools</string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -413,8 +418,8 @@
 	</dict>
 	<key>NSUserActivityTypes</key>
 	<array>
-		<string>PythonScript</string>
 		<string>GetScriptOutputIntent</string>
+		<string>PythonScript</string>
 		<string>RunCodeIntent</string>
 		<string>RunScriptIntent</string>
 		<string>ch.marcela.ada.Pyto.script</string>
@@ -428,12 +433,10 @@
 			<key>UIWindowSceneSessionRoleApplication</key>
 			<array>
 				<dict>
-					<key>UILaunchStoryboardName</key>
-					<string>LaunchScreen</string>
 					<key>UISceneConfigurationName</key>
 					<string>Document Browser</string>
 					<key>UISceneDelegateClassName</key>
-					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
+					<string>Pyto.SceneDelegate</string>
 					<key>UISceneStoryboardFile</key>
 					<string>Main</string>
 				</dict>
