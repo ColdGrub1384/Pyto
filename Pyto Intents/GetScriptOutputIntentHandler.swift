@@ -7,6 +7,7 @@
 //
 
 import Intents
+import UIKit
 
 class GetScriptOutputIntentHandler: NSObject, GetScriptOutputIntentHandling {
     
@@ -17,6 +18,8 @@ class GetScriptOutputIntentHandler: NSObject, GetScriptOutputIntentHandling {
         }
         
         let outputURL = group.appendingPathComponent("ShortcutOutput.txt")
+        
+        let imagesURL = group.appendingPathComponent("ShortcutPlots")
         
         while true {
             if FileManager.default.fileExists(atPath: outputURL.path) {
@@ -31,10 +34,29 @@ class GetScriptOutputIntentHandler: NSObject, GetScriptOutputIntentHandling {
                     if prefix == "Success" {
                         res = GetScriptOutputIntentResponse(code: .success, userActivity: nil)
                     } else {
+                        PyNotificationCenter.scheduleNotification(title: "Script thrown an exception", message: out, delay: 0.1)
                         res = GetScriptOutputIntentResponse(code: .failure, userActivity: nil)
                     }
                     
-                    res.output = out
+                    var output = [INFile]()
+                    
+                    do {
+                        let plots = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(try Data(contentsOf: imagesURL)) as? [UIImage]
+                        for plot in plots ?? [] {
+                            if let data = plot.pngData() {
+                                output.append(INFile(data: data, filename: "image.png", typeIdentifier: "public.image"))
+                            }
+                        }
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                    
+                    if out.replacingOccurrences(of: "\n", with: "") != "" {
+                        output.append(INFile(data: out.data(using: .utf8) ?? Data(), filename: "console.txt", typeIdentifier: "public.plain-text"))
+                    }
+                    
+                    res.output = output
+                    
                     completion(res)
                     break
                 } catch {

@@ -5,15 +5,15 @@
 	<key>INEnums</key>
 	<array/>
 	<key>INIntentDefinitionModelVersion</key>
-	<string>1.1</string>
+	<string>1.2</string>
 	<key>INIntentDefinitionNamespace</key>
 	<string>1zhe5j</string>
 	<key>INIntentDefinitionSystemVersion</key>
-	<string>19D76</string>
+	<string>20A4299v</string>
 	<key>INIntentDefinitionToolsBuildVersion</key>
-	<string>11E608c</string>
+	<string>12A6159</string>
 	<key>INIntentDefinitionToolsVersion</key>
-	<string>11.5</string>
+	<string>12.0</string>
 	<key>INIntents</key>
 	<array>
 		<dict>
@@ -32,10 +32,10 @@
 			<key>INIntentKeyParameter</key>
 			<string>code</string>
 			<key>INIntentLastParameterTag</key>
-			<integer>5</integer>
+			<integer>7</integer>
 			<key>INIntentManagedParameterCombinations</key>
 			<dict>
-				<key>code,arguments,runInApp</key>
+				<key>code,arguments,showConsole</key>
 				<dict>
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
@@ -43,8 +43,6 @@
 					<string>Run with ${arguments}</string>
 					<key>INIntentParameterCombinationTitleID</key>
 					<string>w4gsBb</string>
-					<key>INIntentParameterCombinationUpdatesLinked</key>
-					<true/>
 				</dict>
 			</dict>
 			<key>INIntentName</key>
@@ -52,6 +50,8 @@
 			<key>INIntentParameters</key>
 			<array>
 				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
 					<key>INIntentParameterDisplayName</key>
 					<string>Code</string>
 					<key>INIntentParameterDisplayNameID</key>
@@ -94,6 +94,8 @@
 					<string>String</string>
 				</dict>
 				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
 					<key>INIntentParameterDisplayName</key>
 					<string>Arguments</string>
 					<key>INIntentParameterDisplayNameID</key>
@@ -136,44 +138,44 @@
 					<string>String</string>
 				</dict>
 				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
 					<key>INIntentParameterDisplayName</key>
-					<string>Run In App</string>
+					<string>Show Console</string>
 					<key>INIntentParameterDisplayNameID</key>
-					<string>JfkG2c</string>
+					<string>mksMNI</string>
 					<key>INIntentParameterDisplayPriority</key>
 					<integer>3</integer>
 					<key>INIntentParameterMetadata</key>
 					<dict>
-						<key>INIntentParameterMetadataDefaultValue</key>
-						<true/>
 						<key>INIntentParameterMetadataFalseDisplayName</key>
-						<string>no</string>
+						<string>false</string>
 						<key>INIntentParameterMetadataFalseDisplayNameID</key>
-						<string>LEajCJ</string>
+						<string>6ZKjhL</string>
 						<key>INIntentParameterMetadataTrueDisplayName</key>
-						<string>yes</string>
+						<string>true</string>
 						<key>INIntentParameterMetadataTrueDisplayNameID</key>
-						<string>Ta337J</string>
+						<string>EDyYYC</string>
 					</dict>
 					<key>INIntentParameterName</key>
-					<string>runInApp</string>
+					<string>showConsole</string>
 					<key>INIntentParameterPromptDialogs</key>
 					<array>
 						<dict>
 							<key>INIntentParameterPromptDialogCustom</key>
 							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>Would you like to run the code in app?</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>MiaQHi</string>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Configuration</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
 							<key>INIntentParameterPromptDialogType</key>
 							<string>Primary</string>
 						</dict>
 					</array>
-					<key>INIntentParameterSupportsResolution</key>
-					<true/>
 					<key>INIntentParameterTag</key>
-					<integer>4</integer>
+					<integer>7</integer>
 					<key>INIntentParameterType</key>
 					<string>Boolean</string>
 				</dict>
@@ -183,14 +185,6 @@
 				<key>INIntentResponseCodes</key>
 				<array>
 					<dict>
-						<key>INIntentResponseCodeConciseFormatString</key>
-						<string>${output}</string>
-						<key>INIntentResponseCodeConciseFormatStringID</key>
-						<string>t5BfCY</string>
-						<key>INIntentResponseCodeFormatString</key>
-						<string>${output}</string>
-						<key>INIntentResponseCodeFormatStringID</key>
-						<string>s4u0JV</string>
 						<key>INIntentResponseCodeName</key>
 						<string>success</string>
 						<key>INIntentResponseCodeSuccess</key>
@@ -203,25 +197,6 @@
 				</array>
 				<key>INIntentResponseLastParameterTag</key>
 				<integer>1</integer>
-				<key>INIntentResponseOutput</key>
-				<string>output</string>
-				<key>INIntentResponseParameters</key>
-				<array>
-					<dict>
-						<key>INIntentResponseParameterDisplayName</key>
-						<string>Output</string>
-						<key>INIntentResponseParameterDisplayNameID</key>
-						<string>ZhKKti</string>
-						<key>INIntentResponseParameterDisplayPriority</key>
-						<integer>1</integer>
-						<key>INIntentResponseParameterName</key>
-						<string>output</string>
-						<key>INIntentResponseParameterTag</key>
-						<integer>1</integer>
-						<key>INIntentResponseParameterType</key>
-						<string>String</string>
-					</dict>
-				</array>
 			</dict>
 			<key>INIntentTitle</key>
 			<string>Run Code</string>
@@ -277,7 +252,7 @@
 					</dict>
 				</array>
 				<key>INIntentResponseLastParameterTag</key>
-				<integer>2</integer>
+				<integer>7</integer>
 				<key>INIntentResponseOutput</key>
 				<string>output</string>
 				<key>INIntentResponseParameters</key>
@@ -291,10 +266,12 @@
 						<integer>1</integer>
 						<key>INIntentResponseParameterName</key>
 						<string>output</string>
+						<key>INIntentResponseParameterSupportsMultipleValues</key>
+						<true/>
 						<key>INIntentResponseParameterTag</key>
-						<integer>1</integer>
+						<integer>7</integer>
 						<key>INIntentResponseParameterType</key>
-						<string>String</string>
+						<string>File</string>
 					</dict>
 				</array>
 			</dict>
@@ -318,17 +295,15 @@
 			<string>Runs a Python script</string>
 			<key>INIntentDescriptionID</key>
 			<string>3Ywctx</string>
-			<key>INIntentIneligibleForSuggestions</key>
-			<true/>
 			<key>INIntentInput</key>
 			<string>arguments</string>
 			<key>INIntentKeyParameter</key>
 			<string>script</string>
 			<key>INIntentLastParameterTag</key>
-			<integer>20</integer>
+			<integer>22</integer>
 			<key>INIntentManagedParameterCombinations</key>
 			<dict>
-				<key>script,arguments</key>
+				<key>script,arguments,showConsole</key>
 				<dict>
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
@@ -340,9 +315,40 @@
 			</dict>
 			<key>INIntentName</key>
 			<string>RunScript</string>
+			<key>INIntentParameterCombinations</key>
+			<dict>
+				<key>script</key>
+				<dict>
+					<key>INIntentParameterCombinationSubtitle</key>
+					<string>Run the Python script.</string>
+					<key>INIntentParameterCombinationSubtitleID</key>
+					<string>dp7nsF</string>
+					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
+					<true/>
+					<key>INIntentParameterCombinationTitle</key>
+					<string>Run ${script}</string>
+					<key>INIntentParameterCombinationTitleID</key>
+					<string>6XaO92</string>
+				</dict>
+				<key>script,arguments</key>
+				<dict>
+					<key>INIntentParameterCombinationSubtitle</key>
+					<string>Run the Python script.</string>
+					<key>INIntentParameterCombinationSubtitleID</key>
+					<string>31L2Vp</string>
+					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
+					<true/>
+					<key>INIntentParameterCombinationTitle</key>
+					<string>Run ${script}</string>
+					<key>INIntentParameterCombinationTitleID</key>
+					<string>Mlh0n0</string>
+				</dict>
+			</dict>
 			<key>INIntentParameters</key>
 			<array>
 				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
 					<key>INIntentParameterCustomDisambiguation</key>
 					<true/>
 					<key>INIntentParameterDisplayName</key>
@@ -388,14 +394,6 @@
 							<string>DisambiguationIntroduction</string>
 						</dict>
 						<dict>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>Which one?</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>dC8CF4</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>DisambiguationSelection</string>
-						</dict>
-						<dict>
 							<key>INIntentParameterPromptDialogCustom</key>
 							<true/>
 							<key>INIntentParameterPromptDialogFormatString</key>
@@ -416,6 +414,8 @@
 					<string>File</string>
 				</dict>
 				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
 					<key>INIntentParameterDisplayName</key>
 					<string>Arguments</string>
 					<key>INIntentParameterDisplayNameID</key>
@@ -457,6 +457,48 @@
 					<key>INIntentParameterType</key>
 					<string>String</string>
 				</dict>
+				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
+					<key>INIntentParameterDisplayName</key>
+					<string>Show Console</string>
+					<key>INIntentParameterDisplayNameID</key>
+					<string>6VwO9t</string>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>3</integer>
+					<key>INIntentParameterMetadata</key>
+					<dict>
+						<key>INIntentParameterMetadataFalseDisplayName</key>
+						<string>false</string>
+						<key>INIntentParameterMetadataFalseDisplayNameID</key>
+						<string>X339kc</string>
+						<key>INIntentParameterMetadataTrueDisplayName</key>
+						<string>true</string>
+						<key>INIntentParameterMetadataTrueDisplayNameID</key>
+						<string>Z849pf</string>
+					</dict>
+					<key>INIntentParameterName</key>
+					<string>showConsole</string>
+					<key>INIntentParameterPromptDialogs</key>
+					<array>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Configuration</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Primary</string>
+						</dict>
+					</array>
+					<key>INIntentParameterTag</key>
+					<integer>22</integer>
+					<key>INIntentParameterType</key>
+					<string>Boolean</string>
+				</dict>
 			</array>
 			<key>INIntentResponse</key>
 			<dict>
@@ -474,7 +516,7 @@
 					</dict>
 				</array>
 				<key>INIntentResponseLastParameterTag</key>
-				<integer>3</integer>
+				<integer>4</integer>
 			</dict>
 			<key>INIntentTitle</key>
 			<string>Run Script</string>

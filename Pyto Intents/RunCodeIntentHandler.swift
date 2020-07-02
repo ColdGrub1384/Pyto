@@ -7,12 +7,11 @@
 //
 
 import Intents
+#if MAIN
+import UIKit
+#endif
 
 class RunCodeIntentHandler: NSObject, RunCodeIntentHandling {
-
-    static var isPythonInitialized = false
-    
-    static let pipe = Pipe()
     
     func handle(intent: RunCodeIntent, completion: @escaping (RunCodeIntentResponse) -> Void) {
         let userActivity = NSUserActivity(activityType: "RunCodeIntent")
@@ -22,55 +21,23 @@ class RunCodeIntentHandler: NSObject, RunCodeIntentHandling {
         
         userActivity.userInfo = ["code" : code, "arguments" : intent.arguments ?? []]
         
-        if intent.runInApp?.boolValue == true {
-            
-            if let group = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.pyto") {
-                do {
-                    try FileManager.default.removeItem(at: group.appendingPathComponent("ShortcutOutput.txt"))
-                } catch {
-                    print(error.localizedDescription)
-                }
+        RemoveCachedOutput()
+        
+        #if MAIN        
+        if !Bool(truncating: intent.showConsole ?? 0) {
+            let url = URL(fileURLWithPath: NSTemporaryDirectory()+"/Temporary.py")
+            if FileManager.default.fileExists(atPath: url.path) {
+                try? FileManager.default.removeItem(at: url)
             }
+            FileManager.default.createFile(atPath: url.path, contents: code.data(using: .utf8), attributes: nil)
             
-            return completion(.init(code: .continueInApp, userActivity: userActivity))
-        } else {
-            putenv("PYTHONHOME=\(Bundle.main.bundlePath)".cValue)
-            putenv("PYTHONPATH=\(Bundle.main.bundleURL.deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent("Frameworks/Python.framework/python38.zip").path):\(FileManager.default.sharedDirectory?.path ?? "")/modules".cValue)
-            putenv("PYTHONOPTIMIZE=".cValue)
-            putenv("PYTHONIOENCODING=utf-8".cValue)
+            RunShortcutsScript(at: url, arguments: intent.arguments ?? [])
             
-            var output = ""
-            
-            let semaphore = DispatchSemaphore(value: 0)
-            
-            DispatchQueue.global().async {
-                if !RunCodeIntentHandler.isPythonInitialized {
-                    Py_Initialize()
-                    PyRun_SimpleString("import sys, os; out = os.fdopen(\(RunCodeIntentHandler.pipe.fileHandleForWriting.fileDescriptor), 'w'); sys.stdout = out; sys.stderr = out; del sys; del os; del out")
-                    RunCodeIntentHandler.isPythonInitialized = true
-                }
-                
-                let args = intent.arguments ?? []
-                setArgv(["pyto"]+args)
-                
-                PyRun_SimpleString(code)
-                PyRun_SimpleString("import sys; sys.stdout.flush(); sys.stderr.flush()")
-                
-                semaphore.signal()
-            }
-            
-            semaphore.wait()
-            
-            output = String(data: RunCodeIntentHandler.pipe.fileHandleForReading.availableData, encoding: .utf8) ?? ""
-            
-            if output.hasSuffix("\n") {
-                output.removeLast()
-            }
-                        
-            let res = RunCodeIntentResponse(code: .success, userActivity: nil)
-            res.output = output
-            completion(res)
+            return completion(.init(code: .success, userActivity: nil))
         }
+        #endif
+        
+        return completion(.init(code: .continueInApp, userActivity: userActivity))
     }
     
     func resolveCode(for intent: RunCodeIntent, with completion: @escaping (INStringResolutionResult) -> Void) {
@@ -85,9 +52,5 @@ class RunCodeIntentHandler: NSObject, RunCodeIntentHandling {
         }
         
         completion(result)
-    }
-    
-    func resolveRunInApp(for intent: RunCodeIntent, with completion: @escaping (INBooleanResolutionResult) -> Void) {
-        completion(.success(with: intent.runInApp?.boolValue ?? false))
     }
 }

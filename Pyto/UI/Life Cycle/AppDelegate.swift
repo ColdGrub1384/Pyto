@@ -50,6 +50,9 @@ import TrueTime
     /// The script currently running from an Apple Watch.
     @objc var watchScript: String?
     
+    /// The script currently running from Shortcuts.
+    @objc var shortcutScript: String?
+    
     private let copyModulesQueue = DispatchQueue.global(qos: .background)
     
     /// Updates the PyPi index cache.
@@ -443,6 +446,16 @@ import TrueTime
     }
     
     #if MAIN
+    
+    public func application(_ application: UIApplication, handlerFor intent: INIntent) -> Any? {
+        if intent is RunScriptIntent {
+            return RunScriptIntentHandler()
+        } else if intent is RunCodeIntent {
+            return RunCodeIntentHandler()
+        } else {
+            return nil
+        }
+    }
     
     public func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         RemoteNotifications.deviceToken = nil
