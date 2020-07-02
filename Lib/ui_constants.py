@@ -253,10 +253,16 @@ try:
     FONT_TEXT_STYLE_TITLE_2 = "UICTFontTextStyleTitle2"
     FONT_TEXT_STYLE_TITLE_3 = "UICTFontTextStyleTitle3"
 
-    FONT_LABEL_SIZE = __UIFont__.labelFontSize()
-    FONT_BUTTON_SIZE = __UIFont__.buttonFontSize()
-    FONT_SMALL_SYSTEM_SIZE = __UIFont__.smallSystemFontSize()
-    FONT_SYSTEM_SIZE = __UIFont__.systemFontSize()
+    try:
+        FONT_LABEL_SIZE = __UIFont__.labelFontSize()
+        FONT_BUTTON_SIZE = __UIFont__.buttonFontSize()
+        FONT_SMALL_SYSTEM_SIZE = __UIFont__.smallSystemFontSize()
+        FONT_SYSTEM_SIZE = __UIFont__.systemFontSize()
+    except TypeError: # iOS / iPadOS 14
+        FONT_LABEL_SIZE = __UIFont__.labelFontSize
+        FONT_BUTTON_SIZE = __UIFont__.buttonFontSize
+        FONT_SMALL_SYSTEM_SIZE = __UIFont__.smallSystemFontSize
+        FONT_SYSTEM_SIZE = __UIFont__.systemFontSize
 
     PRESENTATION_MODE_SHEET = __PyView__.PresentationModeSheet
     PRESENTATION_MODE_FULLSCREEN = __PyView__.PresentationModeFullScreen
