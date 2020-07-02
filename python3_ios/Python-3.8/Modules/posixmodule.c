@@ -12124,8 +12124,17 @@ get_terminal_size(PyObject *self, PyObject *args)
     int columns, lines;
     PyObject *termsize;
     
-    columns = atoi(getenv("COLUMNS"));
-    lines = atoi(getenv("ROWS"));
+    if (getenv("COLUMNS")) {
+        columns = atoi(getenv("COLUMNS"));
+    } else {
+        columns = 0;
+    }
+    
+    if (getenv("ROWS")) {
+        lines = atoi(getenv("ROWS"));
+    } else {
+        lines = 0;
+    }
     
     termsize = PyStructSequence_New(TerminalSizeType);
     if (termsize == NULL)
