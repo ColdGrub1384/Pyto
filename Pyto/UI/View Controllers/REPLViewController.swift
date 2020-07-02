@@ -16,8 +16,8 @@ import UIKit
     /// The shared instance.
     @objc static var shared: REPLViewController?
     
-    /// Set to `false` to don't reload the REPL.
-    var reloadREPL = true
+    /// Set to `false` to not reload the REPL.
+    var reloadREPL = false
     
     /// Goes back to the file browser
     @objc static func goToFileBrowser() {
@@ -35,7 +35,7 @@ import UIKit
     
     /// Runs a selected script in the REPL.
     @objc func addScript() {
-        let picker = UIDocumentPickerViewController(documentTypes: ["public.python-script"], in: .import)
+        let picker = UIDocumentPickerViewController(documentTypes: ["public.python-script"], in: .open)
         picker.delegate = self
         picker.allowsMultipleSelection = true
         present(picker, animated: true, completion: nil)
@@ -57,6 +57,10 @@ import UIKit
         }
     }
     
+    @objc private var scriptPath: String?
+    
+    private var opened = false
+        
     // MARK: - Editor split view controller
     
     override var keyCommands: [UIKeyCommand]? {
@@ -116,8 +120,9 @@ import UIKit
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if let script = editor.document?.fileURL.path, !Python.shared.isScriptRunning(script) {
-            editor.currentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        if !opened, let script = editor?.document?.fileURL.path, !Python.shared.isScriptRunning(script) {
+            opened = true
+            editor?.currentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
             DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
                 self.editor.run()
             }
@@ -159,9 +164,9 @@ import UIKit
                 console.__repl_namespace__[__file__.split("/")[-1]].update(vars(script))
             """
             
-            try? code.write(to: editor.document!.fileURL, atomically: true, encoding: .utf8)
+            try? code.write(to: editor!.document!.fileURL, atomically: true, encoding: .utf8)
             
-            Python.shared.run(script: .init(path: editor.document!.fileURL.path, debug: false))
+            Python.shared.run(script: .init(path: editor!.document!.fileURL.path, debug: false))
         }
     }
 }
