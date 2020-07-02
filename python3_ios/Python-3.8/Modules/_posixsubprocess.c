@@ -690,7 +690,8 @@ subprocess_fork_exec(PyObject* self, PyObject *args)
         need_after_fork = 1;
     }
 
-    pid = fork();
+    //pid = fork();
+    pid = -1;
     if (pid == 0) {
         /* Child process */
         /*
