@@ -1109,7 +1109,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
             return
         }
         
-        UIApplication.shared.beginBackgroundTask(expirationHandler: nil)
+        var task: UIBackgroundTaskIdentifier!
+        task = UIApplication.shared.beginBackgroundTask(expirationHandler: {
+            UIApplication.shared.endBackgroundTask(task)
+        })
         
         // For error handling
         textView.delegate = nil
