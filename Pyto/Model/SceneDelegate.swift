@@ -186,6 +186,18 @@ import SwiftUI
                     PyCallbackHelper.code = code
                     documentBrowserViewController.run(code: code)
                 }
+            } else if inputURL.pathComponents.first == "widget" { // Open script from widget
+                let bookmarkString = inputURL.lastPathComponent
+                if let bookmarkData = Data(base64Encoded: bookmarkString) {
+                    do {
+                        var isStale = false
+                        let url = try URL(resolvingBookmarkData: bookmarkData, bookmarkDataIsStale: &isStale)
+                        _ = url.startAccessingSecurityScopedResource()
+                        openDocument(at: url, run: true, isShortcut: false)
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
             }
             
             return
