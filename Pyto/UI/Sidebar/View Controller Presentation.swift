@@ -35,6 +35,12 @@ public class ContainerViewController: UIViewController {
         
         update()
     }
+    
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        update()
+    }
 }
 
 /// A protocol that can tell to its SwiftUI container to update its Navigation Item.

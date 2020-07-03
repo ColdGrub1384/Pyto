@@ -24,6 +24,11 @@ public class SceneStateStore: ObservableObject {
     
     private var _sceneState = SceneState()
     
+    /// Resets the scene state.
+    public func reset() {
+        _sceneState = SceneState()
+    }
+    
     /// The scene state.
     public var sceneState: SceneState {
         set {
