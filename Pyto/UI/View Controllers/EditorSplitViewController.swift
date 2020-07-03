@@ -35,7 +35,7 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
     }
     
     /// The View controller for editing code.
-    @objc var editor: EditorViewController!
+    @objc weak var editor: EditorViewController?
     
     /// The console.
     @objc public var console: ConsoleViewController! {
@@ -89,7 +89,7 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
     
     /// Stops the current running script.
     @IBAction func stopScript(_ sender: Any) {
-        if let path = editor.document?.fileURL.path, Python.shared.isScriptRunning(path) {
+        if let path = editor?.document?.fileURL.path, Python.shared.isScriptRunning(path) {
             Python.shared.stop(script: path)
         }
     }
@@ -117,7 +117,7 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
     /// Interrupts current running script.
     @IBAction func interrupt(_ sender: Any) {
         
-        guard let path = editor.document?.fileURL.path else {
+        guard let path = editor?.document?.fileURL.path else {
             return
         }
         
@@ -131,7 +131,11 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
             return
         }
         
-        guard let path = editor.document?.fileURL.path else {
+        guard let path = editor?.document?.fileURL.path else {
+            return
+        }
+        
+        guard let editor = editor else {
             return
         }
         
@@ -197,7 +201,7 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
             }
         })
         
-        if let path = editor.document?.fileURL.path {
+        if let path = editor?.document?.fileURL.path {
             Python.shared.stop(script: path)
         }
     }
@@ -264,7 +268,7 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
     
     public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         
-        guard let path = editor.document?.fileURL.path else {
+        guard let path = editor?.document?.fileURL.path else {
             return super.canPerformAction(action, withSender: sender)
         }
         
@@ -284,7 +288,7 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
             UIKeyCommand(input: "w", modifierFlags: .command, action: #selector(close), discoverabilityTitle: Localizable.close),
         ]
         
-        guard let path = editor.document?.fileURL.path else {
+        guard let path = editor?.document?.fileURL.path else {
             return commands
         }
         
@@ -396,7 +400,7 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
         }
         
         if willRun == nil {
-            willRun = editor.shouldRun
+            willRun = editor?.shouldRun
         }
         
         if (newCollection.horizontalSizeClass == .compact || UIDevice.current.userInterfaceIdiom == .phone) && !EditorSplitViewController.shouldShowConsoleAtBottom && !willRun! {

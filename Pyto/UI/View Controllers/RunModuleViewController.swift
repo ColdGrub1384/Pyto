@@ -22,7 +22,7 @@ import UIKit
     var argv: [String]? {
         didSet {
             loadViewIfNeeded()
-            editor.args = argv?.joined(separator: " ") ?? ""
+            editor?.args = argv?.joined(separator: " ") ?? ""
         }
     }
     
@@ -55,7 +55,7 @@ import UIKit
         
         if let repl = Bundle.main.url(forResource: "command_runner", withExtension: "py") {
             editor = EditorViewController(document: PyDocument(fileURL: repl))
-            editor.args = ""
+            editor?.args = ""
         }
         console = RunModuleViewController.console
     }
@@ -92,13 +92,13 @@ import UIKit
         
         viewAppeared = true
         
-        editor.run()
+        editor?.run()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        editor.stop()
+        editor?.stop()
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {}

@@ -120,7 +120,7 @@ import SwiftUI
         DispatchQueue.main.sync {
             #if MAIN
             for console in visibles {
-                if console.editorSplitViewController?.editor.document?.fileURL.path == path || path == nil {
+                if console.editorSplitViewController?.editor?.document?.fileURL.path == path || path == nil {
                     console.clear()
                 }
             }
@@ -193,7 +193,7 @@ import SwiftUI
     
     #if MAIN
     private var scriptPath: String? {
-        return editorSplitViewController?.editor.document?.fileURL.path
+        return editorSplitViewController?.editor?.document?.fileURL.path
     }
     #endif
     
@@ -271,11 +271,11 @@ import SwiftUI
         
         if navigationController != nil {
             dismiss(animated: true, completion: {
-                self.editorSplitViewController?.editor.stop()
+                self.editorSplitViewController?.editor?.stop()
                 DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: {
-                    if let line = self.editorSplitViewController?.editor.lineNumberError {
-                        self.editorSplitViewController?.editor.lineNumberError = nil
-                        self.editorSplitViewController?.editor.showErrorAtLine(line)
+                    if let line = self.editorSplitViewController?.editor?.lineNumberError {
+                        self.editorSplitViewController?.editor?.lineNumberError = nil
+                        self.editorSplitViewController?.editor?.showErrorAtLine(line)
                     }
                 })
             })
@@ -586,7 +586,7 @@ import SwiftUI
             if scriptPath == nil {
                 showView()
                 break
-            } else if console.editorSplitViewController?.editor.document?.fileURL.path == scriptPath {
+            } else if console.editorSplitViewController?.editor?.document?.fileURL.path == scriptPath {
                 if console.presentedViewController != nil {
                     console.dismiss(animated: true) {
                         showView()
@@ -620,7 +620,7 @@ import SwiftUI
             if path == nil {
                 console = _console
                 break
-            } else if _console.editorSplitViewController?.editor.document?.fileURL.path == path {
+            } else if _console.editorSplitViewController?.editor?.document?.fileURL.path == path {
                 console = _console
                 break
             }
@@ -825,11 +825,6 @@ import SwiftUI
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        #if MAIN
-        if (parent as? REPLViewController)?.reloadREPL == false {
-            (parent as? REPLViewController)?.reloadREPL = true
-        }
-        #endif
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
         textView.frame.size.height -= 44
         textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
@@ -863,7 +858,7 @@ import SwiftUI
                     import jedi
                     import console
                     import pyto
-                    namespace = console.__repl_namespace__['\((self.parent as! EditorSplitViewController).editor.document!.fileURL.lastPathComponent.replacingOccurrences(of: "'", with: "\\'"))']
+                    namespace = console.__repl_namespace__['\((self.parent as! EditorSplitViewController).editor?.document!.fileURL.lastPathComponent.replacingOccurrences(of: "'", with: "\\'"))']
                     script = jedi.Interpreter('\(text.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "'", with: "\\'"))', [namespace])
                     
                     suggestions = []
@@ -916,7 +911,7 @@ import SwiftUI
             self.movableTextField?.textField.text = ""
             
             #if MAIN
-            PyInputHelper.userInput.setObject(text, forKey: (self.editorSplitViewController?.editor.document?.fileURL.path ?? "") as NSCopying)
+            PyInputHelper.userInput.setObject(text, forKey: (self.editorSplitViewController?.editor?.document?.fileURL.path ?? "") as NSCopying)
             #else
             PyInputHelper.userInput.setObject(text, forKey: "" as NSCopying)
             #endif

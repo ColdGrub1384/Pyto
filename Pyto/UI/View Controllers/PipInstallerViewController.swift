@@ -58,7 +58,7 @@ import WebKit
         
         if let repl = Bundle.main.url(forResource: "installer", withExtension: "py") {
             editor = EditorViewController(document: PyDocument(fileURL: repl))
-            editor.args = command
+            editor?.args = command
         }
         console = ConsoleViewController()
     }
@@ -99,14 +99,14 @@ import WebKit
         
         executed = true
         
-        if let path = editor.document?.fileURL.path, Python.shared.isScriptRunning(path) {
-            editor.stop()
+        if let path = editor?.document?.fileURL.path, Python.shared.isScriptRunning(path) {
+            editor?.stop()
             DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-                self.editor.run()
+                self.editor?.run()
             }
         } else {
             DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                self.editor.run()
+                self.editor?.run()
             }
         }
     }

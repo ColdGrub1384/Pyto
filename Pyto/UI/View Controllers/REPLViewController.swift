@@ -53,7 +53,7 @@ import UIKit
     var noBanner = false {
         didSet {
             loadViewIfNeeded()
-            editor.args = "no-banner"
+            editor?.args = "no-banner"
         }
     }
     
@@ -124,7 +124,7 @@ import UIKit
             opened = true
             editor?.currentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
             DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
-                self.editor.run()
+                self.editor?.run()
             }
         }
         
@@ -136,6 +136,11 @@ import UIKit
     // MARK: Document picker view controller
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        
+        guard editor != nil else {
+            return
+        }
+        
         var isDir: ObjCBool = false
         if FileManager.default.fileExists(atPath: urls[0].path, isDirectory: &isDir), isDir.boolValue {
             console.movableTextField?.focus()
