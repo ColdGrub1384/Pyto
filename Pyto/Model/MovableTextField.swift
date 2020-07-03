@@ -15,7 +15,7 @@ import InputAssistant
 class MovableTextField: NSObject, UITextFieldDelegate {
     
     /// The view containing this text field.
-    let console: ConsoleViewController
+    weak var console: ConsoleViewController?
     
     /// The placeholder of the text field.
     var placeholder = "" {
@@ -33,16 +33,16 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         
         textField.inputAccessoryView = nil
         
-        inputAssistant.leadingActions = (UIApplication.shared.statusBarOrientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])+[
+        inputAssistant.leadingActions = (UIDevice.current.orientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])+[
             InputAssistantAction(image: UIImage(named: "Down") ?? UIImage(), target: self, action: #selector(down)),
             InputAssistantAction(image: UIImage(named: "Up") ?? UIImage(), target: self, action: #selector(up))
         ]
         inputAssistant.trailingActions = [
             InputAssistantAction(image: UIImage(named: "CtrlC") ?? UIImage(), target: self, action: #selector(interrupt)),
-            ]+(UIApplication.shared.statusBarOrientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])
+            ]+(UIDevice.current.orientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])
         
         textField.keyboardAppearance = theme.keyboardAppearance
-        if console.traitCollection.userInterfaceStyle == .dark {
+        if console?.traitCollection.userInterfaceStyle == .dark {
             textField.keyboardAppearance = .dark
         }
         if textField.keyboardAppearance == .dark {
@@ -104,6 +104,11 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     
     /// Shows the text field.
     func show() {
+        
+        guard let console = console else {
+            return
+        }
+        
         toolbar.frame.size.width = console.view.safeAreaLayoutGuide.layoutFrame.width
         toolbar.frame.origin.x = console.view.safeAreaInsets.left
         toolbar.frame.origin.y = console.view.safeAreaLayoutGuide.layoutFrame.height-toolbar.frame.height
@@ -114,7 +119,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     
     /// Shows keyboard.
     func focus() {
-        guard console.shouldRequestInput else {
+        guard console?.shouldRequestInput == true else {
             return
         }
         DispatchQueue.main.asyncAfter(deadline: .now()+0.25) {
@@ -135,30 +140,30 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         // That's the typical code you just cannot understand when you are playing Clash Royale while coding
         // So please, open iTunes, play your playlist, focus and then go back.
         
-        if console.parent?.parent?.modalPresentationStyle != .popover || console.parent?.parent?.view.frame.width != console.parent?.parent?.preferredContentSize.width {
+        if console?.parent?.parent?.modalPresentationStyle != .popover || console?.parent?.parent?.view.frame.width != console?.parent?.parent?.preferredContentSize.width {
             
             #if MAIN
             let inputAssistantOrigin = inputAssistant.frame.origin
             
-            let yPos = inputAssistant.convert(inputAssistantOrigin, to: console.view).y
+            let yPos = inputAssistant.convert(inputAssistantOrigin, to: console?.view).y
             /*if EditorSplitViewController.shouldShowConsoleAtBottom {
              yPos = inputAssistantOrigin.y
              } else {
              yPos =
              }*/
             
-            toolbar.frame.origin = CGPoint(x: console.view.safeAreaInsets.left, y: yPos-toolbar.frame.height)
+            toolbar.frame.origin = CGPoint(x: console?.view.safeAreaInsets.left ?? 0, y: yPos-toolbar.frame.height)
             
             
             if toolbar.superview != nil,
                 !EditorSplitViewController.shouldShowConsoleAtBottom,
                 !toolbar.superview!.bounds.intersection(toolbar.frame).equalTo(toolbar.frame) {
-                toolbar.frame.origin.y = console.view.safeAreaLayoutGuide.layoutFrame.height-toolbar.frame.height
+                toolbar.frame.origin.y = (console?.view.safeAreaLayoutGuide.layoutFrame.height ?? 0)-toolbar.frame.height
             }
             #else
             var r = notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-            r = console.textView.convert(r, from:nil)
-            toolbar.frame.origin.y = console.view.frame.height-r.height-toolbar.frame.height
+            r = console?.textView.convert(r, from:nil)
+            toolbar.frame.origin.y = console?.view.frame.height-r.height-toolbar.frame.height
             #endif
         }
         
@@ -166,14 +171,14 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             self.toolbar.alpha = 1
         }
         
-        console.textView.scrollToBottom()
+        console?.textView.scrollToBottom()
     }
     
     @objc private func keyboardDidHide(_ notification: NSNotification) {
         #if MAIN
-        toolbar.frame.origin.y = console.view.safeAreaLayoutGuide.layoutFrame.height-toolbar.frame.height
+        toolbar.frame.origin.y = (console?.view.safeAreaLayoutGuide.layoutFrame.height ?? 0)-toolbar.frame.height
         #else
-        toolbar.frame.origin.y = console.view.safeAreaLayoutGuide.layoutFrame.height
+        toolbar.frame.origin.y = console?.view.safeAreaLayoutGuide.layoutFrame.height ?? 0
         #endif
         
         if textField.isFirstResponder { // Still editing, but with a hardware keyboard
@@ -206,7 +211,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         }
         
         #if MAIN
-        if console.parent is REPLViewController {
+        if console?.parent is REPLViewController {
             return false
         } else {
             return true
@@ -242,7 +247,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         placeholder = ""
         textField.resignFirstResponder()
         #if MAIN
-        if let path = console.editorSplitViewController?.editor.document?.fileURL.path {
+        if let path = console?.editorSplitViewController?.editor?.document?.fileURL.path {
             Python.shared.interrupt(script: path)
         }
         #endif
@@ -272,7 +277,6 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         
         set {
             UserDefaults.standard.set(newValue, forKey: "inputHistory")
-            UserDefaults.standard.synchronize() // Yes, I know, that's not needed, but I call it BECAUSE I WANT, I CALL THIS FUNCTION BECAUSE I WANT OK
         }
     }
     
