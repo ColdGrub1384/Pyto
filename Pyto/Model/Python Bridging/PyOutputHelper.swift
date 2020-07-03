@@ -9,6 +9,7 @@
 import UIKit
 #if MAIN
 import WatchConnectivity
+import WidgetKit
 #endif
 
 fileprivate extension ConsoleViewController {
@@ -31,6 +32,81 @@ fileprivate extension ConsoleViewController {
 
 /// A class accessible by Rubicon to print without writting to the stdout.
 @objc class PyOutputHelper: NSObject {
+        
+    /// All output from the last executed Shortcut.
+    @objc static var output = ""
+    
+    #if MAIN
+    /// Updates the Widget with the last executed script.
+    ///
+    /// - Parameters:
+    ///     - output: The output of the script. Set to `nil` if the script was executed from Shortcuts.
+    ///     - images: The output images of the script. Set to `nil` if the script was executed from Shortcuts.
+    ///     - scriptURL: The URL of the script executed.
+    static func updateWidget(output: String?, images: [UIImage]?, scriptName: String?, scriptURL: URL?) {
+        
+        var out = output ?? self.output
+        let plots = images ?? QuickLookHelper.images
+        let name = scriptName ?? NSString(string: NSString(string: AppDelegate.shared.shortcutScript ?? "").deletingPathExtension).lastPathComponent
+        
+        // For some reason, returns 1 for an empty string.
+        if out.replacingOccurrences(of: "\n", with: "").count < 2 {
+            out = ""
+        }
+        
+        if out.hasSuffix("\n") {
+            out.removeLast()
+        }
+        
+        let widgetEntry = SimpleEntry(date: Date(), scriptName: name, console: out, imageData: plots.last?.pngData(), urlBookmark: (try? scriptURL?.bookmarkData()) ?? nil)
+        do {
+            let encoded = try JSONEncoder().encode(widgetEntry)
+            UserDefaults(suiteName: "group.pyto")?.setValue(encoded, forKey: "widgetEntry")
+            
+            DispatchQueue.main.async {
+                WidgetCenter.shared.reloadTimelines(ofKind: "LastScript")
+            }
+        } catch {
+            Swift.print(error.localizedDescription)
+        }
+    }
+    #endif
+    
+    /// Sends `output` to the current running Shortcut.
+    ///
+    /// - Parameters:
+    ///     - errorMessage: If an exception was thrown, pass the traceback.
+    @objc static func sendOutputToShortcuts(_ errorMessage: String?) {
+        guard let group = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.pyto") else {
+            return
+        }
+                
+        do {
+            let encodedImages = try NSKeyedArchiver.archivedData(withRootObject: QuickLookHelper.images, requiringSecureCoding: true)
+            try encodedImages.write(to: group.appendingPathComponent("ShortcutPlots"))
+        } catch {
+            Swift.print(error.localizedDescription)
+        }
+        
+        if let error = errorMessage {
+            output = error
+        }
+        
+        if output.hasSuffix("\n") {
+            output.removeLast()
+        }
+        
+        updateWidget(output: nil, images: nil, scriptName: nil, scriptURL: nil)
+        
+        do {
+            try ("\(errorMessage != nil ? "Fail" : "Success")\n"+output).write(to: group.appendingPathComponent("ShortcutOutput.txt"), atomically: true, encoding: .utf8)
+        } catch {
+            Swift.print(error.localizedDescription)
+        }
+        
+        QuickLookHelper.images = []
+        output = ""
+    }
     
     #if !WIDGET
     private static var outputParser: Parser!
@@ -56,6 +132,8 @@ fileprivate extension ConsoleViewController {
         #if MAIN
         text_ = ShortenFilePaths(in: text_)
         
+        output += text_
+        
         if script == Python.watchScriptURL.path {
             WCSession.default.sendMessageData(text_.data(using: .utf8) ?? Data(), replyHandler: nil, errorHandler: nil)
             return
@@ -73,7 +151,7 @@ fileprivate extension ConsoleViewController {
                 for console in visibles {
                     #if !WIDGET && MAIN
                     if script != nil {
-                        guard console.editorSplitViewController?.editor.document?.fileURL.path == script else {
+                        guard console.editorSplitViewController?.editor?.document?.fileURL.path == script else {
                             continue
                         }
                     }
@@ -135,7 +213,7 @@ fileprivate extension ConsoleViewController {
             
             #if MAIN
             if script != nil {
-                guard console.editorSplitViewController?.editor.document?.fileURL.path == script else {
+                guard console.editorSplitViewController?.editor?.document?.fileURL.path == script else {
                     continue
                 }
             }
@@ -197,6 +275,10 @@ fileprivate extension ConsoleViewController {
         #if MAIN
         text_ = ShortenFilePaths(in: text_)
         
+        Swift.print(text_)
+        
+        output += text_
+        
         if script == Python.watchScriptURL.path {
             WCSession.default.sendMessageData(text_.data(using: .utf8) ?? Data(), replyHandler: nil, errorHandler: nil)
             return
@@ -214,7 +296,7 @@ fileprivate extension ConsoleViewController {
         for console in visibles {
             #if !WIDGET && MAIN
             if script != nil {
-                guard console.editorSplitViewController?.editor.document?.fileURL.path == script else {
+                guard console.editorSplitViewController?.editor?.document?.fileURL.path == script else {
                     continue
                 }
             }
@@ -250,6 +332,8 @@ fileprivate extension ConsoleViewController {
         #if MAIN
         text_ = ShortenFilePaths(in: text_)
         
+        output += text_
+        
         if script == Python.watchScriptURL.path {
             WCSession.default.sendMessageData(text_.data(using: .utf8) ?? Data(), replyHandler: nil, errorHandler: nil)
             return
@@ -268,7 +352,7 @@ fileprivate extension ConsoleViewController {
             
             #if !WIDGET && MAIN
             if script != nil {
-                guard console.editorSplitViewController?.editor.document?.fileURL.path == script else {
+                guard console.editorSplitViewController?.editor?.document?.fileURL.path == script else {
                     continue
                 }
             }
@@ -312,6 +396,8 @@ fileprivate extension ConsoleViewController {
         #if MAIN
         text_ = ShortenFilePaths(in: text_)
         
+        output += text_
+        
         if script == Python.watchScriptURL.path {
             WCSession.default.sendMessageData(text_.data(using: .utf8) ?? Data(), replyHandler: nil, errorHandler: nil)
             return
@@ -329,7 +415,7 @@ fileprivate extension ConsoleViewController {
         for console in visibles {
             #if !WIDGET && MAIN
             if script != nil {
-                guard console.editorSplitViewController?.editor.document?.fileURL.path == script else {
+                guard console.editorSplitViewController?.editor?.document?.fileURL.path == script else {
                     continue
                 }
             }
@@ -377,6 +463,8 @@ fileprivate extension ConsoleViewController {
         #if MAIN
         text_ = ShortenFilePaths(in: text_)
         
+        output += text_
+        
         if script == Python.watchScriptURL.path {
             WCSession.default.sendMessageData(text_.data(using: .utf8) ?? Data(), replyHandler: nil, errorHandler: nil)
             return
@@ -394,7 +482,7 @@ fileprivate extension ConsoleViewController {
         for console in visibles {
             #if !WIDGET && MAIN
             if script != nil {
-                guard console.editorSplitViewController?.editor.document?.fileURL.path == script else {
+                guard console.editorSplitViewController?.editor?.document?.fileURL.path == script else {
                     continue
                 }
             }
@@ -436,7 +524,7 @@ extension PyOutputHelper: ParserDelegate {
             
             #if !WIDGET && MAIN
             if script != nil {
-                guard console.editorSplitViewController?.editor.document?.fileURL.path == script else {
+                guard console.editorSplitViewController?.editor?.document?.fileURL.path == script else {
                     continue
                 }
             }
