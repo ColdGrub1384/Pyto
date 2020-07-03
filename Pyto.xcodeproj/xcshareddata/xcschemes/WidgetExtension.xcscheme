@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1100"
+   LastUpgradeVersion = "1200"
    wasCreatedForAppExtension = "YES"
    version = "2.0">
    <BuildAction
@@ -15,9 +15,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C946A5A722074EA900F78C5C"
-               BuildableName = "Pyto Widget.appex"
-               BlueprintName = "Pyto Widget"
+               BlueprintIdentifier = "C9A2C9C924A5908D00D94E0B"
+               BuildableName = "WidgetExtension.appex"
+               BlueprintName = "WidgetExtension"
                ReferencedContainer = "container:Pyto.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,16 +43,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C9DF04C924998BCD0073A871"
-               BuildableName = "PytoTests.xctest"
-               BlueprintName = "PytoTests"
-               ReferencedContainer = "container:Pyto.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -72,9 +62,9 @@
          BundleIdentifier = "com.apple.springboard">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C946A5A722074EA900F78C5C"
-            BuildableName = "Pyto Widget.appex"
-            BlueprintName = "Pyto Widget"
+            BlueprintIdentifier = "C9A2C9C924A5908D00D94E0B"
+            BuildableName = "WidgetExtension.appex"
+            BlueprintName = "WidgetExtension"
             ReferencedContainer = "container:Pyto.xcodeproj">
          </BuildableReference>
       </RemoteRunnable>
@@ -87,6 +77,23 @@
             ReferencedContainer = "container:Pyto.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "_XCWidgetKind"
+            value = ""
+            isEnabled = "NO">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "_XCWidgetDefaultView"
+            value = "timeline"
+            isEnabled = "NO">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "_XCWidgetFamily"
+            value = "medium"
+            isEnabled = "NO">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
