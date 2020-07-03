@@ -234,9 +234,7 @@ import TrueTime
         for file in ((try? FileManager.default.contentsOfDirectory(at: URL(fileURLWithPath: NSTemporaryDirectory()), includingPropertiesForKeys: nil, options: .skipsHiddenFiles)) ?? []) {
             try? FileManager.default.removeItem(at: file)
         }
-        
-        window?.tintColor = ConsoleViewController.choosenTheme.tintColor
-        
+                
         UIMenuController.shared.menuItems = [
             UIMenuItem(title: Localizable.MenuItems.breakpoint, action: #selector(EditorViewController.setBreakpoint(_:))),
             UIMenuItem(title: Localizable.MenuItems.toggleComment, action: #selector(EditorViewController.toggleComment))
