@@ -66,6 +66,9 @@ fileprivate class ImageAttachment: NSTextAttachment {
     
     /// The data source of the currently displaying controller.
     static var visible: QuickLookHelper?
+        
+    /// Images displayed for the last executed script.
+    static var images = [UIImage]()
     
     /// Rotation to be used on OpenCV images.
     ///
@@ -79,7 +82,7 @@ fileprivate class ImageAttachment: NSTextAttachment {
         
         DispatchQueue.main.async {
                         
-            switch UIApplication.shared.statusBarOrientation {
+            switch UIDevice.current.orientation {
             case .portrait:
                 rotation = 0
             case .landscapeLeft:
@@ -115,12 +118,14 @@ fileprivate class ImageAttachment: NSTextAttachment {
     ///     - script: The script that previewed the given file. Set to `nil` to show on all the consoles.
     ///     - removePrevious: A boolean indicating whether the previously shown images should be hidden. Used by OpenCV to display real time camera input.
     @objc static func previewFile(_ data: String, script: String?, removePrevious: Bool) {
-                
+        
+        guard let data = Data(base64Encoded: data, options: .ignoreUnknownCharacters), let image = UIImage(data: data) else {
+            return
+        }
+        
+        QuickLookHelper.images.append(image)
+        
         DispatchQueue.main.async {
-            
-            guard let data = Data(base64Encoded: data, options: .ignoreUnknownCharacters), let image = UIImage(data: data) else {
-                return
-            }
             
             #if MAIN
             
@@ -143,7 +148,7 @@ fileprivate class ImageAttachment: NSTextAttachment {
             for console in ConsoleViewController.visibles {
                 
                 if script != nil {
-                    guard console.editorSplitViewController?.editor.document?.fileURL.path == script else {
+                    guard console.editorSplitViewController?.editor?.document?.fileURL.path == script else {
                         continue
                     }
                 }
