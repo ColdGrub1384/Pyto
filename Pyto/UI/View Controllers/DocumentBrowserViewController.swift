@@ -43,6 +43,9 @@ import SwiftUI
     /// Shows more options.
     @objc func showMore(_ sender: UIBarButtonItem) {
         if #available(iOS 14.0, *) {
+            
+            sceneDelegate?.sceneStateStore.reset()
+            
             let sidebar = makeSidebarNavigation(url: nil)
             let vc = UIHostingController(rootView: sidebar)
             vc.modalTransitionStyle = .crossDissolve
