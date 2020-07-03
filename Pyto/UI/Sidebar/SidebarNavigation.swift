@@ -10,6 +10,57 @@ import SwiftUI
 
 // TODO: Localize
 
+/// A code editor view.
+///
+/// Use it as a `NavigationLink` for opening a code editor. The code editor is only created when this view appears so it works a lot faster and uses less memory than directly linking a `ViewController`.
+@available(iOS 14.0, *)
+struct EditorView: View {
+    
+    /// A store containing the view controller.
+    class EditorStore {
+        var editor: ViewController?
+    }
+    
+    /// The code returning a view controller.
+    let makeEditor: (() -> ViewController)
+    
+    /// The store containing the editor.
+    let editorStore = EditorStore()
+    
+    /// An object storing the code editor.
+    let currentViewStore: CurrentViewStore
+    
+    /// A boolean that will be set to `false` on appear to enable the split view on the menu.
+    let isStack: Binding<Bool>
+    
+    /// Initializes an editor.
+    ///
+    /// - Parameters:
+    ///     - makeEditor: A block returning a view controller.
+    ///     - currentViewStore: The object storing the current selection of the sidebar.
+    ///     - isStack: A boolean that will be set to `false` on appear to enable the split view on the menu.
+    init(makeEditor: @escaping (() -> ViewController), currentViewStore: CurrentViewStore, isStack: Binding<Bool>) {
+        self.makeEditor = makeEditor
+        self.currentViewStore = currentViewStore
+        self.isStack = isStack
+    }
+    
+    var body: some View {
+        
+        var view: AnyView!
+                
+        if editorStore.editor == nil {
+            let vc = makeEditor()
+            self.editorStore.editor = vc
+            view = AnyView(vc)
+        } else {
+            view = AnyView(editorStore.editor!)
+        }
+        
+        return AnyView(view.navigationBarTitleDisplayMode(.inline).link(store: currentViewStore, isStack: isStack))
+    }
+}
+
 /// A view that manages navigation with sidebar.
 @available(iOS 14.0, *)
 public struct SidebarNavigation: View {
@@ -76,7 +127,7 @@ public struct SidebarNavigation: View {
     /// - Parameters:
     ///     - url: The URL of the file to edit.
     ///     - scene: The Window Scene containing this sidebar navigation.
-    ///     - pypiViewControlelr: The View Controller for PyPi without navigation.
+    ///     - pypiViewController: The View Controller for PyPi without navigation.
     ///     - samplesView: The view for samples with navigation included.
     ///     - documentationViewController: The View Controller for the documentation without documentation.
     ///     - modulesViewController: The View Controller for loaded modules.
@@ -129,7 +180,7 @@ public struct SidebarNavigation: View {
             DisclosureGroup("Recent", isExpanded: $expansionState.isRecentExpanded) {
                 ForEach(recentDataSource.recentItems, id: \.url) { item in
                     NavigationLink(
-                        destination: item.viewController.navigationBarTitleDisplayMode(.inline).link(store: currentViewStore, isStack: $stack),
+                        destination: EditorView(makeEditor: item.makeViewController, currentViewStore: currentViewStore, isStack: $stack),
                         tag: SelectedSection.recent(item.url),
                         selection: $sceneStateStore.sceneState.selection,
                         label: {
