@@ -128,9 +128,12 @@ import UIKit
         if !opened, let script = editor?.document?.fileURL.path, !Python.shared.isScriptRunning(script) {
             opened = true
             editor?.currentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
-                self.editor?.run()
-            }
+            _ = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true, block: { (timer) in
+                if Python.shared.isSetup && isUnlocked {
+                    self.editor?.run()
+                    timer.invalidate()
+                }
+            })
         }
         
         if #available(iOS 13.0, *) {
