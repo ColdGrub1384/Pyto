@@ -3,7 +3,7 @@
 //
 
 #import "../Python/Python.h"
-#import "Python Bridging/Selectors/BlockBasedSelector.h"
+#import "Model/Python Bridging/Selectors/BlockBasedSelector.h"
 
 #if MAIN
 #import <openssl/pkcs7.h>
@@ -11,7 +11,7 @@
 #import <openssl/evp.h>
 #import <openssl/ssl.h>
 #import <openssl/asn1.h>
-#import "RMStore/RMAppReceipt.h"
+#import "Other/RMStore/RMAppReceipt.h"
 #endif
 
 #include <os/proc.h>
