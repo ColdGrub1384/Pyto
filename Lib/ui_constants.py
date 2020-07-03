@@ -258,7 +258,7 @@ try:
         FONT_BUTTON_SIZE = __UIFont__.buttonFontSize()
         FONT_SMALL_SYSTEM_SIZE = __UIFont__.smallSystemFontSize()
         FONT_SYSTEM_SIZE = __UIFont__.systemFontSize()
-    except TypeError: # iOS / iPadOS 14
+    except TypeError:  # iOS / iPadOS 14
         FONT_LABEL_SIZE = __UIFont__.labelFontSize
         FONT_BUTTON_SIZE = __UIFont__.buttonFontSize
         FONT_SMALL_SYSTEM_SIZE = __UIFont__.smallSystemFontSize
