@@ -107,8 +107,13 @@ import UIKit
             navigationItem.rightBarButtonItems = [chdirItem]
         }
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(goToFileBrowser))
+        
+        parent?.navigationItem.rightBarButtonItems = navigationItem.rightBarButtonItems
+        
         navigationController?.isToolbarHidden = true
         title = Localizable.repl
+        parent?.title = title
+        parent?.navigationItem.title = title
         
         if #available(iOS 13.0, *) {
             view.backgroundColor = .systemBackground

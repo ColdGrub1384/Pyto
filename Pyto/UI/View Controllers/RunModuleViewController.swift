@@ -75,6 +75,9 @@ import UIKit
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(goToFileBrowser))
         navigationController?.isToolbarHidden = true
         title = Localizable.repl
+        parent?.title = title
+        parent?.navigationItem.title = title
+        parent?.navigationItem.rightBarButtonItems = navigationItem.rightBarButtonItems
         
         RunModuleViewController.shared = self
         
