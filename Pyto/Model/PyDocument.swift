@@ -25,6 +25,9 @@ enum PyDocumentError: Error {
     var editor: EditorViewController?
     #endif
     
+    /// A boolean indicating whether `open(completionHandler:)` has been called for this instance.
+    var hasBeenOpened = false
+    
     private var storedModificationDate: Date? {
         didSet {
             print("Set modification date", self.storedModificationDate ?? "nil")
