@@ -18,7 +18,7 @@ struct RecentItem {
     var url: URL
     
     /// The View Controller to show when pressed.
-    var viewController: ViewController
+    var makeViewController: (() -> ViewController)
 }
 
 /// An object storing recent scripts in the disk.
@@ -84,7 +84,9 @@ public class RecentDataSource: ObservableObject {
         var items = [RecentItem]()
         
         for item in recent {
-            items.append(RecentItem(url: item, viewController: ViewController(viewController: makeEditor?(item) ?? UIViewController())))
+            items.append(RecentItem(url: item, makeViewController: {
+                return ViewController(viewController: self.makeEditor?(item) ?? UIViewController())
+            }))
         }
         
         return items
