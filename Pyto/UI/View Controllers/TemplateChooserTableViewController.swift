@@ -81,6 +81,12 @@ class TemplateChooserTableViewController: UITableViewController, UIDocumentPicke
     
     // MARK: - Table view controller
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tableView.backgroundColor = .systemGroupedBackground
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
