@@ -69,7 +69,7 @@ import UIKit
                         break
                     }
                     
-                    if console.editorSplitViewController?.editor.document?.fileURL.path == scriptPath {
+                    if console.editorSplitViewController?.editor?.document?.fileURL.path == scriptPath {
                         console.topViewController.present(alert, animated: true, completion: nil)
                         break
                     }

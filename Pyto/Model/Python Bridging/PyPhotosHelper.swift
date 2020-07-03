@@ -60,7 +60,7 @@ import MobileCoreServices
                     break
                 }
                 
-                if console.editorSplitViewController?.editor.document?.fileURL.path == scriptPath {
+                if console.editorSplitViewController?.editor?.document?.fileURL.path == scriptPath {
                     (console.presentedViewController ?? console).present(picker, animated: true, completion: nil)
                     break
                 }

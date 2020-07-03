@@ -11,6 +11,7 @@ import Foundation
 import AVFoundation
 #if MAIN
 import UIKit
+import WidgetKit
 #elseif os(iOS) && !WIDGET
 @_silgen_name("PyRun_SimpleStringFlags")
 func PyRun_SimpleStringFlags(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Any>!)
@@ -355,7 +356,8 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                 #endif
                 
                 for contentVC in visibles {
-                    guard let editor = contentVC.editorSplitViewController?.editor, let scriptPath = editor.document?.fileURL.path else {
+                    let splitVC = contentVC.editorSplitViewController
+                    guard let editor = splitVC?.editor, let scriptPath = editor.document?.fileURL.path else {
                         return
                     }
                     
@@ -371,10 +373,12 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                     if item?.rightBarButtonItem != contentVC.editorSplitViewController?.closeConsoleBarButtonItem {
                         if self.runningScripts.contains(scriptPath) {
                             item?.rightBarButtonItem = editor.stopBarButtonItem
+                            splitVC?.container?.update()
                         } else {
                             item?.rightBarButtonItem = editor.runBarButtonItem
+                            splitVC?.container?.update()
                             
-                            if contentVC.editorSplitViewController?.editor.textView.text == PyCallbackHelper.code {
+                            if contentVC.editorSplitViewController?.editor?.textView.text == PyCallbackHelper.code {
                                 // Run callback
                                 
                                 if PyCallbackHelper.cancelled, let cancel = PyCallbackHelper.cancelURL, let url = URL(string: cancel) {
@@ -392,6 +396,21 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                                 PyCallbackHelper.exception = nil
                             }
                             
+                            var images = [UIImage]()
+                            splitVC?.console.textView.textStorage.enumerateAttributes(in: NSRange(location: 0, length: splitVC?.console.textView.textStorage.length ?? 0)) { (attr, range, _) in
+                                if let plot = (attr[NSAttributedString.Key.attachment] as? NSTextAttachment)?.image {
+                                    images.append(plot)
+                                }
+                            }
+                            
+                            // Widget
+                            if !editor.isShortcut, let console = splitVC?.console {
+                                let textView = console.textView
+                                let scriptName = splitVC?.editor?.document?.fileURL.deletingPathExtension().lastPathComponent ?? ""
+                                PyOutputHelper.updateWidget(output: textView.text ?? "", images: images, scriptName: scriptName, scriptURL: editor.document?.fileURL)
+                            }
+                            
+                            // Shortcut
                             if editor.isShortcut {
                                 
                                 editor.isShortcut = false
@@ -408,6 +427,13 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                                     prefix = "Fail"
                                 } else {
                                     prefix = "Success"
+                                }
+                                
+                                do {
+                                    let encodedImages = try NSKeyedArchiver.archivedData(withRootObject: images, requiringSecureCoding: true)
+                                    try encodedImages.write(to: group.appendingPathComponent("ShortcutPlots"))
+                                } catch {
+                                    print(error.localizedDescription)
                                 }
                                 
                                 do {

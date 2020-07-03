@@ -52,7 +52,8 @@ import WatchConnectivity
             #elseif !WIDGET
             for console in ConsoleViewController.visibles {
                 if script != nil {
-                    guard let url = console.editorSplitViewController?.editor.document?.fileURL, url.resolvingSymlinksInPath() == URL(fileURLWithPath: script!).resolvingSymlinksInPath() else {
+                    let splitVC = console.editorSplitViewController
+                    guard let url = splitVC?.editor?.document?.fileURL, url.resolvingSymlinksInPath() == URL(fileURLWithPath: script!).resolvingSymlinksInPath() else {
                         continue
                     }
                 }
@@ -77,7 +78,7 @@ import WatchConnectivity
             for console in ConsoleViewController.visibles {
                 
                 if script != nil {
-                    guard console.editorSplitViewController?.editor.document?.fileURL.path == script else {
+                    guard console.editorSplitViewController?.editor?.document?.fileURL.path == script else {
                         continue
                     }
                 }

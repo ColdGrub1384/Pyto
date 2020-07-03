@@ -7,7 +7,6 @@
 //
 
 import UIKit
-typealias Color = UIColor
 
 extension EditorViewController {
     
@@ -18,7 +17,7 @@ extension EditorViewController {
     /// - Parameters:
     ///     - line: Line to highlight.
     ///     - color: The color used for highlighting.
-    func highlight(at line: Int, with color: Color?) {
+    func highlight(at line: Int, with color: UIColor?) {
         
         let storage: NSTextStorage? = textView.contentTextView.textStorage
         
@@ -35,7 +34,7 @@ extension EditorViewController {
             lineRanges.append(lineRange)
         })
         
-        func setBackgroundColor(_ color: Color?, forLine line: Int) {
+        func setBackgroundColor(_ color: UIColor?, forLine line: Int) {
             guard lineRanges.indices.contains(line) else {
                 return
             }

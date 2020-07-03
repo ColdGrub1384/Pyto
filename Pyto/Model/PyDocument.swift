@@ -102,6 +102,9 @@ enum PyDocumentError: Error {
     }
     
     override func open(completionHandler: ((Bool) -> Void)? = nil) {
+        
+        hasBeenOpened = true
+        
         super.open { (success) in
             if self.storedModificationDate == nil {
                 self.storedModificationDate = self.fileModificationDate

@@ -12,6 +12,7 @@ import UserNotifications
 /// A class managing Today widget settings.
 @available(iOS 13.0, *) @objc class PyNotificationCenter: NSObject {
     
+    #if MAIN
     /// Set to `true` to make the widget able to expand.
     @objc static var canBeExpanded: Bool {
         set {
@@ -49,6 +50,7 @@ import UserNotifications
             #endif
         }
     }
+    #endif
     
     @objc static var scheduled: [UNNotificationRequest] {
         

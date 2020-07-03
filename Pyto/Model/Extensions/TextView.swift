@@ -3,15 +3,12 @@ import UIKit
 import SavannaKit
 #endif
 
-typealias TextView = UITextView
-typealias Range = UITextRange
-
-extension TextView {
+extension UITextView {
     
     // MARK: - Words
     
     /// Returns the range of the selected word.
-    var currentWordRange: Range? {
+    var currentWordRange: UITextRange? {
         let beginning = beginningOfDocument
         
         if let start = position(from: beginning, offset: selectedRange.location),

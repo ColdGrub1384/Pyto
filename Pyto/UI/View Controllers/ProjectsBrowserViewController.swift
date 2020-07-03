@@ -104,6 +104,8 @@ class ProjectsBrowserViewController: UITableViewController, UIDocumentPickerDele
         
         title = Localizable.ProjectsBrowser.title
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
+        
+        tableView.backgroundColor = .systemGroupedBackground
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
