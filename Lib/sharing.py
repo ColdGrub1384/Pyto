@@ -33,7 +33,7 @@ def share_items(items: object):
 
 if "widget" not in os.environ:
 
-    def quick_look(path: str):
+    def quick_look(path: str, remove_previous: bool = False):
         """
         Previews given file.
 
@@ -50,11 +50,11 @@ if "widget" not in os.environ:
             pyto.QuickLookHelper.previewFile(
                 file64_encode,
                 script=threading.current_thread().script_path,
-                removePrevious=False,
+                removePrevious=remove_previous,
             )
         except AttributeError:
             pyto.QuickLookHelper.previewFile(
-                file64_encode, script=None, removePrevious=False
+                file64_encode, script=None, removePrevious=remove_previous
             )
 
 
