@@ -286,9 +286,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
         inputAssistant = InputAssistantView()
         inputAssistant.delegate = self
         inputAssistant.dataSource = self
-        inputAssistant.leadingActions = (UIDevice.current.orientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])+[InputAssistantAction(image: "⇥".image() ?? UIImage(), target: self, action: #selector(insertTab))]
+        inputAssistant.leadingActions = (UIApplication.shared.orientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])+[InputAssistantAction(image: "⇥".image() ?? UIImage(), target: self, action: #selector(insertTab))]
         inputAssistant.attach(to: textView.contentTextView)
-        inputAssistant.trailingActions = [InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView.contentTextView, action: #selector(textView.contentTextView.resignFirstResponder))]+(UIDevice.current.orientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])
+        inputAssistant.trailingActions = [InputAssistantAction(image: EditorSplitViewController.downArrow, target: textView.contentTextView, action: #selector(textView.contentTextView.resignFirstResponder))]+(UIApplication.shared.orientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])
         
         textView.contentTextView.reloadInputViews()
     }

@@ -33,13 +33,13 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         
         textField.inputAccessoryView = nil
         
-        inputAssistant.leadingActions = (UIDevice.current.orientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])+[
+        inputAssistant.leadingActions = (UIApplication.shared.orientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])+[
             InputAssistantAction(image: UIImage(named: "Down") ?? UIImage(), target: self, action: #selector(down)),
             InputAssistantAction(image: UIImage(named: "Up") ?? UIImage(), target: self, action: #selector(up))
         ]
         inputAssistant.trailingActions = [
             InputAssistantAction(image: UIImage(named: "CtrlC") ?? UIImage(), target: self, action: #selector(interrupt)),
-            ]+(UIDevice.current.orientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])
+            ]+(UIApplication.shared.orientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])
         
         textField.keyboardAppearance = theme.keyboardAppearance
         if console?.traitCollection.userInterfaceStyle == .dark {
