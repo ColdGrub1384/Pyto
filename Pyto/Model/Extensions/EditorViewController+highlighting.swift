@@ -88,7 +88,7 @@ extension EditorViewController {
             errorView.isEditable = false
             errorView.backgroundColor = errorColor
             
-            let title = NSAttributedString(string: Python.shared.errorType ?? "", attributes: [
+            let title = NSAttributedString(string: "\n"+(Python.shared.errorType ?? ""), attributes: [
                 .font : UIFont(name: "Menlo-Bold", size: UIFont.systemFontSize) ?? UIFont.systemFont(ofSize: UIFont.systemFontSize),
                 .foregroundColor: UIColor.white
                 ])
