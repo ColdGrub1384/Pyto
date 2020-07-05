@@ -33,16 +33,26 @@ struct EditorView: View {
     /// A boolean that will be set to `false` on appear to enable the split view on the menu.
     let isStack: Binding<Bool>
     
+    /// The selection.
+    let selection: SelectedSection
+    
+    /// The binding where the selection will be written.
+    let selected: Binding<SelectedSection?>
+    
     /// Initializes an editor.
     ///
     /// - Parameters:
     ///     - makeEditor: A block returning a view controller.
     ///     - currentViewStore: The object storing the current selection of the sidebar.
     ///     - isStack: A boolean that will be set to `false` on appear to enable the split view on the menu.
-    init(makeEditor: @escaping (() -> ViewController), currentViewStore: CurrentViewStore, isStack: Binding<Bool>) {
+    ///     - selection: The selection.
+    ///     - selected: The binding where the selection will be written.
+    init(makeEditor: @escaping (() -> ViewController), currentViewStore: CurrentViewStore, isStack: Binding<Bool>, selection: SelectedSection, selected: Binding<SelectedSection?>) {
         self.makeEditor = makeEditor
         self.currentViewStore = currentViewStore
         self.isStack = isStack
+        self.selection = selection
+        self.selected = selected
     }
     
     var body: some View {
@@ -57,7 +67,7 @@ struct EditorView: View {
             view = AnyView(editorStore.editor!)
         }
         
-        return AnyView(view.navigationBarTitleDisplayMode(.inline).link(store: currentViewStore, isStack: isStack))
+        return AnyView(view.navigationBarTitleDisplayMode(.inline).link(store: currentViewStore, isStack: isStack, selection: selection, selected: selected))
     }
 }
 
@@ -178,11 +188,9 @@ public struct SidebarNavigation: View {
             }
                         
             DisclosureGroup("Recent", isExpanded: $expansionState.isRecentExpanded) {
-                ForEach(recentDataSource.recentItems, id: \.url) { item in
+                ForEach(recentDataSource.recentItems.reversed(), id: \.url) { item in
                     NavigationLink(
-                        destination: EditorView(makeEditor: item.makeViewController, currentViewStore: currentViewStore, isStack: $stack),
-                        tag: SelectedSection.recent(item.url),
-                        selection: $sceneStateStore.sceneState.selection,
+                        destination: EditorView(makeEditor: item.makeViewController, currentViewStore: currentViewStore, isStack: $stack, selection: .recent(item.url), selected: $sceneStateStore.sceneState.selection),
                         label: {
                             Label(FileManager.default.displayName(atPath: item.url.path), systemImage: "clock")
                     })
@@ -191,17 +199,13 @@ public struct SidebarNavigation: View {
             
             DisclosureGroup("Python", isExpanded: $expansionState.isPythonExpanded) {
                 NavigationLink(
-                    destination: repl.navigationBarTitleDisplayMode(.inline).link(store: currentViewStore, isStack: $stack),
-                    tag: SelectedSection.repl,
-                    selection: $sceneStateStore.sceneState.selection,
+                    destination: repl.navigationBarTitleDisplayMode(.inline).link(store: currentViewStore, isStack: $stack, selection: .repl, selected: $sceneStateStore.sceneState.selection),
                     label: {
                         Label("REPL", systemImage: "play")
                     })
                                 
                 NavigationLink(
-                    destination: runModule.navigationBarTitleDisplayMode(.inline).link(store: currentViewStore, isStack: $stack),
-                    tag: SelectedSection.runModule,
-                    selection: $sceneStateStore.sceneState.selection) {
+                    destination: runModule.navigationBarTitleDisplayMode(.inline).link(store: currentViewStore, isStack: $stack, selection: .runModule, selected: $sceneStateStore.sceneState.selection)) {
                     Label("Run module (python -m)", systemImage: "doc")
                 }
                 
@@ -209,9 +213,7 @@ public struct SidebarNavigation: View {
                     scene?.title = "PyPI"
                 }.onDisappear {
                     scene?.title = ""
-                }.link(store: currentViewStore, isStack: $stack),
-                tag: SelectedSection.pypi,
-                selection: $sceneStateStore.sceneState.selection) {
+                }.link(store: currentViewStore, isStack: $stack, selection: .pypi, selected: $sceneStateStore.sceneState.selection)) {
                     Label("PyPI", systemImage: "cube.box")
                 }
             }
@@ -221,30 +223,22 @@ public struct SidebarNavigation: View {
                     scene?.title = "Examples"
                 }.onDisappear {
                     scene?.title = ""
-                }.link(store: currentViewStore, isStack: $stack),
-                tag: SelectedSection.examples,
-                selection: $sceneStateStore.sceneState.selection) {
+                }.link(store: currentViewStore, isStack: $stack, selection: .examples, selected: $sceneStateStore.sceneState.selection)) {
                     Label("Examples", systemImage: "bookmark")
                 }
                 
-                NavigationLink(destination: documentation.link(store: currentViewStore, isStack: $stack),
-                               tag: SelectedSection.documentation,
-                               selection: $sceneStateStore.sceneState.selection) {
+                NavigationLink(destination: documentation.link(store: currentViewStore, isStack: $stack, selection: .documentation, selected: $sceneStateStore.sceneState.selection)) {
                     Label("Documentation", systemImage: "book")
                 }
             }
             
             DisclosureGroup("More", isExpanded: $expansionState.isMoreExpanded) {
                 
-                NavigationLink(destination: modules.link(store: currentViewStore, isStack: $stack),
-                               tag: SelectedSection.loadedModules,
-                               selection: $sceneStateStore.sceneState.selection) {
+                NavigationLink(destination: modules.link(store: currentViewStore, isStack: $stack, selection: .loadedModules, selected: $sceneStateStore.sceneState.selection)) {
                     Label("Loaded modules", systemImage: "info.circle")
                 }
                 
-                NavigationLink(destination: settings.link(store: currentViewStore, isStack: $stack),
-                               tag: SelectedSection.settings,
-                               selection: $sceneStateStore.sceneState.selection) {
+                NavigationLink(destination: settings.link(store: currentViewStore, isStack: $stack, selection: .settings, selected: $sceneStateStore.sceneState.selection)) {
                     Label("Settings", systemImage: "gear")
                 }
             }
@@ -272,7 +266,7 @@ public struct SidebarNavigation: View {
                 // That's a lot of parenthesis
                 withDoneButton(AnyView((currentViewStore.currentView!)))
             } else if !stack && url != nil {
-                editor.link(store: currentViewStore, isStack: $stack).onAppear {
+                editor.link(store: currentViewStore, isStack: $stack, selection: .recent(url!), selected: $sceneStateStore.sceneState.selection).onAppear {
                     if let url = url {
                         sceneStateStore.sceneState.selection = SelectedSection.recent(url)
                     }

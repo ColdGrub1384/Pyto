@@ -156,6 +156,8 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
             navigationItem.leftBarButtonItems = [editor.scriptsItem]
             navigationItem.rightBarButtonItems = [closeConsoleBarButtonItem]
         }
+        
+        container?.update()
     }
     
     /// The button for closing the full screen console.
@@ -163,6 +165,8 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
     
     /// Shows the editor on full screen.
     @objc func showEditor() {
+        
+        isConsoleShown = false
         
         for view in self.view.subviews {
             if view.backgroundColor == .white {
@@ -206,8 +210,13 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
         }
     }
     
+    /// A boolean indicating whether the console is shown in full screen.
+    var isConsoleShown = false
+    
     /// Shows the console on full screen.
     func showConsole(_ completion: @escaping (() -> Void)) {
+        
+        isConsoleShown = true
         
         for view in self.view.subviews {
             if view.backgroundColor == .white {
@@ -332,13 +341,15 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
             }
         }
         
-        if arrangement == .horizontal && justShown {
-            firstChild = editor
-            secondChild = console
+        if traitCollection.horizontalSizeClass == .compact {
+            if arrangement == .horizontal && justShown {
+                firstChild = editor
+                secondChild = console
+            }
+            
+            firstChild?.view.superview?.backgroundColor = view.backgroundColor
+            secondChild?.view.superview?.backgroundColor = view.backgroundColor
         }
-        
-        firstChild?.view.superview?.backgroundColor = view.backgroundColor
-        secondChild?.view.superview?.backgroundColor = view.backgroundColor
     }
     
     public override func viewDidAppear(_ animated: Bool) {
@@ -350,10 +361,20 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
             view.window?.windowScene?.title = editor?.document?.fileURL.deletingPathExtension().lastPathComponent
         }
         
+        if arrangement == .horizontal && justShown {
+            firstChild = editor
+            secondChild = console
+        }
+        
+        firstChild?.view.superview?.backgroundColor = view.backgroundColor
+        secondChild?.view.superview?.backgroundColor = view.backgroundColor
+        
         willTransition(to: traitCollection, with: ViewControllerTransitionCoordinator())
         justShown = false
         
         removeGestures()
+        
+        container?.update()
     }
     
     public override func viewWillDisappear(_ animated: Bool) {

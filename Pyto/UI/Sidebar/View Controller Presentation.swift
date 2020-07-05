@@ -30,15 +30,25 @@ public class ContainerViewController: UIViewController {
         }
     }
     
+    private func showEditor() {
+        #if MAIN
+        if let editor = children.first as? EditorSplitViewController, editor.isConsoleShown {
+            editor.showEditor()
+        }
+        #endif
+    }
+    
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
+        showEditor()
         update()
     }
     
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        showEditor()
         update()
     }
 }
@@ -95,10 +105,11 @@ extension View {
     ///     - isStack: A boolean indicating whether the navigaton view should be presented as stack.
     ///
     /// - Returns: A view that sets the current view on appear.
-    func link(store: CurrentViewStore, isStack: Binding<Bool>) -> some View {
+    func link(store: CurrentViewStore, isStack: Binding<Bool>, selection: SelectedSection, selected: Binding<SelectedSection?>) -> some View {
         onAppear {
             isStack.wrappedValue = false
             store.currentView = AnyView(self)
+            selected.wrappedValue = selection
         }
     }
 }
