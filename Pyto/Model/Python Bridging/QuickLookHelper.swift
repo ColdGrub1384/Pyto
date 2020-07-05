@@ -68,7 +68,7 @@ fileprivate class ImageAttachment: NSTextAttachment {
     static var visible: QuickLookHelper?
         
     /// Images displayed for the last executed script.
-    static var images = [UIImage]()
+    static var images = NSMutableArray()
     
     /// Rotation to be used on OpenCV images.
     ///
@@ -81,8 +81,7 @@ fileprivate class ImageAttachment: NSTextAttachment {
         let semaphore = DispatchSemaphore(value: 0)
         
         DispatchQueue.main.async {
-                        
-            switch UIDevice.current.orientation {
+            switch UIApplication.shared.orientation {
             case .portrait:
                 rotation = 0
             case .landscapeLeft:
@@ -123,7 +122,9 @@ fileprivate class ImageAttachment: NSTextAttachment {
             return
         }
         
-        QuickLookHelper.images.append(image)
+        if !removePrevious {
+            QuickLookHelper.images.add(image)
+        }
         
         DispatchQueue.main.async {
             

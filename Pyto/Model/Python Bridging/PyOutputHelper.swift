@@ -46,7 +46,7 @@ fileprivate extension ConsoleViewController {
     static func updateWidget(output: String?, images: [UIImage]?, scriptName: String?, scriptURL: URL?) {
         
         var out = output ?? self.output
-        let plots = images ?? QuickLookHelper.images
+        let plots = images ?? (QuickLookHelper.images as? [UIImage]) ?? []
         let name = scriptName ?? NSString(string: NSString(string: AppDelegate.shared.shortcutScript ?? "").deletingPathExtension).lastPathComponent
         
         // For some reason, returns 1 for an empty string.
