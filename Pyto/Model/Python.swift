@@ -11,7 +11,6 @@ import Foundation
 import AVFoundation
 #if MAIN
 import UIKit
-import WidgetKit
 #elseif os(iOS) && !WIDGET
 @_silgen_name("PyRun_SimpleStringFlags")
 func PyRun_SimpleStringFlags(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Any>!)
@@ -407,7 +406,10 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                             if !editor.isShortcut, let console = splitVC?.console {
                                 let textView = console.textView
                                 let scriptName = splitVC?.editor?.document?.fileURL.deletingPathExtension().lastPathComponent ?? ""
-                                PyOutputHelper.updateWidget(output: textView.text ?? "", images: images, scriptName: scriptName, scriptURL: editor.document?.fileURL)
+                                
+                                if #available(iOS 14.0, *) {
+                                    PyOutputHelper.updateWidget(output: textView.text ?? "", images: images, scriptName: scriptName, scriptURL: editor.document?.fileURL)
+                                }
                             }
                             
                             // Shortcut

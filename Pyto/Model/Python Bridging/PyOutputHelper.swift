@@ -43,7 +43,7 @@ fileprivate extension ConsoleViewController {
     ///     - output: The output of the script. Set to `nil` if the script was executed from Shortcuts.
     ///     - images: The output images of the script. Set to `nil` if the script was executed from Shortcuts.
     ///     - scriptURL: The URL of the script executed.
-    static func updateWidget(output: String?, images: [UIImage]?, scriptName: String?, scriptURL: URL?) {
+    @available(iOS 14.0, *) static func updateWidget(output: String?, images: [UIImage]?, scriptName: String?, scriptURL: URL?) {
         
         var out = output ?? self.output
         let plots = images ?? (QuickLookHelper.images as? [UIImage]) ?? []
@@ -96,7 +96,9 @@ fileprivate extension ConsoleViewController {
             output.removeLast()
         }
         
-        updateWidget(output: nil, images: nil, scriptName: nil, scriptURL: nil)
+        if #available(iOS 14.0, *) {
+            updateWidget(output: nil, images: nil, scriptName: nil, scriptURL: nil)
+        }
         
         do {
             try ("\(errorMessage != nil ? "Fail" : "Success")\n"+output).write(to: group.appendingPathComponent("ShortcutOutput.txt"), atomically: true, encoding: .utf8)

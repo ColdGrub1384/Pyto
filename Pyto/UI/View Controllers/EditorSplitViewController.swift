@@ -361,7 +361,8 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
             view.window?.windowScene?.title = editor?.document?.fileURL.deletingPathExtension().lastPathComponent
         }
         
-        if arrangement == .horizontal && justShown {
+        // Yeah, it's normal that you don't remember why this code is here bc even when you wrote it you didn't know why
+        if arrangement == .horizontal && justShown && !EditorSplitViewController.shouldShowConsoleAtBottom {
             firstChild = editor
             secondChild = console
         }
