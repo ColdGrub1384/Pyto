@@ -424,6 +424,7 @@ import TrueTime
         
         updatePyPiCache()
         
+        #if !Xcode11
         if #available(iOS 14.0, *) {
             SidebarNavigation.footer = """
             \n\(MenuTableViewController.pytoVersion)
@@ -431,6 +432,7 @@ import TrueTime
             Python \(Python.shared.version)
             """
         }
+        #endif
         #else
         window = UIWindow()
         window?.backgroundColor = .white
@@ -453,6 +455,7 @@ import TrueTime
     
     #if MAIN
     
+    #if !Xcode11
     public func application(_ application: UIApplication, handlerFor intent: INIntent) -> Any? {
         if intent is RunScriptIntent {
             return RunScriptIntentHandler()
@@ -462,6 +465,7 @@ import TrueTime
             return nil
         }
     }
+    #endif
     
     public func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         RemoteNotifications.deviceToken = nil
@@ -503,11 +507,15 @@ import TrueTime
     
     public func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
+        #if Xcode11
+        completionHandler([.alert, .sound])
+        #else
         if #available(iOS 14.0, *) {
             completionHandler([.banner, .sound])
         } else {
             completionHandler([.alert, .sound])
         }
+        #endif
     }
     
     public func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {

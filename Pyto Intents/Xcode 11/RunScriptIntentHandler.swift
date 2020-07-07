@@ -45,35 +45,6 @@ fileprivate extension FileManager {
 
 class RunScriptIntentHandler: NSObject, RunScriptIntentHandling {
     
-    static func getScripts() -> [INFile] {
-        guard let docs = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.pyto")?.appendingPathComponent("Shortcuts") else {
-            return []
-        }
-        
-        var files = [INFile]()
-        
-        do {
-            for file in (try FileManager.default.contentsOfDirectory(atURL: docs, sortedBy: .created) ?? []) {
-                let fileURL = docs.appendingPathComponent(file)
-                files.append(INFile(data: try Data(contentsOf: fileURL), filename: fileURL.lastPathComponent, typeIdentifier: nil))
-            }
-        } catch {
-            return []
-        }
-        
-        return files.reversed()
-    }
-    
-    #if !Xcode11
-    @available(iOS 14.0, *)
-    @available(iOSApplicationExtension 14.0, *)
-    func provideScriptOptionsCollection(for intent: RunScriptIntent, with completion: @escaping (INObjectCollection<INFile>?, Error?) -> Void) {
-        
-        let collection = INObjectCollection(items: RunScriptIntentHandler.getScripts())
-        return completion(collection, nil)
-    }
-    #endif
-    
     func handle(intent: RunScriptIntent, completion: @escaping (RunScriptIntentResponse) -> Void) {
         let userActivity = NSUserActivity(activityType: "RunScriptIntent")
         do {
@@ -89,47 +60,34 @@ class RunScriptIntentHandler: NSObject, RunScriptIntentHandling {
         } catch {
             print(error.localizedDescription)
         }
-        
         RemoveCachedOutput()
-        
-        #if MAIN
-        
-        var url = intent.script?.fileURL
-        
-        if url == nil, let data = intent.script?.data {
-            do {
-                var isStale = false
-                url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
-                _ = url?.startAccessingSecurityScopedResource()
-            } catch {
-                completion(RunScriptIntentResponse(code: .failure, userActivity: nil))
-                return
-            }
-        }
-        
-        if !Bool(truncating: intent.showConsole ?? 0) {
-            guard let script = url else {
-                return completion(.init(code: .failure, userActivity: nil))
-            }
-            
-            RunShortcutsScript(at: script, arguments: intent.arguments ?? [])
-            
-            return completion(.init(code: .success, userActivity: nil))
-        }
-        
-        #endif
         return completion(.init(code: .continueInApp, userActivity: userActivity))
     }
     
     func resolveScript(for intent: RunScriptIntent, with completion: @escaping (INFileResolutionResult) -> Void) {
         guard let file = intent.script else {
-            return completion(.disambiguation(with: RunScriptIntentHandler.getScripts()))
+            return
         }
         return completion(.success(with: file))
     }
     
     func provideScriptOptions(for intent: RunScriptIntent, with completion: @escaping ([INFile]?, Error?) -> Void) {
-        completion(RunScriptIntentHandler.getScripts(), nil)
+        guard let docs = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.pyto")?.appendingPathComponent("Shortcuts") else {
+            return completion([], nil)
+        }
+        
+        var files = [INFile]()
+        
+        do {
+            for file in (try FileManager.default.contentsOfDirectory(atURL: docs, sortedBy: .created) ?? []) {
+                let fileURL = docs.appendingPathComponent(file)
+                files.append(INFile(data: try Data(contentsOf: fileURL), filename: fileURL.lastPathComponent, typeIdentifier: nil))
+            }
+        } catch {
+            return completion([], nil)
+        }
+        
+        completion(files.reversed(), nil)
     }
     
     func resolveArguments(for intent: RunScriptIntent, with completion: @escaping ([INStringResolutionResult]) -> Void) {

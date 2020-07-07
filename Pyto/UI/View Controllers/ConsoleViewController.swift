@@ -822,6 +822,14 @@ import SwiftUI
     }
     #endif
     
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if !ConsoleViewController.visibles.contains(self) {
+            ConsoleViewController.visibles.append(self)
+        }
+    }
+    
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -830,14 +838,6 @@ import SwiftUI
         textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
         
         updateSize()
-    }
-    
-    override open func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        if !ConsoleViewController.visibles.contains(self) {
-            ConsoleViewController.visibles.append(self)
-        }
         
         if movableTextField == nil {
             movableTextField = MovableTextField(console: self)
@@ -858,7 +858,7 @@ import SwiftUI
                     import jedi
                     import console
                     import pyto
-                    namespace = console.__repl_namespace__['\((self.parent as! EditorSplitViewController).editor?.document!.fileURL.lastPathComponent.replacingOccurrences(of: "'", with: "\\'"))']
+                    namespace = console.__repl_namespace__['\((self.parent as! EditorSplitViewController).editor?.document!.fileURL.lastPathComponent.replacingOccurrences(of: "'", with: "\\'") ?? "")']
                     script = jedi.Interpreter('\(text.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "'", with: "\\'"))', [namespace])
                     
                     suggestions = []

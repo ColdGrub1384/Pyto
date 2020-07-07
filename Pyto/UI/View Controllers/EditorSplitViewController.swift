@@ -9,6 +9,10 @@
 import UIKit
 import SplitKit
 
+#if Xcode11
+protocol ContainedViewController {}
+#endif
+
 /// A Split view controller for displaying the editor and the console.
 public class EditorSplitViewController: SplitViewController, ContainedViewController {
     
@@ -140,7 +144,7 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
         }
         
         if firstChild == editor {
-            navigationItem.leftBarButtonItems = [editor.scriptsItem, editor.searchItem]
+            navigationItem.leftBarButtonItems = [editor.scriptsItem, editor.searchItem, editor.definitionsItem]
             if Python.shared.isScriptRunning(path) {
                 navigationItem.rightBarButtonItems = [
                     editor.stopBarButtonItem,
@@ -157,7 +161,9 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
             navigationItem.rightBarButtonItems = [closeConsoleBarButtonItem]
         }
         
+        #if !Xcode11
         container?.update()
+        #endif
     }
     
     /// The button for closing the full screen console.
@@ -362,7 +368,8 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
         }
         
         // Yeah, it's normal that you don't remember why this code is here bc even when you wrote it you didn't know why
-        if arrangement == .horizontal && justShown && !EditorSplitViewController.shouldShowConsoleAtBottom {
+        if arrangement == .horizontal && justShown && !EditorSplitViewController.shouldShowConsoleAtBottom &&
+            !(self is REPLViewController) && !(self is PipInstallerViewController) && !(self is RunModuleViewController) {
             firstChild = editor
             secondChild = console
         }
@@ -375,7 +382,9 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
         
         removeGestures()
         
+        #if !Xcode11
         container?.update()
+        #endif
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
@@ -553,5 +562,7 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
     
     // MARK: - Contained view controller
     
+    #if !Xcode11
     public var container: ContainerViewController?
+    #endif
 }

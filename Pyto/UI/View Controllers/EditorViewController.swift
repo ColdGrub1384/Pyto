@@ -348,11 +348,15 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 scriptsItem = splitViewController?.displayModeButtonItem ?? scriptsItem
             }
             
+            #if !Xcode11
             if #available(iOS 14.0, *), (parent as? EditorSplitViewController)?.folder == nil, traitCollection.horizontalSizeClass != .compact {
                 parentNavigationItem?.leftBarButtonItems = [searchItem, definitionsItem]
             } else {
                 parentNavigationItem?.leftBarButtonItems = [scriptsItem, searchItem, definitionsItem]
             }
+            #else
+            parentNavigationItem?.leftBarButtonItems = [scriptsItem, searchItem, definitionsItem]
+            #endif
         }
     
         if !(parent is REPLViewController) && !(parent is RunModuleViewController) && !(parent is PipInstallerViewController) {
@@ -449,6 +453,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
             let path = doc.fileURL.path
             
             self.textView.text = document?.text ?? ""
+            
+            self.updateSuggestions(force: true)
             
             if !FileManager.default.isWritableFile(atPath: doc.fileURL.path) {
                 self.navigationItem.leftBarButtonItem = nil
@@ -1762,6 +1768,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
+        
+        if let console = (parent as? EditorSplitViewController)?.console, !ConsoleViewController.visibles.contains(console) {
+            ConsoleViewController.visibles.append(console)
+        }
+        
         parent?.navigationController?.toolbar.frame.origin.y -= 50
         parent?.setNeedsUpdateOfHomeIndicatorAutoHidden()
     }

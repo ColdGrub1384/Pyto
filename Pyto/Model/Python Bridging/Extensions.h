@@ -7,12 +7,12 @@
 //
 
 #if !(TARGET_IPHONE_SIMULATOR)
+void init_pil(void);
 #if MAIN
 void init_lxml(void);
 void init_scipy(void);
 void init_sklearn(void);
 void init_skimage(void);
-void init_pil(void);
 void init_numpy(void);
 void init_cffi(void);
 void init_bcrypt(void);

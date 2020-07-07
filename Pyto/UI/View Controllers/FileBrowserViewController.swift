@@ -275,9 +275,11 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
                         let document = PyDocument(fileURL: url)
                         document.open { (_) in
                             
+                            #if !Xcode11
                             if #available(iOS 14.0, *) {
                                 RecentDataSource.shared.recent.append(url)
                             }
+                            #endif
                             
                             editor.parent?.title = document.fileURL.deletingPathExtension().lastPathComponent
                             editor.document = document

@@ -14,7 +14,7 @@
 #import "Pyto-Swift.h"
 #import "../Extensions/Zmq/zmq.h"
 #elif WIDGET
-#import "Pyto_Widget-Swift.h"
+#import "TodayExtension-Swift.h"
 #endif
 #include <dlfcn.h>
 

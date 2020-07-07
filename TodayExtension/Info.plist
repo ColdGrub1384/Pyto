@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Pyto Intents</string>
+	<string>Pyto</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -15,30 +15,28 @@
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
-	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
+	<string>XPC!</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Allow camera usage if you want to allow scripts accessing to it. The app itself doesn&apos;t require photo library access.</string>
 	<key>NSExtension</key>
 	<dict>
-		<key>NSExtensionAttributes</key>
-		<dict>
-			<key>IntentsRestrictedWhileLocked</key>
-			<array/>
-			<key>IntentsRestrictedWhileProtectedDataUnavailable</key>
-			<array/>
-			<key>IntentsSupported</key>
-			<array>
-				<string>GetScriptOutputIntent</string>
-				<string>RunCodeIntent</string>
-				<string>RunScriptIntent</string>
-			</array>
-		</dict>
 		<key>NSExtensionPointIdentifier</key>
-		<string>com.apple.intents-service</string>
+		<string>com.apple.widget-extension</string>
 		<key>NSExtensionPrincipalClass</key>
-		<string>$(PRODUCT_MODULE_NAME).IntentHandler</string>
+		<string>TodayExtension.ConsoleViewController</string>
 	</dict>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Allow photo library usage if you want to allow scripts accessing to it or if you want to save Matplotlib figures. The app itself doesn&apos;t require photo library access.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow photo library usage if you want to allow scripts accessing to it. The app itself doesn&apos;t require photo library access.</string>
 </dict>
 </plist>

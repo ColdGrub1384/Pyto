@@ -52,10 +52,16 @@ class GetScriptOutputIntentHandler: NSObject, GetScriptOutputIntentHandling {
                     }
                     
                     if out.replacingOccurrences(of: "\n", with: "") != "" {
+                        #if !Xcode11
                         output.append(INFile(data: out.data(using: .utf8) ?? Data(), filename: "console.txt", typeIdentifier: "public.plain-text"))
+                        #else
+                        res.output = out
+                        #endif
                     }
                     
+                    #if !Xcode11
                     res.output = output
+                    #endif
                     
                     completion(res)
                     break

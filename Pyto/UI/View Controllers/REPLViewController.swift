@@ -83,7 +83,8 @@ import UIKit
             let newURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(randomString(length: 5)).appendingPathExtension("repl.py")
             try? FileManager.default.copyItem(at: repl, to: newURL)
             
-            editor = EditorViewController(document: PyDocument(fileURL: newURL))
+            let editor = EditorViewController(document: PyDocument(fileURL: newURL))
+            self.editor = editor
         }
         console = ConsoleViewController()
     }

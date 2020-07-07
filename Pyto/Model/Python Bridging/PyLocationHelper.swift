@@ -23,7 +23,15 @@ import CoreLocation
     
     /// A boolean indicating whether accessing location is allowed.
     @objc static var isAllowed: Bool {
+        #if Xcode11
         return CLLocationManager.authorizationStatus() == .authorizedAlways || CLLocationManager.authorizationStatus() == .authorizedWhenInUse
+        #else
+        if #available(iOS 14.0, *) {
+            return CLLocationManager().authorizationStatus() == .authorizedAlways || CLLocationManager().authorizationStatus() == .authorizedWhenInUse
+        } else {
+            return CLLocationManager.authorizationStatus() == .authorizedAlways || CLLocationManager.authorizationStatus() == .authorizedWhenInUse
+        }
+        #endif
     }
     
     /// The number of meters from the original geographic coordinate that could yield the user's actual location.

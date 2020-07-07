@@ -15,6 +15,11 @@
 
 @implementation ExtensionsInitializer
 
+-(void) initialize_pil {
+    init_pil();
+}
+
+#if MAIN
 -(void) initialize_lxml {
     init_lxml();
 }
@@ -29,10 +34,6 @@
 
 -(void) initialize_skimage {
     init_skimage();
-}
-
--(void) initialize_pil {
-    init_pil();
 }
 
 -(void) initialize_numpy {
@@ -94,4 +95,5 @@
 -(void) initialize_biopython {
     init_biopython();
 }
+#endif
 @end

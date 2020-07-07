@@ -17,7 +17,11 @@ class IntentHandler: INExtension {
         if intent is RunScriptIntent {
             return RunScriptIntentHandler()
         } else if intent is RunCodeIntent {
+            #if !Xcode11
             return RunCodeIntentHandler()
+            #else
+            return RunCodeIntentsHandler()
+            #endif
         } else if intent is GetScriptOutputIntent {
             return GetScriptOutputIntentHandler()
         } else {

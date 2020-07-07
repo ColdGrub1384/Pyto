@@ -26,6 +26,23 @@ import SwiftUI
     /// The scene state.
     var sceneStateStore = SceneStateStore()
     
+    /// Opens a document after the scene is shown.
+    ///
+    /// - Parameters:
+    ///     - url: The URL to open.
+    ///     - run: A boolean indicating whether the script should be executed.
+    ///     - isShortcut: A boolean indicating whether the script is executed from Shortcuts.
+    func openDocument(at url: URL, run: Bool, isShortcut: Bool) {
+        _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
+            if let doc = self.documentBrowserViewController {
+                doc.revealDocument(at: url, importIfNeeded: false) { (url_, _) in
+                    doc.openDocument(url_ ?? url, run: run, isShortcut: isShortcut)
+                }
+                timer.invalidate()
+            }
+        })
+    }
+    
     // MARK: - Scene delegate
     
     var window: UIWindow?

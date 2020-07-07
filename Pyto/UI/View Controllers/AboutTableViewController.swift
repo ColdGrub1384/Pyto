@@ -121,7 +121,7 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Settings" // TODO: Localize
+        title = navigationItem.title
         
         switch EditorViewController.indentation {
         case "\t":

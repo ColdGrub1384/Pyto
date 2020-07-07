@@ -81,7 +81,7 @@ public struct SamplesView: View {
                 ShortcutsView(shortcuts: self.shortcuts, hostController: self.hostController)
             } else {
                 if SamplesView.isDirectory(item) {
-                    NavigationLink(destination: SamplesView(url: item, title: item.lastPathComponent, selectScript: self.selectScript, shortcuts: [], hostController: self.hostController), tag: item, selection: $selectedItemStore.selectedItem) {
+                    NavigationLink(destination: SamplesView(url: item, title: item.lastPathComponent, selectScript: self.selectScript, shortcuts: [], hostController: self.hostController), tag: item, selection: self.$selectedItemStore.selectedItem) {
                         Image(systemName: "folder.fill")
                         Text(item.lastPathComponent)
                     }

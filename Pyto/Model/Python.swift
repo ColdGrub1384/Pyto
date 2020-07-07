@@ -372,10 +372,14 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                     if item?.rightBarButtonItem != contentVC.editorSplitViewController?.closeConsoleBarButtonItem {
                         if self.runningScripts.contains(scriptPath) {
                             item?.rightBarButtonItem = editor.stopBarButtonItem
+                            #if !Xcode11
                             splitVC?.container?.update()
+                            #endif
                         } else {
                             item?.rightBarButtonItem = editor.runBarButtonItem
+                            #if !Xcode11
                             splitVC?.container?.update()
+                            #endif
                             
                             if contentVC.editorSplitViewController?.editor?.textView.text == PyCallbackHelper.code {
                                 // Run callback

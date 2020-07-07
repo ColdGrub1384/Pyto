@@ -9,7 +9,9 @@
 import UIKit
 #if MAIN
 import WatchConnectivity
+#if !Xcode11
 import WidgetKit
+#endif
 #endif
 
 fileprivate extension ConsoleViewController {
@@ -45,6 +47,7 @@ fileprivate extension ConsoleViewController {
     ///     - scriptURL: The URL of the script executed.
     @available(iOS 14.0, *) static func updateWidget(output: String?, images: [UIImage]?, scriptName: String?, scriptURL: URL?) {
         
+        #if !Xcode11
         var out = output ?? self.output
         let plots = images ?? (QuickLookHelper.images as? [UIImage]) ?? []
         let name = scriptName ?? NSString(string: NSString(string: AppDelegate.shared.shortcutScript ?? "").deletingPathExtension).lastPathComponent
@@ -69,9 +72,11 @@ fileprivate extension ConsoleViewController {
         } catch {
             Swift.print(error.localizedDescription)
         }
+        #endif
     }
     #endif
     
+    #if !WIDGET
     /// Sends `output` to the current running Shortcut.
     ///
     /// - Parameters:
@@ -109,6 +114,7 @@ fileprivate extension ConsoleViewController {
         QuickLookHelper.images = []
         output = ""
     }
+    #endif
     
     #if !WIDGET
     private static var outputParser: Parser!

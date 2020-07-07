@@ -42,11 +42,15 @@ import SwiftUI
     
     /// Shows more options.
     @objc func showMore(_ sender: UIBarButtonItem) {
+        #if Xcode11
+        let menu = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "menu")
+        present(menu, animated: true, completion: nil)
+        #else
         if #available(iOS 14.0, *) {
             
             sceneDelegate?.sceneStateStore.reset()
             
-            let sidebar = makeSidebarNavigation(url: nil)
+            let sidebar = makeSidebarNavigation(url: nil, run: false, isShortcut: false)
             let vc = UIHostingController(rootView: sidebar)
             vc.modalTransitionStyle = .crossDissolve
             vc.modalPresentationStyle = .fullScreen
@@ -57,6 +61,7 @@ import SwiftUI
             let menu = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "menu")
             present(menu, animated: true, completion: nil)
         }
+        #endif
     }
     
     /// Runs the given code.
@@ -72,12 +77,15 @@ import SwiftUI
         openDocument(url, run: true)
     }
     
+    #if !Xcode11
     /// Makes a SwiftUI view for the navigation.
     ///
     /// - Parameters:
     ///     - url: The URL of the file to edit.
+    ///     - run: A boolean indicating whether `url` should run.
+    ///     - isShortcut: A boolean indicating whether `url` is launched from a Shortcut.
     @available(iOS 14.0, *)
-    func makeSidebarNavigation(url: URL?) -> SidebarNavigation {
+    func makeSidebarNavigation(url: URL?, run: Bool, isShortcut: Bool) -> SidebarNavigation {
         var navView: SidebarNavigation!
         navView = SidebarNavigation(url: url,
                                     scene: view.window?.windowScene,
@@ -101,12 +109,25 @@ import SwiftUI
                                     }),
                                     documentationViewController: DocumentationViewController(),
                                     modulesViewController: ModulesTableViewController(style: .grouped),
-                                    makeEditor: { url in
-            return self.openDocument(url, run: false, show: false) ?? UIViewController()
+                                    makeEditor: { _url in
+                                        
+                                        let _run: Bool
+                                        let _shortcut: Bool
+                                        
+                                        if _url == url {
+                                            _run = run
+                                            _shortcut = isShortcut
+                                        } else {
+                                            _run = false
+                                            _shortcut = false
+                                        }
+                                        
+                                        return self.openDocument(_url, run: _run, isShortcut: _shortcut, show: false) ?? UIViewController()
         })
         
         return navView
     }
+    #endif
     
     /// Opens the given file.
     ///
@@ -181,7 +202,11 @@ import SwiftUI
             let uiSplitVC = EditorSplitViewController.ProjectSplitViewController()
             
             uiSplitVC.editor = splitVC
+            #if Xcode11
+            uiSplitVC.preferredDisplayMode = .primaryHidden
+            #else
             uiSplitVC.preferredDisplayMode = .secondaryOnly
+            #endif
             if #available(iOS 13.0, *) {
                 uiSplitVC.view.backgroundColor = .systemBackground
             }
@@ -197,19 +222,25 @@ import SwiftUI
             uiSplitVC.viewControllers = [browserNavVC, navVC]
         } else if #available(iOS 14.0, *) {
             
-            let navView = makeSidebarNavigation(url: documentURL)
+            #if !Xcode11
+            let navView = makeSidebarNavigation(url: documentURL, run: run, isShortcut: isShortcut)
             
             vc = UIHostingController(rootView: navView)
             vc.modalPresentationStyle = .fullScreen
             
             navView.viewControllerStore.vc = vc as? UIHostingController<SidebarNavigation>
+            #else
+            print("Built with Xcode 11")
+            #endif
         }
         
+        #if !Xcode11
         if #available(iOS 14.0, *) {
             if !run && !isShortcut && show {
                 RecentDataSource.shared.recent.append(documentURL)
             }
         }
+        #endif
         
         vc.modalTransitionStyle = .crossDissolve
         
@@ -222,9 +253,11 @@ import SwiftUI
                 document.checkForConflicts(onViewController: self, completion: {
                     
                     (viewController ?? self).present(vc, animated: animated, completion: {
+                        #if !Xcode11
                         UIView.animate(withDuration: 0.15) {
                             (vc.children.first as? UISplitViewController)?.preferredDisplayMode = .secondaryOnly
                         }
+                        #endif
                         
                         NotificationCenter.default.removeObserver(splitVC)
                         completion?()
