@@ -179,6 +179,8 @@
 		C92F6FE2247DD1A5006CC037 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = C92F6FE5247DD1A5006CC037 /* Intents.intentdefinition */; };
 		C92F6FE3247DD1A5006CC037 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = C92F6FE5247DD1A5006CC037 /* Intents.intentdefinition */; };
 		C92FC4462352BCB8000BBF46 /* Hello World.py in Resources */ = {isa = PBXBuildFile; fileRef = C92FC4452352BCB8000BBF46 /* Hello World.py */; };
+		C9300F0024B8D34A0017E071 /* PythonLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9300EFF24B8D34A0017E071 /* PythonLexer.swift */; };
+		C9300F1724B8D3C60017E071 /* PythonLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9300EFF24B8D34A0017E071 /* PythonLexer.swift */; };
 		C93071BF23ED98F5000ADFF6 /* PyMotionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98F37BA23ED894700E5D52C /* PyMotionHelper.swift */; };
 		C93657292287334600498011 /* ResolveConflictsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93657282287334600498011 /* ResolveConflictsTableViewController.swift */; };
 		C9379B2624A653E200B375F9 /* pythonA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C981698D235E5E6C0062A91F /* pythonA.framework */; };
@@ -4607,6 +4609,7 @@
 		C92F7001247EA4D0006CC037 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Intents.strings; sourceTree = "<group>"; };
 		C92F701C248024A2006CC037 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/SwiftUI.framework; sourceTree = DEVELOPER_DIR; };
 		C92FC4452352BCB8000BBF46 /* Hello World.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = "Hello World.py"; sourceTree = "<group>"; };
+		C9300EFF24B8D34A0017E071 /* PythonLexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PythonLexer.swift; sourceTree = "<group>"; };
 		C93657282287334600498011 /* ResolveConflictsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolveConflictsTableViewController.swift; sourceTree = "<group>"; };
 		C9379B2324A64C1200B375F9 /* WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetExtension.entitlements; sourceTree = "<group>"; };
 		C9379B4024A656F800B375F9 /* Widget PreviewExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Widget PreviewExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -9453,6 +9456,7 @@
 				C959D50623761FC40001AEAF /* PyPackage.swift */,
 				C9592D1721D0592C00412CEF /* Localizable.swift */,
 				C91BE6B423F9A3E500B6ED6B /* ProjectDocument.swift */,
+				C9300EFF24B8D34A0017E071 /* PythonLexer.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -13102,6 +13106,7 @@
 				C9B8A82224B3E13F001FD8F0 /* PySelector.swift in Sources */,
 				C9B8A82324B3E13F001FD8F0 /* Dusk.swift in Sources */,
 				C9B8A82424B3E13F001FD8F0 /* ProjectsBrowserViewController.swift in Sources */,
+				C9300F1724B8D3C60017E071 /* PythonLexer.swift in Sources */,
 				C9B8A82524B3E13F001FD8F0 /* ReplaceView.swift in Sources */,
 				C9B8A82624B3E13F001FD8F0 /* EditorViewController+highlighting.swift in Sources */,
 				C9B8A82724B3E13F001FD8F0 /* ReceiptValidator.swift in Sources */,
@@ -13373,6 +13378,7 @@
 			files = (
 				C9622B792467BE5200D0D697 /* chkder_.c in Sources */,
 				C9EDF9AB21446FCA00382DCC /* ConsoleViewController.swift in Sources */,
+				C9300F0024B8D34A0017E071 /* PythonLexer.swift in Sources */,
 				C9F1258F22DFD28F00F54D84 /* PySegmentedControl.swift in Sources */,
 				C90089E023D79C5C00D18AAE /* PyMultipeerHelper.swift in Sources */,
 				C927187822C9933A0025341B /* PyButton.swift in Sources */,

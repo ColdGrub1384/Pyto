@@ -2058,7 +2058,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     func didChangeSelectedRange(_ syntaxTextView: SyntaxTextView, selectedRange: NSRange) {}
     
     func lexerForSource(_ source: String) -> Lexer {
-        return Python3Lexer()
+        return PythonLexer()
     }
     
     // MARK: - Input assistant view delegate
