@@ -177,11 +177,17 @@ func completePurchase(id: String) {
                     continue
                 }
                 
-                let vc = window.topViewController
-                
-                if vc is UIHostingController<OnboardingView> {
-                    vc?.dismiss(animated: true, completion: nil)
+                func dismiss() {
+                    let vc = window.topViewController
+                    
+                    if vc is UIHostingController<OnboardingView> {
+                        vc?.dismiss(animated: true, completion: {
+                            dismiss()
+                        })
+                    }
                 }
+                
+                dismiss()
             }
         }
     }
