@@ -229,10 +229,6 @@ import SwiftUI
     ///     - highlight: A boolean indicating whether the line should be syntax colored.
     func input(prompt: String, highlight: Bool) {
         
-        guard shouldRequestInput else {
-            return
-        }
-        
         highlightInput = highlight
         
         self.prompt = prompt
@@ -903,10 +899,6 @@ import SwiftUI
             
             let secureTextEntry = self.movableTextField?.textField.isSecureTextEntry ?? false
             self.movableTextField?.textField.isSecureTextEntry = false
-            
-            guard self.shouldRequestInput else {
-                return
-            }
             
             self.movableTextField?.textField.text = ""
             

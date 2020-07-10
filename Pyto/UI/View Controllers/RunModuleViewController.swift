@@ -54,14 +54,18 @@ import UIKit
         ratio = 0
         
         if let repl = Bundle.main.url(forResource: "command_runner", withExtension: "py") {
-            editor = EditorViewController(document: PyDocument(fileURL: repl))
-            editor?.args = ""
+            let editor = EditorViewController(document: PyDocument(fileURL: repl))
+            self.editor = editor
+            self.editor?.args = ""
         }
         console = RunModuleViewController.console
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        firstChild = editor
+        secondChild = console
         
         arrangement = .horizontal
     }
@@ -95,7 +99,12 @@ import UIKit
         
         viewAppeared = true
         
-        editor?.run()
+        _ = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true, block: { (timer) in
+            if Python.shared.isSetup && isUnlocked {
+                self.editor?.run()
+                timer.invalidate()
+            }
+        })
     }
     
     override func viewDidDisappear(_ animated: Bool) {

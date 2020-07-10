@@ -119,9 +119,6 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     
     /// Shows keyboard.
     func focus() {
-        guard console?.shouldRequestInput == true else {
-            return
-        }
         DispatchQueue.main.asyncAfter(deadline: .now()+0.25) {
             self.textField.becomeFirstResponder()
         }
