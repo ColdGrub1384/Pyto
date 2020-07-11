@@ -206,6 +206,10 @@
 		C93B896823CA53C80070B2EF /* ParseArgs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93B896723CA53C80070B2EF /* ParseArgs.swift */; };
 		C93B896923CA54330070B2EF /* ParseArgs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93B896723CA53C80070B2EF /* ParseArgs.swift */; };
 		C93B897323CA7B0B0070B2EF /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946A5C92207809700F78C5C /* FileManager.swift */; };
+		C93BA04124BA34E800A71094 /* Zmq.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C93BA02B24BA34E700A71094 /* Zmq.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C93BA06024BA353100A71094 /* Zmq.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C93BA02B24BA34E700A71094 /* Zmq.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C93BA06124BA355800A71094 /* libzmq-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9DCD2BF2469B3DD00E89F7A /* libzmq-ios.a */; };
+		C93BA06424BA362F00A71094 /* zmq.mm in Sources */ = {isa = PBXBuildFile; fileRef = C93BA06224BA35F600A71094 /* zmq.mm */; };
 		C93C8E1922DFDEBC0008DC13 /* PySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C8E1822DFDEBC0008DC13 /* PySlider.swift */; };
 		C93C8E1E22E01ACA0008DC13 /* PySwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C8E1D22E01ACA0008DC13 /* PySwitch.swift */; };
 		C93CA8B522022E67008DD049 /* QuickLookHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93CA8B422022E67008DD049 /* QuickLookHelper.swift */; };
@@ -1136,7 +1140,6 @@
 		C9B8AA3424B3E13F001FD8F0 /* curfit.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8F45F23025696004648F4 /* curfit.o */; };
 		C9B8AA3524B3E13F001FD8F0 /* vmnorm.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8F5DB23025698004648F4 /* vmnorm.o */; };
 		C9B8AA3624B3E13F001FD8F0 /* dreadrb.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8F69323025699004648F4 /* dreadrb.o */; };
-		C9B8AA3724B3E13F001FD8F0 /* libzmq-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9DCD2BF2469B3DD00E89F7A /* libzmq-ios.a */; };
 		C9B8AA3824B3E13F001FD8F0 /* stbsv.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8F6BA2302569A004648F4 /* stbsv.o */; };
 		C9B8AA3924B3E13F001FD8F0 /* _odepackmodule.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8F7552302569B004648F4 /* _odepackmodule.o */; };
 		C9B8AA3A24B3E13F001FD8F0 /* fppasu.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8F4E723025696004648F4 /* fppasu.o */; };
@@ -2177,7 +2180,6 @@
 		C9D3586A22EB7A3400F0B9E8 /* Dusk.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D3586922EB7A3400F0B9E8 /* Dusk.swift */; };
 		C9D7F29124ABE46D00FCC1B6 /* View Controller Presentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D7F29024ABE46D00FCC1B6 /* View Controller Presentation.swift */; };
 		C9D7F29324ABE49700FCC1B6 /* View Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D7F29224ABE49700FCC1B6 /* View Storage.swift */; };
-		C9DCD2D62469B3DD00E89F7A /* libzmq-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9DCD2BF2469B3DD00E89F7A /* libzmq-ios.a */; };
 		C9DE6A2E24B3A6D7004A0BEA /* ConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DE6A2C24B3A6D7004A0BEA /* ConsoleViewController.swift */; };
 		C9DE6A2F24B3A6D7004A0BEA /* setup_python.m in Sources */ = {isa = PBXBuildFile; fileRef = C9DE6A2D24B3A6D7004A0BEA /* setup_python.m */; };
 		C9DE6A3024B3A6F6004A0BEA /* pythonA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C981698D235E5E6C0062A91F /* pythonA.framework */; };
@@ -2226,7 +2228,6 @@
 		C9DE6A6324B3AA7B004A0BEA /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AAAB5121950E8B0042E733 /* TextView.swift */; };
 		C9DE6A6424B3AAE1004A0BEA /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E22145D50A00C8B5E3 /* String.swift */; };
 		C9DE6A6624B3B3E6004A0BEA /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C943AC3D215277A000844368 /* Python.framework */; };
-		C9DE6A6724B3B3E7004A0BEA /* Python.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C943AC3D215277A000844368 /* Python.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9DE6A6C24B3B4E8004A0BEA /* ExtensionsInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B574DE24AFD77C00F7F1B1 /* ExtensionsInitializer.m */; };
 		C9DF04C524996DB20073A871 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF04C424996DB20073A871 /* opencv2.framework */; };
 		C9DF04CD24998BCE0073A871 /* PytoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DF04CC24998BCE0073A871 /* PytoTests.swift */; };
@@ -3439,6 +3440,13 @@
 			remoteGlobalIDString = C9379B3F24A656F800B375F9;
 			remoteInfo = "Widget PreviewExtension";
 		};
+		C93BA03E24BA34E800A71094 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9FCFD4D214428AE00A07974 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C93BA02A24BA34E700A71094;
+			remoteInfo = Zmq;
+		};
 		C95EE4E422070224006611CB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C9FCFD4D214428AE00A07974 /* Project object */;
@@ -3836,6 +3844,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C93BA06024BA353100A71094 /* Zmq.framework in Embed Frameworks */,
 				C9B8ACEE24B3E13F001FD8F0 /* InputAssistant.framework in Embed Frameworks */,
 				C9B8ACEF24B3E13F001FD8F0 /* _sodium.framework in Embed Frameworks */,
 				C9B8ACF024B3E13F001FD8F0 /* emd.framework in Embed Frameworks */,
@@ -4124,17 +4133,6 @@
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C9DE6A6A24B3B3E7004A0BEA /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				C9DE6A6724B3B3E7004A0BEA /* Python.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C9EAB4CA214D95C500DFC9A4 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 12;
@@ -4316,6 +4314,7 @@
 				C9EFD4FB2370C7CD0000E330 /* _sag_fast.framework in Embed Frameworks */,
 				C9EFD4FC2370C7CD0000E330 /* _seq_dataset.framework in Embed Frameworks */,
 				C9EFD4FD2370C7CD0000E330 /* _sgd_fast.framework in Embed Frameworks */,
+				C93BA04124BA34E800A71094 /* Zmq.framework in Embed Frameworks */,
 				C9EFD4FE2370C7CD0000E330 /* _splitter.framework in Embed Frameworks */,
 				C9EFD4FF2370C7CD0000E330 /* _svmlight_format_fast.framework in Embed Frameworks */,
 				C9EFD5002370C7CD0000E330 /* _tree.framework in Embed Frameworks */,
@@ -4626,6 +4625,9 @@
 		C93B896323CA52000070B2EF /* setArgv.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = setArgv.m; sourceTree = "<group>"; };
 		C93B896723CA53C80070B2EF /* ParseArgs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseArgs.swift; sourceTree = "<group>"; };
 		C93B897223CA7ABD0070B2EF /* Pyto Intents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pyto Intents.entitlements"; sourceTree = "<group>"; };
+		C93BA02B24BA34E700A71094 /* Zmq.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Zmq.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C93BA02E24BA34E700A71094 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C93BA06224BA35F600A71094 /* zmq.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = zmq.mm; sourceTree = "<group>"; };
 		C93C8E1822DFDEBC0008DC13 /* PySlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PySlider.swift; sourceTree = "<group>"; };
 		C93C8E1D22E01ACA0008DC13 /* PySwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PySwitch.swift; sourceTree = "<group>"; };
 		C93CA8B422022E67008DD049 /* QuickLookHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLookHelper.swift; sourceTree = "<group>"; };
@@ -6662,6 +6664,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C93BA02824BA34E700A71094 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C93BA06124BA355800A71094 /* libzmq-ios.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C943AC3A215277A000844368 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -7127,7 +7137,6 @@
 				C9B8AA3424B3E13F001FD8F0 /* curfit.o in Frameworks */,
 				C9B8AA3524B3E13F001FD8F0 /* vmnorm.o in Frameworks */,
 				C9B8AA3624B3E13F001FD8F0 /* dreadrb.o in Frameworks */,
-				C9B8AA3724B3E13F001FD8F0 /* libzmq-ios.a in Frameworks */,
 				C9B8AA3824B3E13F001FD8F0 /* stbsv.o in Frameworks */,
 				C9B8AA3924B3E13F001FD8F0 /* _odepackmodule.o in Frameworks */,
 				C9B8AA3A24B3E13F001FD8F0 /* fppasu.o in Frameworks */,
@@ -8185,7 +8194,6 @@
 				C9F8F8392302569C004648F4 /* curfit.o in Frameworks */,
 				C9F8F9B52302569C004648F4 /* vmnorm.o in Frameworks */,
 				C9F8FA6D2302569D004648F4 /* dreadrb.o in Frameworks */,
-				C9DCD2D62469B3DD00E89F7A /* libzmq-ios.a in Frameworks */,
 				C9F8FA942302569D004648F4 /* stbsv.o in Frameworks */,
 				C9F8FB2F2302569D004648F4 /* _odepackmodule.o in Frameworks */,
 				C9F8F8C12302569C004648F4 /* fppasu.o in Frameworks */,
@@ -9181,6 +9189,15 @@
 				C9379B4824A656FA00B375F9 /* Info.plist */,
 			);
 			path = "Widget Preview";
+			sourceTree = "<group>";
+		};
+		C93BA02C24BA34E700A71094 /* Zmq */ = {
+			isa = PBXGroup;
+			children = (
+				C93BA06224BA35F600A71094 /* zmq.mm */,
+				C93BA02E24BA34E700A71094 /* Info.plist */,
+			);
+			path = Zmq;
 			sourceTree = "<group>";
 		};
 		C93D61E52145E19300C8B5E3 /* View Controllers */ = {
@@ -10456,6 +10473,7 @@
 		C9C4287124699AF0000CCC53 /* Zmq */ = {
 			isa = PBXGroup;
 			children = (
+				C93BA02C24BA34E700A71094 /* Zmq */,
 				C9DCD2BF2469B3DD00E89F7A /* libzmq-ios.a */,
 				C9C4287224699AF0000CCC53 /* _device.framework */,
 				C9C4287324699AF0000CCC53 /* _poll.framework */,
@@ -11639,6 +11657,7 @@
 				C979923D24B398A5003571AB /* TodayExtension.appex */,
 				C9B8ADFD24B3E13F001FD8F0 /* Pyto.app */,
 				C9B8AE2B24B3E26F001FD8F0 /* Pyto Intents Xcode 11.appex */,
+				C93BA02B24BA34E700A71094 /* Zmq.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -11777,6 +11796,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C93BA02624BA34E700A71094 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C943AC38215277A000844368 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -11853,6 +11879,24 @@
 			productReference = C9379B4024A656F800B375F9 /* Widget PreviewExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		C93BA02A24BA34E700A71094 /* Zmq */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C93BA05E24BA34E800A71094 /* Build configuration list for PBXNativeTarget "Zmq" */;
+			buildPhases = (
+				C93BA02624BA34E700A71094 /* Headers */,
+				C93BA02724BA34E700A71094 /* Sources */,
+				C93BA02824BA34E700A71094 /* Frameworks */,
+				C93BA02924BA34E700A71094 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Zmq;
+			productName = Zmq;
+			productReference = C93BA02B24BA34E700A71094 /* Zmq.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		C943AC3C215277A000844368 /* Python */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C943AC46215277A000844368 /* Build configuration list for PBXNativeTarget "Python" */;
@@ -11915,7 +11959,6 @@
 				C979923924B398A5003571AB /* Sources */,
 				C979923A24B398A5003571AB /* Frameworks */,
 				C979923B24B398A5003571AB /* Resources */,
-				C9DE6A6A24B3B3E7004A0BEA /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -12150,6 +12193,7 @@
 				C97B022F23E9F82B00032925 /* PBXTargetDependency */,
 				C9A2C9D824A5908F00D94E0B /* PBXTargetDependency */,
 				C9B5750224B0314F00F7F1B1 /* PBXTargetDependency */,
+				C93BA03F24BA34E800A71094 /* PBXTargetDependency */,
 			);
 			name = Pyto;
 			packageProductDependencies = (
@@ -12205,6 +12249,9 @@
 						LastSwiftMigration = 1140;
 					};
 					C9379B3F24A656F800B375F9 = {
+						CreatedOnToolsVersion = 12.0;
+					};
+					C93BA02A24BA34E700A71094 = {
 						CreatedOnToolsVersion = 12.0;
 					};
 					C943AC3C215277A000844368 = {
@@ -12318,6 +12365,7 @@
 				C979923C24B398A5003571AB /* TodayExtension */,
 				C9379B3F24A656F800B375F9 /* Widget PreviewExtension */,
 				C9B574FB24B0314E00F7F1B1 /* libfreetype */,
+				C93BA02A24BA34E700A71094 /* Zmq */,
 			);
 		};
 /* End PBXProject section */
@@ -12508,6 +12556,13 @@
 			files = (
 				C958355E24A67AA400C0CD74 /* Preview Assets.xcassets in Resources */,
 				C9379B4724A656FA00B375F9 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C93BA02924BA34E700A71094 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -12915,6 +12970,14 @@
 			files = (
 				C958357824A6870300C0CD74 /* SimpleEntry.swift in Sources */,
 				C9379B5124A6571900B375F9 /* Widget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C93BA02724BA34E700A71094 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C93BA06424BA362F00A71094 /* zmq.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -13589,6 +13652,11 @@
 			target = C9379B3F24A656F800B375F9 /* Widget PreviewExtension */;
 			targetProxy = C9379B4924A656FA00B375F9 /* PBXContainerItemProxy */;
 		};
+		C93BA03F24BA34E800A71094 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C93BA02A24BA34E700A71094 /* Zmq */;
+			targetProxy = C93BA03E24BA34E800A71094 /* PBXContainerItemProxy */;
+		};
 		C95EE4E522070224006611CB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C95EE4DE22070224006611CB /* libpng */;
@@ -13995,6 +14063,102 @@
 			};
 			name = Release;
 		};
+		C93BA04224BA34E800A71094 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Extensions/Zmq/Zmq/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Extensions/Zmq",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ch.ada.Zmq;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		C93BA04324BA34E800A71094 /* VPP */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Extensions/Zmq/Zmq/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Extensions/Zmq",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ch.ada.Zmq;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = VPP;
+		};
+		C93BA04424BA34E800A71094 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Extensions/Zmq/Zmq/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Extensions/Zmq",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ch.ada.Zmq;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		C943AC47215277A000844368 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -14210,7 +14374,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -14321,7 +14485,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -14489,11 +14653,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-VPP";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
-				MARKETING_VERSION = 12.3;
+				MARKETING_VERSION = 12.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -14509,7 +14673,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_PREVIEWS = YES;
@@ -14519,7 +14683,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 12.3;
+				MARKETING_VERSION = 12.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp.watchkitextension";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -14679,7 +14843,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = TodayExtension/TodayExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -14697,7 +14861,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 12.3;
+				MARKETING_VERSION = 12.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -14716,7 +14880,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = TodayExtension/TodayExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -14734,7 +14898,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 12.3;
+				MARKETING_VERSION = 12.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -14753,7 +14917,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = TodayExtension/TodayExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = "WIDGET=1";
@@ -14768,7 +14932,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 12.3;
+				MARKETING_VERSION = 12.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -14784,7 +14948,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_PREVIEWS = YES;
@@ -14794,7 +14958,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 12.3;
+				MARKETING_VERSION = 12.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp.watchkitextension";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -14810,7 +14974,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_PREVIEWS = YES;
@@ -14820,7 +14984,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 12.3;
+				MARKETING_VERSION = 12.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp.watchkitextension";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -14837,11 +15001,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
-				MARKETING_VERSION = 12.3;
+				MARKETING_VERSION = 12.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -14858,11 +15022,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
-				MARKETING_VERSION = 12.3;
+				MARKETING_VERSION = 12.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -14881,6 +15045,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = WidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 291;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
@@ -14894,6 +15059,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 13.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -14912,6 +15078,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = WidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 291;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
@@ -14925,6 +15092,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 13.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -14943,6 +15111,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = WidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 291;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
@@ -14956,6 +15125,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 13.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15069,7 +15239,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -15137,7 +15307,7 @@
 					"$(PROJECT_DIR)/Extensions/Zmq",
 				);
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 12.3;
+				MARKETING_VERSION = 12.4;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
@@ -15190,7 +15360,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -15259,7 +15429,7 @@
 					"$(PROJECT_DIR)/Extensions/Zmq",
 				);
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 12.3;
+				MARKETING_VERSION = 12.4;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
@@ -15312,7 +15482,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -15380,7 +15550,7 @@
 					"$(PROJECT_DIR)/Extensions/Zmq",
 				);
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 12.3;
+				MARKETING_VERSION = 12.4;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
@@ -15422,7 +15592,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -15433,7 +15603,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 12.3;
+				MARKETING_VERSION = 12.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).Intents";
 				PRODUCT_NAME = "Pyto Intents Xcode 11";
 				SKIP_INSTALL = YES;
@@ -15452,7 +15622,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -15463,7 +15633,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 12.3;
+				MARKETING_VERSION = 12.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).Intents";
 				PRODUCT_NAME = "Pyto Intents Xcode 11";
 				SKIP_INSTALL = YES;
@@ -15482,7 +15652,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -15493,7 +15663,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 12.3;
+				MARKETING_VERSION = 12.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).Intents";
 				PRODUCT_NAME = "Pyto Intents Xcode 11";
 				SKIP_INSTALL = YES;
@@ -15511,7 +15681,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -15540,7 +15710,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -15873,7 +16043,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -15993,7 +16163,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -16115,6 +16285,16 @@
 				C9379B4D24A656FA00B375F9 /* Debug */,
 				C9379B4E24A656FA00B375F9 /* VPP */,
 				C9379B4F24A656FA00B375F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C93BA05E24BA34E800A71094 /* Build configuration list for PBXNativeTarget "Zmq" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C93BA04224BA34E800A71094 /* Debug */,
+				C93BA04324BA34E800A71094 /* VPP */,
+				C93BA04424BA34E800A71094 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

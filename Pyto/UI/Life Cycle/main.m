@@ -12,7 +12,6 @@
 #import "../Python/Python.h"
 #if MAIN
 #import "Pyto-Swift.h"
-#import "../Extensions/Zmq/zmq.h"
 #elif WIDGET
 #import "TodayExtension-Swift.h"
 #endif
@@ -668,11 +667,14 @@ void init_statsmodels() {
 
 // MARK: - Zmq
 
-void _zmq() { // So zmq symbols are included in the app
-    zmq_ctx_new();
-}
+BOOL initialized_zmq = NO;
 
 void init_zmq() {
+    
+    if (!initialized_zmq) {
+        initialized_zmq = YES;
+        dlopen([NSBundle.mainBundle.privateFrameworksURL URLByAppendingPathComponent:@"Zmq.framework/Zmq"].path.UTF8String, RTLD_GLOBAL);        
+    }
     
     NSMutableArray *name = [NSMutableArray array]; NSMutableArray *key = [NSMutableArray array];
     [name addObject:@"_device"];          [key addObject:@"__zmq_backend_cython__device"];
