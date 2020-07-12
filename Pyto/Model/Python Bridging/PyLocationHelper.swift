@@ -12,6 +12,16 @@ import CoreLocation
 /// A class for accessing location from Python.
 @objc class PyLocationHelper: NSObject {
     
+    #if WIDGET && !Xcode11
+    /// The shared location manager.
+    static let locationManager = CLLocationManager()
+    #elseif WIDGET
+    /// The shared location manager.
+    static var locationManager: CLLocationManager {
+        return ConsoleViewController.locationManager
+    }
+    #endif
+    
     /// The latest longitude.
     @objc static var longitude: Float = 0
     
@@ -48,7 +58,7 @@ import CoreLocation
             
             DispatchQueue.main.async {
                 #if WIDGET
-                value = Float(ConsoleViewController.locationManager.desiredAccuracy)
+                value = Float(locationManager.desiredAccuracy)
                 #else
                 value = Float((UIApplication.shared.delegate as? AppDelegate)?.locationManager.desiredAccuracy ?? 0)
                 #endif
@@ -62,7 +72,7 @@ import CoreLocation
         set {
             DispatchQueue.main.async {
                 #if WIDGET
-                ConsoleViewController.locationManager.desiredAccuracy = Double(newValue)
+                locationManager.desiredAccuracy = Double(newValue)
                 #else
                 (UIApplication.shared.delegate as? AppDelegate)?.locationManager.desiredAccuracy = Double(newValue)
                 #endif
@@ -74,8 +84,14 @@ import CoreLocation
     @objc static func startUpdating() {
         DispatchQueue.main.async {
             #if WIDGET
-            ConsoleViewController.locationManager.requestWhenInUseAuthorization()
-            ConsoleViewController.locationManager.startUpdatingLocation()
+            #if !Xcode11
+            if locationManager.delegate == nil {
+                let manager = PyLocationHelper()
+                locationManager.delegate = manager
+            }
+            #endif
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.startUpdatingLocation()
             #else
             (UIApplication.shared.delegate as? AppDelegate)?.locationManager.requestWhenInUseAuthorization()
             (UIApplication.shared.delegate as? AppDelegate)?.locationManager.startUpdatingLocation()
@@ -87,10 +103,27 @@ import CoreLocation
     @objc static func stopUpdating() {
         DispatchQueue.main.async {
             #if WIDGET
-            ConsoleViewController.locationManager.stopUpdatingLocation()
+            locationManager.stopUpdatingLocation()
             #else
             (UIApplication.shared.delegate as? AppDelegate)?.locationManager.stopUpdatingLocation()
             #endif
         }
     }
 }
+
+#if WIDGET && !Xcode11
+extension PyLocationHelper: CLLocationManagerDelegate {
+    
+    // MARK: - Location manager delegate
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else {
+            return
+        }
+        
+        PyLocationHelper.altitude = Float(location.altitude)
+        PyLocationHelper.longitude = Float(location.coordinate.longitude)
+        PyLocationHelper.latitude = Float(location.coordinate.latitude)
+    }
+}
+#endif

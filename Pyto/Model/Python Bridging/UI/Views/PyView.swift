@@ -235,7 +235,7 @@ import WebKit
         let semaphore = DispatchSemaphore(value: 0)
         
         DispatchQueue.main.async {
-            #if WIDGET
+            #if WIDGET && Xcode11
             self.viewController?.view.removeFromSuperview()
             self.viewController?.removeFromParent()
             

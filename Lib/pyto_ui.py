@@ -15,7 +15,7 @@ This library may have a lot of similarities with ``UIKit``, but subclassing isn'
 from __future__ import annotations
 from UIKit import UIFont as __UIFont__, UIImage as UIImage
 from typing import List, Callable, Tuple
-from pyto import __Class__, ConsoleViewController, PyAlert as __PyAlert__
+from pyto import __Class__
 from time import sleep
 from io import BytesIO
 from threading import Thread
@@ -23,7 +23,7 @@ import os
 import sys
 import base64
 import threading
-import _values
+#import _values
 import ui_constants
 import builtins
 try:
@@ -35,6 +35,7 @@ except ValueError:
 
 if "widget" not in os.environ:
     from urllib.request import urlopen
+    from pyto import ConsoleViewController, PyAlert as __PyAlert__
 
     try:
         from PIL import Image
@@ -65,17 +66,19 @@ __PySwitch__ = __Class__("PySwitch")
 __PyButton__ = __Class__("PyButton")
 __PyLabel__ = __Class__("PyLabel")
 __UIImageView__ = __Class__("PyImageView")
-__PyTableView__ = __Class__("PyTableView")
-__PyTableViewCell__ = __Class__("PyTableViewCell")
-__PyTableViewSection__ = __Class__("PyTableViewSection")
 __PyTextView__ = __Class__("PyTextView")
 __PyTextField__ = __Class__("PyTextField")
-__PyWebView__ = __Class__("PyWebView")
 
-__PyGestureRecognizer__ = __Class__("PyGestureRecognizer")
 __PyColor__ = __Class__("PyColor")
 __PyButtonItem__ = __Class__("PyButtonItem")
 __PyTextInputTraitsConstants__ = __Class__("PyTextInputTraitsConstants")
+
+if "widget" not in os.environ:
+    __PyTableView__ = __Class__("PyTableView")
+    __PyTableViewCell__ = __Class__("PyTableViewCell")
+    __PyTableViewSection__ = __Class__("PyTableViewSection")
+    __PyWebView__ = __Class__("PyWebView")
+    __PyGestureRecognizer__ = __Class__("PyGestureRecognizer")
 
 try:
     __NSData__ = ObjCClass("NSData")
@@ -1859,87 +1862,89 @@ class ButtonItem:
             self.__py_item__.action = _values.value(new_value)
 
 
-# MARK: - Alert
+if "widget" not in os.environ:
+
+    # MARK: - Alert
 
 
-class Alert:
-    """
-    A class representing an alert.
-
-    Example:
-
-    .. highlight:: python
-    .. code-block:: python
-
-        from pyto_ui import Alert
-
-        alert = Alert("Hello", "Hello World!")
-        alert.add_action("Ok")
-        alert.add_cancel_action("Cancel")
-        if (alert.show() == "Ok"):
-            print("Good Bye!")
-    """
-
-    __pyAlert__ = None
-
-    def __init__(self, title: str, message: str):
+    class Alert:
         """
-        Creates an alert.
+        A class representing an alert.
 
-        :param title: The title of the alert.
-        :param message: The message of the alert.
+        Example:
+
+        .. highlight:: python
+        .. code-block:: python
+
+            from pyto_ui import Alert
+
+            alert = Alert("Hello", "Hello World!")
+            alert.add_action("Ok")
+            alert.add_cancel_action("Cancel")
+            if (alert.show() == "Ok"):
+                print("Good Bye!")
         """
 
-        self.__pyAlert__ = __PyAlert__.alloc().init()
-        self.__pyAlert__.title = title
-        self.__pyAlert__.message = message
+        __pyAlert__ = None
 
-    __actions__ = []
+        def __init__(self, title: str, message: str):
+            """
+            Creates an alert.
 
-    def add_action(self, title: str):
-        """
-        Adds an action with given title.
+            :param title: The title of the alert.
+            :param message: The message of the alert.
+            """
 
-        :param title: The title of the action.
-        """
+            self.__pyAlert__ = __PyAlert__.alloc().init()
+            self.__pyAlert__.title = title
+            self.__pyAlert__.message = message
 
-        self.__pyAlert__.addAction(title)
+        __actions__ = []
 
-    def add_destructive_action(self, title: str):
-        """
-        Adds a destructive action with given title.
+        def add_action(self, title: str):
+            """
+            Adds an action with given title.
 
-        :param title: The title of the action.
-        """
+            :param title: The title of the action.
+            """
 
-        self.__pyAlert__.addDestructiveAction(title)
+            self.__pyAlert__.addAction(title)
 
-    def add_cancel_action(self, title: str):
-        """
-        Adds a cancel action with given title. Can only be added once.
+        def add_destructive_action(self, title: str):
+            """
+            Adds a destructive action with given title.
 
-        :param title: The title of the action.
-        """
+            :param title: The title of the action.
+            """
 
-        if not self.__pyAlert__.addCancelAction(title):
-            raise ValueError("There is already a cancel action.")
+            self.__pyAlert__.addDestructiveAction(title)
 
-    def show(self) -> str:
-        """
-        Shows alert.
+        def add_cancel_action(self, title: str):
+            """
+            Adds a cancel action with given title. Can only be added once.
 
-        Returns the title of the selected action.
+            :param title: The title of the action.
+            """
 
-        :rtype: str
-        """
+            if not self.__pyAlert__.addCancelAction(title):
+                raise ValueError("There is already a cancel action.")
 
-        script_path = None
-        try:
-            script_path = threading.current_thread().script_path
-        except AttributeError:
-            pass
+        def show(self) -> str:
+            """
+            Shows alert.
 
-        return self.__pyAlert__._show(script_path)
+            Returns the title of the selected action.
+
+            :rtype: str
+            """
+
+            script_path = None
+            try:
+                script_path = threading.current_thread().script_path
+            except AttributeError:
+                pass
+
+            return self.__pyAlert__._show(script_path)
 
 
 ###############
@@ -2894,213 +2899,214 @@ class Label(View):
     def number_of_lines(self, new_value: int):
         self.__py_view__.numberOfLines = new_value
 
+if "widget" in os.environ:
 
-class TableViewCell(View):
-    """
-    A cell contained in a :class:`~pyto_ui.TableView`.
-    Can have a title, a subtitle, an image and an accessory view.
-
-    For a list of supported style, see `Table View Cell Style <constants.html#table-view-cell-style>`_ constants.
-    """
-
-    def __init__(
-        self, style: TABLE_VIEW_STYLE = __v__("TABLE_VIEW_CELL_STYLE_DEFAULT")
-    ):
-        if style == "TABLE_VIEW_CELL_STYLE_DEFAULT":
-            self.__py_view__ = __PyTableViewCell__.newViewWithStyle(
-                TABLE_VIEW_CELL_STYLE_DEFAULT
-            )
-        else:
-            self.__py_view__ = __PyTableViewCell__.newViewWithStyle(style)
-        self.__py_view__.managedValue = _values.value(self)
-
-    @property
-    def movable(self) -> bool:
+    class TableViewCell(View):
         """
-        A boolean indicating whether the cell is movable. If set to ``True``, the container :class:`TableViewSection` object should handle the move.
+        A cell contained in a :class:`~pyto_ui.TableView`.
+        Can have a title, a subtitle, an image and an accessory view.
 
-        :rtype: bool
+        For a list of supported style, see `Table View Cell Style <constants.html#table-view-cell-style>`_ constants.
         """
 
-        return self.__py_view__.movable
+        def __init__(
+            self, style: TABLE_VIEW_STYLE = __v__("TABLE_VIEW_CELL_STYLE_DEFAULT")
+        ):
+            if style == "TABLE_VIEW_CELL_STYLE_DEFAULT":
+                self.__py_view__ = __PyTableViewCell__.newViewWithStyle(
+                    TABLE_VIEW_CELL_STYLE_DEFAULT
+                )
+            else:
+                self.__py_view__ = __PyTableViewCell__.newViewWithStyle(style)
+            self.__py_view__.managedValue = _values.value(self)
 
-    @movable.setter
-    def movable(self, new_value: bool):
-        self.__py_view__.movable = new_value
+        @property
+        def movable(self) -> bool:
+            """
+            A boolean indicating whether the cell is movable. If set to ``True``, the container :class:`TableViewSection` object should handle the move.
 
-    @property
-    def removable(self) -> bool:
-        """
-        A boolean indicating the cell is removable. If set to ``True``, the container :class:`TableViewSection` object should handle the removal.
+            :rtype: bool
+            """
 
-        :rtype: bool
-        """
+            return self.__py_view__.movable
 
-        return self.__py_view__.removable
+        @movable.setter
+        def movable(self, new_value: bool):
+            self.__py_view__.movable = new_value
 
-    @removable.setter
-    def removable(self, new_value: bool):
-        self.__py_view__.removable = new_value
+        @property
+        def removable(self) -> bool:
+            """
+            A boolean indicating the cell is removable. If set to ``True``, the container :class:`TableViewSection` object should handle the removal.
 
-    @property
-    def content_view(self) -> View:
-        """
-        (Read Only) The view contained in the cell. Custom views should be added inside it.
+            :rtype: bool
+            """
 
-        :rtype: View
-        """
+            return self.__py_view__.removable
 
-        _view = View()
-        _view.__py_view__ = self.__py_view__.contentView
-        return _view
+        @removable.setter
+        def removable(self, new_value: bool):
+            self.__py_view__.removable = new_value
 
-    @property
-    def image_view(self) -> ImageView:
-        """
-        (Read Only) The view containing an image. May return ``None`` for some `Table View Cell Style <constants.html#table-view-cell-style>`_ values.
+        @property
+        def content_view(self) -> View:
+            """
+            (Read Only) The view contained in the cell. Custom views should be added inside it.
 
-        :rtype: Image View
-        """
+            :rtype: View
+            """
 
-        view = self.__py_view__.imageView
-        if view is None:
-            return None
-        else:
-            _view = ImageView()
-            _view.__py_view__ = view
+            _view = View()
+            _view.__py_view__ = self.__py_view__.contentView
             return _view
 
-    @property
-    def text_label(self) -> Label:
+        @property
+        def image_view(self) -> ImageView:
+            """
+            (Read Only) The view containing an image. May return ``None`` for some `Table View Cell Style <constants.html#table-view-cell-style>`_ values.
+
+            :rtype: Image View
+            """
+
+            view = self.__py_view__.imageView
+            if view is None:
+                return None
+            else:
+                _view = ImageView()
+                _view.__py_view__ = view
+                return _view
+
+        @property
+        def text_label(self) -> Label:
+            """
+            (Read Only) The label containing the main text of the cell.
+
+            :rtype: Label
+            """
+
+            view = self.__py_view__.textLabel
+            if view is None:
+                return None
+            else:
+                _view = Label()
+                _view.__py_view__ = view
+                return _view
+
+        @property
+        def detail_text_label(self) -> Label:
+            """
+            (Read Only) The label containing secondary text. May return ``None`` for some `Table View Cell Style <constants.html#table-view-cell-style>`_ values.
+
+            :rtype: Label
+            """
+
+            view = self.__py_view__.detailLabel
+            if view is None:
+                return None
+            else:
+                _view = Label()
+                _view.__py_view__ = view
+                return _view
+
+        @property
+        def accessory_type(self) -> ACCESSORY_TYPE:
+            """
+            The type of accessory view placed to the right of the cell. See `Accessory Type <constants.html#accessory_type>`_ constants for possible values.
+
+            :rtype: `Accessory Type <constants.html#accessory_type>`_.
+            """
+
+            return self.__py_view__.accessoryType
+
+        @accessory_type.setter
+        def accessory_type(self, new_value: ACCESSORY_TYPE):
+            self.__py_view__.accessoryType = new_value
+
+
+    class TableView(View):
         """
-        (Read Only) The label containing the main text of the cell.
+        A view containing a list of cells.
 
-        :rtype: Label
-        """
-
-        view = self.__py_view__.textLabel
-        if view is None:
-            return None
-        else:
-            _view = Label()
-            _view.__py_view__ = view
-            return _view
-
-    @property
-    def detail_text_label(self) -> Label:
-        """
-        (Read Only) The label containing secondary text. May return ``None`` for some `Table View Cell Style <constants.html#table-view-cell-style>`_ values.
-
-        :rtype: Label
-        """
-
-        view = self.__py_view__.detailLabel
-        if view is None:
-            return None
-        else:
-            _view = Label()
-            _view.__py_view__ = view
-            return _view
-
-    @property
-    def accessory_type(self) -> ACCESSORY_TYPE:
-        """
-        The type of accessory view placed to the right of the cell. See `Accessory Type <constants.html#accessory_type>`_ constants for possible values.
-
-        :rtype: `Accessory Type <constants.html#accessory_type>`_.
-        """
-
-        return self.__py_view__.accessoryType
-
-    @accessory_type.setter
-    def accessory_type(self, new_value: ACCESSORY_TYPE):
-        self.__py_view__.accessoryType = new_value
-
-
-class TableView(View):
-    """
-    A view containing a list of cells.
-
-    A Table View has a list of :class:`TableViewSection` objects that represent groups of cells. A Table View has two possible styles. See `Table View Style <constants.html#table-view-style>`_.
-    """
-
-    def __init__(
-        self,
-        style: TABLE_VIEW_STYLE = __v__("TABLE_VIEW_STYLE_PLAIN"),
-        sections: List[TableViewSection] = [],
-    ):
-        if style == "TABLE_VIEW_STYLE_PLAIN":
-            self.__py_view__ = __PyTableView__.newViewWithStyle(TABLE_VIEW_STYLE_PLAIN)
-        else:
-            self.__py_view__ = __PyTableView__.newViewWithStyle(style)
-        self.__py_view__.managedValue = _values.value(self)
-        self.sections = sections
-
-    @property
-    def reload_action(self) -> Callable[TableView, None]:
-        """
-        A function called when the button item is pressed. Takes the button item as parameter.
-
-        :rtype: Callable[[TableView], None]
+        A Table View has a list of :class:`TableViewSection` objects that represent groups of cells. A Table View has two possible styles. See `Table View Style <constants.html#table-view-style>`_.
         """
 
-        action = self.__py_view__.reloadAction
-        if action is None:
-            return None
-        else:
-            return getattr(_values, str(action.identifier))
+        def __init__(
+            self,
+            style: TABLE_VIEW_STYLE = __v__("TABLE_VIEW_STYLE_PLAIN"),
+            sections: List[TableViewSection] = [],
+        ):
+            if style == "TABLE_VIEW_STYLE_PLAIN":
+                self.__py_view__ = __PyTableView__.newViewWithStyle(TABLE_VIEW_STYLE_PLAIN)
+            else:
+                self.__py_view__ = __PyTableView__.newViewWithStyle(style)
+            self.__py_view__.managedValue = _values.value(self)
+            self.sections = sections
 
-    @reload_action.setter
-    def reload_action(self, new_value: Callable[[TableView], None]):
-        if new_value is None:
-            self.__py_view__.action = None
-        else:
-            self.__py_view__.reloadAction = _values.value(new_value)
+        @property
+        def reload_action(self) -> Callable[TableView, None]:
+            """
+            A function called when the button item is pressed. Takes the button item as parameter.
 
-    @property
-    def edit_button_item(self) -> ButtonItem:
-        """
-        Returns a bar button item that toggles its title and associated state between Edit and Done.
-        The button item is setup to edit the Table View.
+            :rtype: Callable[[TableView], None]
+            """
 
-        :rtype: ButtonItem
-        """
+            action = self.__py_view__.reloadAction
+            if action is None:
+                return None
+            else:
+                return getattr(_values, str(action.identifier))
 
-        item = ButtonItem()
-        item.__py_item__ = self.__py_view__.editButtonItem
-        return item
+        @reload_action.setter
+        def reload_action(self, new_value: Callable[[TableView], None]):
+            if new_value is None:
+                self.__py_view__.action = None
+            else:
+                self.__py_view__.reloadAction = _values.value(new_value)
 
-    @property
-    def sections(self) -> List[TableViewSection]:
-        """
-        A list of :class:`TableViewSection` containg cells to be displayed on the Table View.
-        Setting a new value will reload automatically the contents of the Table View.
+        @property
+        def edit_button_item(self) -> ButtonItem:
+            """
+            Returns a bar button item that toggles its title and associated state between Edit and Done.
+            The button item is setup to edit the Table View.
 
-        :rtype: List[TableViewSection]
-        """
+            :rtype: ButtonItem
+            """
 
-        sections = self.__py_view__.sections
-        py_sections = []
-        for section in sections:
-            py_section = TableViewSection("", [])
-            py_section.__py_section__ = section
-            py_sections.append(py_section)
-        return py_sections
+            item = ButtonItem()
+            item.__py_item__ = self.__py_view__.editButtonItem
+            return item
 
-    @sections.setter
-    def sections(self, new_value: List[TableViewSection]):
-        sections = []
-        for section in new_value:
-            section.__py_section__.tableView = self.__py_view__
-            sections.append(section.__py_section__)
-        self.__py_view__.sections = sections
+        @property
+        def sections(self) -> List[TableViewSection]:
+            """
+            A list of :class:`TableViewSection` containg cells to be displayed on the Table View.
+            Setting a new value will reload automatically the contents of the Table View.
 
-    def deselect_row(self):
-        """
-        Deselects the current selected row.
-        """
+            :rtype: List[TableViewSection]
+            """
 
-        self.__py_view__.deselectRowAnimated(True)
+            sections = self.__py_view__.sections
+            py_sections = []
+            for section in sections:
+                py_section = TableViewSection("", [])
+                py_section.__py_section__ = section
+                py_sections.append(py_section)
+            return py_sections
+
+        @sections.setter
+        def sections(self, new_value: List[TableViewSection]):
+            sections = []
+            for section in new_value:
+                section.__py_section__.tableView = self.__py_view__
+                sections.append(section.__py_section__)
+            self.__py_view__.sections = sections
+
+        def deselect_row(self):
+            """
+            Deselects the current selected row.
+            """
+
+            self.__py_view__.deselectRowAnimated(True)
 
 
 class TextView(View):
@@ -3407,201 +3413,202 @@ class TextView(View):
     def secure(self, new_value: bool):
         self.__py_view__.isSecureTextEntry = new_value
 
+if "widget" not in os.environ:
 
-class WebView(View):
-    """
-    A View that displays web content.
-    """
-
-    class JavaScriptException(Exception):
+    class WebView(View):
         """
-        An excpetion while running JavaScript code. Raised by :meth:`~pyto_ui.WebView.evaluate_js`.
+        A View that displays web content.
         """
 
-        pass
+        class JavaScriptException(Exception):
+            """
+            An excpetion while running JavaScript code. Raised by :meth:`~pyto_ui.WebView.evaluate_js`.
+            """
 
-    def __init__(self, url: str = None):
-        self.__py_view__ = __PyWebView__.newView()
-        self.__py_view__.managedValue = _values.value(self)
-        if url is not None:
-            self.load_url(url)
+            pass
 
-    def evaluate_js(self, code) -> str:
-        """
-        Runs JavaScript code and returns a String representation of the evaluation result. Raises a :class:`~pyto_ui.WebView.JavaScriptException`.
+        def __init__(self, url: str = None):
+            self.__py_view__ = __PyWebView__.newView()
+            self.__py_view__.managedValue = _values.value(self)
+            if url is not None:
+                self.load_url(url)
 
-        :param code: JavaScript code to run.
-        :rtype: str
-        """
+        def evaluate_js(self, code) -> str:
+            """
+            Runs JavaScript code and returns a String representation of the evaluation result. Raises a :class:`~pyto_ui.WebView.JavaScriptException`.
 
-        result = self.__py_view__.evaluateJavaScript(code)
-        if result is None:
-            return None
-        else:
-            result = str(result)
-            if result.startswith("_VALULE_:"):
-                return result.replace("_VALULE_:", "", 1)
-            elif result.endswith("_ERROR_:"):
-                raise self.__class__.JavaScriptException(
-                    result.replace("_ERROR_:", "", 1)
-                )
+            :param code: JavaScript code to run.
+            :rtype: str
+            """
 
-    def load_url(self, url: str):
-        """
-        Loads an URL.
+            result = self.__py_view__.evaluateJavaScript(code)
+            if result is None:
+                return None
+            else:
+                result = str(result)
+                if result.startswith("_VALULE_:"):
+                    return result.replace("_VALULE_:", "", 1)
+                elif result.endswith("_ERROR_:"):
+                    raise self.__class__.JavaScriptException(
+                        result.replace("_ERROR_:", "", 1)
+                    )
 
-        :param url: The URL to laod. Can be 'http://', 'https://' or 'file://'.
-        """
+        def load_url(self, url: str):
+            """
+            Loads an URL.
 
-        self.__py_view__.loadURL(url)
+            :param url: The URL to laod. Can be 'http://', 'https://' or 'file://'.
+            """
 
-    def load_html(self, html: str, base_url: str = None):
-        """
-        Loads an HTML string.
+            self.__py_view__.loadURL(url)
 
-        :param html: The HTML code to load.
-        :param base_url: An optional URL used to resolve relative paths.
-        """
+        def load_html(self, html: str, base_url: str = None):
+            """
+            Loads an HTML string.
 
-        baseURL = base_url
-        if baseURL is not None:
-            baseURL = str(base_url)
+            :param html: The HTML code to load.
+            :param base_url: An optional URL used to resolve relative paths.
+            """
 
-        self.__py_view__.loadHTML(html, baseURL=baseURL)
+            baseURL = base_url
+            if baseURL is not None:
+                baseURL = str(base_url)
 
-    def reload(self):
-        """
-        Reloads the Web View.
-        """
+            self.__py_view__.loadHTML(html, baseURL=baseURL)
 
-        self.__py_view__.reload()
+        def reload(self):
+            """
+            Reloads the Web View.
+            """
 
-    def stop(self):
-        """
-        Stops loading content.
-        """
+            self.__py_view__.reload()
 
-        self.__py_view__.stop()
+        def stop(self):
+            """
+            Stops loading content.
+            """
 
-    def go_back(self):
-        """
-        Goes back.
-        """
+            self.__py_view__.stop()
 
-        self.__py_view__.goBack()
+        def go_back(self):
+            """
+            Goes back.
+            """
 
-    def go_forward(self):
-        """
-        Goes forward.
-        """
+            self.__py_view__.goBack()
 
-        self.__py_view__.goForward()
+        def go_forward(self):
+            """
+            Goes forward.
+            """
 
-    @property
-    def can_go_back(self) -> bool:
-        """
-        (Read Only) A boolean indicating whether :meth:`~pyto_ui.WebView.go_back` can be performed.
+            self.__py_view__.goForward()
 
-        :rtype: bool
-        """
+        @property
+        def can_go_back(self) -> bool:
+            """
+            (Read Only) A boolean indicating whether :meth:`~pyto_ui.WebView.go_back` can be performed.
 
-        return self.__py_view__.canGoBack
+            :rtype: bool
+            """
 
-    @property
-    def can_go_forward(self) -> bool:
-        """
-        (Read Only) A boolean indicating whether :meth:`~pyto_ui.WebView.go_forward` can be performed.
+            return self.__py_view__.canGoBack
 
-        :rtype: bool
-        """
-        return self.__py_view__.canGoForward
+        @property
+        def can_go_forward(self) -> bool:
+            """
+            (Read Only) A boolean indicating whether :meth:`~pyto_ui.WebView.go_forward` can be performed.
 
-    @property
-    def is_loading(self) -> bool:
-        """
-        (Read Only) A boolean indicating whether the Web View is loading content.
+            :rtype: bool
+            """
+            return self.__py_view__.canGoForward
 
-        :rtype: bool
-        """
+        @property
+        def is_loading(self) -> bool:
+            """
+            (Read Only) A boolean indicating whether the Web View is loading content.
 
-        return self.__py_view__.isLoading
+            :rtype: bool
+            """
 
-    @property
-    def url(self) -> str:
-        """
-        (Read Only) The current URL loaded into the Web View.
+            return self.__py_view__.isLoading
 
-        :rtype: str
-        """
+        @property
+        def url(self) -> str:
+            """
+            (Read Only) The current URL loaded into the Web View.
 
-        url = self.__py_view__.url
-        if url is None:
-            return None
-        else:
-            return str(url)
+            :rtype: str
+            """
 
-    @property
-    def did_start_loading(self) -> Callable[[WebView], None]:
-        """
-        A function called when the Web View starts loading contents. Takes the sender Web View as parameter.
+            url = self.__py_view__.url
+            if url is None:
+                return None
+            else:
+                return str(url)
 
-        :rtype: Callable[[WebView], None]
-        """
+        @property
+        def did_start_loading(self) -> Callable[[WebView], None]:
+            """
+            A function called when the Web View starts loading contents. Takes the sender Web View as parameter.
 
-        action = self.__py_view__.didStartLoading
-        if action is None:
-            return None
-        else:
-            return getattr(_values, str(action.identifier))
+            :rtype: Callable[[WebView], None]
+            """
 
-    @did_start_loading.setter
-    def did_start_loading(self, new_value: Callable[[WebView], None]):
-        if new_value is None:
-            self.__py_view__.didStartLoading = None
-        else:
-            self.__py_view__.didStartLoading = _values.value(new_value)
+            action = self.__py_view__.didStartLoading
+            if action is None:
+                return None
+            else:
+                return getattr(_values, str(action.identifier))
 
-    @property
-    def did_finish_loading(self) -> Callable[[WebView], None]:
-        """
-        A function called when the Web View finished loading contents. Takes the sender Web View as parameter.
+        @did_start_loading.setter
+        def did_start_loading(self, new_value: Callable[[WebView], None]):
+            if new_value is None:
+                self.__py_view__.didStartLoading = None
+            else:
+                self.__py_view__.didStartLoading = _values.value(new_value)
 
-        :rtype: Callable[[WebView], None]
-        """
+        @property
+        def did_finish_loading(self) -> Callable[[WebView], None]:
+            """
+            A function called when the Web View finished loading contents. Takes the sender Web View as parameter.
 
-        action = self.__py_view__.didFinishLoading
-        if action is None:
-            return None
-        else:
-            return getattr(_values, str(action.identifier))
+            :rtype: Callable[[WebView], None]
+            """
 
-    @did_finish_loading.setter
-    def did_finish_loading(self, new_value: Callable[[WebView], None]):
-        if new_value is None:
-            self.__py_view__.didFinishLoading = None
-        else:
-            self.__py_view__.didFinishLoading = _values.value(new_value)
+            action = self.__py_view__.didFinishLoading
+            if action is None:
+                return None
+            else:
+                return getattr(_values, str(action.identifier))
 
-    @property
-    def did_fail_loading(self) -> Callable[[WebView, str], None]:
-        """
-        A function called when the Web View failed to load contents. Takes the sender Web View and a string describing the error as parameters.
+        @did_finish_loading.setter
+        def did_finish_loading(self, new_value: Callable[[WebView], None]):
+            if new_value is None:
+                self.__py_view__.didFinishLoading = None
+            else:
+                self.__py_view__.didFinishLoading = _values.value(new_value)
 
-        :rtype: Callable[[WebView, str], None]
-        """
+        @property
+        def did_fail_loading(self) -> Callable[[WebView, str], None]:
+            """
+            A function called when the Web View failed to load contents. Takes the sender Web View and a string describing the error as parameters.
 
-        action = self.__py_view__.didFailLoading
-        if action is None:
-            return None
-        else:
-            return getattr(_values, str(action.identifier))
+            :rtype: Callable[[WebView, str], None]
+            """
 
-    @did_fail_loading.setter
-    def did_fail_loading(self, new_value: Callable[[WebView, str], None]):
-        if new_value is None:
-            self.__py_view__.didFailLoading = None
-        else:
-            self.__py_view__.didFailLoading = _values.value(new_value)
+            action = self.__py_view__.didFailLoading
+            if action is None:
+                return None
+            else:
+                return getattr(_values, str(action.identifier))
+
+        @did_fail_loading.setter
+        def did_fail_loading(self, new_value: Callable[[WebView, str], None]):
+            if new_value is None:
+                self.__py_view__.didFailLoading = None
+            else:
+                self.__py_view__.didFailLoading = _values.value(new_value)
 
 
 ##################

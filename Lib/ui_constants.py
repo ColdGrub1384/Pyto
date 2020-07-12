@@ -336,23 +336,24 @@ try:
     GESTURE_STATE_CANCELLED = __PyGestureRecognizer__.GestureStateCancelled
     GESTURE_STATE_RECOGNIZED = __PyGestureRecognizer__.GestureStateRecognized
 
-    TABLE_VIEW_CELL_STYLE_DEFAULT = __PyTableViewCell__.StyleDefault
-    TABLE_VIEW_CELL_STYLE_SUBTITLE = __PyTableViewCell__.StyleSubtitle
-    TABLE_VIEW_CELL_STYLE_VALUE1 = __PyTableViewCell__.StyleValue1
-    TABLE_VIEW_CELL_STYLE_VALUE2 = __PyTableViewCell__.StyleValue2
+    if "widget" not in os.environ:
+        TABLE_VIEW_CELL_STYLE_DEFAULT = __PyTableViewCell__.StyleDefault
+        TABLE_VIEW_CELL_STYLE_SUBTITLE = __PyTableViewCell__.StyleSubtitle
+        TABLE_VIEW_CELL_STYLE_VALUE1 = __PyTableViewCell__.StyleValue1
+        TABLE_VIEW_CELL_STYLE_VALUE2 = __PyTableViewCell__.StyleValue2
 
-    ACCESSORY_TYPE_NONE = __PyTableViewCell__.AccessoryTypeNone
-    ACCESSORY_TYPE_CHECKMARK = __PyTableViewCell__.AccessoryTypeCheckmark
-    ACCESSORY_TYPE_DETAIL_BUTTON = __PyTableViewCell__.AccessoryTypeDetailButton
-    ACCESSORY_TYPE_DETAIL_DISCLOSURE_BUTTON = (
-        __PyTableViewCell__.AccessoryTypeDetailDisclosureButton
-    )
-    ACCESSORY_TYPE_DISCLOSURE_INDICATOR = (
-        __PyTableViewCell__.AccessoryTypeDisclosureIndicator
-    )
+        ACCESSORY_TYPE_NONE = __PyTableViewCell__.AccessoryTypeNone
+        ACCESSORY_TYPE_CHECKMARK = __PyTableViewCell__.AccessoryTypeCheckmark
+        ACCESSORY_TYPE_DETAIL_BUTTON = __PyTableViewCell__.AccessoryTypeDetailButton
+        ACCESSORY_TYPE_DETAIL_DISCLOSURE_BUTTON = (
+            __PyTableViewCell__.AccessoryTypeDetailDisclosureButton
+        )
+        ACCESSORY_TYPE_DISCLOSURE_INDICATOR = (
+            __PyTableViewCell__.AccessoryTypeDisclosureIndicator
+        )
 
-    TABLE_VIEW_STYLE_PLAIN = __PyTableView__.StylePlain
-    TABLE_VIEW_STYLE_GROUPED = __PyTableView__.StyleGrouped
+        TABLE_VIEW_STYLE_PLAIN = __PyTableView__.StylePlain
+        TABLE_VIEW_STYLE_GROUPED = __PyTableView__.StyleGrouped
 
     TEXT_FIELD_BORDER_STYLE_NONE = __PyTextField__.BorderStyleNone
     TEXT_FIELD_BORDER_STYLE_BEZEL = __PyTextField__.BorderStyleBezel

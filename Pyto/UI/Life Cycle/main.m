@@ -13,7 +13,11 @@
 #if MAIN
 #import "Pyto-Swift.h"
 #elif WIDGET
+#if Xcode11
 #import "TodayExtension-Swift.h"
+#else
+#import "WidgetExtension-Swift.h"
+#endif
 #endif
 #include <dlfcn.h>
 

@@ -6,4 +6,6 @@
 //  Copyright © 2020 Adrian Labbé. All rights reserved.
 //
 
-//#import "ScriptIntent.h"
+#import "../Python/Python.h"
+
+int init_python();

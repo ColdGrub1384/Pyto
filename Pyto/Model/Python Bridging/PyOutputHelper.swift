@@ -14,6 +14,8 @@ import WidgetKit
 #endif
 #endif
 
+#if WIDGET && !Xcode11
+#else
 fileprivate extension ConsoleViewController {
     
     struct Holder {
@@ -31,50 +33,13 @@ fileprivate extension ConsoleViewController {
         }
     }
 }
+#endif
 
 /// A class accessible by Rubicon to print without writting to the stdout.
 @objc class PyOutputHelper: NSObject {
         
     /// All output from the last executed Shortcut.
     @objc static var output = ""
-    
-    #if MAIN
-    /// Updates the Widget with the last executed script.
-    ///
-    /// - Parameters:
-    ///     - output: The output of the script. Set to `nil` if the script was executed from Shortcuts.
-    ///     - images: The output images of the script. Set to `nil` if the script was executed from Shortcuts.
-    ///     - scriptURL: The URL of the script executed.
-    @available(iOS 14.0, *) static func updateWidget(output: String?, images: [UIImage]?, scriptName: String?, scriptURL: URL?) {
-        
-        #if !Xcode11
-        var out = output ?? self.output
-        let plots = images ?? (QuickLookHelper.images as? [UIImage]) ?? []
-        let name = scriptName ?? NSString(string: NSString(string: AppDelegate.shared.shortcutScript ?? "").deletingPathExtension).lastPathComponent
-        
-        // For some reason, returns 1 for an empty string.
-        if out.replacingOccurrences(of: "\n", with: "").count < 2 {
-            out = ""
-        }
-        
-        if out.hasSuffix("\n") {
-            out.removeLast()
-        }
-        
-        let widgetEntry = SimpleEntry(date: Date(), scriptName: name, console: out, imageData: plots.last?.pngData(), urlBookmark: (try? scriptURL?.bookmarkData()) ?? nil)
-        do {
-            let encoded = try JSONEncoder().encode(widgetEntry)
-            UserDefaults(suiteName: "group.pyto")?.setValue(encoded, forKey: "widgetEntry")
-            
-            DispatchQueue.main.async {
-                WidgetCenter.shared.reloadTimelines(ofKind: "LastScript")
-            }
-        } catch {
-            Swift.print(error.localizedDescription)
-        }
-        #endif
-    }
-    #endif
     
     #if !WIDGET
     /// Sends `output` to the current running Shortcut.
@@ -101,10 +66,6 @@ fileprivate extension ConsoleViewController {
             output.removeLast()
         }
         
-        if #available(iOS 14.0, *) {
-            updateWidget(output: nil, images: nil, scriptName: nil, scriptURL: nil)
-        }
-        
         do {
             try ("\(errorMessage != nil ? "Fail" : "Success")\n"+output).write(to: group.appendingPathComponent("ShortcutOutput.txt"), atomically: true, encoding: .utf8)
         } catch {
@@ -126,6 +87,8 @@ fileprivate extension ConsoleViewController {
     
     private static let queue = DispatchQueue.global(qos: .userInteractive)
     
+    #if WIDGET && !Xcode11
+    #else
     /// Shows output on visible console.
     /// - Parameters:
     ///     - text: Text to print.
@@ -515,6 +478,7 @@ fileprivate extension ConsoleViewController {
             }
         }
     }
+    #endif
 }
 
 #if !WIDGET

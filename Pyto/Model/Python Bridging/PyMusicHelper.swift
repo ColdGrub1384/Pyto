@@ -22,6 +22,7 @@ import MediaPlayer
         }
     }
     
+    #if !WIDGET
     /// Picks music.
     ///
     /// - Parameters:
@@ -59,9 +60,7 @@ import MediaPlayer
             let picker = MPMediaPickerController(mediaTypes: .music)
             picker.delegate = delegate
             
-            #if WIDGET
-            ConsoleViewController.visible.present(picker, animated: true, completion: nil)
-            #elseif !MAIN
+            #if !MAIN
             ConsoleViewController.visibles.first?.present(picker, animated: true, completion: nil)
             #else
             for console in ConsoleViewController.visibles {
@@ -83,4 +82,5 @@ import MediaPlayer
         
         return delegate.picked
     }
+    #endif
 }

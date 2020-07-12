@@ -44,7 +44,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     
     /// The bundle containing all Python resources.
     @objc var bundle: Bundle {
-        if Bundle.main.bundleIdentifier?.hasSuffix(".ada.Pyto") == true || Bundle.main.bundleIdentifier?.hasSuffix(".ada.Pyto.Pyto-Widget") == true {
+        if Bundle.main.bundleIdentifier?.hasSuffix(".ada.Pyto") == true || Bundle.main.bundleIdentifier?.hasSuffix(".ada.Pyto.Pyto-Widget") == true || Bundle.main.bundleIdentifier?.hasSuffix(".ada.Pyto.Widget") == true {
             return Bundle(identifier: "ch.ada.Python")!
         } else if let bundle = Bundle(path: Bundle.main.path(forResource: "Python.framework", ofType: nil) ?? "") {
             return bundle
@@ -106,6 +106,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// Downloaded on demand modules paths.
     public var downloadedModules = [String]()
     
+    #if !WIDGET
     /// Access downloadable library and its dependencies.
     ///
     /// - Parameters:
@@ -230,6 +231,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                 
         return NSArray(array: paths)
     }
+    #endif
     
     /// Additional builtin modules names.
     @objc public var modules = NSMutableArray() {
@@ -406,16 +408,6 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                                 }
                             }
                             
-                            // Widget
-                            if !editor.isShortcut, let console = splitVC?.console {
-                                let textView = console.textView
-                                let scriptName = splitVC?.editor?.document?.fileURL.deletingPathExtension().lastPathComponent ?? ""
-                                
-                                if #available(iOS 14.0, *) {
-                                    PyOutputHelper.updateWidget(output: textView.text ?? "", images: images, scriptName: scriptName, scriptURL: editor.document?.fileURL)
-                                }
-                            }
-                            
                             // Shortcut
                             if editor.isShortcut {
                                 
@@ -522,11 +514,14 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
             
             self.thread = Thread.current
             
+            #if WIDGET && !Xcode11
+            #else
             guard !self.isREPLRunning else {
                 return
             }
             
             self.isREPLRunning = true
+            #endif
             
             #if WIDGET
             let arr = NSMutableArray(array: self.runningScripts)
