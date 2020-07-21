@@ -15,7 +15,7 @@ This library may have a lot of similarities with ``UIKit``, but subclassing isn'
 from __future__ import annotations
 from UIKit import UIFont as __UIFont__, UIImage as UIImage
 from typing import List, Callable, Tuple
-from pyto import __Class__
+from pyto import __Class__, ConsoleViewController, PyAlert as __PyAlert__
 from time import sleep
 from io import BytesIO
 from threading import Thread
@@ -23,7 +23,7 @@ import os
 import sys
 import base64
 import threading
-#import _values
+import _values
 import ui_constants
 import builtins
 try:
@@ -35,7 +35,6 @@ except ValueError:
 
 if "widget" not in os.environ:
     from urllib.request import urlopen
-    from pyto import ConsoleViewController, PyAlert as __PyAlert__
 
     try:
         from PIL import Image
@@ -68,17 +67,15 @@ __PyLabel__ = __Class__("PyLabel")
 __UIImageView__ = __Class__("PyImageView")
 __PyTextView__ = __Class__("PyTextView")
 __PyTextField__ = __Class__("PyTextField")
+__PyTableView__ = __Class__("PyTableView")
+__PyTableViewCell__ = __Class__("PyTableViewCell")
+__PyTableViewSection__ = __Class__("PyTableViewSection")
+__PyWebView__ = __Class__("PyWebView")
+__PyGestureRecognizer__ = __Class__("PyGestureRecognizer")
 
 __PyColor__ = __Class__("PyColor")
 __PyButtonItem__ = __Class__("PyButtonItem")
 __PyTextInputTraitsConstants__ = __Class__("PyTextInputTraitsConstants")
-
-if "widget" not in os.environ:
-    __PyTableView__ = __Class__("PyTableView")
-    __PyTableViewCell__ = __Class__("PyTableViewCell")
-    __PyTableViewSection__ = __Class__("PyTableViewSection")
-    __PyWebView__ = __Class__("PyWebView")
-    __PyGestureRecognizer__ = __Class__("PyGestureRecognizer")
 
 try:
     __NSData__ = ObjCClass("NSData")
@@ -2749,9 +2746,6 @@ class ImageView(View):
         :param url: The URL of the image.
         """
 
-        if "widget" in os.environ:
-            raise EnvironmentError("'load_from_url' is not supported in Today Widget.")
-
         def _set_image(self, url):
             from PIL import Image
             self.image = Image.open(urlopen(url))
@@ -2899,214 +2893,212 @@ class Label(View):
     def number_of_lines(self, new_value: int):
         self.__py_view__.numberOfLines = new_value
 
-if "widget" in os.environ:
+class TableViewCell(View):
+    """
+    A cell contained in a :class:`~pyto_ui.TableView`.
+    Can have a title, a subtitle, an image and an accessory view.
 
-    class TableViewCell(View):
+    For a list of supported style, see `Table View Cell Style <constants.html#table-view-cell-style>`_ constants.
+    """
+
+    def __init__(
+        self, style: TABLE_VIEW_STYLE = __v__("TABLE_VIEW_CELL_STYLE_DEFAULT")
+    ):
+        if style == "TABLE_VIEW_CELL_STYLE_DEFAULT":
+            self.__py_view__ = __PyTableViewCell__.newViewWithStyle(
+                TABLE_VIEW_CELL_STYLE_DEFAULT
+            )
+        else:
+            self.__py_view__ = __PyTableViewCell__.newViewWithStyle(style)
+        self.__py_view__.managedValue = _values.value(self)
+
+    @property
+    def movable(self) -> bool:
         """
-        A cell contained in a :class:`~pyto_ui.TableView`.
-        Can have a title, a subtitle, an image and an accessory view.
+        A boolean indicating whether the cell is movable. If set to ``True``, the container :class:`TableViewSection` object should handle the move.
 
-        For a list of supported style, see `Table View Cell Style <constants.html#table-view-cell-style>`_ constants.
+        :rtype: bool
         """
 
-        def __init__(
-            self, style: TABLE_VIEW_STYLE = __v__("TABLE_VIEW_CELL_STYLE_DEFAULT")
-        ):
-            if style == "TABLE_VIEW_CELL_STYLE_DEFAULT":
-                self.__py_view__ = __PyTableViewCell__.newViewWithStyle(
-                    TABLE_VIEW_CELL_STYLE_DEFAULT
-                )
-            else:
-                self.__py_view__ = __PyTableViewCell__.newViewWithStyle(style)
-            self.__py_view__.managedValue = _values.value(self)
+        return self.__py_view__.movable
 
-        @property
-        def movable(self) -> bool:
-            """
-            A boolean indicating whether the cell is movable. If set to ``True``, the container :class:`TableViewSection` object should handle the move.
+    @movable.setter
+    def movable(self, new_value: bool):
+        self.__py_view__.movable = new_value
 
-            :rtype: bool
-            """
+    @property
+    def removable(self) -> bool:
+        """
+        A boolean indicating the cell is removable. If set to ``True``, the container :class:`TableViewSection` object should handle the removal.
 
-            return self.__py_view__.movable
+        :rtype: bool
+        """
 
-        @movable.setter
-        def movable(self, new_value: bool):
-            self.__py_view__.movable = new_value
+        return self.__py_view__.removable
 
-        @property
-        def removable(self) -> bool:
-            """
-            A boolean indicating the cell is removable. If set to ``True``, the container :class:`TableViewSection` object should handle the removal.
+    @removable.setter
+    def removable(self, new_value: bool):
+        self.__py_view__.removable = new_value
 
-            :rtype: bool
-            """
+    @property
+    def content_view(self) -> View:
+        """
+        (Read Only) The view contained in the cell. Custom views should be added inside it.
 
-            return self.__py_view__.removable
+        :rtype: View
+        """
 
-        @removable.setter
-        def removable(self, new_value: bool):
-            self.__py_view__.removable = new_value
+        _view = View()
+        _view.__py_view__ = self.__py_view__.contentView
+        return _view
 
-        @property
-        def content_view(self) -> View:
-            """
-            (Read Only) The view contained in the cell. Custom views should be added inside it.
+    @property
+    def image_view(self) -> ImageView:
+        """
+        (Read Only) The view containing an image. May return ``None`` for some `Table View Cell Style <constants.html#table-view-cell-style>`_ values.
 
-            :rtype: View
-            """
+        :rtype: Image View
+        """
 
-            _view = View()
-            _view.__py_view__ = self.__py_view__.contentView
+        view = self.__py_view__.imageView
+        if view is None:
+            return None
+        else:
+            _view = ImageView()
+            _view.__py_view__ = view
             return _view
 
-        @property
-        def image_view(self) -> ImageView:
-            """
-            (Read Only) The view containing an image. May return ``None`` for some `Table View Cell Style <constants.html#table-view-cell-style>`_ values.
-
-            :rtype: Image View
-            """
-
-            view = self.__py_view__.imageView
-            if view is None:
-                return None
-            else:
-                _view = ImageView()
-                _view.__py_view__ = view
-                return _view
-
-        @property
-        def text_label(self) -> Label:
-            """
-            (Read Only) The label containing the main text of the cell.
-
-            :rtype: Label
-            """
-
-            view = self.__py_view__.textLabel
-            if view is None:
-                return None
-            else:
-                _view = Label()
-                _view.__py_view__ = view
-                return _view
-
-        @property
-        def detail_text_label(self) -> Label:
-            """
-            (Read Only) The label containing secondary text. May return ``None`` for some `Table View Cell Style <constants.html#table-view-cell-style>`_ values.
-
-            :rtype: Label
-            """
-
-            view = self.__py_view__.detailLabel
-            if view is None:
-                return None
-            else:
-                _view = Label()
-                _view.__py_view__ = view
-                return _view
-
-        @property
-        def accessory_type(self) -> ACCESSORY_TYPE:
-            """
-            The type of accessory view placed to the right of the cell. See `Accessory Type <constants.html#accessory_type>`_ constants for possible values.
-
-            :rtype: `Accessory Type <constants.html#accessory_type>`_.
-            """
-
-            return self.__py_view__.accessoryType
-
-        @accessory_type.setter
-        def accessory_type(self, new_value: ACCESSORY_TYPE):
-            self.__py_view__.accessoryType = new_value
-
-
-    class TableView(View):
+    @property
+    def text_label(self) -> Label:
         """
-        A view containing a list of cells.
+        (Read Only) The label containing the main text of the cell.
 
-        A Table View has a list of :class:`TableViewSection` objects that represent groups of cells. A Table View has two possible styles. See `Table View Style <constants.html#table-view-style>`_.
+        :rtype: Label
         """
 
-        def __init__(
-            self,
-            style: TABLE_VIEW_STYLE = __v__("TABLE_VIEW_STYLE_PLAIN"),
-            sections: List[TableViewSection] = [],
-        ):
-            if style == "TABLE_VIEW_STYLE_PLAIN":
-                self.__py_view__ = __PyTableView__.newViewWithStyle(TABLE_VIEW_STYLE_PLAIN)
-            else:
-                self.__py_view__ = __PyTableView__.newViewWithStyle(style)
-            self.__py_view__.managedValue = _values.value(self)
-            self.sections = sections
+        view = self.__py_view__.textLabel
+        if view is None:
+            return None
+        else:
+            _view = Label()
+            _view.__py_view__ = view
+            return _view
 
-        @property
-        def reload_action(self) -> Callable[TableView, None]:
-            """
-            A function called when the button item is pressed. Takes the button item as parameter.
+    @property
+    def detail_text_label(self) -> Label:
+        """
+        (Read Only) The label containing secondary text. May return ``None`` for some `Table View Cell Style <constants.html#table-view-cell-style>`_ values.
 
-            :rtype: Callable[[TableView], None]
-            """
+        :rtype: Label
+        """
 
-            action = self.__py_view__.reloadAction
-            if action is None:
-                return None
-            else:
-                return getattr(_values, str(action.identifier))
+        view = self.__py_view__.detailLabel
+        if view is None:
+            return None
+        else:
+            _view = Label()
+            _view.__py_view__ = view
+            return _view
 
-        @reload_action.setter
-        def reload_action(self, new_value: Callable[[TableView], None]):
-            if new_value is None:
-                self.__py_view__.action = None
-            else:
-                self.__py_view__.reloadAction = _values.value(new_value)
+    @property
+    def accessory_type(self) -> ACCESSORY_TYPE:
+        """
+        The type of accessory view placed to the right of the cell. See `Accessory Type <constants.html#accessory_type>`_ constants for possible values.
 
-        @property
-        def edit_button_item(self) -> ButtonItem:
-            """
-            Returns a bar button item that toggles its title and associated state between Edit and Done.
-            The button item is setup to edit the Table View.
+        :rtype: `Accessory Type <constants.html#accessory_type>`_.
+        """
 
-            :rtype: ButtonItem
-            """
+        return self.__py_view__.accessoryType
 
-            item = ButtonItem()
-            item.__py_item__ = self.__py_view__.editButtonItem
-            return item
+    @accessory_type.setter
+    def accessory_type(self, new_value: ACCESSORY_TYPE):
+        self.__py_view__.accessoryType = new_value
 
-        @property
-        def sections(self) -> List[TableViewSection]:
-            """
-            A list of :class:`TableViewSection` containg cells to be displayed on the Table View.
-            Setting a new value will reload automatically the contents of the Table View.
 
-            :rtype: List[TableViewSection]
-            """
+class TableView(View):
+    """
+    A view containing a list of cells.
 
-            sections = self.__py_view__.sections
-            py_sections = []
-            for section in sections:
-                py_section = TableViewSection("", [])
-                py_section.__py_section__ = section
-                py_sections.append(py_section)
-            return py_sections
+    A Table View has a list of :class:`TableViewSection` objects that represent groups of cells. A Table View has two possible styles. See `Table View Style <constants.html#table-view-style>`_.
+    """
 
-        @sections.setter
-        def sections(self, new_value: List[TableViewSection]):
-            sections = []
-            for section in new_value:
-                section.__py_section__.tableView = self.__py_view__
-                sections.append(section.__py_section__)
-            self.__py_view__.sections = sections
+    def __init__(
+        self,
+        style: TABLE_VIEW_STYLE = __v__("TABLE_VIEW_STYLE_PLAIN"),
+        sections: List[TableViewSection] = [],
+    ):
+        if style == "TABLE_VIEW_STYLE_PLAIN":
+            self.__py_view__ = __PyTableView__.newViewWithStyle(TABLE_VIEW_STYLE_PLAIN)
+        else:
+            self.__py_view__ = __PyTableView__.newViewWithStyle(style)
+        self.__py_view__.managedValue = _values.value(self)
+        self.sections = sections
 
-        def deselect_row(self):
-            """
-            Deselects the current selected row.
-            """
+    @property
+    def reload_action(self) -> Callable[TableView, None]:
+        """
+        A function called when the button item is pressed. Takes the button item as parameter.
 
-            self.__py_view__.deselectRowAnimated(True)
+        :rtype: Callable[[TableView], None]
+        """
+
+        action = self.__py_view__.reloadAction
+        if action is None:
+            return None
+        else:
+            return getattr(_values, str(action.identifier))
+
+    @reload_action.setter
+    def reload_action(self, new_value: Callable[[TableView], None]):
+        if new_value is None:
+            self.__py_view__.action = None
+        else:
+            self.__py_view__.reloadAction = _values.value(new_value)
+
+    @property
+    def edit_button_item(self) -> ButtonItem:
+        """
+        Returns a bar button item that toggles its title and associated state between Edit and Done.
+        The button item is setup to edit the Table View.
+
+        :rtype: ButtonItem
+        """
+
+        item = ButtonItem()
+        item.__py_item__ = self.__py_view__.editButtonItem
+        return item
+
+    @property
+    def sections(self) -> List[TableViewSection]:
+        """
+        A list of :class:`TableViewSection` containg cells to be displayed on the Table View.
+        Setting a new value will reload automatically the contents of the Table View.
+
+        :rtype: List[TableViewSection]
+        """
+
+        sections = self.__py_view__.sections
+        py_sections = []
+        for section in sections:
+            py_section = TableViewSection("", [])
+            py_section.__py_section__ = section
+            py_sections.append(py_section)
+        return py_sections
+
+    @sections.setter
+    def sections(self, new_value: List[TableViewSection]):
+        sections = []
+        for section in new_value:
+            section.__py_section__.tableView = self.__py_view__
+            sections.append(section.__py_section__)
+        self.__py_view__.sections = sections
+
+    def deselect_row(self):
+        """
+        Deselects the current selected row.
+        """
+
+        self.__py_view__.deselectRowAnimated(True)
 
 
 class TextView(View):

@@ -12,22 +12,23 @@ import UserNotifications
 /// A class managing Today widget settings.
 @available(iOS 13.0, *) @objc class PyNotificationCenter: NSObject {
     
-    #if MAIN
     /// Set to `true` to make the widget able to expand.
     @objc static var canBeExpanded: Bool {
         set {
-            #if WIDGET
+            #if WIDGET && Xcode11
             ConsoleViewController.visible.canBeExpanded = newValue
-            #else
+            #elseif MAIN
             WidgetSimulatorViewController.canBeExpanded = newValue
             #endif
         }
         
         get {
-            #if WIDGET
+            #if WIDGET && Xcode11
             return ConsoleViewController.visible.canBeExpanded
-            #else
+            #elseif MAIN
             return WidgetSimulatorViewController.canBeExpanded
+            #else
+            return false
             #endif
         }
     }
@@ -35,22 +36,23 @@ import UserNotifications
     /// The widget's maximum height.
     @objc static var maximumHeight: Double {
         set {
-            #if WIDGET
+            #if WIDGET && Xcode11
             ConsoleViewController.visible.maximumHeight = newValue
-            #else
+            #elseif MAIN
             WidgetSimulatorViewController.maximumHeight = newValue
             #endif
         }
         
         get {
-            #if WIDGET
+            #if WIDGET && Xcode11
             return ConsoleViewController.visible.maximumHeight
-            #else
+            #elseif MAIN
             return WidgetSimulatorViewController.maximumHeight
+            #else
+            return 0
             #endif
         }
     }
-    #endif
     
     @objc static var scheduled: [UNNotificationRequest] {
         

@@ -1250,6 +1250,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         if document?.documentState != UIDocument.State.editingDisabled {
             document?.save(to: document!.fileURL, for: .forOverwriting, completionHandler: completion)
+            
+            AppDelegate.shared.addURLToShortcuts(document!.fileURL)
         }
     }
     

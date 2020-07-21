@@ -104,9 +104,10 @@ import SwiftUI
         
         func open() {
             if shortcutItem.type == "PyPi" {
-                let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "pypi")
+                let vc = MenuTableViewController.makePyPiView()
                 let navVC = UINavigationController(rootViewController: vc)
                 navVC.modalPresentationStyle = .formSheet
+                navVC.navigationBar.prefersLargeTitles = true
                 windowScene.windows.first?.topViewController?.present(navVC, animated: true, completion: nil)
                 completionHandler(true)
             } else if shortcutItem.type == "REPL" {

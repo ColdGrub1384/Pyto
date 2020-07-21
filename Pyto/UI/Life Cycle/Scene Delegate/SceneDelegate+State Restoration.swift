@@ -45,7 +45,7 @@ extension SceneDelegate {
                 var isStale = false
                 let url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
                 
-                if let arguments = userActivity.userInfo?["arguments"] as? [String] {
+                if let arguments = (userActivity.userInfo?["arguments"] as? [String]) ?? (userActivity.interaction?.intent as? RunScriptIntent)?.arguments {
                     Python.shared.args = NSMutableArray(array: arguments)
                     UserDefaults.standard.set(arguments, forKey: "arguments\(url.path.replacingOccurrences(of: "//", with: "/"))")
                 }

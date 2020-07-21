@@ -54,12 +54,12 @@ extension SceneDelegate {
                     alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
                     root?.present(alert, animated: true, completion: nil)
                 }
-            } else if let data = userActivity.userInfo?["filePath"] as? Data {
+            } else if let data = (userActivity.userInfo?["filePath"] as? Data) ?? (userActivity.interaction?.intent as? RunScriptIntent)?.script?.data {
                 do {
                     var isStale = false
                     let url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
                     
-                    if let arguments = userActivity.userInfo?["arguments"] as? [String] {
+                    if let arguments = userActivity.userInfo?["arguments"] as? [String] ?? (userActivity.interaction?.intent as? RunScriptIntent)?.arguments {
                         Python.shared.args = NSMutableArray(array: arguments)
                         UserDefaults.standard.set(arguments, forKey: "arguments\(url.path.replacingOccurrences(of: "//", with: "/"))")
                     }

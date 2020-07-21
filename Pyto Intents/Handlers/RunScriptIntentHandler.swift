@@ -55,7 +55,32 @@ class RunScriptIntentHandler: NSObject, RunScriptIntentHandling {
         do {
             for file in (try FileManager.default.contentsOfDirectory(atURL: docs, sortedBy: .created) ?? []) {
                 let fileURL = docs.appendingPathComponent(file)
-                files.append(INFile(data: try Data(contentsOf: fileURL), filename: fileURL.lastPathComponent, typeIdentifier: nil))
+                let data = try Data(contentsOf: fileURL)
+                do {
+                    let script = try JSONDecoder().decode(IntentScript.self, from: data)
+                    files.append(INFile(data: script.bookmarkData, filename: fileURL.lastPathComponent, typeIdentifier: nil))
+                } catch {
+                    files.append(INFile(data: data, filename: fileURL.lastPathComponent, typeIdentifier: nil))
+                }
+            }
+        } catch {
+            return []
+        }
+        
+        return files.reversed()
+    }
+    
+    static func getCode() -> [INFile] {
+        guard let docs = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.pyto")?.appendingPathComponent("Shortcuts") else {
+            return []
+        }
+        
+        var files = [INFile]()
+        
+        do {
+            for file in (try FileManager.default.contentsOfDirectory(atURL: docs, sortedBy: .created) ?? []) {
+                let fileURL = docs.appendingPathComponent(file)
+                files.append(INFile(data: try fileURL.bookmarkData(), filename: fileURL.lastPathComponent, typeIdentifier: nil))
             }
         } catch {
             return []

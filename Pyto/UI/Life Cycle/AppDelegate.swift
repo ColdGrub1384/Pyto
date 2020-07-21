@@ -172,12 +172,15 @@ import TrueTime
         }
         
         do {
-            let data = try url.bookmarkData()
+            let bookmarkData = try url.bookmarkData()
+            let script = IntentScript(bookmarkData: bookmarkData, code: (try String(contentsOf: url)))
+            let data = try JSONEncoder().encode(script)
             try data.write(to: docs.appendingPathComponent(url.lastPathComponent))
         } catch {
             print(error.localizedDescription)
         }
         
+        // Remove missing files
         DispatchQueue.global().async {
             var urls = [URL]()
             do {

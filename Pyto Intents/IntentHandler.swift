@@ -25,6 +25,13 @@ class IntentHandler: INExtension {
         } else if intent is GetScriptOutputIntent {
             return GetScriptOutputIntentHandler()
         } else {
+            
+            #if !Xcode11
+            if #available(iOSApplicationExtension 14.0, *), intent is ScriptIntent {
+                return ScriptIntentHandler()
+            }
+            #endif
+            
             return self
         }
     }
