@@ -378,6 +378,11 @@
 	<array>
 		<string>RunScriptIntent</string>
 		<string>RunCodeIntent</string>
+		<string>ImportModuleIntent</string>
+		<string>GetPropertyIntent</string>
+		<string>CallFunctionIntent</string>
+		<string>SetPropertyIntent</string>
+		<string>GetObjectDescriptionIntent</string>
 	</array>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.developer-tools</string>
@@ -418,11 +423,16 @@
 	</dict>
 	<key>NSUserActivityTypes</key>
 	<array>
+		<string>CallFunctionIntent</string>
+		<string>GetObjectDescriptionIntent</string>
+		<string>GetPropertyIntent</string>
 		<string>GetScriptOutputIntent</string>
+		<string>ImportModuleIntent</string>
 		<string>PythonScript</string>
 		<string>RunCodeIntent</string>
 		<string>RunScriptIntent</string>
 		<string>ScriptIntent</string>
+		<string>SetPropertyIntent</string>
 		<string>ch.marcela.ada.Pyto.script</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>

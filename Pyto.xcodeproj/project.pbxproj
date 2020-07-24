@@ -241,6 +241,8 @@
 		C93B896823CA53C80070B2EF /* ParseArgs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93B896723CA53C80070B2EF /* ParseArgs.swift */; };
 		C93B896923CA54330070B2EF /* ParseArgs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93B896723CA53C80070B2EF /* ParseArgs.swift */; };
 		C93B897323CA7B0B0070B2EF /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946A5C92207809700F78C5C /* FileManager.swift */; };
+		C93C2C7924C7AB5A000FE7EC /* ImportModuleIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C2C7824C7AB5A000FE7EC /* ImportModuleIntentHandler.swift */; };
+		C93C2C7B24C7BF71000FE7EC /* ShortcutsRuntimeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C2C7A24C7BF71000FE7EC /* ShortcutsRuntimeStore.swift */; };
 		C93C8E1922DFDEBC0008DC13 /* PySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C8E1822DFDEBC0008DC13 /* PySlider.swift */; };
 		C93C8E1E22E01ACA0008DC13 /* PySwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C8E1D22E01ACA0008DC13 /* PySwitch.swift */; };
 		C93CA8B522022E67008DD049 /* QuickLookHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93CA8B422022E67008DD049 /* QuickLookHelper.swift */; };
@@ -3356,6 +3358,13 @@
 		C9F8FB4C2302569D004648F4 /* fpader.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8F7722302569B004648F4 /* fpader.o */; };
 		C9F8FB4D2302569D004648F4 /* slacon2.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8F7732302569B004648F4 /* slacon2.o */; };
 		C9F8FB4F23025A76004648F4 /* vode.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F8FB4E23025A75004648F4 /* vode.o */; };
+		C9FAB8E324C7D210005A58BB /* GetPropertyIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FAB8E224C7D210005A58BB /* GetPropertyIntentHandler.swift */; };
+		C9FAB8FB24C92072005A58BB /* CodablePythonObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FAB8FA24C92072005A58BB /* CodablePythonObject.swift */; };
+		C9FAB8FD24C9247C005A58BB /* CallFunctionIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FAB8FC24C9247C005A58BB /* CallFunctionIntentHandler.swift */; };
+		C9FAB8FF24C925DC005A58BB /* FunctionParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FAB8FE24C925DC005A58BB /* FunctionParameter.swift */; };
+		C9FAB90124C930CB005A58BB /* StringFromParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FAB90024C930CB005A58BB /* StringFromParameter.swift */; };
+		C9FAB90324CA1C85005A58BB /* SetPropertyIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FAB90224CA1C85005A58BB /* SetPropertyIntentHandler.swift */; };
+		C9FAB90524CA661A005A58BB /* GetObjectDescriptionIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FAB90424CA661A005A58BB /* GetObjectDescriptionIntentHandler.swift */; };
 		C9FB5BE822025B040085E1AA /* pcf.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9FB5BC022025AFE0085E1AA /* pcf.o */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C9FB5BE922025B040085E1AA /* winfnt.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9FB5BC122025AFE0085E1AA /* winfnt.o */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C9FB5BEA22025B040085E1AA /* fttype1.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C9FB5BC222025AFE0085E1AA /* fttype1.o */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -4681,6 +4690,8 @@
 		C93B896323CA52000070B2EF /* setArgv.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = setArgv.m; sourceTree = "<group>"; };
 		C93B896723CA53C80070B2EF /* ParseArgs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseArgs.swift; sourceTree = "<group>"; };
 		C93B897223CA7ABD0070B2EF /* Pyto Intents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pyto Intents.entitlements"; sourceTree = "<group>"; };
+		C93C2C7824C7AB5A000FE7EC /* ImportModuleIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportModuleIntentHandler.swift; sourceTree = "<group>"; };
+		C93C2C7A24C7BF71000FE7EC /* ShortcutsRuntimeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutsRuntimeStore.swift; sourceTree = "<group>"; };
 		C93C8E1822DFDEBC0008DC13 /* PySlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PySlider.swift; sourceTree = "<group>"; };
 		C93C8E1D22E01ACA0008DC13 /* PySwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PySwitch.swift; sourceTree = "<group>"; };
 		C93CA8B422022E67008DD049 /* QuickLookHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLookHelper.swift; sourceTree = "<group>"; };
@@ -6521,6 +6532,13 @@
 		C9F8F7722302569B004648F4 /* fpader.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = fpader.o; sourceTree = "<group>"; };
 		C9F8F7732302569B004648F4 /* slacon2.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = slacon2.o; sourceTree = "<group>"; };
 		C9F8FB4E23025A75004648F4 /* vode.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = vode.o; path = Extensions/SciPy/vode.o; sourceTree = SOURCE_ROOT; };
+		C9FAB8E224C7D210005A58BB /* GetPropertyIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPropertyIntentHandler.swift; sourceTree = "<group>"; };
+		C9FAB8FA24C92072005A58BB /* CodablePythonObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodablePythonObject.swift; sourceTree = "<group>"; };
+		C9FAB8FC24C9247C005A58BB /* CallFunctionIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallFunctionIntentHandler.swift; sourceTree = "<group>"; };
+		C9FAB8FE24C925DC005A58BB /* FunctionParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionParameter.swift; sourceTree = "<group>"; };
+		C9FAB90024C930CB005A58BB /* StringFromParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringFromParameter.swift; sourceTree = "<group>"; };
+		C9FAB90224CA1C85005A58BB /* SetPropertyIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPropertyIntentHandler.swift; sourceTree = "<group>"; };
+		C9FAB90424CA661A005A58BB /* GetObjectDescriptionIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetObjectDescriptionIntentHandler.swift; sourceTree = "<group>"; };
 		C9FB5B9C2202590D0085E1AA /* pngget.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pngget.c; sourceTree = "<group>"; };
 		C9FB5B9D2202590D0085E1AA /* pnginfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pnginfo.h; sourceTree = "<group>"; };
 		C9FB5B9E2202590D0085E1AA /* pngrtran.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pngrtran.c; sourceTree = "<group>"; };
@@ -9254,6 +9272,22 @@
 			path = "Widget Preview";
 			sourceTree = "<group>";
 		};
+		C93C2C7724C7AA82000FE7EC /* Runtime */ = {
+			isa = PBXGroup;
+			children = (
+				C93C2C7A24C7BF71000FE7EC /* ShortcutsRuntimeStore.swift */,
+				C93C2C7824C7AB5A000FE7EC /* ImportModuleIntentHandler.swift */,
+				C9FAB8E224C7D210005A58BB /* GetPropertyIntentHandler.swift */,
+				C9FAB8FC24C9247C005A58BB /* CallFunctionIntentHandler.swift */,
+				C9FAB90224CA1C85005A58BB /* SetPropertyIntentHandler.swift */,
+				C9FAB90424CA661A005A58BB /* GetObjectDescriptionIntentHandler.swift */,
+				C9FAB8FA24C92072005A58BB /* CodablePythonObject.swift */,
+				C9FAB8FE24C925DC005A58BB /* FunctionParameter.swift */,
+				C9FAB90024C930CB005A58BB /* StringFromParameter.swift */,
+			);
+			path = Runtime;
+			sourceTree = "<group>";
+		};
 		C93D61E52145E19300C8B5E3 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -10530,6 +10564,7 @@
 				C93AE1FA24A8FEE20066568A /* RunShortcutsScript.swift */,
 				C93AE21324A99BE30066568A /* RemoveCachedOutput.swift */,
 				C937FF3D24C4D8970083C9D9 /* IntentScript.swift */,
+				C93C2C7724C7AA82000FE7EC /* Runtime */,
 				C94129F524C3B6E20030F76E /* Handlers */,
 				C9B8AE3324B3F977001FD8F0 /* Xcode 11 */,
 				C93B896323CA52000070B2EF /* setArgv.m */,
@@ -13573,6 +13608,7 @@
 				C9BF46E722E106D500B8FE4B /* PyTableView.swift in Sources */,
 				C94E730222E3BBF300F3FB79 /* PyButtonItem.swift in Sources */,
 				C92F6FE2247DD1A5006CC037 /* Intents.intentdefinition in Sources */,
+				C9FAB90124C930CB005A58BB /* StringFromParameter.swift in Sources */,
 				C969D2A523D49B3200460F05 /* PyPhotosHelper.swift in Sources */,
 				C9622B882467BE5200D0D697 /* lmder1_.c in Sources */,
 				C976DF202489BEB2006D4EF7 /* RMStoreAppReceiptVerifier.m in Sources */,
@@ -13600,6 +13636,7 @@
 				C9C0E78321EF75080057C63E /* Midnight.swift in Sources */,
 				C9BF46EA22E108C100B8FE4B /* PyTableViewSection.swift in Sources */,
 				C9622B902467BE5200D0D697 /* r1updt.c in Sources */,
+				C9FAB8FF24C925DC005A58BB /* FunctionParameter.swift in Sources */,
 				C9B3FDEC21503DE7000FC9A8 /* PyExtensionContext.swift in Sources */,
 				C924ADE622A9FBF6001C8E94 /* Default.swift in Sources */,
 				C99E8D6C21F0CC7800C71884 /* WWDC16.swift in Sources */,
@@ -13617,6 +13654,8 @@
 				C9622B9B2467BE5200D0D697 /* lmstr.c in Sources */,
 				C9CED5352353A214000BB464 /* ThemeMakerTableViewController.swift in Sources */,
 				C92495C72151A3E3007EB4DB /* ReviewHelper.swift in Sources */,
+				C9FAB90324CA1C85005A58BB /* SetPropertyIntentHandler.swift in Sources */,
+				C93C2C7B24C7BF71000FE7EC /* ShortcutsRuntimeStore.swift in Sources */,
 				C9B0E55723B4FC0300A4B4A7 /* ANSITextState.swift in Sources */,
 				C9622B8D2467BE5200D0D697 /* hybrj.c in Sources */,
 				C93C8E1E22E01ACA0008DC13 /* PySwitch.swift in Sources */,
@@ -13654,6 +13693,7 @@
 				C9592D1821D0592C00412CEF /* PyDocument.swift in Sources */,
 				C9B5D87221F20F2A00E980BA /* MarkdownPreviewController.swift in Sources */,
 				C95A79E8214DC9D0007A1B90 /* PyAlert.swift in Sources */,
+				C93C2C7924C7AB5A000FE7EC /* ImportModuleIntentHandler.swift in Sources */,
 				C90E5C9622DECB9F00851BD4 /* PyNotificationCenter.swift in Sources */,
 				C9C0E77221EE9F4B0057C63E /* Theme.swift in Sources */,
 				C9622B942467BE5200D0D697 /* hybrj1_.c in Sources */,
@@ -13664,6 +13704,7 @@
 				C93D61E32145D50A00C8B5E3 /* String.swift in Sources */,
 				C9622B8F2467BE5200D0D697 /* hybrd.c in Sources */,
 				C91F963424AD9185003ACF02 /* PyPiView.swift in Sources */,
+				C9FAB8FB24C92072005A58BB /* CodablePythonObject.swift in Sources */,
 				C9592D1921D0592C00412CEF /* ViewControllerTransitionCoordinator.swift in Sources */,
 				C91F962524AD9185003ACF02 /* Cell.swift in Sources */,
 				C9C0E77A21EF65BE0057C63E /* ThemableNavigationController.swift in Sources */,
@@ -13720,6 +13761,7 @@
 				C9622B8B2467BE5200D0D697 /* qrfac_.c in Sources */,
 				C976592721471D23001C96A8 /* PyFilePicker.swift in Sources */,
 				C9C0E78D21F0B7FA0057C63E /* ThemeChooserTableViewController.swift in Sources */,
+				C9FAB90524CA661A005A58BB /* GetObjectDescriptionIntentHandler.swift in Sources */,
 				C9C7AC6E22F5EE9F00659685 /* PyWebView.swift in Sources */,
 				C9E4152B21513E3400D64E32 /* ConsoleTextView.swift in Sources */,
 				C98A5BB622C7E86900D411CC /* PyColor.swift in Sources */,
@@ -13748,8 +13790,10 @@
 				C9622B852467BE5200D0D697 /* fdjac2_.c in Sources */,
 				C9FCFD59214428AE00A07974 /* AppDelegate.swift in Sources */,
 				C93D61E12145D46700C8B5E3 /* PyOutputHelper.swift in Sources */,
+				C9FAB8FD24C9247C005A58BB /* CallFunctionIntentHandler.swift in Sources */,
 				C913202B21DC12A300EEE677 /* AcknowledgmentsViewController.swift in Sources */,
 				C9A5A5E32352B2EC001C8E20 /* TemplateChooserTableViewController.swift in Sources */,
+				C9FAB8E324C7D210005A58BB /* GetPropertyIntentHandler.swift in Sources */,
 				C9622BA52467BE5200D0D697 /* covar1.c in Sources */,
 				C9622BA62467BE5200D0D697 /* lmstr1.c in Sources */,
 				C9622BA42467BE5200D0D697 /* hybrd1.c in Sources */,
