@@ -79,16 +79,12 @@ func purchase(id: Product, window: UIWindow?) {
                     
                     // Only activate the "most upgraded" purchase
                     
-                    if products.contains(.freeTrial) && products.count > 1 {
-                        // Don't activate the free trial if something else was purchased
-                        
-                        if products.contains(.fullVersion) || products.contains(.upgrade) {
-                            // Don't activate the lite version if the full version is purchased
-                            completePurchase(id: Product.fullVersion.rawValue)
-                        } else if products.contains(.liteVersion) {
-                            completePurchase(id: Product.liteVersion.rawValue)
-                        }
-                    } else {
+                    if products.contains(.fullVersion) || products.contains(.upgrade) {
+                        // Don't activate the lite version if the full version is purchased
+                        completePurchase(id: Product.fullVersion.rawValue)
+                    } else if products.contains(.liteVersion) {
+                        completePurchase(id: Product.liteVersion.rawValue)
+                    } else if products.contains(.freeTrial) {
                         completePurchase(id: Product.freeTrial.rawValue)
                     }
                 }
@@ -108,7 +104,7 @@ var initialVersionRequiringUserToPay: String {
 
 /// The free trial duration in days.
 var freeTrialDuration: Int {
-    return 20
+    return 3
 }
 
 /// Returns a boolean indicating whether the app is in sandbox environment.
