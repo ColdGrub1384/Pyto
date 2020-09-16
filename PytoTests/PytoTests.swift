@@ -35,11 +35,18 @@ class PytoTests: XCTestCase {
                 if !Python.shared.isScriptRunning(url!.path) {
                     timer.invalidate()
                     
-                    let splitVC = keyWindow?.topViewController as? EditorSplitViewController
+                    let splitVC: EditorSplitViewController?
+                    
+                    if #available(iOS 14.0, *), let scene = keyWindow?.windowScene {
+                        splitVC = EditorView.EditorStore.perScene[scene]?.editor?.viewController as? EditorSplitViewController
+                    } else {
+                        splitVC = keyWindow?.topViewController as? EditorSplitViewController
+                    }
+                    
                     XCTAssertNotNil(splitVC)
                     
-                    if splitVC!.console.textView.text.contains("FAILED") {
-                        XCTFail(splitVC!.console.textView.text)
+                    if splitVC!.console?.textView.text.contains("FAILED") == true {
+                        XCTFail(splitVC!.console?.textView.text ?? "")
                     }
                     
                     expectation.fulfill()
