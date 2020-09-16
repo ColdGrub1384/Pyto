@@ -1,0 +1,94 @@
+//
+//  Component.swift
+//  Pyto
+//
+//  Created by Adrian Labbé on 25-07-20.
+//  Copyright © 2020 Adrian Labbé. All rights reserved.
+//
+
+import SwiftUI
+
+@objc class WidgetComponent: NSObject, Identifiable, Codable {
+    
+    override init() {}
+    
+    let id = UUID()
+    
+    @objc var backgroundColor: UIColor?
+    
+    @objc var cornerRadius: Float = 0
+    
+    @objc var identifier: String?
+    
+    @objc var padding = 0
+    
+    var paddingEdges: Edge.Set {
+        switch padding {
+        case 0:
+            return []
+        case 1:
+            return .all
+        case 2:
+            return .vertical
+        case 3:
+            return .horizontal
+        default:
+            return []
+        }
+    }
+    
+    var makeView: AnyView {
+        return AnyView(Spacer())
+    }
+    
+    enum Keys: CodingKey {
+        
+        case backgroundColor
+        
+        case cornerRadius
+        
+        case text
+        
+        case color
+        
+        case font
+        
+        case date
+        
+        case dateStyle
+        
+        case fill
+        
+        case image
+        
+        case symbolName
+        
+        case id
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Keys.self)
+        cornerRadius = try container.decode(Float.self, forKey: .cornerRadius)
+        do {
+            let colorData = try container.decode(Data.self, forKey: .backgroundColor)
+            backgroundColor = UIColor.color(withData: colorData)
+        } catch {
+            backgroundColor = nil
+        }
+        
+        do {
+            identifier = try container.decode(String.self, forKey: .id)
+        } catch {
+            identifier = nil
+        }
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: Keys.self)
+        try container.encode(cornerRadius, forKey: .cornerRadius)
+        try container.encode(backgroundColor?.encode(), forKey: .backgroundColor)
+        try container.encode(identifier, forKey: .id)
+        
+        print("Super encoded successfully")
+    }
+}

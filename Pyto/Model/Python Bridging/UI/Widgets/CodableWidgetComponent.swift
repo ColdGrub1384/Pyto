@@ -1,0 +1,38 @@
+//
+//  CodableWidgetComponent.swift
+//  Pyto
+//
+//  Created by Adrian Labbé on 30-07-20.
+//  Copyright © 2020 Adrian Labbé. All rights reserved.
+//
+
+import Foundation
+
+struct CodableWidgetComponent: Codable {
+    
+    var className: String
+    
+    var data: Data
+    
+    func makeObject() -> WidgetComponent? {
+        
+        var className = self.className
+        #if WIDGET
+        className = "WidgetExtension.\(className)"
+        #else
+        className = "Pyto.\(className)"
+        #endif
+        
+        guard let WidgetClass = NSClassFromString(className) as? WidgetComponent.Type else {
+            return nil
+        }
+        
+        do {
+            let object = try JSONDecoder().decode(WidgetClass, from: data)
+            return object
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+}
