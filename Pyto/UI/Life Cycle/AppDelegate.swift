@@ -482,16 +482,6 @@ import TrueTime
             return RunScriptIntentHandler()
         } else if intent is RunCodeIntent {
             return RunCodeIntentHandler()
-        } else if intent is ImportModuleIntent {
-            return ImportModuleIntentHandler()
-        } else if intent is GetPropertyIntent {
-            return GetPropertyIntentHandler()
-        } else if intent is CallFunctionIntent {
-            return CallFunctionIntentHandler()
-        } else if intent is SetPropertyIntent {
-            return SetPropertyIntentHandler()
-        } else if intent is GetObjectDescriptionIntent {
-            return GetObjectDescriptionIntentHandler()
         } else {
             return nil
         }
