@@ -22,7 +22,7 @@ enum PyDocumentError: Error {
     
     #if MAIN
     /// The editor that is editing this document.
-    var editor: EditorViewController?
+    weak var editor: EditorViewController?
     #endif
     
     /// A boolean indicating whether `open(completionHandler:)` has been called for this instance.
