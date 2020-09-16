@@ -9,6 +9,7 @@
 import UIKit
 import WebKit
 import SafariServices
+import Zip
 
 /// A View controller showing offline documentation.
 class DocumentationViewController: UIViewController, WKNavigationDelegate {
@@ -67,13 +68,28 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
             }
         }
     }
+    
+    private var docsURL: URL {
+        let url = FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask)[0].appendingPathComponent("docs_build")
+        
+        if /*!FileManager.default.fileExists(atPath: url.path),*/ let bundledDocs = Bundle.main.url(forResource: "docs", withExtension: "zip") {
+            
+            do {
+                try Zip.unzipFile(bundledDocs, destination: url.deletingLastPathComponent(), overwrite: true, password: nil)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        
+        return url
+    }
         
     // MARK: - View controller
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Documentation" // TODO: Localize
+        title = Localizable.Help.documentation
         
         edgesForExtendedLayout = []
         
@@ -83,8 +99,11 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(webView)
         
-        if let url = Bundle.main.url(forResource: "docs_build/html", withExtension: "") {
-            self.webView.loadFileURL(url.appendingPathComponent("index.html"), allowingReadAccessTo: url)
+        DispatchQueue.global().async {
+            let url = self.docsURL
+            DispatchQueue.main.async {
+                self.webView.loadFileURL(url.appendingPathComponent("html/index.html"), allowingReadAccessTo: url)
+            }
         }
         
         goBackButton = UIBarButtonItem(image: UIImage(named: "back"), style: .plain, target: self, action: #selector(goBack))
@@ -92,7 +111,7 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         
         toolbarItems = [goBackButton, UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), goForwardButton]
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(close))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
         
         if UIDevice.current.userInterfaceIdiom == .pad, #available(iOS 13.0, *) {
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.down.square.fill"), style: .plain, target: self, action: #selector(openInNewWindow))
@@ -106,7 +125,7 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         navigationController?.setToolbarHidden(false, animated: true)
                 
         if #available(iOS 13.0, *) {
-            view.window?.windowScene?.title = "Documentation" // TODO: Localize
+            view.window?.windowScene?.title = Localizable.Help.documentation
         }
     }
     
