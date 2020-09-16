@@ -9,7 +9,7 @@
 import UIKit
 
 /// Runs the script passed to Shortcuts.
-func RunShortcutsScript(at url: URL, arguments: [String]) {
+func RunShortcutsScript(at url: URL, arguments: [String], sendOutput: Bool = true) {
     var task: UIBackgroundTaskIdentifier!
     task = UIApplication.shared.beginBackgroundTask(expirationHandler: {
         UIApplication.shared.endBackgroundTask(task)
@@ -25,7 +25,13 @@ func RunShortcutsScript(at url: URL, arguments: [String]) {
     QuickLookHelper.images = []
     PyOutputHelper.output = ""
     
-    Python.shared.run(code: """
+    if #available(iOS 14.0, *) {
+        if let code = try? String(contentsOf: url) {
+            PyWidget.widgetCode = code
+        }
+    }
+    
+    var code = """
     from rubicon.objc import ObjCClass
     from pyto import PyOutputHelper, Python
     import runpy
