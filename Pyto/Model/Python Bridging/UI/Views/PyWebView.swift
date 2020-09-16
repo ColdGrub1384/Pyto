@@ -99,9 +99,9 @@ import WebKit
         DispatchQueue.main.async {
             self.webView.evaluateJavaScript(code) { (value, error) in
                 if let value = value {
-                    str = "_VALULE_:\(value)"
+                    str = "_VALUE_:\(value)"
                 } else if let error = error {
-                    str = "_ERROR_:\(error.localizedDescription)"
+                    str = "_ERROR_:\(error)"
                 }
                 
                 semaphore.signal()
@@ -133,7 +133,10 @@ import WebKit
     
     @objc override class func newView() -> PyView {
         return PyWebView(managed: get {
-            return WKWebView()
+            let config = WKWebViewConfiguration()
+            config.setValue(true, forKey: "allowUniversalAccessFromFileURLs")
+            let webView = WKWebView(frame: .zero, configuration: config)
+            return webView
         })
     }
     

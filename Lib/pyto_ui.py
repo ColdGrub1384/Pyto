@@ -3466,15 +3466,19 @@ if "widget" not in os.environ:
             :param code: JavaScript code to run.
             :rtype: str
             """
-
+            
+            code = NSString.alloc().initWithUTF8String(code.encode("utf-8"))
+            
             result = self.__py_view__.evaluateJavaScript(code)
+            code.release()
             if result is None:
                 return None
             else:
-                result = str(result)
-                if result.startswith("_VALULE_:"):
-                    return result.replace("_VALULE_:", "", 1)
-                elif result.endswith("_ERROR_:"):
+                _result = str(result)
+                result = _result
+                if result.startswith("_VALUE_:"):
+                    return result.replace("_VALUE_:", "", 1)
+                elif result.startswith("_ERROR_:"):
                     raise self.__class__.JavaScriptException(
                         result.replace("_ERROR_:", "", 1)
                     )
