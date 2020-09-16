@@ -60,7 +60,9 @@ public class RecentDataSource: ObservableObject {
                 for url in newValue.reversed() {
                     do {
                         if !names.contains(FileManager.default.displayName(atPath: url.path)) {
+                            #if !SCREENSHOTS
                             data.append(try url.bookmarkData())
+                            #endif
                             names.append(FileManager.default.displayName(atPath: url.path))
                         }
                     } catch {

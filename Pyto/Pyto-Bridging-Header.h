@@ -5,7 +5,7 @@
 #import "../Python/Python.h"
 #import "Model/Python Bridging/Selectors/BlockBasedSelector.h"
 
-#if MAIN
+#if MAIN && !SCREENSHOTS
 #import <openssl/pkcs7.h>
 #import <openssl/objects.h>
 #import <openssl/evp.h>
@@ -14,10 +14,8 @@
 #import "Other/RMStore/RMAppReceipt.h"
 #endif
 
-#include <os/proc.h>
+#if MAIN
+#import "../TextKit_LineNumbers/LineNumberTextView/LineNumberTextView.h"
+#endif
 
-PyMODINIT_FUNC (*PyInit__multiarray_umath)(void);
-PyMODINIT_FUNC (*PyInit_fftpack_lite)(void);
-PyMODINIT_FUNC (*PyInit__umath_linalg)(void);
-PyMODINIT_FUNC (*PyInit_lapack_lite)(void);
-PyMODINIT_FUNC (*PyInit_mtrand)(void);
+#include <os/proc.h>

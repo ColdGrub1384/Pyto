@@ -11,6 +11,7 @@ import StoreKit
 
 #if MAIN
 
+#if !SCREENSHOTS
 fileprivate func readASN1Data(ptr: UnsafePointer<UInt8>, length: Int) -> Data {
     return Data(bytes: ptr, count: length)
 }
@@ -77,11 +78,13 @@ fileprivate func readASN1Date(ptr: inout UnsafePointer<UInt8>?, maxLength: Int) 
 
     return nil
 }
+#endif
 
 /// An on device receipt validator.
 struct ReceiptValidator {
     
     init?() {
+        #if !SCREENSHOTS
         guard let receipt = ReceiptValidator.loadReceipt() else {
             return nil
         }
@@ -91,10 +94,16 @@ struct ReceiptValidator {
         }
         
         self.receipt = ReceiptValidator.readReceipt(receipt)
+        
+        PKCS7_free(receipt)
+        #else
+        return nil
+        #endif
     }
     
+    #if !SCREENSHOTS
     private static func loadReceipt() -> UnsafeMutablePointer<PKCS7>? {
-                
+        #if !SCREENSHOTS
         guard let receiptUrl = Bundle.main.appStoreReceiptURL, let receiptData = try? Data(contentsOf: receiptUrl) else {
             return nil
         }
@@ -121,8 +130,11 @@ struct ReceiptValidator {
         guard OBJ_obj2nid(receiptContents?.pointee.type) == NID_pkcs7_data else {
             return nil
         }
-
+        
         return receiptPKCS7
+        #else
+        return nil
+        #endif
     }
     
     private static func validateSigning(_ receipt: UnsafeMutablePointer<PKCS7>?) -> Bool {
@@ -147,11 +159,16 @@ struct ReceiptValidator {
         // 3
         let verificationResult = PKCS7_verify(receipt, nil, store, nil, nil, 0)
         guard verificationResult == 1  else {
+            X509_STORE_free(store)
+            X509_free(rootCertX509)
             return false
         }
-
+        
+        X509_STORE_free(store)
+        X509_free(rootCertX509)
         return true
     }
+    #endif
     
     /// Fields in the app receipt.
     enum ReceiptField {
@@ -181,6 +198,7 @@ struct ReceiptValidator {
         case inApp
     }
     
+    #if !SCREENSHOTS
     fileprivate static func readReceipt(_ receiptPKCS7: UnsafeMutablePointer<PKCS7>?) -> [ReceiptField:Any] {
         // Get a pointer to the start and end of the ASN.1 payload
         let receiptSign = receiptPKCS7?.pointee.d.sign
@@ -265,12 +283,14 @@ struct ReceiptValidator {
         dict[.inApp] = iaps
         return dict
     }
+    #endif
     
     /// A dictionary containing the receipt's data.
     let receipt: [ReceiptField:Any]
     
     /// The free trial start date.
     var trialStartDate: Date? {
+        #if !SCREENSHOTS
         for inApp in (receipt[.inApp] as? [RMAppReceiptIAP]) ?? [] {
             if inApp.productIdentifier.hasSuffix("freetrial") {
                 return inApp.originalPurchaseDate
@@ -278,6 +298,9 @@ struct ReceiptValidator {
         }
         
         return nil
+        #else
+        return nil
+        #endif
     }
 }
 #endif

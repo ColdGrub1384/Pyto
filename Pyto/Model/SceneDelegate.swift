@@ -50,7 +50,7 @@ import SwiftUI
     @available(iOS 13.0, *)
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
-        #if VPP
+        #if VPP || SCREENSHOTS
         changingUserDefaultsInAppPurchasesValues = true
         isPurchased.boolValue = true
         changingUserDefaultsInAppPurchasesValues = true
