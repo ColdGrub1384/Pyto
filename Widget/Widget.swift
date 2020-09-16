@@ -35,7 +35,9 @@ struct Provider: IntentTimelineProvider {
     func getTimeline(for configuration: ScriptIntent, in context: Context, completion: @escaping (Timeline<ScriptEntry>) -> Void) {
         if let category = configuration.category {
             
-            guard let data = Data(base64Encoded: category.identifier ?? "") else {
+            let saved = UserDefaults.shared?.value(forKey: "savedWidgets") as? [String:Data]
+            
+            guard let data = saved?[category.identifier ?? ""] else {
                 return
             }
             
@@ -45,7 +47,7 @@ struct Provider: IntentTimelineProvider {
             } catch {
                 print(error.localizedDescription)
             }
-        } else {
+        } else if configuration.script != nil {
             let id = UUID().uuidString
             
             guard let bookmarkData = configuration.script?.data else {
@@ -53,72 +55,91 @@ struct Provider: IntentTimelineProvider {
             }
             
             do {
-                var isStale = false
-                let url = try URL(resolvingBookmarkData: bookmarkData, bookmarkDataIsStale: &isStale)
-                _ = url.startAccessingSecurityScopedResource()
-                
-                let data = try Data(contentsOf: url)
-                let script = try JSONDecoder().decode(IntentScript.self, from: data)
-                PyWidget.widgetCode = script.code
-                
-                let code = """
-                import widgets
-                import sys
-                import io
-                import traceback
-                from pyto import __Class__
-                from outputredirector import Reader
-
-                PyWidget = __Class__("PyWidget")
-
-                console = ""
-
-                def read(text):
-                    global console
-                    console += text
-                    PyWidget.breakpoint(text)
-                
-                write = read
-
-                standardOutput = Reader(read)
-                standardOutput._buffer = io.BufferedWriter(standardOutput)
-                standardOutput.buffer.write = write
-
-                standardError = Reader(read)
-                standardError._buffer = io.BufferedWriter(standardError)
-                standardError.buffer.write = write
-
-                sys.stdout = standardOutput
-                sys.stderr = standardError
-
-                widgets.__shown_view__ = False
-                widgets.__widget_id__ = \"\(id)\"
-
-                PyWidget.breakpoint("Will run")
-
-                try:
-                    exec(str(PyWidget.widgetCode))
-                except:
-                    console += traceback.format_exc()+"\\n"
-
-                PyWidget.breakpoint("Doneeee")
-
-                if not widgets.__shown_view__:
-                    widget = PyWidget.alloc().init()
+                if executedWidgets[bookmarkData] == nil {
+                    var isStale = false
+                    let url = try URL(resolvingBookmarkData: bookmarkData, bookmarkDataIsStale: &isStale)
+                    _ = url.startAccessingSecurityScopedResource()
                     
-                    if console.endswith("\\n"):
-                        console = console[:-1]
+                    let data = try Data(contentsOf: url)
+                    let script = try JSONDecoder().decode(IntentScript.self, from: data)
+                    PyWidget.widgetCode = script.code
+                    
+                    executedWidgets[bookmarkData] = id
+                    
+                    let code = """
+                    import widgets
+                    import sys
+                    import io
+                    from pyto import __Class__
+                    from outputredirector import Reader
 
-                    widget.output = console
-                    PyWidget.updateTimeline(\"\(id)\", widget=widget)
-                """
+                    PyWidget = __Class__("PyWidget")
+
+                    console = ""
+
+                    def read(text):
+                        global console
+                        console += text
+                        PyWidget.breakpoint(text)
+                    
+                    write = read
+
+                    standardOutput = Reader(read)
+                    standardOutput._buffer = io.BufferedWriter(standardOutput)
+                    standardOutput.buffer.write = write
+
+                    standardError = Reader(read)
+                    standardError._buffer = io.BufferedWriter(standardError)
+                    standardError.buffer.write = write
+
+                    sys.stdout = standardOutput
+                    sys.stderr = standardError
+
+                    widgets.__shown_view__ = False
+                    widgets.__widget_id__ = \"\(id)\"
+
+                    PyWidget.breakpoint("Will run")
+
+                    try:
+                        exec(str(PyWidget.widgetCode))
+                    except Exception as e:
+                        console += str(e)+"\\n"
+
+                    PyWidget.breakpoint("Doneeee")
+
+                    if not widgets.__shown_view__:
+                        widget = PyWidget.alloc().init()
+                        
+                        if console.endswith("\\n"):
+                            console = console[:-1]
+
+                        widget.output = console
+                        PyWidget.updateTimeline(\"\(id)\", widget=widget)
+                    """
+                                        
+                    url.stopAccessingSecurityScopedResource()
+                    
+                    SetupPython()
+                    
+                    if PyWidget.makeTimeline[id] == nil {
+                        PyWidget.makeTimeline[id] = []
+                    }
+                    
+                    var list = PyWidget.makeTimeline[id]
+                    list?.append(completion)
+                    PyWidget.makeTimeline[id] = list
+                    
+                    PyWidget.codeToRun.add(NSArray(array: [code, id]))
+                } else if let id = executedWidgets[bookmarkData] {
+                    if let timeline = PyWidget.timelines[id] {
+                        completion(timeline)
+                    } else {
+                        var list = PyWidget.makeTimeline[id]
+                        list?.append(completion)
+                        PyWidget.makeTimeline[id] = list
+                    }
+                }
                 
-                url.stopAccessingSecurityScopedResource()
-                
-                SetupPython()
-                
-                PyWidget.makeTimeline[id] = completion
-                PyWidget.codeToRun.add(NSArray(array: [code, id]))
             } catch {
                 print(error.localizedDescription)
             }
@@ -127,37 +148,75 @@ struct Provider: IntentTimelineProvider {
         }
     }
 }
+#endif
 
-struct PlaceholderView : View {
-    var body: some View {
-        WidgetEntryView(entry: ScriptEntry(date: Date(), output: "No output", snapshots: [:]))
-    }
-}
-
+@available(iOS 14.0, *)
 struct WidgetEntryView : View {
     
     @Environment(\.widgetFamily) var family
         
-    var entry: Provider.Entry
+    var entry: ScriptEntry
         
+    var customFamily: WidgetFamily?
+    
+    init(entry: ScriptEntry, customFamily: WidgetFamily? = nil) {
+        self.entry = entry
+        self.customFamily = customFamily
+    }
+    
     var body: some View {
-        HStack { () -> AnyView in
-            if let snapshot = entry.snapshots[family] {
-                print(snapshot.0.pngData()?.base64EncodedString() ?? "", terminator: "\n\n")
-                return AnyView(Image(uiImage: snapshot.0).resizable().scaledToFill())
+        
+        let family = customFamily ?? self.family
+        
+        if let view = entry.view?[family] {
+            view.entry = entry
+            let widgetView = view.makeView
+            let background = view.backgroundImage?.makeView ?? AnyView(Color(view.backgroundColor ?? UIColor.systemBackground))
+            let url = entry.url(viewID: view.link)
+                        
+            if family == .systemMedium {
+                #if WIDGET
+                return AnyView(ZStack {
+                    background
+                    widgetView
+                }.widgetURL(url))
+                #else
+                return AnyView(ZStack {
+                    background
+                    widgetView/*.padding(.vertical)*/
+                }.widgetURL(url))
+                #endif
             } else {
-                return AnyView(Text(entry.output).padding())
+                return AnyView(ZStack {
+                    background
+                    widgetView/*.padding()*/
+                }.widgetURL(url))
             }
-        }.padding().background(Color(entry.snapshots[family]?.1 ?? UIColor.systemBackground))
+        } else {
+            
+            return AnyView(HStack { () -> AnyView in
+                if let snapshot = entry.snapshots[family] {
+                    return AnyView(Image(uiImage: snapshot.0).resizable().scaledToFill())
+                } else {
+                    var text = AnyView(Text(entry.output))
+                    if entry.isPlaceholder {
+                        text = AnyView(text.redacted(reason: .placeholder))
+                    }
+                    return AnyView(text.padding())
+                }
+            }.padding().background(Color(entry.snapshots[family]?.1 ?? UIColor.clear)))
+        }
     }
 }
+
+#if WIDGET
 
 @main
 struct PytoWidget: Widget {
     private let kind: String = "Script"
 
     public var body: some WidgetConfiguration {
-        IntentConfiguration(kind: kind, intent: ScriptIntent.self, provider: Provider(), placeholder: PlaceholderView(), content: { entry in
+        IntentConfiguration(kind: kind, intent: ScriptIntent.self, provider: Provider(), content: { entry in
             WidgetEntryView(entry: entry)
         })
         .configurationDisplayName("script")

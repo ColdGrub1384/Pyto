@@ -30,14 +30,78 @@ struct ScriptEntry: TimelineEntry, Codable {
     /// The snapshots.
     var snapshots: [WidgetFamily:(UIImage, UIColor)]
     
-    enum Key: CodingKey {
-        case snapshots
+    /// A view contained in the widget.
+    var view: [WidgetFamily:WidgetView]?
+    
+    /// The code of the executed script.
+    var code: String
+    
+    /// The bookmark data of the script running the widget.
+    var bookmarkData: Data?
+    
+    /// A boolean indicating whether the console should be rendered as a placeholder.
+    var isPlaceholder = false
+    
+    /// Returns the URL to open the script.
+    ///
+    /// - Parameters:
+    ///     - viewID: The ID of the view.
+    ///
+    /// - Returns: A deep link to Pyto.
+    func url(viewID: String?) -> URL? {
+        
+        var _code = self.code
+        
+        if _code.isEmpty, let data = bookmarkData {
+            _code = """
+            from console import run_script
+            from Foundation import NSData, NSURL
+
+            data = NSData.alloc().initWithBase64EncodedString('\(data.base64EncodedString())', options=0)
+            
+            url = NSURL.URLByResolvingBookmarkData(
+                data,
+                options=0,
+                relativeToURL=None,
+                bookmarkDataIsStale=None,
+                error=None,
+            )
+            
+            if url is not None:
+                url.startAccessingSecurityScopedResource()
+                path = str(url.path)
+                run_script(path)
+            """
+        }
+        
+        let code = """
+        __name__ = "widget"
+
+        \(viewID != nil ? "import widgets; widgets.link = \"\(viewID!.replacingOccurrences(of: "\"", with: "\\\""))\"; del widgets;" : "")
+
+        \(_code)
+
+        import widgets
+        widgets.link = None
+        """
+        
+        let url = URL(string: "pyto://x-callback/?code=\(code.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")")
+        return url
     }
     
-    init(date: Date, output: String, snapshots: [WidgetFamily:(UIImage, UIColor)]) {
+    enum Key: CodingKey {
+        case snapshots
+        case view
+        case bookmarkData
+    }
+    
+    init(date: Date, output: String, snapshots: [WidgetFamily:(UIImage, UIColor)] = [:], view: [WidgetFamily:WidgetView]? = nil, code: String = "", bookmarkData: Data? = nil) {
         self.date = date
         self.output = output
         self.snapshots = snapshots
+        self.view = view
+        self.code = code
+        self.bookmarkData = bookmarkData
     }
     
     init(from decoder: Decoder) throws {
@@ -54,8 +118,29 @@ struct ScriptEntry: TimelineEntry, Codable {
             snapshots[WidgetFamily(rawValue: snapshot.family) ?? .systemSmall] = (image, color)
         }
         
+        do {
+            let _view = try container.decode([Int:WidgetView].self, forKey: .view)
+            
+            var view = [WidgetFamily:WidgetView]()
+            
+            for __view in _view {
+                view[WidgetFamily(rawValue: __view.key) ?? .systemSmall] = __view.value
+            }
+            
+            self.view = view
+        } catch {
+            self.view = nil
+        }
+        
+        do {
+            bookmarkData = try container.decode(Data.self, forKey: .bookmarkData)
+        } catch {
+            bookmarkData = nil
+        }
+        
         output = ""
         date = Date()
+        code = ""
         self.snapshots = snapshots
     }
     
@@ -67,6 +152,13 @@ struct ScriptEntry: TimelineEntry, Codable {
             snapshots.append(ScriptSnapshot(family: snapshot.key.rawValue, image: snapshot.value.0.pngData() ?? Data(), backgroundColor: snapshot.value.1.encode()))
         }
         
+        var views = [Int:WidgetView]()
+        for view in self.view ?? [:] {
+            views[view.key.rawValue] = view.value
+        }
+        
+        try container.encode(views, forKey: .view)
         try container.encode(snapshots, forKey: .snapshots)
+        try container.encode(bookmarkData, forKey: .bookmarkData)
     }
 }

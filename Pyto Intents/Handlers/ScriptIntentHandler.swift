@@ -43,7 +43,7 @@ class ScriptIntentHandler: NSObject, ScriptIntentHandling {
         }
         
         for value in saved {
-            widgets.append(WidgetCategory(identifier: value.value.base64EncodedString(), display: value.key))
+            widgets.append(WidgetCategory(identifier: value.key, display: value.key))
         }
         
         let collection = INObjectCollection(items: widgets)

@@ -1244,6 +1244,12 @@ fileprivate func parseArgs(_ args: inout [String]) {
             
             (UIApplication.shared.delegate as? AppDelegate)?.addURLToShortcuts(self.document!.fileURL)
             
+            #if !Xcode11
+            if #available(iOS 14.0, *) {
+                PyWidget.widgetCode = self.textView.contentTextView.text
+            }
+            #endif
+            
             DispatchQueue.main.async {
                 if let url = self.document?.fileURL {
                     func run() {

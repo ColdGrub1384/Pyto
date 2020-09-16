@@ -8,6 +8,9 @@
 
 import UIKit
 import WidgetKit
+#if !WIDGET
+import SwiftUI
+#endif
 
 /// A class for managing widgets timelines from Python.
 @available(iOS 14.0, *)
@@ -17,6 +20,8 @@ import WidgetKit
         print(value)
     }
     
+    static var timelines = [String:Timeline<ScriptEntry>]()
+        
     /// Returns the size of a widget from a widget family.
     ///
     /// - Parameters:
@@ -36,7 +41,7 @@ import WidgetKit
     }
     
     /// A dictionary of functions for creating timelines per their ID.
-    static var makeTimeline = [String:((Timeline<ScriptEntry>) -> ())]()
+    static var makeTimeline = [String:[((Timeline<ScriptEntry>) -> ())]]()
         
     /// Code to run.
     @objc static var codeToRun = NSMutableArray()
@@ -55,6 +60,32 @@ import WidgetKit
     
     /// A time interval indicating when a new timeline will be requested.
     @objc var updateInterval: Double = 0
+    
+    /// The path of the script running the widget.
+    @objc var scriptPath: String?
+    
+    /// The bookmark data of the script running the widget.
+    var bookmarkData: Data? {
+        guard let path = scriptPath else {
+            return nil
+        }
+        
+        let url = URL(fileURLWithPath: path)
+        
+        return try? url.bookmarkData()
+    }
+    
+    /// A view contained in the widget.
+    var widgetViews: [WidgetFamily:WidgetView]?
+    
+    @objc func addView(_ view: WidgetView, family: Int) {
+        if widgetViews == nil {
+            widgetViews = [:]
+        }
+        if let widgetFamily = WidgetFamily(rawValue: family) {
+            widgetViews?[widgetFamily] = view
+        }
+    }
     
     /// Takes a snapshot of `view` for the given widget family.
     ///
@@ -85,29 +116,63 @@ import WidgetKit
     ///     - widget: A `PyWidget` object containing the result of a script.
     @objc static func updateTimeline(_ widgetID: String, widget: PyWidget) {
         
-        #if WIDGET
         let semaphore = DispatchSemaphore(value: 0)
         
         DispatchQueue.main.async {
-            let timeline = Timeline(entries: [ScriptEntry(date: Date(), output: widget.output, snapshots: widget.snapshot)], policy: .after(Date().addingTimeInterval(widget.updateInterval)))
-            makeTimeline[widgetID]?(timeline)
+                        
+            let entry = ScriptEntry(date: Date(), output: widget.output, snapshots: widget.snapshot, view: widget.widgetViews ?? self.timelines[widgetID]?.entries.first?.view, code: widgetCode ?? "", bookmarkData: widget.bookmarkData)
+            let timeline = Timeline(entries: [entry], policy: .after(Date().addingTimeInterval(widget.updateInterval)))
+            
+            #if WIDGET
+            self.timelines[widgetID] = timeline
+            
+            for handler in makeTimeline[widgetID] ?? [] {
+                handler(timeline)
+            }
+            
             makeTimeline[widgetID] = nil
             
             print(PyWidget.codeToRun.count)
-            
-            /*if PyWidget.codeToRun.count == 0 || makeTimeline.isEmpty {
-                exit(0) // So the next script has more free RAM
-            }*/
-            
+        
             semaphore.signal()
+            #else
+            
+            // Preview
+            
+            let preview = WidgetPreview(entry: entry)
+            let vc = UIHostingController(rootView: AnyView(preview))
+            preview.viewControllerStore.vc = vc
+            
+            for scene in UIApplication.shared.connectedScenes {
+                
+                guard scene.activationState == .foregroundActive || scene.activationState == .foregroundInactive else {
+                    continue
+                }
+                
+                if let window = (scene as? UIWindowScene)?.windows.first {
+                    
+                    window.topViewController?.present(vc, animated: true, completion: nil)
+                    
+                    break
+                }
+            }
+            
+            #endif
         }
         
+        #if WIDGET
         semaphore.wait()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+            if PyWidget.codeToRun.count == 0 || makeTimeline.isEmpty {
+                exit(0) // So the next script has more free RAM
+            }
+        }
         #endif
     }
         
     @objc static func addWidget(_ widget: PyWidget, key: String) {
-        let entry = ScriptEntry(date: Date(), output: widget.output, snapshots: widget.snapshot)
+        let entry = ScriptEntry(date: Date(), output: widget.output, snapshots: widget.snapshot, view: widget.widgetViews, code: widgetCode ?? "", bookmarkData: widget.bookmarkData)
         do {
             let data = try JSONEncoder().encode(entry)
             
