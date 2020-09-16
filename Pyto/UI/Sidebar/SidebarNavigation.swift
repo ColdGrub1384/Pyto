@@ -8,27 +8,37 @@
 
 import SwiftUI
 
-// TODO: Localize
-
 /// A code editor view.
 ///
 /// Use it as a `NavigationLink` for opening a code editor. The code editor is only created when this view appears so it works a lot faster and uses less memory than directly linking a `ViewController`.
 @available(iOS 14.0, *)
-struct EditorView: View {
+public struct EditorView: View {
     
     /// A store containing the view controller.
-    class EditorStore {
-        var editor: ViewController?
+    public class EditorStore {
+        public static var perScene = [UIWindowScene:EditorStore]()
+        
+        public var editor: ViewController?
+        
+        var sizeClass: (UIUserInterfaceSizeClass, UIUserInterfaceSizeClass)?
+    }
+    
+    private class IsOpeningStore {
+        
+        var isOpening = false
     }
     
     /// The code returning a view controller.
-    let makeEditor: (() -> ViewController)
+    let makeEditor: ((ViewControllerStore?) -> ViewController)
     
     /// The store containing the editor.
-    let editorStore = EditorStore()
+    let editorStore: EditorStore
     
     /// An object storing the code editor.
     let currentViewStore: CurrentViewStore
+    
+    /// The `ViewControllerStore` object associated with the sidebar navigation.
+    let viewControllerStore: ViewControllerStore?
     
     /// A boolean that will be set to `false` on appear to enable the split view on the menu.
     let isStack: Binding<Bool>
@@ -39,35 +49,96 @@ struct EditorView: View {
     /// The binding where the selection will be written.
     let selected: Binding<SelectedSection?>
     
+    /// The selection restored from state restoration.
+    let restoredSelection: Binding<SelectedSection?>
+    
+    /// The URL of the document to edit.
+    let url: URL
+    
+    private let scene: UIWindowScene?
+    
     /// Initializes an editor.
     ///
     /// - Parameters:
     ///     - makeEditor: A block returning a view controller.
+    ///     - url: The URL of the document to edit.
     ///     - currentViewStore: The object storing the current selection of the sidebar.
+    ///     - viewControllerStore: The `ViewControllerStore` object associated with the sidebar navigation.
     ///     - isStack: A boolean that will be set to `false` on appear to enable the split view on the menu.
     ///     - selection: The selection.
     ///     - selected: The binding where the selection will be written.
-    init(makeEditor: @escaping (() -> ViewController), currentViewStore: CurrentViewStore, isStack: Binding<Bool>, selection: SelectedSection, selected: Binding<SelectedSection?>) {
+    ///     - restoredSelection: The selection restored from state restoration.
+    init(makeEditor: @escaping ((ViewControllerStore?) -> ViewController), url: URL, scene: UIWindowScene?, currentViewStore: CurrentViewStore, viewControllerStore: ViewControllerStore?, isStack: Binding<Bool>, selection: SelectedSection, selected: Binding<SelectedSection?>, restoredSelection: Binding<SelectedSection?>) {
         self.makeEditor = makeEditor
+        self.url = url
         self.currentViewStore = currentViewStore
+        self.viewControllerStore = viewControllerStore
         self.isStack = isStack
         self.selection = selection
+        self.restoredSelection = restoredSelection
         self.selected = selected
+        self.scene = scene
+        
+        if let scene = scene {
+            self.editorStore = EditorStore.perScene[scene] ?? EditorStore()
+            EditorStore.perScene[scene] = self.editorStore
+        } else {
+            self.editorStore = EditorStore()
+        }
     }
     
-    var body: some View {
+    private let isOpeningStore = IsOpeningStore()
+    
+    public var body: some View {
         
         var view: AnyView!
-                
+        
+        let editorVC = (editorStore.editor?.viewController as? EditorSplitViewController)?.editor
+        
         if editorStore.editor == nil {
-            let vc = makeEditor()
+            let vc = makeEditor(viewControllerStore)
+            (vc.viewController as? EditorSplitViewController)?.editor?.viewWillAppear(false)
             self.editorStore.editor = vc
+            if let traitCollection = scene?.windows.first?.traitCollection {
+                self.editorStore.sizeClass = (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass)
+            }
             view = AnyView(vc)
         } else {
+            if editorVC?.document?.fileURL != url && !isOpeningStore.isOpening {
+                isOpeningStore.isOpening = true
+                editorVC?.textView.resignFirstResponder()
+                
+                editorVC?.document?.editor = nil
+                
+                editorVC?.save { (_) in
+                    
+                    func open() {
+                        let document = PyDocument(fileURL: url)
+                        document.open { (_) in
+                            editorVC?.isDocOpened = false
+                            editorVC?.parent?.title = document.fileURL.deletingPathExtension().lastPathComponent
+                            editorVC?.parent?.parent?.title = editorVC?.parent?.title
+                            editorVC?.parent?.parent?.parent?.title = editorVC?.parent?.title // I'm not kidding
+                            editorVC?.document = document
+                            editorVC?.viewWillAppear(false)
+                            self.isOpeningStore.isOpening = false
+                        }
+                    }
+                    
+                    if editorVC?.document?.documentState.contains(.closed) != true {
+                        editorVC?.document?.close(completionHandler: { (_) in
+                            open()
+                        })
+                    } else {
+                        open()
+                    }
+                }
+            }
+            
             view = AnyView(editorStore.editor!)
         }
         
-        return AnyView(view.navigationBarTitleDisplayMode(.inline).link(store: currentViewStore, isStack: isStack, selection: selection, selected: selected))
+        return AnyView(view.navigationBarTitleDisplayMode(.inline).link(store: currentViewStore, isStack: isStack, selection: selection, selected: selected, restoredSelection: restoredSelection))
     }
 }
 
@@ -107,18 +178,15 @@ public struct SidebarNavigation: View {
     
     /// The object storing the current view.
     let currentViewStore = CurrentViewStore()
-    
+        
     /// The data source storing recent items.
     @ObservedObject public var recentDataSource = RecentDataSource.shared
-    
-    /// The data source storing sections expansions state.
-    @ObservedObject var expansionState = ExpansionState()
         
     /// The selected section in the sidebar.
     @ObservedObject var sceneStateStore: SceneStateStore
     
     /// The object storing the associated view controller.
-    public let viewControllerStore = ViewControllerStore()
+    public let viewControllerStore: ViewControllerStore
     
     /// The block that makes an editor for the passed file.
     var makeEditor: ((URL) -> UIViewController)
@@ -131,6 +199,14 @@ public struct SidebarNavigation: View {
     
     /// A boolean indicating whether the navigation view style should be stack.
     @State var stack = false
+    
+    /// The selection restored from state restoration.
+    @State var restoredSelection: SelectedSection?
+    
+    /// A boolean indicating whether the sidebar is shown.
+    var isSidebarShowing: Bool {
+        return (viewControllerStore.vc?.children.first as? UISplitViewController)?.displayMode != .secondaryOnly
+    }
         
     /// Initializes from given views.
     ///
@@ -142,27 +218,37 @@ public struct SidebarNavigation: View {
     ///     - documentationViewController: The View Controller for the documentation without documentation.
     ///     - modulesViewController: The View Controller for loaded modules.
     ///     - makeEditor: The block that makes an editor for the passed file.
-    public init(url: URL?, scene: UIWindowScene?, sceneStateStore: SceneStateStore, pypiViewController: UIViewController, samplesView: SamplesNavigationView, documentationViewController: UIViewController, modulesViewController: UIViewController, makeEditor: @escaping (URL) -> UIViewController) {
+    public init(url: URL?, scene: UIWindowScene?, sceneStateStore: SceneStateStore, restoreSelection: Bool, pypiViewController: UIViewController, samplesView: SamplesNavigationView, documentationViewController: UIViewController, modulesViewController: UIViewController, makeEditor: @escaping (URL) -> UIViewController) {
         
         let storyboard = UIStoryboard(name: "Main", bundle: .main)
+        let store = ViewControllerStore()
         
         self.scene = scene
         self.sceneStateStore = sceneStateStore
-        self.repl = ViewController(viewController: storyboard.instantiateViewController(withIdentifier: "replVC"))
-        self.pypi = ViewController(viewController: pypiViewController)
-        self.runModule = ViewController(viewController: storyboard.instantiateViewController(withIdentifier: "runModule"))
+        self.repl = ViewController(viewController: storyboard.instantiateViewController(withIdentifier: "replVC"), viewControllerStore: store)
+        self.pypi = ViewController(viewController: pypiViewController, viewControllerStore: store)
+        self.runModule = ViewController(viewController: storyboard.instantiateViewController(withIdentifier: "runModule"), viewControllerStore: store)
         self.samples = samplesView
-        self.documentation = ViewController(viewController: documentationViewController)
-        self.modules = ViewController(viewController: modulesViewController)
-        self.settings = ViewController(viewController: UIStoryboard(name: "Settings", bundle: .main).instantiateInitialViewController() ?? UIViewController())
+        self.documentation = ViewController(viewController: documentationViewController, viewControllerStore: store)
+        self.modules = ViewController(viewController: modulesViewController, viewControllerStore: store)
+        self.settings = ViewController(viewController: UIStoryboard(name: "Settings", bundle: .main).instantiateInitialViewController() ?? UIViewController(), viewControllerStore: store)
         self.makeEditor = makeEditor
+        
+        self.viewControllerStore = store
+        self.viewControllerStore.scene = scene
         
         recentDataSource.makeEditor = makeEditor
         _stack = .init(initialValue: (url == nil && sceneStateStore.sceneState.selection == nil))
-                
+        if restoreSelection {
+            _restoredSelection = .init(initialValue: sceneStateStore.sceneState.selection)
+        }
+        
+        currentViewStore.sceneStateStore = sceneStateStore
         currentViewStore.navigation = self
         
-        self._url = .init(initialValue: url)
+        _url = .init(initialValue: url)
+        
+        samplesView.withoutNavigation.$selectedItemStore.scene.wrappedValue = scene
     }
     
     private func withDoneButton(_ view: AnyView) -> AnyView {
@@ -184,62 +270,67 @@ public struct SidebarNavigation: View {
                 presentationMode.wrappedValue.dismiss()
                 viewControllerStore.vc?.dismiss(animated: true, completion: nil)
             } label: {
-                Label("Scripts", systemImage: "folder")
+                Label("sidebar.scripts", systemImage: "folder")
             }
-                        
-            DisclosureGroup("Recent", isExpanded: $expansionState.isRecentExpanded) {
+                                    
+            Section(header: Text("sidebar.recent")) {
                 ForEach(recentDataSource.recentItems.reversed(), id: \.url) { item in
                     NavigationLink(
-                        destination: EditorView(makeEditor: item.makeViewController, currentViewStore: currentViewStore, isStack: $stack, selection: .recent(item.url), selected: $sceneStateStore.sceneState.selection),
+                        destination: EditorView(makeEditor: item.makeViewController, url: item.url, scene: scene, currentViewStore: currentViewStore, viewControllerStore: viewControllerStore, isStack: $stack, selection: .recent(item.url), selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
                         label: {
                             Label(FileManager.default.displayName(atPath: item.url.path), systemImage: "clock")
                     })
                 }
             }
-            
-            DisclosureGroup("Python", isExpanded: $expansionState.isPythonExpanded) {
+                        
+            Section(header: Text("sidebar.python")) {
                 NavigationLink(
-                    destination: repl.navigationBarTitleDisplayMode(.inline).link(store: currentViewStore, isStack: $stack, selection: .repl, selected: $sceneStateStore.sceneState.selection),
+                    destination: repl.navigationBarTitleDisplayMode(.inline).link(store: currentViewStore, isStack: $stack, selection: .repl, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
+                    tag: SelectedSection.repl,
+                    selection: $restoredSelection,
                     label: {
-                        Label("REPL", systemImage: "play")
-                    })
-                                
+                        Label("repl", systemImage: "play")
+                })
+                
                 NavigationLink(
-                    destination: runModule.navigationBarTitleDisplayMode(.inline).link(store: currentViewStore, isStack: $stack, selection: .runModule, selected: $sceneStateStore.sceneState.selection)) {
-                    Label("Run module (python -m)", systemImage: "doc")
+                    destination: runModule.navigationBarTitleDisplayMode(.inline).link(store: currentViewStore, isStack: $stack, selection: .runModule, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
+                    tag: SelectedSection.runModule,
+                    selection: $restoredSelection) {
+                    Label("sidebar.runModule", systemImage: "doc")
                 }
                 
                 NavigationLink(destination: pypi.onAppear {
                     scene?.title = "PyPI"
                 }.onDisappear {
                     scene?.title = ""
-                }.link(store: currentViewStore, isStack: $stack, selection: .pypi, selected: $sceneStateStore.sceneState.selection)) {
-                    Label("PyPI", systemImage: "cube.box")
+                }.link(store: currentViewStore, isStack: $stack, selection: .pypi, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
+                tag: SelectedSection.pypi,
+                selection: $restoredSelection) {
+                    Label("sidebar.pypi", systemImage: "cube.box")
+                }
+                
+                NavigationLink(destination: modules.link(store: currentViewStore, isStack: $stack, selection: .loadedModules, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
+                    tag: SelectedSection.loadedModules,
+                    selection: $restoredSelection) {
+                    Label("sidebar.loadedModules", systemImage: "info.circle")
                 }
             }
             
-            DisclosureGroup("Resources", isExpanded: $expansionState.isResourcesExpanded) {
+            Section(header: Text("sidebar.resources")) {
                 NavigationLink(destination: samples.withoutNavigation.onAppear {
-                    scene?.title = "Examples"
+                    scene?.title = "sidebar.examples"
                 }.onDisappear {
                     scene?.title = ""
-                }.link(store: currentViewStore, isStack: $stack, selection: .examples, selected: $sceneStateStore.sceneState.selection)) {
-                    Label("Examples", systemImage: "bookmark")
+                }.link(store: currentViewStore, isStack: $stack, selection: .examples, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
+                tag: SelectedSection.examples,
+                selection: $restoredSelection) {
+                    Label("sidebar.examples", systemImage: "bookmark")
                 }
                 
-                NavigationLink(destination: documentation.link(store: currentViewStore, isStack: $stack, selection: .documentation, selected: $sceneStateStore.sceneState.selection)) {
-                    Label("Documentation", systemImage: "book")
-                }
-            }
-            
-            DisclosureGroup("More", isExpanded: $expansionState.isMoreExpanded) {
-                
-                NavigationLink(destination: modules.link(store: currentViewStore, isStack: $stack, selection: .loadedModules, selected: $sceneStateStore.sceneState.selection)) {
-                    Label("Loaded modules", systemImage: "info.circle")
-                }
-                
-                NavigationLink(destination: settings.link(store: currentViewStore, isStack: $stack, selection: .settings, selected: $sceneStateStore.sceneState.selection)) {
-                    Label("Settings", systemImage: "gear")
+                NavigationLink(destination: documentation.link(store: currentViewStore, isStack: $stack, selection: .documentation, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
+                    tag: SelectedSection.documentation,
+                    selection: $restoredSelection) {
+                    Label("help.documentation", systemImage: "book")
                 }
             }
             
@@ -249,41 +340,71 @@ public struct SidebarNavigation: View {
         }
         .listStyle(SidebarListStyle())
         .navigationTitle("Pyto")
-    }
-    
-    public var body: some View {
-        
-        var editor: some View {
-            ViewController(viewController: makeEditor(url!)).navigationBarTitleDisplayMode(.inline)
-        }
-        
-        let navView = NavigationView {
-            if sizeClass != .compact || stack {
-                sidebar
-            }
-                
-            if currentViewStore.currentView != nil {
-                // That's a lot of parenthesis
-                withDoneButton(AnyView((currentViewStore.currentView!)))
-            } else if !stack && url != nil {
-                editor.link(store: currentViewStore, isStack: $stack, selection: .recent(url!), selected: $sceneStateStore.sceneState.selection).onAppear {
-                    if let url = url {
-                        sceneStateStore.sceneState.selection = SelectedSection.recent(url)
-                    }
-                }
-            }
-        }.onAppear {
+        .navigationBarItems(trailing: Button(action: {
+            let navVC = UINavigationController(rootViewController: settings.viewController ?? UIViewController())
+            navVC.modalPresentationStyle = .formSheet
+            self.viewControllerStore.vc?.present(navVC, animated: true, completion: nil)
+        }, label: {
+            Image(systemName: "gear")
+        }))
+        .onAppear {
             if stack {
                 UITableView.appearance().backgroundColor = .systemBackground
             } else {
                 UITableView.appearance().backgroundColor = .secondarySystemBackground
             }
         }
+    }
+    
+    /// Returns an editor.
+    var editor: some View {
+        EditorView(makeEditor: { (store) -> ViewController in
+            return ViewController(viewController: self.makeEditor(url!) , viewControllerStore: store)
+        }, url: url!, scene: scene, currentViewStore: self.currentViewStore, viewControllerStore: self.viewControllerStore, isStack: $stack, selection: .recent(url!), selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection).navigationBarTitleDisplayMode(.inline).onAppear {
+            currentViewStore.isEditor = true
+        }.onDisappear {
+            currentViewStore.isEditor = false
+        }
+    }
+    
+    /// The content view.
+    var contentView: AnyView? {
+        if currentViewStore.currentView != nil {
+            return withDoneButton(currentViewStore.currentView!)
+        } else if !stack && url != nil {
+            return AnyView(editor.link(store: currentViewStore, isStack: $stack, selection: .recent(url!), selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection).onAppear {
+                if let url = url {
+                    sceneStateStore.sceneState.selection = SelectedSection.recent(url)
+                }
+            })
+        } else {
+            return nil
+        }
+    }
+        
+    public var body: some View {
+                
+        // We don't put the if statement in the NavigationView body builder because for some reason, it behaves very, very strangely in iOS 14 beta 6. Instead, we initialize a different NavigationView.
+        let navigationView: AnyView
+        if let contentView = contentView, sizeClass != .compact || self.stack {
+            navigationView = AnyView(NavigationView {
+                sidebar
+                contentView
+            })
+        } else if let contentView = contentView {
+            navigationView = AnyView(NavigationView {
+                contentView
+            })
+        } else {
+            navigationView = AnyView(NavigationView { // Nothing to show, just show the sidebar
+                sidebar
+            })
+        }
         
         if stack {
-            return AnyView(navView.navigationViewStyle(StackNavigationViewStyle()))
+            return AnyView(navigationView.navigationViewStyle(StackNavigationViewStyle()))
         } else {
-            return AnyView(navView.navigationViewStyle(DoubleColumnNavigationViewStyle()))
+            return AnyView(navigationView.navigationViewStyle(DoubleColumnNavigationViewStyle()))
         }
     }
 }
@@ -294,6 +415,7 @@ struct Sidebar_Previews: PreviewProvider {
         SidebarNavigation(url: nil,
                           scene: nil,
                           sceneStateStore: SceneStateStore(),
+                          restoreSelection: false,
                           pypiViewController: UIViewController(), samplesView: SamplesNavigationView(url: URL(fileURLWithPath: "/"), selectScript: { _ in }), documentationViewController: UIViewController(), modulesViewController: UIViewController(),
                           makeEditor: { _ in return UIViewController() }
         )

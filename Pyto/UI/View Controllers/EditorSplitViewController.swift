@@ -14,7 +14,7 @@ protocol ContainedViewController {}
 #endif
 
 /// A Split view controller for displaying the editor and the console.
-public class EditorSplitViewController: SplitViewController, ContainedViewController {
+public class EditorSplitViewController: SplitViewController {
     
     /// If set to `true`, console will be shown at bottom.
     static var shouldShowConsoleAtBottom: Bool {
@@ -38,13 +38,16 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
         }
     }
     
+    /// If set to `true`, console will be shown at bottom.
+    var shouldShowConsoleAtBottom = EditorSplitViewController.shouldShowConsoleAtBottom
+    
     /// The View controller for editing code.
-    @objc weak var editor: EditorViewController?
+    @objc var editor: EditorViewController?
     
     /// The console.
-    @objc public var console: ConsoleViewController! {
+    @objc public var console: ConsoleViewController? {
         didSet {
-            console.editorSplitViewController = self
+            console?.editorSplitViewController = self
         }
     }
     
@@ -161,9 +164,11 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
             navigationItem.rightBarButtonItems = [closeConsoleBarButtonItem]
         }
         
-        #if !Xcode11
-        container?.update()
-        #endif
+        if #available(iOS 14.0, *) {
+            #if !Xcode11
+            container?.update()
+            #endif
+        }
     }
     
     /// The button for closing the full screen console.
@@ -276,7 +281,7 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
             }
         }
     }
-    
+        
     private var willRun: Bool?
     
     // MARK: - Split view controller
@@ -298,9 +303,9 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
     
     public override var keyCommands: [UIKeyCommand]? {
         var commands = [
-            UIKeyCommand(input: "d", modifierFlags: .command, action: #selector(showDocs), discoverabilityTitle: Localizable.Help.documentation),
-            UIKeyCommand(input: "f", modifierFlags: .command, action: #selector(search), discoverabilityTitle: Localizable.find),
-            UIKeyCommand(input: "w", modifierFlags: .command, action: #selector(close), discoverabilityTitle: Localizable.close),
+            UIKeyCommand.command(input: "d", modifierFlags: .command, action: #selector(showDocs), discoverabilityTitle: Localizable.Help.documentation),
+            UIKeyCommand.command(input: "f", modifierFlags: .command, action: #selector(search), discoverabilityTitle: Localizable.find),
+            UIKeyCommand.command(input: "w", modifierFlags: .command, action: #selector(close), discoverabilityTitle: Localizable.close),
         ]
         
         guard let path = editor?.document?.fileURL.path else {
@@ -309,15 +314,15 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
         
         if Python.shared.isScriptRunning(path) {
             commands.append(
-                UIKeyCommand(input: "c", modifierFlags: .control, action: #selector(interrupt(_:)), discoverabilityTitle: Localizable.interrupt)
+                UIKeyCommand.command(input: "c", modifierFlags: .control, action: #selector(interrupt(_:)), discoverabilityTitle: Localizable.interrupt)
             )
         } else {
             commands.append(
-                UIKeyCommand(input: "r", modifierFlags: .command, action: #selector(runScript(_:)), discoverabilityTitle: Localizable.MenuItems.run)
+                UIKeyCommand.command(input: "r", modifierFlags: .command, action: #selector(runScript(_:)), discoverabilityTitle: Localizable.MenuItems.run)
             )
             
             commands.append(
-                UIKeyCommand(input: "r", modifierFlags: [.command, .shift], action: #selector(runWithArguments), discoverabilityTitle: Localizable.runAndSetArguments)
+                UIKeyCommand.command(input: "r", modifierFlags: [.command, .shift], action: #selector(runWithArguments), discoverabilityTitle: Localizable.runAndSetArguments)
             )
         }
         
@@ -334,6 +339,11 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
         navigationItem.leftItemsSupplementBackButton = true
         
         closeConsoleBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(showEditor))
+        
+        NotificationCenter.default.addObserver(forName: UIScene.willEnterForegroundNotification, object: nil, queue: OperationQueue.main) { [weak self] (_) in
+            
+            self?.console?.view.backgroundColor = self?.view.backgroundColor
+        }
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -368,7 +378,7 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
         }
         
         // Yeah, it's normal that you don't remember why this code is here bc even when you wrote it you didn't know why
-        if arrangement == .horizontal && justShown && !EditorSplitViewController.shouldShowConsoleAtBottom &&
+        if arrangement == .horizontal && justShown && !shouldShowConsoleAtBottom &&
             !(self is REPLViewController) && !(self is PipInstallerViewController) && !(self is RunModuleViewController) {
             firstChild = editor
             secondChild = console
@@ -383,7 +393,9 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
         removeGestures()
         
         #if !Xcode11
-        container?.update()
+        if #available(iOS 14.0, *) {
+            container?.update()
+        }
         #endif
     }
     
@@ -398,6 +410,7 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
+        #if Xcode11
         guard let firstChild = self.firstChild, let secondChild = self.secondChild else {
             return
         }
@@ -410,6 +423,9 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
         
         firstChild.view.superview?.backgroundColor = view.backgroundColor
         secondChild.view.superview?.backgroundColor = view.backgroundColor
+        #else
+        editor?.textView.frame = editor?.view.safeAreaLayoutGuide.layoutFrame ?? .zero
+        #endif
     }
     
     public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -434,7 +450,7 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
             willRun = editor?.shouldRun
         }
         
-        if (newCollection.horizontalSizeClass == .compact || UIDevice.current.userInterfaceIdiom == .phone) && !EditorSplitViewController.shouldShowConsoleAtBottom && !willRun! {
+        if (newCollection.horizontalSizeClass == .compact/* || UIDevice.current.userInterfaceIdiom == .phone*/) && !shouldShowConsoleAtBottom && !willRun! {
             arrangement = .vertical
         } else {
             
@@ -445,15 +461,7 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
             }
             
             if firstChild != editor || secondChild != console {
-                
-                for view in view.subviews {
-                    view.removeFromSuperview()
-                }
-                
-                super.viewDidLoad()
-                super.viewDidAppear(true)
-                removeGestures()
-                
+
                 for view in self.view.subviews {
                     if view.backgroundColor == .white {
                         view.backgroundColor = self.view.backgroundColor
@@ -462,20 +470,37 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
                 firstChild?.view.superview?.backgroundColor = self.view.backgroundColor
                 secondChild?.view.superview?.backgroundColor = self.view.backgroundColor
                 
-                if EditorSplitViewController.shouldShowConsoleAtBottom {
+                if shouldShowConsoleAtBottom {
                     arrangement = .vertical
                 } else if arrangement != .horizontal {
                     arrangement = .horizontal
                 }
                 
+                #if Xcode11
+                if self is REPLViewController || self is RunModuleViewController || self is PipInstallerViewController {
+                    firstChild = editor
+                    secondChild = console
+                } else {
+                    if isConsoleShown && !(editor?.shouldRun ?? false) {
+                        showConsole({})
+                    } else {
+                        showEditor()
+                    }
+                }
+                #else
                 firstChild = editor
                 secondChild = console
+                #endif
             }
         }
     }
     
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        
+        guard view.window?.windowScene?.activationState != .background else {
+            return
+        }
         
         view.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
         firstChild?.view.backgroundColor = view.backgroundColor
@@ -560,9 +585,23 @@ public class EditorSplitViewController: SplitViewController, ContainedViewContro
         var editor: EditorSplitViewController?
     }
     
+    fileprivate var containerViewController: UIViewController?
+}
+
+#if !Xcode11
+@available(iOS 14.0, *)
+extension EditorSplitViewController: ContainedViewController {
+    
     // MARK: - Contained view controller
     
-    #if !Xcode11
-    public var container: ContainerViewController?
-    #endif
+    public var container: ContainerViewController? {
+        set {
+            containerViewController = newValue
+        }
+        
+        get {
+            return containerViewController as? ContainerViewController
+        }
+    }
 }
+#endif

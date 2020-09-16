@@ -276,6 +276,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// The button for seeing definitions.
     var definitionsItem: UIBarButtonItem!
     
+    /// If set to `true`, the back button will always be displayed.
+    var alwaysShowBackButton = false
+    
     // MARK: - Theme
     
     private var lastCSS = ""
@@ -383,7 +386,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             }
             
             #if !Xcode11
-            if #available(iOS 14.0, *), (parent as? EditorSplitViewController)?.folder == nil, traitCollection.horizontalSizeClass != .compact {
+            if #available(iOS 14.0, *), (parent as? EditorSplitViewController)?.folder == nil, traitCollection.horizontalSizeClass != .compact, !alwaysShowBackButton {
                 parentNavigationItem?.leftBarButtonItems = [searchItem, definitionsItem]
             } else {
                 parentNavigationItem?.leftBarButtonItems = [scriptsItem, searchItem, definitionsItem]
@@ -449,7 +452,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         view.addSubview(textView)
         textView.delegate = self
-        textView.contentTextView.delegate = self
         
         NoSuggestionsLabel = {
             let label = MarqueeLabel(frame: .zero, rate: 100, fadeLength: 1)
@@ -529,6 +531,12 @@ fileprivate func parseArgs(_ args: inout [String]) {
             } else {
                 openDoc()
             }
+        }
+        
+        if !(parent is REPLViewController) && !(parent is PipInstallerViewController) && !(parent is RunModuleViewController) {
+            parent?.navigationController?.isToolbarHidden = false
+        } else {
+            parent?.navigationController?.isToolbarHidden = true
         }
     }
     
@@ -619,8 +627,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
             return
         }
         
-        setBarItems()
-        
         for (_, marker) in breakpointMarkers {
             marker.backgroundColor = .clear
         }
@@ -648,6 +654,14 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }) // TODO: Anyway to to it without a timer?
     }
     
+    #if !Xcode11
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        setBarItems()
+    }
+    #endif
+    
     override var canBecomeFirstResponder: Bool {
         return true
     }
@@ -655,11 +669,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
     override var keyCommands: [UIKeyCommand]? {
         if textView.contentTextView.isFirstResponder {
             var commands = [
-                UIKeyCommand(input: "c", modifierFlags: [.command, .shift], action: #selector(toggleComment), discoverabilityTitle: Localizable.MenuItems.toggleComment),
-                UIKeyCommand(input: "b", modifierFlags: [.command, .shift], action: #selector(setBreakpoint(_:)), discoverabilityTitle: Localizable.MenuItems.breakpoint)
+                UIKeyCommand.command(input: "c", modifierFlags: [.command, .shift], action: #selector(toggleComment), discoverabilityTitle: Localizable.MenuItems.toggleComment),
+                UIKeyCommand.command(input: "b", modifierFlags: [.command, .shift], action: #selector(setBreakpoint(_:)), discoverabilityTitle: Localizable.MenuItems.breakpoint)
             ]
             if numberOfSuggestionsInInputAssistantView() != 0 {
-                commands.append(UIKeyCommand(input: "\t", modifierFlags: [], action: #selector(nextSuggestion), discoverabilityTitle: Localizable.nextSuggestion))
+                commands.append(UIKeyCommand.command(input: "\t", modifierFlags: [], action: #selector(nextSuggestion), discoverabilityTitle: Localizable.nextSuggestion))
             }
             
             var indented = false
@@ -676,7 +690,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             }
             
             if indented {
-                commands.append(UIKeyCommand(input: "\t", modifierFlags: [.alternate], action: #selector(unindent), discoverabilityTitle: Localizable.unindent))
+                commands.append(UIKeyCommand.command(input: "\t", modifierFlags: [.alternate], action: #selector(unindent), discoverabilityTitle: Localizable.unindent))
             }
             
             return commands
@@ -952,8 +966,12 @@ fileprivate func parseArgs(_ args: inout [String]) {
     @objc func callPlugin() {
         Python.shared.runningScripts = NSArray(array: Python.shared.runningScripts.adding(document?.fileURL.path ?? ""))
         Python.shared.run(code: """
-        import pyto_core as pc
-        pc.__actions__[\(actionIndex)]()
+        try:
+            import pyto_core as pc
+            pc.__actions__[\(actionIndex)]()
+        except:
+            import pyto_core as pc
+            pc.__actions__[\(actionIndex)]()
         """)
     }
     
@@ -1292,6 +1310,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
     ///     - completion: The code executed when the file was saved. A boolean indicated if the file was successfully saved is passed.
     @objc func save(completion: ((Bool) -> Void)? = nil) {
         
+        guard document?.fileURL.lastPathComponent.hasSuffix(".repl.py") == false else {
+            completion?(true)
+            return
+        }
+        
         guard document != nil else {
             completion?(false)
             return
@@ -1304,7 +1327,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
             return
         }
         
-        document?.text = text
+        document?.text = text ?? ""
+        document?.updateChangeCount(.done)
         
         if document?.documentState != UIDocument.State.editingDisabled {
             document?.save(to: document!.fileURL, for: .forOverwriting, completionHandler: completion)
@@ -1465,12 +1489,12 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     /// Undo.
     @objc func undo() {
-        textView.contentTextView.undoManager?.undo()
+        (textView as? EditorTextView)?.undo()
     }
     
     /// Redo.
     @objc func redo() {
-        textView.contentTextView.undoManager?.redo()
+        (textView as? EditorTextView)?.redo()
     }
     
     /// Shows runtime settings.
@@ -1654,16 +1678,58 @@ fileprivate func parseArgs(_ args: inout [String]) {
             textView.contentInset.top = findBarHeight
             textView.contentTextView.verticalScrollIndicatorInsets.top = findBarHeight
         }
+        
+        if #available(iOS 14.0, *) {
+            let origin = self.inputAssistant.convert(self.inputAssistant.frame.origin, to: self.view.window ?? self.view)
+            if origin.y == (self.view.window ?? self.view).frame.height-self.inputAssistant.frame.height && textView.isFirstResponder {
+                textView.contentInset.bottom = self.inputAssistant.frame.height
+            }
+        }
+    }
+    
+    @objc func keyboardWillShow(_ notification:Notification) {
+        let state = view.window?.windowScene?.activationState
+        let isForeground = (state == .foregroundActive || state == .foregroundInactive)
+        if !isToolbarUp && isForeground && textView.isFirstResponder {
+            parent?.navigationController?.toolbar.frame.origin.y -= 50
+            isToolbarUp = true
+        }
     }
     
     /// Set `textView` to the default size.
     @objc func keyboardWillHide(_ notification:Notification) {
-        textView.contentInset = .zero
-        textView.contentTextView.scrollIndicatorInsets = .zero
+        
+        func resize() {
+            textView.contentInset = .zero
+            textView.verticalScrollIndicatorInsets = .zero
+        }
+        
+        #if !Xcode11
+        if #available(iOS 14.0, *) {
+        } else {
+            resize()
+        }
+        #else
+        resize()
+        #endif
         
         if searchBar?.window != nil {
             textView.contentInset.top = findBarHeight
             textView.contentTextView.verticalScrollIndicatorInsets.top = findBarHeight
+        }
+        
+        //parent?.navigationController?.toolbar.frame.origin.y = ((parent?.navigationController?.view.safeAreaLayoutGuide.layoutFrame.height ?? 0)-(parent?.navigationController?.toolbar.frame.height ?? 0))
+        let state = view.window?.windowScene?.activationState
+        let isForeground = (state == .foregroundActive || state == .foregroundInactive)
+        if notification.name == UIResponder.keyboardWillHideNotification && isToolbarUp && isForeground {
+            parent?.navigationController?.toolbar.frame.origin.y += 50
+            isToolbarUp = false
+        } else if notification.name == UIResponder.keyboardWillHideNotification && !isForeground {
+            isToolbarUp = false
+        }
+        
+        if notification.name == UIResponder.keyboardDidHideNotification {
+            textView.contentInset.bottom = 0
         }
     }
     

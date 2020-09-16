@@ -11,18 +11,18 @@ import SwiftUI
 // MARK: - Storage
 
 /// An item in the Recent section.
-@available(iOS 13.4, *)
+@available(iOS 14.0, *)
 struct RecentItem {
     
     /// The URL of the file.
     var url: URL
     
     /// The View Controller to show when pressed.
-    var makeViewController: (() -> ViewController)
+    var makeViewController: ((ViewControllerStore?) -> ViewController)
 }
 
 /// An object storing recent scripts in the disk.
-@available(iOS 13.4, *)
+@available(iOS 14.0, *)
 public class RecentDataSource: ObservableObject {
     
     /// A block that will be called to create a code editor for editing the passed file.
@@ -31,25 +31,38 @@ public class RecentDataSource: ObservableObject {
     /// The only and shared instance.
     public static let shared = RecentDataSource()
     
+    private func makeRecents() -> [URL] {
+        var urls = [URL]()
+        for recent in UserDefaults.standard.array(forKey: "recentScripts") ?? [] {
+            guard let data = recent as? Data else {
+                continue
+            }
+            
+            var isStale = false
+            do {
+                urls.append(try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale))
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        
+        return urls
+    }
+    
+    private var _recents: [URL]?
+    
+    var silent = false
+    
     /// The file URLs of recently opened scripts.
     public var recent: [URL] {
         
         get {
-            var urls = [URL]()
-            for recent in UserDefaults.standard.array(forKey: "recentScripts") ?? [] {
-                guard let data = recent as? Data else {
-                    continue
-                }
-                
-                var isStale = false
-                do {
-                    urls.append(try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale))
-                } catch {
-                    print(error.localizedDescription)
-                }
+            if let recents = _recents {
+                return recents
+            } else {
+                _recents = makeRecents()
+                return _recents!
             }
-            
-            return urls
         }
         
         set {
@@ -75,19 +88,26 @@ public class RecentDataSource: ObservableObject {
                 
                 UserDefaults.standard.setValue(data, forKey: "recentScripts")
                 
-                DispatchQueue.main.async {
-                    self.objectWillChange.send()
+                self._recents = self.makeRecents()
+                
+                if !self.silent {
+                    DispatchQueue.main.async {
+                        self.objectWillChange.send()
+                    }
+                } else {
+                    self.silent = false
                 }
             }
         }
     }
     
+    /// Returns the recent scripts.
     var recentItems: [RecentItem] {
         var items = [RecentItem]()
         
         for item in recent {
-            items.append(RecentItem(url: item, makeViewController: {
-                return ViewController(viewController: self.makeEditor?(item) ?? UIViewController())
+            items.append(RecentItem(url: item, makeViewController: { store in
+                return ViewController(viewController: self.makeEditor?(item) ?? UIViewController(), viewControllerStore: store)
             }))
         }
         
@@ -129,7 +149,13 @@ class ExpansionState: ObservableObject {
 public class ViewControllerStore {
     
     /// The View Controller containing the SwiftUI view.
-    public var vc: UIHostingController<SidebarNavigation>?
+    public weak var vc: UIHostingController<AnyView>?
+    
+    /// A boolean indicating whether the sidebar is showing.
+    public var showSidebar = false
+    
+    /// The window scene where the sidebar navigation is shown.
+    public var scene: UIWindowScene?
 }
 
 /// A class storing the current view of the side bar navigation.
@@ -139,6 +165,15 @@ class CurrentViewStore {
     /// The container view.
     var navigation: SidebarNavigation?
     
+    /// A boolean indicating whether the current view is an editor.
+    var isEditor = false
+    
     /// The current detail view controller.
     var currentView: AnyView?
+    
+    /// The scene state store.
+    var sceneStateStore: SceneStateStore?
+    
+    /// Stored editors per URL.
+    var editors = [URL: ViewController]()
 }
