@@ -50,8 +50,8 @@ import SwiftUI
             
             sceneDelegate?.sceneStateStore.reset()
             
-            let sidebar = makeSidebarNavigation(url: nil, run: false, isShortcut: false)
-            let vc = UIHostingController(rootView: sidebar)
+            let sidebar = makeSidebarNavigation(url: nil, run: false, isShortcut: false, restoreSelection: false)
+            let vc = UIHostingController(rootView: AnyView(sidebar))
             vc.modalTransitionStyle = .crossDissolve
             vc.modalPresentationStyle = .fullScreen
             sidebar.viewControllerStore.vc = vc
@@ -69,7 +69,7 @@ import SwiftUI
     /// - Parameters:
     ///     - code: Code to run.
     func run(code: String) {
-        let url = URL(fileURLWithPath: NSTemporaryDirectory()+"/Temporary.py")
+        let url = URL(fileURLWithPath: NSTemporaryDirectory()+"/Script.py")
         if FileManager.default.fileExists(atPath: url.path) {
             try? FileManager.default.removeItem(at: url)
         }
@@ -78,51 +78,57 @@ import SwiftUI
     }
     
     #if !Xcode11
+    
+    private var sidebar: Any?
+    
     /// Makes a SwiftUI view for the navigation.
     ///
     /// - Parameters:
     ///     - url: The URL of the file to edit.
     ///     - run: A boolean indicating whether `url` should run.
     ///     - isShortcut: A boolean indicating whether `url` is launched from a Shortcut.
+    ///     - restoreSelection: If set to `true`, will restore the selection saved from state restoration.
     @available(iOS 14.0, *)
-    func makeSidebarNavigation(url: URL?, run: Bool, isShortcut: Bool) -> SidebarNavigation {
+    func makeSidebarNavigation(url: URL?, run: Bool, isShortcut: Bool, restoreSelection: Bool) -> SidebarNavigation {
         var navView: SidebarNavigation!
-        navView = SidebarNavigation(url: url,
-                                    scene: view.window?.windowScene,
-                                    sceneStateStore: sceneDelegate?.sceneStateStore ?? SceneStateStore(),
-                                    pypiViewController: MenuTableViewController.makePyPiView(),
-                                    samplesView: SamplesNavigationView(url: Bundle.main.url(forResource: "Samples", withExtension: nil)!,
-                                    selectScript: { (file) in
+        navView = SidebarNavigation(
+            url: url,
+            scene: view.window?.windowScene,
+            sceneStateStore: sceneDelegate?.sceneStateStore ?? SceneStateStore(),
+            restoreSelection: restoreSelection,
+            pypiViewController: MenuTableViewController.makePyPiView(),
+            samplesView: SamplesNavigationView(url: Bundle.main.url(forResource: "Samples", withExtension: nil)!,
+            selectScript: { (file) in
                                             
-                                        guard file.pathExtension.lowercased() == "py" else {
-                                            return
-                                        }
+                guard file.pathExtension.lowercased() == "py" else {
+                    return
+                }
             
-                                        guard let editor = self.openDocument(file, run: false, show: false) else {
-                                            return
-                                        }
-            
-                                        editor.navigationItem.largeTitleDisplayMode = .never
-                                            
-                                        ((navView.viewControllerStore.vc?.children.first as? UISplitViewController)?.viewControllers.last as? UINavigationController)?.show(editor, sender: nil)
-                                            
-                                    }),
-                                    documentationViewController: DocumentationViewController(),
-                                    modulesViewController: ModulesTableViewController(style: .grouped),
-                                    makeEditor: { _url in
+                guard let editor = self.openDocument(file, run: false, show: false) else {
+                    return
+                }
                                         
-                                        let _run: Bool
-                                        let _shortcut: Bool
+                editor.navigationItem.largeTitleDisplayMode = .never
+                editor.editor?.alwaysShowBackButton = true
                                         
-                                        if _url == url {
-                                            _run = run
-                                            _shortcut = isShortcut
-                                        } else {
-                                            _run = false
-                                            _shortcut = false
-                                        }
+                navView.viewControllerStore.vc?.present(editor.navigationController ?? editor, animated: true, completion: nil)
+            }),
+            documentationViewController: DocumentationViewController(),
+            modulesViewController: ModulesTableViewController(style: .grouped),
+            makeEditor: { _url in
                                         
-                                        return self.openDocument(_url, run: _run, isShortcut: _shortcut, show: false) ?? UIViewController()
+                let _run: Bool
+                let _shortcut: Bool
+                                        
+                if _url == url {
+                    _run = run
+                    _shortcut = isShortcut
+                } else {
+                    _run = false
+                    _shortcut = false
+                }
+                                        
+                return self.openDocument(_url, run: _run, isShortcut: _shortcut, show: false) ?? UIViewController()
         })
         
         return navView
@@ -153,11 +159,21 @@ import SwiftUI
         let isPip = (documentURL.path == Bundle.main.path(forResource: "installer", ofType: "py"))
         
         if presentedViewController != nil && viewController == nil && show {
-            dismiss(animated: true) {
-                self.openDocument(documentURL, run: run, folder: folder, completion: completion)
+            dismiss(animated: true) { [weak self] in
+                self?.openDocument(documentURL, run: run, folder: folder, completion: completion)
             }
             return nil
         }
+        
+        #if !Xcode11
+        if #available(iOS 14.0, *), let scene = view.window?.windowScene {
+            let traitCollection = scene.windows.first?.traitCollection ?? self.traitCollection
+            let size = (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass)
+            if run || (size != (EditorView.EditorStore.perScene[scene]?.sizeClass ?? size)) {
+                EditorView.EditorStore.perScene[scene] = nil
+            }
+        }
+        #endif
                 
         let editor = EditorViewController(document: document)
         editor.shouldRun = run
@@ -167,6 +183,10 @@ import SwiftUI
         
         let splitVC = EditorSplitViewController()
         splitVC.folder = folder
+        
+        if run {
+            splitVC.shouldShowConsoleAtBottom = true
+        }
         
         if isPip {
             splitVC.ratio = 0
@@ -220,15 +240,15 @@ import SwiftUI
             let browserNavVC = UINavigationController(rootViewController: browser)
             
             uiSplitVC.viewControllers = [browserNavVC, navVC]
-        } else if #available(iOS 14.0, *) {
+        } else if #available(iOS 14.0, *), show {
             
             #if !Xcode11
-            let navView = makeSidebarNavigation(url: documentURL, run: run, isShortcut: isShortcut)
+            let navView = makeSidebarNavigation(url: documentURL, run: run, isShortcut: isShortcut, restoreSelection: false)
             
-            vc = UIHostingController(rootView: navView)
+            vc = SidebarController(rootView: AnyView(navView))
             vc.modalPresentationStyle = .fullScreen
             
-            navView.viewControllerStore.vc = vc as? UIHostingController<SidebarNavigation>
+            navView.viewControllerStore.vc = vc as? UIHostingController<AnyView>
             #else
             print("Built with Xcode 11")
             #endif
@@ -245,14 +265,18 @@ import SwiftUI
         vc.modalTransitionStyle = .crossDissolve
         
         if show {
-            document.open { (success) in
-                guard success else {
+            document.open { [weak self] (success) in
+                guard success, self != nil else {
                     return
                 }
                 
-                document.checkForConflicts(onViewController: self, completion: {
+                document.checkForConflicts(onViewController: self!, completion: { [weak self] in
                     
-                    (viewController ?? self).present(vc, animated: animated, completion: {
+                    guard self != nil else {
+                        return
+                    }
+                    
+                    (viewController ?? self!).present(vc, animated: animated, completion: {
                         #if !Xcode11
                         UIView.animate(withDuration: 0.15) {
                             (vc.children.first as? UISplitViewController)?.preferredDisplayMode = .secondaryOnly
@@ -282,7 +306,14 @@ import SwiftUI
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        additionalLeadingNavigationBarButtonItems = [UIBarButtonItem(image: EditorSplitViewController.threeDotsImage, style: .plain, target: self, action: #selector(showMore(_:)))]
+        let menuImage: UIImage
+        if #available(iOS 14.0, *) {
+            menuImage = UIImage(systemName: "list.bullet.rectangle") ?? UIImage()
+        } else {
+            menuImage = EditorSplitViewController.threeDotsImage
+        }
+        
+        additionalLeadingNavigationBarButtonItems = [UIBarButtonItem(image: menuImage, style: .plain, target: self, action: #selector(showMore(_:)))]
         let runAction = UIDocumentBrowserAction(identifier: "run", localizedTitle: Localizable.MenuItems.run, availability: [.menu, .navigationBar], handler: { (urls) in
             self.openDocument(urls[0], run: true)
         })
