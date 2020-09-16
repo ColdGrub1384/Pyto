@@ -12,8 +12,20 @@ import UIKit
 /// Default theme based on system appearance.
 struct DefaultTheme: Theme {
     
+    private var window: UIWindow? {
+        for scene in UIApplication.shared.connectedScenes {
+            if let windowScene = scene as? UIWindowScene {
+                if windowScene.activationState == .foregroundActive || windowScene.activationState == .foregroundInactive {
+                    return windowScene.windows.first
+                }
+            }
+        }
+        
+        return nil
+    }
+    
     var keyboardAppearance: UIKeyboardAppearance {
-        return (UIApplication.shared.keyWindow?.traitCollection.userInterfaceStyle == .dark ? .dark : .default)
+        return (window?.traitCollection.userInterfaceStyle == .dark ? .dark : .default)
     }
     
     var userInterfaceStyle: UIUserInterfaceStyle {
@@ -23,10 +35,10 @@ struct DefaultTheme: Theme {
     let barStyle: UIBarStyle = .default
     
     var sourceCodeTheme: SourceCodeTheme {
-        return (UIApplication.shared.keyWindow?.traitCollection.userInterfaceStyle == .dark ? MidnightSourceCodeTheme() : XcodeLightSourceCodeTheme())
+        return (window?.traitCollection.userInterfaceStyle == .dark ? MidnightSourceCodeTheme() : XcodeLightSourceCodeTheme())
     }
     
     var name: String? {
-        return (UIApplication.shared.keyWindow?.traitCollection.userInterfaceStyle == .dark ? "Midnight" : "Xcode")
+        return (window?.traitCollection.userInterfaceStyle == .dark ? "Midnight" : "Xcode")
     }
 }
