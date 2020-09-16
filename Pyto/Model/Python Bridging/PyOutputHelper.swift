@@ -39,7 +39,16 @@ fileprivate extension ConsoleViewController {
 @objc class PyOutputHelper: NSObject {
         
     /// All output from the last executed Shortcut.
-    @objc static var output = ""
+    @objc static var output = "" {
+        didSet {
+            
+            guard !output.isEmpty else {
+                return
+            }
+            
+            try? output.write(toFile: FileManager.default.sharedDirectory?.appendingPathComponent("UIIntentsOutput").path ?? "", atomically: false, encoding: .utf8)
+        }
+    }
     
     #if !WIDGET
     /// Sends `output` to the current running Shortcut.
