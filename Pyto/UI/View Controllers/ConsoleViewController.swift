@@ -685,8 +685,8 @@ import SwiftUI
                 DispatchQueue.main.async {
                     for scene in UIApplication.shared.connectedScenes {
                         if let window = (scene as? UIWindowScene)?.windows.first {
-                            if let vc = window.topViewController as? EditorSplitViewController {
-                                vc.console.suggestions = self.suggestions as? [String] ?? []
+                            if let vc = editor(in: window) {
+                                vc.console?.suggestions = self.suggestions as? [String] ?? []
                             }
                         }
                     }
@@ -766,6 +766,12 @@ import SwiftUI
     }
     #endif
     
+    private var isCompleting = false
+    
+    private var codeCompletionTimer: Timer?
+    
+    private let codeCompletionQueue = DispatchQueue.global()
+    
     // MARK: - View controller
     
     override open func viewDidLoad() {
@@ -773,6 +779,10 @@ import SwiftUI
         
         #if MAIN
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { [weak self] (notif) in
+            self?.themeDidChange(notif)
+        }
         #endif
         
         edgesForExtendedLayout = []
@@ -802,15 +812,14 @@ import SwiftUI
     #if MAIN
     override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-                
-        if #available(iOS 13.0, *) {
-            guard view.window?.windowScene?.activationState != .background else {
-                themeDidChange(nil)
-                return
-            }
-        }
         
         themeDidChange(nil)
+        
+        #if Xcode11
+        guard view.window?.windowScene?.activationState != .background else {
+            return
+        }
+        #endif
         
         let attrString = NSMutableAttributedString(attributedString: textView.attributedText)
         attrString.removeAttribute(.backgroundColor, range: NSRange(location: 0, length: attrString.length))
@@ -818,16 +827,12 @@ import SwiftUI
     }
     #endif
     
-    open override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override open func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         if !ConsoleViewController.visibles.contains(self) {
             ConsoleViewController.visibles.append(self)
         }
-    }
-    
-    override open func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
         textView.frame.size.height -= 44
@@ -837,7 +842,7 @@ import SwiftUI
         
         if movableTextField == nil {
             movableTextField = MovableTextField(console: self)
-            movableTextField?.placeholder = prompt ?? ""
+            movableTextField?.setPrompt(prompt ?? "")
         }
         movableTextField?.show()
         #if MAIN
@@ -849,25 +854,49 @@ import SwiftUI
                 return
             }
             
-            Python.shared.run(code: """
-                try:
-                    import jedi
-                    import console
-                    import pyto
-                    namespace = console.__repl_namespace__['\((self.parent as! EditorSplitViewController).editor?.document!.fileURL.lastPathComponent.replacingOccurrences(of: "'", with: "\\'") ?? "")']
-                    script = jedi.Interpreter('\(text.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "'", with: "\\'"))', [namespace])
+            let code =
+            """
+            try:
+                import jedi
+                import console
+                import pyto
+                namespace = console.__repl_namespace__['\((self.parent as! EditorSplitViewController).editor?.document!.fileURL.lastPathComponent.replacingOccurrences(of: "'", with: "\\'") ?? "")']
+                script = jedi.Interpreter('\(text.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "'", with: "\\'"))', [namespace])
                     
-                    suggestions = []
-                    completions = []
-                    for completion in script.complete():
-                        suggestions.append(completion.name)
-                        completions.append(completion.complete)
+                suggestions = []
+                completions = []
+                for completion in script.complete():
+                    suggestions.append(completion.name)
+                    completions.append(completion.complete)
                     
-                    pyto.ConsoleViewController.suggestions = suggestions
-                    pyto.ConsoleViewController.completions = completions
-                except Exception as e:
-                    pass
-                """)
+                pyto.ConsoleViewController.suggestions = suggestions
+                pyto.ConsoleViewController.completions = completions
+            except Exception as e:
+                pass
+            """
+            
+            func complete() {
+                DispatchQueue.global().async {
+                    self.isCompleting = true
+                    
+                    self.codeCompletionQueue.async {
+                        Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: code)
+                        self.isCompleting = false
+                    }
+                }
+            }
+            
+            if self.isCompleting { // A timer so it doesn't block the main thread
+                self.codeCompletionTimer?.invalidate()
+                self.codeCompletionTimer = Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true, block: { (timer) in
+                    if !self.isCompleting && timer.isValid {
+                        complete()
+                        timer.invalidate()
+                    }
+                })
+            } else {
+                complete()
+            }
         }
         #endif
         movableTextField?.handler = { text in
@@ -880,7 +909,7 @@ import SwiftUI
             #endif
             
             self.movableTextField?.currentInput = nil
-            self.movableTextField?.placeholder = ""
+            self.movableTextField?.setPrompt("")
             
             #if MAIN
             
@@ -889,10 +918,6 @@ import SwiftUI
             }
             self.movableTextField?.history.insert(text, at: 0)
             self.movableTextField?.historyIndex = -1
-            
-            if !self.highlightInput {
-                self.movableTextField?.textField.resignFirstResponder()
-            }
             
             self.completions = []
             #endif
@@ -978,17 +1003,6 @@ import SwiftUI
         #endif
     }
     
-    open override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        if let i = ConsoleViewController.visibles.firstIndex(of: self) {
-            ConsoleViewController.visibles.remove(at: i)
-        }
-        
-        movableTextField?.toolbar.removeFromSuperview()
-        movableTextField = nil
-    }
-    
     override open func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         super.dismiss(animated: flag, completion: completion)
         
@@ -1006,16 +1020,25 @@ import SwiftUI
         super.viewDidLayoutSubviews()
         
         let wasFirstResponder = movableTextField?.textField.isFirstResponder ?? false
-        movableTextField?.textField.resignFirstResponder()
+        let isREPL = !(!(editorSplitViewController is REPLViewController) && !(editorSplitViewController is RunModuleViewController))
+        
+        if #available(iOS 14.0, *), isREPL {
+        } else {
+            movableTextField?.textField.resignFirstResponder()
+        }
+        
         movableTextField?.toolbar.frame.size.width = view.safeAreaLayoutGuide.layoutFrame.width
         movableTextField?.toolbar.frame.origin.x = view.safeAreaInsets.left
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
         textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
         textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
-        if wasFirstResponder {
+        
+        if #available(iOS 14.0, *), isREPL {
+        } else if wasFirstResponder {
             movableTextField?.textField.becomeFirstResponder()
         }
-        movableTextField?.toolbar.isHidden = (view.frame.size.height == 0 )
+        
+        movableTextField?.toolbar.isHidden = (view.frame.size.height == 0)
         #if MAIN
         movableTextField?.applyTheme()
         #endif
@@ -1030,7 +1053,7 @@ import SwiftUI
         
         #if MAIN
         if numberOfSuggestionsInInputAssistantView() != 0 {
-            commands.append(UIKeyCommand(input: "\t", modifierFlags: [], action: #selector(nextSuggestion), discoverabilityTitle: Localizable.nextSuggestion))
+            commands.append(UIKeyCommand.command(input: "\t", modifierFlags: [], action: #selector(nextSuggestion), discoverabilityTitle: Localizable.nextSuggestion))
         }
         #endif
         

@@ -19,7 +19,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
 }
 
 /// The View controller used to edit source code.
-@objc class EditorViewController: UIViewController, SyntaxTextViewDelegate, InputAssistantViewDelegate, InputAssistantViewDataSource, UITextViewDelegate, UISearchBarDelegate, UIDocumentPickerDelegate {
+@objc class EditorViewController: UIViewController, InputAssistantViewDelegate, InputAssistantViewDataSource, UITextViewDelegate, UISearchBarDelegate, UIDocumentPickerDelegate {
     
     /// Parses a string into a list of arguments.
     ///
@@ -56,8 +56,23 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
     }
     
-    /// The `SyntaxTextView` containing the code.
-    let textView = SyntaxTextView()
+    /// The text view containing the code.
+    let textView: UITextView = {
+        let textStorage = CodeAttributedString()
+        textStorage.language = "Python"
+        
+        let textView = EditorTextView(frame: .zero, andTextStorage: textStorage) ?? EditorTextView(frame: .zero)
+        textView.smartQuotesType = .no
+        textView.smartDashesType = .no
+        textView.autocorrectionType = .no
+        textView.autocapitalizationType = .none
+        return textView
+    }()
+    
+    /// The text storage of the text view.
+    var textStorage: CodeAttributedString? {
+        return textView.layoutManager.textStorage as? CodeAttributedString
+    }
     
     /// The document to be edited.
     @objc var document: PyDocument? {
@@ -92,7 +107,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
     /// A Navigation controller containing the documentation.
     var documentationNavigationController: UINavigationController?
     
-    private var isDocOpened = false
+    var isDocOpened = false
     
     /// The line number where an error occurred. If this value is set at `viewDidAppear(_:)`, the error will be shown and the value will be reset to `nil`.
     var lineNumberError: Int?
@@ -160,6 +175,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                     return
                 }
                 
+                #if !SCREENSHOTS
                 if let data = try? newValue.bookmarkData() {
                     do {
                         try document?.fileURL.setExtendedAttribute(data: data, forName: "currentDirectory")
@@ -167,6 +183,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                         print(error.localizedDescription)
                     }
                 }
+                #endif
             }
             
             DispatchQueue.global().async(execute: _set)
@@ -792,14 +809,15 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         ranges = []
         
+        let baseString = textView.text ?? ""
+        
+        self.textStorage?.removeAttribute(.backgroundColor, range: NSRange(location: 0, length: NSString(string: baseString).length))
+        
         guard searchBar.text != nil && !searchBar.text!.isEmpty else {
             return
         }
         
         let searchString = searchBar.text!
-        let baseString = textView.text
-        
-        let attributed = NSMutableAttributedString(attributedString: textView.contentTextView.attributedText)
         
         guard let regex = try? NSRegularExpression(pattern: searchString, options: .caseInsensitive) else {
             return
@@ -807,7 +825,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         for match in regex.matches(in: baseString, options: [], range: NSRange(location: 0, length: baseString.utf16.count)) as [NSTextCheckingResult] {
             ranges.append(match.range)
-            attributed.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.yellow.withAlphaComponent(0.5), range: match.range)
+            
+            textStorage?.addAttributes([NSAttributedString.Key.backgroundColor: UIColor.yellow.withAlphaComponent(0.5)], range: match.range)
         }
         
         textView.contentTextView.attributedText = attributed
@@ -872,8 +891,12 @@ fileprivate func parseArgs(_ args: inout [String]) {
             _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true, block: { (timer) in
                 if Python.shared.isSetup {
                     Python.shared.run(code: """
-                    import pyto_core as pc
-                    pc.__setup_editor_button__(\(i))
+                    try:
+                        import pyto_core as pc
+                        pc.__setup_editor_button__(\(i))
+                    except:
+                        import pyto_core as pc
+                        pc.__setup_editor_button__(\(i))
                     """)
                     timer.invalidate()
                 }
@@ -1674,7 +1697,29 @@ fileprivate func parseArgs(_ args: inout [String]) {
             }
         }
         
-        return self.textView.textViewDidChange(textView)
+        if #available(iOS 13.0, *) {
+            for scene in UIApplication.shared.connectedScenes {
+                
+                guard scene != view.window?.windowScene else {
+                    continue
+                }
+                
+                let editor: EditorViewController?
+                
+                if #available(iOS 14.0, *), let scene = view.window?.windowScene {
+                    editor = (EditorView.EditorStore.perScene[scene]?.editor?.viewController as? EditorSplitViewController)?.editor
+                } else {
+                    let presented = (scene.delegate as? UIWindowSceneDelegate)?.window??.rootViewController?.presentedViewController
+                    editor = ((presented as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor ?? (presented as? EditorSplitViewController.ProjectSplitViewController)?.editor?.editor
+                }
+                
+                guard editor?.textView.text != textView.text, editor?.document?.fileURL.path == document?.fileURL.path else {
+                    continue
+                }
+                
+                editor?.textView.text = textView.text
+            }
+        }
     }
     
     
@@ -1685,6 +1730,60 @@ fileprivate func parseArgs(_ args: inout [String]) {
         if text == "\n", currentSuggestionIndex != -1 {
             inputAssistantView(inputAssistant, didSelectSuggestionAtIndex: 0)
             return false
+        }
+        
+        if text == "" && range.length == 1, EditorViewController.indentation != "\t" { // Un-indent
+            var _range = range
+            var rangeToDelete = range
+            
+            var i = 0
+            while true {
+                if (textView.text as NSString).substring(with: _range) == " " {
+                    rangeToDelete = NSRange(location: _range.location, length: i)
+                    _range = NSRange(location: _range.location-1, length: _range.length)
+                    i += 1
+                    
+                    if i > EditorViewController.indentation.count {
+                        break
+                    }
+                } else {
+                    let oneMoreSpace = NSRange(location: rangeToDelete.location, length: rangeToDelete.length+1)
+                    if NSMaxRange(oneMoreSpace) <= (textView.text as NSString).length, (textView.text as NSString).substring(with: oneMoreSpace) == EditorViewController.indentation {
+                        rangeToDelete = oneMoreSpace
+                    }
+                    break
+                }
+            }
+            
+            if i < EditorViewController.indentation.count {
+                return true
+            }
+            
+            var indentation = ""
+            var line = textView.currentLine ?? ""
+            while line.hasPrefix(" ") {
+                indentation += " "
+                line.removeFirst()
+            }
+            if (indentation.count % EditorViewController.indentation.count) != 0 {
+                return true // Not correctly indented, just remove the space
+            }
+            
+            let nextChar = (textView.text as NSString).substring(with: _range)
+            if nextChar != "\n" && nextChar != " " {
+                return true
+            }
+            
+            if let nsRange = rangeToDelete.toTextRange(textInput: textView) {
+                textView.replace(nsRange, withText: "")
+                
+                let nextChar = NSRange(location: textView.selectedRange.location, length: 1)
+                if NSMaxRange(nextChar) <= (textView.text as NSString).length, (textView.text as NSString).substring(with: nextChar) == " " {
+                    textView.selectedTextRange = NSRange(location: nextChar.location+1, length: 0).toTextRange(textInput: textView)
+                }
+                
+                return false
+            }
         }
         
         if text == "\t" {
@@ -1718,7 +1817,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
         ]
         
         for chars in completable {
-            
             if text == chars.1 {
                 let range = textView.selectedRange
                 let nextCharRange = NSRange(location: range.location, length: 1)
@@ -1730,13 +1828,32 @@ fileprivate func parseArgs(_ args: inout [String]) {
                 }
             }
             
+            if (chars == ("\"", "\"") && text == "\"") || (chars == ("'", "'") && text == "'") {
+                let range = textView.selectedRange
+                let previousCharRange = NSRange(location: range.location-1, length: 1)
+                let nsText = NSString(string: textView.text)
+                if nsText.length > previousCharRange.location, nsText.substring(with: previousCharRange) == chars.1 {
+                    return true
+                }
+            }
+            
             if text == chars.0 {
-                textView.insertText(chars.0)
-                let range = textView.selectedTextRange
-                textView.insertText(chars.1)
-                textView.selectedTextRange = range
                 
-                return false
+                let range = textView.selectedRange
+                let nextCharRange = NSRange(location: range.location, length: 1)
+                let nsText = NSString(string: textView.text)
+                if nsText.length > nextCharRange.location, !((completable+[(" ", " "), ("\t", "\t"), ("\n", "\n")]).contains(where: { (chars) -> Bool in
+                    return nsText.substring(with: nextCharRange) == chars.1
+                })) {
+                    return true
+                } else {
+                    textView.insertText(chars.0)
+                    let range = textView.selectedTextRange
+                    textView.insertText(chars.1)
+                    textView.selectedTextRange = range
+                    
+                    return false
+                }
             }
         }
         
@@ -1760,13 +1877,19 @@ fileprivate func parseArgs(_ args: inout [String]) {
             return false
         }
         
+        if text == "" && range.length > 1 {
+            // That fixes a very strange bug causing the deletion of an extra space when removing an indented line
+            textView.replace(range.toTextRange(textInput: textView) ?? UITextRange(), withText: text)
+            return false
+        }
+        
         return true
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         save(completion: nil)
+                
         parent?.setNeedsUpdateOfHomeIndicatorAutoHidden()
-        parent?.navigationController?.toolbar.frame.origin.y += 50
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -1775,7 +1898,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
             ConsoleViewController.visibles.append(console)
         }
         
-        parent?.navigationController?.toolbar.frame.origin.y -= 50
         parent?.setNeedsUpdateOfHomeIndicatorAutoHidden()
     }
     
@@ -1993,14 +2115,18 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
     }
     
+    let codeCompletionQueue = DispatchQueue.global()
+    
+    var isCompleting = false
+    
+    var codeCompletionTimer: Timer?
+    
     /// Updates suggestions.
     ///
     /// - Parameters:
     ///     - force: If set to `true`, the Python code will be called without doing any check.
     func updateSuggestions(force: Bool = false) {
-        
-        let textView = self.textView.contentTextView
-        
+                
         let text = textView.text ?? ""
         
         if !force {
@@ -2015,52 +2141,49 @@ fileprivate func parseArgs(_ args: inout [String]) {
         EditorViewController.codeToComplete = text
         
         ConsoleViewController.ignoresInput = true
-        Python.shared.run(code: """
+        
+        let code =
+        """
         from _codecompletion import suggestForCode
         from pyto import EditorViewController
         import sys
-        
-        path = '\(currentDirectory.path.replacingOccurrences(of: "'", with: "\\'"))'
-        should_path_be_deleted = False
-        
-        if not path in sys.path:
-          sys.path.append(path)
-          should_path_be_deleted = True
-        
-        source = str(EditorViewController.codeToComplete)
-        suggestForCode(source, \(textView.selectedRange.location), '\((document?.fileURL.path ?? "").replacingOccurrences(of: "'", with: "\\'"))')
             
+        path = '\(self.currentDirectory.path.replacingOccurrences(of: "'", with: "\\'"))'
+        should_path_be_deleted = False
+            
+        if not path in sys.path:
+            sys.path.append(path)
+            should_path_be_deleted = True
+            
+        source = str(EditorViewController.codeToComplete)
+        suggestForCode(source, \(self.textView.selectedRange.location), '\((self.document?.fileURL.path ?? "").replacingOccurrences(of: "'", with: "\\'"))')
+                
         if should_path_be_deleted:
-          sys.path.remove(path)
-        """)
-    }
-    
-    // MARK: - Syntax text view delegate
-
-    func didChangeText(_ syntaxTextView: SyntaxTextView) {
-        if #available(iOS 13.0, *) {
-            for scene in UIApplication.shared.connectedScenes {
+            sys.path.remove(path)
+        """
+        
+        func complete() {
+            DispatchQueue.global().async {
+                self.isCompleting = true
                 
-                guard scene != view.window?.windowScene else {
-                    continue
+                self.codeCompletionQueue.async {
+                    Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: code)
+                    self.isCompleting = false
                 }
-                
-                let presented = (scene.delegate as? UIWindowSceneDelegate)?.window??.rootViewController?.presentedViewController
-                let editor = ((presented as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor ?? (presented as? EditorSplitViewController.ProjectSplitViewController)?.editor?.editor
-                
-                guard editor?.textView.text != syntaxTextView.text, editor?.document?.fileURL.path == document?.fileURL.path else {
-                    continue
-                }
-                
-                editor?.textView.text = syntaxTextView.text
             }
         }
-    }
-    
-    func didChangeSelectedRange(_ syntaxTextView: SyntaxTextView, selectedRange: NSRange) {}
-    
-    func lexerForSource(_ source: String) -> Lexer {
-        return PythonLexer()
+        
+        if isCompleting { // A timer so it doesn't block the main thread
+            codeCompletionTimer?.invalidate()
+            codeCompletionTimer = Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true, block: { (timer) in
+                if !self.isCompleting && timer.isValid {
+                    complete()
+                    timer.invalidate()
+                }
+            })
+        } else {
+            complete()
+        }
     }
     
     // MARK: - Input assistant view delegate
