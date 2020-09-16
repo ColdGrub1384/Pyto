@@ -104,6 +104,11 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
     /// Toggles console at bottom.
     @IBAction func toggleConsoleAtBottom(_ sender: UISwitch) {
         EditorSplitViewController.shouldShowConsoleAtBottom = sender.isOn
+        #if !Xcode11
+        if #available(iOS 14.0, *) {
+            EditorView.EditorStore.perScene.removeAll()
+        }
+        #endif
     }
     
     // MARK: - Show separator
@@ -114,6 +119,11 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
     /// Toggles the separator between editor and console.
     @IBAction func toggleSeparator(_ sender: UISwitch) {
         EditorSplitViewController.shouldShowSeparator = sender.isOn
+        #if !Xcode11
+        if #available(iOS 14.0, *) {
+            EditorView.EditorStore.perScene.removeAll()
+        }
+        #endif
     }
         
     // MARK: - Table view controller
@@ -199,6 +209,20 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
         }
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        let superFooter = super.tableView(tableView, titleForFooterInSection: section)
+        
+        if section == IndexPath.todayWidget.section {
+            if #available(iOS 14.0, *) {
+                return superFooter
+            } else {
+                return nil
+            }
+        } else {
+            return superFooter
+        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
