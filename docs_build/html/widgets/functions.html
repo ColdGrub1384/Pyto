@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Functions &mdash; Pyto  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="pyto_core" href="../pyto_core.html" />
+    <link rel="prev" title="Constants" href="constants.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Pyto
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../automation.html">Automation with Shortcuts and x-callback URLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../external.html">Accessing external files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../opencv.html">OpenCV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../django.html">Using Django</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party.html">Third Party Libraries</a></li>
+</ul>
+<p class="caption"><span class="caption-text">ObjC Runtime</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Objective-C.html">Objective-C</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Interface</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../pyto_ui.html">pyto_ui</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../widgets.html">widgets</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../widgets.html#api-reference">API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="ui.html">UI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="constants.html">Constants</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#showing-a-native-ui">Showing a native UI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#showing-a-pytoui-view">Showing a PytoUI view</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../widgets.html#types-of-widgets">Types of widgets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../widgets.html#getting-started">Getting Started</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../pyto_core.html">pyto_core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notification_center.html">notification_center</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sf_symbols.html">sf_symbols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sharing.html">sharing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mainthread.html">mainthread</a></li>
+</ul>
+<p class="caption"><span class="caption-text">OS Technologies</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../notifications.html">notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../remote_notifications.html">remote_notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background.html">background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bookmarks.html">bookmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../music.html">music</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../photos.html">photos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../location.html">location</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../motion.html">motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../multipeer.html">multipeer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../speech.html">speech</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Sharing data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../apps.html">apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xcallback.html">xcallback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userkeys.html">userkeys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pasteboard.html">pasteboard</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Pyto</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../widgets.html">widgets</a> &raquo;</li>
+        
+      <li>Functions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/widgets/functions.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="functions">
+<h1>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h1>
+<p>This page contains a list of functions defined in the <code class="docutils literal notranslate"><span class="pre">widgets</span></code> module.</p>
+<dl class="py function">
+<dt id="widgets.schedule_next_reload">
+<code class="sig-prename descclassname">widgets.</code><code class="sig-name descname">schedule_next_reload</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>datetime.timedelta<span class="p">, </span>float<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#widgets.schedule_next_reload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schedules the next reload of the widget.
+The widget may not be reloaded exactly at the provided time, the system will choose when it’s appropiate but never before the provided time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>time</strong> – The time passed before the widget should reload. A <code class="docutils literal notranslate"><span class="pre">datetime.timedelta</span></code> object or the number of seconds.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="widgets.wait_for_internet_connection">
+<code class="sig-prename descclassname">widgets.</code><code class="sig-name descname">wait_for_internet_connection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#widgets.wait_for_internet_connection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="section" id="showing-a-native-ui">
+<h2>Showing a native UI<a class="headerlink" href="#showing-a-native-ui" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="widgets.show_widget">
+<code class="sig-prename descclassname">widgets.</code><code class="sig-name descname">show_widget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">widget</span><span class="p">:</span> <span class="n"><a class="reference internal" href="ui.html#widgets.Widget" title="widgets.Widget">widgets.Widget</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#widgets.show_widget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shows a widget with the given configuration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>widget</strong> – The widget’s configuration.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="widgets.save_widget">
+<code class="sig-prename descclassname">widgets.</code><code class="sig-name descname">save_widget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">widget</span><span class="p">:</span> <span class="n"><a class="reference internal" href="ui.html#widgets.Widget" title="widgets.Widget">widgets.Widget</a></span></em>, <em class="sig-param"><span class="n">key</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#widgets.save_widget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves a widget that will be selectable to show in a widget and can be updated in app.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>widget</strong> – The widget’s configuration.</p></li>
+<li><p><strong>key</strong> – The name of the widget. When a new widget is saved with an existing key, it will be updated.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="showing-a-pytoui-view">
+<h2>Showing a PytoUI view<a class="headerlink" href="#showing-a-pytoui-view" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="widgets.show_view">
+<code class="sig-prename descclassname">widgets.</code><code class="sig-name descname">show_view</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">view</span><span class="p">:</span> <span class="n">ui.View</span></em><span class="sig-paren">)</span><a class="headerlink" href="#widgets.show_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shows the given view on a widget. A snapshot for each widget size will be taken.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>view</strong> – A view to show in the widget.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="widgets.save_snapshot">
+<code class="sig-prename descclassname">widgets.</code><code class="sig-name descname">save_snapshot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">view</span><span class="p">:</span> <span class="n">ui.View</span></em>, <em class="sig-param"><span class="n">key</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#widgets.save_snapshot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves the snapshot of the given view. The snapshot will be selectable to show in a widget and can be updated in app.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>view</strong> – A view to show in the widget.</p></li>
+<li><p><strong>key</strong> – The name of the snapshot. When a new snapshot is saved with an existing key, the widget will be updated.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../pyto_core.html" class="btn btn-neutral float-right" title="pyto_core" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="constants.html" class="btn btn-neutral float-left" title="Constants" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2019, Adrian Labbé
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

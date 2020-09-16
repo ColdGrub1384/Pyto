@@ -1,0 +1,5 @@
+mainthread
+==========
+
+.. automodule:: mainthread
+   :members:

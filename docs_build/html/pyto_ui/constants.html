@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,30 +11,32 @@
   
 
   
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="pyto_core" href="../pyto_core.html" />
+    <link rel="next" title="widgets" href="../widgets.html" />
     <link rel="prev" title="Functions" href="functions.html" /> 
 </head>
 
@@ -50,7 +51,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> Pyto
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Pyto
           
 
           
@@ -73,6 +74,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -82,14 +84,18 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../automation.html">Automation with Shortcuts and x-callback URLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../external.html">Accessing external files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../opencv.html">OpenCV</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../django.html">Using Django</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../third_party.html">Third Party Libraries</a></li>
 </ul>
+<p class="caption"><span class="caption-text">ObjC Runtime</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Objective-C.html">Objective-C</a></li>
+</ul>
 <p class="caption"><span class="caption-text">User Interface</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../pyto_ui.html">pyto_ui</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../pyto_ui.html#getting-started">Getting Started</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../pyto_ui.html#api-reference">API Reference</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="classes.html">Classes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="functions.html">Functions</a></li>
@@ -125,19 +131,24 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../pyto_ui.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pyto_ui.html#uikit-bridge">UIKit bridge</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../widgets.html">widgets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../pyto_core.html">pyto_core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notification_center.html">notification_center</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sf_symbols.html">sf_symbols</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sharing.html">sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mainthread.html">mainthread</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../UIKit.html">UIKit</a></li>
 </ul>
 <p class="caption"><span class="caption-text">OS Technologies</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../notifications.html">notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../remote_notifications.html">remote_notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background.html">background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bookmarks.html">bookmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../music.html">music</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../photos.html">photos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../location.html">location</a></li>
@@ -156,6 +167,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -194,7 +206,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../pyto_ui.html">pyto_ui</a> &raquo;</li>
         
@@ -222,121 +234,121 @@
 <p>This page contains a list of constants used by the <code class="docutils literal notranslate"><span class="pre">pyto_ui</span></code> API.</p>
 <div class="section" id="ui-elements-colors">
 <h2>UI Elements Colors<a class="headerlink" href="#ui-elements-colors" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_LABEL">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_LABEL</code><a class="headerlink" href="#pyto_ui.COLOR_LABEL" title="Permalink to this definition">¶</a></dt>
 <dd><p>The color for text labels containing primary content.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_SECONDARY_LABEL">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_SECONDARY_LABEL</code><a class="headerlink" href="#pyto_ui.COLOR_SECONDARY_LABEL" title="Permalink to this definition">¶</a></dt>
 <dd><p>The color for text labels containing secondary content.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_TERTIARY_LABEL">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_TERTIARY_LABEL</code><a class="headerlink" href="#pyto_ui.COLOR_TERTIARY_LABEL" title="Permalink to this definition">¶</a></dt>
 <dd><p>The color for text labels containing tertiary content.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_QUATERNARY_LABEL">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_QUATERNARY_LABEL</code><a class="headerlink" href="#pyto_ui.COLOR_QUATERNARY_LABEL" title="Permalink to this definition">¶</a></dt>
 <dd><p>The color for text labels containing quaternary content.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_SYSTEM_FILL">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_SYSTEM_FILL</code><a class="headerlink" href="#pyto_ui.COLOR_SYSTEM_FILL" title="Permalink to this definition">¶</a></dt>
 <dd><p>An overlay fill color for thin and small shapes.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_SECONDARY_SYSTEM_FILL">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_SECONDARY_SYSTEM_FILL</code><a class="headerlink" href="#pyto_ui.COLOR_SECONDARY_SYSTEM_FILL" title="Permalink to this definition">¶</a></dt>
 <dd><p>An overlay fill color for medium-size shapes.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_TERTIARY_SYSTEM_FILL">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_TERTIARY_SYSTEM_FILL</code><a class="headerlink" href="#pyto_ui.COLOR_TERTIARY_SYSTEM_FILL" title="Permalink to this definition">¶</a></dt>
 <dd><p>An overlay fill color for large shapes.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_QUATERNARY_SYSTEM_FILL">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_QUATERNARY_SYSTEM_FILL</code><a class="headerlink" href="#pyto_ui.COLOR_QUATERNARY_SYSTEM_FILL" title="Permalink to this definition">¶</a></dt>
 <dd><p>An overlay fill color for large areas containing complex content.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_PLACEHOLDER_TEXT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_PLACEHOLDER_TEXT</code><a class="headerlink" href="#pyto_ui.COLOR_PLACEHOLDER_TEXT" title="Permalink to this definition">¶</a></dt>
 <dd><p>The color for placeholder text in controls or text views.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_SYSTEM_BACKGROUND">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_SYSTEM_BACKGROUND</code><a class="headerlink" href="#pyto_ui.COLOR_SYSTEM_BACKGROUND" title="Permalink to this definition">¶</a></dt>
 <dd><p>The color for the main background of your interface.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_SECONDARY_SYSTEM_BACKGROUND">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_SECONDARY_SYSTEM_BACKGROUND</code><a class="headerlink" href="#pyto_ui.COLOR_SECONDARY_SYSTEM_BACKGROUND" title="Permalink to this definition">¶</a></dt>
 <dd><p>The color for content layered on top of the main background.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_TERTIARY_SYSTEM_BACKGROUND">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_TERTIARY_SYSTEM_BACKGROUND</code><a class="headerlink" href="#pyto_ui.COLOR_TERTIARY_SYSTEM_BACKGROUND" title="Permalink to this definition">¶</a></dt>
 <dd><p>The color for content layered on top of secondary backgrounds.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_SYSTEM_GROUPED_BACKGROUND">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_SYSTEM_GROUPED_BACKGROUND</code><a class="headerlink" href="#pyto_ui.COLOR_SYSTEM_GROUPED_BACKGROUND" title="Permalink to this definition">¶</a></dt>
 <dd><p>The color for the main background of your grouped interface.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_SECONDARY_GROUPED_BACKGROUND">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_SECONDARY_GROUPED_BACKGROUND</code><a class="headerlink" href="#pyto_ui.COLOR_SECONDARY_GROUPED_BACKGROUND" title="Permalink to this definition">¶</a></dt>
 <dd><p>The color for content layered on top of the main background of your grouped interface.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_TERTIARY_GROUPED_BACKGROUND">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_TERTIARY_GROUPED_BACKGROUND</code><a class="headerlink" href="#pyto_ui.COLOR_TERTIARY_GROUPED_BACKGROUND" title="Permalink to this definition">¶</a></dt>
 <dd><p>The color for content layered on top of secondary backgrounds of your grouped interface.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_SEPARATOR">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_SEPARATOR</code><a class="headerlink" href="#pyto_ui.COLOR_SEPARATOR" title="Permalink to this definition">¶</a></dt>
 <dd><p>The color for thin borders or divider lines that allows some underlying content to be visible.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_OPAQUE_SEPARATOR">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_OPAQUE_SEPARATOR</code><a class="headerlink" href="#pyto_ui.COLOR_OPAQUE_SEPARATOR" title="Permalink to this definition">¶</a></dt>
 <dd><p>The color for borders or divider lines that hide any underlying content.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_LINK">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_LINK</code><a class="headerlink" href="#pyto_ui.COLOR_LINK" title="Permalink to this definition">¶</a></dt>
 <dd><p>The color for links.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_DARK_TEXT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_DARK_TEXT</code><a class="headerlink" href="#pyto_ui.COLOR_DARK_TEXT" title="Permalink to this definition">¶</a></dt>
 <dd><p>The nonadaptable system color for text on a light background.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_LIGHT_TEXT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_LIGHT_TEXT</code><a class="headerlink" href="#pyto_ui.COLOR_LIGHT_TEXT" title="Permalink to this definition">¶</a></dt>
 <dd><p>The nonadaptable system color for text on a dark background.</p>
@@ -345,91 +357,91 @@
 </div>
 <div class="section" id="standard-colors">
 <h2>Standard Colors<a class="headerlink" href="#standard-colors" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_SYSTEM_BLUE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_SYSTEM_BLUE</code><a class="headerlink" href="#pyto_ui.COLOR_SYSTEM_BLUE" title="Permalink to this definition">¶</a></dt>
 <dd><p>A blue color that automatically adapts to the current trait environment.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_SYSTEM_GREEN">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_SYSTEM_GREEN</code><a class="headerlink" href="#pyto_ui.COLOR_SYSTEM_GREEN" title="Permalink to this definition">¶</a></dt>
 <dd><p>A green color that automatically adapts to the current trait environment.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_SYSTEM_INDIGO">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_SYSTEM_INDIGO</code><a class="headerlink" href="#pyto_ui.COLOR_SYSTEM_INDIGO" title="Permalink to this definition">¶</a></dt>
 <dd><p>An indigo color that automatically adapts to the current trait environment.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_SYSTEM_ORANGE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_SYSTEM_ORANGE</code><a class="headerlink" href="#pyto_ui.COLOR_SYSTEM_ORANGE" title="Permalink to this definition">¶</a></dt>
 <dd><p>An orange color that automatically adapts to the current trait environment.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_SYSTEM_PINK">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_SYSTEM_PINK</code><a class="headerlink" href="#pyto_ui.COLOR_SYSTEM_PINK" title="Permalink to this definition">¶</a></dt>
 <dd><p>A pink color that automatically adapts to the current trait environment.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_SYSTEM_PURPLE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_SYSTEM_PURPLE</code><a class="headerlink" href="#pyto_ui.COLOR_SYSTEM_PURPLE" title="Permalink to this definition">¶</a></dt>
 <dd><p>A purple color that automatically adapts to the current trait environment.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_SYSTEM_RED">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_SYSTEM_RED</code><a class="headerlink" href="#pyto_ui.COLOR_SYSTEM_RED" title="Permalink to this definition">¶</a></dt>
 <dd><p>A red color that automatically adapts to the current trait environment.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_SYSTEM_TEAL">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_SYSTEM_TEAL</code><a class="headerlink" href="#pyto_ui.COLOR_SYSTEM_TEAL" title="Permalink to this definition">¶</a></dt>
 <dd><p>A teal color that automatically adapts to the current trait environment.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_SYSTEM_YELLOW">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_SYSTEM_YELLOW</code><a class="headerlink" href="#pyto_ui.COLOR_SYSTEM_YELLOW" title="Permalink to this definition">¶</a></dt>
 <dd><p>A yellow color that automatically adapts to the current trait environment.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_SYSTEM_GRAY">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_SYSTEM_GRAY</code><a class="headerlink" href="#pyto_ui.COLOR_SYSTEM_GRAY" title="Permalink to this definition">¶</a></dt>
 <dd><p>The base gray color.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_SYSTEM_GRAY2">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_SYSTEM_GRAY2</code><a class="headerlink" href="#pyto_ui.COLOR_SYSTEM_GRAY2" title="Permalink to this definition">¶</a></dt>
 <dd><p>A second-level shade of grey.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_SYSTEM_GRAY3">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_SYSTEM_GRAY3</code><a class="headerlink" href="#pyto_ui.COLOR_SYSTEM_GRAY3" title="Permalink to this definition">¶</a></dt>
 <dd><p>A third-level shade of grey.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_SYSTEM_GRAY4">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_SYSTEM_GRAY4</code><a class="headerlink" href="#pyto_ui.COLOR_SYSTEM_GRAY4" title="Permalink to this definition">¶</a></dt>
 <dd><p>A fourth-level shade of grey.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_SYSTEM_GRAY5">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_SYSTEM_GRAY5</code><a class="headerlink" href="#pyto_ui.COLOR_SYSTEM_GRAY5" title="Permalink to this definition">¶</a></dt>
 <dd><p>A fifth-level shade of grey.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_SYSTEM_GRAY6">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_SYSTEM_GRAY6</code><a class="headerlink" href="#pyto_ui.COLOR_SYSTEM_GRAY6" title="Permalink to this definition">¶</a></dt>
 <dd><p>A sixth-level shade of grey.</p>
@@ -438,91 +450,91 @@
 </div>
 <div class="section" id="fixed-colors">
 <h2>Fixed Colors<a class="headerlink" href="#fixed-colors" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_CLEAR">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_CLEAR</code><a class="headerlink" href="#pyto_ui.COLOR_CLEAR" title="Permalink to this definition">¶</a></dt>
 <dd><p>A color object with grayscale and alpha values that are both 0.0.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_BLACK">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_BLACK</code><a class="headerlink" href="#pyto_ui.COLOR_BLACK" title="Permalink to this definition">¶</a></dt>
 <dd><p>A color object in the sRGB color space with a grayscale value of 0.0 and an alpha value of 1.0.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_BLUE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_BLUE</code><a class="headerlink" href="#pyto_ui.COLOR_BLUE" title="Permalink to this definition">¶</a></dt>
 <dd><p>A color object with RGB values of 0.0, 0.0, and 1.0 and an alpha value of 1.0.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_BROWN">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_BROWN</code><a class="headerlink" href="#pyto_ui.COLOR_BROWN" title="Permalink to this definition">¶</a></dt>
 <dd><p>A color object with RGB values of 0.6, 0.4, and 0.2 and an alpha value of 1.0.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_CYAN">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_CYAN</code><a class="headerlink" href="#pyto_ui.COLOR_CYAN" title="Permalink to this definition">¶</a></dt>
 <dd><p>A color object with RGB values of 0.0, 1.0, and 1.0 and an alpha value of 1.0.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_DARK_GRAY">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_DARK_GRAY</code><a class="headerlink" href="#pyto_ui.COLOR_DARK_GRAY" title="Permalink to this definition">¶</a></dt>
 <dd><p>A color object with a grayscale value of 1/3 and an alpha value of 1.0.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_GRAY">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_GRAY</code><a class="headerlink" href="#pyto_ui.COLOR_GRAY" title="Permalink to this definition">¶</a></dt>
 <dd><p>A color object with a grayscale value of 0.5 and an alpha value of 1.0.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_GREEN">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_GREEN</code><a class="headerlink" href="#pyto_ui.COLOR_GREEN" title="Permalink to this definition">¶</a></dt>
 <dd><p>A color object with RGB values of 0.0, 1.0, and 0.0 and an alpha value of 1.0.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_LIGHT_GRAY">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_LIGHT_GRAY</code><a class="headerlink" href="#pyto_ui.COLOR_LIGHT_GRAY" title="Permalink to this definition">¶</a></dt>
 <dd><p>A color object with a grayscale value of 2/3 and an alpha value of 1.0.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_MAGENTA">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_MAGENTA</code><a class="headerlink" href="#pyto_ui.COLOR_MAGENTA" title="Permalink to this definition">¶</a></dt>
 <dd><p>A color object with RGB values of 1.0, 0.0, and 1.0 and an alpha value of 1.0.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_ORANGE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_ORANGE</code><a class="headerlink" href="#pyto_ui.COLOR_ORANGE" title="Permalink to this definition">¶</a></dt>
 <dd><p>A color object with RGB values of 1.0, 0.5, and 0.0 and an alpha value of 1.0.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_PURPLE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_PURPLE</code><a class="headerlink" href="#pyto_ui.COLOR_PURPLE" title="Permalink to this definition">¶</a></dt>
 <dd><p>A color object with RGB values of 0.5, 0.0, and 0.5 and an alpha value of 1.0.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_RED">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_RED</code><a class="headerlink" href="#pyto_ui.COLOR_RED" title="Permalink to this definition">¶</a></dt>
 <dd><p>A color object with RGB values of 1.0, 0.0, and 0.0 and an alpha value of 1.0.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_WHITE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_WHITE</code><a class="headerlink" href="#pyto_ui.COLOR_WHITE" title="Permalink to this definition">¶</a></dt>
 <dd><p>A color object with a grayscale value of 1.0 and an alpha value of 1.0.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.COLOR_YELLOW">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">COLOR_YELLOW</code><a class="headerlink" href="#pyto_ui.COLOR_YELLOW" title="Permalink to this definition">¶</a></dt>
 <dd><p>A color object with RGB values of 1.0, 1.0, and 0.0 and an alpha value of 1.0.</p>
@@ -531,19 +543,19 @@
 </div>
 <div class="section" id="keyboard-appearance">
 <h2>Keyboard Appearance<a class="headerlink" href="#keyboard-appearance" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.KEYBOARD_APPEARANCE_DEFAULT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">KEYBOARD_APPEARANCE_DEFAULT</code><a class="headerlink" href="#pyto_ui.KEYBOARD_APPEARANCE_DEFAULT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies the default keyboard appearance for the current input method.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.KEYBOARD_APPEARANCE_LIGHT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">KEYBOARD_APPEARANCE_LIGHT</code><a class="headerlink" href="#pyto_ui.KEYBOARD_APPEARANCE_LIGHT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies a keyboard appearance suitable for a light UI look.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.KEYBOARD_APPEARANCE_DARK">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">KEYBOARD_APPEARANCE_DARK</code><a class="headerlink" href="#pyto_ui.KEYBOARD_APPEARANCE_DARK" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies a keyboard appearance suitable for a dark UI look.</p>
@@ -552,73 +564,73 @@
 </div>
 <div class="section" id="keyboard-type">
 <h2>Keyboard Type<a class="headerlink" href="#keyboard-type" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.KEYBOARD_TYPE_DEFAULT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">KEYBOARD_TYPE_DEFAULT</code><a class="headerlink" href="#pyto_ui.KEYBOARD_TYPE_DEFAULT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies the default keyboard for the current input method.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.KEYBOARD_TYPE_ASCII_CAPABLE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">KEYBOARD_TYPE_ASCII_CAPABLE</code><a class="headerlink" href="#pyto_ui.KEYBOARD_TYPE_ASCII_CAPABLE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies a keyboard that displays standard ASCII characters.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.KEYBOARD_TYPE_ASCII_CAPABLE_NUMBER_PAD">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">KEYBOARD_TYPE_ASCII_CAPABLE_NUMBER_PAD</code><a class="headerlink" href="#pyto_ui.KEYBOARD_TYPE_ASCII_CAPABLE_NUMBER_PAD" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies a number pad that outputs only ASCII digits.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.KEYBOARD_TYPE_DECIMAL_PAD">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">KEYBOARD_TYPE_DECIMAL_PAD</code><a class="headerlink" href="#pyto_ui.KEYBOARD_TYPE_DECIMAL_PAD" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies a keyboard with numbers and a decimal point.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.KEYBOARD_TYPE_EMAIL_ADDRESS">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">KEYBOARD_TYPE_EMAIL_ADDRESS</code><a class="headerlink" href="#pyto_ui.KEYBOARD_TYPE_EMAIL_ADDRESS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies a keyboard optimized for entering email addresses. This keyboard type prominently features the at (“&#64;”), period (“.”) and space characters.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.KEYBOARD_TYPE_NAME_PHONE_PAD">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">KEYBOARD_TYPE_NAME_PHONE_PAD</code><a class="headerlink" href="#pyto_ui.KEYBOARD_TYPE_NAME_PHONE_PAD" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies a keypad designed for entering a person’s name or phone number. This keyboard type does not support auto-capitalization.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.KEYBOARD_TYPE_NUMBER_PAD">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">KEYBOARD_TYPE_NUMBER_PAD</code><a class="headerlink" href="#pyto_ui.KEYBOARD_TYPE_NUMBER_PAD" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies a numeric keypad designed for PIN entry. This keyboard type prominently features the numbers 0 through 9. This keyboard type does not support auto-capitalization.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.KEYBOARD_TYPE_NUMBERS_AND_PUNCTUATION">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">KEYBOARD_TYPE_NUMBERS_AND_PUNCTUATION</code><a class="headerlink" href="#pyto_ui.KEYBOARD_TYPE_NUMBERS_AND_PUNCTUATION" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies the numbers and punctuation keyboard.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.KEYBOARD_TYPE_PHONE_PAD">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">KEYBOARD_TYPE_PHONE_PAD</code><a class="headerlink" href="#pyto_ui.KEYBOARD_TYPE_PHONE_PAD" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies a keypad designed for entering telephone numbers. This keyboard type prominently features the numbers 0 through 9 and the “*” and “#” characters. This keyboard type does not support auto-capitalization.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.KEYBOARD_TYPE_TWITTER">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">KEYBOARD_TYPE_TWITTER</code><a class="headerlink" href="#pyto_ui.KEYBOARD_TYPE_TWITTER" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies a keyboard optimized for Twitter text entry, with easy access to the at (“&#64;”) and hash (“#”) characters.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.KEYBOARD_TYPE_URL">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">KEYBOARD_TYPE_URL</code><a class="headerlink" href="#pyto_ui.KEYBOARD_TYPE_URL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies a keyboard optimized for URL entry. This keyboard type prominently features the period (“.”) and slash (“/”) characters and the “.com” string.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.KEYBOARD_TYPE_WEB_SEARCH">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">KEYBOARD_TYPE_WEB_SEARCH</code><a class="headerlink" href="#pyto_ui.KEYBOARD_TYPE_WEB_SEARCH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies a keyboard optimized for web search terms and URL entry. This keyboard type prominently features the space and period (“.”) characters.</p>
@@ -627,73 +639,73 @@
 </div>
 <div class="section" id="return-key-type">
 <h2>Return Key Type<a class="headerlink" href="#return-key-type" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.RETURN_KEY_TYPE_DEFAULT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">RETURN_KEY_TYPE_DEFAULT</code><a class="headerlink" href="#pyto_ui.RETURN_KEY_TYPE_DEFAULT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies that the visible title of the Return key is “return”.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.RETURN_KEY_TYPE_CONTINUE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">RETURN_KEY_TYPE_CONTINUE</code><a class="headerlink" href="#pyto_ui.RETURN_KEY_TYPE_CONTINUE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies that the visible title of the Return key is “Continue”.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.RETURN_KEY_TYPE_DONE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">RETURN_KEY_TYPE_DONE</code><a class="headerlink" href="#pyto_ui.RETURN_KEY_TYPE_DONE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies that the visible title of the Return key is “Done”.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.RETURN_KEY_TYPE_EMERGENCY_CALL">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">RETURN_KEY_TYPE_EMERGENCY_CALL</code><a class="headerlink" href="#pyto_ui.RETURN_KEY_TYPE_EMERGENCY_CALL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies that the visible title of the Return key is “Emergency Call”.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.RETURN_KEY_TYPE_GO">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">RETURN_KEY_TYPE_GO</code><a class="headerlink" href="#pyto_ui.RETURN_KEY_TYPE_GO" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies that the visible title of the Return key is “Go”.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.RETURN_KEY_TYPE_GOOGLE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">RETURN_KEY_TYPE_GOOGLE</code><a class="headerlink" href="#pyto_ui.RETURN_KEY_TYPE_GOOGLE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies that the visible title of the Return key is “Google”.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.RETURN_KEY_TYPE_JOIN">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">RETURN_KEY_TYPE_JOIN</code><a class="headerlink" href="#pyto_ui.RETURN_KEY_TYPE_JOIN" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies that the visible title of the Return key is “Join”.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.RETURN_KEY_TYPE_NEXT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">RETURN_KEY_TYPE_NEXT</code><a class="headerlink" href="#pyto_ui.RETURN_KEY_TYPE_NEXT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies that the visible title of the Return key is “Next”.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.RETURN_KEY_TYPE_ROUTE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">RETURN_KEY_TYPE_ROUTE</code><a class="headerlink" href="#pyto_ui.RETURN_KEY_TYPE_ROUTE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies that the visible title of the Return key is “Route”.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.RETURN_KEY_TYPE_SEARCH">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">RETURN_KEY_TYPE_SEARCH</code><a class="headerlink" href="#pyto_ui.RETURN_KEY_TYPE_SEARCH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies that the visible title of the Return key is “Search”.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.RETURN_KEY_TYPE_SEND">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">RETURN_KEY_TYPE_SEND</code><a class="headerlink" href="#pyto_ui.RETURN_KEY_TYPE_SEND" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies that the visible title of the Return key is “Send”.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.RETURN_KEY_TYPE_YAHOO">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">RETURN_KEY_TYPE_YAHOO</code><a class="headerlink" href="#pyto_ui.RETURN_KEY_TYPE_YAHOO" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies that the visible title of the Return key is “Yahoo”.</p>
@@ -702,25 +714,25 @@
 </div>
 <div class="section" id="auto-capitalization">
 <h2>Auto Capitalization<a class="headerlink" href="#auto-capitalization" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.AUTO_CAPITALIZE_NONE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">AUTO_CAPITALIZE_NONE</code><a class="headerlink" href="#pyto_ui.AUTO_CAPITALIZE_NONE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies that there is no automatic text capitalization.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.AUTO_CAPITALIZE_ALL">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">AUTO_CAPITALIZE_ALL</code><a class="headerlink" href="#pyto_ui.AUTO_CAPITALIZE_ALL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies automatic capitalization of all characters, such as for entry of two-character state abbreviations for the United States.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.AUTO_CAPITALIZE_SENTENCES">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">AUTO_CAPITALIZE_SENTENCES</code><a class="headerlink" href="#pyto_ui.AUTO_CAPITALIZE_SENTENCES" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies automatic capitalization of the first letter of each sentence.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.AUTO_CAPITALIZE_WORDS">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">AUTO_CAPITALIZE_WORDS</code><a class="headerlink" href="#pyto_ui.AUTO_CAPITALIZE_WORDS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies automatic capitalization of the first letter of each word.</p>
@@ -729,67 +741,67 @@
 </div>
 <div class="section" id="font-text-style">
 <h2>Font Text Style<a class="headerlink" href="#font-text-style" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.FONT_TEXT_STYLE_BODY">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">FONT_TEXT_STYLE_BODY</code><a class="headerlink" href="#pyto_ui.FONT_TEXT_STYLE_BODY" title="Permalink to this definition">¶</a></dt>
 <dd><p>The font used for body text.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.FONT_TEXT_STYLE_CALLOUT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">FONT_TEXT_STYLE_CALLOUT</code><a class="headerlink" href="#pyto_ui.FONT_TEXT_STYLE_CALLOUT" title="Permalink to this definition">¶</a></dt>
 <dd><p>The font used for callouts.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.FONT_TEXT_STYLE_CAPTION_1">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">FONT_TEXT_STYLE_CAPTION_1</code><a class="headerlink" href="#pyto_ui.FONT_TEXT_STYLE_CAPTION_1" title="Permalink to this definition">¶</a></dt>
 <dd><p>The font used for standard captions.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.FONT_TEXT_STYLE_CAPTION_2">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">FONT_TEXT_STYLE_CAPTION_2</code><a class="headerlink" href="#pyto_ui.FONT_TEXT_STYLE_CAPTION_2" title="Permalink to this definition">¶</a></dt>
 <dd><p>The font used for alternate captions.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.FONT_TEXT_STYLE_FOOTNOTE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">FONT_TEXT_STYLE_FOOTNOTE</code><a class="headerlink" href="#pyto_ui.FONT_TEXT_STYLE_FOOTNOTE" title="Permalink to this definition">¶</a></dt>
 <dd><p>The font used in footnotes.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.FONT_TEXT_STYLE_HEADLINE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">FONT_TEXT_STYLE_HEADLINE</code><a class="headerlink" href="#pyto_ui.FONT_TEXT_STYLE_HEADLINE" title="Permalink to this definition">¶</a></dt>
 <dd><p>The font used for headings.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.FONT_TEXT_STYLE_SUBHEADLINE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">FONT_TEXT_STYLE_SUBHEADLINE</code><a class="headerlink" href="#pyto_ui.FONT_TEXT_STYLE_SUBHEADLINE" title="Permalink to this definition">¶</a></dt>
 <dd><p>The font used for subheadings.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.FONT_TEXT_STYLE_LARGE_TITLE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">FONT_TEXT_STYLE_LARGE_TITLE</code><a class="headerlink" href="#pyto_ui.FONT_TEXT_STYLE_LARGE_TITLE" title="Permalink to this definition">¶</a></dt>
 <dd><p>The font style for large titles.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.FONT_TEXT_STYLE_TITLE_1">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">FONT_TEXT_STYLE_TITLE_1</code><a class="headerlink" href="#pyto_ui.FONT_TEXT_STYLE_TITLE_1" title="Permalink to this definition">¶</a></dt>
 <dd><p>The font used for first level hierarchical headings.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.FONT_TEXT_STYLE_TITLE_2">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">FONT_TEXT_STYLE_TITLE_2</code><a class="headerlink" href="#pyto_ui.FONT_TEXT_STYLE_TITLE_2" title="Permalink to this definition">¶</a></dt>
 <dd><p>The font used for second level hierarchical headings.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.FONT_TEXT_STYLE_TITLE_3">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">FONT_TEXT_STYLE_TITLE_3</code><a class="headerlink" href="#pyto_ui.FONT_TEXT_STYLE_TITLE_3" title="Permalink to this definition">¶</a></dt>
 <dd><p>The font used for third level hierarchical headings.</p>
@@ -798,25 +810,25 @@
 </div>
 <div class="section" id="font-size">
 <h2>Font Size<a class="headerlink" href="#font-size" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.FONT_LABEL_SIZE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">FONT_LABEL_SIZE</code><a class="headerlink" href="#pyto_ui.FONT_LABEL_SIZE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the standard font size used for labels.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.FONT_BUTTON_SIZE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">FONT_BUTTON_SIZE</code><a class="headerlink" href="#pyto_ui.FONT_BUTTON_SIZE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the standard font size used for buttons.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.FONT_SMALL_SYSTEM_SIZE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">FONT_SMALL_SYSTEM_SIZE</code><a class="headerlink" href="#pyto_ui.FONT_SMALL_SYSTEM_SIZE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the size of the standard small system font.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.FONT_SYSTEM_SIZE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">FONT_SYSTEM_SIZE</code><a class="headerlink" href="#pyto_ui.FONT_SYSTEM_SIZE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the size of the standard system font.</p>
@@ -825,37 +837,37 @@
 </div>
 <div class="section" id="button-type">
 <h2>Button Type<a class="headerlink" href="#button-type" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.BUTTON_TYPE_SYSTEM">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">BUTTON_TYPE_SYSTEM</code><a class="headerlink" href="#pyto_ui.BUTTON_TYPE_SYSTEM" title="Permalink to this definition">¶</a></dt>
 <dd><p>A system style button, such as those shown in navigation bars and toolbars.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.BUTTON_TYPE_CONTACT_ADD">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">BUTTON_TYPE_CONTACT_ADD</code><a class="headerlink" href="#pyto_ui.BUTTON_TYPE_CONTACT_ADD" title="Permalink to this definition">¶</a></dt>
 <dd><p>A contact add button.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.BUTTON_TYPE_CUSTOM">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">BUTTON_TYPE_CUSTOM</code><a class="headerlink" href="#pyto_ui.BUTTON_TYPE_CUSTOM" title="Permalink to this definition">¶</a></dt>
 <dd><p>No button style.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.BUTTON_TYPE_DETAIL_DISCLOSURE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">BUTTON_TYPE_DETAIL_DISCLOSURE</code><a class="headerlink" href="#pyto_ui.BUTTON_TYPE_DETAIL_DISCLOSURE" title="Permalink to this definition">¶</a></dt>
 <dd><p>A detail disclosure button.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.BUTTON_TYPE_INFO_DARK">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">BUTTON_TYPE_INFO_DARK</code><a class="headerlink" href="#pyto_ui.BUTTON_TYPE_INFO_DARK" title="Permalink to this definition">¶</a></dt>
 <dd><p>An information button that has a dark background.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.BUTTON_TYPE_INFO_LIGHT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">BUTTON_TYPE_INFO_LIGHT</code><a class="headerlink" href="#pyto_ui.BUTTON_TYPE_INFO_LIGHT" title="Permalink to this definition">¶</a></dt>
 <dd><p>An information button that has a light background.</p>
@@ -864,19 +876,19 @@
 </div>
 <div class="section" id="gesture-type">
 <h2>Gesture Type<a class="headerlink" href="#gesture-type" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.GESTURE_TYPE_LONG_PRESS">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">GESTURE_TYPE_LONG_PRESS</code><a class="headerlink" href="#pyto_ui.GESTURE_TYPE_LONG_PRESS" title="Permalink to this definition">¶</a></dt>
 <dd><p>A long press gesture.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.GESTURE_TYPE_PAN">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">GESTURE_TYPE_PAN</code><a class="headerlink" href="#pyto_ui.GESTURE_TYPE_PAN" title="Permalink to this definition">¶</a></dt>
 <dd><p>A dragging gesture.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.GESTURE_TYPE_TAP">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">GESTURE_TYPE_TAP</code><a class="headerlink" href="#pyto_ui.GESTURE_TYPE_TAP" title="Permalink to this definition">¶</a></dt>
 <dd><p>A tap gesture.</p>
@@ -885,37 +897,37 @@
 </div>
 <div class="section" id="gesture-state">
 <h2>Gesture State<a class="headerlink" href="#gesture-state" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.GESTURE_STATE_POSSIBLE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">GESTURE_STATE_POSSIBLE</code><a class="headerlink" href="#pyto_ui.GESTURE_STATE_POSSIBLE" title="Permalink to this definition">¶</a></dt>
 <dd><p>The gesture recognizer has not yet recognized its gesture, but may be evaluating touch events. This is the default state.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.GESTURE_STATE_BEGAN">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">GESTURE_STATE_BEGAN</code><a class="headerlink" href="#pyto_ui.GESTURE_STATE_BEGAN" title="Permalink to this definition">¶</a></dt>
 <dd><p>The gesture recognizer has received touch objects recognized as a continuous gesture. It sends its action message (or messages) at the next cycle of the run loop.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.GESTURE_STATE_CHANGED">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">GESTURE_STATE_CHANGED</code><a class="headerlink" href="#pyto_ui.GESTURE_STATE_CHANGED" title="Permalink to this definition">¶</a></dt>
 <dd><p>The gesture recognizer has received touches recognized as a change to a continuous gesture. It sends its action message (or messages) at the next cycle of the run loop.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.GESTURE_STATE_ENDED">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">GESTURE_STATE_ENDED</code><a class="headerlink" href="#pyto_ui.GESTURE_STATE_ENDED" title="Permalink to this definition">¶</a></dt>
 <dd><p>The gesture recognizer has received touches recognized as the end of a continuous gesture. It sends its action message (or messages) at the next cycle of the run loop and resets its state to possible.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.GESTURE_STATE_CANCELLED">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">GESTURE_STATE_CANCELLED</code><a class="headerlink" href="#pyto_ui.GESTURE_STATE_CANCELLED" title="Permalink to this definition">¶</a></dt>
 <dd><p>The gesture recognizer has received touches resulting in the cancellation of a continuous gesture. It sends its action message (or messages) at the next cycle of the run loop and resets its state to possible.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.GESTURE_STATE_RECOGNIZED">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">GESTURE_STATE_RECOGNIZED</code><a class="headerlink" href="#pyto_ui.GESTURE_STATE_RECOGNIZED" title="Permalink to this definition">¶</a></dt>
 <dd><p>The gesture recognizer has received a multi-touch sequence that it recognizes as its gesture. It sends its action message (or messages) at the next cycle of the run loop and resets its state to possible.</p>
@@ -924,19 +936,19 @@
 </div>
 <div class="section" id="touch-type">
 <h2>Touch Type<a class="headerlink" href="#touch-type" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.TOUCH_TYPE_DIRECT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">TOUCH_TYPE_DIRECT</code><a class="headerlink" href="#pyto_ui.TOUCH_TYPE_DIRECT" title="Permalink to this definition">¶</a></dt>
 <dd><p>A touch resulting from direct contact with the screen.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.TOUCH_TYPE_INDIRECT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">TOUCH_TYPE_INDIRECT</code><a class="headerlink" href="#pyto_ui.TOUCH_TYPE_INDIRECT" title="Permalink to this definition">¶</a></dt>
 <dd><p>A touch that did not result from contact with the screen.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.TOUCH_TYPE_PENCIL">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">TOUCH_TYPE_PENCIL</code><a class="headerlink" href="#pyto_ui.TOUCH_TYPE_PENCIL" title="Permalink to this definition">¶</a></dt>
 <dd><p>A touch from Apple Pencil.</p>
@@ -945,37 +957,37 @@
 </div>
 <div class="section" id="auto-resizing">
 <h2>Auto Resizing<a class="headerlink" href="#auto-resizing" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.FLEXIBLE_WIDTH">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">FLEXIBLE_WIDTH</code><a class="headerlink" href="#pyto_ui.FLEXIBLE_WIDTH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resizing performed by expanding or shrinking a view’s width.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.FLEXIBLE_HEIGHT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">FLEXIBLE_HEIGHT</code><a class="headerlink" href="#pyto_ui.FLEXIBLE_HEIGHT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resizing performed by expanding or shrinking a view’s height.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.FLEXIBLE_TOP_MARGIN">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">FLEXIBLE_TOP_MARGIN</code><a class="headerlink" href="#pyto_ui.FLEXIBLE_TOP_MARGIN" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resizing performed by expanding or shrinking a view in the direction of the top margin.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.FLEXIBLE_BOTTOM_MARGIN">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">FLEXIBLE_BOTTOM_MARGIN</code><a class="headerlink" href="#pyto_ui.FLEXIBLE_BOTTOM_MARGIN" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resizing performed by expanding or shrinking a view in the direction of the bottom margin.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.FLEXIBLE_LEFT_MARGIN">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">FLEXIBLE_LEFT_MARGIN</code><a class="headerlink" href="#pyto_ui.FLEXIBLE_LEFT_MARGIN" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resizing performed by expanding or shrinking a view in the direction of the left margin.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.FLEXIBLE_RIGHT_MARGIN">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">FLEXIBLE_RIGHT_MARGIN</code><a class="headerlink" href="#pyto_ui.FLEXIBLE_RIGHT_MARGIN" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resizing performed by expanding or shrinking a view in the direction of the right margin.</p>
@@ -984,79 +996,79 @@
 </div>
 <div class="section" id="content-mode">
 <h2>Content Mode<a class="headerlink" href="#content-mode" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.CONTENT_MODE_SCALE_TO_FILL">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">CONTENT_MODE_SCALE_TO_FILL</code><a class="headerlink" href="#pyto_ui.CONTENT_MODE_SCALE_TO_FILL" title="Permalink to this definition">¶</a></dt>
 <dd><p>The option to scale the content to fit the size of itself by changing the aspect ratio of the content if necessary.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.CONTENT_MODE_SCALE_ASPECT_FIT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">CONTENT_MODE_SCALE_ASPECT_FIT</code><a class="headerlink" href="#pyto_ui.CONTENT_MODE_SCALE_ASPECT_FIT" title="Permalink to this definition">¶</a></dt>
 <dd><p>The option to scale the content to fit the size of the view by maintaining the aspect ratio. Any remaining area of the view’s bounds is transparent.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.CONTENT_MODE_SCALE_ASPECT_FILL">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">CONTENT_MODE_SCALE_ASPECT_FILL</code><a class="headerlink" href="#pyto_ui.CONTENT_MODE_SCALE_ASPECT_FILL" title="Permalink to this definition">¶</a></dt>
 <dd><p>The option to scale the content to fill the size of the view. Some portion of the content may be clipped to fill the view’s bounds.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.CONTENT_MODE_REDRAW">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">CONTENT_MODE_REDRAW</code><a class="headerlink" href="#pyto_ui.CONTENT_MODE_REDRAW" title="Permalink to this definition">¶</a></dt>
 <dd><p>The option to redisplay the view when the bounds change by invoking the <code class="docutils literal notranslate"><span class="pre">setNeedsDisplay()</span></code> method.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.CONTENT_MODE_CENTER">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">CONTENT_MODE_CENTER</code><a class="headerlink" href="#pyto_ui.CONTENT_MODE_CENTER" title="Permalink to this definition">¶</a></dt>
 <dd><p>The option to center the content in the view’s bounds, keeping the proportions the same.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.CONTENT_MODE_TOP">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">CONTENT_MODE_TOP</code><a class="headerlink" href="#pyto_ui.CONTENT_MODE_TOP" title="Permalink to this definition">¶</a></dt>
 <dd><p>The option to center the content aligned at the top in the view’s bounds.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.CONTENT_MODE_BOTTOM">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">CONTENT_MODE_BOTTOM</code><a class="headerlink" href="#pyto_ui.CONTENT_MODE_BOTTOM" title="Permalink to this definition">¶</a></dt>
 <dd><p>The option to center the content aligned at the bottom in the view’s bounds.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.CONTENT_MODE_LEFT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">CONTENT_MODE_LEFT</code><a class="headerlink" href="#pyto_ui.CONTENT_MODE_LEFT" title="Permalink to this definition">¶</a></dt>
 <dd><p>The option to align the content on the left of the view.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.CONTENT_MODE_RIGHT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">CONTENT_MODE_RIGHT</code><a class="headerlink" href="#pyto_ui.CONTENT_MODE_RIGHT" title="Permalink to this definition">¶</a></dt>
 <dd><p>The option to align the content on the right of the view.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.CONTENT_MODE_TOP_LEFT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">CONTENT_MODE_TOP_LEFT</code><a class="headerlink" href="#pyto_ui.CONTENT_MODE_TOP_LEFT" title="Permalink to this definition">¶</a></dt>
 <dd><p>The option to align the content in the top-left corner of the view.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.CONTENT_MODE_TOP_RIGHT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">CONTENT_MODE_TOP_RIGHT</code><a class="headerlink" href="#pyto_ui.CONTENT_MODE_TOP_RIGHT" title="Permalink to this definition">¶</a></dt>
 <dd><p>The option to align the content in the top-right corner of the view.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.CONTENT_MODE_BOTTOM_LEFT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">CONTENT_MODE_BOTTOM_LEFT</code><a class="headerlink" href="#pyto_ui.CONTENT_MODE_BOTTOM_LEFT" title="Permalink to this definition">¶</a></dt>
 <dd><p>The option to align the content in the bottom-left corner of the view.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.CONTENT_MODE_BOTTOM_RIGHT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">CONTENT_MODE_BOTTOM_RIGHT</code><a class="headerlink" href="#pyto_ui.CONTENT_MODE_BOTTOM_RIGHT" title="Permalink to this definition">¶</a></dt>
 <dd><p>The option to align the content in the bottom-right corner of the view.</p>
@@ -1065,37 +1077,37 @@
 </div>
 <div class="section" id="horizontal-alignment">
 <h2>Horizontal Alignment<a class="headerlink" href="#horizontal-alignment" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.HORZONTAL_ALIGNMENT_CENTER">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">HORZONTAL_ALIGNMENT_CENTER</code><a class="headerlink" href="#pyto_ui.HORZONTAL_ALIGNMENT_CENTER" title="Permalink to this definition">¶</a></dt>
 <dd><p>Aligns the content horizontally in the center of the control.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.HORZONTAL_ALIGNMENT_FILL">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">HORZONTAL_ALIGNMENT_FILL</code><a class="headerlink" href="#pyto_ui.HORZONTAL_ALIGNMENT_FILL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Aligns the content horizontally to fill the content rectangles; text may wrap and images may be stretched.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.HORZONTAL_ALIGNMENT_LEADING">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">HORZONTAL_ALIGNMENT_LEADING</code><a class="headerlink" href="#pyto_ui.HORZONTAL_ALIGNMENT_LEADING" title="Permalink to this definition">¶</a></dt>
 <dd><p>Aligns the content horizontally from the leading edge of the control.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.HORZONTAL_ALIGNMENT_LEFT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">HORZONTAL_ALIGNMENT_LEFT</code><a class="headerlink" href="#pyto_ui.HORZONTAL_ALIGNMENT_LEFT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Aligns the content horizontally from the left of the control (the default).</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.HORZONTAL_ALIGNMENT_RIGHT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">HORZONTAL_ALIGNMENT_RIGHT</code><a class="headerlink" href="#pyto_ui.HORZONTAL_ALIGNMENT_RIGHT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Aligns the content horizontally from the right of the control.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.HORZONTAL_ALIGNMENT_TRAILING">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">HORZONTAL_ALIGNMENT_TRAILING</code><a class="headerlink" href="#pyto_ui.HORZONTAL_ALIGNMENT_TRAILING" title="Permalink to this definition">¶</a></dt>
 <dd><p>Aligns the content horizontally from the trailing edge of the control.</p>
@@ -1104,25 +1116,25 @@
 </div>
 <div class="section" id="vertical-alignment">
 <h2>Vertical Alignment<a class="headerlink" href="#vertical-alignment" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.VERTICAL_ALIGNMENT_BOTTOM">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">VERTICAL_ALIGNMENT_BOTTOM</code><a class="headerlink" href="#pyto_ui.VERTICAL_ALIGNMENT_BOTTOM" title="Permalink to this definition">¶</a></dt>
 <dd><p>Aligns the content vertically at the bottom in the control.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.VERTICAL_ALIGNMENT_CENTER">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">VERTICAL_ALIGNMENT_CENTER</code><a class="headerlink" href="#pyto_ui.VERTICAL_ALIGNMENT_CENTER" title="Permalink to this definition">¶</a></dt>
 <dd><p>Aligns the content vertically in the center of the control.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.VERTICAL_ALIGNMENT_FILL">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">VERTICAL_ALIGNMENT_FILL</code><a class="headerlink" href="#pyto_ui.VERTICAL_ALIGNMENT_FILL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Aligns the content vertically to fill the content rectangle; images may be stretched.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.VERTICAL_ALIGNMENT_TOP">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">VERTICAL_ALIGNMENT_TOP</code><a class="headerlink" href="#pyto_ui.VERTICAL_ALIGNMENT_TOP" title="Permalink to this definition">¶</a></dt>
 <dd><p>Aligns the content vertically at the top in the control (the default).</p>
@@ -1131,31 +1143,31 @@
 </div>
 <div class="section" id="text-alignment">
 <h2>Text Alignment<a class="headerlink" href="#text-alignment" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.TEXT_ALIGNMENT_LEFT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">TEXT_ALIGNMENT_LEFT</code><a class="headerlink" href="#pyto_ui.TEXT_ALIGNMENT_LEFT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Text is visually left aligned.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.TEXT_ALIGNMENT_RIGHT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">TEXT_ALIGNMENT_RIGHT</code><a class="headerlink" href="#pyto_ui.TEXT_ALIGNMENT_RIGHT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Text is visually right aligned.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.TEXT_ALIGNMENT_CENTER">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">TEXT_ALIGNMENT_CENTER</code><a class="headerlink" href="#pyto_ui.TEXT_ALIGNMENT_CENTER" title="Permalink to this definition">¶</a></dt>
 <dd><p>Text is visually center aligned.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.TEXT_ALIGNMENT_JUSTIFIED">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">TEXT_ALIGNMENT_JUSTIFIED</code><a class="headerlink" href="#pyto_ui.TEXT_ALIGNMENT_JUSTIFIED" title="Permalink to this definition">¶</a></dt>
 <dd><p>Text is justified.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.TEXT_ALIGNMENT_NATURAL">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">TEXT_ALIGNMENT_NATURAL</code><a class="headerlink" href="#pyto_ui.TEXT_ALIGNMENT_NATURAL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use the default alignment associated with the current localization of the app. The default alignment for left-to-right scripts is left, and the default alignment for right-to-left scripts is right.</p>
@@ -1164,37 +1176,37 @@
 </div>
 <div class="section" id="line-break-mode">
 <h2>Line Break Mode<a class="headerlink" href="#line-break-mode" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.LINE_BREAK_MODE_BY_WORD_WRAPPING">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">LINE_BREAK_MODE_BY_WORD_WRAPPING</code><a class="headerlink" href="#pyto_ui.LINE_BREAK_MODE_BY_WORD_WRAPPING" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapping occurs at word boundaries, unless the word itself doesn’t fit on a single line.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.LINE_BREAK_MODE_BY_CHAR_WRAPPING">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">LINE_BREAK_MODE_BY_CHAR_WRAPPING</code><a class="headerlink" href="#pyto_ui.LINE_BREAK_MODE_BY_CHAR_WRAPPING" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapping occurs before the first character that doesn’t fit.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.LINE_BREAK_MODE_BY_CLIPPING">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">LINE_BREAK_MODE_BY_CLIPPING</code><a class="headerlink" href="#pyto_ui.LINE_BREAK_MODE_BY_CLIPPING" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lines are simply not drawn past the edge of the text container.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.LINE_BREAK_MODE_BY_TRUNCATING_HEAD">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">LINE_BREAK_MODE_BY_TRUNCATING_HEAD</code><a class="headerlink" href="#pyto_ui.LINE_BREAK_MODE_BY_TRUNCATING_HEAD" title="Permalink to this definition">¶</a></dt>
 <dd><p>The line is displayed so that the end fits in the container and the missing text at the beginning of the line is indicated by an ellipsis glyph. Although this mode works for multiline text, it is more often used for single line text.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.LINE_BREAK_MODE_BY_TRUNCATING_TAIL">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">LINE_BREAK_MODE_BY_TRUNCATING_TAIL</code><a class="headerlink" href="#pyto_ui.LINE_BREAK_MODE_BY_TRUNCATING_TAIL" title="Permalink to this definition">¶</a></dt>
 <dd><p>The line is displayed so that the beginning fits in the container and the missing text at the end of the line is indicated by an ellipsis glyph. Although this mode works for multiline text, it is more often used for single line text.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.LINE_BREAK_MODE_BY_TRUNCATING_MIDDLE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">LINE_BREAK_MODE_BY_TRUNCATING_MIDDLE</code><a class="headerlink" href="#pyto_ui.LINE_BREAK_MODE_BY_TRUNCATING_MIDDLE" title="Permalink to this definition">¶</a></dt>
 <dd><p>The line is displayed so that the beginning and end fit in the container and the missing text in the middle is indicated by an ellipsis glyph. This mode is used for single-line layout; using it with multiline text truncates the text into a single line.</p>
@@ -1203,25 +1215,25 @@
 </div>
 <div class="section" id="table-view-cell-style">
 <h2>Table View Cell Style<a class="headerlink" href="#table-view-cell-style" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.TABLE_VIEW_CELL_STYLE_DEFAULT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">TABLE_VIEW_CELL_STYLE_DEFAULT</code><a class="headerlink" href="#pyto_ui.TABLE_VIEW_CELL_STYLE_DEFAULT" title="Permalink to this definition">¶</a></dt>
 <dd><p>A simple style for a cell with a text label (black and left-aligned) and an optional image view.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.TABLE_VIEW_CELL_STYLE_SUBTITLE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">TABLE_VIEW_CELL_STYLE_SUBTITLE</code><a class="headerlink" href="#pyto_ui.TABLE_VIEW_CELL_STYLE_SUBTITLE" title="Permalink to this definition">¶</a></dt>
 <dd><p>A style for a cell with a left-aligned label across the top and a left-aligned label below it in smaller gray text.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.TABLE_VIEW_CELL_STYLE_VALUE1">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">TABLE_VIEW_CELL_STYLE_VALUE1</code><a class="headerlink" href="#pyto_ui.TABLE_VIEW_CELL_STYLE_VALUE1" title="Permalink to this definition">¶</a></dt>
 <dd><p>A style for a cell with a label on the left side of the cell with left-aligned and black text; on the right side is a label that has smaller blue text and is right-aligned. The Settings application uses cells in this style.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.TABLE_VIEW_CELL_STYLE_VALUE2">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">TABLE_VIEW_CELL_STYLE_VALUE2</code><a class="headerlink" href="#pyto_ui.TABLE_VIEW_CELL_STYLE_VALUE2" title="Permalink to this definition">¶</a></dt>
 <dd><p>A style for a cell with a label on the left side of the cell with text that is right-aligned and blue; on the right side of the cell is another label with smaller text that is left-aligned and black. The Phone/Contacts application uses cells in this style.</p>
@@ -1230,31 +1242,31 @@
 </div>
 <div class="section" id="accessory-type">
 <h2>Accessory Type<a class="headerlink" href="#accessory-type" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.ACCESSORY_TYPE_NONE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">ACCESSORY_TYPE_NONE</code><a class="headerlink" href="#pyto_ui.ACCESSORY_TYPE_NONE" title="Permalink to this definition">¶</a></dt>
 <dd><p>No accessory view.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.ACCESSORY_TYPE_CHECKMARK">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">ACCESSORY_TYPE_CHECKMARK</code><a class="headerlink" href="#pyto_ui.ACCESSORY_TYPE_CHECKMARK" title="Permalink to this definition">¶</a></dt>
 <dd><p>A checkmark image.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.ACCESSORY_TYPE_DETAIL_BUTTON">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">ACCESSORY_TYPE_DETAIL_BUTTON</code><a class="headerlink" href="#pyto_ui.ACCESSORY_TYPE_DETAIL_BUTTON" title="Permalink to this definition">¶</a></dt>
 <dd><p>An information button.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.ACCESSORY_TYPE_DETAIL_DISCLOSURE_BUTTON">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">ACCESSORY_TYPE_DETAIL_DISCLOSURE_BUTTON</code><a class="headerlink" href="#pyto_ui.ACCESSORY_TYPE_DETAIL_DISCLOSURE_BUTTON" title="Permalink to this definition">¶</a></dt>
 <dd><p>An information button and a disclosure (chevron) control.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.ACCESSORY_TYPE_DISCLOSURE_INDICATOR">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">ACCESSORY_TYPE_DISCLOSURE_INDICATOR</code><a class="headerlink" href="#pyto_ui.ACCESSORY_TYPE_DISCLOSURE_INDICATOR" title="Permalink to this definition">¶</a></dt>
 <dd><p>A chevron-shaped control for presenting new content.</p>
@@ -1263,13 +1275,13 @@
 </div>
 <div class="section" id="table-view-style">
 <h2>Table View Style<a class="headerlink" href="#table-view-style" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.TABLE_VIEW_STYLE_PLAIN">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">TABLE_VIEW_STYLE_PLAIN</code><a class="headerlink" href="#pyto_ui.TABLE_VIEW_STYLE_PLAIN" title="Permalink to this definition">¶</a></dt>
 <dd><p>A plain table view.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.TABLE_VIEW_STYLE_GROUPED">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">TABLE_VIEW_STYLE_GROUPED</code><a class="headerlink" href="#pyto_ui.TABLE_VIEW_STYLE_GROUPED" title="Permalink to this definition">¶</a></dt>
 <dd><p>A table view whose sections present distinct groups of rows.</p>
@@ -1278,25 +1290,25 @@
 </div>
 <div class="section" id="text-field-border-style">
 <h2>Text Field Border Style<a class="headerlink" href="#text-field-border-style" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.TEXT_FIELD_BORDER_STYLE_NONE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">TEXT_FIELD_BORDER_STYLE_NONE</code><a class="headerlink" href="#pyto_ui.TEXT_FIELD_BORDER_STYLE_NONE" title="Permalink to this definition">¶</a></dt>
 <dd><p>The text field does not display a border.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.TEXT_FIELD_BORDER_STYLE_BEZEL">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">TEXT_FIELD_BORDER_STYLE_BEZEL</code><a class="headerlink" href="#pyto_ui.TEXT_FIELD_BORDER_STYLE_BEZEL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Displays a bezel-style border for the text field. This style is typically used for standard data-entry fields.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.TEXT_FIELD_BORDER_STYLE_LINE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">TEXT_FIELD_BORDER_STYLE_LINE</code><a class="headerlink" href="#pyto_ui.TEXT_FIELD_BORDER_STYLE_LINE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Displays a thin rectangle around the text field.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.TEXT_FIELD_BORDER_STYLE_ROUNDED_RECT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">TEXT_FIELD_BORDER_STYLE_ROUNDED_RECT</code><a class="headerlink" href="#pyto_ui.TEXT_FIELD_BORDER_STYLE_ROUNDED_RECT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Displays a rounded-style border for the text field.</p>
@@ -1305,13 +1317,13 @@
 </div>
 <div class="section" id="button-item-style">
 <h2>Button Item Style<a class="headerlink" href="#button-item-style" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.BUTTON_ITEM_STYLE_PLAIN">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">BUTTON_ITEM_STYLE_PLAIN</code><a class="headerlink" href="#pyto_ui.BUTTON_ITEM_STYLE_PLAIN" title="Permalink to this definition">¶</a></dt>
 <dd><p>Glows when tapped. The default item style.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.BUTTON_ITEM_STYLE_DONE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">BUTTON_ITEM_STYLE_DONE</code><a class="headerlink" href="#pyto_ui.BUTTON_ITEM_STYLE_DONE" title="Permalink to this definition">¶</a></dt>
 <dd><p>The style for a done button—for example, a button that completes some task and returns to the previous view.</p>
@@ -1320,133 +1332,133 @@
 </div>
 <div class="section" id="system-item">
 <h2>System Item<a class="headerlink" href="#system-item" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.SYSTEM_ITEM_ACTION">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">SYSTEM_ITEM_ACTION</code><a class="headerlink" href="#pyto_ui.SYSTEM_ITEM_ACTION" title="Permalink to this definition">¶</a></dt>
 <dd><p>The system action button.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.SYSTEM_ITEM_ADD">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">SYSTEM_ITEM_ADD</code><a class="headerlink" href="#pyto_ui.SYSTEM_ITEM_ADD" title="Permalink to this definition">¶</a></dt>
 <dd><p>The system plus button containing an icon of a plus sign.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.SYSTEM_ITEM_BOOKMARKS">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">SYSTEM_ITEM_BOOKMARKS</code><a class="headerlink" href="#pyto_ui.SYSTEM_ITEM_BOOKMARKS" title="Permalink to this definition">¶</a></dt>
 <dd><p>The system bookmarks button.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.SYSTEM_ITEM_CAMERA">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">SYSTEM_ITEM_CAMERA</code><a class="headerlink" href="#pyto_ui.SYSTEM_ITEM_CAMERA" title="Permalink to this definition">¶</a></dt>
 <dd><p>The system camera button.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.SYSTEM_ITEM_CANCEL">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">SYSTEM_ITEM_CANCEL</code><a class="headerlink" href="#pyto_ui.SYSTEM_ITEM_CANCEL" title="Permalink to this definition">¶</a></dt>
 <dd><p>The system Cancel button, localized.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.SYSTEM_ITEM_COMPOSE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">SYSTEM_ITEM_COMPOSE</code><a class="headerlink" href="#pyto_ui.SYSTEM_ITEM_COMPOSE" title="Permalink to this definition">¶</a></dt>
 <dd><p>The system compose button.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.SYSTEM_ITEM_DONE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">SYSTEM_ITEM_DONE</code><a class="headerlink" href="#pyto_ui.SYSTEM_ITEM_DONE" title="Permalink to this definition">¶</a></dt>
 <dd><p>The system Done button, localized.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.SYSTEM_ITEM_EDIT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">SYSTEM_ITEM_EDIT</code><a class="headerlink" href="#pyto_ui.SYSTEM_ITEM_EDIT" title="Permalink to this definition">¶</a></dt>
 <dd><p>The system Edit button, localized.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.SYSTEM_ITEM_FAST_FORWARD">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">SYSTEM_ITEM_FAST_FORWARD</code><a class="headerlink" href="#pyto_ui.SYSTEM_ITEM_FAST_FORWARD" title="Permalink to this definition">¶</a></dt>
 <dd><p>The system fast forward button.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.SYSTEM_ITEM_FLEXIBLE_SPACE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">SYSTEM_ITEM_FLEXIBLE_SPACE</code><a class="headerlink" href="#pyto_ui.SYSTEM_ITEM_FLEXIBLE_SPACE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Blank space to add between other items. The space is distributed equally between the other items. Other item properties are ignored when this value is set.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.SYSTEM_ITEM_ORGANIZE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">SYSTEM_ITEM_ORGANIZE</code><a class="headerlink" href="#pyto_ui.SYSTEM_ITEM_ORGANIZE" title="Permalink to this definition">¶</a></dt>
 <dd><p>The system organize button.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.SYSTEM_ITEM_PAUSE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">SYSTEM_ITEM_PAUSE</code><a class="headerlink" href="#pyto_ui.SYSTEM_ITEM_PAUSE" title="Permalink to this definition">¶</a></dt>
 <dd><p>The system pause button.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.SYSTEM_ITEM_PLAY">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">SYSTEM_ITEM_PLAY</code><a class="headerlink" href="#pyto_ui.SYSTEM_ITEM_PLAY" title="Permalink to this definition">¶</a></dt>
 <dd><p>The system play button.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.SYSTEM_ITEM_REDO">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">SYSTEM_ITEM_REDO</code><a class="headerlink" href="#pyto_ui.SYSTEM_ITEM_REDO" title="Permalink to this definition">¶</a></dt>
 <dd><p>The system redo button.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.SYSTEM_ITEM_REFRESH">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">SYSTEM_ITEM_REFRESH</code><a class="headerlink" href="#pyto_ui.SYSTEM_ITEM_REFRESH" title="Permalink to this definition">¶</a></dt>
 <dd><p>The system refresh button.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.SYSTEM_ITEM_REPLY">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">SYSTEM_ITEM_REPLY</code><a class="headerlink" href="#pyto_ui.SYSTEM_ITEM_REPLY" title="Permalink to this definition">¶</a></dt>
 <dd><p>The system reply button.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.SYSTEM_ITEM_REWIND">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">SYSTEM_ITEM_REWIND</code><a class="headerlink" href="#pyto_ui.SYSTEM_ITEM_REWIND" title="Permalink to this definition">¶</a></dt>
 <dd><p>The system rewind button.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.SYSTEM_ITEM_SAVE">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">SYSTEM_ITEM_SAVE</code><a class="headerlink" href="#pyto_ui.SYSTEM_ITEM_SAVE" title="Permalink to this definition">¶</a></dt>
 <dd><p>The system Save button, localized.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.SYSTEM_ITEM_SEARCH">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">SYSTEM_ITEM_SEARCH</code><a class="headerlink" href="#pyto_ui.SYSTEM_ITEM_SEARCH" title="Permalink to this definition">¶</a></dt>
 <dd><p>The system search button.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.SYSTEM_ITEM_STOP">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">SYSTEM_ITEM_STOP</code><a class="headerlink" href="#pyto_ui.SYSTEM_ITEM_STOP" title="Permalink to this definition">¶</a></dt>
 <dd><p>The system stop button.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.SYSTEM_ITEM_TRASH">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">SYSTEM_ITEM_TRASH</code><a class="headerlink" href="#pyto_ui.SYSTEM_ITEM_TRASH" title="Permalink to this definition">¶</a></dt>
 <dd><p>The system trash button.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.SYSTEM_ITEM_UNDO">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">SYSTEM_ITEM_UNDO</code><a class="headerlink" href="#pyto_ui.SYSTEM_ITEM_UNDO" title="Permalink to this definition">¶</a></dt>
 <dd><p>The system undo button.</p>
@@ -1455,19 +1467,19 @@
 </div>
 <div class="section" id="presentation-mode">
 <h2>Presentation Mode<a class="headerlink" href="#presentation-mode" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.PRESENTATION_MODE_SHEET">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">PRESENTATION_MODE_SHEET</code><a class="headerlink" href="#pyto_ui.PRESENTATION_MODE_SHEET" title="Permalink to this definition">¶</a></dt>
 <dd><p>A presentation style that displays the content centered in the screen.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.PRESENTATION_MODE_FULLSCREEN">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">PRESENTATION_MODE_FULLSCREEN</code><a class="headerlink" href="#pyto_ui.PRESENTATION_MODE_FULLSCREEN" title="Permalink to this definition">¶</a></dt>
 <dd><p>A presentation style in which the presented view covers the screen.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.PRESENTATION_MODE_WIDGET">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">PRESENTATION_MODE_WIDGET</code><a class="headerlink" href="#pyto_ui.PRESENTATION_MODE_WIDGET" title="Permalink to this definition">¶</a></dt>
 <dd><p>A presentation mode style which simulates a Today Widget. Should be used in app to preview how a widget will look.</p>
@@ -1476,19 +1488,19 @@
 </div>
 <div class="section" id="appearance">
 <h2>Appearance<a class="headerlink" href="#appearance" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.APPEARANCE_UNSPECIFIED">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">APPEARANCE_UNSPECIFIED</code><a class="headerlink" href="#pyto_ui.APPEARANCE_UNSPECIFIED" title="Permalink to this definition">¶</a></dt>
 <dd><p>An unspecified interface style.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.APPEARANCE_LIGHT">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">APPEARANCE_LIGHT</code><a class="headerlink" href="#pyto_ui.APPEARANCE_LIGHT" title="Permalink to this definition">¶</a></dt>
 <dd><p>The light interface style.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="pyto_ui.APPEARANCE_DARK">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">APPEARANCE_DARK</code><a class="headerlink" href="#pyto_ui.APPEARANCE_DARK" title="Permalink to this definition">¶</a></dt>
 <dd><p>The dark interface style.</p>
@@ -1505,7 +1517,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../pyto_core.html" class="btn btn-neutral float-right" title="pyto_core" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../widgets.html" class="btn btn-neutral float-right" title="widgets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="functions.html" class="btn btn-neutral float-left" title="Functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -1517,11 +1529,19 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2019, Adrian Labbé
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -1532,7 +1552,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

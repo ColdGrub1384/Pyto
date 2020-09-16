@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,27 +11,29 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="motion" href="motion.html" />
@@ -50,7 +51,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> Pyto
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Pyto
           
 
           
@@ -73,6 +74,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -82,23 +84,32 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="automation.html">Automation with Shortcuts and x-callback URLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external.html">Accessing external files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="opencv.html">OpenCV</a></li>
 <li class="toctree-l1"><a class="reference internal" href="django.html">Using Django</a></li>
 <li class="toctree-l1"><a class="reference internal" href="third_party.html">Third Party Libraries</a></li>
 </ul>
+<p class="caption"><span class="caption-text">ObjC Runtime</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Objective-C.html">Objective-C</a></li>
+</ul>
 <p class="caption"><span class="caption-text">User Interface</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="pyto_ui.html">pyto_ui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widgets.html">widgets <span class="red">Beta</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyto_core.html">pyto_core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notification_center.html">notification_center</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sf_symbols.html">sf_symbols <span class="red">Beta</span></a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mainthread.html">mainthread</a></li>
-<li class="toctree-l1"><a class="reference internal" href="console.html">console</a></li>
-<li class="toctree-l1"><a class="reference internal" href="UIKit.html">UIKit</a></li>
 </ul>
 <p class="caption"><span class="caption-text">OS Technologies</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="notifications.html">notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="remote_notifications.html">remote_notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="background.html">background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bookmarks.html">bookmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="music.html">music</a></li>
 <li class="toctree-l1"><a class="reference internal" href="photos.html">photos</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">location</a></li>
@@ -108,6 +119,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Sharing data</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="apps.html">apps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="xcallback.html">xcallback</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userkeys.html">userkeys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pasteboard.html">pasteboard</a></li>
@@ -116,6 +128,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -154,7 +167,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>location</li>
     
@@ -179,75 +192,75 @@
 <span id="location"></span><h1>location<a class="headerlink" href="#module-location" title="Permalink to this headline">¶</a></h1>
 <p>Accessing location</p>
 <p>This module gives access to the devices’s location.</p>
-<dl class="data">
+<dl class="py data">
 <dt id="location.LOCATION_ACCURACY_BEST">
 <code class="sig-prename descclassname">location.</code><code class="sig-name descname">LOCATION_ACCURACY_BEST</code><em class="property"> = -1</em><a class="headerlink" href="#location.LOCATION_ACCURACY_BEST" title="Permalink to this definition">¶</a></dt>
 <dd><p>The best level of accuracy available.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="location.LOCATION_ACCURACY_BEST_FOR_NAVIGATION">
 <code class="sig-prename descclassname">location.</code><code class="sig-name descname">LOCATION_ACCURACY_BEST_FOR_NAVIGATION</code><em class="property"> = -2</em><a class="headerlink" href="#location.LOCATION_ACCURACY_BEST_FOR_NAVIGATION" title="Permalink to this definition">¶</a></dt>
 <dd><p>The highest possible accuracy that uses additional sensor data to facilitate navigation apps.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="location.LOCATION_ACCURACY_HUNDRED_METERS">
 <code class="sig-prename descclassname">location.</code><code class="sig-name descname">LOCATION_ACCURACY_HUNDRED_METERS</code><em class="property"> = 100</em><a class="headerlink" href="#location.LOCATION_ACCURACY_HUNDRED_METERS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Accurate to within one hundred meters.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="location.LOCATION_ACCURACY_KILOMETER">
 <code class="sig-prename descclassname">location.</code><code class="sig-name descname">LOCATION_ACCURACY_KILOMETER</code><em class="property"> = 1000</em><a class="headerlink" href="#location.LOCATION_ACCURACY_KILOMETER" title="Permalink to this definition">¶</a></dt>
 <dd><p>Accurate to the nearest kilometer.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="location.LOCATION_ACCURACY_NEAREST_TEN_METERS">
 <code class="sig-prename descclassname">location.</code><code class="sig-name descname">LOCATION_ACCURACY_NEAREST_TEN_METERS</code><em class="property"> = 10</em><a class="headerlink" href="#location.LOCATION_ACCURACY_NEAREST_TEN_METERS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Accurate to within ten meters of the desired target.</p>
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="location.LOCATION_ACCURACY_THREE_KILOMETERS">
 <code class="sig-prename descclassname">location.</code><code class="sig-name descname">LOCATION_ACCURACY_THREE_KILOMETERS</code><em class="property"> = 3000</em><a class="headerlink" href="#location.LOCATION_ACCURACY_THREE_KILOMETERS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Accurate to the nearest three kilometers.</p>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="location.Location">
-<em class="property">class </em><code class="sig-prename descclassname">location.</code><code class="sig-name descname">Location</code><span class="sig-paren">(</span><em class="sig-param">longitude</em>, <em class="sig-param">latitude</em>, <em class="sig-param">altitude</em><span class="sig-paren">)</span><a class="headerlink" href="#location.Location" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">location.</code><code class="sig-name descname">Location</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">altitude</span></em><span class="sig-paren">)</span><a class="headerlink" href="#location.Location" title="Permalink to this definition">¶</a></dt>
 <dd><p>A tuple containing data about longitude, latitude and altitude.</p>
-<dl class="method">
+<dl class="py attribute">
 <dt id="location.Location.altitude">
-<em class="property">property </em><code class="sig-name descname">altitude</code><a class="headerlink" href="#location.Location.altitude" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">altitude</code><a class="headerlink" href="#location.Location.altitude" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias for field number 2</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py attribute">
 <dt id="location.Location.latitude">
-<em class="property">property </em><code class="sig-name descname">latitude</code><a class="headerlink" href="#location.Location.latitude" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">latitude</code><a class="headerlink" href="#location.Location.latitude" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias for field number 1</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py attribute">
 <dt id="location.Location.longitude">
-<em class="property">property </em><code class="sig-name descname">longitude</code><a class="headerlink" href="#location.Location.longitude" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">longitude</code><a class="headerlink" href="#location.Location.longitude" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias for field number 0</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="location.accuracy">
 <code class="sig-prename descclassname">location.</code><code class="sig-name descname">accuracy</code><em class="property"> = -1</em><a class="headerlink" href="#location.accuracy" title="Permalink to this definition">¶</a></dt>
 <dd><p>The number of meters from the original geographic coordinate that could yield the user’s actual location.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="location.get_location">
-<code class="sig-prename descclassname">location.</code><code class="sig-name descname">get_location</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; location.Location<a class="headerlink" href="#location.get_location" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">location.</code><code class="sig-name descname">get_location</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#location.Location" title="location.Location">location.Location</a><a class="headerlink" href="#location.get_location" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a tuple with current longitude, latitude and altitude.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -256,13 +269,13 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="location.start_updating">
 <code class="sig-prename descclassname">location.</code><code class="sig-name descname">start_updating</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#location.start_updating" title="Permalink to this definition">¶</a></dt>
 <dd><p>Starts receiving location updates. Call this before calling <a class="reference internal" href="#location.get_location" title="location.get_location"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_location()</span></code></a>.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="location.stop_updating">
 <code class="sig-prename descclassname">location.</code><code class="sig-name descname">stop_updating</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#location.stop_updating" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stops receiving location updates.</p>
@@ -290,11 +303,19 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2019, Adrian Labbé
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -305,7 +326,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,30 +11,32 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="OpenCV" href="opencv.html" />
+    <link rel="next" title="Accessing external files" href="external.html" />
     <link rel="prev" title="Welcome to Pyto’s documentation!" href="index.html" /> 
 </head>
 
@@ -50,7 +51,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> Pyto
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Pyto
           
 
           
@@ -73,6 +74,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -86,24 +88,32 @@
 <li class="toctree-l2"><a class="reference internal" href="#id1">x-callback URLs</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="external.html">Accessing external files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="opencv.html">OpenCV</a></li>
 <li class="toctree-l1"><a class="reference internal" href="django.html">Using Django</a></li>
 <li class="toctree-l1"><a class="reference internal" href="third_party.html">Third Party Libraries</a></li>
 </ul>
+<p class="caption"><span class="caption-text">ObjC Runtime</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Objective-C.html">Objective-C</a></li>
+</ul>
 <p class="caption"><span class="caption-text">User Interface</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="pyto_ui.html">pyto_ui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widgets.html">widgets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pyto_core.html">pyto_core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notification_center.html">notification_center</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sf_symbols.html">sf_symbols</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mainthread.html">mainthread</a></li>
-<li class="toctree-l1"><a class="reference internal" href="UIKit.html">UIKit</a></li>
 </ul>
 <p class="caption"><span class="caption-text">OS Technologies</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="notifications.html">notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="remote_notifications.html">remote_notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="background.html">background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bookmarks.html">bookmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="music.html">music</a></li>
 <li class="toctree-l1"><a class="reference internal" href="photos.html">photos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="location.html">location</a></li>
@@ -122,6 +132,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -160,7 +171,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Automation with Shortcuts and x-callback URLs</li>
     
@@ -186,9 +197,9 @@
 <div class="section" id="shortcuts">
 <h2>Shortcuts<a class="headerlink" href="#shortcuts" title="Permalink to this headline">¶</a></h2>
 <p>Pyto provides Shortcuts for running scripts and code. Shortcuts will open Pyto to execute the code and it’s not possible to retrieve the result. See <a class="reference external" href="#x-callbackURLs">x-callback URLs</a> for getting callbacks.</p>
-<p><code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">Code</span></code> will execute the given code with the given arguments. Code can be executed in app or without leaving Shortcuts. If you uncheck <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">In</span> <span class="pre">App</span></code>, the Shortcut will return the output of the code (stdout + stderr). When <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">In</span> <span class="pre">App</span></code> is unchecked, the code will only have access to the standard library and <code class="docutils literal notranslate"><span class="pre">stdin</span></code> cannot be sent.</p>
-<p><code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">Script</span></code> will execute the given script with the given arguments.</p>
-<p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Script</span> <span class="pre">Output</span></code> will wait for a script to be executed and will return its output.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">Code</span></code> will execute the given code with the given arguments. Can be executed in app or without leaving Shortcuts.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">Script</span></code> will execute the given script with the given arguments. Can be executed in app or without leaving Shortcuts.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Script</span> <span class="pre">Output</span></code> will wait for a script to be executed and returns its output.</p>
 </div>
 <div class="section" id="id1">
 <h2>x-callback URLs<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
@@ -213,7 +224,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="opencv.html" class="btn btn-neutral float-right" title="OpenCV" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="external.html" class="btn btn-neutral float-right" title="Accessing external files" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Pyto’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -225,11 +236,19 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2019, Adrian Labbé
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -240,7 +259,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

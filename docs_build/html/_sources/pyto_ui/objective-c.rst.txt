@@ -1,0 +1,349 @@
+Showing UIKit Views
+===================
+
+(Previous knowledge of iOS development with UIKit is needed to follow this tutorial)
+
+PytoUI has can show custom UIKit views with the :class:`~pyto_ui.UIKitView` class. Presenting ``UIViewController`` is also possible with :func:`~pyto_ui.show_view_controller`.
+
+See `Objective-C </Objective-C.html>`_ for information about using Objective-C classes in Python.
+
+To use classes from UIKit, we can write the following code:
+
+.. highlight:: python
+.. code-block:: python
+
+    from UIKit import *
+
+Using UIView
+------------
+
+In this example, we will create a date picker with ``UIDatePicker``. Firstly, we will import the needed modules.
+
+.. highlight:: python
+.. code-block:: python
+
+    import pyto_ui as ui
+    from UIKit import UIDatePicker
+    from Foundation import NSObject
+    from rubicon.objc import objc_method, SEL
+    from datetime import datetime
+
+Then we subclass :class:`~pyto_ui.UIKitView` to implement a date picker by implementing :meth:`~pyto_ui.DatePicker.make_view` to return an UIDatePicker object. ``DatePicker.did_change`` will be the function called when the selected date changes.
+
+.. highlight:: python
+.. code-block:: python
+
+    class DatePicker(ui.UIKitView):
+        
+        did_change = None
+
+        def make_view(self):
+            picker = UIDatePicker.alloc().init()
+            return picker
+
+We will now create an Objective-C subclass of ``NSObject`` to receive ``UIDatePicker`` events. ``@objc_method`` is the equivalent of ``@objc`` in Swift, it exposes a method to the Objective-C runtime.
+
+The ``didChange`` method converts the selected date from ``NSDate`` to ``datetime`` and calls the callback function (``DatePicker.did_change``) with the date as parameter.
+``PickerDelegate.picker`` will be set to an instance of the previously created class.
+
+.. highlight:: python
+.. code-block:: python
+
+    class PickerDelegate(NSObject):
+
+        picker = None
+
+        @objc_method
+        def didChange(self):
+            if self.picker.did_change is not None:
+                date = self.objc_picker.date
+                date = datetime.fromtimestamp(date.timeIntervalSince1970())
+                self.picker.did_change(date)
+
+In the ``DatePicker.make_view`` method, we'll set the event handler to the delegate's ``didChange`` method with ``addTarget(_:action:forControlEvents:)``.
+
+.. highlight:: python
+.. code-block:: python
+
+    ...
+        
+        def make_view(self):
+            picker = UIDatePicker.alloc().init()
+
+            delegate = PickerDelegate.alloc().init()
+            delegate.picker = self
+            delegate.objc_picker = picker
+        
+            # 4096 is the value for UIControlEventValueChanged
+            picker.addTarget(delegate, action=SEL("didChange"), forControlEvents=4096)
+
+            return picker
+
+    ...
+
+Then the date picker is usable as any view because :class:`~pyto_ui.UIKitView` is a subclass of :class:`~pyto_ui.View`.
+
+.. highlight:: python
+.. code-block:: python
+
+    view = ui.View()
+    view.background_color = ui.COLOR_SYSTEM_BACKGROUND
+
+    def did_change(date):
+        view.title = str(date)
+
+    date_picker = DatePicker()
+    date_picker.did_change = did_change
+
+    date_picker.flex = [
+        ui.FLEXIBLE_BOTTOM_MARGIN,
+        ui.FLEXIBLE_TOP_MARGIN,
+        ui.FLEXIBLE_LEFT_MARGIN,
+        ui.FLEXIBLE_RIGHT_MARGIN
+    ]
+    date_picker.center = view.center
+    view.add_subview(date_picker)
+
+    ui.show_view(view, ui.PRESENTATION_MODE_SHEET)
+    
+The whole script:
+
+.. highlight:: python
+.. code-block:: python
+
+    import pyto_ui as ui
+    from UIKit import UIDatePicker
+    from Foundation import NSObject
+    from rubicon.objc import objc_method, SEL
+    from datetime import datetime
+
+    # We subclass ui.UIKitView to implement a date picker
+    class DatePicker(ui.UIKitView):
+        
+        did_change = None
+
+        # Here we return an UIDatePicker object
+        def make_view(self):
+            picker = UIDatePicker.alloc().init()
+            
+             # We create an Objective-C instance that will respond to the date picker value changed event
+            delegate = PickerDelegate.alloc().init()
+            delegate.picker = self
+            delegate.objc_picker = picker
+            
+            # 4096 is the value for UIControlEventValueChanged
+            picker.addTarget(delegate, action=SEL("didChange"), forControlEvents=4096)
+            return picker
+        
+    # An Objective-C class for addTarget(_:action:forControlEvents:)
+    class PickerDelegate(NSObject):
+
+        picker = None
+
+        @objc_method
+        def didChange(self):
+            if self.picker.did_change is not None:
+                date = self.objc_picker.date
+                date = datetime.fromtimestamp(date.timeIntervalSince1970())
+                self.picker.did_change(date)
+
+    # Then we can use our date picker as any other view
+
+    view = ui.View()
+    view.background_color = ui.COLOR_SYSTEM_BACKGROUND
+
+    def did_change(date):
+        view.title = str(date)
+
+    date_picker = DatePicker()
+    date_picker.did_change = did_change
+
+    date_picker.flex = [
+        ui.FLEXIBLE_BOTTOM_MARGIN,
+        ui.FLEXIBLE_TOP_MARGIN,
+        ui.FLEXIBLE_LEFT_MARGIN,
+        ui.FLEXIBLE_RIGHT_MARGIN
+    ]
+    date_picker.center = view.center
+    view.add_subview(date_picker)
+
+    ui.show_view(view, ui.PRESENTATION_MODE_SHEET)
+
+Using UIViewController
+----------------------
+
+UIKit View controllers can be presented with :func:`~pyto_ui.show_view_controller`.
+
+In this example, we will subclass ``UIViewController`` and use the ``LinkPresentation`` framework to show the preview of a link.
+
+We need to import the required modules.
+
+.. highlight:: python
+.. code-block:: python
+
+    from UIKit import *
+    from LinkPresentation import *
+    from Foundation import *
+    from rubicon.objc import *
+    from mainthread import mainthread
+    import pyto_ui as ui
+
+Then we can subclass ``UIViewController`` and implement ``viewDidLoad`` like any UIKit app does.
+``send_super()`` from ``rubicon.objc`` is used to call methods from the superclass.
+``@objc_method`` is the equivalent of ``@objc`` in Swift, it exposes a method to the Objective-C runtime.
+
+.. highlight:: python
+.. code-block:: python
+
+    class MyViewController(UIViewController):
+
+        @objc_method
+        def close(self):
+            self.dismissViewControllerAnimated(True, completion=None)
+
+        @objc_method
+        def dealloc(self):
+            self.link_view.release()
+
+        @objc_method
+        def viewDidLoad(self):
+            send_super(__class__, self, "viewDidLoad")
+
+            self.title = "Link"
+
+            self.view.backgroundColor = UIColor.systemBackgroundColor()
+
+            # 0 is the value for a 'Done' button
+            done_button = UIBarButtonItem.alloc().initWithBarButtonSystemItem(0, target=self, action=SEL("close"))
+            self.navigationItem.rightBarButtonItems = [done_button]
+
+We create an ``LPLinkView`` from the [LinkPresentation](https://developer.apple.com/documentation/linkpresentation) framework and we fetch the metadata. The ``fetch_handler()`` function is a block passed to an Objective-C method, it has to be fully annotated. Mark parameters as ``ObjCInstance`` from ``rubicon.objc``.
+
+.. highlight:: python
+.. code-block:: python
+
+    ...
+
+        @objc_method
+        def viewDidLoad(self):
+
+            ...
+
+            self.url = NSURL.alloc().initWithString("https://apple.com")
+            self.link_view = LPLinkView.alloc().initWithURL(self.url)
+            self.link_view.frame = CGRectMake(0, 0, 200, 000)
+            self.view.addSubview(self.link_view)
+            self.fetchMetadata()
+
+
+        @objc_method
+        def fetchMetadata(self):
+            
+            @mainthread
+            def set_metadata(metadata):
+                self.link_view.setMetadata(metadata)
+                self.layout()
+
+            def fetch_handler(metadata: ObjCInstance, error: ObjCInstance) -> None:
+                 set_metadata(metadata)
+            
+            provider = LPMetadataProvider.alloc().init().autorelease()
+            provider.startFetchingMetadataForURL(self.url, completionHandler=fetch_handler)
+
+        @objc_method
+        def layout(self):
+            self.link_view.sizeToFit()
+            self.link_view.setCenter(self.view.center)
+        
+        @objc_method
+        def viewDidLayoutSubviews(self):
+            self.layout()
+
+When our View controller is ready, we can show it with :func:`~pyto_ui.show_view_controller`. :func:`~mainthread.mainthread` is used to call a function in the app's main thread.
+
+.. highlight:: python
+.. code-block:: python
+
+    @mainthread
+    def show():
+        vc = MyViewController.alloc().init().autorelease()
+        nav_vc = UINavigationController.alloc().initWithRootViewController(vc).autorelease()
+        ui.show_view_controller(nav_vc)
+
+    show()
+
+The whole script:
+
+.. highlight:: python
+.. code-block:: python
+
+    from UIKit import *
+    from LinkPresentation import *
+    from Foundation import *
+    from rubicon.objc import *
+    from mainthread import mainthread
+    import pyto_ui as ui
+
+    # We subclass UIViewController
+    class MyViewController(UIViewController):
+        
+        @objc_method
+        def close(self):
+            self.dismissViewControllerAnimated(True, completion=None)
+        
+        @objc_method
+        def dealloc(self):
+            self.link_view.release()
+        
+        # Overriding viewDidLoad
+        @objc_method
+        def viewDidLoad(self):
+            send_super(__class__, self, "viewDidLoad")
+
+            self.title = "Link"
+
+            self.view.backgroundColor = UIColor.systemBackgroundColor()
+
+            # 0 is the value for a 'Done' button
+            done_button = UIBarButtonItem.alloc().initWithBarButtonSystemItem(0, target=self, action=SEL("close"))
+            self.navigationItem.rightBarButtonItems = [done_button]
+            
+            self.url = NSURL.alloc().initWithString("https://apple.com")
+            self.link_view = LPLinkView.alloc().initWithURL(self.url)
+            self.link_view.frame = CGRectMake(0, 0, 200, 000)
+            self.view.addSubview(self.link_view)
+            self.fetchMetadata()
+        
+        @objc_method
+        def fetchMetadata(self):
+            
+            @mainthread
+            def set_metadata(metadata):
+                self.link_view.setMetadata(metadata)
+                self.layout()
+
+            def fetch_handler(metadata: ObjCInstance, error: ObjCInstance) -> None:
+                 set_metadata(metadata)
+            
+            provider = LPMetadataProvider.alloc().init().autorelease()
+            provider.startFetchingMetadataForURL(self.url, completionHandler=fetch_handler)
+        
+        @objc_method
+        def layout(self):
+            self.link_view.sizeToFit()
+            self.link_view.setCenter(self.view.center)
+        
+        @objc_method
+        def viewDidLayoutSubviews(self):
+            self.layout()
+
+    @mainthread
+    def show():
+        # We initialize our view controller and a navigation controller
+        # This must be called from the main thread
+        vc = MyViewController.alloc().init().autorelease()
+        nav_vc = UINavigationController.alloc().initWithRootViewController(vc).autorelease()
+        ui.show_view_controller(nav_vc)
+
+    show()
+

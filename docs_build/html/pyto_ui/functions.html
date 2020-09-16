@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,27 +11,29 @@
   
 
   
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Constants" href="constants.html" />
@@ -50,7 +51,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> Pyto
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Pyto
           
 
           
@@ -73,6 +74,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -82,33 +84,42 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../automation.html">Automation with Shortcuts and x-callback URLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../external.html">Accessing external files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../opencv.html">OpenCV</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../django.html">Using Django</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../third_party.html">Third Party Libraries</a></li>
 </ul>
+<p class="caption"><span class="caption-text">ObjC Runtime</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Objective-C.html">Objective-C</a></li>
+</ul>
 <p class="caption"><span class="caption-text">User Interface</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../pyto_ui.html">pyto_ui</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../pyto_ui.html#getting-started">Getting Started</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../pyto_ui.html#api-reference">API Reference</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="classes.html">Classes</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="constants.html">Constants</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../pyto_ui.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pyto_ui.html#uikit-bridge">UIKit bridge</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../widgets.html">widgets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../pyto_core.html">pyto_core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notification_center.html">notification_center</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sf_symbols.html">sf_symbols</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sharing.html">sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mainthread.html">mainthread</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../UIKit.html">UIKit</a></li>
 </ul>
 <p class="caption"><span class="caption-text">OS Technologies</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../notifications.html">notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../remote_notifications.html">remote_notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background.html">background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bookmarks.html">bookmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../music.html">music</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../photos.html">photos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../location.html">location</a></li>
@@ -127,6 +138,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -165,7 +177,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../pyto_ui.html">pyto_ui</a> &raquo;</li>
         
@@ -191,9 +203,9 @@
   <div class="section" id="functions">
 <h1>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h1>
 <p>This page contains a list of functions defined in the <code class="docutils literal notranslate"><span class="pre">pyto_ui</span></code> module.</p>
-<dl class="function">
+<dl class="py function">
 <dt id="pyto_ui.font_family_names">
-<code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">font_family_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#pyto_ui.font_family_names" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">font_family_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#pyto_ui.font_family_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns all font family names that can be used to initialize a font.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -202,9 +214,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="pyto_ui.image_with_system_name">
-<code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">image_with_system_name</code><span class="sig-paren">(</span><em class="sig-param">name: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#pyto_ui.image_with_system_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">image_with_system_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#pyto_ui.image_with_system_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a system symbol image from given name. The return value is an UIKit <code class="docutils literal notranslate"><span class="pre">UIImage</span></code> object, so it can only be used on the <code class="docutils literal notranslate"><span class="pre">pyto_ui</span></code> library.
 More info about symbols on <a class="reference external" href="https://developer.apple.com/design/resources/">Apple’s Web Site</a> .</p>
 <dl class="field-list simple">
@@ -217,9 +229,9 @@ More info about symbols on <a class="reference external" href="https://developer
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="pyto_ui.show_view">
-<code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">show_view</code><span class="sig-paren">(</span><em class="sig-param">view: pyto_ui.View</em>, <em class="sig-param">mode: ui_constants.PRESENTATION_MODE</em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.show_view" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">show_view</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">view</span><span class="p">:</span> <span class="n"><a class="reference internal" href="classes.html#pyto_ui.View" title="pyto_ui.View">pyto_ui.View</a></span></em>, <em class="sig-param"><span class="n">mode</span><span class="p">:</span> <span class="n">ui_constants.PRESENTATION_MODE</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.show_view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Presents the given view.</p>
 <p>This function doesn’t return until the view is closed. You can use another thread to perform background tasks and modify the UI after it’s presented.</p>
 <p>On iPad, if the view has a custom size, it will be used for the presentation.</p>
@@ -229,6 +241,18 @@ More info about symbols on <a class="reference external" href="https://developer
 <li><p><strong>view</strong> – The <a class="reference internal" href="classes.html#pyto_ui.View" title="pyto_ui.View"><code class="xref py py-class docutils literal notranslate"><span class="pre">View</span></code></a> object to present.</p></li>
 <li><p><strong>mode</strong> – The presentation mode to use. The value will be ignored on a widget. See <a class="reference external" href="constants.html#presentation-mode">Presentation Mode</a> constants for possible values.</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyto_ui.show_view_controller">
+<code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">show_view_controller</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">view_controller</span><span class="p">:</span> <span class="n">UIViewController</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.show_view_controller" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shows an UIKit View Controller. This function must be called from the main thread.</p>
+<p>See <a class="reference external" href="Objective-C.html">Objective-C</a> and <a class="reference external" href="mainthread.html">mainthread</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>view_controller</strong> – UIViewController.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -255,11 +279,19 @@ More info about symbols on <a class="reference external" href="https://developer
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2019, Adrian Labbé
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -270,7 +302,6 @@ More info about symbols on <a class="reference external" href="https://developer
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

@@ -6,7 +6,7 @@ The iOS / iPadOS file system is very different than the file system on other ope
 Current Directory
 -----------------
 
-Scripts stored in the Pyto container can access scripts in the same directory. If acess isn't granted, a lock icon is displayed at the bottom of the code editor. Pressing this button shows a folder picker. You can change the current directory, or just select the folder containing the script. This will not work for third party cloud providers such as Google Drive or Dropbox because they don't have a real file system.
+Scripts stored in the Pyto container can access scripts in the same directory. If access isn't granted, a lock icon is displayed at the bottom of the code editor. Pressing this button shows a folder picker. You can change the current directory, or just select the folder containing the script. This will not work for third party cloud providers such as Google Drive or Dropbox because they don't have a real file system.
 
 Bookmarks
 ---------

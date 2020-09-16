@@ -13,6 +13,7 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('../Lib'))
+sys.path.insert(0, os.path.abspath('../Lib/objc'))
 sys.path.insert(0, os.path.abspath('../site-packages'))
 sys.path.insert(0, os.path.abspath('../downloadable-site-packages'))
 

@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,31 +11,33 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Extending the code editor" href="pyto_core/editor.html" />
-    <link rel="prev" title="Constants" href="pyto_ui/constants.html" /> 
+    <link rel="prev" title="Functions" href="widgets/functions.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -50,7 +51,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> Pyto
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Pyto
           
 
           
@@ -73,6 +74,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -82,13 +84,19 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="automation.html">Automation with Shortcuts and x-callback URLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external.html">Accessing external files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="opencv.html">OpenCV</a></li>
 <li class="toctree-l1"><a class="reference internal" href="django.html">Using Django</a></li>
 <li class="toctree-l1"><a class="reference internal" href="third_party.html">Third Party Libraries</a></li>
 </ul>
+<p class="caption"><span class="caption-text">ObjC Runtime</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Objective-C.html">Objective-C</a></li>
+</ul>
 <p class="caption"><span class="caption-text">User Interface</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="pyto_ui.html">pyto_ui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widgets.html">widgets <span class="red">Beta</span></a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">pyto_core</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#api-reference">API Reference</a><ul>
@@ -100,13 +108,16 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="notification_center.html">notification_center</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sf_symbols.html">sf_symbols <span class="red">Beta</span></a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mainthread.html">mainthread</a></li>
-<li class="toctree-l1"><a class="reference internal" href="UIKit.html">UIKit</a></li>
 </ul>
 <p class="caption"><span class="caption-text">OS Technologies</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="notifications.html">notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="remote_notifications.html">remote_notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="background.html">background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bookmarks.html">bookmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="music.html">music</a></li>
 <li class="toctree-l1"><a class="reference internal" href="photos.html">photos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="location.html">location</a></li>
@@ -125,6 +136,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -163,7 +175,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>pyto_core</li>
     
@@ -200,7 +212,7 @@ Only one startup script at time is supported because only one script can be rece
 </div>
 <div class="section" id="api-reference">
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<dl class="py function">
 <dt id="pyto_core.startup_script">
 <code class="sig-prename descclassname">pyto_core.</code><code class="sig-name descname">startup_script</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyto_core.startup_script" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the current running script as startup script, so each time Pyto will be launched, this script will be executed in background.
@@ -208,9 +220,9 @@ This function cannot be executed on a subthread.</p>
 <p>Setting the startup script will replace the old one. Only one plugin is supported at time because only one object can be receive editor’s events. But nothing stops you from importing other modules.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="pyto_core.show_view">
-<code class="sig-prename descclassname">pyto_core.</code><code class="sig-name descname">show_view</code><span class="sig-paren">(</span><em class="sig-param">view: pyto_ui.View</em>, <em class="sig-param">mode: ui_constants.PRESENTATION_MODE</em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_core.show_view" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">pyto_core.</code><code class="sig-name descname">show_view</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">view</span><span class="p">:</span> <span class="n"><a class="reference internal" href="pyto_ui/classes.html#pyto_ui.View" title="pyto_ui.View">pyto_ui.View</a></span></em>, <em class="sig-param"><span class="n">mode</span><span class="p">:</span> <span class="n">ui_constants.PRESENTATION_MODE</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_core.show_view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shows a PytoUI <a class="reference internal" href="pyto_ui/classes.html#pyto_ui.View" title="pyto_ui.View"><code class="xref py py-class docutils literal notranslate"><span class="pre">View</span></code></a>.</p>
 <p>Use this function to show a view on a plugin running in background. That will show the view on any screen of the app on the key window.
 Also, this function returns before the view is closed, so that’s also useful for running code after showing the view.</p>
@@ -244,7 +256,7 @@ Also, this function returns before the view is closed, so that’s also useful f
         <a href="pyto_core/editor.html" class="btn btn-neutral float-right" title="Extending the code editor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="pyto_ui/constants.html" class="btn btn-neutral float-left" title="Constants" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="widgets/functions.html" class="btn btn-neutral float-left" title="Functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -253,11 +265,19 @@ Also, this function returns before the view is closed, so that’s also useful f
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2019, Adrian Labbé
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -268,7 +288,6 @@ Also, this function returns before the view is closed, so that’s also useful f
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

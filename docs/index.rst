@@ -57,15 +57,22 @@ The following modules are integrated with Pyto.
 
 .. toctree::
    :maxdepth: 2
+   :caption: ObjC Runtime
+   
+   Objective-C
+
+.. toctree::
+   :maxdepth: 2
    :caption: User Interface
 
    pyto_ui
+   widgets
    pyto_core
    notification_center
    sound
+   sf_symbols
    sharing
    mainthread
-   UIKit
 
 .. toctree::
    :maxdepth: 2

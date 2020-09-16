@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,27 +11,29 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="pasteboard" href="pasteboard.html" />
@@ -50,7 +51,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> Pyto
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Pyto
           
 
           
@@ -73,6 +74,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -82,23 +84,32 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="automation.html">Automation with Shortcuts and x-callback URLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external.html">Accessing external files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="opencv.html">OpenCV</a></li>
 <li class="toctree-l1"><a class="reference internal" href="django.html">Using Django</a></li>
 <li class="toctree-l1"><a class="reference internal" href="third_party.html">Third Party Libraries</a></li>
 </ul>
+<p class="caption"><span class="caption-text">ObjC Runtime</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Objective-C.html">Objective-C</a></li>
+</ul>
 <p class="caption"><span class="caption-text">User Interface</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="pyto_ui.html">pyto_ui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widgets.html">widgets <span class="red">Beta</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyto_core.html">pyto_core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notification_center.html">notification_center</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sf_symbols.html">sf_symbols <span class="red">Beta</span></a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mainthread.html">mainthread</a></li>
-<li class="toctree-l1"><a class="reference internal" href="console.html">console</a></li>
-<li class="toctree-l1"><a class="reference internal" href="UIKit.html">UIKit</a></li>
 </ul>
 <p class="caption"><span class="caption-text">OS Technologies</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="notifications.html">notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="remote_notifications.html">remote_notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="background.html">background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bookmarks.html">bookmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="music.html">music</a></li>
 <li class="toctree-l1"><a class="reference internal" href="photos.html">photos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="location.html">location</a></li>
@@ -108,6 +119,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Sharing data</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="apps.html">apps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="xcallback.html">xcallback</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">userkeys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pasteboard.html">pasteboard</a></li>
@@ -116,6 +128,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -154,7 +167,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>userkeys</li>
     
@@ -180,9 +193,9 @@
 <p>Save values on disk</p>
 <p>This module makes possible to save values on disk. Values are shared between the Today Widget and the main app.
 Values are stored in a JSON dictionary, so it’s not possible to save every type of data.</p>
-<dl class="function">
+<dl class="py function">
 <dt id="userkeys.delete">
-<code class="sig-prename descclassname">userkeys.</code><code class="sig-name descname">delete</code><span class="sig-paren">(</span><em class="sig-param">key: str</em><span class="sig-paren">)</span><a class="headerlink" href="#userkeys.delete" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">userkeys.</code><code class="sig-name descname">delete</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#userkeys.delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes the value stored with the given key.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -191,9 +204,9 @@ Values are stored in a JSON dictionary, so it’s not possible to save every typ
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="userkeys.get">
-<code class="sig-prename descclassname">userkeys.</code><code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param">key: str</em><span class="sig-paren">)</span><a class="headerlink" href="#userkeys.get" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">userkeys.</code><code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#userkeys.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the value stored with the given key.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -202,9 +215,9 @@ Values are stored in a JSON dictionary, so it’s not possible to save every typ
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="userkeys.set">
-<code class="sig-prename descclassname">userkeys.</code><code class="sig-name descname">set</code><span class="sig-paren">(</span><em class="sig-param">value</em>, <em class="sig-param">key: str</em><span class="sig-paren">)</span><a class="headerlink" href="#userkeys.set" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">userkeys.</code><code class="sig-name descname">set</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">key</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#userkeys.set" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds the given value to the database with the given key.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -238,11 +251,19 @@ Values are stored in a JSON dictionary, so it’s not possible to save every typ
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2019, Adrian Labbé
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -253,7 +274,6 @@ Values are stored in a JSON dictionary, so it’s not possible to save every typ
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
