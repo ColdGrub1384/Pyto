@@ -25,7 +25,7 @@ class RunCodeIntentHandler: NSObject, RunCodeIntentHandling {
         
         #if MAIN        
         if !Bool(truncating: intent.showConsole ?? 0) {
-            let url = URL(fileURLWithPath: NSTemporaryDirectory()+"/Temporary.py")
+            let url = URL(fileURLWithPath: NSTemporaryDirectory()+"/Script.py")
             if FileManager.default.fileExists(atPath: url.path) {
                 try? FileManager.default.removeItem(at: url)
             }
