@@ -1609,6 +1609,21 @@ class GestureRecognizer:
         else:
             self.__py_gesture__.action = _values.value(new_value)
 
+    @property
+    def minimum_press_duration(self) -> float:
+        """
+        The minimum time that the user must press on the view for the gesture to be recognized.
+
+        (Only works for long press gestures)
+
+        :rtype: float
+        """
+
+        return self.__py_gesture__.minimumDuration 
+
+    @minimum_press_duration.setter
+    def minimum_press_duration(self, new_value) -> float:
+        self.__py_gesture__.minimumDuration = new_value
 
 # MARK: - Table View Section
 

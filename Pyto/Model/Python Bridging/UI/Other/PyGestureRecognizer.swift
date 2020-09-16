@@ -207,6 +207,20 @@ import UIKit
         }
     }
     
+    @objc public var minimumDuration: Double {
+        get {
+            return get {
+                return (self.gestureRecognizer as? UILongPressGestureRecognizer)?.minimumPressDuration ?? 0
+            }
+        }
+        
+        set {
+            set {
+                (self.gestureRecognizer as? UILongPressGestureRecognizer)?.minimumPressDuration = newValue
+            }
+        }
+    }
+    
     /// The gesture recognizer associated with this object.
     @objc public var gestureRecognizer: UIGestureRecognizer {
         return get {
