@@ -839,10 +839,12 @@ int initialize_python(int argc, char *argv[]) {
     // That makes the app startup a lot faster
     // It's not recommended by the Python docs to add builtin modules after PyInitialize
     // But it works after adding mod names to builtin mod names manually
+    #if !SCREENSHOTS
     init_pil();
     #if MAIN
     init_numpy();
     init_cffi();
+    #endif
     #endif
     
     // MARK: - Start the REPL that will contain all child modules
