@@ -9,7 +9,7 @@ from UIKit import UIPasteboard as __UIPasteboard__, UIImage
 from typing import List
 from __check_type__ import check
 try:
-    from rubicon.objc import ObjCClass
+    from rubicon.objc import ObjCClass, ObjCInstance
 except ValueError:
     def ObjCClass(class_name):
         return None
@@ -45,6 +45,9 @@ def set_string(text: str):
 
     :param text: The text to copy.
     """
+
+    check(text, "text", [str, None])
+
     general_pasteboard().string = text
 
 
@@ -54,6 +57,9 @@ def set_strings(array: List[str]):
 
     :param array: A list of strings to copy.
     """
+
+    check(array, "array", [list, None])
+
     general_pasteboard().strings = array
 
 
@@ -74,7 +80,7 @@ def images() -> List[UIImage]:
     return general_pasteboard().images
 
 
-def set_image(image: UIImage):
+def set_image(image: ObjCInstance):
     """
     Copy the given image to the pasteboard.
 
