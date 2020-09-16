@@ -1,0 +1,39 @@
+# Created with Pyto
+
+import widgets as wd
+import sf_symbols as sf
+from datetime import datetime
+
+widget = wd.Widget()
+
+views = [
+    [
+        wd.SystemSymbol(sf.PERSON),
+        wd.Text(
+            "Hello World!",
+            font=wd.Font.bold_system_font_of_size(17)
+        )
+    ],
+    
+    [],
+    
+    [
+        wd.Spacer(),
+        wd.DynamicDate(datetime.today())
+    ]
+]
+
+for layout in [
+    widget.small_layout,
+    widget.medium_layout,
+    widget.large_layout]:
+    
+    for row in views:
+        if row != []:
+            layout.add_row(row)
+        else:
+            layout.add_vertical_spacer()
+
+# Show the widget and reload every 10 minutes
+wd.schedule_next_reload(60*10)
+wd.show_widget(widget)

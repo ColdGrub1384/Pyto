@@ -19,6 +19,9 @@ class TemplateChooserTableViewController: UITableViewController, UIDocumentPicke
         return (try? FileManager.default.contentsOfDirectory(at: FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask)[0].appendingPathComponent("templates"), includingPropertiesForKeys: nil, options: .skipsHiddenFiles)) ?? []
     }
     
+    /// A boolean indicating whether the user should type a script name.
+    var chooseName = true
+        
     /// Closes the View controller.
     @IBAction func close(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -26,12 +29,22 @@ class TemplateChooserTableViewController: UITableViewController, UIDocumentPicke
     
     /// Creates an empty script.
     func createEmptyScript() {
-        createScript(templateURL: Bundle.main.url(forResource: "Untitled", withExtension: "py")!)
+        createScript(templateURL: Bundle.main.url(forResource: "Untitled", withExtension: "py.template")!)
     }
     
     /// Creates a Hello World script.
     func createHelloWorld() {
-        createScript(templateURL: Bundle.main.url(forResource: "Hello World", withExtension: "py")!)
+        createScript(templateURL: Bundle.main.url(forResource: "Hello World", withExtension: "py.template")!)
+    }
+    
+    /// Creates a widget.
+    func createWidget() {
+        createScript(templateURL: Bundle.main.url(forResource: "Widget", withExtension: "py.template")!)
+    }
+    
+    /// Creates an UI.
+    func createUI() {
+        createScript(templateURL: Bundle.main.url(forResource: "User Interface", withExtension: "py.template")!)
     }
     
     /// Creates a script from given template. Asks for name
@@ -39,29 +52,12 @@ class TemplateChooserTableViewController: UITableViewController, UIDocumentPicke
     /// - Parameters:
     ///     - templateURL: The URL of the template to use.
     func createScript(templateURL: URL) {
-        let alert = UIAlertController(title: Localizable.Creation.createScriptTitle, message: Localizable.Creation.typeFileName, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: Localizable.create, style: .default, handler: { (_) in
-            
-            var name = ""
-            if let text = alert.textFields?.first?.text {
-                if !text.replacingOccurrences(of: " ", with: "").isEmpty {
-                    name = text
-                } else {
-                    name = alert.textFields?.first?.placeholder ?? ""
-                }
-            } else {
-                name = Localizable.untitled
-            }
-            
-            if (name as NSString).pathExtension.lowercased() != "py" {
-                name = (name as NSString).appendingPathExtension("py") ?? ""
-            }
-            
+        
+        func create(name: String) {
             let importHandler = self.importHandler
             self.importHandler = nil
             
-            self.dismiss(animated: true) {
+            func callHandler() {
                 let newURL = FileManager.default.urls(for: .cachesDirectory, in: .allDomainsMask)[0].appendingPathComponent(name)
                 
                 if FileManager.default.fileExists(atPath: newURL.path) {
@@ -72,11 +68,45 @@ class TemplateChooserTableViewController: UITableViewController, UIDocumentPicke
                 
                 importHandler?(newURL, .move)
             }
-        }))
-        alert.addTextField { (textField) in
-            textField.placeholder = Localizable.untitled
+            
+            if chooseName {
+                self.dismiss(animated: true) {
+                    callHandler()
+                }
+            } else {
+                callHandler()
+            }
         }
-        present(alert, animated: true, completion: nil)
+        
+        if chooseName {
+            let alert = UIAlertController(title: Localizable.Creation.createScriptTitle, message: Localizable.Creation.typeFileName, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: Localizable.create, style: .default, handler: { (_) in
+                
+                var name = ""
+                if let text = alert.textFields?.first?.text {
+                    if !text.replacingOccurrences(of: " ", with: "").isEmpty {
+                        name = text
+                    } else {
+                        name = alert.textFields?.first?.placeholder ?? ""
+                    }
+                } else {
+                    name = Localizable.untitled
+                }
+                
+                if (name as NSString).pathExtension.lowercased() != "py" {
+                    name = (name as NSString).appendingPathExtension("py") ?? ""
+                }
+                
+                create(name: name)
+            }))
+            alert.addTextField { (textField) in
+                textField.placeholder = Localizable.untitled
+            }
+            present(alert, animated: true, completion: nil)
+        } else {
+            create(name: Localizable.untitled+".py")
+        }
     }
     
     // MARK: - Table view controller
@@ -100,7 +130,7 @@ class TemplateChooserTableViewController: UITableViewController, UIDocumentPicke
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 2
+            return 4
         case 1:
             return templates.count+1
         default:
@@ -114,6 +144,10 @@ class TemplateChooserTableViewController: UITableViewController, UIDocumentPicke
             createEmptyScript()
         case IndexPath(row: 1, section: 0):
             createHelloWorld()
+        case IndexPath(row: 2, section: 0):
+            createWidget()
+        case IndexPath(row: 3, section: 0):
+            createUI()
         case IndexPath(row: 0, section: 1):
             let picker = UIDocumentPickerViewController(documentTypes: ["public.python-script"], in: .open)
             picker.allowsMultipleSelection = true
@@ -134,6 +168,10 @@ class TemplateChooserTableViewController: UITableViewController, UIDocumentPicke
             return tableView.dequeueReusableCell(withIdentifier: "empty") ?? UITableViewCell()
         case IndexPath(row: 1, section: 0):
             return tableView.dequeueReusableCell(withIdentifier: "hello") ?? UITableViewCell()
+        case IndexPath(row: 2, section: 0):
+            return tableView.dequeueReusableCell(withIdentifier: "widget") ?? UITableViewCell()
+        case IndexPath(row: 3, section: 0):
+            return tableView.dequeueReusableCell(withIdentifier: "ui") ?? UITableViewCell()
         case IndexPath(row: 0, section: 1):
             return tableView.dequeueReusableCell(withIdentifier: "import") ?? UITableViewCell()
         default:
