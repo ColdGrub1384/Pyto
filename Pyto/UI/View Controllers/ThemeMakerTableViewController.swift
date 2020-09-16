@@ -10,9 +10,10 @@ import UIKit
 import SourceEditor
 import SavannaKit
 import Color_Picker_for_iOS
+import Highlightr
 
 @available(iOS 13.0, *)
-class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate, SyntaxTextViewDelegate {
+class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate {
     
     static var themes: [Theme] {
         get {
@@ -228,7 +229,20 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate,
     
     // MARK: - Preview
     
-    let textView = SyntaxTextView()
+    let textView: UITextView = {
+        let textStorage = CodeAttributedString()
+        textStorage.language = "Python"
+        
+        let layoutManager = NSLayoutManager()
+        textStorage.addLayoutManager(layoutManager)
+        
+        let container = NSTextContainer()
+        layoutManager.addTextContainer(container)
+        
+        let textView = UITextView(frame: .zero, textContainer: container)
+        textView.backgroundColor = .clear
+        return textView
+    }()
     
     @IBOutlet weak var preview: UIView!
     
@@ -262,6 +276,8 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate,
     
     // MARK: - Actions
     
+    fileprivate var colorHandler: ((UIColor) -> ())?
+    
     @IBAction func didChangeInterfaceStyle(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
@@ -289,7 +305,10 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate,
             theme = makeTheme()
         }
         
-        textView.theme = ReadonlyTheme(theme.sourceCodeTheme)
+        let highlightrTheme = HighlightrTheme(themeString: theme.css)
+        highlightrTheme.codeFont = EditorViewController.font.withSize(11)
+        (textView.textStorage as? CodeAttributedString)?.highlightr.theme = highlightrTheme
+        textView.backgroundColor = theme.sourceCodeTheme.backgroundColor
         editorPlaceholder.superview?.backgroundColor = theme.sourceCodeTheme.backgroundColor
     }
     
@@ -299,23 +318,27 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate,
         super.viewDidLoad()
         
         textView.contentTextView.isEditable = false
-        textView.delegate = self
         textView.text = """
-        # Created with Pyto
-        
-        from time import sleep
-        name = input("What's your name? ")
-        sleep(1)
-        print("Hello "+name+"!")
+        @requires_authorization
+        def somefunc(param1='', param2=0):
+            r'''A docstring'''
+            if param1 > param2: # interesting
+                print('Gre\\'ater')
+            return (param2 - param1 + 1 + 0b10l) or None
+
+        class SomeClass:
+            pass
         """
         
-        textView.theme = ReadonlyTheme(theme.sourceCodeTheme)
+        previewTheme(setTheme: false)
         editorPlaceholder.addSubview(textView)
         
         textView.frame.size = editorPlaceholder.frame.size
         textView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         editorPlaceholder.superview?.backgroundColor = theme.sourceCodeTheme.backgroundColor
+        
+        tableView.backgroundColor = .systemGroupedBackground
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -383,42 +406,62 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate,
         tableView.deselectRow(at: indexPath, animated: true)
         
         func pickColor(color: UIColor, handler: @escaping ((UIColor) -> Void)) {
-            let view = HRColorPickerView()
-            view.color = color
-            view.colorMapView.backgroundColor = .clear
-            view.colorMapView.setValue(NSNumber(integerLiteral: 1), forKey: "saturationUpperLimit")
-            view.brightnessSlider.setValue(NSNumber(integerLiteral: 0), forKey: "brightnessLowerLimit")
-            (view.colorInfoView.value(forKey: "_hexColorLabel") as? UILabel)?.textColor = .label
-            view.backgroundColor = .systemBackground
-                        
-            view.handler = { color in
-                
+            
+            func handleColor(_ color: UIColor) {
                 tableView.cellForRow(at: indexPath)?.contentView.viewWithTag(2)?.backgroundColor = color
                 
                 handler(color)
             }
             
-            class ViewController: UIViewController {
+            func showColorPicker() {
+                let view = HRColorPickerView()
+                view.color = color
+                view.colorMapView.backgroundColor = .clear
+                view.colorMapView.setValue(NSNumber(integerLiteral: 1), forKey: "saturationUpperLimit")
+                view.brightnessSlider.setValue(NSNumber(integerLiteral: 0), forKey: "brightnessLowerLimit")
+                (view.colorInfoView.value(forKey: "_hexColorLabel") as? UILabel)?.textColor = .label
+                view.backgroundColor = .systemBackground
+                            
+                view.handler = handleColor
                 
-                @objc func close(_ sender: Any) {
-                    navigationController?.dismiss(animated: true, completion: nil)
+                class ViewController: UIViewController {
+                    
+                    @objc func close(_ sender: Any) {
+                        navigationController?.dismiss(animated: true, completion: nil)
+                    }
                 }
+                
+                let vc = ViewController()
+                vc.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: vc, action: #selector(ViewController.close(_:)))
+                vc.edgesForExtendedLayout = []
+                vc.loadViewIfNeeded()
+                
+                view.frame = vc.view.frame
+                view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                vc.view.addSubview(view)
+                
+                let navVC = UINavigationController(rootViewController: vc)
+                navVC.preferredContentSize = CGSize(width: 480, height: 640)
+                navVC.modalPresentationStyle = .formSheet
+                
+                present(navVC, animated: true, completion: nil)
             }
             
-            let vc = ViewController()
-            vc.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: vc, action: #selector(ViewController.close(_:)))
-            vc.edgesForExtendedLayout = []
-            vc.loadViewIfNeeded()
-            
-            view.frame = vc.view.frame
-            view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            vc.view.addSubview(view)
-            
-            let navVC = UINavigationController(rootViewController: vc)
-            navVC.preferredContentSize = CGSize(width: 480, height: 640)
-            navVC.modalPresentationStyle = .formSheet
-            
-            present(navVC, animated: true, completion: nil)
+            #if !Xcode11
+            if #available(iOS 14.0, *) {
+                colorHandler = handleColor
+                
+                let vc = UIColorPickerViewController()
+                vc.selectedColor = color
+                vc.supportsAlpha = false
+                vc.delegate = self
+                present(vc, animated: true, completion: nil)
+            } else {
+                showColorPicker()
+            }
+            #else
+            showColorPicker()
+            #endif
         }
         
         switch indexPath {
@@ -485,16 +528,14 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate,
     func textFieldDidEndEditing(_ textField: UITextField) {
         name = textField.text ?? ""
     }
+}
+
+#if !Xcode11
+@available(iOS 14.0, *)
+extension ThemeMakerTableViewController: UIColorPickerViewControllerDelegate {
     
-    // MARK: - Syntax text view delegate
-    
-    func lexerForSource(_ source: String) -> Lexer {
-        return Python3Lexer()
-    }
-    
-    func didChangeText(_ syntaxTextView: SyntaxTextView) {
-    }
-    
-    func didChangeSelectedRange(_ syntaxTextView: SyntaxTextView, selectedRange: NSRange) {
+    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
+        colorHandler?(viewController.selectedColor)
     }
 }
+#endif

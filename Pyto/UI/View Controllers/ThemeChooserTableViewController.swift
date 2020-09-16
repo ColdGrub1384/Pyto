@@ -9,9 +9,12 @@
 import UIKit
 import SavannaKit
 import SourceEditor
+import Highlightr
 
 /// A View controller for choosing a theme.
-class ThemeChooserTableViewController: UITableViewController, SyntaxTextViewDelegate {
+class ThemeChooserTableViewController: UITableViewController {
+    
+    private var textViews = [Data:UITextView]()
     
     /// Closes this View controller.
     @IBAction func close(_ sender: Any) {
@@ -87,23 +90,45 @@ class ThemeChooserTableViewController: UITableViewController, SyntaxTextViewDele
             return cell
         }
         
-        let textView = SyntaxTextView()
-        textView.delegate = self
-        textView.text = """
-        # Created with Pyto
-        
-        from time import sleep
-        name = input("What's your name? ")
-        sleep(1)
-        print("Hello "+name+"!")
-        """
-        
-        textView.theme = ReadonlyTheme(theme.sourceCodeTheme)
+        let textView: UITextView
+        if let _textView = textViews[theme.data] {
+            textView = _textView
+        } else {
+            
+            let textStorage = CodeAttributedString()
+            textStorage.language = "Python"
+            
+            let layoutManager = NSLayoutManager()
+            textStorage.addLayoutManager(layoutManager)
+            
+            let container = NSTextContainer()
+            layoutManager.addTextContainer(container)
+            
+            let highlightr = textStorage.highlightr
+            highlightr.theme = HighlightrTheme(themeString: theme.css)
+            highlightr.theme.setCodeFont(EditorViewController.font.withSize(12))
+            
+            textView = UITextView(frame: .zero, textContainer: container)
+            textView.text = """
+                @requires_authorization
+                def somefunc(param1='', param2=0):
+                    r'''A docstring'''
+                    if param1 > param2: # interesting
+                        print('Gre\\'ater')
+                    return (param2 - param1 + 1 + 0b10l) or None
+
+                class SomeClass:
+                    pass
+                """
+            
+            textViews[theme.data] = textView
+        }
         
         textView.frame = containerView.frame
         textView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         containerView.addSubview(textView)
         
+        textView.backgroundColor = theme.sourceCodeTheme.backgroundColor
         cell.backgroundColor = theme.sourceCodeTheme.backgroundColor
         
         let button = cell.contentView.viewWithTag(3) as? UIButton
