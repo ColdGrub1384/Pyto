@@ -4,16 +4,14 @@ UI for scripts
 The ``pyto_ui`` module contains classes for building and presenting a native UI, in app or in the Today Widget.
 This library's API is very similar to UIKit.
 
-.. warning::
-   This library requires iOS / iPadOS 13.
-
 This library may have a lot of similarities with ``UIKit``, but subclassing isn't supported very well. Instead of overriding methods, you will often need to set properties to a function. For properties, setters are what makes the passed value take effect, so instead of override the getter, you should just set properties. If you really want to subclass a :class:`View`, you can set properties from the initializer.
 
 (Many docstrings are quoted from the Apple Documentation)
 """
 
 from __future__ import annotations
-from UIKit import UIFont as __UIFont__, UIImage as UIImage
+from UIKit import UIFont as __UIFont__, UIImage, UIView, UIViewController
+from Foundation import NSThread
 from typing import List, Callable, Tuple
 from pyto import __Class__, ConsoleViewController, PyAlert as __PyAlert__
 from __check_type__ import check
@@ -21,6 +19,8 @@ from __image__ import __ui_image_from_pil_image__
 from time import sleep
 from io import BytesIO
 from threading import Thread
+from mainthread import mainthread
+import __pyto_ui_garbage_collector__ as _gc
 import os
 import sys
 import base64
@@ -28,8 +28,10 @@ import threading
 import _values
 import ui_constants
 import builtins
+from timeit import default_timer as timer
 try:
     from rubicon.objc import ObjCClass, CGFloat
+    from rubicon.objc.api import NSString
 except ValueError:
     def ObjCClass(class_name):
         return None
@@ -74,6 +76,7 @@ __PyTableViewCell__ = __Class__("PyTableViewCell")
 __PyTableViewSection__ = __Class__("PyTableViewSection")
 __PyWebView__ = __Class__("PyWebView")
 __PyGestureRecognizer__ = __Class__("PyGestureRecognizer")
+__PyUIKitView__ = __Class__("PyUIKitView")
 
 __PyColor__ = __Class__("PyColor")
 __PyButtonItem__ = __Class__("PyButtonItem")
@@ -1007,11 +1010,14 @@ class Color:
     def __init__(self, py_color):
         self.__py_color__ = py_color
 
+    #def __del__(self):
+    #    self.__py_color__.release()
+
     def __repr__(self):
         return str(self.__py_color__.managed.description)
 
     @classmethod
-    def rgb(cls, red: float, green: float, blue, alpha: float) -> Color:
+    def rgb(cls, red: float, green: float, blue, alpha: float=1) -> Color:
         """
         Initializes a color from RGB values.
 
@@ -1022,7 +1028,7 @@ class Color:
         :param blue: The blue value.
         :param alpha: The opacity value.
 
-        :rtype: Color
+        :rtype: pyto_ui.Color
         """
 
         check(red, "red", [float, int])
@@ -1045,7 +1051,7 @@ class Color:
         :param white: The grayscale value.
         :param alpha: The opacity value.
 
-        :rtype: Color
+        :rtype: pyto_ui.Color
         """
 
         check(white, "white", [float, int])
@@ -1064,7 +1070,7 @@ class Color:
         :param light: :class:`~pyto_ui.Color` object to be displayed in light mode.
         :param dark: :class:`~pyto_ui.Color` object to be displayed in dark mode.
 
-        :rtype: Color
+        :rtype: pyto_ui.Color
         """
 
         check(light, "light", Color)
@@ -1072,6 +1078,11 @@ class Color:
 
         return cls(__PyColor__.colorWithLight(light.__py_color__, dark=dark.__py_color__))
 
+    def __eq__(self, other):
+        try:
+            return (self.red() == other.red() and self.green() == other.green() and self.blue() == other.blue() and self.alpha() == other.alpha())
+        except AttributeError:
+            return False
 
 COLOR_LABEL = Color(ui_constants.COLOR_LABEL)
 """ The color for text labels containing primary content. """
@@ -1265,7 +1276,7 @@ class Font:
 
         :param size: The desired size (in points) of the new font object. This value must be greater than 0.0.
 
-        :rtype: Font
+        :rtype: pyto_ui.Font
         """
 
         check(size, "size", [float, int])
@@ -1302,7 +1313,7 @@ class Font:
 
         :param size: The size (in points) to which the font is scaled. This value must be greater than 0.0.
 
-        :rtype: Font
+        :rtype: pyto_ui.Font
         """
 
         check(size, "size", [float, int])
@@ -1318,7 +1329,7 @@ class Font:
 
         :param size: The size (in points) for the font. This value must be greater than 0.0.
 
-        :rtype: Font
+        :rtype: pyto_ui.Font
         """
 
         check(size, "size", [float, int])
@@ -1334,7 +1345,7 @@ class Font:
 
         :param size: The size (in points) for the font. This value must be greater than 0.0.
 
-        :rtype: Font
+        :rtype: pyto_ui.Font
         """
 
         check(size, "size", [float, int])
@@ -1350,7 +1361,7 @@ class Font:
 
         :param style: The text style for which to return a font. See `Font Text Style <constants.html#font-text-style>`_ constants for possible values.
 
-        :rtype: Font
+        :rtype: pyto_ui.Font
         """
 
         check(style, "style", [str])
@@ -1993,9 +2004,9 @@ if "widget" not in os.environ:
             return self.__pyAlert__._show(script_path)
 
 
-###############
+######################
 # MARK: - View Classes
-###############
+######################
 
 
 class View:
@@ -2013,6 +2024,28 @@ class View:
 
     def __getitem__(self, item):
         return self.subview_with_name(item)
+
+    def __del__(self):
+        if self.__py_view__.references == 1:
+            _gc.collected.append(self.__py_view__)
+        else:
+            self.__py_view__.releaseReference()
+            self.__py_view__.release()
+
+    def __setattr__(self, name, value):
+        if name == "__py_view__":
+            previous = self.__py_view__
+            if previous is not None and previous.references != 1:
+                previous.releaseReference()
+                previous.release()
+            elif previous is not None:
+                _gc.collected.append(previous)
+
+            if value is not None:
+                value.retainReference()
+                value.retain()
+
+        super().__setattr__(name, value)
 
     @property
     def title(self) -> str:
@@ -2392,7 +2425,7 @@ class View:
         """
         The background color of the view.
 
-        :rtype: Color
+        :rtype: pyto_ui.Color
         """
 
         c = self.__py_view__.backgroundColor
@@ -2455,7 +2488,7 @@ class View:
         """
         The tint color of the view. If set to ``None``, the tint color will be inherited from the superview. The tint color affects some views like ``Button`` for title color, ``TextView`` for cursor color, etc.
 
-        :rtype: Color
+        :rtype: pyto_ui.Color
         """
 
         c = self.__py_view__.tintColor
@@ -2532,7 +2565,7 @@ class View:
         """
         The color of the view's border
 
-        :rtype: Color
+        :rtype: pyto_ui.Color
         """
 
         c = self.__py_view__.borderColor
@@ -2724,6 +2757,50 @@ class View:
             self.__py_view__.layoutAction = _values.value(new_value)
 
     @property
+    def did_appear(self) -> Callable[[View], None]:
+        """
+        A function called when the view appears on screen. This function is called only if for the presented view and not its subviews.
+
+        :rtype: Callable[[View], None]
+        """
+
+        action = self.__py_view__.appearAction
+        if action is None:
+            return None
+        else:
+            return getattr(_values, str(action.identifier))
+
+    @did_appear.setter
+    def did_appear(self, new_value: Callable[[View], None]):
+        self.__py_view__.pyValue = _values.value(self)
+        if new_value is None:
+            self.__py_view__.appearAction = None
+        else:
+            self.__py_view__.appearAction = _values.value(new_value)
+
+    @property
+    def did_disappear(self) -> Callable[[View], None]:
+        """
+        A function called when the view stops being visible on screen. This function is called only if for the presented view and not its subviews.
+
+        :rtype: Callable[[View], None]
+        """
+
+        action = self.__py_view__.disappearAction
+        if action is None:
+            return None
+        else:
+            return getattr(_values, str(action.identifier))
+
+    @did_disappear.setter
+    def did_disappear(self, new_value: Callable[[View], None]):
+        self.__py_view__.pyValue = _values.value(self)
+        if new_value is None:
+            self.__py_view__.disappearAction = None
+        else:
+            self.__py_view__.disappearAction = _values.value(new_value)
+
+    @property
     def button_items(self) -> List[ButtonItem]:
         """
         A list of :class:`~pyto_ui.ButtonItem` objects to be displayed on the top bar. Works only if the view is the root view presented with :func:`~pyto_ui.show_view` or :meth:`~pyto_ui.View.push`.
@@ -2788,11 +2865,13 @@ class ImageView(View):
     A view displaying an image. The displayed image can be a ``PIL`` image, an ``UIKit`` ``UIImage`` (see :func:`~pyto_ui.image_with_system_name`) or can be directly downloaded from an URL.
     """
 
-    def __init__(self, image: "Image" = None, url: str = None):
+    def __init__(self, image: "Image" = None, symbol_name: str = None, url: str = None):
         self.__py_view__ = __UIImageView__.newView()
         self.image = image
         if url is not None:
             self.load_from_url(url)
+        elif symbol_name is not None:
+            self.image = image_with_system_name(symbol_name)
 
     @property
     def image(self) -> "Image":
@@ -2812,6 +2891,9 @@ class ImageView(View):
 
     @image.setter
     def image(self, new_value: "Image"):
+
+        if self.__py_view__.image is not None:
+            self.__py_view__.image.release()
 
         if new_value is None:
             self.__py_view__.image = None
@@ -2871,7 +2953,7 @@ class Label(View):
         """
         The color of the text.
 
-        :rtype: Color
+        :rtype: pyto_ui.Color
         """
 
         c = self.__py_view__.textColor
@@ -2892,7 +2974,7 @@ class Label(View):
         """
         The font of the text.
 
-        :rtype: Font
+        :rtype: pyto_ui.Font
         """
 
         py_font = self.__py_view__.font
@@ -3321,7 +3403,7 @@ class TextView(View):
         """
         The color of the text displayed on screen.
 
-        :rtype: Color
+        :rtype: pyto_ui.Color
         """
 
         c = self.__py_view__.textColor
@@ -3342,7 +3424,7 @@ class TextView(View):
         """
         The font of the text displayed on screen.
 
-        :rtype: Font
+        :rtype: pyto_ui.Font
         """
 
         py_font = self.__py_view__.font
@@ -3878,7 +3960,7 @@ class Slider(Control):
         """
         The color used to tint the default minimum track.
 
-        :rtype: Color
+        :rtype: pyto_ui.Color
         """
 
         c = self.__py_view__.minimumTrackColor
@@ -3899,7 +3981,7 @@ class Slider(Control):
         """
         The color used to tint the default maximum track.
 
-        :rtype: Color
+        :rtype: pyto_ui.Color
         """
 
         c = self.__py_view__.maximumTrackColor
@@ -3920,7 +4002,7 @@ class Slider(Control):
         """
         The color used to tint the default thumb.
 
-        :rtype: Color
+        :rtype: pyto_ui.Color
         """
 
         c = self.__py_view__.thumbColor
@@ -3976,7 +4058,7 @@ class Switch(Control):
         """
         The color used to tint the appearance of the switch when it is turned on.
 
-        :rtype: Color
+        :rtype: pyto_ui.Color
         """
 
         c = self.__py_view__.onColor
@@ -3997,7 +4079,7 @@ class Switch(Control):
         """
         The color used to tint the appearance of the thumb.
 
-        :rtype: Color
+        :rtype: pyto_ui.Color
         """
 
         c = self.__py_view__.thumbColor
@@ -4059,7 +4141,7 @@ class Button(Control):
         """
         The color of the title.
 
-        :rtype: Color
+        :rtype: pyto_ui.Color
         """
 
         c = self.__py_view__.titleColor
@@ -4105,7 +4187,7 @@ class Button(Control):
         """
         The font to be applied to the text.
 
-        :rtype: Font
+        :rtype: pyto_ui.Font
         """
 
         py_font = self.__py_view__.font
@@ -4218,7 +4300,7 @@ class TextField(Control):
         """
         The color of the text displayed on screen.
 
-        :rtype: Color
+        :rtype: pyto_ui.Color
         """
 
         c = self.__py_view__.textColor
@@ -4239,7 +4321,7 @@ class TextField(Control):
         """
         The font of the text displayed on screen.
 
-        :rtype: Font
+        :rtype: pyto_ui.Font
         """
 
         py_font = self.__py_view__.font
@@ -4389,19 +4471,6 @@ class TextField(Control):
 ###################
 
 
-def __ui_image_from_pil_image__(image):
-
-    if image is None:
-        return None
-
-    with BytesIO() as buffered:
-        image.save(buffered, format='PNG')
-        img_str = base64.b64encode(buffered.getvalue())
-
-    data = __NSData__.alloc().initWithBase64EncodedString(img_str, options=0)
-    return UIImage.alloc().initWithData(data)
-
-
 def __pil_image_from_ui_image__(image):
 
     from PIL import Image
@@ -4440,6 +4509,8 @@ def image_with_system_name(name: str) -> UIImage:
 
     :rtype: UIImage
     """
+
+    check(name, "name", [str])
 
     image = UIImage.systemImageNamed(name, withConfiguration=None)
     if image is None:
@@ -4487,3 +4558,22 @@ def show_view(view: View, mode: PRESENTATION_MODE):
             show_view = _show_view
 
     show(view, mode)
+
+def show_view_controller(view_controller: "UIViewController"):
+    """
+    Shows an UIKit View Controller. This function must be called from the main thread.
+
+    See `Objective-C <Objective-C.html>`_ and `mainthread <mainthread.html>`_.
+
+    :param view_controller: UIViewController.
+    """
+
+    if not NSThread.currentThread.isMainThread:
+        raise RuntimeError("'show_view_controller' must be called from the app's main thread. See the 'mainthread' module.")
+
+    try:
+        ConsoleViewController.showVC(
+            view_controller, onConsoleForPath=threading.current_thread().script_path
+        )
+    except AttributeError:
+        ConsoleViewController.showVC(view_controller, onConsoleForPath=None)
