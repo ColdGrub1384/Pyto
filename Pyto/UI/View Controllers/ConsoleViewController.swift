@@ -766,12 +766,6 @@ import SwiftUI
     }
     #endif
     
-    private var isCompleting = false
-    
-    private var codeCompletionTimer: Timer?
-    
-    private let codeCompletionQueue = DispatchQueue.global()
-    
     // MARK: - View controller
     
     override open func viewDidLoad() {
@@ -779,10 +773,6 @@ import SwiftUI
         
         #if MAIN
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
-        
-        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { [weak self] (notif) in
-            self?.themeDidChange(notif)
-        }
         #endif
         
         edgesForExtendedLayout = []
@@ -812,12 +802,22 @@ import SwiftUI
     #if MAIN
     override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        NotificationCenter.default.addObserver(self, selector: #selector(print_(_:)), name: .init(rawValue: "DidReceiveOutput"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
         
-        themeDidChange(nil)
+        movableTextField = MovableTextField(console: self)
+    }
+        }
+    #if MAIN
+    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         
-        #if Xcode11
-        guard view.window?.windowScene?.activationState != .background else {
-            return
+        let attrString = NSMutableAttributedString(attributedString: textView.attributedText)
+        attrString.removeAttribute(.backgroundColor, range: NSRange(location: 0, length: attrString.length))
+        textView.attributedText = attrString
+    }
+    #endif
+    
         }
         #endif
         
@@ -826,13 +826,8 @@ import SwiftUI
         textView.attributedText = attrString
     }
     #endif
-    
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if !ConsoleViewController.visibles.contains(self) {
-            ConsoleViewController.visibles.append(self)
-        }
         
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
         textView.frame.size.height -= 44
@@ -842,13 +837,18 @@ import SwiftUI
         
         if movableTextField == nil {
             movableTextField = MovableTextField(console: self)
-            movableTextField?.setPrompt(prompt ?? "")
+        
         }
         movableTextField?.show()
         #if MAIN
         movableTextField?.inputAssistant.delegate = self
         movableTextField?.inputAssistant.dataSource = self
         movableTextField?.didChangeText = { text in
+            
+            guard self.highlightInput else {
+                return
+            }
+            
             
             guard self.highlightInput else {
                 return
@@ -868,35 +868,6 @@ import SwiftUI
                 for completion in script.complete():
                     suggestions.append(completion.name)
                     completions.append(completion.complete)
-                    
-                pyto.ConsoleViewController.suggestions = suggestions
-                pyto.ConsoleViewController.completions = completions
-            except Exception as e:
-                pass
-            """
-            
-            func complete() {
-                DispatchQueue.global().async {
-                    self.isCompleting = true
-                    
-                    self.codeCompletionQueue.async {
-                        Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: code)
-                        self.isCompleting = false
-                    }
-                }
-            }
-            
-            if self.isCompleting { // A timer so it doesn't block the main thread
-                self.codeCompletionTimer?.invalidate()
-                self.codeCompletionTimer = Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true, block: { (timer) in
-                    if !self.isCompleting && timer.isValid {
-                        complete()
-                        timer.invalidate()
-                    }
-                })
-            } else {
-                complete()
-            }
         }
         #endif
         movableTextField?.handler = { text in
@@ -909,7 +880,7 @@ import SwiftUI
             #endif
             
             self.movableTextField?.currentInput = nil
-            self.movableTextField?.setPrompt("")
+                        Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: code)
             
             #if MAIN
             
@@ -919,6 +890,10 @@ import SwiftUI
             self.movableTextField?.history.insert(text, at: 0)
             self.movableTextField?.historyIndex = -1
             
+                        complete()
+                        timer.invalidate()
+                    }
+                })
             self.completions = []
             #endif
             
@@ -1003,6 +978,17 @@ import SwiftUI
         #endif
     }
     
+                Python.shared.output += text
+                self.print_(Notification(name: Notification.Name(rawValue: "DidReceiveOutput"), object: "\(hiddenPassword)\n", userInfo: nil))
+            }
+            self.textView.scrollToBottom()
+        }
+        
+        var items = [UIBarButtonItem]()
+        func appendStop() {
+            items.append(UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(close)))
+        }
+        #if MAIN
     override open func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         super.dismiss(animated: flag, completion: completion)
         
@@ -1020,25 +1006,16 @@ import SwiftUI
         super.viewDidLayoutSubviews()
         
         let wasFirstResponder = movableTextField?.textField.isFirstResponder ?? false
-        let isREPL = !(!(editorSplitViewController is REPLViewController) && !(editorSplitViewController is RunModuleViewController))
-        
-        if #available(iOS 14.0, *), isREPL {
-        } else {
-            movableTextField?.textField.resignFirstResponder()
-        }
-        
+        #if MAIN
         movableTextField?.toolbar.frame.size.width = view.safeAreaLayoutGuide.layoutFrame.width
         movableTextField?.toolbar.frame.origin.x = view.safeAreaInsets.left
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
         textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
         textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
-        
-        if #available(iOS 14.0, *), isREPL {
-        } else if wasFirstResponder {
+        }
             movableTextField?.textField.becomeFirstResponder()
         }
-        
-        movableTextField?.toolbar.isHidden = (view.frame.size.height == 0)
+    
         #if MAIN
         movableTextField?.applyTheme()
         #endif
@@ -1053,7 +1030,7 @@ import SwiftUI
         
         #if MAIN
         if numberOfSuggestionsInInputAssistantView() != 0 {
-            commands.append(UIKeyCommand.command(input: "\t", modifierFlags: [], action: #selector(nextSuggestion), discoverabilityTitle: Localizable.nextSuggestion))
+        textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
         }
         #endif
         
