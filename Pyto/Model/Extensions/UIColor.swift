@@ -12,24 +12,36 @@ extension UIColor {
     
     /// Returns an hexadecimal color representation as String.
     var hexString: String {
-        let colorRef = cgColor.components
-        let r = colorRef?[0] ?? 0
-        let g = colorRef?[1] ?? 0
-        let b = ((colorRef?.count ?? 0) > 2 ? colorRef?[2] : g) ?? 0
-        let a = cgColor.alpha
+        var r: CGFloat = 0
+        var g: CGFloat = 0
+        var b: CGFloat = 0
+        
+        getRed(&r, green: &g, blue: &b, alpha: nil)
 
-        var color = String(
+        if r < 0 {
+            r = 0
+        } else if r > 1 {
+            r = 1
+        }
+        
+        if g < 0 {
+            g = 0
+        } else if g > 1 {
+            g = 1
+        }
+        
+        if b < 0 {
+            b = 0
+        } else if b > 1 {
+            b = 1
+        }
+        
+        return String(
             format: "#%02lX%02lX%02lX",
             lroundf(Float(r * 255)),
             lroundf(Float(g * 255)),
             lroundf(Float(b * 255))
         )
-
-        if a < 1 {
-            color += String(format: "%02lX", lroundf(Float(a)))
-        }
-
-        return color
     }
     
     /// Returns a color from a hexadecimal string.
