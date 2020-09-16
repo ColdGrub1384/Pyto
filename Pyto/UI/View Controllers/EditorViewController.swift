@@ -13,6 +13,7 @@ import InputAssistant
 import IntentsUI
 import MarqueeLabel
 import SwiftUI
+import Highlightr
 
 fileprivate func parseArgs(_ args: inout [String]) {
     ParseArgs(&args)
@@ -277,6 +278,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     // MARK: - Theme
     
+    private var lastCSS = ""
+    
     /// Setups the View controller interface for given theme.
     ///
     /// - Parameters:
@@ -284,21 +287,35 @@ fileprivate func parseArgs(_ args: inout [String]) {
     func setup(theme: Theme) {
         
         textView.contentTextView.inputAccessoryView = nil
+        textView.font = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
+        textStorage?.highlightr.theme.codeFont = textView.font
         
         // SwiftUI
         parent?.parent?.parent?.view.backgroundColor = theme.sourceCodeTheme.backgroundColor
         
-        let text = textView.text
-        textView.delegate = nil
-        textView.delegate = self
-        textView.theme = theme.sourceCodeTheme
-        textView.contentTextView.textColor = theme.sourceCodeTheme.color(for: .plain)
+        let highlightrTheme = HighlightrTheme(themeString: theme.css)
+        highlightrTheme.setCodeFont(EditorViewController.font.withSize(CGFloat(ThemeFontSize)))
+        highlightrTheme.themeBackgroundColor = theme.sourceCodeTheme.backgroundColor
+        highlightrTheme.themeTextColor = theme.sourceCodeTheme.color(for: .plain)
+        
+        if lastCSS != theme.css {
+            textStorage?.highlightr.theme = highlightrTheme
+            textView.textColor = theme.sourceCodeTheme.color(for: .plain)
+            textView.backgroundColor = theme.sourceCodeTheme.backgroundColor
+        }
+        lastCSS = theme.css
+        
         if traitCollection.userInterfaceStyle == .dark {
             textView.contentTextView.keyboardAppearance = .dark
         } else {
             textView.contentTextView.keyboardAppearance = theme.keyboardAppearance
         }
-        textView.text = text
+        
+        let lineNumberText = textView as? LineNumberTextView
+        lineNumberText?.lineNumberTextColor = theme.sourceCodeTheme.color(for: .plain).withAlphaComponent(0.5)
+        lineNumberText?.lineNumberBackgroundColor = theme.sourceCodeTheme.backgroundColor
+        lineNumberText?.lineNumberFont = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
+        lineNumberText?.lineNumberBorderColor = .clear
         
         inputAssistant = InputAssistantView()
         inputAssistant.delegate = self
@@ -441,6 +458,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         setBarItems()
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
@@ -829,8 +847,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
             textStorage?.addAttributes([NSAttributedString.Key.backgroundColor: UIColor.yellow.withAlphaComponent(0.5)], range: match.range)
         }
         
-        textView.contentTextView.attributedText = attributed
-        
         if let range = ranges.first {
             textView.contentTextView.scrollRangeToVisible(range)
         }
@@ -843,12 +859,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        let text = textView.text
-        textView.delegate = nil
-        textView.text = text
-        textView.delegate = self
-        
         performSearch()
     }
     
@@ -867,6 +877,10 @@ fileprivate func parseArgs(_ args: inout [String]) {
         } else {
             replace = true
         }
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        performSearch()
     }
     
     // MARK: - Plugin
@@ -1130,6 +1144,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     /// Runs script.
     @objc func run() {
+        
+        textStorage?.removeAttribute(.backgroundColor, range: _NSRange(location: 0, length: NSString(string: textView.text).length))
         
         if textView.contentTextView.isFirstResponder {
             textView.contentTextView.resignFirstResponder()
@@ -1664,7 +1680,6 @@ fileprivate func parseArgs(_ args: inout [String]) {
         if textView.isFirstResponder {
             updateSuggestions()
         }
-        return self.textView.textViewDidChangeSelection(textView)
     }
     
     func textViewDidChange(_ textView: UITextView) {
@@ -1900,11 +1915,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         parent?.setNeedsUpdateOfHomeIndicatorAutoHidden()
     }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        textView.contentTextView.setNeedsDisplay()
-    }
-    
+        
     // MARK: - Suggestions
     
     /// The defintions of the scripts. Array of arrays: [["content", lineNumber]]
