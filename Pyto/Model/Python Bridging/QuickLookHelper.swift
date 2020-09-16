@@ -117,16 +117,17 @@ fileprivate class ImageAttachment: NSTextAttachment {
     ///     - script: The script that previewed the given file. Set to `nil` to show on all the consoles.
     ///     - removePrevious: A boolean indicating whether the previously shown images should be hidden. Used by OpenCV to display real time camera input.
     @objc static func previewFile(_ data: String, script: String?, removePrevious: Bool) {
-        
-        guard let data = Data(base64Encoded: data, options: .ignoreUnknownCharacters), let image = UIImage(data: data) else {
-            return
-        }
-        
-        if !removePrevious {
-            QuickLookHelper.images.add(image)
-        }
-        
+        let semaphore = DispatchSemaphore(value: 0)
         DispatchQueue.main.async {
+            
+            guard let data = Data(base64Encoded: data, options: .ignoreUnknownCharacters), let image = UIImage(data: data) else {
+                semaphore.signal()
+                return
+            }
+            
+            if !removePrevious {
+                QuickLookHelper.images.add(image)
+            }
             
             #if MAIN
             
@@ -138,6 +139,7 @@ fileprivate class ImageAttachment: NSTextAttachment {
                 try? data.write(to: url)
                 
                 WCSession.default.transferFile(url, metadata: [:])
+                semaphore.signal()
                 return
             }
             #endif
@@ -177,7 +179,10 @@ fileprivate class ImageAttachment: NSTextAttachment {
             ConsoleViewController.visibles.first?.textView.textStorage.insert(attrString, at: ConsoleViewController.visibles[0].textView.offset(from: ConsoleViewController.visibles[0].textView.endOfDocument, to: ConsoleViewController.visibles[0].textView.endOfDocument))
             #endif
             
+            semaphore.signal()
         }
+        
+        semaphore.wait()
     }
     
     // MARK: - Preview controller data source
