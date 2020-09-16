@@ -1230,7 +1230,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                             
                             Python.shared.run(script: Python.Script(path: path, debug: debug, breakpoints: self.breakpoints))
                         } else {
-                            Python.shared.runScript(at: url)
+                            Python.shared.runScriptAt(url)
                         }
                         
                         console.updateSize()

@@ -509,7 +509,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     ///
     /// - Parameters:
     ///     - url: URL of the Python script to run.
-    @objc public func runScript(at url: URL) {
+    @objc public func runScriptAt(_ url: URL) {
         queue.async {
             
             self.thread = Thread.current

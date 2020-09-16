@@ -377,7 +377,7 @@ fileprivate var isPythonSetup = false
                 }
                 _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { (timer) in
                     if FileManager.default.createFile(atPath: newScriptURL.path, contents: main.data(using: .utf8), attributes: nil) {
-                        Python.shared.runScript(at: newScriptURL)
+                        Python.shared.runScriptAt(newScriptURL)
                         timer.invalidate()
                     } // The file may not be created on the lock screen, so we try create the file each 0.5 seconds
                 })
