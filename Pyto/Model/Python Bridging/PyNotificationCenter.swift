@@ -124,7 +124,12 @@ import UserNotifications
                         notification.categoryIdentifier = id
                     }
                     
-                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: delay, repeats: repeats)
+                    let trigger: UNTimeIntervalNotificationTrigger
+                    if delay > 0 {
+                        trigger = UNTimeIntervalNotificationTrigger(timeInterval: delay, repeats: repeats)
+                    } else {
+                        trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
+                    }
                     let request = UNNotificationRequest(identifier: UUID().uuidString, content: notification, trigger: trigger)
                     UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
                 }

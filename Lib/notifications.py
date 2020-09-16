@@ -118,3 +118,13 @@ def schedule_notification(notification: Notification, delay: float, repeat: bool
     """
 
     __PyNotificationCenter__.scheduleNotificationWithMessage(notification.message, delay=delay, url=notification.url, actions=notification.actions, repeats=repeat)
+
+
+def send_notification(notification: Notification):
+    """
+    Sends the given notification immediately.
+
+    :param Notification: The :class:`~notifications.Notification` object representing the notification content.
+    """ 
+    
+    __PyNotificationCenter__.scheduleNotificationWithMessage(notification.message, delay=0, url=notification.url, actions=notification.actions, repeats=False)
