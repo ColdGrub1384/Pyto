@@ -138,7 +138,12 @@ import SwiftUI
     func sceneWillResignActive(_ scene: UIScene) {
         #if MAIN
         (UIApplication.shared.delegate as? AppDelegate)?.copyModules()
-        ((window?.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor?.save()
+        
+        if #available(iOS 14.0, *), let windowScene = scene as? UIWindowScene {
+            (EditorView.EditorStore.perScene[windowScene]?.editor?.viewController as? EditorSplitViewController)?.editor?.save()
+        } else {
+            ((window?.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor?.save()
+        }
         #endif
     }
     
