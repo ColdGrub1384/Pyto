@@ -24,7 +24,7 @@ import Foundation
     /// Starts listening for memory.
     func startListening() {
         // Yes, a timer. But it does not seem to slow down the app.
-        _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (_) in
+        _ = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true, block: { (_) in
             
             #if WIDGET
             let leftLimit: Float = 0.0
