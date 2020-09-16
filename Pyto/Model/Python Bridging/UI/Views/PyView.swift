@@ -11,7 +11,7 @@ import WebKit
 
 @available(iOS 13.0, *) extension UIView {
     
-    private struct Holder {
+    fileprivate struct Holder {
         static var presentationMode = [UIView:Int]()
         static var buttonItems = [UIView:[UIBarButtonItem]]()
         static var viewController = [UIView:UIViewController]()
@@ -71,30 +71,54 @@ import WebKit
         super.init(managed: managed)
         
         if self.managed is UIView {
+            addSizeObserver()
             DispatchQueue.main.async {
-                self.view.layer.addObserver(self, forKeyPath: "bounds", options: .new, context: nil)
+                var values = PyView.values
+                values[self.view] = self
+                PyView.values = values
             }
-            PyView.values[self.view] = self
         }
-    }
-    
-    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {        
-        layoutAction?.call(parameter: pyValue)
     }
     
     deinit {
-        if Thread.current.isMainThread {
-            view.layer.removeObserver(self, forKeyPath: "bounds")
-        } else {
-            let semaphore = DispatchSemaphore(value: 0)
-            DispatchQueue.main.async {
-                self.view.layer.removeObserver(self, forKeyPath: "bounds")
-                semaphore.signal()
+        print("Deallocated view")
+    }
+    
+    var sizeObserver: NSKeyValueObservation?
+    
+    func addSizeObserver() {
+        DispatchQueue.main.async {
+            self.sizeObserver = self.view.layer.observe(\.bounds) { [weak self] (_, _) in
+                self?.layoutAction?.call(parameter: self?.pyValue)
             }
-            semaphore.wait()
         }
-        viewController = nil
-        pyValue = nil
+    }
+    
+    @objc var references = 0 {
+        didSet {
+            if references == 0 {
+                PyView.values[view] = nil
+                UIView.Holder.buttonItems[view] = nil
+                UIView.Holder.name[view] = nil
+                UIView.Holder.presentationMode[view] = nil
+                UIView.Holder.viewController[view] = nil
+                                
+                set {
+                    self.view.removeFromSuperview()
+                }
+                
+                sizeObserver = nil
+                managed = nil
+            }
+        }
+    }
+    
+    @objc func releaseReference() {
+        references -= 1
+    }
+    
+    @objc func retainReference() {
+        references += 1
     }
     
     /// A dictionary containing `PyView`s per `UIView`.
@@ -229,6 +253,12 @@ import WebKit
     /// The function called when the size of the view changes.
     @objc public var layoutAction: PyValue?
     
+    /// The function called when the view becomes visible on screen.
+    @objc public var appearAction: PyValue?
+    
+    /// The function called when the view stops being visible on screen.
+    @objc public var disappearAction: PyValue?
+    
     /// Closes this view.
     @objc public func close() {
         
@@ -273,7 +303,7 @@ import WebKit
     /// The view associated with this object.
     @objc public var view: UIView {
         return get {
-            return self.managed as! UIView
+            return (self.managed as? UIView) ?? UIView()
         }
     }
     
@@ -1027,7 +1057,7 @@ import WebKit
     /// Pushes the given view on the corresponding view's navigation controller.
     ///
     /// - Parameters:
-    ///     - view. The view to display.
+    ///     - view: The view to display.
     @objc public func pushView(_ view: PyView) {
         set {
             let navVC = (self.viewController as? UINavigationController) ?? self.viewController?.navigationController
