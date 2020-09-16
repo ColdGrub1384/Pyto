@@ -431,10 +431,17 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     // MARK: - View controller
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
                 
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { [weak self] (notif) in
+            self?.themeDidChange(notif)
+        }
         
         if #available(iOS 13.0, *) {
             view.backgroundColor = .systemBackground
@@ -461,12 +468,17 @@ fileprivate func parseArgs(_ args: inout [String]) {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardDidHideNotification, object: nil)
         
         textView.contentTextView.isEditable = !isSample
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        
+        guard view.window?.windowScene?.activationState != .background else {
+            return
+        }
         
         themeDidChange(nil)
     }
@@ -626,6 +638,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         
         let wasFirstResponder = textView.contentTextView.isFirstResponder
         textView.contentTextView.resignFirstResponder()
+        isToolbarUp = false
         _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
             self.textView.frame = self.view.safeAreaLayoutGuide.layoutFrame
             if wasFirstResponder {
@@ -702,7 +715,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                     replaceView.replaceHandler = { searchText in
                         if let range = self.ranges.first {
                             
-                            var text = self.textView.text
+                            var text = self.textView.text ?? ""
                             text = (text as NSString).replacingCharacters(in: range, with: searchText)
                             self.textView.text = text
                             
@@ -713,7 +726,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
                     replaceView.replaceAllHandler = { searchText in
                         while let range = self.ranges.first {
                             
-                            var text = self.textView.text
+                            var text = self.textView.text ?? ""
                             text = (text as NSString).replacingCharacters(in: range, with: searchText)
                             self.textView.text = text
                             
@@ -1606,19 +1619,31 @@ fileprivate func parseArgs(_ args: inout [String]) {
     
     // MARK: - Keyboard
     
+    /// A boolean that is set to `true` when the toolbar is above the external keyboard.
+    var isToolbarUp = false
+    
     /// Resize `textView`.
     @objc func keyboardDidShow(_ notification:Notification) {
-        let d = notification.userInfo!
-        let r = d[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-        let point = (view.window)?.convert(r.origin, to: textView) ?? r.origin
         
-        textView.contentInset.bottom = (point.y >= textView.frame.height ? 0 : textView.frame.height-point.y)
-        textView.contentTextView.verticalScrollIndicatorInsets.bottom = textView.contentInset.bottom
-        
-        if point.y+50 >= textView.frame.height {
-            textView.contentInset.bottom += 50
+        func resize() {
+            let d = notification.userInfo!
+            let r = d[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+            
+            let inset = r.height-((navigationController?.toolbar.frame.height ?? 0)+(((parent as? EditorSplitViewController) ?? self).view.safeAreaLayoutGuide.layoutFrame.height-view.frame.height))
+            
+            textView.contentInset.bottom = inset
+            textView.verticalScrollIndicatorInsets.bottom = inset
         }
         
+        #if !Xcode11
+        if #available(iOS 14.0, *) {
+        } else {
+            resize()
+        }
+        #else
+        resize()
+        #endif
+            
         if searchBar?.window != nil {
             textView.contentInset.top = findBarHeight
             textView.contentTextView.verticalScrollIndicatorInsets.top = findBarHeight
@@ -1704,7 +1729,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
             UIMenuController.shared.menuItems?.insert(UIMenuItem(title: Localizable.MenuItems.undo, action: #selector(EditorViewController.undo)), at: 0)
         }
         
-        let text = textView.text
+        let text = textView.text ?? ""
         EditorViewController.isCompleting = true
         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
             if textView.text == text {

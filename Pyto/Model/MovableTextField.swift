@@ -44,6 +44,8 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         textField.keyboardAppearance = theme.keyboardAppearance
         if console?.traitCollection.userInterfaceStyle == .dark {
             textField.keyboardAppearance = .dark
+        } else {
+            textField.keyboardAppearance = .light
         }
         if textField.keyboardAppearance == .dark {
             toolbar.barStyle = .black
@@ -76,6 +78,14 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     /// The text field.
     let textField: UITextField
     
+    /// Displays the given prompt.
+    ///
+    /// - Parameters:
+    ///     - prompt: The prompt to display.
+    func setPrompt(_ prompt: String) {        
+        textField.placeholder = prompt
+    }
+    
     /// Initializes the manager.
     ///
     /// - Parameters:
@@ -96,10 +106,24 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             textField.textColor = UIColor.label
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(_:)), name: UIResponder.keyboardDidHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        func listenToKeyboardNotifications() {
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(_:)), name: UIResponder.keyboardDidHideNotification, object: nil)
+        }
+        
+        #if !Xcode11
+        if #available(iOS 14.0, *), !(console.editorSplitViewController is REPLViewController), !(console.editorSplitViewController is RunModuleViewController) {
+        } else {
+            listenToKeyboardNotifications()
+        }
+        #else
+        listenToKeyboardNotifications()
+        #endif
+        
+        if #available(iOS 14.0, *) {} else {
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        }
     }
     
     /// Shows the text field.
@@ -136,6 +160,8 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         
         // That's the typical code you just cannot understand when you are playing Clash Royale while coding
         // So please, open iTunes, play your playlist, focus and then go back.
+        //
+        // Edit from 2020: Stop watching TikTok and focus
         
         if console?.parent?.parent?.modalPresentationStyle != .popover || console?.parent?.parent?.view.frame.width != console?.parent?.parent?.preferredContentSize.width {
             
@@ -155,7 +181,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             if toolbar.superview != nil,
                 !EditorSplitViewController.shouldShowConsoleAtBottom,
                 !toolbar.superview!.bounds.intersection(toolbar.frame).equalTo(toolbar.frame) {
-                toolbar.frame.origin.y = (console?.view.safeAreaLayoutGuide.layoutFrame.height ?? 0)-toolbar.frame.height
+                toolbar.frame.origin.y = (console?.view.frame.height ?? 0)-toolbar.frame.height
             }
             #else
             var r = notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
