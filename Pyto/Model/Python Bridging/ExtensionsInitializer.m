@@ -15,6 +15,7 @@
 
 @implementation ExtensionsInitializer
 
+#if !SCREENSHOTS
 -(void) initialize_pil {
     init_pil();
 }
@@ -95,5 +96,6 @@
 -(void) initialize_biopython {
     init_biopython();
 }
+#endif
 #endif
 @end
