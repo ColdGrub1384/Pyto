@@ -11,6 +11,7 @@ import SafariServices
 import NotificationCenter
 import CoreLocation
 import CoreMotion
+import BackgroundTasks
 #if MAIN
 import WatchConnectivity
 import Intents
@@ -435,6 +436,24 @@ import TrueTime
             """
         }
         #endif
+        
+        // Background Fetch
+        
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: "pyto.backgroundfetch", using: nil) { (task) in
+            
+            if let script = BackgroundTask.backgroundScript {
+                let url = URL(fileURLWithPath: script)
+                
+                #if !Xcode11
+                RunShortcutsScript(at: url, arguments: [], sendOutput: false)
+                #endif
+            }
+            
+            task.expirationHandler = {
+                task.setTaskCompleted(success: true)
+            }
+        }
+        
         #else
         window = UIWindow()
         window?.backgroundColor = .white

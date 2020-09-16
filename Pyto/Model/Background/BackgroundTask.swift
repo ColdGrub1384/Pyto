@@ -9,6 +9,7 @@
 
 import AVFoundation
 import UIKit
+import BackgroundTasks
 
 @objc class BackgroundTask: NSObject {
     
@@ -129,5 +130,43 @@ import UIKit
             self.player.prepareToPlay()
             self.player.play()
         } catch { print(error.localizedDescription) }
+    }
+    
+    // MARK: - Background Fetch
+    
+    @objc static func scheduleFetch() {
+        let request = BGAppRefreshTaskRequest(identifier: "pyto.backgroundfetch")
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 60)
+        do {
+            try BGTaskScheduler.shared.submit(request)
+        } catch {
+            print("Unable to refresh: \(error.localizedDescription)")
+        }
+    }
+    
+    @objc static var backgroundScript: String? {
+        get {
+            guard let data = UserDefaults.standard.data(forKey: "backgroundScript") else {
+                return nil
+            }
+            
+            var isStale = false
+            guard let url = try? URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale) else {
+                return nil
+            }
+            
+            _ = url.startAccessingSecurityScopedResource()
+            
+            if !FileManager.default.fileExists(atPath: url.path) {
+                return nil
+            }
+            
+            return url.path
+        }
+        
+        set {
+            let url = URL(fileURLWithPath: newValue ?? "")
+            UserDefaults.standard.set(try? url.bookmarkData(), forKey: "backgroundScript")
+        }
     }
 }

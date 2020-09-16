@@ -16,6 +16,61 @@ import sys
 import threading
 
 
+def request_background_fetch():
+    """
+    This function is used to start fetching information in background.
+    It tells the system to execute the script from which the function is called multiple times a day. The OS decides when it's appropiate to perform the fetch, so it's pretty unreliable.
+    The script cannot take more than 30 seconds to execute.
+
+    For example, you can write a script for sending notifications or updating a widget.
+
+    .. highlight:: python
+    .. code-block:: python
+
+        import background as bg
+        import notifications as nc
+        import widgets as wd
+        import time
+
+        bg.request_background_fetch()
+
+        current_time = time.strftime("It is %H:%M")
+
+        # Send notification
+
+        notif = nc.Notification()
+        notif.message = current_time
+        nc.send_notification(notif)
+
+        # Update widget
+
+        time_label = wd.Text(current_time)
+
+        widget = wd.Widget()
+        for layout in (
+            widget.small_layout,
+            widget.medium_layout,
+            widget.large_layout):
+                
+                layout.add_row([time_label])
+
+        wd.save_widget(widget, "Fetching Test")
+
+    """
+    
+    BackgroundTask = __Class__("BackgroundTask")
+    BackgroundTask.scheduleFetch()
+
+    script_path = None
+    try:
+        script_path = threading.current_thread().script_path
+    except AttributeError:
+        pass
+
+    if script_path is not None:
+        BackgroundTask.backgroundScript = script_path
+
+
 class BackgroundTask:
     """
     Represents a task to run in background.
