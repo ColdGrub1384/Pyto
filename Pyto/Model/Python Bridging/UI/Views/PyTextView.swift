@@ -23,7 +23,7 @@ fileprivate class _PyTextView: UITextView {
         let _html = """
         <style>
             * {
-                color: \(UIColor.label.hexString ?? "#000");
+                color: \(UIColor.label.hexString);
                 font-family: '.SFNSDisplay-Regular', sans-serif;
             }
         </style>
@@ -66,7 +66,7 @@ fileprivate class _PyTextView: UITextView {
             let _html = """
             <style>
                 * {
-                    color: \(UIColor.label.hexString ?? "#000");
+                    color: \(UIColor.label.hexString);
                     font-family: '.SFNSDisplay-Regular', sans-serif;
                 }
             </style>
