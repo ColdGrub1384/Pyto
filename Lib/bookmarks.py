@@ -26,6 +26,13 @@ import os
 import sharing
 import userkeys
 from rubicon.objc import ObjCClass
+from __check_type__ import check
+
+try:
+    from rubicon.objc import ObjCClass, CGFloat
+except ValueError:
+    def ObjCClass(class_name):
+        return None
 
 NSURL = ObjCClass("NSURL")
 NSData = ObjCClass("NSData")
@@ -72,6 +79,9 @@ class StoredBookmark:
         userkeys.set(bm, __key__)
 
     def __init__(self, name: str = None, path: str = None):
+
+        check(name, "name", [str, None])
+        check(path, "path", [str, None])
 
         self.__bookmark_name__ = name
 

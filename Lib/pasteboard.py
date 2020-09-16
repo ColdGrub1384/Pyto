@@ -7,6 +7,7 @@ This module gives access to the pasteboard.
 
 from UIKit import UIPasteboard as __UIPasteboard__, UIImage
 from typing import List
+from __check_type__ import check
 try:
     from rubicon.objc import ObjCClass
 except ValueError:
@@ -79,6 +80,9 @@ def set_image(image: UIImage):
 
     :param image: The image to copy.
     """
+
+    check(image, "image", [ObjCInstance, None])
+
     general_pasteboard().image = image
 
 
@@ -88,6 +92,9 @@ def set_images(array: List[UIImage]):
 
     :param array: A list of images to copy.
     """
+
+    check(array, "array", [list, None])
+
     general_pasteboard().images = array
 
 
@@ -114,6 +121,9 @@ def set_url(url: NSURL):
 
     :param url: The Objective-C ``NSURL`` to copy.
     """
+
+    check(url, "url", [ObjCInstance, None])
+
     general_pasteboard().url = url
 
 
@@ -123,4 +133,7 @@ def set_urls(array: List[NSURL]):
 
     :param array: A list of Objective-C ``NSURL`` s to copy.
     """
+
+    check(array, "array", [list, None])
+
     general_pasteboard().urls = array

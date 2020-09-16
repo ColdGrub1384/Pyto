@@ -19,6 +19,7 @@ from pyto import PyMusicHelper
 from ctypes import cdll
 import PIL
 import threading
+from __check_type__ import check
 
 
 try:
@@ -738,6 +739,8 @@ def set_queue_with_items(items: List[MediaItem]):
     :param items: An array of :class:`~music.MediaItem` that you want as the playback queue.
     """
 
+    check(items, "items", [list])
+
     objc_items = []
     for item in items:
         objc_items.append(item.__item__)
@@ -751,6 +754,8 @@ def set_queue_with_store_ids(ids: List[str]):
 
     :param ids: An array of store identifiers associated with the media items to be added to the queue.
     """
+
+    check(ids, "ids", [list])
 
     player.setQueueWithStoreIDs(ids)
 
@@ -807,6 +812,8 @@ def set_repeat_mode(mode: int):
     :param mode: The repeat mode to set. See `Repeat Mode <music.html#id1>`_ for possible values.
     """
 
+    check(mode, "mode", [int])
+
     play.repeatMode = mode
 
 
@@ -816,6 +823,8 @@ def set_shuffle_mode(mode: int):
 
     :param mode: The shuffle mode to set. See `Shuffle Mode <music.html#id2>`_ for possible values.
     """
+
+    check(mode, "mode", [int])
 
     player.shuffleMode = mode
 

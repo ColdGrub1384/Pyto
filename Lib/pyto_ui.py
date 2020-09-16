@@ -16,6 +16,7 @@ from __future__ import annotations
 from UIKit import UIFont as __UIFont__, UIImage as UIImage
 from typing import List, Callable, Tuple
 from pyto import __Class__, ConsoleViewController, PyAlert as __PyAlert__
+from __check_type__ import check
 from time import sleep
 from io import BytesIO
 from threading import Thread
@@ -1023,6 +1024,14 @@ class Color:
         :rtype: Color
         """
 
+        check(red, "red", [float, int])
+        check(green, "green", [float, int])
+        check(blue, "blue", [float, int])
+        check(alpha, "alpha", [float, int])
+
+        if (red > 1 or green > 1 or blue > 1 or alpha > 1):
+            raise ValueError("Values must be located between 0 and 1.")
+
         return cls(__PyColor__.colorWithRed(red, green=green, blue=blue, alpha=alpha))
 
     @classmethod
@@ -1038,6 +1047,12 @@ class Color:
         :rtype: Color
         """
 
+        check(white, "white", [float, int])
+        check(alpha, "alpha", [float, int])
+
+        if (white > 1 or alpha > 1):
+            raise ValueError("Values must be located between 0 and 1.")
+
         return cls(__PyColor__.colorWithWhite(white, alpha=alpha))
 
     @classmethod
@@ -1050,6 +1065,9 @@ class Color:
 
         :rtype: Color
         """
+
+        check(light, "light", Color)
+        check(dark, "dark", Color)
 
         return cls(__PyColor__.colorWithLight(light.__py_color__, dark=dark.__py_color__))
 
@@ -1229,6 +1247,9 @@ class Font:
         :param size: The size (in points) to which the font is scaled. This value must be greater than 0.0.
         """
 
+        check(name, "name", [str, None])
+        check(size, "size", [float, int, None])
+
         if name is None and size is None:
             return
 
@@ -1246,6 +1267,8 @@ class Font:
         :rtype: Font
         """
 
+        check(size, "size", [float, int])
+
         font = self.__class__(None, None)
         font.__ui_font__ = self.__ui_font__.fontWithSize(CGFloat(size))
         return font
@@ -1259,6 +1282,8 @@ class Font:
 
         :rtype: List[str]
         """
+
+        check(name, "name", [str])
 
         names = __UIFont__.fontNamesForFamilyName(name)
 
@@ -1279,6 +1304,8 @@ class Font:
         :rtype: Font
         """
 
+        check(size, "size", [float, int])
+
         font = cls(None, None)
         font.__ui_font__ = __UIFont__.systemFontOfSize(CGFloat(size))
         return font
@@ -1292,6 +1319,8 @@ class Font:
 
         :rtype: Font
         """
+
+        check(size, "size", [float, int])
 
         font = cls(None, None)
         font.__ui_font__ = __UIFont__.italicSystemFontOfSize(CGFloat(size))
@@ -1307,6 +1336,8 @@ class Font:
         :rtype: Font
         """
 
+        check(size, "size", [float, int])
+
         font = cls(None, None)
         font.__ui_font__ = __UIFont__.boldSystemFontOfSize(CGFloat(size))
         return font
@@ -1320,6 +1351,8 @@ class Font:
 
         :rtype: Font
         """
+
+        check(style, "style", [str])
 
         font = cls(None, None)
         font.__ui_font__ = __UIFont__.preferredFontForTextStyle(style)
@@ -4373,6 +4406,9 @@ def show_view(view: View, mode: PRESENTATION_MODE):
     :param view: The :class:`~pyto_ui.View` object to present.
     :param mode: The presentation mode to use. The value will be ignored on a widget. See `Presentation Mode <constants.html#presentation-mode>`_ constants for possible values.
     """
+
+    check(view, "view", [View])
+    check(mode, "mode", [int])
 
     def show(view, mode):
         view.__py_view__.presentationMode = mode

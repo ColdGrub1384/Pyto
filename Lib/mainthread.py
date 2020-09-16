@@ -20,6 +20,8 @@ Example:
 
 import pyto
 from time import sleep
+from __check_type__ import check
+from __check_type__ import func as _func
 
 __PyMainThread__ = pyto.PyMainThread
 
@@ -51,6 +53,8 @@ def mainthread(func):
        run_in_background()
     """
 
+    check(func, "func", [_func])
+
     def run(*args, **kwargs):
         import mainthread
 
@@ -69,6 +73,8 @@ def run_async(code):
     :param code: Code to execute in the main thread.
     """
 
+    check(code, "code", [_func])
+
     def code_() -> None:
         code()
 
@@ -76,6 +82,9 @@ def run_async(code):
 
 
 def run_sync(code):
+
+    check(code, "code", [_func])
+
 
     def code_() -> None:
         code()

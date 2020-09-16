@@ -5,6 +5,7 @@ Use this module to trade data with other devices running Pyto. Works without WiF
 """
 
 from pyto import PyMultipeerHelper
+from __check_type__ import check
 
 
 def connect():
@@ -29,6 +30,8 @@ def send(data: str):
 
     :param data: The string to send.
     """
+
+    check(data, "data", [str])
 
     PyMultipeerHelper.send(data)
 

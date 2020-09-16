@@ -8,6 +8,7 @@ Note: Because of privacy, apps cannot access to the clipboard in background, so 
 """
 
 from pyto import __Class__
+from __check_type__ import check
 from datetime import datetime
 from time import sleep
 from os.path import abspath
@@ -82,7 +83,10 @@ class BackgroundTask:
     def reminder_notifications(self, new_value: bool):
         self.__background_task__.sendNotification = new_value
 
-    def __init__(self, audio_path=None):
+    def __init__(self, audio_path: str = None):
+
+        check(audio_path, "audio_path", [str, None])
+
         self.__background_task__ = __Class__("BackgroundTask").new()
         if audio_path is not None:
             self.__background_task__.soundPath = abspath(audio_path)
@@ -118,6 +122,8 @@ class BackgroundTask:
 
         :param delay: Seconds to wait.
         """
+
+        check(delay, "delay", [float, int])
 
         sleep(delay)
 

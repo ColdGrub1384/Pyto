@@ -12,6 +12,7 @@ from typing import List, Callable, Union
 from UIKit import UIDevice, UIImage
 from pyto import EditorViewController, Python
 from PIL import Image
+from __check_type__ import check
 import builtins
 import base64
 import threading
@@ -255,6 +256,9 @@ class Theme:
     """
 
     def __init__(self, name: str, data: str):
+        check(name, "name", [str])
+        check(data, "data", [str])
+
         self.name = name
         self.data = data
 
@@ -279,6 +283,8 @@ def set_theme(theme: Theme):
 
     :param theme: The theme to be set.
     """
+
+    check(theme, "theme", [Theme])
 
     if not __py_core__.setTheme(theme.data):
         raise ValueError("Invalid theme!")

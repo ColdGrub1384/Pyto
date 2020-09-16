@@ -9,6 +9,7 @@ import sys
 from types import ModuleType
 from collections import namedtuple
 from UIKit import UIApplication
+from __check_type__ import check
 
 __PyLocationHelper__ = pyto.PyLocationHelper
 
@@ -26,6 +27,9 @@ class __Location__(ModuleType):
 
     @accuracy.setter
     def accuracy(self, new_value):
+
+        check(new_value, "new_value", [float, int])
+
         __PyLocationHelper__.desiredAccuracy = new_value
 
 

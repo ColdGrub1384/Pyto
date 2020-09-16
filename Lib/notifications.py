@@ -6,6 +6,7 @@ Use the ``notifications`` to schedule notifications that can be delivered even i
 
 from pyto import __Class__
 from typing import List
+from __check_type__ import check
 
 
 try:
@@ -85,6 +86,8 @@ def cancel_notification(notification: Notification):
 
     :param notification: The :class:`~notifications.Notification` object returned from :func:`~notifications.get_pending_notifications`.
     """
+
+    check(notification, "notification", [Notification])
 
     UNUserNotificationCenter.currentNotificationCenter().removePendingNotificationRequestsWithIdentifiers([notification.__id__])
 

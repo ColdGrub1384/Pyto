@@ -6,7 +6,8 @@ Use this library to pick and take photos.
 
 from PIL import Image
 from pyto import PyPhotosHelper
-from pyto_ui import __ui_image_from_pil_image__
+from __image__ import __ui_image_from_pil_image__
+from __check_type__ import check
 import threading
 import base64
 import io
@@ -71,5 +72,7 @@ def save_image(image: Image.Image):
 
     :param image: A ``PIL`` image to save.
     """
+
+    check(image, "image", [Image.Image])
 
     PyPhotosHelper.saveImage(__ui_image_from_pil_image__(image))
