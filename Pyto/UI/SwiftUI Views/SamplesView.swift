@@ -8,10 +8,29 @@
 
 import SwiftUI
 
+/// A class holding information about the selected item of a `SamplesView`.
 @available(iOS 13.0, *)
-fileprivate class SelectedItemStore: ObservableObject {
+class SelectedItemStore: ObservableObject {
+    
+    /// The window scene containing the samples view.
+    var scene: UIWindowScene?
+    
+    private var item: URL?
+    
+    /// The selected folder's URL.
+    var selectedItem: URL? {
+        get {
+            return item
+        }
         
-    @Published var selectedItem: URL?
+        set {
+            let state = scene?.activationState
+            if !(newValue == nil && (state != .foregroundActive && state != .foregroundInactive)) {
+                item = newValue
+                objectWillChange.send()
+            }
+        }
+    }
 }
 
 var exampleShortcuts: [Shortcut] {
@@ -51,7 +70,7 @@ public struct SamplesView: View {
     
     let contents: [URL]
     
-    @ObservedObject fileprivate var selectedItemStore = SelectedItemStore()
+    @ObservedObject var selectedItemStore = SelectedItemStore()
     
     public init(url: URL, title: String? = nil, selectScript: @escaping ((URL) -> Void), shortcuts: [Shortcut]? = nil, hostController: UIViewController? = nil) {
         
