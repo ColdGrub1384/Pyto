@@ -32,9 +32,11 @@ import Foundation
             let leftLimit: Float = 300
             #endif
             
+            #if !SCREENSHOTS
             if self.memoryBudget <= leftLimit {
                 self.memoryLimitAlmostReached?()
             }
+            #endif
         })
     }
 }
