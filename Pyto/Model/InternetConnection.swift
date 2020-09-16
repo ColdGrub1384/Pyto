@@ -7,6 +7,7 @@
 //
 
 import SystemConfiguration
+import Foundation
 
 @objc class InternetConnection: NSObject {
     
