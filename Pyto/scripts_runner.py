@@ -1,12 +1,15 @@
 from pyto import Python, PyOutputHelper, ConsoleViewController, EditorViewController, __Class__
 from time import sleep
 from console import run_script
+from rubicon.objc import ObjCClass, objc_method, NSObject
 import threading
 import traceback
 import stopit
 import sys
 import os
 import ctypes
+import gc
+import __pyto_ui_garbage_collector__ as _gc
 
 c = ctypes.CDLL(None)
 
@@ -19,72 +22,65 @@ def raise_exception(script, exception):
         except:
             continue
 
-class ScriptThread(threading.Thread):
-    """
-    A thread running a script.
-    """
-    
-    script_path = None
-    """
-    The script that the thread is running.
-    """
+NSAutoreleasePool = ObjCClass("NSAutoreleasePool")
 
-while True:
-    global Python
-    try:
-        try: # Run code
-            code = str(Python.shared.codeToRun)
-            exec(code)
-            if code == Python.shared.codeToRun:
-                Python.shared.codeToRun = None
+class Thread(threading.Thread):
+
+    # Pass the 'script_path' attribute
+    def start(self):
+        if "script_path" not in dir(self):
+            try:
+                self.script_path = threading.current_thread().script_path
+            except AttributeError:
+                pass
+        
+        super().start()
+
+    def run(self):
+        pool = NSAutoreleasePool.alloc().init()
+        super().run()
+        pool.release()
+        del pool
+
+threading.Thread = Thread
+
+class PythonImplementation(NSObject):
+
+    @objc_method
+    def runScript_(self, script):
+        gc.collect()
+
+        for view in _gc.collected:
+            view.releaseReference()
+            view.release()
+            
+        _gc.collected = []
+
+        thread = Thread(target=run_script, args=(str(script.path), False, script.debug, script.breakpoints))
+        thread.script_path = str(script.path)
+        thread.start()
+    
+    @objc_method
+    def runCode_(self, code):
+        try:
+            exec(str(code))
         except:
             error = traceback.format_exc()
             PyOutputHelper.printError(error, script=None)
             Python.shared.codeToRun = None
-        
-        if Python.shared.scriptToRun is not None: # Run Script
-            
-            script = Python.shared.scriptToRun
-            
-            thread = ScriptThread(target=run_script, args=(str(script.path), False, script.debug, script.breakpoints))
-            thread.script_path = str(script.path)
-            thread.start()
-            
-            Python.shared.scriptToRun = None
-        
-        sys.stdout.write("")
-        
+    
+    @objc_method
+    def exitScript_(self, script):
         exc = SystemExit
         if Python.shared.tooMuchUsedMemory:
             Python.shared.tooMuchUsedMemory = False
             exc = MemoryError
+        raise_exception(str(script), exc)
+        
+    
+    @objc_method
+    def interruptScript_(self, script):
+        raise_exception(str(script), KeyboardInterrupt)
 
-        for script in Python.shared.scriptsToExit: # Send SystemExit or MemoryError
-            raise_exception(str(script), exc)
-        
-        if Python.shared.scriptsToExit.count != 0:
-            Python.shared.scriptsToExit = []
-            
-        for script in Python.shared.scriptsToInterrupt: # Send KeyboardInterrupt
-            raise_exception(str(script), KeyboardInterrupt)
-        if Python.shared.scriptsToInterrupt.count != 0:
-            Python.shared.scriptsToInterrupt = []
-        
-        if "PYPI_MIRROR" in os.environ:
-            mirror = os.environ["PYPI_MIRROR"]
-            c.setenv(b"PYPI_MIRROR", mirror.encode())
-        
-        if EditorViewController.isCompleting:
-            sleep(0.02)
-        elif ConsoleViewController.isPresentingView:
-            sleep(0.002)
-        else:
-            sleep(0.2)
-    except AttributeError as e: # May happen very rarely
-        print(Python.shared)
-        Python = __Class__("Python")
-        print(e)
-    except NameError as e: # May happen very rarely
-        print(Python.shared)
-        Python = __Class__("Python")
-        print(e)
+Python.pythonShared = PythonImplementation.alloc().init()
+

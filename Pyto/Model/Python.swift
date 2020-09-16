@@ -38,7 +38,10 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     #endif
     
     /// The shared and unique instance
-    @objc public static let shared = Python()
+    @objc public static var shared = Python()
+    
+    /// A Python subclass of NSObject that executes and stops scripts.
+    @objc public static var pythonShared: NSObject?
     
     private override init() {}
     
@@ -110,7 +113,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// Access downloadable library and its dependencies.
     ///
     /// - Parameters:
-    ///     - module: The library to download (or not if it's already downloaded).
+    ///     - module_: The library to download (or not if it's already downloaded).
     ///
     /// - Returns: An array of paths to add to `sys.path`.
     @objc public func access(_ module: String) -> NSArray {
@@ -321,14 +324,17 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// - Parameters:
     ///     - code: Python code to run.
     @objc public func run(code: String) {
-        codeToRun = code
+        if let pythonInstance = Python.pythonShared {
+            pythonInstance.performSelector(inBackground: #selector(PythonRuntime.runCode(_:)), with: code)
+        } else {
+            codeToRun = code
+        }
     }
     
     /// The path of the script to run. Set it to run it.
     @objc public var scriptToRun: Script?
     
     @objc private func removeScriptFromList(_ script: String) {
-        sleep(1)
         while runningScripts.index(of: script) != NSNotFound {
             let arr = NSMutableArray(array: runningScripts)
             arr.removeObjects(at: IndexSet(integer: runningScripts.index(of: script)))
@@ -380,7 +386,9 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                         } else {
                             item?.rightBarButtonItem = editor.runBarButtonItem
                             #if !Xcode11
-                            splitVC?.container?.update()
+                            if #available(iOS 14.0, *) {
+                                splitVC?.container?.update()
+                            }
                             #endif
                             
                             if contentVC.editorSplitViewController?.editor?.textView.text == PyCallbackHelper.code {
@@ -501,8 +509,14 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     ///
     /// - Parameters:
     ///     - script: Script to run.
-    public func run(script: Script) {
-        scriptToRun = script
+    @objc(runScript:) public func run(script: Script) {
+        if let pythonInstance = Python.pythonShared {
+            DispatchQueue.global().async {
+                pythonInstance.performSelector(inBackground: #selector(PythonRuntime.runScript(_:)), with: script)
+            }
+        } else {
+            scriptToRun = script
+        }
     }
     
     /// Run script at given URL. Will be ran with Python C API directly. Call it once!
@@ -546,8 +560,12 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// - Parameters:
     ///     - script: The path of the script to stop.
     @objc public func stop(script: String) {
-        if scriptsToExit.index(of: script) == NSNotFound {
-            scriptsToExit.add(script)
+        if let pythonInstance = Python.pythonShared {
+            pythonInstance.performSelector(inBackground: #selector(PythonRuntime.exitScript(_:)), with: script)
+        } else {
+            if scriptsToExit.index(of: script) == NSNotFound {
+                scriptsToExit.add(script)
+            }
         }
     }
     
@@ -556,8 +574,14 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// - Parameters:
     ///     - script: The path of the script to interrupt.
     @objc public func interrupt(script: String) {
-        if scriptsToInterrupt.index(of: script) == NSNotFound {
-            scriptsToInterrupt.add(script)
+        if let pythonInstance = Python.pythonShared {
+            DispatchQueue.global().async {
+                pythonInstance.performSelector(inBackground: #selector(PythonRuntime.interruptScript(_:)), with: script)
+            }
+        } else {
+            if scriptsToInterrupt.index(of: script) == NSNotFound {
+                scriptsToInterrupt.add(script)
+            }
         }
     }
 

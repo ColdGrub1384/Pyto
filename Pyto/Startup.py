@@ -78,6 +78,7 @@ try:
         return
 
     warnings.showwarning = __send_warnings_to_log__
+    warnings.filterwarnings("default")
 
     # MARK: - Allow / Disallow subprocesses
 
@@ -198,7 +199,7 @@ try:
         except:
             pass
 
-    threading.Thread(target=importModules).start()
+    importModules()
 
     def addOnDemandPaths():
         paths = pyto.Python.shared.accessibleOnDemandPaths
@@ -296,8 +297,7 @@ try:
 
     threading.Thread(target=run).start()
 
-    while True:
-        sleep(5)
+    threading.Event().wait()
 
 except Exception as e:
     import traceback
