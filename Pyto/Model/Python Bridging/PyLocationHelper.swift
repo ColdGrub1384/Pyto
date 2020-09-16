@@ -15,10 +15,14 @@ import CoreLocation
     #if WIDGET && !Xcode11
     /// The shared location manager.
     static let locationManager = CLLocationManager()
-    #elseif WIDGET
+    #else
     /// The shared location manager.
     static var locationManager: CLLocationManager {
+        #if WIDGET
         return ConsoleViewController.locationManager
+        #else
+        return AppDelegate.shared.locationManager
+        #endif
     }
     #endif
     
@@ -37,7 +41,7 @@ import CoreLocation
         return CLLocationManager.authorizationStatus() == .authorizedAlways || CLLocationManager.authorizationStatus() == .authorizedWhenInUse
         #else
         if #available(iOS 14.0, *) {
-            return CLLocationManager().authorizationStatus() == .authorizedAlways || CLLocationManager().authorizationStatus() == .authorizedWhenInUse
+            return locationManager.authorizationStatus == .authorizedAlways || locationManager.authorizationStatus == .authorizedWhenInUse
         } else {
             return CLLocationManager.authorizationStatus() == .authorizedAlways || CLLocationManager.authorizationStatus() == .authorizedWhenInUse
         }
