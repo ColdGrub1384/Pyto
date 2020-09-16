@@ -111,7 +111,7 @@ import SwiftUI
     }
     
     /// The `EditorSplitViewController` associated with this console.
-    @objc var editorSplitViewController: EditorSplitViewController?
+    @objc weak var editorSplitViewController: EditorSplitViewController?
     #endif
     
     
@@ -232,7 +232,7 @@ import SwiftUI
         highlightInput = highlight
         
         self.prompt = prompt
-        movableTextField?.placeholder = prompt
+        movableTextField?.setPrompt(prompt)
         #if MAIN
         if !highlight || self.parent is REPLViewController {
             // Don't automatically focus after a script was executed and the REPL is shown
@@ -255,7 +255,7 @@ import SwiftUI
         
         self.prompt = prompt
         movableTextField?.textField.isSecureTextEntry = true
-        movableTextField?.placeholder = prompt
+        movableTextField?.setPrompt(prompt)
         movableTextField?.focus()
     }
     
@@ -306,37 +306,43 @@ import SwiftUI
     
     private static var shared = ConsoleViewController()
     
-    /// The visible instance.
-    /*@available(*, deprecated, message: "Use scenes APIs instead.") @objc static var visible: ConsoleViewController {
-        if Thread.current.isMainThread {
-            #if MAIN
-            if REPLViewController.shared?.view.window != nil {
-                return REPLViewController.shared?.console ?? shared
-            } else if PipInstallerViewController.shared?.view.window != nil {
-                return PipInstallerViewController.shared?.console ?? shared
-            } else if RunModuleViewController.shared?.view.window != nil {
-                return RunModuleViewController.shared?.console ?? shared
+    /// All visible instances.
+    @objc static let objcVisibles = NSMutableArray()
+    
+    /// All visible instances.
+    @objc static var visibles: [ConsoleViewController] {
+        get {
+            var visibles = [ConsoleViewController]()
+            
+            func get() {
+                for visible in objcVisibles {
+                    if let console = visible as? ConsoleViewController, console.view.window != nil {
+                        visibles.append(console)
+                    }
+                }
+            }
+            if !Thread.current.isMainThread {
+                let semaphore = DispatchSemaphore(value: 0)
+                DispatchQueue.main.async {
+                    get()
+                    semaphore.signal()
+                }
+                semaphore.wait()
             } else {
-                return shared
+                get()
             }
-            #else
-            return shared
-            #endif
-        } else {
-            var console: ConsoleViewController?
-            DispatchQueue.main.sync {
-                console = ConsoleViewController.visible
-            }
-            return console ?? shared
+            return visibles
         }
-    }*/
-    
-    /// All visible instances.
-    @objc static var visibles = [ConsoleViewController]()
-    
-    /// All visible instances.
-    @objc static var objcVisibles: NSArray {
-        return NSArray(array: visibles)
+        
+        set {
+            objcVisibles.removeAllObjects()
+            
+            for element in newValue {
+                if element.view.window != nil {
+                    objcVisibles.add(element)
+                }
+            }
+        }
     }
     
     // MARK: - Theme
@@ -428,6 +434,22 @@ import SwiftUI
     @available(iOS 13.0, *)
     private class ViewController: UIViewController {
         
+        @objc func close() {
+            dismiss(animated: true, completion: nil)
+        }
+        
+        func appear() {
+            if let view = self.view.subviews.first {
+                PyView.values[view]?.appearAction?.call(parameter: PyView.values[view]?.pyValue)
+            }
+        }
+        
+        func disappear() {
+            if let view = self.view.subviews.first {
+                PyView.values[view]?.disappearAction?.call(parameter: PyView.values[view]?.pyValue)
+            }
+        }
+        
         override func viewDidLoad() {
             super.viewDidLoad()
             
@@ -435,6 +457,20 @@ import SwiftUI
             NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(notification:)), name: UIResponder.keyboardDidShowNotification, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(notification:)), name: UIResponder.keyboardDidHideNotification, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+            
+            NotificationCenter.default.addObserver(forName: UIScene.didEnterBackgroundNotification, object: nil, queue: nil) { [weak self] (notif) in
+                
+                if let scene = self?.view.window?.windowScene, let object = notif.object as? NSObject, object == scene {
+                    self?.disappear()
+                }
+            }
+            
+            NotificationCenter.default.addObserver(forName: UIScene.willEnterForegroundNotification, object: nil, queue: nil) { [weak self] (notif) in
+                
+                if let scene = self?.view.window?.windowScene, let object = notif.object as? NSObject, object == scene {
+                    self?.appear()
+                }
+            }
             
             edgesForExtendedLayout = []
         }
@@ -447,19 +483,57 @@ import SwiftUI
             
             navigationItem.leftItemsSupplementBackButton = true
             navigationItem.leftBarButtonItems = view.subviews.first?.buttonItems as? [UIBarButtonItem]
+            
+            if let uiView = view.subviews.first, let view = PyView.values[uiView] {
+                let navVC = navigationController as? NavigationController
+                if navVC?.pyViews.contains(view) == false {
+                    navVC?.pyViews.append(view)
+                }
+                
+                navigationController?.isNavigationBarHidden = view.navigationBarHidden
+            }
+        }
+        
+        override func viewDidDisappear(_ animated: Bool) {
+            super.viewDidDisappear(animated)
+            
+            disappear()
+            
+            let navVC = navigationController as? NavigationController
+            if let uiView = view.subviews.first, let view = PyView.values[uiView], let i = navVC?.pyViews.index(of: view) {
+                navVC?.pyViews.remove(at: i)
+            }
+            
+            if let view = self.view.subviews.first, (navigationController?.viewControllers.count == 1 || navigationController?.viewControllers == nil) {
+                PyView.values[view]?.isPresented = false
+            }
+        }
+        
+        override func viewDidAppear(_ animated: Bool) {
+            super.viewDidAppear(animated)
+            
+            view.subviews.first?.frame = view.safeAreaLayoutGuide.layoutFrame
+            
+            appear()
         }
         
         override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
             super.viewWillTransition(to: size, with: coordinator)
             
             coordinator.animate(alongsideTransition: { (_) in
-                self.view.subviews.first?.frame.size = size
             }) { (_) in
-                self.view.subviews.first?.frame = self.view.safeAreaLayoutGuide.layoutFrame
+                if self.view.window?.windowScene?.activationState == .foregroundActive || self.view.window?.windowScene?.activationState == .foregroundInactive {
+                    self.view.subviews.first?.frame = self.view.safeAreaLayoutGuide.layoutFrame
+                }
             }
         }
         
         @objc func keyboardDidShow(notification: NSNotification) {
+            
+            guard self == navigationController?.viewControllers.last && presentedViewController == nil else {
+                return
+            }
+            
             guard let userInfo = notification.userInfo else { return }
             
             guard let r = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
@@ -475,29 +549,29 @@ import SwiftUI
         }
         
         @objc func keyboardDidHide(notification: NSNotification) {
+            
+            guard self == navigationController?.viewControllers.last && presentedViewController == nil else {
+                return
+            }
+            
             view.subviews.first?.frame = view.safeAreaLayoutGuide.layoutFrame
         }
     }
     
+    /// A Navigation Controller containing PytoUI views.
     @available(iOS 13.0, *)
     private class NavigationController: UINavigationController {
         
-        var pyView: PyView? {
+        var pyViews = [PyView]() {
             didSet {
-                viewControllers.first?.title = pyView?.title
+                viewControllers.last?.title = pyViews.last?.title
             }
-        }
-        
-        override func viewDidDisappear(_ animated: Bool) {
-            super.viewDidDisappear(animated)
-            
-            pyView?.isPresented = false
         }
         
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             
-            setNavigationBarHidden(pyView?.navigationBarHidden == true, animated: true)
+            setNavigationBarHidden(pyViews.last?.navigationBarHidden == true, animated: true)
             navigationBar.backgroundColor = UIColor.systemBackground
         }
     }
@@ -526,6 +600,46 @@ import SwiftUI
             }
         }
         return false
+    }
+    
+    /// Shows a view controller.
+    ///
+    /// - Parameters:
+    ///     - viewController: The view controller to present.
+    ///     - path: The path of the script that called this method.
+    @available(iOS 13.0, *) @objc public static func showVC(_ viewController: UIViewController, onConsoleForPath path: String?) {
+        
+        #if WIDGET
+        ConsoleViewController.visible.present(viewController, animated: true, completion: completion)
+        #elseif !MAIN
+        ConsoleViewController.visibles.first?.present(viewController, animated: true, completion: completion)
+        #else
+        for console in visibles {
+            
+            guard console.view.window != nil else {
+                continue
+            }
+            
+            func showView() {
+                console.view.window?.topViewController?.present(viewController, animated: true, completion: nil)
+            }
+            
+            if path == nil {
+                showView()
+                break
+            } else if console.editorSplitViewController?.editor?.document?.fileURL.path == path {
+                if console.presentedViewController != nil {
+                    console.dismiss(animated: true) {
+                        showView()
+                    }
+                } else {
+                    showView()
+                }
+            } else if console.presentedViewController != nil {
+                console.dismiss(animated: true)
+            }
+        }
+        #endif
     }
     
     /// Shows a given view initialized from Python.
@@ -610,22 +724,10 @@ import SwiftUI
         vc.view.addSubview(view.view)
         
         #if MAIN
-        
-        var console: ConsoleViewController?
-        for _console in ConsoleViewController.visibles {
-            if path == nil {
-                console = _console
-                break
-            } else if _console.editorSplitViewController?.editor?.document?.fileURL.path == path {
-                console = _console
-                break
-            }
-        }
-        
-        vc.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: console, action: #selector(ConsoleViewController.closePresentedViewController))
+        vc.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: vc, action: #selector(ViewController.close))
         
         let navVC = NavigationController(rootViewController: vc)
-        navVC.pyView = view
+        navVC.pyViews = [view]
         view.viewController = navVC
         
         if view.presentationMode == PyView.PresentationModeFullScreen {
@@ -660,6 +762,18 @@ import SwiftUI
         dismiss(animated: true, completion: nil)
     }
     
+    private static func editor(in window: UIWindow) -> EditorSplitViewController? {
+        #if !Xcode11
+        if #available(iOS 14.0, *) {
+            return (((window.topViewController?.children.first as? UISplitViewController)?.viewControllers.last as? UINavigationController)?.visibleViewController?.children.first as? ContainerViewController)?.children.first as? EditorSplitViewController
+        } else {
+            return window.topViewController as? EditorSplitViewController
+        }
+        #else
+        return window.topViewController as? EditorSplitViewController
+        #endif
+    }
+    
     #if MAIN
     /// Code completions for the REPL.
     @objc static var completions = NSMutableArray() {
@@ -668,8 +782,8 @@ import SwiftUI
                 DispatchQueue.main.async {
                     for scene in UIApplication.shared.connectedScenes {
                         if let window = (scene as? UIWindowScene)?.windows.first {
-                            if let vc = window.topViewController as? EditorSplitViewController {
-                                vc.console.completions = self.completions as? [String] ?? []
+                            if let vc = editor(in: window) {
+                                vc.console?.completions = self.completions as? [String] ?? []
                             }
                         }
                     }
@@ -766,6 +880,12 @@ import SwiftUI
     }
     #endif
     
+    private var isCompleting = false
+    
+    private var codeCompletionTimer: Timer?
+    
+    private let codeCompletionQueue = DispatchQueue.global()
+    
     // MARK: - View controller
     
     override open func viewDidLoad() {
@@ -773,6 +893,10 @@ import SwiftUI
         
         #if MAIN
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { [weak self] (notif) in
+            self?.themeDidChange(notif)
+        }
         #endif
         
         edgesForExtendedLayout = []
@@ -802,22 +926,12 @@ import SwiftUI
     #if MAIN
     override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        NotificationCenter.default.addObserver(self, selector: #selector(print_(_:)), name: .init(rawValue: "DidReceiveOutput"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
         
-        movableTextField = MovableTextField(console: self)
-    }
-        }
-    #if MAIN
-    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        themeDidChange(nil)
         
-        let attrString = NSMutableAttributedString(attributedString: textView.attributedText)
-        attrString.removeAttribute(.backgroundColor, range: NSRange(location: 0, length: attrString.length))
-        textView.attributedText = attrString
-    }
-    #endif
-    
+        #if Xcode11
+        guard view.window?.windowScene?.activationState != .background else {
+            return
         }
         #endif
         
@@ -826,8 +940,13 @@ import SwiftUI
         textView.attributedText = attrString
     }
     #endif
+    
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        if !ConsoleViewController.visibles.contains(self) {
+            ConsoleViewController.visibles.append(self)
+        }
         
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
         textView.frame.size.height -= 44
@@ -837,18 +956,13 @@ import SwiftUI
         
         if movableTextField == nil {
             movableTextField = MovableTextField(console: self)
-        
+            movableTextField?.setPrompt(prompt ?? "")
         }
         movableTextField?.show()
         #if MAIN
         movableTextField?.inputAssistant.delegate = self
         movableTextField?.inputAssistant.dataSource = self
         movableTextField?.didChangeText = { text in
-            
-            guard self.highlightInput else {
-                return
-            }
-            
             
             guard self.highlightInput else {
                 return
@@ -868,6 +982,35 @@ import SwiftUI
                 for completion in script.complete():
                     suggestions.append(completion.name)
                     completions.append(completion.complete)
+                    
+                pyto.ConsoleViewController.suggestions = suggestions
+                pyto.ConsoleViewController.completions = completions
+            except Exception as e:
+                pass
+            """
+            
+            func complete() {
+                DispatchQueue.global().async {
+                    self.isCompleting = true
+                    
+                    self.codeCompletionQueue.async {
+                        Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: code)
+                        self.isCompleting = false
+                    }
+                }
+            }
+            
+            if self.isCompleting { // A timer so it doesn't block the main thread
+                self.codeCompletionTimer?.invalidate()
+                self.codeCompletionTimer = Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true, block: { (timer) in
+                    if !self.isCompleting && timer.isValid {
+                        complete()
+                        timer.invalidate()
+                    }
+                })
+            } else {
+                complete()
+            }
         }
         #endif
         movableTextField?.handler = { text in
@@ -880,7 +1023,7 @@ import SwiftUI
             #endif
             
             self.movableTextField?.currentInput = nil
-                        Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: code)
+            self.movableTextField?.setPrompt("")
             
             #if MAIN
             
@@ -890,10 +1033,6 @@ import SwiftUI
             self.movableTextField?.history.insert(text, at: 0)
             self.movableTextField?.historyIndex = -1
             
-                        complete()
-                        timer.invalidate()
-                    }
-                })
             self.completions = []
             #endif
             
@@ -978,17 +1117,6 @@ import SwiftUI
         #endif
     }
     
-                Python.shared.output += text
-                self.print_(Notification(name: Notification.Name(rawValue: "DidReceiveOutput"), object: "\(hiddenPassword)\n", userInfo: nil))
-            }
-            self.textView.scrollToBottom()
-        }
-        
-        var items = [UIBarButtonItem]()
-        func appendStop() {
-            items.append(UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(close)))
-        }
-        #if MAIN
     override open func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         super.dismiss(animated: flag, completion: completion)
         
@@ -1006,16 +1134,25 @@ import SwiftUI
         super.viewDidLayoutSubviews()
         
         let wasFirstResponder = movableTextField?.textField.isFirstResponder ?? false
-        #if MAIN
+        let isREPL = !(!(editorSplitViewController is REPLViewController) && !(editorSplitViewController is RunModuleViewController))
+        
+        if #available(iOS 14.0, *), isREPL {
+        } else {
+            movableTextField?.textField.resignFirstResponder()
+        }
+        
         movableTextField?.toolbar.frame.size.width = view.safeAreaLayoutGuide.layoutFrame.width
         movableTextField?.toolbar.frame.origin.x = view.safeAreaInsets.left
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
         textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
         textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
-        }
+        
+        if #available(iOS 14.0, *), isREPL {
+        } else if wasFirstResponder {
             movableTextField?.textField.becomeFirstResponder()
         }
-    
+        
+        movableTextField?.toolbar.isHidden = (view.frame.size.height == 0)
         #if MAIN
         movableTextField?.applyTheme()
         #endif
