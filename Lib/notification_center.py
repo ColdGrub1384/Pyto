@@ -2,6 +2,9 @@
 Today Widgets
 
 This module is used to manage Today Widget expansion / collapsion.
+
+.. warning::
+   Deprecated since iOS 14.
 """
 
 from UIKit import UIDevice
