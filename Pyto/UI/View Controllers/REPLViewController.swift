@@ -42,7 +42,7 @@ import UIKit
     }
     
     @objc private func setCurrentDirectory() {
-        console.movableTextField?.textField.resignFirstResponder()
+        console?.movableTextField?.textField.resignFirstResponder()
         let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
         picker.allowsMultipleSelection = true
         picker.delegate = self
@@ -152,7 +152,7 @@ import UIKit
         
         var isDir: ObjCBool = false
         if FileManager.default.fileExists(atPath: urls[0].path, isDirectory: &isDir), isDir.boolValue {
-            console.movableTextField?.focus()
+            console?.movableTextField?.focus()
             _ = urls[0].startAccessingSecurityScopedResource()
             Python.shared.run(code: "import os, sys; path = \"\(urls[0].path.replacingOccurrences(of: "\"", with: "\\\""))\"; os.chdir(path); sys.path.append(path)")
         } else {
