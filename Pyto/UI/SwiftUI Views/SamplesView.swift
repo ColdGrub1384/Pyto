@@ -16,7 +16,14 @@ fileprivate class SelectedItemStore: ObservableObject {
 
 var exampleShortcuts: [Shortcut] {
     do {
-        guard let shortcutsURL = Bundle.main.url(forResource: "Shortcuts", withExtension: "json") else {
+        let url: URL?
+        if #available(iOS 14.0, *) {
+            url = Bundle.main.url(forResource: "Shortcuts iOS 14", withExtension: "json")
+        } else {
+            url = Bundle.main.url(forResource: "Shortcuts", withExtension: "json")
+        }
+        
+        guard let shortcutsURL = url else {
             return []
         }
         let shortcutsJSON = try Data(contentsOf: shortcutsURL)
