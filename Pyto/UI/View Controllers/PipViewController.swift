@@ -87,7 +87,7 @@ import SafariServices
     /// Add a module to `bundled`. I add it one by one because for some reason setting directly an array fails **sometimes**.
     ///
     /// - Parameters:
-    ///     - module: The module to add.
+    ///     - module_: The module to add.
     @objc static func addBundledModule(_ module: String) {
         bundled.append(module)
     }
@@ -143,6 +143,7 @@ import SafariServices
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.backgroundColor = .systemGroupedBackground
         _originalTitle = title
     }
     
