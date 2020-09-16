@@ -8,6 +8,7 @@ import sys
 import traceback
 import pyto
 import runpy
+import shlex
 from console import __clear_mods__
 
 if len(sys.argv) == 1:
@@ -23,7 +24,8 @@ def _main_function_no_one_calls_a_function_like_that():
     command = sys.argv[1:]
     if len(command) == 0:
         command = []
-        for arg in list(pyto.EditorViewController.parseArguments(input("python -m "))):
+        args = shlex.split(input("python -m "))
+        for arg in args:
             command.append(str(arg))
     if len(command) == 0:
         print(usage)
