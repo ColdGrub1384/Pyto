@@ -10,22 +10,29 @@ import WidgetKit
 import SwiftUI
 import Intents
 
-// TODO: Localize
+#if WIDGET
+// We recycle same scripts used with different layouts
+// Key: The bookmark data of the script
+// Value: The first Widget ID associated witht the script. Will be reused if the same script is assigned to multiple widgets.
+fileprivate var executedWidgets = [Data:String]()
 
 struct Provider: IntentTimelineProvider {
     
     typealias Intent = ScriptIntent
     
     typealias Entry = ScriptEntry
-        
-    func snapshot(for configuration: Intent, with context: Context, completion: @escaping (ScriptEntry) -> ()) {
-        
-        let entry = ScriptEntry(date: Date(), output: "No output", snapshots: [:])
+    
+    func getSnapshot(for configuration: ScriptIntent, in context: Context, completion: @escaping (ScriptEntry) -> Void) {
+        var entry = ScriptEntry(date: Date(), output: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non consectetur neque. Morbi faucibus faucibus luctus. Proin porttitor ligula ut justo bibendum molestie. Duis porttitor, eros at viverra aliquet, diam tellus dignissim erat, in pharetra dolor mi at est.", snapshots: [:])
+        entry.isPlaceholder = true
         completion(entry)
     }
-
-    func timeline(for configuration: ScriptIntent, with context: Context, completion: @escaping (Timeline<ScriptEntry>) -> ()) {
-        
+    
+    func placeholder(in context: Context) -> ScriptEntry {
+        return ScriptEntry(date: Date(), output: NSLocalizedString("noSelectedScript", comment: ""))
+    }
+    
+    func getTimeline(for configuration: ScriptIntent, in context: Context, completion: @escaping (Timeline<ScriptEntry>) -> Void) {
         if let category = configuration.category {
             
             guard let data = Data(base64Encoded: category.identifier ?? "") else {
@@ -115,6 +122,8 @@ struct Provider: IntentTimelineProvider {
             } catch {
                 print(error.localizedDescription)
             }
+        } else {
+            completion(Timeline(entries: [ScriptEntry(date: Date(), output: NSLocalizedString("noSelectedScript", comment: ""))], policy: .never))
         }
     }
 }
@@ -151,24 +160,8 @@ struct PytoWidget: Widget {
         IntentConfiguration(kind: kind, intent: ScriptIntent.self, provider: Provider(), placeholder: PlaceholderView(), content: { entry in
             WidgetEntryView(entry: entry)
         })
-        .configurationDisplayName("Script")
-        .description("Two types of configuration are available.\n1) Running a script and showing its content.\n2) Setting the widget content in app.")
+        .configurationDisplayName("script")
+        .description("widgetDescription")
     }
 }
-
-
-struct Widget_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        Group {
-            PlaceholderView()
-                .previewContext(WidgetPreviewContext(family: .systemSmall))
-            
-            PlaceholderView()
-                .previewContext(WidgetPreviewContext(family: .systemMedium))
-            
-            PlaceholderView()
-                .previewContext(WidgetPreviewContext(family: .systemLarge))
-        }
-    }
-}
+#endif
