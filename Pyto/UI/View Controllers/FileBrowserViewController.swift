@@ -272,27 +272,30 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
                     editor.document?.editor = nil
                     
                     editor.save { (_) in
-                        let document = PyDocument(fileURL: url)
-                        document.open { (_) in
-                            
-                            #if !Xcode11
-                            if #available(iOS 14.0, *) {
-                                RecentDataSource.shared.recent.append(url)
+                        editor.document?.close(completionHandler: { (_) in
+                            let document = PyDocument(fileURL: url)
+                            document.open { (_) in
+                                
+                                #if !Xcode11
+                                if #available(iOS 14.0, *) {
+                                    RecentDataSource.shared.recent.append(url)
+                                }
+                                #endif
+                                
+                                editor.isDocOpened = false
+                                editor.parent?.title = document.fileURL.deletingPathExtension().lastPathComponent
+                                editor.document = document
+                                editor.viewWillAppear(false)
+                                
+                                if let parent = editor.parent?.navigationController {
+                                    self.navigationController?.splitViewController?.showDetailViewController(parent, sender: self)
+                                }
+                                                            
+                                if let action = self.navigationController?.splitViewController?.displayModeButtonItem.action {
+                                    _ = self.navigationController?.splitViewController?.displayModeButtonItem.target?.perform(action, with: self)
+                                }
                             }
-                            #endif
-                            
-                            editor.parent?.title = document.fileURL.deletingPathExtension().lastPathComponent
-                            editor.document = document
-                            editor.viewWillAppear(false)
-                            
-                            if let parent = editor.parent?.navigationController {
-                                self.navigationController?.splitViewController?.showDetailViewController(parent, sender: self)
-                            }
-                                                        
-                            if let action = self.navigationController?.splitViewController?.displayModeButtonItem.action {
-                                _ = self.navigationController?.splitViewController?.displayModeButtonItem.target?.perform(action, with: self)
-                            }
-                        }
+                        })
                     }
                     
                     
