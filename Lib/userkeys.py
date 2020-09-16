@@ -6,7 +6,7 @@ Values are stored in a JSON dictionary, so it's not possible to save every type 
 """
 
 try:
-    from rubicon.objc import ObjCClass
+    from rubicon.objc.api import ObjCClass, NSString
     import json
 
     NSUserDefaults = ObjCClass("NSUserDefaults")
@@ -41,8 +41,9 @@ def delete(key: str):
 
     dictionary = __dictionary__()
     del dictionary[key]
-    _json = json.dumps(dictionary)
+    _json = NSString.alloc().initWithUTF8String(json.dumps(dictionary).encode("utf-8"))
     userDefaults.setValue(_json, forKey="userKeys")
+    _json.release()
 
 
 def set(value, key: str):
@@ -55,5 +56,6 @@ def set(value, key: str):
 
     dictionary = __dictionary__()
     dictionary[key] = value
-    _json = json.dumps(dictionary)
+    _json = NSString.alloc().initWithUTF8String(json.dumps(dictionary).encode("utf-8"))
     userDefaults.setValue(_json, forKey="userKeys")
+    _json.release()
