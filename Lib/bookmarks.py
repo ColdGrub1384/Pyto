@@ -115,7 +115,7 @@ class StoredBookmark:
             try:
                 self.path = sharing.picked_files()[0]
             except IndexError:
-                pass
+                raise ValueError("No file selected")
         else:
             self.path = os.path.abspath(path)
 
