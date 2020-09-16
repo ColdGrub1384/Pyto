@@ -95,9 +95,6 @@ class ScriptSettingsViewController: UIViewController, UITextFieldDelegate, UIDoc
             if #available(iOS 13.0, *) {
                 let intent = editor.runScriptIntent
                 intent.suggestedInvocationPhrase = url.deletingPathExtension().lastPathComponent
-                #if !Xcode11
-                intent.showConsole = true
-                #endif
                 button.shortcut = INShortcut(intent: intent)
             } else if let activity = editor.userActivity {
                 button.shortcut = INShortcut(userActivity: activity)
