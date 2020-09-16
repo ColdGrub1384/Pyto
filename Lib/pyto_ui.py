@@ -2751,6 +2751,38 @@ class View:
         self.__py_view__.buttonItems = items
 
 
+class UIKitView(View):
+    """
+    This class is used to create a PytoUI view from an UIKit view. This class must be subclassed and implement :meth:`~pyto_ui.UIKitView.make_view`.
+    """
+
+    def __init__(self):
+
+        if type(self) is UIKitView:
+            msg = "'UIKitView' must be subclassed and implement 'make_view()'."
+            raise NotImplementedError(msg)
+
+        self._made_view = False
+        self._make_view()
+        while self.__py_view__ is None:
+            continue
+
+    def make_view(self) -> "UIView":
+        """
+        Implement this method to return an UIKit View. This method is automatically called on the main thread.
+
+        :rtype: UIView
+        """
+
+        return None
+
+    @mainthread
+    def _make_view(self):
+        view = self.make_view()
+        py_view = __PyUIKitView__.alloc().initWithManaged(view)
+        self.__py_view__ = py_view
+
+
 class ImageView(View):
     """
     A view displaying an image. The displayed image can be a ``PIL`` image, an ``UIKit`` ``UIImage`` (see :func:`~pyto_ui.image_with_system_name`) or can be directly downloaded from an URL.
