@@ -101,16 +101,17 @@ extension SceneDelegate {
             sceneStateStore.sceneState = sceneState
             
             _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
-                if let doc = self.documentBrowserViewController, doc.view.window != nil {
-                    let sidebar = doc.makeSidebarNavigation(url: url, run: false, isShortcut: false)
-                    let vc = UIHostingController(rootView: sidebar)
-                    vc.modalPresentationStyle = .fullScreen
-                    vc.modalTransitionStyle = .crossDissolve
-                    sidebar.viewControllerStore.vc = vc
-                    
-                    doc.present(vc, animated: true, completion: nil)
-                    timer.invalidate()
-                }
+                 if let doc = self.documentBrowserViewController, doc.view.window != nil {
+                     let sidebar = doc.makeSidebarNavigation(url: url, run: false, isShortcut: false, restoreSelection: true)
+                     let vc = UIHostingController(rootView: AnyView(sidebar))
+                     vc.modalPresentationStyle = .fullScreen
+                     vc.modalTransitionStyle = .crossDissolve
+                     sidebar.viewControllerStore.vc = vc
+                     
+                     doc.present(vc, animated: true, completion: nil)
+                 }
+             
+                timer.invalidate()
             })
         } catch {
             print(error.localizedDescription)
