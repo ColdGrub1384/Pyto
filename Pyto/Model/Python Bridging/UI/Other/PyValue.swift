@@ -14,6 +14,11 @@ import Foundation
     /// The name of the object stored in `_values` module.
     @objc public var identifier: String
     
+    /// The path of the script that created the value.
+    @objc public var scriptPath: String?
+    
+    @objc private static var scriptPath: String?
+    
     /// Initialize the value.
     ///
     /// - Parameters:
@@ -29,12 +34,28 @@ import Foundation
     ///
     /// - Parameters:
     ///     - parameter: The parameter to pass.
-    @objc func call(parameter: PyValue?) {
+    ///     - onMainThread: If set to `true`, will execute the function on the main thread.
+    @objc func call(parameter: PyValue?, onMainThread: Bool = false) {
         
-        let code: String
+        var code = "import threading\n"
+        
+        if let path = scriptPath {
+            PyValue.scriptPath = path
+            code += """
+            from _Pyto import PyValue
+
+            script_path = str(PyValue.scriptPath)
+            """
+        } else {
+            code += """
+            script_path = None
+            """
+        }
+        
         if let param = parameter {
-            code = """
-            import _values
+            code += """
+
+            code = '''import _values
                         
             if "\(param.identifier)" in dir(_values) and "\(identifier)" in dir(_values):
             
@@ -43,17 +64,35 @@ import Foundation
                 if func.__code__.co_argcount >= 1:
                     func(param)
                 else:
-                    func()
+                    func()'''
+
             """
         } else {
-            code = """
-            import _values
+            code += """
+            code = '''import _values
             
             if "\(identifier)" in dir(_values):
-                _values.\(identifier)()
+                _values.\(identifier)()'''
+
             """
         }
-        
-        Python.shared.run(code: code)
+        if onMainThread {
+            
+            code += "\nexec(code)"
+            
+            DispatchQueue.main.async {
+                Python.pythonShared?.performSelector(inBackground: #selector(PythonRuntime.runCode(_:)), with: code)
+            }
+        } else {
+
+            code += """
+            thread = threading.Thread(target=exec, args=(code,))
+            if script_path is not None:
+                thread.script_path = script_path
+            thread.start()
+            """
+
+            Python.shared.run(code: code)
+        }
     }
 }
