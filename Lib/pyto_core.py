@@ -78,6 +78,9 @@ def show_view(view: ui.View, mode: ui.PRESENTATION_MODE):
     :param mode: The presentation mode to use. The value will be ignored on a widget. See `Presentation Mode <constants.html#presentation-mode>`_ constants for possible values.
     """
 
+    check(view, "view", [ui.View])
+    check(mode, "mode", [int])
+
     def showview():
         ui.show_view(view, mode)
 
