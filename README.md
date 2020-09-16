@@ -19,7 +19,7 @@ Features:
   - Full Python REPL
   - Code user interfaces
   - Smart code completion
-  - Use pip to install pure Python modules from PyPi
+  - Use pip to install pure Python modules from PyPI
   - Access scripts from everywhere
   - Preview images and plots on console
   - Multiple windows for iPadOS 13+
