@@ -14,10 +14,7 @@ import UIKit
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
-    /// The last visible instance.
-    static var shared: RunModuleViewController?
-    
+        
     /// Arguments sent to the script containing script to run name.
     var argv: [String]? {
         didSet {
@@ -29,13 +26,11 @@ import UIKit
     @objc private func goToFileBrowser() {
         dismiss(animated: true, completion: nil)
     }
-    
-    private static let console = ConsoleViewController()
-    
+        
     private var viewAppeared = false
     
     @objc private func setCurrentDirectory() {
-        console.movableTextField?.textField.resignFirstResponder()
+        console?.movableTextField?.textField.resignFirstResponder()
         let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
         picker.delegate = self
         picker.allowsMultipleSelection = true
@@ -54,11 +49,21 @@ import UIKit
         ratio = 0
         
         if let repl = Bundle.main.url(forResource: "command_runner", withExtension: "py") {
-            let editor = EditorViewController(document: PyDocument(fileURL: repl))
+            
+            /// Taken from https://stackoverflow.com/a/26845710/7515957
+            func randomString(length: Int) -> String {
+                let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+                return String((0..<length).map{ _ in letters.randomElement()! })
+            }
+            
+            let newURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(randomString(length: 5)).appendingPathExtension("repl.py")
+            try? FileManager.default.copyItem(at: repl, to: newURL)
+            
+            let editor = EditorViewController(document: PyDocument(fileURL: newURL))
             self.editor = editor
-            self.editor?.args = ""
         }
-        console = RunModuleViewController.console
+        
+        console = ConsoleViewController()
     }
     
     override func viewDidLoad() {
@@ -82,9 +87,7 @@ import UIKit
         parent?.title = title
         parent?.navigationItem.title = title
         parent?.navigationItem.rightBarButtonItems = navigationItem.rightBarButtonItems
-        
-        RunModuleViewController.shared = self
-        
+                
         if #available(iOS 13.0, *) {
             view.window?.windowScene?.title = title
         }
@@ -107,18 +110,12 @@ import UIKit
         })
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        editor?.stop()
-    }
-    
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {}
     
     // MARK: Document picker view controller
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        console.movableTextField?.focus()
+        console?.movableTextField?.focus()
         _ = urls[0].startAccessingSecurityScopedResource()
         Python.shared.run(code: "import os, sys; path = \"\(urls[0].path.replacingOccurrences(of: "\"", with: "\\\""))\"; os.chdir(path); sys.path.append(path)")
     }
