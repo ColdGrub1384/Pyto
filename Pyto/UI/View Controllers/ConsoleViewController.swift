@@ -1030,7 +1030,7 @@ import SwiftUI
         
         #if MAIN
         if numberOfSuggestionsInInputAssistantView() != 0 {
-        textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
+            commands.append(UIKeyCommand.command(input: "\t", modifierFlags: [], action: #selector(nextSuggestion), discoverabilityTitle: Localizable.nextSuggestion))
         }
         #endif
         

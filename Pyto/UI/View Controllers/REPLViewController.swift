@@ -64,7 +64,7 @@ import UIKit
     // MARK: - Editor split view controller
     
     override var keyCommands: [UIKeyCommand]? {
-        return [UIKeyCommand(input: "C", modifierFlags: .control, action: #selector(interrupt), discoverabilityTitle: Localizable.interrupt)]
+        return [UIKeyCommand.command(input: "C", modifierFlags: .control, action: #selector(interrupt), discoverabilityTitle: Localizable.interrupt)]
     }
     
     override func loadView() {
