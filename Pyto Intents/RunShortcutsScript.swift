@@ -61,6 +61,21 @@ func RunShortcutsScript(at url: URL, arguments: [String]) {
     if path in sys.path:
         sys.path.remove(path)
 
-    PyOutputHelper.sendOutputToShortcuts(error_message) # Send output to Shortcuts
-    """)
+    
+    """
+    
+    if sendOutput {
+        code += "PyOutputHelper.sendOutputToShortcuts(error_message)"
+    }
+    
+    if !Python.shared.isSetup {
+        _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { (timer) in
+            if Python.shared.isSetup {
+                Python.shared.run(code: code)
+                timer.invalidate()
+            }
+        })
+    } else {
+        Python.shared.run(code: code)
+    }
 }

@@ -365,14 +365,14 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                 for contentVC in visibles {
                     let splitVC = contentVC.editorSplitViewController
                     guard let editor = splitVC?.editor, let scriptPath = editor.document?.fileURL.path else {
-                        return
+                        continue
                     }
                     
                     guard !(contentVC.editorSplitViewController is REPLViewController) && !(contentVC.editorSplitViewController is RunModuleViewController) && !(contentVC.editorSplitViewController is PipInstallerViewController) else {
                         let installer = contentVC.editorSplitViewController as? PipInstallerViewController
                         installer?.done = !(self.runningScripts.contains(scriptPath))
                         installer?.navigationItem.leftBarButtonItem?.isEnabled = installer?.done ?? false
-                        return
+                        continue
                     }
                     
                     let item = editor.parent?.navigationItem
@@ -381,7 +381,9 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                         if self.runningScripts.contains(scriptPath) {
                             item?.rightBarButtonItem = editor.stopBarButtonItem
                             #if !Xcode11
-                            splitVC?.container?.update()
+                            if #available(iOS 14.0, *) {
+                                splitVC?.container?.update()
+                            }
                             #endif
                         } else {
                             item?.rightBarButtonItem = editor.runBarButtonItem
@@ -410,7 +412,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                             }
                             
                             var images = [UIImage]()
-                            splitVC?.console.textView.textStorage.enumerateAttributes(in: NSRange(location: 0, length: splitVC?.console.textView.textStorage.length ?? 0)) { (attr, range, _) in
+                            splitVC?.console?.textView.textStorage.enumerateAttributes(in: NSRange(location: 0, length: splitVC?.console?.textView.textStorage.length ?? 0)) { (attr, range, _) in
                                 if let plot = (attr[NSAttributedString.Key.attachment] as? NSTextAttachment)?.image {
                                     images.append(plot)
                                 }
