@@ -1,7 +1,12 @@
 import base64
-from rubicon.objc import ObjCClass
 from UIKit import UIImage
 from io import BytesIO
+
+try:
+    from rubicon.objc import ObjCClass
+except ValueError:
+    def ObjCClass(name):
+        return None
 
 NSData = ObjCClass("NSData")
 

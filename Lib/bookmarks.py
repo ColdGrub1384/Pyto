@@ -25,11 +25,10 @@ Example:
 import os
 import sharing
 import userkeys
-from rubicon.objc import ObjCClass
 from __check_type__ import check
 
 try:
-    from rubicon.objc import ObjCClass, CGFloat
+    from rubicon.objc import ObjCClass
 except ValueError:
     def ObjCClass(class_name):
         return None
