@@ -23,9 +23,16 @@ def open_url(url: str) -> str:
     """
 
     if PyCallbackHelper is None:
-        raise NotImplementedError("x-callback urls are only supported on Pyto's main app.")
+        raise NotImplementedError(
+            "x-callback urls are only supported on Pyto's main app."
+        )
 
-    params = {"x-success": "pyto://callback/", "x-cancel": "pyto://callback/", "x-error": "pyto://callback/", "x-source": "Pyto"}
+    params = {
+        "x-success": "pyto://callback/",
+        "x-cancel": "pyto://callback/",
+        "x-error": "pyto://callback/",
+        "x-source": "Pyto",
+    }
     webbrowser.open(add_url_params(url, params))
 
     while True:

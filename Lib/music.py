@@ -37,7 +37,9 @@ try:
     MPMediaQuery = ObjCClass("MPMediaQuery")
     """ The 'MPMusicMPMediaQueryPlayerController' class from the 'MediaPlayer' framework. """
 
-    MediaPlayer = cdll.LoadLibrary("/System/Library/Frameworks/MediaPlayer.framework/MediaPlayer")
+    MediaPlayer = cdll.LoadLibrary(
+        "/System/Library/Frameworks/MediaPlayer.framework/MediaPlayer"
+    )
 except (NameError, ValueError):
     MPMusicPlayerController = "MPMusicPlayerController"
     """ The 'MPMusicPlayerController' class from the 'MediaPlayer' framework. """
@@ -879,7 +881,9 @@ def pick_music() -> List[MediaItem]:
     """
 
     try:
-        res = PyMusicHelper.pickMusicWithScriptPath(threading.current_thread().script_path)
+        res = PyMusicHelper.pickMusicWithScriptPath(
+            threading.current_thread().script_path
+        )
     except AttributeError:
         res = PyMusicHelper.pickMusicWithScriptPath(None)
 

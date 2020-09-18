@@ -85,7 +85,6 @@ def run_sync(code):
 
     check(code, "code", [_func])
 
-
     def code_() -> None:
         code()
 

@@ -25,7 +25,9 @@ def pick_photo() -> Image.Image:
         raise NotImplementedError("Cannot pick a photo from a widget.")
 
     try:
-        msg = PyPhotosHelper.pickPhotoWithScriptPath(threading.current_thread().script_path)
+        msg = PyPhotosHelper.pickPhotoWithScriptPath(
+            threading.current_thread().script_path
+        )
     except AttributeError:
         msg = PyPhotosHelper.pickPhotoWithScriptPath(None)
 
@@ -51,7 +53,9 @@ def take_photo() -> Image.Image:
         raise NotImplementedError("Cannot take a photo from a widget.")
 
     try:
-        msg = PyPhotosHelper.takePhotoWithScriptPath(threading.current_thread().script_path)
+        msg = PyPhotosHelper.takePhotoWithScriptPath(
+            threading.current_thread().script_path
+        )
     except AttributeError:
         msg = PyPhotosHelper.takePhotoWithScriptPath(None)
 

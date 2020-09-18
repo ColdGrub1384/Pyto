@@ -7,6 +7,7 @@ This module contains all UIKit classes. You should not use this module to presen
 try:
     from rubicon.objc import ObjCClass
 except ValueError:
+
     def ObjCClass(class_name):
         return None
 

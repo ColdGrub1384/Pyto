@@ -13,10 +13,16 @@ from types import ModuleType
 import sys
 import warnings
 
-if UIDevice is not None and float(str(UIDevice.currentDevice.systemVersion).split(".")[0]) < 13:
+if (
+    UIDevice is not None
+    and float(str(UIDevice.currentDevice.systemVersion).split(".")[0]) < 13
+):
     raise ImportError("PytoUI requires iPadOS / iOS 13")
 
-if UIDevice is not None and float(str(UIDevice.currentDevice.systemVersion).split(".")[0]) >= 14:
+if (
+    UIDevice is not None
+    and float(str(UIDevice.currentDevice.systemVersion).split(".")[0]) >= 14
+):
     _warning = "Today Widgets are deprecated since iPadOS / iOS 14. Use the 'widgets' module instead."
     warnings.warn(_warning, DeprecationWarning)
 

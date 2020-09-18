@@ -29,10 +29,12 @@ import _values
 import ui_constants
 import builtins
 from timeit import default_timer as timer
+
 try:
     from rubicon.objc import ObjCClass, CGFloat
     from rubicon.objc.api import NSString
 except ValueError:
+
     def ObjCClass(class_name):
         return None
 
@@ -1010,14 +1012,14 @@ class Color:
     def __init__(self, py_color):
         self.__py_color__ = py_color
 
-    #def __del__(self):
+    # def __del__(self):
     #    self.__py_color__.release()
 
     def __repr__(self):
         return str(self.__py_color__.managed.description)
 
     @classmethod
-    def rgb(cls, red: float, green: float, blue, alpha: float=1) -> Color:
+    def rgb(cls, red: float, green: float, blue, alpha: float = 1) -> Color:
         """
         Initializes a color from RGB values.
 
@@ -1036,7 +1038,7 @@ class Color:
         check(blue, "blue", [float, int])
         check(alpha, "alpha", [float, int])
 
-        if (red > 1 or green > 1 or blue > 1 or alpha > 1):
+        if red > 1 or green > 1 or blue > 1 or alpha > 1:
             raise ValueError("Values must be located between 0 and 1.")
 
         return cls(__PyColor__.colorWithRed(red, green=green, blue=blue, alpha=alpha))
@@ -1057,7 +1059,7 @@ class Color:
         check(white, "white", [float, int])
         check(alpha, "alpha", [float, int])
 
-        if (white > 1 or alpha > 1):
+        if white > 1 or alpha > 1:
             raise ValueError("Values must be located between 0 and 1.")
 
         return cls(__PyColor__.colorWithWhite(white, alpha=alpha))
@@ -1076,13 +1078,21 @@ class Color:
         check(light, "light", Color)
         check(dark, "dark", Color)
 
-        return cls(__PyColor__.colorWithLight(light.__py_color__, dark=dark.__py_color__))
+        return cls(
+            __PyColor__.colorWithLight(light.__py_color__, dark=dark.__py_color__)
+        )
 
     def __eq__(self, other):
         try:
-            return (self.red() == other.red() and self.green() == other.green() and self.blue() == other.blue() and self.alpha() == other.alpha())
+            return (
+                self.red() == other.red()
+                and self.green() == other.green()
+                and self.blue() == other.blue()
+                and self.alpha() == other.alpha()
+            )
         except AttributeError:
             return False
+
 
 COLOR_LABEL = Color(ui_constants.COLOR_LABEL)
 """ The color for text labels containing primary content. """
@@ -1630,11 +1640,12 @@ class GestureRecognizer:
         :rtype: float
         """
 
-        return self.__py_gesture__.minimumDuration 
+        return self.__py_gesture__.minimumDuration
 
     @minimum_press_duration.setter
     def minimum_press_duration(self, new_value) -> float:
         self.__py_gesture__.minimumDuration = new_value
+
 
 # MARK: - Table View Section
 
@@ -1922,7 +1933,6 @@ class ButtonItem:
 if "widget" not in os.environ:
 
     # MARK: - Alert
-
 
     class Alert:
         """
@@ -2355,7 +2365,14 @@ class View:
 
     @flex.setter
     def flex(self, new_value: List[AUTO_RESIZING]):
-        self.__flexible_width__, self.__flexible_height__, self.__flexible_top_margin__, self.__flexible_bottom_margin__, self.__flexible_left_margin__, self.__flexible_right_margin__ = (
+        (
+            self.__flexible_width__,
+            self.__flexible_height__,
+            self.__flexible_top_margin__,
+            self.__flexible_bottom_margin__,
+            self.__flexible_left_margin__,
+            self.__flexible_right_margin__,
+        ) = (
             (FLEXIBLE_WIDTH in new_value),
             (FLEXIBLE_HEIGHT in new_value),
             (FLEXIBLE_TOP_MARGIN in new_value),
@@ -2911,6 +2928,7 @@ class ImageView(View):
 
         def _set_image(self, url):
             from PIL import Image
+
             self.image = Image.open(urlopen(url))
 
         Thread(target=_set_image, args=(self, url)).start()
@@ -3055,6 +3073,7 @@ class Label(View):
     @number_of_lines.setter
     def number_of_lines(self, new_value: int):
         self.__py_view__.numberOfLines = new_value
+
 
 class TableViewCell(View):
     """
@@ -3568,6 +3587,7 @@ class TextView(View):
     def secure(self, new_value: bool):
         self.__py_view__.isSecureTextEntry = new_value
 
+
 if "widget" not in os.environ:
 
     class WebView(View):
@@ -3595,9 +3615,9 @@ if "widget" not in os.environ:
             :param code: JavaScript code to run.
             :rtype: str
             """
-            
+
             code = NSString.alloc().initWithUTF8String(code.encode("utf-8"))
-            
+
             result = self.__py_view__.evaluateJavaScript(code)
             code.release()
             if result is None:
@@ -4537,7 +4557,8 @@ def show_view(view: View, mode: PRESENTATION_MODE):
         view.__py_view__.presentationMode = mode
         try:
             ConsoleViewController.showView(
-                view.__py_view__, onConsoleForPath=threading.current_thread().script_path
+                view.__py_view__,
+                onConsoleForPath=threading.current_thread().script_path,
             )
         except AttributeError:
             ConsoleViewController.showView(view.__py_view__, onConsoleForPath=None)
@@ -4545,7 +4566,10 @@ def show_view(view: View, mode: PRESENTATION_MODE):
         while view.__py_view__.isPresented:
             sleep(0.2)
 
-    if ("__editor_delegate__" in dir(builtins) and builtins.__editor_delegate__ is not None):
+    if (
+        "__editor_delegate__" in dir(builtins)
+        and builtins.__editor_delegate__ is not None
+    ):
         global show_view
         _show_view = show_view
         show_view = show
@@ -4559,6 +4583,7 @@ def show_view(view: View, mode: PRESENTATION_MODE):
 
     show(view, mode)
 
+
 def show_view_controller(view_controller: "UIViewController"):
     """
     Shows an UIKit View Controller. This function must be called from the main thread.
@@ -4569,7 +4594,9 @@ def show_view_controller(view_controller: "UIViewController"):
     """
 
     if not NSThread.currentThread.isMainThread:
-        raise RuntimeError("'show_view_controller' must be called from the app's main thread. See the 'mainthread' module.")
+        raise RuntimeError(
+            "'show_view_controller' must be called from the app's main thread. See the 'mainthread' module."
+        )
 
     try:
         ConsoleViewController.showVC(

@@ -20,7 +20,6 @@ A tuple containing data about longitude, latitude and altitude.
 
 
 class __Location__(ModuleType):
-
     @property
     def accuracy(self):
         return float(__PyLocationHelper__.desiredAccuracy)
@@ -56,7 +55,11 @@ def get_location() -> Location:
     :rtype: Location
     """
 
-    return Location(float(__PyLocationHelper__.longitude), float(__PyLocationHelper__.latitude), float(__PyLocationHelper__.altitude))
+    return Location(
+        float(__PyLocationHelper__.longitude),
+        float(__PyLocationHelper__.latitude),
+        float(__PyLocationHelper__.altitude),
+    )
 
 
 accuracy = -1
@@ -82,18 +85,23 @@ LOCATION_ACCURACY_THREE_KILOMETERS = 3000
 
 if UIApplication is not None:
     location = __Location__(__name__)
-    location.__all__ = ["start_updating", "stop_updating", "get_location",
-                        "LOCATION_ACCURACY_BEST_FOR_NAVIGATION",
-                        "LOCATION_ACCURACY_BEST",
-                        "LOCATION_ACCURACY_NEAREST_TEN_METERS",
-                        "LOCATION_ACCURACY_HUNDRED_METERS",
-                        "LOCATION_ACCURACY_KILOMETER",
-                        "LOCATION_ACCURACY_THREE_KILOMETERS",
-                        ]
+    location.__all__ = [
+        "start_updating",
+        "stop_updating",
+        "get_location",
+        "LOCATION_ACCURACY_BEST_FOR_NAVIGATION",
+        "LOCATION_ACCURACY_BEST",
+        "LOCATION_ACCURACY_NEAREST_TEN_METERS",
+        "LOCATION_ACCURACY_HUNDRED_METERS",
+        "LOCATION_ACCURACY_KILOMETER",
+        "LOCATION_ACCURACY_THREE_KILOMETERS",
+    ]
     location.start_updating = start_updating
     location.stop_updating = stop_updating
     location.get_location = get_location
-    location.LOCATION_ACCURACY_BEST_FOR_NAVIGATION = LOCATION_ACCURACY_BEST_FOR_NAVIGATION
+    location.LOCATION_ACCURACY_BEST_FOR_NAVIGATION = (
+        LOCATION_ACCURACY_BEST_FOR_NAVIGATION
+    )
     location.LOCATION_ACCURACY_BEST = LOCATION_ACCURACY_BEST
     location.LOCATION_ACCURACY_NEAREST_TEN_METERS = LOCATION_ACCURACY_NEAREST_TEN_METERS
     location.LOCATION_ACCURACY_HUNDRED_METERS = LOCATION_ACCURACY_HUNDRED_METERS

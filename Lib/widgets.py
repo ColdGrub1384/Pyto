@@ -28,11 +28,14 @@ import ui_constants
 import sys
 import __image__
 import threading
+
 try:
     from rubicon.objc import ObjCClass, CGFloat
 except ValueError:
+
     def ObjCClass(class_name):
         return None
+
 
 try:
     from PIL import Image as PIL_Image
@@ -44,7 +47,11 @@ def wait_for_internet_connection():
     while not __Class__("InternetConnection").isReachable:
         sleep(0.2)
 
-if UIDevice is not None and float(str(UIDevice.currentDevice.systemVersion).split(".")[0]) < 14:
+
+if (
+    UIDevice is not None
+    and float(str(UIDevice.currentDevice.systemVersion).split(".")[0]) < 14
+):
     raise ImportError("Home Screen Widgets were introduced on iPadOS / iOS 14.")
 
 link: str = None
@@ -89,19 +96,20 @@ def schedule_next_reload(time: Union[datetime.timedelta, float]):
 
     __widget__.updateInterval = seconds
 
+
 def __show_view__(view: "ui.View", key: str = None):
 
     widget = __widget__
 
     widget.view = view.__py_view__
-        
+
     small = __PyWidget__.sizeForFamily(0)
     medium = __PyWidget__.sizeForFamily(1)
     large = __PyWidget__.sizeForFamily(2)
 
     for size in [(0, small), (1, medium), (2, large)]:
         view.size = (size[1].width, size[1].height)
-        
+
         func = view.layout
         if func is not None:
             if func.__code__.co_argcount >= 1:
@@ -156,6 +164,7 @@ def save_snapshot(view: "ui.View", key: str):
 ###############
 # MARK: - UI #
 ##############
+
 
 class Font:
     """
@@ -352,7 +361,7 @@ class Color:
         return str(self.__py_color__.managed.description)
 
     @classmethod
-    def rgb(cls, red: float, green: float, blue, alpha: float=1) -> Color:
+    def rgb(cls, red: float, green: float, blue, alpha: float = 1) -> Color:
         """
         Initializes a color from RGB values.
 
@@ -371,7 +380,7 @@ class Color:
         check(blue, "blue", [float, int])
         check(alpha, "alpha", [float, int])
 
-        if (red > 1 or green > 1 or blue > 1 or alpha > 1):
+        if red > 1 or green > 1 or blue > 1 or alpha > 1:
             raise ValueError("Values must be located between 0 and 1.")
 
         return cls(__PyColor__.colorWithRed(red, green=green, blue=blue, alpha=alpha))
@@ -392,7 +401,7 @@ class Color:
         check(white, "white", [float, int])
         check(alpha, "alpha", [float, int])
 
-        if (white > 1 or alpha > 1):
+        if white > 1 or alpha > 1:
             raise ValueError("Values must be located between 0 and 1.")
 
         return cls(__PyColor__.colorWithWhite(white, alpha=alpha))
@@ -411,13 +420,21 @@ class Color:
         check(light, "light", Color)
         check(dark, "dark", Color)
 
-        return cls(__PyColor__.colorWithLight(light.__py_color__, dark=dark.__py_color__))
+        return cls(
+            __PyColor__.colorWithLight(light.__py_color__, dark=dark.__py_color__)
+        )
 
     def __eq__(self, other):
         try:
-            return (self.red() == other.red() and self.green() == other.green() and self.blue() == other.blue() and self.alpha() == other.alpha())
+            return (
+                self.red() == other.red()
+                and self.green() == other.green()
+                and self.blue() == other.blue()
+                and self.alpha() == other.alpha()
+            )
         except AttributeError:
             return False
+
 
 if "pyto_ui" in sys.modules:
     try:
@@ -425,11 +442,13 @@ if "pyto_ui" in sys.modules:
     except AttributeError:
         pass
 
+
 def __pyto_ui_color__():
     if "pyto_ui" in sys.modules:
         return sys.modules["pyto_ui"].Color
     else:
         return None
+
 
 # Font Size
 
@@ -733,7 +752,7 @@ class WidgetComponent:
     :class:`~widgets.WidgetComponent` attributes can be modified after initialisation, but they can all be set from the initialiser.
     However, changes made to an :class:`~widgets.WidgetComponent` object after being displayed won't take effect.
     """
-    
+
     background_color: Color = COLOR_CLEAR
     """
     The background color of the element.
@@ -770,8 +789,14 @@ class WidgetComponent:
     :rtype: str
     """
 
-    def __init__(self, background_color: Color = None, corner_radius: float = 0, padding: PADDING = None, link: str = None):
-        
+    def __init__(
+        self,
+        background_color: Color = None,
+        corner_radius: float = 0,
+        padding: PADDING = None,
+        link: str = None,
+    ):
+
         check(background_color, "background_color", [Color, __pyto_ui_color__(), None])
         check(corner_radius, "corner_radius", [float, int])
         check(padding, "padding", [int, None])
@@ -783,7 +808,7 @@ class WidgetComponent:
             self.background_color = background_color
 
         self.corner_radius = corner_radius
-        
+
         if padding is None:
             self.padding = PADDING_NONE
         else:
@@ -806,7 +831,7 @@ class Text(WidgetComponent):
 
     :rtype: str
     """
-    
+
     font: Font = None
     """
     The font of the text.
@@ -821,14 +846,23 @@ class Text(WidgetComponent):
     :rtype: widgets.Color
     """
 
-    def __init__(self, text: str, color: Color = None, font: Font = None, background_color: Color = None, corner_radius: float = 0, padding: PADDING = None, link: str = None):
+    def __init__(
+        self,
+        text: str,
+        color: Color = None,
+        font: Font = None,
+        background_color: Color = None,
+        corner_radius: float = 0,
+        padding: PADDING = None,
+        link: str = None,
+    ):
         super().__init__(background_color, corner_radius, padding, link)
 
         check(text, "text", [str])
         check(corner_radius, "corner_radius", [float, int])
 
         self.text = text
-        
+
         if color is None:
             self.color = COLOR_LABEL
         else:
@@ -886,7 +920,7 @@ class DynamicDate(WidgetComponent):
 
     :rtype: Union[datetime.datetime, datetime.date, datetime.time]
     """
-    
+
     style: DATE_STYLE = DATE_STYLE_DATE
     """
     The date style determines how the date should be used to create text.
@@ -910,8 +944,17 @@ class DynamicDate(WidgetComponent):
     :rtype: widgets.Color
     """
 
-    def __init__(self, date: Union[datetime.datetime, datetime.date, datetime.time], style: DATE_STYLE = DATE_STYLE_DATE, color: Color = None, 
-                 font=None, background_color: Color = None, corner_radius: float = 0, padding: PADDING = None, link: str = None):
+    def __init__(
+        self,
+        date: Union[datetime.datetime, datetime.date, datetime.time],
+        style: DATE_STYLE = DATE_STYLE_DATE,
+        color: Color = None,
+        font=None,
+        background_color: Color = None,
+        corner_radius: float = 0,
+        padding: PADDING = None,
+        link: str = None,
+    ):
         super().__init__(background_color, corner_radius, padding, link)
 
         check(date, "date", [datetime.datetime, datetime.date, datetime.time])
@@ -920,7 +963,7 @@ class DynamicDate(WidgetComponent):
 
         self.date = date
         self.style = style
-        
+
         if color is None:
             self.color = COLOR_LABEL
         else:
@@ -938,12 +981,21 @@ class DynamicDate(WidgetComponent):
         if isinstance(self.date, datetime.datetime):
             date = self.date
         elif isinstance(self.date, datetime.date):
-            date = datetime.datetime.combine(self.date, datetime.datetime.today().time())
+            date = datetime.datetime.combine(
+                self.date, datetime.datetime.today().time()
+            )
         elif isinstance(self.date, datetime.time):
             date = datetime.datetime.combine(datetime.date.today(), self.date)
 
         obj = __Class__("WidgetDate").alloc().init()
-        obj.setDateWithYear(date.year, month=date.month, day=date.day, hour=date.hour, minute=date.minute, second=date.second)
+        obj.setDateWithYear(
+            date.year,
+            month=date.month,
+            day=date.day,
+            hour=date.hour,
+            minute=date.minute,
+            second=date.second,
+        )
         obj.style = self.style
         obj.color = self.color.__py_color__.managed
         obj.font = self.font.__ui_font__
@@ -975,19 +1027,27 @@ class SystemSymbol(WidgetComponent):
     :rtype: widgets.Color
     """
 
-    def __init__(self, symbol_name: str, color: Color = None, background_color: Color = None, corner_radius: float = 0, padding: PADDING = None, link: str = None):
+    def __init__(
+        self,
+        symbol_name: str,
+        color: Color = None,
+        background_color: Color = None,
+        corner_radius: float = 0,
+        padding: PADDING = None,
+        link: str = None,
+    ):
         super().__init__(background_color, corner_radius, padding, link)
 
         check(symbol_name, "symbol_name", [str])
         check(color, "color", [Color, __pyto_ui_color__(), None])
 
         self.symbol_name = symbol_name
-        
+
         if color is None:
             self.color = COLOR_LABEL
         else:
             self.color = color
-    
+
     def __make_objc_view__(self):
         obj = __Class__("WidgetSymbol").alloc().init()
         obj.symbolName = self.symbol_name
@@ -1018,7 +1078,16 @@ class Image(WidgetComponent):
     :rtype: bool
     """
 
-    def __init__(self, image: PIL_Image.Image = None, url: str = None, fill: bool = False, background_color: Color = None, corner_radius: float = 0, padding: PADDING = None, link: str = None):
+    def __init__(
+        self,
+        image: PIL_Image.Image = None,
+        url: str = None,
+        fill: bool = False,
+        background_color: Color = None,
+        corner_radius: float = 0,
+        padding: PADDING = None,
+        link: str = None,
+    ):
         super().__init__(background_color, corner_radius, padding, link)
 
         check(image, "image", [PIL_Image.Image, None])
@@ -1046,7 +1115,7 @@ class Spacer(WidgetComponent):
 
     Label -- < Spacer> -- Label
     """
-    
+
     def __init__(self):
         pass
 
@@ -1060,7 +1129,7 @@ class WidgetLayout:
     def __init__(self):
         try:
             self.__widget_view__ = __Class__("WidgetView").alloc().init()
-        except AttributeError: # Documentation
+        except AttributeError:  # Documentation
             pass
 
     def set_link(self, link: str):
@@ -1106,7 +1175,13 @@ class WidgetLayout:
         except AttributeError:
             self.__widget_view__.backgroundImage = None
 
-    def add_row(self, row: List[WidgetComponent], background_color: Color = COLOR_CLEAR, corner_radius: float = 0, link: str = None):
+    def add_row(
+        self,
+        row: List[WidgetComponent],
+        background_color: Color = COLOR_CLEAR,
+        corner_radius: float = 0,
+        link: str = None,
+    ):
         """
         Adds a row to the widget layout. A row is a list of UI elements on the same horizontal line.
 
@@ -1126,9 +1201,14 @@ class WidgetLayout:
         for element in row:
             obj = element.__make_objc_view__()
             objc_row.append(obj)
-        
-        self.__widget_view__.addRow(objc_row, backgroundColor=background_color.__py_color__.managed, cornerRadius=corner_radius, identifier=link)
-    
+
+        self.__widget_view__.addRow(
+            objc_row,
+            backgroundColor=background_color.__py_color__.managed,
+            cornerRadius=corner_radius,
+            identifier=link,
+        )
+
     def add_vertical_spacer(self):
         """
         Adds a row that takes as much as vertical space as possible.
@@ -1182,7 +1262,7 @@ class Widget:
 
 def __show_widget__(widget: Widget, key: str):
     _widget = __widget__
-    
+
     try:
         _widget.scriptPath = threading.current_thread().script_path
     except AttributeError:
@@ -1191,7 +1271,7 @@ def __show_widget__(widget: Widget, key: str):
     _widget.addView(widget.small_layout.__widget_view__, family=0)
     _widget.addView(widget.medium_layout.__widget_view__, family=1)
     _widget.addView(widget.large_layout.__widget_view__, family=2)
-    
+
     if key is None:
         __PyWidget__.updateTimeline(__widget_id__, widget=_widget)
     else:
@@ -1222,4 +1302,3 @@ def save_widget(widget: Widget, key: str):
     check(key, "key", [str])
 
     __show_widget__(widget, key)
-

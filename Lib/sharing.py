@@ -10,10 +10,12 @@ import threading
 import base64
 import os
 from typing import List
+
 try:
     from rubicon.objc import ObjCClass
     from rubicon.objc.api import NSString
 except ValueError:
+
     def ObjCClass(class_name):
         return None
 
@@ -47,9 +49,9 @@ if "widget" not in os.environ:
         file_read = file.read()
         file64_encode = base64.b64encode(file_read)
         file.close()
-        
+
         file64_encode = NSString.alloc().initWithUTF8String(file64_encode)
-        
+
         try:
             pyto.QuickLookHelper.previewFile(
                 file64_encode,
@@ -60,7 +62,7 @@ if "widget" not in os.environ:
             pyto.QuickLookHelper.previewFile(
                 file64_encode, script=None, removePrevious=remove_previous
             )
-            
+
         file64_encode.release()
 
 

@@ -30,8 +30,10 @@ from __check_type__ import check
 try:
     from rubicon.objc import ObjCClass
 except ValueError:
+
     def ObjCClass(class_name):
         return None
+
 
 NSURL = ObjCClass("NSURL")
 NSData = ObjCClass("NSData")
@@ -85,7 +87,9 @@ class StoredBookmark:
         self.__bookmark_name__ = name
 
         if self.__type__ is None:
-            raise NotImplementedError("Initialized an instance of StoredBookmark. Use FileBookmark or FolderBookmark instead.")
+            raise NotImplementedError(
+                "Initialized an instance of StoredBookmark. Use FileBookmark or FolderBookmark instead."
+            )
 
         if name is not None:
             try:

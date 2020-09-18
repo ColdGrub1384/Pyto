@@ -24,7 +24,7 @@ install:
 before_script:
   - EXCLUDE=./.*,./Pyto_Mac/mac-site-packages,./Pyto_Mac/pip,./Pyto_Mac/PyObjC,./site-packages,./python3_ios/*,./downloadable-site-packages/*
   - flake8 . --count --exclude=${EXCLUDE} --select=E9,F63,F7,F82 --show-source --statistics
-  - EXCLUDE=./.*,./Pyto*,./*site-packages,./python3_ios/*
+  - EXCLUDE=./.*,./Pyto*,./*site-packages,./python3_ios/*,./Lib/objc/*
   - flake8 . --count --exclude=${EXCLUDE} --max-complexity=10 --ignore=E501 --show-source --statistics
   - flake8 --count --ignore=E501 "Lib/pyto_ui.py"
   #- swiftlint  # Done linting! Found 2225 violations, 91 serious in 82 files.

@@ -1,5 +1,6 @@
 func = None
 
+
 def check(_object, name, types):
     for _type in types:
         if _type is None:
@@ -16,5 +17,6 @@ def check(_object, name, types):
         msg += f"\n{_type}"
 
     raise TypeError(msg)
+
 
 func = type(check)

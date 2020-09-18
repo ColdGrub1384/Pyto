@@ -23,12 +23,16 @@ class Value:
 
 
 if rubicon:
-    AudioToolbox = cdll.LoadLibrary("/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox")
+    AudioToolbox = cdll.LoadLibrary(
+        "/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox"
+    )
     """
     The AudioToolbox system framework.
     """
 
-    AVFoundation = cdll.LoadLibrary("/System/Library/Frameworks/AVFoundation.framework/AVFoundation")
+    AVFoundation = cdll.LoadLibrary(
+        "/System/Library/Frameworks/AVFoundation.framework/AVFoundation"
+    )
     """
     The AVFoundation system framework.
     """

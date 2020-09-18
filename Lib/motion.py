@@ -80,7 +80,9 @@ def get_acceleration() -> Acceleration:
     """
 
     acceleration = __PyMotionHelper__.acceleration
-    return Acceleration(float(acceleration[0]), float(acceleration[1]), float(acceleration[2]))
+    return Acceleration(
+        float(acceleration[0]), float(acceleration[1]), float(acceleration[2])
+    )
 
 
 def get_magnetic_field() -> MagneticField:
@@ -91,7 +93,9 @@ def get_magnetic_field() -> MagneticField:
     """
 
     magnetic_field = __PyMotionHelper__.magneticField
-    return MagneticField(float(magnetic_field[0]), float(magnetic_field[1]), float(magnetic_field[2]))
+    return MagneticField(
+        float(magnetic_field[0]), float(magnetic_field[1]), float(magnetic_field[2])
+    )
 
 
 def get_attitude() -> Attitude:

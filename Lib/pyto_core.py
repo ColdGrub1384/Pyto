@@ -20,7 +20,10 @@ import traceback
 import pyto_ui as ui
 
 
-if (UIDevice is not None and float(str(UIDevice.currentDevice.systemVersion).split(".")[0]) < 13):
+if (
+    UIDevice is not None
+    and float(str(UIDevice.currentDevice.systemVersion).split(".")[0]) < 13
+):
     raise ImportError("PytoCore requires iPadOS / iOS 13")
 
 
@@ -88,6 +91,7 @@ def show_view(view: ui.View, mode: ui.PRESENTATION_MODE):
 
 
 # MARK: - Editor
+
 
 class EditorDelegate:
     """

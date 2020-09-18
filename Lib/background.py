@@ -57,7 +57,7 @@ def request_background_fetch():
         wd.save_widget(widget, "Fetching Test")
 
     """
-    
+
     BackgroundTask = __Class__("BackgroundTask")
     BackgroundTask.scheduleFetch()
 
@@ -155,7 +155,11 @@ class BackgroundTask:
         self.__end_date__ = None
 
         try:
-            self.__background_task__.scriptName = threading.current_thread().script_path.split("/")[-1]
+            self.__background_task__.scriptName = threading.current_thread().script_path.split(
+                "/"
+            )[
+                -1
+            ]
         except AttributeError:
             pass
         except IndexError:

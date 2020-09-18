@@ -8,9 +8,11 @@ This module gives access to the pasteboard.
 from UIKit import UIPasteboard as __UIPasteboard__, UIImage
 from typing import List
 from __check_type__ import check
+
 try:
     from rubicon.objc import ObjCClass, ObjCInstance
 except ValueError:
+
     def ObjCClass(class_name):
         return None
 

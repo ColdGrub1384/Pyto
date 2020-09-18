@@ -12,7 +12,7 @@ def get_random_string(length):
     """
 
     chars = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
-    result_str = ''.join(random.choice(chars) for i in range(length))
+    result_str = "".join(random.choice(chars) for i in range(length))
     return result_str
 
 

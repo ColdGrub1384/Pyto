@@ -35,17 +35,19 @@ Usage
 from UIKit import UIDevice
 import sys
 
-if UIDevice is not None and float(str(UIDevice.currentDevice.systemVersion).split(".")[0]) < 14:
+if (
+    UIDevice is not None
+    and float(str(UIDevice.currentDevice.systemVersion).split(".")[0]) < 14
+):
     raise ImportError("Home Screen Widgets were introduced on iPadOS / iOS 14.")
 
 
 class Symbol(str):
-
     def __repr__(self):
         if "sphinx" in sys.modules:
             return ""
         else:
-            return "Symbol '"+self+"'"
+            return "Symbol '" + self + "'"
 
 
 SQUARE_AND_ARROW_UP = Symbol("square.and.arrow.up")
@@ -114,7 +116,9 @@ PENCIL_TIP_CROP_CIRCLE_BADGE_PLUS = Symbol("pencil.tip.crop.circle.badge.plus")
 PENCIL_TIP_CROP_CIRCLE_BADGE_MINUS = Symbol("pencil.tip.crop.circle.badge.minus")
 """ 'pencil.tip.crop.circle.badge.minus' symbol """
 
-PENCIL_TIP_CROP_CIRCLE_BADGE_ARROW_RIGHT = Symbol("pencil.tip.crop.circle.badge.arrow.right")
+PENCIL_TIP_CROP_CIRCLE_BADGE_ARROW_RIGHT = Symbol(
+    "pencil.tip.crop.circle.badge.arrow.right"
+)
 """ 'pencil.tip.crop.circle.badge.arrow.right' symbol """
 
 LASSO = Symbol("lasso")
@@ -180,7 +184,9 @@ FOLDER_FILL_BADGE_PERSON_CROP = Symbol("folder.fill.badge.person.crop")
 SQUARE_GRID_3X1_FOLDER_BADGE_PLUS = Symbol("square.grid.3x1.folder.badge.plus")
 """ 'square.grid.3x1.folder.badge.plus' symbol """
 
-SQUARE_GRID_3X1_FOLDER_FILL_BADGE_PLUS = Symbol("square.grid.3x1.folder.fill.badge.plus")
+SQUARE_GRID_3X1_FOLDER_FILL_BADGE_PLUS = Symbol(
+    "square.grid.3x1.folder.fill.badge.plus"
+)
 """ 'square.grid.3x1.folder.fill.badge.plus' symbol """
 
 FOLDER_BADGE_GEAR = Symbol("folder.badge.gear")
@@ -318,7 +324,9 @@ OPTICALDISCDRIVE_FILL = Symbol("opticaldiscdrive.fill")
 EXTERNALDRIVE_CONNECTED_TO_LINE_BELOW = Symbol("externaldrive.connected.to.line.below")
 """ 'externaldrive.connected.to.line.below' symbol """
 
-EXTERNALDRIVE_CONNECTED_TO_LINE_BELOW_FILL = Symbol("externaldrive.connected.to.line.below.fill")
+EXTERNALDRIVE_CONNECTED_TO_LINE_BELOW_FILL = Symbol(
+    "externaldrive.connected.to.line.below.fill"
+)
 """ 'externaldrive.connected.to.line.below.fill' symbol """
 
 ARCHIVEBOX = Symbol("archivebox")
@@ -423,7 +431,9 @@ ARROW_RIGHT_DOC_ON_CLIPBOARD = Symbol("arrow.right.doc.on.clipboard")
 ARROW_UP_DOC_ON_CLIPBOARD = Symbol("arrow.up.doc.on.clipboard")
 """ 'arrow.up.doc.on.clipboard' symbol """
 
-ARROW_TRIANGLE_2_CIRCLEPATH_DOC_ON_CLIPBOARD = Symbol("arrow.triangle.2.circlepath.doc.on.clipboard")
+ARROW_TRIANGLE_2_CIRCLEPATH_DOC_ON_CLIPBOARD = Symbol(
+    "arrow.triangle.2.circlepath.doc.on.clipboard"
+)
 """ 'arrow.triangle.2.circlepath.doc.on.clipboard' symbol """
 
 DOC_ON_CLIPBOARD_FILL = Symbol("doc.on.clipboard.fill")
@@ -699,7 +709,9 @@ PERSON_FILL_BADGE_MINUS = Symbol("person.fill.badge.minus")
 PERSON_AND_ARROW_LEFT_AND_ARROW_RIGHT = Symbol("person.and.arrow.left.and.arrow.right")
 """ 'person.and.arrow.left.and.arrow.right' symbol """
 
-PERSON_FILL_AND_ARROW_LEFT_AND_ARROW_RIGHT = Symbol("person.fill.and.arrow.left.and.arrow.right")
+PERSON_FILL_AND_ARROW_LEFT_AND_ARROW_RIGHT = Symbol(
+    "person.fill.and.arrow.left.and.arrow.right"
+)
 """ 'person.fill.and.arrow.left.and.arrow.right' symbol """
 
 PERSON_2 = Symbol("person.2")
@@ -741,7 +753,9 @@ PERSON_CROP_CIRCLE_FILL_BADGE_MINUS = Symbol("person.crop.circle.fill.badge.minu
 PERSON_CROP_CIRCLE_BADGE_CHECKMARK = Symbol("person.crop.circle.badge.checkmark")
 """ 'person.crop.circle.badge.checkmark' symbol """
 
-PERSON_CROP_CIRCLE_FILL_BADGE_CHECKMARK = Symbol("person.crop.circle.fill.badge.checkmark")
+PERSON_CROP_CIRCLE_FILL_BADGE_CHECKMARK = Symbol(
+    "person.crop.circle.fill.badge.checkmark"
+)
 """ 'person.crop.circle.fill.badge.checkmark' symbol """
 
 PERSON_CROP_CIRCLE_BADGE_XMARK = Symbol("person.crop.circle.badge.xmark")
@@ -753,13 +767,19 @@ PERSON_CROP_CIRCLE_FILL_BADGE_XMARK = Symbol("person.crop.circle.fill.badge.xmar
 PERSON_CROP_CIRCLE_BADGE_QUESTIONMARK = Symbol("person.crop.circle.badge.questionmark")
 """ 'person.crop.circle.badge.questionmark' symbol """
 
-PERSON_CROP_CIRCLE_FILL_BADGE_QUESTIONMARK = Symbol("person.crop.circle.fill.badge.questionmark")
+PERSON_CROP_CIRCLE_FILL_BADGE_QUESTIONMARK = Symbol(
+    "person.crop.circle.fill.badge.questionmark"
+)
 """ 'person.crop.circle.fill.badge.questionmark' symbol """
 
-PERSON_CROP_CIRCLE_BADGE_EXCLAMATIONMARK = Symbol("person.crop.circle.badge.exclamationmark")
+PERSON_CROP_CIRCLE_BADGE_EXCLAMATIONMARK = Symbol(
+    "person.crop.circle.badge.exclamationmark"
+)
 """ 'person.crop.circle.badge.exclamationmark' symbol """
 
-PERSON_CROP_CIRCLE_FILL_BADGE_EXCLAMATIONMARK = Symbol("person.crop.circle.fill.badge.exclamationmark")
+PERSON_CROP_CIRCLE_FILL_BADGE_EXCLAMATIONMARK = Symbol(
+    "person.crop.circle.fill.badge.exclamationmark"
+)
 """ 'person.crop.circle.fill.badge.exclamationmark' symbol """
 
 PERSON_CROP_SQUARE = Symbol("person.crop.square")
@@ -780,7 +800,9 @@ PERSON_2_SQUARE_STACK = Symbol("person.2.square.stack")
 PERSON_2_SQUARE_STACK_FILL = Symbol("person.2.square.stack.fill")
 """ 'person.2.square.stack.fill' symbol """
 
-PERSON_CROP_SQUARE_FILL_AND_AT_RECTANGLE = Symbol("person.crop.square.fill.and.at.rectangle")
+PERSON_CROP_SQUARE_FILL_AND_AT_RECTANGLE = Symbol(
+    "person.crop.square.fill.and.at.rectangle"
+)
 """ 'person.crop.square.fill.and.at.rectangle' symbol """
 
 SQUARE_AND_AT_RECTANGLE = Symbol("square.and.at.rectangle")
@@ -855,7 +877,9 @@ WAKE = Symbol("wake")
 POWER = Symbol("power")
 """ 'power' symbol """
 
-DOT_ARROWTRIANGLES_UP_RIGHT_DOWN_LEFT_CIRCLE = Symbol("dot.arrowtriangles.up.right.down.left.circle")
+DOT_ARROWTRIANGLES_UP_RIGHT_DOWN_LEFT_CIRCLE = Symbol(
+    "dot.arrowtriangles.up.right.down.left.circle"
+)
 """ 'dot.arrowtriangles.up.right.down.left.circle' symbol """
 
 GLOBE = Symbol("globe")
@@ -1101,7 +1125,9 @@ CURSORARROW = Symbol("cursorarrow")
 CURSORARROW_SQUARE = Symbol("cursorarrow.square")
 """ 'cursorarrow.square' symbol """
 
-CURSORARROW_AND_SQUARE_ON_SQUARE_DASHED = Symbol("cursorarrow.and.square.on.square.dashed")
+CURSORARROW_AND_SQUARE_ON_SQUARE_DASHED = Symbol(
+    "cursorarrow.and.square.on.square.dashed"
+)
 """ 'cursorarrow.and.square.on.square.dashed' symbol """
 
 CURSORARROW_CLICK = Symbol("cursorarrow.click")
@@ -1179,7 +1205,9 @@ RECTANGLE_GRID_2X2_FILL = Symbol("rectangle.grid.2x2.fill")
 SQUARE_GRID_3X1_BELOW_LINE_GRID_1X2 = Symbol("square.grid.3x1.below.line.grid.1x2")
 """ 'square.grid.3x1.below.line.grid.1x2' symbol """
 
-SQUARE_GRID_3X1_FILL_BELOW_LINE_GRID_1X2 = Symbol("square.grid.3x1.fill.below.line.grid.1x2")
+SQUARE_GRID_3X1_FILL_BELOW_LINE_GRID_1X2 = Symbol(
+    "square.grid.3x1.fill.below.line.grid.1x2"
+)
 """ 'square.grid.3x1.fill.below.line.grid.1x2' symbol """
 
 SQUARE_GRID_4X3_FILL = Symbol("square.grid.4x3.fill")
@@ -1602,7 +1630,9 @@ MINUS_MAGNIFYINGGLASS = Symbol("minus.magnifyingglass")
 N1_MAGNIFYINGGLASS = Symbol("1.magnifyingglass")
 """ '1.magnifyingglass' symbol """
 
-ARROW_UP_LEFT_AND_DOWN_RIGHT_MAGNIFYINGGLASS = Symbol("arrow.up.left.and.down.right.magnifyingglass")
+ARROW_UP_LEFT_AND_DOWN_RIGHT_MAGNIFYINGGLASS = Symbol(
+    "arrow.up.left.and.down.right.magnifyingglass"
+)
 """ 'arrow.up.left.and.down.right.magnifyingglass' symbol """
 
 TEXT_MAGNIFYINGGLASS = Symbol("text.magnifyingglass")
@@ -1908,7 +1938,9 @@ STAR_SLASH = Symbol("star.slash")
 STAR_SLASH_FILL = Symbol("star.slash.fill")
 """ 'star.slash.fill' symbol """
 
-LINE_HORIZONTAL_STAR_FILL_LINE_HORIZONTAL = Symbol("line.horizontal.star.fill.line.horizontal")
+LINE_HORIZONTAL_STAR_FILL_LINE_HORIZONTAL = Symbol(
+    "line.horizontal.star.fill.line.horizontal"
+)
 """ 'line.horizontal.star.fill.line.horizontal' symbol """
 
 FLAG = Symbol("flag")
@@ -2223,7 +2255,9 @@ CAMERA_FILL_BADGE_ELLIPSIS = Symbol("camera.fill.badge.ellipsis")
 ARROW_TRIANGLE_2_CIRCLEPATH_CAMERA = Symbol("arrow.triangle.2.circlepath.camera")
 """ 'arrow.triangle.2.circlepath.camera' symbol """
 
-ARROW_TRIANGLE_2_CIRCLEPATH_CAMERA_FILL = Symbol("arrow.triangle.2.circlepath.camera.fill")
+ARROW_TRIANGLE_2_CIRCLEPATH_CAMERA_FILL = Symbol(
+    "arrow.triangle.2.circlepath.camera.fill"
+)
 """ 'arrow.triangle.2.circlepath.camera.fill' symbol """
 
 CAMERA_ON_RECTANGLE = Symbol("camera.on.rectangle")
@@ -2484,7 +2518,9 @@ ENVELOPE_BADGE_FILL = Symbol("envelope.badge.fill")
 ENVELOPE_BADGE_SHIELD_LEFTHALF_FILL = Symbol("envelope.badge.shield.lefthalf.fill")
 """ 'envelope.badge.shield.lefthalf.fill' symbol """
 
-ENVELOPE_FILL_BADGE_SHIELD_RIGHTHALF_FILL = Symbol("envelope.fill.badge.shield.righthalf.fill")
+ENVELOPE_FILL_BADGE_SHIELD_RIGHTHALF_FILL = Symbol(
+    "envelope.fill.badge.shield.righthalf.fill"
+)
 """ 'envelope.fill.badge.shield.righthalf.fill' symbol """
 
 MAIL_STACK = Symbol("mail.stack")
@@ -2505,10 +2541,14 @@ MAIL_AND_TEXT_MAGNIFYINGGLASS = Symbol("mail.and.text.magnifyingglass")
 RECTANGLE_AND_TEXT_MAGNIFYINGGLASS = Symbol("rectangle.and.text.magnifyingglass")
 """ 'rectangle.and.text.magnifyingglass' symbol """
 
-ARROW_UP_RIGHT_AND_ARROW_DOWN_LEFT_RECTANGLE = Symbol("arrow.up.right.and.arrow.down.left.rectangle")
+ARROW_UP_RIGHT_AND_ARROW_DOWN_LEFT_RECTANGLE = Symbol(
+    "arrow.up.right.and.arrow.down.left.rectangle"
+)
 """ 'arrow.up.right.and.arrow.down.left.rectangle' symbol """
 
-ARROW_UP_RIGHT_AND_ARROW_DOWN_LEFT_RECTANGLE_FILL = Symbol("arrow.up.right.and.arrow.down.left.rectangle.fill")
+ARROW_UP_RIGHT_AND_ARROW_DOWN_LEFT_RECTANGLE_FILL = Symbol(
+    "arrow.up.right.and.arrow.down.left.rectangle.fill"
+)
 """ 'arrow.up.right.and.arrow.down.left.rectangle.fill' symbol """
 
 GEAR = Symbol("gear")
@@ -3165,7 +3205,9 @@ CANDYBARPHONE = Symbol("candybarphone")
 IPHONE_HOMEBUTTON = Symbol("iphone.homebutton")
 """ 'iphone.homebutton' symbol """
 
-IPHONE_HOMEBUTTON_RADIOWAVES_LEFT_AND_RIGHT = Symbol("iphone.homebutton.radiowaves.left.and.right")
+IPHONE_HOMEBUTTON_RADIOWAVES_LEFT_AND_RIGHT = Symbol(
+    "iphone.homebutton.radiowaves.left.and.right"
+)
 """ 'iphone.homebutton.radiowaves.left.and.right' symbol """
 
 IPHONE_HOMEBUTTON_SLASH = Symbol("iphone.homebutton.slash")
@@ -3336,10 +3378,14 @@ RECTANGLE_ARROWTRIANGLE_2_OUTWARD = Symbol("rectangle.arrowtriangle.2.outward")
 RECTANGLE_ARROWTRIANGLE_2_INWARD = Symbol("rectangle.arrowtriangle.2.inward")
 """ 'rectangle.arrowtriangle.2.inward' symbol """
 
-RECTANGLE_PORTRAIT_ARROWTRIANGLE_2_OUTWARD = Symbol("rectangle.portrait.arrowtriangle.2.outward")
+RECTANGLE_PORTRAIT_ARROWTRIANGLE_2_OUTWARD = Symbol(
+    "rectangle.portrait.arrowtriangle.2.outward"
+)
 """ 'rectangle.portrait.arrowtriangle.2.outward' symbol """
 
-RECTANGLE_PORTRAIT_ARROWTRIANGLE_2_INWARD = Symbol("rectangle.portrait.arrowtriangle.2.inward")
+RECTANGLE_PORTRAIT_ARROWTRIANGLE_2_INWARD = Symbol(
+    "rectangle.portrait.arrowtriangle.2.inward"
+)
 """ 'rectangle.portrait.arrowtriangle.2.inward' symbol """
 
 GUITARS = Symbol("guitars")
@@ -3570,10 +3616,14 @@ RECTANGLE_INSET_BOTTOMLEFT_FILL = Symbol("rectangle.inset.bottomleft.fill")
 RECTANGLE_INSET_BOTTOMRIGHT_FILL = Symbol("rectangle.inset.bottomright.fill")
 """ 'rectangle.inset.bottomright.fill' symbol """
 
-RECTANGLE_LEFTHALF_INSET_FILL_ARROW_LEFT = Symbol("rectangle.lefthalf.inset.fill.arrow.left")
+RECTANGLE_LEFTHALF_INSET_FILL_ARROW_LEFT = Symbol(
+    "rectangle.lefthalf.inset.fill.arrow.left"
+)
 """ 'rectangle.lefthalf.inset.fill.arrow.left' symbol """
 
-RECTANGLE_RIGHTHALF_INSET_FILL_ARROW_RIGHT = Symbol("rectangle.righthalf.inset.fill.arrow.right")
+RECTANGLE_RIGHTHALF_INSET_FILL_ARROW_RIGHT = Symbol(
+    "rectangle.righthalf.inset.fill.arrow.right"
+)
 """ 'rectangle.righthalf.inset.fill.arrow.right' symbol """
 
 RECTANGLE_LEFTHALF_FILL = Symbol("rectangle.lefthalf.fill")
@@ -3588,13 +3638,19 @@ PERSON_CROP_RECTANGLE = Symbol("person.crop.rectangle")
 PERSON_CROP_RECTANGLE_FILL = Symbol("person.crop.rectangle.fill")
 """ 'person.crop.rectangle.fill' symbol """
 
-ARROW_UP_AND_PERSON_RECTANGLE_PORTRAIT = Symbol("arrow.up.and.person.rectangle.portrait")
+ARROW_UP_AND_PERSON_RECTANGLE_PORTRAIT = Symbol(
+    "arrow.up.and.person.rectangle.portrait"
+)
 """ 'arrow.up.and.person.rectangle.portrait' symbol """
 
-ARROW_UP_AND_PERSON_RECTANGLE_TURN_RIGHT = Symbol("arrow.up.and.person.rectangle.turn.right")
+ARROW_UP_AND_PERSON_RECTANGLE_TURN_RIGHT = Symbol(
+    "arrow.up.and.person.rectangle.turn.right"
+)
 """ 'arrow.up.and.person.rectangle.turn.right' symbol """
 
-ARROW_UP_AND_PERSON_RECTANGLE_TURN_LEFT = Symbol("arrow.up.and.person.rectangle.turn.left")
+ARROW_UP_AND_PERSON_RECTANGLE_TURN_LEFT = Symbol(
+    "arrow.up.and.person.rectangle.turn.left"
+)
 """ 'arrow.up.and.person.rectangle.turn.left' symbol """
 
 PHOTO = Symbol("photo")
@@ -3606,7 +3662,9 @@ PHOTO_FILL = Symbol("photo.fill")
 CHECKERBOARD_RECTANGLE = Symbol("checkerboard.rectangle")
 """ 'checkerboard.rectangle' symbol """
 
-CAMERA_METERING_CENTER_WEIGHTED_AVERAGE = Symbol("camera.metering.center.weighted.average")
+CAMERA_METERING_CENTER_WEIGHTED_AVERAGE = Symbol(
+    "camera.metering.center.weighted.average"
+)
 """ 'camera.metering.center.weighted.average' symbol """
 
 CAMERA_METERING_CENTER_WEIGHTED = Symbol("camera.metering.center.weighted")
@@ -3798,16 +3856,22 @@ RECTANGLE_ON_RECTANGLE = Symbol("rectangle.on.rectangle")
 RECTANGLE_FILL_ON_RECTANGLE_FILL = Symbol("rectangle.fill.on.rectangle.fill")
 """ 'rectangle.fill.on.rectangle.fill' symbol """
 
-RECTANGLE_FILL_ON_RECTANGLE_FILL_CIRCLE = Symbol("rectangle.fill.on.rectangle.fill.circle")
+RECTANGLE_FILL_ON_RECTANGLE_FILL_CIRCLE = Symbol(
+    "rectangle.fill.on.rectangle.fill.circle"
+)
 """ 'rectangle.fill.on.rectangle.fill.circle' symbol """
 
-RECTANGLE_FILL_ON_RECTANGLE_FILL_CIRCLE_FILL = Symbol("rectangle.fill.on.rectangle.fill.circle.fill")
+RECTANGLE_FILL_ON_RECTANGLE_FILL_CIRCLE_FILL = Symbol(
+    "rectangle.fill.on.rectangle.fill.circle.fill"
+)
 """ 'rectangle.fill.on.rectangle.fill.circle.fill' symbol """
 
 RECTANGLE_ON_RECTANGLE_SLASH = Symbol("rectangle.on.rectangle.slash")
 """ 'rectangle.on.rectangle.slash' symbol """
 
-RECTANGLE_FILL_ON_RECTANGLE_FILL_SLASH_FILL = Symbol("rectangle.fill.on.rectangle.fill.slash.fill")
+RECTANGLE_FILL_ON_RECTANGLE_FILL_SLASH_FILL = Symbol(
+    "rectangle.fill.on.rectangle.fill.slash.fill"
+)
 """ 'rectangle.fill.on.rectangle.fill.slash.fill' symbol """
 
 PLUS_RECTANGLE_ON_RECTANGLE = Symbol("plus.rectangle.on.rectangle")
@@ -3825,7 +3889,9 @@ PHOTO_FILL_ON_RECTANGLE_FILL = Symbol("photo.fill.on.rectangle.fill")
 RECTANGLE_ON_RECTANGLE_ANGLED = Symbol("rectangle.on.rectangle.angled")
 """ 'rectangle.on.rectangle.angled' symbol """
 
-RECTANGLE_FILL_ON_RECTANGLE_ANGLED_FILL = Symbol("rectangle.fill.on.rectangle.angled.fill")
+RECTANGLE_FILL_ON_RECTANGLE_ANGLED_FILL = Symbol(
+    "rectangle.fill.on.rectangle.angled.fill"
+)
 """ 'rectangle.fill.on.rectangle.angled.fill' symbol """
 
 PHOTO_ON_RECTANGLE_ANGLED = Symbol("photo.on.rectangle.angled")
@@ -3852,7 +3918,9 @@ RECTANGLE_STACK_FILL_BADGE_MINUS = Symbol("rectangle.stack.fill.badge.minus")
 RECTANGLE_STACK_BADGE_PERSON_CROP = Symbol("rectangle.stack.badge.person.crop")
 """ 'rectangle.stack.badge.person.crop' symbol """
 
-RECTANGLE_STACK_FILL_BADGE_PERSON_CROP = Symbol("rectangle.stack.fill.badge.person.crop")
+RECTANGLE_STACK_FILL_BADGE_PERSON_CROP = Symbol(
+    "rectangle.stack.fill.badge.person.crop"
+)
 """ 'rectangle.stack.fill.badge.person.crop' symbol """
 
 R_SQUARE_ON_SQUARE = Symbol("r.square.on.square")
@@ -3894,10 +3962,14 @@ SQUARE_ON_CIRCLE = Symbol("square.on.circle")
 SQUARE_FILL_ON_CIRCLE_FILL = Symbol("square.fill.on.circle.fill")
 """ 'square.fill.on.circle.fill' symbol """
 
-SQUARE_ON_SQUARE_SQUARESHAPE_CONTROLHANDLES = Symbol("square.on.square.squareshape.controlhandles")
+SQUARE_ON_SQUARE_SQUARESHAPE_CONTROLHANDLES = Symbol(
+    "square.on.square.squareshape.controlhandles"
+)
 """ 'square.on.square.squareshape.controlhandles' symbol """
 
-SQUARESHAPE_CONTROLHANDLES_ON_SQUARESHAPE_CONTROLHANDLES = Symbol("squareshape.controlhandles.on.squareshape.controlhandles")
+SQUARESHAPE_CONTROLHANDLES_ON_SQUARESHAPE_CONTROLHANDLES = Symbol(
+    "squareshape.controlhandles.on.squareshape.controlhandles"
+)
 """ 'squareshape.controlhandles.on.squareshape.controlhandles' symbol """
 
 SQUARE_STACK = Symbol("square.stack")
@@ -3915,13 +3987,19 @@ PANO_FILL = Symbol("pano.fill")
 SQUARE_AND_LINE_VERTICAL_AND_SQUARE = Symbol("square.and.line.vertical.and.square")
 """ 'square.and.line.vertical.and.square' symbol """
 
-SQUARE_FILL_AND_LINE_VERTICAL_SQUARE_FILL = Symbol("square.fill.and.line.vertical.square.fill")
+SQUARE_FILL_AND_LINE_VERTICAL_SQUARE_FILL = Symbol(
+    "square.fill.and.line.vertical.square.fill"
+)
 """ 'square.fill.and.line.vertical.square.fill' symbol """
 
-SQUARE_FILL_AND_LINE_VERTICAL_AND_SQUARE = Symbol("square.fill.and.line.vertical.and.square")
+SQUARE_FILL_AND_LINE_VERTICAL_AND_SQUARE = Symbol(
+    "square.fill.and.line.vertical.and.square"
+)
 """ 'square.fill.and.line.vertical.and.square' symbol """
 
-SQUARE_AND_LINE_VERTICAL_AND_SQUARE_FILL = Symbol("square.and.line.vertical.and.square.fill")
+SQUARE_AND_LINE_VERTICAL_AND_SQUARE_FILL = Symbol(
+    "square.and.line.vertical.and.square.fill"
+)
 """ 'square.and.line.vertical.and.square.fill' symbol """
 
 FLOWCHART = Symbol("flowchart")
@@ -3951,10 +4029,14 @@ SHIELD_LEFTHALF_FILL = Symbol("shield.lefthalf.fill")
 SWITCH_2 = Symbol("switch.2")
 """ 'switch.2' symbol """
 
-POINT_TOPLEFT_DOWN_CURVEDTO_POINT_BOTTOMRIGHT_UP = Symbol("point.topleft.down.curvedto.point.bottomright.up")
+POINT_TOPLEFT_DOWN_CURVEDTO_POINT_BOTTOMRIGHT_UP = Symbol(
+    "point.topleft.down.curvedto.point.bottomright.up"
+)
 """ 'point.topleft.down.curvedto.point.bottomright.up' symbol """
 
-POINT_FILL_TOPLEFT_DOWN_CURVEDTO_POINT_FILL_BOTTOMRIGHT_UP = Symbol("point.fill.topleft.down.curvedto.point.fill.bottomright.up")
+POINT_FILL_TOPLEFT_DOWN_CURVEDTO_POINT_FILL_BOTTOMRIGHT_UP = Symbol(
+    "point.fill.topleft.down.curvedto.point.fill.bottomright.up"
+)
 """ 'point.fill.topleft.down.curvedto.point.fill.bottomright.up' symbol """
 
 SLIDER_HORIZONTAL_3 = Symbol("slider.horizontal.3")
@@ -4341,10 +4423,14 @@ RECTANGLE_COMPRESS_VERTICAL = Symbol("rectangle.compress.vertical")
 RECTANGLE_EXPAND_VERTICAL = Symbol("rectangle.expand.vertical")
 """ 'rectangle.expand.vertical' symbol """
 
-RECTANGLE_AND_ARROW_UP_RIGHT_AND_ARROW_DOWN_LEFT = Symbol("rectangle.and.arrow.up.right.and.arrow.down.left")
+RECTANGLE_AND_ARROW_UP_RIGHT_AND_ARROW_DOWN_LEFT = Symbol(
+    "rectangle.and.arrow.up.right.and.arrow.down.left"
+)
 """ 'rectangle.and.arrow.up.right.and.arrow.down.left' symbol """
 
-RECTANGLE_AND_ARROW_UP_RIGHT_AND_ARROW_DOWN_LEFT_SLASH = Symbol("rectangle.and.arrow.up.right.and.arrow.down.left.slash")
+RECTANGLE_AND_ARROW_UP_RIGHT_AND_ARROW_DOWN_LEFT_SLASH = Symbol(
+    "rectangle.and.arrow.up.right.and.arrow.down.left.slash"
+)
 """ 'rectangle.and.arrow.up.right.and.arrow.down.left.slash' symbol """
 
 SQUARE_2_STACK_3D = Symbol("square.2.stack.3d")
@@ -4584,28 +4670,44 @@ CAMERA_FILTERS = Symbol("camera.filters")
 SKEW = Symbol("skew")
 """ 'skew' symbol """
 
-ARROW_LEFT_AND_RIGHT_RIGHTTRIANGLE_LEFT_RIGHTTRIANGLE_RIGHT = Symbol("arrow.left.and.right.righttriangle.left.righttriangle.right")
+ARROW_LEFT_AND_RIGHT_RIGHTTRIANGLE_LEFT_RIGHTTRIANGLE_RIGHT = Symbol(
+    "arrow.left.and.right.righttriangle.left.righttriangle.right"
+)
 """ 'arrow.left.and.right.righttriangle.left.righttriangle.right' symbol """
 
-ARROW_LEFT_AND_RIGHT_RIGHTTRIANGLE_LEFT_RIGHTTRIANGLE_RIGHT_FILL = Symbol("arrow.left.and.right.righttriangle.left.righttriangle.right.fill")
+ARROW_LEFT_AND_RIGHT_RIGHTTRIANGLE_LEFT_RIGHTTRIANGLE_RIGHT_FILL = Symbol(
+    "arrow.left.and.right.righttriangle.left.righttriangle.right.fill"
+)
 """ 'arrow.left.and.right.righttriangle.left.righttriangle.right.fill' symbol """
 
-ARROW_UP_AND_DOWN_RIGHTTRIANGLE_UP_RIGHTTRIANGLE_DOWN = Symbol("arrow.up.and.down.righttriangle.up.righttriangle.down")
+ARROW_UP_AND_DOWN_RIGHTTRIANGLE_UP_RIGHTTRIANGLE_DOWN = Symbol(
+    "arrow.up.and.down.righttriangle.up.righttriangle.down"
+)
 """ 'arrow.up.and.down.righttriangle.up.righttriangle.down' symbol """
 
-ARROW_UP_AND_DOWN_RIGHTTRIANGLE_UP_FILL_RIGHTTRIANGLE_DOWN_FILL = Symbol("arrow.up.and.down.righttriangle.up.fill.righttriangle.down.fill")
+ARROW_UP_AND_DOWN_RIGHTTRIANGLE_UP_FILL_RIGHTTRIANGLE_DOWN_FILL = Symbol(
+    "arrow.up.and.down.righttriangle.up.fill.righttriangle.down.fill"
+)
 """ 'arrow.up.and.down.righttriangle.up.fill.righttriangle.down.fill' symbol """
 
-ARROWTRIANGLE_LEFT_AND_LINE_VERTICAL_AND_ARROWTRIANGLE_RIGHT = Symbol("arrowtriangle.left.and.line.vertical.and.arrowtriangle.right")
+ARROWTRIANGLE_LEFT_AND_LINE_VERTICAL_AND_ARROWTRIANGLE_RIGHT = Symbol(
+    "arrowtriangle.left.and.line.vertical.and.arrowtriangle.right"
+)
 """ 'arrowtriangle.left.and.line.vertical.and.arrowtriangle.right' symbol """
 
-ARROWTRIANGLE_LEFT_FILL_AND_LINE_VERTICAL_AND_ARROWTRIANGLE_RIGHT_FILL = Symbol("arrowtriangle.left.fill.and.line.vertical.and.arrowtriangle.right.fill")
+ARROWTRIANGLE_LEFT_FILL_AND_LINE_VERTICAL_AND_ARROWTRIANGLE_RIGHT_FILL = Symbol(
+    "arrowtriangle.left.fill.and.line.vertical.and.arrowtriangle.right.fill"
+)
 """ 'arrowtriangle.left.fill.and.line.vertical.and.arrowtriangle.right.fill' symbol """
 
-ARROWTRIANGLE_RIGHT_AND_LINE_VERTICAL_AND_ARROWTRIANGLE_LEFT = Symbol("arrowtriangle.right.and.line.vertical.and.arrowtriangle.left")
+ARROWTRIANGLE_RIGHT_AND_LINE_VERTICAL_AND_ARROWTRIANGLE_LEFT = Symbol(
+    "arrowtriangle.right.and.line.vertical.and.arrowtriangle.left"
+)
 """ 'arrowtriangle.right.and.line.vertical.and.arrowtriangle.left' symbol """
 
-ARROWTRIANGLE_RIGHT_FILL_AND_LINE_VERTICAL_AND_ARROWTRIANGLE_LEFT_FILL = Symbol("arrowtriangle.right.fill.and.line.vertical.and.arrowtriangle.left.fill")
+ARROWTRIANGLE_RIGHT_FILL_AND_LINE_VERTICAL_AND_ARROWTRIANGLE_LEFT_FILL = Symbol(
+    "arrowtriangle.right.fill.and.line.vertical.and.arrowtriangle.left.fill"
+)
 """ 'arrowtriangle.right.fill.and.line.vertical.and.arrowtriangle.left.fill' symbol """
 
 GRID = Symbol("grid")
@@ -4770,7 +4872,9 @@ LINE_HORIZONTAL_3_DECREASE = Symbol("line.horizontal.3.decrease")
 LINE_HORIZONTAL_3_DECREASE_CIRCLE = Symbol("line.horizontal.3.decrease.circle")
 """ 'line.horizontal.3.decrease.circle' symbol """
 
-LINE_HORIZONTAL_3_DECREASE_CIRCLE_FILL = Symbol("line.horizontal.3.decrease.circle.fill")
+LINE_HORIZONTAL_3_DECREASE_CIRCLE_FILL = Symbol(
+    "line.horizontal.3.decrease.circle.fill"
+)
 """ 'line.horizontal.3.decrease.circle.fill' symbol """
 
 LINE_HORIZONTAL_3_CIRCLE = Symbol("line.horizontal.3.circle")
@@ -4782,7 +4886,9 @@ LINE_HORIZONTAL_3_CIRCLE_FILL = Symbol("line.horizontal.3.circle.fill")
 LINE_HORIZONTAL_2_DECREASE_CIRCLE = Symbol("line.horizontal.2.decrease.circle")
 """ 'line.horizontal.2.decrease.circle' symbol """
 
-LINE_HORIZONTAL_2_DECREASE_CIRCLE_FILL = Symbol("line.horizontal.2.decrease.circle.fill")
+LINE_HORIZONTAL_2_DECREASE_CIRCLE_FILL = Symbol(
+    "line.horizontal.2.decrease.circle.fill"
+)
 """ 'line.horizontal.2.decrease.circle.fill' symbol """
 
 A = Symbol("a")
@@ -5520,7 +5626,9 @@ ARROW_UTURN_LEFT_CIRCLE = Symbol("arrow.uturn.left.circle")
 ARROW_UTURN_LEFT_CIRCLE_FILL = Symbol("arrow.uturn.left.circle.fill")
 """ 'arrow.uturn.left.circle.fill' symbol """
 
-ARROW_UTURN_LEFT_CIRCLE_BADGE_ELLIPSIS = Symbol("arrow.uturn.left.circle.badge.ellipsis")
+ARROW_UTURN_LEFT_CIRCLE_BADGE_ELLIPSIS = Symbol(
+    "arrow.uturn.left.circle.badge.ellipsis"
+)
 """ 'arrow.uturn.left.circle.badge.ellipsis' symbol """
 
 ARROW_UTURN_LEFT_SQUARE = Symbol("arrow.uturn.left.square")
@@ -5544,10 +5652,14 @@ ARROW_UTURN_RIGHT_SQUARE = Symbol("arrow.uturn.right.square")
 ARROW_UTURN_RIGHT_SQUARE_FILL = Symbol("arrow.uturn.right.square.fill")
 """ 'arrow.uturn.right.square.fill' symbol """
 
-ARROW_UP_AND_DOWN_AND_ARROW_LEFT_AND_RIGHT = Symbol("arrow.up.and.down.and.arrow.left.and.right")
+ARROW_UP_AND_DOWN_AND_ARROW_LEFT_AND_RIGHT = Symbol(
+    "arrow.up.and.down.and.arrow.left.and.right"
+)
 """ 'arrow.up.and.down.and.arrow.left.and.right' symbol """
 
-ARROW_UP_LEFT_AND_DOWN_RIGHT_AND_ARROW_UP_RIGHT_AND_DOWN_LEFT = Symbol("arrow.up.left.and.down.right.and.arrow.up.right.and.down.left")
+ARROW_UP_LEFT_AND_DOWN_RIGHT_AND_ARROW_UP_RIGHT_AND_DOWN_LEFT = Symbol(
+    "arrow.up.left.and.down.right.and.arrow.up.right.and.down.left"
+)
 """ 'arrow.up.left.and.down.right.and.arrow.up.right.and.down.left' symbol """
 
 ARROW_UP_AND_DOWN = Symbol("arrow.up.and.down")
@@ -5628,10 +5740,14 @@ ARROW_COUNTERCLOCKWISE_CIRCLE_FILL = Symbol("arrow.counterclockwise.circle.fill"
 ARROW_UP_LEFT_AND_ARROW_DOWN_RIGHT = Symbol("arrow.up.left.and.arrow.down.right")
 """ 'arrow.up.left.and.arrow.down.right' symbol """
 
-ARROW_UP_LEFT_AND_ARROW_DOWN_RIGHT_CIRCLE = Symbol("arrow.up.left.and.arrow.down.right.circle")
+ARROW_UP_LEFT_AND_ARROW_DOWN_RIGHT_CIRCLE = Symbol(
+    "arrow.up.left.and.arrow.down.right.circle"
+)
 """ 'arrow.up.left.and.arrow.down.right.circle' symbol """
 
-ARROW_UP_LEFT_AND_ARROW_DOWN_RIGHT_CIRCLE_FILL = Symbol("arrow.up.left.and.arrow.down.right.circle.fill")
+ARROW_UP_LEFT_AND_ARROW_DOWN_RIGHT_CIRCLE_FILL = Symbol(
+    "arrow.up.left.and.arrow.down.right.circle.fill"
+)
 """ 'arrow.up.left.and.arrow.down.right.circle.fill' symbol """
 
 ARROW_DOWN_RIGHT_AND_ARROW_UP_LEFT = Symbol("arrow.down.right.and.arrow.up.left")
@@ -5646,10 +5762,14 @@ ARROW_TRIANGLE_2_CIRCLEPATH = Symbol("arrow.triangle.2.circlepath")
 ARROW_TRIANGLE_2_CIRCLEPATH_CIRCLE = Symbol("arrow.triangle.2.circlepath.circle")
 """ 'arrow.triangle.2.circlepath.circle' symbol """
 
-ARROW_TRIANGLE_2_CIRCLEPATH_CIRCLE_FILL = Symbol("arrow.triangle.2.circlepath.circle.fill")
+ARROW_TRIANGLE_2_CIRCLEPATH_CIRCLE_FILL = Symbol(
+    "arrow.triangle.2.circlepath.circle.fill"
+)
 """ 'arrow.triangle.2.circlepath.circle.fill' symbol """
 
-EXCLAMATIONMARK_ARROW_TRIANGLE_2_CIRCLEPATH = Symbol("exclamationmark.arrow.triangle.2.circlepath")
+EXCLAMATIONMARK_ARROW_TRIANGLE_2_CIRCLEPATH = Symbol(
+    "exclamationmark.arrow.triangle.2.circlepath"
+)
 """ 'exclamationmark.arrow.triangle.2.circlepath' symbol """
 
 ARROW_TRIANGLE_CAPSULEPATH = Symbol("arrow.triangle.capsulepath")
@@ -5661,13 +5781,17 @@ ARROW_3_TRIANGLEPATH = Symbol("arrow.3.trianglepath")
 ARROW_TRIANGLE_TURN_UP_RIGHT_DIAMOND = Symbol("arrow.triangle.turn.up.right.diamond")
 """ 'arrow.triangle.turn.up.right.diamond' symbol """
 
-ARROW_TRIANGLE_TURN_UP_RIGHT_DIAMOND_FILL = Symbol("arrow.triangle.turn.up.right.diamond.fill")
+ARROW_TRIANGLE_TURN_UP_RIGHT_DIAMOND_FILL = Symbol(
+    "arrow.triangle.turn.up.right.diamond.fill"
+)
 """ 'arrow.triangle.turn.up.right.diamond.fill' symbol """
 
 ARROW_TRIANGLE_TURN_UP_RIGHT_CIRCLE = Symbol("arrow.triangle.turn.up.right.circle")
 """ 'arrow.triangle.turn.up.right.circle' symbol """
 
-ARROW_TRIANGLE_TURN_UP_RIGHT_CIRCLE_FILL = Symbol("arrow.triangle.turn.up.right.circle.fill")
+ARROW_TRIANGLE_TURN_UP_RIGHT_CIRCLE_FILL = Symbol(
+    "arrow.triangle.turn.up.right.circle.fill"
+)
 """ 'arrow.triangle.turn.up.right.circle.fill' symbol """
 
 ARROW_TRIANGLE_MERGE = Symbol("arrow.triangle.merge")

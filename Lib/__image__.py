@@ -5,10 +5,13 @@ from io import BytesIO
 try:
     from rubicon.objc import ObjCClass
 except ValueError:
+
     def ObjCClass(name):
         return None
 
+
 NSData = ObjCClass("NSData")
+
 
 def __ui_image_from_pil_image__(image):
 
@@ -16,7 +19,7 @@ def __ui_image_from_pil_image__(image):
         return None
 
     with BytesIO() as buffered:
-        image.save(buffered, format='PNG')
+        image.save(buffered, format="PNG")
         img_str = base64.b64encode(buffered.getvalue())
 
     data = NSData.alloc().initWithBase64EncodedString(img_str, options=0)
