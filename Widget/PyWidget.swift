@@ -162,12 +162,6 @@ import SwiftUI
         
         #if WIDGET
         semaphore.wait()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-            if PyWidget.codeToRun.count == 0 || makeTimeline.isEmpty {
-                exit(0) // So the next script has more free RAM
-            }
-        }
         #endif
     }
         
