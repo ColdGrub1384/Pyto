@@ -16,8 +16,6 @@ While the UI is not interactive, UI elements can open the script in foreground t
 
 from __future__ import annotations
 from pyto import __Class__
-from UIKit import UIDevice
-from UIKit import UIFont as __UIFont__
 from typing import Union, List
 from urllib.request import urlopen
 from time import sleep
@@ -35,6 +33,10 @@ except ValueError:
 
     def ObjCClass(class_name):
         return None
+
+
+UIDevice = ObjCClass("UIDevice")
+__UIFont__ = ObjCClass("UIFont")
 
 
 try:
@@ -70,6 +72,9 @@ See :data:`~widgets.WidgetComponent.link`, :meth:`~widgets.WidgetLayout.add_row`
 """
 
 __PyWidget__ = __Class__("PyWidget")
+
+__PyWidget__.breakpoint("74")
+
 __widget_id__ = None
 __shown_view__ = False
 __PyColor__ = __Class__("PyColor")
