@@ -62,8 +62,13 @@ public class ContainerViewController: UIViewController {
     
     private func showEditor() {
         #if MAIN
-        if let editor = children.first as? EditorSplitViewController, editor.isConsoleShown {
-            editor.showEditor()
+        if let editor = children.first as? EditorSplitViewController {
+            editor.animateLayouts = false
+            if editor.isConsoleShown {
+                editor.showConsole {}
+            } else {
+                editor.showEditor()
+            }
         }
         #endif
     }

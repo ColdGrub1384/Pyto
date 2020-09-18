@@ -174,6 +174,9 @@ public class EditorSplitViewController: SplitViewController {
     /// The button for closing the full screen console.
     var closeConsoleBarButtonItem: UIBarButtonItem!
     
+    /// A boolean indicating whether `showEditor` and  `showConsole(completionm:)` are animated.
+    var animateLayouts = true
+    
     /// Shows the editor on full screen.
     @objc func showEditor() {
         
@@ -188,11 +191,13 @@ public class EditorSplitViewController: SplitViewController {
         firstChild?.view.superview?.backgroundColor = view.backgroundColor
         secondChild?.view.superview?.backgroundColor = view.backgroundColor
         
-        UIView.animate(withDuration: 0.25) {
-            self.view.alpha = 0
+        if animateLayouts {
+            UIView.animate(withDuration: 0.25) {
+                self.view.alpha = 0
+            }
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.25, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now()+(animateLayouts ? 0.25 : 0), execute: {
             self.firstChild = nil
             self.secondChild = nil
             
@@ -211,9 +216,13 @@ public class EditorSplitViewController: SplitViewController {
             
             self.setNavigationBarItems()
             
-            UIView.animate(withDuration: 0.25) {
-                self.view.alpha = 1
+            if self.animateLayouts {
+                UIView.animate(withDuration: 0.25) {
+                    self.view.alpha = 1
+                }
             }
+            
+            self.animateLayouts = true
         })
         
         if let path = editor?.document?.fileURL.path {
@@ -238,11 +247,13 @@ public class EditorSplitViewController: SplitViewController {
         firstChild?.view.superview?.backgroundColor = view.backgroundColor
         secondChild?.view.superview?.backgroundColor = view.backgroundColor
         
-        UIView.animate(withDuration: 0.25) {
-            self.view.alpha = 0
+        if animateLayouts {
+            UIView.animate(withDuration: 0.25) {
+                self.view.alpha = 0
+            }
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.25, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now()+(animateLayouts ? 0.25 : 0), execute: {
             self.firstChild = nil
             self.secondChild = nil
             
@@ -263,9 +274,13 @@ public class EditorSplitViewController: SplitViewController {
             
             completion()
             
-            UIView.animate(withDuration: 0.25) {
-                self.view.alpha = 1
+            if self.animateLayouts {
+                UIView.animate(withDuration: 0.25) {
+                    self.view.alpha = 1
+                }
             }
+            
+            self.animateLayouts = true
         })
     }
     
@@ -387,7 +402,10 @@ public class EditorSplitViewController: SplitViewController {
         firstChild?.view.superview?.backgroundColor = view.backgroundColor
         secondChild?.view.superview?.backgroundColor = view.backgroundColor
         
-        willTransition(to: traitCollection, with: ViewControllerTransitionCoordinator())
+        if justShown {
+            willTransition(to: traitCollection, with: ViewControllerTransitionCoordinator())
+        }
+        
         justShown = false
         
         removeGestures()

@@ -368,7 +368,7 @@ fileprivate func parseArgs(_ args: inout [String]) {
         let moreItem = UIBarButtonItem(image: EditorSplitViewController.threeDotsImage, style: .plain, target: self, action: #selector(showEditorScripts(_:)))
         let runtimeItem = UIBarButtonItem(image: EditorSplitViewController.gearImage, style: .plain, target: self, action: #selector(showRuntimeSettings(_:)))
         
-        if !(parent is REPLViewController) && !(parent is RunModuleViewController) && !(parent is PipInstallerViewController) {
+        if !(parent is REPLViewController) && !(parent is RunModuleViewController) && !(parent is PipInstallerViewController), (parent as? EditorSplitViewController)?.isConsoleShown != true {
             if let path = document?.fileURL.path, Python.shared.isScriptRunning(path) {
                 parentNavigationItem?.rightBarButtonItems = [
                     stopBarButtonItem,

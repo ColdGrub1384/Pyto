@@ -32,11 +32,6 @@ Some libraries contain native code (C extensions). They cannot be installed beca
 
 Use the `background <background.html>`__ module to run a script in background. See `Using Django <django.html>`__ for an example.
 
-*Why is the widget crashing (Unable to Load)?*
-**********************************************
-
-Widgets run with a limited amount of RAM. Only very basic scripts work and fetching data is only possible with a very limited size.
-
 
 Documents
 ---------
