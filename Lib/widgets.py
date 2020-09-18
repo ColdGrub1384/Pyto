@@ -54,6 +54,11 @@ if (
 ):
     raise ImportError("Home Screen Widgets were introduced on iPadOS / iOS 14.")
 
+
+class PytoUIView: # Travis CI doesn't let me mark a parameter as 'ui.View' without importing PytoUI
+    pass
+
+
 link: str = None
 """
 When an UI element with a ``link`` attribute in a medium or large widget is pressed, the widget script will be opened in foreground and the ``link`` attribute will be passed to this variable.
@@ -97,7 +102,7 @@ def schedule_next_reload(time: Union[datetime.timedelta, float]):
     __widget__.updateInterval = seconds
 
 
-def __show_view__(view: "ui.View", key: str = None):
+def __show_view__(view: PytoUIView, key: str = None):
 
     widget = __widget__
 
@@ -125,7 +130,7 @@ def __show_view__(view: "ui.View", key: str = None):
         __PyWidget__.addWidget(widget, key=key)
 
 
-def show_view(view: "ui.View"):
+def show_view(view: PytoUIView):
     """
     Shows the given view on a widget. A snapshot for each widget size will be taken.
 
@@ -144,7 +149,7 @@ def show_view(view: "ui.View"):
     __show_view__(view)
 
 
-def save_snapshot(view: "ui.View", key: str):
+def save_snapshot(view: PytoUIView, key: str):
     """
     Saves the snapshot of the given view. The snapshot will be selectable to show in a widget and can be updated in app.
 
