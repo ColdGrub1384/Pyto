@@ -70,7 +70,7 @@ struct ScriptEntry: TimelineEntry, Codable {
             if url is not None:
                 url.startAccessingSecurityScopedResource()
                 path = str(url.path)
-                run_script(path)
+                run_script(path, is_widget=True)
             """
         }
         

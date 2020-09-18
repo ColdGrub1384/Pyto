@@ -9,7 +9,16 @@
 import UIKit
 
 /// Runs the script passed to Shortcuts.
-func RunShortcutsScript(at url: URL, arguments: [String], sendOutput: Bool = true) {
+func RunShortcutsScript(at url: URL, arguments: [String], sendOutput: Bool = true, triedDownloading: Bool = false) {
+    
+    if !FileManager.default.fileExists(atPath: url.path) && !triedDownloading { // Try downloading
+        let doc = UIDocument(fileURL: url)
+        doc.open { (_) in
+            RunShortcutsScript(at: doc.fileURL, arguments: arguments, sendOutput: sendOutput, triedDownloading: true)
+        }
+        return
+    }
+    
     var task: UIBackgroundTaskIdentifier!
     task = UIApplication.shared.beginBackgroundTask(expirationHandler: {
         UIApplication.shared.endBackgroundTask(task)

@@ -100,6 +100,8 @@ import SwiftUI
         case backgroundColor
         
         case backgroundImage
+        
+        case link
     }
     
     required init(from decoder: Decoder) throws {
@@ -119,6 +121,12 @@ import SwiftUI
         }
         
         rows = try container.decode([WidgetRow].self, forKey: .rows)
+        
+        do {
+            link = try container.decode(String.self, forKey: .link)
+        } catch {
+            link = nil
+        }
     }
     
     func encode(to encoder: Encoder) throws {
@@ -126,5 +134,6 @@ import SwiftUI
         try container.encode(backgroundColor?.encode(), forKey: .backgroundColor)
         try container.encode(backgroundImage, forKey: .backgroundImage)
         try container.encode(rows, forKey: .rows)
+        try container.encode(link, forKey: .link)
     }
 }

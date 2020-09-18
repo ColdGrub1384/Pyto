@@ -425,6 +425,12 @@ if "pyto_ui" in sys.modules:
     except AttributeError:
         pass
 
+def __pyto_ui_color__():
+    if "pyto_ui" in sys.modules:
+        return sys.modules["pyto_ui"].Color
+    else:
+        return None
+
 # Font Size
 
 FONT_SIZE = ui_constants.FONT_SIZE
@@ -766,7 +772,7 @@ class WidgetComponent:
 
     def __init__(self, background_color: Color = None, corner_radius: float = 0, padding: PADDING = None, link: str = None):
         
-        check(background_color, "background_color", [Color, None])
+        check(background_color, "background_color", [Color, __pyto_ui_color__(), None])
         check(corner_radius, "corner_radius", [float, int])
         check(padding, "padding", [int, None])
         check(link, "link", [str, None])
@@ -910,7 +916,7 @@ class DynamicDate(WidgetComponent):
 
         check(date, "date", [datetime.datetime, datetime.date, datetime.time])
         check(style, "style", [int])
-        check(color, "color", [Color, None])
+        check(color, "color", [Color, __pyto_ui_color__(), None])
 
         self.date = date
         self.style = style
@@ -973,7 +979,7 @@ class SystemSymbol(WidgetComponent):
         super().__init__(background_color, corner_radius, padding, link)
 
         check(symbol_name, "symbol_name", [str])
-        check(color, "color", [Color, None])
+        check(color, "color", [Color, __pyto_ui_color__(), None])
 
         self.symbol_name = symbol_name
         
@@ -1077,7 +1083,7 @@ class WidgetLayout:
         :param color: A :class:`~widgets.Color` object.
         """
 
-        check(color, "color", [Color, None])
+        check(color, "color", [Color, __pyto_ui_color__(), None])
 
         try:
             self.__widget_view__.backgroundColor = color.__py_color__.managed
@@ -1111,7 +1117,7 @@ class WidgetLayout:
         """
 
         check(row, "row", [list])
-        check(background_color, "background_color", [Color])
+        check(background_color, "background_color", [Color, __pyto_ui_color__()])
         check(corner_radius, "corner_radius", [float, int])
         check(link, "link", [str, None])
 
@@ -1137,7 +1143,7 @@ class WidgetLayout:
         :param color: The color of the line.
         """
 
-        check(color, "color", [Color, None])
+        check(color, "color", [Color, __pyto_ui_color__(), None])
 
         _color = None
         try:
