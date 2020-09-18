@@ -41,11 +41,15 @@ enum PyDocumentError: Error {
     ///     - completion: Code to call after the file is checked.
     func checkForConflicts(onViewController viewController: UIViewController, completion: (() -> Void)?) {
         #if MAIN
-        if documentState == UIDocument.State.inConflict, let versions = NSFileVersion.unresolvedConflictVersionsOfItem(at: fileURL), versions.count > 1 {
+        if documentState.contains(.inConflict), var versions = NSFileVersion.unresolvedConflictVersionsOfItem(at: fileURL), versions.count > 0 {
             
             guard let resolver = UIStoryboard(name: "ConflictsResolver", bundle: Bundle.main).instantiateInitialViewController() as? ResolveConflictsTableViewController else {
                 completion?()
                 return
+            }
+            
+            if let version = NSFileVersion.currentVersionOfItem(at: fileURL) {
+                versions.insert(version, at: 0)
             }
             
             resolver.document = self

@@ -7,9 +7,37 @@
 //
 
 import UIKit
+import QuickLook
+
+extension NSFileVersion: QLPreviewItem {
+    
+    public var previewItemURL: URL? {
+        let doc = PyDocument(fileURL: url)
+        try? doc.read(from: url)
+        let text = doc.text
+        
+        let fileURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(url.lastPathComponent)
+        FileManager.default.createFile(atPath: fileURL.path, contents: text.data(using: .utf8), attributes: nil)
+        
+        return fileURL
+    }
+    
+    public var previewItemTitle: String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .medium
+        dateFormatter.locale = Locale.current
+        
+        if let date = modificationDate {
+            return dateFormatter.string(from: date)
+        } else {
+            return nil
+        }
+    }
+}
 
 /// A View controller that displays all conflicted versions of a file and the version to keep.
-class ResolveConflictsTableViewController: UITableViewController {
+class ResolveConflictsTableViewController: UITableViewController, QLPreviewControllerDelegate, QLPreviewControllerDataSource {
     
     /// Conflicted versions of the file.
     var versions = [NSFileVersion]() {
@@ -45,7 +73,7 @@ class ResolveConflictsTableViewController: UITableViewController {
     
     
     @IBAction private func cancel(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: completion)
     }
     
     @IBAction private func keep(_ sender: Any) {
@@ -54,9 +82,11 @@ class ResolveConflictsTableViewController: UITableViewController {
         }
         
         do {
-            try version.replaceItem(at: doc.fileURL, options: [])
-            
-            try doc.load(fromContents: try Data(contentsOf: doc.fileURL), ofType: "public.python-script")
+            if NSFileVersion.currentVersionOfItem(at: doc.fileURL) != version {
+                try version.replaceItem(at: doc.fileURL, options: [])
+                
+                try doc.load(fromContents: try Data(contentsOf: doc.fileURL), ofType: "public.python-script")
+            }
             
             try NSFileVersion.removeOtherVersionsOfItem(at: doc.fileURL)
             
@@ -97,7 +127,7 @@ class ResolveConflictsTableViewController: UITableViewController {
         if versions[indexPath.row] == selectedVersion {
             cell.accessoryType = .checkmark
         } else {
-            cell.accessoryType = .none
+            cell.accessoryType = .detailButton
         }
     }
     
@@ -108,18 +138,36 @@ class ResolveConflictsTableViewController: UITableViewController {
         let cells = tableView.visibleCells
         let currentCell = cells[indexPath.row]
             
-        if currentCell.accessoryType == .none {
+        if currentCell.accessoryType == .detailButton {
             selectedVersion = versions[indexPath.row]
             currentCell.accessoryType = .checkmark
         } else {
             selectedVersion = nil
-            currentCell.accessoryType = .none
+            currentCell.accessoryType = .detailButton
         }
         
         for cell in cells {
             if cell !== currentCell {
-                cell.accessoryType = .none
+                cell.accessoryType = .detailButton
             }
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        let vc = QLPreviewController()
+        vc.dataSource = self
+        vc.delegate = self
+        vc.currentPreviewItemIndex = indexPath.row
+        present(vc, animated: true, completion: nil)
+    }
+    
+    // MARK: - Preview controller data source
+    
+    func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
+        return versions.count
+    }
+    
+    func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
+        return versions[index] as QLPreviewItem
     }
 }

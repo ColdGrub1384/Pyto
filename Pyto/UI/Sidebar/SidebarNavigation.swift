@@ -21,6 +21,8 @@ public struct EditorView: View {
         public var editor: ViewController?
         
         var sizeClass: (UIUserInterfaceSizeClass, UIUserInterfaceSizeClass)?
+        
+        static var checkedForConflicts: URL?
     }
     
     private class IsOpeningStore {
@@ -88,7 +90,7 @@ public struct EditorView: View {
     }
     
     private let isOpeningStore = IsOpeningStore()
-    
+        
     public var body: some View {
         
         var view: AnyView!
@@ -103,6 +105,8 @@ public struct EditorView: View {
                 self.editorStore.sizeClass = (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass)
             }
             view = AnyView(vc)
+            
+            (vc.viewController as? EditorSplitViewController)?.editor?.document?.checkForConflicts(onViewController: self.viewControllerStore?.vc ?? UIViewController(), completion: nil)
         } else {
             if editorVC?.document?.fileURL != url && !isOpeningStore.isOpening {
                 isOpeningStore.isOpening = true
@@ -115,13 +119,27 @@ public struct EditorView: View {
                     func open() {
                         let document = PyDocument(fileURL: url)
                         document.open { (_) in
-                            editorVC?.isDocOpened = false
-                            editorVC?.parent?.title = document.fileURL.deletingPathExtension().lastPathComponent
-                            editorVC?.parent?.parent?.title = editorVC?.parent?.title
-                            editorVC?.parent?.parent?.parent?.title = editorVC?.parent?.title // I'm not kidding
-                            editorVC?.document = document
-                            editorVC?.viewWillAppear(false)
-                            self.isOpeningStore.isOpening = false
+                            
+                            func finallyOpen() {
+                                editorVC?.isDocOpened = false
+                                editorVC?.parent?.title = document.fileURL.deletingPathExtension().lastPathComponent
+                                editorVC?.parent?.parent?.title = editorVC?.parent?.title
+                                editorVC?.parent?.parent?.parent?.title = editorVC?.parent?.title // I'm not kidding
+                                editorVC?.document = document
+                                editorVC?.viewWillAppear(false)
+                                self.isOpeningStore.isOpening = false
+                            }
+                            
+                            if EditorStore.checkedForConflicts != url {
+                                document.checkForConflicts(onViewController: self.viewControllerStore?.vc ?? UIViewController(), completion: {
+                                    
+                                    finallyOpen()
+                                })
+                            } else {
+                                finallyOpen()
+                            }
+                            
+                            EditorStore.checkedForConflicts = url
                         }
                     }
                     
