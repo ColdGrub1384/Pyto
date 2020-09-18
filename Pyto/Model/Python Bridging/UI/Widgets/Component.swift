@@ -10,6 +10,21 @@ import SwiftUI
 
 @objc class WidgetComponent: NSObject, Identifiable, Codable {
     
+    struct PaddingView: View {
+        
+        var view: AnyView
+        
+        var customPadding: WidgetPadding
+        
+        var body: some View {
+            view
+                .padding(.top, CGFloat(customPadding.top))
+                .padding(.bottom, CGFloat(customPadding.bottom))
+                .padding(.leading, CGFloat(customPadding.left))
+                .padding(.trailing, CGFloat(customPadding.right))
+        }
+    }
+    
     override init() {}
     
     let id = UUID()
@@ -21,6 +36,8 @@ import SwiftUI
     @objc var identifier: String?
     
     @objc var padding = 0
+    
+    @objc var customPadding = WidgetPadding()
     
     var paddingEdges: Edge.Set {
         switch padding {
@@ -64,6 +81,10 @@ import SwiftUI
         case symbolName
         
         case id
+        
+        case padding
+        
+        case customPadding
     }
     
     required init(from decoder: Decoder) throws {
@@ -81,6 +102,18 @@ import SwiftUI
         } catch {
             identifier = nil
         }
+        
+        do {
+            padding = try container.decode(Int.self, forKey: .padding)
+        } catch {
+            padding = 0
+        }
+        
+        do {
+            customPadding = try container.decode(WidgetPadding.self, forKey: .customPadding)
+        } catch {
+            customPadding = WidgetPadding()
+        }
     }
     
     func encode(to encoder: Encoder) throws {
@@ -88,7 +121,7 @@ import SwiftUI
         try container.encode(cornerRadius, forKey: .cornerRadius)
         try container.encode(backgroundColor?.encode(), forKey: .backgroundColor)
         try container.encode(identifier, forKey: .id)
-        
-        print("Super encoded successfully")
+        try container.encode(padding, forKey: .padding)
+        try container.encode(customPadding, forKey: .padding)
     }
 }

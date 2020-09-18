@@ -54,7 +54,7 @@ def add_post(post, layout, link=False):
             post.title,
             color=FOREGROUND_COLOR,
             font=wd.Font.bold_system_font_of_size(17),
-            padding=wd.PADDING_HORIZONTAL
+            padding=wd.Padding(5, 0, 10, 10)
         )
     ], link=url)
     layout.add_vertical_spacer()
@@ -77,7 +77,7 @@ def add_post(post, layout, link=False):
         wd.DynamicDate(
             post.date,
             color=FOREGROUND_COLOR,
-            padding=wd.PADDING_HORIZONTAL
+            padding=wd.Padding(0, 10, 10, 10)
         )
     ], link=url)
     
@@ -100,15 +100,19 @@ if wd.link is None:
         wd.Text(
             posts[0].title,
             color=FOREGROUND_COLOR,
-            font=wd.Font.bold_system_font_of_size(17)
+            font=wd.Font.bold_system_font_of_size(17),
+            padding=wd.Padding(10, 0, 10, 10)
         )
     ])
     
     # Add the publication date at the bottom
     widget.small_layout.add_vertical_spacer()
     widget.small_layout.add_row([
-        wd.Spacer(),
-        wd.DynamicDate(posts[0].date, color=FOREGROUND_COLOR)
+        wd.DynamicDate(
+            posts[0].date,
+            color=FOREGROUND_COLOR,
+            padding=wd.Padding(0, 5, 0, 0)
+        )
     ])
     
     # If the widget is pressed, the post's URL will be passed to the script

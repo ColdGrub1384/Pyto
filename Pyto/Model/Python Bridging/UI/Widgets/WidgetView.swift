@@ -66,12 +66,12 @@ import SwiftUI
                                 if view.identifier != nil, let url = self.entry?.url(viewID: view.identifier) {
                                     
                                     return AnyView(Link(destination: url, label: {
-                                        view.makeView.padding(view.paddingEdges)
+                                        WidgetComponent.PaddingView(view: AnyView(view.makeView.padding(view.paddingEdges)), customPadding: view.customPadding)
                                     }).buttonStyle(PlainButtonStyle()))
                                     
                                 } else {
                                     
-                                    return AnyView(view.makeView.padding(view.paddingEdges))
+                                    return AnyView(WidgetComponent.PaddingView(view: AnyView(view.makeView.padding(view.paddingEdges)), customPadding: view.customPadding))
                                     
                                 }
                             }

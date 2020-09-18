@@ -39,6 +39,9 @@ UI Elements
 Data Types
 **********
 
+.. autoclass:: Padding
+   :members:
+
 .. autoclass:: Color
    :members:
 

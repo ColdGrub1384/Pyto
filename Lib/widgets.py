@@ -750,6 +750,41 @@ Horizontal padding around an UI element.
 """
 
 
+class Padding:
+    """
+    Padding with custom values. Use `constants <constants.html#padding>`_ for using the system defined padding.
+    """
+
+    top: float = None
+    """ Top padding """
+
+    bottom: float = None
+    """ Bottom padding """
+
+    left: float = None
+    """ Left padding """
+
+    right: float = None
+    """ Right padding """
+
+    def __init__(self, top: float = None, bottom: float = None, left: float = None, right: float = None):
+        self.top = top
+        self.bottom = bottom
+        self.left = left
+        self.right = right
+
+
+def __set_padding__(padding, component):
+    if isinstance(padding, Padding):
+        component.padding = 4
+        component.customPadding.top = padding.top
+        component.customPadding.bottom = padding.bottom
+        component.customPadding.left = padding.left
+        component.customPadding.right = padding.right
+    else:
+        component.padding = padding
+
+
 class WidgetComponent:
     """
     An abstract class that represents an UI element displayed in a widget.
@@ -772,11 +807,11 @@ class WidgetComponent:
     :rtype: float
     """
 
-    padding: PADDING = PADDING_NONE
+    padding: Union[PADDING, Padding] = PADDING_NONE
     """
     If set to ``True``, additional blank space around the view will be added.
 
-    See `Padding <constants.html#padding>`_
+    See :class:`~widgets.Padding`_.
 
     :rtype: bool
     """
@@ -798,13 +833,13 @@ class WidgetComponent:
         self,
         background_color: Color = None,
         corner_radius: float = 0,
-        padding: PADDING = None,
+        padding: Union[PADDING, Padding] = None,
         link: str = None,
     ):
 
         check(background_color, "background_color", [Color, __pyto_ui_color__(), None])
         check(corner_radius, "corner_radius", [float, int])
-        check(padding, "padding", [int, None])
+        check(padding, "padding", [int, Padding, None])
         check(link, "link", [str, None])
 
         if background_color is None:
@@ -858,7 +893,7 @@ class Text(WidgetComponent):
         font: Font = None,
         background_color: Color = None,
         corner_radius: float = 0,
-        padding: PADDING = None,
+        padding: Union[PADDING, Padding] = None,
         link: str = None,
     ):
         super().__init__(background_color, corner_radius, padding, link)
@@ -885,7 +920,7 @@ class Text(WidgetComponent):
         obj.font = self.font.__ui_font__
         obj.backgroundColor = self.background_color.__py_color__.managed
         obj.cornerRadius = self.corner_radius
-        obj.padding = self.padding
+        __set_padding__(self.padding, obj)
         obj.identifier = self.link
         return obj
 
@@ -957,7 +992,7 @@ class DynamicDate(WidgetComponent):
         font=None,
         background_color: Color = None,
         corner_radius: float = 0,
-        padding: PADDING = None,
+        padding: Union[PADDING, Padding] = None,
         link: str = None,
     ):
         super().__init__(background_color, corner_radius, padding, link)
@@ -1006,7 +1041,7 @@ class DynamicDate(WidgetComponent):
         obj.font = self.font.__ui_font__
         obj.backgroundColor = self.background_color.__py_color__.managed
         obj.cornerRadius = self.corner_radius
-        obj.padding = self.padding
+        __set_padding__(self.padding, obj)
         obj.identifier = self.link
         return obj
 
@@ -1038,7 +1073,7 @@ class SystemSymbol(WidgetComponent):
         color: Color = None,
         background_color: Color = None,
         corner_radius: float = 0,
-        padding: PADDING = None,
+        padding: Union[PADDING, Padding] = None,
         link: str = None,
     ):
         super().__init__(background_color, corner_radius, padding, link)
@@ -1059,7 +1094,7 @@ class SystemSymbol(WidgetComponent):
         obj.color = self.color.__py_color__.managed
         obj.backgroundColor = self.background_color.__py_color__.managed
         obj.cornerRadius = self.corner_radius
-        obj.padding = self.padding
+        __set_padding__(self.padding, obj)
         obj.identifier = self.link
         return obj
 
@@ -1090,7 +1125,7 @@ class Image(WidgetComponent):
         fill: bool = False,
         background_color: Color = None,
         corner_radius: float = 0,
-        padding: PADDING = None,
+        padding: Union[PADDING, Padding] = None,
         link: str = None,
     ):
         super().__init__(background_color, corner_radius, padding, link)
@@ -1108,7 +1143,7 @@ class Image(WidgetComponent):
         obj.image = __image__.__ui_image_from_pil_image__(self.image)
         obj.backgroundColor = self.background_color.__py_color__.managed
         obj.cornerRadius = self.corner_radius
-        obj.padding = self.padding
+        __set_padding__(self.padding, obj)
         obj.identifier = self.link
         obj.fill = self.fill
         return obj

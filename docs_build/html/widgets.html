@@ -316,7 +316,8 @@ The small layout is a small square, the medium layout is a rectangle and the lar
             <span class="n">post</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
             <span class="n">color</span><span class="o">=</span><span class="n">FOREGROUND_COLOR</span><span class="p">,</span>
             <span class="n">link</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
-            <span class="n">font</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Font</span><span class="o">.</span><span class="n">bold_system_font_of_size</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
+            <span class="n">font</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Font</span><span class="o">.</span><span class="n">bold_system_font_of_size</span><span class="p">(</span><span class="mi">17</span><span class="p">),</span>
+            <span class="n">padding</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Padding</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
         <span class="p">),</span>
     <span class="p">])</span>
     <span class="n">layout</span><span class="o">.</span><span class="n">add_vertical_spacer</span><span class="p">()</span>
@@ -338,7 +339,7 @@ The small layout is a small square, the medium layout is a rectangle and the lar
         <span class="n">wd</span><span class="o">.</span><span class="n">DynamicDate</span><span class="p">(</span>
             <span class="n">post</span><span class="o">.</span><span class="n">date</span><span class="p">,</span>
             <span class="n">color</span><span class="o">=</span><span class="n">FOREGROUND_COLOR</span><span class="p">,</span>
-            <span class="n">padding</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">PADDING_HORIZONTAL</span>
+            <span class="n">padding</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Padding</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
         <span class="p">)</span>
     <span class="p">],</span> <span class="n">link</span><span class="o">=</span><span class="n">url</span><span class="p">)</span>
 
@@ -356,7 +357,8 @@ The small layout is a small square, the medium layout is a rectangle and the lar
     <span class="n">wd</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span>
         <span class="n">posts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
         <span class="n">color</span><span class="o">=</span><span class="n">FOREGROUND_COLOR</span><span class="p">,</span>
-        <span class="n">font</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Font</span><span class="o">.</span><span class="n">bold_system_font_of_size</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
+        <span class="n">font</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Font</span><span class="o">.</span><span class="n">bold_system_font_of_size</span><span class="p">(</span><span class="mi">17</span><span class="p">),</span>
+        <span class="n">padding</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Padding</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
     <span class="p">)</span>
 <span class="p">])</span>
 
@@ -364,7 +366,11 @@ The small layout is a small square, the medium layout is a rectangle and the lar
 <span class="n">widget</span><span class="o">.</span><span class="n">small_layout</span><span class="o">.</span><span class="n">add_vertical_spacer</span><span class="p">()</span>
 <span class="n">widget</span><span class="o">.</span><span class="n">small_layout</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span>
     <span class="n">wd</span><span class="o">.</span><span class="n">Spacer</span><span class="p">(),</span>
-    <span class="n">wd</span><span class="o">.</span><span class="n">DynamicDate</span><span class="p">(</span><span class="n">posts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">date</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">FOREGROUND_COLOR</span><span class="p">)</span>
+    <span class="n">wd</span><span class="o">.</span><span class="n">DynamicDate</span><span class="p">(</span>
+        <span class="n">posts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">date</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">FOREGROUND_COLOR</span><span class="p">,</span>
+        <span class="n">padding</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Padding</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">)</span>
 <span class="p">])</span>
 
 <span class="c1"># If the widget is pressed, the post&#39;s URL will be passed to the script</span>
@@ -486,7 +492,7 @@ The small layout is a small square, the medium layout is a rectangle and the lar
             <span class="n">post</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
             <span class="n">color</span><span class="o">=</span><span class="n">FOREGROUND_COLOR</span><span class="p">,</span>
             <span class="n">font</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Font</span><span class="o">.</span><span class="n">bold_system_font_of_size</span><span class="p">(</span><span class="mi">17</span><span class="p">),</span>
-            <span class="n">padding</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">PADDING_HORIZONTAL</span>
+            <span class="n">padding</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Padding</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
         <span class="p">)</span>
     <span class="p">],</span> <span class="n">link</span><span class="o">=</span><span class="n">url</span><span class="p">)</span>
     <span class="n">layout</span><span class="o">.</span><span class="n">add_vertical_spacer</span><span class="p">()</span>
@@ -509,7 +515,7 @@ The small layout is a small square, the medium layout is a rectangle and the lar
         <span class="n">wd</span><span class="o">.</span><span class="n">DynamicDate</span><span class="p">(</span>
             <span class="n">post</span><span class="o">.</span><span class="n">date</span><span class="p">,</span>
             <span class="n">color</span><span class="o">=</span><span class="n">FOREGROUND_COLOR</span><span class="p">,</span>
-            <span class="n">padding</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">PADDING_HORIZONTAL</span>
+            <span class="n">padding</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Padding</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
         <span class="p">)</span>
     <span class="p">],</span> <span class="n">link</span><span class="o">=</span><span class="n">url</span><span class="p">)</span>
 
@@ -532,15 +538,19 @@ The small layout is a small square, the medium layout is a rectangle and the lar
         <span class="n">wd</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span>
             <span class="n">posts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
             <span class="n">color</span><span class="o">=</span><span class="n">FOREGROUND_COLOR</span><span class="p">,</span>
-            <span class="n">font</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Font</span><span class="o">.</span><span class="n">bold_system_font_of_size</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
+            <span class="n">font</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Font</span><span class="o">.</span><span class="n">bold_system_font_of_size</span><span class="p">(</span><span class="mi">17</span><span class="p">),</span>
+            <span class="n">padding</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Padding</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
         <span class="p">)</span>
     <span class="p">])</span>
 
     <span class="c1"># Add the publication date at the bottom</span>
     <span class="n">widget</span><span class="o">.</span><span class="n">small_layout</span><span class="o">.</span><span class="n">add_vertical_spacer</span><span class="p">()</span>
     <span class="n">widget</span><span class="o">.</span><span class="n">small_layout</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span>
-        <span class="n">wd</span><span class="o">.</span><span class="n">Spacer</span><span class="p">(),</span>
-        <span class="n">wd</span><span class="o">.</span><span class="n">DynamicDate</span><span class="p">(</span><span class="n">posts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">date</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">FOREGROUND_COLOR</span><span class="p">)</span>
+        <span class="n">wd</span><span class="o">.</span><span class="n">DynamicDate</span><span class="p">(</span>
+            <span class="n">posts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">date</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">FOREGROUND_COLOR</span><span class="p">,</span>
+            <span class="n">padding</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Padding</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">)</span>
     <span class="p">])</span>
 
     <span class="c1"># If the widget is pressed, the post&#39;s URL will be passed to the script</span>
