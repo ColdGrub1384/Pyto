@@ -205,7 +205,9 @@ public class EditorSplitViewController: SplitViewController {
                 view.removeFromSuperview()
             }
             
+            let arrangement = self.arrangement
             super.viewDidLoad()
+            self.arrangement = arrangement
             super.viewWillTransition(to: self.view.frame.size, with: ViewControllerTransitionCoordinator())
             super.viewDidAppear(true)
             
@@ -472,7 +474,7 @@ public class EditorSplitViewController: SplitViewController {
             arrangement = .vertical
         } else {
             
-            if EditorSplitViewController.shouldShowConsoleAtBottom {
+            if shouldShowConsoleAtBottom {
                 arrangement = .vertical
             } else if arrangement != .horizontal {
                 arrangement = .horizontal

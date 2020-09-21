@@ -99,7 +99,18 @@ public struct EditorView: View {
         
         if editorStore.editor == nil {
             let vc = makeEditor(viewControllerStore)
-            (vc.viewController as? EditorSplitViewController)?.editor?.viewWillAppear(false)
+            let splitVC = vc.viewController as? EditorSplitViewController
+            
+            if splitVC?.editor?.document?.documentState.contains(.closed) == true {
+                let doc = PyDocument(fileURL: url)
+                doc.open { (_) in
+                    splitVC?.editor?.document = doc
+                    splitVC?.editor?.viewWillAppear(false)
+                }
+            } else {
+                splitVC?.editor?.viewWillAppear(false)
+            }
+            
             self.editorStore.editor = vc
             if let traitCollection = scene?.windows.first?.traitCollection {
                 self.editorStore.sizeClass = (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass)
