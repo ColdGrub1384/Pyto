@@ -27,6 +27,9 @@ import __image__
 import threading
 
 try:
+    if "sphinx" in sys.modules:
+        raise ValueError
+
     from rubicon.objc import ObjCClass, CGFloat
 except ValueError:
     def ObjCClass(class_name):
@@ -818,7 +821,7 @@ class WidgetComponent:
     """
     If set to ``True``, additional blank space around the view will be added.
 
-    See :class:`~widgets.Padding`_.
+    See :class:`~widgets.Padding`.
 
     :rtype: bool
     """
