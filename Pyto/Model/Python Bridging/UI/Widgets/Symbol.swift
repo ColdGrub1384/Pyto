@@ -16,8 +16,19 @@ import SwiftUI
     
     @objc var color: UIColor?
     
+    @objc var fontSize: Double = 0
+    
+    private var _font: Font? {
+        if fontSize == 0 {
+            return Font.system(.body)
+        } else {
+            return Font.system(size: CGFloat(fontSize))
+        }
+    }
+    
     override var makeView: AnyView {
         return AnyView(Image(systemName: symbolName ?? "")
+                        .font(_font)
                         .foregroundColor(Color(color ?? UIColor.label))
                         .padding((backgroundColor != nil && backgroundColor != UIColor.clear) ? .all : [])
                         .background(Color(backgroundColor ?? UIColor.clear))
@@ -29,6 +40,7 @@ import SwiftUI
         
         let container = try decoder.container(keyedBy: Keys.self)
         symbolName = try container.decode(String.self, forKey: .symbolName)
+        fontSize = try container.decode(Double.self, forKey: .fontSize)
         
         do {
             let colorData = try container.decode(Data.self, forKey: .color)
@@ -44,5 +56,6 @@ import SwiftUI
         var container = encoder.container(keyedBy: Keys.self)
         try container.encode(symbolName, forKey: .symbolName)
         try container.encode(color?.encode(), forKey: .color)
+        try container.encode(fontSize, forKey: .fontSize)
     }
 }
