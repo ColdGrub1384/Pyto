@@ -4604,3 +4604,59 @@ def show_view_controller(view_controller: "UIViewController"):
         )
     except AttributeError:
         ConsoleViewController.showVC(view_controller, onConsoleForPath=None)
+
+
+def pick_color() -> Color:
+    """
+    Picks a color with the system color picker and returns it.
+
+    Requires iOS 14.
+
+    :rtype: pyto_ui.Color
+    """
+
+    UIDevice = ObjCClass("UIDevice")
+    if (
+        UIDevice is not None
+        and float(str(UIDevice.currentDevice.systemVersion).split(".")[0]) < 14
+    ):
+        raise NotImplementedError("The color picker requires iOS 14.")
+
+    script_path = None
+    try:
+        script_path = threading.current_thread().script_path
+    except AttributeError:
+        pass
+
+    color = ConsoleViewController.pickColorWithScriptPath(script_path)
+    if color is None:
+        return None
+    else:
+        return Color(color)
+
+
+def pick_font(size: float = None) -> Font:
+    """
+    Picks a font with the system font picker and returns it.
+
+    :rtype: pyto_ui.Font
+    """
+
+    check(size, "size", [float, int, None])
+
+    script_path = None
+    try:
+        script_path = threading.current_thread().script_path
+    except AttributeError:
+        pass
+
+    font = ConsoleViewController.pickFontWithScriptPath(script_path)
+    if font is None:
+        return None
+    else:
+        pyFont = Font("", 0)
+        pyFont.__ui_font__ = font
+        if size is not None:
+            pyFont = pyFont.with_size(size)
+        return pyFont
+    
