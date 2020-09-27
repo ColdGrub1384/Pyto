@@ -20,61 +20,85 @@ func SetupPython() {
     
     init_python()
     
+    for folder in FoldersBrowserViewController.accessibleFoldersShared {
+        _ = folder.startAccessingSecurityScopedResource()
+    }
+    
+    let sitePackages: String
+    if let url = FoldersBrowserViewController.sitePackages {
+        sitePackages = "\"\(url.path.replacingOccurrences(of: "\"", with: "\\\""))\""
+    } else {
+        sitePackages = "None"
+    }
+    
     let code = """
     import os
     import sys
     import builtins
     import traceback
     import ssl
+    import threading
     from pyto import __Class__, Python
     from time import sleep
     from extensionsimporter import PillowImporter
+    from rubicon.objc import NSObject, objc_method
+    from ctypes import CDLL
 
     os.environ["widget"] = "1"
+
+    site_packages = \(sitePackages)
+    if site_packages is not None:
+        sys.path.append(site_packages)
 
     PyWidget = __Class__("PyWidget")
 
     sys.meta_path.append(PillowImporter())
     sys.builtin_module_names += ("__PIL__imaging",)
 
-
     ssl._create_default_https_context = ssl._create_unverified_context
 
-    while True:
+    class ScriptThread(threading.Thread):
+        script_path = None
 
-        for code in PyWidget.codeToRun:
+    class PythonImplementation(NSObject):
+
+        @objc_method
+        def runCode_(self, code):
             try:
-                exec(str(code[0]))
-                PyWidget.removeWidgetID(code[1])
+                thread = threading.Thread(target=exec, args=(str(code),))
+                thread.start()
+                thread.join()
             except Exception as e:
                 PyWidget.breakpoint(traceback.format_exc())
-                print(e)
+                print(str(e))
         
-        PyWidget.codeToRun = []
-     
-        try: # Run code
-            code = str(Python.shared.codeToRun)
-            exec(code)
-            if code == Python.shared.codeToRun:
-                Python.shared.codeToRun = None
-        except:
-            pass
+        @objc_method
+        def runWidgetWithCode_andID_(self, code, id):
+            try:
+                exec(str(code))
+                PyWidget.removeWidgetID(str(id))
+            except Exception as e:
+                PyWidget.breakpoint(traceback.format_exc())
+                print(traceback.format_exc())
 
-        try:
-            del sys.modules["pyto_ui"]
-        except KeyError:
-            pass
-        
-        try:
-            _values = sys.modules["_values"]
-             
-            for attr in dir(_values):
-                if attr not in _values._dir:
-                    delattr(_values, attr)
-        except:
-            pass
+            try:
+                del sys.modules["pyto_ui"]
+            except KeyError:
+                pass
+            
+            try:
+                _values = sys.modules["_values"]
+                 
+                for attr in dir(_values):
+                    if attr not in _values._dir:
+                        delattr(_values, attr)
+            except:
+                pass
 
-        sleep(0.2)
+    Python.pythonShared = PythonImplementation.alloc().init()
+    CDLL(None).putenv(b"IS_PYTHON_RUNNING=1")
+
+    threading.Event().wait()
     """
     
     let url = FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask)[0].appendingPathComponent("Startup.py")

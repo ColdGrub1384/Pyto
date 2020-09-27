@@ -17,4 +17,6 @@ import Foundation
     @objc func exitScript(_ script: String)
     
     @objc func interruptScript(_ script: String)
+    
+    @objc func runWidgetWithCode(_ code: String, andID id: String)
 }
