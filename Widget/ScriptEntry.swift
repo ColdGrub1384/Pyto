@@ -50,29 +50,21 @@ struct ScriptEntry: TimelineEntry, Codable {
     /// - Returns: A deep link to Pyto.
     func url(viewID: String?) -> URL? {
         
-        var _code = self.code
-        
-        if _code.isEmpty, let data = bookmarkData {
-            _code = """
-            from console import run_script
-            from Foundation import NSData, NSURL
-
-            data = NSData.alloc().initWithBase64EncodedString('\(data.base64EncodedString())', options=0)
-            
-            url = NSURL.URLByResolvingBookmarkData(
-                data,
-                options=0,
-                relativeToURL=None,
-                bookmarkDataIsStale=None,
-                error=None,
-            )
-            
-            if url is not None:
-                url.startAccessingSecurityScopedResource()
-                path = str(url.path)
-                run_script(path, is_widget=True)
-            """
+        do {
+            if let data = bookmarkData {
+                var isStale = false
+                let fileURL = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
+                
+                if !fileURL.pathComponents.contains("PluginKitPlugin") {
+                    let url = URL(string: "pyto://widget?bookmark=\(data.base64EncodedString().addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? "")\(viewID != nil ? "&link=\(viewID!.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? viewID!)" : "")")
+                    return url
+                }                
+            }
+        } catch {
+            print(error.localizedDescription)
         }
+        
+        let _code = self.code
         
         let code = """
         __name__ = "widget"
