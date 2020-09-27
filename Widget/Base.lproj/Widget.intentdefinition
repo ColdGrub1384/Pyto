@@ -55,7 +55,7 @@
 	<key>INIntentDefinitionSystemVersion</key>
 	<string>20A4299v</string>
 	<key>INIntentDefinitionToolsBuildVersion</key>
-	<string>12A8189n</string>
+	<string>12A7208</string>
 	<key>INIntentDefinitionToolsVersion</key>
 	<string>12.0</string>
 	<key>INIntents</key>
@@ -66,7 +66,7 @@
 			<key>INIntentClassName</key>
 			<string>ScriptIntent</string>
 			<key>INIntentDescription</key>
-			<string>Display a script in a widget.</string>
+			<string>Runs a script in a widget.</string>
 			<key>INIntentDescriptionID</key>
 			<string>pzbSbw</string>
 			<key>INIntentEligibleForWidgets</key>
@@ -76,7 +76,7 @@
 			<key>INIntentKeyParameter</key>
 			<string>script</string>
 			<key>INIntentLastParameterTag</key>
-			<integer>27</integer>
+			<integer>29</integer>
 			<key>INIntentName</key>
 			<string>Script</string>
 			<key>INIntentParameters</key>
@@ -87,157 +87,11 @@
 					<key>INIntentParameterCustomDisambiguation</key>
 					<true/>
 					<key>INIntentParameterDisplayName</key>
-					<string>Widget Type</string>
-					<key>INIntentParameterDisplayNameID</key>
-					<string>0BYvL9</string>
-					<key>INIntentParameterDisplayPriority</key>
-					<integer>1</integer>
-					<key>INIntentParameterEnumType</key>
-					<string>WidgetType</string>
-					<key>INIntentParameterEnumTypeNamespace</key>
-					<string>88xZPY</string>
-					<key>INIntentParameterMetadata</key>
-					<dict>
-						<key>INIntentParameterMetadataDefaultValue</key>
-						<string>script</string>
-					</dict>
-					<key>INIntentParameterName</key>
-					<string>widgetType</string>
-					<key>INIntentParameterPromptDialogs</key>
-					<array>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Configuration</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Primary</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>DisambiguationIntroduction</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Confirmation</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>DisambiguationSelection</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>SubsequentIntroduction</string>
-						</dict>
-					</array>
-					<key>INIntentParameterSupportsResolution</key>
-					<true/>
-					<key>INIntentParameterTag</key>
-					<integer>24</integer>
-					<key>INIntentParameterType</key>
-					<string>Integer</string>
-				</dict>
-				<dict>
-					<key>INIntentParameterConfigurable</key>
-					<true/>
-					<key>INIntentParameterCustomDisambiguation</key>
-					<true/>
-					<key>INIntentParameterDisplayName</key>
-					<string>Category</string>
-					<key>INIntentParameterDisplayNameID</key>
-					<string>ohJ96D</string>
-					<key>INIntentParameterDisplayPriority</key>
-					<integer>2</integer>
-					<key>INIntentParameterName</key>
-					<string>category</string>
-					<key>INIntentParameterObjectType</key>
-					<string>WidgetCategory</string>
-					<key>INIntentParameterObjectTypeNamespace</key>
-					<string>88xZPY</string>
-					<key>INIntentParameterPromptDialogs</key>
-					<array>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Configuration</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>Widget category?</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>rhu7nA</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Primary</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>DisambiguationIntroduction</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>DisambiguationSelection</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>SubsequentIntroduction</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Confirmation</string>
-						</dict>
-					</array>
-					<key>INIntentParameterRelationship</key>
-					<dict>
-						<key>INIntentParameterRelationshipParentName</key>
-						<string>widgetType</string>
-						<key>INIntentParameterRelationshipPredicateName</key>
-						<string>EnumHasExactValue</string>
-						<key>INIntentParameterRelationshipPredicateValue</key>
-						<string>inApp</string>
-					</dict>
-					<key>INIntentParameterSupportsDynamicEnumeration</key>
-					<true/>
-					<key>INIntentParameterSupportsResolution</key>
-					<true/>
-					<key>INIntentParameterTag</key>
-					<integer>27</integer>
-					<key>INIntentParameterType</key>
-					<string>Object</string>
-				</dict>
-				<dict>
-					<key>INIntentParameterConfigurable</key>
-					<true/>
-					<key>INIntentParameterCustomDisambiguation</key>
-					<true/>
-					<key>INIntentParameterDisplayName</key>
 					<string>Script</string>
 					<key>INIntentParameterDisplayNameID</key>
 					<string>TRvyOI</string>
 					<key>INIntentParameterDisplayPriority</key>
-					<integer>3</integer>
+					<integer>1</integer>
 					<key>INIntentParameterMetadata</key>
 					<dict>
 						<key>INIntentParameterMetadataType</key>
@@ -284,8 +138,6 @@
 					</array>
 					<key>INIntentParameterRelationship</key>
 					<dict>
-						<key>INIntentParameterRelationshipParentName</key>
-						<string>widgetType</string>
 						<key>INIntentParameterRelationshipPredicateName</key>
 						<string>EnumHasExactValue</string>
 						<key>INIntentParameterRelationshipPredicateValue</key>
@@ -296,7 +148,7 @@
 					<key>INIntentParameterSupportsResolution</key>
 					<true/>
 					<key>INIntentParameterTag</key>
-					<integer>22</integer>
+					<integer>29</integer>
 					<key>INIntentParameterType</key>
 					<string>File</string>
 				</dict>
@@ -320,9 +172,106 @@
 				<integer>3</integer>
 			</dict>
 			<key>INIntentTitle</key>
-			<string>Script</string>
+			<string>Run Script</string>
 			<key>INIntentTitleID</key>
 			<string>eL9E05</string>
+			<key>INIntentType</key>
+			<string>Custom</string>
+			<key>INIntentVerb</key>
+			<string>View</string>
+		</dict>
+		<dict>
+			<key>INIntentCategory</key>
+			<string>information</string>
+			<key>INIntentClassName</key>
+			<string>SetContentInAppIntent</string>
+			<key>INIntentDescription</key>
+			<string>Sets the content of the widget in app.</string>
+			<key>INIntentDescriptionID</key>
+			<string>rEOejn</string>
+			<key>INIntentEligibleForWidgets</key>
+			<true/>
+			<key>INIntentIneligibleForSuggestions</key>
+			<true/>
+			<key>INIntentKeyParameter</key>
+			<string>category</string>
+			<key>INIntentLastParameterTag</key>
+			<integer>31</integer>
+			<key>INIntentName</key>
+			<string>SetContentInApp</string>
+			<key>INIntentParameters</key>
+			<array>
+				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
+					<key>INIntentParameterDisplayName</key>
+					<string>Category</string>
+					<key>INIntentParameterDisplayNameID</key>
+					<string>IfDNC4</string>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>1</integer>
+					<key>INIntentParameterName</key>
+					<string>category</string>
+					<key>INIntentParameterObjectType</key>
+					<string>WidgetCategory</string>
+					<key>INIntentParameterObjectTypeNamespace</key>
+					<string>88xZPY</string>
+					<key>INIntentParameterPromptDialogs</key>
+					<array>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogFormatString</key>
+							<string>Which script would you like to run?</string>
+							<key>INIntentParameterPromptDialogFormatStringID</key>
+							<string>I3ToQE</string>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Primary</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Configuration</string>
+						</dict>
+					</array>
+					<key>INIntentParameterRelationship</key>
+					<dict>
+						<key>INIntentParameterRelationshipPredicateName</key>
+						<string>EnumHasExactValue</string>
+						<key>INIntentParameterRelationshipPredicateValue</key>
+						<string>script</string>
+					</dict>
+					<key>INIntentParameterSupportsDynamicEnumeration</key>
+					<true/>
+					<key>INIntentParameterTag</key>
+					<integer>31</integer>
+					<key>INIntentParameterType</key>
+					<string>Object</string>
+				</dict>
+			</array>
+			<key>INIntentResponse</key>
+			<dict>
+				<key>INIntentResponseCodes</key>
+				<array>
+					<dict>
+						<key>INIntentResponseCodeName</key>
+						<string>success</string>
+						<key>INIntentResponseCodeSuccess</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>INIntentResponseCodeName</key>
+						<string>failure</string>
+					</dict>
+				</array>
+				<key>INIntentResponseLastParameterTag</key>
+				<integer>3</integer>
+			</dict>
+			<key>INIntentTitle</key>
+			<string>Set Content In App</string>
+			<key>INIntentTitleID</key>
+			<string>WwbXB7</string>
 			<key>INIntentType</key>
 			<string>Custom</string>
 			<key>INIntentVerb</key>
