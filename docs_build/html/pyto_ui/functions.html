@@ -98,7 +98,11 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../pyto_ui.html">pyto_ui</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../pyto_ui.html#api-reference">API Reference</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="classes.html">Classes</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Functions</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#showing-views">Showing views</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#system-pickers">System pickers</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="constants.html">Constants</a></li>
 </ul>
 </li>
@@ -229,6 +233,8 @@ More info about symbols on <a class="reference external" href="https://developer
 </dl>
 </dd></dl>
 
+<div class="section" id="showing-views">
+<h2>Showing views<a class="headerlink" href="#showing-views" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt id="pyto_ui.show_view">
 <code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">show_view</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">view</span><span class="p">:</span> <span class="n"><a class="reference internal" href="classes.html#pyto_ui.View" title="pyto_ui.View">pyto_ui.View</a></span></em>, <em class="sig-param"><span class="n">mode</span><span class="p">:</span> <span class="n">ui_constants.PRESENTATION_MODE</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.show_view" title="Permalink to this definition">¶</a></dt>
@@ -257,6 +263,33 @@ More info about symbols on <a class="reference external" href="https://developer
 </dl>
 </dd></dl>
 
+</div>
+<div class="section" id="system-pickers">
+<h2>System pickers<a class="headerlink" href="#system-pickers" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="pyto_ui.pick_color">
+<code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">pick_color</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="classes.html#pyto_ui.Color" title="pyto_ui.Color">pyto_ui.Color</a><a class="headerlink" href="#pyto_ui.pick_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Picks a color with the system color picker and returns it.</p>
+<p>Requires iOS 14.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="classes.html#pyto_ui.Color" title="pyto_ui.Color">pyto_ui.Color</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyto_ui.pick_font">
+<code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">pick_font</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="classes.html#pyto_ui.Font" title="pyto_ui.Font">pyto_ui.Font</a><a class="headerlink" href="#pyto_ui.pick_font" title="Permalink to this definition">¶</a></dt>
+<dd><p>Picks a font with the system font picker and returns it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="classes.html#pyto_ui.Font" title="pyto_ui.Font">pyto_ui.Font</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 </div>
 
 

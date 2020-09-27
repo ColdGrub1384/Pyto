@@ -196,7 +196,7 @@ A great usage of this is fetching data in background and sending notifications w
 <p>Note: Because of privacy, apps cannot access to the clipboard in background, so coding a clipboard manager is not possible.</p>
 <dl class="py class">
 <dt id="background.BackgroundTask">
-<em class="property">class </em><code class="sig-prename descclassname">background.</code><code class="sig-name descname">BackgroundTask</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">audio_path</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#background.BackgroundTask" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">background.</code><code class="sig-name descname">BackgroundTask</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">audio_path</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">id</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#background.BackgroundTask" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a task to run in background.
 When started, the audio at the path passed to the initializer is played. If no audio is passed, a blank audio is used so Pyto isn’t killed by the system.</p>
 <p>Usage:</p>
@@ -217,6 +217,13 @@ When started, the audio at the path passed to the initializer is played. If no a
 <dd class="field-odd"><p>int</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="background.BackgroundTask.id">
+<code class="sig-name descname">id</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#background.BackgroundTask.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A string that identifies the task. If a task with the same ID of a task that is already running is started, the other task will be stopped.
+That is useful with Shortcuts Personal Automations where you can create a background task multiple times to make sure it’s running without having to worry about the task already running.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -253,7 +260,7 @@ By default, a notification is sent every 6 hours while the task is running, set 
 <dl class="py method">
 <dt id="background.BackgroundTask.stop">
 <code class="sig-name descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#background.BackgroundTask.stop" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stops the background task. After calling this function, Pyto can be killed by the system to free memory.</p>
+<dd><p>Stops the background task. After calling this function, Pyto can be killed by the system to free memory (if no other task is running).</p>
 </dd></dl>
 
 <dl class="py method">
@@ -267,6 +274,12 @@ By default, a notification is sent every 6 hours while the task is running, set 
 </dl>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py exception">
+<dt id="background.TaskExit">
+<em class="property">exception </em><code class="sig-prename descclassname">background.</code><code class="sig-name descname">TaskExit</code><a class="headerlink" href="#background.TaskExit" title="Permalink to this definition">¶</a></dt>
+<dd><p>An exception thrown when a task is stopped.</p>
 </dd></dl>
 
 <dl class="py function">

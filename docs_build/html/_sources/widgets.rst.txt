@@ -20,7 +20,7 @@ Types of widgets
 
 There are two types of widgets:
 
-**Run Script**: A script running in background to update the widget content automatically. The scripts runs with a very limited amount of RAM and cannot import most of the bundled libraries.
+**Run Script**: A script running in background to update the widget content automatically. The scripts runs with a very limited amount of RAM and cannot import most of the bundled libraries. Scripts can access resources or import other modules and packages installed with PyPI are also available but libraries with C extensions like Numpy (except PIL) cannot be imported.
 
 **Set Content in App**: A script executed manually in foreground that will provide an UI for a widget. The scripts can do everything a script running in foreground can. This is very powerful with Shortcuts automations or with :func:`~background.request_background_fetch`.
 

@@ -9,6 +9,16 @@ This page contains a list of functions defined in the ``pyto_ui`` module.
 
 .. autofunction:: image_with_system_name
 
+Showing views
+-------------
+
 .. autofunction:: show_view
 
 .. autofunction:: show_view_controller
+
+System pickers
+--------------
+
+.. autofunction:: pick_color
+
+.. autofunction:: pick_font
