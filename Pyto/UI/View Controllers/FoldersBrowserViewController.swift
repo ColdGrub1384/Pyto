@@ -11,6 +11,7 @@ import UIKit
 /// A View controller for adding or removing folders that Pyto is allowed to read.
 class FoldersBrowserViewController: UITableViewController, UIDocumentPickerDelegate {
     
+    #if MAIN
     /// Folders readable and writable by Pyto.
     static var accessibleFolders: [URL] {
         set {
@@ -47,10 +48,83 @@ class FoldersBrowserViewController: UITableViewController, UIDocumentPickerDeleg
                 }
             }
             
+            DispatchQueue.global().async {
+                self.accessibleFoldersShared = urls
+            }
+            
+            return urls
+        }
+    }
+    #endif
+    
+    /// The site-packages folder shared between app extensions.
+    static var sitePackages: URL? {
+        get {
+            guard let data = UserDefaults.shared?.data(forKey: "sitePackagesFolder") else {
+                return nil
+            }
+            
+            do {
+                var isStale = false
+                let url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
+                _ = url.startAccessingSecurityScopedResource()
+                return url
+            } catch {
+                print(error.localizedDescription)
+                return nil
+            }
+        }
+        
+        set {
+            do {
+                UserDefaults.shared?.set(try newValue?.bookmarkData(), forKey: "sitePackagesFolder")
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    /// Folders readable and writable by Pyto.
+    static var accessibleFoldersShared: [URL] {
+        set {
+            var strings = [String]()
+            
+            for url in newValue {
+                do {
+                    strings.append((try url.bookmarkData()).base64EncodedString())
+                } catch {
+                    continue
+                }
+            }
+            
+            UserDefaults.shared?.set(strings, forKey: "folders")
+        }
+        
+        get {
+            guard let urlsData = UserDefaults.shared?.stringArray(forKey: "folders") else {
+                return []
+            }
+            
+            var urls = [URL]()
+            
+            for url in urlsData {
+                guard let data = Data(base64Encoded: url) else {
+                    continue
+                }
+                
+                do {
+                    var isStale = false
+                    urls.append((try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)))
+                } catch {
+                    continue
+                }
+            }
+            
             return urls
         }
     }
     
+    #if MAIN
     /// Adds a folder to `accessibleFolders`.
     @IBAction func addFolder(_ sender: Any) {
         let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
@@ -109,4 +183,5 @@ class FoldersBrowserViewController: UITableViewController, UIDocumentPickerDeleg
         
         tableView.reloadData()
     }
+    #endif
 }

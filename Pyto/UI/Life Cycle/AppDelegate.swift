@@ -259,16 +259,13 @@ import TrueTime
             if !FileManager.default.fileExists(atPath: modulesURL.path) {
                 try FileManager.default.createDirectory(at: modulesURL, withIntermediateDirectories: false, attributes: nil)
             }
+            
+            FoldersBrowserViewController.sitePackages = modulesURL
+            
             if let iCloudURL = iCloudDriveContainer {
                 if !FileManager.default.fileExists(atPath: iCloudURL.path) {
                     try? FileManager.default.createDirectory(at: iCloudURL, withIntermediateDirectories: true, attributes: nil)
                 }
-            }
-            
-            let modulesWidgetURL = docs.appendingPathComponent("site-packages-widget-shortcuts")
-            
-            if !FileManager.default.fileExists(atPath: modulesWidgetURL.path) {
-                try FileManager.default.createDirectory(at: modulesWidgetURL, withIntermediateDirectories: false, attributes: nil)
             }
         } catch {
             print(error.localizedDescription)
