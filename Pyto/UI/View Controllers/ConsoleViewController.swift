@@ -1250,6 +1250,125 @@ import SwiftUI
         return true
     }
     #endif
+    
+    // MARK: - Color picker
+    
+    static fileprivate var colorPickerSemaphore: DispatchSemaphore?
+    
+    static fileprivate var pickedColor: UIColor?
+    
+    static private let colorPickerDelegate = ColorPickerDelegate()
+
+    private class ColorPickerDelegate: NSObject, UIColorPickerViewControllerDelegate {
+        
+        @available(iOS 14.0, *)
+        func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
+            ConsoleViewController.pickedColor = viewController.selectedColor
+            ConsoleViewController.colorPickerSemaphore?.signal()
+        }
+        
+        @available(iOS 14.0, *)
+        func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
+            ConsoleViewController.pickedColor = viewController.selectedColor
+        }
+    }
+    
+    @available(iOS 14.0, *)
+    @objc public static func pickColor(scriptPath: String?) -> PyColor? {
+        
+        if Thread.current.isMainThread {
+            return nil
+        }
+        
+        colorPickerSemaphore = DispatchSemaphore(value: 0)
+        
+        DispatchQueue.main.async {
+            let picker = UIColorPickerViewController()
+            picker.delegate = colorPickerDelegate
+            
+            #if WIDGET
+            ConsoleViewController.visible.present(picker, animated: true, completion: nil)
+            #elseif !MAIN
+            ConsoleViewController.visibles.first?.present(picker, animated: true, completion: nil)
+            #else
+            for console in ConsoleViewController.visibles {
+                
+                if scriptPath == nil {
+                    (console.presentedViewController ?? console).present(picker, animated: true, completion: nil)
+                    break
+                }
+                
+                if console.editorSplitViewController?.editor?.document?.fileURL.path == scriptPath {
+                    (console.presentedViewController ?? console).present(picker, animated: true, completion: nil)
+                    break
+                }
+            }
+            #endif
+        }
+        
+        colorPickerSemaphore?.wait()
+        return pickedColor == nil ? nil : PyColor(managed: pickedColor!)
+    }
+    
+    // MARK: - Font picker
+    
+    static fileprivate var fontPickerSemaphore: DispatchSemaphore?
+    
+    static fileprivate var pickedFont: UIFont?
+    
+    static private let fontPickerDelegate = FontPickerDelegate()
+
+    private class FontPickerDelegate: NSObject, UIFontPickerViewControllerDelegate {
+        
+        func fontPickerViewControllerDidCancel(_ viewController: UIFontPickerViewController) {
+            ConsoleViewController.pickedFont = nil
+            ConsoleViewController.fontPickerSemaphore?.signal()
+        }
+        
+        func fontPickerViewControllerDidPickFont(_ viewController: UIFontPickerViewController) {
+            if let font = viewController.selectedFontDescriptor {
+                ConsoleViewController.pickedFont = UIFont(descriptor: font, size: font.pointSize)
+            }
+            
+            ConsoleViewController.fontPickerSemaphore?.signal()
+        }
+    }
+    
+    @objc public static func pickFont(scriptPath: String?) -> UIFont? {
+        
+        if Thread.current.isMainThread {
+            return nil
+        }
+        
+        fontPickerSemaphore = DispatchSemaphore(value: 0)
+        
+        DispatchQueue.main.async {
+            let picker = UIFontPickerViewController()
+            picker.delegate = fontPickerDelegate
+            
+            #if WIDGET
+            ConsoleViewController.visible.present(picker, animated: true, completion: nil)
+            #elseif !MAIN
+            ConsoleViewController.visibles.first?.present(picker, animated: true, completion: nil)
+            #else
+            for console in ConsoleViewController.visibles {
+                
+                if scriptPath == nil {
+                    (console.presentedViewController ?? console).present(picker, animated: true, completion: nil)
+                    break
+                }
+                
+                if console.editorSplitViewController?.editor?.document?.fileURL.path == scriptPath {
+                    (console.presentedViewController ?? console).present(picker, animated: true, completion: nil)
+                    break
+                }
+            }
+            #endif
+        }
+        
+        fontPickerSemaphore?.wait()
+        return pickedFont
+    }
 }
 
 // MARK: - REPL Code Completion
