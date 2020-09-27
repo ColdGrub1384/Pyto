@@ -1,4 +1,3 @@
-
 //
 //  Python.swift
 //  Pyto
@@ -60,6 +59,9 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     
     /// The queue running scripts.
     @objc public let queue = DispatchQueue.global(qos: .userInteractive)
+    
+    /// A string passed by a widget.
+    @objc public var widgetLink: String?
     
     /// Returns paths for on demand libraries that are already downloaded.
     @objc public var accessibleOnDemandPaths: NSArray {

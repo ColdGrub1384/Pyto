@@ -37,7 +37,7 @@ import SwiftUI
     /// - Parameters:
     ///     - widgetID: The ID of the widget.
     @objc static func removeWidgetID(_ widgetID: String) {
-        makeTimeline[widgetID] = nil
+        print("Don't remove, I think that's causing bugs")
     }
     
     /// A dictionary of functions for creating timelines per their ID.
@@ -130,8 +130,6 @@ import SwiftUI
                 handler(timeline)
             }
             
-            makeTimeline[widgetID] = nil
-            
             print(PyWidget.codeToRun.count)
         
             semaphore.signal()
@@ -162,8 +160,7 @@ import SwiftUI
         
         #if WIDGET
         semaphore.wait()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+        DispatchQueue.main.asyncAfter(deadline: .now()+3) {
             if PyWidget.codeToRun.count == 0 || makeTimeline.isEmpty {
                 exit(0) // So the next script has more free RAM
             }
@@ -181,7 +178,7 @@ import SwiftUI
             
             UserDefaults.shared?.setValue(saved, forKey: "savedWidgets")
             
-            WidgetCenter.shared.reloadAllTimelines()
+            WidgetCenter.shared.reloadTimelines(ofKind: "SetInApp")
         } catch {
             print(error.localizedDescription)
         }

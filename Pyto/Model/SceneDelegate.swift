@@ -35,8 +35,12 @@ import SwiftUI
     func openDocument(at url: URL, run: Bool, isShortcut: Bool) {
         _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
             if let doc = self.documentBrowserViewController {
-                doc.revealDocument(at: url, importIfNeeded: false) { (url_, _) in
-                    doc.openDocument(url_ ?? url, run: run, isShortcut: isShortcut)
+                if run {
+                    doc.openDocument(url, run: run, isShortcut: isShortcut)
+                } else {
+                    doc.revealDocument(at: url, importIfNeeded: false) { (url_, _) in
+                        doc.openDocument(url_ ?? url, run: run, isShortcut: isShortcut)
+                    }
                 }
                 timer.invalidate()
             }
@@ -209,13 +213,16 @@ import SwiftUI
                     PyCallbackHelper.code = code
                     documentBrowserViewController.run(code: code)
                 }
-            } else if inputURL.pathComponents.first == "widget" { // Open script from widget
-                let bookmarkString = inputURL.lastPathComponent
+            } else if inputURL.host == "widget" { // Open script from widget
+                guard let bookmarkString = inputURL.queryParameters?["bookmark"] else {
+                    return
+                }
                 if let bookmarkData = Data(base64Encoded: bookmarkString) {
                     do {
                         var isStale = false
                         let url = try URL(resolvingBookmarkData: bookmarkData, bookmarkDataIsStale: &isStale)
                         _ = url.startAccessingSecurityScopedResource()
+                        Python.shared.widgetLink = inputURL.queryParameters?["link"]
                         openDocument(at: url, run: true, isShortcut: false)
                     } catch {
                         print(error.localizedDescription)
