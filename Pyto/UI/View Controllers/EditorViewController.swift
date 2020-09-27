@@ -6,6 +6,7 @@
 //  Copyright © 2018 Adrian Labbé. All rights reserved.
 //
 
+#if MAIN
 import UIKit
 import SourceEditor
 import SavannaKit
@@ -14,11 +15,46 @@ import IntentsUI
 import MarqueeLabel
 import SwiftUI
 import Highlightr
+#else
+import Foundation
+#endif
 
+#if MAIN
 fileprivate func parseArgs(_ args: inout [String]) {
     ParseArgs(&args)
 }
+#endif
 
+/// Obtains the current directory URL set for the given script.
+///
+/// - Parameters:
+///     - scriptURL: The URL of the script.
+///
+/// - Returns: The current directory set for the given script.
+func directory(for scriptURL: URL) -> URL {
+    var isStale = false
+    
+    let defaultDir = scriptURL.deletingLastPathComponent()
+    
+    guard let data = try? scriptURL.extendedAttribute(forName: "currentDirectory") else {
+        return defaultDir
+    }
+    
+    guard let url = try? URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale) else {
+        return defaultDir
+    }
+    
+    _ = url.startAccessingSecurityScopedResource()
+    
+    var isDir: ObjCBool = false
+    guard FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir), isDir.boolValue else {
+        return defaultDir
+    }
+    
+    return url
+}
+
+#if MAIN
 /// The View controller used to edit source code.
 @objc class EditorViewController: UIViewController, InputAssistantViewDelegate, InputAssistantViewDataSource, UITextViewDelegate, UISearchBarDelegate, UIDocumentPickerDelegate {
     
@@ -124,40 +160,11 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
     }
     
-    /// Obtains the current directory URL set for the given script.
-    ///
-    /// - Parameters:
-    ///     - scriptURL: The URL of the script.
-    ///
-    /// - Returns: The current directory set for the given script.
-    static func directory(for scriptURL: URL) -> URL {
-        var isStale = false
-        
-        let defaultDir = scriptURL.deletingLastPathComponent()
-        
-        guard let data = try? scriptURL.extendedAttribute(forName: "currentDirectory") else {
-            return defaultDir
-        }
-        
-        guard let url = try? URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale) else {
-            return defaultDir
-        }
-        
-        _ = url.startAccessingSecurityScopedResource()
-        
-        var isDir: ObjCBool = false
-        guard FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir), isDir.boolValue else {
-            return defaultDir
-        }
-        
-        return url
-    }
-    
     /// Directory in which the script will be ran.
     var currentDirectory: URL {
         get {
             if let url = document?.fileURL {
-                return EditorViewController.directory(for: url)
+                return directory(for: url)
             } else {
                 return DocumentBrowserViewController.localContainerURL
             }
@@ -442,6 +449,9 @@ fileprivate func parseArgs(_ args: inout [String]) {
         super.viewDidLoad()
                 
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(forName: UIApplication.willResignActiveNotification, object: nil, queue: nil) { [weak self] (notif) in
+            self?.textView.resignFirstResponder()
+        }
         NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { [weak self] (notif) in
             self?.themeDidChange(notif)
         }
@@ -642,14 +652,8 @@ fileprivate func parseArgs(_ args: inout [String]) {
             return
         }
         
-        let wasFirstResponder = textView.contentTextView.isFirstResponder
-        textView.contentTextView.resignFirstResponder()
-        isToolbarUp = false
         _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
             self.textView.frame = self.view.safeAreaLayoutGuide.layoutFrame
-            if wasFirstResponder {
-                self.textView.contentTextView.becomeFirstResponder()
-            }
             self.setup(theme: ConsoleViewController.choosenTheme)
         }) // TODO: Anyway to to it without a timer?
     }
@@ -2470,4 +2474,4 @@ fileprivate func parseArgs(_ args: inout [String]) {
         }
     }
 }
-
+#endif
