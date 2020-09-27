@@ -29,6 +29,8 @@ class IntentHandler: INExtension {
             #if !Xcode11
             if #available(iOSApplicationExtension 14.0, *), intent is ScriptIntent {
                 return ScriptIntentHandler()
+            } else if #available(iOSApplicationExtension 14.0, *), intent is SetContentInAppIntent {
+                return SetContentInAppIntentHandler()
             }
             #endif
             

@@ -26,7 +26,7 @@ func RunShortcutsScript(at url: URL, arguments: [String], sendOutput: Bool = tru
     
     checkIfUnlocked(on: nil)
     
-    Python.shared.currentWorkingDirectory = EditorViewController.directory(for: url).path
+    Python.shared.currentWorkingDirectory = directory(for: url).path
     
     AppDelegate.shared.shortcutScript = url.path
     Python.shared.args = NSMutableArray(array: arguments)
@@ -40,10 +40,10 @@ func RunShortcutsScript(at url: URL, arguments: [String], sendOutput: Bool = tru
         }
     }
     
-    var code = """
+    let code = """
     from rubicon.objc import ObjCClass
     from pyto import PyOutputHelper, Python
-    import runpy
+    from threading import Thread
     import sys
     import os
 
@@ -53,35 +53,48 @@ func RunShortcutsScript(at url: URL, arguments: [String], sendOutput: Bool = tru
     if path not in sys.path:
         sys.path.append(path)
 
-    error_message = None
+    script = str(ObjCClass("Pyto.AppDelegate").shared.shortcutScript) # Get the script to run
 
-    try:
-        script = str(ObjCClass("Pyto.AppDelegate").shared.shortcutScript) # Get the script to run
-        
-        # Set arguments
-        args = []
-        for arg in Python.shared.args:
-            args.append(str(arg))
+    class ScriptThread(Thread):
+        script_path = None
 
-        sys.argv = [sys.argv[0]]+args
+    def run(script, path):
+        from console import __clear_mods__
+        from pyto import PyOutputHelper, Python
+        import runpy
+        import sys
 
-        runpy.run_path(script)
-    except SystemExit:
-        pass
-    except KeyboardInterrupt:
-        pass
-    except Exception as e:
-        error_message = str(e)
+        error_message = None
 
-    if path in sys.path:
-        sys.path.remove(path)
+        try:
+            # Set arguments
+            args = []
+            for arg in Python.shared.args:
+                args.append(str(arg))
 
-    
+            sys.argv = [sys.argv[0]]+args
+
+            __clear_mods__()
+            runpy.run_path(script)
+        except SystemExit:
+            pass
+        except KeyboardInterrupt:
+            pass
+        except Exception as e:
+            error_message = str(e)
+
+        __clear_mods__()
+
+        if path in sys.path:
+            sys.path.remove(path)
+
+        \(sendOutput ? "PyOutputHelper.sendOutputToShortcuts(error_message)" : "")
+
+    thread = Thread(target=run, args=(script, path))
+    thread.script_path = script
+    thread.start()
+    thread.join()
     """
-    
-    if sendOutput {
-        code += "PyOutputHelper.sendOutputToShortcuts(error_message)"
-    }
     
     if !Python.shared.isSetup {
         _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { (timer) in
