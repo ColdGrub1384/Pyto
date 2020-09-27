@@ -460,7 +460,10 @@ if "pyto_ui" in sys.modules:
 
 def __pyto_ui_color__():
     if "pyto_ui" in sys.modules:
-        return sys.modules["pyto_ui"].Color
+        try:
+            return sys.modules["pyto_ui"].Color
+        except AttributeError:
+            return None
     else:
         return None
 
@@ -1077,10 +1080,18 @@ class SystemSymbol(WidgetComponent):
     :rtype: widgets.Color
     """
 
+    font_size: float = None
+    """
+    The size in pixels of the symbol.
+
+    :rtype: float
+    """
+
     def __init__(
         self,
         symbol_name: str,
         color: Color = None,
+        font_size: float = None,
         background_color: Color = None,
         corner_radius: float = 0,
         padding: Union[PADDING, Padding] = None,
@@ -1090,6 +1101,7 @@ class SystemSymbol(WidgetComponent):
 
         check(symbol_name, "symbol_name", [str])
         check(color, "color", [Color, __pyto_ui_color__(), None])
+        check(font_size, "font_size", [float, int, None])
 
         self.symbol_name = symbol_name
 
@@ -1098,12 +1110,18 @@ class SystemSymbol(WidgetComponent):
         else:
             self.color = color
 
+        self.font_size = font_size
+
     def __make_objc_view__(self):
         obj = __Class__("WidgetSymbol").alloc().init()
         obj.symbolName = self.symbol_name
         obj.color = self.color.__py_color__.managed
         obj.backgroundColor = self.background_color.__py_color__.managed
         obj.cornerRadius = self.corner_radius
+
+        if self.font_size is not None:
+            obj.fontSize = self.font_size
+
         __set_padding__(self.padding, obj)
         obj.identifier = self.link
         return obj
