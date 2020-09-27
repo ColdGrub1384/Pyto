@@ -501,6 +501,8 @@ extension PyOutputHelper: ParserDelegate {
         let visibles = ConsoleViewController.visibles
         #endif
         
+        var foundConsole = false
+        
         for console in visibles {
             
             #if !WIDGET && MAIN
@@ -510,6 +512,8 @@ extension PyOutputHelper: ParserDelegate {
                 }
             }
             #endif
+            
+            foundConsole = true
             
             DispatchQueue.main.async {
                 if let attrStr = console.attributedConsole {
@@ -540,6 +544,11 @@ extension PyOutputHelper: ParserDelegate {
                     PyOutputHelper.semaphore = nil
                 }
             }
+        }
+        
+        if !foundConsole {
+            PyOutputHelper.semaphore?.signal()
+            PyOutputHelper.semaphore = nil
         }
     }
 

@@ -85,6 +85,8 @@ import SwiftUI
         case padding
         
         case customPadding
+        
+        case fontSize
     }
     
     required init(from decoder: Decoder) throws {
@@ -122,6 +124,6 @@ import SwiftUI
         try container.encode(backgroundColor?.encode(), forKey: .backgroundColor)
         try container.encode(identifier, forKey: .id)
         try container.encode(padding, forKey: .padding)
-        try container.encode(customPadding, forKey: .padding)
+        try container.encode(customPadding, forKey: .customPadding)
     }
 }
