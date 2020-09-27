@@ -14,6 +14,35 @@ from time import sleep
 from os.path import abspath
 import sys
 import threading
+import stopit
+import random
+import string
+
+
+__tasks__ = {}
+
+
+class TaskExit(Exception):
+    """
+    An exception thrown when a task is stopped.
+    """
+
+    pass
+
+
+def _stop(id):
+    try:
+        thread = __tasks__[id].__thread__
+    except KeyError:
+        return
+
+    for tid, tobj in threading._active.items():
+        try:
+            if tobj == thread:
+                stopit.async_raise(tid, TaskExit)
+                break
+        except:
+            continue
 
 
 def request_background_fetch():
@@ -93,6 +122,14 @@ class BackgroundTask:
 
     __end_date__ = None
 
+    __thread__ = None
+
+    id: str = None
+    """
+    A string that identifies the task. If a task with the same ID of a task that is already running is started, the other task will be stopped.
+    That is useful with Shortcuts Personal Automations where you can create a background task multiple times to make sure it's running without having to worry about the task already running.
+    """
+
     def execution_time(self) -> int:
         """
         Returns the total execution time of the task in seconds.
@@ -138,9 +175,15 @@ class BackgroundTask:
     def reminder_notifications(self, new_value: bool):
         self.__background_task__.sendNotification = new_value
 
-    def __init__(self, audio_path: str = None):
+    def __init__(self, audio_path: str = None, id: str = None):
 
         check(audio_path, "audio_path", [str, None])
+        check(id, "id", [str, None])
+
+        if id is None:
+            self.id = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
+        else:
+            self.id = id
 
         self.__background_task__ = __Class__("BackgroundTask").new()
         if audio_path is not None:
@@ -153,6 +196,13 @@ class BackgroundTask:
 
         self.start_date = datetime.now()
         self.__end_date__ = None
+        self.__thread__ = threading.current_thread()
+
+        if self.id in __tasks__:
+            __tasks__[self.id].stop()
+
+        if self.id is not None:
+            __tasks__[self.id] = self
 
         try:
             self.__background_task__.scriptName = threading.current_thread().script_path.split(
@@ -169,8 +219,15 @@ class BackgroundTask:
 
     def stop(self):
         """
-        Stops the background task. After calling this function, Pyto can be killed by the system to free memory.
+        Stops the background task. After calling this function, Pyto can be killed by the system to free memory (if no other task is running).
         """
+
+        if self.id is not None:
+            _stop(self.id)
+            try:
+                del __tasks__[self.id]
+            except KeyError:
+                pass
 
         self.__end_date__ = datetime.now()
         self.__background_task__.stopBackgroundTask()
@@ -193,6 +250,9 @@ class BackgroundTask:
 
     def __exit__(self, type, value, traceback):
         self.stop()
+
+        if type is TaskExit:
+            return
 
         if type is not None and value is not None and traceback is not None:
             sys.excepthook(type, value, traceback)
