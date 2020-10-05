@@ -90,6 +90,10 @@ extension SceneDelegate {
         do {
             let sceneState = try JSONDecoder().decode(SceneState.self, from: sceneStateData)
             
+            if sceneState.selection == nil || sceneState.selection == .none {
+                return
+            }
+            
             var url: URL?
             switch sceneState.selection {
             case .recent(let _url):
@@ -101,16 +105,16 @@ extension SceneDelegate {
             sceneStateStore.sceneState = sceneState
             
             _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
-                 if let doc = self.documentBrowserViewController, doc.view.window != nil {
-                     let sidebar = doc.makeSidebarNavigation(url: url, run: false, isShortcut: false, restoreSelection: true)
-                     let vc = UIHostingController(rootView: AnyView(sidebar))
-                     vc.modalPresentationStyle = .fullScreen
-                     vc.modalTransitionStyle = .crossDissolve
-                     sidebar.viewControllerStore.vc = vc
+                if let doc = self.documentBrowserViewController, doc.view.window != nil {
+                    let sidebar = doc.makeSidebarNavigation(url: url, run: false, isShortcut: false, restoreSelection: true)
+                    let vc = SidebarController(rootView: AnyView(sidebar))
+                    vc.modalPresentationStyle = .fullScreen
+                    vc.modalTransitionStyle = .crossDissolve
+                    sidebar.viewControllerStore.vc = vc
                      
-                     doc.present(vc, animated: true, completion: nil)
-                 }
-             
+                    doc.present(vc, animated: true, completion: nil)
+                }
+                
                 timer.invalidate()
             })
         } catch {

@@ -8,17 +8,30 @@
 
 import WatchKit
 import WatchConnectivity
+import ClockKit
 
 /// The delegate of the Watch extension.
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
-    func applicationDidFinishLaunching() {
-        // Perform any final initialization of your application.
+    override init() {
+        super.init()
+        
+        WCSession.default.delegate = SessionDelegate.shared
+        WCSession.default.activate()
     }
 
     func applicationDidBecomeActive() {
         
-        if WCSession.default.delegate == nil {
+        if WCSession.default.activationState != .activated {
+            
+            SessionDelegate.shared.didActivate = {
+                (WKExtension.shared().rootInterfaceController as? InterfaceController)?.label.setText("")
+                SessionDelegate.shared.console = ""
+                WCSession.default.sendMessageData("Run".data(using: .utf8) ?? Data(), replyHandler: nil, errorHandler: { error in
+                    (WKExtension.shared().rootInterfaceController as? InterfaceController)?.label.setText(error.localizedDescription)
+                })
+            }
+            
             WCSession.default.delegate = SessionDelegate.shared
             WCSession.default.activate()
         } else {
@@ -33,30 +46,16 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
     }
 
     func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>) {
-        // Sent when the system needs to launch the application in the background to process tasks. Tasks arrive in a set, so loop through and process each one.
         for task in backgroundTasks {
-            // Use a switch statement to check the task type
             switch task {
             case let backgroundTask as WKApplicationRefreshBackgroundTask:
-                // Be sure to complete the background task once you’re done.
+                WCSession.default.sendMessage(["Called": "handle"], replyHandler: nil, errorHandler: nil)
+                ComplicationController.cache = [:]
+                for complication in CLKComplicationServer.sharedInstance().activeComplications ?? [] {
+                    CLKComplicationServer.sharedInstance().extendTimeline(for: complication)
+                }
                 backgroundTask.setTaskCompletedWithSnapshot(false)
-            case let snapshotTask as WKSnapshotRefreshBackgroundTask:
-                // Snapshot tasks have a unique completion call, make sure to set your expiration date
-                snapshotTask.setTaskCompleted(restoredDefaultState: true, estimatedSnapshotExpiration: Date.distantFuture, userInfo: nil)
-            case let connectivityTask as WKWatchConnectivityRefreshBackgroundTask:
-                // Be sure to complete the connectivity task once you’re done.
-                connectivityTask.setTaskCompletedWithSnapshot(false)
-            case let urlSessionTask as WKURLSessionRefreshBackgroundTask:
-                // Be sure to complete the URL session task once you’re done.
-                urlSessionTask.setTaskCompletedWithSnapshot(false)
-            case let relevantShortcutTask as WKRelevantShortcutRefreshBackgroundTask:
-                // Be sure to complete the relevant-shortcut task once you're done.
-                relevantShortcutTask.setTaskCompletedWithSnapshot(false)
-            case let intentDidRunTask as WKIntentDidRunRefreshBackgroundTask:
-                // Be sure to complete the intent-did-run task once you're done.
-                intentDidRunTask.setTaskCompletedWithSnapshot(false)
             default:
-                // make sure to complete unhandled task types
                 task.setTaskCompletedWithSnapshot(false)
             }
         }

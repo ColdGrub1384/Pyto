@@ -87,6 +87,12 @@ import SwiftUI
         case customPadding
         
         case fontSize
+        
+        case circular
+        
+        case progress
+        
+        case label
     }
     
     required init(from decoder: Decoder) throws {

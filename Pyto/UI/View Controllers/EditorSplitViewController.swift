@@ -201,7 +201,7 @@ public class EditorSplitViewController: SplitViewController {
             self.firstChild = nil
             self.secondChild = nil
             
-            for view in self.view.subviews {
+            /*for view in self.view.subviews {
                 view.removeFromSuperview()
             }
             
@@ -209,7 +209,7 @@ public class EditorSplitViewController: SplitViewController {
             super.viewDidLoad()
             self.arrangement = arrangement
             super.viewWillTransition(to: self.view.frame.size, with: ViewControllerTransitionCoordinator())
-            super.viewDidAppear(true)
+            super.viewDidAppear(true)*/
             
             self.removeGestures()
             
@@ -259,13 +259,13 @@ public class EditorSplitViewController: SplitViewController {
             self.firstChild = nil
             self.secondChild = nil
             
-            for view in self.view.subviews {
+            /*for view in self.view.subviews {
                 view.removeFromSuperview()
             }
             
             super.viewDidLoad()
             super.viewWillTransition(to: self.view.frame.size, with: ViewControllerTransitionCoordinator())
-            super.viewDidAppear(true)
+            super.viewDidAppear(true)*/
             
             self.removeGestures()
             
@@ -470,18 +470,18 @@ public class EditorSplitViewController: SplitViewController {
             willRun = editor?.shouldRun
         }
         
-        if (newCollection.horizontalSizeClass == .compact/* || UIDevice.current.userInterfaceIdiom == .phone*/) && !shouldShowConsoleAtBottom && !willRun! {
+        if newCollection.horizontalSizeClass == .compact && !shouldShowConsoleAtBottom && !willRun! {
             arrangement = .vertical
         } else {
             
-            if shouldShowConsoleAtBottom {
+            if shouldShowConsoleAtBottom && arrangement != .vertical {
                 arrangement = .vertical
             } else if arrangement != .horizontal {
                 arrangement = .horizontal
             }
             
             if firstChild != editor || secondChild != console {
-
+                
                 for view in self.view.subviews {
                     if view.backgroundColor == .white {
                         view.backgroundColor = self.view.backgroundColor

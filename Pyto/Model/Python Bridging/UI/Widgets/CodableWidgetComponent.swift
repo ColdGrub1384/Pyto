@@ -19,8 +19,10 @@ struct CodableWidgetComponent: Codable {
         var className = self.className
         #if WIDGET
         className = "WidgetExtension.\(className)"
-        #else
+        #elseif os(iOS)
         className = "Pyto.\(className)"
+        #elseif os(watchOS)
+        className = "Pyto_Watch_Extension.\(className)"
         #endif
         
         guard let WidgetClass = NSClassFromString(className) as? WidgetComponent.Type else {

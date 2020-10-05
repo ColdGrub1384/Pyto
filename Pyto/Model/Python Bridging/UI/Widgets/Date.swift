@@ -41,10 +41,20 @@ import SwiftUI
     }
     
     override var makeView: AnyView {
+        
+        #if os(iOS)
+        let systemFontSize = UIFont.systemFontSize
+        let label = UIColor.label
+        #elseif os(watchOS)
+        let systemFontSize = CGFloat(17)
+        let label = UIColor.white
+        #endif
+        
         if #available(iOS 14.0, *) {
             return AnyView(Text(date ?? Date(), style: dateStyle)
-                            .foregroundColor(Color(color ?? UIColor.label))
-                            .font(Font(font ?? UIFont.systemFont(ofSize: UIFont.systemFontSize)))
+                            .foregroundColor(Color(color ?? label))
+                            .font(Font(font ?? UIFont.systemFont(ofSize: systemFontSize)))
+                            .multilineTextAlignment(.center)
                             .background(Color(backgroundColor ?? UIColor.clear))
                             .cornerRadius(CGFloat(cornerRadius)))
         } else {
@@ -67,9 +77,6 @@ import SwiftUI
         
         try container.encode(date, forKey: .date)
         try container.encode(style, forKey: .dateStyle)
-        
-        print("Encoded")
-        
     }
 }
 

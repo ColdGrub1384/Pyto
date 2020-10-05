@@ -26,7 +26,11 @@ struct CodableFont: Codable {
     
     var uiFont: UIFont {
         
+        #if os(iOS)
         let system = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        #elseif os(watchOS)
+        let system = UIFont.systemFont(ofSize: 17)
+        #endif
         
         do {
             guard let descriptor = try NSKeyedUnarchiver.unarchivedObject(ofClass: UIFontDescriptor.self, from: descriptorData) else {

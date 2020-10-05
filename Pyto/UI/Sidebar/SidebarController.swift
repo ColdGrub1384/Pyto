@@ -11,6 +11,8 @@ import SwiftUI
 @available(iOS 14.0, *)
 class SidebarController: UIHostingController<AnyView> {
     
+    private var sceneDelegate: SceneDelegate?
+    
     override var childForHomeIndicatorAutoHidden: UIViewController? {
         guard let scene = view.window?.windowScene else {
             return nil
@@ -25,5 +27,20 @@ class SidebarController: UIHostingController<AnyView> {
         }
         
         return editor.viewController
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        sceneDelegate = view.window?.windowScene?.delegate as? SceneDelegate
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        if presentedViewController == nil {
+            sceneDelegate?.sceneStateStore.reset()
+            sceneDelegate = nil
+        }
     }
 }

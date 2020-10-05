@@ -205,14 +205,20 @@ func directory(for scriptURL: URL) -> URL {
     @objc func stateChanged(_ notification: Notification) {
         textView.contentTextView.isEditable = !(document?.documentState == .editingDisabled)
         
-        save { (_) in
-            self.document?.checkForConflicts(onViewController: self, completion: {
-                if let doc = self.document, let data = try? Data(contentsOf: doc.fileURL) {
-                    try? doc.load(fromContents: data, ofType: "public.python-script")
-                    self.textView.text = doc.text
-                    self.updateSuggestions(force: true)
-                }
-            })
+        if document?.documentState.contains(.inConflict) == true {
+            save { (_) in
+                self.document?.checkForConflicts(onViewController: self, completion: {
+                    if let doc = self.document, let data = try? Data(contentsOf: doc.fileURL) {
+                        try? doc.load(fromContents: data, ofType: "public.python-script")
+                        
+                        if doc.text != self.textView.text {
+                            self.textView.text = doc.text
+                        }
+                        
+                        self.updateSuggestions(force: true)
+                    }
+                })
+            }
         }
     }
     
@@ -645,12 +651,15 @@ func directory(for scriptURL: URL) -> URL {
             self.updateBreakpointMarkersPosition()
         }
         
-        guard (view.frame.height != size.height) || (textView.contentTextView.isFirstResponder && textView.frame.height != view.safeAreaLayoutGuide.layoutFrame.height) else {
+        guard (view.frame.size != size) || (textView.contentTextView.isFirstResponder && textView.frame.height != view.safeAreaLayoutGuide.layoutFrame.height) else {
+            
             DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
                 self.textView.frame = self.view.safeAreaLayoutGuide.layoutFrame
             }
             return
         }
+        
+        self.textView.resignFirstResponder()
         
         _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
             self.textView.frame = self.view.safeAreaLayoutGuide.layoutFrame
@@ -890,7 +899,6 @@ func directory(for scriptURL: URL) -> URL {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        performSearch()
     }
     
     func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -1245,7 +1253,9 @@ func directory(for scriptURL: URL) -> URL {
                 }
             }
             if let shortcut = INShortcut(intent: runScriptIntent) {
-                INVoiceShortcutCenter.shared.setShortcutSuggestions([shortcut])
+                DispatchQueue.global().async {
+                    INVoiceShortcutCenter.shared.setShortcutSuggestions([shortcut])
+                }
             }
         }
         
@@ -1297,8 +1307,8 @@ func directory(for scriptURL: URL) -> URL {
                     
                     guard console.view.window != nil && editorSplitViewController?.ratio != 1 else {
                         editorSplitViewController?.showConsole {
-                            run()
                         }
+                        run()
                         return
                     }
                     
@@ -2226,9 +2236,7 @@ func directory(for scriptURL: URL) -> URL {
             }
         }
     }
-    
-    let codeCompletionQueue = DispatchQueue.global()
-    
+        
     var isCompleting = false
     
     var codeCompletionTimer: Timer?
@@ -2278,16 +2286,14 @@ func directory(for scriptURL: URL) -> URL {
             DispatchQueue.global().async {
                 self.isCompleting = true
                 
-                self.codeCompletionQueue.async {
-                    Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: code)
-                    self.isCompleting = false
-                }
+                Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: code)
+                self.isCompleting = false
             }
         }
         
         if isCompleting { // A timer so it doesn't block the main thread
             codeCompletionTimer?.invalidate()
-            codeCompletionTimer = Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true, block: { (timer) in
+            codeCompletionTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
                 if !self.isCompleting && timer.isValid {
                     complete()
                     timer.invalidate()

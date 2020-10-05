@@ -57,6 +57,56 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         }
     }
     
+    private func crashHandler(_ signal: Int32) {
+        
+        let signalString: String
+        switch signal {
+        case SIGABRT:
+            signalString = "SIGABRT"
+        case SIGFPE:
+            signalString = "SIGFPE"
+        case SIGILL:
+            signalString = "SIGILL"
+        case SIGINT:
+            signalString = "SIGINT"
+        case SIGSEGV:
+            signalString = "SIGSEGV"
+        case SIGBUS:
+            signalString = "SIGBUS"
+        default:
+            signalString = "UNKNOWN"
+        }
+        
+        #if MAIN
+        PyOutputHelper.printError("\(Thread.callStackSymbols.joined(separator: "\n"))\nThread crashed with signal: \(signalString)", script: nil)
+        #endif
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        semaphore.wait()
+    }
+    
+    /// Handles crashes for the current thread.
+    @objc public func handleCrashesForCurrentThread() {
+        signal(SIGABRT, { signal in
+            Python.shared.crashHandler(signal)
+        })
+        signal(SIGFPE, { signal in
+            Python.shared.crashHandler(signal)
+        })
+        signal(SIGILL, { signal in
+            Python.shared.crashHandler(signal)
+        })
+        signal(SIGINT, { signal in
+            Python.shared.crashHandler(signal)
+        })
+        signal(SIGSEGV, { signal in
+            Python.shared.crashHandler(signal)
+        })
+        signal(SIGBUS, { signal in
+            Python.shared.crashHandler(signal)
+        })
+    }
+    
     /// The queue running scripts.
     @objc public let queue = DispatchQueue.global(qos: .userInteractive)
     

@@ -273,7 +273,7 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
         case .contact:
             let controller = MFMailComposeViewController()
             controller.setSubject("Pyto - Contact")
-            controller.setToRecipients(["adrian@labbe.me"])
+            controller.setToRecipients(["support@pyto.app"])
             controller.mailComposeDelegate = self
             viewControllerToPresent = controller
         case .discord:
@@ -319,6 +319,7 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
                 print(error.localizedDescription)
             }
             UserDefaults.standard.synchronize()
+            WCSession.default.transferCurrentComplicationUserInfo(["Reload":"All"])
         } else if lastIndex == IndexPath.todayWidget {
             do {
                 UserDefaults.standard.set(try urls[0].bookmarkData(), forKey: "todayWidgetScriptPath")

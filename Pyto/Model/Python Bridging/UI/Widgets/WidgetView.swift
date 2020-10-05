@@ -16,7 +16,9 @@ import SwiftUI
     
     var rows = [WidgetRow]()
     
+    #if os(iOS)
     var entry: ScriptEntry?
+    #endif
     
     @objc var backgroundColor: UIColor?
         
@@ -53,8 +55,14 @@ import SwiftUI
                     
                 } else if row.isDivider {
                     
+                    #if os(iOS)
+                    let gray = UIColor.systemGray
+                    #elseif os(watchOS)
+                    let gray = UIColor.lightGray
+                    #endif
+                    
                     return AnyView(Rectangle()
-                                    .fill(Color(row.backgroundColor ?? UIColor.systemGray))
+                                    .fill(Color(row.backgroundColor ?? gray))
                                     .frame(height: 1)
                                     .edgesIgnoringSafeArea(.horizontal))
                     
@@ -63,6 +71,7 @@ import SwiftUI
                     let rowContent = HStack {
                         HStack {
                             ForEach(row.content) { view -> AnyView in
+                                #if os(iOS)
                                 if view.identifier != nil, let url = self.entry?.url(viewID: view.identifier) {
                                     
                                     return AnyView(Link(destination: url, label: {
@@ -74,6 +83,9 @@ import SwiftUI
                                     return AnyView(WidgetComponent.PaddingView(view: AnyView(view.makeView.padding(view.paddingEdges)), customPadding: view.customPadding))
                                     
                                 }
+                                #elseif os(watchOS)
+                                return AnyView(WidgetComponent.PaddingView(view: AnyView(view.makeView.padding(view.paddingEdges)), customPadding: view.customPadding))
+                                #endif
                             }
                         }.padding((row.backgroundColor != nil && row.backgroundColor != UIColor.clear) ? .vertical : [])
                          .padding((row.backgroundColor != nil && row.backgroundColor != UIColor.clear) ? .horizontal : [], 10)
@@ -81,6 +93,7 @@ import SwiftUI
                     .background(Color(row.backgroundColor ?? UIColor.clear))
                     .cornerRadius(CGFloat(row.cornerRadius))
                     
+                    #if os(iOS)
                     if row.identifier != nil, let url = self.entry?.url(viewID: row.identifier) {
                         return AnyView(Link(destination: url, label: {
                             rowContent
@@ -88,6 +101,9 @@ import SwiftUI
                     } else {
                         return AnyView(rowContent)
                     }
+                    #elseif os(watchOS)
+                    return AnyView(rowContent)
+                    #endif
                 }
             }
         }

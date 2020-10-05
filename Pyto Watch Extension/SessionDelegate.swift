@@ -8,6 +8,7 @@
 
 import WatchKit
 import WatchConnectivity
+import ClockKit
 
 /// A delegate for the WatchConnectivity session.
 class SessionDelegate: NSObject, WCSessionDelegate {
@@ -20,19 +21,35 @@ class SessionDelegate: NSObject, WCSessionDelegate {
     /// The console for the current running script.
     var console = ""
     
+    /// Code called when the session finished activating.
+    var didActivate: (() -> Void)?
+    
+    var complicationsHandlers = [String: ((Data) -> Void)]()
+    
     // MARK: - Session delegate
-        
+    
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-                
         if let error = error {
             (WKExtension.shared().rootInterfaceController as? InterfaceController)?.label.setText(error.localizedDescription)
         } else {
-            (WKExtension.shared().rootInterfaceController as? InterfaceController)?.label.setText("")
-            console = ""
-            WCSession.default.sendMessageData("Run".data(using: .utf8) ?? Data(), replyHandler: nil, errorHandler: { error in
-                (WKExtension.shared().rootInterfaceController as? InterfaceController)?.label.setText(error.localizedDescription)
-            })
+            didActivate?()
         }
+    }
+    
+    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
+        WCSession.default.sendMessage(["Received":userInfo], replyHandler: nil, errorHandler: nil)
+        if (userInfo["Reload"] as? String) == "All" {
+            for complication in CLKComplicationServer.sharedInstance().activeComplications ?? [] {
+                ComplicationController.cache = [:]
+                CLKComplicationServer.sharedInstance().reloadTimeline(for: complication)
+            }
+        } else if (userInfo["Reload"] as? String) == "Descriptors" {
+            CLKComplicationServer.sharedInstance().reloadComplicationDescriptors()
+        }
+    }
+    
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+        
     }
     
     func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
@@ -79,9 +96,14 @@ class SessionDelegate: NSObject, WCSessionDelegate {
     }
     
     func session(_ session: WCSession, didReceive file: WCSessionFile) {
-        if let data = try? Data(contentsOf: file.fileURL), let image = UIImage(data: data) {
-            DispatchQueue.main.async {
-                WKExtension.shared().rootInterfaceController?.pushController(withName: "Image", context: image)
+        if let data = try? Data(contentsOf: file.fileURL) {
+            if let image = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    WKExtension.shared().rootInterfaceController?.pushController(withName: "Image", context: image)
+                }
+            } else if let id = file.metadata?["id"] as? String {
+                complicationsHandlers[id]?(data)
+                complicationsHandlers[id] = nil
             }
         }
     }

@@ -38,6 +38,7 @@ class Thread(threading.Thread):
 
     def run(self):
         pool = NSAutoreleasePool.alloc().init()
+        Python.shared.handleCrashesForCurrentThread()
         super().run()
         pool.release()
         del pool
@@ -62,6 +63,7 @@ class PythonImplementation(NSObject):
     
     @objc_method
     def runCode_(self, code):
+        Python.shared.handleCrashesForCurrentThread()
         try:
             exec(str(code))
         except:
@@ -84,3 +86,4 @@ class PythonImplementation(NSObject):
 
 Python.pythonShared = PythonImplementation.alloc().init()
 
+Python.shared.handleCrashesForCurrentThread()

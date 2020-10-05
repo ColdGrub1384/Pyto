@@ -821,35 +821,41 @@ int initialize_python(int argc, char *argv[]) {
     // SKLearn data
     putenv((char *)[NSString stringWithFormat:@"SCIKIT_LEARN_DATA=%@", [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask].firstObject.path].UTF8String);
     
-    // MARK: - Init Python
-    Py_SetPythonHome(Py_DecodeLocale([pythonBundle.bundlePath UTF8String], NULL));
-    Py_Initialize();
-    PyEval_InitThreads();
-    
     #if MAIN
-    wchar_t** python_argv = PyMem_RawMalloc(sizeof(wchar_t*) * argc);
-    int i;
-    for (i = 0; i < argc; i++) {
-        python_argv[i] = Py_DecodeLocale(argv[i], NULL);
-    }
-    PySys_SetArgv(argc, python_argv);
+    dispatch_async(dispatch_queue_create(NULL, NULL), ^{
     #endif
-    
-    // Now the app initializes modules when they are imported
-    // That makes the app startup a lot faster
-    // It's not recommended by the Python docs to add builtin modules after PyInitialize
-    // But it works after adding mod names to builtin mod names manually
-    #if !SCREENSHOTS
-    init_pil();
+        // MARK: - Init Python
+        Py_SetPythonHome(Py_DecodeLocale([pythonBundle.bundlePath UTF8String], NULL));
+        Py_Initialize();
+        PyEval_InitThreads();
+        
+        #if MAIN
+        wchar_t** python_argv = PyMem_RawMalloc(sizeof(wchar_t*) * argc);
+        int i;
+        for (i = 0; i < argc; i++) {
+            python_argv[i] = Py_DecodeLocale(argv[i], NULL);
+        }
+        PySys_SetArgv(argc, python_argv);
+        #endif
+        
+        // Now the app initializes modules when they are imported
+        // That makes the app startup a lot faster
+        // It's not recommended by the Python docs to add builtin modules after PyInitialize
+        // But it works after adding mod names to builtin mod names manually
+        #if !SCREENSHOTS
+        init_pil();
+        #if MAIN
+        init_numpy();
+        init_cffi();
+        #endif
+        #endif
+        
+        // MARK: - Start the REPL that will contain all child modules
+        #if !WIDGET
+        [Python.shared runScriptAt:[[NSBundle mainBundle] URLForResource:@"scripts_runner" withExtension:@"py"]];
+        #endif
     #if MAIN
-    init_numpy();
-    init_cffi();
-    #endif
-    #endif
-    
-    // MARK: - Start the REPL that will contain all child modules
-    #if !WIDGET
-    [Python.shared runScriptAt:[[NSBundle mainBundle] URLForResource:@"scripts_runner" withExtension:@"py"]];
+    });
     #endif
     
     #if MAIN

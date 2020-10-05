@@ -915,11 +915,7 @@ class Text(WidgetComponent):
         check(corner_radius, "corner_radius", [float, int])
 
         self.text = text
-
-        if color is None:
-            self.color = COLOR_LABEL
-        else:
-            self.color = color
+        self.color = color
 
         if font is None:
             self.font = Font.system_font_of_size(FONT_SYSTEM_SIZE)
@@ -929,9 +925,18 @@ class Text(WidgetComponent):
     def __make_objc_view__(self):
         obj = __Class__("WidgetText").alloc().init()
         obj.text = self.text
-        obj.color = self.color.__py_color__.managed
+        
+        try:
+            obj.color = self.color.__py_color__.managed
+        except AttributeError:
+            pass
+
+        try:
+            obj.backgroundColor = self.background_color.__py_color__.managed
+        except AttributeError:
+            pass
+
         obj.font = self.font.__ui_font__
-        obj.backgroundColor = self.background_color.__py_color__.managed
         obj.cornerRadius = self.corner_radius
         __set_padding__(self.padding, obj)
         obj.identifier = self.link
@@ -1016,11 +1021,7 @@ class DynamicDate(WidgetComponent):
 
         self.date = date
         self.style = style
-
-        if color is None:
-            self.color = COLOR_LABEL
-        else:
-            self.color = color
+        self.color = color
 
         if font is None:
             self.font = Font.system_font_of_size(FONT_SYSTEM_SIZE)
@@ -1050,9 +1051,18 @@ class DynamicDate(WidgetComponent):
             second=date.second,
         )
         obj.style = self.style
-        obj.color = self.color.__py_color__.managed
+        
+        try:
+            obj.color = self.color.__py_color__.managed
+        except AttributeError:
+            pass
+
+        try:
+            obj.backgroundColor = self.background_color.__py_color__.managed
+        except AttributeError:
+            pass
+
         obj.font = self.font.__ui_font__
-        obj.backgroundColor = self.background_color.__py_color__.managed
         obj.cornerRadius = self.corner_radius
         __set_padding__(self.padding, obj)
         obj.identifier = self.link
@@ -1104,19 +1114,24 @@ class SystemSymbol(WidgetComponent):
         check(font_size, "font_size", [float, int, None])
 
         self.symbol_name = symbol_name
-
-        if color is None:
-            self.color = COLOR_LABEL
-        else:
-            self.color = color
+        self.color = color
 
         self.font_size = font_size
 
     def __make_objc_view__(self):
         obj = __Class__("WidgetSymbol").alloc().init()
         obj.symbolName = self.symbol_name
-        obj.color = self.color.__py_color__.managed
-        obj.backgroundColor = self.background_color.__py_color__.managed
+        
+        try:
+            obj.color = self.color.__py_color__.managed
+        except AttributeError:
+            pass
+
+        try:
+            obj.backgroundColor = self.background_color.__py_color__.managed
+        except AttributeError:
+            pass
+
         obj.cornerRadius = self.corner_radius
 
         if self.font_size is not None:
@@ -1169,7 +1184,10 @@ class Image(WidgetComponent):
     def __make_objc_view__(self):
         obj = __Class__("WidgetImage").alloc().init()
         obj.image = __image__.__ui_image_from_pil_image__(self.image)
-        obj.backgroundColor = self.background_color.__py_color__.managed
+        try:
+            obj.backgroundColor = self.background_color.__py_color__.managed
+        except AttributeError:
+            pass
         obj.cornerRadius = self.corner_radius
         __set_padding__(self.padding, obj)
         obj.identifier = self.link

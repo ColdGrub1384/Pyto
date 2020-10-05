@@ -27,9 +27,16 @@ import SwiftUI
     }
     
     override var makeView: AnyView {
+        
+        #if os(iOS)
+        let label = UIColor.label
+        #elseif os(watchOS)
+        let label = UIColor.white
+        #endif
+        
         return AnyView(Image(systemName: symbolName ?? "")
                         .font(_font)
-                        .foregroundColor(Color(color ?? UIColor.label))
+                        .foregroundColor(Color(color ?? label))
                         .padding((backgroundColor != nil && backgroundColor != UIColor.clear) ? .all : [])
                         .background(Color(backgroundColor ?? UIColor.clear))
                         .cornerRadius(CGFloat(cornerRadius)))

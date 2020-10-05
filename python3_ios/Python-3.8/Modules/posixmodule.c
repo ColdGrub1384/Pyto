@@ -20,6 +20,8 @@
 #  pragma weak statvfs
 #  pragma weak fstatvfs
 
+#import <TargetConditionals.h>
+
 #endif /* __APPLE__ */
 
 #define PY_SSIZE_T_CLEAN
@@ -4354,7 +4356,11 @@ os_system_impl(PyObject *module, PyObject *command)
     void *c = dlopen(NULL, RTLD_NOW);
     int (*runCommand)(const char *);
     runCommand = dlsym(c, "system");
+    #if !TARGET_OS_SIMULATOR
     result = runCommand(bytes);
+    #else
+    result = -1;
+    #endif
     Py_END_ALLOW_THREADS
     return result;
 }

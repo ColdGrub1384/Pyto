@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import WatchConnectivity
 
 @objc class WidgetText: WidgetComponent {
         
@@ -41,9 +42,17 @@ import SwiftUI
     @objc var font: UIFont?
     
     override var makeView: AnyView {
+        #if os(iOS)
+        let label = UIColor.label
+        let fontSize = UIFont.systemFontSize
+        #elseif os(watchOS)
+        let label = UIColor.white
+        let fontSize = CGFloat(17)
+        #endif
+                
         return AnyView(Text(text ?? "")
-                        .foregroundColor(Color(color ?? UIColor.label))
-                        .font(Font(font ?? UIFont.systemFont(ofSize: UIFont.systemFontSize)))
+                        .foregroundColor(Color(color ?? label))
+                        .font(Font(font ?? UIFont.systemFont(ofSize: fontSize)))
                         .padding((backgroundColor != nil && backgroundColor != UIColor.clear) ? .all : [])
                         .background(Color(backgroundColor ?? UIColor.clear))
                         .cornerRadius(CGFloat(cornerRadius)))
@@ -73,9 +82,15 @@ import SwiftUI
     override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         
+        #if os(iOS)
+        let fontSize = UIFont.systemFontSize
+        #elseif os(watchOS)
+        let fontSize = CGFloat(17)
+        #endif
+        
         var container = encoder.container(keyedBy: Keys.self)
         try container.encode(text, forKey: .text)
         try container.encode(color?.encode(), forKey: .color)
-        try container.encode(CodableFont(font: font ?? UIFont.systemFont(ofSize: UIFont.systemFontSize)), forKey: .font)
+        try container.encode(CodableFont(font: font ?? UIFont.systemFont(ofSize: fontSize)), forKey: .font)
     }
 }
