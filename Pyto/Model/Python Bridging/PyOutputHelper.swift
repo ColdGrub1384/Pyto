@@ -109,6 +109,8 @@ fileprivate extension ConsoleViewController {
             return
         }
         
+        Swift.print(text_, terminator: "")
+        
         #if MAIN
         text_ = ShortenFilePaths(in: text_)
         
@@ -255,7 +257,7 @@ fileprivate extension ConsoleViewController {
         #if MAIN
         text_ = ShortenFilePaths(in: text_)
         
-        Swift.print(text_)
+        Swift.print(text_, terminator: "")
         
         output += text_
         

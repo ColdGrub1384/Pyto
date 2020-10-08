@@ -67,6 +67,7 @@ public class ContainerViewController: UIViewController {
             if editor.isConsoleShown {
                 editor.showConsole {}
             } else {
+                editor.exitScript = false
                 editor.showEditor()
             }
         }

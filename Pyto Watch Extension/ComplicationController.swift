@@ -88,6 +88,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         
         if entries.count > 0 {
             WCSession.default.sendMessage(["Entries": entries.count], replyHandler: nil, errorHandler: nil)
+            ComplicationController.cache[complication]?.cachedTimeline = []
             handler(entries)
             return
         }
@@ -102,7 +103,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
                     ComplicationController.cache[complication] = ComplicationCache()
                 }
                 
-                ComplicationController.cache[complication]?.cachedTimeline.append(contentsOf: views)
+                ComplicationController.cache[complication]?.cachedTimeline = views
                 var entries = [CLKComplicationTimelineEntry]()
                 for view in views {
                     if let entry = self.entry(for: view, complication: complication) {
@@ -113,13 +114,18 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
                     }
                 }
                 handler(entries)
-                //CLKComplicationServer.sharedInstance().reloadTimeline(for: complication)
             } catch {
                 WCSession.default.sendMessage(["error":error.localizedDescription], replyHandler: nil, errorHandler: nil)
                 handler(nil)
             }
         }
-        WCSession.default.sendMessage([id: [date, limit, complication.identifier]], replyHandler: nil, errorHandler: nil)
+        WCSession.default.sendMessage([id: [date, limit, complication.identifier]], replyHandler: nil, errorHandler: { error in
+            WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: Date().addingTimeInterval(60*15), userInfo: nil) { (error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+            }
+        })
     }
 
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {

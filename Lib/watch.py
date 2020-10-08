@@ -4,9 +4,15 @@ import userkeys as uk
 import __watch_script_store__ as store
 from __check_type__ import check
 from typing import Union, List
+from threading import current_thread
+from pyto import Python
 
 
 __PyComplication__ = wd.__Class__("PyComplication")
+__PyWatchUI__ = wd.__Class__("PyWatchUI")
+
+
+__cached_ui__ = None
 
 
 def schedule_next_reload(time: Union[datetime.timedelta, float]):
@@ -129,10 +135,6 @@ class Complication:
 
 
 def __objc__(complication: Complication):
-    """
-    Sends the complication to the Watch.
-    """
-
     objc = __PyComplication__.alloc().init()
 
     objc.addView(complication.circular.__widget_view__, family=0)
@@ -144,6 +146,10 @@ def __objc__(complication: Complication):
 
 
 def reload_complications():
+    """
+    Reloads complications currently displayed on the paired Apple Watch.
+    """
+
     __PyComplication__.reload()
 
 
@@ -160,14 +166,46 @@ def __reload_descriptors__():
 
 
 class ComplicationsProvider:
+    """
+    An abstract class for implementing Apple Watch complications.
+    """
 
     def name(self) -> str:
+        """
+        Return the name of the complication.
+        This name is used in the Watch Face setup.
+
+        :rtype: str
+        """
+
         raise NotImplementedError("Implement 'name()' to provide complications.")
 
     def complication(self, date: datetime.datetime) -> Complication:
+        """
+        Return a complication to be displayed in the Watch Face at the given date.
+
+        :param date: The date at which the returned complication will be displayed.
+
+        :rtype: Complication
+        """
+
         raise NotImplementedError("Implement 'complication(date)' to provide complications.")
 
     def timeline(self, after_date: datetime.datetime, limit: int) -> List[datetime.datetime]:
+        """
+        Return a list of dates. The Apple Watch will display a complication on each of the returned dates.
+        The Apple Watch will call this function to request data for the future.
+
+
+        You should fetch your data from this function and return the dates for which you have data for.
+        Then the :meth:`~watch.Complication.complication` method will be called for each date to configure the content.
+
+        :param after_date: The date when the timeline begins.
+        :param limit: A limit of dates that can be returned (usually 100).
+
+        :rtype: List[datetime.datetime]
+        """
+
         raise NotImplementedError("Implement 'timelines(after_date, limit)' to provide complications.")
 
     def __complications__(self, after_date, limit):
@@ -178,5 +216,43 @@ class ComplicationsProvider:
 
 
 def add_complications_provider(provider: ComplicationsProvider):
+    """
+    Adds a complication to the Apple Watch. After adding the :class:`~watch.ComplicationsProvider` object, you will be able to add the complication to your Watch Face.
+    This function must be called from the script configured for the Apple Watch so the passed object can provide the data to the Watch Face.
+
+    :param provider: The object that will provide data to the complication.
+    """
+
     store.providers[provider.name()] = provider
     __reload_descriptors__()
+
+    try:
+        path = current_thread().script_path
+        if path == str(Python.watchScriptURL.path):
+            reload_complications()
+    except AttributeError:
+        pass
+
+
+def make_interface() -> wd.WidgetLayout:
+    """
+    Creates and returns a :class:`~widget.WidgetLayout` instance.
+    When the script finishes running, the content of the returned object will be passed and displayed in the Apple Watch.
+    This function must be called from the script configured in the Apple Watch.
+
+    :rtype: wd.WidgetLayout
+    """
+
+    global __cached_ui__
+
+    view = wd.WidgetLayout()
+    __cached_ui__ = view.__widget_view__
+    return view
+
+
+def __show_ui_if_needed__():
+    global __cached_ui__
+
+    if __cached_ui__ is not None:
+        __PyWatchUI__.sendUI(__cached_ui__)
+    __cached_ui__ = None

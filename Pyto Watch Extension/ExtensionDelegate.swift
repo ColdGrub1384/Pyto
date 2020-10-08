@@ -19,8 +19,11 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
         WCSession.default.delegate = SessionDelegate.shared
         WCSession.default.activate()
     }
-
-    func applicationDidBecomeActive() {
+    
+    func applicationWillEnterForeground() {
+        if PyWatchUI.cachedView != nil {
+            PyWatchUI.showView()
+        }
         
         if WCSession.default.activationState != .activated {
             
@@ -40,17 +43,17 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
             WCSession.default.sendMessageData("Run".data(using: .utf8) ?? Data(), replyHandler: nil, errorHandler: nil)
         }
     }
-
-    func applicationWillResignActive() {
+    
+    func applicationDidEnterBackground() {
         WCSession.default.sendMessageData("Stop".data(using: .utf8) ?? Data(), replyHandler: nil, errorHandler: nil)
+        WKExtension.shared().visibleInterfaceController?.dismiss()
     }
-
+    
     func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>) {
         for task in backgroundTasks {
             switch task {
             case let backgroundTask as WKApplicationRefreshBackgroundTask:
                 WCSession.default.sendMessage(["Called": "handle"], replyHandler: nil, errorHandler: nil)
-                ComplicationController.cache = [:]
                 for complication in CLKComplicationServer.sharedInstance().activeComplications ?? [] {
                     CLKComplicationServer.sharedInstance().extendTimeline(for: complication)
                 }

@@ -146,10 +146,6 @@ import TrueTime
             if FileManager.default.fileExists(atPath: modsDir.path) {
                 try FileManager.default.removeItem(at: modsDir)
             }
-            
-            let sitePackages = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("site-packages-widget-shortcuts")
-            
-            try FileManager.default.copyItem(at: sitePackages, to: modsDir)
         } catch {
             print(error.localizedDescription)
         }
@@ -740,6 +736,9 @@ extension AppDelegate: WCSessionDelegate {
                             notif.message = str(e)
                             nc.send_notification(notif)
                     finally:
+
+                        wt.__cached_ui__ = None
+
                         complication = wt.__PyComplication__.sendObject
                         delegate.callComplicationHandlerWithId("\(complicationId)", complication=complication)
                         Event().wait()

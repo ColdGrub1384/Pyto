@@ -125,7 +125,6 @@ extension SceneDelegate {
     // MARK: - Scene delegate
     
     func stateRestorationActivity(for scene: UIScene) -> NSUserActivity? {
-        
         do {
             let data = try JSONEncoder().encode(sceneStateStore.sceneState)
             

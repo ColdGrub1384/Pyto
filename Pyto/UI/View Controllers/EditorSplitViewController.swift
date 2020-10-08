@@ -177,6 +177,8 @@ public class EditorSplitViewController: SplitViewController {
     /// A boolean indicating whether `showEditor` and  `showConsole(completionm:)` are animated.
     var animateLayouts = true
     
+    var exitScript = true
+    
     /// Shows the editor on full screen.
     @objc func showEditor() {
         
@@ -227,9 +229,11 @@ public class EditorSplitViewController: SplitViewController {
             self.animateLayouts = true
         })
         
-        if let path = editor?.document?.fileURL.path {
+        if let path = editor?.document?.fileURL.path, exitScript {
             Python.shared.stop(script: path)
         }
+        
+        exitScript = true
     }
     
     /// A boolean indicating whether the console is shown in full screen.

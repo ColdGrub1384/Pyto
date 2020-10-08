@@ -65,7 +65,18 @@ import WatchConnectivity
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: Key.self)
-        try container.encode(views, forKey: .views)
-        try container.encode(timestamp, forKey: .timestamp)
+        
+        func encode() {
+            try? container.encode(views, forKey: .views)
+            try? container.encode(timestamp, forKey: .timestamp)
+        }
+        
+        #if os(iOS)
+        UITraitCollection(userInterfaceStyle: .dark).performAsCurrent {
+            encode()
+        }
+        #else
+        encode()
+        #endif
     }
 }

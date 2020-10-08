@@ -40,7 +40,6 @@ class SessionDelegate: NSObject, WCSessionDelegate {
         WCSession.default.sendMessage(["Received":userInfo], replyHandler: nil, errorHandler: nil)
         if (userInfo["Reload"] as? String) == "All" {
             for complication in CLKComplicationServer.sharedInstance().activeComplications ?? [] {
-                ComplicationController.cache = [:]
                 CLKComplicationServer.sharedInstance().reloadTimeline(for: complication)
             }
         } else if (userInfo["Reload"] as? String) == "Descriptors" {
@@ -104,6 +103,21 @@ class SessionDelegate: NSObject, WCSessionDelegate {
             } else if let id = file.metadata?["id"] as? String {
                 complicationsHandlers[id]?(data)
                 complicationsHandlers[id] = nil
+            } else {
+                do {
+                    
+                    if FileManager.default.fileExists(atPath: PyWatchUI.cacheURL.path) {
+                        try? FileManager.default.removeItem(at: PyWatchUI.cacheURL)
+                    }
+                    
+                    try FileManager.default.moveItem(at: file.fileURL, to: PyWatchUI.cacheURL)
+                    
+                    if WKExtension.shared().applicationState == .active {
+                        PyWatchUI.showView()
+                    }
+                } catch {
+                    WCSession.default.sendMessage(["error": error.localizedDescription], replyHandler: nil, errorHandler: nil)
+                }
             }
         }
     }

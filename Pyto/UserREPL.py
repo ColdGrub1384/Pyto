@@ -13,6 +13,9 @@ try:
         banner = "\n\n* REPL restored *\n"
 
     console.__runREPL__(__file__.split("/")[-1], banner=banner)
+    print("Done")
+except Exception as e:
+    print(str(e))
 finally:
     del console.__repl_namespace__[__file__.split("/")[-1]]
     REPLViewController.goToFileBrowser()

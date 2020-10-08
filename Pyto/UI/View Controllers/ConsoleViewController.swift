@@ -897,6 +897,15 @@ import SwiftUI
         NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { [weak self] (notif) in
             self?.themeDidChange(notif)
         }
+        
+        NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: nil) { [weak self] (notif) in
+            self?.movableTextField?.textField.resignFirstResponder()
+            #if MAIN
+            self?.movableTextField?.toolbar.frame.origin.y = (self?.view.safeAreaLayoutGuide.layoutFrame.height ?? 0)-(self?.movableTextField?.toolbar.frame.height ?? 0)
+            #else
+            self?.movableTextField?.toolbar.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.height ?? 0
+            #endif
+        }
         #endif
         
         edgesForExtendedLayout = []
