@@ -26,3 +26,14 @@ def __ui_image_from_pil_image__(image):
     image = UIImage.alloc().initWithData(data)
     data.release()
     return image
+
+def __pil_image_from_ui_image__(image):
+
+    from PIL import Image
+
+    if image is None:
+        return None
+
+    img_str = str(image.data.base64EncodedStringWithOptions(0))
+    msg = base64.b64decode(img_str)
+    return Image.open(BytesIO(msg))

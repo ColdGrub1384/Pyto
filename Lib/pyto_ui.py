@@ -15,7 +15,7 @@ from Foundation import NSThread
 from typing import List, Callable, Tuple
 from pyto import __Class__, ConsoleViewController, PyAlert as __PyAlert__
 from __check_type__ import check
-from __image__ import __ui_image_from_pil_image__
+from __image__ import __ui_image_from_pil_image__, __pil_image_from_ui_image__
 from time import sleep
 from io import BytesIO
 from threading import Thread
