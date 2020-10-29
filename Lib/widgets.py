@@ -42,6 +42,8 @@ try:
     from PIL import Image as PIL_Image
 except ModuleNotFoundError:
     PIL_Image = None
+except ImportError:
+    PIL_Image = None
 
 
 def __Class__(name):
@@ -90,8 +92,14 @@ See :data:`~widgets.WidgetComponent.link`, :meth:`~widgets.WidgetLayout.add_row`
 :rtype: str
 """
 
+
+if "console" in sys.modules:
+    __widget_id__ = sys.modules["console"].__widget_id__
+else:
+    __widget_id__ = None
+
+
 __PyWidget__ = __Class__("PyWidget")
-__widget_id__ = None
 __shown_view__ = False
 __PyColor__ = __Class__("PyColor")
 try:
@@ -185,6 +193,31 @@ def save_snapshot(view: PytoUIView, key: str):
         raise TypeError(msg)
 
     __show_view__(view, key)
+
+
+def reload_widgets(names: Union[str, List[str]]):
+    """
+    Reloads the widgets corresponding to the given scripts names.
+    It works only for "Run Script" widgets.
+
+    The names can and can also not contain the ".py" suffix.
+
+    :param names: A string or a list of strings corresponding to the scripts to reload as widgets.
+    """
+
+    check(names, "names", [str, list])
+
+    if isinstance(names, str):
+        names = [names]
+    
+    _names = []
+    for name in _names:
+        if not name.endswith(".py"):
+            _names.append(name+".py")
+        else:
+            _names.append(name)
+
+    __PyWidget__.reloadWidgets(_names)
 
 
 ###############
@@ -462,7 +495,7 @@ class Color:
             return False
 
 
-if "pyto_ui" in sys.modules:
+if "pyto_ui" in sys.modules and "sphinx" not in sys.modules:
     try:
         Color = sys.modules["pyto_ui"].Color
     except AttributeError:
@@ -1256,6 +1289,24 @@ class WidgetLayout:
         except AttributeError:
             self.__widget_view__.backgroundColor = COLOR_CLEAR
 
+    def set_background_gradient(self, colors: List[Color]):
+        """
+        Sets the background color of the widget layout to a gradient.
+        The gradient is linear and goes from top to bottom and uses the colors passed as a list.
+
+        :param colors: A list of :class:`~widgets.Color` objects for the gradient.
+        """
+
+        check(colors, "colors", [list, None])
+
+        if colors is None:
+            self.__widget_view__.backgroundGradient = None
+        else:
+            ui_colors = []
+            for color in colors:
+                ui_colors.append(color.__py_color__.managed)
+            self.__widget_view__.backgroundGradient = ui_colors
+
     def set_background_image(self, image: Image):
         """
         Sets the background image of the widget layout.
@@ -1275,7 +1326,7 @@ class WidgetLayout:
     def add_row(
         self,
         row: List[WidgetComponent],
-        background_color: Color = COLOR_CLEAR,
+        background_color: Color = None,
         corner_radius: float = 0,
         link: str = None,
     ):
@@ -1289,9 +1340,12 @@ class WidgetLayout:
         """
 
         check(row, "row", [list])
-        check(background_color, "background_color", [Color, __pyto_ui_color__()])
+        check(background_color, "background_color", [Color, __pyto_ui_color__(), None])
         check(corner_radius, "corner_radius", [float, int])
         check(link, "link", [str, None])
+
+        if background_color is None:
+            background_color = COLOR_CLEAR
 
         objc_row = []
 
@@ -1375,6 +1429,84 @@ def __show_widget__(widget: Widget, key: str):
         __PyWidget__.addWidget(_widget, key=key)
 
 
+class TimelineProvider:
+    """
+    A timeline providers allows a script to provide content to a widget for the future.
+    
+    Pass a subclass of :class:`~widgets.TimelineProvider` to :func:`~widgets.provide_timeline` to provide a timeline of widgets.
+    Calling this function in app will just preview the widget and will not have any effect.
+    """
+
+    def __reload_time__(self):
+        time = self.reload_time()
+
+        seconds = 0
+
+        if isinstance(time, datetime.timedelta):
+            seconds = time.total_seconds()
+        else:
+            seconds = time
+        
+        return seconds
+
+    def reload_time(self) -> Union[datetime.timedelta, float]:
+        """
+        Returns the delay after which the widget should reload and run the script again. 
+        The return value is the delay between the last timeline entry and the next reload. The system doesn't guarantees the widget to be reloaded at an exact time.
+
+        Supported return types are ``float``s representing seconds or a ``datetime.timedelta`` object.
+
+        :rtype: Union[datetime.timedelta, float]
+        """
+
+        return 0
+
+    def widget(self, date: datetime.datetime) -> Widget:
+        """
+        Returns a widget for the given timestamp.
+
+        :rtype: Widget
+        """
+
+        raise NotImplementedError("Implement 'WidgetTimelineProvider' to support timelines.")
+
+    def timeline(self) -> List[datetime.datetime]:
+        """
+        Returns a list of timestamps for which the script has data.
+        Make sure to not provide an exaggerated ammount of dates because the widget can crash due to memory issues.
+
+        :rtype: List[datetime.datetime]
+        """
+
+        raise NotImplementedError("Implement 'WidgetTimelineProvider' to support timelines.")
+
+
+def provide_timeline(provider: TimelineProvider):
+    """
+    Provides a timeline of widgets for the future.
+
+    :param provider: A :class:`~widgets.TimelineProvider` subclass.
+    """
+
+    widgets = []
+
+    dates = provider.timeline()
+    for date in dates:
+        widget = provider.widget(date)
+        py_widget = __PyWidget__.alloc().init()
+        py_widget.timelineDateTimestamp = date.timestamp()
+        try:
+            py_widget.scriptPath = threading.current_thread().script_path
+        except AttributeError:
+            py_widget.scriptPath = None
+        py_widget.addView(widget.small_layout.__widget_view__, family=0)
+        py_widget.addView(widget.medium_layout.__widget_view__, family=1)
+        py_widget.addView(widget.large_layout.__widget_view__, family=2)
+        widgets.append(py_widget)
+
+    __PyWidget__.updateTimeline(__widget_id__, widgets=widgets, reloadAfter=provider.__reload_time__())
+
+
 def show_widget(widget: Widget):
     """
     Shows a widget with the given configuration
@@ -1399,3 +1531,12 @@ def save_widget(widget: Widget, key: str):
     check(key, "key", [str])
 
     __show_widget__(widget, key)
+
+def delete_in_app_widget(key: str):
+    """
+    Deletes a widget saved with :func:`~widgets.save_widget` or :func:`~widgets.save_snapshot`.
+
+    :param key: The name of the widget.
+    """
+
+    __PyWidget__.removeWidget(key)
