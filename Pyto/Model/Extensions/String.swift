@@ -49,10 +49,12 @@ extension String {
         }
     }
     
+    #if MAIN || WIDGET
     /// Returns a `wchar_t` pointer from this String to be used with CPython.
     var cWchar_t: UnsafeMutablePointer<wchar_t> {
         return Py_DecodeLocale(cValue, nil)
     }
+    #endif
     
     /// Returns a C pointer to pass this `String` to C functions.
     var cValue: UnsafeMutablePointer<Int8> {
