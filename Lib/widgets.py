@@ -25,6 +25,8 @@ import ui_constants
 import sys
 import __image__
 import threading
+from pyto import Python
+
 
 try:
     if "sphinx" in sys.modules:
@@ -69,7 +71,16 @@ class PytoUIView: # Travis CI doesn't let me mark a parameter as 'ui.View' witho
     pass
 
 
-link: str = None
+try:
+    if Python.shared.widgetLink is not None:
+        _link = str(Python.shared.widgetLink)
+    else:
+        _link = None
+except AttributeError:
+    _link = None
+
+
+link: str = _link
 """
 When an UI element with a ``link`` attribute in a medium or large widget is pressed, the widget script will be opened in foreground and the ``link`` attribute will be passed to this variable.
 At the beginning of a widget script, you can check if this variable is ``None``. If it's not, that means an UI element with a ``link`` attribute was pressed.
