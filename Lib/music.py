@@ -15,7 +15,7 @@ Example:
 
 from pyto_ui import __pil_image_from_ui_image__
 from typing import List
-from pyto import PyMusicHelper
+from pyto import PyMusicHelper, __Class__
 from ctypes import cdll
 import PIL
 import threading
@@ -40,6 +40,8 @@ try:
     MediaPlayer = cdll.LoadLibrary(
         "/System/Library/Frameworks/MediaPlayer.framework/MediaPlayer"
     )
+
+    _PyMusicItem = __Class__("PyMusicItem")
 except (NameError, ValueError):
     MPMusicPlayerController = "MPMusicPlayerController"
     """ The 'MPMusicPlayerController' class from the 'MediaPlayer' framework. """
@@ -155,7 +157,13 @@ class MediaItem:
     __item__ = None
 
     def __init__(self, item: MPMediaItem):
-        self.__item__ = item
+        self.__item__ = _PyMusicItem.alloc().initWithValue(item)
+
+    def __eq__(self, other):
+        try:
+            return self.persistent_id == other.persistent_id
+        except AttributeError:
+            return False
 
     @property
     def album_artist(self) -> str:
