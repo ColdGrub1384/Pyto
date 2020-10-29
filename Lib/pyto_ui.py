@@ -1858,7 +1858,7 @@ class ButtonItem:
         self.__py_item__.title = new_value
 
     @property
-    def image(self) -> "Image":
+    def image(self) -> "Image.Image":
         """
         A ``PIL`` image object displayed on screen. May also be an ``UIKit`` ``UIImage`` symbol. See :func:`~pyto_ui.image_with_system_name`.
 
@@ -4178,7 +4178,7 @@ class Button(Control):
             self.__py_view__.titleColor = new_value.__py_color__
 
     @property
-    def image(self) -> "Image":
+    def image(self) -> "Image.Image":
         """
         The image displayed on the button. Can be a ``PIL`` image or an ``UIKit`` symbol image. For more information about symbols, see :func:`~pyto_ui.image_with_system_name`.
 
@@ -4489,18 +4489,6 @@ class TextField(Control):
 ###################
 # MARK: - Functions
 ###################
-
-
-def __pil_image_from_ui_image__(image):
-
-    from PIL import Image
-
-    if image is None:
-        return None
-
-    img_str = str(image.data.base64EncodedStringWithOptions(0))
-    msg = base64.b64decode(img_str)
-    return Image.open(BytesIO(msg))
 
 
 def font_family_names() -> List[str]:
