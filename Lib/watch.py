@@ -1,3 +1,9 @@
+"""
+Apple Watch
+
+The 'watch' module provides APIs for building complications and showing UIs on the Apple Watch.
+"""
+
 import widgets as wd
 import datetime
 import userkeys as uk
@@ -15,14 +21,7 @@ __PyWatchUI__ = wd.__Class__("PyWatchUI")
 __cached_ui__ = None
 
 
-def schedule_next_reload(time: Union[datetime.timedelta, float]):
-    """
-    Schedules the next reload of the complication.
-    The complication may not be reloaded more than 4 times in 1 hour so be careful and reload only when needed (every 15-20 minutes should be good).
-
-    :param time: The time passed before the complication should reload. A ``datetime.timedelta`` object or the number of seconds.
-    """
-
+def _schedule_next_reload(time: Union[datetime.timedelta, float]):
     check(time, "time", [datetime.timedelta, float, int])
 
     seconds = 0
@@ -35,7 +34,7 @@ def schedule_next_reload(time: Union[datetime.timedelta, float]):
     __PyComplication__.updateInterval = seconds
 
 
-class Progess(wd.WidgetComponent):
+class Progress(wd.WidgetComponent):
     """
     A view indicating a progress.
     """
@@ -81,7 +80,7 @@ class Progess(wd.WidgetComponent):
         check(color, "color", [wd.Color, wd.__pyto_ui_color__(), None])
 
         if value < 0 or value > 1:
-            raise ValueError("The value of a progess bar must be between 0 and 1.")
+            raise ValueError("The value of a progress bar must be between 0 and 1.")
 
         self.value = value
         self.circular = circular
@@ -111,6 +110,8 @@ class Progess(wd.WidgetComponent):
 class Complication:
     """
     The configuration of a Watch Complication, which is a set of different layouts.
+
+    Use the `widgets <widgets.html>`_ APIs to build a complication UI.
     """
 
     rectangular: wd.WidgetLayout = wd.WidgetLayout()
@@ -182,9 +183,9 @@ class ComplicationsProvider:
 
     def complication(self, date: datetime.datetime) -> Complication:
         """
-        Return a complication to be displayed in the Watch Face at the given date.
+        Return a complication to be displayed in the Watch Face at the given moment.
 
-        :param date: The date at which the returned complication will be displayed.
+        :param date: The timestamp at which the returned complication will be displayed.
 
         :rtype: Complication
         """
@@ -193,14 +194,14 @@ class ComplicationsProvider:
 
     def timeline(self, after_date: datetime.datetime, limit: int) -> List[datetime.datetime]:
         """
-        Return a list of dates. The Apple Watch will display a complication on each of the returned dates.
+        Return a list of timestamps. The Apple Watch will display a complication on each of the returned dates.
         The Apple Watch will call this function to request data for the future.
 
 
-        You should fetch your data from this function and return the dates for which you have data for.
-        Then the :meth:`~watch.Complication.complication` method will be called for each date to configure the content.
+        You should fetch your data from this function and return the ``datetime`` objects for which you have data.
+        Then the :meth:`~watch.Complication.complication` method will be called for each timestamp to configure the content.
 
-        :param after_date: The date when the timeline begins.
+        :param after_date: The moment when the timeline begins.
         :param limit: A limit of dates that can be returned (usually 100).
 
         :rtype: List[datetime.datetime]
@@ -228,10 +229,18 @@ def add_complications_provider(provider: ComplicationsProvider):
 
     try:
         path = current_thread().script_path
-        if path == str(Python.watchScriptURL.path):
+        if path != str(Python.watchScriptURL.path):
             reload_complications()
     except AttributeError:
         pass
+
+
+def delete_interface():
+    """
+    Deletes the previous user interface sent to the Watch.
+    """
+
+    __PyWatchUI__.deleteUI()
 
 
 def make_interface() -> wd.WidgetLayout:
