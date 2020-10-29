@@ -14,6 +14,10 @@ Widget Configuration
    :members:
 
 .. autoclass:: WidgetLayout
+   :members:
+
+.. autoclass:: TimelineProvider
+   :members:
 
 UI Elements
 ***********

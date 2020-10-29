@@ -1,0 +1,363 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>watch &mdash; Pyto  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="watch" href="watch/api.html" />
+    <link rel="prev" title="Functions" href="widgets/functions.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Pyto
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="automation.html">Automation with Shortcuts and x-callback URLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external.html">Accessing external files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="opencv.html">OpenCV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="django.html">Using Django</a></li>
+<li class="toctree-l1"><a class="reference internal" href="third_party.html">Third Party Libraries</a></li>
+</ul>
+<p class="caption"><span class="caption-text">ObjC Runtime</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Objective-C.html">Objective-C</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Interface</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="pyto_ui.html">pyto_ui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widgets.html">widgets</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">watch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#api-reference">API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="watch/api.html">watch</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#building-complications">Building Complications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#setup">Setup</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sf_symbols.html">sf_symbols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">sharing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mainthread.html">mainthread</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyto_core.html">pyto_core</a></li>
+</ul>
+<p class="caption"><span class="caption-text">OS Technologies</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notifications.html">notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="remote_notifications.html">remote_notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="background.html">background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bookmarks.html">bookmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="music.html">music</a></li>
+<li class="toctree-l1"><a class="reference internal" href="photos.html">photos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="location.html">location</a></li>
+<li class="toctree-l1"><a class="reference internal" href="motion.html">motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multipeer.html">multipeer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="speech.html">speech</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Sharing data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="apps.html">apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xcallback.html">xcallback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userkeys.html">userkeys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pasteboard.html">pasteboard</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Pyto</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>watch</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/watch.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-watch">
+<span id="watch"></span><h1>watch<a class="headerlink" href="#module-watch" title="Permalink to this headline">¶</a></h1>
+<p>Apple Watch</p>
+<p>The ‘watch’ module provides APIs for building complications and showing UIs on the Apple Watch.</p>
+<div class="section" id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="watch/api.html">watch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="watch/api.html#complications">Complications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="watch/api.html#user-interface">User Interface</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="building-complications">
+<h2>Building Complications<a class="headerlink" href="#building-complications" title="Permalink to this headline">¶</a></h2>
+<p>watchOS complications are kinds of tiny widgets displayed in an Apple Watch. It’s possible to code these complications with Pyto, but the Apple Watch must be paired to the iPhone to update. If the iPhone isn’t near the Apple Watch, the refresh will be performed later.</p>
+<p>Let’s start by importing the required libraries:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">watch</span> <span class="kn">as</span> <span class="nn">wt</span>
+<span class="kn">import</span> <span class="nn">widgets</span> <span class="kn">as</span> <span class="nn">wd</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="kn">as</span> <span class="nn">dt</span>
+</pre></div>
+</div>
+<p>We import <a class="reference external" href="widgets.html">widgets</a> because it’s the API we use to create the UI of the complication.</p>
+<p>To provide complications, we need to subclass <a class="reference internal" href="watch/api.html#watch.ComplicationsProvider" title="watch.ComplicationsProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">ComplicationsProvider</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MinutesProvider</span><span class="p">(</span><span class="n">wt</span><span class="o">.</span><span class="n">ComplicationsProvider</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;Minutes&quot;</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="watch/api.html#watch.ComplicationsProvider.name" title="watch.ComplicationsProvider.name"><code class="xref py py-meth docutils literal notranslate"><span class="pre">name()</span></code></a> method returns the name of the complication that will appear in the Watch face customizer.</p>
+<p>The <a class="reference internal" href="watch/api.html#watch.ComplicationsProvider.timeline" title="watch.ComplicationsProvider.timeline"><code class="xref py py-meth docutils literal notranslate"><span class="pre">timeline()</span></code></a> method returns a list of <code class="docutils literal notranslate"><span class="pre">datetime.datetime</span></code> objects corresponding to the time when the script has data for. You should return timestamps after the <code class="docutils literal notranslate"><span class="pre">after_date</span></code> parameter and no more than the given <code class="docutils literal notranslate"><span class="pre">limit</span></code>.</p>
+<p>In this example, we return a timestamp for each next minute.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">timeline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">after_date</span><span class="p">,</span> <span class="n">limit</span><span class="p">):</span>
+    <span class="n">dates</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">limit</span><span class="p">):</span>
+        <span class="n">delta</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="n">i</span><span class="o">*</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">date</span> <span class="o">=</span> <span class="n">after_date</span> <span class="o">+</span> <span class="n">delta</span>
+        <span class="n">date</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">dates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">dates</span>
+</pre></div>
+</div>
+<p>Then we just have to implement <a class="reference internal" href="watch/api.html#watch.ComplicationsProvider.complication" title="watch.ComplicationsProvider.complication"><code class="xref py py-meth docutils literal notranslate"><span class="pre">complication()</span></code></a> to create a complication for the given timestamp.
+A <a class="reference internal" href="watch/api.html#watch.Complication" title="watch.Complication"><code class="xref py py-class docutils literal notranslate"><span class="pre">Complication</span></code></a> object must be returned. The API is the same as the <a class="reference external" href="widgets.html">widgets</a> module.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">complication</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">date</span><span class="p">):</span>
+
+    <span class="nb">min</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">.</span><span class="n">minute</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">min</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Font</span><span class="o">.</span><span class="n">bold_system_font_of_size</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
+
+    <span class="n">complication</span> <span class="o">=</span> <span class="n">wt</span><span class="o">.</span><span class="n">Complication</span><span class="p">()</span>
+    <span class="n">complication</span><span class="o">.</span><span class="n">circular</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span><span class="n">text</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">complication</span>
+</pre></div>
+</div>
+<p>Finally, an instance of the previously created class must be passed to <a class="reference internal" href="watch/api.html#watch.add_complications_provider" title="watch.add_complications_provider"><code class="xref py py-func docutils literal notranslate"><span class="pre">add_complications_provider()</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">wt</span><span class="o">.</span><span class="n">add_complications_provider</span><span class="p">(</span><span class="n">MinutesProvider</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>The script looks like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">watch</span> <span class="kn">as</span> <span class="nn">wt</span>
+<span class="kn">import</span> <span class="nn">widgets</span> <span class="kn">as</span> <span class="nn">wd</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="kn">as</span> <span class="nn">dt</span>
+
+<span class="k">class</span> <span class="nc">MinutesProvider</span><span class="p">(</span><span class="n">wt</span><span class="o">.</span><span class="n">ComplicationsProvider</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;Minutes&quot;</span>
+
+    <span class="k">def</span> <span class="nf">timeline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">after_date</span><span class="p">,</span> <span class="n">limit</span><span class="p">):</span>
+        <span class="n">dates</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">limit</span><span class="p">):</span>
+            <span class="n">delta</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="n">i</span><span class="o">*</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">date</span> <span class="o">=</span> <span class="n">after_date</span> <span class="o">+</span> <span class="n">delta</span>
+            <span class="n">date</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">dates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">dates</span>
+
+    <span class="k">def</span> <span class="nf">complication</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">date</span><span class="p">):</span>
+
+        <span class="nb">min</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">.</span><span class="n">minute</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">min</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Font</span><span class="o">.</span><span class="n">bold_system_font_of_size</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
+
+        <span class="n">complication</span> <span class="o">=</span> <span class="n">wt</span><span class="o">.</span><span class="n">Complication</span><span class="p">()</span>
+        <span class="n">complication</span><span class="o">.</span><span class="n">circular</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span><span class="n">text</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">complication</span>
+
+<span class="n">wt</span><span class="o">.</span><span class="n">add_complications_provider</span><span class="p">(</span><span class="n">MinutesProvider</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="section" id="setup">
+<h3>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h3>
+<p>To setup the complication, run the script that calls <a class="reference internal" href="watch/api.html#watch.add_complications_provider" title="watch.add_complications_provider"><code class="xref py py-func docutils literal notranslate"><span class="pre">add_complications_provider()</span></code></a>. Once executed, go the the main screen, then the menu icon &gt; Settings &gt; Apple Watch and select the script. If the Apple Watch is paired to the iPhone, a complication with the name returned by the <a class="reference internal" href="watch/api.html#watch.ComplicationsProvider.name" title="watch.ComplicationsProvider.name"><code class="xref py py-meth docutils literal notranslate"><span class="pre">name()</span></code></a> method will appear in the Watch Face customizer.</p>
+<p>Note that multiple complications can be added with <a class="reference internal" href="watch/api.html#watch.add_complications_provider" title="watch.add_complications_provider"><code class="xref py py-func docutils literal notranslate"><span class="pre">add_complications_provider()</span></code></a>, it just have to be in the same script.
+Also, you can put top level code that will be executed when opening the Apple Watch app.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="watch/api.html" class="btn btn-neutral float-right" title="watch" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="widgets/functions.html" class="btn btn-neutral float-left" title="Functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2019, Adrian Labbé
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

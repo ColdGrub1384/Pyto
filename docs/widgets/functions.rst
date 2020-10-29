@@ -9,12 +9,18 @@ This page contains a list of functions defined in the ``widgets`` module.
 
 .. autofunction:: wait_for_internet_connection
 
+.. autofunction:: delete_in_app_widget
+
+.. autofunction:: reload_widgets
+
 Showing a native UI
 -------------------
 
 .. autofunction:: show_widget
 
-.. autofunction:: save_widget 
+.. autofunction:: provide_timeline
+
+.. autofunction:: save_widget
 
 Showing a PytoUI view
 ---------------------

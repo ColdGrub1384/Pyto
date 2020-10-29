@@ -1,0 +1,416 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>watch &mdash; Pyto  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="sound" href="../sound.html" />
+    <link rel="prev" title="watch" href="../watch.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Pyto
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../automation.html">Automation with Shortcuts and x-callback URLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../external.html">Accessing external files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../opencv.html">OpenCV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../django.html">Using Django</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party.html">Third Party Libraries</a></li>
+</ul>
+<p class="caption"><span class="caption-text">ObjC Runtime</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Objective-C.html">Objective-C</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Interface</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../pyto_ui.html">pyto_ui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../widgets.html">widgets</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../watch.html">watch</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../watch.html#api-reference">API Reference</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">watch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#complications">Complications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#user-interface">User Interface</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../watch.html#building-complications">Building Complications</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sf_symbols.html">sf_symbols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sharing.html">sharing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mainthread.html">mainthread</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pyto_core.html">pyto_core</a></li>
+</ul>
+<p class="caption"><span class="caption-text">OS Technologies</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../notifications.html">notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../remote_notifications.html">remote_notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background.html">background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bookmarks.html">bookmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../music.html">music</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../photos.html">photos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../location.html">location</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../motion.html">motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../multipeer.html">multipeer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../speech.html">speech</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Sharing data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../apps.html">apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xcallback.html">xcallback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userkeys.html">userkeys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pasteboard.html">pasteboard</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Pyto</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../watch.html">watch</a> &raquo;</li>
+        
+      <li>watch</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/watch/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="watch">
+<h1>watch<a class="headerlink" href="#watch" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="complications">
+<h2>Complications<a class="headerlink" href="#complications" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="watch.Complication">
+<em class="property">class </em><code class="sig-prename descclassname">watch.</code><code class="sig-name descname">Complication</code><a class="headerlink" href="#watch.Complication" title="Permalink to this definition">¶</a></dt>
+<dd><p>The configuration of a Watch Complication, which is a set of different layouts.</p>
+<p>Use the <a class="reference external" href="widgets.html">widgets</a> APIs to build a complication UI.</p>
+<dl class="py attribute">
+<dt id="watch.Complication.circular">
+<code class="sig-name descname">circular</code><em class="property">: <a class="reference internal" href="../widgets/ui.html#widgets.WidgetLayout" title="widgets.WidgetLayout">widgets.WidgetLayout</a></em><em class="property"> = &lt;widgets.WidgetLayout object&gt;</em><a class="headerlink" href="#watch.Complication.circular" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <a class="reference internal" href="../widgets/ui.html#widgets.WidgetLayout" title="widgets.WidgetLayout"><code class="xref py py-class docutils literal notranslate"><span class="pre">WidgetLayout</span></code></a> object which UI’s will be used for circular complications.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="watch.Complication.circular_extra_large">
+<code class="sig-name descname">circular_extra_large</code><em class="property">: <a class="reference internal" href="../widgets/ui.html#widgets.WidgetLayout" title="widgets.WidgetLayout">widgets.WidgetLayout</a></em><em class="property"> = &lt;widgets.WidgetLayout object&gt;</em><a class="headerlink" href="#watch.Complication.circular_extra_large" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <a class="reference internal" href="../widgets/ui.html#widgets.WidgetLayout" title="widgets.WidgetLayout"><code class="xref py py-class docutils literal notranslate"><span class="pre">WidgetLayout</span></code></a> object which UI’s will be used for extra large circular complications.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="watch.Complication.rectangular">
+<code class="sig-name descname">rectangular</code><em class="property">: <a class="reference internal" href="../widgets/ui.html#widgets.WidgetLayout" title="widgets.WidgetLayout">widgets.WidgetLayout</a></em><em class="property"> = &lt;widgets.WidgetLayout object&gt;</em><a class="headerlink" href="#watch.Complication.rectangular" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <a class="reference internal" href="../widgets/ui.html#widgets.WidgetLayout" title="widgets.WidgetLayout"><code class="xref py py-class docutils literal notranslate"><span class="pre">WidgetLayout</span></code></a> object which UI’s will be used for rectangular complications.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="watch.ComplicationsProvider">
+<em class="property">class </em><code class="sig-prename descclassname">watch.</code><code class="sig-name descname">ComplicationsProvider</code><a class="headerlink" href="#watch.ComplicationsProvider" title="Permalink to this definition">¶</a></dt>
+<dd><p>An abstract class for implementing Apple Watch complications.</p>
+<dl class="py method">
+<dt id="watch.ComplicationsProvider.complication">
+<code class="sig-name descname">complication</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">date</span><span class="p">:</span> <span class="n">datetime.datetime</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#watch.Complication" title="watch.Complication">watch.Complication</a><a class="headerlink" href="#watch.ComplicationsProvider.complication" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a complication to be displayed in the Watch Face at the given moment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>date</strong> – The timestamp at which the returned complication will be displayed.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#watch.Complication" title="watch.Complication">Complication</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="watch.ComplicationsProvider.name">
+<code class="sig-name descname">name</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#watch.ComplicationsProvider.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the name of the complication.
+This name is used in the Watch Face setup.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="watch.ComplicationsProvider.timeline">
+<code class="sig-name descname">timeline</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">after_date</span><span class="p">:</span> <span class="n">datetime.datetime</span></em>, <em class="sig-param"><span class="n">limit</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>datetime.datetime<span class="p">]</span><a class="headerlink" href="#watch.ComplicationsProvider.timeline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of timestamps. The Apple Watch will display a complication on each of the returned dates.
+The Apple Watch will call this function to request data for the future.</p>
+<p>You should fetch your data from this function and return the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> objects for which you have data.
+Then the <code class="xref py py-meth docutils literal notranslate"><span class="pre">complication()</span></code> method will be called for each timestamp to configure the content.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>after_date</strong> – The moment when the timeline begins.</p></li>
+<li><p><strong>limit</strong> – A limit of dates that can be returned (usually 100).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List[datetime.datetime]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="watch.add_complications_provider">
+<code class="sig-prename descclassname">watch.</code><code class="sig-name descname">add_complications_provider</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">provider</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#watch.ComplicationsProvider" title="watch.ComplicationsProvider">watch.ComplicationsProvider</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#watch.add_complications_provider" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a complication to the Apple Watch. After adding the <a class="reference internal" href="#watch.ComplicationsProvider" title="watch.ComplicationsProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">ComplicationsProvider</span></code></a> object, you will be able to add the complication to your Watch Face.
+This function must be called from the script configured for the Apple Watch so the passed object can provide the data to the Watch Face.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>provider</strong> – The object that will provide data to the complication.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="watch.reload_complications">
+<code class="sig-prename descclassname">watch.</code><code class="sig-name descname">reload_complications</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#watch.reload_complications" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reloads complications currently displayed on the paired Apple Watch.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="user-interface">
+<h2>User Interface<a class="headerlink" href="#user-interface" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="watch.Progress">
+<em class="property">class </em><code class="sig-prename descclassname">watch.</code><code class="sig-name descname">Progress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">circular</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">label</span><span class="p">:</span> <span class="n"><a class="reference internal" href="../widgets/ui.html#widgets.WidgetComponent" title="widgets.WidgetComponent">widgets.WidgetComponent</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">color</span><span class="p">:</span> <span class="n"><a class="reference internal" href="../widgets/ui.html#widgets.Color" title="widgets.Color">widgets.Color</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">background_color</span><span class="p">:</span> <span class="n"><a class="reference internal" href="../widgets/ui.html#widgets.Color" title="widgets.Color">widgets.Color</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">corner_radius</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">padding</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>PADDING<span class="p">, </span><a class="reference internal" href="../widgets/ui.html#widgets.Padding" title="widgets.Padding">widgets.Padding</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">link</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#watch.Progress" title="Permalink to this definition">¶</a></dt>
+<dd><p>A view indicating a progress.</p>
+<dl class="py attribute">
+<dt id="watch.Progress.circular">
+<code class="sig-name descname">circular</code><em class="property">: bool</em><em class="property"> = False</em><a class="headerlink" href="#watch.Progress.circular" title="Permalink to this definition">¶</a></dt>
+<dd><p>If set to <code class="docutils literal notranslate"><span class="pre">False</span></code> (default value), the progress view will be linear.
+If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the progress view will be a circular ring.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="watch.Progress.color">
+<code class="sig-name descname">color</code><em class="property">: <a class="reference internal" href="../widgets/ui.html#widgets.Color" title="widgets.Color">widgets.Color</a></em><em class="property"> = None</em><a class="headerlink" href="#watch.Progress.color" title="Permalink to this definition">¶</a></dt>
+<dd><p>The tint color of the progress.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="watch.Progress.label">
+<code class="sig-name descname">label</code><em class="property">: <a class="reference internal" href="../widgets/ui.html#widgets.WidgetComponent" title="widgets.WidgetComponent">widgets.WidgetComponent</a></em><em class="property"> = None</em><a class="headerlink" href="#watch.Progress.label" title="Permalink to this definition">¶</a></dt>
+<dd><p>A widget component describing the progress.
+Can be a symbol or a text for example.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="watch.Progress.value">
+<code class="sig-name descname">value</code><em class="property">: float</em><em class="property"> = 0</em><a class="headerlink" href="#watch.Progress.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>The value of the progress (between 0 and 1).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="watch.make_interface">
+<code class="sig-prename descclassname">watch.</code><code class="sig-name descname">make_interface</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="../widgets/ui.html#widgets.WidgetLayout" title="widgets.WidgetLayout">widgets.WidgetLayout</a><a class="headerlink" href="#watch.make_interface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates and returns a <code class="xref py py-class docutils literal notranslate"><span class="pre">WidgetLayout</span></code> instance.
+When the script finishes running, the content of the returned object will be passed and displayed in the Apple Watch.
+This function must be called from the script configured in the Apple Watch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>wd.WidgetLayout</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="watch.delete_interface">
+<code class="sig-prename descclassname">watch.</code><code class="sig-name descname">delete_interface</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#watch.delete_interface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes the previous user interface sent to the Watch.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../sound.html" class="btn btn-neutral float-right" title="sound" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../watch.html" class="btn btn-neutral float-left" title="watch" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2019, Adrian Labbé
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

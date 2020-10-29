@@ -62,12 +62,12 @@ The following modules are integrated with Pyto.
 
    pyto_ui
    widgets
-   pyto_core
-   notification_center
+   watch
    sound
    sf_symbols
    sharing
    mainthread
+   pyto_core
 
 .. toctree::
    :maxdepth: 2
