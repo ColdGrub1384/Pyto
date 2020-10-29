@@ -223,7 +223,7 @@ import SwiftUI
                         let url = try URL(resolvingBookmarkData: bookmarkData, bookmarkDataIsStale: &isStale)
                         _ = url.startAccessingSecurityScopedResource()
                         Python.shared.widgetLink = inputURL.queryParameters?["link"]
-                        openDocument(at: url, run: true, isShortcut: false)
+                        openDocument(at: url, run: true, isShortcut: true)
                     } catch {
                         print(error.localizedDescription)
                     }
