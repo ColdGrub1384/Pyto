@@ -520,21 +520,6 @@ extension PyOutputHelper: ParserDelegate {
             DispatchQueue.main.async {
                 if let attrStr = console.attributedConsole {
                     let mutable = NSMutableAttributedString(attributedString: attrStr)
-                    
-                    /*#if MAIN
-                    let font = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
-                    #else
-                    let font = UIFont(name: "Menlo", size: 12) ?? UIFont.systemFont(ofSize: 12)
-                    #endif
-                    
-                    var attributes: [NSAttributedString.Key : AnyHashable] = [.font : font]
-                    #if MAIN
-                    attributes[.foregroundColor] = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
-                    #else
-                    if #available(iOS 13.0, *) {
-                        attributes[.foregroundColor] = UIColor.label
-                    }
-                    #endif*/
                     mutable.append(string)
                     console.textView.attributedText = mutable
                     
