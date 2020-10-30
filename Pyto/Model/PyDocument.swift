@@ -17,8 +17,20 @@ enum PyDocumentError: Error {
 /// A document representing a Python script.
 @objc class PyDocument: UIDocument {
     
+    private var _text = ""
+    
     /// The text of the Python script to save.
-    @objc var text = ""
+    @objc var text: String {
+        get {
+            return _text
+        }
+        
+        set {
+            if newValue != "" { // Saving bugs
+                _text = newValue
+            }
+        }
+    }
     
     #if MAIN
     /// The editor that is editing this document.
@@ -109,6 +121,11 @@ enum PyDocumentError: Error {
         
         hasBeenOpened = true
         
+        guard documentState.contains(.closed) else {
+            completionHandler?(true)
+            return
+        }
+        
         super.open { (success) in
             if self.storedModificationDate == nil {
                 self.storedModificationDate = self.fileModificationDate
@@ -134,7 +151,7 @@ enum PyDocumentError: Error {
         if let data = try? Data(contentsOf: fileURL) {
             try? load(fromContents: data, ofType: "public.python-script")
             DispatchQueue.main.async {
-                if self.editor?.textView.text != self.text {
+                if self.editor?.textView.text != self.text && self.editor?.document == self {
                     self.editor?.textView.text = self.text
                 }
             }
