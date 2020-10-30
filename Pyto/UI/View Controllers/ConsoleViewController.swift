@@ -1051,9 +1051,9 @@ import SwiftUI
             self.movableTextField?.textField.text = ""
             
             #if MAIN
-            PyInputHelper.userInput.setObject(text, forKey: (self.editorSplitViewController?.editor?.document?.fileURL.path ?? "") as NSCopying)
+            PyInputHelper.userInput[self.editorSplitViewController?.editor?.document?.fileURL.path ?? ""] = text
             #else
-            PyInputHelper.userInput.setObject(text, forKey: "" as NSCopying)
+            PyInputHelper.userInput[""] = text
             #endif
             if !secureTextEntry {
                 Python.shared.output += text
