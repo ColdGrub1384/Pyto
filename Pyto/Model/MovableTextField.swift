@@ -245,6 +245,15 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     }
         
     #if MAIN
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        console?.parent?.setNeedsUpdateOfHomeIndicatorAutoHidden()
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        console?.parent?.setNeedsUpdateOfHomeIndicatorAutoHidden()
+    }
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if string == "\n" {
