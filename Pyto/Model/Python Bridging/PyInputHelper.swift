@@ -15,7 +15,30 @@ import WatchConnectivity
 @objc class PyInputHelper: NSObject {
     
     /// The user's input. Set its value while Python script is waiting for input to pass the input.
-    @objc static var userInput: NSMutableDictionary = NSMutableDictionary(dictionary: [String:String]())
+    static var userInput = [String:String]() {
+        didSet {
+            for key in userInput.keys {
+                semaphores[key]?.signal()
+                semaphores[key] = nil
+            }
+        }
+    }
+    
+    /// Semaphores waiting for user input.
+    static var semaphores = [String:DispatchSemaphore]()
+    
+    /// Waits for user input with the given script path.
+    ///
+    /// - Returns: The input result.
+    @objc static func waitForInput(_ path: String) -> String? {
+        userInput[path] = nil
+        let semaphore = DispatchSemaphore(value: 0)
+        semaphores[path] = semaphore
+        semaphore.wait()
+        let input = getUserInput(path)
+        userInput[path] = nil
+        return input
+    }
     
     /// Returns user input for script at given path.
     ///
@@ -24,7 +47,7 @@ import WatchConnectivity
     ///
     /// - Returns: The input entered by the user.
     @objc static func getUserInput(_ path: String) -> String? {
-        return userInput.object(forKey: path) as? String ?? userInput.object(forKey: URL(fileURLWithPath: path).resolvingSymlinksInPath().path) as? String
+        return userInput[path] ?? userInput[URL(fileURLWithPath: path).resolvingSymlinksInPath().path]
     }
     
     /// Requests for input.
@@ -40,7 +63,7 @@ import WatchConnectivity
             #if MAIN
             if script == Python.watchScriptURL.path {
                 WCSession.default.sendMessage(["prompt": prompt_ ?? "", "suggestions": WatchInputSuggestionsTableViewController.suggestions], replyHandler: { (res) in
-                    self.userInput[script!] = res["input"]
+                    self.userInput[script!] = res["input"] as? String
                 }, errorHandler: { (_) in
                     self.userInput[script!] = ""
                 })
@@ -50,6 +73,7 @@ import WatchConnectivity
             #if !WIDGET && !MAIN
             ConsoleViewController.visibles.first?.input(prompt: prompt_ ?? "", highlight: false)
             #elseif !WIDGET
+            
             for console in ConsoleViewController.visibles {
                 if script != nil {
                     let splitVC = console.editorSplitViewController
