@@ -31,6 +31,8 @@ class IntentHandler: INExtension {
                 return ScriptIntentHandler()
             } else if #available(iOSApplicationExtension 14.0, *), intent is SetContentInAppIntent {
                 return SetContentInAppIntentHandler()
+            } else if #available(iOSApplicationExtension 14.0, *), intent is ReloadWidgetsIntent {
+               return ReloadWidgetsIntentHandler()
             }
             #endif
             
