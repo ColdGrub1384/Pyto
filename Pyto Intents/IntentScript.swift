@@ -16,4 +16,7 @@ struct IntentScript: Codable {
     
     /// The script content.
     var code: String
+    
+    /// The widget ID for runtime.
+    var widgetID: String?
 }
