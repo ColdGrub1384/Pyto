@@ -14,8 +14,12 @@ class ComplicationCache {
     var cachedTimeline = [PyComplication]() {
         didSet {
             WCSession.default.sendMessage(["Set": "cachedTimeline"], replyHandler: nil, errorHandler: nil)
-            if let date = sortedTimeline.first?.date {
+            if var date = sortedTimeline.first?.date {
                 WCSession.default.sendMessage(["Schedule Background Task": date], replyHandler: nil, errorHandler: nil)
+                
+                if date.timeIntervalSinceNow < 15*60 { // Less than 15 minutes
+                    date = Date().addingTimeInterval(15*60)
+                }
                 
                 WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: date, userInfo: nil) { (error) in
                     if let error = error {

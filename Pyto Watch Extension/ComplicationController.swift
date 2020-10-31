@@ -45,9 +45,13 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
                     clkDescriptors.append(CLKComplicationDescriptor(identifier: descriptor, displayName: descriptor, supportedFamilies: [.graphicRectangular, .graphicExtraLarge, .graphicCircular]))
                 }
                 
-                handler(clkDescriptors)
+                DispatchQueue.main.async {
+                    handler(clkDescriptors)
+                }
             } else {
-                handler([`default`])
+                DispatchQueue.main.async {
+                    handler([`default`])
+                }
             }
         }, errorHandler: nil)
     }
@@ -58,6 +62,10 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     // MARK: - Timeline Population
     
+    func getAlwaysOnTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
+        getLocalizableSampleTemplate(for: complication, withHandler: handler)
+    }
+
     func getTimelineEndDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void) {
         handler(.distantFuture)
     }
@@ -113,10 +121,14 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
                         entries.append(entry)
                     }
                 }
-                handler(entries)
+                DispatchQueue.main.async {
+                    handler(entries)
+                }
             } catch {
                 WCSession.default.sendMessage(["error":error.localizedDescription], replyHandler: nil, errorHandler: nil)
-                handler(nil)
+                DispatchQueue.main.async {
+                    handler(nil)
+                }
             }
         }
         WCSession.default.sendMessage([id: [date, limit, complication.identifier]], replyHandler: nil, errorHandler: { error in
