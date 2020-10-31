@@ -652,6 +652,8 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
             #endif
         }
     }
+    
+    private var scriptThreads = [String:pthread_t]()
 
     private var scriptsAboutToExit = [String]()
     
@@ -664,13 +666,20 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// - Parameters:
     ///     - script: The path of the script to stop.
     @objc public func stop(script: String) {
-        if let pythonInstance = Python.pythonShared {
+        if let thread = scriptThreads[script] {
+            scriptsAboutToExit.append(script)
+            pthread_kill(thread, SIGSEGV)
+        } else if let pythonInstance = Python.pythonShared {
             pythonInstance.performSelector(inBackground: #selector(PythonRuntime.exitScript(_:)), with: script)
         } else {
             if scriptsToExit.index(of: script) == NSNotFound {
                 scriptsToExit.add(script)
             }
         }
+        
+        #if MAIN
+        PyInputHelper.userInput[script] = ""
+        #endif
     }
     
     /// Sends `KeyboardInterrupt`.
@@ -688,6 +697,10 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                 scriptsToInterrupt.add(script)
             }
         }
+        
+        #if MAIN
+        PyInputHelper.userInput[script] = "<WILL INTERRUPT>"
+        #endif
     }
 
     /// Checks if a script is currently running.
