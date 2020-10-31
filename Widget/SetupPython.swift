@@ -32,73 +32,116 @@ func SetupPython() {
     }
     
     let code = """
-    import os
-    import sys
-    import builtins
-    import traceback
-    import ssl
-    import threading
-    from pyto import __Class__, Python
-    from time import sleep
-    from extensionsimporter import PillowImporter
-    from rubicon.objc import NSObject, objc_method
-    from ctypes import CDLL
+    try:
+        import os
+        import sys
+        import builtins
+        import traceback
+        import ssl
+        import threading
+        from pyto import __Class__, Python
+        from time import sleep
+        from extensionsimporter import PillowImporter
+        from rubicon.objc import NSObject, objc_method, ObjCClass
+        from ctypes import CDLL
 
-    os.environ["widget"] = "1"
+        NSAutoreleasePool = ObjCClass("NSAutoreleasePool")
 
-    site_packages = \(sitePackages)
-    if site_packages is not None:
-        sys.path.append(site_packages)
+        os.environ["widget"] = "1"
 
-    PyWidget = __Class__("PyWidget")
+        site_packages = \(sitePackages)
+        if site_packages is not None:
+            sys.path.append(site_packages)
 
-    sys.meta_path.append(PillowImporter())
-    sys.builtin_module_names += ("__PIL__imaging",)
+        PyWidget = __Class__("PyWidget")
 
-    ssl._create_default_https_context = ssl._create_unverified_context
+        sys.meta_path.append(PillowImporter())
+        sys.builtin_module_names += ("__PIL__imaging",)
 
-    class ScriptThread(threading.Thread):
-        script_path = None
+        ssl._create_default_https_context = ssl._create_unverified_context
 
-    class PythonImplementation(NSObject):
+        class Thread(threading.Thread):
+            def run(self):
+                pool = NSAutoreleasePool.alloc().init()
+                Python.shared.handleCrashesForCurrentThread()
+                super().run()
+                pool.release()
 
-        @objc_method
-        def runCode_(self, code):
-            try:
-                thread = threading.Thread(target=exec, args=(str(code),))
-                thread.start()
-                thread.join()
-            except Exception as e:
-                PyWidget.breakpoint(traceback.format_exc())
-                print(str(e))
-        
-        @objc_method
-        def runWidgetWithCode_andID_(self, code, id):
-            try:
-                exec(str(code))
-                PyWidget.removeWidgetID(str(id))
-            except Exception as e:
-                PyWidget.breakpoint(traceback.format_exc())
-                print(traceback.format_exc())
+        threading.Thread = Thread
 
-            try:
-                del sys.modules["pyto_ui"]
-            except KeyError:
-                pass
+        class ScriptThread(threading.Thread):
+            script_path = None
+
+        class PythonImplementation(NSObject):
+
+            @objc_method
+            def runCode_(self, code):
+                try:
+                    thread = threading.Thread(target=exec, args=(str(code),))
+                    thread.start()
+                    thread.join()
+                except Exception as e:
+                    PyWidget.breakpoint(traceback.format_exc())
+                    print(str(e))
             
-            try:
-                _values = sys.modules["_values"]
-                 
-                for attr in dir(_values):
-                    if attr not in _values._dir:
-                        delattr(_values, attr)
-            except:
-                pass
+            @objc_method
+            def runWidgetWithCode_andID_(self, code, id):
 
-    Python.pythonShared = PythonImplementation.alloc().init()
-    CDLL(None).putenv(b"IS_PYTHON_RUNNING=1")
+                Python.shared.handleCrashesForCurrentThread()
 
-    threading.Event().wait()
+                try:
+                    del sys.modules["widgets"]
+                except KeyError:
+                    pass
+
+                try:
+                    del sys.modules["ui_constants"]
+                except KeyError:
+                    pass
+
+                try:
+                    exec(str(code))
+                    PyWidget.removeWidgetID(str(id))
+                except Exception as e:
+                    PyWidget.breakpoint(traceback.format_exc())
+                    print(traceback.format_exc())
+
+                try:
+                    del sys.modules["ui_constants"]
+                except KeyError:
+                    pass
+
+                try:
+                    del sys.modules["pyto_ui"]
+                except KeyError:
+                    pass
+                
+                try:
+                    del sys.modules["widgets"]
+                except KeyError:
+                    pass
+
+                try:
+                    _values = sys.modules["_values"]
+                     
+                    for attr in dir(_values):
+                        if attr not in _values._dir:
+                            delattr(_values, attr)
+                except:
+                    pass
+
+
+        Python.pythonShared = PythonImplementation.alloc().init()
+        CDLL(None).putenv(b"IS_PYTHON_RUNNING=1")
+
+        Python.shared.handleCrashesForCurrentThread()
+
+        threading.Event().wait()
+    except:
+        import traceback
+        from pyto import __Class__
+
+        __Class__("PyWidget").breakpoint(traceback.format_exc())
     """
     
     let url = FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask)[0].appendingPathComponent("Startup.py")

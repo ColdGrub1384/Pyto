@@ -20,8 +20,15 @@ import SwiftUI
         print(value)
     }
     
-    static var timelines = [String:Timeline<ScriptEntry>]()
+    @objc static func reload() {
+        WidgetCenter.shared.reloadTimelines(ofKind: "Script")
+    }
         
+    #if MAIN
+    /// Code called after a widget is shown.
+    static var completionHandlers = [String:((ScriptEntry) -> Void)]()
+    #endif
+    
     /// Returns the size of a widget from a widget family.
     ///
     /// - Parameters:
@@ -109,6 +116,58 @@ import SwiftUI
         semaphore.wait()
     }
     
+    @objc static func reloadWidgets(_ names: [String]) {
+        RuntimeCommunicator.shared.widgetsToBeReloaded = names
+        WidgetCenter.shared.reloadTimelines(ofKind: "Script")
+    }
+    
+    private static var ids = [String]()
+    
+    /// The date of the widget in its timeline.
+    @objc var timelineDateTimestamp: TimeInterval = 0
+    
+    /// Generates a timeline for the given widgets.
+    ///
+    /// - Parameters:
+    ///     - widgetID: The Widget ID.
+    ///     - widets: `PyWidget` objects containing the results of the script.
+    ///     - reloadAfter: The delay before reloading the widget.
+    @objc static func updateTimeline(_ widgetID: String, widgets: [PyWidget], reloadAfter: TimeInterval) {
+        #if WIDGET
+        guard !ids.contains(widgetID) else {
+            return
+        }
+        
+        ids.append(widgetID)
+        
+        var entries = [ScriptEntry]()
+        for widget in widgets {
+            entries.append(ScriptEntry(date: Date(timeIntervalSince1970: widget.timelineDateTimestamp), output: widget.output, snapshots: widget.snapshot, view: widget.widgetViews, code: widgetCode ?? "", bookmarkData: widget.bookmarkData))
+        }
+
+        let policy: TimelineReloadPolicy
+        if reloadAfter == 0 {
+            policy = .atEnd
+        } else {
+            let date = entries.last?.date.addingTimeInterval(reloadAfter) ?? Date()
+            policy = .after(date)
+        }
+        let timeline = Timeline(entries: entries, policy: policy)
+        
+        for handler in makeTimeline[widgetID] ?? [] {
+            handler(timeline)
+        }
+        
+        #else
+        
+        guard let widget = widgets.first else {
+            return
+        }
+        
+        updateTimeline(widgetID, widget: widget)
+        #endif
+    }
+    
     /// Generates a timeline for the given widget.
     ///
     /// - Parameters:
@@ -116,58 +175,77 @@ import SwiftUI
     ///     - widget: A `PyWidget` object containing the result of a script.
     @objc static func updateTimeline(_ widgetID: String, widget: PyWidget) {
         
+        #if WIDGET
+        guard !ids.contains(widgetID) else {
+            return
+        }
+        
+        ids.append(widgetID)
+        #endif
+        
+        if Thread.current.isMainThread {
+            DispatchQueue.global().async {
+                self.updateTimeline(widgetID, widget: widget)
+            }
+            return
+        }
+        
         let semaphore = DispatchSemaphore(value: 0)
         
         DispatchQueue.main.async {
                         
-            let entry = ScriptEntry(date: Date(), output: widget.output, snapshots: widget.snapshot, view: widget.widgetViews ?? self.timelines[widgetID]?.entries.first?.view, code: widgetCode ?? "", bookmarkData: widget.bookmarkData)
-            let timeline = Timeline(entries: [entry], policy: .after(Date().addingTimeInterval(widget.updateInterval)))
+            var entry = ScriptEntry(date: Date(), output: widget.output, snapshots: widget.snapshot, view: widget.widgetViews, code: widgetCode ?? "", bookmarkData: widget.bookmarkData)
+            #if MAIN
+            entry.updateInterval = widget.updateInterval
+            #endif
+            let date = Date().addingTimeInterval(widget.updateInterval)
+            let timeline = Timeline(entries: [entry], policy: .after(date))
             
-            #if WIDGET
-            self.timelines[widgetID] = timeline
-            
+            #if WIDGET            
             for handler in makeTimeline[widgetID] ?? [] {
                 handler(timeline)
             }
-            
-            print(PyWidget.codeToRun.count)
-        
-            semaphore.signal()
-            #else
+            #elseif MAIN
             
             // Preview
             
-            let preview = WidgetPreview(entry: entry)
-            let vc = UIHostingController(rootView: AnyView(preview))
-            preview.viewControllerStore.vc = vc
-            
-            for scene in UIApplication.shared.connectedScenes {
+            if let handler = PyWidget.completionHandlers[widgetID] {
+                handler(entry)
+            } else {
+                let preview = WidgetPreview(entry: entry)
+                let vc = UIHostingController(rootView: AnyView(preview))
+                preview.viewControllerStore.vc = vc
                 
-                guard scene.activationState == .foregroundActive || scene.activationState == .foregroundInactive else {
-                    continue
+                for scene in UIApplication.shared.connectedScenes {
+                    
+                    guard scene.activationState == .foregroundActive || scene.activationState == .foregroundInactive else {
+                        continue
+                    }
+                    
+                    if let window = (scene as? UIWindowScene)?.windows.first {
+                        
+                        window.topViewController?.present(vc, animated: true, completion: nil)
+                        
+                        break
+                    }
                 }
                 
-                if let window = (scene as? UIWindowScene)?.windows.first {
-                    
-                    window.topViewController?.present(vc, animated: true, completion: nil)
-                    
-                    break
-                }
+                reload()
             }
-            
             #endif
+            
+            semaphore.signal()
         }
         
-        #if WIDGET
         semaphore.wait()
-        DispatchQueue.main.asyncAfter(deadline: .now()+3) {
-            if PyWidget.codeToRun.count == 0 || makeTimeline.isEmpty {
-                exit(0) // So the next script has more free RAM
-            }
-        }
-        #endif
     }
-        
+    
+    @objc static func removeWidget(_ key: String) {
+        var saved = (UserDefaults.shared?.value(forKey: "savedWidgets") as? [String:Data]) ?? [String:Data]()
+        saved[key] = nil
+        UserDefaults.shared?.setValue(saved, forKey: "savedWidgets")
+    }
+    
     @objc static func addWidget(_ widget: PyWidget, key: String) {
         let entry = ScriptEntry(date: Date(), output: widget.output, snapshots: widget.snapshot, view: widget.widgetViews, code: widgetCode ?? "", bookmarkData: widget.bookmarkData)
         do {
