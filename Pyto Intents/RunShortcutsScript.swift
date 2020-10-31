@@ -12,7 +12,7 @@ import UIKit
 func RunShortcutsScript(at url: URL, arguments: [String], sendOutput: Bool = true, triedDownloading: Bool = false) {
     
     if !FileManager.default.fileExists(atPath: url.path) && !triedDownloading { // Try downloading
-        let doc = UIDocument(fileURL: url)
+        let doc = PyDocument(fileURL: url)
         doc.open { (_) in
             RunShortcutsScript(at: doc.fileURL, arguments: arguments, sendOutput: sendOutput, triedDownloading: true)
         }
