@@ -75,6 +75,12 @@ class WatchHostingController: WKHostingController<ScrollView<AnyView>> {
     #endif
     
     #if os(iOS)
+    
+    @objc static func deleteUI() {
+        try? "null".write(to: cacheURL, atomically: true, encoding: .utf8)
+        WCSession.default.transferFile(cacheURL, metadata: ["Remove":true])
+    }
+    
     @objc static func sendUI(_ view: WidgetView) {
         do {
             let data = try JSONEncoder().encode(view)

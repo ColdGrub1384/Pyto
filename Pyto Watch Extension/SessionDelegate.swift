@@ -110,9 +110,13 @@ class SessionDelegate: NSObject, WCSessionDelegate {
                         try? FileManager.default.removeItem(at: PyWatchUI.cacheURL)
                     }
                     
-                    try FileManager.default.moveItem(at: file.fileURL, to: PyWatchUI.cacheURL)
-                    
-                    if WKExtension.shared().applicationState == .active {
+                    if file.metadata?["Remove"] != nil {
+                        let controller = WKExtension.shared().visibleInterfaceController
+                        if controller is WatchHostingController {
+                            controller?.dismiss()
+                        }
+                    } else if WKExtension.shared().applicationState == .active {
+                        try FileManager.default.moveItem(at: file.fileURL, to: PyWatchUI.cacheURL)
                         PyWatchUI.showView()
                     }
                 } catch {
