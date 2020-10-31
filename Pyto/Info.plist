@@ -382,11 +382,7 @@
 	<array>
 		<string>RunScriptIntent</string>
 		<string>RunCodeIntent</string>
-		<string>ImportModuleIntent</string>
-		<string>GetPropertyIntent</string>
-		<string>CallFunctionIntent</string>
-		<string>SetPropertyIntent</string>
-		<string>GetObjectDescriptionIntent</string>
+		<string>StartHandlingWidgetsInAppIntent</string>
 	</array>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.developer-tools</string>
@@ -433,11 +429,14 @@
 		<string>GetScriptOutputIntent</string>
 		<string>ImportModuleIntent</string>
 		<string>PythonScript</string>
+		<string>ReloadWidgetIntent</string>
+		<string>ReloadWidgetsIntent</string>
 		<string>RunCodeIntent</string>
 		<string>RunScriptIntent</string>
 		<string>ScriptIntent</string>
 		<string>SetContentInAppIntent</string>
 		<string>SetPropertyIntent</string>
+		<string>StartHandlingWidgetsInAppIntent</string>
 		<string>ch.marcela.ada.Pyto.script</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
@@ -482,6 +481,7 @@
 	<array>
 		<string>audio</string>
 		<string>fetch</string>
+		<string>processing</string>
 	</array>
 	<key>UIFileSharingEnabled</key>
 	<true/>

@@ -83,6 +83,7 @@
 		C91321D821FB684C00437845 /* BlockBasedSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7521F49B1200E7CC35 /* BlockBasedSelector.swift */; };
 		C91321D921FB684E00437845 /* PySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7A21F49B8400E7CC35 /* PySelector.swift */; };
 		C91376B6245E365E00AA0935 /* RemoteNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91376B5245E365E00AA0935 /* RemoteNotifications.swift */; };
+		C9145BC52536ACB50099D91B /* StartHandlingWidgetsInAppIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9145BC42536ACB50099D91B /* StartHandlingWidgetsInAppIntentHandler.swift */; };
 		C916F44B226CFD4800FA2FB6 /* modules_inspector.py in Resources */ = {isa = PBXBuildFile; fileRef = C916F44A226CFD4700FA2FB6 /* modules_inspector.py */; };
 		C916FD04248B36DC000AAE76 /* InternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C916FD03248B36DC000AAE76 /* InternetConnection.swift */; };
 		C91A5DA725113AEA0095A0D0 /* Shortcuts iOS 14.json in Resources */ = {isa = PBXBuildFile; fileRef = C91A5D9025113AEA0095A0D0 /* Shortcuts iOS 14.json */; };
@@ -617,10 +618,8 @@
 		C948B81624BA676300EE982A /* SetupPython.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948B81524BA676300EE982A /* SetupPython.swift */; };
 		C948B81824BA6B2100EE982A /* PyWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948B81724BA6B2100EE982A /* PyWidget.swift */; };
 		C94921FC24AD961D009E7E5F /* View Controller Presentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D7F29024ABE46D00FCC1B6 /* View Controller Presentation.swift */; };
-		C94921FD24AD9620009E7E5F /* View Controller Presentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D7F29024ABE46D00FCC1B6 /* View Controller Presentation.swift */; };
 		C94921FE24AD9623009E7E5F /* SidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94EEBE124A24D7B00E355D8 /* SidebarNavigation.swift */; };
 		C94921FF24AD9626009E7E5F /* View Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D7F29224ABE49700FCC1B6 /* View Storage.swift */; };
-		C949220024AD9627009E7E5F /* View Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D7F29224ABE49700FCC1B6 /* View Storage.swift */; };
 		C949220124AD96AB009E7E5F /* UIImage+color.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9424767248456F000C9FF02 /* UIImage+color.swift */; };
 		C949D39B21F8A00C005AF481 /* NSRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C949D39A21F8A00C005AF481 /* NSRange.swift */; };
 		C94B7BF624AE2BE5002934C5 /* SceneDelegate+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94B7BF524AE2BE5002934C5 /* SceneDelegate+ViewController.swift */; };
@@ -630,9 +629,9 @@
 		C94B7BFC24AE35D0002934C5 /* SceneState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F56A0124AE27D900A9BB85 /* SceneState.swift */; };
 		C94D3B5F252E52D200C81D32 /* PyWatchUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94D3B5E252E52D200C81D32 /* PyWatchUI.swift */; };
 		C94D3B88252E52D700C81D32 /* PyWatchUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94D3B5E252E52D200C81D32 /* PyWatchUI.swift */; };
+		C94D3BAE2530E64300C81D32 /* RuntimeCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94D3BAD2530E64300C81D32 /* RuntimeCommunicator.swift */; };
+		C94D3BAF2530E64300C81D32 /* RuntimeCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94D3BAD2530E64300C81D32 /* RuntimeCommunicator.swift */; };
 		C94E730222E3BBF300F3FB79 /* PyButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94E730122E3BBF300F3FB79 /* PyButtonItem.swift */; };
-		C94EEBE224A24D7B00E355D8 /* SidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94EEBE124A24D7B00E355D8 /* SidebarNavigation.swift */; };
-		C94EEBF924A24D8C00E355D8 /* SidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94EEBE124A24D7B00E355D8 /* SidebarNavigation.swift */; };
 		C94F12B0226BC98D00B4A035 /* ModulesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94F12AF226BC98D00B4A035 /* ModulesTableViewController.swift */; };
 		C95076FC22DE428F00226497 /* WidgetSimulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95076FB22DE428F00226497 /* WidgetSimulatorViewController.swift */; };
 		C9508C4525146E0B00E4D665 /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9508C4425146E0B00E4D665 /* Padding.swift */; };
@@ -642,6 +641,23 @@
 		C950A50024BA3C1B00B0B07F /* libzmq-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9DCD2BF2469B3DD00E89F7A /* libzmq-ios.a */; };
 		C950A50124BA3C2C00B0B07F /* Zmq.mm in Sources */ = {isa = PBXBuildFile; fileRef = C950A4F524BA3B5900B0B07F /* Zmq.mm */; };
 		C950A50224BA3C7800B0B07F /* Zmq.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C950A4F324BA3B5900B0B07F /* Zmq.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9516295253C78C200E5E641 /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9508C4425146E0B00E4D665 /* Padding.swift */; };
+		C9516296253C78C200E5E641 /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D30C5C25212FD400AB7965 /* Progress.swift */; };
+		C9516297253C78C200E5E641 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FE884124CFBDB500D0C615 /* Date.swift */; };
+		C9516298253C78C200E5E641 /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5C76124CD2D05000CC6D0 /* WidgetView.swift */; };
+		C9516299253C78C200E5E641 /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5C75B24CD2C8B000CC6D0 /* Symbol.swift */; };
+		C951629A253C78C200E5E641 /* CodableWidgetComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A7D9E024D3540300204932 /* CodableWidgetComponent.swift */; };
+		C951629B253C78C200E5E641 /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5C76424CD2DB1000CC6D0 /* Component.swift */; };
+		C951629C253C78C200E5E641 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5C74124CD2BF3000CC6D0 /* Text.swift */; };
+		C951629D253C78C200E5E641 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5C75E24CD2CB9000CC6D0 /* Image.swift */; };
+		C951629E253C78C200E5E641 /* WidgetRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5C76724CD2E7F000CC6D0 /* WidgetRow.swift */; };
+		C951629F253C78C200E5E641 /* CodableFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A7D9F924D3829B00204932 /* CodableFont.swift */; };
+		C95162EB253C78F700E5E641 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91321C821FB500300437845 /* UIColor.swift */; };
+		C95162EC253C78F800E5E641 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91321C821FB500300437845 /* UIColor.swift */; };
+		C95162FF253C78FA00E5E641 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91321C821FB500300437845 /* UIColor.swift */; };
+		C9516336253C792300E5E641 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E22145D50A00C8B5E3 /* String.swift */; };
+		C9516349253C792300E5E641 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E22145D50A00C8B5E3 /* String.swift */; };
+		C951634A253C792400E5E641 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E22145D50A00C8B5E3 /* String.swift */; };
 		C954FAB5220A165E0060C488 /* Replace.xib in Resources */ = {isa = PBXBuildFile; fileRef = C954FAB4220A165E0060C488 /* Replace.xib */; };
 		C954FAB9220A2BB00060C488 /* ReplaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C954FAB8220A2BB00060C488 /* ReplaceView.swift */; };
 		C955038D24B4D81100AD34BA /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = C955039024B4D81100AD34BA /* Intents.intentdefinition */; };
@@ -2607,8 +2623,6 @@
 		C9D64D5624DCC4B500DBD730 /* WidgetPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D64D5524DCC4B500DBD730 /* WidgetPreview.swift */; };
 		C9D64D9B24DD2E8B00DBD730 /* UITextView+contentTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A7DA0824D4E50B00204932 /* UITextView+contentTextView.swift */; };
 		C9D64DB224DD2EC100DBD730 /* HighlightrTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936523624D7789600B08A7C /* HighlightrTheme.swift */; };
-		C9D7F29124ABE46D00FCC1B6 /* View Controller Presentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D7F29024ABE46D00FCC1B6 /* View Controller Presentation.swift */; };
-		C9D7F29324ABE49700FCC1B6 /* View Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D7F29224ABE49700FCC1B6 /* View Storage.swift */; };
 		C9DA43C6250EC0A000A32A53 /* UIKeyCommand+init.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DA43C5250EC0A000A32A53 /* UIKeyCommand+init.swift */; };
 		C9DA43C7250EC0A000A32A53 /* UIKeyCommand+init.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DA43C5250EC0A000A32A53 /* UIKeyCommand+init.swift */; };
 		C9DA43C8250EC0A000A32A53 /* UIKeyCommand+init.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DA43C5250EC0A000A32A53 /* UIKeyCommand+init.swift */; };
@@ -2617,6 +2631,7 @@
 		C9DA43CC250EC2B300A32A53 /* PythonRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DA43C9250EC2B300A32A53 /* PythonRuntime.swift */; };
 		C9DA43CD250EC33100A32A53 /* PythonRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DA43C9250EC2B300A32A53 /* PythonRuntime.swift */; };
 		C9DA43CE250EC33200A32A53 /* PythonRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DA43C9250EC2B300A32A53 /* PythonRuntime.swift */; };
+		C9DE31B12538DC7700E9E2E1 /* RuntimeCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94D3BAD2530E64300C81D32 /* RuntimeCommunicator.swift */; };
 		C9DE6A2E24B3A6D7004A0BEA /* ConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DE6A2C24B3A6D7004A0BEA /* ConsoleViewController.swift */; };
 		C9DE6A2F24B3A6D7004A0BEA /* setup_python.m in Sources */ = {isa = PBXBuildFile; fileRef = C9DE6A2D24B3A6D7004A0BEA /* setup_python.m */; };
 		C9DE6A3024B3A6F6004A0BEA /* pythonA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C981698D235E5E6C0062A91F /* pythonA.framework */; };
@@ -2732,6 +2747,7 @@
 		C9E9E2FA23E0ADC4004CF05A /* _umath_tests.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2EA23E0ADB6004CF05A /* _umath_tests.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9E9E2FB23E0ADC4004CF05A /* lapack_lite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2DF23E0ADB4004CF05A /* lapack_lite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9E9E2FC23E0ADC4004CF05A /* mtrand.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2DB23E0ADB4004CF05A /* mtrand.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9EA38452535675E00ABDA80 /* ReloadWidgetsIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EA38442535675E00ABDA80 /* ReloadWidgetsIntentHandler.swift */; };
 		C9EA55B3219F752D007546BC /* RelativePathForScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EA55B2219F752D007546BC /* RelativePathForScript.swift */; };
 		C9EA5C7D21F23558000F7FA7 /* Welcome to Pyto.md in Resources */ = {isa = PBXBuildFile; fileRef = C9EA5C7C21F23024000F7FA7 /* Welcome to Pyto.md */; };
 		C9EDF9AB21446FCA00382DCC /* ConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EDF9AA21446FCA00382DCC /* ConsoleViewController.swift */; };
@@ -5104,6 +5120,7 @@
 		C913202A21DC12A300EEE677 /* AcknowledgmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcknowledgmentsViewController.swift; sourceTree = "<group>"; };
 		C91321C821FB500300437845 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		C91376B5245E365E00AA0935 /* RemoteNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotifications.swift; sourceTree = "<group>"; };
+		C9145BC42536ACB50099D91B /* StartHandlingWidgetsInAppIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartHandlingWidgetsInAppIntentHandler.swift; sourceTree = "<group>"; };
 		C916F44A226CFD4700FA2FB6 /* modules_inspector.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = modules_inspector.py; sourceTree = "<group>"; };
 		C916FD03248B36DC000AAE76 /* InternetConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnection.swift; sourceTree = "<group>"; };
 		C91A5D9025113AEA0095A0D0 /* Shortcuts iOS 14.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Shortcuts iOS 14.json"; sourceTree = "<group>"; };
@@ -5356,6 +5373,7 @@
 		C94B7BF724AE2C50002934C5 /* SceneDelegate+IAP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneDelegate+IAP.swift"; sourceTree = "<group>"; };
 		C94B7BF924AE2D19002934C5 /* SceneDelegate+State Restoration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneDelegate+State Restoration.swift"; sourceTree = "<group>"; };
 		C94D3B5E252E52D200C81D32 /* PyWatchUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyWatchUI.swift; sourceTree = "<group>"; };
+		C94D3BAD2530E64300C81D32 /* RuntimeCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeCommunicator.swift; sourceTree = "<group>"; };
 		C94E730122E3BBF300F3FB79 /* PyButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyButtonItem.swift; sourceTree = "<group>"; };
 		C94EEBE124A24D7B00E355D8 /* SidebarNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarNavigation.swift; sourceTree = "<group>"; };
 		C94F12AF226BC98D00B4A035 /* ModulesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulesTableViewController.swift; sourceTree = "<group>"; };
@@ -6051,6 +6069,7 @@
 		C9E9E2E823E0ADB5004CF05A /* _common.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _common.framework; sourceTree = "<group>"; };
 		C9E9E2E923E0ADB5004CF05A /* _struct_ufunc_tests.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _struct_ufunc_tests.framework; sourceTree = "<group>"; };
 		C9E9E2EA23E0ADB6004CF05A /* _umath_tests.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = _umath_tests.framework; sourceTree = "<group>"; };
+		C9EA38442535675E00ABDA80 /* ReloadWidgetsIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadWidgetsIntentHandler.swift; sourceTree = "<group>"; };
 		C9EA55B2219F752D007546BC /* RelativePathForScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativePathForScript.swift; sourceTree = "<group>"; };
 		C9EA5C7C21F23024000F7FA7 /* Welcome to Pyto.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Welcome to Pyto.md"; sourceTree = "<group>"; };
 		C9EDF9A4214461D300382DCC /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -10029,7 +10048,9 @@
 				C9C7AC6922F5ED2300659685 /* RunScriptIntentHandler.swift */,
 				C96A19BC2481EA0E00AFD7BD /* GetScriptOutputIntentHandler.swift */,
 				C94129F624C3B7220030F76E /* ScriptIntentHandler.swift */,
+				C9EA38442535675E00ABDA80 /* ReloadWidgetsIntentHandler.swift */,
 				C93D19A4251A69F6002BD7A5 /* SetContentInAppIntentHandler.swift */,
+				C9145BC42536ACB50099D91B /* StartHandlingWidgetsInAppIntentHandler.swift */,
 			);
 			path = Handlers;
 			sourceTree = "<group>";
@@ -10994,6 +11015,7 @@
 				C94129EA24C3821A0030F76E /* ScriptEntry.swift */,
 				C94129EE24C3830C0030F76E /* Size.swift */,
 				C9D64D5524DCC4B500DBD730 /* WidgetPreview.swift */,
+				C94D3BAD2530E64300C81D32 /* RuntimeCommunicator.swift */,
 				C9A2C9FC24A63C3600D94E0B /* Widget-Bridging-Header.h */,
 				C940040B2509BE9500EB74EB /* Localizable.strings */,
 				C94003FE2509B89C00EB74EB /* Widget.intentdefinition */,
@@ -14020,7 +14042,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9D7F29324ABE49700FCC1B6 /* View Storage.swift in Sources */,
 				C91F962F24AD9185003ACF02 /* DefinitionsView.swift in Sources */,
 				C91F963824AD9185003ACF02 /* ValueView.swift in Sources */,
 				C91F963524AD9185003ACF02 /* PyPiView.swift in Sources */,
@@ -14031,10 +14052,10 @@
 				C91F962324AD9185003ACF02 /* ShortcutsView.swift in Sources */,
 				C91F963224AD9185003ACF02 /* JSONBrowserView.swift in Sources */,
 				C94B7BFB24AE35CF002934C5 /* SceneState.swift in Sources */,
-				C94EEBE224A24D7B00E355D8 /* SidebarNavigation.swift in Sources */,
+				C9516336253C792300E5E641 /* String.swift in Sources */,
 				C91F962924AD9185003ACF02 /* SearchBar.swift in Sources */,
+				C95162EB253C78F700E5E641 /* UIColor.swift in Sources */,
 				C9095107247856F600931684 /* SwiftUIBundle.swift in Sources */,
-				C9D7F29124ABE46D00FCC1B6 /* View Controller Presentation.swift in Sources */,
 				C91F963B24AD9185003ACF02 /* OnboardingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -14053,8 +14074,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9379B5124A6571900B375F9 /* Widget.swift in Sources */,
+				C951629F253C78C200E5E641 /* CodableFont.swift in Sources */,
+				C951629D253C78C200E5E641 /* Image.swift in Sources */,
+				C951629A253C78C200E5E641 /* CodableWidgetComponent.swift in Sources */,
+				C9516297253C78C200E5E641 /* Date.swift in Sources */,
+				C95162FF253C78FA00E5E641 /* UIColor.swift in Sources */,
+				C9516298253C78C200E5E641 /* WidgetView.swift in Sources */,
+				C9516296253C78C200E5E641 /* Progress.swift in Sources */,
 				C94129F124C3830C0030F76E /* Size.swift in Sources */,
+				C9516299253C78C200E5E641 /* Symbol.swift in Sources */,
 				C94129EC24C3828C0030F76E /* ScriptEntry.swift in Sources */,
+				C951629E253C78C200E5E641 /* WidgetRow.swift in Sources */,
+				C9516295253C78C200E5E641 /* Padding.swift in Sources */,
+				C951629C253C78C200E5E641 /* Text.swift in Sources */,
+				C951634A253C792400E5E641 /* String.swift in Sources */,
+				C951629B253C78C200E5E641 /* Component.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -14457,6 +14491,7 @@
 				C9D1DD99251BD17C00A4D663 /* FoldersBrowserViewController.swift in Sources */,
 				C9273C6C24BA60AE00B2A12C /* PyWrapper.swift in Sources */,
 				C94129F024C3830C0030F76E /* Size.swift in Sources */,
+				C94D3BAF2530E64300C81D32 /* RuntimeCommunicator.swift in Sources */,
 				C9FE884324CFBDB500D0C615 /* Date.swift in Sources */,
 				C9273C6924BA60AE00B2A12C /* PySwitch.swift in Sources */,
 				C937FF4224C4D8CA0083C9D9 /* IntentScript.swift in Sources */,
@@ -14730,6 +14765,7 @@
 				C94003FB2509B89C00EB74EB /* Widget.intentdefinition in Sources */,
 				C9C7AC6C22F5ED2300659685 /* RunCodeIntentHandler.swift in Sources */,
 				C98CECF823CA449400E133E3 /* String.swift in Sources */,
+				C9EA38452535675E00ABDA80 /* ReloadWidgetsIntentHandler.swift in Sources */,
 				C9E9661F24C688980053B52D /* UserDefaults.swift in Sources */,
 				C96A19BD2481EA0E00AFD7BD /* GetScriptOutputIntentHandler.swift in Sources */,
 				C92F6FE3247DD1A5006CC037 /* Intents.intentdefinition in Sources */,
@@ -14742,6 +14778,7 @@
 				C9622C00246891E100D0D697 /* main.m in Sources */,
 				C93D19A5251A69F6002BD7A5 /* SetContentInAppIntentHandler.swift in Sources */,
 				C93AE21524A99BE30066568A /* RemoveCachedOutput.swift in Sources */,
+				C9DE31B12538DC7700E9E2E1 /* RuntimeCommunicator.swift in Sources */,
 				C93B897323CA7B0B0070B2EF /* FileManager.swift in Sources */,
 				C937FF3E24C4D8970083C9D9 /* IntentScript.swift in Sources */,
 			);
@@ -14847,22 +14884,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				C91F962D24AD9185003ACF02 /* SamplesView.swift in Sources */,
+				C95162EC253C78F800E5E641 /* UIColor.swift in Sources */,
 				C94247692484579800C9FF02 /* UIImage+color.swift in Sources */,
 				C91F963624AD9185003ACF02 /* PyPiView.swift in Sources */,
-				C949220024AD9627009E7E5F /* View Storage.swift in Sources */,
 				C91F963C24AD9185003ACF02 /* OnboardingView.swift in Sources */,
 				C942476124844DD400C9FF02 /* SwiftUIBundle.swift in Sources */,
 				C91F963924AD9185003ACF02 /* ValueView.swift in Sources */,
 				C91F963024AD9185003ACF02 /* DefinitionsView.swift in Sources */,
 				C9F1E4AF2473721A00A28F2A /* AppDelegate.swift in Sources */,
-				C94921FD24AD9620009E7E5F /* View Controller Presentation.swift in Sources */,
 				C91F963324AD9185003ACF02 /* JSONBrowserView.swift in Sources */,
 				C91F962424AD9185003ACF02 /* ShortcutsView.swift in Sources */,
-				C94EEBF924A24D8C00E355D8 /* SidebarNavigation.swift in Sources */,
 				C94B7BFC24AE35D0002934C5 /* SceneState.swift in Sources */,
 				C91F962A24AD9185003ACF02 /* SearchBar.swift in Sources */,
 				C91F962724AD9185003ACF02 /* Cell.swift in Sources */,
 				C9F1E4B12473721A00A28F2A /* SceneDelegate.swift in Sources */,
+				C9516349253C792300E5E641 /* String.swift in Sources */,
 				C9F56A1C24AE2A5F00A9BB85 /* SelectedSection.swift in Sources */,
 				C9F1E4B32473721A00A28F2A /* ContentView.swift in Sources */,
 			);
@@ -15029,6 +15065,7 @@
 				C94B7BFA24AE2D19002934C5 /* SceneDelegate+State Restoration.swift in Sources */,
 				C9592D1A21D0592C00412CEF /* XcodeLight.swift in Sources */,
 				C9FCFD5B214428AE00A07974 /* EditorViewController.swift in Sources */,
+				C94D3BAE2530E64300C81D32 /* RuntimeCommunicator.swift in Sources */,
 				C94B7BF624AE2BE5002934C5 /* SceneDelegate+ViewController.swift in Sources */,
 				C959D50723761FC40001AEAF /* PyPackage.swift in Sources */,
 				C903986922D2CF2600FAD834 /* PyImageView.swift in Sources */,
@@ -15088,6 +15125,7 @@
 				C93AE21224A8FEF10066568A /* RunShortcutsScript.swift in Sources */,
 				C92ACE3721F0DBF600FA8904 /* SolarizedDark.swift in Sources */,
 				C9425A7721F49B1300E7CC35 /* BlockBasedSelector.m in Sources */,
+				C9145BC52536ACB50099D91B /* StartHandlingWidgetsInAppIntentHandler.swift in Sources */,
 				C90ECC52228B8B2000EC91C6 /* ShortenFilePaths.swift in Sources */,
 				C93B896823CA53C80070B2EF /* ParseArgs.swift in Sources */,
 				C9A7D9E124D3540300204932 /* CodableWidgetComponent.swift in Sources */,
@@ -15461,7 +15499,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "SwiftUI Views/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -15496,7 +15534,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "SwiftUI Views/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -15522,7 +15560,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = "Intents UI/Intents UIDebug.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				INFOPLIST_FILE = "Intents UI/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -15531,7 +15569,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Intents-UI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15545,7 +15583,7 @@
 			buildSettings = {
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				INFOPLIST_FILE = "Intents UI/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -15554,7 +15592,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Intents-UI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15568,7 +15606,7 @@
 			buildSettings = {
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				INFOPLIST_FILE = "Intents UI/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -15577,7 +15615,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Intents-UI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15671,7 +15709,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -15743,7 +15781,7 @@
 					"$(PROJECT_DIR)/Extensions/GameboyCore",
 				);
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
@@ -15796,7 +15834,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -15869,7 +15907,7 @@
 					"$(PROJECT_DIR)/Extensions/GameboyCore",
 				);
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
@@ -15922,7 +15960,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -15994,7 +16032,7 @@
 					"$(PROJECT_DIR)/Extensions/GameboyCore",
 				);
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
@@ -16334,7 +16372,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -16405,7 +16443,7 @@
 					"$(PROJECT_DIR)/Extensions/GameboyCore",
 				);
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
@@ -16447,7 +16485,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -16458,7 +16496,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).Intents";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16613,11 +16651,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-VPP";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -16633,7 +16671,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_PREVIEWS = YES;
@@ -16643,7 +16681,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp.watchkitextension";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -16668,7 +16706,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "SwiftUI Views/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -16803,7 +16841,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = TodayExtension/TodayExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -16822,7 +16860,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16841,7 +16879,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = TodayExtension/TodayExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -16860,7 +16898,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16879,7 +16917,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = TodayExtension/TodayExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -16897,7 +16935,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.marcela.ada.Pyto.Pyto-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16913,7 +16951,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_PREVIEWS = YES;
@@ -16923,7 +16961,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp.watchkitextension";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -16939,7 +16977,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_PREVIEWS = YES;
@@ -16949,7 +16987,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp.watchkitextension";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -16967,11 +17005,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -16990,11 +17028,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -17014,7 +17052,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = WidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -17033,7 +17071,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17053,7 +17091,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = WidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -17072,7 +17110,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17092,7 +17130,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = WidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = "WIDGET=1";
@@ -17107,7 +17145,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17222,7 +17260,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -17290,7 +17328,7 @@
 					"$(PROJECT_DIR)/Extensions/Zmq",
 				);
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
@@ -17343,7 +17381,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -17412,7 +17450,7 @@
 					"$(PROJECT_DIR)/Extensions/Zmq",
 				);
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
@@ -17465,7 +17503,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -17533,7 +17571,7 @@
 					"$(PROJECT_DIR)/Extensions/Zmq",
 				);
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
@@ -17575,7 +17613,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -17586,7 +17624,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).Intents";
 				PRODUCT_NAME = "Pyto Intents Xcode 11";
 				SKIP_INSTALL = YES;
@@ -17605,7 +17643,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -17616,7 +17654,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).Intents";
 				PRODUCT_NAME = "Pyto Intents Xcode 11";
 				SKIP_INSTALL = YES;
@@ -17635,7 +17673,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -17646,7 +17684,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).Intents";
 				PRODUCT_NAME = "Pyto Intents Xcode 11";
 				SKIP_INSTALL = YES;
@@ -17664,7 +17702,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -17675,7 +17713,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).Intents";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17693,7 +17731,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Pyto Intents/Pyto Intents.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Python\"";
@@ -17704,7 +17742,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).Intents";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17853,11 +17891,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch copy-Info.plist";
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -17875,11 +17913,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-VPP";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch copy-Info.plist";
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -17897,11 +17935,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch copy-Info.plist";
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -17918,7 +17956,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_PREVIEWS = YES;
@@ -17928,7 +17966,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp.watchkitextension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -17944,7 +17982,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_PREVIEWS = YES;
@@ -17954,7 +17992,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp.watchkitextension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -17970,7 +18008,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_PREVIEWS = YES;
@@ -17980,7 +18018,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp.watchkitextension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -18171,7 +18209,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -18241,7 +18279,7 @@
 					"$(PROJECT_DIR)/Extensions/GameboyCore",
 				);
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
@@ -18293,7 +18331,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = Pyto/Pyto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 333;
+				CURRENT_PROJECT_VERSION = 342;
 				DEAD_CODE_STRIPPING = NO;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -18363,7 +18401,7 @@
 					"$(PROJECT_DIR)/Extensions/GameboyCore",
 				);
 				LLVM_LTO = YES_THIN;
-				MARKETING_VERSION = 13.0.6;
+				MARKETING_VERSION = 14.1.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
