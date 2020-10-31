@@ -28,12 +28,7 @@ import WatchConnectivity
             
             // Convert HTML to plain text
             
-            do {
-                let attrString = try NSAttributedString(data: text.data(using: .utf16) ?? Data(), options: [.documentType:NSAttributedString.DocumentType.html], documentAttributes: nil)
-                _text = attrString.string
-            } catch {
-                print(error.localizedDescription)
-            }
+            _text = (text as NSString).replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: NSRange(location: 0, length: (text as NSString).length))
         }
     }
     
