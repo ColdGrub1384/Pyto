@@ -125,42 +125,40 @@ public struct EditorView: View {
                 
                 editorVC?.document?.editor = nil
                 
-                editorVC?.save { (_) in
-                    
-                    func open() {
-                        let document = PyDocument(fileURL: url)
-                        document.open { (_) in
-                            
-                            func finallyOpen() {
-                                editorVC?.isDocOpened = false
-                                editorVC?.parent?.title = document.fileURL.deletingPathExtension().lastPathComponent
-                                editorVC?.parent?.parent?.title = editorVC?.parent?.title
-                                editorVC?.parent?.parent?.parent?.title = editorVC?.parent?.title // I'm not kidding
-                                editorVC?.document = document
-                                editorVC?.viewWillAppear(false)
-                                self.isOpeningStore.isOpening = false
-                            }
-                            
-                            if EditorStore.checkedForConflicts != url {
-                                document.checkForConflicts(onViewController: self.viewControllerStore?.vc ?? UIViewController(), completion: {
-                                    
-                                    finallyOpen()
-                                })
-                            } else {
-                                finallyOpen()
-                            }
-                            
-                            EditorStore.checkedForConflicts = url
+                func open() {
+                    let document = PyDocument(fileURL: url)
+                    document.open { (_) in
+                        
+                        func finallyOpen() {
+                            editorVC?.isDocOpened = false
+                            editorVC?.parent?.title = document.fileURL.deletingPathExtension().lastPathComponent
+                            editorVC?.parent?.parent?.title = editorVC?.parent?.title
+                            editorVC?.parent?.parent?.parent?.title = editorVC?.parent?.title // I'm not kidding
+                            editorVC?.document = document
+                            document.editor = editorVC
+                            editorVC?.viewWillAppear(false)
+                            self.isOpeningStore.isOpening = false
                         }
+                        
+                        if EditorStore.checkedForConflicts != url {
+                            document.checkForConflicts(onViewController: self.viewControllerStore?.vc ?? UIViewController(), completion: {
+                                
+                                finallyOpen()
+                            })
+                        } else {
+                            finallyOpen()
+                        }
+                        
+                        EditorStore.checkedForConflicts = url
                     }
-                    
-                    if editorVC?.document?.documentState.contains(.closed) != true {
-                        editorVC?.document?.close(completionHandler: { (_) in
-                            open()
-                        })
-                    } else {
+                }
+                
+                if editorVC?.document?.documentState.contains(.closed) != true {
+                    editorVC?.document?.close(completionHandler: { (_) in
                         open()
-                    }
+                    })
+                } else {
+                    open()
                 }
             }
             
