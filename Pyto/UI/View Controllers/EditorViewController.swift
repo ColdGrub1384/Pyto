@@ -451,6 +451,11 @@ func directory(for scriptURL: URL) -> URL {
         NotificationCenter.default.removeObserver(self)
     }
     
+    override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
+        textView.resignFirstResponder()
+        super.present(viewControllerToPresent, animated: flag, completion: completion)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
                 
@@ -549,6 +554,25 @@ func directory(for scriptURL: URL) -> URL {
             }
         }
         
+        if shouldRun, let path = document?.fileURL.path {
+            shouldRun = false
+            
+            if Python.shared.isScriptRunning(path) {
+                stop()
+            }
+                        
+            if Python.shared.isScriptRunning(path) || !Python.shared.isSetup {
+                _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
+                    if !Python.shared.isScriptRunning(path) && Python.shared.isSetup {
+                        timer.invalidate()
+                        self.run()
+                    }
+                })
+            } else {
+                self.run()
+            }
+        }
+        
         if !(parent is REPLViewController) && !(parent is PipInstallerViewController) && !(parent is RunModuleViewController) {
             parent?.navigationController?.isToolbarHidden = false
         } else {
@@ -558,60 +582,6 @@ func directory(for scriptURL: URL) -> URL {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if shouldRun, let path = document?.fileURL.path {
-            shouldRun = false
-            
-            if Python.shared.isScriptRunning(path) {
-                stop()
-            }
-            
-            let splitVC = parent as? EditorSplitViewController
-            
-            splitVC?.ratio = 0
-            
-            for view in (splitVC?.view.subviews ?? []) {
-                if view.backgroundColor == .white {
-                    view.backgroundColor = splitVC?.view.backgroundColor
-                }
-            }
-            
-            splitVC?.firstChild?.view.superview?.backgroundColor = splitVC!.view.backgroundColor
-            splitVC?.secondChild?.view.superview?.backgroundColor = splitVC!.view.backgroundColor
-            
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.25, execute: {
-                splitVC?.firstChild = nil
-                splitVC?.secondChild = nil
-                
-                for view in (splitVC?.view.subviews ?? []) {
-                    view.removeFromSuperview()
-                }
-                
-                splitVC?.viewDidLoad()
-                splitVC?.viewWillTransition(to: splitVC!.view.frame.size, with: ViewControllerTransitionCoordinator())
-                splitVC?.viewDidAppear(true)
-                
-                splitVC?.removeGestures()
-                
-                splitVC?.firstChild = splitVC?.editor
-                splitVC?.secondChild = splitVC?.console
-                
-                splitVC?.setNavigationBarItems()
-            })
-            
-            if Python.shared.isScriptRunning(path) || !Python.shared.isSetup {
-                _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
-                    if !Python.shared.isScriptRunning(path) && Python.shared.isSetup {
-                        timer.invalidate()
-                        self.run()
-                    }
-                })
-            } else {
-                DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                    self.run()
-                }
-            }
-        }
         
         DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
             self.updateSuggestions(force: true)
@@ -1266,7 +1236,6 @@ func directory(for scriptURL: URL) -> URL {
                             
                 Python.shared.args = NSMutableArray(array: arguments)
             }
-            Python.shared.currentWorkingDirectory = self.currentDirectory.path
             
             guard let console = (self.parent as? EditorSplitViewController)?.console else {
                 return
@@ -1295,7 +1264,7 @@ func directory(for scriptURL: URL) -> URL {
                                 return
                             }
                             
-                            Python.shared.run(script: Python.Script(path: path, debug: debug, breakpoints: self.breakpoints))
+                            Python.shared.run(script: Python.Script(path: path, debug: debug, runREPL: true, breakpoints: self.breakpoints))
                         } else {
                             Python.shared.runScriptAt(url)
                         }
@@ -1864,7 +1833,7 @@ func directory(for scriptURL: URL) -> URL {
             
             var i = 0
             while true {
-                if (textView.text as NSString).substring(with: _range) == " " {
+                if (_range.location+_range.length <= (textView.text as NSString).length) && _range.location >= 1 && (textView.text as NSString).substring(with: _range) == " " {
                     rangeToDelete = NSRange(location: _range.location, length: i)
                     _range = NSRange(location: _range.location-1, length: _range.length)
                     i += 1
@@ -2246,8 +2215,11 @@ func directory(for scriptURL: URL) -> URL {
     /// - Parameters:
     ///     - force: If set to `true`, the Python code will be called without doing any check.
     func updateSuggestions(force: Bool = false) {
-                
         let text = textView.text ?? ""
+        
+        guard let textRange = textView.selectedTextRange else {
+            return
+        }
         
         if !force {
             guard let line = textView.currentLine, !line.isEmpty else {
@@ -2257,35 +2229,52 @@ func directory(for scriptURL: URL) -> URL {
                 return inputAssistant.reloadData()
             }
         }
+                
+        var location = 0
+        guard let range = textView.textRange(from: textView.beginningOfDocument, to: textRange.end) else {
+            return
+        }
+        for _ in textView.text(in: range) ?? "" {
+            location += 1
+        }
         
         EditorViewController.codeToComplete = text
-        
+                
         ConsoleViewController.ignoresInput = true
         
         let code =
         """
-        from _codecompletion import suggestForCode
-        from pyto import EditorViewController
-        import sys
-            
-        path = '\(self.currentDirectory.path.replacingOccurrences(of: "'", with: "\\'"))'
-        should_path_be_deleted = False
-            
-        if not path in sys.path:
-            sys.path.append(path)
-            should_path_be_deleted = True
-            
-        source = str(EditorViewController.codeToComplete)
-        suggestForCode(source, \(self.textView.selectedRange.location), '\((self.document?.fileURL.path ?? "").replacingOccurrences(of: "'", with: "\\'"))')
+        from pyto import Python
+        from threading import Thread
+
+        def complete():
+            from pyto import EditorViewController
+            from _codecompletion import suggestForCode
+            import sys
+
+            Python.shared.handleCrashesForCurrentThread()
+
+            path = '\(self.currentDirectory.path.replacingOccurrences(of: "'", with: "\\'"))'
+            should_path_be_deleted = False
                 
-        if should_path_be_deleted:
-            sys.path.remove(path)
+            if not path in sys.path:
+                sys.path.append(path)
+                should_path_be_deleted = True
+                
+            source = str(EditorViewController.codeToComplete)
+            suggestForCode(source, \(location), '\((self.document?.fileURL.path ?? "").replacingOccurrences(of: "'", with: "\\'"))')
+                    
+            if should_path_be_deleted:
+                sys.path.remove(path)
+
+        thread = Thread(target=complete)
+        thread.start()
+        thread.join()
         """
         
         func complete() {
             DispatchQueue.global().async {
                 self.isCompleting = true
-                
                 Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: code)
                 self.isCompleting = false
             }

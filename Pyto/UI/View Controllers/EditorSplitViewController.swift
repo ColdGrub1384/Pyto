@@ -48,6 +48,9 @@ public class EditorSplitViewController: SplitViewController {
     @objc public var console: ConsoleViewController? {
         didSet {
             console?.editorSplitViewController = self
+            if let console = console, !ConsoleViewController.visibles.contains(console) {
+                ConsoleViewController.visibles.append(console)
+            }
         }
     }
     
@@ -302,8 +305,6 @@ public class EditorSplitViewController: SplitViewController {
             }
         }
     }
-        
-    private var willRun: Bool?
     
     // MARK: - Split view controller
     
@@ -470,18 +471,18 @@ public class EditorSplitViewController: SplitViewController {
             return
         }
         
-        if willRun == nil {
-            willRun = editor?.shouldRun
-        }
-        
-        if newCollection.horizontalSizeClass == .compact && !shouldShowConsoleAtBottom && !willRun! {
+        if newCollection.horizontalSizeClass == .compact && !shouldShowConsoleAtBottom {
             arrangement = .vertical
         } else {
             
-            if shouldShowConsoleAtBottom && arrangement != .vertical {
-                arrangement = .vertical
-            } else if arrangement != .horizontal {
-                arrangement = .horizontal
+            if shouldShowConsoleAtBottom {
+                if arrangement != .vertical {
+                    arrangement = .vertical
+                }
+            } else {
+                if arrangement != .horizontal {
+                    arrangement = .horizontal
+                }
             }
             
             if firstChild != editor || secondChild != console {
@@ -505,7 +506,7 @@ public class EditorSplitViewController: SplitViewController {
                     firstChild = editor
                     secondChild = console
                 } else {
-                    if isConsoleShown && !(editor?.shouldRun ?? false) {
+                    if isConsoleShown {
                         showConsole({})
                     } else {
                         showEditor()
@@ -536,7 +537,7 @@ public class EditorSplitViewController: SplitViewController {
     }
     
     public override var prefersHomeIndicatorAutoHidden: Bool {
-        return editor?.textView.contentTextView.isFirstResponder ?? false
+        return (editor?.textView.contentTextView.isFirstResponder ?? false) || (console?.movableTextField?.textField.isFirstResponder ?? false)
     }
     
     // MARK: Symbols
