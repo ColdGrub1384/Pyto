@@ -13,6 +13,13 @@ import Combine
 func search(for package: String) -> [String] {
     let index = Bundle.main.url(forResource: "pypi_index", withExtension: "html") ?? FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask)[0].appendingPathComponent("pypi_index.html")
     
+    guard FileManager.default.fileExists(atPath: index.path) else {
+        #if MAIN
+        AppDelegate.shared.updatePyPiCache()
+        #endif
+        return []
+    }
+    
     do {
         let content = try String(contentsOf: index)
         let lines = content.components(separatedBy: "\n")
