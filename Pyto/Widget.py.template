@@ -1,37 +1,41 @@
 # Created with Pyto
 
 import widgets as wd
-import sf_symbols as sf
-from datetime import datetime
+import datetime as dt
 
-# Constants
 
-BACKGROUND = wd.COLOR_SYSTEM_BACKGROUND
-FOREGROUND = wd.COLOR_LABEL
-FONT = wd.Font.system_font_of_size(20)
+class TimelineProvider(wd.TimelineProvider):
 
-# Content
+    # Provide data for the next 10 hours
+    def timeline(self):
 
-widget = wd.Widget()
+        # Number of dates
+        count = 10
 
-text = wd.Text(
-    "Hello World!",
-    color=FOREGROUND,
-    font=FONT,
-    padding=wd.PADDING_ALL
-)
+        # Space between dates
+        delta = dt.timedelta(hours=1)
 
-layouts = [
-    widget.small_layout,
-    widget.medium_layout,
-    widget.large_layout
-]
+        dates = []
+        for i in range(count):
+            date = dt.datetime.now() + (delta * i)
+            dates.append(date)
 
-for layout in layouts:
-    layout.add_row([text])
-    layout.set_background_color(BACKGROUND)
-    
+        return dates
 
-# Show the widget and reload every 20 minutes
-wd.schedule_next_reload(60*20)
-wd.show_widget(widget)
+    # Create the widget for the given timestamp
+    def widget(self, date):
+        widget = wd.Widget()
+
+        text = wd.DynamicDate(date)
+        text.font = wd.Font.bold_system_font_of_size(40)
+
+        # Supported layouts
+        layouts = [widget.small_layout, widget.medium_layout, widget.large_layout]
+
+        for layout in layouts:
+            layout.add_row([text])
+
+        return widget
+
+
+wd.provide_timeline(TimelineProvider())
