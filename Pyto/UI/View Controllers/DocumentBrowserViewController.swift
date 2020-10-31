@@ -184,10 +184,6 @@ import SwiftUI
         let splitVC = EditorSplitViewController()
         splitVC.folder = folder
         
-        if run {
-            splitVC.shouldShowConsoleAtBottom = true
-        }
-        
         if isPip {
             splitVC.ratio = 0
         }
@@ -270,23 +266,27 @@ import SwiftUI
                     return
                 }
                 
-                document.checkForConflicts(onViewController: self!, completion: { [weak self] in
-                    
-                    guard self != nil else {
-                        return
-                    }
-                    
-                    (viewController ?? self!).present(vc, animated: !run, completion: {
-                        #if !Xcode11
-                        UIView.animate(withDuration: 0.15) {
-                            (vc.children.first as? UISplitViewController)?.preferredDisplayMode = .secondaryOnly
-                        }
-                        #endif
+                if !run {
+                    document.checkForConflicts(onViewController: self!, completion: { [weak self] in
                         
-                        NotificationCenter.default.removeObserver(splitVC)
-                        completion?()
+                        guard self != nil else {
+                            return
+                        }
+                        
+                        (viewController ?? self!).present(vc, animated: !run, completion: {
+                            #if !Xcode11
+                            UIView.animate(withDuration: 0.15) {
+                                (vc.children.first as? UISplitViewController)?.preferredDisplayMode = .secondaryOnly
+                            }
+                            #endif
+                            
+                            NotificationCenter.default.removeObserver(splitVC)
+                            completion?()
+                        })
                     })
-                })
+                } else {
+                    (viewController ?? self)?.present(vc, animated: true, completion: nil)
+                }
             }
         }
         
