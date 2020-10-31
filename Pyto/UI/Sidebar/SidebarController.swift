@@ -14,6 +14,13 @@ class SidebarController: UIHostingController<AnyView> {
     private var sceneDelegate: SceneDelegate?
     
     override var childForHomeIndicatorAutoHidden: UIViewController? {
+        
+        for console in ConsoleViewController.visibles {
+            if console.editorSplitViewController?.view.window == view.window {
+                return console.editorSplitViewController
+            }
+        }
+        
         guard let scene = view.window?.windowScene else {
             return nil
         }
