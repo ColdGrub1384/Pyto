@@ -56,11 +56,23 @@ import TrueTime
     
     private let copyModulesQueue = DispatchQueue.global(qos: .background)
     
+    private var downloadingPyPICache = false
+    
     /// Updates the PyPi index cache.
     func updatePyPiCache() {
+        
+        guard !downloadingPyPICache else {
+            return
+        }
+        
+        downloadingPyPICache = true
+        
         let task = UIApplication.shared.beginBackgroundTask(expirationHandler: nil)
         
         URLSession.shared.downloadTask(with: URL(string: "https://pypi.org/simple")!) { (fileURL, _, error) in
+            
+            self.downloadingPyPICache = false
+            
             if let error = error {
                 print(error.localizedDescription)
             } else if let url = fileURL {
@@ -201,19 +213,7 @@ import TrueTime
     }
     
     private let exceptionHandler: Void = NSSetUncaughtExceptionHandler { (exception) in
-        PyOutputHelper.printError("\(exception.callStackSymbols.joined(separator: "\n"))\n\n\(exception.name.rawValue): \(exception.reason ?? "")\n", script: nil)
-
-        for script in Python.shared.runningScripts {
-            if let path = script as? String {
-                Python.shared.stop(script: path)
-            }
-        }
-        
-        Python.shared.runningScripts = NSArray(array: [])
-        
-        if !Thread.current.isMainThread {
-            DispatchSemaphore(value: 0).wait()
-        }
+        PyOutputHelper.printError("\(exception.name.rawValue): \(exception.reason ?? "")\n", script: nil)
     }
     #endif
     
@@ -341,6 +341,27 @@ import TrueTime
         
         SwiftyStoreKit.shouldAddStorePaymentHandler = { payment, product in
             
+            func continuePurchasing(id: Product, window: UIWindow?) {
+                
+                let name = id.rawValue.components(separatedBy: ".").last ?? ""
+                
+                let message: String
+                if id == .fullVersion || id == .upgrade {
+                    message = NSLocalizedString("fullversion.promotion", comment: "")
+                } else {
+                    message = NSLocalizedString("\(name).promotion", comment: "")
+                }
+                
+                let alert = UIAlertController(title: NSLocalizedString(name, comment: ""), message: message, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.ok, style: .default, handler: { (_) in
+                    purchase(id: id, window: window)
+                }))
+                alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                    window?.topViewController?.present(alert, animated: true, completion: nil)
+                }
+            }
+            
             if let validator = ReceiptValidator(), let version = validator.receipt[.originalAppVersion] as? String {
                 guard version.versionCompare(initialVersionRequiringUserToPay) != .orderedAscending else {
                     return false
@@ -377,7 +398,7 @@ import TrueTime
                         .first?.windows
                         .filter({$0.isKeyWindow}).first
                         
-                        purchase(id: product, window: keyWindow)
+                        continuePurchasing(id: product, window: keyWindow)
                     }
                 }
                 
@@ -404,7 +425,7 @@ import TrueTime
                         .first?.windows
                         .filter({$0.isKeyWindow}).first
                         
-                        purchase(id: product, window: keyWindow)
+                        continuePurchasing(id: product, window: keyWindow)
                     }
                 }
                 
@@ -470,11 +491,14 @@ import TrueTime
     #if MAIN
     
     #if !Xcode11
+    @available(iOS 14.0, *)
     public func application(_ application: UIApplication, handlerFor intent: INIntent) -> Any? {
         if intent is RunScriptIntent {
             return RunScriptIntentHandler()
         } else if intent is RunCodeIntent {
             return RunCodeIntentHandler()
+        } else if intent is StartHandlingWidgetsInAppIntent {
+            return StartHandlingWidgetsInAppIntentHandler()
         } else {
             return nil
         }
@@ -497,10 +521,6 @@ import TrueTime
         for session in sceneSessions {
             (((session.scene?.delegate as? UIWindowSceneDelegate)?.window??.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor?.save()
         }
-    }
-            
-    public func applicationWillTerminate(_ application: UIApplication) {
-        exit(0)
     }
     
     #endif
