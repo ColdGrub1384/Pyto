@@ -316,7 +316,7 @@ import SwiftUI
             
             func get() {
                 for visible in objcVisibles {
-                    if let console = visible as? ConsoleViewController, console.view.window != nil {
+                    if let console = visible as? ConsoleViewController, (console.view.window != nil || console.editorSplitViewController?.editor?.shouldRun == true) {
                         visibles.append(console)
                     }
                 }
@@ -338,7 +338,7 @@ import SwiftUI
             objcVisibles.removeAllObjects()
             
             for element in newValue {
-                if element.view.window != nil {
+                if element.view.window != nil || element.editorSplitViewController?.editor?.shouldRun == true {
                     objcVisibles.add(element)
                 }
             }
@@ -886,6 +886,10 @@ import SwiftUI
     
     private let codeCompletionQueue = DispatchQueue.global()
     
+    private var wasFirstResponder = false
+    
+    //private var wasFirstResp
+    
     // MARK: - View controller
     
     override open func viewDidLoad() {
@@ -894,17 +898,19 @@ import SwiftUI
         #if MAIN
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
         
-        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { [weak self] (notif) in
+        NotificationCenter.default.addObserver(forName: UIScene.didActivateNotification, object: nil, queue: nil) { [weak self] (notif) in
             self?.themeDidChange(notif)
         }
         
         NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: nil) { [weak self] (notif) in
-            self?.movableTextField?.textField.resignFirstResponder()
-            #if MAIN
-            self?.movableTextField?.toolbar.frame.origin.y = (self?.view.safeAreaLayoutGuide.layoutFrame.height ?? 0)-(self?.movableTextField?.toolbar.frame.height ?? 0)
-            #else
-            self?.movableTextField?.toolbar.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.height ?? 0
-            #endif
+            self?.wasFirstResponder = self?.movableTextField?.textField.isFirstResponder ?? false
+        }
+        
+        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { [weak self] (notif) in
+            if self?.wasFirstResponder == true {
+                self?.wasFirstResponder = false
+                self?.movableTextField?.textField.becomeFirstResponder()
+            }
         }
         #endif
         
@@ -1141,25 +1147,17 @@ import SwiftUI
     
     open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        let wasFirstResponder = movableTextField?.textField.isFirstResponder ?? false
-        let isREPL = !(!(editorSplitViewController is REPLViewController) && !(editorSplitViewController is RunModuleViewController))
-        
-        if #available(iOS 14.0, *), isREPL {
-        } else {
-            movableTextField?.textField.resignFirstResponder()
-        }
-        
+                
         movableTextField?.toolbar.frame.size.width = view.safeAreaLayoutGuide.layoutFrame.width
         movableTextField?.toolbar.frame.origin.x = view.safeAreaInsets.left
+        
+        if !(movableTextField?.textField.isFirstResponder ?? false) {
+            movableTextField?.toolbar.frame.origin.y = view.frame.height-(movableTextField?.toolbar.frame.height ?? 0)
+        }
+        
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
         textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
         textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
-        
-        if #available(iOS 14.0, *), isREPL {
-        } else if wasFirstResponder {
-            movableTextField?.textField.becomeFirstResponder()
-        }
         
         movableTextField?.toolbar.isHidden = (view.frame.size.height == 0)
         #if MAIN
@@ -1193,7 +1191,7 @@ import SwiftUI
             let point = (view.window)?.convert(r.origin, to: view) ?? r.origin
             
             #if MAIN
-            textView.frame.size.height = point.y-44
+            textView.frame.size.height = point.y-(navigationController?.toolbar.frame.height ?? 44)
             #else
             textView.frame.size.height = point.y-(44+(view.safeAreaInsets.top))
             #endif
