@@ -166,7 +166,7 @@ import UIKit
             let code = """
             import console
             import importlib.util
-            from pyto import REPLViewController
+            from pyto import REPLViewController, PyInputHelper
 
             print()
 
@@ -176,11 +176,16 @@ import UIKit
                 spec.loader.exec_module(script)
 
                 console.__repl_namespace__[__file__.split("/")[-1]].update(vars(script))
+                PyInputHelper.userInput.setObject("", forKey=__file__)
             """
+            
+            guard editor!.document!.fileURL.lastPathComponent.hasSuffix(".repl.py") else {
+                return
+            }
             
             try? code.write(to: editor!.document!.fileURL, atomically: true, encoding: .utf8)
             
-            Python.shared.run(script: .init(path: editor!.document!.fileURL.path, debug: false))
+            Python.shared.run(script: .init(path: editor!.document!.fileURL.path, debug: false, runREPL: true))
         }
     }
 }
