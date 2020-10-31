@@ -862,6 +862,8 @@ int initialize_python(int argc, char *argv[]) {
     
     // MARK: - Redirect logs for debugging in production
     
+    /*#if DEBUG
+    #else
     NSURL *logURL = [[NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask].firstObject URLByAppendingPathComponent:@"logs.txt"];
     
     [@"" writeToURL:logURL atomically:NO encoding: NSUTF8StringEncoding error: NULL];
@@ -870,6 +872,7 @@ int initialize_python(int argc, char *argv[]) {
     setvbuf(stdout, NULL, _IONBF, 0);
     dup2(fileno(fopen([logURL.path UTF8String], "w")), STDOUT_FILENO);
     dup2(fileno(fopen([logURL.path UTF8String], "w")), STDERR_FILENO);
+    #endif*/
     
     @autoreleasepool {
         return UIApplicationMain(argc, argv, NULL, NSStringFromClass(AppDelegate.class));
