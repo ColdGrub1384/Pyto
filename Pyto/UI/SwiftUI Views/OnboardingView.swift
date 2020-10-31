@@ -39,6 +39,21 @@ fileprivate var fullVersionLibrairies: [String] {
     
     keys.sort()
     
+    if let i = keys.firstIndex(of: "matplotlib") {
+        keys.remove(at: i)
+        keys.insert("matplotlib", at: 0)
+    }
+    
+    if let i = keys.firstIndex(of: "pandas") {
+        keys.remove(at: i)
+        keys.insert("pandas", at: 0)
+    }
+    
+    if let i = keys.firstIndex(of: "numpy") {
+        keys.remove(at: i)
+        keys.insert("numpy", at: 0)
+    }
+    
     return keys
 }
 
@@ -46,9 +61,7 @@ fileprivate var fullVersionLibrairies: [String] {
 public struct OnboardingView: View {
     
     @Environment(\.verticalSizeClass) var vertical
-    
-    @State var showingDetail = false
-    
+        
     public var isTrialEnded: Bool
     
     public var fullFeaturedPrice: String
@@ -71,6 +84,10 @@ public struct OnboardingView: View {
         self.purchaseFull = purchaseFull
         self.purchaseLite = purchaseLite
         self.restore = restore
+        
+        if isTrialEnded {
+            _isPricingSheetPresented = State(wrappedValue: true)
+        }
     }
     
     var restoreButton: some View {
@@ -109,37 +126,9 @@ public struct OnboardingView: View {
                 .frame(width: 200)
             }
             .padding()
-            .background(Color.accentColor)
+            .background(Color.green)
             .cornerRadius(12)
             
-            Button(action: {
-                self.showingDetail.toggle()
-            }) {
-                Text("onboarding.libraries", comment: "The button linking to a list of contained libraries in the pro version")
-                .font(.footnote)
-                .underline()
-                .padding()
-            }
-            .sheet(isPresented: $showingDetail) {
-                VStack {
-                    Button(action: {
-                        self.showingDetail = false
-                    }) {
-                        HStack {
-                            Spacer()
-                            
-                            Text("done", comment: "Done button")
-                            .fontWeight(.bold)
-                            .padding()
-                        }
-                    }
-                    
-                    List(fullVersionLibrairies, id: \.self) { item in
-                        Text(item)
-                    }
-                }
-            }
-            .accentColor(.primary)
         }
     }
     
@@ -153,13 +142,110 @@ public struct OnboardingView: View {
                 .frame(width: 200)
             }
             .padding()
-            .background(Color.accentColor)
+            .background(Color.orange)
             .cornerRadius(12)
+        }
+    }
+    
+    @State var isPricingSheetPresented = false
+    
+    var purchaseView: some View {
+        VStack {
+            Button(action: {
+                self.isPricingSheetPresented = true
+            }, label: {
+                Text("onboarding.purchase", comment: "The button for choosing a pricing")
+                    .foregroundColor(.white)
+                    .frame(width: 200)
+                    .padding()
+                    .background(Color.accentColor)
+            })
             
-            Text("onboarding.noExtensionsFootnote", comment: "The footnote below the button for purchasing the limited version")
+            .cornerRadius(12)
+            .sheet(isPresented: $isPricingSheetPresented, content: {
+                pricingView
+            })
+            
+            Text("onboarding.twoPricesAvailable", comment: "The text bellow the purchase button")
             .font(.footnote)
             .frame(width: 200)
             .padding()
+        }
+    }
+    
+    func featureView(name: String, lite: Bool) -> some View {
+        HStack {
+            Text(NSLocalizedString(name, comment: ""))
+            Spacer()
+            
+            Image(systemName: "checkmark").foregroundColor(.green).padding(.horizontal, 30)
+            
+            if lite {
+                Image(systemName: "checkmark").foregroundColor(.green)
+            } else {
+                Image(systemName: "xmark").foregroundColor(.red)
+            }
+        }.padding(10)
+    }
+    
+    var pricingView: some View {
+        VStack {
+                        
+            HStack {
+                Spacer()
+                Button(action: {
+                    isPricingSheetPresented = false
+                }, label: {
+                    Text("done").fontWeight(.bold)
+                }).padding()
+            }
+            
+            ScrollView {
+                
+                if vertical != .compact {
+                    HStack {
+                        Text("onboarding.purchase", comment: "The button for choosing a pricing").font(.largeTitle).fontWeight(.bold)
+                        Spacer()
+                    }.padding()
+                }
+                
+                VStack {
+                    HStack {
+                        Spacer()
+                        Text("onboarding.full", comment: "'Full'")
+                        Text("onboarding.limited", comment: "'Limited'")
+                    }.padding()
+                    
+                    featureView(name: "onboarding.features.1", lite: true)
+                    featureView(name: "onboarding.features.2", lite: true)
+                    featureView(name: "onboarding.features.3", lite: true)
+                    featureView(name: "onboarding.features.4", lite: true)
+                    featureView(name: "onboarding.features.5", lite: true)
+                    
+                    ForEach(fullVersionLibrairies, id: \.self) { lib in
+                        featureView(name: lib.capitalized, lite: false)
+                    }
+                    
+                    Text("onboarding.purchaseWarning", comment: "A warning so people don't email me about how to install Tensorflow")
+                        .foregroundColor(.orange)
+                        .padding()
+                }
+            }
+            
+            Divider()
+            
+            if vertical == .compact {
+                HStack {
+                    fullFeaturedView
+                    liteView
+                }.padding()
+            } else {
+                VStack {
+                    fullFeaturedView
+                    liteView
+                    restoreButton
+                }.padding()
+            }
         }
     }
     
@@ -209,39 +295,26 @@ public struct OnboardingView: View {
                                 Text("onboarding.shortcuts", comment: "The fourth presented feature")
                                 Spacer()
                             }
+                            
+                            Divider()
+                            
+                            HStack {
+                                Image(systemName: "apps.iphone")
+                                Text("onboarding.widgets", comment: "The fifth presented feature")
+                                Spacer()
+                            }
                         }.padding()
                     }
                     
                     Spacer()
                 }
             }
-            
-            //Spacer()
-            
-            if vertical == .compact {
-                HStack {
-                    VStack {
-                        fullFeaturedView
-                        Spacer()
-                    }
-                    
-                    VStack {
-                        liteView
-                        Spacer()
-                    }
-                }
-            } else {
-                fullFeaturedView
-                
-                Spacer()
-                
-                liteView
-            }
+                        
+            purchaseView
             
             if vertical == .compact {
                 HStack {
                     trialButton
-                    //Spacer()
                     restoreButton
                 }
                 Spacer()
@@ -259,6 +332,6 @@ public struct OnboardingView: View {
 @available(iOS 13.0.0, *)
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
-        OnboardingView(isTrialEnded: false, fullFeaturedPrice: "9.99$", noExtensionsPrice: "2.99$", startFreeTrial: {}, purchaseFull: {}, purchaseLite: {}, restore: {}).previewLayout(.fixed(width: 568, height: 320))
+        OnboardingView(isTrialEnded: true, fullFeaturedPrice: "9.99$", noExtensionsPrice: "2.99$", startFreeTrial: {}, purchaseFull: {}, purchaseLite: {}, restore: {})
     }
 }
