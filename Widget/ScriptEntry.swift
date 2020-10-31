@@ -42,6 +42,12 @@ struct ScriptEntry: TimelineEntry, Codable {
     /// A boolean indicating whether the console should be rendered as a placeholder.
     var isPlaceholder = false
     
+    /// For widgets handled in app, the update interval.
+    var updateInterval: TimeInterval?
+    
+    /// A boolean indicating whether the script content is set in app.
+    var inApp = false
+    
     /// Returns the URL to open the script.
     ///
     /// - Parameters:
@@ -85,6 +91,10 @@ struct ScriptEntry: TimelineEntry, Codable {
         case snapshots
         case view
         case bookmarkData
+        case updateInterval
+        case output
+        case date
+        case code
     }
     
     init(date: Date, output: String, snapshots: [WidgetFamily:(UIImage, UIColor)] = [:], view: [WidgetFamily:WidgetView]? = nil, code: String = "", bookmarkData: Data? = nil) {
@@ -130,9 +140,18 @@ struct ScriptEntry: TimelineEntry, Codable {
             bookmarkData = nil
         }
         
-        output = ""
-        date = Date()
-        code = ""
+        do {
+            updateInterval = try container.decode(Double.self, forKey: .updateInterval)
+        } catch {
+            updateInterval = nil
+        }
+                
+        output = try container.decode(String.self, forKey: .output)
+        
+        date = try container.decode(Date.self, forKey: .date)
+       
+        code = try container.decode(String.self, forKey: .code)
+       
         self.snapshots = snapshots
     }
     
@@ -152,5 +171,9 @@ struct ScriptEntry: TimelineEntry, Codable {
         try container.encode(views, forKey: .view)
         try container.encode(snapshots, forKey: .snapshots)
         try container.encode(bookmarkData, forKey: .bookmarkData)
+        try container.encode(updateInterval, forKey: .updateInterval)
+        try container.encode(output, forKey: .output)
+        try container.encode(date, forKey: .date)
+        try container.encode(code, forKey: .code)
     }
 }
