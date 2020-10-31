@@ -39,6 +39,12 @@ class Thread(threading.Thread):
     def run(self):
         pool = NSAutoreleasePool.alloc().init()
         Python.shared.handleCrashesForCurrentThread()
+        
+        try:
+            Python.shared.registerThread(self.script_path)
+        except AttributeError:
+            pass
+        
         super().run()
         pool.release()
         del pool
@@ -57,7 +63,7 @@ class PythonImplementation(NSObject):
             
         _gc.collected = []
 
-        thread = Thread(target=run_script, args=(str(script.path), False, script.debug, script.breakpoints))
+        thread = Thread(target=run_script, args=(str(script.path), False, script.debug, script.breakpoints, script.runREPL))
         thread.script_path = str(script.path)
         thread.start()
     

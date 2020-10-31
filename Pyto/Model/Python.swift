@@ -57,10 +57,20 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         }
     }
     
+    @objc private func shouldPrintCrashTraceback(_ script: String) -> Bool {
+        let ret = !scriptsAboutToExit.contains(script)
+        if !ret, let i = scriptsAboutToExit.firstIndex(of: script) {
+            scriptsAboutToExit.remove(at: i)
+        }
+        return ret
+    }
+    
     private func crashHandler(_ signal: Int32) {
         
         let signalString: String
         switch signal {
+        case SIGKILL:
+            signalString = "SIGKILL"
         case SIGABRT:
             signalString = "SIGABRT"
         case SIGFPE:
@@ -78,15 +88,39 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         }
         
         #if MAIN
-        PyOutputHelper.printError("\(Thread.callStackSymbols.joined(separator: "\n"))\nThread crashed with signal: \(signalString)", script: nil)
+        Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: """
+        import traceback
+        import threading
+        from pyto import PyOutputHelper, Python
+
+        stack = traceback.format_stack()
+        stack.insert(-3, "\\n")
+        stack = "".join(stack)
+        stack = "Traceback (most recent call last):\\n"+stack
+        stack += f"\\n\\n{threading.current_thread().name}\(" crashed with signal: \(signalString)")\\n"
+
+        try:
+
+            if Python.shared.shouldPrintCrashTraceback(threading.current_thread().script_path):
+                PyOutputHelper.printError(stack, script=None)
+
+            Python.shared.removeScriptFromList(threading.current_thread().script_path)
+        except AttributeError:
+            PyOutputHelper.printError(stack, script=None)
+
+        threading.Event().wait()
+        """)
         #endif
-        
-        let semaphore = DispatchSemaphore(value: 0)
-        semaphore.wait()
     }
     
     /// Handles crashes for the current thread.
     @objc public func handleCrashesForCurrentThread() {
+        
+        print("Handle crashes for: \(Thread.current)")
+        
+        signal(SIGKILL, { signal in
+            Python.shared.crashHandler(signal)
+        })
         signal(SIGABRT, { signal in
             Python.shared.crashHandler(signal)
         })
@@ -335,6 +369,9 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         /// Set to `true` if the script should  be debugged with `pdb`.
         @objc public var debug: Bool
         
+        /// If set to `true`, the REPL will run after executing the script.
+        @objc public var runREPL: Bool
+        
         @objc public var breakpoints: NSArray
         
         /// Initializes the script.
@@ -342,10 +379,12 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         /// - Parameters:
         ///     - path: The path of the script.
         ///     - debug: Set to `true` if the script should  be debugged with `pdb`.
+        ///     - runREPL: If set to `true`, the REPL will run after executing the script.
         ///     - breakpoints: Line numbers where breakpoints should be placed if the script should be debugged.
-        @objc public init(path: String, debug: Bool, breakpoints: [Int] = []) {
+        @objc public init(path: String, debug: Bool, runREPL: Bool, breakpoints: [Int] = []) {
             self.path = path
             self.debug = debug
+            self.runREPL = runREPL
             self.breakpoints = NSArray(array: breakpoints)
         }
     }
@@ -364,7 +403,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
             FileManager.default.createFile(atPath: url.path, contents: nil, attributes: nil)
             try? code.write(to: url, atomically: true, encoding: .utf8)
             
-            super.init(path: url.path, debug: false)
+            super.init(path: url.path, debug: false, runREPL: false)
         }
     }
     
@@ -564,6 +603,11 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// - Parameters:
     ///     - script: Script to run.
     @objc(runScript:) public func run(script: Script) {
+        
+        #if MAIN
+        currentWorkingDirectory = directory(for: URL(fileURLWithPath: script.path)).path
+        #endif
+        
         if let pythonInstance = Python.pythonShared {
             DispatchQueue.global().async {
                 pythonInstance.performSelector(inBackground: #selector(PythonRuntime.runScript(_:)), with: script)
@@ -609,6 +653,12 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         }
     }
 
+    private var scriptsAboutToExit = [String]()
+    
+    @objc public func registerThread(_ script: String) {
+        scriptThreads[script] = pthread_self()
+    }
+    
     /// Sends `SystemExit`.
     ///
     /// - Parameters:
@@ -628,6 +678,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// - Parameters:
     ///     - script: The path of the script to interrupt.
     @objc public func interrupt(script: String) {
+                
         if let pythonInstance = Python.pythonShared {
             DispatchQueue.global().async {
                 pythonInstance.performSelector(inBackground: #selector(PythonRuntime.interruptScript(_:)), with: script)
