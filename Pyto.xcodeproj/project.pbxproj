@@ -27,6 +27,8 @@
 		C904FA2621DA4C7600B70A39 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C904FA1F21DA4C7600B70A39 /* Accelerate.framework */; };
 		C9064E372413083000E386C2 /* libnpymath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9064E352413082F00E386C2 /* libnpymath.a */; };
 		C9064E382413083000E386C2 /* libnpysort.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9064E362413082F00E386C2 /* libnpysort.a */; };
+		C90788EB254DF77600FC5348 /* View+hover.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90788EA254DF77600FC5348 /* View+hover.swift */; };
+		C90788EC254DF77600FC5348 /* View+hover.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90788EA254DF77600FC5348 /* View+hover.swift */; };
 		C90860D324ADB7F200C0DE8F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C90860D224ADB7F100C0DE8F /* LaunchScreen.storyboard */; };
 		C90951012478540500931684 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C90951032478540500931684 /* Localizable.strings */; };
 		C9095107247856F600931684 /* SwiftUIBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9095106247856F600931684 /* SwiftUIBundle.swift */; };
@@ -5029,6 +5031,7 @@
 		C904FA1F21DA4C7600B70A39 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C9064E352413082F00E386C2 /* libnpymath.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libnpymath.a; sourceTree = "<group>"; };
 		C9064E362413082F00E386C2 /* libnpysort.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libnpysort.a; sourceTree = "<group>"; };
+		C90788EA254DF77600FC5348 /* View+hover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+hover.swift"; sourceTree = "<group>"; };
 		C90860D224ADB7F100C0DE8F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C90951022478540500931684 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C90951042478540A00931684 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -9763,6 +9766,7 @@
 				C91F961F24AD9185003ACF02 /* PyPiView.swift */,
 				C91F962024AD9185003ACF02 /* ValueView.swift */,
 				C91F962124AD9185003ACF02 /* OnboardingView.swift */,
+				C90788EA254DF77600FC5348 /* View+hover.swift */,
 			);
 			path = "SwiftUI Views";
 			sourceTree = "<group>";
@@ -14548,6 +14552,7 @@
 				C9B8A7F124B3E13F001FD8F0 /* HeaderLabel.swift in Sources */,
 				C9B8A7F224B3E13F001FD8F0 /* r1updt_.c in Sources */,
 				C9040DBF2502A2BB002B6C7F /* UIKitView.swift in Sources */,
+				C90788EC254DF77600FC5348 /* View+hover.swift in Sources */,
 				C9B8A7F324B3E13F001FD8F0 /* UIApplication+orientation.swift in Sources */,
 				C9B8A7F424B3E13F001FD8F0 /* qrfac.c in Sources */,
 				C9B8A7F624B3E13F001FD8F0 /* hybrj_.c in Sources */,
@@ -15107,6 +15112,7 @@
 				C98A5BB422C7E86900D411CC /* PyWrapper.swift in Sources */,
 				C9622B7E2467BE5200D0D697 /* lmstr_.c in Sources */,
 				C93D61DF2145D03200C8B5E3 /* UIWindow.swift in Sources */,
+				C90788EB254DF77600FC5348 /* View+hover.swift in Sources */,
 				C98F37BB23ED894700E5D52C /* PyMotionHelper.swift in Sources */,
 				C95076FC22DE428F00226497 /* WidgetSimulatorViewController.swift in Sources */,
 				C93AE21424A99BE30066568A /* RemoveCachedOutput.swift in Sources */,

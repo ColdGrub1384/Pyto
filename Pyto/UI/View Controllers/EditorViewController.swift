@@ -2121,7 +2121,21 @@ func directory(for scriptURL: URL) -> URL {
     /// Function or class signature displayed in the completion bar.
     @objc var signature: String {
         get {
-            return _signature
+            var comps = [String]() // Remove annotations because it's too long
+            
+            let sig = _signature.components(separatedBy: " ->").first ?? _signature
+            
+            for component in sig.components(separatedBy: ",") {
+                if let name = component.components(separatedBy: ":").first {
+                    comps.append(name)
+                }
+            }
+            
+            var str = comps.joined(separator: ",")
+            if !str.hasSuffix(")") && sig.hasSuffix(")") {
+                str.append(")")
+            }
+            return str
         }
         
         set {
