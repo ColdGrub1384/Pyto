@@ -84,9 +84,9 @@ public struct JSONBrowserView: View {
                 self.dismiss?()
             }) {
                 if self.dismiss != nil {
-                    Text("done").fontWeight(.bold)
+                    Text("done").fontWeight(.bold).padding(5)
                 }
-            }
+            }.hover()
         )
     }
 }

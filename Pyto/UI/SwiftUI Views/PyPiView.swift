@@ -225,8 +225,8 @@ public struct PyPiView: View {
             Button(action: {
                 self.hostingController?.dismiss(animated: true, completion: nil)
             }) {
-                Text("done", comment: "Done button").fontWeight(.bold)
-            }
+                Text("done", comment: "Done button").fontWeight(.bold).padding(5)
+            }.hover()
         )
     }
 }

@@ -197,7 +197,7 @@ public struct OnboardingView: View {
                     isPricingSheetPresented = false
                 }, label: {
                     Text("done").fontWeight(.bold)
-                }).padding()
+                }).hover().padding(5)
             }
             
             ScrollView {

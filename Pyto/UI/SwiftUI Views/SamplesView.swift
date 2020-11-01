@@ -161,7 +161,7 @@ public struct SamplesNavigationView: View {
                 self.hostController?.dismiss(animated: true, completion: nil)
             }, label: {
                 Text("done").fontWeight(.bold)
-            }))
+            }).hoverEffect())
 
         }
         .navigationViewStyle(StackNavigationViewStyle())
