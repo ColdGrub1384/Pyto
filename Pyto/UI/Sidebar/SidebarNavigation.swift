@@ -284,7 +284,7 @@ public struct SidebarNavigation: View {
                 self.viewControllerStore.vc?.dismiss(animated: true, completion: nil)
             }, label: {
                 Text("done", comment: "Done button").fontWeight(.bold)
-            })))
+            }).hoverEffect()))
         } else {
             return view
         }
