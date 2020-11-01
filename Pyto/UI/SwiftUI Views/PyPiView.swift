@@ -145,7 +145,9 @@ public struct PyPiView: View {
                 Spacer()
             } else if !index.searchString.isEmpty {
                 List(index.packages, id: \.self, rowContent: { item in
-                    HStack {
+                    Button(action: {
+                        self.didSelectPackage(item, false, false)
+                    }, label: {
                         HStack {
                             if item.lowercased() == self.index.searchString.lowercased() {
                                 Text(item).fontWeight(.bold)
@@ -153,17 +155,9 @@ public struct PyPiView: View {
                                 Text(item)
                             }
                             
-                            ZStack {
-                                Color.black.opacity(0.001).onTapGesture {
-                                    self.didSelectPackage(item, false, false)
-                                }
-                                Spacer()
-                            }
+                            Spacer()
                             
                             Image(systemName: "chevron.right").foregroundColor(.secondary)
-                        }
-                        .onTapGesture {
-                            self.didSelectPackage(item, false, false)
                         }
                         .contextMenu {
                             Button(action: {
@@ -196,7 +190,7 @@ public struct PyPiView: View {
                                 Image(systemName: "ellipsis")
                             }
                         }
-                    }
+                    })
                 })
             } else {
                 Text("pypi.info", comment: "Text displayed on the PyPi installer")
