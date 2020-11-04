@@ -373,13 +373,9 @@ public struct SidebarNavigation: View {
             self.viewControllerStore.vc?.present(navVC, animated: true, completion: nil)
         }, label: {
             Image(systemName: "gear")
-        }))
+        }).padding(5).hover())
         .onAppear {
-            if stack {
-                UITableView.appearance().backgroundColor = .systemBackground
-            } else {
-                UITableView.appearance().backgroundColor = .secondarySystemBackground
-            }
+            UITableView.appearance().backgroundColor = .secondarySystemBackground
         }
     }
     
