@@ -51,7 +51,7 @@ import SwiftUI
             sceneDelegate?.sceneStateStore.reset()
             
             let sidebar = makeSidebarNavigation(url: nil, run: false, isShortcut: false, restoreSelection: false)
-            let vc = UIHostingController(rootView: AnyView(sidebar))
+            let vc = SidebarController(rootView: AnyView(sidebar))
             vc.modalTransitionStyle = .crossDissolve
             vc.modalPresentationStyle = .fullScreen
             sidebar.viewControllerStore.vc = vc
@@ -317,6 +317,7 @@ import SwiftUI
         let runAction = UIDocumentBrowserAction(identifier: "run", localizedTitle: Localizable.MenuItems.run, availability: [.menu, .navigationBar], handler: { (urls) in
             self.openDocument(urls[0], run: true)
         })
+        runAction.supportedContentTypes = ["public.python-script"]
         
         if #available(iOS 13.0, *) {
             additionalTrailingNavigationBarButtonItems = [UIBarButtonItem(image: UIImage(systemName: "folder.fill") ?? UIImage(), style: .plain, target: self, action: #selector(openProject))]
