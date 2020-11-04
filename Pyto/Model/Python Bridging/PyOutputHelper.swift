@@ -94,7 +94,7 @@ fileprivate extension ConsoleViewController {
         
     private static var semaphore: DispatchSemaphore?
     
-    private static let queue = DispatchQueue.global(qos: .userInteractive)
+    private static let queue = DispatchQueue.main
     
     #if WIDGET && !Xcode11
     #else
@@ -103,6 +103,13 @@ fileprivate extension ConsoleViewController {
     ///     - text: Text to print.
     ///     - script: Script that printed the output. Set to `nil` to be printed in every console.
     @objc static func print(_ text: String, script: String?) {
+        
+        if Thread.current.isMainThread {
+            return DispatchQueue.global().async {
+                print(text, script: script)
+            }
+        }
+        
         var text_ = text
         
         guard !text_.isEmpty else {
@@ -232,11 +239,7 @@ fileprivate extension ConsoleViewController {
             let delegate = PyOutputHelper()
             delegate.script = script
             outputParser.delegate = delegate
-            PyOutputHelper.semaphore = DispatchSemaphore(value: 0)
             outputParser.parse(text_.data(using: .utf8) ?? Data())
-            if script != nil {
-                PyOutputHelper.semaphore?.wait()
-            }
         }
         #endif
     }
@@ -496,14 +499,11 @@ fileprivate extension ConsoleViewController {
 extension PyOutputHelper: ParserDelegate {
     
     func parser(_ parser: Parser, didReceiveString string: NSAttributedString) {
-        
         #if WIDGET
         let visibles = [ConsoleViewController.visible ?? ConsoleViewController()]
         #else
         let visibles = ConsoleViewController.visibles
         #endif
-        
-        var foundConsole = false
         
         for console in visibles {
             
@@ -515,27 +515,12 @@ extension PyOutputHelper: ParserDelegate {
             }
             #endif
             
-            foundConsole = true
             
-            DispatchQueue.main.async {
-                if let attrStr = console.attributedConsole {
-                    let mutable = NSMutableAttributedString(attributedString: attrStr)
-                    mutable.append(string)
-                    console.textView.attributedText = mutable
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-                        console.textView.scrollToBottom()
-                    }
-                    
-                    PyOutputHelper.semaphore?.signal()
-                    PyOutputHelper.semaphore = nil
-                }
+            if let attrStr = console.attributedConsole {
+                let mutable = NSMutableAttributedString(attributedString: attrStr)
+                mutable.append(string)
+                console.textView.attributedText = mutable
             }
-        }
-        
-        if !foundConsole {
-            PyOutputHelper.semaphore?.signal()
-            PyOutputHelper.semaphore = nil
         }
     }
 
