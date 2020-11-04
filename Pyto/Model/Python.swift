@@ -86,9 +86,10 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         default:
             signalString = "UNKNOWN"
         }
-        
+                
         #if MAIN
-        Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: """
+        
+        var code = """
         import traceback
         import threading
         from pyto import PyOutputHelper, Python
@@ -108,8 +109,22 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         except AttributeError:
             PyOutputHelper.printError(stack, script=None)
 
-        threading.Event().wait()
-        """)
+
+        """
+        
+        if !Thread.current.isMainThread {
+            code += "threading.Event().wait()"
+        } else {
+            code = """
+            import notifications as nc
+
+            notif = nc.Notification()
+            notif.message = stack
+            nc.send_notification(notif)
+            """
+        }
+        
+        Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: code)
         #endif
     }
     
