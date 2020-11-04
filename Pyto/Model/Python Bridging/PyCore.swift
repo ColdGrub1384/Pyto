@@ -58,9 +58,12 @@ extension NSPointerArray {
         func run() {
             Python.shared.run(code: """
             import threading
-            import runpy
-            import threading
-            from pyto_core import __py_core__
+            try:
+                from pyto_core import __py_core__
+            except (KeyError, ImportError):
+                from time import sleep
+                sleep(1)
+                from pyto_core import __py_core__
 
             class Thread(threading.Thread):
             
@@ -69,6 +72,9 @@ extension NSPointerArray {
             script = str(__py_core__.startupScript)
 
             def run():
+                import runpy
+                global script
+
                 try:
                     runpy.run_path(script)
                 except ImportError:
