@@ -824,7 +824,7 @@ class Padding:
     right: float = None
     """ Right padding """
 
-    def __init__(self, top: float = None, bottom: float = None, left: float = None, right: float = None):
+    def __init__(self, top: float = 0, bottom: float = 0, left: float = 0, right: float = 0):
         self.top = top
         self.bottom = bottom
         self.left = left
