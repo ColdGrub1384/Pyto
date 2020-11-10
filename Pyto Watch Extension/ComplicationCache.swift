@@ -17,8 +17,8 @@ class ComplicationCache {
             if var date = sortedTimeline.first?.date {
                 WCSession.default.sendMessage(["Schedule Background Task": date], replyHandler: nil, errorHandler: nil)
                 
-                if date.timeIntervalSinceNow < 15*60 { // Less than 15 minutes
-                    date = Date().addingTimeInterval(15*60)
+                if date.timeIntervalSinceNow < 20*60 { // Less than 20 minutes
+                    date = Date().addingTimeInterval(20*60)
                 }
                 
                 WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: date, userInfo: nil) { (error) in

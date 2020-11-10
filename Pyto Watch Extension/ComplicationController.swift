@@ -132,7 +132,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             }
         }
         WCSession.default.sendMessage([id: [date, limit, complication.identifier]], replyHandler: nil, errorHandler: { error in
-            WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: Date().addingTimeInterval(60*15), userInfo: nil) { (error) in
+            WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: Date().addingTimeInterval(60*20), userInfo: nil) { (error) in
                 if let error = error {
                     print(error.localizedDescription)
                 }
