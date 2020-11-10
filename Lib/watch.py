@@ -134,6 +134,22 @@ class Complication:
         self.circular = wd.WidgetLayout()
         self.circular_extra_large = wd.WidgetLayout()
 
+    def add_row(
+        self,
+        row: List[wd.WidgetComponent],
+        background_color: wd.Color = None,
+        corner_radius: float = 0,
+        link: str = None,
+    ):
+
+        for component in row:
+            if "color" not in dir(component):
+                continue
+            
+            if component.color.__py_color__ == wd.COLOR_LABEL.__py_color__.managed:
+                component.color = wd.COLOR_WHOTE
+
+        super.add_row(row, background_color, corner_radius, link)
 
 def __objc__(complication: Complication):
     objc = __PyComplication__.alloc().init()
