@@ -199,10 +199,12 @@ struct Provider: IntentTimelineProvider {
                                 executingScripts.remove(at: i)
                             }
                             ProcessInfo.processInfo.performExpiringActivity(withReason: "Because I want to") { (expired) in
+                                
+                                if !expired {
+                                    Thread.sleep(forTimeInterval: 3)
+                                }
+                                
                                 if widgetsQueue <= 0 {
-                                    if !expired {
-                                        Thread.sleep(forTimeInterval: 3)
-                                    }
                                     exit(0)
                                 }
                             }
@@ -240,7 +242,7 @@ struct Provider: IntentTimelineProvider {
                     if (Python.shared.isSetup || RuntimeCommunicator.shared.isContainerAppRunning) && !runningScript {
                         run()
                     } else {
-                        _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true, block: { (timer) in
+                        _ = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true, block: { (timer) in
                             if (Python.shared.isSetup || RuntimeCommunicator.shared.isContainerAppRunning) && !runningScript {
                                 run()
                                 timer.invalidate()
@@ -277,8 +279,6 @@ struct InAppProvider: IntentTimelineProvider {
     
     func getTimeline(for configuration: SetContentInAppIntent, in context: Context, completion: @escaping (Timeline<ScriptEntry>) -> Void) {
         
-        widgetsQueue += 1
-        
         if let category = configuration.category {
             
             let saved = UserDefaults.shared?.value(forKey: "savedWidgets") as? [String:Data]
@@ -296,8 +296,6 @@ struct InAppProvider: IntentTimelineProvider {
         } else {
             completion(Timeline(entries: [ScriptEntry(date: Date(), output: NSLocalizedString("noSelectedScript", comment: ""))], policy: .never))
         }
-        
-        widgetsQueue -= 1
     }
 }
 #endif
