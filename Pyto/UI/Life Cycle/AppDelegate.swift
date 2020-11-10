@@ -707,6 +707,7 @@ extension AppDelegate: WCSessionDelegate {
                     from threading import Event
                     from rubicon.objc import ObjCClass
                     from pyto import Python
+                    from Foundation import NSAutoreleasePool
                     import runpy
                     import watch as wt
                     import sys
@@ -715,6 +716,8 @@ extension AppDelegate: WCSessionDelegate {
                     import traceback as tb
                     import datetime as dt
                     import __watch_script_store__ as store
+
+                    pool = NSAutoreleasePool.alloc().init()
 
                     wt.__shared_complication__ = None
 
@@ -761,6 +764,7 @@ extension AppDelegate: WCSessionDelegate {
 
                         complication = wt.__PyComplication__.sendObject
                         delegate.callComplicationHandlerWithId("\(complicationId)", complication=complication)
+                        pool.release()
                         Event().wait()
 
                     """))
