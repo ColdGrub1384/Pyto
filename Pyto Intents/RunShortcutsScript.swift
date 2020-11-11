@@ -45,7 +45,7 @@ func RunShortcutsScript(at url: URL, arguments: [String], sendOutput: Bool = tru
             Python.pythonShared?.perform(#selector(PythonRuntime.runScript(_:)), with: Python.Script(path: url.path, debug: false, runREPL: false))
         }
         
-        _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
+        _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { (timer) in
             if !Python.shared.isScriptRunning(url.path) {
                 PyOutputHelper.sendOutputToShortcuts(nil)
                 timer.invalidate()
