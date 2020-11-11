@@ -24,7 +24,7 @@ class SessionDelegate: NSObject, WCSessionDelegate {
     /// Code called when the session finished activating.
     var didActivate: (() -> Void)?
     
-    var complicationsHandlers = [String: ((Data) -> Void)]()
+    var complicationsHandlers = [String: [((Data) -> Void)]]()
     
     // MARK: - Session delegate
     
@@ -101,7 +101,9 @@ class SessionDelegate: NSObject, WCSessionDelegate {
                     WKExtension.shared().rootInterfaceController?.pushController(withName: "Image", context: image)
                 }
             } else if let id = file.metadata?["id"] as? String {
-                complicationsHandlers[id]?(data)
+                for handler in complicationsHandlers[id] ?? [] {
+                    handler(data)
+                }
                 complicationsHandlers[id] = nil
             } else {
                 do {
