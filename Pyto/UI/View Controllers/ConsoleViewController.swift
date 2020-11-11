@@ -248,11 +248,6 @@ import SwiftUI
     /// - Parameters:
     ///     - prompt: The prompt from the Python function
     func getpass(prompt: String) {
-        
-        guard shouldRequestInput else {
-            return
-        }
-        
         self.prompt = prompt
         movableTextField?.textField.isSecureTextEntry = true
         movableTextField?.setPrompt(prompt)
@@ -1040,21 +1035,23 @@ import SwiftUI
             self.movableTextField?.currentInput = nil
             self.movableTextField?.setPrompt("")
             
-            #if MAIN
-            
-            if let i = self.movableTextField?.history.firstIndex(of: text) {
-                self.movableTextField?.history.remove(at: i)
-            }
-            self.movableTextField?.history.insert(text, at: 0)
-            self.movableTextField?.historyIndex = -1
-            
-            self.completions = []
-            #endif
-            
             let secureTextEntry = self.movableTextField?.textField.isSecureTextEntry ?? false
             self.movableTextField?.textField.isSecureTextEntry = false
             
             self.movableTextField?.textField.text = ""
+            
+            if !secureTextEntry {
+                #if MAIN
+                
+                if let i = self.movableTextField?.history.firstIndex(of: text) {
+                    self.movableTextField?.history.remove(at: i)
+                }
+                self.movableTextField?.history.insert(text, at: 0)
+                self.movableTextField?.historyIndex = -1
+                
+                self.completions = []
+                #endif
+            }
             
             #if MAIN
             PyInputHelper.userInput[self.editorSplitViewController?.editor?.document?.fileURL.path ?? ""] = text
