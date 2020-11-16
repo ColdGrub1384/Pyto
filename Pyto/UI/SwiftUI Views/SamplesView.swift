@@ -157,7 +157,7 @@ public struct SamplesNavigationView: View {
         
     public var body: some View {
         NavigationView {
-            withoutNavigation.navigationBarItems(trailing: Button(action: {
+            withoutNavigation.cornerRadius(6).navigationBarItems(trailing: Button(action: {
                 self.hostController?.dismiss(animated: true, completion: nil)
             }, label: {
                 Text("done").fontWeight(.bold)
