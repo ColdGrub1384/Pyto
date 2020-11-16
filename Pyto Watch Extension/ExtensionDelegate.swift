@@ -53,6 +53,9 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
         for task in backgroundTasks {
             switch task {
             case let backgroundTask as WKApplicationRefreshBackgroundTask:
+                
+                lastScheduledRefresh = nil
+                
                 WCSession.default.sendMessage(["Called": "handle"], replyHandler: nil, errorHandler: nil)
                 for complication in CLKComplicationServer.sharedInstance().activeComplications ?? [] {
                     CLKComplicationServer.sharedInstance().extendTimeline(for: complication)

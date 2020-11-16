@@ -9,7 +9,7 @@
 import WatchKit
 import WatchConnectivity
 
-private var lastScheduledRefresh: Date? {
+var lastScheduledRefresh: Date? {
     get {
         guard let timestamp = UserDefaults.standard.value(forKey: "lastScheduledRefresh") as? TimeInterval else {
             return nil
