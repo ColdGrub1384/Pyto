@@ -248,18 +248,11 @@ import SwiftUI
     
     @objc static func addWidget(_ widget: PyWidget, key: String) {
         let entry = ScriptEntry(date: Date(), output: widget.output, snapshots: widget.snapshot, view: widget.widgetViews, code: widgetCode ?? "", bookmarkData: widget.bookmarkData)
-        do {
-            let data = try JSONEncoder().encode(entry)
-            
-            var saved = (UserDefaults.shared?.value(forKey: "savedWidgets") as? [String:Data]) ?? [String:Data]()
-            saved[key] = data
-            
-            UserDefaults.shared?.setValue(saved, forKey: "savedWidgets")
-            
-            WidgetCenter.shared.reloadTimelines(ofKind: "SetInApp")
-        } catch {
-            print(error.localizedDescription)
-        }
+        
+        InAppWidgetsStore.shared.migrate()
+        
+        InAppWidgetsStore.shared.set(entry: entry, id: key)
+        WidgetCenter.shared.reloadTimelines(ofKind: "SetInApp")
     }
     
     static var savedWidgets: [String : ScriptEntry] {

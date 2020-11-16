@@ -278,21 +278,12 @@ struct InAppProvider: IntentTimelineProvider {
     }
     
     func getTimeline(for configuration: SetContentInAppIntent, in context: Context, completion: @escaping (Timeline<ScriptEntry>) -> Void) {
-        
+                
         if let category = configuration.category {
-            
-            let saved = UserDefaults.shared?.value(forKey: "savedWidgets") as? [String:Data]
-            
-            guard let data = saved?[category.identifier ?? ""] else {
+            guard let entry = InAppWidgetsStore.shared.get(category.identifier ?? "") else {
                 return completion(Timeline(entries: [], policy: .never))
             }
-            
-            do {
-                let entry = try JSONDecoder().decode(ScriptEntry.self, from: data)
-                completion(Timeline(entries: [entry], policy: .never))
-            } catch {
-                print(error.localizedDescription)
-            }
+            completion(Timeline(entries: [entry], policy: .never))
         } else {
             completion(Timeline(entries: [ScriptEntry(date: Date(), output: NSLocalizedString("noSelectedScript", comment: ""))], policy: .never))
         }
