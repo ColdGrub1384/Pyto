@@ -97,10 +97,7 @@ extension UITextView {
     
     /// Scrolls to the bottom of the text view.
     func scrollToBottom() {
-        
-        let text_ = text
-        
-        let range = NSMakeRange(((text_ ?? "") as NSString).length - 1, 1)
+        let range = NSMakeRange(((text ?? "") as NSString).length - 1, 1)
         scrollRangeToVisible(range)
     }
 }

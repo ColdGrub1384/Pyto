@@ -1181,6 +1181,11 @@ import SwiftUI
     // MARK: - Keyboard
     
     @objc func keyboardWillShow(_ notification:Notification) {
+        
+        guard textView.frame.origin.y != view.safeAreaLayoutGuide.layoutFrame.origin.y else {
+            return
+        }
+        
         if parent?.parent?.modalPresentationStyle != .popover || parent?.parent?.view.frame.width != parent?.parent?.preferredContentSize.width {
             let d = notification.userInfo!
             let r = d[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
@@ -1188,7 +1193,10 @@ import SwiftUI
             let point = (view.window)?.convert(r.origin, to: view) ?? r.origin
             
             #if MAIN
-            textView.frame.size.height = point.y-(navigationController?.toolbar.frame.height ?? 44)
+            let y =  point.y-(navigationController?.toolbar.frame.height ?? 44)
+            if textView.frame.size.height != y {
+                textView.frame.size.height = y
+            }
             #else
             textView.frame.size.height = point.y-(44+(view.safeAreaInsets.top))
             #endif
@@ -1197,8 +1205,6 @@ import SwiftUI
         }
         
         textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
-        
-        textView.scrollToBottom()
     }
     
     @objc func keyboardWillHide(_ notification:Notification) {

@@ -193,8 +193,6 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         UIView.animate(withDuration: 0.5) {
             self.toolbar.alpha = 1
         }
-        
-        console?.textView.scrollToBottom()
     }
     
     @objc private func keyboardDidHide(_ notification: NSNotification) {
