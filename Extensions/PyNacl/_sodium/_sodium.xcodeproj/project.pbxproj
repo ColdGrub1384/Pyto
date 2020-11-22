@@ -13,7 +13,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C9BB2530246BBBAF001EBA8A /* _sodium.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = _sodium.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9BB2530246BBBAF001EBA8A /* nacl-_sodium.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "nacl-_sodium.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9BB2533246BBBAF001EBA8A /* _sodium.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = _sodium.c; sourceTree = "<group>"; };
 		C9BB2534246BBBAF001EBA8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9BB2557246BBBCF001EBA8A /* _sodium.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = _sodium.o; sourceTree = "<group>"; };
@@ -44,7 +44,7 @@
 		C9BB2531246BBBAF001EBA8A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C9BB2530246BBBAF001EBA8A /* _sodium.framework */,
+				C9BB2530246BBBAF001EBA8A /* nacl-_sodium.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -88,7 +88,7 @@
 			);
 			name = _sodium;
 			productName = _sodium;
-			productReference = C9BB2530246BBBAF001EBA8A /* _sodium.framework */;
+			productReference = C9BB2530246BBBAF001EBA8A /* nacl-_sodium.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -289,7 +289,7 @@
 					dynamic_lookup,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.ada.-sodium";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "nacl-_sodium";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -322,7 +322,7 @@
 					dynamic_lookup,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.ada.-sodium";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "nacl-_sodium";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

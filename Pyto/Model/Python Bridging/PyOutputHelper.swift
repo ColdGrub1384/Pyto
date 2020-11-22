@@ -130,6 +130,7 @@ fileprivate extension ConsoleViewController {
         #endif
         
         if text_.hasPrefix("\r") {
+            let semaphore = DispatchSemaphore(value: 0)
             DispatchQueue.main.async {
                 #if WIDGET
                 let visibles = [ConsoleViewController.visible ?? ConsoleViewController()]
@@ -169,6 +170,10 @@ fileprivate extension ConsoleViewController {
                     console.textView.attributedText = attrString
                     
                     console.textView.scrollToBottom()
+                    semaphore.signal()
+                }
+                if !Thread.current.isMainThread {
+                    semaphore.wait()
                 }
             }
         } else if text_.contains("\r") {

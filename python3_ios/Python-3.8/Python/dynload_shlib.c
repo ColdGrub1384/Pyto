@@ -33,6 +33,8 @@
    live in the same directory.  E.g. foomodule.cpython-32.so
 */
 
+#define SOABI "cpython-38-darwin"
+
 const char *_PyImport_DynLoadFiletab[] = {
 #ifdef __CYGWIN__
     ".dll",
