@@ -96,12 +96,20 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="pyto_ui.html">pyto_ui</a></li>
 <li class="toctree-l1"><a class="reference internal" href="widgets.html">widgets</a></li>
+<<<<<<< HEAD
 <li class="toctree-l1"><a class="reference internal" href="watch.html">watch</a></li>
+=======
+<li class="toctree-l1"><a class="reference internal" href="pyto_core.html">pyto_core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notification_center.html">notification_center</a></li>
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 <li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sf_symbols.html">sf_symbols</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mainthread.html">mainthread</a></li>
+<<<<<<< HEAD
 <li class="toctree-l1"><a class="reference internal" href="pyto_core.html">pyto_core</a></li>
+=======
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 </ul>
 <p class="caption"><span class="caption-text">OS Technologies</span></p>
 <ul>
@@ -193,19 +201,33 @@
 <p>This module gives access to the pasteboard.</p>
 <dl class="py function">
 <dt id="pasteboard.image">
+<<<<<<< HEAD
 <code class="sig-prename descclassname">pasteboard.</code><code class="sig-name descname">image</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; PIL.Image.Image<a class="headerlink" href="#pasteboard.image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the image contained in the pasteboard as PIL images.</p>
+=======
+<code class="sig-prename descclassname">pasteboard.</code><code class="sig-name descname">image</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#pasteboard.image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the image contained in the pasteboard as an Objective-C <code class="docutils literal notranslate"><span class="pre">UIImage</span></code>.</p>
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 </dd></dl>
 
 <dl class="py function">
 <dt id="pasteboard.images">
+<<<<<<< HEAD
 <code class="sig-prename descclassname">pasteboard.</code><code class="sig-name descname">images</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>PIL.Image.Image<span class="p">]</span><a class="headerlink" href="#pasteboard.images" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns all images contained in the pasteboard as PIL images.</p>
+=======
+<code class="sig-prename descclassname">pasteboard.</code><code class="sig-name descname">images</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>None<span class="p">]</span><a class="headerlink" href="#pasteboard.images" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all images contained in the pasteboard as Objective-C <code class="docutils literal notranslate"><span class="pre">UIImage</span></code> s.</p>
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 </dd></dl>
 
 <dl class="py function">
 <dt id="pasteboard.set_image">
+<<<<<<< HEAD
 <code class="sig-prename descclassname">pasteboard.</code><code class="sig-name descname">set_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span><span class="p">:</span> <span class="n">PIL.Image.Image</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pasteboard.set_image" title="Permalink to this definition">¶</a></dt>
+=======
+<code class="sig-prename descclassname">pasteboard.</code><code class="sig-name descname">set_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span><span class="p">:</span> <span class="n">rubicon.objc.api.ObjCInstance</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pasteboard.set_image" title="Permalink to this definition">¶</a></dt>
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 <dd><p>Copy the given image to the pasteboard.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -216,7 +238,11 @@
 
 <dl class="py function">
 <dt id="pasteboard.set_images">
+<<<<<<< HEAD
 <code class="sig-prename descclassname">pasteboard.</code><code class="sig-name descname">set_images</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array</span><span class="p">:</span> <span class="n">List<span class="p">[</span>PIL.Image.Image<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pasteboard.set_images" title="Permalink to this definition">¶</a></dt>
+=======
+<code class="sig-prename descclassname">pasteboard.</code><code class="sig-name descname">set_images</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array</span><span class="p">:</span> <span class="n">List<span class="p">[</span>None<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pasteboard.set_images" title="Permalink to this definition">¶</a></dt>
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 <dd><p>Copy the given images to the pasteboard.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -249,22 +275,38 @@
 
 <dl class="py function">
 <dt id="pasteboard.set_url">
+<<<<<<< HEAD
 <code class="sig-prename descclassname">pasteboard.</code><code class="sig-name descname">set_url</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">url</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pasteboard.set_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Copy the given URL to the pasteboard.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>url</strong> – The string to copy as an URL.</p>
+=======
+<code class="sig-prename descclassname">pasteboard.</code><code class="sig-name descname">set_url</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">url</span><span class="p">:</span> <span class="n">rubicon.objc.api.NSURL</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pasteboard.set_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the given URL to the pasteboard.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>url</strong> – The Objective-C <code class="docutils literal notranslate"><span class="pre">NSURL</span></code> to copy.</p>
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="pasteboard.set_urls">
+<<<<<<< HEAD
 <code class="sig-prename descclassname">pasteboard.</code><code class="sig-name descname">set_urls</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pasteboard.set_urls" title="Permalink to this definition">¶</a></dt>
 <dd><p>Copy the given URLs to the pasteboard.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>array</strong> – A list of strings to copy as URLs.</p>
+=======
+<code class="sig-prename descclassname">pasteboard.</code><code class="sig-name descname">set_urls</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array</span><span class="p">:</span> <span class="n">List<span class="p">[</span>rubicon.objc.api.NSURL<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pasteboard.set_urls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the given URLs to the pasteboard.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>array</strong> – A list of Objective-C <code class="docutils literal notranslate"><span class="pre">NSURL</span></code> s to copy.</p>
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 </dd>
 </dl>
 </dd></dl>
@@ -283,14 +325,24 @@
 
 <dl class="py function">
 <dt id="pasteboard.url">
+<<<<<<< HEAD
 <code class="sig-prename descclassname">pasteboard.</code><code class="sig-name descname">url</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#pasteboard.url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the URL contained in the pasteboard as a string.</p>
+=======
+<code class="sig-prename descclassname">pasteboard.</code><code class="sig-name descname">url</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; rubicon.objc.api.NSURL<a class="headerlink" href="#pasteboard.url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the URL contained in the pasteboard as an Objective-C <code class="docutils literal notranslate"><span class="pre">NSURL</span></code>.</p>
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 </dd></dl>
 
 <dl class="py function">
 <dt id="pasteboard.urls">
+<<<<<<< HEAD
 <code class="sig-prename descclassname">pasteboard.</code><code class="sig-name descname">urls</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#pasteboard.urls" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns all URLs contained in the pasteboard as strings.</p>
+=======
+<code class="sig-prename descclassname">pasteboard.</code><code class="sig-name descname">urls</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>rubicon.objc.api.NSURL<span class="p">]</span><a class="headerlink" href="#pasteboard.urls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all URLs contained in the pasteboard as Objective-C <code class="docutils literal notranslate"><span class="pre">NSURL</span></code> s.</p>
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 </dd></dl>
 
 </div>

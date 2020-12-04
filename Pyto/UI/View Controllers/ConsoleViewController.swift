@@ -248,6 +248,14 @@ import SwiftUI
     /// - Parameters:
     ///     - prompt: The prompt from the Python function
     func getpass(prompt: String) {
+<<<<<<< HEAD
+=======
+        
+        guard shouldRequestInput else {
+            return
+        }
+        
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         self.prompt = prompt
         movableTextField?.textField.isSecureTextEntry = true
         movableTextField?.setPrompt(prompt)
@@ -311,7 +319,11 @@ import SwiftUI
             
             func get() {
                 for visible in objcVisibles {
+<<<<<<< HEAD
                     if let console = visible as? ConsoleViewController, (console.view.window != nil || console.editorSplitViewController?.editor?.shouldRun == true) {
+=======
+                    if let console = visible as? ConsoleViewController, console.view.window != nil {
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
                         visibles.append(console)
                     }
                 }
@@ -333,7 +345,11 @@ import SwiftUI
             objcVisibles.removeAllObjects()
             
             for element in newValue {
+<<<<<<< HEAD
                 if element.view.window != nil || element.editorSplitViewController?.editor?.shouldRun == true {
+=======
+                if element.view.window != nil {
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
                     objcVisibles.add(element)
                 }
             }
@@ -881,10 +897,13 @@ import SwiftUI
     
     private let codeCompletionQueue = DispatchQueue.global()
     
+<<<<<<< HEAD
     private var wasFirstResponder = false
     
     //private var wasFirstResp
     
+=======
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     // MARK: - View controller
     
     override open func viewDidLoad() {
@@ -893,6 +912,7 @@ import SwiftUI
         #if MAIN
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
         
+<<<<<<< HEAD
         NotificationCenter.default.addObserver(forName: UIScene.didActivateNotification, object: nil, queue: nil) { [weak self] (notif) in
             self?.themeDidChange(notif)
         }
@@ -906,6 +926,10 @@ import SwiftUI
                 self?.wasFirstResponder = false
                 self?.movableTextField?.textField.becomeFirstResponder()
             }
+=======
+        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { [weak self] (notif) in
+            self?.themeDidChange(notif)
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         }
         #endif
         
@@ -1035,11 +1059,26 @@ import SwiftUI
             self.movableTextField?.currentInput = nil
             self.movableTextField?.setPrompt("")
             
+<<<<<<< HEAD
+=======
+            #if MAIN
+            
+            if let i = self.movableTextField?.history.firstIndex(of: text) {
+                self.movableTextField?.history.remove(at: i)
+            }
+            self.movableTextField?.history.insert(text, at: 0)
+            self.movableTextField?.historyIndex = -1
+            
+            self.completions = []
+            #endif
+            
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
             let secureTextEntry = self.movableTextField?.textField.isSecureTextEntry ?? false
             self.movableTextField?.textField.isSecureTextEntry = false
             
             self.movableTextField?.textField.text = ""
             
+<<<<<<< HEAD
             if !secureTextEntry {
                 #if MAIN
                 
@@ -1057,6 +1096,12 @@ import SwiftUI
             PyInputHelper.userInput[self.editorSplitViewController?.editor?.document?.fileURL.path ?? ""] = text
             #else
             PyInputHelper.userInput[""] = text
+=======
+            #if MAIN
+            PyInputHelper.userInput.setObject(text, forKey: (self.editorSplitViewController?.editor?.document?.fileURL.path ?? "") as NSCopying)
+            #else
+            PyInputHelper.userInput.setObject(text, forKey: "" as NSCopying)
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
             #endif
             if !secureTextEntry {
                 Python.shared.output += text
@@ -1144,6 +1189,7 @@ import SwiftUI
     
     open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+<<<<<<< HEAD
                 
         movableTextField?.toolbar.frame.size.width = view.safeAreaLayoutGuide.layoutFrame.width
         movableTextField?.toolbar.frame.origin.x = view.safeAreaInsets.left
@@ -1152,10 +1198,31 @@ import SwiftUI
             movableTextField?.toolbar.frame.origin.y = view.frame.height-(movableTextField?.toolbar.frame.height ?? 0)
         }
         
+=======
+        
+        let wasFirstResponder = movableTextField?.textField.isFirstResponder ?? false
+        let isREPL = !(!(editorSplitViewController is REPLViewController) && !(editorSplitViewController is RunModuleViewController))
+        
+        if #available(iOS 14.0, *), isREPL {
+        } else {
+            movableTextField?.textField.resignFirstResponder()
+        }
+        
+        movableTextField?.toolbar.frame.size.width = view.safeAreaLayoutGuide.layoutFrame.width
+        movableTextField?.toolbar.frame.origin.x = view.safeAreaInsets.left
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
         textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
         textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
         
+<<<<<<< HEAD
+=======
+        if #available(iOS 14.0, *), isREPL {
+        } else if wasFirstResponder {
+            movableTextField?.textField.becomeFirstResponder()
+        }
+        
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         movableTextField?.toolbar.isHidden = (view.frame.size.height == 0)
         #if MAIN
         movableTextField?.applyTheme()
@@ -1181,11 +1248,14 @@ import SwiftUI
     // MARK: - Keyboard
     
     @objc func keyboardWillShow(_ notification:Notification) {
+<<<<<<< HEAD
         
         guard textView.frame.origin.y != view.safeAreaLayoutGuide.layoutFrame.origin.y else {
             return
         }
         
+=======
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         if parent?.parent?.modalPresentationStyle != .popover || parent?.parent?.view.frame.width != parent?.parent?.preferredContentSize.width {
             let d = notification.userInfo!
             let r = d[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
@@ -1193,10 +1263,14 @@ import SwiftUI
             let point = (view.window)?.convert(r.origin, to: view) ?? r.origin
             
             #if MAIN
+<<<<<<< HEAD
             let y =  point.y-(navigationController?.toolbar.frame.height ?? 44)
             if textView.frame.size.height != y {
                 textView.frame.size.height = y
             }
+=======
+            textView.frame.size.height = point.y-44
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
             #else
             textView.frame.size.height = point.y-(44+(view.safeAreaInsets.top))
             #endif
@@ -1205,6 +1279,11 @@ import SwiftUI
         }
         
         textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
+<<<<<<< HEAD
+=======
+        
+        textView.scrollToBottom()
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     }
     
     @objc func keyboardWillHide(_ notification:Notification) {

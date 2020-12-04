@@ -42,12 +42,15 @@ struct ScriptEntry: TimelineEntry, Codable {
     /// A boolean indicating whether the console should be rendered as a placeholder.
     var isPlaceholder = false
     
+<<<<<<< HEAD
     /// For widgets handled in app, the update interval.
     var updateInterval: TimeInterval?
     
     /// A boolean indicating whether the script content is set in app.
     var inApp = false
     
+=======
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     /// Returns the URL to open the script.
     ///
     /// - Parameters:
@@ -91,10 +94,13 @@ struct ScriptEntry: TimelineEntry, Codable {
         case snapshots
         case view
         case bookmarkData
+<<<<<<< HEAD
         case updateInterval
         case output
         case date
         case code
+=======
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     }
     
     init(date: Date, output: String, snapshots: [WidgetFamily:(UIImage, UIColor)] = [:], view: [WidgetFamily:WidgetView]? = nil, code: String = "", bookmarkData: Data? = nil) {
@@ -140,6 +146,7 @@ struct ScriptEntry: TimelineEntry, Codable {
             bookmarkData = nil
         }
         
+<<<<<<< HEAD
         do {
             updateInterval = try container.decode(Double.self, forKey: .updateInterval)
         } catch {
@@ -152,6 +159,11 @@ struct ScriptEntry: TimelineEntry, Codable {
        
         code = try container.decode(String.self, forKey: .code)
        
+=======
+        output = ""
+        date = Date()
+        code = ""
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         self.snapshots = snapshots
     }
     
@@ -171,9 +183,12 @@ struct ScriptEntry: TimelineEntry, Codable {
         try container.encode(views, forKey: .view)
         try container.encode(snapshots, forKey: .snapshots)
         try container.encode(bookmarkData, forKey: .bookmarkData)
+<<<<<<< HEAD
         try container.encode(updateInterval, forKey: .updateInterval)
         try container.encode(output, forKey: .output)
         try container.encode(date, forKey: .date)
         try container.encode(code, forKey: .code)
+=======
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     }
 }

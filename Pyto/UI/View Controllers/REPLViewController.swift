@@ -166,7 +166,11 @@ import UIKit
             let code = """
             import console
             import importlib.util
+<<<<<<< HEAD
             from pyto import REPLViewController, PyInputHelper
+=======
+            from pyto import REPLViewController
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 
             print()
 
@@ -176,6 +180,7 @@ import UIKit
                 spec.loader.exec_module(script)
 
                 console.__repl_namespace__[__file__.split("/")[-1]].update(vars(script))
+<<<<<<< HEAD
                 PyInputHelper.userInput.setObject("", forKey=__file__)
             """
             
@@ -186,6 +191,13 @@ import UIKit
             try? code.write(to: editor!.document!.fileURL, atomically: true, encoding: .utf8)
             
             Python.shared.run(script: .init(path: editor!.document!.fileURL.path, debug: false, runREPL: true))
+=======
+            """
+            
+            try? code.write(to: editor!.document!.fileURL, atomically: true, encoding: .utf8)
+            
+            Python.shared.run(script: .init(path: editor!.document!.fileURL.path, debug: false))
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         }
     }
 }

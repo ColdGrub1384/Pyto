@@ -287,6 +287,7 @@
 		C940030B2508279F00EB74EB /* symtable.c in Sources */ = {isa = PBXBuildFile; fileRef = C97F578E235B652F00F289C7 /* symtable.c */; };
 		C940030C2508279F00EB74EB /* termios.c in Sources */ = {isa = PBXBuildFile; fileRef = C97F59BF235B66EF00F289C7 /* termios.c */; };
 		C940030D2508279F00EB74EB /* python.c in Sources */ = {isa = PBXBuildFile; fileRef = 22E8FEEE21C66BF000967E21 /* python.c */; };
+		C940030E2508279F00EB74EB /* dynload_stub.c in Sources */ = {isa = PBXBuildFile; fileRef = C97F57A9235B653100F289C7 /* dynload_stub.c */; };
 		C940030F2508279F00EB74EB /* errnomodule.c in Sources */ = {isa = PBXBuildFile; fileRef = C97F5A66235B66F200F289C7 /* errnomodule.c */; };
 		C94003102508279F00EB74EB /* bootstrap_hash.c in Sources */ = {isa = PBXBuildFile; fileRef = C97F5791235B652F00F289C7 /* bootstrap_hash.c */; };
 		C94003112508279F00EB74EB /* iterobject.c in Sources */ = {isa = PBXBuildFile; fileRef = 22E8FF2D21C66D3A00967E21 /* iterobject.c */; settings = {COMPILER_FLAGS = "-DPy_BUILD_CORE"; }; };
@@ -540,6 +541,7 @@
 		C97F58E4235B653300F289C7 /* marshal.c in Sources */ = {isa = PBXBuildFile; fileRef = C97F57A6235B653100F289C7 /* marshal.c */; };
 		C97F58EA235B653300F289C7 /* pymath.c in Sources */ = {isa = PBXBuildFile; fileRef = C97F57A7235B653100F289C7 /* pymath.c */; };
 		C97F58F0235B653300F289C7 /* compile.c in Sources */ = {isa = PBXBuildFile; fileRef = C97F57A8235B653100F289C7 /* compile.c */; };
+		C97F58F6235B653300F289C7 /* dynload_stub.c in Sources */ = {isa = PBXBuildFile; fileRef = C97F57A9235B653100F289C7 /* dynload_stub.c */; };
 		C97F58FC235B653300F289C7 /* pylifecycle.c in Sources */ = {isa = PBXBuildFile; fileRef = C97F57AA235B653200F289C7 /* pylifecycle.c */; };
 		C97F5902235B653300F289C7 /* getargs.c in Sources */ = {isa = PBXBuildFile; fileRef = C97F57AB235B653200F289C7 /* getargs.c */; };
 		C97F5908235B653300F289C7 /* thread.c in Sources */ = {isa = PBXBuildFile; fileRef = C97F57AC235B653200F289C7 /* thread.c */; };
@@ -2672,6 +2674,7 @@
 				C97F5854235B653300F289C7 /* symtable.c in Sources */,
 				C97F5D44235B66F900F289C7 /* termios.c in Sources */,
 				C97F5772235B5F5100F289C7 /* python.c in Sources */,
+				C97F58F6235B653300F289C7 /* dynload_stub.c in Sources */,
 				C97F60B6235B66FB00F289C7 /* errnomodule.c in Sources */,
 				C97F5866235B653300F289C7 /* bootstrap_hash.c in Sources */,
 				22E8FF5521C66D3B00967E21 /* iterobject.c in Sources */,
@@ -2928,6 +2931,7 @@
 				C940030B2508279F00EB74EB /* symtable.c in Sources */,
 				C940030C2508279F00EB74EB /* termios.c in Sources */,
 				C940030D2508279F00EB74EB /* python.c in Sources */,
+				C940030E2508279F00EB74EB /* dynload_stub.c in Sources */,
 				C940030F2508279F00EB74EB /* errnomodule.c in Sources */,
 				C94003102508279F00EB74EB /* bootstrap_hash.c in Sources */,
 				C94003112508279F00EB74EB /* iterobject.c in Sources */,
@@ -3282,6 +3286,7 @@
 					"-DHAVE_DEV_PTC=1",
 					"-UHAVE_FORKPTY",
 					"-DHAVE_DYNAMIC_LOADING=1",
+					"-UHAVE_DYNAMIC_LOADING",
 				);
 				OTHER_CPLUSPLUSFLAGS = "";
 				OTHER_LDFLAGS = (
@@ -3361,6 +3366,7 @@
 					"-DHAVE_DEV_PTC=1",
 					"-UHAVE_FORKPTY",
 					"-DHAVE_DYNAMIC_LOADING=1",
+					"-UHAVE_DYNAMIC_LOADING",
 				);
 				OTHER_CPLUSPLUSFLAGS = "";
 				OTHER_LDFLAGS = (
@@ -3739,6 +3745,7 @@
 					"-DHAVE_DEV_PTC=1",
 					"-UHAVE_FORKPTY",
 					"-DHAVE_DYNAMIC_LOADING=1",
+					"-UHAVE_DYNAMIC_LOADING",
 				);
 				OTHER_CPLUSPLUSFLAGS = "";
 				OTHER_LDFLAGS = (

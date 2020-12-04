@@ -15,6 +15,7 @@ import WatchConnectivity
 @objc class PyInputHelper: NSObject {
     
     /// The user's input. Set its value while Python script is waiting for input to pass the input.
+<<<<<<< HEAD
     static var userInput = [String:String]() {
         didSet {
             for key in userInput.keys {
@@ -39,6 +40,9 @@ import WatchConnectivity
         userInput[path] = nil
         return input
     }
+=======
+    @objc static var userInput: NSMutableDictionary = NSMutableDictionary(dictionary: [String:String]())
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     
     /// Returns user input for script at given path.
     ///
@@ -47,7 +51,11 @@ import WatchConnectivity
     ///
     /// - Returns: The input entered by the user.
     @objc static func getUserInput(_ path: String) -> String? {
+<<<<<<< HEAD
         return userInput[path] ?? userInput[URL(fileURLWithPath: path).resolvingSymlinksInPath().path]
+=======
+        return userInput.object(forKey: path) as? String ?? userInput.object(forKey: URL(fileURLWithPath: path).resolvingSymlinksInPath().path) as? String
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     }
     
     /// Requests for input.
@@ -63,7 +71,11 @@ import WatchConnectivity
             #if MAIN
             if script == Python.watchScriptURL.path {
                 WCSession.default.sendMessage(["prompt": prompt_ ?? "", "suggestions": WatchInputSuggestionsTableViewController.suggestions], replyHandler: { (res) in
+<<<<<<< HEAD
                     self.userInput[script!] = res["input"] as? String
+=======
+                    self.userInput[script!] = res["input"]
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
                 }, errorHandler: { (_) in
                     self.userInput[script!] = ""
                 })
@@ -73,7 +85,10 @@ import WatchConnectivity
             #if !WIDGET && !MAIN
             ConsoleViewController.visibles.first?.input(prompt: prompt_ ?? "", highlight: false)
             #elseif !WIDGET
+<<<<<<< HEAD
             
+=======
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
             for console in ConsoleViewController.visibles {
                 if script != nil {
                     let splitVC = console.editorSplitViewController

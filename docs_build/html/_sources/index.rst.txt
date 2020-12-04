@@ -62,12 +62,20 @@ The following modules are integrated with Pyto.
 
    pyto_ui
    widgets
+<<<<<<< HEAD
    watch
+=======
+   pyto_core
+   notification_center
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
    sound
    sf_symbols
    sharing
    mainthread
+<<<<<<< HEAD
    pyto_core
+=======
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 
 .. toctree::
    :maxdepth: 2

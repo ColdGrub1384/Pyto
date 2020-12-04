@@ -39,6 +39,7 @@ fileprivate var fullVersionLibrairies: [String] {
     
     keys.sort()
     
+<<<<<<< HEAD
     if let i = keys.firstIndex(of: "matplotlib") {
         keys.remove(at: i)
         keys.insert("matplotlib", at: 0)
@@ -54,6 +55,8 @@ fileprivate var fullVersionLibrairies: [String] {
         keys.insert("numpy", at: 0)
     }
     
+=======
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     return keys
 }
 
@@ -61,7 +64,13 @@ fileprivate var fullVersionLibrairies: [String] {
 public struct OnboardingView: View {
     
     @Environment(\.verticalSizeClass) var vertical
+<<<<<<< HEAD
         
+=======
+    
+    @State var showingDetail = false
+    
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     public var isTrialEnded: Bool
     
     public var fullFeaturedPrice: String
@@ -84,10 +93,13 @@ public struct OnboardingView: View {
         self.purchaseFull = purchaseFull
         self.purchaseLite = purchaseLite
         self.restore = restore
+<<<<<<< HEAD
         
         if isTrialEnded {
             _isPricingSheetPresented = State(wrappedValue: true)
         }
+=======
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     }
     
     var restoreButton: some View {
@@ -126,9 +138,43 @@ public struct OnboardingView: View {
                 .frame(width: 200)
             }
             .padding()
+<<<<<<< HEAD
             .background(Color.green)
             .cornerRadius(12)
             
+=======
+            .background(Color.accentColor)
+            .cornerRadius(12)
+            
+            Button(action: {
+                self.showingDetail.toggle()
+            }) {
+                Text("onboarding.libraries", comment: "The button linking to a list of contained libraries in the pro version")
+                .font(.footnote)
+                .underline()
+                .padding()
+            }
+            .sheet(isPresented: $showingDetail) {
+                VStack {
+                    Button(action: {
+                        self.showingDetail = false
+                    }) {
+                        HStack {
+                            Spacer()
+                            
+                            Text("done", comment: "Done button")
+                            .fontWeight(.bold)
+                            .padding()
+                        }
+                    }
+                    
+                    List(fullVersionLibrairies, id: \.self) { item in
+                        Text(item)
+                    }
+                }
+            }
+            .accentColor(.primary)
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         }
     }
     
@@ -142,6 +188,7 @@ public struct OnboardingView: View {
                 .frame(width: 200)
             }
             .padding()
+<<<<<<< HEAD
             .background(Color.orange)
             .cornerRadius(12)
         }
@@ -167,12 +214,19 @@ public struct OnboardingView: View {
             })
             
             Text("onboarding.twoPricesAvailable", comment: "The text bellow the purchase button")
+=======
+            .background(Color.accentColor)
+            .cornerRadius(12)
+            
+            Text("onboarding.noExtensionsFootnote", comment: "The footnote below the button for purchasing the limited version")
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
             .font(.footnote)
             .frame(width: 200)
             .padding()
         }
     }
     
+<<<<<<< HEAD
     func featureView(name: String, lite: Bool) -> some View {
         HStack {
             Text(NSLocalizedString(name, comment: ""))
@@ -249,6 +303,8 @@ public struct OnboardingView: View {
         }
     }
     
+=======
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     public var body: some View {
         VStack {
             
@@ -295,6 +351,7 @@ public struct OnboardingView: View {
                                 Text("onboarding.shortcuts", comment: "The fourth presented feature")
                                 Spacer()
                             }
+<<<<<<< HEAD
                             
                             Divider()
                             
@@ -303,18 +360,49 @@ public struct OnboardingView: View {
                                 Text("onboarding.widgets", comment: "The fifth presented feature")
                                 Spacer()
                             }
+=======
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
                         }.padding()
                     }
                     
                     Spacer()
                 }
             }
+<<<<<<< HEAD
                         
             purchaseView
+=======
+            
+            //Spacer()
+            
+            if vertical == .compact {
+                HStack {
+                    VStack {
+                        fullFeaturedView
+                        Spacer()
+                    }
+                    
+                    VStack {
+                        liteView
+                        Spacer()
+                    }
+                }
+            } else {
+                fullFeaturedView
+                
+                Spacer()
+                
+                liteView
+            }
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
             
             if vertical == .compact {
                 HStack {
                     trialButton
+<<<<<<< HEAD
+=======
+                    //Spacer()
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
                     restoreButton
                 }
                 Spacer()
@@ -332,6 +420,10 @@ public struct OnboardingView: View {
 @available(iOS 13.0.0, *)
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
+<<<<<<< HEAD
         OnboardingView(isTrialEnded: true, fullFeaturedPrice: "9.99$", noExtensionsPrice: "2.99$", startFreeTrial: {}, purchaseFull: {}, purchaseLite: {}, restore: {})
+=======
+        OnboardingView(isTrialEnded: false, fullFeaturedPrice: "9.99$", noExtensionsPrice: "2.99$", startFreeTrial: {}, purchaseFull: {}, purchaseLite: {}, restore: {}).previewLayout(.fixed(width: 568, height: 320))
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     }
 }

@@ -1,15 +1,19 @@
+<<<<<<< HEAD
 """
 Apple Watch
 
 The 'watch' module provides APIs for building complications and showing UIs on the Apple Watch.
 """
 
+=======
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 import widgets as wd
 import datetime
 import userkeys as uk
 import __watch_script_store__ as store
 from __check_type__ import check
 from typing import Union, List
+<<<<<<< HEAD
 from threading import current_thread
 from pyto import Python
 
@@ -22,6 +26,21 @@ __cached_ui__ = None
 
 
 def _schedule_next_reload(time: Union[datetime.timedelta, float]):
+=======
+
+
+__PyComplication__ = wd.__Class__("PyComplication")
+
+
+def schedule_next_reload(time: Union[datetime.timedelta, float]):
+    """
+    Schedules the next reload of the complication.
+    The complication may not be reloaded more than 4 times in 1 hour so be careful and reload only when needed (every 15-20 minutes should be good).
+
+    :param time: The time passed before the complication should reload. A ``datetime.timedelta`` object or the number of seconds.
+    """
+
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     check(time, "time", [datetime.timedelta, float, int])
 
     seconds = 0
@@ -34,7 +53,11 @@ def _schedule_next_reload(time: Union[datetime.timedelta, float]):
     __PyComplication__.updateInterval = seconds
 
 
+<<<<<<< HEAD
 class Progress(wd.WidgetComponent):
+=======
+class Progess(wd.WidgetComponent):
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     """
     A view indicating a progress.
     """
@@ -80,7 +103,11 @@ class Progress(wd.WidgetComponent):
         check(color, "color", [wd.Color, wd.__pyto_ui_color__(), None])
 
         if value < 0 or value > 1:
+<<<<<<< HEAD
             raise ValueError("The value of a progress bar must be between 0 and 1.")
+=======
+            raise ValueError("The value of a progess bar must be between 0 and 1.")
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 
         self.value = value
         self.circular = circular
@@ -110,8 +137,11 @@ class Progress(wd.WidgetComponent):
 class Complication:
     """
     The configuration of a Watch Complication, which is a set of different layouts.
+<<<<<<< HEAD
 
     Use the `widgets <widgets.html>`_ APIs to build a complication UI.
+=======
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     """
 
     rectangular: wd.WidgetLayout = wd.WidgetLayout()
@@ -134,6 +164,7 @@ class Complication:
         self.circular = wd.WidgetLayout()
         self.circular_extra_large = wd.WidgetLayout()
 
+<<<<<<< HEAD
     def add_row(
         self,
         row: List[wd.WidgetComponent],
@@ -152,6 +183,14 @@ class Complication:
         super.add_row(row, background_color, corner_radius, link)
 
 def __objc__(complication: Complication):
+=======
+
+def __objc__(complication: Complication):
+    """
+    Sends the complication to the Watch.
+    """
+
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     objc = __PyComplication__.alloc().init()
 
     objc.addView(complication.circular.__widget_view__, family=0)
@@ -163,10 +202,13 @@ def __objc__(complication: Complication):
 
 
 def reload_complications():
+<<<<<<< HEAD
     """
     Reloads complications currently displayed on the paired Apple Watch.
     """
 
+=======
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     __PyComplication__.reload()
 
 
@@ -183,6 +225,7 @@ def __reload_descriptors__():
 
 
 class ComplicationsProvider:
+<<<<<<< HEAD
     """
     An abstract class for implementing Apple Watch complications.
     """
@@ -223,6 +266,16 @@ class ComplicationsProvider:
         :rtype: List[datetime.datetime]
         """
 
+=======
+
+    def name(self) -> str:
+        raise NotImplementedError("Implement 'name()' to provide complications.")
+
+    def complication(self, date: datetime.datetime) -> Complication:
+        raise NotImplementedError("Implement 'complication(date)' to provide complications.")
+
+    def timeline(self, after_date: datetime.datetime, limit: int) -> List[datetime.datetime]:
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         raise NotImplementedError("Implement 'timelines(after_date, limit)' to provide complications.")
 
     def __complications__(self, after_date, limit):
@@ -233,6 +286,7 @@ class ComplicationsProvider:
 
 
 def add_complications_provider(provider: ComplicationsProvider):
+<<<<<<< HEAD
     """
     Adds a complication to the Apple Watch. After adding the :class:`~watch.ComplicationsProvider` object, you will be able to add the complication to your Watch Face.
     This function must be called from the script configured for the Apple Watch so the passed object can provide the data to the Watch Face.
@@ -281,3 +335,7 @@ def __show_ui_if_needed__():
     if __cached_ui__ is not None:
         __PyWatchUI__.sendUI(__cached_ui__)
     __cached_ui__ = None
+=======
+    store.providers[provider.name()] = provider
+    __reload_descriptors__()
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619

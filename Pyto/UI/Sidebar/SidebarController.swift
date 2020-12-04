@@ -14,6 +14,7 @@ class SidebarController: UIHostingController<AnyView> {
     private var sceneDelegate: SceneDelegate?
     
     override var childForHomeIndicatorAutoHidden: UIViewController? {
+<<<<<<< HEAD
         
         for console in ConsoleViewController.visibles {
             if console.editorSplitViewController?.view.window == view.window {
@@ -21,6 +22,8 @@ class SidebarController: UIHostingController<AnyView> {
             }
         }
         
+=======
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         guard let scene = view.window?.windowScene else {
             return nil
         }

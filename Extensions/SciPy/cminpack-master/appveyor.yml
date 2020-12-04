@@ -1,0 +1,21 @@
+version: 1.0.{build}
+image:
+- Visual Studio 2015
+build:
+  parallel: true
+environment:
+  matrix:
+    - CMAKE_CONFIG_TYPE: "Release"
+platform:
+  - x64
+init:
+  # This is needed because reference files for tests must be checked-out with CRLF EOLs
+  - git config --global core.autocrlf true
+build_script:
+  - mkdir build
+  - cd build
+  - cmake -G "Visual Studio 14 2015 Win64" -DBUILD_SHARED_LIBS:BOOL=ON ..
+  - cmake --build . --config %CMAKE_CONFIG_TYPE%
+  - set PATH=%PATH%;%CD%\%CMAKE_CONFIG_TYPE%
+test_script:
+  - ctest --output-on-failure -C Release

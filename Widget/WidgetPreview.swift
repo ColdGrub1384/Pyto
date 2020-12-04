@@ -54,7 +54,11 @@ struct WidgetPreview: View {
                 self.viewControllerStore.vc?.dismiss(animated: true, completion: nil)
             }, label: {
                 Text("done").fontWeight(.bold)
+<<<<<<< HEAD
             }).hoverEffect())
+=======
+            }))
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
             .navigationBarTitleDisplayMode(.inline)
         }
         .navigationViewStyle(StackNavigationViewStyle())

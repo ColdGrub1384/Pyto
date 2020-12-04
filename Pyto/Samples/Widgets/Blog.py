@@ -10,11 +10,15 @@ from webbrowser import open # For opening posts
 from time import sleep
 
 FOREGROUND_COLOR = wd.COLOR_WHITE
+<<<<<<< HEAD
 BACKGROUND_GRADIENT = [
     wd.Color.rgb(74/255, 82/255, 90/255),
     wd.Color.rgb(54/255, 62/255, 70/255)
 ]
 
+=======
+BACKGROUND_COLOR = wd.Color.rgb(74/255, 82/255, 90/255)
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 FEED_URL = "https://daringfireball.net/feeds/json"
 
 class Article:
@@ -86,7 +90,11 @@ def add_post(post, layout, link=False):
     ], link=url)
     
     # Set the background color of the widget
+<<<<<<< HEAD
     layout.set_background_gradient(BACKGROUND_GRADIENT)
+=======
+    layout.set_background_color(BACKGROUND_COLOR)
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 
 if wd.link is None:
 
@@ -123,7 +131,11 @@ if wd.link is None:
     widget.small_layout.set_link(posts[0].url)
     
     # Set the background color of the widget
+<<<<<<< HEAD
     widget.small_layout.set_background_gradient(BACKGROUND_GRADIENT)
+=======
+    widget.small_layout.set_background_color(BACKGROUND_COLOR)
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     
     # # # # # #
     # Medium  #

@@ -107,12 +107,20 @@
 <li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a></li>
 </ul>
 </li>
+<<<<<<< HEAD
 <li class="toctree-l1"><a class="reference internal" href="watch.html">watch</a></li>
+=======
+<li class="toctree-l1"><a class="reference internal" href="pyto_core.html">pyto_core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notification_center.html">notification_center</a></li>
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 <li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sf_symbols.html">sf_symbols</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mainthread.html">mainthread</a></li>
+<<<<<<< HEAD
 <li class="toctree-l1"><a class="reference internal" href="pyto_core.html">pyto_core</a></li>
+=======
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 </ul>
 <p class="caption"><span class="caption-text">OS Technologies</span></p>
 <ul>
@@ -243,6 +251,7 @@ While the UI is not interactive, UI elements can open the script in foreground t
 <h2>Types of widgets<a class="headerlink" href="#types-of-widgets" title="Permalink to this headline">¶</a></h2>
 <p>There are two types of widgets:</p>
 <p><strong>Run Script</strong>: A script running in background to update the widget content automatically. The scripts runs with a very limited amount of RAM and cannot import most of the bundled libraries. Scripts can access resources or import other modules and packages installed with PyPI are also available but libraries with C extensions like Numpy (except PIL) cannot be imported.</p>
+<<<<<<< HEAD
 <p><strong>In App</strong>: A script executed manually in foreground that will provide an UI for a widget. The scripts can do everything a script running in foreground can. This is very powerful with Shortcuts automations or with <a class="reference internal" href="background.html#background.request_background_fetch" title="background.request_background_fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">request_background_fetch()</span></code></a>.</p>
 <p>Since Pyto 14.0, ‘Run Script’ widgets can be executed in app by calling the “Start Handling Widgets In App” Shortcut. After running the shortcut, the app will run in background and will be notified when a widget is about to be reloaded so it runs without RAM limit and it can import libraries with C extensions like Numpy. That’s basically handling widgets in app but without having to care about reloading the widget in a while loop, the app will take care and run the scripts when required. You should run the “Start Handling Widgets In App” shortcut from Shortcuts automation, for example once a day to make sure the app is running in background, having it in the app switcher isn’t enough.</p>
 </div>
@@ -424,6 +433,355 @@ The small layout is a small square, the medium layout is a rectangle and the lar
 
 <span class="n">wd</span><span class="o">.</span><span class="n">schedule_next_reload</span><span class="p">(</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 <span class="n">wd</span><span class="o">.</span><span class="n">show_widget</span><span class="p">(</span><span class="n">widget</span><span class="p">)</span>
+=======
+<p><strong>Set Content in App</strong>: A script executed manually in foreground that will provide an UI for a widget. The scripts can do everything a script running in foreground can. This is very powerful with Shortcuts automations or with <a class="reference internal" href="background.html#background.request_background_fetch" title="background.request_background_fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">request_background_fetch()</span></code></a>.</p>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<p>As an example, we will code a widget that shows the latest posts from <a class="reference external" href="https://daringfireball.net/">Daring Fireball</a>.</p>
+<p>Firstly, we will import the required libraries:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">widgets</span> <span class="kn">as</span> <span class="nn">wd</span> <span class="c1"># For the UI</span>
+<span class="kn">import</span> <span class="nn">json</span> <span class="c1"># For parsing the feed</span>
+<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span> <span class="c1"># For requesting the feed</span>
+<span class="kn">from</span> <span class="nn">dateutil.parser</span> <span class="kn">import</span> <span class="n">parse</span> <span class="c1"># For parsing dates</span>
+<span class="kn">from</span> <span class="nn">webbrowser</span> <span class="kn">import</span> <span class="nb">open</span> <span class="c1"># For opening posts</span>
+</pre></div>
+</div>
+<p>We will start by defining some values. The text foreground color and the background color used on the widget’s UI. <code class="docutils literal notranslate"><span class="pre">FEED_URL</span></code> stores an URL that gives all the posts from the blog in a JSON format.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">FOREGROUND_COLOR</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">COLOR_WHITE</span>
+<span class="n">BACKGROUND_COLOR</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">Color</span><span class="o">.</span><span class="n">rgb</span><span class="p">(</span><span class="mi">74</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">82</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">90</span><span class="o">/</span><span class="mi">255</span><span class="p">)</span>
+<span class="n">FEED_URL</span> <span class="o">=</span> <span class="s2">&quot;https://daringfireball.net/feeds/json&quot;</span>
+</pre></div>
+</div>
+<p>Then we’ll declare a class to store posts information. Each post has an URL, a title, a publication date and the content itself.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Article</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">date</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">content</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">date</span>
+</pre></div>
+</div>
+<p>After that, we’ll declare a function that returns a all of the articles in the feed as a list. Each <code class="docutils literal notranslate"><span class="pre">Article</span></code> object is created from the information parsed as JSON.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_posts</span><span class="p">():</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">FEED_URL</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+    <span class="n">feed</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="n">feed</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">]</span>
+
+    <span class="n">articles</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">]</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">]</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;content_html&quot;</span><span class="p">]</span>
+        <span class="n">date</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s2">&quot;date_published&quot;</span><span class="p">])</span>
+        <span class="n">article</span> <span class="o">=</span> <span class="n">Article</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">date</span><span class="p">)</span>
+        <span class="n">articles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">article</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">articles</span>
+</pre></div>
+</div>
+<p>Now we will code the UI. Each widget has 3 layouts: small, medium and large. So we need to provide a different layout for each size.
+A layout is composed of rows, each row containing horizontally aligned UI elements.
+The small layout is a small square, the medium layout is a rectangle and the large one is a big square.</p>
+<p>We need to create a <a class="reference internal" href="widgets/ui.html#widgets.Widget" title="widgets.Widget"><code class="xref py py-class docutils literal notranslate"><span class="pre">Widget</span></code></a> object and store the blog’s feed returned by <code class="docutils literal notranslate"><span class="pre">get_posts()</span></code>. A <a class="reference internal" href="widgets/ui.html#widgets.Widget" title="widgets.Widget"><code class="xref py py-class docutils literal notranslate"><span class="pre">Widget</span></code></a> instance has 3 properties that can be used to modify the layout of each widget size. <a class="reference internal" href="widgets/ui.html#widgets.Widget.small_layout" title="widgets.Widget.small_layout"><code class="xref py py-data docutils literal notranslate"><span class="pre">small_layout</span></code></a>, <a class="reference internal" href="widgets/ui.html#widgets.Widget.medium_layout" title="widgets.Widget.medium_layout"><code class="xref py py-data docutils literal notranslate"><span class="pre">medium_layout</span></code></a>, <a class="reference internal" href="widgets/ui.html#widgets.Widget.large_layout" title="widgets.Widget.large_layout"><code class="xref py py-data docutils literal notranslate"><span class="pre">large_layout</span></code></a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">posts</span> <span class="o">=</span> <span class="n">get_posts</span><span class="p">()</span>
+<span class="n">widget</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">Widget</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>While the medium sized widget will contain the title and the content of a post, the large layout will contain 3 posts. So we create a function that can add the UI to a layout, then we would just need to call this function once for the medium layout and 3 times for the large layout.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_post</span><span class="p">(</span><span class="n">post</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">link</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+
+    <span class="c1"># If &#39;line&#39; is &#39;True&#39;, the UI elements will be tappable</span>
+
+    <span class="k">if</span> <span class="n">link</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">url</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="c1"># Add the title of the post</span>
+    <span class="n">layout</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span>
+        <span class="n">wd</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span>
+            <span class="n">post</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">FOREGROUND_COLOR</span><span class="p">,</span>
+            <span class="n">link</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+            <span class="n">font</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Font</span><span class="o">.</span><span class="n">bold_system_font_of_size</span><span class="p">(</span><span class="mi">17</span><span class="p">),</span>
+            <span class="n">padding</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Padding</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="p">),</span>
+    <span class="p">])</span>
+    <span class="n">layout</span><span class="o">.</span><span class="n">add_vertical_spacer</span><span class="p">()</span>
+
+    <span class="c1"># Add the content of the post</span>
+    <span class="c1"># post.content can contain HTML code</span>
+    <span class="c1"># HTML code is automatically converted into plain text (no markup)</span>
+    <span class="n">layout</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span>
+        <span class="n">wd</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="n">post</span><span class="o">.</span><span class="n">content</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">FOREGROUND_COLOR</span><span class="p">,</span>
+            <span class="n">link</span><span class="o">=</span><span class="n">url</span>
+        <span class="p">),</span>
+    <span class="p">])</span>
+    <span class="n">layout</span><span class="o">.</span><span class="n">add_vertical_spacer</span><span class="p">()</span>
+
+    <span class="c1"># Add the publication date</span>
+    <span class="n">layout</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span>
+        <span class="n">wd</span><span class="o">.</span><span class="n">Spacer</span><span class="p">(),</span>
+        <span class="n">wd</span><span class="o">.</span><span class="n">DynamicDate</span><span class="p">(</span>
+            <span class="n">post</span><span class="o">.</span><span class="n">date</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">FOREGROUND_COLOR</span><span class="p">,</span>
+            <span class="n">padding</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Padding</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">],</span> <span class="n">link</span><span class="o">=</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="c1"># Set the background color of the widget</span>
+    <span class="n">layout</span><span class="o">.</span><span class="n">set_background_color</span><span class="p">(</span><span class="n">BACKGROUND_COLOR</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The small widget just contains the title and the publication date of the last post. The first element of the <code class="docutils literal notranslate"><span class="pre">posts</span></code> list is the last post.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># # # # #</span>
+<span class="c1"># Small #</span>
+<span class="c1"># # # # #</span>
+
+<span class="c1"># Add the post&#39;s title</span>
+<span class="n">widget</span><span class="o">.</span><span class="n">small_layout</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span>
+    <span class="n">wd</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span>
+        <span class="n">posts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">FOREGROUND_COLOR</span><span class="p">,</span>
+        <span class="n">font</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Font</span><span class="o">.</span><span class="n">bold_system_font_of_size</span><span class="p">(</span><span class="mi">17</span><span class="p">),</span>
+        <span class="n">padding</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Padding</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">])</span>
+
+<span class="c1"># Add the publication date at the bottom</span>
+<span class="n">widget</span><span class="o">.</span><span class="n">small_layout</span><span class="o">.</span><span class="n">add_vertical_spacer</span><span class="p">()</span>
+<span class="n">widget</span><span class="o">.</span><span class="n">small_layout</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span>
+    <span class="n">wd</span><span class="o">.</span><span class="n">Spacer</span><span class="p">(),</span>
+    <span class="n">wd</span><span class="o">.</span><span class="n">DynamicDate</span><span class="p">(</span>
+        <span class="n">posts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">date</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">FOREGROUND_COLOR</span><span class="p">,</span>
+        <span class="n">padding</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Padding</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">])</span>
+
+<span class="c1"># If the widget is pressed, the post&#39;s URL will be passed to the script</span>
+<span class="n">widget</span><span class="o">.</span><span class="n">small_layout</span><span class="o">.</span><span class="n">set_link</span><span class="p">(</span><span class="n">posts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+
+<span class="c1"># Set the background color of the widget</span>
+<span class="n">widget</span><span class="o">.</span><span class="n">small_layout</span><span class="o">.</span><span class="n">set_background_color</span><span class="p">(</span><span class="n">BACKGROUND_COLOR</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For the medium widget, we just call the previously created <code class="docutils literal notranslate"><span class="pre">add_post</span></code> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># # # # # #</span>
+<span class="c1"># Medium  #</span>
+<span class="c1"># # # # # #</span>
+
+<span class="n">add_post</span><span class="p">(</span><span class="n">posts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">widget</span><span class="o">.</span><span class="n">medium_layout</span><span class="p">)</span>
+
+<span class="c1"># If the widget is pressed, the post&#39;s URL will be passed to the script</span>
+<span class="n">widget</span><span class="o">.</span><span class="n">medium_layout</span><span class="o">.</span><span class="n">set_link</span><span class="p">(</span><span class="n">posts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The large widget will contain 3 posts, so we call <code class="docutils literal notranslate"><span class="pre">add_post</span></code> 3 times. This time, we set the third parameter (<code class="docutils literal notranslate"><span class="pre">link</span></code>) to <code class="docutils literal notranslate"><span class="pre">True</span></code>. Because the large widget contains multiple posts, the <code class="docutils literal notranslate"><span class="pre">link</span></code> attribute isn’t set to the whole layout but to individual UI elements.</p>
+<p>Between each post, we add a tinny line with <code class="xref py py-meth docutils literal notranslate"><span class="pre">add_vertical_divider()</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># # # # #</span>
+<span class="c1"># Large #</span>
+<span class="c1"># # # # #</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="c1"># Setting the third parameter to &#39;True&#39; will make individual elements tappable</span>
+    <span class="n">add_post</span><span class="p">(</span><span class="n">posts</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">widget</span><span class="o">.</span><span class="n">large_layout</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">widget</span><span class="o">.</span><span class="n">large_layout</span><span class="o">.</span><span class="n">add_vertical_divider</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Then we can just show the widget with <a class="reference internal" href="widgets/functions.html#widgets.show_widget" title="widgets.show_widget"><code class="xref py py-func docutils literal notranslate"><span class="pre">show_widget()</span></code></a>. You can run the code in app and see a preview. A reload is scheduled with <a class="reference internal" href="widgets/functions.html#widgets.schedule_next_reload" title="widgets.schedule_next_reload"><code class="xref py py-func docutils literal notranslate"><span class="pre">schedule_next_reload()</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># # # # #</span>
+<span class="c1"># Show  #</span>
+<span class="c1"># # # # #</span>
+
+<span class="c1"># Don&#39;t reload before five hours</span>
+<span class="n">wd</span><span class="o">.</span><span class="n">schedule_next_reload</span><span class="p">(</span><span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">wd</span><span class="o">.</span><span class="n">show_widget</span><span class="p">(</span><span class="n">widget</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now the UI is correctly displayed, but now we need to handle taps to open an article.
+<a class="reference internal" href="widgets/ui.html#widgets.link" title="widgets.link"><code class="xref py py-data docutils literal notranslate"><span class="pre">link</span></code></a> is set when an UI element with a <code class="docutils literal notranslate"><span class="pre">link</span></code> attribute is passed. So we need to check if this variable is set before showing the UI. If it’s not, that means the widget is running normally and we need to show an UI, otherwise we open the passed link with the default web browser.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">wd</span><span class="o">.</span><span class="n">link</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+
+    <span class="c1"># If the device was recently restarted,</span>
+    <span class="c1"># it will wait until it&#39;s connected to the internet</span>
+    <span class="n">wd</span><span class="o">.</span><span class="n">wait_for_internet_connection</span><span class="p">()</span>
+
+    <span class="n">posts</span> <span class="o">=</span> <span class="n">get_posts</span><span class="p">()</span>
+    <span class="n">widget</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">Widget</span><span class="p">()</span>
+
+    <span class="o">...</span>
+
+    <span class="n">wd</span><span class="o">.</span><span class="n">show_widget</span><span class="p">(</span><span class="n">widget</span><span class="p">)</span>
+
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Open the article with the default web browser</span>
+
+    <span class="nb">open</span><span class="p">(</span><span class="n">wd</span><span class="o">.</span><span class="n">link</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The script looks like that:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">A widget that shows the latest posts from Daring Fireball (https://daringfireball.net).</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">widgets</span> <span class="kn">as</span> <span class="nn">wd</span> <span class="c1"># For the UI</span>
+<span class="kn">import</span> <span class="nn">json</span> <span class="c1"># For parsing the feed</span>
+<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span> <span class="c1"># For requesting the feed</span>
+<span class="kn">from</span> <span class="nn">dateutil.parser</span> <span class="kn">import</span> <span class="n">parse</span> <span class="c1"># For parsing dates</span>
+<span class="kn">from</span> <span class="nn">webbrowser</span> <span class="kn">import</span> <span class="nb">open</span> <span class="c1"># For opening posts</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+<span class="n">FOREGROUND_COLOR</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">COLOR_WHITE</span>
+<span class="n">BACKGROUND_COLOR</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">Color</span><span class="o">.</span><span class="n">rgb</span><span class="p">(</span><span class="mi">74</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">82</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">90</span><span class="o">/</span><span class="mi">255</span><span class="p">)</span>
+<span class="n">FEED_URL</span> <span class="o">=</span> <span class="s2">&quot;https://daringfireball.net/feeds/json&quot;</span>
+
+<span class="k">class</span> <span class="nc">Article</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">date</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">date</span>
+
+<span class="k">def</span> <span class="nf">get_posts</span><span class="p">():</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">FEED_URL</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+    <span class="n">feed</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="n">feed</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">]</span>
+
+    <span class="n">articles</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">]</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">]</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;content_html&quot;</span><span class="p">]</span>
+        <span class="n">date</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s2">&quot;date_published&quot;</span><span class="p">])</span>
+        <span class="n">article</span> <span class="o">=</span> <span class="n">Article</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">date</span><span class="p">)</span>
+        <span class="n">articles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">article</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">articles</span>
+
+<span class="k">def</span> <span class="nf">add_post</span><span class="p">(</span><span class="n">post</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">link</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+
+    <span class="c1"># If &#39;line&#39; is &#39;True&#39;, the UI elements will be tappable</span>
+
+    <span class="k">if</span> <span class="n">link</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">url</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="c1"># Add the title of the post</span>
+    <span class="n">layout</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span>
+        <span class="n">wd</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span>
+            <span class="n">post</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">FOREGROUND_COLOR</span><span class="p">,</span>
+            <span class="n">font</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Font</span><span class="o">.</span><span class="n">bold_system_font_of_size</span><span class="p">(</span><span class="mi">17</span><span class="p">),</span>
+            <span class="n">padding</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Padding</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">],</span> <span class="n">link</span><span class="o">=</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">layout</span><span class="o">.</span><span class="n">add_vertical_spacer</span><span class="p">()</span>
+
+    <span class="c1"># Add the content of the post</span>
+    <span class="c1"># post.content can contain HTML code</span>
+    <span class="c1"># HTML code is automatically converted into plain text (no markup)</span>
+    <span class="n">layout</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span>
+        <span class="n">wd</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="n">post</span><span class="o">.</span><span class="n">content</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">FOREGROUND_COLOR</span><span class="p">,</span>
+            <span class="n">link</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+            <span class="n">padding</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">PADDING_HORIZONTAL</span>
+        <span class="p">),</span>
+    <span class="p">])</span>
+    <span class="n">layout</span><span class="o">.</span><span class="n">add_vertical_spacer</span><span class="p">()</span>
+
+    <span class="c1"># Add the publication date</span>
+    <span class="n">layout</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span>
+        <span class="n">wd</span><span class="o">.</span><span class="n">Spacer</span><span class="p">(),</span>
+        <span class="n">wd</span><span class="o">.</span><span class="n">DynamicDate</span><span class="p">(</span>
+            <span class="n">post</span><span class="o">.</span><span class="n">date</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">FOREGROUND_COLOR</span><span class="p">,</span>
+            <span class="n">padding</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Padding</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">],</span> <span class="n">link</span><span class="o">=</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="c1"># Set the background color of the widget</span>
+    <span class="n">layout</span><span class="o">.</span><span class="n">set_background_color</span><span class="p">(</span><span class="n">BACKGROUND_COLOR</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">wd</span><span class="o">.</span><span class="n">link</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+
+    <span class="n">wd</span><span class="o">.</span><span class="n">wait_for_internet_connection</span><span class="p">()</span>
+
+    <span class="n">posts</span> <span class="o">=</span> <span class="n">get_posts</span><span class="p">()</span>
+    <span class="n">widget</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">Widget</span><span class="p">()</span>
+
+    <span class="c1"># # # # #</span>
+    <span class="c1"># Small #</span>
+    <span class="c1"># # # # #</span>
+
+    <span class="c1"># Add the post&#39;s title</span>
+    <span class="n">widget</span><span class="o">.</span><span class="n">small_layout</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span>
+        <span class="n">wd</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span>
+            <span class="n">posts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">FOREGROUND_COLOR</span><span class="p">,</span>
+            <span class="n">font</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Font</span><span class="o">.</span><span class="n">bold_system_font_of_size</span><span class="p">(</span><span class="mi">17</span><span class="p">),</span>
+            <span class="n">padding</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Padding</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">])</span>
+
+    <span class="c1"># Add the publication date at the bottom</span>
+    <span class="n">widget</span><span class="o">.</span><span class="n">small_layout</span><span class="o">.</span><span class="n">add_vertical_spacer</span><span class="p">()</span>
+    <span class="n">widget</span><span class="o">.</span><span class="n">small_layout</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span>
+        <span class="n">wd</span><span class="o">.</span><span class="n">DynamicDate</span><span class="p">(</span>
+            <span class="n">posts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">date</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">FOREGROUND_COLOR</span><span class="p">,</span>
+            <span class="n">padding</span><span class="o">=</span><span class="n">wd</span><span class="o">.</span><span class="n">Padding</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">])</span>
+
+    <span class="c1"># If the widget is pressed, the post&#39;s URL will be passed to the script</span>
+    <span class="n">widget</span><span class="o">.</span><span class="n">small_layout</span><span class="o">.</span><span class="n">set_link</span><span class="p">(</span><span class="n">posts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="c1"># Set the background color of the widget</span>
+    <span class="n">widget</span><span class="o">.</span><span class="n">small_layout</span><span class="o">.</span><span class="n">set_background_color</span><span class="p">(</span><span class="n">BACKGROUND_COLOR</span><span class="p">)</span>
+
+    <span class="c1"># # # # # #</span>
+    <span class="c1"># Medium  #</span>
+    <span class="c1"># # # # # #</span>
+
+    <span class="n">add_post</span><span class="p">(</span><span class="n">posts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">widget</span><span class="o">.</span><span class="n">medium_layout</span><span class="p">)</span>
+
+    <span class="c1"># If the widget is pressed, the post&#39;s URL will be passed to the script</span>
+    <span class="n">widget</span><span class="o">.</span><span class="n">medium_layout</span><span class="o">.</span><span class="n">set_link</span><span class="p">(</span><span class="n">posts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="c1"># # # # #</span>
+    <span class="c1"># Large #</span>
+    <span class="c1"># # # # #</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="c1"># Setting the third parameter to &#39;True&#39; will make individual elements tappable</span>
+        <span class="n">add_post</span><span class="p">(</span><span class="n">posts</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">widget</span><span class="o">.</span><span class="n">large_layout</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">widget</span><span class="o">.</span><span class="n">large_layout</span><span class="o">.</span><span class="n">add_vertical_divider</span><span class="p">()</span>
+
+    <span class="c1"># # # # #</span>
+    <span class="c1"># Show  #</span>
+    <span class="c1"># # # # #</span>
+
+    <span class="c1"># Don&#39;t reload before five hours</span>
+    <span class="n">wd</span><span class="o">.</span><span class="n">schedule_next_reload</span><span class="p">(</span><span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">wd</span><span class="o">.</span><span class="n">show_widget</span><span class="p">(</span><span class="n">widget</span><span class="p">)</span>
+
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Open the article with the default web browser</span>
+
+    <span class="nb">open</span><span class="p">(</span><span class="n">wd</span><span class="o">.</span><span class="n">link</span><span class="p">)</span>
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 </pre></div>
 </div>
 </div>

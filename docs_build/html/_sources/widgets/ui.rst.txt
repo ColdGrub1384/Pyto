@@ -14,10 +14,13 @@ Widget Configuration
    :members:
 
 .. autoclass:: WidgetLayout
+<<<<<<< HEAD
    :members:
 
 .. autoclass:: TimelineProvider
    :members:
+=======
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 
 UI Elements
 ***********

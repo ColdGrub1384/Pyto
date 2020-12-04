@@ -1,6 +1,7 @@
 # Created with Pyto
 
 import widgets as wd
+<<<<<<< HEAD
 import datetime as dt
 
 
@@ -39,3 +40,39 @@ class TimelineProvider(wd.TimelineProvider):
 
 
 wd.provide_timeline(TimelineProvider())
+=======
+import sf_symbols as sf
+from datetime import datetime
+
+# Constants
+
+BACKGROUND = wd.COLOR_SYSTEM_BACKGROUND
+FOREGROUND = wd.COLOR_LABEL
+FONT = wd.Font.system_font_of_size(20)
+
+# Content
+
+widget = wd.Widget()
+
+text = wd.Text(
+    "Hello World!",
+    color=FOREGROUND,
+    font=FONT,
+    padding=wd.PADDING_ALL
+)
+
+layouts = [
+    widget.small_layout,
+    widget.medium_layout,
+    widget.large_layout
+]
+
+for layout in layouts:
+    layout.add_row([text])
+    layout.set_background_color(BACKGROUND)
+    
+
+# Show the widget and reload every 20 minutes
+wd.schedule_next_reload(60*20)
+wd.show_widget(widget)
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619

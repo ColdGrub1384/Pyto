@@ -117,6 +117,10 @@ NSKVONotifying__UIHyperrectangle = _Class('NSKVONotifying__UIHyperrectangle')
 NSKVONotifying__UIHyperregionUnion = _Class('NSKVONotifying__UIHyperregionUnion')
 NSKVONotifying__UIHyperpoint = _Class('NSKVONotifying__UIHyperpoint')
 PyCore = _Class('Pyto.PyCore')
+<<<<<<< HEAD
+=======
+ExtensionsInitializer = _Class('ExtensionsInitializer')
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 PyCallbackHelper = _Class('Pyto.PyCallbackHelper')
 ReviewHelper = _Class('Pyto.ReviewHelper')
 _Selector = _Class('Pyto._Selector')

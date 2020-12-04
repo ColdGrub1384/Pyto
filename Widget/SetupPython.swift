@@ -32,6 +32,7 @@ func SetupPython() {
     }
     
     let code = """
+<<<<<<< HEAD
     try:
         import os
         import sys
@@ -142,6 +143,75 @@ func SetupPython() {
         from pyto import __Class__
 
         __Class__("PyWidget").breakpoint(traceback.format_exc())
+=======
+    import os
+    import sys
+    import builtins
+    import traceback
+    import ssl
+    import threading
+    from pyto import __Class__, Python
+    from time import sleep
+    from extensionsimporter import PillowImporter
+    from rubicon.objc import NSObject, objc_method
+    from ctypes import CDLL
+
+    os.environ["widget"] = "1"
+
+    site_packages = \(sitePackages)
+    if site_packages is not None:
+        sys.path.append(site_packages)
+
+    PyWidget = __Class__("PyWidget")
+
+    sys.meta_path.append(PillowImporter())
+    sys.builtin_module_names += ("__PIL__imaging",)
+
+    ssl._create_default_https_context = ssl._create_unverified_context
+
+    class ScriptThread(threading.Thread):
+        script_path = None
+
+    class PythonImplementation(NSObject):
+
+        @objc_method
+        def runCode_(self, code):
+            try:
+                thread = threading.Thread(target=exec, args=(str(code),))
+                thread.start()
+                thread.join()
+            except Exception as e:
+                PyWidget.breakpoint(traceback.format_exc())
+                print(str(e))
+        
+        @objc_method
+        def runWidgetWithCode_andID_(self, code, id):
+            try:
+                exec(str(code))
+                PyWidget.removeWidgetID(str(id))
+            except Exception as e:
+                PyWidget.breakpoint(traceback.format_exc())
+                print(traceback.format_exc())
+
+            try:
+                del sys.modules["pyto_ui"]
+            except KeyError:
+                pass
+            
+            try:
+                _values = sys.modules["_values"]
+                 
+                for attr in dir(_values):
+                    if attr not in _values._dir:
+                        delattr(_values, attr)
+            except:
+                pass
+
+    Python.pythonShared = PythonImplementation.alloc().init()
+    CDLL(None).putenv(b"IS_PYTHON_RUNNING=1")
+
+    threading.Event().wait()
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     """
     
     let url = FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask)[0].appendingPathComponent("Startup.py")

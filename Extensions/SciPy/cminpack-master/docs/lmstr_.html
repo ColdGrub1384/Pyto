@@ -1,0 +1,458 @@
+<HTML><HEAD><TITLE>Manpage of LMSTR_</TITLE>
+</HEAD><BODY>
+<H1>LMSTR_</H1>
+Section: C Library Functions (3)<BR>Updated: March 8, 2002<BR><A HREF="#index">Index</A>
+<A HREF="index.html">Return to Main Contents</A><HR>
+
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+lmstr_, lmstr1_ - minimize the sum of squares of m nonlinear functions, with user supplied Jacobian and minimal storage
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>include &lt;<A HREF="file:/usr/include/minpack.h">minpack.h</A>&gt;</B>
+
+
+
+<DL COMPACT>
+<DT>
+<B>void lmstr1_ ( </B>
+
+<B>void (*</B><I>fcn</I><B>)</B>
+
+<B>(int *</B><I>m</I><B>,</B>
+
+<B>int *</B><I>n</I><B>,</B>
+
+<B>double *</B><I>x</I><B>,</B>
+
+<B>double *</B><I>fvec</I><B>,</B>
+
+<B>double *</B><I>fjrow</I><B>,</B>
+
+<B>int *</B><I>iflag</I><B>),</B>
+
+<DL COMPACT><DT><DD>
+<B>int *</B><I>m</I><B>,</B>
+
+<B>int * </B><I>n</I><B>,</B>
+
+<B>double *</B><I>x</I><B>,</B>
+
+<B>double *</B><I>fvec</I><B>,</B>
+
+<B>double *</B><I>fjac</I><B>,</B>
+
+<B>int *</B><I>ldfjac</I><B>,</B>
+
+<DD>
+<B>double *</B><I>tol</I><B>,</B>
+
+<B>int *</B><I>info</I><B>,</B>
+
+<B>int *</B><I>iwa</I><B>,</B>
+
+<DD>
+<B>double *</B><I>wa</I><B>,</B>
+
+<B>int *</B><I>kwa</I><B>);</B>
+
+</DL>
+
+<DT>
+<B>void lmstr_</B>
+
+<B>( void (*</B><I>fcn</I><B>)(</B>
+
+<B>int *</B><I>m</I><B>,</B>
+
+<B>int *</B><I>n</I><B>,</B>
+
+<B>double *</B><I>x</I><B>,</B>
+
+<B>double *</B><I>fvec</I><B>,</B>
+
+<B>double *</B><I>fjrow</I><B>,</B>
+
+<B>int *</B><I>iflag</I><B>),</B>
+
+<DL COMPACT><DT><DD>
+<B>int *</B><I>m</I><B>,</B>
+
+<B>int *</B><I>n</I><B>,</B>
+
+<B>double *</B><I>x</I><B>,</B>
+
+<B>double *</B><I>fvec</I><B>,</B>
+
+<B>double *</B><I>fjac</I><B>,</B>
+
+<B>int *</B><I>ldfjac</I><B>,</B>
+
+<DD>
+<B>double *</B><I>ftol</I><B>,</B>
+
+<B>double *</B><I>xtol</I><B>,</B>
+
+<B>double *</B><I>gtol</I><B>,</B>
+
+<DD>
+<B>int *</B><I>maxfev</I><B>,</B>
+
+<B>double *</B><I>diag</I><B>,</B>
+
+<B>int *</B><I>mode</I><B>,</B>
+
+<B>double *</B><I>factor</I><B>,</B>
+
+<DD>
+<B>int *</B><I>nprint</I><B>,</B>
+
+<B>int *</B><I>info</I><B>,</B>
+
+<B>int *</B><I>nfev</I><B>,</B>
+
+<B>int *</B><I>njev</I><B>,</B>
+
+<DD>
+<B>int *</B><I>ipvt</I><B>,</B>
+
+<B>double *</B><I>qtf</I><B>,</B>
+
+<DD>
+<B>double *</B><I>wa1</I><B>,</B>
+
+<B>double *</B><I>wa2</I><B>,</B>
+
+<B>double *</B><I>wa3</I><B>,</B>
+
+<B>double *</B><I>wa4</I><B> );</B>
+
+</DL>
+
+
+
+<DD>
+</DL>
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+<P>
+<DD>The purpose of <B>lmstr_</B> is to minimize the sum of the squares of
+<I>m</I> nonlinear functions in <I>n</I> variables by a modification of
+the Levenberg-Marquardt algorithm. The user must provide a function 
+which calculates the functions and the rows of the Jacobian.
+<P>
+
+<B>lmstr1_</B> performs the same function but has a simplified calling sequence.
+<P>
+
+<B><A HREF="lmder_.html">lmder</A></B>(3) and <B><A HREF="lmder_.html">lmder1</A></B>(3) perform the same function but do
+not attempt to minimize storage.
+<BR>
+
+<A NAME="lbAE">&nbsp;</A>
+<H3>Language notes</H3>
+
+These functions are written in FORTRAN. If calling from
+C, keep these points in mind:
+<DL COMPACT>
+<DT>Name mangling.<DD>
+With <B>g77</B> version 2.95 or 3.0, all the function names end in an
+underscore.  This may change with future versions of <B>g77</B>.
+<DT>Compile with <B>g77</B>.<DD>
+Even if your program is all C code, you should link with <B>g77</B>
+so it will pull in the FORTRAN libraries automatically.  It's easiest
+just to use <B>g77</B> to do all the compiling.  (It handles C just fine.)
+<DT>Call by reference.<DD>
+All function parameters must be pointers.
+<DT>Column-major arrays.<DD>
+Suppose a function returns an array with 5 rows and 3 columns in an
+array <I>z</I> and in the call you have declared a leading dimension of
+7.  The FORTRAN and equivalent C references are:
+<P>
+<PRE>
+        z(1,1)          z[0]
+        z(2,1)          z[1]
+        z(5,1)          z[4]
+        z(1,2)          z[7]
+        z(1,3)          z[14]
+        z(i,j)          z[(i-1) + (j-1)*7]
+</PRE>
+
+<BR>
+
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<H3>User-supplied Function</H3>
+
+<P>
+<I>fcn</I> is the name of the user-supplied subroutine which calculates
+the functions. In FORTRAN, <I>fcn</I> must be declared in an external
+statement in the user calling program, and should be written as
+follows:
+<P>
+<PRE>
+  subroutine fcn(m,n,x,fvec,fjrow,iflag)
+  integer m,n,iflag
+  double precision x(n),fvec(m),fjrow(n)
+  ----------
+  if iflag = 1 calculate the functions at x and
+  return this vector in fvec. Do not alter fjac.
+  if iflag = i calculate row (i-1) of the
+  Jacobian at x and return this vector in fjrow.
+  ----------
+  return
+  end
+</PRE>
+
+<P>
+In C, <I>fcn</I> should be written as follows:
+<P>
+<PRE>
+  void fcn(int m, int n, double *x, double *fvec, double *fjrow,
+           int *iflag)
+  {
+    /* If iflag = 1 calculate the functions at x and return the
+       values in fvec[0] through fvec[m-1].  Do not alter fjac.
+       If iflag = i calculate row (i-1) of the Jacobian
+       at x and return the vector in fjrow. */
+  }
+</PRE>
+
+<P>
+<I>iflag</I> is an input integer which specifies whether a function
+value or Jacobian row is to be calculated.
+The value of <I>iflag</I> should not be changed by <I>fcn</I> unless the
+user wants to terminate execution of <B>lmstr_</B> (or <B>lmstr1_</B>). In
+this case set <I>iflag</I> to a negative integer.
+<BR>
+
+<A NAME="lbAG">&nbsp;</A>
+<H3>Parameters for both <B>lmstr_</B> and <B>lmstr1_</B></H3>
+
+<P>
+<I>m</I> is a positive integer input variable set to the number
+of functions.
+<P>
+<I>n</I> is a positive integer input variable set to the number
+of variables. <I>n</I> must not exceed <I>m</I>.
+<P>
+<I>x</I> is an array of length <I>n</I>. On input <I>x</I> must contain
+an initial estimate of the solution vector. On output <I>x</I>
+contains the final estimate of the solution vector.
+<P>
+<I>fvec</I> is an output array of length <I>m</I> which contains
+the functions evaluated at the output <I>x</I>.
+<P>
+<I>fjrow</I> is an output array of length <I>n</I> which is set to one
+row of the Jacobian evaluated at <I>x</I>.
+<P>
+<I>fjac</I> is an output <I>m</I> by <I>n</I> array. The upper <I>n</I> by
+<I>n</I> submatrix of <I>fjac</I> contains an upper triangular matrix
+<B>r</B> with diagonal elements of nonincreasing magnitude such that
+<P>
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p&nbsp;*(jac&nbsp;*jac)*p&nbsp;=&nbsp;r&nbsp;*r,
+<P>
+where <I>p</I> is a permutation matrix and <B>jac</B> is the final
+calculated Jacobian. Column <B>j</B> of <I>p</I> is column
+<I>ipvt</I>(<B>j</B>) (see below) of the identity matrix. The lower
+trapezoidal part of <I>fjac</I> contains information generated during
+the computation of <B>r</B>.
+<P>
+<I>ldfjac</I> is a positive integer input variable not less than
+<I>m</I> which specifies the leading dimension of the array
+<I>fjac</I>.
+<BR>
+
+<A NAME="lbAH">&nbsp;</A>
+<H3>Parameters for <B>lmstr1_</B></H3>
+
+<P>
+<I>tol</I> is a nonnegative input variable.  Termination occurs when
+the algorithm estimates either that the relative error in the sum of
+squares is at most <I>tol</I> or that the relative error between
+<I>x</I> and the solution is at most <I>tol</I>.
+<P>
+<I>info</I> is an integer output variable. if the user has
+terminated execution, <I>info</I> is set to the (negative)
+value of iflag. see description of <I>fcn</I>. otherwise,
+<I>info</I> is set as follows.
+<P>
+<BR>&nbsp;&nbsp;<I>info</I>&nbsp;=&nbsp;0&nbsp;&nbsp;improper&nbsp;input&nbsp;parameters.
+<P>
+<BR>&nbsp;&nbsp;<I>info</I>&nbsp;=&nbsp;1&nbsp;&nbsp;algorithm&nbsp;estimates&nbsp;that&nbsp;the&nbsp;relative&nbsp;error
+in the sum of squares is at most <I>tol</I>.
+<P>
+<BR>&nbsp;&nbsp;<I>info</I>&nbsp;=&nbsp;2&nbsp;&nbsp;algorithm&nbsp;estimates&nbsp;that&nbsp;the&nbsp;relative&nbsp;error
+between x and the solution is at most <I>tol</I>.
+<P>
+<BR>&nbsp;&nbsp;<I>info</I>&nbsp;=&nbsp;3&nbsp;&nbsp;conditions&nbsp;for&nbsp;<I>info</I>&nbsp;=&nbsp;1&nbsp;and&nbsp;<I>info</I>&nbsp;=&nbsp;2&nbsp;both&nbsp;hold.
+<P>
+<BR>&nbsp;&nbsp;<I>info</I>&nbsp;=&nbsp;4&nbsp;&nbsp;<I>fvec</I>&nbsp;is&nbsp;orthogonal&nbsp;to&nbsp;the&nbsp;columns&nbsp;of&nbsp;the
+Jacobian to machine precision.
+<P>
+<BR>&nbsp;&nbsp;<I>info</I>&nbsp;=&nbsp;5&nbsp;&nbsp;number&nbsp;of&nbsp;calls&nbsp;to&nbsp;<I>fcn</I>&nbsp;has&nbsp;reached&nbsp;or
+exceeded 100*(<I>n</I>+1).
+<P>
+<BR>&nbsp;&nbsp;<I>info</I>&nbsp;=&nbsp;6&nbsp;&nbsp;<I>tol</I>&nbsp;is&nbsp;too&nbsp;small.&nbsp;no&nbsp;further&nbsp;reduction&nbsp;in
+the sum of squares is possible.
+<P>
+<BR>&nbsp;&nbsp;<I>info</I>&nbsp;=&nbsp;7&nbsp;&nbsp;<I>tol</I>&nbsp;is&nbsp;too&nbsp;small.&nbsp;no&nbsp;further&nbsp;improvement&nbsp;in
+the approximate solution x is possible.
+<P>
+<I>wa</I> is a work array of length <I>lwa</I>.
+<P>
+<I>lwa</I> is an integer input variable not less than <I>m</I>*<I>n</I> +
+5*<I>n</I> + <I>m</I> for <B>lmder1</B>, or 5*<I>n</I>+<I>m</I> for <B>lmstr1_</B>.
+<BR>
+
+<A NAME="lbAI">&nbsp;</A>
+<H3>Parameters for <B>lmstr_</B></H3>
+
+<P>
+<I>ftol</I> is a nonnegative input variable. Termination
+occurs when both the actual and predicted relative
+reductions in the sum of squares are at most <I>ftol</I>.
+Therefore, <I>ftol</I> measures the relative error desired
+in the sum of squares.
+<P>
+<I>xtol</I> is a nonnegative input variable. Termination
+occurs when the relative error between two consecutive
+iterates is at most <I>xtol</I>. Therefore, <I>xtol</I> measures the
+relative error desired in the approximate solution.
+<P>
+<I>gtol</I> is a nonnegative input variable. Termination
+occurs when the cosine of the angle between <I>fvec</I> and
+any column of the Jacobian is at most <I>gtol</I> in absolute
+value. Therefore, <I>gtol</I> measures the orthogonality
+desired between the function vector and the columns
+of the Jacobian.
+<P>
+<I>maxfev</I> is a positive integer input variable. Termination
+occurs when the number of calls to <I>fcn</I> is at least
+<I>maxfev</I> by the end of an iteration.
+<P>
+<I>diag</I> is an array of length <I>n</I>. If <I>mode</I> = 1 (see
+below), <I>diag</I> is internally set. If <I>mode</I> = 2, <I>diag</I>
+must contain positive entries that serve as
+multiplicative scale factors for the variables.
+<P>
+<I>mode</I> is an integer input variable. If <I>mode</I> = 1, the
+variables will be scaled internally. If <I>mode</I> = 2,
+the scaling is specified by the input <I>diag</I>. Other
+values of mode are equivalent to <I>mode</I> = 1.
+<P>
+<I>factor</I> is a positive input variable used in determining the
+initial step bound. This bound is set to the product of <I>factor</I>
+and the euclidean norm of <I>diag</I>*<I>x</I> if the latter is
+nonzero, or else to <I>factor</I> itself. In most cases factor should
+lie in the interval (.1,100.). 100. is a generally recommended
+value.
+<P>
+<I>nprint</I> is an integer input variable that enables controlled
+printing of iterates if it is positive. In this case, fcn is called
+with <I>iflag</I> = 0 at the beginning of the first iteration and
+every <I>nprint</I> iterations thereafter and immediately prior to
+return, with <I>x</I> and <I>fvec</I> available for printing. If
+<I>nprint</I> is not positive, no special calls of fcn with
+<I>iflag</I> = 0 are made.
+<P>
+<I>info</I> is an integer output variable. If the user has
+terminated execution, info is set to the (negative)
+value of iflag. See description of fcn. Otherwise,
+info is set as follows.
+<P>
+<BR>&nbsp;&nbsp;<I>info</I>&nbsp;=&nbsp;0&nbsp;&nbsp;improper&nbsp;input&nbsp;parameters.
+<P>
+<BR>&nbsp;&nbsp;<I>info</I>&nbsp;=&nbsp;1&nbsp;&nbsp;both&nbsp;actual&nbsp;and&nbsp;predicted&nbsp;relative&nbsp;reductions
+in the sum of squares are at most <I>ftol</I>.
+<P>
+<BR>&nbsp;&nbsp;<I>info</I>&nbsp;=&nbsp;2&nbsp;&nbsp;relative&nbsp;error&nbsp;between&nbsp;two&nbsp;consecutive&nbsp;iterates
+is at most <I>xtol</I>.
+<P>
+<BR>&nbsp;&nbsp;<I>info</I>&nbsp;=&nbsp;3&nbsp;&nbsp;conditions&nbsp;for&nbsp;<I>info</I>&nbsp;=&nbsp;1&nbsp;and&nbsp;<I>info</I>&nbsp;=&nbsp;2&nbsp;both&nbsp;hold.
+<P>
+<BR>&nbsp;&nbsp;<I>info</I>&nbsp;=&nbsp;4&nbsp;&nbsp;the&nbsp;cosine&nbsp;of&nbsp;the&nbsp;angle&nbsp;between&nbsp;fvec&nbsp;and&nbsp;any
+column of the Jacobian is at most gtol in absolute value.
+<P>
+<BR>&nbsp;&nbsp;<I>info</I>&nbsp;=&nbsp;5&nbsp;&nbsp;number&nbsp;of&nbsp;calls&nbsp;to&nbsp;<I>fcn</I>&nbsp;has&nbsp;reached&nbsp;or
+exceeded maxfev.
+<P>
+<BR>&nbsp;&nbsp;<I>info</I>&nbsp;=&nbsp;6&nbsp;&nbsp;<I>ftol</I>&nbsp;is&nbsp;too&nbsp;small.&nbsp;No&nbsp;further&nbsp;reduction&nbsp;in
+the sum of squares is possible.
+<P>
+<BR>&nbsp;&nbsp;<I>info</I>&nbsp;=&nbsp;7&nbsp;&nbsp;<I>xtol</I>&nbsp;is&nbsp;too&nbsp;small.&nbsp;No&nbsp;further&nbsp;improvement&nbsp;in
+the approximate solution x is possible.
+<P>
+<BR>&nbsp;&nbsp;<I>info</I>&nbsp;=&nbsp;8&nbsp;<I>gtol</I>&nbsp;is&nbsp;too&nbsp;small.&nbsp;<I>fvec</I>&nbsp;is&nbsp;orthogonal&nbsp;to
+the columns of the Jacobian to machine precision.
+<P>
+<I>nfev</I> is an integer output variable set to the number of
+calls to <I>fcn</I> with <I>iflag</I> = 1.
+<P>
+<I>njev</I> is an integer output variable set to the number of
+calls to fcn with <I>iflag</I> = 2.
+<P>
+<I>ipvt</I> is an integer output array of length <I>n</I>. <I>ipvt</I>
+defines a permutation matrix <I>p</I> such that <I>jac</I>*<I>p</I> =
+<I>q</I>*<I>r</I>, where <I>jac</I> is the final calculated Jacobian,
+<I>q</I> is orthogonal (not stored), and <I>r</I> is upper triangular
+with diagonal elements of nonincreasing magnitude.  Column <B>j</B>
+of <I>p</I> is column <I>ipvt</I>(<B>j</B>) of the identity matrix.
+<P>
+<I>qtf</I> is an output array of length <I>n</I> which contains
+the first <I>n</I> elements of the vector (<I>q</I> transpose)*<I>fvec</I>.
+<P>
+<I>wa1</I>, <I>wa2</I>, and <I>wa3</I> are work arrays of length <I>n</I>.
+<P>
+<I>wa4</I> is a work array of length <I>m</I>.
+<BR>
+
+<A NAME="lbAJ">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<B><A HREF="lmdif_.html">lmdif</A></B>(3),
+
+<B><A HREF="lmdif_.html">lmdif1</A></B>(3),
+
+<B><A HREF="lmder_.html">lmder</A></B>(3),
+
+<B><A HREF="lmder_.html">lmder1</A></B>(3).
+
+<BR>
+
+<A NAME="lbAK">&nbsp;</A>
+<H2>AUTHORS</H2>
+
+Jorge More', Burt Garbow, and Ken Hillstrom at Argonne National Laboratory.
+This manual page was written by Jim Van Zandt &lt;<A HREF="mailto:jrv@debian.org">jrv@debian.org</A>&gt;,
+for the Debian GNU/Linux system (but may be used by others).
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DL>
+<DT><A HREF="#lbAE">Language notes</A><DD>
+<DT><A HREF="#lbAF">User-supplied Function</A><DD>
+<DT><A HREF="#lbAG">Parameters for both <B>lmstr_</B> and <B>lmstr1_</B></A><DD>
+<DT><A HREF="#lbAH">Parameters for <B>lmstr1_</B></A><DD>
+<DT><A HREF="#lbAI">Parameters for <B>lmstr_</B></A><DD>
+</DL>
+<DT><A HREF="#lbAJ">SEE ALSO</A><DD>
+<DT><A HREF="#lbAK">AUTHORS</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="index.html">man2html</A>,
+using the manual pages.<BR>
+Time: 10:19:50 GMT, April 20, 2007
+</BODY>
+</HTML>

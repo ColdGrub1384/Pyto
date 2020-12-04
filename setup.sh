@@ -5,12 +5,16 @@ cd "$DIR"
 
 # OpenCV
 
+<<<<<<< HEAD
 rm -rf opencv2.framework
+=======
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 curl -L -O https://github.com/ColdGrub1384/OpenCV-Contrib-iOS/releases/download/4.3.0/opencv2.framework.zip
 unzip opencv2.framework.zip
 rm -rf opencv2.framework.zip
 rm -rf __MACOSX
 
+<<<<<<< HEAD
 # OpenBlas and everything Fortran related
 
 curl -L https://github.com/ColdGrub1384/lapack-ios/releases/download/v1.2/lapack-ios.zip -o lapack-ios.zip
@@ -23,10 +27,13 @@ mv Extensions/SciPy/lapack.framework Extensions/SciPy/scipy-deps.framework
 rm -rf __MACOSX
 rm -rf lapack-ios
 
+=======
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 # Cocoapods and submodules
 
 pod install
 git submodule update --init --recursive
+<<<<<<< HEAD
 
 # CFFI
 
@@ -43,3 +50,5 @@ cd ../../
 
 cd site-packages
 python3 -m pip install --no-deps -r requirements.txt -t .
+=======
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619

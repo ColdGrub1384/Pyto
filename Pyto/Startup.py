@@ -163,8 +163,15 @@ try:
 
     # MARK: - Modules
 
+<<<<<<< HEAD
     sys.meta_path.insert(0, DownloadableImporter())
     sys.meta_path.insert(1, FrameworksImporter())
+=======
+    for importer in (NumpyImporter, MatplotlibImporter, PandasImporter, PillowImporter, BiopythonImporter, LXMLImporter, ScipyImporter, SkLearnImporter, SkImageImporter, PywtImporter, NaclImporter, CryptographyImporter, BcryptImporter, StatsmodelsImporter, ZmqImporter, RegexImporter, GensimImporter, AstropyImporter):
+        sys.meta_path.insert(0, importer())
+
+    sys.meta_path.insert(0, DownloadableImporter()) # Needs to be first
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 
     # MARK: - Pre-import modules
 

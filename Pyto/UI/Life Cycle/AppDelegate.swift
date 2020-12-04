@@ -56,6 +56,7 @@ import TrueTime
     
     private let copyModulesQueue = DispatchQueue.global(qos: .background)
     
+<<<<<<< HEAD
     private var downloadingPyPICache = false
     
     /// Updates the PyPi index cache.
@@ -73,6 +74,13 @@ import TrueTime
             
             self.downloadingPyPICache = false
             
+=======
+    /// Updates the PyPi index cache.
+    func updatePyPiCache() {
+        let task = UIApplication.shared.beginBackgroundTask(expirationHandler: nil)
+        
+        URLSession.shared.downloadTask(with: URL(string: "https://pypi.org/simple")!) { (fileURL, _, error) in
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
             if let error = error {
                 print(error.localizedDescription)
             } else if let url = fileURL {
@@ -158,6 +166,13 @@ import TrueTime
             if FileManager.default.fileExists(atPath: modsDir.path) {
                 try FileManager.default.removeItem(at: modsDir)
             }
+<<<<<<< HEAD
+=======
+            
+            let sitePackages = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("site-packages-widget-shortcuts")
+            
+            try FileManager.default.copyItem(at: sitePackages, to: modsDir)
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         } catch {
             print(error.localizedDescription)
         }
@@ -213,7 +228,23 @@ import TrueTime
     }
     
     private let exceptionHandler: Void = NSSetUncaughtExceptionHandler { (exception) in
+<<<<<<< HEAD
         PyOutputHelper.printError("\(exception.name.rawValue): \(exception.reason ?? "")\n", script: nil)
+=======
+        PyOutputHelper.printError("\(exception.callStackSymbols.joined(separator: "\n"))\n\n\(exception.name.rawValue): \(exception.reason ?? "")\n", script: nil)
+
+        for script in Python.shared.runningScripts {
+            if let path = script as? String {
+                Python.shared.stop(script: path)
+            }
+        }
+        
+        Python.shared.runningScripts = NSArray(array: [])
+        
+        if !Thread.current.isMainThread {
+            DispatchSemaphore(value: 0).wait()
+        }
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     }
     #endif
     
@@ -341,6 +372,7 @@ import TrueTime
         
         SwiftyStoreKit.shouldAddStorePaymentHandler = { payment, product in
             
+<<<<<<< HEAD
             func continuePurchasing(id: Product, window: UIWindow?) {
                 
                 let name = id.rawValue.components(separatedBy: ".").last ?? ""
@@ -362,6 +394,8 @@ import TrueTime
                 }
             }
             
+=======
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
             if let validator = ReceiptValidator(), let version = validator.receipt[.originalAppVersion] as? String {
                 guard version.versionCompare(initialVersionRequiringUserToPay) != .orderedAscending else {
                     return false
@@ -398,7 +432,11 @@ import TrueTime
                         .first?.windows
                         .filter({$0.isKeyWindow}).first
                         
+<<<<<<< HEAD
                         continuePurchasing(id: product, window: keyWindow)
+=======
+                        purchase(id: product, window: keyWindow)
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
                     }
                 }
                 
@@ -425,7 +463,11 @@ import TrueTime
                         .first?.windows
                         .filter({$0.isKeyWindow}).first
                         
+<<<<<<< HEAD
                         continuePurchasing(id: product, window: keyWindow)
+=======
+                        purchase(id: product, window: keyWindow)
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
                     }
                 }
                 
@@ -491,14 +533,20 @@ import TrueTime
     #if MAIN
     
     #if !Xcode11
+<<<<<<< HEAD
     @available(iOS 14.0, *)
+=======
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     public func application(_ application: UIApplication, handlerFor intent: INIntent) -> Any? {
         if intent is RunScriptIntent {
             return RunScriptIntentHandler()
         } else if intent is RunCodeIntent {
             return RunCodeIntentHandler()
+<<<<<<< HEAD
         } else if intent is StartHandlingWidgetsInAppIntent {
             return StartHandlingWidgetsInAppIntentHandler()
+=======
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         } else {
             return nil
         }
@@ -522,6 +570,13 @@ import TrueTime
             (((session.scene?.delegate as? UIWindowSceneDelegate)?.window??.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor?.save()
         }
     }
+<<<<<<< HEAD
+=======
+            
+    public func applicationWillTerminate(_ application: UIApplication) {
+        exit(0)
+    }
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     
     #endif
     
@@ -583,11 +638,19 @@ import TrueTime
     // MARK: - Apple Watch
     
     #if MAIN
+<<<<<<< HEAD
     var watchComplicationsHandlers = [String: ((Any?) -> Void)]()
     
     @available(iOS 14.0, *)
     @objc func callComplicationHandler(id: String, complication: PyComplication) {
         watchComplicationsHandlers[id]?(complication)
+=======
+    private var complicationsHandlers = [String: ((Any?) -> Void)]()
+    
+    @available(iOS 14.0, *)
+    @objc func callComplicationHandler(id: String, complication: PyComplication) {
+        complicationsHandlers[id]?(complication)
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     }
     
     @objc var name = "AppDelegate"
@@ -603,3 +666,250 @@ import TrueTime
     @objc var descriptor: String?
     #endif
 }
+<<<<<<< HEAD
+=======
+
+#if MAIN
+
+extension AppDelegate: WCSessionDelegate {
+    
+    public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        
+    }
+    
+    public func sessionDidBecomeInactive(_ session: WCSession) {
+        
+    }
+    
+    public func sessionDidDeactivate(_ session: WCSession) {
+        
+    }
+    
+    public func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
+        if (message["Get"] as? String) == "Descriptors" {
+            let keys = (UserDefaults.shared?.string(forKey: "userKeys") ?? "").data(using: .utf8) ?? Data()
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: keys, options: []) as? [AnyHashable:Any]
+                if let descriptors = json?["__watch_descriptors__"] as? [String] {
+                    replyHandler(["Descriptors":descriptors])
+                } else {
+                    replyHandler([:])
+                }
+            } catch {
+                print(error.localizedDescription)
+                replyHandler([:])
+            }
+            
+        } else {
+            replyHandler([:])
+        }
+    }
+    
+    public func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+        print(message)
+        for complication in message {
+            
+            let id = complication.key
+            guard let value = complication.value as? [Any], value.count == 3 else {
+                break
+            }
+            
+            guard let date = value[0] as? Date else {
+                return
+            }
+            
+            guard let limit = value[1] as? Int else {
+                return
+            }
+            
+            guard let descriptor = value[2] as? String else {
+                return
+            }
+            
+            self.descriptor = descriptor
+            
+            var isStale = false
+            if let data = UserDefaults.standard.data(forKey: "watchScriptPath"), let url = (try? URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)) {
+                
+                _ = url.startAccessingSecurityScopedResource()
+                
+                watchScript = url.path
+                Python.shared.currentWorkingDirectory = directory(for: url).path
+                
+                var task: UIBackgroundTaskIdentifier!
+                task = UIApplication.shared.beginBackgroundTask {
+                    UIApplication.shared.endBackgroundTask(task)
+                }
+                
+                let complicationId = UUID().uuidString
+                if #available(iOS 14.0, *) {
+                    
+                    func replyHandler(_ data: Data) {
+                        let file = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("complication.json")
+                        FileManager.default.createFile(atPath: file.path, contents: data, attributes: nil)
+                        WCSession.default.transferFile(file, metadata: ["id":id])
+                        UIApplication.shared.endBackgroundTask(task)
+                    }
+                    
+                    complicationsHandlers[complicationId] = { complications in
+                        guard let complications = complications as? [PyComplication] else {
+                            return replyHandler(Data())
+                        }
+                        
+                        do {
+                            let data = try JSONEncoder().encode(complications)
+                             replyHandler(data)
+                        } catch {
+                            print(error.localizedDescription)
+                            replyHandler(Data())
+                        }
+                    }
+                }
+                
+                func run() {
+                    Python.shared.run(script: Python.WatchScript(code: """
+                    from threading import Event
+                    from rubicon.objc import ObjCClass
+                    from pyto import Python
+                    import runpy
+                    import watch as wt
+                    import sys
+                    import os
+                    import notifications as nc
+                    import traceback as tb
+                    import datetime as dt
+                    import __watch_script_store__ as store
+
+                    wt.__shared_complication__ = None
+
+                    delegate = ObjCClass("Pyto.AppDelegate").shared
+
+                    script = str(delegate.getWatchScript())
+                    dir = str(Python.shared.currentWorkingDirectory)
+                    os.chdir(dir)
+                    sys.path.append(dir)
+
+                    descriptor = str(delegate.descriptor)
+
+                    try:
+                        if descriptor in store.providers:
+                            provider = store.providers[descriptor]
+                        else:
+                            runpy.run_path(script)
+                            try:
+                                provider = store.providers[descriptor]
+                            except KeyError:
+                                provider = None
+
+                        if provider is not None:
+                            complications = provider.__complications__(dt.datetime.fromtimestamp(\(date.timeIntervalSince1970)), \(limit))
+                            objc_complications = []
+                            for complication in complications:
+                                objc = wt.__objc__(complication[1])
+                                objc.timestamp = complication[0].timestamp()
+                                objc_complications.append(objc)
+
+                            wt.__PyComplication__.sendObject = objc_complications
+                        else:
+                            wt.__PyComplication__.sendObject = None
+                    except Exception as e:
+                        print(tb.format_exc())
+
+                        if str(e) != '<run_path>':
+                            notif = nc.Notification()
+                            notif.message = str(e)
+                            nc.send_notification(notif)
+                    finally:
+                        complication = wt.__PyComplication__.sendObject
+                        delegate.callComplicationHandlerWithId("\(complicationId)", complication=complication)
+                        Event().wait()
+
+                    """))
+                }
+                
+                if Python.shared.isSetup {
+                    run()
+                } else {
+                    func wait() {
+                        if Python.shared.isSetup {
+                            run()
+                        } else {
+                            DispatchQueue.global().asyncAfter(deadline: .now()+0.01) {
+                                wait()
+                            }
+                        }
+                    }
+                    wait()
+                }
+            }
+            
+            break
+        }
+    }
+    
+    public func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
+        // Run script
+        if messageData == "Run".data(using: .utf8) {
+            
+            var isStale = false
+            if let data = UserDefaults.standard.data(forKey: "watchScriptPath"), let url = (try? URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)) {
+                
+                _ = url.startAccessingSecurityScopedResource()
+                
+                watchScript = url.path
+                
+                func run() {
+                    Python.shared.run(script: Python.WatchScript(code: """
+                    from rubicon.objc import ObjCClass
+                    import runpy
+
+                    script = str(ObjCClass("Pyto.AppDelegate").shared.watchScript)
+                    runpy.run_path(script)
+                    """))
+                }
+                
+                if Python.shared.isSetup {
+                    run()
+                } else {
+                    func wait() {
+                        if Python.shared.isSetup {
+                            run()
+                        } else {
+                            DispatchQueue.global().asyncAfter(deadline: .now()+0.01) {
+                                wait()
+                            }
+                        }
+                    }
+                    wait()
+                }
+            } else {
+                func run() {
+                    Python.shared.run(script: Python.WatchScript(code: """
+                    print("\(Localizable.Errors.noWatchScript)")
+                    """))
+                }
+                
+                if Python.shared.isSetup {
+                    run()
+                } else {
+                    func wait() {
+                        if Python.shared.isSetup {
+                            run()
+                        } else {
+                            DispatchQueue.global().asyncAfter(deadline: .now()+0.01) {
+                                wait()
+                            }
+                        }
+                    }
+                    wait()
+                }
+            }
+        } else if messageData == "Stop".data(using: .utf8) {
+            Python.shared.stop(script: Python.watchScriptURL.path)
+        }
+    }
+}
+
+#endif
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619

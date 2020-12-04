@@ -176,6 +176,7 @@ func completePurchase(id: String) {
                 func dismiss() {
                     let vc = window.topViewController
                     
+<<<<<<< HEAD
                     guard vc != window.rootViewController else {
                         return
                     }
@@ -183,6 +184,13 @@ func completePurchase(id: String) {
                     vc?.dismiss(animated: true, completion: {
                         dismiss()
                     })
+=======
+                    if vc is UIHostingController<OnboardingView> {
+                        vc?.dismiss(animated: true, completion: {
+                            dismiss()
+                        })
+                    }
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
                 }
                 
                 dismiss()

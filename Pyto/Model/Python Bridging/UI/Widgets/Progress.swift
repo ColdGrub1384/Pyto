@@ -23,11 +23,15 @@ import SwiftUI
     
     override var makeView: AnyView {
         var progressView = AnyView(ProgressView(value: progress) {
+<<<<<<< HEAD
             VStack {
                 Spacer()
                 label?.makeView
                 Spacer()
             }
+=======
+            label?.makeView
+>>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         })
         
         #if os(iOS)
