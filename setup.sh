@@ -43,3 +43,8 @@ cd ../../
 
 cd site-packages
 python3 -m pip install --no-deps -r requirements.txt -t .
+
+# And C Extensions
+
+cd ../
+Extensions/Dependencies/tools/build.sh
