@@ -98,12 +98,18 @@ int initialize_python(int argc, char *argv[]) {
         
         // Matplotlib
         NSURL *mpl_data = [[NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask].firstObject URLByAppendingPathComponent:@"mpl-data"];
+        NSURL *mpl_config = [[NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask].firstObject URLByAppendingPathComponent:@"matplotlib"];
         
         if (![NSFileManager.defaultManager fileExistsAtPath:mpl_data.path]) {
             [NSFileManager.defaultManager createDirectoryAtPath:mpl_data.path withIntermediateDirectories:NO attributes:NULL error:NULL];
         }
         
+        if (![NSFileManager.defaultManager fileExistsAtPath:mpl_config.path]) {
+            [NSFileManager.defaultManager createDirectoryAtPath:mpl_config.path withIntermediateDirectories:NO attributes:NULL error:NULL];
+        }
+        
         putenv((char *)[[NSString stringWithFormat:@"MATPLOTLIBDATA=%@", mpl_data.path] UTF8String]);
+        putenv((char *)[[NSString stringWithFormat:@"MPLCONFIGDIR=%@", mpl_config.path] UTF8String]);
         
         for (NSURL *fileURL in [NSFileManager.defaultManager contentsOfDirectoryAtURL:[mainBundle() URLForResource:@"site-packages/mpl-data" withExtension:NULL] includingPropertiesForKeys:NULL options:NSDirectoryEnumerationSkipsHiddenFiles error:NULL]) {
             NSURL *newURL = [mpl_data URLByAppendingPathComponent:fileURL.lastPathComponent];

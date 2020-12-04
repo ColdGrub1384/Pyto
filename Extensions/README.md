@@ -11,3 +11,7 @@ So, for a module called `a.b._c`, one of the 2 frameworks will be loaded:
 - `a-.framework`
 
 No matter the name of the framework, the function `PyInit__c` needs to be present in the binary.
+
+## Dependencies
+
+Some libraries like `lxml` have dependencies. The `lxml-deps` framework contains the symbols for `libxml2` and `libxslt`. So, given a module called `a.b._c`, the framework `a-deps.framework` will be loaded.

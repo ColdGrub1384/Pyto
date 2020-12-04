@@ -1,3 +1,0 @@
-# Licensed under a 3-clause BSD style license - see LICENSE.rst
-from .formats import *  # noqa
-from .core import *  # noqa

@@ -98,7 +98,6 @@ class FrameworksImporter(PathFinder):
     __is_importing__ = False
     
     def find_spec(self, fullname, path=None, target=None):
-    
         if "__"+fullname.replace(".", "_") in sys.builtin_module_names:
             loader = BuiltinLoader(fullname, None)
             spec = ModuleSpec(fullname, loader)
@@ -108,7 +107,10 @@ class FrameworksImporter(PathFinder):
         framework_path = str(NSBundle.mainBundle.bundlePath)+"/Frameworks/"+framework_name
         binary_path = None
         
+        found = True
+        
         if not os.path.isdir(framework_path):
+            not_found = False
             framework_name = (fullname.split(".")[0]+"-")+".framework"
             framework_path = str(NSBundle.mainBundle.bundlePath)+"/Frameworks/"+framework_name
             
@@ -119,11 +121,12 @@ class FrameworksImporter(PathFinder):
                     path = framework_path+"/"+path
                     binary_path = path
 
-            lib = ctypes.cdll.LoadLibrary(binary_path)
-            try:
-                getattr(lib, "PyInit_"+fullname.split(".")[-1])
-            except AttributeError:
-                return None
+            if not found:
+                lib = ctypes.cdll.LoadLibrary(binary_path)
+                try:
+                    getattr(lib, "PyInit_"+fullname.split(".")[-1])
+                except AttributeError:
+                    return None
 
             loader = FrameworkLoader(fullname, binary_path)
             spec = ModuleSpec(fullname, loader)

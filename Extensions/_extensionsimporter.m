@@ -24,6 +24,14 @@ static PyObject *_extensionsimporter_module_from_binary(PyObject *self, PyObject
         return NULL;
     }
     
+    NSString *dependenciesName = [[[NSString stringWithUTF8String:name] componentsSeparatedByString:@"."].firstObject stringByAppendingString:@"-deps.framework"];
+    NSMutableString *dependenciesFrameworkPath = [NSMutableString stringWithString:[[NSBundle.mainBundle bundlePath] stringByAppendingString:@"/Frameworks/"]];
+    [dependenciesFrameworkPath appendString:dependenciesName];
+    
+    if ([NSFileManager.defaultManager fileExistsAtPath:dependenciesFrameworkPath]) {
+        [[NSBundle bundleWithPath:dependenciesFrameworkPath] load];
+    }
+    
     NSMutableString *frameworkName = [NSMutableString stringWithString:[[NSString stringWithUTF8String:name] stringByReplacingOccurrencesOfString:@"." withString:@"-"]];
     [frameworkName appendString:@".framework"];
     

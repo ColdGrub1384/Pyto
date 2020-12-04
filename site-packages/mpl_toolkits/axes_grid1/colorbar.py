@@ -20,6 +20,7 @@ is a thin wrapper over :meth:`~matplotlib.figure.Figure.colorbar`.
 
 import numpy as np
 import matplotlib as mpl
+from matplotlib import cbook
 import matplotlib.colors as colors
 import matplotlib.cm as cm
 from matplotlib import docstring
@@ -29,6 +30,10 @@ import matplotlib.contour as contour
 from matplotlib.path import Path
 from matplotlib.patches import PathPatch
 from matplotlib.transforms import Bbox
+
+
+cbook.warn_deprecated(
+    "3.2", name=__name__, obj_type="module", alternative="matplotlib.colorbar")
 
 
 make_axes_kw_doc = '''
@@ -151,9 +156,9 @@ segments::
     cbar.solids.set_edgecolor("face")
     draw()
 
-However this has negative consequences in other circumstances. Particularly with
-semi transparent images (alpha < 1) and colorbar extensions and is not enabled
-by default see (issue #1188).
+However this has negative consequences in other circumstances. Particularly
+with semi transparent images (alpha < 1) and colorbar extensions and is not
+enabled by default see (issue #1188).
 
 returns:
     :class:`~matplotlib.colorbar.Colorbar` instance; see also its base class,
@@ -171,7 +176,7 @@ unconventional value is to prevent underflow when log scale is used.
 #docstring.interpd.update(colorbar_doc=colorbar_doc)
 
 
-class CbarAxesLocator(object):
+class CbarAxesLocator:
     """
     CbarAxesLocator is a axes_locator for colorbar axes. It adjust the
     position of the axes to make a room for extended ends, i.e., the
@@ -193,9 +198,7 @@ class CbarAxesLocator(object):
         self.orientation = orientation
 
     def get_original_position(self, axes, renderer):
-        """
-        get the original position of the axes.
-        """
+        """Return the original position of the axes."""
         if self._locator is None:
             bbox = axes.get_position(original=True)
         else:
@@ -204,7 +207,8 @@ class CbarAxesLocator(object):
 
     def get_end_vertices(self):
         """
-        return a tuple of two vertices for the colorbar extended ends.
+        Return a tuple of two vertices for the colorbar extended ends.
+
         The first vertices is for the minimum end, and the second is for
         the maximum end.
         """
@@ -241,24 +245,18 @@ class CbarAxesLocator(object):
         return bottom, top
 
     def get_path_patch(self):
-        """
-        get the path for axes patch
-        """
+        """Return the path for axes patch."""
         end1, end2 = self.get_end_vertices()
         verts = [] + end1 + end2 + end1[:1]
         return Path(verts)
 
     def get_path_ends(self):
-        """
-        get the paths for extended ends
-        """
+        """Return the paths for extended ends."""
         end1, end2 = self.get_end_vertices()
         return Path(end1), Path(end2)
 
     def __call__(self, axes, renderer):
-        """
-        Return the adjusted position of the axes
-        """
+        """Return the adjusted position of the axes."""
         bbox0 = self.get_original_position(axes, renderer)
         bbox = bbox0
 
@@ -282,7 +280,7 @@ class CbarAxesLocator(object):
 
 
 class ColorbarBase(cm.ScalarMappable):
-    '''
+    """
     Draw a colorbar in an existing axes.
 
     This is a base class for the :class:`Colorbar` class, which is the
@@ -313,21 +311,22 @@ class ColorbarBase(cm.ScalarMappable):
             a LineCollection if *drawedges* is True, otherwise None
 
     Useful public methods are :meth:`set_label` and :meth:`add_lines`.
-    '''
+    """
 
-    def __init__(self, ax, cmap=None,
-                           norm=None,
-                           alpha=1.0,
-                           values=None,
-                           boundaries=None,
-                           orientation='vertical',
-                           extend='neither',
-                           spacing='uniform',  # uniform or proportional
-                           ticks=None,
-                           format=None,
-                           drawedges=False,
-                           filled=True,
-                           ):
+    def __init__(self, ax,
+                 cmap=None,
+                 norm=None,
+                 alpha=1.0,
+                 values=None,
+                 boundaries=None,
+                 orientation='vertical',
+                 extend='neither',
+                 spacing='uniform',  # uniform or proportional
+                 ticks=None,
+                 format=None,
+                 drawedges=False,
+                 filled=True,
+                 ):
         self.ax = ax
 
         if cmap is None:
@@ -380,7 +379,7 @@ class ColorbarBase(cm.ScalarMappable):
         elif ticks is not None:
             self.cbar_axis.set_major_locator(ticks)
         else:
-            self._select_locator(formatter)
+            self._select_locator()
 
         self._config_axes()
 
@@ -405,9 +404,9 @@ class ColorbarBase(cm.ScalarMappable):
             return self.get_clim()
 
     def _config_axes(self):
-        '''
+        """
         Adjust the properties of the axes to be adequate for colorbar display.
-        '''
+        """
         ax = self.ax
 
         axes_locator = CbarAxesLocator(ax.get_axes_locator(),
@@ -467,9 +466,9 @@ class ColorbarBase(cm.ScalarMappable):
         del self.extension_patch2
 
         path1, path2 = self.ax.get_axes_locator().get_path_ends()
-        fc=mpl.rcParams['axes.facecolor']
-        ec=mpl.rcParams['axes.edgecolor']
-        linewidths=0.5*mpl.rcParams['axes.linewidth']
+        fc = mpl.rcParams['axes.facecolor']
+        ec = mpl.rcParams['axes.edgecolor']
+        linewidths = 0.5 * mpl.rcParams['axes.linewidth']
         self.extension_patch1 = PathPatch(path1,
                                           fc=fc, ec=ec, lw=linewidths,
                                           zorder=2.,
@@ -484,23 +483,17 @@ class ColorbarBase(cm.ScalarMappable):
         self.ax.add_artist(self.extension_patch2)
 
     def _set_label_text(self):
-        """
-        set label.
-        """
+        """Set the colorbar label."""
         self.cbar_axis.set_label_text(self._label, **self._labelkw)
 
     def set_label_text(self, label, **kw):
-        '''
-        Label the long axis of the colorbar
-        '''
+        """Label the long axis of the colorbar."""
         self._label = label
         self._labelkw = kw
         self._set_label_text()
 
     def _edges(self, X, Y):
-        '''
-        Return the separator line segments; helper for _add_solids.
-        '''
+        """Return the separator line segments; helper for _add_solids."""
         N = X.shape[0]
         # Using the non-array form of these line segments is much
         # simpler than making them into arrays.
@@ -510,10 +503,10 @@ class ColorbarBase(cm.ScalarMappable):
             return [list(zip(Y[i], X[i])) for i in range(1, N-1)]
 
     def _add_solids(self, X, Y, C):
-        '''
+        """
         Draw the colors using :meth:`~matplotlib.axes.Axes.pcolormesh`;
         optionally add separators.
-        '''
+        """
         ## Change to pcolorfast after fixing bugs in some backends...
 
         if self.extend in ["min", "both"]:
@@ -550,9 +543,7 @@ class ColorbarBase(cm.ScalarMappable):
             self.dividers = None
 
     def add_lines(self, levels, colors, linewidths):
-        '''
-        Draw lines on the colorbar. It deletes preexisting lines.
-        '''
+        """Draw lines on the colorbar. It deletes preexisting lines."""
         X, Y = np.meshgrid([1, 2], levels)
         if self.orientation == 'vertical':
             xy = np.stack([X, Y], axis=-1)
@@ -563,10 +554,8 @@ class ColorbarBase(cm.ScalarMappable):
         col.set_color(colors)
         self.ax.add_collection(col)
 
-    def _select_locator(self, formatter):
-        '''
-        select a suitable locator
-        '''
+    def _select_locator(self):
+        """Select a suitable locator."""
         if self.boundaries is None:
             if isinstance(self.norm, colors.NoNorm):
                 nv = len(self._values)
@@ -586,11 +575,11 @@ class ColorbarBase(cm.ScalarMappable):
         self.cbar_axis.set_major_locator(locator)
 
     def _process_values(self, b=None):
-        '''
+        """
         Set the :attr:`_boundaries` and :attr:`_values` attributes
         based on the input boundaries and values.  Input boundaries
         can be *self.boundaries* or the argument *b*.
-        '''
+        """
         if b is None:
             b = self.boundaries
         if b is not None:
@@ -631,24 +620,23 @@ class ColorbarBase(cm.ScalarMappable):
         self._process_values(b)
 
     def _uniform_y(self, N):
-        '''
-        Return colorbar data coordinates for *N* uniformly
-        spaced boundaries.
-        '''
+        """
+        Return colorbar data coordinates for *N* uniformly spaced boundaries.
+        """
         vmin, vmax = self._get_colorbar_limits()
         if isinstance(self.norm, colors.LogNorm):
-            y = np.logspace(np.log10(vmin), np.log10(vmax), N)
+            y = np.geomspace(vmin, vmax, N)
         else:
             y = np.linspace(vmin, vmax, N)
         return y
 
     def _mesh(self):
-        '''
+        """
         Return X,Y, the coordinate arrays for the colorbar pcolormesh.
         These are suitable for a vertical colorbar; swapping and
         transposition for a horizontal colorbar are done outside
         this function.
-        '''
+        """
         x = np.array([1.0, 2.0])
         if self.spacing == 'uniform':
             y = self._uniform_y(len(self._boundaries))
@@ -660,9 +648,7 @@ class ColorbarBase(cm.ScalarMappable):
         return X, Y
 
     def set_alpha(self, alpha):
-        """
-        set alpha value.
-        """
+        """Set the alpha value for transparency."""
         self.alpha = alpha
 
 
@@ -692,10 +678,7 @@ class Colorbar(ColorbarBase):
             ColorbarBase.__init__(self, ax, **kw)
 
     def add_lines(self, CS):
-        '''
-        Add the lines from a non-filled
-        :class:`~matplotlib.contour.ContourSet` to the colorbar.
-        '''
+        """Add the lines from a non-filled `.ContourSet` to the colorbar."""
         if not isinstance(CS, contour.ContourSet) or CS.filled:
             raise ValueError('add_lines is only for a ContourSet of lines')
         tcolors = [c[0] for c in CS.tcolors]
@@ -708,6 +691,33 @@ class Colorbar(ColorbarBase):
         #tcolors = [col.get_colors()[0] for col in CS.collections]
         #tlinewidths = [col.get_linewidth()[0] for lw in CS.collections]
         ColorbarBase.add_lines(self, CS.levels, tcolors, tlinewidths)
+
+    def update_normal(self, mappable):
+        """
+        Update solid patches, lines, etc.
+
+        This is meant to be called when the norm of the image or contour plot
+        to which this colorbar belongs changes.
+
+        If the norm on the mappable is different than before, this resets the
+        locator and formatter for the axis, so if these have been customized,
+        they will need to be customized again.  However, if the norm only
+        changes values of *vmin*, *vmax* or *cmap* then the old formatter
+        and locator will be preserved.
+        """
+        self.mappable = mappable
+        self.set_alpha(mappable.get_alpha())
+        self.cmap = mappable.cmap
+        if mappable.norm != self.norm:
+            self.norm = mappable.norm
+            self._reset_locator_formatter_scale()
+
+        self.draw_all()
+        if isinstance(self.mappable, contour.ContourSet):
+            CS = self.mappable
+            if not CS.filled:
+                self.add_lines(CS)
+        self.stale = True
 
     def update_bruteforce(self, mappable):
         """
@@ -723,7 +733,7 @@ class Colorbar(ColorbarBase):
 
 @docstring.Substitution(make_axes_kw_doc)
 def make_axes(parent, *, fraction=0.15, shrink=1.0, aspect=20, **kw):
-    '''
+    """
     Resize and reposition a parent axes, and return a child
     axes suitable for a colorbar
 
@@ -741,7 +751,7 @@ def make_axes(parent, *, fraction=0.15, shrink=1.0, aspect=20, **kw):
     All but the first of these are stripped from the input kw set.
 
     Returns (cax, kw), the child axes and the reduced kw dictionary.
-    '''
+    """
     orientation = kw.setdefault('orientation', 'vertical')
     #pb = transforms.PBox(parent.get_position())
     pb = parent.get_position(original=True).frozen()
@@ -788,7 +798,7 @@ def colorbar(mappable, cax=None, ax=None, **kw):
         cb.set_clim(m.get_clim())
         cb.update_bruteforce(m)
 
-    cbid = mappable.callbacksSM.connect('changed', on_changed)
+    mappable.callbacksSM.connect('changed', on_changed)
     mappable.colorbar = cb
     ax.figure.sca(ax)
     return cb
