@@ -48,12 +48,9 @@ public class EditorSplitViewController: SplitViewController {
     @objc public var console: ConsoleViewController? {
         didSet {
             console?.editorSplitViewController = self
-<<<<<<< HEAD
             if let console = console, !ConsoleViewController.visibles.contains(console) {
                 ConsoleViewController.visibles.append(console)
             }
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         }
     }
     
@@ -183,11 +180,8 @@ public class EditorSplitViewController: SplitViewController {
     /// A boolean indicating whether `showEditor` and  `showConsole(completionm:)` are animated.
     var animateLayouts = true
     
-<<<<<<< HEAD
     var exitScript = true
     
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     /// Shows the editor on full screen.
     @objc func showEditor() {
         
@@ -238,17 +232,11 @@ public class EditorSplitViewController: SplitViewController {
             self.animateLayouts = true
         })
         
-<<<<<<< HEAD
         if let path = editor?.document?.fileURL.path, exitScript {
             Python.shared.stop(script: path)
         }
         
         exitScript = true
-=======
-        if let path = editor?.document?.fileURL.path {
-            Python.shared.stop(script: path)
-        }
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     }
     
     /// A boolean indicating whether the console is shown in full screen.
@@ -317,11 +305,6 @@ public class EditorSplitViewController: SplitViewController {
             }
         }
     }
-<<<<<<< HEAD
-=======
-        
-    private var willRun: Bool?
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     
     // MARK: - Split view controller
     
@@ -488,7 +471,6 @@ public class EditorSplitViewController: SplitViewController {
             return
         }
         
-<<<<<<< HEAD
         if newCollection.horizontalSizeClass == .compact && !shouldShowConsoleAtBottom {
             arrangement = .vertical
         } else {
@@ -501,20 +483,6 @@ public class EditorSplitViewController: SplitViewController {
                 if arrangement != .horizontal {
                     arrangement = .horizontal
                 }
-=======
-        if willRun == nil {
-            willRun = editor?.shouldRun
-        }
-        
-        if newCollection.horizontalSizeClass == .compact && !shouldShowConsoleAtBottom && !willRun! {
-            arrangement = .vertical
-        } else {
-            
-            if shouldShowConsoleAtBottom && arrangement != .vertical {
-                arrangement = .vertical
-            } else if arrangement != .horizontal {
-                arrangement = .horizontal
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
             }
             
             if firstChild != editor || secondChild != console {
@@ -538,11 +506,7 @@ public class EditorSplitViewController: SplitViewController {
                     firstChild = editor
                     secondChild = console
                 } else {
-<<<<<<< HEAD
                     if isConsoleShown {
-=======
-                    if isConsoleShown && !(editor?.shouldRun ?? false) {
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
                         showConsole({})
                     } else {
                         showEditor()
@@ -573,11 +537,7 @@ public class EditorSplitViewController: SplitViewController {
     }
     
     public override var prefersHomeIndicatorAutoHidden: Bool {
-<<<<<<< HEAD
         return (editor?.textView.contentTextView.isFirstResponder ?? false) || (console?.movableTextField?.textField.isFirstResponder ?? false)
-=======
-        return editor?.textView.contentTextView.isFirstResponder ?? false
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     }
     
     // MARK: Symbols

@@ -57,7 +57,6 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         }
     }
     
-<<<<<<< HEAD
     @objc private func shouldPrintCrashTraceback(_ script: String) -> Bool {
         let ret = !scriptsAboutToExit.contains(script)
         if !ret, let i = scriptsAboutToExit.firstIndex(of: script) {
@@ -66,17 +65,12 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         return ret
     }
     
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     private func crashHandler(_ signal: Int32) {
         
         let signalString: String
         switch signal {
-<<<<<<< HEAD
         case SIGKILL:
             signalString = "SIGKILL"
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         case SIGABRT:
             signalString = "SIGABRT"
         case SIGFPE:
@@ -92,7 +86,6 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         default:
             signalString = "UNKNOWN"
         }
-<<<<<<< HEAD
                 
         #if MAIN
         
@@ -133,28 +126,16 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         
         Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: code)
         #endif
-=======
-        
-        #if MAIN
-        PyOutputHelper.printError("\(Thread.callStackSymbols.joined(separator: "\n"))\nThread crashed with signal: \(signalString)", script: nil)
-        #endif
-        
-        let semaphore = DispatchSemaphore(value: 0)
-        semaphore.wait()
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     }
     
     /// Handles crashes for the current thread.
     @objc public func handleCrashesForCurrentThread() {
-<<<<<<< HEAD
         
         print("Handle crashes for: \(Thread.current)")
         
         signal(SIGKILL, { signal in
             Python.shared.crashHandler(signal)
         })
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         signal(SIGABRT, { signal in
             Python.shared.crashHandler(signal)
         })
@@ -403,12 +384,9 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         /// Set to `true` if the script should  be debugged with `pdb`.
         @objc public var debug: Bool
         
-<<<<<<< HEAD
         /// If set to `true`, the REPL will run after executing the script.
         @objc public var runREPL: Bool
         
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         @objc public var breakpoints: NSArray
         
         /// Initializes the script.
@@ -416,19 +394,12 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         /// - Parameters:
         ///     - path: The path of the script.
         ///     - debug: Set to `true` if the script should  be debugged with `pdb`.
-<<<<<<< HEAD
         ///     - runREPL: If set to `true`, the REPL will run after executing the script.
         ///     - breakpoints: Line numbers where breakpoints should be placed if the script should be debugged.
         @objc public init(path: String, debug: Bool, runREPL: Bool, breakpoints: [Int] = []) {
             self.path = path
             self.debug = debug
             self.runREPL = runREPL
-=======
-        ///     - breakpoints: Line numbers where breakpoints should be placed if the script should be debugged.
-        @objc public init(path: String, debug: Bool, breakpoints: [Int] = []) {
-            self.path = path
-            self.debug = debug
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
             self.breakpoints = NSArray(array: breakpoints)
         }
     }
@@ -447,11 +418,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
             FileManager.default.createFile(atPath: url.path, contents: nil, attributes: nil)
             try? code.write(to: url, atomically: true, encoding: .utf8)
             
-<<<<<<< HEAD
             super.init(path: url.path, debug: false, runREPL: false)
-=======
-            super.init(path: url.path, debug: false)
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         }
     }
     
@@ -651,14 +618,11 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// - Parameters:
     ///     - script: Script to run.
     @objc(runScript:) public func run(script: Script) {
-<<<<<<< HEAD
         
         #if MAIN
         currentWorkingDirectory = directory(for: URL(fileURLWithPath: script.path)).path
         #endif
         
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         if let pythonInstance = Python.pythonShared {
             DispatchQueue.global().async {
                 pythonInstance.performSelector(inBackground: #selector(PythonRuntime.runScript(_:)), with: script)
@@ -703,7 +667,6 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
             #endif
         }
     }
-<<<<<<< HEAD
     
     private var scriptThreads = [String:pthread_t]()
 
@@ -713,35 +676,25 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         scriptThreads[script] = pthread_self()
     }
     
-=======
-
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     /// Sends `SystemExit`.
     ///
     /// - Parameters:
     ///     - script: The path of the script to stop.
     @objc public func stop(script: String) {
-<<<<<<< HEAD
         if let thread = scriptThreads[script] {
             scriptsAboutToExit.append(script)
             pthread_kill(thread, SIGSEGV)
         } else if let pythonInstance = Python.pythonShared {
-=======
-        if let pythonInstance = Python.pythonShared {
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
             pythonInstance.performSelector(inBackground: #selector(PythonRuntime.exitScript(_:)), with: script)
         } else {
             if scriptsToExit.index(of: script) == NSNotFound {
                 scriptsToExit.add(script)
             }
         }
-<<<<<<< HEAD
         
         #if MAIN
         PyInputHelper.userInput[script] = ""
         #endif
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     }
     
     /// Sends `KeyboardInterrupt`.
@@ -749,10 +702,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// - Parameters:
     ///     - script: The path of the script to interrupt.
     @objc public func interrupt(script: String) {
-<<<<<<< HEAD
                 
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         if let pythonInstance = Python.pythonShared {
             DispatchQueue.global().async {
                 pythonInstance.performSelector(inBackground: #selector(PythonRuntime.interruptScript(_:)), with: script)
@@ -762,13 +712,10 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                 scriptsToInterrupt.add(script)
             }
         }
-<<<<<<< HEAD
         
         #if MAIN
         PyInputHelper.userInput[script] = "<WILL INTERRUPT>"
         #endif
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     }
 
     /// Checks if a script is currently running.

@@ -65,7 +65,6 @@ import WatchConnectivity
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: Key.self)
-<<<<<<< HEAD
         
         func encode() {
             try? container.encode(views, forKey: .views)
@@ -79,9 +78,5 @@ import WatchConnectivity
         #else
         encode()
         #endif
-=======
-        try container.encode(views, forKey: .views)
-        try container.encode(timestamp, forKey: .timestamp)
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     }
 }

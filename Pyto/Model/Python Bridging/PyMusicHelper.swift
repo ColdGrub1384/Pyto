@@ -9,7 +9,6 @@
 import UIKit
 import MediaPlayer
 
-<<<<<<< HEAD
 /// "_MPMusicPlayerMediaItemProxy" has no attribute...
 @objc class PyMusicItem: NSObject {
     
@@ -152,23 +151,12 @@ import MediaPlayer
     }
 }
 
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 /// A class for helping picking music.
 @objc class PyMusicHelper: NSObject {
     
     /// Returns the now playing item.
     @objc static var nowPlayingItem: MPMediaItem? {
-<<<<<<< HEAD
         return MPMusicPlayerController.systemMusicPlayer.nowPlayingItem
-=======
-        if let item = MPMusicPlayerController.systemMusicPlayer.nowPlayingItem {
-            let query = MPMediaQuery(filterPredicates: [MPMediaPropertyPredicate(value: item.persistentID, forProperty: MPMediaItemPropertyPersistentID)])
-            return query.items?.first ?? item
-        } else {
-            return nil
-        }
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     }
     
     #if !WIDGET

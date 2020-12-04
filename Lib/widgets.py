@@ -25,11 +25,8 @@ import ui_constants
 import sys
 import __image__
 import threading
-<<<<<<< HEAD
 from pyto import Python
 
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 
 try:
     if "sphinx" in sys.modules:
@@ -45,11 +42,8 @@ try:
     from PIL import Image as PIL_Image
 except ModuleNotFoundError:
     PIL_Image = None
-<<<<<<< HEAD
 except ImportError:
     PIL_Image = None
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 
 
 def __Class__(name):
@@ -79,7 +73,6 @@ class PytoUIView: # Travis CI doesn't let me mark a parameter as 'ui.View' witho
     pass
 
 
-<<<<<<< HEAD
 try:
     if Python.shared.widgetLink is not None:
         _link = str(Python.shared.widgetLink)
@@ -90,9 +83,6 @@ except AttributeError:
 
 
 link: str = _link
-=======
-link: str = None
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 """
 When an UI element with a ``link`` attribute in a medium or large widget is pressed, the widget script will be opened in foreground and the ``link`` attribute will be passed to this variable.
 At the beginning of a widget script, you can check if this variable is ``None``. If it's not, that means an UI element with a ``link`` attribute was pressed.
@@ -102,7 +92,6 @@ See :data:`~widgets.WidgetComponent.link`, :meth:`~widgets.WidgetLayout.add_row`
 :rtype: str
 """
 
-<<<<<<< HEAD
 
 if "console" in sys.modules:
     __widget_id__ = sys.modules["console"].__widget_id__
@@ -111,10 +100,6 @@ else:
 
 
 __PyWidget__ = __Class__("PyWidget")
-=======
-__PyWidget__ = __Class__("PyWidget")
-__widget_id__ = None
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 __shown_view__ = False
 __PyColor__ = __Class__("PyColor")
 try:
@@ -210,7 +195,6 @@ def save_snapshot(view: PytoUIView, key: str):
     __show_view__(view, key)
 
 
-<<<<<<< HEAD
 def reload_widgets(names: Union[str, List[str]]):
     """
     Reloads the widgets corresponding to the given scripts names.
@@ -236,8 +220,6 @@ def reload_widgets(names: Union[str, List[str]]):
     __PyWidget__.reloadWidgets(_names)
 
 
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 ###############
 # MARK: - UI #
 ##############
@@ -513,11 +495,7 @@ class Color:
             return False
 
 
-<<<<<<< HEAD
 if "pyto_ui" in sys.modules and "sphinx" not in sys.modules:
-=======
-if "pyto_ui" in sys.modules:
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     try:
         Color = sys.modules["pyto_ui"].Color
     except AttributeError:
@@ -846,11 +824,7 @@ class Padding:
     right: float = None
     """ Right padding """
 
-<<<<<<< HEAD
     def __init__(self, top: float = 0, bottom: float = 0, left: float = 0, right: float = 0):
-=======
-    def __init__(self, top: float = None, bottom: float = None, left: float = None, right: float = None):
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         self.top = top
         self.bottom = bottom
         self.left = left
@@ -1315,7 +1289,6 @@ class WidgetLayout:
         except AttributeError:
             self.__widget_view__.backgroundColor = COLOR_CLEAR
 
-<<<<<<< HEAD
     def set_background_gradient(self, colors: List[Color]):
         """
         Sets the background color of the widget layout to a gradient.
@@ -1334,8 +1307,6 @@ class WidgetLayout:
                 ui_colors.append(color.__py_color__.managed)
             self.__widget_view__.backgroundGradient = ui_colors
 
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     def set_background_image(self, image: Image):
         """
         Sets the background image of the widget layout.
@@ -1355,11 +1326,7 @@ class WidgetLayout:
     def add_row(
         self,
         row: List[WidgetComponent],
-<<<<<<< HEAD
         background_color: Color = None,
-=======
-        background_color: Color = COLOR_CLEAR,
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         corner_radius: float = 0,
         link: str = None,
     ):
@@ -1373,7 +1340,6 @@ class WidgetLayout:
         """
 
         check(row, "row", [list])
-<<<<<<< HEAD
         check(background_color, "background_color", [Color, __pyto_ui_color__(), None])
         check(corner_radius, "corner_radius", [float, int])
         check(link, "link", [str, None])
@@ -1381,12 +1347,6 @@ class WidgetLayout:
         if background_color is None:
             background_color = COLOR_CLEAR
 
-=======
-        check(background_color, "background_color", [Color, __pyto_ui_color__()])
-        check(corner_radius, "corner_radius", [float, int])
-        check(link, "link", [str, None])
-
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         objc_row = []
 
         for element in row:
@@ -1469,7 +1429,6 @@ def __show_widget__(widget: Widget, key: str):
         __PyWidget__.addWidget(_widget, key=key)
 
 
-<<<<<<< HEAD
 class TimelineProvider:
     """
     A timeline providers allows a script to provide content to a widget for the future.
@@ -1548,8 +1507,6 @@ def provide_timeline(provider: TimelineProvider):
     __PyWidget__.updateTimeline(__widget_id__, widgets=widgets, reloadAfter=provider.__reload_time__())
 
 
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 def show_widget(widget: Widget):
     """
     Shows a widget with the given configuration
@@ -1574,7 +1531,6 @@ def save_widget(widget: Widget, key: str):
     check(key, "key", [str])
 
     __show_widget__(widget, key)
-<<<<<<< HEAD
 
 def delete_in_app_widget(key: str):
     """
@@ -1584,5 +1540,3 @@ def delete_in_app_widget(key: str):
     """
 
     __PyWidget__.removeWidget(key)
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619

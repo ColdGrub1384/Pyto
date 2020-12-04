@@ -15,11 +15,7 @@ from Foundation import NSThread
 from typing import List, Callable, Tuple
 from pyto import __Class__, ConsoleViewController, PyAlert as __PyAlert__
 from __check_type__ import check
-<<<<<<< HEAD
 from __image__ import __ui_image_from_pil_image__, __pil_image_from_ui_image__
-=======
-from __image__ import __ui_image_from_pil_image__
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 from time import sleep
 from io import BytesIO
 from threading import Thread
@@ -1862,11 +1858,7 @@ class ButtonItem:
         self.__py_item__.title = new_value
 
     @property
-<<<<<<< HEAD
     def image(self) -> "Image.Image":
-=======
-    def image(self) -> "Image":
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         """
         A ``PIL`` image object displayed on screen. May also be an ``UIKit`` ``UIImage`` symbol. See :func:`~pyto_ui.image_with_system_name`.
 
@@ -4186,11 +4178,7 @@ class Button(Control):
             self.__py_view__.titleColor = new_value.__py_color__
 
     @property
-<<<<<<< HEAD
     def image(self) -> "Image.Image":
-=======
-    def image(self) -> "Image":
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         """
         The image displayed on the button. Can be a ``PIL`` image or an ``UIKit`` symbol image. For more information about symbols, see :func:`~pyto_ui.image_with_system_name`.
 
@@ -4503,21 +4491,6 @@ class TextField(Control):
 ###################
 
 
-<<<<<<< HEAD
-=======
-def __pil_image_from_ui_image__(image):
-
-    from PIL import Image
-
-    if image is None:
-        return None
-
-    img_str = str(image.data.base64EncodedStringWithOptions(0))
-    msg = base64.b64decode(img_str)
-    return Image.open(BytesIO(msg))
-
-
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 def font_family_names() -> List[str]:
     """
     Returns all font family names that can be used to initialize a font.
@@ -4674,8 +4647,4 @@ def pick_font(size: float = None) -> Font:
         if size is not None:
             pyFont = pyFont.with_size(size)
         return pyFont
-<<<<<<< HEAD
     
-=======
-    
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619

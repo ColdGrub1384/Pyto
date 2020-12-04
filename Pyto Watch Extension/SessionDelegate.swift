@@ -24,11 +24,7 @@ class SessionDelegate: NSObject, WCSessionDelegate {
     /// Code called when the session finished activating.
     var didActivate: (() -> Void)?
     
-<<<<<<< HEAD
     var complicationsHandlers = [String: [((Data) -> Void)]]()
-=======
-    var complicationsHandlers = [String: ((Data) -> Void)]()
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     
     // MARK: - Session delegate
     
@@ -44,10 +40,6 @@ class SessionDelegate: NSObject, WCSessionDelegate {
         WCSession.default.sendMessage(["Received":userInfo], replyHandler: nil, errorHandler: nil)
         if (userInfo["Reload"] as? String) == "All" {
             for complication in CLKComplicationServer.sharedInstance().activeComplications ?? [] {
-<<<<<<< HEAD
-=======
-                ComplicationController.cache = [:]
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
                 CLKComplicationServer.sharedInstance().reloadTimeline(for: complication)
             }
         } else if (userInfo["Reload"] as? String) == "Descriptors" {
@@ -109,7 +101,6 @@ class SessionDelegate: NSObject, WCSessionDelegate {
                     WKExtension.shared().rootInterfaceController?.pushController(withName: "Image", context: image)
                 }
             } else if let id = file.metadata?["id"] as? String {
-<<<<<<< HEAD
                 for handler in complicationsHandlers[id] ?? [] {
                     handler(data)
                 }
@@ -133,10 +124,6 @@ class SessionDelegate: NSObject, WCSessionDelegate {
                 } catch {
                     WCSession.default.sendMessage(["error": error.localizedDescription], replyHandler: nil, errorHandler: nil)
                 }
-=======
-                complicationsHandlers[id]?(data)
-                complicationsHandlers[id] = nil
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
             }
         }
     }

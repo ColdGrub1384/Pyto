@@ -12,13 +12,9 @@ import SwiftUI
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
     
-<<<<<<< HEAD
     static var cache = [Complication:ComplicationCache]()
     
     static var cachedIDs = [ComplicationWithDate : String]()
-=======
-    static var cache = [CLKComplication:ComplicationCache]()
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     
     func entry(for view: PyComplication, complication: CLKComplication) -> CLKComplicationTimelineEntry? {
         if complication.family == .graphicRectangular, let content = view.views[PyComplication.Family.rectangular.rawValue] {
@@ -51,7 +47,6 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
                     clkDescriptors.append(CLKComplicationDescriptor(identifier: descriptor, displayName: descriptor, supportedFamilies: [.graphicRectangular, .graphicExtraLarge, .graphicCircular]))
                 }
                 
-<<<<<<< HEAD
                 DispatchQueue.main.async {
                     handler(clkDescriptors)
                 }
@@ -59,11 +54,6 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
                 DispatchQueue.main.async {
                     handler([`default`])
                 }
-=======
-                handler(clkDescriptors)
-            } else {
-                handler([`default`])
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
             }
         }, errorHandler: nil)
     }
@@ -74,20 +64,16 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     // MARK: - Timeline Population
     
-<<<<<<< HEAD
     func getAlwaysOnTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
         getLocalizableSampleTemplate(for: complication, withHandler: handler)
     }
 
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     func getTimelineEndDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void) {
         handler(.distantFuture)
     }
     
     func getTimelineEntries(for complication: CLKComplication, after date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
         
-<<<<<<< HEAD
         if complication.identifier == "runScript" || date.timeIntervalSinceNow > 60 {
             return handler(nil)
         }
@@ -96,16 +82,6 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         
         var entries = [CLKComplicationTimelineEntry]()
         for view in ComplicationController.cache[Complication(complication)]?.sortedTimeline ?? [] {
-=======
-        if complication.identifier == "runScript" {
-            return handler(nil)
-        }
-        
-        WCSession.default.sendMessage(["Called": "getTimelineEntries"], replyHandler: nil, errorHandler: nil)
-        
-        var entries = [CLKComplicationTimelineEntry]()
-        for view in ComplicationController.cache[complication]?.sortedTimeline ?? [] {
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
             WCSession.default.sendMessage(["TimeInterval":view.date?.timeIntervalSince(date) ?? 0], replyHandler: nil, errorHandler: nil)
             if let viewDate = view.date, (viewDate.compare(date) == .orderedAscending || (viewDate.timeIntervalSince(date) >= 0 && viewDate.timeIntervalSince(date) < 5)) {
                 if let entry = entry(for: view, complication: complication) {
@@ -122,15 +98,11 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         
         if entries.count > 0 {
             WCSession.default.sendMessage(["Entries": entries.count], replyHandler: nil, errorHandler: nil)
-<<<<<<< HEAD
             ComplicationController.cache[Complication(complication)]?.cachedTimeline = []
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
             handler(entries)
             return
         }
         
-<<<<<<< HEAD
         let id: String
         let complicationWithDate = ComplicationWithDate(complication: Complication(complication), date: date)
         if let cachedID = ComplicationController.cachedIDs[complicationWithDate] {
@@ -154,27 +126,15 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         
         var handlers = SessionDelegate.shared.complicationsHandlers[id] ?? []
         handlers.append({ data in
-=======
-        let id = UUID().uuidString
-        SessionDelegate.shared.complicationsHandlers[id] = { data in
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
             SessionDelegate.shared.complicationsHandlers[id] = nil
             do {
                 let views = try JSONDecoder().decode([PyComplication].self, from: data)
                 
-<<<<<<< HEAD
                 if ComplicationController.cache[Complication(complication)] == nil {
                     ComplicationController.cache[Complication(complication)] = ComplicationCache()
                 }
                 
                 ComplicationController.cache[Complication(complication)]?.cachedTimeline = views
-=======
-                if ComplicationController.cache[complication] == nil {
-                    ComplicationController.cache[complication] = ComplicationCache()
-                }
-                
-                ComplicationController.cache[complication]?.cachedTimeline.append(contentsOf: views)
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
                 var entries = [CLKComplicationTimelineEntry]()
                 for view in views {
                     if let entry = self.entry(for: view, complication: complication) {
@@ -184,7 +144,6 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
                         entries.append(entry)
                     }
                 }
-<<<<<<< HEAD
                 DispatchQueue.main.async {
                     handler(entries)
                 }
@@ -196,16 +155,6 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             }
         })
         SessionDelegate.shared.complicationsHandlers[id] = handlers
-=======
-                handler(entries)
-                //CLKComplicationServer.sharedInstance().reloadTimeline(for: complication)
-            } catch {
-                WCSession.default.sendMessage(["error":error.localizedDescription], replyHandler: nil, errorHandler: nil)
-                handler(nil)
-            }
-        }
-        WCSession.default.sendMessage([id: [date, limit, complication.identifier]], replyHandler: nil, errorHandler: nil)
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     }
 
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
@@ -235,17 +184,10 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         
         func requestComplication() {
             
-<<<<<<< HEAD
             if (ComplicationController.cache[Complication(complication)]?.cachedTimeline.count ?? 0) > 0 {
                 
                 var i = 0
                 for view in ComplicationController.cache[Complication(complication)]?.sortedTimeline.reversed() ?? [] {
-=======
-            if (ComplicationController.cache[complication]?.cachedTimeline.count ?? 0) > 0 {
-                
-                var i = 0
-                for view in ComplicationController.cache[complication]?.sortedTimeline.reversed() ?? [] {
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
                     if let date = view.date, date.compare(Date()) == .orderedDescending {
                         handler(entry(for: view, complication: complication))
                         WCSession.default.sendMessage(["sent":i], replyHandler: nil, errorHandler: nil)

@@ -19,16 +19,11 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
         WCSession.default.delegate = SessionDelegate.shared
         WCSession.default.activate()
     }
-<<<<<<< HEAD
     
     func applicationWillEnterForeground() {
         if PyWatchUI.cachedView != nil {
             PyWatchUI.showView()
         }
-=======
-
-    func applicationDidBecomeActive() {
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         
         if WCSession.default.activationState != .activated {
             
@@ -48,33 +43,20 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
             WCSession.default.sendMessageData("Run".data(using: .utf8) ?? Data(), replyHandler: nil, errorHandler: nil)
         }
     }
-<<<<<<< HEAD
     
     func applicationDidEnterBackground() {
         WCSession.default.sendMessageData("Stop".data(using: .utf8) ?? Data(), replyHandler: nil, errorHandler: nil)
         WKExtension.shared().visibleInterfaceController?.dismiss()
     }
     
-=======
-
-    func applicationWillResignActive() {
-        WCSession.default.sendMessageData("Stop".data(using: .utf8) ?? Data(), replyHandler: nil, errorHandler: nil)
-    }
-
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>) {
         for task in backgroundTasks {
             switch task {
             case let backgroundTask as WKApplicationRefreshBackgroundTask:
-<<<<<<< HEAD
                 
                 lastScheduledRefresh = nil
                 
                 WCSession.default.sendMessage(["Called": "handle"], replyHandler: nil, errorHandler: nil)
-=======
-                WCSession.default.sendMessage(["Called": "handle"], replyHandler: nil, errorHandler: nil)
-                ComplicationController.cache = [:]
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
                 for complication in CLKComplicationServer.sharedInstance().activeComplications ?? [] {
                     CLKComplicationServer.sharedInstance().extendTimeline(for: complication)
                 }

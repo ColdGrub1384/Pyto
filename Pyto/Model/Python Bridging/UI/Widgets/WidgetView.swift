@@ -24,11 +24,8 @@ import SwiftUI
         
     @objc var backgroundImage: WidgetImage?
     
-<<<<<<< HEAD
     @objc var backgroundGradient: [UIColor]?
     
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     @objc var link: String?
     
     @objc func addRow(_ row: NSArray, backgroundColor: UIColor?, cornerRadius: Float, identifier: String?) {
@@ -120,11 +117,8 @@ import SwiftUI
         
         case backgroundColor
         
-<<<<<<< HEAD
         case backgroundGradient
         
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         case backgroundImage
         
         case link
@@ -141,7 +135,6 @@ import SwiftUI
         }
         
         do {
-<<<<<<< HEAD
             let colorData = try container.decode([Data].self, forKey: .backgroundGradient)
             var gradient = [UIColor]()
             for data in colorData {
@@ -153,8 +146,6 @@ import SwiftUI
         }
         
         do {
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
             backgroundImage = try container.decode(WidgetImage.self, forKey: .backgroundImage)
         } catch {
             backgroundImage = nil
@@ -175,7 +166,6 @@ import SwiftUI
         try container.encode(backgroundImage, forKey: .backgroundImage)
         try container.encode(rows, forKey: .rows)
         try container.encode(link, forKey: .link)
-<<<<<<< HEAD
         
         if let gradient = backgroundGradient {
             var gradientData = [Data]()
@@ -184,7 +174,5 @@ import SwiftUI
             }
             try container.encode(gradientData, forKey: .backgroundGradient)
         }
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     }
 }

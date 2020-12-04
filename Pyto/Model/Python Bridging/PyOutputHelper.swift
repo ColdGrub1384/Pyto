@@ -94,11 +94,7 @@ fileprivate extension ConsoleViewController {
         
     private static var semaphore: DispatchSemaphore?
     
-<<<<<<< HEAD
     private static let queue = DispatchQueue.main
-=======
-    private static let queue = DispatchQueue.global(qos: .userInteractive)
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     
     #if WIDGET && !Xcode11
     #else
@@ -107,7 +103,6 @@ fileprivate extension ConsoleViewController {
     ///     - text: Text to print.
     ///     - script: Script that printed the output. Set to `nil` to be printed in every console.
     @objc static func print(_ text: String, script: String?) {
-<<<<<<< HEAD
         
         if Thread.current.isMainThread {
             return DispatchQueue.global().async {
@@ -115,19 +110,14 @@ fileprivate extension ConsoleViewController {
             }
         }
         
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         var text_ = text
         
         guard !text_.isEmpty else {
             return
         }
         
-<<<<<<< HEAD
         Swift.print(text_, terminator: "")
         
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         #if MAIN
         text_ = ShortenFilePaths(in: text_)
         
@@ -140,10 +130,7 @@ fileprivate extension ConsoleViewController {
         #endif
         
         if text_.hasPrefix("\r") {
-<<<<<<< HEAD
             let semaphore = DispatchSemaphore(value: 0)
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
             DispatchQueue.main.async {
                 #if WIDGET
                 let visibles = [ConsoleViewController.visible ?? ConsoleViewController()]
@@ -183,13 +170,10 @@ fileprivate extension ConsoleViewController {
                     console.textView.attributedText = attrString
                     
                     console.textView.scrollToBottom()
-<<<<<<< HEAD
                     semaphore.signal()
                 }
                 if !Thread.current.isMainThread {
                     semaphore.wait()
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
                 }
             }
         } else if text_.contains("\r") {
@@ -260,15 +244,7 @@ fileprivate extension ConsoleViewController {
             let delegate = PyOutputHelper()
             delegate.script = script
             outputParser.delegate = delegate
-<<<<<<< HEAD
             outputParser.parse(text_.data(using: .utf8) ?? Data())
-=======
-            PyOutputHelper.semaphore = DispatchSemaphore(value: 0)
-            outputParser.parse(text_.data(using: .utf8) ?? Data())
-            if script != nil {
-                PyOutputHelper.semaphore?.wait()
-            }
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         }
         #endif
     }
@@ -289,11 +265,7 @@ fileprivate extension ConsoleViewController {
         #if MAIN
         text_ = ShortenFilePaths(in: text_)
         
-<<<<<<< HEAD
         Swift.print(text_, terminator: "")
-=======
-        Swift.print(text_)
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         
         output += text_
         
@@ -532,21 +504,12 @@ fileprivate extension ConsoleViewController {
 extension PyOutputHelper: ParserDelegate {
     
     func parser(_ parser: Parser, didReceiveString string: NSAttributedString) {
-<<<<<<< HEAD
-=======
-        
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         #if WIDGET
         let visibles = [ConsoleViewController.visible ?? ConsoleViewController()]
         #else
         let visibles = ConsoleViewController.visibles
         #endif
         
-<<<<<<< HEAD
-=======
-        var foundConsole = false
-        
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         for console in visibles {
             
             #if !WIDGET && MAIN
@@ -557,7 +520,6 @@ extension PyOutputHelper: ParserDelegate {
             }
             #endif
             
-<<<<<<< HEAD
             
             if let attrStr = console.attributedConsole {
                 let mutable = NSMutableAttributedString(attributedString: attrStr)
@@ -565,45 +527,6 @@ extension PyOutputHelper: ParserDelegate {
                 console.textView.attributedText = mutable
             }
         }
-=======
-            foundConsole = true
-            
-            DispatchQueue.main.async {
-                if let attrStr = console.attributedConsole {
-                    let mutable = NSMutableAttributedString(attributedString: attrStr)
-                    
-                    /*#if MAIN
-                    let font = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
-                    #else
-                    let font = UIFont(name: "Menlo", size: 12) ?? UIFont.systemFont(ofSize: 12)
-                    #endif
-                    
-                    var attributes: [NSAttributedString.Key : AnyHashable] = [.font : font]
-                    #if MAIN
-                    attributes[.foregroundColor] = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
-                    #else
-                    if #available(iOS 13.0, *) {
-                        attributes[.foregroundColor] = UIColor.label
-                    }
-                    #endif*/
-                    mutable.append(string)
-                    console.textView.attributedText = mutable
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-                        console.textView.scrollToBottom()
-                    }
-                    
-                    PyOutputHelper.semaphore?.signal()
-                    PyOutputHelper.semaphore = nil
-                }
-            }
-        }
-        
-        if !foundConsole {
-            PyOutputHelper.semaphore?.signal()
-            PyOutputHelper.semaphore = nil
-        }
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     }
 
     func parserDidEndTransmission(_ parser: Parser) {}

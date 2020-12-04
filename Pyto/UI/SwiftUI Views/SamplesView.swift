@@ -157,19 +157,11 @@ public struct SamplesNavigationView: View {
         
     public var body: some View {
         NavigationView {
-<<<<<<< HEAD
             withoutNavigation.cornerRadius(6).navigationBarItems(trailing: Button(action: {
                 self.hostController?.dismiss(animated: true, completion: nil)
             }, label: {
                 Text("done").fontWeight(.bold)
             }).hoverEffect())
-=======
-            withoutNavigation.navigationBarItems(trailing: Button(action: {
-                self.hostController?.dismiss(animated: true, completion: nil)
-            }, label: {
-                Text("done").fontWeight(.bold)
-            }))
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 
         }
         .navigationViewStyle(StackNavigationViewStyle())

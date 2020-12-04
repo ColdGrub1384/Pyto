@@ -13,7 +13,6 @@ import Combine
 func search(for package: String) -> [String] {
     let index = Bundle.main.url(forResource: "pypi_index", withExtension: "html") ?? FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask)[0].appendingPathComponent("pypi_index.html")
     
-<<<<<<< HEAD
     guard FileManager.default.fileExists(atPath: index.path) else {
         #if MAIN
         AppDelegate.shared.updatePyPiCache()
@@ -21,8 +20,6 @@ func search(for package: String) -> [String] {
         return []
     }
     
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     do {
         let content = try String(contentsOf: index)
         let lines = content.components(separatedBy: "\n")
@@ -148,13 +145,9 @@ public struct PyPiView: View {
                 Spacer()
             } else if !index.searchString.isEmpty {
                 List(index.packages, id: \.self, rowContent: { item in
-<<<<<<< HEAD
                     Button(action: {
                         self.didSelectPackage(item, false, false)
                     }, label: {
-=======
-                    HStack {
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
                         HStack {
                             if item.lowercased() == self.index.searchString.lowercased() {
                                 Text(item).fontWeight(.bold)
@@ -162,25 +155,10 @@ public struct PyPiView: View {
                                 Text(item)
                             }
                             
-<<<<<<< HEAD
                             Spacer()
                             
                             Image(systemName: "chevron.right").foregroundColor(.secondary)
                         }
-=======
-                            ZStack {
-                                Color.black.opacity(0.001).onTapGesture {
-                                    self.didSelectPackage(item, false, false)
-                                }
-                                Spacer()
-                            }
-                            
-                            Image(systemName: "chevron.right").foregroundColor(.secondary)
-                        }
-                        .onTapGesture {
-                            self.didSelectPackage(item, false, false)
-                        }
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
                         .contextMenu {
                             Button(action: {
                                 UIApplication.shared.open(URL(string: "https://pypi.org/project/\(item)")!, options: [:], completionHandler: nil)
@@ -212,11 +190,7 @@ public struct PyPiView: View {
                                 Image(systemName: "ellipsis")
                             }
                         }
-<<<<<<< HEAD
                     })
-=======
-                    }
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
                 })
             } else {
                 Text("pypi.info", comment: "Text displayed on the PyPi installer")
@@ -245,13 +219,8 @@ public struct PyPiView: View {
             Button(action: {
                 self.hostingController?.dismiss(animated: true, completion: nil)
             }) {
-<<<<<<< HEAD
                 Text("done", comment: "Done button").fontWeight(.bold).padding(5)
             }.hover()
-=======
-                Text("done", comment: "Done button").fontWeight(.bold)
-            }
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         )
     }
 }

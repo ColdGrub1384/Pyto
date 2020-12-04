@@ -26,7 +26,6 @@ def __ui_image_from_pil_image__(image):
     image = UIImage.alloc().initWithData(data)
     data.release()
     return image
-<<<<<<< HEAD
 
 def __pil_image_from_ui_image__(image):
 
@@ -38,5 +37,3 @@ def __pil_image_from_ui_image__(image):
     img_str = str(image.data.base64EncodedStringWithOptions(0))
     msg = base64.b64decode(img_str)
     return Image.open(BytesIO(msg))
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619

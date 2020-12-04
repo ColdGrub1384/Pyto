@@ -125,7 +125,6 @@ public struct EditorView: View {
                 
                 editorVC?.document?.editor = nil
                 
-<<<<<<< HEAD
                 func open() {
                     let document = PyDocument(fileURL: url)
                     document.open { (_) in
@@ -160,44 +159,6 @@ public struct EditorView: View {
                     })
                 } else {
                     open()
-=======
-                editorVC?.save { (_) in
-                    
-                    func open() {
-                        let document = PyDocument(fileURL: url)
-                        document.open { (_) in
-                            
-                            func finallyOpen() {
-                                editorVC?.isDocOpened = false
-                                editorVC?.parent?.title = document.fileURL.deletingPathExtension().lastPathComponent
-                                editorVC?.parent?.parent?.title = editorVC?.parent?.title
-                                editorVC?.parent?.parent?.parent?.title = editorVC?.parent?.title // I'm not kidding
-                                editorVC?.document = document
-                                editorVC?.viewWillAppear(false)
-                                self.isOpeningStore.isOpening = false
-                            }
-                            
-                            if EditorStore.checkedForConflicts != url {
-                                document.checkForConflicts(onViewController: self.viewControllerStore?.vc ?? UIViewController(), completion: {
-                                    
-                                    finallyOpen()
-                                })
-                            } else {
-                                finallyOpen()
-                            }
-                            
-                            EditorStore.checkedForConflicts = url
-                        }
-                    }
-                    
-                    if editorVC?.document?.documentState.contains(.closed) != true {
-                        editorVC?.document?.close(completionHandler: { (_) in
-                            open()
-                        })
-                    } else {
-                        open()
-                    }
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
                 }
             }
             
@@ -323,11 +284,7 @@ public struct SidebarNavigation: View {
                 self.viewControllerStore.vc?.dismiss(animated: true, completion: nil)
             }, label: {
                 Text("done", comment: "Done button").fontWeight(.bold)
-<<<<<<< HEAD
             }).hoverEffect()))
-=======
-            })))
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         } else {
             return view
         }
@@ -416,19 +373,9 @@ public struct SidebarNavigation: View {
             self.viewControllerStore.vc?.present(navVC, animated: true, completion: nil)
         }, label: {
             Image(systemName: "gear")
-<<<<<<< HEAD
         }).padding(5).hover())
         .onAppear {
             UITableView.appearance().backgroundColor = .secondarySystemBackground
-=======
-        }))
-        .onAppear {
-            if stack {
-                UITableView.appearance().backgroundColor = .systemBackground
-            } else {
-                UITableView.appearance().backgroundColor = .secondarySystemBackground
-            }
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         }
     }
     

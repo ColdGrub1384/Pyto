@@ -20,7 +20,6 @@ import SwiftUI
         print(value)
     }
     
-<<<<<<< HEAD
     @objc static func reload() {
         WidgetCenter.shared.reloadTimelines(ofKind: "Script")
     }
@@ -30,10 +29,6 @@ import SwiftUI
     static var completionHandlers = [String:((ScriptEntry) -> Void)]()
     #endif
     
-=======
-    static var timelines = [String:Timeline<ScriptEntry>]()
-        
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     /// Returns the size of a widget from a widget family.
     ///
     /// - Parameters:
@@ -121,7 +116,6 @@ import SwiftUI
         semaphore.wait()
     }
     
-<<<<<<< HEAD
     @objc static func reloadWidgets(_ names: [String]) {
         RuntimeCommunicator.shared.widgetsToBeReloaded = names
         WidgetCenter.shared.reloadTimelines(ofKind: "Script")
@@ -174,8 +168,6 @@ import SwiftUI
         #endif
     }
     
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     /// Generates a timeline for the given widget.
     ///
     /// - Parameters:
@@ -183,7 +175,6 @@ import SwiftUI
     ///     - widget: A `PyWidget` object containing the result of a script.
     @objc static func updateTimeline(_ widgetID: String, widget: PyWidget) {
         
-<<<<<<< HEAD
         #if WIDGET
         guard !ids.contains(widgetID) else {
             return
@@ -199,13 +190,10 @@ import SwiftUI
             return
         }
         
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         let semaphore = DispatchSemaphore(value: 0)
         
         DispatchQueue.main.async {
                         
-<<<<<<< HEAD
             var entry = ScriptEntry(date: Date(), output: widget.output, snapshots: widget.snapshot, view: widget.widgetViews, code: widgetCode ?? "", bookmarkData: widget.bookmarkData)
             #if MAIN
             entry.updateInterval = widget.updateInterval
@@ -265,70 +253,6 @@ import SwiftUI
         
         InAppWidgetsStore.shared.set(entry: entry, id: key)
         WidgetCenter.shared.reloadTimelines(ofKind: "SetInApp")
-=======
-            let entry = ScriptEntry(date: Date(), output: widget.output, snapshots: widget.snapshot, view: widget.widgetViews ?? self.timelines[widgetID]?.entries.first?.view, code: widgetCode ?? "", bookmarkData: widget.bookmarkData)
-            let timeline = Timeline(entries: [entry], policy: .after(Date().addingTimeInterval(widget.updateInterval)))
-            
-            #if WIDGET
-            self.timelines[widgetID] = timeline
-            
-            for handler in makeTimeline[widgetID] ?? [] {
-                handler(timeline)
-            }
-            
-            print(PyWidget.codeToRun.count)
-        
-            semaphore.signal()
-            #else
-            
-            // Preview
-            
-            let preview = WidgetPreview(entry: entry)
-            let vc = UIHostingController(rootView: AnyView(preview))
-            preview.viewControllerStore.vc = vc
-            
-            for scene in UIApplication.shared.connectedScenes {
-                
-                guard scene.activationState == .foregroundActive || scene.activationState == .foregroundInactive else {
-                    continue
-                }
-                
-                if let window = (scene as? UIWindowScene)?.windows.first {
-                    
-                    window.topViewController?.present(vc, animated: true, completion: nil)
-                    
-                    break
-                }
-            }
-            
-            #endif
-        }
-        
-        #if WIDGET
-        semaphore.wait()
-        DispatchQueue.main.asyncAfter(deadline: .now()+3) {
-            if PyWidget.codeToRun.count == 0 || makeTimeline.isEmpty {
-                exit(0) // So the next script has more free RAM
-            }
-        }
-        #endif
-    }
-        
-    @objc static func addWidget(_ widget: PyWidget, key: String) {
-        let entry = ScriptEntry(date: Date(), output: widget.output, snapshots: widget.snapshot, view: widget.widgetViews, code: widgetCode ?? "", bookmarkData: widget.bookmarkData)
-        do {
-            let data = try JSONEncoder().encode(entry)
-            
-            var saved = (UserDefaults.shared?.value(forKey: "savedWidgets") as? [String:Data]) ?? [String:Data]()
-            saved[key] = data
-            
-            UserDefaults.shared?.setValue(saved, forKey: "savedWidgets")
-            
-            WidgetCenter.shared.reloadTimelines(ofKind: "SetInApp")
-        } catch {
-            print(error.localizedDescription)
-        }
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     }
     
     static var savedWidgets: [String : ScriptEntry] {

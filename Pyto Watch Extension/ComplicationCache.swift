@@ -9,7 +9,6 @@
 import WatchKit
 import WatchConnectivity
 
-<<<<<<< HEAD
 var lastScheduledRefresh: Date? {
     get {
         guard let timestamp = UserDefaults.standard.value(forKey: "lastScheduledRefresh") as? TimeInterval else {
@@ -24,14 +23,11 @@ var lastScheduledRefresh: Date? {
     }
 }
 
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
 class ComplicationCache {
     
     var cachedTimeline = [PyComplication]() {
         didSet {
             WCSession.default.sendMessage(["Set": "cachedTimeline"], replyHandler: nil, errorHandler: nil)
-<<<<<<< HEAD
             if var date = sortedTimeline.first?.date {
                 if date.timeIntervalSinceNow < 20*60 { // Less than 20 minutes
                     date = Date().addingTimeInterval(20*60)
@@ -45,11 +41,6 @@ class ComplicationCache {
                 
                 lastScheduledRefresh = date
                 
-=======
-            if let date = sortedTimeline.first?.date {
-                WCSession.default.sendMessage(["Schedule Background Task": date], replyHandler: nil, errorHandler: nil)
-                
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
                 WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: date, userInfo: nil) { (error) in
                     if let error = error {
                         WCSession.default.sendMessage(["Error": error.localizedDescription], replyHandler: nil, errorHandler: nil)

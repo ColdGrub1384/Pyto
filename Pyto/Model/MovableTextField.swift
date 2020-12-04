@@ -193,11 +193,6 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         UIView.animate(withDuration: 0.5) {
             self.toolbar.alpha = 1
         }
-<<<<<<< HEAD
-=======
-        
-        console?.textView.scrollToBottom()
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     }
     
     @objc private func keyboardDidHide(_ notification: NSNotification) {
@@ -248,7 +243,6 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     }
         
     #if MAIN
-<<<<<<< HEAD
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         console?.parent?.setNeedsUpdateOfHomeIndicatorAutoHidden()
@@ -258,8 +252,6 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         console?.parent?.setNeedsUpdateOfHomeIndicatorAutoHidden()
     }
     
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if string == "\n" {

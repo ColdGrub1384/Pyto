@@ -94,15 +94,9 @@ public struct DefinitionsView: View {
                     self.dismiss?()
                 }) {
                     if self.dismiss != nil {
-<<<<<<< HEAD
                         Text("done", comment: "Done button").fontWeight(.bold).padding(5)
                     }
                 }.hover()
-=======
-                        Text("done", comment: "Done button").fontWeight(.bold)
-                    }
-                }
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
             )
         }
     }

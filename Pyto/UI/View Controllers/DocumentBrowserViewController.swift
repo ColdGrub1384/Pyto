@@ -51,11 +51,7 @@ import SwiftUI
             sceneDelegate?.sceneStateStore.reset()
             
             let sidebar = makeSidebarNavigation(url: nil, run: false, isShortcut: false, restoreSelection: false)
-<<<<<<< HEAD
             let vc = SidebarController(rootView: AnyView(sidebar))
-=======
-            let vc = UIHostingController(rootView: AnyView(sidebar))
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
             vc.modalTransitionStyle = .crossDissolve
             vc.modalPresentationStyle = .fullScreen
             sidebar.viewControllerStore.vc = vc
@@ -188,13 +184,6 @@ import SwiftUI
         let splitVC = EditorSplitViewController()
         splitVC.folder = folder
         
-<<<<<<< HEAD
-=======
-        if run {
-            splitVC.shouldShowConsoleAtBottom = true
-        }
-        
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         if isPip {
             splitVC.ratio = 0
         }
@@ -277,7 +266,6 @@ import SwiftUI
                     return
                 }
                 
-<<<<<<< HEAD
                 if !run {
                     document.checkForConflicts(onViewController: self!, completion: { [weak self] in
                         
@@ -299,25 +287,6 @@ import SwiftUI
                 } else {
                     (viewController ?? self)?.present(vc, animated: true, completion: nil)
                 }
-=======
-                document.checkForConflicts(onViewController: self!, completion: { [weak self] in
-                    
-                    guard self != nil else {
-                        return
-                    }
-                    
-                    (viewController ?? self!).present(vc, animated: !run, completion: {
-                        #if !Xcode11
-                        UIView.animate(withDuration: 0.15) {
-                            (vc.children.first as? UISplitViewController)?.preferredDisplayMode = .secondaryOnly
-                        }
-                        #endif
-                        
-                        NotificationCenter.default.removeObserver(splitVC)
-                        completion?()
-                    })
-                })
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
             }
         }
         
@@ -348,10 +317,7 @@ import SwiftUI
         let runAction = UIDocumentBrowserAction(identifier: "run", localizedTitle: Localizable.MenuItems.run, availability: [.menu, .navigationBar], handler: { (urls) in
             self.openDocument(urls[0], run: true)
         })
-<<<<<<< HEAD
         runAction.supportedContentTypes = ["public.python-script"]
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
         
         if #available(iOS 13.0, *) {
             additionalTrailingNavigationBarButtonItems = [UIBarButtonItem(image: UIImage(systemName: "folder.fill") ?? UIImage(), style: .plain, target: self, action: #selector(openProject))]

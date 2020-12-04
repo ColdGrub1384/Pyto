@@ -99,11 +99,8 @@ class RunScriptIntentHandler: NSObject, RunScriptIntentHandling {
     }
     #endif
     
-<<<<<<< HEAD
     private var retry = true
     
-=======
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
     func handle(intent: RunScriptIntent, completion: @escaping (RunScriptIntentResponse) -> Void) {
         let userActivity = NSUserActivity(activityType: "RunScriptIntent")
         do {
@@ -132,7 +129,6 @@ class RunScriptIntentHandler: NSObject, RunScriptIntentHandling {
                 url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
                 _ = url?.startAccessingSecurityScopedResource()
             } catch {
-<<<<<<< HEAD
                 print(error.localizedDescription)
             }
         }
@@ -160,16 +156,6 @@ class RunScriptIntentHandler: NSObject, RunScriptIntentHandling {
         if !Bool(truncating: intent.showConsole ?? 0) {
             guard let script = url else {
                 return
-=======
-                completion(RunScriptIntentResponse(code: .failure, userActivity: nil))
-                return
-            }
-        }
-        
-        if !Bool(truncating: intent.showConsole ?? 0) {
-            guard let script = url else {
-                return completion(.init(code: .failure, userActivity: nil))
->>>>>>> 9ec484051b222280c44a9356f1eb31cfa9a71619
             }
             
             RunShortcutsScript(at: script, arguments: intent.arguments ?? [])
