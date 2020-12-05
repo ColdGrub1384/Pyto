@@ -2,4 +2,10 @@
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
-find . -name "build-*.sh" -exec sh {} \;
+for f in build-*.sh; do
+
+echo $f
+echo
+sh $f
+
+done

@@ -12,7 +12,7 @@ rm -rf fortran-ios.zip
 fi
 
 cd ../scipy
-python3 setup.py build
+python3 setup.py bdist --force
 yes | cp -f scipy/misc/*.dat build/lib*/scipy/misc
 python3 ../tools/make_frameworks.py scipy SciPy ios_flang_runtime scipy-deps
 ../tools/copy-scripts.sh build/lib*/* ../../../downloadable-site-packages/compiled/scipy

@@ -27,6 +27,10 @@ cd dependencies
 ar x libxml2.a
 ar x libxslt.a
 cd ../
+
+unset CC
+unset CXX
+
 xcrun -sdk iphoneos clang -shared -fpic dependencies/*.o -arch arm64 -undefined dynamic_lookup -o dependencies/lxml
 rm -rf "dependencies/__.SYMDEF SORTED"
 rm -rf dependencies/*.o
@@ -36,7 +40,9 @@ cp ../Dependencies/tools/lxml-Info.plist dependencies/lxml.framework/Info.plist
 mv dependencies/lxml.framework dependencies/lxml-deps.framework
 cd $OLD_PWD
 
+source environment.sh
+
 cd ../lxml
-python3 setup.py build
+python3 setup.py bdist
 python3 ../tools/make_frameworks.py lxml Lxml
 ../tools/copy-scripts.sh build/lib*/* ../../../downloadable-site-packages/compiled/lxml

@@ -42,7 +42,7 @@ cd ../../
 # Pure Python dependencies
 
 cd site-packages
-python3 -m pip install --no-deps -r requirements.txt -t .
+./install.sh
 
 # And C Extensions
 

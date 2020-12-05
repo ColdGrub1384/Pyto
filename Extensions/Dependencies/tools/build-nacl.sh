@@ -7,7 +7,7 @@ source environment.sh
 cd ../nacl
 mv setup.py setup.py.old
 cp ../tools/nacl-setup.py setup.py
-python3 setup.py build
+python3 setup.py bdist
 rm setup.py
 mv setup.py.old setup.py
 python3 ../tools/make_frameworks.py nacl PyNacl

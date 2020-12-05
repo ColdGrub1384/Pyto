@@ -1,14 +1,14 @@
 /*
  * jpegtran.c
  *
- * Copyright (C) 1995-1997, Thomas G. Lane.
+ * Copyright (C) 1995-2013, Thomas G. Lane, Guido Vollbeding.
  * This file is part of the Independent JPEG Group's software.
  * For conditions of distribution and use, see the accompanying README file.
  *
  * This file contains a command-line user interface for JPEG transcoding.
- * It is very similar to cjpeg.c, but provides lossless transcoding between
- * different JPEG file formats.  It also provides some lossless and sort-of-
- * lossless transformations of JPEG data.
+ * It is very similar to cjpeg.c, and partly to djpeg.c, but provides
+ * lossless transcoding between different JPEG file formats.  It also
+ * provides some lossless and sort-of-lossless transformations of JPEG data.
  */
 
 #include "cdjpeg.h"		/* Common decls for cjpeg/djpeg applications */
@@ -37,6 +37,7 @@
 
 static const char * progname;	/* program name for error messages */
 static char * outfilename;	/* for -outfile switch */
+static char * scaleoption;	/* -scale switch */
 static JCOPY_OPTION copyoption;	/* -copy switch */
 static jpeg_transform_info transformoption; /* image transformation options */
 
@@ -62,24 +63,30 @@ usage (void)
 #ifdef C_PROGRESSIVE_SUPPORTED
   fprintf(stderr, "  -progressive   Create progressive JPEG file\n");
 #endif
-#if TRANSFORMS_SUPPORTED
   fprintf(stderr, "Switches for modifying the image:\n");
-  fprintf(stderr, "  -grayscale     Reduce to grayscale (omit color data)\n");
+#if TRANSFORMS_SUPPORTED
+  fprintf(stderr, "  -crop WxH+X+Y  Crop to a rectangular subarea\n");
   fprintf(stderr, "  -flip [horizontal|vertical]  Mirror image (left-right or top-bottom)\n");
+  fprintf(stderr, "  -grayscale     Reduce to grayscale (omit color data)\n");
+  fprintf(stderr, "  -perfect       Fail if there is non-transformable edge blocks\n");
   fprintf(stderr, "  -rotate [90|180|270]         Rotate image (degrees clockwise)\n");
+#endif
+  fprintf(stderr, "  -scale M/N     Scale output image by fraction M/N, eg, 1/8\n");
+#if TRANSFORMS_SUPPORTED
   fprintf(stderr, "  -transpose     Transpose image\n");
   fprintf(stderr, "  -transverse    Transverse transpose image\n");
   fprintf(stderr, "  -trim          Drop non-transformable edge blocks\n");
-#endif /* TRANSFORMS_SUPPORTED */
+  fprintf(stderr, "  -wipe WxH+X+Y  Wipe (gray out) a rectangular subarea\n");
+#endif
   fprintf(stderr, "Switches for advanced users:\n");
+#ifdef C_ARITH_CODING_SUPPORTED
+  fprintf(stderr, "  -arithmetic    Use arithmetic coding\n");
+#endif
   fprintf(stderr, "  -restart N     Set restart interval in rows, or in blocks with B\n");
   fprintf(stderr, "  -maxmemory N   Maximum memory to use (in kbytes)\n");
   fprintf(stderr, "  -outfile name  Specify name for output file\n");
   fprintf(stderr, "  -verbose  or  -debug   Emit debug output\n");
   fprintf(stderr, "Switches for wizards:\n");
-#ifdef C_ARITH_CODING_SUPPORTED
-  fprintf(stderr, "  -arithmetic    Use arithmetic coding\n");
-#endif
 #ifdef C_MULTISCAN_FILES_SUPPORTED
   fprintf(stderr, "  -scans file    Create multi-scan JPEG per script file\n");
 #endif
@@ -130,10 +137,13 @@ parse_switches (j_compress_ptr cinfo, int argc, char **argv,
   /* Set up default JPEG parameters. */
   simple_progressive = FALSE;
   outfilename = NULL;
+  scaleoption = NULL;
   copyoption = JCOPYOPT_DEFAULT;
   transformoption.transform = JXFORM_NONE;
+  transformoption.perfect = FALSE;
   transformoption.trim = FALSE;
   transformoption.force_grayscale = FALSE;
+  transformoption.crop = FALSE;
   cinfo->err->trace_level = 0;
 
   /* Scan command line options, adjust parameters */
@@ -160,7 +170,7 @@ parse_switches (j_compress_ptr cinfo, int argc, char **argv,
       exit(EXIT_FAILURE);
 #endif
 
-    } else if (keymatch(arg, "copy", 1)) {
+    } else if (keymatch(arg, "copy", 2)) {
       /* Select which extra markers to copy. */
       if (++argn >= argc)	/* advance to next argument */
 	usage();
@@ -172,6 +182,21 @@ parse_switches (j_compress_ptr cinfo, int argc, char **argv,
 	copyoption = JCOPYOPT_ALL;
       } else
 	usage();
+
+    } else if (keymatch(arg, "crop", 2)) {
+      /* Perform lossless cropping. */
+#if TRANSFORMS_SUPPORTED
+      if (++argn >= argc)	/* advance to next argument */
+	usage();
+      if (transformoption.crop /* reject multiple crop/wipe requests */ ||
+	  ! jtransform_parse_crop_spec(&transformoption, argv[argn])) {
+	fprintf(stderr, "%s: bogus -crop argument '%s'\n",
+		progname, argv[argn]);
+	exit(EXIT_FAILURE);
+      }
+#else
+      select_transform(JXFORM_NONE);	/* force an error */
+#endif
 
     } else if (keymatch(arg, "debug", 1) || keymatch(arg, "verbose", 1)) {
       /* Enable debug printouts. */
@@ -233,7 +258,12 @@ parse_switches (j_compress_ptr cinfo, int argc, char **argv,
 	usage();
       outfilename = argv[argn];	/* save it away for later use */
 
-    } else if (keymatch(arg, "progressive", 1)) {
+    } else if (keymatch(arg, "perfect", 2)) {
+      /* Fail if there is any partial edge MCUs that the transform can't
+       * handle. */
+      transformoption.perfect = TRUE;
+
+    } else if (keymatch(arg, "progressive", 2)) {
       /* Select simple progressive mode. */
 #ifdef C_PROGRESSIVE_SUPPORTED
       simple_progressive = TRUE;
@@ -276,6 +306,13 @@ parse_switches (j_compress_ptr cinfo, int argc, char **argv,
       else
 	usage();
 
+    } else if (keymatch(arg, "scale", 4)) {
+      /* Scale the output image by a fraction M/N. */
+      if (++argn >= argc)	/* advance to next argument */
+	usage();
+      scaleoption = argv[argn];
+      /* We must postpone processing until decompression startup. */
+
     } else if (keymatch(arg, "scans", 1)) {
       /* Set scan script. */
 #ifdef C_MULTISCAN_FILES_SUPPORTED
@@ -300,6 +337,21 @@ parse_switches (j_compress_ptr cinfo, int argc, char **argv,
     } else if (keymatch(arg, "trim", 3)) {
       /* Trim off any partial edge MCUs that the transform can't handle. */
       transformoption.trim = TRUE;
+
+    } else if (keymatch(arg, "wipe", 1)) {
+#if TRANSFORMS_SUPPORTED
+      if (++argn >= argc)	/* advance to next argument */
+	usage();
+      if (transformoption.crop /* reject multiple crop/wipe requests */ ||
+	  ! jtransform_parse_crop_spec(&transformoption, argv[argn])) {
+	fprintf(stderr, "%s: bogus -wipe argument '%s'\n",
+		progname, argv[argn]);
+	exit(EXIT_FAILURE);
+      }
+      select_transform(JXFORM_WIPE);
+#else
+      select_transform(JXFORM_NONE);	/* force an error */
+#endif
 
     } else {
       usage();			/* bogus switch */
