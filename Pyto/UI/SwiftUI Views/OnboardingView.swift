@@ -166,7 +166,7 @@ public struct OnboardingView: View {
                 pricingView
             })
             
-            Text("onboarding.twoPricesAvailable", comment: "The text bellow the purchase button")
+            Text("onboarding.twoPricesAvailable", comment: "The text below the purchase button")
             .font(.footnote)
             .frame(width: 200)
             .padding()

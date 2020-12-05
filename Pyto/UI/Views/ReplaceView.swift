@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// The View placed bellow the find bar on the editor for replacing text.
+/// The View placed below the find bar on the editor for replacing text.
 class ReplaceView: UIView, UITextFieldDelegate {
     
     /// Code called for replacing all occurences in code. Parameter passed is a String to replace.
