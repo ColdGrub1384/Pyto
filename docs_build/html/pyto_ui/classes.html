@@ -505,7 +505,7 @@ This value is a tuple with X, Y, Width and Height values.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>view</strong> – The view to insert.</p></li>
-<li><p><strong>above_view</strong> – The view bellow the inserted view.</p></li>
+<li><p><strong>above_view</strong> – The view below the inserted view.</p></li>
 </ul>
 </dd>
 </dl>
@@ -515,11 +515,29 @@ This value is a tuple with X, Y, Width and Height values.</p>
 <dt id="pyto_ui.View.insert_subview_bellow">
 <code class="sig-name descname">insert_subview_bellow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">view</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#pyto_ui.View" title="pyto_ui.View">pyto_ui.View</a></span></em>, <em class="sig-param"><span class="n">bellow_view</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#pyto_ui.View" title="pyto_ui.View">pyto_ui.View</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.View.insert_subview_bellow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Inserts the given view to the receiver’s hierarchy bellow another given view.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Deprecated in favor of View.insert_subview_below().</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>view</strong> – The view to insert.</p></li>
 <li><p><strong>bellow_view</strong> – The view above the inserted view.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.View.insert_subview_below">
+<code class="sig-name descname">insert_subview_below</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">view</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#pyto_ui.View" title="pyto_ui.View">pyto_ui.View</a></span></em>, <em class="sig-param"><span class="n">below_view</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#pyto_ui.View" title="pyto_ui.View">pyto_ui.View</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.View.insert_subview_below" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inserts the given view to the receiver’s hierarchy bellow another given view.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>view</strong> – The view to insert.</p></li>
+<li><p><strong>below_view</strong> – The view above the inserted view.</p></li>
 </ul>
 </dd>
 </dl>
