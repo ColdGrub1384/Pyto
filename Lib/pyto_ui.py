@@ -2662,18 +2662,35 @@ class View:
         """
         Inserts the given view to the receiver's hierarchy bellow another given view.
 
+        .. warning::
+            Deprecated in favor of View.insert_subview_below().
+
         :param view: The view to insert.
         :param bellow_view: The view above the inserted view.
+
         """
 
-        self.__py_view__.insertSubview(view.__py_view__, bellow=bellow_view.__py_view__)
+        _warning = "View.insert_subview_bellow() is deprecated in favor of View.insert_subview_below()."
+        warnings.warn(_warning, DeprecationWarning)
+
+        self.__py_view__.insertSubview(view.__py_view__, below=bellow_view.__py_view__)
+
+    def insert_subview_below(self, view: View, below_view: View):
+        """
+        Inserts the given view to the receiver's hierarchy bellow another given view.
+
+        :param view: The view to insert.
+        :param below_view: The view above the inserted view.
+        """
+
+        self.__py_view__.insertSubview(view.__py_view__, below=below_view.__py_view__)
 
     def insert_subview_above(self, view: View, above_view: View):
         """
         Inserts the given view to the receiver's hierarchy above another given view.
 
         :param view: The view to insert.
-        :param above_view: The view bellow the inserted view.
+        :param above_view: The view below the inserted view.
         """
 
         self.__py_view__.insertSubview(view.__py_view__, above=above_view.__py_view__)

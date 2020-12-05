@@ -650,8 +650,8 @@ import WebKit
     ///
     /// - Parameters:
     ///     - view: The view to be added.
-    ///     - subview: `view` will be placed bellow this view.
-    @objc public func insertSubview(_ view: PyView, bellow subview: PyView) {
+    ///     - subview: `view` will be placed below this view.
+    @objc public func insertSubview(_ view: PyView, below subview: PyView) {
         set {
             if !self.view.subviews.contains(view.view) {
                 self.view.insertSubview(view.view, belowSubview: subview.view)
