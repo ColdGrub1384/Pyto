@@ -6,7 +6,7 @@ Some Pyto core functions
 # (!) Warning (!)
 # The following code is horrible
 # Protect your eyes
-# Good luck
+#  Good luck
 
 import os
 
@@ -45,11 +45,12 @@ if "widget" not in os.environ:
         import pyto_core as pc
     except ImportError:
         pass
-        
+
+
 def displayhook(_value):
     if _value is None:
         return
-        
+
     def represent(value):
         if hasattr(value, "__dict__"):
             val = {}
@@ -58,7 +59,9 @@ def displayhook(_value):
             _dict.update(dict(value.__dict__))
             for key in list(_dict):
                 item = _dict[key]
-                if item is value or (not isinstance(item, dict) and not isinstance(item, list)):
+                if item is value or (
+                    not isinstance(item, dict) and not isinstance(item, list)
+                ):
                     item = repr(item)
                 else:
                     item = represent(item)
@@ -68,7 +71,9 @@ def displayhook(_value):
             _dict = value
             for key in list(_dict):
                 item = _dict[key]
-                if item is value or (not isinstance(item, dict) and not isinstance(item, list)):
+                if item is value or (
+                    not isinstance(item, dict) and not isinstance(item, list)
+                ):
                     item = repr(item)
                 else:
                     item = represent(item)
@@ -78,14 +83,16 @@ def displayhook(_value):
             i = 0
             for item in value:
                 _item = item
-                if item is value or (not isinstance(item, dict) and not isinstance(item, list)):
+                if item is value or (
+                    not isinstance(item, dict) and not isinstance(item, list)
+                ):
                     val[str(i)] = repr(item)
                 else:
                     val[str(i)] = represent(item)
                 i += 1
         else:
             val = repr(value)
-            
+
         return val
 
     _repr = repr(_value)
@@ -93,26 +100,34 @@ def displayhook(_value):
     if isinstance(_value, tuple):
         _value = list(_value)
 
-    if isinstance(_value, ObjCInstance): # We assume it's an instance or subclass of NSObject
+    if isinstance(
+        _value, ObjCInstance
+    ):  # We assume it's an instance or subclass of NSObject
         _repr = str(_value.debugDescription)
         val = {
             "Description": _repr,
             "Superclass": str(_value.superclass.name),
-            "Methods": str(_value._methodDescription())
+            "Methods": str(_value._methodDescription()),
         }
-    elif isinstance(_value, Mapping) or isinstance(_value, list) or hasattr(_value, "__dict__"):
+    elif (
+        isinstance(_value, Mapping)
+        or isinstance(_value, list)
+        or hasattr(_value, "__dict__")
+    ):
         val = represent(_value)
     else:
         val = represent([_value])
-    
+
     def default(o):
         return repr(o)
-    
+
     json = dumps(val, default=default)
     try:
-        PyOutputHelper.printValue(_repr+"\n", value=json, script=threading.current_thread().script_path)
+        PyOutputHelper.printValue(
+            _repr + "\n", value=json, script=threading.current_thread().script_path
+        )
     except AttributeError:
-        PyOutputHelper.printValue(_repr+"\n", value=json, script=None)
+        PyOutputHelper.printValue(_repr + "\n", value=json, script=None)
 
 
 def excepthook(exc, value, tb, limit=None):
@@ -124,28 +139,28 @@ def excepthook(exc, value, tb, limit=None):
     message = traceback.format_exception(exc, value, tb, limit=limit)
 
     if limit is None:
-        del message[1] # Remove the first element of the traceback in the REPL
+        del message[1]  # Remove the first element of the traceback in the REPL
 
     for part in message:
-        if part == message[0]: # Traceback (most recent blah blah blah)
+        if part == message[0]:  # Traceback (most recent blah blah blah)
             msg = Fore.RED + part + Style.RESET_ALL
-        elif part == message[-1]: # Exception: message
+        elif part == message[-1]:  #  Exception: message
             parts = part.split(":")
             parts[0] = Fore.RED + parts[0] + Style.RESET_ALL
-            
+
             msg = ":".join(parts)
-        elif part.startswith("  File"): # File "file", line 1, in function
-            parts = part.split("\"")
+        elif part.startswith("  File"):  # File "file", line 1, in function
+            parts = part.split('"')
             parts[1] = Fore.YELLOW + parts[1] + Style.RESET_ALL
-            
-            parts = "\"".join(parts).split("\n")
+
+            parts = '"'.join(parts).split("\n")
             first_line = parts[0].split(" ")
             first_line[-1] = Fore.YELLOW + first_line[-1] + Style.RESET_ALL
             parts[0] = " ".join(first_line)
             msg = "\n".join(parts)
         else:
             msg = part
-        
+
         builtins.print(msg, file=sys.stderr, end="")
 
 
@@ -153,21 +168,27 @@ __repl_namespace__ = {}
 
 __repl_threads__ = {}
 
+
 def __runREPL__(repl_name="", namespace={}, banner=None):
 
     if "widget" in os.environ:
         return
-    
+
     sys.excepthook = excepthook
     sys.displayhook = displayhook
-    
-    __repl_namespace__[repl_name] =  {"clear":ClearREPL(), "__name__":repl_name.split(".")[0], "__file__":repl_name}
+
+    __repl_namespace__[repl_name] = {
+        "clear": ClearREPL(),
+        "__name__": repl_name.split(".")[0],
+        "__file__": repl_name,
+    }
     __repl_namespace__[repl_name].update(namespace)
-    
+
     __namespace__ = __repl_namespace__[repl_name]
-    
+
     def read(prompt):
         import console
+
         __namespace__.update(console.__repl_namespace__[repl_name])
 
         return input(prompt, highlight=True)
@@ -234,11 +255,11 @@ def __clear_mods__():
 
     try:
         _values = sys.modules["_values"]
-        
+
         for attr in dir(_values):
             if attr not in _values._dir:
                 delattr(_values, attr)
-            
+
     except:
         pass
 
@@ -255,7 +276,11 @@ def __clear_mods__():
     for key in keys:
         try:
             mod = sys.modules[key]
-            if os.access(mod.__file__, os.W_OK) and not "/Library/python38" in mod.__file__ and key != "<run_path>":
+            if (
+                os.access(mod.__file__, os.W_OK)
+                and not "/Library/python38" in mod.__file__
+                and key != "<run_path>"
+            ):
                 del sys.modules[key]
         except AttributeError:
             pass
@@ -316,7 +341,7 @@ if "widget" not in os.environ:
             del os.environ["ps1"]
         except KeyError:
             pass
-            
+
         try:
             del os.environ["ps2"]
         except KeyError:
@@ -348,7 +373,7 @@ if "widget" not in os.environ:
 
             if f.endswith(".repl.py"):
                 continue
-            
+
             if f.endswith(".tmp"):
                 continue
 
@@ -371,7 +396,6 @@ if "widget" not in os.environ:
             del __repl_threads__[path]
 
         def run():
-
             def add_signal_handler(s, f):
                 return
 
@@ -439,7 +463,7 @@ if "widget" not in os.environ:
 
                     pdb.main(["pdb", path])
                     builtins.input = old_input
-                    
+
                     loop.close()
                 else:
                     spec.loader.exec_module(__script__)
@@ -448,13 +472,13 @@ if "widget" not in os.environ:
             except SystemExit:
                 if PyCallbackHelper is not None:
                     PyCallbackHelper.cancelled = True
-                
+
                 loop.close()
                 return (path, vars(__script__), SystemExit)
             except KeyboardInterrupt:
                 if PyCallbackHelper is not None:
                     PyCallbackHelper.cancelled = True
-                
+
                 loop.close()
                 return (path, vars(__script__), KeyboardInterrupt)
             except Exception as e:
@@ -510,7 +534,7 @@ if "widget" not in os.environ:
                         )
                     except AttributeError:
                         PyOutputHelper.printError("", script=None)
-                    
+
                     error = traceback.format_exc(limit=-count)
                     if "cv2.error" in error and "!_src.empty()" in error:
                         string = "\nOn Pyto, 'cv2.VideoCapture.read' may return an invalid value the first time. If you are running a loop for capturing a video from the camera, check if the return value is valid before using it. See the 'OpenCV/face_detection.py' example.\n"
@@ -541,13 +565,13 @@ if "widget" not in os.environ:
         Python.shared._isScriptRunning = True
 
         def run_repl(t):
-        
+
             global __repl_threads__
-        
+
             Python.shared._isScriptRunning = False
             Python.shared.isScriptRunning = False
             Python.shared.removeScriptFromList(path)
-            
+
             if path.endswith(".repl.py") or not runREPL:
                 return
 
@@ -557,11 +581,15 @@ if "widget" not in os.environ:
 
         _script = None
 
-        if "__editor_delegate__" in dir(builtins) and builtins.__editor_delegate__ is not None:
+        if (
+            "__editor_delegate__" in dir(builtins)
+            and builtins.__editor_delegate__ is not None
+        ):
             delegate = builtins.__editor_delegate__
 
             def _run():
                 import builtins
+
                 delegate = builtins.__editor_delegate__
 
                 t = run()
@@ -593,17 +621,19 @@ if "widget" not in os.environ:
         Python.shared.isScriptRunning = False
         Python.shared.removeScriptFromList(path)
 
-        sys.path = list(dict.fromkeys(sys.path)) # I don't remember why 😭
+        sys.path = list(dict.fromkeys(sys.path))  # I don't remember why 😭
 
         if "widget" not in os.environ:
             import watch
+
             watch.__show_ui_if_needed__()
 
         __clear_mods__()
 
-        #time.sleep(0.2)
+        # time.sleep(0.2)
 
         return _script
+
 
 # MARK: - I/O
 
@@ -612,16 +642,17 @@ ignoredThreads = []
 All output and input request from these threads will be ignored.
 """
 
-class ClearREPL():
 
+class ClearREPL:
     def __repr__(self):
         return self.__str__()
 
     def __str__(self):
         return "Type 'clear()' to clear the console."
-        
+
     def __call__(self):
         clear()
+
 
 def clear():
     """
@@ -677,7 +708,7 @@ def input(prompt: str = None, highlight=False):
 
     userInput = __PyInputHelper__.waitForInput(path)
 
-    if userInput == "<WILL INTERRUPT>": # Will raise KeyboardInterrupt, don't return
+    if userInput == "<WILL INTERRUPT>":  #  Will raise KeyboardInterrupt, don't return
         while True:
             time.sleep(0.2)
 

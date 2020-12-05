@@ -22,9 +22,8 @@ except ImportError:
     from .dummyobjc_util import *
 
 
-
-NSMutableAttributedString = ObjCClass('NSMutableAttributedString')
-UIFont = ObjCClass('UIFont')
+NSMutableAttributedString = ObjCClass("NSMutableAttributedString")
+UIFont = ObjCClass("UIFont")
 
 BlackColor = UIColor.blackColor()
 RedColor = UIColor.redColor()
@@ -48,19 +47,14 @@ class ShScreenNotLocked(Exception):
 
 #: A container for a single character, field names are *hopefully*
 #: self-explanatory.
-_Char = namedtuple("_Char", [
-    "data",
-    "fg",
-    "bg",
-    "bold",
-    "italics",
-    "underscore",
-    "strikethrough",
-    "reverse",
-])
+_Char = namedtuple(
+    "_Char",
+    ["data", "fg", "bg", "bold", "italics", "underscore", "strikethrough", "reverse",],
+)
+
 
 class ShChar(_Char):
-    
+
     """
     Class of attributed character.
     :param str data: The actual character
@@ -72,21 +66,33 @@ class ShChar(_Char):
     :param bool reverse: NOT Implemented
     :param bool strikethrough: Strike through the character
     """
+
     __slots__ = ()
 
     # noinspection PyInitNewSignature
-    def __new__(cls, data, fg="default", bg="default", bold=False,
-                italics=False, underscore=False, reverse=False,
-                strikethrough=False):
-        return _Char.__new__(cls, data, fg, bg, bold, italics, underscore,
-                             strikethrough, reverse)
+    def __new__(
+        cls,
+        data,
+        fg="default",
+        bg="default",
+        bold=False,
+        italics=False,
+        underscore=False,
+        reverse=False,
+        strikethrough=False,
+    ):
+        return _Char.__new__(
+            cls, data, fg, bg, bold, italics, underscore, strikethrough, reverse
+        )
 
 
-DEFAULT_CHAR = ShChar(data=' ', fg='default', bg='default')
+DEFAULT_CHAR = ShChar(data=" ", fg="default", bg="default")
 DEFAULT_LINE = itertools.repeat(DEFAULT_CHAR)
+
 
 def take(n, iterable):
     return list(itertools.islice(iterable, n))
+
 
 # noinspection PyAttributeOutsideInit
 class ShSequentialScreen(object):
@@ -103,12 +109,12 @@ class ShSequentialScreen(object):
         self.stash = stash
         self.nlines_max = nlines_max
         self.debug = debug
-        self.logger = logging.getLogger('StaSh.Screen')
+        self.logger = logging.getLogger("StaSh.Screen")
 
         self._buffer = deque()  # buffer to hold chars
         self.lock = threading.Lock()
 
-        self.attrs = ShChar(' ')
+        self.attrs = ShChar(" ")
 
         self.reset()
 
@@ -162,7 +168,7 @@ class ShSequentialScreen(object):
         """
         :rtype: str
         """
-        return ''.join(c.data for c in self._buffer)
+        return "".join(c.data for c in self._buffer)
 
     @property
     def text_length(self):
@@ -192,7 +198,7 @@ class ShSequentialScreen(object):
         # The position is either the x_drawend or last LF location plus one,
         # whichever is larger.
         for idx in xrange(self.text_length - 1, self.x_drawend - 1, -1):
-            if self._buffer[idx].data == '\n':
+            if self._buffer[idx].data == "\n":
                 return idx + 1
         else:
             return self.x_drawend
@@ -212,7 +218,7 @@ class ShSequentialScreen(object):
         A string represents the characters that are in the modifiable range.
         :rtype: str
         """
-        return ''.join(self._buffer[idx].data for idx in xrange(*self.modifiable_range))
+        return "".join(self._buffer[idx].data for idx in xrange(*self.modifiable_range))
 
     @modifiable_string.setter
     def modifiable_string(self, s):
@@ -269,7 +275,9 @@ class ShSequentialScreen(object):
         self.intact_right_bound = len(self._buffer)
 
     # noinspection PyProtectedMember
-    def replace_in_range(self, rng, s, relative_to_x_modifiable=False, set_drawend=False):
+    def replace_in_range(
+        self, rng, s, relative_to_x_modifiable=False, set_drawend=False
+    ):
         """
         Replace the buffer content in the given range. This method should
         ONLY be called from the UI delegation side, i.e. NOT running
@@ -308,7 +316,7 @@ class ShSequentialScreen(object):
         if set_drawend:
             self.x_drawend = self.cursor_xs
 
-        nlf = s.count('\n')
+        nlf = s.count("\n")
         if nlf > 0:  # ensure max number of lines is kept
             self.nlines += nlf
             self._ensure_nlines_max()
@@ -333,7 +341,7 @@ class ShSequentialScreen(object):
             # Remove the top line
             for idx in xrange(self.text_length):
                 char_count += 1
-                if self._buffer.popleft().data == '\n':
+                if self._buffer.popleft().data == "\n":
                     line_count += 1
                     break
 
@@ -352,7 +360,7 @@ class ShSequentialScreen(object):
             from_x = self.cursor_xs
         for idx in xrange(from_x, -1, -1):
             try:  # try for when from_x is equal to buffer length (i.e. at the end of the buffer)
-                if self._buffer[idx].data == '\n':
+                if self._buffer[idx].data == "\n":
                     n -= 1
                     if n == 0:
                         return idx
@@ -360,13 +368,13 @@ class ShSequentialScreen(object):
                 pass
         else:
             return default
-                
+
     def _find_nth_nl(self, from_x=None, n=1, default=None):
         if from_x is None:
             from_x = self.cursor_xs
         for idx in xrange(from_x, self.text_length):
             try:
-                if self._buffer[idx].data == '\n':
+                if self._buffer[idx].data == "\n":
                     n -= 1
                     if n == 0:
                         return idx
@@ -402,7 +410,7 @@ class ShSequentialScreen(object):
                 # Also when the new character is a newline, it is effectively an
                 # insertion NOT replacement (i.e. it pushes everything following
                 # it to the next line).
-                if c == '\n' or c_poped.data == '\n':
+                if c == "\n" or c_poped.data == "\n":
                     self._buffer.append(c_poped)
                 # Update the cursor and drawing end
                 self.cursor_x = self.x_drawend = self.cursor_xs + 1
@@ -411,7 +419,7 @@ class ShSequentialScreen(object):
                     self.intact_right_bound = self.x_drawend
 
         # Count the number of lines
-        if c == '\n':
+        if c == "\n":
             self.nlines += 1
             self._ensure_nlines_max()
 
@@ -421,7 +429,7 @@ class ShSequentialScreen(object):
         """
         cursor_xs = self.cursor_xs - 1
         try:
-            if self._buffer[cursor_xs] != '\n':
+            if self._buffer[cursor_xs] != "\n":
                 self.cursor_x = cursor_xs
         except IndexError:
             self.cursor_x = 0
@@ -437,14 +445,14 @@ class ShSequentialScreen(object):
         Delete n characters from cursor including cursor within the current line.
         :param count: If count is 0, delete till the next newline.
         """
-        if self.cursor_xs == self.text_length or self._buffer[self.cursor_xs] == '\n':
+        if self.cursor_xs == self.text_length or self._buffer[self.cursor_xs] == "\n":
             return
         if count == 0:  # delete till the next newline
             count = self.text_length
         with self.buffer_rotate(-self.cursor_xs):
             for _ in xrange(min(count, self.text_length - self.cursor_xs)):
                 c = self._buffer.popleft()
-                if c.data == '\n':  # do not delete newline
+                if c.data == "\n":  # do not delete newline
                     self._buffer.appendleft(c)
                     break
             self.x_drawend = self.cursor_xs
@@ -461,21 +469,27 @@ class ShSequentialScreen(object):
         if mode == 0:  # erase from cursor to end of line, including cursor
             rng = [self.cursor_xs, self._find_nth_nl(default=self.text_length)]
             try:  # do not include the newline character
-                if self._buffer[rng[0]] == '\n':
+                if self._buffer[rng[0]] == "\n":
                     rng[0] += 1
             except IndexError:
                 pass
 
         elif mode == 1:  # erase form beginning of line to cursor, including cursor
-            rng = [self._rfind_nth_nl(default=-1) + 1, min(self.cursor_xs + 1, self.text_length)]
+            rng = [
+                self._rfind_nth_nl(default=-1) + 1,
+                min(self.cursor_xs + 1, self.text_length),
+            ]
             try:
-                if self._buffer[rng[1] - 1] == '\n':
+                if self._buffer[rng[1] - 1] == "\n":
                     rng[1] -= 1
             except IndexError:
                 pass
 
         else:  # mode == 2:  # erase the complete line
-            rng = [self._rfind_nth_nl(default=-1) + 1, self._find_nth_nl(default=self.text_length)]
+            rng = [
+                self._rfind_nth_nl(default=-1) + 1,
+                self._find_nth_nl(default=self.text_length),
+            ]
 
         # fast fail when there is nothing to erase
         if rng[0] >= rng[1]:
@@ -511,7 +525,7 @@ class ShSequentialScreen(object):
                 replace = DEFAULT_CHAR._asdict()
 
         self.attrs = self.attrs._replace(**replace)
-        
+
     def load_pyte_screen(self, pyte_screen):
         """
         This method is for command script only, e.g. ssh.
@@ -526,14 +540,18 @@ class ShSequentialScreen(object):
             column_count = 0
             for line in reversed(pyte_screen.display):
                 line = line.rstrip()
-                if line != '':
+                if line != "":
                     column_count = len(line)
                     break
                 line_count += 1
 
-            nchars_pyte_screen = (nlines - line_count - 1) * (ncolumns + 1) + column_count
+            nchars_pyte_screen = (nlines - line_count - 1) * (
+                ncolumns + 1
+            ) + column_count
 
-            idx_cursor_pyte_screen = pyte_screen.cursor.x + pyte_screen.cursor.y * (ncolumns + 1)
+            idx_cursor_pyte_screen = pyte_screen.cursor.x + pyte_screen.cursor.y * (
+                ncolumns + 1
+            )
 
             if nchars_pyte_screen < idx_cursor_pyte_screen:
                 nchars_pyte_screen = idx_cursor_pyte_screen
@@ -564,8 +582,11 @@ class ShSequentialScreen(object):
                         continue
                     pyte_char = pyte_screen.buffer[idx_line][idx_column]
                     # self.logger.info('HERE = %s' % idx)
-                    if self._buffer[idx].data != pyte_char.data \
-                            or not ShSequentialRenderer._same_style(self._buffer[idx], pyte_char):
+                    if self._buffer[
+                        idx
+                    ].data != pyte_char.data or not ShSequentialRenderer._same_style(
+                        self._buffer[idx], pyte_char
+                    ):
                         # self.logger.info('breaking %s' % idx)
                         self.intact_right_bound = idx
                         break
@@ -579,7 +600,7 @@ class ShSequentialScreen(object):
                     c = pyte_screen.buffer[idx_line][idx_column]
                     self._buffer.append(ShChar(**c._asdict()))
                 else:
-                    self._buffer.append(ShChar('\n'))
+                    self._buffer.append(ShChar("\n"))
 
             self.cursor_x = idx_cursor_pyte_screen
 
@@ -599,34 +620,35 @@ class ShSequentialRenderer(object):
     :param ShSequentialScreen screen: In memory screen
     :param ShTerminal terminal: The real UI terminal
     """
+
     FG_COLORS = {
-        'black': BlackColor,
-        'red': RedColor,
-        'green': GreenColor,
-        'brown': BrownColor,
-        'blue': BlueColor,
-        'magenta': MagentaColor,
-        'cyan': CyanColor,
-        'white': WhiteColor,
-        'gray': GrayColor,
-        'yellow': YellowColor,
-        'smoke': SmokeColor,
-        'default': WhiteColor,
+        "black": BlackColor,
+        "red": RedColor,
+        "green": GreenColor,
+        "brown": BrownColor,
+        "blue": BlueColor,
+        "magenta": MagentaColor,
+        "cyan": CyanColor,
+        "white": WhiteColor,
+        "gray": GrayColor,
+        "yellow": YellowColor,
+        "smoke": SmokeColor,
+        "default": WhiteColor,
     }
 
     BG_COLORS = {
-        'black': BlackColor,
-        'red': RedColor,
-        'green': GreenColor,
-        'brown': BrownColor,
-        'blue': BlueColor,
-        'magenta': MagentaColor,
-        'cyan': CyanColor,
-        'white': WhiteColor,
-        'gray': GrayColor,
-        'yellow': YellowColor,
-        'smoke': SmokeColor,
-        'default': BlackColor,
+        "black": BlackColor,
+        "red": RedColor,
+        "green": GreenColor,
+        "brown": BrownColor,
+        "blue": BlueColor,
+        "magenta": MagentaColor,
+        "cyan": CyanColor,
+        "white": WhiteColor,
+        "gray": GrayColor,
+        "yellow": YellowColor,
+        "smoke": SmokeColor,
+        "default": BlackColor,
     }
 
     RENDER_INTERVAL = 0.1
@@ -635,22 +657,28 @@ class ShSequentialRenderer(object):
         self.screen = screen
         self.terminal = terminal
         self.debug = debug
-        self.logger = logging.getLogger('StaSh.SequentialRenderer')
+        self.logger = logging.getLogger("StaSh.SequentialRenderer")
         self.last_rendered_time = 0
         self.render_thread = None
-        
+
         # update default colors to match terminal
-        self.FG_COLORS["default"] = self.FG_COLORS.get(self.terminal.text_color, WhiteColor)
-        self.BG_COLORS["default"] = self.BG_COLORS.get(self.terminal.background_color, BlackColor)
+        self.FG_COLORS["default"] = self.FG_COLORS.get(
+            self.terminal.text_color, WhiteColor
+        )
+        self.BG_COLORS["default"] = self.BG_COLORS.get(
+            self.terminal.background_color, BlackColor
+        )
 
     @staticmethod
     def _same_style(char1, char2):
-        return char1.fg == char2.fg \
-               and char1.bg == char2.bg \
-               and char1.bold is char2.bold \
-               and char1.italics is char2.italics \
-               and char1.underscore is char2.underscore \
-               and char1.strikethrough is char2.strikethrough
+        return (
+            char1.fg == char2.fg
+            and char1.bg == char2.bg
+            and char1.bold is char2.bold
+            and char1.italics is char2.italics
+            and char1.underscore is char2.underscore
+            and char1.strikethrough is char2.strikethrough
+        )
 
     def _get_font(self, attrs):
         if attrs.bold and attrs.italics:
@@ -664,11 +692,11 @@ class ShSequentialRenderer(object):
 
     def _build_attributes(self, attrs):
         return {
-            'NSColor': self.FG_COLORS.get(attrs.fg, WhiteColor),
-            'NSBackgroundColor': self.BG_COLORS.get(attrs.bg, BlackColor),
-            'NSFont': self._get_font(attrs),
-            'NSUnderline': 1 if attrs.underscore else 0,
-            'NSStrikethrough': 1 if attrs.strikethrough else 0,
+            "NSColor": self.FG_COLORS.get(attrs.fg, WhiteColor),
+            "NSBackgroundColor": self.BG_COLORS.get(attrs.bg, BlackColor),
+            "NSFont": self._get_font(attrs),
+            "NSUnderline": 1 if attrs.underscore else 0,
+            "NSStrikethrough": 1 if attrs.strikethrough else 0,
         }
 
     def _build_attributed_string(self, chars):
@@ -680,10 +708,14 @@ class ShSequentialRenderer(object):
         :rtype: object
         """
         # Initialize a string with default attributes
-        attributed_text = NSMutableAttributedString.alloc().initWithString_attributes_(
-            ''.join(char.data for char in chars),
-            self._build_attributes(DEFAULT_CHAR),
-        ).autorelease()
+        attributed_text = (
+            NSMutableAttributedString.alloc()
+            .initWithString_attributes_(
+                "".join(char.data for char in chars),
+                self._build_attributes(DEFAULT_CHAR),
+            )
+            .autorelease()
+        )
 
         prev_char = chars[0]
         location = length = 0
@@ -692,8 +724,7 @@ class ShSequentialRenderer(object):
             if not self._same_style(prev_char, curr_char):  # a group is found
                 if not self._same_style(prev_char, DEFAULT_CHAR):  # skip default attrs
                     attributed_text.setAttributes_range_(
-                        self._build_attributes(prev_char),
-                        (location, length - 1)
+                        self._build_attributes(prev_char), (location, length - 1)
                     )
                 length = 1
                 location = idx
@@ -702,8 +733,7 @@ class ShSequentialRenderer(object):
             if idx == len(chars) - 1:  # last char
                 if not self._same_style(prev_char, DEFAULT_CHAR):
                     attributed_text.setAttributes_range_(
-                        self._build_attributes(prev_char),
-                        (location, length)
+                        self._build_attributes(prev_char), (location, length)
                     )
 
         return attributed_text
@@ -743,8 +773,11 @@ class ShSequentialRenderer(object):
 
             # Specific code for ios 8 to fix possible crash
             if ON_IOS_8:
-                tvo_texts = NSMutableAttributedString.alloc().initWithAttributedString_(
-                    self.terminal.tvo.attributedText()).autorelease()
+                tvo_texts = (
+                    NSMutableAttributedString.alloc()
+                    .initWithAttributedString_(self.terminal.tvo.attributedText())
+                    .autorelease()
+                )
             else:
                 tvo_texts = self.terminal.tso
                 tvo_texts.beginEditing()  # batch the changes
@@ -752,8 +785,7 @@ class ShSequentialRenderer(object):
             # First remove any leading texts that are rotated out
             if intact_left_bound > 0:
                 tvo_texts.replaceCharactersInRange_withString_(
-                    (0, intact_left_bound),
-                    ''
+                    (0, intact_left_bound), ""
                 )
 
             tv_text_length = tvo_texts.length()
@@ -764,15 +796,12 @@ class ShSequentialRenderer(object):
             if intact_right_bound < max(tv_text_length, screen_buffer_length):
                 if len(renderable_chars) > 0:
                     tvo_texts.replaceCharactersInRange_withAttributedString_(
-                        (intact_right_bound,
-                         tv_text_length - intact_right_bound),
-                        self._build_attributed_string(renderable_chars)
+                        (intact_right_bound, tv_text_length - intact_right_bound),
+                        self._build_attributed_string(renderable_chars),
                     )
                 else:  # empty string, pure deletion
                     tvo_texts.replaceCharactersInRange_withString_(
-                        (intact_right_bound,
-                         tv_text_length - intact_right_bound),
-                        ''
+                        (intact_right_bound, tv_text_length - intact_right_bound), ""
                     )
 
             if ON_IOS_8:

@@ -1,10 +1,11 @@
-'''
+"""
 Classes from the 'MobileSystemServices' framework.
-'''
+"""
 
 try:
     from rubicon.objc import ObjCClass
 except ValueError:
+
     def ObjCClass(name):
         return None
 
@@ -15,5 +16,5 @@ def _Class(name):
     except NameError:
         return None
 
-    
-MOSplunkLogger = _Class('MOSplunkLogger')
+
+MOSplunkLogger = _Class("MOSplunkLogger")

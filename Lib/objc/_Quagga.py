@@ -1,10 +1,11 @@
-'''
+"""
 Classes from the 'Quagga' framework.
-'''
+"""
 
 try:
     from rubicon.objc import ObjCClass
 except ValueError:
+
     def ObjCClass(name):
         return None
 
@@ -15,6 +16,6 @@ def _Class(name):
     except NameError:
         return None
 
-    
-_MRCMetalHybridBinarizer = _Class('_MRCMetalHybridBinarizer')
-_MRCMetalContext = _Class('_MRCMetalContext')
+
+_MRCMetalHybridBinarizer = _Class("_MRCMetalHybridBinarizer")
+_MRCMetalContext = _Class("_MRCMetalContext")

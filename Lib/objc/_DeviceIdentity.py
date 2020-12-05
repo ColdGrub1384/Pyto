@@ -1,10 +1,11 @@
-'''
+"""
 Classes from the 'DeviceIdentity' framework.
-'''
+"""
 
 try:
     from rubicon.objc import ObjCClass
 except ValueError:
+
     def ObjCClass(name):
         return None
 
@@ -15,6 +16,6 @@ def _Class(name):
     except NameError:
         return None
 
-    
-GestaltHlprDeviceIdentity = _Class('GestaltHlprDeviceIdentity')
-DeviceTypeDeviceIdentity = _Class('DeviceTypeDeviceIdentity')
+
+GestaltHlprDeviceIdentity = _Class("GestaltHlprDeviceIdentity")
+DeviceTypeDeviceIdentity = _Class("DeviceTypeDeviceIdentity")

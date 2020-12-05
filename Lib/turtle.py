@@ -12,11 +12,14 @@ from UIKit import UIColor
 from time import sleep
 from types import ModuleType
 
-warnings.warn("Importing an incomplete version of turtle. Some (many) features may not work.")
+warnings.warn(
+    "Importing an incomplete version of turtle. Some (many) features may not work."
+)
+
 
 class Turtle(object):
 
-    __Vec2D__ = namedtuple('Vec2D','x y')
+    __Vec2D__ = namedtuple("Vec2D", "x y")
 
     def Vec2D(self, x, y):
         return self.__Vec2D__(x, y)
@@ -39,7 +42,7 @@ class Turtle(object):
         view.__py_view__ = self.__turtle__.view
         view.size = 300, 300
         self.__drawing__ = view
-        
+
         _view = ui.View()
         _view.title = view.title
         _view.background_color = ui.COLOR_SYSTEM_FILL
@@ -69,7 +72,7 @@ class Turtle(object):
 
         thread.start()
         sleep(1)
-    
+
     def showturtle(self):
         self.__show__(True)
 
@@ -90,24 +93,24 @@ class Turtle(object):
         all = 0
         while i < abs(d):
             _d = self.__speed__
-            if all+_d >= abs(d):
-                self.__turtle__.forward(d-all)
+            if all + _d >= abs(d):
+                self.__turtle__.forward(d - all)
                 break
-                
+
             if d < 0:
                 self.__turtle__.forward(-_d)
             else:
                 self.__turtle__.forward(_d)
             i += _d
             all += _d
-    
+
     def back(self, d):
         self.forward(-d)
-    
+
     def right(self, d):
         self.__show__()
         self.__turtle__.right(d)
-    
+
     def left(self, d):
         self.__show__()
         self.__turtle__.left(d)
@@ -121,13 +124,13 @@ class Turtle(object):
             if _y is None:
                 _y = self.ycor()
             self.__turtle__.goto(CGPoint(x=x, y=(-_y)))
-    
+
     def setheading(self, h):
         self.__turtle__.rotation = h
-    
+
     def heading(self):
         return self.__turtle__.rotation
-    
+
     def pos(self):
         pos = self.__turtle__.position()
         return (pos.x, -pos.y)
@@ -137,7 +140,7 @@ class Turtle(object):
 
     def ycor(self):
         return self.pos()[1]
-    
+
     def setx(self, x):
         self.goto(x)
 
@@ -146,14 +149,14 @@ class Turtle(object):
 
     def penup(self):
         self.__turtle__.penOn = False
-    
+
     def pendown(self):
         self.__turtle__.penOn = True
 
     def home(self):
         self.goto(0, 0)
         self.setheading(0)
-    
+
     def isdown(self):
         return self.__turtle__.penOn
 
@@ -167,17 +170,17 @@ class Turtle(object):
             pos = self.Vec2D(*x)
         elif isinstance(x, self.__class__):
             pos = x.position()
-        
+
         x = self.position()[0]
         y = self.position()[1]
         dest_x = pos[0]
         dest_y = pos[1]
 
-        dist_x = abs(x-dest_x)
-        dist_y = abs(y-dest_y)
+        dist_x = abs(x - dest_x)
+        dist_y = abs(y - dest_y)
 
-        return math.sqrt((dist_x*dist_x)+(dist_y*dist_y))
-    
+        return math.sqrt((dist_x * dist_x) + (dist_y * dist_y))
+
     def towards(self, x, y=None):
 
         if y is not None:
@@ -188,49 +191,65 @@ class Turtle(object):
             pos = self.Vec2D(*x)
         elif isinstance(x, self.__class__):
             pos = x.position()
-        
+
         x = self.position()[0]
         y = self.position()[1]
         dest_x = pos[0]
         dest_y = pos[1]
 
-        dist_x = dest_x-x
-        dist_y = dest_y-y
+        dist_x = dest_x - x
+        dist_y = dest_y - y
 
-        result = round(math.atan2(dist_x, dist_y)*180.0/math.pi, 10) % 360.0
+        result = round(math.atan2(dist_x, dist_y) * 180.0 / math.pi, 10) % 360.0
         result /= 1
-        return (0 + 1*result) % 360
+        return (0 + 1 * result) % 360
 
     def pencolor(self, *args):
         if len(args) == 0:
             color = self.__turtle__.colorValues
-            return (color[0]*255, color[1]*255, color[2]*255)
-        if (len(args) == 1 and isinstance(args[0], str)):
+            return (color[0] * 255, color[1] * 255, color[2] * 255)
+        if len(args) == 1 and isinstance(args[0], str):
             color = colors.to_rgba(args[0])
-            self.__turtle__.colorWithRed(color[0]*255, green=color[1]*255, blue=color[2]*255)
-        elif (len(args) == 1 and isinstance(args[0], tuple)):
-            self.__turtle__.colorWithRed(args[0][0]*255, green=args[0][1]*255, blue=args[0][2]*255)
-        elif (len(args) == 3 and isinstance(args[0], Number) 
+            self.__turtle__.colorWithRed(
+                color[0] * 255, green=color[1] * 255, blue=color[2] * 255
+            )
+        elif len(args) == 1 and isinstance(args[0], tuple):
+            self.__turtle__.colorWithRed(
+                args[0][0] * 255, green=args[0][1] * 255, blue=args[0][2] * 255
+            )
+        elif (
+            len(args) == 3
+            and isinstance(args[0], Number)
             and isinstance(args[1], Number)
             and isinstance(args[2], Number)
         ):
-            self.__turtle__.colorWithRed(args[0]*255, green=args[1]*255, blue=args[2]*255)
-    
+            self.__turtle__.colorWithRed(
+                args[0] * 255, green=args[1] * 255, blue=args[2] * 255
+            )
+
     def fillcolor(self, *args):
         if len(args) == 0:
             color = self.__turtle__.colorValues
-            return (color[0]*255, color[1]*255, color[2]*255)
-        if (len(args) == 1 and isinstance(args[0], str)):
+            return (color[0] * 255, color[1] * 255, color[2] * 255)
+        if len(args) == 1 and isinstance(args[0], str):
             color = colors.to_rgba(args[0])
-            self.__turtle__.fillColorWithRed(color[0]*255, green=color[1]*255, blue=color[2]*255)
-        elif (len(args) == 1 and isinstance(args[0], tuple)):
-            self.__turtle__.fillColorWithRed(args[0][0]*255, green=args[0][1]*255, blue=args[0][2]*255)
-        elif (len(args) == 3 and isinstance(args[0], Number) 
+            self.__turtle__.fillColorWithRed(
+                color[0] * 255, green=color[1] * 255, blue=color[2] * 255
+            )
+        elif len(args) == 1 and isinstance(args[0], tuple):
+            self.__turtle__.fillColorWithRed(
+                args[0][0] * 255, green=args[0][1] * 255, blue=args[0][2] * 255
+            )
+        elif (
+            len(args) == 3
+            and isinstance(args[0], Number)
             and isinstance(args[1], Number)
             and isinstance(args[2], Number)
         ):
-            self.__turtle__.fillColorWithRed(args[0]*255, green=args[1]*255, blue=args[2]*255)
-        
+            self.__turtle__.fillColorWithRed(
+                args[0] * 255, green=args[1] * 255, blue=args[2] * 255
+            )
+
     def color(self, *args):
         if len(args) == 0:
             return (self.pencolor(), self.fillcolor())
@@ -242,10 +261,10 @@ class Turtle(object):
 
     def begin_fill(self):
         self.__turtle__.fillColor = self.__turtle__._fillColor
-    
+
     def end_fill(self):
         self.__turtle__.fillColor = UIColor.clearColor
-    
+
     def filling(self):
         return self.__turtle__.isFilling
 
@@ -257,22 +276,23 @@ class Turtle(object):
 
     def clear(self):
         self.__turtle__.clear()
-    
+
     def reset(self):
         self.speed(6)
         self.__turtle__.reset()
 
     def pen(self, pen=None, **pendict):
-        _pd =  {"shown"         : True,
-                "pendown"       : self.__turtle__.penOn,
-                "pencolor"      : self.pencolor(),
-                "fillcolor"     : self.fillcolor(),
-                "pensize"       : self.pensize(),
-                "speed"         : self.__speed__,
-                "resizemode"    : "noresize",
-                "stretchfactor" : (1, 1),
-                "tilt"          : self.__turtle__.tilt
-               }
+        _pd = {
+            "shown": True,
+            "pendown": self.__turtle__.penOn,
+            "pencolor": self.pencolor(),
+            "fillcolor": self.fillcolor(),
+            "pensize": self.pensize(),
+            "speed": self.__speed__,
+            "resizemode": "noresize",
+            "stretchfactor": (1, 1),
+            "tilt": self.__turtle__.tilt,
+        }
 
         if not (pen or pendict):
             return _pd
@@ -314,18 +334,18 @@ class Turtle(object):
             return self.__turtle__.tilt
         else:
             self.__turtle__.setTiltAngle(angle)
-    
+
     def tilt(self, angle):
-        self.tiltangle(self.tiltangle()+angle)
+        self.tiltangle(self.tiltangle() + angle)
 
     def dot(self, size=None, *color):
         s = size
         if size is None:
             s = self.pensize()
-        
+
         penOn = self.__turtle__.penOn
         self.__turtle__.penOn = True
-        
+
         fillcolor = self.fillcolor()
         pencolor = self.pencolor()
         if len(color) != 0:
@@ -340,7 +360,7 @@ class Turtle(object):
         self.__turtle__.penOn = penOn
 
     def speed(self, s=None):
-        speeds = {'fastest':0, 'fast':10, 'normal':6, 'slow':3, 'slowest':1 }
+        speeds = {"fastest": 0, "fast": 10, "normal": 6, "slow": 3, "slowest": 1}
         if s is None:
             return self.__speed__
         if s in speeds:
@@ -358,14 +378,14 @@ class Turtle(object):
         if extent is None:
             extent = 360
         if steps is None:
-            frac = abs(extent)/360
-            steps = 1+int(min(11+abs(radius)/6.0, 59.0)*frac)
+            frac = abs(extent) / 360
+            steps = 1 + int(min(11 + abs(radius) / 6.0, 59.0) * frac)
         w = 1.0 * extent / steps
         w2 = 0.5 * w
-        l = 2.0 * radius * math.sin(w2*math.pi/180.0*1)
+        l = 2.0 * radius * math.sin(w2 * math.pi / 180.0 * 1)
         if radius < 0:
             l, w, w2 = -l, -w, -w2
-    
+
         dl = 0
         self.left(w2)
         for i in range(steps):
@@ -375,7 +395,7 @@ class Turtle(object):
             self.left(w)
         self.left(-w2)
         self.speed(speed)
-   
+
     fd = forward
     bk = back
     backward = back
@@ -400,13 +420,14 @@ class Turtle(object):
 
     done = mainloop
 
-class ModuleTurtle(Turtle):
 
+class ModuleTurtle(Turtle):
     def __getattribute__(self, key):
         if key == "__all__":
             return self._all
         else:
             return super().__getattribute__(key)
+
 
 turtle = ModuleTurtle()
 _all = []

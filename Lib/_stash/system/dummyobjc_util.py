@@ -1,5 +1,3 @@
-
-
 class ObjCClass(object):
     def __init__(self, *args, **kwargs):
         pass
@@ -11,12 +9,11 @@ class ObjCClass(object):
         return ObjCClass()
 
 
-
 class ObjCInstance(ObjCClass):
     pass
 
-class UIColor(ObjCClass):
 
+class UIColor(ObjCClass):
     @classmethod
     def blackColor(cls):
         pass
@@ -61,6 +58,7 @@ class UIColor(ObjCClass):
     def colorWithRed_green_blue_alpha_(cls, *args, **kwargs):
         pass
 
+
 class NSRange(ObjCClass):
     pass
 
@@ -68,18 +66,21 @@ class NSRange(ObjCClass):
 def create_objc_class(*args, **kwargs):
     return ObjCClass()
 
+
 def ns(*args, **kwargs):
     return ObjCInstance()
+
 
 def on_main_thread(func):
     return func
 
 
 class ctypes(object):
-
     class pythonapi(object):
         @staticmethod
-        def PyThreadState_SetAsyncExc(tid, exectype,):
+        def PyThreadState_SetAsyncExc(
+            tid, exectype,
+        ):
             return 1
 
     @staticmethod

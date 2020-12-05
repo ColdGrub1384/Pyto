@@ -4647,4 +4647,3 @@ def pick_font(size: float = None) -> Font:
         if size is not None:
             pyFont = pyFont.with_size(size)
         return pyFont
-    

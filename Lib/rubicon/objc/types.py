@@ -2,86 +2,107 @@ import collections.abc
 import platform
 import struct
 from ctypes import (
-    POINTER, Array, Structure, Union, c_bool, c_byte, c_char, c_char_p,
-    c_double, c_float, c_int, c_long, c_longdouble, c_longlong, c_short,
-    c_ubyte, c_uint, c_ulong, c_ulonglong, c_ushort, c_void_p, c_wchar,
-    c_wchar_p, py_object, sizeof,
+    POINTER,
+    Array,
+    Structure,
+    Union,
+    c_bool,
+    c_byte,
+    c_char,
+    c_char_p,
+    c_double,
+    c_float,
+    c_int,
+    c_long,
+    c_longdouble,
+    c_longlong,
+    c_short,
+    c_ubyte,
+    c_uint,
+    c_ulong,
+    c_ulonglong,
+    c_ushort,
+    c_void_p,
+    c_wchar,
+    c_wchar_p,
+    py_object,
+    sizeof,
 )
 
 __all__ = [
-    'CFIndex',
-    'CFRange',
-    'CGFloat',
-    'CGGlyph',
-    'CGPoint',
-    'CGPointMake',
-    'CGRect',
-    'CGRectMake',
-    'CGSize',
-    'CGSizeMake',
-    'NSEdgeInsets',
-    'NSEdgeInsetsMake',
-    'NSInteger',
-    'NSIntegerMax',
-    'NSMakePoint',
-    'NSMakeRect',
-    'NSMakeSize',
-    'NSNotFound',
-    'NSPoint',
-    'NSRange',
-    'NSRect',
-    'NSSize',
-    'NSTimeInterval',
-    'NSUInteger',
-    'NSZeroPoint',
-    'UIEdgeInsets',
-    'UIEdgeInsetsMake',
-    'UIEdgeInsetsZero',
-    'UniChar',
-    'UnknownPointer',
-    '__LP64__',
-    '__arm64__',
-    '__arm__',
-    '__i386__',
-    '__x86_64__',
-    'array_for_sequence',
-    'compound_value_for_sequence',
-    'ctype_for_encoding',
-    'ctype_for_type',
-    'ctypes_for_method_encoding',
-    'encoding_for_ctype',
-    'get_ctype_for_encoding_map',
-    'get_ctype_for_type_map',
-    'get_encoding_for_ctype_map',
-    'register_ctype_for_type',
-    'register_encoding',
-    'register_preferred_encoding',
-    'split_method_encoding',
-    'struct_for_sequence',
-    'unichar',
-    'unregister_ctype',
-    'unregister_ctype_all',
-    'unregister_ctype_for_type',
-    'unregister_encoding',
-    'unregister_encoding_all',
-    'with_encoding',
-    'with_preferred_encoding',
+    "CFIndex",
+    "CFRange",
+    "CGFloat",
+    "CGGlyph",
+    "CGPoint",
+    "CGPointMake",
+    "CGRect",
+    "CGRectMake",
+    "CGSize",
+    "CGSizeMake",
+    "NSEdgeInsets",
+    "NSEdgeInsetsMake",
+    "NSInteger",
+    "NSIntegerMax",
+    "NSMakePoint",
+    "NSMakeRect",
+    "NSMakeSize",
+    "NSNotFound",
+    "NSPoint",
+    "NSRange",
+    "NSRect",
+    "NSSize",
+    "NSTimeInterval",
+    "NSUInteger",
+    "NSZeroPoint",
+    "UIEdgeInsets",
+    "UIEdgeInsetsMake",
+    "UIEdgeInsetsZero",
+    "UniChar",
+    "UnknownPointer",
+    "__LP64__",
+    "__arm64__",
+    "__arm__",
+    "__i386__",
+    "__x86_64__",
+    "array_for_sequence",
+    "compound_value_for_sequence",
+    "ctype_for_encoding",
+    "ctype_for_type",
+    "ctypes_for_method_encoding",
+    "encoding_for_ctype",
+    "get_ctype_for_encoding_map",
+    "get_ctype_for_type_map",
+    "get_encoding_for_ctype_map",
+    "register_ctype_for_type",
+    "register_encoding",
+    "register_preferred_encoding",
+    "split_method_encoding",
+    "struct_for_sequence",
+    "unichar",
+    "unregister_ctype",
+    "unregister_ctype_all",
+    "unregister_ctype_for_type",
+    "unregister_encoding",
+    "unregister_encoding_all",
+    "with_encoding",
+    "with_preferred_encoding",
 ]
 
-__LP64__ = (8*struct.calcsize("P") == 64)
+__LP64__ = 8 * struct.calcsize("P") == 64
 
 # platform.machine() indicates the machine's physical architecture,
 # which means that on a 64-bit Intel machine it is always "x86_64",
 # even if Python is built as 32-bit.
-_any_x86 = (platform.machine() in ('i386', 'x86_64'))
-__i386__ = (_any_x86 and not __LP64__)
-__x86_64__ = (_any_x86 and __LP64__)
+_any_x86 = platform.machine() in ("i386", "x86_64")
+__i386__ = _any_x86 and not __LP64__
+__x86_64__ = _any_x86 and __LP64__
 
 # On iOS, platform.machine() is a device identifier like "iPhone9,4",
 # but the platform.version() string contains the architecture.
-_any_arm = ('ARM' in platform.version())
-__arm64__ = (_any_arm and __LP64__)
-__arm__ = (_any_arm and not __LP64__)
+_any_arm = "ARM" in platform.version()
+__arm64__ = _any_arm and __LP64__
+__arm__ = _any_arm and not __LP64__
 
 
 _ctype_for_type_map = {
@@ -131,61 +152,69 @@ def _end_of_encoding(encoding, start):
     """
 
     if start < 0 or start >= len(encoding):
-        raise ValueError('Start index {} not in range({})'.format(start, len(encoding)))
+        raise ValueError("Start index {} not in range({})".format(start, len(encoding)))
 
     paren_depth = 0
 
     i = start
     while i < len(encoding):
-        c = encoding[i:i+1]
-        if c in b'([{<':
+        c = encoding[i : i + 1]
+        if c in b"([{<":
             # Opening parenthesis of some type, wait for a corresponding closing paren.
             # This doesn't check that the parenthesis *types* match (only the *number* of closing parens has to match).
             paren_depth += 1
             i += 1
         elif paren_depth > 0:
-            if c in b')]}>':
+            if c in b")]}>":
                 # Closing parentheses of some type.
                 paren_depth -= 1
             i += 1
             if paren_depth == 0:
                 # Final closing parenthesis, end of this encoding.
                 return i
-        elif c in b'*:#?BCDILQSTcdfilqstv':
+        elif c in b"*:#?BCDILQSTcdfilqstv":
             # Encodings with exactly one character.
-            return i+1
-        elif c in b'^ANORVjnor':
+            return i + 1
+        elif c in b"^ANORVjnor":
             # Simple prefix (qualifier, pointer, etc.), skip it but count it towards the length.
             i += 1
-        elif c == b'@':
-            if encoding[i+1:i+3] == b'?<':
+        elif c == b"@":
+            if encoding[i + 1 : i + 3] == b"?<":
                 # Encoding @?<...> (block with signature).
                 # Skip the @? and continue at the < which is treated as an opening paren.
                 i += 2
-            elif encoding[i+1:i+2] == b'?':
+            elif encoding[i + 1 : i + 2] == b"?":
                 # Encoding @? (block).
-                return i+2
-            elif encoding[i+1:i+2] == b'"':
+                return i + 2
+            elif encoding[i + 1 : i + 2] == b'"':
                 # Encoding @"..." (object pointer with class name).
-                return encoding.index(b'"', i+2)+1
+                return encoding.index(b'"', i + 2) + 1
             else:
                 # Encoding @ (untyped object pointer).
-                return i+1
-        elif c == b'b':
+                return i + 1
+        elif c == b"b":
             # Bit field, followed by one or more digits.
-            for j in range(i+1, len(encoding)):
-                if encoding[j] not in b'0123456789':
+            for j in range(i + 1, len(encoding)):
+                if encoding[j] not in b"0123456789":
                     # Found a non-digit, stop here.
                     return j
             # Reached end of string without finding a non-digit, stop.
             return len(encoding)
         else:
-            raise ValueError('Unknown encoding {} at index {}: {}'.format(c, i, encoding))
+            raise ValueError(
+                "Unknown encoding {} at index {}: {}".format(c, i, encoding)
+            )
 
     if paren_depth > 0:
-        raise ValueError('Incomplete encoding, missing {} closing parentheses: {}'.format(paren_depth, encoding))
+        raise ValueError(
+            "Incomplete encoding, missing {} closing parentheses: {}".format(
+                paren_depth, encoding
+            )
+        )
     else:
-        raise ValueError('Incomplete encoding, reached end of string too early: {}'.format(encoding))
+        raise ValueError(
+            "Incomplete encoding, reached end of string too early: {}".format(encoding)
+        )
 
 
 def _create_structish_type_for_encoding(encoding, *, base):
@@ -195,8 +224,8 @@ def _create_structish_type_for_encoding(encoding, *, base):
 
     # Split name and fields.
     begin = encoding[0:1]
-    end = encoding[-1:len(encoding)]
-    name, eq, fields = encoding[1:-1].partition(b'=')
+    end = encoding[-1 : len(encoding)]
+    name, eq, fields = encoding[1:-1].partition(b"=")
 
     if not eq:
         # If the fields are not present, we can't create a meaningful structish.
@@ -206,13 +235,13 @@ def _create_structish_type_for_encoding(encoding, *, base):
         # This causes pointers to it to become void pointers.
         return None
 
-    if name == b'?':
+    if name == b"?":
         # Anonymous structish, has no name.
         name = None
 
     # Create the subclass. The _fields_ are not set yet, this is done later.
     # The structish is already registered here, so that pointers to this structish type in itself are typed correctly.
-    py_name = '_Anonymous' if name is None else name.decode('utf-8')
+    py_name = "_Anonymous" if name is None else name.decode("utf-8")
     structish_type = type(py_name, (base,), {})
     # Register the structish for its own encoding, so the same type is used in the future.
     register_encoding(encoding, structish_type)
@@ -225,17 +254,17 @@ def _create_structish_type_for_encoding(encoding, *, base):
     start = 0  # Start of the next field.
     i = 0  # Field counter, used when naming unnamed fields.
     while start < len(fields):
-        if fields[start:start+1] == b'"':
+        if fields[start : start + 1] == b'"':
             # If a name is present, use it.
-            field_name_end = fields.index(b'"', start+2)
-            field_name = fields[start+1:field_name_end].decode('utf-8')
-            start = field_name_end+1
+            field_name_end = fields.index(b'"', start + 2)
+            field_name = fields[start + 1 : field_name_end].decode("utf-8")
+            start = field_name_end + 1
         else:
             # If no name is present, make one based on the field index.
-            field_name = 'field_{}'.format(i)
+            field_name = "field_{}".format(i)
         end = _end_of_encoding(fields, start)
         field_encoding = fields[start:end]
-        if field_encoding.startswith(b'b'):
+        if field_encoding.startswith(b"b"):
             # Bit field, extract the number of bits.
             bit_field_size = int(field_encoding[1:])
             ctypes_fields.append((field_name, c_uint, bit_field_size))
@@ -252,45 +281,53 @@ def _create_structish_type_for_encoding(encoding, *, base):
 
 
 def _ctype_for_unknown_encoding(encoding):
-    if encoding.startswith(b'^'):
+    if encoding.startswith(b"^"):
         # Resolve pointer types recursively.
         pointer_type = POINTER(ctype_for_encoding(encoding[1:]))
         register_encoding(encoding, pointer_type)
         return pointer_type
-    elif encoding.startswith(b'[') and encoding.endswith(b']'):
+    elif encoding.startswith(b"[") and encoding.endswith(b"]"):
         # Resolve array types recursively.
         for i, c in enumerate(encoding[1:], start=1):
-            if c not in b'0123456789':
+            if c not in b"0123456789":
                 break
         assert i != 1
-        array_length = int(encoding[1:i].decode('utf-8'))
+        array_length = int(encoding[1:i].decode("utf-8"))
         array_type = ctype_for_encoding(encoding[i:-1]) * array_length
         register_encoding(encoding, array_type)
         return array_type
-    elif encoding.startswith(b'{') and encoding.endswith(b'}'):
+    elif encoding.startswith(b"{") and encoding.endswith(b"}"):
         # Create ctypes.Structure subclasses for unknown structures.
         return _create_structish_type_for_encoding(encoding, base=Structure)
-    elif encoding.startswith(b'(') and encoding.endswith(b')'):
+    elif encoding.startswith(b"(") and encoding.endswith(b")"):
         # Create ctypes.Union subclasses for unknown unions.
         return _create_structish_type_for_encoding(encoding, base=Union)
-    elif encoding.startswith(b'@?<') and encoding.endswith(b'>'):
+    elif encoding.startswith(b"@?<") and encoding.endswith(b">"):
         # Ignore block signature encoding if present.
-        return ctype_for_encoding(b'@?')
+        return ctype_for_encoding(b"@?")
     elif encoding.startswith(b'@"') and encoding.endswith(b'"'):
         # Ignore object pointer class names if present.
-        return ctype_for_encoding(b'@')
-    elif encoding.startswith(b'b'):
-        raise ValueError('A bit field encoding cannot appear outside a structure: %s' % (encoding,))
-    elif encoding.startswith(b'?'):
-        raise ValueError('An unknown encoding cannot appear outside of a pointer: %s' % (encoding,))
-    elif encoding.startswith(b'T') or encoding.startswith(b't'):
-        raise ValueError('128-bit integers are not supported by ctypes: %s' % (encoding,))
-    elif encoding.startswith(b'j'):
-        raise ValueError('Complex numbers are not supported by ctypes: %s' % (encoding,))
-    elif encoding.startswith(b'A'):
-        raise ValueError('Atomic types are not supported by ctypes: %s' % (encoding,))
+        return ctype_for_encoding(b"@")
+    elif encoding.startswith(b"b"):
+        raise ValueError(
+            "A bit field encoding cannot appear outside a structure: %s" % (encoding,)
+        )
+    elif encoding.startswith(b"?"):
+        raise ValueError(
+            "An unknown encoding cannot appear outside of a pointer: %s" % (encoding,)
+        )
+    elif encoding.startswith(b"T") or encoding.startswith(b"t"):
+        raise ValueError(
+            "128-bit integers are not supported by ctypes: %s" % (encoding,)
+        )
+    elif encoding.startswith(b"j"):
+        raise ValueError(
+            "Complex numbers are not supported by ctypes: %s" % (encoding,)
+        )
+    elif encoding.startswith(b"A"):
+        raise ValueError("Atomic types are not supported by ctypes: %s" % (encoding,))
     else:
-        raise ValueError('Unknown encoding: %s' % (encoding,))
+        raise ValueError("Unknown encoding: %s" % (encoding,))
 
 
 def ctype_for_encoding(encoding):
@@ -313,9 +350,9 @@ def encoding_for_ctype(ctype):
         return _encoding_for_ctype_map[ctype]
     except KeyError:
         try:
-            return b'^' + encoding_for_ctype(ctype._type_)
+            return b"^" + encoding_for_ctype(ctype._type_)
         except KeyError:
-            raise ValueError('No type encoding known for ctype {}'.format(ctype))
+            raise ValueError("No type encoding known for ctype {}".format(ctype))
 
 
 def register_preferred_encoding(encoding, ctype):
@@ -459,14 +496,17 @@ def ctypes_for_method_encoding(encoding):
 def struct_for_sequence(seq, struct_type):
     if len(seq) != len(struct_type._fields_):
         raise ValueError(
-            'Struct type {tp.__module__}.{tp.__qualname__} has {fields_len} fields, '
-            'but a sequence of length {seq_len} was given'
-            .format(tp=struct_type, fields_len=len(struct_type._fields_), seq_len=len(seq))
+            "Struct type {tp.__module__}.{tp.__qualname__} has {fields_len} fields, "
+            "but a sequence of length {seq_len} was given".format(
+                tp=struct_type, fields_len=len(struct_type._fields_), seq_len=len(seq)
+            )
         )
 
     values = []
     for value, (field_name, field_type, *_) in zip(seq, struct_type._fields_):
-        if issubclass(field_type, (Structure, Array)) and isinstance(value, collections.abc.Iterable):
+        if issubclass(field_type, (Structure, Array)) and isinstance(
+            value, collections.abc.Iterable
+        ):
             values.append(compound_value_for_sequence(value, field_type))
         else:
             values.append(value)
@@ -477,9 +517,10 @@ def struct_for_sequence(seq, struct_type):
 def array_for_sequence(seq, array_type):
     if len(seq) != array_type._length_:
         raise ValueError(
-            'Array type {tp.__module__}.{tp.__qualname__} has {array_len} fields, '
-            'but a sequence of length {seq_len} was given'
-            .format(tp=array_type, array_len=array_type._length_, seq_len=len(seq))
+            "Array type {tp.__module__}.{tp.__qualname__} has {array_len} fields, "
+            "but a sequence of length {seq_len} was given".format(
+                tp=array_type, array_len=array_type._length_, seq_len=len(seq)
+            )
         )
 
     if issubclass(array_type._type_, (Structure, Array)):
@@ -501,47 +542,51 @@ def compound_value_for_sequence(seq, tp):
     elif issubclass(tp, Array):
         return array_for_sequence(seq, tp)
     else:
-        raise TypeError("Don't know how to convert a sequence to a {tp.__module__}.{tp.__qualname__}".format(tp=tp))
+        raise TypeError(
+            "Don't know how to convert a sequence to a {tp.__module__}.{tp.__qualname__}".format(
+                tp=tp
+            )
+        )
 
 
 # Register all type encoding mappings.
 
-register_preferred_encoding(b'v', None)
-register_preferred_encoding(b'B', c_bool)
+register_preferred_encoding(b"v", None)
+register_preferred_encoding(b"B", c_bool)
 
 # Note, we prefer to map b'c' to c_byte rather than c_char, because otherwise
 # ctypes converts the value into a one-character string which is generally
 # not what we want at all, especially when the b'c' represents a BOOL var.
-register_preferred_encoding(b'c', c_byte)
-register_preferred_encoding(b'C', c_ubyte)
-register_encoding(b'c', c_char)
+register_preferred_encoding(b"c", c_byte)
+register_preferred_encoding(b"C", c_ubyte)
+register_encoding(b"c", c_char)
 
-register_preferred_encoding(b's', c_short)
-register_preferred_encoding(b'S', c_ushort)
-register_preferred_encoding(b'l', c_long)
-register_preferred_encoding(b'L', c_ulong)
+register_preferred_encoding(b"s", c_short)
+register_preferred_encoding(b"S", c_ushort)
+register_preferred_encoding(b"l", c_long)
+register_preferred_encoding(b"L", c_ulong)
 
 # Do not register c_int or c_longlong as preferred.
 # If c_int or c_longlong is the same size as c_long, ctypes makes it an alias
 # for c_long. If we would register c_int and c_longlong as preferred, this
 # could cause c_long to be encoded as b'i' or b'q', instead of b'l'.
 # The same applies to the unsigned versions.
-register_encoding(b'i', c_int)
-register_encoding(b'I', c_uint)
-register_encoding(b'q', c_longlong)
-register_encoding(b'Q', c_ulonglong)
+register_encoding(b"i", c_int)
+register_encoding(b"I", c_uint)
+register_encoding(b"q", c_longlong)
+register_encoding(b"Q", c_ulonglong)
 
-register_preferred_encoding(b'f', c_float)
-register_preferred_encoding(b'd', c_double)
+register_preferred_encoding(b"f", c_float)
+register_preferred_encoding(b"d", c_double)
 # As above, c_longdouble may be c_double, so do not make it preferred.
-register_encoding(b'D', c_longdouble)
+register_encoding(b"D", c_longdouble)
 
 # c_char encodes the same as c_byte.
 # ctypes converts c_char values to a one-character bytestring, which is
 # usually not the desired behavior, especially since BOOL is c_byte on
 # 32-bit, and truth tests work differently for bytestrings than for numbers.
 # So we do not make this mapping preferred.
-register_encoding(b'c', c_char)
+register_encoding(b"c", c_char)
 
 # Strictly speaking, c_char_p is only appropriate for actual C strings
 # (null-terminated pointers to char without explicit signedness).
@@ -549,29 +594,29 @@ register_encoding(b'c', c_char)
 # they might point to non-null-terminated data.
 # Despite this, we prefer to map b'*' to c_char_p, because its most common
 # use is for C strings.
-register_preferred_encoding(b'*', c_char_p)
+register_preferred_encoding(b"*", c_char_p)
 # Register the other char pointers, so they are all correctly mapped to b'*'.
 # The compiler never generates encodings b'^c' or b'^C'.
-register_encoding(b'*', POINTER(c_char))
-register_encoding(b'*', POINTER(c_byte))
-register_encoding(b'*', POINTER(c_ubyte))
+register_encoding(b"*", POINTER(c_char))
+register_encoding(b"*", POINTER(c_byte))
+register_encoding(b"*", POINTER(c_ubyte))
 
 # c_wchar encodes the same as c_int, and c_wchar_p the same as POINTER(c_int).
 # wchar_t is rarely used in Objective-C, so we do not make c_wchar or
 # c_wchar_p preferred.
-register_encoding(b'i', c_wchar)
-register_encoding(b'^i', c_wchar_p)
+register_encoding(b"i", c_wchar)
+register_encoding(b"^i", c_wchar_p)
 # Register POINTER(c_int) as preferred so it takes precedence over c_wchar_p.
 # (Other pointer types are resolved automatically by ctype_for_encoding and
 # encoding_for_ctype.)
-register_preferred_encoding(b'^i', POINTER(c_int))
+register_preferred_encoding(b"^i", POINTER(c_int))
 
-register_preferred_encoding(b'^v', c_void_p)
+register_preferred_encoding(b"^v", c_void_p)
 
 # Anonymous structs/unions with unknown fields can't be decoded meaningfully,
 # so we treat pointers to them like void pointers.
-register_encoding(b'^{?}', c_void_p)
-register_encoding(b'^(?)', c_void_p)
+register_encoding(b"^{?}", c_void_p)
+register_encoding(b"^(?)", c_void_p)
 
 
 # Note CGBase.h located at
@@ -581,32 +626,32 @@ if __LP64__:
     NSInteger = c_long
     NSUInteger = c_ulong
     CGFloat = c_double
-    _NSPointEncoding = _CGPointEncoding = b'{CGPoint=dd}'
-    _NSSizeEncoding = _CGSizeEncoding = b'{CGSize=dd}'
-    _NSRectEncoding = _CGRectEncoding = b'{CGRect={CGPoint=dd}{CGSize=dd}}'
-    _NSRangeEncoding = b'{_NSRange=QQ}'
-    _UIEdgeInsetsEncoding = b'{UIEdgeInsets=dddd}'
-    _NSEdgeInsetsEncoding = b'{NSEdgeInsets=dddd}'
-    _PyObjectEncoding = b'^{_object=q^{_typeobject}}'
+    _NSPointEncoding = _CGPointEncoding = b"{CGPoint=dd}"
+    _NSSizeEncoding = _CGSizeEncoding = b"{CGSize=dd}"
+    _NSRectEncoding = _CGRectEncoding = b"{CGRect={CGPoint=dd}{CGSize=dd}}"
+    _NSRangeEncoding = b"{_NSRange=QQ}"
+    _UIEdgeInsetsEncoding = b"{UIEdgeInsets=dddd}"
+    _NSEdgeInsetsEncoding = b"{NSEdgeInsets=dddd}"
+    _PyObjectEncoding = b"^{_object=q^{_typeobject}}"
 else:
     NSInteger = c_int
     NSUInteger = c_uint
     CGFloat = c_float
-    _NSPointEncoding = b'{_NSPoint=ff}'
-    _CGPointEncoding = b'{CGPoint=ff}'
-    _NSSizeEncoding = b'{_NSSize=ff}'
-    _CGSizeEncoding = b'{CGSize=ff}'
-    _NSRectEncoding = b'{_NSRect={_NSPoint=ff}{_NSSize=ff}}'
-    _CGRectEncoding = b'{CGRect={CGPoint=ff}{CGSize=ff}}'
-    _NSRangeEncoding = b'{_NSRange=II}'
-    _UIEdgeInsetsEncoding = b'{UIEdgeInsets=ffff}'
-    _NSEdgeInsetsEncoding = b'{NSEdgeInsets=ffff}'
-    _PyObjectEncoding = b'^{_object=i^{_typeobject}}'
+    _NSPointEncoding = b"{_NSPoint=ff}"
+    _CGPointEncoding = b"{CGPoint=ff}"
+    _NSSizeEncoding = b"{_NSSize=ff}"
+    _CGSizeEncoding = b"{CGSize=ff}"
+    _NSRectEncoding = b"{_NSRect={_NSPoint=ff}{_NSSize=ff}}"
+    _CGRectEncoding = b"{CGRect={CGPoint=ff}{CGSize=ff}}"
+    _NSRangeEncoding = b"{_NSRange=II}"
+    _UIEdgeInsetsEncoding = b"{UIEdgeInsets=ffff}"
+    _NSEdgeInsetsEncoding = b"{NSEdgeInsets=ffff}"
+    _PyObjectEncoding = b"^{_object=i^{_typeobject}}"
 
 register_preferred_encoding(_PyObjectEncoding, py_object)
 
 
-@with_preferred_encoding(b'^?')
+@with_preferred_encoding(b"^?")
 class UnknownPointer(c_void_p):
     """Placeholder for the b'^?' "unknown pointer" type. Not to be confused
     with a b'^v' void pointer. Usually a b'^?' is a function pointer, but
@@ -619,59 +664,44 @@ class UnknownPointer(c_void_p):
 # from /System/Library/Frameworks/Foundation.framework/Headers/NSGeometry.h
 @with_preferred_encoding(_NSPointEncoding)
 class NSPoint(Structure):
-    _fields_ = [
-        ("x", CGFloat),
-        ("y", CGFloat)
-    ]
+    _fields_ = [("x", CGFloat), ("y", CGFloat)]
 
 
 if _CGPointEncoding == _NSPointEncoding:
     CGPoint = NSPoint
 else:
+
     @with_preferred_encoding(_CGPointEncoding)
     class CGPoint(Structure):
-        _fields_ = [
-            ("x", CGFloat),
-            ("y", CGFloat)
-        ]
+        _fields_ = [("x", CGFloat), ("y", CGFloat)]
 
 
 @with_preferred_encoding(_NSSizeEncoding)
 class NSSize(Structure):
-    _fields_ = [
-        ("width", CGFloat),
-        ("height", CGFloat)
-    ]
+    _fields_ = [("width", CGFloat), ("height", CGFloat)]
 
 
 if _CGSizeEncoding == _NSSizeEncoding:
     CGSize = NSSize
 else:
+
     @with_preferred_encoding(_CGSizeEncoding)
     class CGSize(Structure):
-        _fields_ = [
-            ("width", CGFloat),
-            ("height", CGFloat)
-        ]
+        _fields_ = [("width", CGFloat), ("height", CGFloat)]
 
 
 @with_preferred_encoding(_NSRectEncoding)
 class NSRect(Structure):
-    _fields_ = [
-        ("origin", NSPoint),
-        ("size", NSSize)
-    ]
+    _fields_ = [("origin", NSPoint), ("size", NSSize)]
 
 
 if _CGRectEncoding == _NSRectEncoding:
     CGRect = NSRect
 else:
+
     @with_preferred_encoding(_CGRectEncoding)
     class CGRect(Structure):
-        _fields_ = [
-            ("origin", CGPoint),
-            ("size", CGSize)
-        ]
+        _fields_ = [("origin", CGPoint), ("size", CGSize)]
 
 
 def NSMakeSize(w, h):
@@ -701,10 +731,12 @@ def CGPointMake(x, y):
 # iOS: /System/Library/Frameworks/UIKit.framework/Headers/UIGeometry.h
 @with_preferred_encoding(_UIEdgeInsetsEncoding)
 class UIEdgeInsets(Structure):
-    _fields_ = [('top', CGFloat),
-                ('left', CGFloat),
-                ('bottom', CGFloat),
-                ('right', CGFloat)]
+    _fields_ = [
+        ("top", CGFloat),
+        ("left", CGFloat),
+        ("bottom", CGFloat),
+        ("right", CGFloat),
+    ]
 
 
 def UIEdgeInsetsMake(top, left, bottom, right):
@@ -717,14 +749,17 @@ UIEdgeInsetsZero = UIEdgeInsets(0, 0, 0, 0)
 # macOS: /System/Library/Frameworks/AppKit.framework/Headers/NSLayoutConstraint.h
 @with_preferred_encoding(_NSEdgeInsetsEncoding)
 class NSEdgeInsets(Structure):
-    _fields_ = [('top', CGFloat),
-                ('left', CGFloat),
-                ('bottom', CGFloat),
-                ('right', CGFloat)]
+    _fields_ = [
+        ("top", CGFloat),
+        ("left", CGFloat),
+        ("bottom", CGFloat),
+        ("right", CGFloat),
+    ]
 
 
 def NSEdgeInsetsMake(top, left, bottom, right):
     return NSEdgeInsets(top, left, bottom, right)
+
 
 # strangely, there is no NSEdgeInsetsZero, neither in public nor in private API.
 
@@ -741,26 +776,20 @@ CGGlyph = c_ushort
 # CFRange struct defined in CFBase.h
 # This replaces the CFRangeMake(LOC, LEN) macro.
 class CFRange(Structure):
-    _fields_ = [
-        ("location", CFIndex),
-        ("length", CFIndex)
-    ]
+    _fields_ = [("location", CFIndex), ("length", CFIndex)]
 
 
 # NSRange.h  (Note, not defined the same as CFRange)
 @with_preferred_encoding(_NSRangeEncoding)
 class NSRange(Structure):
-    _fields_ = [
-        ("location", NSUInteger),
-        ("length", NSUInteger)
-    ]
+    _fields_ = [("location", NSUInteger), ("length", NSUInteger)]
 
 
 NSZeroPoint = NSPoint(0, 0)
 
 
 if sizeof(c_void_p) == 4:
-    NSIntegerMax = 0x7fffffff
+    NSIntegerMax = 0x7FFFFFFF
 elif sizeof(c_void_p) == 8:
-    NSIntegerMax = 0x7fffffffffffffff
+    NSIntegerMax = 0x7FFFFFFFFFFFFFFF
 NSNotFound = NSIntegerMax

@@ -1,41 +1,69 @@
 import os
 from ctypes import (
-    CDLL, CFUNCTYPE, POINTER, Structure, Union, addressof, alignment, byref, c_bool, c_char_p, c_double, c_float,
-    c_int, c_int32, c_int64, c_longdouble, c_size_t, c_uint, c_uint8, c_void_p, cast, memmove, sizeof, util,
+    CDLL,
+    CFUNCTYPE,
+    POINTER,
+    Structure,
+    Union,
+    addressof,
+    alignment,
+    byref,
+    c_bool,
+    c_char_p,
+    c_double,
+    c_float,
+    c_int,
+    c_int32,
+    c_int64,
+    c_longdouble,
+    c_size_t,
+    c_uint,
+    c_uint8,
+    c_void_p,
+    cast,
+    memmove,
+    sizeof,
+    util,
 )
 
 from . import ctypes_patch
 from .types import (
-    __arm__, __i386__, __x86_64__, ctype_for_encoding, ctype_for_type, encoding_for_ctype, with_encoding,
+    __arm__,
+    __i386__,
+    __x86_64__,
+    ctype_for_encoding,
+    ctype_for_type,
+    encoding_for_ctype,
+    with_encoding,
     with_preferred_encoding,
 )
 
 __all__ = [
-    'Class',
-    'Foundation',
-    'IMP',
-    'Ivar',
-    'Method',
-    'SEL',
-    'add_ivar',
-    'add_method',
-    'c_ptrdiff_t',
-    'get_class',
-    'get_ivar',
-    'libc',
-    'libobjc',
-    'load_library',
-    'objc_block',
-    'objc_id',
-    'objc_method_description',
-    'objc_property_t',
-    'objc_super',
-    'object_isClass',
-    'send_message',
-    'send_super',
-    'set_ivar',
-    'should_use_fpret',
-    'should_use_stret',
+    "Class",
+    "Foundation",
+    "IMP",
+    "Ivar",
+    "Method",
+    "SEL",
+    "add_ivar",
+    "add_method",
+    "c_ptrdiff_t",
+    "get_class",
+    "get_ivar",
+    "libc",
+    "libobjc",
+    "load_library",
+    "objc_block",
+    "objc_id",
+    "objc_method_description",
+    "objc_property_t",
+    "objc_super",
+    "object_isClass",
+    "send_message",
+    "send_super",
+    "set_ivar",
+    "should_use_fpret",
+    "should_use_stret",
 ]
 
 if sizeof(c_void_p) == 4:
@@ -84,22 +112,22 @@ def load_library(name):
     raise ValueError("Library {!r} not found".format(name))
 
 
-libc = load_library('c')
-libobjc = load_library('objc')
-Foundation = load_library('Foundation')
+libc = load_library("c")
+libobjc = load_library("objc")
+Foundation = load_library("Foundation")
 
 
-@with_encoding(b'@')
+@with_encoding(b"@")
 class objc_id(c_void_p):
     pass
 
 
-@with_encoding(b'@?')
+@with_encoding(b"@?")
 class objc_block(objc_id):
     pass
 
 
-@with_preferred_encoding(b':')
+@with_preferred_encoding(b":")
 class SEL(c_void_p):
     @property
     def name(self):
@@ -128,7 +156,7 @@ class SEL(c_void_p):
         )
 
 
-@with_preferred_encoding(b'#')
+@with_preferred_encoding(b"#")
 class Class(objc_id):
     pass
 
@@ -151,8 +179,8 @@ class objc_property_t(c_void_p):
 
 class objc_property_attribute_t(Structure):
     _fields_ = [
-        ('name', c_char_p),
-        ('value', c_char_p),
+        ("name", c_char_p),
+        ("value", c_char_p),
     ]
 
 
@@ -173,7 +201,12 @@ libobjc.class_addMethod.argtypes = [Class, SEL, IMP, c_char_p]
 # BOOL class_addProperty(Class cls, const char *name, const objc_property_attribute_t *attributes,
 #     unsigned int attributeCount)
 libobjc.class_addProperty.restype = c_bool
-libobjc.class_addProperty.argtypes = [Class, c_char_p, POINTER(objc_property_attribute_t), c_uint]
+libobjc.class_addProperty.argtypes = [
+    Class,
+    c_char_p,
+    POINTER(objc_property_attribute_t),
+    c_uint,
+]
 
 # BOOL class_addProtocol(Class cls, Protocol *protocol)
 libobjc.class_addProtocol.restype = c_bool
@@ -389,8 +422,11 @@ libobjc.object_getClass.argtypes = [objc_id]
 try:
     object_isClass = libobjc.object_isClass
 except AttributeError:
+
     def object_isClass(obj):
         return libobjc.class_isMetaClass(libobjc.object_getClass(obj))
+
+
 else:
     # BOOL object_isClass(id obj)
     object_isClass.restype = c_bool
@@ -433,15 +469,21 @@ libobjc.property_copyAttributeList.argtypes = [objc_property_t, POINTER(c_uint)]
 
 class objc_method_description(Structure):
     _fields_ = [
-        ('name', SEL),
-        ('types', c_char_p),
+        ("name", SEL),
+        ("types", c_char_p),
     ]
 
 
 # void protocol_addMethodDescription(Protocol *proto, SEL name, const char *types,
 #     BOOL isRequiredMethod, BOOL isInstanceMethod)
 libobjc.protocol_addMethodDescription.restype = None
-libobjc.protocol_addMethodDescription.argtypes = [objc_id, SEL, c_char_p, c_bool, c_bool]
+libobjc.protocol_addMethodDescription.argtypes = [
+    objc_id,
+    SEL,
+    c_char_p,
+    c_bool,
+    c_bool,
+]
 
 # void protocol_addProtocol(Protocol *proto, Protocol *addition)
 libobjc.protocol_addProtocol.restype = None
@@ -450,7 +492,14 @@ libobjc.protocol_addProtocol.argtypes = [objc_id, objc_id]
 # void protocol_addProperty(Protocol *proto, const char *name, const objc_property_attribute_t *attributes,
 #     unsigned int attributeCount, BOOL isRequiredProperty, BOOL isInstanceProperty)
 libobjc.protocol_addProperty.restype = None
-libobjc.protocol_addProperty.argtypes = [objc_id, c_char_p, POINTER(objc_property_attribute_t), c_uint, c_bool, c_bool]
+libobjc.protocol_addProperty.argtypes = [
+    objc_id,
+    c_char_p,
+    POINTER(objc_property_attribute_t),
+    c_uint,
+    c_bool,
+    c_bool,
+]
 
 # Protocol *objc_allocateProtocol(const char *name)
 libobjc.objc_allocateProtocol.restype = objc_id
@@ -464,7 +513,12 @@ libobjc.protocol_conformsToProtocol.argtypes = [objc_id, objc_id]
 #     Protocol *p, BOOL isRequiredMethod, BOOL isInstanceMethod, unsigned int *outCount)
 # You must free() the returned array.
 libobjc.protocol_copyMethodDescriptionList.restype = POINTER(objc_method_description)
-libobjc.protocol_copyMethodDescriptionList.argtypes = [objc_id, c_bool, c_bool, POINTER(c_uint)]
+libobjc.protocol_copyMethodDescriptionList.argtypes = [
+    objc_id,
+    c_bool,
+    c_bool,
+    POINTER(c_uint),
+]
 
 # objc_property_t * protocol_copyPropertyList(Protocol *protocol, unsigned int *outCount)
 libobjc.protocol_copyPropertyList.restype = POINTER(objc_property_t)
@@ -504,12 +558,13 @@ libobjc.sel_registerName.argtypes = [c_char_p]
 
 ######################################################################
 
+
 def ensure_bytes(x):
     if isinstance(x, bytes):
         return x
     # "All char * in the runtime API should be considered to have UTF-8 encoding."
     # https://developer.apple.com/documentation/objectivec/objective_c_runtime?preferredLanguage=occ
-    return x.encode('utf-8')
+    return x.encode("utf-8")
 
 
 ######################################################################
@@ -582,11 +637,15 @@ def send_message(receiver, selName, *args, **kwargs):
     elif type(receiver) == c_void_p:
         receiver = cast(receiver, objc_id)
     else:
-        raise TypeError("Invalid type for receiver: {tp.__module__}.{tp.__qualname__}".format(tp=type(receiver)))
+        raise TypeError(
+            "Invalid type for receiver: {tp.__module__}.{tp.__qualname__}".format(
+                tp=type(receiver)
+            )
+        )
 
     selector = SEL(selName)
-    restype = kwargs.get('restype', c_void_p)
-    argtypes = kwargs.get('argtypes', [])
+    restype = kwargs.get("restype", c_void_p)
+    argtypes = kwargs.get("argtypes", [])
 
     # Choose the correct version of objc_msgSend based on return type.
     # Use libobjc['name'] instead of libobjc.name to get a new function object
@@ -594,17 +653,17 @@ def send_message(receiver, selName, *args, **kwargs):
     # This way multiple threads sending messages don't overwrite
     # each other's function signatures.
     if should_use_fpret(restype):
-        send = libobjc['objc_msgSend_fpret']
+        send = libobjc["objc_msgSend_fpret"]
         send.restype = restype
         send.argtypes = [objc_id, SEL] + argtypes
         result = send(receiver, selector, *args)
     elif should_use_stret(restype):
-        send = libobjc['objc_msgSend_stret']
+        send = libobjc["objc_msgSend_stret"]
         send.restype = restype
         send.argtypes = [objc_id, SEL] + argtypes
         result = send(receiver, selector, *args)
     else:
-        send = libobjc['objc_msgSend']
+        send = libobjc["objc_msgSend"]
         send.restype = restype
         send.argtypes = [objc_id, SEL] + argtypes
         result = send(receiver, selector, *args)
@@ -614,7 +673,7 @@ def send_message(receiver, selName, *args, **kwargs):
 
 
 class objc_super(Structure):
-    _fields_ = [('receiver', objc_id), ('super_class', Class)]
+    _fields_ = [("receiver", objc_id), ("super_class", Class)]
 
 
 # http://stackoverflow.com/questions/3095360/what-exactly-is-super-in-objective-c
@@ -645,12 +704,15 @@ def send_super(cls, receiver, selName, *args, **kwargs):
 
     if not isinstance(cls, Class):
         # Kindly remind the caller that the API has changed
-        raise TypeError("Missing/Invalid cls argument: '{tp.__module__}.{tp.__qualname__}' -- "
-                        .format(tp=type(cls))
-                        + "send_super now requires its first argument be an"
-                        + " ObjCClass or an objc raw Class pointer."
-                        + " To fix this error, use Python's __class__ keyword as the first argument to"
-                        + " send_super.")
+        raise TypeError(
+            "Missing/Invalid cls argument: '{tp.__module__}.{tp.__qualname__}' -- ".format(
+                tp=type(cls)
+            )
+            + "send_super now requires its first argument be an"
+            + " ObjCClass or an objc raw Class pointer."
+            + " To fix this error, use Python's __class__ keyword as the first argument to"
+            + " send_super."
+        )
 
     try:
         receiver = receiver._as_parameter_
@@ -662,21 +724,28 @@ def send_super(cls, receiver, selName, *args, **kwargs):
     elif type(receiver) == c_void_p:
         receiver = cast(receiver, objc_id)
     else:
-        raise TypeError("Invalid type for receiver: {tp.__module__}.{tp.__qualname__}".format(tp=type(receiver)))
+        raise TypeError(
+            "Invalid type for receiver: {tp.__module__}.{tp.__qualname__}".format(
+                tp=type(receiver)
+            )
+        )
 
     super_ptr = libobjc.class_getSuperclass(cls)
     if super_ptr.value is None:
-        raise ValueError("The specified class '{}' does not have an Objective-C superclass and/or is a root class."
-                         .format(libobjc.class_getName(cls).decode('utf-8')))
+        raise ValueError(
+            "The specified class '{}' does not have an Objective-C superclass and/or is a root class.".format(
+                libobjc.class_getName(cls).decode("utf-8")
+            )
+        )
     super_struct = objc_super(receiver, super_ptr)
     selector = SEL(selName)
-    restype = kwargs.get('restype', c_void_p)
-    argtypes = kwargs.get('argtypes', None)
+    restype = kwargs.get("restype", c_void_p)
+    argtypes = kwargs.get("argtypes", None)
 
     if should_use_stret(restype):
-        send = libobjc['objc_msgSendSuper_stret']
+        send = libobjc["objc_msgSendSuper_stret"]
     else:
-        send = libobjc['objc_msgSendSuper']
+        send = libobjc["objc_msgSendSuper"]
     send.restype = restype
     if argtypes is None:
         send.argtypes = [POINTER(objc_super), SEL]
@@ -718,8 +787,11 @@ def add_method(cls, selName, method, encoding):
 def add_ivar(cls, name, vartype):
     "Add a new instance variable of type vartype to cls."
     return libobjc.class_addIvar(
-        cls, ensure_bytes(name), sizeof(vartype),
-        alignment(vartype), encoding_for_ctype(ctype_for_type(vartype))
+        cls,
+        ensure_bytes(name),
+        sizeof(vartype),
+        alignment(vartype),
+        encoding_for_ctype(ctype_for_type(vartype)),
     )
 
 
@@ -739,7 +811,9 @@ def get_ivar(obj, varname):
     except AttributeError:
         pass
 
-    ivar = libobjc.class_getInstanceVariable(libobjc.object_getClass(obj), ensure_bytes(varname))
+    ivar = libobjc.class_getInstanceVariable(
+        libobjc.object_getClass(obj), ensure_bytes(varname)
+    )
     vartype = ctype_for_encoding(libobjc.ivar_getTypeEncoding(ivar))
 
     if isinstance(vartype, objc_id):
@@ -759,21 +833,27 @@ def set_ivar(obj, varname, value):
     except AttributeError:
         pass
 
-    ivar = libobjc.class_getInstanceVariable(libobjc.object_getClass(obj), ensure_bytes(varname))
+    ivar = libobjc.class_getInstanceVariable(
+        libobjc.object_getClass(obj), ensure_bytes(varname)
+    )
     vartype = ctype_for_encoding(libobjc.ivar_getTypeEncoding(ivar))
 
     if not isinstance(value, vartype):
         raise TypeError(
-            "Incompatible type for ivar {!r}: {!r} is not a subclass of the ivar's type {!r}"
-            .format(varname, type(value), vartype)
+            "Incompatible type for ivar {!r}: {!r} is not a subclass of the ivar's type {!r}".format(
+                varname, type(value), vartype
+            )
         )
     elif sizeof(type(value)) != sizeof(vartype):
         raise TypeError(
-            "Incompatible type for ivar {!r}: {!r} has size {}, but the ivar's type {!r} has size {}"
-            .format(varname, type(value), sizeof(type(value)), vartype, sizeof(vartype))
+            "Incompatible type for ivar {!r}: {!r} has size {}, but the ivar's type {!r} has size {}".format(
+                varname, type(value), sizeof(type(value)), vartype, sizeof(vartype)
+            )
         )
 
     if isinstance(vartype, objc_id):
         libobjc.object_setIvar(obj, ivar, value)
     else:
-        memmove(obj.value + libobjc.ivar_getOffset(ivar), addressof(value), sizeof(vartype))
+        memmove(
+            obj.value + libobjc.ivar_getOffset(ivar), addressof(value), sizeof(vartype)
+        )

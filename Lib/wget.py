@@ -15,21 +15,24 @@ try:
 except:
     console = None
 
+
 def main(args):
 
     from progress.bar import ChargingBar as Bar
 
     ap = argparse.ArgumentParser()
-    ap.add_argument('-o', '--output-file', nargs='?', help='save content as file')
-    ap.add_argument('url', nargs='?', help='the url to read from (default to clipboard)')
+    ap.add_argument("-o", "--output-file", nargs="?", help="save content as file")
+    ap.add_argument(
+        "url", nargs="?", help="the url to read from (default to clipboard)"
+    )
 
     ns = ap.parse_args(args)
     url = ns.url or clipboard.get()
-    output_file = ns.output_file or url.split('/')[-1]
+    output_file = ns.output_file or url.split("/")[-1]
 
     try:
 
-        #print('Opening: %s\n' % url)
+        # print('Opening: %s\n' % url)
         u = urlopen(url)
 
         meta = u.info()
@@ -38,16 +41,16 @@ def main(args):
         except (IndexError, ValueError, TypeError):
             file_size = 0
 
-        #print("Save as: {} ".format(output_file), end="")
-        #print("({} bytes)".format(file_size if file_size else "???"))
-        
-        with open(output_file, 'wb') as f:
+        # print("Save as: {} ".format(output_file), end="")
+        # print("({} bytes)".format(file_size if file_size else "???"))
+
+        with open(output_file, "wb") as f:
 
             file_size_dl = 0
             block_sz = 8192
 
             if file_size != 0 and file_size is not None:
-                bar = Bar('Downloading', max=100)
+                bar = Bar("Downloading", max=100)
             else:
                 bar = None
 
@@ -59,9 +62,9 @@ def main(args):
                     break
                 file_size_dl += len(buf)
                 f.write(buf)
-                
+
                 if bar is not None:
-                    n = int(file_size_dl * 100. / file_size)
+                    n = int(file_size_dl * 100.0 / file_size)
 
                     if n == _n:
                         continue
@@ -80,11 +83,11 @@ def main(args):
 
     except Exception as e:
         print(e)
-        print('Unable to download file: %s' % url)
+        print("Unable to download file: %s" % url)
         return 1
 
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main(sys.argv[1:])

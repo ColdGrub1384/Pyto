@@ -181,7 +181,9 @@ class BackgroundTask:
         check(id, "id", [str, None])
 
         if id is None:
-            self.id = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
+            self.id = "".join(
+                random.choice(string.ascii_uppercase + string.digits) for _ in range(5)
+            )
         else:
             self.id = id
 

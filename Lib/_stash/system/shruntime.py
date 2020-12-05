@@ -7,10 +7,11 @@ import threading
 import functools
 
 from six import StringIO, text_type, binary_type, PY3
+
 try:
-	file
+    file
 except NameError:
-	from io import IOBase as file
+    from io import IOBase as file
 
 import pyparsing as pp
 
@@ -22,13 +23,26 @@ except ImportError:
     from . import dummyui as ui
     from .dummyobjc_util import on_main_thread
 
-from .shcommon import ShBadSubstitution, ShInternalError, ShIsDirectory, \
-    ShFileNotFound, ShEventNotFound, ShNotExecutable
+from .shcommon import (
+    ShBadSubstitution,
+    ShInternalError,
+    ShIsDirectory,
+    ShFileNotFound,
+    ShEventNotFound,
+    ShNotExecutable,
+)
+
 # noinspection PyProtectedMember
 from .shcommon import _STASH_ROOT, _STASH_HISTORY_FILE, _SYS_STDOUT, _SYS_STDERR
 from .shcommon import is_binary_file, _STASH_EXTENSION_BIN_PATH
 from .shparsers import ShPipeSequence
-from .shthreads import ShBaseThread, ShTracedThread, ShCtypesThread, ShState, ShWorkerRegistry
+from .shthreads import (
+    ShBaseThread,
+    ShTracedThread,
+    ShCtypesThread,
+    ShState,
+    ShWorkerRegistry,
+)
 
 
 # Default .stashrc file
@@ -44,8 +58,8 @@ alias copy='pbcopy'
 alias paste='pbpaste'
 alias unmount='umount'
 """.format(
-	bin_ext=_STASH_EXTENSION_BIN_PATH,
-	)
+    bin_ext=_STASH_EXTENSION_BIN_PATH,
+)
 
 
 class ShRuntime(object):
@@ -59,18 +73,19 @@ class ShRuntime(object):
         self.parser = parser
         self.expander = expander
         self.debug = debug
-        self.logger = logging.getLogger('StaSh.Runtime')
+        self.logger = logging.getLogger("StaSh.Runtime")
 
         self.state = ShState(
-            environ=dict(os.environ,
-                         HOME2=os.path.join(os.environ['HOME'], 'Documents'),
-                         STASH_ROOT=_STASH_ROOT,
-                         STASH_PY_VERSION=platform.python_version(),
-                         BIN_PATH=os.path.join(_STASH_ROOT, 'bin'),
-                         # Must have a placeholder because it is needed before _DEFAULT_RC is loaded
-                         PROMPT='[\W]$ ',
-                         PYTHONISTA_ROOT=os.path.dirname(sys.executable)
-                         ),
+            environ=dict(
+                os.environ,
+                HOME2=os.path.join(os.environ["HOME"], "Documents"),
+                STASH_ROOT=_STASH_ROOT,
+                STASH_PY_VERSION=platform.python_version(),
+                BIN_PATH=os.path.join(_STASH_ROOT, "bin"),
+                # Must have a placeholder because it is needed before _DEFAULT_RC is loaded
+                PROMPT="[\W]$ ",
+                PYTHONISTA_ROOT=os.path.dirname(sys.executable),
+            ),
             sys_stdin=self.stash.io,
             sys_stdout=self.stash.io,
             sys_stderr=self.stash.io,
@@ -79,18 +94,18 @@ class ShRuntime(object):
         self.worker_registry = ShWorkerRegistry()
 
         config = stash.config
-        self.rcfile = os.path.join(_STASH_ROOT, config.get('system', 'rcfile'))
+        self.rcfile = os.path.join(_STASH_ROOT, config.get("system", "rcfile"))
         self.historyfile = os.path.join(_STASH_ROOT, _STASH_HISTORY_FILE)
-        self.HISTORY_MAX = config.getint('display', 'HISTORY_MAX')
+        self.HISTORY_MAX = config.getint("display", "HISTORY_MAX")
 
-        self.py_traceback = config.getint('system', 'py_traceback')
-        self.py_pdb = config.getint('system', 'py_pdb')
-        self.input_encoding_utf8 = config.getint('system', 'input_encoding_utf8')
+        self.py_traceback = config.getint("system", "py_traceback")
+        self.py_pdb = config.getint("system", "py_pdb")
+        self.input_encoding_utf8 = config.getint("system", "input_encoding_utf8")
         self.ipython_style_history_search = config.getint(
-            'system', 'ipython_style_history_search')
-        self.ShThread = {'traced': ShTracedThread, 'ctypes': ShCtypesThread}.get(
-            config.get('system', 'thread_type'),
-            ShCtypesThread
+            "system", "ipython_style_history_search"
+        )
+        self.ShThread = {"traced": ShTracedThread, "ctypes": ShCtypesThread}.get(
+            config.get("system", "thread_type"), ShCtypesThread
         )
 
         # load history from last session
@@ -109,28 +124,38 @@ class ShRuntime(object):
         self.history_listsource = ui.ListDataSource(self.history)
         self.history_listsource.action = self.history_popover_tapped
         self.idx_to_history = -1
-        self.history_templine = ''
+        self.history_templine = ""
 
     def load_rcfile(self, no_rcfile=False):
-        self.stash(_DEFAULT_RC.splitlines(),
-                   persistent_level=1,
-                   add_to_history=False, add_new_inp_line=False)
+        self.stash(
+            _DEFAULT_RC.splitlines(),
+            persistent_level=1,
+            add_to_history=False,
+            add_new_inp_line=False,
+        )
 
-        if not no_rcfile and os.path.exists(self.rcfile) and os.path.isfile(self.rcfile):
+        if (
+            not no_rcfile
+            and os.path.exists(self.rcfile)
+            and os.path.isfile(self.rcfile)
+        ):
             try:
                 with open(self.rcfile) as ins:
-                    self.stash(ins.readlines(),
-                               persistent_level=1,
-                               add_to_history=False, add_new_inp_line=False)
+                    self.stash(
+                        ins.readlines(),
+                        persistent_level=1,
+                        add_to_history=False,
+                        add_new_inp_line=False,
+                    )
             except IOError:
-                self.stash.write_message('%s: error reading rcfile\n' % self.rcfile)
+                self.stash.write_message("%s: error reading rcfile\n" % self.rcfile)
 
     def find_script_file(self, filename):
         _, current_state = self.get_current_worker_and_state()
 
         dir_match_found = False
         # direct match of the filename, e.g. full path, relative path etc.
-        for fname in (filename, filename + '.py', filename + '.sh'):
+        for fname in (filename, filename + ".py", filename + ".sh"):
             if os.path.exists(fname):
                 if os.path.isdir(fname):
                     dir_match_found = True
@@ -139,40 +164,47 @@ class ShRuntime(object):
 
         # Match for commands in current dir and BIN_PATH
         # Effectively, current dir is always the first in BIN_PATH
-        for path in ['.'] + current_state.environ_get('BIN_PATH').split(':'):
+        for path in ["."] + current_state.environ_get("BIN_PATH").split(":"):
             path = os.path.abspath(os.path.expanduser(path))
             if os.path.exists(path):
                 for f in os.listdir(path):
-                    if f == filename or f == filename + '.py' or f == filename + '.sh':
+                    if f == filename or f == filename + ".py" or f == filename + ".sh":
                         if os.path.isdir(f):
                             dir_match_found = True
                         else:
                             return os.path.join(path, f)
         if dir_match_found:
-            raise ShIsDirectory('%s: is a directory' % filename)
+            raise ShIsDirectory("%s: is a directory" % filename)
         else:
-            raise ShFileNotFound('%s: command not found' % filename)
+            raise ShFileNotFound("%s: command not found" % filename)
 
     def get_all_script_names(self):
         """ This function used for completer, whitespaces in names are escaped"""
         _, current_state = self.get_current_worker_and_state()
         all_names = []
-        for path in ['.'] + current_state.environ_get('BIN_PATH').split(':'):
+        for path in ["."] + current_state.environ_get("BIN_PATH").split(":"):
             path = os.path.expanduser(path)
             if os.path.exists(path):
                 for f in os.listdir(path):
-                    if not os.path.isdir(f) and (f.endswith('.py') or f.endswith('.sh')):
-                        all_names.append(f.replace(' ', '\\ '))
+                    if not os.path.isdir(f) and (
+                        f.endswith(".py") or f.endswith(".sh")
+                    ):
+                        all_names.append(f.replace(" ", "\\ "))
         return all_names
 
-    def run(self, input_=None,
-            final_ins=None, final_outs=None, final_errs=None,
-            add_to_history=None,
-            add_new_inp_line=None,
-            persistent_level=0,
-            is_background=False,
-            environ={},
-            cwd=None):
+    def run(
+        self,
+        input_=None,
+        final_ins=None,
+        final_outs=None,
+        final_errs=None,
+        add_to_history=None,
+        add_new_inp_line=None,
+        persistent_level=0,
+        is_background=False,
+        environ={},
+        cwd=None,
+    ):
         """
         This is the entry for running shell commands.
 
@@ -209,12 +241,14 @@ class ShRuntime(object):
 
             try:
                 if isinstance(input_, ShPipeSequence):
-                    self.run_pipe_sequence(input_,
-                                           final_ins=final_ins,
-                                           final_outs=final_outs,
-                                           final_errs=final_errs,
-                                           environ=environ,
-                                           cwd=cwd)
+                    self.run_pipe_sequence(
+                        input_,
+                        final_ins=final_ins,
+                        final_outs=final_outs,
+                        final_errs=final_errs,
+                        environ=environ,
+                        cwd=cwd,
+                    )
 
                 else:
                     if type(input_) is list:
@@ -226,7 +260,7 @@ class ShRuntime(object):
 
                     for line in lines:
                         # Ignore empty lines
-                        if line.strip() == '':
+                        if line.strip() == "":
                             continue
 
                         # Parse and expand the line (note this function returns a generator object)
@@ -249,29 +283,33 @@ class ShRuntime(object):
                                 pipe_sequence = next(expanded)
                                 if pipe_sequence.in_background:
                                     # For background command, separate worker is created
-                                    self.run(pipe_sequence,
-                                             final_ins=final_ins,
-                                             final_outs=final_outs,
-                                             final_errs=final_errs,
-                                             persistent_level=0,
-                                             is_background=True,
-                                             environ=environ,
-                                             cwd=cwd)
+                                    self.run(
+                                        pipe_sequence,
+                                        final_ins=final_ins,
+                                        final_outs=final_outs,
+                                        final_errs=final_errs,
+                                        persistent_level=0,
+                                        is_background=True,
+                                        environ=environ,
+                                        cwd=cwd,
+                                    )
                                 else:
-                                    self.run_pipe_sequence(pipe_sequence,
-                                                           final_ins=final_ins,
-                                                           final_outs=final_outs,
-                                                           final_errs=final_errs,
-                                                           
-                            environ=environ, cwd=cwd)
+                                    self.run_pipe_sequence(
+                                        pipe_sequence,
+                                        final_ins=final_ins,
+                                        final_outs=final_outs,
+                                        final_errs=final_errs,
+                                        environ=environ,
+                                        cwd=cwd,
+                                    )
                         finally:
                             if is_top:
                                 self.history_swap()
 
             except pp.ParseException as e:
                 if self.debug:
-                    self.logger.debug('ParseException: %s\n' % repr(e))
-                msg = 'syntax error: at char %d: %s\n' % (e.loc, e.pstr)
+                    self.logger.debug("ParseException: %s\n" % repr(e))
+                msg = "syntax error: at char %d: %s\n" % (e.loc, e.pstr)
                 if final_errs is None:
                     self.stash.write_message(msg)
                 else:
@@ -279,8 +317,8 @@ class ShRuntime(object):
 
             except ShEventNotFound as e:
                 if self.debug:
-                    self.logger.debug('%s\n' % repr(e))
-                msg = '%s: event not found\n' % e.args[0]
+                    self.logger.debug("%s\n" % repr(e))
+                msg = "%s: event not found\n" % e.args[0]
                 if final_errs is None:
                     self.stash.write_message(msg)
                 else:
@@ -288,8 +326,8 @@ class ShRuntime(object):
 
             except ShBadSubstitution as e:
                 if self.debug:
-                    self.logger.debug('%s\n' % repr(e))
-                msg = '%s\n' % e.args[0]
+                    self.logger.debug("%s\n" % repr(e))
+                msg = "%s\n" % e.args[0]
                 if final_errs is None:
                     self.stash.write_message(msg)
                 else:
@@ -297,8 +335,8 @@ class ShRuntime(object):
 
             except ShInternalError as e:
                 if self.debug:
-                    self.logger.debug('%s\n' % repr(e))
-                msg = '%s\n' % e.args[0]
+                    self.logger.debug("%s\n" % repr(e))
+                msg = "%s\n" % e.args[0]
                 if final_errs is None:
                     self.stash.write_message(msg)
                 else:
@@ -306,15 +344,15 @@ class ShRuntime(object):
 
             except IOError as e:
                 if self.debug:
-                    self.logger.debug('IOError: %s\n' % repr(e))
-                msg = '%s: %s\n' % (e.filename, e.strerror)
+                    self.logger.debug("IOError: %s\n" % repr(e))
+                msg = "%s: %s\n" % (e.filename, e.strerror)
                 if final_errs is None:
                     self.stash.write_message(msg)
                 else:
                     final_errs.write(msg)
 
             except KeyboardInterrupt as e:
-                msg = '^C\nKeyboardInterrupt: %s\n' % e.args[0]
+                msg = "^C\nKeyboardInterrupt: %s\n" % e.args[0]
                 if final_errs is None:
                     self.stash.write_message(msg)
                 else:
@@ -327,15 +365,21 @@ class ShRuntime(object):
             except Exception as e:
                 etype, evalue, tb = sys.exc_info()
                 if self.debug:
-                    self.logger.debug('Exception: %s\n' % repr(e))
-                msg = '%s\n' % repr(e)
+                    self.logger.debug("Exception: %s\n" % repr(e))
+                msg = "%s\n" % repr(e)
                 if final_errs is None:
                     self.stash.write_message(msg)
                 else:
                     final_errs.write(msg)
                 if self.py_traceback or self.py_pdb:
                     import traceback
-                    traceback.print_exception(etype, evalue, tb, file=(final_errs if final_errs is not None else None))
+
+                    traceback.print_exception(
+                        etype,
+                        evalue,
+                        tb,
+                        file=(final_errs if final_errs is not None else None),
+                    )
 
             finally:
                 # Housekeeping for the thread, e.g. remove itself from registry
@@ -351,7 +395,8 @@ class ShRuntime(object):
                 # Saves its state to parent or if persistent is required
                 if not current_worker.is_background:
                     current_worker.parent.state.persist_child(
-                        current_worker.state, persistent_level=persistent_level)
+                        current_worker.state, persistent_level=persistent_level
+                    )
 
         # Get the parent thread
         parent_thread = threading.currentThread()
@@ -361,7 +406,14 @@ class ShRuntime(object):
             parent_thread = self
 
         child_thread = self.ShThread(
-            self.worker_registry, parent_thread, input_, target=fn, is_background=is_background, environ=environ, cwd=cwd)
+            self.worker_registry,
+            parent_thread,
+            input_,
+            target=fn,
+            is_background=is_background,
+            environ=environ,
+            cwd=cwd,
+        )
         child_thread.start()
 
         return child_thread
@@ -370,12 +422,20 @@ class ShRuntime(object):
         self.stash.io.write(self.get_prompt(), no_wait=True)
         # Config the mini buffer so that user commands can be processed
         self.stash.mini_buffer.config_runtime_callback(
-            functools.partial(self.run, persistent_level=1))
+            functools.partial(self.run, persistent_level=1)
+        )
         # Reset any possible external tab handler setting
         self.stash.external_tab_handler = None
 
-    def run_pipe_sequence(self, pipe_sequence,
-                          final_ins=None, final_outs=None, final_errs=None, environ={}, cwd=None):
+    def run_pipe_sequence(
+        self,
+        pipe_sequence,
+        final_ins=None,
+        final_outs=None,
+        final_errs=None,
+        environ={},
+        cwd=None,
+    ):
         if self.debug:
             self.logger.debug(str(pipe_sequence))
 
@@ -391,10 +451,12 @@ class ShRuntime(object):
             # The value of A should not be carried to script2
             current_state.temporary_environ = {}
             for assignment in simple_command.assignments:
-                current_state.temporary_environ[assignment.identifier] = assignment.value
+                current_state.temporary_environ[
+                    assignment.identifier
+                ] = assignment.value
 
             # Only update the worker's env for pure assignments
-            if simple_command.cmd_word == '' and idx == 0 and n_simple_commands == 1:
+            if simple_command.cmd_word == "" and idx == 0 and n_simple_commands == 1:
                 current_state.environ.update(current_state.temporary_environ)
                 current_state.temporary_environ = {}
 
@@ -409,10 +471,10 @@ class ShRuntime(object):
 
             if simple_command.io_redirect:
                 # Truncate file or append to file
-                mode = 'w' if simple_command.io_redirect.operator == '>' else 'a'
+                mode = "w" if simple_command.io_redirect.operator == ">" else "a"
                 # For simplicity, stdout redirect works for stderr as well.
                 # Note this is different from a real shell.
-                if simple_command.io_redirect.filename == '&3':
+                if simple_command.io_redirect.filename == "&3":
                     outs = _SYS_STDOUT
                     errs = _SYS_STDERR
                 else:
@@ -428,31 +490,37 @@ class ShRuntime(object):
                     errs = final_errs
 
             if self.debug:
-                self.logger.debug('io %s %s\n' % (ins, outs))
+                self.logger.debug("io %s %s\n" % (ins, outs))
 
             try:
-                if simple_command.cmd_word != '':
+                if simple_command.cmd_word != "":
                     script_file = self.find_script_file(simple_command.cmd_word)
 
                     if self.debug:
-                        self.logger.debug('script is %s\n' % script_file)
+                        self.logger.debug("script is %s\n" % script_file)
 
                     if self.input_encoding_utf8:
                         # Python 2 is not fully unicode compatible. Some modules (e.g. runpy)
                         # insist for ASCII arguments. The encoding here helps eliminates possible
                         # errors caused by unicode arguments.
-                        simple_command_args = [arg.encode('utf-8') for arg in simple_command.args]
+                        simple_command_args = [
+                            arg.encode("utf-8") for arg in simple_command.args
+                        ]
                     else:
                         simple_command_args = simple_command.args
 
-                    if script_file.endswith('.py'):
-                        self.exec_py_file(script_file, simple_command_args, ins, outs, errs)
+                    if script_file.endswith(".py"):
+                        self.exec_py_file(
+                            script_file, simple_command_args, ins, outs, errs
+                        )
 
                     elif is_binary_file(script_file):
                         raise ShNotExecutable(script_file)
 
                     else:
-                        self.exec_sh_file(script_file, simple_command_args, ins, outs, errs)
+                        self.exec_sh_file(
+                            script_file, simple_command_args, ins, outs, errs
+                        )
 
                 else:
                     current_state.return_value = 0
@@ -469,21 +537,21 @@ class ShRuntime(object):
             # outside of the actual command execution, i.e. exec_py_file
             # exec_sh_file, e.g. command not found, not executable etc.
             except ShFileNotFound as e:
-                err_msg = '%s\n' % e.args[0]
+                err_msg = "%s\n" % e.args[0]
                 if self.debug:
                     self.logger.debug(err_msg)
-                    
+
                 if final_errs is None:
                     self.stash.write_message(err_msg)
                 else:
                     final_errs.write(err_msg)
-                    
+
                 # set exit code to 127
                 current_state.return_value = 127
                 break  # break out of the pipe_sequence, but NOT pipe_sequence list
-                
+
             except Exception as e:
-                err_msg = '%s\n' % e.args[0]
+                err_msg = "%s\n" % e.args[0]
                 if self.debug:
                     self.logger.debug(err_msg)
                 if final_errs is None:
@@ -494,14 +562,12 @@ class ShRuntime(object):
 
             finally:
                 if isinstance(outs, file) and not isinstance(outs, StringIO):
-                	# StringIO is subclass of IOBase in py3 but not in py2
+                    # StringIO is subclass of IOBase in py3 but not in py2
                     outs.close()
                 if isinstance(ins, StringIO):  # release the string buffer
                     ins.close()
 
-    def exec_py_file(self, filename,
-                     args=None,
-                     ins=None, outs=None, errs=None):
+    def exec_py_file(self, filename, args=None, ins=None, outs=None, errs=None):
 
         _, current_state = self.get_current_worker_and_state()
 
@@ -516,14 +582,14 @@ class ShRuntime(object):
 
         file_path = os.path.relpath(filename)
         namespace = dict(locals(), **globals())
-        namespace['__name__'] = '__main__'
-        namespace['__file__'] = os.path.abspath(file_path)
-        namespace['_stash'] = self.stash
+        namespace["__name__"] = "__main__"
+        namespace["__file__"] = os.path.abspath(file_path)
+        namespace["_stash"] = self.stash
 
         saved_sys_argv = sys.argv[:]
         # First argument is the script name
         argv = [os.path.basename(filename)] + (args or [])
-        
+
         argv = self.encode_argv(argv)
         sys.argv = argv
 
@@ -541,11 +607,9 @@ class ShRuntime(object):
         try:
             with open(file_path, "rU") as f:
                 content = f.read()
-                code = compile(
-                    content, file_path, "exec", dont_inherit=True
-                    )
+                code = compile(content, file_path, "exec", dont_inherit=True)
                 exec(code, namespace, namespace)
-            
+
             current_state.return_value = 0
 
         except SystemExit as e:
@@ -555,22 +619,24 @@ class ShRuntime(object):
             current_state.return_value = 1
 
             etype, evalue, tb = sys.exc_info()
-            err_msg = '%s: %s\n' % (repr(etype), evalue)
+            err_msg = "%s: %s\n" % (repr(etype), evalue)
             if self.debug:
                 self.logger.debug(err_msg)
             if errs is None:
                 self.stash.write_message(err_msg)
             else:
                 errs.write(err_msg)
-            
+
             if self.py_traceback or self.py_pdb:
                 import traceback
+
                 if errs is None:
                     traceback.print_exception(etype, evalue, tb)
                 else:
                     traceback.print_exception(etype, evalue, tb, file=errs)
                 if self.py_pdb:
                     import pdb
+
                     pdb.post_mortem(tb)
 
         finally:
@@ -581,10 +647,9 @@ class ShRuntime(object):
             sys.path = saved_sys_path
             os.environ = saved_os_environ
 
-    def exec_sh_file(self, filename,
-                     args=None,
-                     ins=None, outs=None, errs=None,
-                     add_to_history=None):
+    def exec_sh_file(
+        self, filename, args=None, ins=None, outs=None, errs=None, add_to_history=None
+    ):
 
         _, current_state = self.get_current_worker_and_state()
 
@@ -594,25 +659,27 @@ class ShRuntime(object):
 
         for i, arg in enumerate([filename] + args):
             current_state.temporary_environ[str(i)] = arg
-        current_state.temporary_environ['#'] = len(args)
-        current_state.temporary_environ['@'] = '\t'.join(args)
+        current_state.temporary_environ["#"] = len(args)
+        current_state.temporary_environ["@"] = "\t".join(args)
 
         # Enclosing variables will be merged to environ when creating new thread
         try:
             with open(filename, "rU") as fins:
-                child_worker = self.run(fins.readlines(),
-                                        final_ins=ins,
-                                        final_outs=outs,
-                                        final_errs=errs,
-                                        add_to_history=add_to_history,
-                                        add_new_inp_line=False,
-                                        persistent_level=0)
+                child_worker = self.run(
+                    fins.readlines(),
+                    final_ins=ins,
+                    final_outs=outs,
+                    final_errs=errs,
+                    add_to_history=add_to_history,
+                    add_new_inp_line=False,
+                    persistent_level=0,
+                )
                 child_worker.join()
 
             current_state.return_value = child_worker.state.return_value
 
         except IOError as e:
-            emsg = '%s: %s\n' % (e.filename, e.strerror)
+            emsg = "%s: %s\n" % (e.filename, e.strerror)
             if errs is None:
                 self.stash.write_message(emsg)
             else:
@@ -620,25 +687,27 @@ class ShRuntime(object):
             current_state.return_value = 1
 
         except:
-            emsg = '%s: error while executing shell script\n' % filename
+            emsg = "%s: error while executing shell script\n" % filename
             if errs is None:
                 self.stash.write_message(emsg)
             else:
                 errs.write(emsg)
             current_state.return_value = 2
-    
+
     def encode_argv(self, argv):
-    	"""
+        """
     	Convert an argv list into the appropiate string type depending
     	on the currently used python version.
     	"""
-    	if PY3:
-    		# we need unicode argv
-    		argv = [c if isinstance(c, text_type) else c.decode("utf-8") for c in argv]
-    	else:
-    		# we need bytestring argv
-    		argv = [c if isinstance(c, binary_type) else c.encode("utf-8") for c in argv]
-    	return argv
+        if PY3:
+            # we need unicode argv
+            argv = [c if isinstance(c, text_type) else c.decode("utf-8") for c in argv]
+        else:
+            # we need bytestring argv
+            argv = [
+                c if isinstance(c, binary_type) else c.encode("utf-8") for c in argv
+            ]
+        return argv
 
     def get_prompt(self):
         """
@@ -646,23 +715,24 @@ class ShRuntime(object):
         """
         _, current_state = self.get_current_worker_and_state()
 
-        prompt = current_state.environ_get('PROMPT')
-        if prompt.find('\\W') != -1 or prompt.find('\\w') != -1:
-            curdir = os.getcwd().replace(current_state.environ_get('HOME'), '~')
-            prompt = prompt.replace('\\w', curdir)
-            prompt = prompt.replace('\\W',
-                                    curdir if os.path.dirname(curdir) == '~'
-                                    else os.path.basename(curdir))
+        prompt = current_state.environ_get("PROMPT")
+        if prompt.find("\\W") != -1 or prompt.find("\\w") != -1:
+            curdir = os.getcwd().replace(current_state.environ_get("HOME"), "~")
+            prompt = prompt.replace("\\w", curdir)
+            prompt = prompt.replace(
+                "\\W",
+                curdir if os.path.dirname(curdir) == "~" else os.path.basename(curdir),
+            )
 
-        return self.stash.text_color(prompt, 'smoke')
+        return self.stash.text_color(prompt, "smoke")
 
     def push_to_background(self):
         if self.child_thread:
-            self.stash.write_message('pushing current job to background ...\n')
+            self.stash.write_message("pushing current job to background ...\n")
             self.child_thread.set_background()
             self.script_will_end()
         else:
-            self.stash.write_message('no running foreground job\n')
+            self.stash.write_message("no running foreground job\n")
             self.stash.io.write(self.stash.runtime.get_prompt())
 
     @on_main_thread
@@ -670,29 +740,30 @@ class ShRuntime(object):
         worker.set_background(False)
         self.stash.mini_buffer.config_runtime_callback(None)
         self.stash.write_message(
-            'job {} is now running in foreground ...'.format(worker.job_id))
+            "job {} is now running in foreground ...".format(worker.job_id)
+        )
 
     # TODO: The history stuff should be handled by a separate class
     def add_history(self, s):
-        if s.strip() != '' and (self.history == [] or s != self.history[0]):
+        if s.strip() != "" and (self.history == [] or s != self.history[0]):
             self.history.insert(0, s.strip())  # remove any surrounding whites
             if len(self.history) > self.HISTORY_MAX:
-                self.history = self.history[0:self.HISTORY_MAX]
+                self.history = self.history[0 : self.HISTORY_MAX]
             self.history_listsource.items = self.history
         self.reset_idx_to_history()
 
     def save_history(self):
         try:
-            with open(self.historyfile, 'w') as outs:
-                outs.write('\n'.join(self.history))
+            with open(self.historyfile, "w") as outs:
+                outs.write("\n".join(self.history))
         except IOError:
             pass
 
     def search_history(self, tok):
         search_string = tok[1:]
-        if search_string == '':
-            return ''
-        if search_string == '!':
+        if search_string == "":
+            return ""
+        if search_string == "!":
             return self.history[0]
         try:
             idx = int(search_string)
@@ -748,7 +819,9 @@ class ShRuntime(object):
         if sender.selected_row >= 0:
             # Save the unfinished line user is typing before showing entries from history
             if self.idx_to_history == -1:
-                self.history_templine = self.stash.mini_buffer.modifiable_string.rstrip()
+                self.history_templine = (
+                    self.stash.mini_buffer.modifiable_string.rstrip()
+                )
             self.stash.mini_buffer.feed(None, sender.items[sender.selected_row])
             self.idx_to_history = sender.selected_row
 
@@ -773,16 +846,18 @@ class ShRuntime(object):
         Add any user set python paths right after the dot or at the beginning
         if dot is not in the paths.
         """
-        python_path = os.environ.get('PYTHONPATH', None)  # atomic access for check and retrieval
+        python_path = os.environ.get(
+            "PYTHONPATH", None
+        )  # atomic access for check and retrieval
 
         if python_path:
             try:
-                idxdot = sys.path.index('.') + 1
+                idxdot = sys.path.index(".") + 1
             except ValueError:
                 idxdot = 0
             # Insert in the reversed order so idxdot does not need to change
-            for pth in reversed(python_path.split(':')):
-                if pth == '':
+            for pth in reversed(python_path.split(":")):
+                if pth == "":
                     continue
                 pth = os.path.expanduser(pth)
                 if pth not in sys.path:

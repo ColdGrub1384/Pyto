@@ -1,10 +1,11 @@
-'''
+"""
 Classes from the 'IncomingCallFilter' framework.
-'''
+"""
 
 try:
     from rubicon.objc import ObjCClass
 except ValueError:
+
     def ObjCClass(name):
         return None
 
@@ -15,5 +16,5 @@ def _Class(name):
     except NameError:
         return None
 
-    
-ICFCallServer = _Class('ICFCallServer')
+
+ICFCallServer = _Class("ICFCallServer")

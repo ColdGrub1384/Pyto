@@ -3,7 +3,14 @@ import operator
 from .types import NSUInteger, NSNotFound, NSRange, unichar
 from .runtime import objc_id, send_message
 from .api import (
-    NSArray, NSDictionary, NSMutableArray, NSMutableDictionary, NSString, ObjCInstance, for_objcclass, ns_from_py,
+    NSArray,
+    NSDictionary,
+    NSMutableArray,
+    NSMutableDictionary,
+    NSString,
+    ObjCInstance,
+    for_objcclass,
+    ns_from_py,
     py_from_ns,
 )
 
@@ -31,7 +38,7 @@ class ObjCStrInstance(ObjCInstance):
     """
 
     def __str__(self):
-        return self.UTF8String.decode('utf-8')
+        return self.UTF8String.decode("utf-8")
 
     def __fspath__(self):
         return self.__str__()
@@ -85,8 +92,7 @@ class ObjCStrInstance(ObjCInstance):
         if not isinstance(value, (str, NSString)):
             raise TypeError(
                 "'in <NSString>' requires str or NSString as left operand, "
-                "not {tp.__module__}.{tp.__qualname__}"
-                .format(tp=type(value))
+                "not {tp.__module__}.{tp.__qualname__}".format(tp=type(value))
             )
 
         return self.find(value) != -1
@@ -99,7 +105,7 @@ class ObjCStrInstance(ObjCInstance):
             start, stop, step = key.indices(len(self))
 
             if step == 1:
-                return self.substringWithRange(NSRange(start, stop-start))
+                return self.substringWithRange(NSRange(start, stop - start))
             else:
                 rng = range(start, stop, step)
                 chars = (unichar * len(rng))()
@@ -113,7 +119,9 @@ class ObjCStrInstance(ObjCInstance):
                 index = key
 
             if index not in range(len(self)):
-                raise IndexError('{cls.__name__} index out of range'.format(cls=type(self)))
+                raise IndexError(
+                    "{cls.__name__} index out of range".format(cls=type(self))
+                )
 
             return chr(self.characterAtIndex(index))
 
@@ -136,13 +144,11 @@ class ObjCStrInstance(ObjCInstance):
             return NotImplemented
 
         if count <= 0:
-            return ns_from_py('')
+            return ns_from_py("")
         else:
             # https://stackoverflow.com/a/4608137
             return self.stringByPaddingToLength(
-                count * len(self),
-                withString=self,
-                startingAtIndex=0,
+                count * len(self), withString=self, startingAtIndex=0,
             )
 
     def __rmul__(self, other):
@@ -151,8 +157,9 @@ class ObjCStrInstance(ObjCInstance):
     def _find(self, sub, start=None, end=None, *, reverse):
         if not isinstance(sub, (str, NSString)):
             raise TypeError(
-                'must be str or NSString, not {tp.__module__}.{tp.__qualname__}'
-                .format(tp=type(sub))
+                "must be str or NSString, not {tp.__module__}.{tp.__qualname__}".format(
+                    tp=type(sub)
+                )
             )
 
         start, end, _ = slice(start, end).indices(len(self))
@@ -166,7 +173,9 @@ class ObjCStrInstance(ObjCInstance):
         options = NSLiteralSearch
         if reverse:
             options |= NSBackwardsSearch
-        found_range = self.rangeOfString(sub, options=options, range=NSRange(start, end-start))
+        found_range = self.rangeOfString(
+            sub, options=options, range=NSRange(start, end - start)
+        )
         if found_range.location == NSNotFound:
             return -1
         else:
@@ -175,7 +184,7 @@ class ObjCStrInstance(ObjCInstance):
     def _index(self, sub, start=None, end=None, *, reverse):
         found = self._find(sub, start, end, reverse=reverse)
         if found == -1:
-            raise ValueError('substring not found')
+            raise ValueError("substring not found")
         else:
             return found
 
@@ -207,9 +216,11 @@ class ObjCListInstance(ObjCInstance):
         if isinstance(item, slice):
             start, stop, step = item.indices(len(self))
             if step == 1:
-                return self.subarrayWithRange(NSRange(start, stop-start))
+                return self.subarrayWithRange(NSRange(start, stop - start))
             else:
-                return ns_from_py([self.objectAtIndex(x) for x in range(start, stop, step)])
+                return ns_from_py(
+                    [self.objectAtIndex(x) for x in range(start, stop, step)]
+                )
         else:
             if item < 0:
                 index = len(self) + item
@@ -217,12 +228,14 @@ class ObjCListInstance(ObjCInstance):
                 index = item
 
             if index not in range(len(self)):
-                raise IndexError('{cls.__name__} index out of range'.format(cls=type(self)))
+                raise IndexError(
+                    "{cls.__name__} index out of range".format(cls=type(self))
+                )
 
             return self.objectAtIndex(index)
 
     def __len__(self):
-        return send_message(self.ptr, 'count', restype=NSUInteger)
+        return send_message(self.ptr, "count", restype=NSUInteger)
 
     def __iter__(self):
         for i in range(len(self)):
@@ -240,14 +253,14 @@ class ObjCListInstance(ObjCInstance):
     def index(self, value):
         idx = self.indexOfObject_(value)
         if idx == NSNotFound:
-            raise ValueError('%r is not in list' % value)
+            raise ValueError("%r is not in list" % value)
         return idx
 
     def count(self, value):
         return len([x for x in self if x == value])
 
     def copy(self):
-        return ObjCInstance(send_message(self, 'copy', restype=objc_id))
+        return ObjCInstance(send_message(self, "copy", restype=objc_id))
 
 
 @for_objcclass(NSMutableArray)
@@ -257,19 +270,23 @@ class ObjCMutableListInstance(ObjCListInstance):
             arr = ns_from_py(value)
             if not isinstance(arr, NSArray):
                 raise TypeError(
-                    '{cls.__module__}.{cls.__qualname__} is not convertible to NSArray'
-                    .format(cls=type(value))
+                    "{cls.__module__}.{cls.__qualname__} is not convertible to NSArray".format(
+                        cls=type(value)
+                    )
                 )
 
             start, stop, step = item.indices(len(self))
             if step == 1:
-                self.replaceObjectsInRange(NSRange(start, stop-start), withObjectsFromArray=arr)
+                self.replaceObjectsInRange(
+                    NSRange(start, stop - start), withObjectsFromArray=arr
+                )
             else:
                 indices = range(start, stop, step)
                 if len(arr) != len(indices):
                     raise ValueError(
-                        'attempt to assign sequence of size {} to extended slice of size {}'
-                        .format(len(value), len(indices))
+                        "attempt to assign sequence of size {} to extended slice of size {}".format(
+                            len(value), len(indices)
+                        )
                     )
 
                 for idx, obj in zip(indices, arr):
@@ -281,7 +298,11 @@ class ObjCMutableListInstance(ObjCListInstance):
                 index = item
 
             if index not in range(len(self)):
-                raise IndexError('{cls.__name__} assignment index out of range'.format(cls=type(self)))
+                raise IndexError(
+                    "{cls.__name__} assignment index out of range".format(
+                        cls=type(self)
+                    )
+                )
 
             self.replaceObjectAtIndex(index, withObject=value)
 
@@ -289,7 +310,7 @@ class ObjCMutableListInstance(ObjCListInstance):
         if isinstance(item, slice):
             start, stop, step = item.indices(len(self))
             if step == 1:
-                self.removeObjectsInRange(NSRange(start, stop-start))
+                self.removeObjectsInRange(NSRange(start, stop - start))
             else:
                 for idx in sorted(range(start, stop, step), reverse=True):
                     self.removeObjectAtIndex(idx)
@@ -300,7 +321,11 @@ class ObjCMutableListInstance(ObjCListInstance):
                 index = item
 
             if index not in range(len(self)):
-                raise IndexError('{cls.__name__} assignment index out of range'.format(cls=type(self)))
+                raise IndexError(
+                    "{cls.__name__} assignment index out of range".format(
+                        cls=type(self)
+                    )
+                )
 
             self.removeObjectAtIndex_(index)
 
@@ -373,7 +398,7 @@ class ObjCDictInstance(ObjCInstance):
             yield key, self.objectForKey_(key)
 
     def copy(self):
-        return ObjCInstance(send_message(self, 'copy', restype=objc_id))
+        return ObjCInstance(send_message(self, "copy", restype=objc_id))
 
 
 @for_objcclass(NSMutableDictionary)

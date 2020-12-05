@@ -22,8 +22,7 @@ if sys.version_info < (3, 4) or sys.version_info >= (3, 8):
         "rubicon.objc.ctypes_patch has only been tested with Python 3.4 through 3.7. "
         "You are using Python {v.major}.{v.minor}.{v.micro}. Most likely things will "
         "work properly, but you may experience crashes if Python's internals have "
-        "changed significantly."
-        .format(v=sys.version_info)
+        "changed significantly.".format(v=sys.version_info)
     )
 
 
@@ -70,7 +69,7 @@ PyDict_Type = PyTypeObject.from_address(id(dict))
 # we can declare it as an opaque byte array, with the length taken from PyDict_Type.
 class PyDictObject(ctypes.Structure):
     _fields_ = [
-        ("PyDictObject_opaque", (ctypes.c_ubyte*PyDict_Type.tp_basicsize)),
+        ("PyDictObject_opaque", (ctypes.c_ubyte * PyDict_Type.tp_basicsize)),
     ]
 
 
@@ -99,7 +98,9 @@ ffi_type._fields_ = [
 
 # The GETFUNC and SETFUNC typedefs from "Modules/_ctypes/ctypes.h".
 GETFUNC = ctypes.PYFUNCTYPE(ctypes.py_object, ctypes.c_void_p, ctypes.c_ssize_t)
-SETFUNC = ctypes.PYFUNCTYPE(ctypes.py_object, ctypes.c_void_p, ctypes.py_object, ctypes.c_ssize_t)
+SETFUNC = ctypes.PYFUNCTYPE(
+    ctypes.py_object, ctypes.c_void_p, ctypes.py_object, ctypes.c_ssize_t
+)
 
 
 # The StgDictObject structure from "Modules/_ctypes/ctypes.h".
@@ -124,8 +125,9 @@ def unwrap_mappingproxy(proxy):
 
     if not isinstance(proxy, types.MappingProxyType):
         raise TypeError(
-            'Expected a mapping proxy object, not {tp.__module__}.{tp.__qualname__}'
-            .format(tp=type(proxy))
+            "Expected a mapping proxy object, not {tp.__module__}.{tp.__qualname__}".format(
+                tp=type(proxy)
+            )
         )
 
     return mappingproxyobject.from_address(id(proxy)).mapping
@@ -141,8 +143,9 @@ def get_stgdict_of_type(tp):
 
     if not isinstance(tp, type):
         raise TypeError(
-            'Expected a type object, not {tptp.__module__}.{tptp.__qualname__}'
-            .format(tptp=type(tp))
+            "Expected a type object, not {tptp.__module__}.{tptp.__qualname__}".format(
+                tptp=type(tp)
+            )
         )
 
     stgdict = tp.__dict__
@@ -154,10 +157,11 @@ def get_stgdict_of_type(tp):
 
     # The StgDict type is not publicly exposed anywhere, so we can't use isinstance. Checking the name is the best
     # we can do here.
-    if type(stgdict).__name__ != 'StgDict':
+    if type(stgdict).__name__ != "StgDict":
         raise TypeError(
-            "The given type's dict must be a StgDict, not {tp.__module__}.{tp.__qualname__}"
-            .format(tp=type(stgdict))
+            "The given type's dict must be a StgDict, not {tp.__module__}.{tp.__qualname__}".format(
+                tp=type(stgdict)
+            )
         )
 
     return stgdict
@@ -173,7 +177,7 @@ def make_callback_returnable(ctype):
     """
     # The presence of the _rubicon_objc_ctypes_patch_getfunc attribute is a
     # sentinel for whether the type has been modified previously.
-    if hasattr(ctype, '_rubicon_objc_ctypes_patch_getfunc'):
+    if hasattr(ctype, "_rubicon_objc_ctypes_patch_getfunc"):
         return ctype
 
     # Extract the StgDict from the ctype.
@@ -182,9 +186,17 @@ def make_callback_returnable(ctype):
 
     # Ensure that there is no existing getfunc or setfunc on the stgdict.
     if ctypes.cast(stgdict_c.getfunc, ctypes.c_void_p).value is not None:
-        raise ValueError("The ctype {}.{} already has a getfunc".format(ctype.__module__, ctype.__name__))
+        raise ValueError(
+            "The ctype {}.{} already has a getfunc".format(
+                ctype.__module__, ctype.__name__
+            )
+        )
     elif ctypes.cast(stgdict_c.setfunc, ctypes.c_void_p).value is not None:
-        raise ValueError("The ctype {}.{} already has a setfunc".format(ctype.__module__, ctype.__name__))
+        raise ValueError(
+            "The ctype {}.{} already has a setfunc".format(
+                ctype.__module__, ctype.__name__
+            )
+        )
 
     # Define the getfunc and setfunc.
     @GETFUNC
@@ -192,8 +204,9 @@ def make_callback_returnable(ctype):
         actual_size = ctypes.sizeof(ctype)
         if size != 0 and size != actual_size:
             raise ValueError(
-                "getfunc for ctype {}: Requested size {} does not match actual size {}"
-                .format(ctype, size, actual_size)
+                "getfunc for ctype {}: Requested size {} does not match actual size {}".format(
+                    ctype, size, actual_size
+                )
             )
 
         return ctype.from_buffer_copy(ctypes.string_at(ptr, actual_size))
@@ -203,8 +216,9 @@ def make_callback_returnable(ctype):
         actual_size = ctypes.sizeof(ctype)
         if size != 0 and size != actual_size:
             raise ValueError(
-                "setfunc for ctype {}: Requested size {} does not match actual size {}"
-                .format(ctype, size, actual_size)
+                "setfunc for ctype {}: Requested size {} does not match actual size {}".format(
+                    ctype, size, actual_size
+                )
             )
 
         ctypes.memmove(ptr, ctypes.addressof(value), actual_size)

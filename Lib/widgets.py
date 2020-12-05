@@ -34,6 +34,7 @@ try:
 
     from rubicon.objc import ObjCClass, CGFloat
 except ValueError:
+
     def ObjCClass(class_name):
         return None
 
@@ -48,9 +49,9 @@ except ImportError:
 
 def __Class__(name):
     try:
-        return ObjCClass("Pyto."+name)
+        return ObjCClass("Pyto." + name)
     except NameError:
-        return ObjCClass("WidgetExtension."+name)
+        return ObjCClass("WidgetExtension." + name)
 
 
 UIDevice = ObjCClass("UIDevice")
@@ -69,7 +70,7 @@ if (
     raise ImportError("Home Screen Widgets were introduced on iPadOS / iOS 14.")
 
 
-class PytoUIView: # Travis CI doesn't let me mark a parameter as 'ui.View' without importing PytoUI
+class PytoUIView:  # Travis CI doesn't let me mark a parameter as 'ui.View' without importing PytoUI
     pass
 
 
@@ -209,11 +210,11 @@ def reload_widgets(names: Union[str, List[str]]):
 
     if isinstance(names, str):
         names = [names]
-    
+
     _names = []
     for name in _names:
         if not name.endswith(".py"):
-            _names.append(name+".py")
+            _names.append(name + ".py")
         else:
             _names.append(name)
 
@@ -824,7 +825,9 @@ class Padding:
     right: float = None
     """ Right padding """
 
-    def __init__(self, top: float = 0, bottom: float = 0, left: float = 0, right: float = 0):
+    def __init__(
+        self, top: float = 0, bottom: float = 0, left: float = 0, right: float = 0
+    ):
         self.top = top
         self.bottom = bottom
         self.left = left
@@ -969,7 +972,7 @@ class Text(WidgetComponent):
     def __make_objc_view__(self):
         obj = __Class__("WidgetText").alloc().init()
         obj.text = self.text
-        
+
         try:
             obj.color = self.color.__py_color__.managed
         except AttributeError:
@@ -1095,7 +1098,7 @@ class DynamicDate(WidgetComponent):
             second=date.second,
         )
         obj.style = self.style
-        
+
         try:
             obj.color = self.color.__py_color__.managed
         except AttributeError:
@@ -1165,7 +1168,7 @@ class SystemSymbol(WidgetComponent):
     def __make_objc_view__(self):
         obj = __Class__("WidgetSymbol").alloc().init()
         obj.symbolName = self.symbol_name
-        
+
         try:
             obj.color = self.color.__py_color__.managed
         except AttributeError:
@@ -1446,7 +1449,7 @@ class TimelineProvider:
             seconds = time.total_seconds()
         else:
             seconds = time
-        
+
         return seconds
 
     def reload_time(self) -> Union[datetime.timedelta, float]:
@@ -1468,7 +1471,9 @@ class TimelineProvider:
         :rtype: Widget
         """
 
-        raise NotImplementedError("Implement 'WidgetTimelineProvider' to support timelines.")
+        raise NotImplementedError(
+            "Implement 'WidgetTimelineProvider' to support timelines."
+        )
 
     def timeline(self) -> List[datetime.datetime]:
         """
@@ -1478,7 +1483,9 @@ class TimelineProvider:
         :rtype: List[datetime.datetime]
         """
 
-        raise NotImplementedError("Implement 'WidgetTimelineProvider' to support timelines.")
+        raise NotImplementedError(
+            "Implement 'WidgetTimelineProvider' to support timelines."
+        )
 
 
 def provide_timeline(provider: TimelineProvider):
@@ -1504,7 +1511,9 @@ def provide_timeline(provider: TimelineProvider):
         py_widget.addView(widget.large_layout.__widget_view__, family=2)
         widgets.append(py_widget)
 
-    __PyWidget__.updateTimeline(__widget_id__, widgets=widgets, reloadAfter=provider.__reload_time__())
+    __PyWidget__.updateTimeline(
+        __widget_id__, widgets=widgets, reloadAfter=provider.__reload_time__()
+    )
 
 
 def show_widget(widget: Widget):
@@ -1531,6 +1540,7 @@ def save_widget(widget: Widget, key: str):
     check(key, "key", [str])
 
     __show_widget__(widget, key)
+
 
 def delete_in_app_widget(key: str):
     """

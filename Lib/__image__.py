@@ -27,6 +27,7 @@ def __ui_image_from_pil_image__(image):
     data.release()
     return image
 
+
 def __pil_image_from_ui_image__(image):
 
     from PIL import Image

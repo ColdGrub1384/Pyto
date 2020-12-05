@@ -4,7 +4,8 @@ Taken from https://stackoverflow.com/a/25580545/7515957
 
 from json import dumps
 
-from urllib.parse import (urlencode, unquote, quote, urlparse, parse_qsl, ParseResult)
+from urllib.parse import urlencode, unquote, quote, urlparse, parse_qsl, ParseResult
+
 
 def add_url_params(url, params):
     """ Add GET params to provided URL being aware of existing.
@@ -32,8 +33,7 @@ def add_url_params(url, params):
     # Bool and Dict values should be converted to json-friendly values
     # you may throw this part away if you don't like it :)
     parsed_get_args.update(
-        {k: dumps(v) for k, v in parsed_get_args.items()
-         if isinstance(v, (bool, dict))}
+        {k: dumps(v) for k, v in parsed_get_args.items() if isinstance(v, (bool, dict))}
     )
 
     # Converting URL argument to proper query string
@@ -41,8 +41,12 @@ def add_url_params(url, params):
     # Creating new parsed result object based on provided with new
     # URL arguments. Same thing happens inside of urlparse.
     new_url = ParseResult(
-        parsed_url.scheme, parsed_url.netloc, parsed_url.path,
-        parsed_url.params, encoded_get_args, parsed_url.fragment
+        parsed_url.scheme,
+        parsed_url.netloc,
+        parsed_url.path,
+        parsed_url.params,
+        encoded_get_args,
+        parsed_url.fragment,
     ).geturl()
 
     return new_url

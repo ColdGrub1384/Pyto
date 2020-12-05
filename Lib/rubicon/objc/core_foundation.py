@@ -4,18 +4,18 @@ from ctypes.util import find_library
 from .runtime import objc_id
 
 __all__ = [
-    'CFAbsoluteTime',
-    'CFAllocatorRef',
-    'CFDataRef',
-    'CFOptionFlags',
-    'CFRunLoopRef',
-    'CFStringRef',
-    'CFTimeInterval',
-    'CFTypeID',
-    'CFTypeRef',
-    'kCFAllocatorDefault',
-    'kCFRunLoopDefaultMode',
-    'libcf',
+    "CFAbsoluteTime",
+    "CFAllocatorRef",
+    "CFDataRef",
+    "CFOptionFlags",
+    "CFRunLoopRef",
+    "CFStringRef",
+    "CFTimeInterval",
+    "CFTypeID",
+    "CFTypeRef",
+    "kCFAllocatorDefault",
+    "kCFRunLoopDefaultMode",
+    "libcf",
 ]
 
 
@@ -23,7 +23,7 @@ __all__ = [
 
 # CORE FOUNDATION
 
-libcf = cdll.LoadLibrary(find_library('CoreFoundation'))
+libcf = cdll.LoadLibrary(find_library("CoreFoundation"))
 
 CFTypeID = c_ulong
 
@@ -42,7 +42,7 @@ CFStringRef = objc_id
 CFTimeInterval = c_double
 CFAbsoluteTime = CFTimeInterval
 
-kCFRunLoopDefaultMode = CFStringRef.in_dll(libcf, 'kCFRunLoopDefaultMode')
+kCFRunLoopDefaultMode = CFStringRef.in_dll(libcf, "kCFRunLoopDefaultMode")
 
 libcf.CFRunLoopGetCurrent.restype = CFRunLoopRef
 libcf.CFRunLoopGetCurrent.argtypes = []

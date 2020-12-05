@@ -5,12 +5,12 @@ import operator
 
 # release type identifier -> release type priority (higher == better)
 RELEASE_TYPE_PRIORITIES = {
-    None: 4,   # no release type
-    "a": 1,    # alpha post release
-    "b": 2,    # beta post release
-    "rc": 3,   # release candidate
+    None: 4,  # no release type
+    "a": 1,  # alpha post release
+    "b": 2,  # beta post release
+    "rc": 3,  # release candidate
     "post": 5,  # post release
-    "dev": 0,   # dev release
+    "dev": 0,  # dev release
 }
 
 
@@ -29,8 +29,8 @@ def _parse_version(vs):
     # extract information from
     if "!" in e:
         # read epoch
-        es = e[:e.find("!")]
-        e = e[e.find("!") + 1:]
+        es = e[: e.find("!")]
+        e = e[e.find("!") + 1 :]
         epoch = int(es)
     else:
         # default epoch is 0
@@ -56,14 +56,14 @@ def _parse_version(vs):
     # parse post release
     rtstr = e[vei:]
     if "post" in rtstr:
-        postrnstr = rtstr[rtstr.find("post") + 4:]
+        postrnstr = rtstr[rtstr.find("post") + 4 :]
         postrnres = re.search("[0-9]*", postrnstr)
         if postrnres is None or postrnres.end() == 0:
             # PEP440: implicit post version 0
             subpriority = 0
         else:
-            subpriority = int(postrnstr[:postrnres.end()])
-        rtstr = rtstr[:rtstr.find("post") - 1]
+            subpriority = int(postrnstr[: postrnres.end()])
+        rtstr = rtstr[: rtstr.find("post") - 1]
         is_post = True
     else:
         subpriority = 0
@@ -82,14 +82,14 @@ def _parse_version(vs):
         rsubpriority = 0
     else:
         # 1. strip rtype
-        rtps = rtstr[len(rtype):]
+        rtps = rtstr[len(rtype) :]
         # 2. extract until non-digit
         rtpsr = re.search("[0-9]*", rtps)
         if rtpsr is None or rtpsr.end() == 0:
             # no number
             rsubpriority = 0
         else:
-            rsubpriority = int(rtps[:rtpsr.end()])
+            rsubpriority = int(rtps[: rtpsr.end()])
     # extract dev release information
     devr = re.search("\\.?dev[0-9]*", e)
     if devr is None:
@@ -97,7 +97,7 @@ def _parse_version(vs):
         devnum = 0
     else:
         isdev = True
-        devns = e[devr.start() + 4:]  # 4: 1 for '.'; 3 for 'dev'
+        devns = e[devr.start() + 4 :]  # 4: 1 for '.'; 3 for 'dev'
         if len(devns) == 0:
             devnum = 0
         else:
@@ -112,7 +112,7 @@ def _parse_version(vs):
         "subversion": rsubpriority,
         "postrelease": (subpriority if is_post else None),
         "devrelease": (devnum if isdev else None),
-        }
+    }
 
 
 def sort_versions(versionlist):
@@ -123,13 +123,18 @@ def sort_versions(versionlist):
     :return: the sorted list
     :rtype: list of str
     """
-    return sorted(versionlist, key=lambda s: Version.parse(s) if isinstance(s, str) else s, reverse=True)
+    return sorted(
+        versionlist,
+        key=lambda s: Version.parse(s) if isinstance(s, str) else s,
+        reverse=True,
+    )
 
 
 class Version(object):
     """
     This class represents a version. It is mainly used for version comparsion.
     """
+
     TYPE_NORMAL = None
     TYPE_ALPHA = "a"
     TYPE_BETA = "b"
@@ -137,13 +142,21 @@ class Version(object):
 
     RELEASE_TYPE_PRIORITIES = {
         # priority of a release type. greate => higher priority
-        TYPE_NORMAL: 3,   # no release type
-        TYPE_ALPHA: 0,    # alpha post release
-        TYPE_BETA: 1,    # beta post release
-        TYPE_RELEASE_CANDIDATE: 2,   # release candidate
+        TYPE_NORMAL: 3,  # no release type
+        TYPE_ALPHA: 0,  # alpha post release
+        TYPE_BETA: 1,  # beta post release
+        TYPE_RELEASE_CANDIDATE: 2,  # release candidate
     }
 
-    def __init__(self, epoch=0, versiontuple=(), rtype=None, subversion=0, postrelease=None, devrelease=None):
+    def __init__(
+        self,
+        epoch=0,
+        versiontuple=(),
+        rtype=None,
+        subversion=0,
+        postrelease=None,
+        devrelease=None,
+    ):
         assert isinstance(epoch, int)
         assert isinstance(versiontuple, tuple)
         assert isinstance(rtype, str) or rtype is None
@@ -197,7 +210,16 @@ class Version(object):
         :rtype: tuple
         """
         rpriority = self.RELEASE_TYPE_PRIORITIES.get(self.rtype, 0)
-        return (self.epoch, self.versiontuple, rpriority, self.subversion, self.is_postrelease, self.postrelease, not self.is_devrelease, self.devrelease)
+        return (
+            self.epoch,
+            self.versiontuple,
+            rpriority,
+            self.subversion,
+            self.is_postrelease,
+            self.postrelease,
+            not self.is_devrelease,
+            self.devrelease,
+        )
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):
@@ -229,8 +251,6 @@ class Version(object):
         else:
             return False
 
-
-
     def __str__(self):
         """return a string representation of this version"""
         version = ".".join([str(e) for e in self.versiontuple])  # base version
@@ -260,18 +280,21 @@ class VersionSpecifier(object):
     """
     This class is to represent the versions of a requirement, e.g. pyte==0.4.10.
     """
+
     OPS = {
-        '<=': operator.le,
-        '<': operator.lt,
-        '!=': operator.ne,
-        '>=': operator.ge,
-        '>': operator.gt,
-        '==': operator.eq,
-        '~=': operator.ge,
-        }
+        "<=": operator.le,
+        "<": operator.lt,
+        "!=": operator.ne,
+        ">=": operator.ge,
+        ">": operator.gt,
+        "==": operator.eq,
+        "~=": operator.ge,
+    }
 
     def __init__(self, version_specs):
-        self.specs = [(VersionSpecifier.OPS[op], version) for (op, version) in version_specs]
+        self.specs = [
+            (VersionSpecifier.OPS[op], version) for (op, version) in version_specs
+        ]
         self.str = str(version_specs)
 
     def __str__(self):
@@ -288,13 +311,13 @@ class VersionSpecifier(object):
             else:
                 raise ValueError("Unknown requirement format: " + repr(requirement))
         # remove all whitespaces and '()'
-        requirement = requirement.replace(' ', '')
+        requirement = requirement.replace(" ", "")
         requirement = requirement.replace("(", "").replace(")", "")
         if requirement.startswith("#"):
             # ignore
             return None, None
-        PAREN = lambda x: '(' + x + ')'
-        version_cmp = PAREN('?:' + '|'.join(('<=', '<', '!=', '>=', '>', '~=', '==')))
+        PAREN = lambda x: "(" + x + ")"
+        version_cmp = PAREN("?:" + "|".join(("<=", "<", "!=", ">=", ">", "~=", "==")))
         name_end_res = re.search(version_cmp, requirement)
         if name_end_res is None:
             return requirement, None

@@ -91,7 +91,7 @@ class Progress(wd.WidgetComponent):
         obj = wd.__Class__("WidgetProgress").alloc().init()
         obj.progress = self.value
         obj.isCircular = self.circular
-        
+
         if self.label is not None:
             obj.label = self.label.__make_objc_view__()
 
@@ -145,11 +145,12 @@ class Complication:
         for component in row:
             if "color" not in dir(component):
                 continue
-            
+
             if component.color.__py_color__ == wd.COLOR_LABEL.__py_color__.managed:
                 component.color = wd.COLOR_WHOTE
 
         super.add_row(row, background_color, corner_radius, link)
+
 
 def __objc__(complication: Complication):
     objc = __PyComplication__.alloc().init()
@@ -176,7 +177,7 @@ def __reload_descriptors__():
         cached = uk.get("__watch_descriptors__")
     except KeyError:
         cached = []
-    
+
     if names != cached:
         uk.set(names, "__watch_descriptors__")
         __PyComplication__.reloadDescriptors()
@@ -206,9 +207,13 @@ class ComplicationsProvider:
         :rtype: Complication
         """
 
-        raise NotImplementedError("Implement 'complication(date)' to provide complications.")
+        raise NotImplementedError(
+            "Implement 'complication(date)' to provide complications."
+        )
 
-    def timeline(self, after_date: datetime.datetime, limit: int) -> List[datetime.datetime]:
+    def timeline(
+        self, after_date: datetime.datetime, limit: int
+    ) -> List[datetime.datetime]:
         """
         Return a list of timestamps. The Apple Watch will display a complication on each of the returned dates.
         The Apple Watch will call this function to request data for the future.
@@ -223,7 +228,9 @@ class ComplicationsProvider:
         :rtype: List[datetime.datetime]
         """
 
-        raise NotImplementedError("Implement 'timelines(after_date, limit)' to provide complications.")
+        raise NotImplementedError(
+            "Implement 'timelines(after_date, limit)' to provide complications."
+        )
 
     def __complications__(self, after_date, limit):
         complications = []
