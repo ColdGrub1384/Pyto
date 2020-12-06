@@ -12,7 +12,6 @@
 #import "../Python/Python.h"
 #if MAIN
 #import "Pyto-Swift.h"
-#import "../../../Extensions/_extensionsimporter.h"
 #elif WIDGET
 #if Xcode11
 #import "TodayExtension-Swift.h"
@@ -20,6 +19,11 @@
 #import "WidgetExtension-Swift.h"
 #endif
 #endif
+
+#if MAIN || WIDGET && !Xcode11
+#import "../../../Extensions/_extensionsimporter.h"
+#endif
+
 #include <dlfcn.h>
 
 #define load(HANDLE) handle = dlopen(file.path.UTF8String, RTLD_GLOBAL);  HANDLE = handle;
@@ -86,16 +90,16 @@ int initialize_python(int argc, char *argv[]) {
     // SKLearn data
     putenv((char *)[NSString stringWithFormat:@"SCIKIT_LEARN_DATA=%@", [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask].firstObject.path].UTF8String);
     
+    // MARK: - Init Python
+    
+    #if MAIN || WIDGET && !Xcode11
+    PyImport_AppendInittab("_extensionsimporter", &PyInit__extensionsimporter);
+    #endif
+    
     #if MAIN
     dispatch_async(dispatch_queue_create(NULL, NULL), ^{
     #endif
-        // MARK: - Init Python
-        
         #if MAIN
-        PyImport_AppendInittab("_extensionsimporter", &PyInit__extensionsimporter);
-        
-        dlopen([NSBundle.mainBundle.privateFrameworksURL URLByAppendingPathComponent:@"Zmq.framework/Zmq"].path.UTF8String, RTLD_GLOBAL);
-        
         // Matplotlib
         NSURL *mpl_data = [[NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask].firstObject URLByAppendingPathComponent:@"mpl-data"];
         NSURL *mpl_config = [[NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask].firstObject URLByAppendingPathComponent:@"matplotlib"];
