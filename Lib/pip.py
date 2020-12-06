@@ -84,16 +84,34 @@ try:
 except NameError:
     unicode = str
 
-BUNDLED_MODULES = """asn1crypto attr bcrypt beautifulsoup4 biopython black bs4 certifi
-                     cffi chardet cloudpickle colorama cryptography cycler dask decorator
-                     distlib entrypoints filelock idna imageio ipaddress jedi joblib
-                     kiwisolver lxml matplotlib networkx numpy opencv-python pandas parso
-                     pillow pip progress pynacl PyNaCl pyparsing
-                     python-dateutil pytoml pytz pywt requests rubicon rubicon-objc
-                     scikit-image scikit-learn scipy setuptools six skimage sklearn
-                     soupsieve stopit toml urllib3 webencodings wsgiref xlrd statsmodels
-                     patsy pyzqm regex gensim smart-open boto3 botocore jmespath boto html5lib
-                     astropy pyemd""".split()
+
+def _get_bundled_modules():
+    mods = []
+    for path in sys.path:
+        if path.endswith(".zip") or os.access(path, os.W_OK):
+            continue
+
+        try:
+            contents = os.listdir(path)
+        except OSError:
+            contents = []
+
+        for lib in contents:
+
+            if lib.endswith(".dist-info"):
+                try:
+                    mods.append(lib.split("-")[0])
+                except IndexError:
+                    continue
+            elif lib.endswith(".egg-info"):
+                try:
+                    mods.append(lib.split(".egg-info")[0])
+                except IndexError:
+                    continue
+    return mods
+
+
+BUNDLED_MODULES = _get_bundled_modules()
 
 SITE_PACKAGES_FOLDER = os.path.expanduser("~/Documents/site-packages")
 OLD_SITE_PACKAGES_FOLDER = SITE_PACKAGES_FOLDER
