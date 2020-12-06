@@ -17,6 +17,22 @@ class InAppWidgetsStore {
     
     let directory = FileManager.default.sharedDirectory?.appendingPathComponent("In App Widgets")
     
+    var allEntries: [String] {
+        guard let dir = directory else {
+            return []
+        }
+        
+        var entries = [String]()
+        
+        for file in (try? FileManager.default.contentsOfDirectory(atPath: dir.path)) ?? [] {
+            entries.append(((file as NSString).deletingPathExtension as NSString).lastPathComponent)
+        }
+        
+        return entries
+    }
+    
+    #if WIDGET || MAIN
+    
     func get(_ widget: String) -> ScriptEntry? {
         guard let fileURL = directory?.appendingPathComponent(widget).appendingPathExtension("json") else {
             return nil
@@ -87,4 +103,5 @@ class InAppWidgetsStore {
             return
         }
     }
+    #endif
 }
