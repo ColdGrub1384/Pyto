@@ -15,12 +15,10 @@ class SetContentInAppIntentHandler: NSObject, SetContentInAppIntentHandling {
         
         var widgets = [WidgetCategory]()
         
-        guard let saved = UserDefaults.shared?.value(forKey: "savedWidgets") as? [String:Data] else {
-            return completion(nil, nil)
-        }
+        let saved = InAppWidgetsStore.shared.allEntries
         
         for value in saved {
-            widgets.append(WidgetCategory(identifier: value.key, display: value.key))
+            widgets.append(WidgetCategory(identifier: value, display: value))
         }
         
         let collection = INObjectCollection(items: widgets)
