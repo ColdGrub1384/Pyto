@@ -7,6 +7,14 @@ import importlib
 import traceback
 import os
 import warnings
+from rubicon.objc import ObjCClass
+import _extensionsimporter
+import ctypes
+from importlib import util, __import__
+from importlib.machinery import ExtensionFileLoader, ModuleSpec, PathFinder
+
+
+NSBundle = ObjCClass("NSBundle")
 
 
 class __UpgradeException__(Exception):
@@ -17,12 +25,6 @@ if "widget" not in os.environ:
     from sharing import open_url
     import urllib.parse
     from pyto import Python, __Class__
-    from rubicon.objc import ObjCClass
-    from Foundation import NSBundle
-    import _extensionsimporter
-    import ctypes
-    from importlib import util, __import__
-    from importlib.machinery import ExtensionFileLoader, ModuleSpec, PathFinder
 
     def have_internet():
         return __Class__("InternetConnection").isReachable
@@ -107,9 +109,13 @@ class FrameworksImporter(PathFinder):
             spec = ModuleSpec(fullname, loader)
             return spec
 
+        frameworks_path = str(NSBundle.mainBundle.privateFrameworksPath)
+        if "widget" in os.environ:
+            frameworks_path += "/../../../Frameworks"
+
         framework_name = fullname.replace(".", "-") + ".framework"
         framework_path = (
-            str(NSBundle.mainBundle.bundlePath) + "/Frameworks/" + framework_name
+            frameworks_path + "/" + framework_name
         )
         binary_path = None
 
@@ -119,9 +125,8 @@ class FrameworksImporter(PathFinder):
             not_found = False
             framework_name = (fullname.split(".")[0] + "-") + ".framework"
             framework_path = (
-                str(NSBundle.mainBundle.bundlePath) + "/Frameworks/" + framework_name
+                            frameworks_path + "/" + framework_name
             )
-
         if os.path.isdir(framework_path):
 
             for path in os.listdir(framework_path):
