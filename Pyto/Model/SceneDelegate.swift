@@ -223,7 +223,10 @@ import SwiftUI
                         let url = try URL(resolvingBookmarkData: bookmarkData, bookmarkDataIsStale: &isStale)
                         _ = url.startAccessingSecurityScopedResource()
                         Python.shared.widgetLink = inputURL.queryParameters?["link"]
-                        openDocument(at: url, run: true, isShortcut: false)
+                        _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
+                            // I THINK waiting reduces the risk of a weird exception
+                            self.openDocument(at: url, run: true, isShortcut: false)
+                        })
                     } catch {
                         print(error.localizedDescription)
                     }
