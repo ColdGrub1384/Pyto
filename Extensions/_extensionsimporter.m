@@ -24,8 +24,13 @@ static PyObject *_extensionsimporter_module_from_binary(PyObject *self, PyObject
         return NULL;
     }
     
+    NSURL *frameworksURL = NSBundle.mainBundle.privateFrameworksURL;
+    #if WIDGET
+    frameworksURL = [frameworksURL.URLByDeletingLastPathComponent.URLByDeletingLastPathComponent.URLByDeletingLastPathComponent URLByAppendingPathComponent:@"Frameworks"];
+    #endif
+    
     NSString *dependenciesName = [[[NSString stringWithUTF8String:name] componentsSeparatedByString:@"."].firstObject stringByAppendingString:@"-deps.framework"];
-    NSMutableString *dependenciesFrameworkPath = [NSMutableString stringWithString:[[NSBundle.mainBundle bundlePath] stringByAppendingString:@"/Frameworks/"]];
+    NSMutableString *dependenciesFrameworkPath = [NSMutableString stringWithString:[NSBundle.mainBundle sharedFrameworksURL].path];
     [dependenciesFrameworkPath appendString:dependenciesName];
     
     if ([NSFileManager.defaultManager fileExistsAtPath:dependenciesFrameworkPath]) {
@@ -35,13 +40,14 @@ static PyObject *_extensionsimporter_module_from_binary(PyObject *self, PyObject
     NSMutableString *frameworkName = [NSMutableString stringWithString:[[NSString stringWithUTF8String:name] stringByReplacingOccurrencesOfString:@"." withString:@"-"]];
     [frameworkName appendString:@".framework"];
     
-    NSMutableString *frameworkPath = [NSMutableString stringWithString:[[NSBundle.mainBundle bundlePath] stringByAppendingString:@"/Frameworks/"]];
+    NSMutableString *frameworkPath = [NSMutableString stringWithString:frameworksURL.path];
+    [frameworkPath appendString:@"/"];
     [frameworkPath appendString:frameworkName];
     
     if (![NSFileManager.defaultManager fileExistsAtPath:frameworkPath]) {
         NSString *libraryName = [[[NSString stringWithUTF8String:name] componentsSeparatedByString:@"."].firstObject stringByAppendingString:@"-.framework"];
         
-        frameworkPath = [NSMutableString stringWithString:[[NSBundle.mainBundle bundlePath] stringByAppendingString:@"/Frameworks/"]];
+        frameworkPath = [NSMutableString stringWithString:frameworksURL.path];
         [frameworkPath appendString:libraryName];
     }
     

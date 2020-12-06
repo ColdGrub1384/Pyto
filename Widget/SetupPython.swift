@@ -41,7 +41,7 @@ func SetupPython() {
         import threading
         from pyto import __Class__, Python
         from time import sleep
-        from extensionsimporter import PillowImporter
+        from extensionsimporter import FrameworksImporter
         from rubicon.objc import NSObject, objc_method, ObjCClass
         from ctypes import CDLL
 
@@ -55,8 +55,7 @@ func SetupPython() {
 
         PyWidget = __Class__("PyWidget")
 
-        sys.meta_path.append(PillowImporter())
-        sys.builtin_module_names += ("__PIL__imaging",)
+        sys.meta_path.append(FrameworksImporter())
 
         ssl._create_default_https_context = ssl._create_unverified_context
 
