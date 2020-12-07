@@ -19,8 +19,7 @@ def list_extensions(dir):
             print('invalid directory\n', 'Error: ', err)
     return files
 
-info = """
-<?xml version="1.0" encoding="UTF-8"?>
+info = """<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
@@ -47,8 +46,7 @@ info = """
 	<key>MinimumOSVersion</key>
 	<string>12.0</string>
 </dict>
-</plist>
-"""
+</plist>"""
 
 os.chdir(os.path.dirname(__file__)+"/../"+sys.argv[1]+"/build")
 

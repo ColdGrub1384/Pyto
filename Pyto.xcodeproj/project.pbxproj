@@ -213,6 +213,8 @@
 		C9273C7324BA60AE00B2A12C /* PyButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94E730122E3BBF300F3FB79 /* PyButtonItem.swift */; };
 		C9273C7524BA60AE00B2A12C /* PyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A05F6522E400890096DCA8 /* PyView.swift */; };
 		C9273C7624BA611900B2A12C /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91321C821FB500300437845 /* UIColor.swift */; };
+		C9280FEC257EAF9C00828077 /* erfa in Resources */ = {isa = PBXBuildFile; fileRef = C9280FEB257EAF9C00828077 /* erfa */; settings = {ASSET_TAGS = (erfa, ); }; };
+		C928100E257EAFE900828077 /* erfa-ufunc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C928100D257EAFE300828077 /* erfa-ufunc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C929167E22B192A5001C8BA0 /* scripts_runner.py in Resources */ = {isa = PBXBuildFile; fileRef = C929167D22B192A5001C8BA0 /* scripts_runner.py */; };
 		C92ACE3321F0D8CB00FA8904 /* SolarizedLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92ACE3221F0D8CB00FA8904 /* SolarizedLight.swift */; };
 		C92ACE3721F0DBF600FA8904 /* SolarizedDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92ACE3621F0DBF600FA8904 /* SolarizedDark.swift */; };
@@ -1653,6 +1655,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C928100E257EAFE900828077 /* erfa-ufunc.framework in Embed Frameworks */,
 				C9509D9C257AF6BD0015FC92 /* opencv2.framework in Embed Frameworks */,
 				C9509B1E2579AF370015FC92 /* ios_flang_runtime.framework in Embed Frameworks */,
 				C9BD079125757166002A69AA /* scipy-deps.framework in Embed Frameworks */,
@@ -2251,6 +2254,8 @@
 		C927187422C973F60025341B /* PyValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyValue.swift; sourceTree = "<group>"; };
 		C927187722C9933A0025341B /* PyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyButton.swift; sourceTree = "<group>"; };
 		C927187A22C99CEA0025341B /* PyControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyControl.swift; sourceTree = "<group>"; };
+		C9280FEB257EAF9C00828077 /* erfa */ = {isa = PBXFileReference; lastKnownFileType = folder; path = erfa; sourceTree = "<group>"; };
+		C928100D257EAFE300828077 /* erfa-ufunc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "erfa-ufunc.framework"; sourceTree = "<group>"; };
 		C929167D22B192A5001C8BA0 /* scripts_runner.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = scripts_runner.py; sourceTree = "<group>"; };
 		C92ACE3221F0D8CB00FA8904 /* SolarizedLight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarizedLight.swift; sourceTree = "<group>"; };
 		C92ACE3621F0DBF600FA8904 /* SolarizedDark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarizedDark.swift; sourceTree = "<group>"; };
@@ -3454,6 +3459,14 @@
 			path = "Life Cycle";
 			sourceTree = "<group>";
 		};
+		C9280FD4257EA39600828077 /* Erfa */ = {
+			isa = PBXGroup;
+			children = (
+				C928100D257EAFE300828077 /* erfa-ufunc.framework */,
+			);
+			path = Erfa;
+			sourceTree = "<group>";
+		};
 		C92A7CAF22F99A4700D3B4DF /* SkImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -4298,6 +4311,7 @@
 				C982A6E722F8D83600E999AA /* SkLearn */,
 				C92A7CAF22F99A4700D3B4DF /* SkImage */,
 				C9097E582574CA960028E29F /* SciPy */,
+				C9280FD4257EA39600828077 /* Erfa */,
 				C96D324122F74283007D2289 /* Pywt */,
 				C995FB76233AD2BA00A8D42C /* PyNacl */,
 				C9C3308123C2902F003B5971 /* Bcrypt */,
@@ -4675,6 +4689,7 @@
 				C9FFF408246E238A004F41D3 /* sklearn */,
 				C9FFF413246E238E004F41D3 /* statsmodels */,
 				C9FFF41B246E2391004F41D3 /* zmq */,
+				C9280FEB257EAF9C00828077 /* erfa */,
 			);
 			path = compiled;
 			sourceTree = "<group>";
@@ -5151,6 +5166,7 @@
 					cv2,
 					dask,
 					docs,
+					erfa,
 					gensim,
 					imageio,
 					jmespath,
@@ -5641,6 +5657,7 @@
 				C947C6F822E512CD00B7B35A /* Lib in Resources */,
 				C95F9D142564A1FB007B12EB /* boto3 in Resources */,
 				C95F9D132564A1FA007B12EB /* nacl in Resources */,
+				C9280FEC257EAF9C00828077 /* erfa in Resources */,
 				C95F9D1C2564A1FB007B12EB /* zmq in Resources */,
 				C95F9D172564A1FB007B12EB /* pywt in Resources */,
 				C95F9D162564A1FB007B12EB /* pandas in Resources */,
