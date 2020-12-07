@@ -6,6 +6,9 @@ source environment.sh
 
 cd ../erfa
 
+rm -rf setup.py
+cp ../tools/erfa-setup.py setup.py
+
 git submodule init 
 git submodule update
 
