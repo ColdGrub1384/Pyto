@@ -194,6 +194,7 @@ if "widget" not in os.environ:
                 "statsmodels",
                 "zmq",
                 "astropy",
+                "erfa",
             ):
                 return self
 

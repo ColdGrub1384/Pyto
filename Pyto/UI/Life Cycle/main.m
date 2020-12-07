@@ -78,7 +78,7 @@ int initialize_python(int argc, char *argv[]) {
     putenv("PYTHONMALLOC=malloc");
     #endif
     
-    // Astropy caches
+    // Astropy
     NSString *caches = [NSFileManager.defaultManager URLsForDirectory:NSCachesDirectory inDomains:NSAllDomainsMask].firstObject.path;
     NSString *astropyCaches = [caches stringByAppendingPathComponent:@"astropy"];
     if ([NSFileManager.defaultManager fileExistsAtPath:astropyCaches]) {
@@ -86,6 +86,8 @@ int initialize_python(int argc, char *argv[]) {
     }
     [NSFileManager.defaultManager createDirectoryAtPath:astropyCaches withIntermediateDirectories:YES attributes:NULL error:NULL];
     putenv((char *)[NSString stringWithFormat:@"XDG_CACHE_HOME=%@", caches].UTF8String);
+    [NSFileManager.defaultManager createDirectoryAtPath:astropyCaches withIntermediateDirectories:YES attributes:NULL error:NULL];
+    putenv((char *)[NSString stringWithFormat:@"XDG_CONFIG_HOME=%@", caches].UTF8String);
     
     // SKLearn data
     putenv((char *)[NSString stringWithFormat:@"SCIKIT_LEARN_DATA=%@", [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask].firstObject.path].UTF8String);

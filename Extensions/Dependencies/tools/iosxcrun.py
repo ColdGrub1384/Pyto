@@ -26,6 +26,8 @@ for arg in sys.argv:
     else:
         if arg == "-bundle":
             arg = "-shared"
+        elif arg == "fPIC":
+            arg = "-fPIC"
     new_args.append(arg)
 
 command = shlex.join(new_args)
