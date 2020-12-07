@@ -19,7 +19,7 @@ popd
 
 source environment.sh
 
-export CFLAGS="$CFLAGS -I/usr/local/opt/zlib/include -I../../../libjpeg/include -I../../../libpng -I../../../freetype2-ios/include"
+export CFLAGS="$CFLAGS -I/usr/local/opt/zlib/include -I../../../libjpeg -I../../../libpng -I../../../freetype2-ios/include"
 export LDFLAGS="$LDFLAGS -L/usr/local/opt/zlib/lib -L../tools"
 
 cd ../pillow
