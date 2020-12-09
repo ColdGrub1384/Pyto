@@ -28,6 +28,7 @@ cp -r src/PIL/* build/lib*/PIL/
 python3 ../tools/make_frameworks.py Pillow PIL
 rm -rf ../../../site-packages/PIL
 cp -r build/lib*/* ../../../site-packages/
+find ../../../site-packages/ -name "*.so" -delete
 
 cd ../tools
 
