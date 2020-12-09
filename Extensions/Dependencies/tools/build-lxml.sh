@@ -2,7 +2,13 @@
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
-source environment.sh
+cd ../libxslt
+xcodebuild ARCHS=arm64 ONLY_ACTIVE_ARCH=NO -scheme libxslt -sdk iphoneos build SYMROOT=build
+mv build/Debug-iphoneos/liblibxslt.a build/Debug-iphoneos/libxslt.a
+rm -f ../../Lxml/libxslt.a
+cp build/Debug-iphoneos/libxslt.a ../../Lxml
+
+source ../tools/environment.sh
 
 export STATIC_DEPS=false
 export CPPFLAGS="-I/usr/local/opt/libxslt/include"
@@ -13,12 +19,6 @@ make
 rm -f ../../Lxml/libxml2.a
 cp .libs/libxml2.a ../../Lxml
 
-cd ../libxslt
-xcodebuild ARCHS=arm64 ONLY_ACTIVE_ARCH=NO -scheme libxslt -sdk iphoneos build SYMROOT=build
-mv build/Debug-iphoneos/liblibxslt.a build/Debug-iphoneos/libxslt.a
-rm -f ../../Lxml/libxslt.a
-cp build/Debug-iphoneos/libxslt.a ../../Lxml
-
 OLD_PWD="$(pwd)"
 cd ../../Lxml/
 mkdir dependencies
@@ -28,9 +28,6 @@ ar x libxml2.a
 ar x libxslt.a
 cd ../
 
-unset CC
-unset CXX
-
 xcrun -sdk iphoneos clang -shared -fpic dependencies/*.o -arch arm64 -undefined dynamic_lookup -o dependencies/lxml
 rm -rf "dependencies/__.SYMDEF SORTED"
 rm -rf dependencies/*.o
@@ -39,8 +36,6 @@ mv dependencies/lxml dependencies/lxml.framework
 cp ../Dependencies/tools/lxml-Info.plist dependencies/lxml.framework/Info.plist
 mv dependencies/lxml.framework dependencies/lxml-deps.framework
 cd $OLD_PWD
-
-source environment.sh
 
 cd ../lxml
 python3 setup.py bdist
