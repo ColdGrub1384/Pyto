@@ -33,7 +33,8 @@ class ComplicationCache {
                     date = Date().addingTimeInterval(20*60)
                 }
                 
-                if let refresh = lastScheduledRefresh, date >= refresh {
+                if let refresh = lastScheduledRefresh, date.compare(refresh) != .orderedDescending {
+                    WCSession.default.sendMessage(["Nein": [date, refresh]], replyHandler: nil, errorHandler: nil)
                     return
                 }
                 
