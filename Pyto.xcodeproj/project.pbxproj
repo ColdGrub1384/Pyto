@@ -137,6 +137,7 @@
 		C90F7CF1227F494300EEA045 /* RunModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90F7CF0227F494300EEA045 /* RunModuleViewController.swift */; };
 		C91048CF2414055000DB89A2 /* PyTurtle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91048CE2414055000DB89A2 /* PyTurtle.swift */; };
 		C91048D22414055B00DB89A2 /* PyTurtle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91048CE2414055000DB89A2 /* PyTurtle.swift */; };
+		C912D6AB25827A3B00302424 /* ios_flang_runtime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9509B1B2579AF340015FC92 /* ios_flang_runtime.framework */; };
 		C913202B21DC12A300EEE677 /* AcknowledgmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C913202A21DC12A300EEE677 /* AcknowledgmentsViewController.swift */; };
 		C91321C921FB500300437845 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91321C821FB500300437845 /* UIColor.swift */; };
 		C91321D421FB664F00437845 /* REPL.py in Resources */ = {isa = PBXBuildFile; fileRef = C92DBD7F21F67B9C0098BE43 /* REPL.py */; };
@@ -216,6 +217,7 @@
 		C9280FEC257EAF9C00828077 /* erfa in Resources */ = {isa = PBXBuildFile; fileRef = C9280FEB257EAF9C00828077 /* erfa */; settings = {ASSET_TAGS = (erfa, ); }; };
 		C928100E257EAFE900828077 /* erfa-ufunc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C928100D257EAFE300828077 /* erfa-ufunc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C929167E22B192A5001C8BA0 /* scripts_runner.py in Resources */ = {isa = PBXBuildFile; fileRef = C929167D22B192A5001C8BA0 /* scripts_runner.py */; };
+		C9298E072581545800D4C140 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF04C424996DB20073A871 /* opencv2.framework */; };
 		C92ACE3321F0D8CB00FA8904 /* SolarizedLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92ACE3221F0D8CB00FA8904 /* SolarizedLight.swift */; };
 		C92ACE3721F0DBF600FA8904 /* SolarizedDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92ACE3621F0DBF600FA8904 /* SolarizedDark.swift */; };
 		C92B726A2561E0FA000D2BE3 /* InAppWidgetsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92B72692561E0FA000D2BE3 /* InAppWidgetsStore.swift */; };
@@ -591,7 +593,6 @@
 		C9509B1E2579AF370015FC92 /* ios_flang_runtime.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9509B1B2579AF340015FC92 /* ios_flang_runtime.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9509D83257AF6270015FC92 /* cv2_cv2.h in Headers */ = {isa = PBXBuildFile; fileRef = C9509D81257AF6270015FC92 /* cv2_cv2.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C9509D87257AF6270015FC92 /* cv2-cv2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9509D7F257AF6260015FC92 /* cv2-cv2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9509D9C257AF6BD0015FC92 /* opencv2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF04C424996DB20073A871 /* opencv2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9509DAD257AF6C60015FC92 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9DF04C424996DB20073A871 /* opencv2.framework */; };
 		C9509DAE257AF6CD0015FC92 /* cv2.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C95FA6DF24994A54004A4197 /* cv2.o */; };
 		C9509DD0257AF7290015FC92 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9509DCF257AF7280015FC92 /* AVFoundation.framework */; };
@@ -1084,6 +1085,7 @@
 		C9B5D84F21F11AAE00E980BA /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5D84E21F11AAE00E980BA /* AboutTableViewController.swift */; };
 		C9B5D87221F20F2A00E980BA /* MarkdownPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5D87121F20F2A00E980BA /* MarkdownPreviewController.swift */; };
 		C9B5D87621F214DC00E980BA /* body.html in Resources */ = {isa = PBXBuildFile; fileRef = C9B5D87521F214DC00E980BA /* body.html */; };
+		C9BC97FA25826F5E0093E11E /* cv2 in Resources */ = {isa = PBXBuildFile; fileRef = C9BC97F725826F5E0093E11E /* cv2 */; };
 		C9BD079125757166002A69AA /* scipy-deps.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9BD076D25757103002A69AA /* scipy-deps.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9BF46E222E0DC4F00B8FE4B /* PyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF46E122E0DC4F00B8FE4B /* PyTableViewCell.swift */; };
 		C9BF46E722E106D500B8FE4B /* PyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF46E622E106D500B8FE4B /* PyTableView.swift */; };
@@ -1657,7 +1659,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				C928100E257EAFE900828077 /* erfa-ufunc.framework in Embed Frameworks */,
-				C9509D9C257AF6BD0015FC92 /* opencv2.framework in Embed Frameworks */,
 				C9509B1E2579AF370015FC92 /* ios_flang_runtime.framework in Embed Frameworks */,
 				C9BD079125757166002A69AA /* scipy-deps.framework in Embed Frameworks */,
 				C9097ED32574CAE50028E29F /* scipy-linalg-_solve_toeplitz.framework in Embed Frameworks */,
@@ -2811,6 +2812,7 @@
 		C9B8AE2C24B3E275001FD8F0 /* Pyto Intents copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Pyto Intents copy-Info.plist"; path = "/Users/adrianlabbe/Desktop/Pyto/Pyto Intents copy-Info.plist"; sourceTree = "<absolute>"; };
 		C9B8AE3424B3FB09001FD8F0 /* RunScriptIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunScriptIntentHandler.swift; sourceTree = "<group>"; };
 		C9B8AE3724B3FB73001FD8F0 /* RunCodeIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunCodeIntentHandler.swift; sourceTree = "<group>"; };
+		C9BC97F725826F5E0093E11E /* cv2 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = cv2; sourceTree = "<group>"; };
 		C9BD076D25757103002A69AA /* scipy-deps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "scipy-deps.framework"; sourceTree = "<group>"; };
 		C9BE01B021530BAF00A8C825 /* site-packages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "site-packages"; sourceTree = "<group>"; };
 		C9BF46E122E0DC4F00B8FE4B /* PyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyTableViewCell.swift; sourceTree = "<group>"; };
@@ -3168,6 +3170,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9298E072581545800D4C140 /* opencv2.framework in Frameworks */,
 				C9CC91B8257ED86900E1FB84 /* libFreetype2.a in Frameworks */,
 				C904FA2621DA4C7600B70A39 /* Accelerate.framework in Frameworks */,
 				C979922A24B249B1003571AB /* WidgetKit.framework in Frameworks */,
@@ -3186,6 +3189,7 @@
 				C9064E372413083000E386C2 /* libnpymath.a in Frameworks */,
 				FB8E1BD71E7770DA6D5BD401 /* Pods_Pyto.framework in Frameworks */,
 				E340E5E1B7234E168F970F11 /* Pods_Pyto.framework in Frameworks */,
+				C912D6AB25827A3B00302424 /* ios_flang_runtime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4674,6 +4678,7 @@
 				C9FFF410246E238D004F41D3 /* boto3 */,
 				C9FFF407246E238A004F41D3 /* botocore */,
 				C9FFF41A246E2391004F41D3 /* cryptography */,
+				C9BC97F725826F5E0093E11E /* cv2 */,
 				C9FFF41C246E2391004F41D3 /* dask */,
 				C9FFF414246E238F004F41D3 /* gensim */,
 				C9FFF417246E2390004F41D3 /* imageio */,
@@ -5605,6 +5610,7 @@
 				C95F9D1B2564A1FB007B12EB /* botocore in Resources */,
 				C90BA5CB23C4CD2B00B2B187 /* Light 5.png in Resources */,
 				C9F8661A21ED059F0062D1C1 /* site-packages in Resources */,
+				C9BC97FA25826F5E0093E11E /* cv2 in Resources */,
 				C95F9D192564A1FB007B12EB /* skimage in Resources */,
 				C942476624844F2800C9FF02 /* Shortcuts.json in Resources */,
 				C95F9D0F2564A1FA007B12EB /* regex in Resources */,
@@ -7876,6 +7882,7 @@
 					"$(PROJECT_DIR)/Extensions/OpenBlas",
 					"$(PROJECT_DIR)/Extensions/Bcrypt",
 					"$(PROJECT_DIR)/Extensions/Lxml/dependencies",
+					"$(PROJECT_DIR)/Extensions/SciPy",
 				);
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_OPTIMIZATION_LEVEL = s;
@@ -9191,6 +9198,7 @@
 					"$(PROJECT_DIR)/Extensions/OpenBlas",
 					"$(PROJECT_DIR)/Extensions/Bcrypt",
 					"$(PROJECT_DIR)/Extensions/Lxml/dependencies",
+					"$(PROJECT_DIR)/Extensions/SciPy",
 				);
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_OPTIMIZATION_LEVEL = s;
@@ -9315,6 +9323,7 @@
 					"$(PROJECT_DIR)/Extensions/OpenBlas",
 					"$(PROJECT_DIR)/Extensions/Bcrypt",
 					"$(PROJECT_DIR)/Extensions/Lxml/dependencies",
+					"$(PROJECT_DIR)/Extensions/SciPy",
 				);
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_OPTIMIZATION_LEVEL = s;
