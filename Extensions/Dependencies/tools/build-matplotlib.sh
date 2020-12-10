@@ -27,3 +27,6 @@ cp -r build/lib*/matplotlib/mpl-data ../../../site-packages/
 cp build/lib*/pylab.py ../../../site-packages/
 
 rm ../tools/libfreetype.dylib
+rm ../tools/a.c
+
+find ../../../downloadable-site-packages/compiled/matplotlib -name ".*" -delete

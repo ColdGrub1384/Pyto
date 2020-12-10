@@ -34,6 +34,7 @@ rm -rf dependencies/*.o
 mkdir dependencies/lxml.framework
 mv dependencies/lxml dependencies/lxml.framework
 cp ../Dependencies/tools/lxml-Info.plist dependencies/lxml.framework/Info.plist
+rm -rf dependencies/lxml-deps.framework
 mv dependencies/lxml.framework dependencies/lxml-deps.framework
 cd $OLD_PWD
 
