@@ -52,7 +52,7 @@ class Reader:
             oldStdout.write(txt)
         elif txt.__class__ is bytes:
             text = txt.decode()
-            self.write(self, text)
+            self.write(text)
 
 
 __all__ = ["Reader"]
