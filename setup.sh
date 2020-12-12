@@ -3,6 +3,12 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 cd "$DIR"
 
+python3 -m pip install Cython
+python3 -m pip install numpy
+python3 -m pip install jinja2
+python3 -m pip install wheel
+brew install zlib
+
 # OpenCV
 
 rm -rf opencv2.framework

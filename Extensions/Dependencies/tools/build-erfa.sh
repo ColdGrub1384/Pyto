@@ -2,6 +2,8 @@
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
+python3 -m pip install packaging
+
 source environment.sh
 
 cd ../erfa
