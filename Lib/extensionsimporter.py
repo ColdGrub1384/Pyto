@@ -201,7 +201,7 @@ if "widget" not in os.environ:
             return
 
         def is_package(self, i_dont_know_what_goes_here):
-            return False
+            return True
 
         def load_module(self, fullname):
             self.__is_importing__ = True
