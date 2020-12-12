@@ -918,7 +918,7 @@ class PackageRepository(object):
 
                     if not os.path.isfile(f) and not os.path.isdir(f):
                         f = os.path.expanduser(
-                            "~/Documents/modules/{}".format(os.path.basename(f))
+                            "~/Documents/site-packages/{}".format(os.path.basename(f))
                         )
 
                     if os.path.isdir(f):
@@ -932,22 +932,22 @@ class PackageRepository(object):
             else:
                 if os.path.isdir(
                     os.path.expanduser(
-                        "~/Documents/modules/{}".format(pkg_name.lower())
+                        "~/Documents/site-packages/{}".format(pkg_name.lower())
                     )
                 ):
                     shutil.rmtree(
                         os.path.expanduser(
-                            "~/Documents/modules/{}".format(pkg_name.lower())
+                            "~/Documents/site-packages/{}".format(pkg_name.lower())
                         )
                     )
                 elif os.path.isfile(
                     os.path.expanduser(
-                        "~/Documents/modules/{}.py".format(pkg_name.lower())
+                        "~/Documents/site-packages/{}.py".format(pkg_name.lower())
                     )
                 ):
                     os.remove(
                         os.path.expanduser(
-                            "~/Documents/modules/{}.py".format(pkg_name.lower())
+                            "~/Documents/site-packages/{}.py".format(pkg_name.lower())
                         )
                     )
                 else:

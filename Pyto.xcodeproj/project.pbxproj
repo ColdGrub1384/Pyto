@@ -146,6 +146,7 @@
 		C91321D921FB684E00437845 /* PySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9425A7A21F49B8400E7CC35 /* PySelector.swift */; };
 		C91376B6245E365E00AA0935 /* RemoteNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91376B5245E365E00AA0935 /* RemoteNotifications.swift */; };
 		C9145BC52536ACB50099D91B /* StartHandlingWidgetsInAppIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9145BC42536ACB50099D91B /* StartHandlingWidgetsInAppIntentHandler.swift */; };
+		C91680C225845D5300D3CAD2 /* zmq-libzmq.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C91680BE25845D4600D3CAD2 /* zmq-libzmq.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C916F44B226CFD4800FA2FB6 /* modules_inspector.py in Resources */ = {isa = PBXBuildFile; fileRef = C916F44A226CFD4700FA2FB6 /* modules_inspector.py */; };
 		C916FD04248B36DC000AAE76 /* InternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C916FD03248B36DC000AAE76 /* InternetConnection.swift */; };
 		C91A5DA725113AEA0095A0D0 /* Shortcuts iOS 14.json in Resources */ = {isa = PBXBuildFile; fileRef = C91A5D9025113AEA0095A0D0 /* Shortcuts iOS 14.json */; };
@@ -1067,6 +1068,9 @@
 		C9B0E56223B5002A00A4B4A7 /* ANSITextState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B0E55523B4FC0300A4B4A7 /* ANSITextState.swift */; };
 		C9B0E56323B5002A00A4B4A7 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B0E55623B4FC0300A4B4A7 /* Parser.swift */; };
 		C9B1A1A2249B1E5000DBC4FC /* MarqueeLabel in Frameworks */ = {isa = PBXBuildFile; productRef = C9B1A1A1249B1E5000DBC4FC /* MarqueeLabel */; };
+		C9B2B7E42583EDE000D75C66 /* matplotlib_deps.h in Headers */ = {isa = PBXBuildFile; fileRef = C9B2B7E22583EDE000D75C66 /* matplotlib_deps.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C9B2B7E82583EDE000D75C66 /* matplotlib-deps.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9B2B7E02583EDDF00D75C66 /* matplotlib-deps.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9B2B8002583EDF400D75C66 /* libFreetype2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9509BC7257A75560015FC92 /* libFreetype2.a */; };
 		C9B2DD9A235CA587000BD8C5 /* python38.zip in Resources */ = {isa = PBXBuildFile; fileRef = C9B2DD99235CA587000BD8C5 /* python38.zip */; };
 		C9B2DD9B235CA587000BD8C5 /* python38.zip in Resources */ = {isa = PBXBuildFile; fileRef = C9B2DD99235CA587000BD8C5 /* python38.zip */; };
 		C9B3FDEC21503DE7000FC9A8 /* PyExtensionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */; };
@@ -1119,7 +1123,6 @@
 		C9C7AC6B22F5ED2300659685 /* RunScriptIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C7AC6922F5ED2300659685 /* RunScriptIntentHandler.swift */; };
 		C9C7AC6C22F5ED2300659685 /* RunCodeIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C7AC6A22F5ED2300659685 /* RunCodeIntentHandler.swift */; };
 		C9C7AC6E22F5EE9F00659685 /* PyWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C7AC6D22F5EE9F00659685 /* PyWebView.swift */; };
-		C9CC91B8257ED86900E1FB84 /* libFreetype2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9509BC7257A75560015FC92 /* libFreetype2.a */; };
 		C9CED5352353A214000BB464 /* ThemeMakerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CED5342353A214000BB464 /* ThemeMakerTableViewController.swift */; };
 		C9CED5382353C973000BB464 /* HRColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CED5372353C973000BB464 /* HRColorPickerView.swift */; };
 		C9CEE1EB21EB8D5300316D3C /* PytoCore.h in Headers */ = {isa = PBXBuildFile; fileRef = C9CEE1E921EB8D5300316D3C /* PytoCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1504,6 +1507,13 @@
 			remoteGlobalIDString = 3C2E435B201E883E00E4254A;
 			remoteInfo = "InputAssistant Sample";
 		};
+		C9B2B7E52583EDE000D75C66 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9FCFD4D214428AE00A07974 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C9B2B7DF2583EDDF00D75C66;
+			remoteInfo = "matplotlib-deps";
+		};
 		C9C2F47322F0ED8C0062F4D6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C9FCFD4D214428AE00A07974 /* Project object */;
@@ -1658,6 +1668,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C91680C225845D5300D3CAD2 /* zmq-libzmq.framework in Embed Frameworks */,
+				C9B2B7E82583EDE000D75C66 /* matplotlib-deps.framework in Embed Frameworks */,
 				C928100E257EAFE900828077 /* erfa-ufunc.framework in Embed Frameworks */,
 				C9509B1E2579AF370015FC92 /* ios_flang_runtime.framework in Embed Frameworks */,
 				C9BD079125757166002A69AA /* scipy-deps.framework in Embed Frameworks */,
@@ -2234,6 +2246,7 @@
 		C91321C821FB500300437845 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		C91376B5245E365E00AA0935 /* RemoteNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotifications.swift; sourceTree = "<group>"; };
 		C9145BC42536ACB50099D91B /* StartHandlingWidgetsInAppIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartHandlingWidgetsInAppIntentHandler.swift; sourceTree = "<group>"; };
+		C91680BE25845D4600D3CAD2 /* zmq-libzmq.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "zmq-libzmq.framework"; sourceTree = "<group>"; };
 		C916F44A226CFD4700FA2FB6 /* modules_inspector.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = modules_inspector.py; sourceTree = "<group>"; };
 		C916FD03248B36DC000AAE76 /* InternetConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnection.swift; sourceTree = "<group>"; };
 		C91A5D9025113AEA0095A0D0 /* Shortcuts iOS 14.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Shortcuts iOS 14.json"; sourceTree = "<group>"; };
@@ -2795,6 +2808,9 @@
 		C9AC411F249811C500847A13 /* InputAssistant.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = InputAssistant.xcodeproj; path = InputAssistant/InputAssistant.xcodeproj; sourceTree = "<group>"; };
 		C9B0E55523B4FC0300A4B4A7 /* ANSITextState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANSITextState.swift; sourceTree = "<group>"; };
 		C9B0E55623B4FC0300A4B4A7 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		C9B2B7E02583EDDF00D75C66 /* matplotlib-deps.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "matplotlib-deps.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9B2B7E22583EDE000D75C66 /* matplotlib_deps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = matplotlib_deps.h; sourceTree = "<group>"; };
+		C9B2B7E32583EDE000D75C66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9B2DD99235CA587000BD8C5 /* python38.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = python38.zip; sourceTree = "<group>"; };
 		C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyExtensionContext.swift; sourceTree = "<group>"; };
 		C9B5753224B031F300F7F1B1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.16.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
@@ -3119,6 +3135,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C9B2B7DD2583EDDF00D75C66 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9B2B8002583EDF400D75C66 /* libFreetype2.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9C2F46B22F0ED8C0062F4D6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -3171,7 +3195,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9298E072581545800D4C140 /* opencv2.framework in Frameworks */,
-				C9CC91B8257ED86900E1FB84 /* libFreetype2.a in Frameworks */,
 				C904FA2621DA4C7600B70A39 /* Accelerate.framework in Frameworks */,
 				C979922A24B249B1003571AB /* WidgetKit.framework in Frameworks */,
 				C9727A5B256B0C7D008F5AC9 /* libnpyrandom.a in Frameworks */,
@@ -4340,6 +4363,15 @@
 			path = Colors;
 			sourceTree = "<group>";
 		};
+		C9B2B7E12583EDDF00D75C66 /* matplotlib-deps */ = {
+			isa = PBXGroup;
+			children = (
+				C9B2B7E22583EDE000D75C66 /* matplotlib_deps.h */,
+				C9B2B7E32583EDE000D75C66 /* Info.plist */,
+			);
+			path = "matplotlib-deps";
+			sourceTree = "<group>";
+		};
 		C9B5C75A24CD2C10000CC6D0 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
@@ -4445,6 +4477,7 @@
 		C9C4287124699AF0000CCC53 /* Zmq */ = {
 			isa = PBXGroup;
 			children = (
+				C91680BE25845D4600D3CAD2 /* zmq-libzmq.framework */,
 				C9C4287224699AF0000CCC53 /* zmq-backend-cython-_device.framework */,
 				C9C4287324699AF0000CCC53 /* zmq-backend-cython-_poll.framework */,
 				C9C4287424699AF0000CCC53 /* zmq-backend-cython-constants.framework */,
@@ -4581,6 +4614,7 @@
 				C979923F24B398A5003571AB /* TodayExtension */,
 				C936525424D7BAF100B08A7C /* Intents UI */,
 				C9509D80257AF6270015FC92 /* cv2_cv2 */,
+				C9B2B7E12583EDDF00D75C66 /* matplotlib-deps */,
 				C9FCFD56214428AE00A07974 /* Products */,
 				E49BBFEA4FF54799EBA99E3A /* Pods */,
 				777F5989381586AA988D5FF0 /* Frameworks */,
@@ -4614,6 +4648,7 @@
 				C9E93C442526C8F40025C363 /* Pyto Watch Simulator.app */,
 				C9E93CFB2526C96B0025C363 /* Pyto Watch Extension Simulator.appex */,
 				C9509D7F257AF6260015FC92 /* cv2-cv2.framework */,
+				C9B2B7E02583EDDF00D75C66 /* matplotlib-deps.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4769,6 +4804,14 @@
 				C9509F11257C17DE0015FC92 /* jconfig.h in Headers */,
 				C9509F1A257C17DE0015FC92 /* cdjpeg.h in Headers */,
 				C9509EF2257C17DE0015FC92 /* jpeglib.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9B2B7DB2583EDDF00D75C66 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9B2B7E42583EDE000D75C66 /* matplotlib_deps.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5008,6 +5051,24 @@
 			productReference = C9A2C9CA24A5908D00D94E0B /* WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		C9B2B7DF2583EDDF00D75C66 /* matplotlib-deps */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9B2B7EE2583EDE000D75C66 /* Build configuration list for PBXNativeTarget "matplotlib-deps" */;
+			buildPhases = (
+				C9B2B7DB2583EDDF00D75C66 /* Headers */,
+				C9B2B7DC2583EDDF00D75C66 /* Sources */,
+				C9B2B7DD2583EDDF00D75C66 /* Frameworks */,
+				C9B2B7DE2583EDDF00D75C66 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "matplotlib-deps";
+			productName = "matplotlib-deps";
+			productReference = C9B2B7E02583EDDF00D75C66 /* matplotlib-deps.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		C9C2F46D22F0ED8C0062F4D6 /* Pyto Intents */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C9C2F47622F0ED8C0062F4D6 /* Build configuration list for PBXNativeTarget "Pyto Intents" */;
@@ -5146,6 +5207,7 @@
 				C97B022F23E9F82B00032925 /* PBXTargetDependency */,
 				C9A2C9D824A5908F00D94E0B /* PBXTargetDependency */,
 				C9509D85257AF6270015FC92 /* PBXTargetDependency */,
+				C9B2B7E62583EDE000D75C66 /* PBXTargetDependency */,
 			);
 			name = Pyto;
 			packageProductDependencies = (
@@ -5232,6 +5294,9 @@
 					C9A2C9C924A5908D00D94E0B = {
 						CreatedOnToolsVersion = 12.0;
 					};
+					C9B2B7DF2583EDDF00D75C66 = {
+						CreatedOnToolsVersion = 12.2;
+					};
 					C9C2F46D22F0ED8C0062F4D6 = {
 						CreatedOnToolsVersion = 11.0;
 						LastSwiftMigration = 1120;
@@ -5316,6 +5381,7 @@
 				C9E93C372526C8F40025C363 /* Pyto Watch Simulator */,
 				C9E93CE02526C96B0025C363 /* Pyto Watch Extension Simulator */,
 				C9509D7E257AF6260015FC92 /* cv2-cv2 */,
+				C9B2B7DF2583EDDF00D75C66 /* matplotlib-deps */,
 			);
 		};
 /* End PBXProject section */
@@ -5533,6 +5599,13 @@
 			files = (
 				C94004092509BE9500EB74EB /* Localizable.strings in Resources */,
 				C9A2C9D324A5908F00D94E0B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9B2B7DE2583EDDF00D75C66 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6316,6 +6389,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C9B2B7DC2583EDDF00D75C66 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9C2F46A22F0ED8C0062F4D6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -6736,6 +6816,11 @@
 			isa = PBXTargetDependency;
 			target = C9A2C9C924A5908D00D94E0B /* WidgetExtension */;
 			targetProxy = C9A2C9D724A5908F00D94E0B /* PBXContainerItemProxy */;
+		};
+		C9B2B7E62583EDE000D75C66 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C9B2B7DF2583EDDF00D75C66 /* matplotlib-deps */;
+			targetProxy = C9B2B7E52583EDE000D75C66 /* PBXContainerItemProxy */;
 		};
 		C9C2F47422F0ED8C0062F4D6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -7622,7 +7707,7 @@
 				);
 				INFOPLIST_FILE = cv2_cv2/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -7660,7 +7745,7 @@
 				);
 				INFOPLIST_FILE = cv2_cv2/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -7698,7 +7783,7 @@
 				);
 				INFOPLIST_FILE = cv2_cv2/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -7784,7 +7869,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_NUMBER = 353;
+				BUILD_NUMBER = 358;
 				BUNDLE_ID = ch.ada.PytoVPP;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -7885,6 +7970,7 @@
 					"$(PROJECT_DIR)/Extensions/Bcrypt",
 					"$(PROJECT_DIR)/Extensions/Lxml/dependencies",
 					"$(PROJECT_DIR)/Extensions/SciPy",
+					"$(PROJECT_DIR)/Extensions/Zmq",
 				);
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_OPTIMIZATION_LEVEL = s;
@@ -8664,6 +8750,96 @@
 			};
 			name = Release;
 		};
+		C9B2B7E92583EDE000D75C66 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "matplotlib-deps/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.ada.Pyto.matplotlib-deps";
+				PRODUCT_NAME = "matplotlib-deps";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		C9B2B7EA2583EDE000D75C66 /* VPP */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "matplotlib-deps/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.ada.Pyto.matplotlib-deps";
+				PRODUCT_NAME = "matplotlib-deps";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = VPP;
+		};
+		C9B2B7EB2583EDE000D75C66 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Y96PL6G497;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "matplotlib-deps/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.ada.Pyto.matplotlib-deps";
+				PRODUCT_NAME = "matplotlib-deps";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		C9C2F47722F0ED8C0062F4D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -9045,7 +9221,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_NUMBER = 353;
+				BUILD_NUMBER = 358;
 				BUNDLE_ID = ch.marcela.ada.Pyto;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9110,7 +9286,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_NUMBER = 353;
+				BUILD_NUMBER = 358;
 				BUNDLE_ID = ch.marcela.ada.Pyto;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9205,6 +9381,7 @@
 					"$(PROJECT_DIR)/Extensions/Bcrypt",
 					"$(PROJECT_DIR)/Extensions/Lxml/dependencies",
 					"$(PROJECT_DIR)/Extensions/SciPy",
+					"$(PROJECT_DIR)/Extensions/Zmq",
 				);
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_OPTIMIZATION_LEVEL = s;
@@ -9330,6 +9507,7 @@
 					"$(PROJECT_DIR)/Extensions/Bcrypt",
 					"$(PROJECT_DIR)/Extensions/Lxml/dependencies",
 					"$(PROJECT_DIR)/Extensions/SciPy",
+					"$(PROJECT_DIR)/Extensions/Zmq",
 				);
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_OPTIMIZATION_LEVEL = s;
@@ -9534,6 +9712,16 @@
 				C9A2C9DA24A5908F00D94E0B /* Debug */,
 				C9A2C9DB24A5908F00D94E0B /* VPP */,
 				C9A2C9DC24A5908F00D94E0B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C9B2B7EE2583EDE000D75C66 /* Build configuration list for PBXNativeTarget "matplotlib-deps" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9B2B7E92583EDE000D75C66 /* Debug */,
+				C9B2B7EA2583EDE000D75C66 /* VPP */,
+				C9B2B7EB2583EDE000D75C66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
