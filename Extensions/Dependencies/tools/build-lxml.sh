@@ -2,13 +2,21 @@
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
+brew install libxslt pkg-config autoconf automake libtool
+ln -s /usr/local/bin/glibtoolize /usr/local/bin/libtoolize
+
 cd ../libxslt
+
+mkdir -p ../../Lxml
+
 xcodebuild ARCHS=arm64 ONLY_ACTIVE_ARCH=NO -scheme libxslt -sdk iphoneos build SYMROOT=build
 mv build/Debug-iphoneos/liblibxslt.a build/Debug-iphoneos/libxslt.a
 rm -f ../../Lxml/libxslt.a
 cp build/Debug-iphoneos/libxslt.a ../../Lxml
 
-source ../tools/environment.sh
+pushd ../tools
+source environment.sh
+popd
 
 export STATIC_DEPS=false
 export CPPFLAGS="-I/usr/local/opt/libxslt/include"

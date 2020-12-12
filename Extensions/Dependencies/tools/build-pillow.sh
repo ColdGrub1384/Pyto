@@ -13,7 +13,10 @@ pushd build_pillow/*
 
 mv libjpeg.framework/libjpeg ../../libjpeg.dylib
 mv libpng.framework/libpng ../../libpng.dylib
-touch libfreetype ../../libfreetype.dylib
+
+echo "int a() { return 0; }" > a.c
+clang -arch x86_64 -shared a.c -o ../../libfreetype.dylib
+rm a.c
 
 popd
 
