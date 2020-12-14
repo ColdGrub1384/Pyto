@@ -286,6 +286,11 @@ try:
 
     unittest.main = _unittest_main
 
+    # MARK: - Menu
+    
+    from _set_mac_main_menu import set_menu
+    set_menu()
+
     # MARK: - Run script
 
     def run():

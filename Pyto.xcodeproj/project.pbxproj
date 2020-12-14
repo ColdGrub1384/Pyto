@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		661A396962347B634955210E /* Pods_Pyto_Screenshots.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B55038E3A0EDA2B8DC07639F /* Pods_Pyto_Screenshots.framework */; };
 		6AB6C68D181C2C686D545A61 /* Pods_Pyto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 296FFAAD958315A38A36E2A4 /* Pods_Pyto.framework */; };
+		C31E736B25869281000FCE35 /* _set_mac_main_menu.py in Resources */ = {isa = PBXBuildFile; fileRef = C31E736A25869281000FCE35 /* _set_mac_main_menu.py */; };
+		C31E737E25869292000FCE35 /* MacMainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31E737D25869292000FCE35 /* MacMainMenu.swift */; };
 		C90089E023D79C5C00D18AAE /* PyMultipeerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90089DF23D79C5C00D18AAE /* PyMultipeerHelper.swift */; };
 		C903986922D2CF2600FAD834 /* PyImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C903986822D2CF2600FAD834 /* PyImageView.swift */; };
 		C9040DBE2502A2BB002B6C7F /* UIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9040DBD2502A2BB002B6C7F /* UIKitView.swift */; };
@@ -2066,6 +2068,8 @@
 		B02EB2632C549B97E51CA165 /* Pods-Pyto Xcode 11.vpp.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Xcode 11.vpp.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Xcode 11/Pods-Pyto Xcode 11.vpp.xcconfig"; sourceTree = "<group>"; };
 		B55038E3A0EDA2B8DC07639F /* Pods_Pyto_Screenshots.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pyto_Screenshots.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDF906F857A60D2FF55BE403 /* Pods-Pyto Mac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Mac.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Mac/Pods-Pyto Mac.debug.xcconfig"; sourceTree = "<group>"; };
+		C31E736A25869281000FCE35 /* _set_mac_main_menu.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = _set_mac_main_menu.py; sourceTree = "<group>"; };
+		C31E737D25869292000FCE35 /* MacMainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacMainMenu.swift; sourceTree = "<group>"; };
 		C90089DF23D79C5C00D18AAE /* PyMultipeerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyMultipeerHelper.swift; sourceTree = "<group>"; };
 		C903986822D2CF2600FAD834 /* PyImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyImageView.swift; sourceTree = "<group>"; };
 		C9040DB525007209002B6C7F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Intents.strings; sourceTree = "<group>"; };
@@ -3276,6 +3280,15 @@
 				B55038E3A0EDA2B8DC07639F /* Pods_Pyto_Screenshots.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C31E730E25868DF2000FCE35 /* iOS App on Mac */ = {
+			isa = PBXGroup;
+			children = (
+				C31E736A25869281000FCE35 /* _set_mac_main_menu.py */,
+				C31E737D25869292000FCE35 /* MacMainMenu.swift */,
+			);
+			path = "iOS App on Mac";
 			sourceTree = "<group>";
 		};
 		C90397B522D15B4B00FAD834 /* PIL */ = {
@@ -4659,6 +4672,7 @@
 				C92CFFDE2555AC7700EBA3E3 /* PytoRelease.entitlements */,
 				C90E5583227B44AE000F27F4 /* Pyto.entitlements */,
 				C97AA8DB24898BE40063B6F8 /* In App Purchases.swift */,
+				C31E730E25868DF2000FCE35 /* iOS App on Mac */,
 				C91F963E24AD91EE003ACF02 /* UI */,
 				C9592D1321D0592C00412CEF /* Model */,
 				C91F963D24AD919D003ACF02 /* Other */,
@@ -5752,6 +5766,7 @@
 				C9FCFD60214428B300A07974 /* Assets.xcassets in Resources */,
 				C9DF04D524999DF90073A871 /* test_pyto.py in Resources */,
 				C90BA5BF23C4CD1F00B2B187 /* Dark 4.png in Resources */,
+				C31E736B25869281000FCE35 /* _set_mac_main_menu.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6650,6 +6665,7 @@
 				C97113D524A7BA56006ACCC7 /* setArgv.m in Sources */,
 				C9A05F6622E400890096DCA8 /* PyView.swift in Sources */,
 				C943E7F522E21D4C00B8027C /* PyTextInputTraits.swift in Sources */,
+				C31E737E25869292000FCE35 /* MacMainMenu.swift in Sources */,
 				C9CED5382353C973000BB464 /* HRColorPickerView.swift in Sources */,
 				C927187522C973F60025341B /* PyValue.swift in Sources */,
 				C9C0E77821EEA9BE0057C63E /* XcodeDark.swift in Sources */,

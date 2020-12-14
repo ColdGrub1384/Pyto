@@ -45,6 +45,8 @@ extension SceneDelegate {
                 UIApplication.shared.requestSceneSessionDestruction(session, options: nil, errorHandler: nil)
             }
             justShown = false
+            
+            setMacMainMenu()
         }
     }
 }

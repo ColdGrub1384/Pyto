@@ -157,6 +157,13 @@ import SwiftUI
     }
     
     @available(iOS 13.0, *)
+    func sceneWillEnterForeground(_ scene: UIScene) {
+        if #available(iOS 14.0, *) {
+            setMacMainMenu()
+        }
+    }
+    
+    @available(iOS 13.0, *)
     func sceneDidDisconnect(_ scene: UIScene) {
         ((window?.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor?.save()
     }
@@ -164,6 +171,7 @@ import SwiftUI
     @available(iOS 13.0, *)
     func sceneDidEnterBackground(_ scene: UIScene) {
         ((window?.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor?.save()
+        setMacMainMenu()
     }
     
     @available(iOS 13.0, *)
