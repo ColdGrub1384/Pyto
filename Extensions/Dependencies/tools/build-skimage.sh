@@ -10,5 +10,7 @@ export CFLAGS="$CFLAGS -Wno-implicit-function-declaration"
 
 cd ../skimage
 python3 setup.py bdist
+rm -rf build/lib*/skimage/data
+cp -r skimage/data build/lib*/skimage
 python3 ../tools/make_frameworks.py skimage SkImage
 ../tools/copy-scripts.sh build/lib*/* ../../../downloadable-site-packages/compiled/skimage

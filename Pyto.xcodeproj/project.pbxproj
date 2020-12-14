@@ -1032,6 +1032,7 @@
 		C9930CF224BBE9C9009B33B6 /* PyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF46E122E0DC4F00B8FE4B /* PyTableViewCell.swift */; };
 		C9930D0924BBE9D1009B33B6 /* PyTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF46E922E108C100B8FE4B /* PyTableViewSection.swift */; };
 		C9930D0A24BBE9E9009B33B6 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1721D0592C00412CEF /* Localizable.swift */; };
+		C9980CAB2585E2AA0021FF61 /* sklearn-utils-_openmp_helpers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9980CA82585E2A20021FF61 /* sklearn-utils-_openmp_helpers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C99D8E20223E960100489E9B /* PipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99D8E1F223E960100489E9B /* PipViewController.swift */; };
 		C99DDCEC21BBED22002A734E /* DocumentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99DDCEB21BBED22002A734E /* DocumentationViewController.swift */; };
 		C99E8D6C21F0CC7800C71884 /* WWDC16.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99E8D6B21F0CC7800C71884 /* WWDC16.swift */; };
@@ -1091,7 +1092,7 @@
 		C9B5D84F21F11AAE00E980BA /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5D84E21F11AAE00E980BA /* AboutTableViewController.swift */; };
 		C9B5D87221F20F2A00E980BA /* MarkdownPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5D87121F20F2A00E980BA /* MarkdownPreviewController.swift */; };
 		C9B5D87621F214DC00E980BA /* body.html in Resources */ = {isa = PBXBuildFile; fileRef = C9B5D87521F214DC00E980BA /* body.html */; };
-		C9BC97FA25826F5E0093E11E /* cv2 in Resources */ = {isa = PBXBuildFile; fileRef = C9BC97F725826F5E0093E11E /* cv2 */; };
+		C9BC97FA25826F5E0093E11E /* cv2 in Resources */ = {isa = PBXBuildFile; fileRef = C9BC97F725826F5E0093E11E /* cv2 */; settings = {ASSET_TAGS = (cv2, ); }; };
 		C9BD079125757166002A69AA /* scipy-deps.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9BD076D25757103002A69AA /* scipy-deps.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9BF46E222E0DC4F00B8FE4B /* PyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF46E122E0DC4F00B8FE4B /* PyTableViewCell.swift */; };
 		C9BF46E722E106D500B8FE4B /* PyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF46E622E106D500B8FE4B /* PyTableView.swift */; };
@@ -1670,6 +1671,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C9980CAB2585E2AA0021FF61 /* sklearn-utils-_openmp_helpers.framework in Embed Frameworks */,
 				C91680C225845D5300D3CAD2 /* zmq-libzmq.framework in Embed Frameworks */,
 				C9B2B7E82583EDE000D75C66 /* matplotlib-deps.framework in Embed Frameworks */,
 				C928100E257EAFE900828077 /* erfa-ufunc.framework in Embed Frameworks */,
@@ -2775,6 +2777,7 @@
 		C98F37BA23ED894700E5D52C /* PyMotionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyMotionHelper.swift; sourceTree = "<group>"; };
 		C996931221FDF56D00ED9DA7 /* libboringssl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libboringssl.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/lib/libboringssl.tbd; sourceTree = DEVELOPER_DIR; };
 		C996931621FDF57C00ED9DA7 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
+		C9980CA82585E2A20021FF61 /* sklearn-utils-_openmp_helpers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "sklearn-utils-_openmp_helpers.framework"; sourceTree = "<group>"; };
 		C99D8E1F223E960100489E9B /* PipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipViewController.swift; sourceTree = "<group>"; };
 		C99DDCEB21BBED22002A734E /* DocumentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationViewController.swift; sourceTree = "<group>"; };
 		C99E8D6B21F0CC7800C71884 /* WWDC16.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WWDC16.swift; sourceTree = "<group>"; };
@@ -4218,6 +4221,7 @@
 				C9602D7F25702D9B00BF66FC /* sklearn-utils-graph_shortest_path.framework */,
 				C9602DAE25702DA200BF66FC /* sklearn-utils-murmurhash.framework */,
 				C9602D5A25702D9200BF66FC /* sklearn-utils-sparsefuncs_fast.framework */,
+				C9980CA82585E2A20021FF61 /* sklearn-utils-_openmp_helpers.framework */,
 			);
 			path = SkLearn;
 			sourceTree = "<group>";
@@ -7891,7 +7895,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_NUMBER = 358;
+				BUILD_NUMBER = 361;
 				BUNDLE_ID = ch.ada.PytoVPP;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -7948,7 +7952,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				VERSION = 15.0;
+				VERSION = 15.0.1;
 			};
 			name = VPP;
 		};
@@ -9246,7 +9250,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_NUMBER = 358;
+				BUILD_NUMBER = 361;
 				BUNDLE_ID = ch.marcela.ada.Pyto;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9303,7 +9307,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				VERSION = 15.0;
+				VERSION = 15.0.1;
 			};
 			name = Debug;
 		};
@@ -9311,7 +9315,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_NUMBER = 358;
+				BUILD_NUMBER = 361;
 				BUNDLE_ID = ch.marcela.ada.Pyto;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9362,7 +9366,7 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
-				VERSION = 15.0;
+				VERSION = 15.0.1;
 			};
 			name = Release;
 		};
