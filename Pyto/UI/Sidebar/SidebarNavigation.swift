@@ -8,6 +8,23 @@
 
 import SwiftUI
 
+@available(iOS 14.0, *)
+fileprivate func SidebarLabel(_ text: String, systemImage: String) -> Label<Text, AnyView> {
+    return Label(
+        title: { Text(NSLocalizedString(text, comment: "")).foregroundColor(.primary) },
+        icon: { AnyView(Image(systemName: systemImage).foregroundColor(.accentColor)) }
+    )
+}
+
+@available(iOS 14.0, *)
+fileprivate func adjustBackground(_ colorScheme: ColorScheme) {
+    if ProcessInfo.processInfo.isiOSAppOnMac && colorScheme != .dark {
+        UITableView.appearance().backgroundColor = .systemBackground
+    } else {
+        UITableView.appearance().backgroundColor = .secondarySystemBackground
+    }
+}
+
 /// A code editor view.
 ///
 /// Use it as a `NavigationLink` for opening a code editor. The code editor is only created when this view appears so it works a lot faster and uses less memory than directly linking a `ViewController`.
@@ -224,6 +241,9 @@ public struct SidebarNavigation: View {
     /// The presentation mode.
     @Environment(\.presentationMode) var presentationMode
     
+    /// The  user interface style.
+    @Environment(\.colorScheme) var userInterfaceStyle
+    
     /// A boolean indicating whether the navigation view style should be stack.
     @State var stack = false
     
@@ -297,7 +317,7 @@ public struct SidebarNavigation: View {
                 presentationMode.wrappedValue.dismiss()
                 viewControllerStore.vc?.dismiss(animated: true, completion: nil)
             } label: {
-                Label("sidebar.scripts", systemImage: "folder")
+                SidebarLabel("sidebar.scripts", systemImage: "folder")
             }
                                     
             Section(header: Text("sidebar.recent")) {
@@ -305,8 +325,8 @@ public struct SidebarNavigation: View {
                     NavigationLink(
                         destination: EditorView(makeEditor: item.makeViewController, url: item.url, scene: scene, currentViewStore: currentViewStore, viewControllerStore: viewControllerStore, isStack: $stack, selection: .recent(item.url), selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
                         label: {
-                            Label(FileManager.default.displayName(atPath: item.url.path), systemImage: "clock")
-                    })
+                            SidebarLabel(FileManager.default.displayName(atPath: item.url.path), systemImage: "clock")
+                        })
                 }
             }
                         
@@ -316,14 +336,14 @@ public struct SidebarNavigation: View {
                     tag: SelectedSection.repl,
                     selection: $restoredSelection,
                     label: {
-                        Label("repl", systemImage: "play")
+                        SidebarLabel("repl", systemImage: "play")
                 })
                 
                 NavigationLink(
                     destination: runModule.navigationBarTitleDisplayMode(.inline).link(store: currentViewStore, isStack: $stack, selection: .runModule, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
                     tag: SelectedSection.runModule,
                     selection: $restoredSelection) {
-                    Label("sidebar.runModule", systemImage: "doc")
+                    SidebarLabel("sidebar.runModule", systemImage: "doc")
                 }
                 
                 NavigationLink(destination: pypi.onAppear {
@@ -333,13 +353,13 @@ public struct SidebarNavigation: View {
                 }.link(store: currentViewStore, isStack: $stack, selection: .pypi, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
                 tag: SelectedSection.pypi,
                 selection: $restoredSelection) {
-                    Label("sidebar.pypi", systemImage: "cube.box")
+                    SidebarLabel("sidebar.pypi", systemImage: "cube.box")
                 }
                 
                 NavigationLink(destination: modules.link(store: currentViewStore, isStack: $stack, selection: .loadedModules, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
                     tag: SelectedSection.loadedModules,
                     selection: $restoredSelection) {
-                    Label("sidebar.loadedModules", systemImage: "info.circle")
+                    SidebarLabel("sidebar.loadedModules", systemImage: "info.circle")
                 }
             }
             
@@ -351,13 +371,13 @@ public struct SidebarNavigation: View {
                 }.link(store: currentViewStore, isStack: $stack, selection: .examples, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
                 tag: SelectedSection.examples,
                 selection: $restoredSelection) {
-                    Label("sidebar.examples", systemImage: "bookmark")
+                    SidebarLabel("sidebar.examples", systemImage: "bookmark")
                 }
                 
                 NavigationLink(destination: documentation.link(store: currentViewStore, isStack: $stack, selection: .documentation, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
                     tag: SelectedSection.documentation,
                     selection: $restoredSelection) {
-                    Label("help.documentation", systemImage: "book")
+                    SidebarLabel("help.documentation", systemImage: "book")
                 }
             }
             
@@ -375,7 +395,9 @@ public struct SidebarNavigation: View {
             Image(systemName: "gear")
         }).padding(5).hover())
         .onAppear {
-            UITableView.appearance().backgroundColor = .secondarySystemBackground
+            adjustBackground(userInterfaceStyle)
+        }.onChange(of: userInterfaceStyle) { (value) in
+            adjustBackground(value)
         }
     }
     

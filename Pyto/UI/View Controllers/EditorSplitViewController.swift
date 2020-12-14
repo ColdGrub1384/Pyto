@@ -536,6 +536,18 @@ public class EditorSplitViewController: SplitViewController {
         return true
     }
     
+    @discardableResult
+    public override func becomeFirstResponder() -> Bool {
+        setMacMainMenu()
+        return true
+    }
+    
+    @discardableResult
+    public override func resignFirstResponder() -> Bool {
+        setMacMainMenu()
+        return true
+    }
+    
     public override var prefersHomeIndicatorAutoHidden: Bool {
         return (editor?.textView.contentTextView.isFirstResponder ?? false) || (console?.movableTextField?.textField.isFirstResponder ?? false)
     }

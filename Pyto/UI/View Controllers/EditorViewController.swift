@@ -124,6 +124,10 @@ func directory(for scriptURL: URL) -> URL {
             textView.contentTextView.isEditable = !(document?.documentState == .editingDisabled)
             
             NotificationCenter.default.addObserver(self, selector: #selector(stateChanged(_:)), name: UIDocument.stateChangedNotification, object: document)
+            
+            DispatchQueue.main.async {
+                self.view.window?.windowScene?.title = self.document?.fileURL.deletingPathExtension().lastPathComponent
+            }
         }
     }
     
@@ -1985,6 +1989,8 @@ func directory(for scriptURL: URL) -> URL {
         save(completion: nil)
                 
         parent?.setNeedsUpdateOfHomeIndicatorAutoHidden()
+        
+        setMacMainMenu()
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -1994,6 +2000,8 @@ func directory(for scriptURL: URL) -> URL {
         }
         
         parent?.setNeedsUpdateOfHomeIndicatorAutoHidden()
+        
+        setMacMainMenu()
     }
         
     // MARK: - Suggestions
