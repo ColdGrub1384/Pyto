@@ -150,7 +150,13 @@ public class EditorSplitViewController: SplitViewController {
         }
         
         if firstChild == editor {
-            navigationItem.leftBarButtonItems = [editor.scriptsItem, editor.searchItem, editor.definitionsItem]
+            var items = [editor.scriptsItem!, editor.searchItem!, editor.definitionsItem!]
+            
+            if #available(iOS 14.0, *), ((parent as? EditorSplitViewController)?.folder == nil && editor.traitCollection.horizontalSizeClass != .compact) || isiOSAppOnMac, !editor.alwaysShowBackButton {
+                items.removeFirst()
+            }
+            
+            navigationItem.leftBarButtonItems = items
             if Python.shared.isScriptRunning(path) {
                 navigationItem.rightBarButtonItems = [
                     editor.stopBarButtonItem,

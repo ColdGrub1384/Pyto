@@ -3,9 +3,6 @@ PODS:
   - Down (0.8.6)
   - FileBrowser (1.0.0)
   - Highlightr (1.1.0)
-  - MMWormhole (2.0.0):
-    - MMWormhole/Core (= 2.0.0)
-  - MMWormhole/Core (2.0.0)
   - MultiPeer (0.1.0)
   - ObjectUserDefaults (1.0)
   - SavannaKit (0.9.0)
@@ -21,7 +18,6 @@ DEPENDENCIES:
   - Down (from `https://github.com/ColdGrub1384/Down.git`)
   - FileBrowser (from `https://github.com/ColdGrub1384/FileBrowser.git`)
   - Highlightr (from `https://github.com/brunophilipe/Highlightr.git`)
-  - MMWormhole (~> 2.0.0)
   - MultiPeer
   - ObjectUserDefaults
   - SourceEditor (from `https://github.com/ColdGrub1384/source-editor.git`)
@@ -31,8 +27,7 @@ DEPENDENCIES:
   - Zip
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - MMWormhole
+  trunk:
     - MultiPeer
     - ObjectUserDefaults
     - SavannaKit
@@ -79,7 +74,6 @@ SPEC CHECKSUMS:
   Down: 065ea594046e99ea02a0990a53ebf585e9a50a7b
   FileBrowser: 42fe0e5dbb9602f13c6f7f742f4a4193b018eafd
   Highlightr: 09ddfc99e24e4ebd81dd711f712f1620f199f8fa
-  MMWormhole: 0cd3fd35a9118b2e2d762b499f54eeaace0be791
   MultiPeer: 8be1b3b47faa9d2e94b4c8c29a2d984eb0d68007
   ObjectUserDefaults: 72b8d13aea15090168579b079a21cae312a1cefd
   SavannaKit: 920c240bde011900df8156200a960dad3ee5edfd
@@ -89,6 +83,6 @@ SPEC CHECKSUMS:
   TrueTime: b49551ffafb28a9dee04e51b226f42a416010842
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 044033147f127c17a3ced1a4a5a4f757e57c6760
+PODFILE CHECKSUM: a2bf17f47086f637c63f58c29c043e8e85cb0bec
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.10.0

@@ -74,8 +74,10 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/Pyto">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C97B020E23E9F82700032925"
@@ -83,7 +85,7 @@
             BlueprintName = "Pyto Watch"
             ReferencedContainer = "container:Pyto.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -91,8 +93,10 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/Pyto">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C97B020E23E9F82700032925"
@@ -100,7 +104,16 @@
             BlueprintName = "Pyto Watch"
             ReferencedContainer = "container:Pyto.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "C97B020E23E9F82700032925"
+            BuildableName = "Pyto Watch.app"
+            BlueprintName = "Pyto Watch"
+            ReferencedContainer = "container:Pyto.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

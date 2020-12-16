@@ -10,7 +10,6 @@ try:
         with zipfile.ZipFile(zippedLib, "r") as zip_ref:
             zip_ref.extractall(destDir)
 
-    sys.path.insert(-1, os.path.expanduser("~/Documents"))
     sys.path.insert(-1, os.path.expanduser("~/Documents/site-packages"))
 
     try:

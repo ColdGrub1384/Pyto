@@ -35,7 +35,15 @@ struct DefaultTheme: Theme {
     let barStyle: UIBarStyle = .default
     
     var sourceCodeTheme: SourceCodeTheme {
-        return (window?.traitCollection.userInterfaceStyle == .dark ? MidnightSourceCodeTheme() : XcodeLightSourceCodeTheme())
+        
+        let darkTheme: SourceCodeTheme
+        if #available(iOS 14.0, *), ProcessInfo.processInfo.isiOSAppOnMac {
+            darkTheme = XcodeDarkSourceCodeTheme()
+        } else {
+            darkTheme = MidnightSourceCodeTheme()
+        }
+        
+        return (window?.traitCollection.userInterfaceStyle == .dark ? darkTheme : XcodeLightSourceCodeTheme())
     }
     
     var name: String? {

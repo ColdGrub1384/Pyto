@@ -451,23 +451,6 @@ import TrueTime
         }
         #endif
         
-        // Background Fetch
-        
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: "pyto.backgroundfetch", using: nil) { (task) in
-            
-            if let script = BackgroundTask.backgroundScript {
-                let url = URL(fileURLWithPath: script)
-                
-                #if !Xcode11
-                RunShortcutsScript(at: url, arguments: [], sendOutput: false)
-                #endif
-            }
-            
-            task.expirationHandler = {
-                task.setTaskCompleted(success: true)
-            }
-        }
-        
         #else
         window = UIWindow()
         window?.backgroundColor = .white
@@ -521,6 +504,10 @@ import TrueTime
         for session in sceneSessions {
             (((session.scene?.delegate as? UIWindowSceneDelegate)?.window??.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor?.save()
         }
+    }
+    
+    public override func buildMenu(with builder: UIMenuBuilder) {
+        setupMacMenu(builder: builder)
     }
     
     #endif

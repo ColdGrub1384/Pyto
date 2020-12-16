@@ -3,6 +3,12 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 cd "$DIR"
 
+python3 -m pip install Cython
+python3 -m pip install numpy
+python3 -m pip install jinja2
+python3 -m pip install wheel
+brew install zlib
+
 # OpenCV
 
 rm -rf opencv2.framework
@@ -13,7 +19,7 @@ rm -rf __MACOSX
 
 # OpenBlas and everything Fortran related
 
-curl -L https://github.com/ColdGrub1384/lapack-ios/releases/download/v1.2/lapack-ios.zip -o lapack-ios.zip
+curl -L https://github.com/ColdGrub1384/lapack-ios/releases/download/v1.4/lapack-ios.zip -o lapack-ios.zip
 unzip lapack-ios.zip
 yes | cp -rf lapack-ios/openblas.framework Extensions/OpenBlas
 cp -r lapack-ios/lapack.framework Extensions/SciPy

@@ -13,13 +13,16 @@ pushd build_pillow/*
 
 mv libjpeg.framework/libjpeg ../../libjpeg.dylib
 mv libpng.framework/libpng ../../libpng.dylib
-touch libfreetype ../../libfreetype.dylib
+
+echo "int a() { return 0; }" > a.c
+clang -arch x86_64 -shared a.c -o ../../libfreetype.dylib
+rm a.c
 
 popd
 
 source environment.sh
 
-export CFLAGS="$CFLAGS -I/usr/local/opt/zlib/include -I../../../libjpeg/include -I../../../libpng -I../../../freetype2-ios/include"
+export CFLAGS="$CFLAGS -I/usr/local/opt/zlib/include -I../../../libjpeg -I../../../libpng -I../../../freetype2-ios/include"
 export LDFLAGS="$LDFLAGS -L/usr/local/opt/zlib/lib -L../tools"
 
 cd ../pillow
@@ -28,6 +31,7 @@ cp -r src/PIL/* build/lib*/PIL/
 python3 ../tools/make_frameworks.py Pillow PIL
 rm -rf ../../../site-packages/PIL
 cp -r build/lib*/* ../../../site-packages/
+find ../../../site-packages/ -name "*.so" -delete
 
 cd ../tools
 

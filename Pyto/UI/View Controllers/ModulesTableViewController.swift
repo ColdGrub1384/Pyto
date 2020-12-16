@@ -60,7 +60,9 @@ import UIKit
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
+        if !isiOSAppOnMac {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
+        }
         
         tableView.backgroundColor = .systemBackground
     }

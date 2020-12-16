@@ -107,7 +107,9 @@ import UIKit
         } else {
             navigationItem.rightBarButtonItems = [chdirItem]
         }
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(goToFileBrowser))
+        if !isiOSAppOnMac {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(goToFileBrowser))
+        }
         
         parent?.navigationItem.rightBarButtonItems = navigationItem.rightBarButtonItems
         

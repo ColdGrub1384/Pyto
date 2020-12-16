@@ -124,6 +124,10 @@ func directory(for scriptURL: URL) -> URL {
             textView.contentTextView.isEditable = !(document?.documentState == .editingDisabled)
             
             NotificationCenter.default.addObserver(self, selector: #selector(stateChanged(_:)), name: UIDocument.stateChangedNotification, object: document)
+            
+            DispatchQueue.main.async {
+                self.view.window?.windowScene?.title = self.document?.fileURL.deletingPathExtension().lastPathComponent
+            }
         }
     }
     
@@ -399,7 +403,7 @@ func directory(for scriptURL: URL) -> URL {
             }
             
             #if !Xcode11
-            if #available(iOS 14.0, *), (parent as? EditorSplitViewController)?.folder == nil, traitCollection.horizontalSizeClass != .compact, !alwaysShowBackButton {
+            if #available(iOS 14.0, *), ((parent as? EditorSplitViewController)?.folder == nil && traitCollection.horizontalSizeClass != .compact) || isiOSAppOnMac, !alwaysShowBackButton {
                 parentNavigationItem?.leftBarButtonItems = [searchItem, definitionsItem]
             } else {
                 parentNavigationItem?.leftBarButtonItems = [scriptsItem, searchItem, definitionsItem]
@@ -1287,6 +1291,10 @@ func directory(for scriptURL: URL) -> URL {
         }
     }
     
+    @objc func saveScript(_ sender: Any) {
+        save(completion: nil)
+    }
+    
     /// Save the document on a background queue.
     ///
     /// - Parameters:
@@ -1993,7 +2001,7 @@ func directory(for scriptURL: URL) -> URL {
             ConsoleViewController.visibles.append(console)
         }
         
-        parent?.setNeedsUpdateOfHomeIndicatorAutoHidden()
+        parent?.setNeedsUpdateOfHomeIndicatorAutoHidden()        
     }
         
     // MARK: - Suggestions

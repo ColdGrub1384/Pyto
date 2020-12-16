@@ -3,8 +3,8 @@
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
 source environment.sh
-export CC=""
-export CXX="/usr/bin/xcrun --sdk iphoneos clang++ -arch arm64"
+export CC="clang.sh"
+export CXX="clang.sh"
 
 cd ../pyzmq
 python3 setup.py bdist --zmq=bundled

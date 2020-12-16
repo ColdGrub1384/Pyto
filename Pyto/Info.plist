@@ -2,6 +2,28 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.shell-script</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Python Script</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ch.ada.python-script</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>py</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>pyto.backgroundfetch</string>
@@ -16,12 +38,12 @@
 			<key>CFBundleTypeName</key>
 			<string>Python Script</string>
 			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
+			<string>Viewer</string>
 			<key>LSHandlerRank</key>
-			<string>Owner</string>
+			<string>Alternate</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>public.python-script</string>
+				<string>ch.ada.python-script</string>
 			</array>
 		</dict>
 	</array>
@@ -354,7 +376,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(MARKETING_VERSION)</string>
+	<string>$(VERSION)</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -377,7 +399,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<string>$(BUILD_NUMBER)</string>
 	<key>INIntentsSupported</key>
 	<array>
 		<string>RunScriptIntent</string>
@@ -400,15 +422,15 @@
 	<key>NSAppleMusicUsageDescription</key>
 	<string>Scripts can play music.</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Allow camera usage if you want to allow scripts accessing to it. The app itself doesn't require photo library access.</string>
+	<string>Allow camera usage if you want to allow scripts accessing to it. The app itself doesn&apos;t require photo library access.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Scripts can access location.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow microphone usage if you want to allow scripts accessing to it. The app itself doesn't require access to the microphone.</string>
+	<string>Allow microphone usage if you want to allow scripts accessing to it. The app itself doesn&apos;t require access to the microphone.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Allow photo library usage if you want to allow scripts accessing to it or if you want to save Matplotlib figures. The app itself doesn't require photo library access.</string>
+	<string>Allow photo library usage if you want to allow scripts accessing to it or if you want to save Matplotlib figures. The app itself doesn&apos;t require photo library access.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow photo library usage if you want to allow scripts accessing to it. The app itself doesn't require photo library access.</string>
+	<string>Allow photo library usage if you want to allow scripts accessing to it. The app itself doesn&apos;t require photo library access.</string>
 	<key>NSUbiquitousContainers</key>
 	<dict>
 		<key>iCloud.ch.marcela.ada.Pyto</key>

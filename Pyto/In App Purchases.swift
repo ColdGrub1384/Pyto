@@ -293,7 +293,6 @@ func showOnboarding(window: UIWindow?, isTrialExpired: Bool = false) {
 /// - Parameters:
 ///     - window: The window where an onboarding screen should be presented if the app is locked. If `nil`, nothing will be presented.
 func checkIfUnlocked(on window: UIWindow?) {
-    #if !VPP
     guard let validator = ReceiptValidator(), let version = validator.receipt[.originalAppVersion] as? String else {
         if #available(iOS 13.0.0, *) {
             Pyto.showOnboarding(window: window)
@@ -357,5 +356,4 @@ func checkIfUnlocked(on window: UIWindow?) {
         
         isReceiptChecked = true
     }
-    #endif
 }
