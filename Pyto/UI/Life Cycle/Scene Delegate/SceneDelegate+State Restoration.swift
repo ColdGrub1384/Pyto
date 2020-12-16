@@ -22,7 +22,45 @@ extension SceneDelegate {
             return
         }
         
-        if let data = userActivity.userInfo?["bookmarkData"] as? Data {
+        if let sceneStateData = userActivity.userInfo?["sceneState"] as? Data, #available(iOS 14.0, *) {
+            
+            do {
+                let sceneState = try JSONDecoder().decode(SceneState.self, from: sceneStateData)
+                
+                if sceneState.selection == nil || sceneState.selection == .none {
+                    return
+                }
+                
+                var url: URL?
+                switch sceneState.selection {
+                case .recent(let _url):
+                    url = _url
+                default:
+                    break
+                }
+                
+                sceneStateStore.sceneState = sceneState
+                
+                self.documentBrowserViewController?.justOpened = false
+                
+                _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
+                    if let doc = self.documentBrowserViewController, doc.view.window != nil {
+                        let sidebar = doc.makeSidebarNavigation(url: url, run: false, isShortcut: false, restoreSelection: true)
+                        let vc = SidebarController(rootView: AnyView(sidebar))
+                        vc.modalPresentationStyle = .fullScreen
+                        vc.modalTransitionStyle = .crossDissolve
+                        sidebar.viewControllerStore.vc = vc
+                         
+                        doc.present(vc, animated: true, completion: nil)
+                    }
+                    
+                    timer.invalidate()
+                })
+            } catch {
+                print(error.localizedDescription)
+            }
+            
+        } else if let data = userActivity.userInfo?["bookmarkData"] as? Data {
             
             //
             // Continue editing a script
@@ -83,43 +121,7 @@ extension SceneDelegate {
     @available(iOS 14.0, *)
     func restoreActivity(_ restorationActivity: NSUserActivity, session: UISceneSession) {
        
-        guard let sceneStateData = restorationActivity.userInfo?["sceneState"] as? Data else {
-            return
-        }
-        
-        do {
-            let sceneState = try JSONDecoder().decode(SceneState.self, from: sceneStateData)
-            
-            if sceneState.selection == nil || sceneState.selection == .none {
-                return
-            }
-            
-            var url: URL?
-            switch sceneState.selection {
-            case .recent(let _url):
-                url = _url
-            default:
-                break
-            }
-            
-            sceneStateStore.sceneState = sceneState
-            
-            _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
-                if let doc = self.documentBrowserViewController, doc.view.window != nil {
-                    let sidebar = doc.makeSidebarNavigation(url: url, run: false, isShortcut: false, restoreSelection: true)
-                    let vc = SidebarController(rootView: AnyView(sidebar))
-                    vc.modalPresentationStyle = .fullScreen
-                    vc.modalTransitionStyle = .crossDissolve
-                    sidebar.viewControllerStore.vc = vc
-                     
-                    doc.present(vc, animated: true, completion: nil)
-                }
-                
-                timer.invalidate()
-            })
-        } catch {
-            print(error.localizedDescription)
-        }
+        continueActivity(restorationActivity)
     }
     
     // MARK: - Scene delegate

@@ -35,7 +35,7 @@ import SwiftUI
     func openDocument(at url: URL, run: Bool, isShortcut: Bool) {
         _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
             if let doc = self.documentBrowserViewController {
-                if run {
+                if run || isiOSAppOnMac {
                     doc.openDocument(url, run: run, isShortcut: isShortcut)
                 } else {
                     doc.revealDocument(at: url, importIfNeeded: false) { (url_, _) in
@@ -54,7 +54,7 @@ import SwiftUI
     @available(iOS 13.0, *)
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
-        #if VPP || SCREENSHOTS
+        #if VPP || SCREENSHOTS || DEBUG
         changingUserDefaultsInAppPurchasesValues = true
         isPurchased.boolValue = true
         changingUserDefaultsInAppPurchasesValues = true
@@ -75,6 +75,8 @@ import SwiftUI
             window?.rootViewController = blankVC
             
             return
+        } else {
+            window?.rootViewController = DocumentBrowserViewController(forOpeningFilesWithContentTypes: ["ch.ada.python-script"])
         }
         
         window?.tintColor = ConsoleViewController.choosenTheme.tintColor
@@ -107,7 +109,7 @@ import SwiftUI
     func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         
         func open() {
-            if shortcutItem.type == "PyPi" {
+            if shortcutItem.type == "PyPI" {
                 let vc = MenuTableViewController.makePyPiView()
                 let navVC = UINavigationController(rootViewController: vc)
                 navVC.modalPresentationStyle = .formSheet
@@ -157,21 +159,25 @@ import SwiftUI
     }
     
     @available(iOS 13.0, *)
-    func sceneWillEnterForeground(_ scene: UIScene) {
-        if #available(iOS 14.0, *) {
-            setMacMainMenu()
-        }
-    }
-    
-    @available(iOS 13.0, *)
     func sceneDidDisconnect(_ scene: UIScene) {
         ((window?.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor?.save()
+        
+        if window?.rootViewController?.presentedViewController == nil && isiOSAppOnMac {
+            let activity = NSUserActivity(activityType: "openWindow")
+            if let state = (window?.rootViewController as? DocumentBrowserViewController)?.sceneState {
+                do {
+                    activity.addUserInfoEntries(from: ["sceneState": try JSONEncoder().encode(state)])
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+            UIApplication.shared.requestSceneSessionActivation(nil, userActivity: activity, options: nil, errorHandler: nil)
+        }
     }
     
     @available(iOS 13.0, *)
     func sceneDidEnterBackground(_ scene: UIScene) {
         ((window?.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor?.save()
-        setMacMainMenu()
     }
     
     @available(iOS 13.0, *)
@@ -270,9 +276,13 @@ import SwiftUI
         
         // Reveal / import the document at the URL
         
-        documentBrowserViewController.revealDocument(at: inputURL, importIfNeeded: true, completion: { (url, _) in
-            
-            documentBrowserViewController.openDocument(url ?? inputURL, run: false)
-        })
+        if !isiOSAppOnMac {
+            documentBrowserViewController.revealDocument(at: inputURL, importIfNeeded: true, completion: { (url, _) in
+                
+                documentBrowserViewController.openDocument(url ?? inputURL, run: false)
+            })
+        } else {
+            documentBrowserViewController.openDocument(inputURL, run: false)
+        }
     }
 }
