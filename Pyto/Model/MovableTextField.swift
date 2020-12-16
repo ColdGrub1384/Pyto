@@ -246,12 +246,10 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         console?.parent?.setNeedsUpdateOfHomeIndicatorAutoHidden()
-        setMacMainMenu()
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         console?.parent?.setNeedsUpdateOfHomeIndicatorAutoHidden()
-        setMacMainMenu()
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

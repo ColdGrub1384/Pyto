@@ -111,7 +111,9 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         
         toolbarItems = [goBackButton, UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), goForwardButton]
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
+        if !isiOSAppOnMac {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
+        }
         
         if UIDevice.current.userInterfaceIdiom == .pad, #available(iOS 13.0, *) {
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.down.square.fill"), style: .plain, target: self, action: #selector(openInNewWindow))

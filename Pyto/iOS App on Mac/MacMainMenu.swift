@@ -6,109 +6,61 @@
 //  Copyright © 2020 Adrian Labbé. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-@objc class MenuItem: NSObject {
+fileprivate func showWindow(selection: SelectedSection) {
+    let activity = NSUserActivity(activityType: "openWindow")
     
-    @objc var title: String
-    
-    @objc var key: String
-    
-    @objc var action: String
-        
-    init(title: String, key: String, action: String) {
-        self.title = title
-        self.key = key
-        self.action = action
-    }
-}
-
-@objc class MacMainMenu: UIResponder {
-    
-    @objc static let shared = MacMainMenu()
-    
-    private override init() {
-        if #available(iOS 14.0, *) {
-            self.objcEditorMenu = NSArray(array: MacMainMenu.editorMenu)
-        } else {
-            self.objcEditorMenu = NSArray(array: [])
-        }
-        
-        super.init()
-    }
-    
-    @available(iOS 14.0, *)
-    static var editorMenu: [MenuItem] {
-        return [
-            MenuItem(title: Localizable.MenuItems.run, key: "r", action: "run:"),
-            MenuItem(title: Localizable.Help.documentation, key: "d", action: "showDocs:"),
-            MenuItem(title: Localizable.find, key: "f", action: "find:"),
-        ]
-    }
-    
-    @objc var objcEditorMenu: NSArray
-    
-    @available(iOS 14.0, *)
-    var keyEditor: EditorSplitViewController? {
-        for scene in UIApplication.shared.connectedScenes {
-            guard let windowScene = scene as? UIWindowScene else {
-                continue
-            }
-            
-            if windowScene.activationState == .foregroundActive {
-                return EditorView.EditorStore.perScene[windowScene]?.editor?.viewController as? EditorSplitViewController
-            }
-        }
-        
-        return nil
-    }
-    
-    override func responds(to aSelector: Selector!) -> Bool {
-        
-        guard #available(iOS 14.0, *) else {
-            return super.responds(to: aSelector)
-        }
-        
-        if aSelector == #selector(run(_:)) {
-            if let path = keyEditor?.editor?.document?.fileURL.path {
-                return !Python.shared.isScriptRunning(path)
-            } else {
-                return false
-            }
-        } else if aSelector == #selector(showDocs(_:)) || aSelector == #selector(find(_:)) {
-            return keyEditor != nil
-        } else {
-            return super.responds(to: aSelector)
-        }
-    }
-    
-    @objc func run(_ sender: Any) {
-        if #available(iOS 14.0, *) {
-            keyEditor?.runScript(sender)
-        }
-    }
-    
-    @objc func showDocs(_ sender: Any) {
-        if #available(iOS 14.0, *) {
-            keyEditor?.showDocs()
-        }
-    }
-    
-    @objc func find(_ sender: Any) {
-        if #available(iOS 14.0, *) {
-            keyEditor?.search()
-        }
-    }
-}
-
-func setMacMainMenu() {
-    if #available(iOS 14.0, *) {
-        guard ProcessInfo.processInfo.isiOSAppOnMac && Python.shared.isSetup else {
-            return
-        }
-    } else {
+    let data: Data
+    do {
+        let state = SceneState(selection: selection)
+        data = try JSONEncoder().encode(state)
+    } catch {
+        print(error)
         return
     }
     
-    Python.shared.run(code: "from _set_mac_main_menu import set_menu; set_menu()")
+    activity.addUserInfoEntries(from: ["sceneState": data])
+    UIApplication.shared.requestSceneSessionActivation(nil, userActivity: activity, options: nil, errorHandler: nil)
+}
+
+extension UIResponder {
+    
+    @objc func showDocumentation(_ sender: Any) {
+        showWindow(selection: .documentation)
+    }
+}
+
+func setupMacMenu(builder: UIMenuBuilder) {
+    // Ensure that the builder is modifying the menu bar system.
+    guard builder.system == UIMenuSystem.main else { return }
+
+    let run = UIKeyCommand(title: Localizable.MenuItems.run,
+                           action: #selector(EditorSplitViewController.runScript(_:)),
+                            input: "r",
+                            modifierFlags: .command)
+
+    let save = UIKeyCommand(title: NSLocalizedString("Save", bundle: Bundle(for: UIApplication.self), comment: ""),
+                            action: #selector(EditorViewController.saveScript(_:)),
+                            input: "s",
+                            modifierFlags: .command)
+    
+    let find = UIKeyCommand(title: Localizable.find,
+                           action: #selector(EditorSplitViewController.search),
+                            input: "f",
+                            modifierFlags: .command)
+    
+    let docs = UIKeyCommand(title: Localizable.Help.documentation,
+                            action: #selector(UIResponder.showDocumentation(_:)),
+                            input: "d",
+                            modifierFlags: .command)
+
+    let fileMenu = UIMenu(title: "", options: .displayInline, children: [save, run])
+    let editMenu = UIMenu(title: "", options: .displayInline, children: [find])
+    
+    let windowMenu = UIMenu(title: "", options: .displayInline, children: [docs])
+
+    builder.insertChild(fileMenu, atEndOfMenu: .file)
+    builder.insertChild(editMenu, atEndOfMenu: .edit)
+    builder.insertChild(windowMenu, atEndOfMenu: .window)
 }

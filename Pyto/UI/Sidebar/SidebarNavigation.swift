@@ -285,7 +285,6 @@ public struct SidebarNavigation: View {
         self.viewControllerStore.scene = scene
         
         recentDataSource.makeEditor = makeEditor
-        _stack = .init(initialValue: (url == nil && sceneStateStore.sceneState.selection == nil))
         if restoreSelection {
             _restoredSelection = .init(initialValue: sceneStateStore.sceneState.selection)
         }
@@ -299,7 +298,9 @@ public struct SidebarNavigation: View {
     }
     
     private func withDoneButton(_ view: AnyView) -> AnyView {
-        if sizeClass == .compact {
+        if ProcessInfo.processInfo.isiOSAppOnMac {
+            return view
+        } else if sizeClass == .compact {
             return AnyView(view.navigationBarItems(leading: Button(action: {
                 self.viewControllerStore.vc?.dismiss(animated: true, completion: nil)
             }, label: {
@@ -315,6 +316,7 @@ public struct SidebarNavigation: View {
         List {
             Button {
                 presentationMode.wrappedValue.dismiss()
+                (viewControllerStore.vc?.presentingViewController as? DocumentBrowserViewController)?.sceneState = sceneStateStore.sceneState
                 viewControllerStore.vc?.dismiss(animated: true, completion: nil)
             } label: {
                 SidebarLabel("sidebar.scripts", systemImage: "folder")
@@ -440,9 +442,14 @@ public struct SidebarNavigation: View {
             navigationView = AnyView(NavigationView {
                 contentView
             })
-        } else {
-            navigationView = AnyView(NavigationView { // Nothing to show, just show the sidebar
+        } else if sizeClass == .compact { // Nothing to show, just show the sidebar
+            navigationView = AnyView(NavigationView {
                 sidebar
+            })
+        } else {
+            navigationView = AnyView(NavigationView {
+                sidebar
+                Rectangle().fill(Color(.systemBackground))
             })
         }
         

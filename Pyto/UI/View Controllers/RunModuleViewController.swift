@@ -81,7 +81,9 @@ import UIKit
         navigationItem.leftBarButtonItems = []
         navigationItem.rightBarButtonItems = []
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(setCurrentDirectory))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(goToFileBrowser))
+        if !isiOSAppOnMac {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(goToFileBrowser))
+        }
         navigationController?.isToolbarHidden = true
         title = Localizable.repl
         parent?.title = title

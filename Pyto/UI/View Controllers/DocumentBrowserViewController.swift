@@ -27,6 +27,10 @@ import SwiftUI
     /// If set, will open the folder when the view appears.
     var folder: FolderDocument?
     
+    var justOpened = true
+    
+    var sceneState: SceneState?
+    
     /// Opens a folder picker for opening a project.
     @objc func openProject() {
         
@@ -41,7 +45,7 @@ import SwiftUI
     }
     
     /// Shows more options.
-    @objc func showMore(_ sender: UIBarButtonItem) {
+    @objc func showMore(_ sender: Any) {
         #if Xcode11
         let menu = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "menu")
         present(menu, animated: true, completion: nil)
@@ -338,6 +342,9 @@ import SwiftUI
             openDocument(docURL, run: false, folder: folder, animated: false)
             documentURL = nil
             folder = nil
+        } else if isiOSAppOnMac && justOpened {
+            showMore(self)
+            justOpened = false
         }
         
         /*if !Python.shared.isSetup, let view = Bundle.main.loadNibNamed("Loading Python", owner: nil, options: nil)!.first as? UIView {
@@ -346,6 +353,10 @@ import SwiftUI
     }
     
     // MARK: - Document browser view controller delegate
+    
+    public func documentBrowser(_ controller: UIDocumentBrowserViewController, failedToImportDocumentAt documentURL: URL, error: Error?) {
+        print(error?.localizedDescription ?? "")
+    }
     
     public func documentBrowser(_ controller: UIDocumentBrowserViewController, didPickDocumentsAt documentURLs: [URL]) {
         

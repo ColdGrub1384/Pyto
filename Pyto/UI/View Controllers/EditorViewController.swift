@@ -403,7 +403,7 @@ func directory(for scriptURL: URL) -> URL {
             }
             
             #if !Xcode11
-            if #available(iOS 14.0, *), (parent as? EditorSplitViewController)?.folder == nil, traitCollection.horizontalSizeClass != .compact, !alwaysShowBackButton {
+            if #available(iOS 14.0, *), ((parent as? EditorSplitViewController)?.folder == nil && traitCollection.horizontalSizeClass != .compact) || isiOSAppOnMac, !alwaysShowBackButton {
                 parentNavigationItem?.leftBarButtonItems = [searchItem, definitionsItem]
             } else {
                 parentNavigationItem?.leftBarButtonItems = [scriptsItem, searchItem, definitionsItem]
@@ -1291,6 +1291,10 @@ func directory(for scriptURL: URL) -> URL {
         }
     }
     
+    @objc func saveScript(_ sender: Any) {
+        save(completion: nil)
+    }
+    
     /// Save the document on a background queue.
     ///
     /// - Parameters:
@@ -1989,8 +1993,6 @@ func directory(for scriptURL: URL) -> URL {
         save(completion: nil)
                 
         parent?.setNeedsUpdateOfHomeIndicatorAutoHidden()
-        
-        setMacMainMenu()
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -1999,9 +2001,7 @@ func directory(for scriptURL: URL) -> URL {
             ConsoleViewController.visibles.append(console)
         }
         
-        parent?.setNeedsUpdateOfHomeIndicatorAutoHidden()
-        
-        setMacMainMenu()
+        parent?.setNeedsUpdateOfHomeIndicatorAutoHidden()        
     }
         
     // MARK: - Suggestions
