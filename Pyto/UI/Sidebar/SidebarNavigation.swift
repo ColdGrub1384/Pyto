@@ -9,11 +9,19 @@
 import SwiftUI
 
 @available(iOS 14.0, *)
-fileprivate func SidebarLabel(_ text: String, systemImage: String) -> Label<Text, AnyView> {
-    return Label(
-        title: { Text(NSLocalizedString(text, comment: "")).foregroundColor(.primary) },
-        icon: { AnyView(Image(systemName: systemImage).foregroundColor(.accentColor)) }
-    )
+fileprivate func SidebarLabel(_ text: String, systemImage: String, selection: SelectedSection?, selected: SelectedSection?) -> Label<Text, AnyView> {
+    
+    if isiOSAppOnMac {
+        return Label(
+            title: { Text(NSLocalizedString(text, comment: "")).foregroundColor(.primary) },
+            icon: { AnyView(Image(systemName: systemImage).foregroundColor(.accentColor)) }
+        )
+    } else {
+        return Label(
+            title: { Text(NSLocalizedString(text, comment: "")) },
+            icon: { AnyView(Image(systemName: systemImage)) }
+        )
+    }
 }
 
 @available(iOS 14.0, *)
