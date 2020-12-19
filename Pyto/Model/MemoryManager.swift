@@ -29,11 +29,11 @@ import Foundation
             #if WIDGET
             let leftLimit: Float = 0.0
             #else
-            let leftLimit: Float = 300
+            let leftLimit: Float = 500
             #endif
             
             #if !SCREENSHOTS
-            if self.memoryBudget <= leftLimit {
+            if self.memoryBudget <= leftLimit, !Python.shared.tooMuchUsedMemory {
                 self.memoryLimitAlmostReached?()
             }
             #endif

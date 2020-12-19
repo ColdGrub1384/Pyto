@@ -81,7 +81,6 @@ class PythonImplementation(NSObject):
     def exitScript_(self, script):
         exc = SystemExit
         if Python.shared.tooMuchUsedMemory:
-            Python.shared.tooMuchUsedMemory = False
             exc = MemoryError
         raise_exception(str(script), exc)
         

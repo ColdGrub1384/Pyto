@@ -75,8 +75,6 @@ import SwiftUI
             window?.rootViewController = blankVC
             
             return
-        } else {
-            window?.rootViewController = DocumentBrowserViewController(forOpeningFilesWithContentTypes: ["ch.ada.python-script"])
         }
         
         window?.tintColor = ConsoleViewController.choosenTheme.tintColor
