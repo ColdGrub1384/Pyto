@@ -31,6 +31,8 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
         case folder
     }
         
+    private var folderObserver: DispatchSourceFileSystemObject?
+    
     /// FIles in the directory.
     var files = [URL]()
     
@@ -40,7 +42,7 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
     /// The directory to browse.
     var directory: URL! {
         didSet {
-            title = directory.lastPathComponent
+            title = FileManager.default.displayName(atPath: directory.path)
             load()
         }
     }
@@ -190,6 +192,8 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
     public override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .systemBackground
+        
         clearsSelectionOnViewWillAppear = true
         tableView.tableFooterView = UIView()
         
@@ -198,13 +202,37 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
         
         navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createNewFile(_:)))]
     }
+    
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        descriptor = open(directory.path, O_EVTONLY)
+        folderObserver = DispatchSource.makeFileSystemObjectSource(fileDescriptor: descriptor!, eventMask: .write, queue: DispatchQueue.main)
+        folderObserver?.setEventHandler {
+            self.load()
+        }
+        folderObserver?.resume()
+    }
+    
+    public override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        folderObserver?.cancel()
+        if let descriptor = descriptor {
+            Darwin.close(descriptor)
+        }
+    }
+    
+    public override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
         
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return files.count
     }
     
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
         
         let icloud = (files[indexPath.row].pathExtension == "icloud" && files[indexPath.row].lastPathComponent.hasPrefix("."))
         
@@ -216,29 +244,34 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
             cell.textLabel?.text = files[indexPath.row].lastPathComponent
         }
         
+        do {
+            if let modificationDate = try FileManager.default.attributesOfItem(atPath: files[indexPath.row].path)[FileAttributeKey.modificationDate] as? Date {
+                let formatter = DateFormatter()
+                formatter.dateStyle = .full
+                formatter.timeStyle = .short
+                cell.detailTextLabel?.text = formatter.string(from: modificationDate)
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+        
         var isDir: ObjCBool = false
         if FileManager.default.fileExists(atPath: files[indexPath.row].path, isDirectory: &isDir) && isDir.boolValue {
-            if #available(iOS 13.0, *) {
-                cell.imageView?.image = UIImage(systemName: "folder.fill")
-            }
+            cell.imageView?.image = UIImage(systemName: "folder.fill")
             cell.accessoryType = .disclosureIndicator
         } else {
-            if #available(iOS 13.0, *) {
-                if !icloud {
-                    cell.imageView?.image = UIImage(systemName: "doc.fill")
-                } else {
-                    cell.imageView?.image = UIImage(systemName: "icloud.and.arrow.down.fill")
-                }
+            if !icloud {
+                cell.imageView?.image = UIImage(systemName: "doc.fill")
+            } else {
+                cell.imageView?.image = UIImage(systemName: "icloud.and.arrow.down.fill")
             }
             cell.accessoryType = .none
         }
         
         cell.contentView.alpha = files[indexPath.row].lastPathComponent.hasPrefix(".") ? 0.5 : 1
         
-        if #available(iOS 13.0, *) {
-            let interaction = UIContextMenuInteraction(delegate: self)
-            cell.addInteraction(interaction)
-        }
+        let interaction = UIContextMenuInteraction(delegate: self)
+        cell.addInteraction(interaction)
         
         return cell
     }
