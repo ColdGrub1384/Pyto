@@ -632,6 +632,15 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         }
     }
     
+    /// Runs a blank script.
+    @objc public func runBlankScript() {
+        guard let scriptURL = Bundle.main.url(forResource: "_blank", withExtension: "py") else {
+            return
+        }
+        
+        run(script: Script(path: scriptURL.path, debug: false, runREPL: false))
+    }
+    
     /// Run script at given URL. Will be ran with Python C API directly. Call it once!
     ///
     /// - Parameters:
@@ -681,11 +690,13 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// - Parameters:
     ///     - script: The path of the script to stop.
     @objc public func stop(script: String) {
-        if let thread = scriptThreads[script] {
+        if let thread = scriptThreads[script], !Python.shared.tooMuchUsedMemory {
             scriptsAboutToExit.append(script)
             pthread_kill(thread, SIGSEGV)
         } else if let pythonInstance = Python.pythonShared {
-            pythonInstance.performSelector(inBackground: #selector(PythonRuntime.exitScript(_:)), with: script)
+            DispatchQueue.global().async {
+                pythonInstance.performSelector(inBackground: #selector(PythonRuntime.exitScript(_:)), with: script)
+            }
         } else {
             if scriptsToExit.index(of: script) == NSNotFound {
                 scriptsToExit.add(script)
