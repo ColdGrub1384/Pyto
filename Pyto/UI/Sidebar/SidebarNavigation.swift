@@ -438,7 +438,9 @@ public struct SidebarNavigation: View {
     }
         
     public var body: some View {
-                
+        
+        var _stack = false
+        
         // We don't put the if statement in the NavigationView body builder because for some reason, it behaves very, very strangely in iOS 14 beta 6. Instead, we initialize a different NavigationView.
         let navigationView: AnyView
         if let contentView = contentView, sizeClass != .compact || self.stack {
@@ -450,7 +452,8 @@ public struct SidebarNavigation: View {
             navigationView = AnyView(NavigationView {
                 contentView
             })
-        } else if sizeClass == .compact { // Nothing to show, just show the sidebar
+        } else if sizeClass == .compact || viewControllerStore.scene?.windows.first?.frame.size != UIScreen.main.bounds.size { // Nothing to show, just show the sidebar
+            _stack = true
             navigationView = AnyView(NavigationView {
                 sidebar
             })
@@ -461,7 +464,7 @@ public struct SidebarNavigation: View {
             })
         }
         
-        if stack {
+        if stack || _stack {
             return AnyView(navigationView.navigationViewStyle(StackNavigationViewStyle()))
         } else {
             return AnyView(navigationView.navigationViewStyle(DoubleColumnNavigationViewStyle()))
