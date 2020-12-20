@@ -32,14 +32,14 @@ import SwiftUI
     ///     - url: The URL to open.
     ///     - run: A boolean indicating whether the script should be executed.
     ///     - isShortcut: A boolean indicating whether the script is executed from Shortcuts.
-    func openDocument(at url: URL, run: Bool, isShortcut: Bool) {
+    func openDocument(at url: URL, run: Bool, folder: URL?, isShortcut: Bool) {
         _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
             if let doc = self.documentBrowserViewController {
                 if run || isiOSAppOnMac {
-                    doc.openDocument(url, run: run, isShortcut: isShortcut)
+                    doc.openDocument(url, run: run, isShortcut: isShortcut, folder: folder)
                 } else {
                     doc.revealDocument(at: url, importIfNeeded: false) { (url_, _) in
-                        doc.openDocument(url_ ?? url, run: run, isShortcut: isShortcut)
+                        doc.openDocument(url_ ?? url, run: run, isShortcut: isShortcut, folder: folder)
                     }
                 }
                 timer.invalidate()
@@ -237,7 +237,7 @@ import SwiftUI
                         Python.shared.widgetLink = inputURL.queryParameters?["link"]
                         _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
                             // I THINK waiting reduces the risk of a weird exception
-                            self.openDocument(at: url, run: true, isShortcut: false)
+                            self.openDocument(at: url, run: true, folder: nil, isShortcut: false)
                         })
                     } catch {
                         print(error.localizedDescription)

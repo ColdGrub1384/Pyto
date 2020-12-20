@@ -25,7 +25,7 @@ import SwiftUI
     var documentURL: URL?
     
     /// If set, will open the folder when the view appears.
-    var folder: FolderDocument?
+    var folder: URL?
     
     var justOpened = true
     
@@ -150,7 +150,7 @@ import SwiftUI
     ///     - animated: Set to `true` if the presentation should be animated.
     ///     - show: Set to `false` to not present the editor and just return it.
     ///     - completion: Code called after presenting the UI.
-    @discardableResult public func openDocument(_ documentURL: URL, run: Bool, viewController: UIViewController? = nil, isShortcut: Bool = false, folder: FolderDocument? = nil, animated: Bool = true, show: Bool = true, completion: (() -> Void)? = nil) -> EditorSplitViewController? {
+    @discardableResult public func openDocument(_ documentURL: URL, run: Bool, viewController: UIViewController? = nil, isShortcut: Bool = false, folder: URL? = nil, animated: Bool = true, show: Bool = true, completion: (() -> Void)? = nil) -> EditorSplitViewController? {
         
         let tintColor = ConsoleViewController.choosenTheme.tintColor ?? UIColor(named: "TintColor") ?? .orange
         
@@ -225,7 +225,7 @@ import SwiftUI
             #if Xcode11
             uiSplitVC.preferredDisplayMode = .primaryHidden
             #else
-            uiSplitVC.preferredDisplayMode = .secondaryOnly
+            uiSplitVC.preferredDisplayMode = .allVisible
             #endif
             if #available(iOS 13.0, *) {
                 uiSplitVC.view.backgroundColor = .systemBackground
@@ -234,9 +234,7 @@ import SwiftUI
             vc = uiSplitVC
             
             let browser = FileBrowserViewController()
-            browser.directory = folder.fileURL
-            browser.document = folder
-            folder.browser = browser
+            browser.directory = folder
             let browserNavVC = UINavigationController(rootViewController: browser)
             
             uiSplitVC.viewControllers = [browserNavVC, navVC]
@@ -277,7 +275,7 @@ import SwiftUI
                             return
                         }
                         
-                        (viewController ?? self!).present(vc, animated: !run, completion: {
+                        (viewController ?? self!).present(vc, animated: (!run && folder == nil), completion: {
                             #if !Xcode11
                             UIView.animate(withDuration: 0.15) {
                                 (vc.children.first as? UISplitViewController)?.preferredDisplayMode = .secondaryOnly

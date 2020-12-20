@@ -72,16 +72,14 @@ class ProjectsBrowserViewController: UITableViewController, UIDocumentPickerDele
         
         let presenting = navigationController?.presentingViewController
         
+        _ = url.startAccessingSecurityScopedResource()
+        
         dismiss(animated: true) {
-            let doc = FolderDocument(fileURL: url)
-            doc.open { (_) in
-                let fileBrowser = FileBrowserViewController()
-                fileBrowser.directory = doc.fileURL
-                fileBrowser.document = doc
-                presenting?.present(UINavigationController(rootViewController: fileBrowser), animated: true, completion: nil)
-                
-                doc.browser = fileBrowser
-            }
+            let fileBrowser = FileBrowserViewController()
+            fileBrowser.directory = url
+            let navVC = UINavigationController(rootViewController: fileBrowser)
+            navVC.modalPresentationStyle = .fullScreen
+            presenting?.present(navVC, animated: true, completion: nil)
         }
     }
     
