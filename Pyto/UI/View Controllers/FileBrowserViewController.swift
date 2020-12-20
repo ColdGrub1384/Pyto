@@ -33,12 +33,11 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
         
     private var folderObserver: DispatchSourceFileSystemObject?
     
+    private var descriptor: Int32?
+    
     /// FIles in the directory.
     var files = [URL]()
-    
-    /// The document managing the project.
-    var document: FolderDocument?
-    
+        
     /// The directory to browse.
     var directory: URL! {
         didSet {
@@ -282,7 +281,6 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
         if FileManager.default.fileExists(atPath: files[indexPath.row].path, isDirectory: &isDir) && isDir.boolValue {
             let browser = FileBrowserViewController()
             browser.directory = files[indexPath.row]
-            browser.document = document
             navigationController?.pushViewController(browser, animated: true)
         } else {
             
@@ -333,18 +331,21 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
                     
                     
                 } else {
-                    let doc = self.document
-                    
                     let presenting = presentingViewController
-                    dismiss(animated: true) {
+                    presenting?.view.alpha = 0
+                    dismiss(animated: false) {
                         if presenting?.presentingViewController != nil {
                             let presentingPresenting = presenting?.presentingViewController
                             presenting?.dismiss(animated: true, completion: {
-                                (presentingPresenting as? DocumentBrowserViewController)?.openDocument(url, run: false, folder: doc)
+                                (presentingPresenting as? DocumentBrowserViewController)?.openDocument(url, run: false, folder: self.directory, completion: {
+                                    presenting?.view.alpha = 1
+                                })
                             })
                         } else {
                             let browser = presenting as? DocumentBrowserViewController
-                            browser?.openDocument(url, run: false, folder: doc)
+                            browser?.openDocument(url, run: false, folder: self.directory, completion: {
+                                presenting?.view.alpha = 1
+                            })
                         }
                     }
                 }

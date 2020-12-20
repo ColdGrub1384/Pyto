@@ -58,7 +58,7 @@ public class EditorSplitViewController: SplitViewController {
     var justShown = true
     
     /// If the script was opened in a project, the folder of the project.
-    var folder: FolderDocument?
+    var folder: URL?
     
     /// A down arrow image for dismissing keyboard.
     static var downArrow: UIImage {

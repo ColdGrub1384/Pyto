@@ -327,7 +327,7 @@ public struct SidebarNavigation: View {
                 (viewControllerStore.vc?.presentingViewController as? DocumentBrowserViewController)?.sceneState = sceneStateStore.sceneState
                 viewControllerStore.vc?.dismiss(animated: true, completion: nil)
             } label: {
-                SidebarLabel("sidebar.scripts", systemImage: "folder")
+                SidebarLabel("sidebar.scripts", systemImage: "folder", selection: nil, selected: sceneStateStore.sceneState.selection)
             }
                                     
             Section(header: Text("sidebar.recent")) {
@@ -335,7 +335,7 @@ public struct SidebarNavigation: View {
                     NavigationLink(
                         destination: EditorView(makeEditor: item.makeViewController, url: item.url, scene: scene, currentViewStore: currentViewStore, viewControllerStore: viewControllerStore, isStack: $stack, selection: .recent(item.url), selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
                         label: {
-                            SidebarLabel(FileManager.default.displayName(atPath: item.url.path), systemImage: "clock")
+                            SidebarLabel(FileManager.default.displayName(atPath: item.url.path), systemImage: "clock", selection: .recent(item.url), selected: sceneStateStore.sceneState.selection)
                         })
                 }
             }
@@ -346,14 +346,14 @@ public struct SidebarNavigation: View {
                     tag: SelectedSection.repl,
                     selection: $restoredSelection,
                     label: {
-                        SidebarLabel("repl", systemImage: "play")
+                        SidebarLabel("repl", systemImage: "play", selection: .repl, selected: sceneStateStore.sceneState.selection)
                 })
                 
                 NavigationLink(
                     destination: runModule.navigationBarTitleDisplayMode(.inline).link(store: currentViewStore, isStack: $stack, selection: .runModule, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
                     tag: SelectedSection.runModule,
                     selection: $restoredSelection) {
-                    SidebarLabel("sidebar.runModule", systemImage: "doc")
+                    SidebarLabel("sidebar.runModule", systemImage: "doc", selection: .runModule, selected: sceneStateStore.sceneState.selection)
                 }
                 
                 NavigationLink(destination: pypi.onAppear {
@@ -363,13 +363,13 @@ public struct SidebarNavigation: View {
                 }.link(store: currentViewStore, isStack: $stack, selection: .pypi, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
                 tag: SelectedSection.pypi,
                 selection: $restoredSelection) {
-                    SidebarLabel("sidebar.pypi", systemImage: "cube.box")
+                    SidebarLabel("sidebar.pypi", systemImage: "cube.box", selection: .pypi, selected: sceneStateStore.sceneState.selection)
                 }
                 
                 NavigationLink(destination: modules.link(store: currentViewStore, isStack: $stack, selection: .loadedModules, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
                     tag: SelectedSection.loadedModules,
                     selection: $restoredSelection) {
-                    SidebarLabel("sidebar.loadedModules", systemImage: "info.circle")
+                    SidebarLabel("sidebar.loadedModules", systemImage: "info.circle", selection: .loadedModules, selected: sceneStateStore.sceneState.selection)
                 }
             }
             
@@ -381,13 +381,13 @@ public struct SidebarNavigation: View {
                 }.link(store: currentViewStore, isStack: $stack, selection: .examples, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
                 tag: SelectedSection.examples,
                 selection: $restoredSelection) {
-                    SidebarLabel("sidebar.examples", systemImage: "bookmark")
+                    SidebarLabel("sidebar.examples", systemImage: "bookmark", selection: .examples, selected: sceneStateStore.sceneState.selection)
                 }
                 
                 NavigationLink(destination: documentation.link(store: currentViewStore, isStack: $stack, selection: .documentation, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
                     tag: SelectedSection.documentation,
                     selection: $restoredSelection) {
-                    SidebarLabel("help.documentation", systemImage: "book")
+                    SidebarLabel("help.documentation", systemImage: "book", selection: .documentation, selected: sceneStateStore.sceneState.selection)
                 }
             }
             

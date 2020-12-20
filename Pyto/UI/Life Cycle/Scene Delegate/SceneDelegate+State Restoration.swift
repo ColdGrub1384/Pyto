@@ -69,7 +69,14 @@ extension SceneDelegate {
             do {
                 var isStale = false
                 let url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
-                openDocument(at: url, run: false, isShortcut: false)
+                
+                var folder: URL?
+                if let folderData = userActivity.userInfo?["directory"] as? Data {
+                    folder = try URL(resolvingBookmarkData: folderData, bookmarkDataIsStale: &isStale)
+                    _ = folder?.startAccessingSecurityScopedResource()
+                }
+                
+                openDocument(at: url, run: false, folder: folder, isShortcut: false)
             } catch {
                 print(error.localizedDescription)
             }
@@ -88,7 +95,7 @@ extension SceneDelegate {
                     UserDefaults.standard.set(arguments, forKey: "arguments\(url.path.replacingOccurrences(of: "//", with: "/"))")
                 }
                 
-                openDocument(at: url, run: true, isShortcut: true)
+                openDocument(at: url, run: true, folder: nil, isShortcut: true)
             } catch {
                 let alert = UIAlertController(title: Localizable.Errors.errorReadingFile, message: error.localizedDescription, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
@@ -111,7 +118,7 @@ extension SceneDelegate {
             }
             
             FileManager.default.createFile(atPath: fileURL.path, contents: code.data(using: .utf8), attributes: nil)
-            openDocument(at: fileURL, run: true, isShortcut: true)
+            openDocument(at: fileURL, run: true, folder: nil, isShortcut: true)
         } else {
             print("Invalid shortcut!")
         }
@@ -128,10 +135,20 @@ extension SceneDelegate {
     
     func stateRestorationActivity(for scene: UIScene) -> NSUserActivity? {
         do {
-            let data = try JSONEncoder().encode(sceneStateStore.sceneState)
-            
             let activity = NSUserActivity(activityType: "pyto.stateRestoration")
-            activity.addUserInfoEntries(from: ["sceneState":data])
+            
+            if let splitVC = documentBrowserViewController?.presentedViewController as? EditorSplitViewController.ProjectSplitViewController, let dir = ((splitVC.viewControllers.first as? UINavigationController)?.viewControllers.first as? FileBrowserViewController)?.directory {
+                
+                activity.addUserInfoEntries(from: ["directory": try dir.bookmarkData()])
+                
+                if let editor = ((splitVC.viewControllers.last as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor {
+                    activity.addUserInfoEntries(from: ["bookmarkData": try editor.document!.fileURL.bookmarkData()])
+                }
+            } else {
+                let data = try JSONEncoder().encode(sceneStateStore.sceneState)
+                activity.addUserInfoEntries(from: ["sceneState":data])
+            }
+            
             return activity
         } catch {
             print(error.localizedDescription)
