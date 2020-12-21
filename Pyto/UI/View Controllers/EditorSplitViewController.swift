@@ -208,7 +208,12 @@ public class EditorSplitViewController: SplitViewController {
             }
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now()+(animateLayouts ? 0.25 : 0), execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now()+(animateLayouts ? 0.25 : 0), execute: { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
             self.firstChild = nil
             self.secondChild = nil
             
@@ -268,7 +273,12 @@ public class EditorSplitViewController: SplitViewController {
             }
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now()+(animateLayouts ? 0.25 : 0), execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now()+(animateLayouts ? 0.25 : 0), execute: { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
             self.firstChild = nil
             self.secondChild = nil
             

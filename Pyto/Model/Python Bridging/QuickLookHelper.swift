@@ -54,8 +54,8 @@ fileprivate class ImageAttachment: NSTextAttachment {
     
     private var filePaths: [String] {
         didSet {
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
-                self.controller?.reloadData()
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.1) { [weak self] in
+                self?.controller?.reloadData()
             }
         }
     }

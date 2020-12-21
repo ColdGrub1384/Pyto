@@ -104,7 +104,12 @@ import SwiftUI
         
         let semaphore = DispatchSemaphore(value: 0)
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
             let renderer = UIGraphicsImageRenderer(bounds: CGRect(origin: .zero, size: size(for: widgetFamily)))
             self.snapshot[widgetFamily] = (renderer.image { rendererContext in
                 self.view?.view.layer.render(in: rendererContext.cgContext)

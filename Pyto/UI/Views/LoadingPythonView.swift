@@ -25,7 +25,12 @@ class LoadingPythonView: UIView {
         layer.cornerRadius = 16
         (viewWithTag(1) as? UITextView)?.text = Python.shared.version
         
-        _ = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: true, block: { (timer) in
+        _ = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: true, block: { [weak self] (timer) in
+            
+            guard let self = self else {
+                return
+            }
+            
             self.frame.origin.y = self.window!.safeAreaLayoutGuide.layoutFrame.height-self.frame.height-20
             if self.window?.subviews.last != self {
                 self.window?.bringSubviewToFront(self)

@@ -108,9 +108,18 @@ class ProjectsBrowserViewController: UITableViewController, UIDocumentPickerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DispatchQueue.global().async {
+        DispatchQueue.global().async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
             self.recent = self._recent
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                
+                guard let self = self else {
+                    return
+                }
+                
                 self.tableView.reloadData()
             }
         }

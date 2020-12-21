@@ -135,9 +135,9 @@ import SwiftUI
         
         let semaphore = DispatchSemaphore(value: 0)
         
-        DispatchQueue.main.async {
-            self.textView.text = ""
-            self.console = ""
+        DispatchQueue.main.async { [weak self] in
+            self?.textView.text = ""
+            self?.console = ""
             semaphore.signal()
         }
         
@@ -164,7 +164,12 @@ import SwiftUI
     ///     - notification: Its associated object should be the `String` added to `textView`.
     @objc func print_(_ notification: Notification) {
         if let output = notification.object as? String {
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                
+                guard let self = self else {
+                    return
+                }
+                
                 self.console += output
                 
                 let attrStr = NSMutableAttributedString(attributedString: self.textView.attributedText)
@@ -263,7 +268,12 @@ import SwiftUI
         if navigationController != nil {
             dismiss(animated: true, completion: {
                 self.editorSplitViewController?.editor?.stop()
-                DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: {
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: { [weak self] in
+                    
+                    guard let self = self else {
+                        return
+                    }
+                    
                     if let line = self.editorSplitViewController?.editor?.lineNumberError {
                         self.editorSplitViewController?.editor?.lineNumberError = nil
                         self.editorSplitViewController?.editor?.showErrorAtLine(line)
@@ -847,8 +857,8 @@ import SwiftUI
                 completions.remove(at: currentSuggestionIndex)
                 completions.insert(completion, at: 0)
         
-                DispatchQueue.main.async {
-                    self.movableTextField?.inputAssistant.reloadData()
+                DispatchQueue.main.async { [weak self] in
+                    self?.movableTextField?.inputAssistant.reloadData()
                 }
         
                 return completions
@@ -860,16 +870,16 @@ import SwiftUI
         set {
             _completions = newValue
         
-            DispatchQueue.main.async {
-                self.movableTextField?.inputAssistant.reloadData()
+            DispatchQueue.main.async { [weak self] in
+                self?.movableTextField?.inputAssistant.reloadData()
             }
         }
     }
     
     private var currentSuggestionIndex = -1 {
         didSet {
-            DispatchQueue.main.async {
-                self.movableTextField?.inputAssistant.reloadData()
+            DispatchQueue.main.async { [weak self] in
+                self?.movableTextField?.inputAssistant.reloadData()
             }
         }
     }
@@ -951,6 +961,14 @@ import SwiftUI
     }
     #endif
     
+    open override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        movableTextField?.inputAssistant.delegate = nil
+        movableTextField?.textField.inputAccessoryView = nil
+        movableTextField = nil
+    }
+    
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -1000,20 +1018,20 @@ import SwiftUI
             """
             
             func complete() {
-                DispatchQueue.global().async {
-                    self.isCompleting = true
+                DispatchQueue.global().async { [weak self] in
+                    self?.isCompleting = true
                     
-                    self.codeCompletionQueue.async {
+                    self?.codeCompletionQueue.async {
                         Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: code)
-                        self.isCompleting = false
+                        self?.isCompleting = false
                     }
                 }
             }
             
             if self.isCompleting { // A timer so it doesn't block the main thread
                 self.codeCompletionTimer?.invalidate()
-                self.codeCompletionTimer = Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true, block: { (timer) in
-                    if !self.isCompleting && timer.isValid {
+                self.codeCompletionTimer = Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true, block: { [weak self] (timer) in
+                    if self?.isCompleting == false && timer.isValid {
                         complete()
                         timer.invalidate()
                     }
@@ -1422,15 +1440,15 @@ extension ConsoleViewController: InputAssistantViewDelegate, InputAssistantViewD
         
         textField.selectedTextRange = iDonTKnowHowToNameThisVariableButItSSomethingWithTheSelectedRangeButFromTheBeginingLikeTheEntireSelectedWordWithUnderscoresIncluded.toTextRange(textInput: textField)
         
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.1) { [weak self] in
             textField.insertText(suggestion)
             if completion.hasSuffix("(") {
                 let range = textField.selectedTextRange
                 textField.insertText(")")
                 textField.selectedTextRange = range
             }
-            self.suggestions = []
-            self.completions = []
+            self?.suggestions = []
+            self?.completions = []
         }
                 
         currentSuggestionIndex = -1

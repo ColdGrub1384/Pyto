@@ -38,8 +38,8 @@ extension SceneDelegate {
             
             if justShown, let vc = viewControllerToPresent {
                 vc.modalPresentationStyle = .fullScreen
-                present(vc, animated: true, completion: {
-                    self.completion?()
+                present(vc, animated: true, completion: { [weak self] in
+                    self?.completion?()
                 })
             } else if let session = sceneSession {
                 UIApplication.shared.requestSceneSessionDestruction(session, options: nil, errorHandler: nil)

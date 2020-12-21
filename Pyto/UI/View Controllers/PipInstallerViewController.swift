@@ -101,12 +101,12 @@ import WebKit
         
         if let path = editor?.document?.fileURL.path, Python.shared.isScriptRunning(path) {
             editor?.stop()
-            DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-                self.editor?.run()
+            DispatchQueue.main.asyncAfter(deadline: .now()+2) { [weak self] in
+                self?.editor?.run()
             }
         } else {
-            DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                self.editor?.run()
+            DispatchQueue.main.asyncAfter(deadline: .now()+1) { [weak self] in
+                self?.editor?.run()
             }
         }
     }

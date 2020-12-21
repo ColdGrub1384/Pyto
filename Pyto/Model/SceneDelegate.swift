@@ -33,7 +33,11 @@ import SwiftUI
     ///     - run: A boolean indicating whether the script should be executed.
     ///     - isShortcut: A boolean indicating whether the script is executed from Shortcuts.
     func openDocument(at url: URL, run: Bool, folder: URL?, isShortcut: Bool) {
-        _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
+        _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] (timer) in
+            guard let self = self else {
+                return
+            }
+            
             if let doc = self.documentBrowserViewController {
                 if run || isiOSAppOnMac {
                     doc.openDocument(url, run: run, isShortcut: isShortcut, folder: folder)
@@ -122,14 +126,14 @@ import SwiftUI
             }
         }
         
-        _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
+        _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] (timer) in
             
             var otherCondition = true
             if shortcutItem.type == "REPL" {
                 otherCondition = Python.shared.isSetup
             }
             
-            if self.documentBrowserViewController != nil && otherCondition {
+            if self?.documentBrowserViewController != nil && otherCondition {
                 
                 open()
                 
@@ -235,9 +239,9 @@ import SwiftUI
                         let url = try URL(resolvingBookmarkData: bookmarkData, bookmarkDataIsStale: &isStale)
                         _ = url.startAccessingSecurityScopedResource()
                         Python.shared.widgetLink = inputURL.queryParameters?["link"]
-                        _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
+                        _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { [weak self] (_) in
                             // I THINK waiting reduces the risk of a weird exception
-                            self.openDocument(at: url, run: true, folder: nil, isShortcut: false)
+                            self?.openDocument(at: url, run: true, folder: nil, isShortcut: false)
                         })
                     } catch {
                         print(error.localizedDescription)
@@ -251,8 +255,8 @@ import SwiftUI
         // Open script
         
         guard let documentBrowserViewController = documentBrowserViewController else {
-            window?.rootViewController?.dismiss(animated: true, completion: {
-                self.scene(scene, openURLContexts: URLContexts)
+            window?.rootViewController?.dismiss(animated: true, completion: { [weak self] in
+                self?.scene(scene, openURLContexts: URLContexts)
             })
             return
         }

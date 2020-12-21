@@ -16,7 +16,11 @@ public class FolderDocument: UIDocument {
     
     /// Updates directories content on file browsers and check for warnings and errors.
     public func updateDirectory() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
             let navVC = self.browser?.navigationController
             for vc in (navVC?.viewControllers) ?? [] {
                 (vc as? FileBrowserViewController)?.load()
@@ -52,8 +56,8 @@ public class FolderDocument: UIDocument {
     }
     
     public override func presentedSubitemDidChange(at url: URL) {
-        DispatchQueue.main.async {
-            self.updateDirectory()
+        DispatchQueue.main.async { [weak self] in
+            self?.updateDirectory()
         }
     }
     

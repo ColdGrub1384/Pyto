@@ -34,11 +34,11 @@ public class ContainerViewController: UIViewController {
             viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-            if self.vcStore?.scene?.activationState != .background {
-                self.vcStore?.showSidebar = (self.vcStore?.vc?.children.first as? UISplitViewController)?.displayMode != .secondaryOnly
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) { [weak self] in
+            if self?.vcStore?.scene?.activationState != .background {
+                self?.vcStore?.showSidebar = (self?.vcStore?.vc?.children.first as? UISplitViewController)?.displayMode != .secondaryOnly
             } else {
-                (self.vcStore?.vc?.children.first as? UISplitViewController)?.preferredDisplayMode = ((self.vcStore?.showSidebar == true) ? .allVisible : .secondaryOnly)
+                (self?.vcStore?.vc?.children.first as? UISplitViewController)?.preferredDisplayMode = ((self?.vcStore?.showSidebar == true) ? .allVisible : .secondaryOnly)
             }
         }
         

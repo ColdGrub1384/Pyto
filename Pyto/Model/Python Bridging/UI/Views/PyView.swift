@@ -72,7 +72,12 @@ import WebKit
         
         if self.managed is UIView {
             addSizeObserver()
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                
+                guard let self = self else {
+                    return
+                }
+                
                 var values = PyView.values
                 values[self.view] = self
                 PyView.values = values
@@ -87,7 +92,12 @@ import WebKit
     var sizeObserver: NSKeyValueObservation?
     
     func addSizeObserver() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
             self.sizeObserver = self.view.layer.observe(\.bounds) { [weak self] (_, _) in
                 self?.layoutAction?.call(parameter: self?.pyValue)
             }
@@ -264,7 +274,12 @@ import WebKit
         
         let semaphore = DispatchSemaphore(value: 0)
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
             #if WIDGET && Xcode11
             self.viewController?.view.removeFromSuperview()
             self.viewController?.removeFromParent()
