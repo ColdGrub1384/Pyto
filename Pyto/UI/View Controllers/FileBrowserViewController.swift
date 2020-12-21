@@ -314,6 +314,8 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
                 
                 if let editor = ((navigationController?.splitViewController as? EditorSplitViewController.ProjectSplitViewController)?.editor)?.editor {
                     
+                    (editor.parent as? EditorSplitViewController)?.killREPL()
+                    
                     editor.document?.editor = nil
                     
                     editor.save { (_) in

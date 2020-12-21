@@ -90,6 +90,39 @@ public class EditorSplitViewController: SplitViewController {
         }).withRenderingMode(.alwaysOriginal)
     }
     
+    /// Kills the attached REPL.
+    func killREPL() {
+        if let path = editor?.document?.fileURL.path {
+            let code = """
+            from console import __repl_threads__, __repl_namespace__
+            from pyto import Python
+            import stopit
+            import threading
+
+            path = "\(path.replacingOccurrences(of: "\"", with: "\\\""))"
+
+            repl = path.split("/")[-1]
+            if repl in __repl_namespace__:
+                __repl_namespace__[repl] = {}
+
+            if path in __repl_threads__:
+            
+                Python.shared.interruptInputWithScript(path)
+                thread = __repl_threads__[path]
+                for tid, tobj in threading._active.items():
+                    if tobj is thread:
+                        try:
+                            stopit.async_raise(tid, SystemExit)
+                            break
+                        except Exception as e:
+                            print(e)
+                del __repl_threads__[path]
+            """
+            
+            Python.shared.run(code: code)
+        }
+    }
+    
     // MARK: - Key commands
     
     /// Runs the code.
@@ -448,6 +481,12 @@ public class EditorSplitViewController: SplitViewController {
         }
     }
     
+    public override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        killREPL()
+    }
+    
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -480,6 +519,10 @@ public class EditorSplitViewController: SplitViewController {
     public override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         
         guard view != nil else {
+            return
+        }
+        
+        guard view.window?.windowScene?.activationState != .background else {
             return
         }
         
