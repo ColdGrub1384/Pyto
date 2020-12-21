@@ -275,7 +275,7 @@ import SwiftUI
                             return
                         }
                         
-                        (viewController ?? self!).present(vc, animated: (!run && folder == nil), completion: {
+                        (viewController ?? self!).present(vc, animated: !run, completion: {
                             #if !Xcode11
                             UIView.animate(withDuration: 0.15) {
                                 (vc.children.first as? UISplitViewController)?.preferredDisplayMode = .secondaryOnly

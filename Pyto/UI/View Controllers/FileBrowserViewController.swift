@@ -173,6 +173,8 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
     
     // MARK: - Table view controller
     
+    private var alreadyShown = false
+    
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -186,12 +188,23 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
             items.append(UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close)))
             navigationItem.leftBarButtonItems = items
         }
+        
+        if !alreadyShown {
+            alreadyShown = true
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.navigationController?.navigationBar.sizeToFit()
+            }
+        }
     }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
+        
+        tableView.contentInsetAdjustmentBehavior = .never
+        edgesForExtendedLayout = []
         
         clearsSelectionOnViewWillAppear = true
         tableView.tableFooterView = UIView()
@@ -280,6 +293,7 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
         var isDir: ObjCBool = false
         if FileManager.default.fileExists(atPath: files[indexPath.row].path, isDirectory: &isDir) && isDir.boolValue {
             let browser = FileBrowserViewController()
+            browser.navigationItem.largeTitleDisplayMode = .never
             browser.directory = files[indexPath.row]
             navigationController?.pushViewController(browser, animated: true)
         } else {
@@ -321,32 +335,15 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
                                 if let parent = editor.parent?.navigationController {
                                     self.navigationController?.splitViewController?.showDetailViewController(parent, sender: self)
                                 }
-                                                            
-                                if let action = self.navigationController?.splitViewController?.displayModeButtonItem.action {
-                                    _ = self.navigationController?.splitViewController?.displayModeButtonItem.target?.perform(action, with: self)
-                                }
                             }
                         })
                     }
                     
                     
                 } else {
-                    let presenting = presentingViewController
-                    presenting?.view.alpha = 0
-                    dismiss(animated: false) {
-                        if presenting?.presentingViewController != nil {
-                            let presentingPresenting = presenting?.presentingViewController
-                            presenting?.dismiss(animated: true, completion: {
-                                (presentingPresenting as? DocumentBrowserViewController)?.openDocument(url, run: false, folder: self.directory, completion: {
-                                    presenting?.view.alpha = 1
-                                })
-                            })
-                        } else {
-                            let browser = presenting as? DocumentBrowserViewController
-                            browser?.openDocument(url, run: false, folder: self.directory, completion: {
-                                presenting?.view.alpha = 1
-                            })
-                        }
+                    let browser = presentingViewController as? DocumentBrowserViewController
+                    if let editor = browser?.openDocument(url, run: false, folder: self.directory, show: false) {
+                        showDetailViewController(UINavigationController(rootViewController: editor), sender: self)
                     }
                 }
             } else {

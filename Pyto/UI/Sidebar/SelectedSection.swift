@@ -36,6 +36,9 @@ public enum SelectedSection: Hashable {
     
     /// Settings
     case settings
+    
+    /// Projects
+    case projects
 }
 
 extension SelectedSection: Codable {
@@ -68,6 +71,8 @@ extension SelectedSection: Codable {
                 self = .loadedModules
             case 6:
                 self = .settings
+            case 7:
+                self = .projects
             default:
                 throw CodingError.unknownValue
             }
@@ -98,6 +103,8 @@ extension SelectedSection: Codable {
             try container.encode(5, forKey: .rawValue)
         case .settings:
             try container.encode(6, forKey: .rawValue)
+        case .projects:
+            try container.encode(7, forKey: .rawValue)
         case .recent(let url):
             try container.encode(url.bookmarkData(), forKey: .rawValue)
         }
