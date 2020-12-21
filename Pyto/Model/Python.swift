@@ -685,6 +685,12 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         scriptThreads[script] = pthread_self()
     }
     
+    @objc public func interruptInput(script: String) {
+        #if MAIN
+        PyInputHelper.userInput[script] = "<WILL INTERRUPT>"
+        #endif
+    }
+ 
     /// Sends `SystemExit`.
     ///
     /// - Parameters:
@@ -692,7 +698,13 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     @objc public func stop(script: String) {
         if let thread = scriptThreads[script], !Python.shared.tooMuchUsedMemory {
             scriptsAboutToExit.append(script)
+            
+            #if MAIN
+            PyInputHelper.userInput[script] = "<WILL INTERRUPT>"
+            #endif
+            
             pthread_kill(thread, SIGSEGV)
+            return
         } else if let pythonInstance = Python.pythonShared {
             DispatchQueue.global().async {
                 pythonInstance.performSelector(inBackground: #selector(PythonRuntime.exitScript(_:)), with: script)
