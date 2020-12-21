@@ -387,6 +387,9 @@ if "widget" not in os.environ:
         # Kill the REPL running for this script
         global __repl_threads__
         if path in __repl_threads__:
+        
+            Python.shared.interruptInputWithScript(path)
+        
             thread = __repl_threads__[path]
             for tid, tobj in threading._active.items():
                 if tobj is thread:
