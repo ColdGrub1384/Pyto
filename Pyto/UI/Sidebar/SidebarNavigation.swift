@@ -329,6 +329,13 @@ public struct SidebarNavigation: View {
             } label: {
                 SidebarLabel("sidebar.scripts", systemImage: "folder", selection: nil, selected: sceneStateStore.sceneState.selection)
             }
+            
+            NavigationLink(
+                destination: ViewController(viewController: ProjectsBrowserViewController(style: .insetGrouped), viewControllerStore: viewControllerStore).link(store: currentViewStore, isStack: $stack, selection: .projects, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
+                tag: SelectedSection.projects, selection: $sceneStateStore.sceneState.selection,
+                label: {
+                    SidebarLabel("Projects", systemImage: "shippingbox", selection: .projects, selected: sceneStateStore.sceneState.selection)
+            })
                                     
             Section(header: Text("sidebar.recent")) {
                 ForEach(recentDataSource.recentItems.reversed(), id: \.url) { item in

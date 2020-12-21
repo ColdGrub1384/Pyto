@@ -69,17 +69,32 @@ class ProjectsBrowserViewController: UITableViewController, UIDocumentPickerDele
             recent.remove(at: i)
         }
         recent.insert(url, at: 0)
-        
-        let presenting = navigationController?.presentingViewController
-        
+                
         _ = url.startAccessingSecurityScopedResource()
         
+        let uiSplitVC = EditorSplitViewController.ProjectSplitViewController()
+        
+        //uiSplitVC.editor = splitVC
+        #if Xcode11
+        uiSplitVC.preferredDisplayMode = .primaryHidden
+        #else
+        uiSplitVC.preferredDisplayMode = .allVisible
+        #endif
+        uiSplitVC.view.backgroundColor = .systemBackground
+        uiSplitVC.modalPresentationStyle = .fullScreen
+        
+        let browser = FileBrowserViewController()
+        browser.directory = url
+        browser.navigationItem.largeTitleDisplayMode = .always
+        let browserNavVC = UINavigationController(rootViewController: browser)
+        browserNavVC.navigationBar.prefersLargeTitles = true
+        browserNavVC.navigationBar.sizeToFit()
+        
+        uiSplitVC.viewControllers = [browserNavVC]
+        
+        let presenting = presentingViewController
         dismiss(animated: true) {
-            let fileBrowser = FileBrowserViewController()
-            fileBrowser.directory = url
-            let navVC = UINavigationController(rootViewController: fileBrowser)
-            navVC.modalPresentationStyle = .fullScreen
-            presenting?.present(navVC, animated: true, completion: nil)
+            presenting?.present(uiSplitVC, animated: true, completion: nil)
         }
     }
     
@@ -106,6 +121,15 @@ class ProjectsBrowserViewController: UITableViewController, UIDocumentPickerDele
         tableView.backgroundColor = .systemGroupedBackground
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let header = UIView()
+        header.backgroundColor = .clear
+        header.frame.size.height = 30
+        tableView.tableHeaderView = header
+    }
+
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 1 {
             return Localizable.ProjectsBrowser.recent

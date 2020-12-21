@@ -43,7 +43,19 @@ public class ContainerViewController: UIViewController {
         }
         
         if let child = children.first {
-            parent?.navigationItem.rightBarButtonItems = child.navigationItem.rightBarButtonItems
+            
+            let closeActions = ["close", "close:", "goToFileBrowser", "goToFileBrowser:"]
+            
+            var right = [UIBarButtonItem]()
+            for item in child.navigationItem.rightBarButtonItems ?? [] {
+                if let action = item.action, closeActions.contains(String(_sel: action)), child.traitCollection.horizontalSizeClass == .regular {
+                    continue
+                }
+                
+                right.append(item)
+            }
+            
+            parent?.navigationItem.rightBarButtonItems = right
             parent?.toolbarItems = child.toolbarItems
             parent?.title = child.title
             
@@ -55,7 +67,16 @@ public class ContainerViewController: UIViewController {
                 parent?.navigationItem.leftBarButtonItems = []
             }
             
-            parent?.navigationItem.leftBarButtonItems = child.navigationItem.leftBarButtonItems
+            var left = [UIBarButtonItem]()
+            for item in child.navigationItem.leftBarButtonItems ?? [] {
+                if let action = item.action, closeActions.contains(String(_sel: action)), child.traitCollection.horizontalSizeClass == .regular {
+                    continue
+                }
+                
+                left.append(item)
+            }
+            
+            parent?.navigationItem.leftBarButtonItems = left
             parent?.navigationItem.title = child.navigationItem.title
         }
     }
