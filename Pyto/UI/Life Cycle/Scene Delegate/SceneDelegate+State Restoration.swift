@@ -16,8 +16,8 @@ extension SceneDelegate {
         let root = window?.rootViewController
         
         if root?.presentedViewController != nil {
-            root?.dismiss(animated: true, completion: {
-                self.continueActivity(userActivity)
+            root?.dismiss(animated: true, completion: { [weak self] in
+                self?.continueActivity(userActivity)
             })
             return
         }
@@ -43,7 +43,12 @@ extension SceneDelegate {
                 
                 self.documentBrowserViewController?.justOpened = false
                 
-                _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
+                _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] (timer) in
+                    
+                    guard let self = self else {
+                        return
+                    }
+                    
                     if let doc = self.documentBrowserViewController, doc.view.window != nil {
                         let sidebar = doc.makeSidebarNavigation(url: url, run: false, isShortcut: false, restoreSelection: true)
                         let vc = SidebarController(rootView: AnyView(sidebar))

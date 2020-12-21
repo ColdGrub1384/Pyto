@@ -99,10 +99,15 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(webView)
         
-        DispatchQueue.global().async {
+        DispatchQueue.global().async { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
             let url = self.docsURL
-            DispatchQueue.main.async {
-                self.webView.loadFileURL(url.appendingPathComponent("html/index.html"), allowingReadAccessTo: url)
+            DispatchQueue.main.async { [weak self] in
+                self?.webView.loadFileURL(url.appendingPathComponent("html/index.html"), allowingReadAccessTo: url)
             }
         }
         

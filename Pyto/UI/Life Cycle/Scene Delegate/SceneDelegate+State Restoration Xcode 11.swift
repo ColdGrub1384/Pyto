@@ -24,7 +24,12 @@ extension SceneDelegate {
                     var isStale = false
                     let url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
                     
-                    _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
+                    _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] (timer) in
+                        
+                        guard let self = self else {
+                            return
+                        }
+                        
                         if let doc = self.documentBrowserViewController {
                             doc.revealDocument(at: url, importIfNeeded: false) { (url_, _) in
                                 doc.openDocument(url_ ?? url, run: false)
@@ -41,8 +46,8 @@ extension SceneDelegate {
                 
                 if FileManager.default.fileExists(atPath: url.path) {
                     
-                    _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
-                        if let doc = self.documentBrowserViewController {
+                    _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] (timer) in
+                        if let doc = self?.documentBrowserViewController {
                             doc.revealDocument(at: url, importIfNeeded: true) { (url_, _) in
                                 doc.openDocument(url_ ?? url, run: true)
                             }
@@ -64,8 +69,8 @@ extension SceneDelegate {
                         UserDefaults.standard.set(arguments, forKey: "arguments\(url.path.replacingOccurrences(of: "//", with: "/"))")
                     }
                     
-                    _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
-                        if let doc = self.documentBrowserViewController {
+                    _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] (timer) in
+                        if let doc = self?.documentBrowserViewController {
                             doc.revealDocument(at: url, importIfNeeded: true) { (url_, _) in
                                 doc.openDocument(url_ ?? url, run: true, isShortcut: true)
                             }
@@ -89,8 +94,8 @@ extension SceneDelegate {
                 }
                 
                 FileManager.default.createFile(atPath: fileURL.path, contents: code.data(using: .utf8), attributes: nil)
-                _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
-                    if let doc = self.documentBrowserViewController {
+                _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] (timer) in
+                    if let doc = self?.documentBrowserViewController {
                         doc.openDocument(fileURL, run: true, isShortcut: true)
                         timer.invalidate()
                     }
@@ -126,8 +131,8 @@ extension SceneDelegate {
             
             repl.noBanner = true
             
-            _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
-                if let doc = self.documentBrowserViewController, Python.shared.isSetup {
+            _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] (timer) in
+                if let doc = self?.documentBrowserViewController, Python.shared.isSetup {
                     doc.present(navVC, animated: true, completion: nil)
                     timer.invalidate()
                 }

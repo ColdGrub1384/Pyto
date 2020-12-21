@@ -48,7 +48,12 @@ fileprivate var isPythonSetup = false
     ///     - text: Text to be added.
     @objc func print(_ text: String) {
         Swift.print(text, terminator: "")
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
             self.textView.text += text
             self.textView.scrollToBottom()
         }
@@ -56,8 +61,8 @@ fileprivate var isPythonSetup = false
     
     /// Clears screen.
     @objc func clear() {
-        DispatchQueue.main.async {
-            self.textView.text = ""
+        DispatchQueue.main.async { [weak self] in
+            self?.textView.text = ""
         }
     }
     
@@ -156,11 +161,11 @@ fileprivate var isPythonSetup = false
     /// Set to `true` to make the widget able to expand.
     @objc var canBeExpanded = false {
         didSet {
-            DispatchQueue.main.async {
-                if self.canBeExpanded {
-                    self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+            DispatchQueue.main.async { [weak self] in
+                if self?.canBeExpanded == true {
+                    self?.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
                 } else {
-                    self.extensionContext?.widgetLargestAvailableDisplayMode = .compact
+                    self?.extensionContext?.widgetLargestAvailableDisplayMode = .compact
                 }
             }
         }
@@ -169,9 +174,9 @@ fileprivate var isPythonSetup = false
     /// The widget's maximum height.
     @objc var maximumHeight: Double = 280 {
         didSet {
-            DispatchQueue.main.async {
-                if self.extensionContext?.widgetActiveDisplayMode == .expanded {
-                    self.preferredContentSize = CGSize(width: 0, height: CGFloat(self.maximumHeight))
+            DispatchQueue.main.async {  [weak self] in
+                if self?.extensionContext?.widgetActiveDisplayMode == .expanded {
+                    self?.preferredContentSize = CGSize(width: 0, height: CGFloat(self?.maximumHeight ?? 0))
                 }
             }
         }

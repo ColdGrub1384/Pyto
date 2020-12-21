@@ -28,8 +28,8 @@ import UIKit
     
     /// Goes back to the file browser
     @objc func goToFileBrowser() {
-        DispatchQueue.main.async {
-            self.dismiss(animated: true, completion: nil)
+        DispatchQueue.main.async { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -131,9 +131,9 @@ import UIKit
         if !opened, let script = editor?.document?.fileURL.path, !Python.shared.isScriptRunning(script) {
             opened = true
             editor?.currentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            _ = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true, block: { (timer) in
+            _ = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true, block: { [weak self] (timer) in
                 if Python.shared.isSetup && isUnlocked {
-                    self.editor?.run()
+                    self?.editor?.run()
                     timer.invalidate()
                 }
             })

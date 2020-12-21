@@ -53,11 +53,11 @@ extension EditorViewController {
     ///     - lineNumber: The number of the line that caused the error.
     @objc func showErrorAtLine(_ lineNumber: Int) {
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
         
             let errorColor = #colorLiteral(red: 0.6743632277, green: 0.1917540668, blue: 0.1914597603, alpha: 1)
             
-            self.highlight(at: lineNumber-1, with: errorColor.withAlphaComponent(0.5))
+            self?.highlight(at: lineNumber-1, with: errorColor.withAlphaComponent(0.5))
         }
     }
 }

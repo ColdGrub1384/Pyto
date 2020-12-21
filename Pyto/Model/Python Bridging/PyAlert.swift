@@ -44,7 +44,12 @@ import UIKit
     /// - Returns: The title of the pressed action.
     @objc func _show(_ scriptPath: String?) -> String {
         response = nil
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
             let alert = UIAlertController(title: self.title, message: self.message, preferredStyle: .alert)
             for action in self.actions ?? [] {
                 alert.addAction(action)
@@ -89,7 +94,11 @@ import UIKit
     // MARK: - Setters
     
     private func addAction(title: String, style: UIAlertAction.Style) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
             
             if self.actions == nil {
                 self.actions = []

@@ -110,13 +110,13 @@ class PyPiIndex: ObservableObject {
     
     func fetch(_ searchString: String) {
         isLoading = true
-        DispatchQueue.global().async {
+        DispatchQueue.global().async { [weak self] in
             let packages = search(for: searchString)
             DispatchQueue.main.async {
-                if self.searchString == searchString {
-                    self.packages = packages
+                if self?.searchString == searchString {
+                    self?.packages = packages
                 }
-                self.isLoading = false
+                self?.isLoading = false
             }
         }
     }

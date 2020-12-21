@@ -319,7 +319,11 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
                     editor.save { (_) in
                         editor.document?.close(completionHandler: { (_) in
                             let document = PyDocument(fileURL: url)
-                            document.open { (_) in
+                            document.open { [weak self] (_) in
+                                
+                                guard let self = self else {
+                                    return
+                                }
                                 
                                 #if !Xcode11
                                 if #available(iOS 14.0, *) {
@@ -343,6 +347,7 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
                 } else {
                     let browser = presentingViewController as? DocumentBrowserViewController
                     if let editor = browser?.openDocument(url, run: false, folder: self.directory, show: false) {
+                        (navigationController?.splitViewController as? EditorSplitViewController.ProjectSplitViewController)?.editor = editor
                         showDetailViewController(UINavigationController(rootViewController: editor), sender: self)
                     }
                 }
@@ -366,12 +371,12 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
                 }
                 
                 let doc = PyDocument(fileURL: url)
-                doc.open { (_) in
+                doc.open { [weak self] (_) in
                     let dataSource = DataSource(url: doc.fileURL)
                     
                     let vc = QLPreviewController()
                     vc.dataSource = dataSource
-                    self.present(vc, animated: true, completion: nil)
+                    self?.present(vc, animated: true, completion: nil)
                 }
             }
         }
@@ -451,8 +456,8 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
                         
                         file.stopAccessingSecurityScopedResource()
                         
-                        DispatchQueue.main.async {
-                            self.load()
+                        DispatchQueue.main.async { [weak self] in
+                            self?.load()
                         }
                     }
                 })

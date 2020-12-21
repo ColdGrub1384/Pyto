@@ -128,8 +128,8 @@ class RuntimeCommunicator {
         let semaphore = DispatchSemaphore(value: 0)
         
         DispatchQueue.global().async {
-            _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true, block: { (timer) in
-                if let entry = self.scriptEntry {
+            _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true, block: { [weak self] (timer) in
+                if let entry = self?.scriptEntry {
                     completion(entry)
                     semaphore.signal()
                     timer.invalidate()

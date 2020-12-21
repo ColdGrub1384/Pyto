@@ -191,7 +191,7 @@ fileprivate class _PyTextView: UITextView {
     required init(managed: Any! = NSObject()) {
         super.init(managed: managed)
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
             (managed as? UITextView)?.delegate = self
         }
     }

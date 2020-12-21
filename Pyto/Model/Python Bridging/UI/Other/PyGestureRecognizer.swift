@@ -231,7 +231,12 @@ import UIKit
     override init(managed: Any! = NSObject()) {
         super.init(managed: managed)
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
             (managed as? UIGestureRecognizer)?.addTarget(self, action: #selector(self.callAction(_:)))
         }
     }

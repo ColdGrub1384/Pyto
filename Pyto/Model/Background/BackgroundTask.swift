@@ -56,7 +56,12 @@ import BackgroundTasks
         formatter.unitsStyle = .abbreviated
         formatter.zeroFormattingBehavior = [.pad]
         DispatchQueue.main.async {
-            _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
+            _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak self] (timer) in
+                
+                guard let self = self else {
+                    return
+                }
+                
                 time += 1
                 i += 1
                 

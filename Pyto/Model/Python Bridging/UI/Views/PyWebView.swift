@@ -96,8 +96,8 @@ import WebKit
         
         var str: String?
         
-        DispatchQueue.main.async {
-            self.webView.evaluateJavaScript(code) { (value, error) in
+        DispatchQueue.main.async { [weak self] in
+            self?.webView.evaluateJavaScript(code) { (value, error) in
                 if let value = value {
                     str = "_VALUE_:\(value)"
                 } else if let error = error {
@@ -125,7 +125,7 @@ import WebKit
     required init(managed: Any! = NSObject()) {
         super.init(managed: managed)
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
             (managed as? WKWebView)?.navigationDelegate = self
             (managed as? WKWebView)?.uiDelegate = self
         }

@@ -95,8 +95,8 @@ import SafariServices
     /// The selected package version.
     var version: String? {
         didSet {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+            DispatchQueue.main.async { [weak self] in
+                self?.tableView.reloadData()
             }
         }
     }
@@ -105,7 +105,12 @@ import SafariServices
     var currentPackage: PyPackage? {
         didSet {
             version = currentPackage?.stableVersion
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                
+                guard let self = self else {
+                    return
+                }
+                
                 (self.tableView.tableHeaderView as? UILabel)?.text = self.currentPackage?.description
                 (self.tableView.tableHeaderView as? UILabel)?.sizeToFit()
                 (self.tableView.tableHeaderView as? UILabel)?.text = self.currentPackage?.description
@@ -340,8 +345,8 @@ import SafariServices
             DispatchQueue.global().async {
                 vc.currentPackage = PyPackage(name: name)
                 
-                DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(vc, animated: true)
+                DispatchQueue.main.async { [weak self] in
+                    self?.navigationController?.pushViewController(vc, animated: true)
                 }
             }
         case 2: // Install / Remove

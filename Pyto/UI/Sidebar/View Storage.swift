@@ -91,8 +91,8 @@ public class RecentDataSource: ObservableObject {
                 self._recents = self.makeRecents()
                 
                 if !self.silent {
-                    DispatchQueue.main.async {
-                        self.objectWillChange.send()
+                    DispatchQueue.main.async { [weak self] in
+                        self?.objectWillChange.send()
                     }
                 } else {
                     self.silent = false

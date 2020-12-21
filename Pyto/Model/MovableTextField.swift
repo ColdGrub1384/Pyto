@@ -143,8 +143,8 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     
     /// Shows keyboard.
     func focus() {
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.25) {
-            self.textField.becomeFirstResponder()
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.25) { [weak self] in
+            self?.textField.becomeFirstResponder()
         }
     }
     
@@ -262,8 +262,8 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             if historyIndex == -1 {
                 currentInput = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
             }
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
-                self.didChangeText?(textField.text ?? "")
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.2) { [weak self] in
+                self?.didChangeText?(textField.text ?? "")
             }
         }
         

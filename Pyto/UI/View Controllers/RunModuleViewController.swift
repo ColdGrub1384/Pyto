@@ -104,9 +104,9 @@ import UIKit
         
         viewAppeared = true
         
-        _ = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true, block: { (timer) in
+        _ = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true, block: { [weak self] (timer) in
             if Python.shared.isSetup && isUnlocked {
-                self.editor?.run()
+                self?.editor?.run()
                 timer.invalidate()
             }
         })

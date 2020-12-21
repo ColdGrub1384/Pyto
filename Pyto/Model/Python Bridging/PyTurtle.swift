@@ -22,7 +22,12 @@ import UIKit
     override init() {
         super.init()
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
             self.shapeLayer.strokeColor = self.color.cgColor
             self.shapeLayer.fillColor = self.fillColor.cgColor
             self.shapeLayer.frame.size = self.size
@@ -76,7 +81,12 @@ import UIKit
                 rotation = -179
             }
             
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                
+                guard let self = self else {
+                    return
+                }
+                
                 let transform = CGAffineTransform(rotationAngle: (CGFloat((Double(self.rotation+90)) / 180.0 * Double.pi)))
                 self.arrowView.imageView.transform = transform
             }
@@ -85,7 +95,12 @@ import UIKit
     
     @objc var size = CGSize(width: 300, height: 300) {
         didSet {
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                
+                guard let self = self else {
+                    return
+                }
+                
                 self.view.width = Double(self.size.width)
                 self.view.height = Double(self.size.height)
             }
@@ -94,7 +109,12 @@ import UIKit
     
     @objc var _position = CGPoint.zero {
         didSet {
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                
+                guard let self = self else {
+                    return
+                }
+                
                 self.arrowView.centerX = Double(self._position.x)
                 self.arrowView.centerY = Double(self._position.y)
             }
@@ -138,7 +158,12 @@ import UIKit
     
     @objc var fillColor = UIColor.clear {
         didSet {
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                
+                guard let self = self else {
+                    return
+                }
+                
                 let color: UIColor
                 if self.fillColor == UIColor.clear {
                     color = .white
@@ -217,7 +242,12 @@ import UIKit
         self.shapeLayer = CAShapeLayer()
         self.lastImage = nil
         self.goto(self.position())
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
             self.shapeLayer.strokeColor = self.color.cgColor
             self.shapeLayer.fillColor = self.fillColor.cgColor
             self.shapeLayer.frame.size = self.size

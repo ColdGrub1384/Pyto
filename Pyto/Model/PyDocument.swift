@@ -126,7 +126,12 @@ enum PyDocumentError: Error {
             return
         }
         
-        super.open { (success) in
+        super.open { [weak self] (success) in
+            
+            guard let self = self else {
+                return
+            }
+            
             if self.storedModificationDate == nil {
                 self.storedModificationDate = self.fileModificationDate
             }
@@ -150,7 +155,12 @@ enum PyDocumentError: Error {
         
         if let data = try? Data(contentsOf: fileURL) {
             try? load(fromContents: data, ofType: "public.python-script")
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                
+                guard let self = self else {
+                    return
+                }
+                
                 if self.editor?.textView.text != self.text && self.editor?.document == self {
                     self.editor?.textView.text = self.text
                 }
