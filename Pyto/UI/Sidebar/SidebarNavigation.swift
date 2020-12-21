@@ -334,7 +334,7 @@ public struct SidebarNavigation: View {
                 destination: ViewController(viewController: ProjectsBrowserViewController(style: .insetGrouped), viewControllerStore: viewControllerStore).link(store: currentViewStore, isStack: $stack, selection: .projects, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
                 tag: SelectedSection.projects, selection: $sceneStateStore.sceneState.selection,
                 label: {
-                    SidebarLabel("Projects", systemImage: "shippingbox", selection: .projects, selected: sceneStateStore.sceneState.selection)
+                    SidebarLabel("sidebar.projects", systemImage: "shippingbox", selection: .projects, selected: sceneStateStore.sceneState.selection)
             })
                                     
             Section(header: Text("sidebar.recent")) {
