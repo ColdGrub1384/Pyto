@@ -522,8 +522,10 @@ public class EditorSplitViewController: SplitViewController {
             return
         }
         
-        guard view.window?.windowScene?.activationState != .background else {
-            return
+        if !isiOSAppOnMac {
+            guard view.window?.windowScene?.activationState != .background else {
+                return
+            }
         }
         
         guard presentedViewController == nil else {
