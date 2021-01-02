@@ -10,6 +10,7 @@ import Foundation
 import AVFoundation
 #if MAIN
 import UIKit
+import Dynamic
 #elseif os(iOS) && !WIDGET
 @_silgen_name("PyRun_SimpleStringFlags")
 func PyRun_SimpleStringFlags(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Any>!)
@@ -472,6 +473,15 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                     let splitVC = contentVC.editorSplitViewController
                     guard let editor = splitVC?.editor, let scriptPath = editor.document?.fileURL.path else {
                         continue
+                    }
+                    
+                    if isiOSAppOnMac { // Reload toolbar
+                        let toolbarItem = Dynamic(editor.runToolbarItem)
+                        
+                        toolbarItem.label = self.runningScripts.contains(scriptPath) ? Localizable.interrupt : Localizable.MenuItems.run
+                        toolbarItem.image = self.runningScripts.contains(scriptPath) ? UIImage(systemName: "xmark") : UIImage(systemName: "play")
+                        toolbarItem.target = editor
+                        toolbarItem.action = NSSelectorFromString(self.runningScripts.contains(scriptPath) ? "stop" : "run")
                     }
                     
                     guard !(contentVC.editorSplitViewController is REPLViewController) && !(contentVC.editorSplitViewController is RunModuleViewController) && !(contentVC.editorSplitViewController is PipInstallerViewController) else {

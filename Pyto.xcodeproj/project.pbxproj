@@ -9,11 +9,15 @@
 /* Begin PBXBuildFile section */
 		661A396962347B634955210E /* Pods_Pyto_Screenshots.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B55038E3A0EDA2B8DC07639F /* Pods_Pyto_Screenshots.framework */; };
 		6AB6C68D181C2C686D545A61 /* Pods_Pyto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 296FFAAD958315A38A36E2A4 /* Pods_Pyto.framework */; };
+		C312BAC3259BDE86000A6BAD /* openEmptyScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = C312BAC2259BDE86000A6BAD /* openEmptyScript.swift */; };
+		C312BAD8259D0F05000A6BAD /* EditorViewController+saveAsIfNeeded.swift in Sources */ = {isa = PBXBuildFile; fileRef = C312BAD7259D0F05000A6BAD /* EditorViewController+saveAsIfNeeded.swift */; };
+		C312BAEC259D25D1000A6BAD /* Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = C312BAEB259D25D1000A6BAD /* Dynamic */; };
 		C31E737E25869292000FCE35 /* MacMainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31E737D25869292000FCE35 /* MacMainMenu.swift */; };
 		C33B43942587159100F2D1E6 /* MacMainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31E737D25869292000FCE35 /* MacMainMenu.swift */; };
 		C33B44FC25894A9E00F2D1E6 /* isiOSAppOnMac.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33B44FB25894A9E00F2D1E6 /* isiOSAppOnMac.swift */; };
 		C33B44FD25894A9E00F2D1E6 /* isiOSAppOnMac.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33B44FB25894A9E00F2D1E6 /* isiOSAppOnMac.swift */; };
 		C33B44FE25894A9E00F2D1E6 /* isiOSAppOnMac.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33B44FB25894A9E00F2D1E6 /* isiOSAppOnMac.swift */; };
+		C3C2CB4C25992A9E0017B6C8 /* EditorViewController+NSWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C2CB4B25992A9E0017B6C8 /* EditorViewController+NSWindow.swift */; };
 		C90089E023D79C5C00D18AAE /* PyMultipeerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90089DF23D79C5C00D18AAE /* PyMultipeerHelper.swift */; };
 		C903986922D2CF2600FAD834 /* PyImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C903986822D2CF2600FAD834 /* PyImageView.swift */; };
 		C9040DBE2502A2BB002B6C7F /* UIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9040DBD2502A2BB002B6C7F /* UIKitView.swift */; };
@@ -2074,8 +2078,11 @@
 		B02EB2632C549B97E51CA165 /* Pods-Pyto Xcode 11.vpp.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Xcode 11.vpp.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Xcode 11/Pods-Pyto Xcode 11.vpp.xcconfig"; sourceTree = "<group>"; };
 		B55038E3A0EDA2B8DC07639F /* Pods_Pyto_Screenshots.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pyto_Screenshots.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDF906F857A60D2FF55BE403 /* Pods-Pyto Mac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Mac.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Mac/Pods-Pyto Mac.debug.xcconfig"; sourceTree = "<group>"; };
+		C312BAC2259BDE86000A6BAD /* openEmptyScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = openEmptyScript.swift; sourceTree = "<group>"; };
+		C312BAD7259D0F05000A6BAD /* EditorViewController+saveAsIfNeeded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorViewController+saveAsIfNeeded.swift"; sourceTree = "<group>"; };
 		C31E737D25869292000FCE35 /* MacMainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacMainMenu.swift; sourceTree = "<group>"; };
 		C33B44FB25894A9E00F2D1E6 /* isiOSAppOnMac.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = isiOSAppOnMac.swift; sourceTree = "<group>"; };
+		C3C2CB4B25992A9E0017B6C8 /* EditorViewController+NSWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorViewController+NSWindow.swift"; sourceTree = "<group>"; };
 		C90089DF23D79C5C00D18AAE /* PyMultipeerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyMultipeerHelper.swift; sourceTree = "<group>"; };
 		C903986822D2CF2600FAD834 /* PyImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyImageView.swift; sourceTree = "<group>"; };
 		C9040DB525007209002B6C7F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Intents.strings; sourceTree = "<group>"; };
@@ -3206,6 +3213,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C312BAEC259D25D1000A6BAD /* Dynamic in Frameworks */,
 				C9298E072581545800D4C140 /* opencv2.framework in Frameworks */,
 				C904FA2621DA4C7600B70A39 /* Accelerate.framework in Frameworks */,
 				C979922A24B249B1003571AB /* WidgetKit.framework in Frameworks */,
@@ -3294,7 +3302,10 @@
 			isa = PBXGroup;
 			children = (
 				C31E737D25869292000FCE35 /* MacMainMenu.swift */,
+				C312BAC2259BDE86000A6BAD /* openEmptyScript.swift */,
 				C33B44FB25894A9E00F2D1E6 /* isiOSAppOnMac.swift */,
+				C3C2CB4B25992A9E0017B6C8 /* EditorViewController+NSWindow.swift */,
+				C312BAD7259D0F05000A6BAD /* EditorViewController+saveAsIfNeeded.swift */,
 			);
 			path = "iOS App on Mac";
 			sourceTree = "<group>";
@@ -5236,6 +5247,7 @@
 			name = Pyto;
 			packageProductDependencies = (
 				C9B1A1A1249B1E5000DBC4FC /* MarqueeLabel */,
+				C312BAEB259D25D1000A6BAD /* Dynamic */,
 			);
 			productName = Pyto;
 			productReference = C9FCFD55214428AE00A07974 /* Pyto.app */;
@@ -5367,6 +5379,7 @@
 			mainGroup = C9FCFD4C214428AE00A07974;
 			packageReferences = (
 				C9B1A1A0249B1E5000DBC4FC /* XCRemoteSwiftPackageReference "MarqueeLabel" */,
+				C312BAEA259D25D1000A6BAD /* XCRemoteSwiftPackageReference "Dynamic" */,
 			);
 			productRefGroup = C9FCFD56214428AE00A07974 /* Products */;
 			projectDirPath = "";
@@ -6588,6 +6601,7 @@
 				C9D64D3E24DCC44500DBD730 /* Widget.swift in Sources */,
 				C927187822C9933A0025341B /* PyButton.swift in Sources */,
 				C9BF46E722E106D500B8FE4B /* PyTableView.swift in Sources */,
+				C312BAC3259BDE86000A6BAD /* openEmptyScript.swift in Sources */,
 				C94E730222E3BBF300F3FB79 /* PyButtonItem.swift in Sources */,
 				C92F6FE2247DD1A5006CC037 /* Intents.intentdefinition in Sources */,
 				C969D2A523D49B3200460F05 /* PyPhotosHelper.swift in Sources */,
@@ -6607,6 +6621,7 @@
 				C9B5C75C24CD2C8B000CC6D0 /* Symbol.swift in Sources */,
 				C965606B241D53CC00188779 /* PySpeech.swift in Sources */,
 				C91F962224AD9185003ACF02 /* ShortcutsView.swift in Sources */,
+				C312BAD8259D0F05000A6BAD /* EditorViewController+saveAsIfNeeded.swift in Sources */,
 				C94F12B0226BC98D00B4A035 /* ModulesTableViewController.swift in Sources */,
 				C9C0E78321EF75080057C63E /* Midnight.swift in Sources */,
 				C9BF46EA22E108C100B8FE4B /* PyTableViewSection.swift in Sources */,
@@ -6681,6 +6696,7 @@
 				C943E7F522E21D4C00B8027C /* PyTextInputTraits.swift in Sources */,
 				C31E737E25869292000FCE35 /* MacMainMenu.swift in Sources */,
 				C9CED5382353C973000BB464 /* HRColorPickerView.swift in Sources */,
+				C3C2CB4C25992A9E0017B6C8 /* EditorViewController+NSWindow.swift in Sources */,
 				C927187522C973F60025341B /* PyValue.swift in Sources */,
 				C9C0E77821EEA9BE0057C63E /* XcodeDark.swift in Sources */,
 				C93657292287334600498011 /* ResolveConflictsTableViewController.swift in Sources */,
@@ -7989,6 +8005,7 @@
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				ENABLE_BITCODE = NO;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pyto",
@@ -9403,6 +9420,7 @@
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				ENABLE_BITCODE = NO;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pyto",
@@ -9529,6 +9547,7 @@
 				DEVELOPMENT_TEAM = Y96PL6G497;
 				ENABLE_BITCODE = NO;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pyto",
@@ -9848,6 +9867,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		C312BAEA259D25D1000A6BAD /* XCRemoteSwiftPackageReference "Dynamic" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mhdhejazi/Dynamic.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
 		C940FBD8250825A800EB74EB /* XCRemoteSwiftPackageReference "MarqueeLabel" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/cbpowell/MarqueeLabel";
@@ -9867,6 +9894,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C312BAEB259D25D1000A6BAD /* Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C312BAEA259D25D1000A6BAD /* XCRemoteSwiftPackageReference "Dynamic" */;
+			productName = Dynamic;
+		};
 		C940FBD7250825A800EB74EB /* MarqueeLabel */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C940FBD8250825A800EB74EB /* XCRemoteSwiftPackageReference "MarqueeLabel" */;

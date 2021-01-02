@@ -80,7 +80,7 @@ class ScriptSettingsViewController: UIViewController, UITextFieldDelegate, UIDoc
         
         title = FileManager.default.displayName(atPath: editor.document!.fileURL.path)
         
-        if let url = editor.document?.fileURL {
+        if let url = editor.document?.fileURL, !isiOSAppOnMac {
             
             (UIApplication.shared.delegate as? AppDelegate)?.addURLToShortcuts(url)
             

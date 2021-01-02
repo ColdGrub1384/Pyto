@@ -54,13 +54,21 @@ import SwiftUI
         
         class ViewController: UIViewController {
             
+            override func viewDidAppear(_ animated: Bool) {
+                super.viewDidAppear(animated)
+                
+                view.window?.windowScene?.title = "PyPI"
+            }
+            
             @objc func close() {
                 dismiss(animated: true, completion: nil)
             }
         }
         
         let vc = ViewController()
-        vc.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: vc, action: #selector(vc.close))
+        if !isiOSAppOnMac {
+            vc.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: vc, action: #selector(vc.close))
+        }
         
         func run(command: String) {
             let installer = PipInstallerViewController(command: command)

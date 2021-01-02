@@ -44,22 +44,7 @@ protocol Theme {
 extension Theme {
     
     var tintColor: UIColor? {
-        let color = UIColor(named: "TintColor")
-        if #available(iOS 14.0, *) {
-            if ProcessInfo.processInfo.isiOSAppOnMac {
-                if UIColor.responds(to: "controlAccentColor") {
-                    let system = UIColor.perform("controlAccentColor")?.takeRetainedValue() as? UIColor ?? color
-                    
-                    return UIColor(cgColor: system?.cgColor ?? UIColor.clear.cgColor)
-                } else {
-                    return color
-                }
-            } else {
-                return color
-            }
-        } else {
-            return color
-        }
+        return UIColor(named: "TintColor")
     }
     
     var name: String? {

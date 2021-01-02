@@ -26,9 +26,7 @@ import SwiftUI
     
     /// If set, will open the folder when the view appears.
     var folder: URL?
-    
-    var justOpened = true
-    
+        
     var sceneState: SceneState?
     
     /// Opens a folder picker for opening a project.
@@ -182,6 +180,11 @@ import SwiftUI
         let editor = EditorViewController(document: document)
         editor.shouldRun = run
         editor.isShortcut = isShortcut
+        
+        if show {
+            editor.setupToolbarIfNeeded(windowScene: view.window?.windowScene)
+        }
+        
         let contentVC = ConsoleViewController()
         contentVC.view.backgroundColor = .white
         
@@ -199,6 +202,9 @@ import SwiftUI
         let navVC = EditorSplitViewController.NavigationController(rootViewController: splitVC)
         navVC.modalPresentationStyle = .fullScreen
         navVC.navigationBar.isTranslucent = true
+        if isiOSAppOnMac {
+            navVC.setNavigationBarHidden(true, animated: false)
+        }
         
         if EditorSplitViewController.shouldShowSeparator {
             splitVC.separatorColor = tintColor
@@ -238,7 +244,7 @@ import SwiftUI
             let browserNavVC = UINavigationController(rootViewController: browser)
             
             uiSplitVC.viewControllers = [browserNavVC, navVC]
-        } else if #available(iOS 14.0, *), show {
+        } else if #available(iOS 14.0, *), !isiOSAppOnMac, show {
             
             #if !Xcode11
             let navView = makeSidebarNavigation(url: documentURL, run: run, isShortcut: isShortcut, restoreSelection: false)
@@ -261,8 +267,8 @@ import SwiftUI
         #endif
         
         vc.modalTransitionStyle = .crossDissolve
-        
         if show {
+            let window = view.window
             document.open { [weak self] (success) in
                 guard success, self != nil else {
                     return
@@ -275,7 +281,7 @@ import SwiftUI
                             return
                         }
                         
-                        (viewController ?? self!).present(vc, animated: !run, completion: {
+                        (viewController ?? (self!.view.window != nil ? self! : window?.rootViewController))?.present(vc, animated: !run, completion: {
                             #if !Xcode11
                             UIView.animate(withDuration: 0.15) {
                                 (vc.children.first as? UISplitViewController)?.preferredDisplayMode = .secondaryOnly
@@ -340,9 +346,6 @@ import SwiftUI
             openDocument(docURL, run: false, folder: folder, animated: false)
             documentURL = nil
             folder = nil
-        } else if isiOSAppOnMac && justOpened {
-            showMore(self)
-            justOpened = false
         }
         
         /*if !Python.shared.isSetup, let view = Bundle.main.loadNibNamed("Loading Python", owner: nil, options: nil)!.first as? UIView {

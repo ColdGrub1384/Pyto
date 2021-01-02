@@ -180,7 +180,7 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
         
         tableView.reloadData()
         
-        if navigationController?.viewControllers.first == self {
+        if navigationController?.viewControllers.first == self && !isiOSAppOnMac {
             var items = [UIBarButtonItem]()
             if let parent = navigationController?.presentingViewController, parent is EditorViewController || parent is EditorSplitViewController || parent is EditorSplitViewController.NavigationController {
                 items.append(UIBarButtonItem(image: EditorSplitViewController.gridImage, style: .plain, target: self, action: #selector(goToFiles)))
@@ -337,20 +337,22 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
                                 editor.parent?.title = document.fileURL.deletingPathExtension().lastPathComponent
                                 editor.document = document
                                 editor.viewWillAppear(false)
+                                editor.appKitWindow.representedURL = document.fileURL
                                 
                                 if let parent = editor.parent?.navigationController {
                                     self.navigationController?.splitViewController?.showDetailViewController(parent, sender: self)
                                 }
                             }
                         })
-                    }
-                    
-                    
+                    }                    
                 } else {
-                    let browser = presentingViewController as? DocumentBrowserViewController
-                    if let editor = browser?.openDocument(url, run: false, folder: self.directory, show: false) {
+                    let browser = (presentingViewController as? DocumentBrowserViewController) ?? DocumentBrowserViewController()
+                    if let editor = browser.openDocument(url, run: false, folder: self.directory, show: false) {
+                        editor.editor?.setupToolbarIfNeeded(windowScene: view.window?.windowScene)
                         (navigationController?.splitViewController as? EditorSplitViewController.ProjectSplitViewController)?.editor = editor
-                        showDetailViewController(UINavigationController(rootViewController: editor), sender: self)
+                        let navVC = UINavigationController(rootViewController: editor)
+                        navVC.isNavigationBarHidden = true
+                        showDetailViewController(navVC, sender: self)
                     }
                 }
             } else {
