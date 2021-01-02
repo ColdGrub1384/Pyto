@@ -30,6 +30,10 @@ public class EditorSplitViewController: SplitViewController {
     /// If set to `true`, the separator between the console and the editor will be shown.
     static var shouldShowSeparator: Bool {
         get {
+            if UserDefaults.standard.value(forKey: "shouldShowSeparator") == nil {
+                UserDefaults.standard.set(true, forKey: "shouldShowSeparator")
+            }
+            
             return UserDefaults.standard.bool(forKey: "shouldShowSeparator")
         }
         
@@ -433,10 +437,10 @@ public class EditorSplitViewController: SplitViewController {
                 firstChild = editor
                 secondChild = console
             }
-            
-            firstChild?.view.superview?.backgroundColor = view.backgroundColor
-            secondChild?.view.superview?.backgroundColor = view.backgroundColor
         }
+        
+        firstChild?.view.superview?.backgroundColor = view.backgroundColor
+        secondChild?.view.superview?.backgroundColor = view.backgroundColor
     }
     
     public override func viewDidAppear(_ animated: Bool) {
@@ -444,7 +448,7 @@ public class EditorSplitViewController: SplitViewController {
         
         becomeFirstResponder()
         
-        if #available(iOS 13.0, *) {
+        if #available(iOS 13.0, *), !(self is REPLViewController), !(self is RunModuleViewController) {
             view.window?.windowScene?.title = editor?.document?.fileURL.deletingPathExtension().lastPathComponent
         }
         
@@ -476,7 +480,7 @@ public class EditorSplitViewController: SplitViewController {
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if #available(iOS 13.0, *) {
+        if #available(iOS 13.0, *), !(self is REPLViewController), !(self is RunModuleViewController) {
             view.window?.windowScene?.title = ""
         }
     }

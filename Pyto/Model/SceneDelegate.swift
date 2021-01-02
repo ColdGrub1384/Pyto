@@ -9,6 +9,7 @@
 import UIKit
 import StoreKit
 import SwiftUI
+import UniformTypeIdentifiers
 
 /// The scene delegate.
 @objc class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -33,6 +34,11 @@ import SwiftUI
     ///     - run: A boolean indicating whether the script should be executed.
     ///     - isShortcut: A boolean indicating whether the script is executed from Shortcuts.
     func openDocument(at url: URL, run: Bool, folder: URL?, isShortcut: Bool) {
+        
+        if #available(iOS 14.0, *), isiOSAppOnMac && documentBrowserViewController == nil {
+            window?.rootViewController = DocumentBrowserViewController(forOpening: [.pythonScript])
+        }
+        
         _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] (timer) in
             guard let self = self else {
                 return
@@ -79,6 +85,10 @@ import SwiftUI
             window?.rootViewController = blankVC
             
             return
+        }
+        
+        if #available(iOS 14.0, *), isiOSAppOnMac {
+            openEmptyScript(onWindow: window)
         }
         
         window?.tintColor = ConsoleViewController.choosenTheme.tintColor
@@ -163,18 +173,6 @@ import SwiftUI
     @available(iOS 13.0, *)
     func sceneDidDisconnect(_ scene: UIScene) {
         ((window?.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor?.save()
-        
-        if window?.rootViewController?.presentedViewController == nil && isiOSAppOnMac {
-            let activity = NSUserActivity(activityType: "openWindow")
-            if let state = (window?.rootViewController as? DocumentBrowserViewController)?.sceneState {
-                do {
-                    activity.addUserInfoEntries(from: ["sceneState": try JSONEncoder().encode(state)])
-                } catch {
-                    print(error.localizedDescription)
-                }
-            }
-            UIApplication.shared.requestSceneSessionActivation(nil, userActivity: activity, options: nil, errorHandler: nil)
-        }
     }
     
     @available(iOS 13.0, *)
@@ -256,7 +254,18 @@ import SwiftUI
         
         guard let documentBrowserViewController = documentBrowserViewController else {
             window?.rootViewController?.dismiss(animated: true, completion: { [weak self] in
-                self?.scene(scene, openURLContexts: URLContexts)
+                if #available(iOS 14.0, *), self?.window?.rootViewController?.presentedViewController == nil && !(self?.window?.rootViewController is DocumentBrowserViewController) {
+                    _ = inputURL.startAccessingSecurityScopedResource()
+                    guard let vc = DocumentBrowserViewController(forOpening: [.pythonScript]).openDocument(inputURL, run: false, show: false) else {
+                        return
+                    }
+                    vc.editor?.setupToolbarIfNeeded(windowScene: self?.window?.windowScene)
+                    let navVC = EditorSplitViewController.NavigationController(rootViewController: vc)
+                    navVC.isNavigationBarHidden = true
+                    self?.window?.rootViewController = navVC
+                } else {
+                    self?.scene(scene, openURLContexts: URLContexts)
+                }
             })
             return
         }
@@ -283,8 +292,7 @@ import SwiftUI
                 
                 documentBrowserViewController.openDocument(url ?? inputURL, run: false)
             })
-        } else {
-            documentBrowserViewController.openDocument(inputURL, run: false)
         }
     }
 }
+

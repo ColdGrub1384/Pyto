@@ -126,7 +126,9 @@ func directory(for scriptURL: URL) -> URL {
             NotificationCenter.default.addObserver(self, selector: #selector(stateChanged(_:)), name: UIDocument.stateChangedNotification, object: document)
             
             DispatchQueue.main.async { [weak self] in
-                self?.view.window?.windowScene?.title = self?.document?.fileURL.deletingPathExtension().lastPathComponent
+                if !(self?.parent is REPLViewController) && !(self?.parent is RunModuleViewController) {
+                    self?.view.window?.windowScene?.title = self?.document?.fileURL.deletingPathExtension().lastPathComponent
+                }
             }
         }
     }
@@ -152,6 +154,9 @@ func directory(for scriptURL: URL) -> URL {
     
     /// The line number where an error occurred. If this value is set at `viewDidAppear(_:)`, the error will be shown and the value will be reset to `nil`.
     var lineNumberError: Int?
+    
+    /// If set to true, the window will close after showing the save panel.
+    var closeAfterSaving = false
     
     /// Arguments passed to the script.
     var args: String {
@@ -281,6 +286,9 @@ func directory(for scriptURL: URL) -> URL {
     }
     
     // MARK: - Bar button items
+    
+    /// The Mac toolbar item for running the script.
+    var runToolbarItem: NSObject?
     
     /// The bar button item for running script.
     var runBarButtonItem: UIBarButtonItem!
@@ -434,7 +442,7 @@ func directory(for scriptURL: URL) -> URL {
         let space = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         space.width = 10
         
-        if !(parent is REPLViewController) && !(parent is PipInstallerViewController) && !(parent is RunModuleViewController) {
+        if !(parent is REPLViewController) && !(parent is PipInstallerViewController) && !(parent is RunModuleViewController) && !isiOSAppOnMac {
             parent?.navigationController?.isToolbarHidden = false
         } else {
             parent?.navigationController?.isToolbarHidden = true
@@ -590,7 +598,7 @@ func directory(for scriptURL: URL) -> URL {
             }
         }
         
-        if !(parent is REPLViewController) && !(parent is PipInstallerViewController) && !(parent is RunModuleViewController) {
+        if !(parent is REPLViewController) && !(parent is PipInstallerViewController) && !(parent is RunModuleViewController) && !isiOSAppOnMac {
             parent?.navigationController?.isToolbarHidden = false
         } else {
             parent?.navigationController?.isToolbarHidden = true
@@ -999,7 +1007,7 @@ func directory(for scriptURL: URL) -> URL {
     // MARK: - Actions
     
     /// Shows scripts to run with this script as argument.
-    @objc func showEditorScripts(_ sender: UIBarButtonItem) {
+    @objc func showEditorScripts(_ sender: Any) {
         
         class NavigationController: UINavigationController {
             
@@ -1027,9 +1035,13 @@ func directory(for scriptURL: URL) -> URL {
                     tableVC.editor = self
                     let vc = NavigationController(rootViewController: tableVC)
                     vc.editor = self
-                    vc.modalPresentationStyle = .popover
-                    vc.popoverPresentationController?.barButtonItem = sender
-                    vc.popoverPresentationController?.delegate = tableVC
+                    if !isiOSAppOnMac {
+                        vc.modalPresentationStyle = .popover
+                        vc.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
+                        vc.popoverPresentationController?.delegate = tableVC
+                    } else {
+                        vc.modalPresentationStyle = .formSheet
+                    }
                     
                     self?.present(vc, animated: true, completion: nil)
                 }
@@ -1320,7 +1332,9 @@ func directory(for scriptURL: URL) -> URL {
     }
     
     @objc func saveScript(_ sender: Any) {
-        save(completion: nil)
+        save(completion: { [weak self] _ in
+            self?.saveAsIfNeeded()
+        })
     }
     
     /// Save the document on a background queue.
@@ -1348,6 +1362,9 @@ func directory(for scriptURL: URL) -> URL {
         
         document?.text = text ?? ""
         document?.updateChangeCount(.done)
+        #if MAIN
+        setHasUnsavedChanges(isScriptInTemporaryLocation)
+        #endif
         
         if document?.documentState != UIDocument.State.editingDisabled {
             document?.save(to: document!.fileURL, for: .forOverwriting, completionHandler: completion)
@@ -1522,7 +1539,7 @@ func directory(for scriptURL: URL) -> URL {
     }
     
     /// Shows runtime settings.
-    @objc func showRuntimeSettings(_ sender: UIBarButtonItem) {
+    @objc func showRuntimeSettings(_ sender: Any) {
         
         guard let navVC = UIStoryboard(name: "ScriptSettingsViewController", bundle: Bundle.main).instantiateInitialViewController() as? UINavigationController else {
             return
@@ -1804,6 +1821,10 @@ func directory(for scriptURL: URL) -> URL {
     }
     
     func textViewDidChange(_ textView: UITextView) {
+        
+        #if MAIN
+        setHasUnsavedChanges(textView.text != document?.text)
+        #endif
         
         func removeUndoAndRedo() {
             for (i, item) in (UIMenuController.shared.menuItems ?? []).enumerated() {

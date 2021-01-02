@@ -41,8 +41,6 @@ extension SceneDelegate {
                 
                 sceneStateStore.sceneState = sceneState
                 
-                self.documentBrowserViewController?.justOpened = false
-                
                 _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] (timer) in
                     
                     guard let self = self else {
@@ -139,8 +137,17 @@ extension SceneDelegate {
     // MARK: - Scene delegate
     
     func stateRestorationActivity(for scene: UIScene) -> NSUserActivity? {
+        
+        guard !isiOSAppOnMac else {
+            return nil
+        }
+        
         do {
             let activity = NSUserActivity(activityType: "pyto.stateRestoration")
+            
+            if isiOSAppOnMac, let splitVC = ((window?.rootViewController as? EditorSplitViewController.NavigationController) ?? (window?.rootViewController?.presentedViewController as? EditorSplitViewController.NavigationController))?.viewControllers.first as? EditorSplitViewController, let editor = splitVC.editor {
+                activity.addUserInfoEntries(from: ["bookmarkData": try editor.document!.fileURL.bookmarkData()])
+            }
             
             if let splitVC = documentBrowserViewController?.presentedViewController as? EditorSplitViewController.ProjectSplitViewController, let dir = ((splitVC.viewControllers.first as? UINavigationController)?.viewControllers.first as? FileBrowserViewController)?.directory {
                 

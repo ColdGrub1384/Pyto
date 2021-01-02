@@ -85,7 +85,7 @@ public struct SamplesView: View {
             return SamplesView.isDirectory(a)
         }
         
-        if shortcuts?.isEmpty == false {
+        if shortcuts?.isEmpty == false && !isiOSAppOnMac {
             samples.insert(URL(fileURLWithPath: "/Shortcuts"), at: 0)
         }
         

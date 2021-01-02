@@ -63,7 +63,8 @@ class ProjectsBrowserViewController: UITableViewController, UIDocumentPickerDele
     ///
     /// - Parameters:
     ///     - url: The URL of the folder to open.
-    func open(url: URL) {
+    ///     - viewController: A View controller where the project should be presented.
+    func open(url: URL, viewController: UIViewController? = nil) {
         
         if let i = recent.index(of: url) {
             recent.remove(at: i)
@@ -92,9 +93,13 @@ class ProjectsBrowserViewController: UITableViewController, UIDocumentPickerDele
         
         uiSplitVC.viewControllers = [browserNavVC]
         
-        let presenting = presentingViewController
-        dismiss(animated: true) {
-            presenting?.present(uiSplitVC, animated: true, completion: nil)
+        if let vc = viewController {
+            vc.present(uiSplitVC, animated: true, completion: nil)
+        } else {
+            let presenting = presentingViewController
+            dismiss(animated: true) {
+                presenting?.present(uiSplitVC, animated: true, completion: nil)
+            }
         }
     }
     

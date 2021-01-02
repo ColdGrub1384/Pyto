@@ -328,14 +328,14 @@ public struct SidebarNavigation: View {
                 viewControllerStore.vc?.dismiss(animated: true, completion: nil)
             } label: {
                 SidebarLabel("sidebar.scripts", systemImage: "folder", selection: nil, selected: sceneStateStore.sceneState.selection)
-            }
+            }.listRowBackground(Color.clear)
             
             NavigationLink(
                 destination: ViewController(viewController: ProjectsBrowserViewController(style: .insetGrouped), viewControllerStore: viewControllerStore).link(store: currentViewStore, isStack: $stack, selection: .projects, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
                 tag: SelectedSection.projects, selection: $sceneStateStore.sceneState.selection,
                 label: {
                     SidebarLabel("sidebar.projects", systemImage: "shippingbox", selection: .projects, selected: sceneStateStore.sceneState.selection)
-            })
+            }).listRowBackground(Color.clear)
                                     
             Section(header: Text("sidebar.recent")) {
                 ForEach(recentDataSource.recentItems.reversed(), id: \.url) { item in
@@ -344,7 +344,7 @@ public struct SidebarNavigation: View {
                         label: {
                             SidebarLabel(FileManager.default.displayName(atPath: item.url.path), systemImage: "clock", selection: .recent(item.url), selected: sceneStateStore.sceneState.selection)
                         })
-                }
+                }.listRowBackground(Color.clear)
             }
                         
             Section(header: Text("sidebar.python")) {
@@ -354,14 +354,14 @@ public struct SidebarNavigation: View {
                     selection: $restoredSelection,
                     label: {
                         SidebarLabel("repl", systemImage: "play", selection: .repl, selected: sceneStateStore.sceneState.selection)
-                })
+                }).listRowBackground(Color.clear)
                 
                 NavigationLink(
                     destination: runModule.navigationBarTitleDisplayMode(.inline).link(store: currentViewStore, isStack: $stack, selection: .runModule, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
                     tag: SelectedSection.runModule,
                     selection: $restoredSelection) {
                     SidebarLabel("sidebar.runModule", systemImage: "doc", selection: .runModule, selected: sceneStateStore.sceneState.selection)
-                }
+                }.listRowBackground(Color.clear)
                 
                 NavigationLink(destination: pypi.onAppear {
                     scene?.title = "PyPI"
@@ -371,13 +371,13 @@ public struct SidebarNavigation: View {
                 tag: SelectedSection.pypi,
                 selection: $restoredSelection) {
                     SidebarLabel("sidebar.pypi", systemImage: "cube.box", selection: .pypi, selected: sceneStateStore.sceneState.selection)
-                }
+                }.listRowBackground(Color.clear)
                 
                 NavigationLink(destination: modules.link(store: currentViewStore, isStack: $stack, selection: .loadedModules, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
                     tag: SelectedSection.loadedModules,
                     selection: $restoredSelection) {
                     SidebarLabel("sidebar.loadedModules", systemImage: "info.circle", selection: .loadedModules, selected: sceneStateStore.sceneState.selection)
-                }
+                }.listRowBackground(Color.clear)
             }
             
             Section(header: Text("sidebar.resources")) {
@@ -389,17 +389,17 @@ public struct SidebarNavigation: View {
                 tag: SelectedSection.examples,
                 selection: $restoredSelection) {
                     SidebarLabel("sidebar.examples", systemImage: "bookmark", selection: .examples, selected: sceneStateStore.sceneState.selection)
-                }
+                }.listRowBackground(Color.clear)
                 
                 NavigationLink(destination: documentation.link(store: currentViewStore, isStack: $stack, selection: .documentation, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
                     tag: SelectedSection.documentation,
                     selection: $restoredSelection) {
                     SidebarLabel("help.documentation", systemImage: "book", selection: .documentation, selected: sceneStateStore.sceneState.selection)
-                }
+                }.listRowBackground(Color.clear)
             }
             
             if let footer = SidebarNavigation.footer {
-                Text(footer).font(.footnote).foregroundColor(.secondary)
+                Text(footer).font(.footnote).foregroundColor(.secondary).listRowBackground(Color.clear)
             }
         }
         .listStyle(SidebarListStyle())
@@ -409,7 +409,7 @@ public struct SidebarNavigation: View {
             navVC.modalPresentationStyle = .formSheet
             self.viewControllerStore.vc?.present(navVC, animated: true, completion: nil)
         }, label: {
-            Image(systemName: "gear")
+            Image(systemName: "gear").foregroundColor(Color(ConsoleViewController.choosenTheme.tintColor ?? UIColor.label))
         }).padding(5).hover())
         .onAppear {
             adjustBackground(userInterfaceStyle)
@@ -459,7 +459,7 @@ public struct SidebarNavigation: View {
             navigationView = AnyView(NavigationView {
                 contentView
             })
-        } else if sizeClass == .compact || viewControllerStore.scene?.windows.first?.frame.size != UIScreen.main.bounds.size { // Nothing to show, just show the sidebar
+        } else if sizeClass == .compact || (viewControllerStore.scene?.windows.first?.frame.size != UIScreen.main.bounds.size && !isiOSAppOnMac) { // Nothing to show, just show the sidebar
             _stack = true
             navigationView = AnyView(NavigationView {
                 sidebar

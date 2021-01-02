@@ -7,6 +7,9 @@
 //
 
 import UIKit
+#if MAIN
+import Dynamic
+#endif
 
 /// Errors opening the document.
 enum PyDocumentError: Error {
@@ -92,7 +95,7 @@ enum PyDocumentError: Error {
         
         text = newText
     }
-    
+        
     private func makeData() throws -> Data {
         guard let data = text.data(using: .utf8) else {
             throw PyDocumentError.unableToEncodeText
@@ -140,6 +143,20 @@ enum PyDocumentError: Error {
     }
     
     // MARK: - File presenter
+    
+    override func presentedItemDidMove(to newURL: URL) {
+        super.presentedItemDidMove(to: newURL)
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.editor?.view.window?.windowScene?.title = newURL.deletingPathExtension().lastPathComponent
+            self?.editor?.setHasUnsavedChanges(false)
+            
+            #if MAIN
+            self?.editor?.appKitWindow.representedURL = self?.fileURL
+            #endif
+            
+        }
+    }
     
     #if MAIN
     override func presentedItemDidChange() {
