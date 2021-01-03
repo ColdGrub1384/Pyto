@@ -753,7 +753,7 @@ def set_queue_with_items(items: List[MediaItem]):
 
     objc_items = []
     for item in items:
-        objc_items.append(item.__item__)
+        objc_items.append(item.__item__.value)
     collection = MPMediaItemCollection.collectionWithItems(objc_items)
     player.setQueueWithItemCollection(collection)
 

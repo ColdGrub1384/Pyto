@@ -12,7 +12,7 @@ import MediaPlayer
 /// "_MPMusicPlayerMediaItemProxy" has no attribute...
 @objc class PyMusicItem: NSObject {
     
-    var value: MPMediaItem
+    @objc var value: MPMediaItem
     
     @objc init(value: MPMediaItem) {
         self.value = value
