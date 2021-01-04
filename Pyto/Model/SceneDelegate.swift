@@ -208,7 +208,7 @@ import UniformTypeIdentifiers
                 } catch {
                     NSLog("%@", error.localizedDescription)
                 }
-            } else if inputURL.host == "callback" { // I don't remember what that does hahhahah
+            } else if inputURL.host == "callback" { // I don't remember what that does hahhahah; Edit: Bruh it sets the URL received from an app using x-callback URLs.
                 PyCallbackHelper.url = inputURL.absoluteString
             } else if inputURL.host == "x-callback" { // x-callback
                 PyCallbackHelper.cancelURL = inputURL.queryParameters?["x-cancel"]
