@@ -38,6 +38,7 @@ def open_url(url: str) -> str:
     while True:
         if PyCallbackHelper.url is not None:
             url = str(PyCallbackHelper.url)
+            url = url.replace(";", "%3B")
             PyCallbackHelper.url = None
 
             parsed = urlparse(url)
@@ -50,6 +51,13 @@ def open_url(url: str) -> str:
                 raise RuntimeError(msg)
             elif "result" in params:
                 res = params["result"]
+                if type(res) is list:
+                    res = res[0]
+                return res
+            elif len(params) == 1:
+                res = None
+                for param in params:
+                    res = params[param]
                 if type(res) is list:
                     res = res[0]
                 return res
