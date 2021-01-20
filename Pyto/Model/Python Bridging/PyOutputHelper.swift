@@ -9,6 +9,7 @@
 import UIKit
 #if MAIN
 import WatchConnectivity
+import Dynamic
 #if !Xcode11
 import WidgetKit
 #endif
@@ -51,11 +52,30 @@ fileprivate extension ConsoleViewController {
     }
     
     #if !WIDGET
-    /// Sends `output` to the current running Shortcut.
+    /// Sends `output` to the current running Shortcut or Automator action.
     ///
     /// - Parameters:
     ///     - errorMessage: If an exception was thrown, pass the traceback.
     @objc static func sendOutputToShortcuts(_ errorMessage: String?) {
+        
+        // Remove ASCII color codes or whatever it's called
+        let regex = try! NSRegularExpression(pattern: "\u{001B}\\[[;\\d]*m", options: NSRegularExpression.Options.caseInsensitive)
+        let range = NSMakeRange(0, output.count)
+        output = regex.stringByReplacingMatches(in: output, options: [], range: range, withTemplate: "")
+        
+        #if MAIN
+        if isiOSAppOnMac {
+            let notificationCenter = CFNotificationCenterGetDarwinNotifyCenter()
+            let notificationName = CFNotificationName("pyto.receivedOutput" as CFString)
+            
+            let pb = Dynamic.NSPasteboard.pasteboardWithName("Pyto.Automator")
+            pb.clearContents()
+            pb.setString(output, forType: "public.utf8-plain-text")
+            
+            CFNotificationCenterPostNotification(notificationCenter, notificationName, nil, nil, true)
+        }
+        #endif
+        
         guard let group = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.pyto") else {
             return
         }

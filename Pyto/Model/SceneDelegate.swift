@@ -10,6 +10,7 @@ import UIKit
 import StoreKit
 import SwiftUI
 import UniformTypeIdentifiers
+import Dynamic
 
 /// The scene delegate.
 @objc class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -75,6 +76,8 @@ import UniformTypeIdentifiers
         verifyReceipt()
         #endif
         
+        window?.tintColor = ConsoleViewController.choosenTheme.tintColor
+        
         if let vc = SceneDelegate.viewControllerToShow {
             SceneDelegate.viewControllerToShow = nil
             
@@ -88,10 +91,9 @@ import UniformTypeIdentifiers
         }
         
         if #available(iOS 14.0, *), isiOSAppOnMac {
-            openEmptyScript(onWindow: window)
+            window?.rootViewController = DocumentBrowserViewController(forOpening: [.pythonScript])
         }
         
-        window?.tintColor = ConsoleViewController.choosenTheme.tintColor
         window?.overrideUserInterfaceStyle = ConsoleViewController.choosenTheme.userInterfaceStyle
         if let window = self.window {
             SceneDelegate.windows.append(window)
@@ -227,7 +229,7 @@ import UniformTypeIdentifiers
                     PyCallbackHelper.code = code
                     documentBrowserViewController.run(code: code)
                 }
-            } else if inputURL.host == "widget" { // Open script from widget
+            } else if inputURL.host == "widget" || inputURL.host == "automator" { // Open script from widget or Automator
                 guard let bookmarkString = inputURL.queryParameters?["bookmark"] else {
                     return
                 }
@@ -239,7 +241,32 @@ import UniformTypeIdentifiers
                         Python.shared.widgetLink = inputURL.queryParameters?["link"]
                         _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { [weak self] (_) in
                             // I THINK waiting reduces the risk of a weird exception
-                            self?.openDocument(at: url, run: true, folder: nil, isShortcut: false)
+                            if inputURL.host == "automator" {
+                                
+                                let arguments = (inputURL.queryParameters?["arguments"] ?? "")
+                                
+                                var args: [String]
+                                
+                                do {
+                                    
+                                    if let argsData = Data(base64Encoded: arguments) {
+                                    
+                                        let json = try JSONDecoder().decode([String].self, from: argsData)
+                                    
+                                        args = json
+                                    } else {
+                                        args = arguments.components(separatedBy: " ")
+                                        ParseArgs(&args)
+                                    }
+                                } catch {
+                                    args = arguments.components(separatedBy: " ")
+                                    ParseArgs(&args)
+                                }
+                                
+                                RunShortcutsScript(at: url, arguments: args, sendOutput: false)
+                            } else {
+                                self?.openDocument(at: url, run: true, folder: nil, isShortcut: false)
+                            }
                         })
                     } catch {
                         print(error.localizedDescription)
@@ -252,24 +279,6 @@ import UniformTypeIdentifiers
         
         // Open script
         
-        guard let documentBrowserViewController = documentBrowserViewController else {
-            window?.rootViewController?.dismiss(animated: true, completion: { [weak self] in
-                if #available(iOS 14.0, *), self?.window?.rootViewController?.presentedViewController == nil && !(self?.window?.rootViewController is DocumentBrowserViewController) {
-                    _ = inputURL.startAccessingSecurityScopedResource()
-                    guard let vc = DocumentBrowserViewController(forOpening: [.pythonScript]).openDocument(inputURL, run: false, show: false) else {
-                        return
-                    }
-                    vc.editor?.setupToolbarIfNeeded(windowScene: self?.window?.windowScene)
-                    let navVC = EditorSplitViewController.NavigationController(rootViewController: vc)
-                    navVC.isNavigationBarHidden = true
-                    self?.window?.rootViewController = navVC
-                } else {
-                    self?.scene(scene, openURLContexts: URLContexts)
-                }
-            })
-            return
-        }
-        
         // Ensure the URL is a file URL
         guard inputURL.isFileURL else {
             
@@ -278,7 +287,7 @@ import UniformTypeIdentifiers
             }
             
             // Run code passed to the URL
-            documentBrowserViewController.run(code: query)
+            documentBrowserViewController?.run(code: query)
             
             return
         }
@@ -287,11 +296,22 @@ import UniformTypeIdentifiers
         
         // Reveal / import the document at the URL
         
-        if !isiOSAppOnMac {
-            documentBrowserViewController.revealDocument(at: inputURL, importIfNeeded: true, completion: { (url, _) in
-                
-                documentBrowserViewController.openDocument(url ?? inputURL, run: false)
-            })
+        openDocument(at: inputURL, run: false, folder: nil, isShortcut: false)
+    }
+    
+    func sceneDidBecomeActive(_ scene: UIScene) {
+        if isiOSAppOnMac { // Close document browser window because we only need the panel. I can't find a pattern in this bug so I can't really file a radar :(
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.5) { [weak self] in
+                if self?.window?.rootViewController is DocumentBrowserViewController, self?.window?.rootViewController?.presentedViewController == nil {
+                    var window = Dynamic.NSApplication.sharedApplication.delegate.hostWindowForUIWindow(self?.window)
+                    
+                    if window.attachedWindow.asObject != nil && !(window.attachedWindow.asObject is Error) {
+                        window = window.attachedWindow
+                    }
+                    
+                    window.close()
+                }
+            }
         }
     }
 }

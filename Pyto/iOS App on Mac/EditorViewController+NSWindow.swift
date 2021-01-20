@@ -9,7 +9,9 @@
 import UIKit
 import Dynamic
 
-fileprivate let toolbarItemIdentifiers: [NSString] = ["toolbar.settings", "toolbar.editorActions", "toolbar.debug", "toolbar.run"]
+fileprivate let toolbarItemIdentifiers: [NSString] = ["toolbar.sidebar", "NSToolbarFlexibleSpaceItem", "toolbar.settings", "toolbar.editorActions", "toolbar.debug", "toolbar.run"]
+
+fileprivate var toolbarI = 0
 
 extension EditorViewController {
     
@@ -17,7 +19,7 @@ extension EditorViewController {
         defer {
             saveAsIfNeeded()
         }
-        return isScriptInTemporaryLocation && !textView.text.isEmpty || closeAfterSaving
+        return (!isScriptInTemporaryLocation && !textView.text.isEmpty) || closeAfterSaving
     }
     
     var appKitWindow: Dynamic {
@@ -43,15 +45,37 @@ extension EditorViewController {
         
         let titlebar = Dynamic(windowScene).titlebar
         
-        let toolbar = Dynamic.NSToolbar(identifier: "editor.toolbar")
-                
+        let toolbar = Dynamic.NSToolbar(identifier: "editor.toolbar\(toolbarI)")
+        toolbarI += 1
+        toolbar.displayMode = 2
+        
         toolbar.delegate = self
+        
         titlebar.toolbar = toolbar
         
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) { [weak self] in
-            self?.appKitWindow.representedURL = self?.document?.fileURL
+        _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] (timer) in
+            
+            guard self?.appKitWindow.asObject != nil else {
+                return
+            }
+            
+            timer.invalidate()
+            
             self?.appKitWindow.delegate = self
-        }
+            
+            self?.appKitWindow.representedURL = self?.document?.fileURL
+            
+            if (self?.parent as? EditorSplitViewController)?.folder == nil {
+                if toolbar.items.count == toolbarItemIdentifiers.count {
+                    toolbar.removeItem(atIndex: 0)
+                    toolbar.removeItem(atIndex: 0)
+                }
+            }
+        })
+    }
+    
+    @objc func toggleSidebar(_ sender: Any) {
+        _ = splitViewController?.displayModeButtonItem.target?.perform(splitViewController!.displayModeButtonItem.action!, with: splitViewController?.displayModeButtonItem)
     }
     
     // MARK: - Toolbar delegate
@@ -94,6 +118,10 @@ extension EditorViewController {
             iconImage = UIImage(systemName: "list.bullet")
             label = Localizable.EditorActionsTableViewController.title
             action = "showEditorScripts:"
+        } else if itemIdentifier.hasSuffix(".sidebar") {
+            iconImage = UIImage(systemName: "sidebar.left")
+            label = "Show Sidebar"
+            action = "toggleSidebar:"
         } else {
             return nil
         }
@@ -104,6 +132,10 @@ extension EditorViewController {
         toolbarItem.image = iconImage
         toolbarItem.target = self
         toolbarItem.action = NSSelectorFromString(action)
+        
+        if itemIdentifier.hasSuffix(".sidebar") {
+            toolbarItem.isNavigational = true
+        }
         
         if itemIdentifier.hasSuffix(".run") {
             runToolbarItem = toolbarItem.asObject

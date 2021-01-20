@@ -235,7 +235,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         if console?.parent is REPLViewController {
             return false
         } else {
-            return true
+            return !isiOSAppOnMac
         }
         #else
         return false

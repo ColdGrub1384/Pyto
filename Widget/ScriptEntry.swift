@@ -7,7 +7,9 @@
 //
 
 import WidgetKit
+#if !os(macOS)
 import UIKit
+#endif
 
 fileprivate struct ScriptSnapshot: Codable {
     
@@ -26,12 +28,14 @@ struct ScriptEntry: TimelineEntry, Codable {
     
     /// The output of the script.
     var output: String
-        
+    
+    #if !os(macOS)
     /// The snapshots.
     var snapshots: [WidgetFamily:(UIImage, UIColor)]
     
     /// A view contained in the widget.
     var view: [WidgetFamily:WidgetView]?
+    #endif
     
     /// The code of the executed script.
     var code: String
@@ -97,6 +101,7 @@ struct ScriptEntry: TimelineEntry, Codable {
         case code
     }
     
+    #if !os(macOS)
     init(date: Date, output: String, snapshots: [WidgetFamily:(UIImage, UIColor)] = [:], view: [WidgetFamily:WidgetView]? = nil, code: String = "", bookmarkData: Data? = nil) {
         self.date = date
         self.output = output
@@ -105,10 +110,19 @@ struct ScriptEntry: TimelineEntry, Codable {
         self.code = code
         self.bookmarkData = bookmarkData
     }
+    #else
+    init(date: Date, output: String, code: String = "", bookmarkData: Data? = nil) {
+        self.date = date
+        self.output = output
+        self.code = code
+        self.bookmarkData = bookmarkData
+    }
+    #endif
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
         
+        #if !os(macOS)
         var snapshots = [WidgetFamily:(UIImage, UIColor)]()
         
         let savedSnapshots = try container.decode([ScriptSnapshot].self, forKey: .snapshots)
@@ -133,6 +147,7 @@ struct ScriptEntry: TimelineEntry, Codable {
         } catch {
             self.view = nil
         }
+        #endif
         
         do {
             bookmarkData = try container.decode(Data.self, forKey: .bookmarkData)
@@ -152,12 +167,15 @@ struct ScriptEntry: TimelineEntry, Codable {
        
         code = try container.decode(String.self, forKey: .code)
        
+        #if !os(macOS)
         self.snapshots = snapshots
+        #endif
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: Key.self)
         
+        #if !os(macOS)
         var snapshots = [ScriptSnapshot]()
         for snapshot in self.snapshots {
             snapshots.append(ScriptSnapshot(family: snapshot.key.rawValue, image: snapshot.value.0.pngData() ?? Data(), backgroundColor: snapshot.value.1.encode()))
@@ -170,6 +188,8 @@ struct ScriptEntry: TimelineEntry, Codable {
         
         try container.encode(views, forKey: .view)
         try container.encode(snapshots, forKey: .snapshots)
+        #endif
+        
         try container.encode(bookmarkData, forKey: .bookmarkData)
         try container.encode(updateInterval, forKey: .updateInterval)
         try container.encode(output, forKey: .output)

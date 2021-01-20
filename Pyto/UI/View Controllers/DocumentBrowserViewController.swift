@@ -181,10 +181,6 @@ import SwiftUI
         editor.shouldRun = run
         editor.isShortcut = isShortcut
         
-        if show {
-            editor.setupToolbarIfNeeded(windowScene: view.window?.windowScene)
-        }
-        
         let contentVC = ConsoleViewController()
         contentVC.view.backgroundColor = .white
         
@@ -265,6 +261,10 @@ import SwiftUI
             }
         }
         #endif
+        
+        if show {
+            editor.setupToolbarIfNeeded(windowScene: view.window?.windowScene)
+        }
         
         vc.modalTransitionStyle = .crossDissolve
         if show {
@@ -361,7 +361,23 @@ import SwiftUI
     
     public func documentBrowser(_ controller: UIDocumentBrowserViewController, didPickDocumentsAt documentURLs: [URL]) {
         
-        openDocument(documentURLs[0], run: false)
+        _ = documentURLs[0].startAccessingSecurityScopedResource()
+        
+        var isDir: ObjCBool = false
+        if FileManager.default.fileExists(atPath: documentURLs[0].path, isDirectory: &isDir), !isDir.boolValue {
+            
+            openDocument(documentURLs[0], run: false)
+            
+        } else {
+            _ = documentURLs[0].startAccessingSecurityScopedResource()
+            let browser = ProjectsBrowserViewController()
+            let navigator = browser.open(url: documentURLs[0], viewController: self, show: false)
+            showWindow(vc: navigator, allowDuplicates: true)
+            
+            if let session = view.window?.windowScene?.session {
+                UIApplication.shared.requestSceneSessionDestruction(session, options: nil, errorHandler: nil)
+            }
+        }
     }
     
     public func documentBrowser(_ controller: UIDocumentBrowserViewController, didRequestDocumentCreationWithHandler importHandler: @escaping (URL?, UIDocumentBrowserViewController.ImportMode) -> Void) {

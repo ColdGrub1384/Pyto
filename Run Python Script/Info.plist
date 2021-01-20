@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AMAccepts</key>
+	<dict>
+		<key>Container</key>
+		<string>List</string>
+		<key>Optional</key>
+		<true/>
+		<key>Types</key>
+		<array>
+			<string>com.apple.cocoa.string</string>
+		</array>
+	</dict>
+	<key>AMApplication</key>
+	<string>Pyto</string>
+	<key>AMCanShowSelectedItemsWhenRun</key>
+	<false/>
+	<key>AMCanShowWhenRun</key>
+	<true/>
+	<key>AMCategory</key>
+	<string>AMCategoryDeveloper</string>
+	<key>AMDefaultParameters</key>
+	<dict/>
+	<key>AMDescription</key>
+	<dict>
+		<key>AMDInput</key>
+		<string>Passes a list of text to the arguments if not arguments are specified.</string>
+		<key>AMDRequires</key>
+		<string>Pyto</string>
+		<key>AMDResult</key>
+		<string>The output of the script as text.</string>
+		<key>AMDSummary</key>
+		<string>This action executes the given script with Pyto.</string>
+	</dict>
+	<key>AMKeywords</key>
+	<array>
+		<string>Run</string>
+		<string>Python</string>
+		<string>Script</string>
+		<string>Code</string>
+	</array>
+	<key>AMName</key>
+	<string>Run Python Script</string>
+	<key>AMProvides</key>
+	<dict>
+		<key>Container</key>
+		<string>List</string>
+		<key>Types</key>
+		<array>
+			<string>com.apple.cocoa.string</string>
+		</array>
+	</dict>
+	<key>AMRequiredResources</key>
+	<array/>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>NSPrincipalClass</key>
+	<string>Run_Python_Script</string>
+</dict>
+</plist>

@@ -37,13 +37,42 @@ NSBundle* mainBundle() {
     #if MAIN
     return [NSBundle mainBundle];
     #elif WIDGET
-    // Taken from https://stackoverflow.com/a/27849695/7515957
-    NSBundle *bundle = [NSBundle mainBundle];
-    if ([[bundle.bundleURL pathExtension] isEqualToString:@"appex"]) {
-        // Peel off two directory levels - MY_APP.app/PlugIns/MY_APP_EXTENSION.appex
-        bundle = [NSBundle bundleWithURL:[[bundle.bundleURL URLByDeletingLastPathComponent] URLByDeletingLastPathComponent]];
+    
+    BOOL isMac = false;
+    if (@available(iOS 14.0, *)) {
+        isMac = NSProcessInfo.processInfo.iOSAppOnMac;
+    } else {
+        isMac = false;
     }
-    return bundle;
+    
+    if (!isMac) {
+        
+        // Taken from https://stackoverflow.com/a/27849695/7515957
+        NSBundle *bundle = [NSBundle mainBundle];
+        if ([[bundle.bundleURL pathExtension] isEqualToString:@"appex"]) {
+            // Peel off two directory levels - MY_APP.app/PlugIns/MY_APP_EXTENSION.appex
+            NSURL *url = [[bundle.bundleURL URLByDeletingLastPathComponent] URLByDeletingLastPathComponent];
+            [url startAccessingSecurityScopedResource];
+            bundle = [NSBundle bundleWithURL:url];
+        }
+        return bundle;
+    } else {
+        NSData *bookmarkData = [[[NSUserDefaults alloc] initWithSuiteName:@"group.pyto"] dataForKey:@"sharedBundleURL"];
+        
+        if (!bookmarkData) {
+            return nil;
+        }
+        
+        NSURL *url = [NSURL URLByResolvingBookmarkData:bookmarkData options:0 relativeToURL:NULL bookmarkDataIsStale:NULL error:NULL];
+        [url startAccessingSecurityScopedResource];
+        
+        if (!url) {
+            return nil;
+        }
+        
+        NSBundle *bundle = [NSBundle bundleWithURL:url];
+        return bundle;
+    }
     #else
     return [NSBundle mainBundle];
     #endif

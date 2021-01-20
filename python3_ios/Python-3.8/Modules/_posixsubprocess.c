@@ -573,6 +573,8 @@ subprocess_fork_exec(PyObject* self, PyObject *args)
     int need_after_fork = 0;
     int saved_errno = 0;
 
+    return PyLong_FromLong(-1);
+    
     if (!PyArg_ParseTuple(
             args, "OOpO!OOiiiiiiiiiiO:fork_exec",
             &process_args, &executable_list,

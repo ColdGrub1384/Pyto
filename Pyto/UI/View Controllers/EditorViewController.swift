@@ -103,6 +103,7 @@ func directory(for scriptURL: URL) -> URL {
         textView.smartDashesType = .no
         textView.autocorrectionType = .no
         textView.autocapitalizationType = .none
+        textView.spellCheckingType = .no
         return textView
     }()
     
@@ -130,6 +131,8 @@ func directory(for scriptURL: URL) -> URL {
                     self?.view.window?.windowScene?.title = self?.document?.fileURL.deletingPathExtension().lastPathComponent
                 }
             }
+            
+            _ = document?.fileURL.startAccessingSecurityScopedResource()
         }
     }
     
@@ -333,6 +336,14 @@ func directory(for scriptURL: URL) -> URL {
         
         // SwiftUI
         parent?.parent?.parent?.view.backgroundColor = theme.sourceCodeTheme.backgroundColor
+        
+        view.backgroundColor = theme.sourceCodeTheme.backgroundColor
+        parent?.view.backgroundColor = view.backgroundColor
+        
+        let firstChild = (parent as? EditorSplitViewController)?.firstChild
+        let secondChild = (parent as? EditorSplitViewController)?.secondChild
+        firstChild?.view.backgroundColor = view.backgroundColor
+        secondChild?.view.backgroundColor = view.backgroundColor
         
         let highlightrTheme = HighlightrTheme(themeString: theme.css)
         highlightrTheme.setCodeFont(EditorViewController.font.withSize(CGFloat(ThemeFontSize)))
@@ -610,6 +621,11 @@ func directory(for scriptURL: URL) -> URL {
         
         DispatchQueue.main.asyncAfter(deadline: .now()+0.2) { [weak self] in
             self?.updateSuggestions(force: true)
+            
+            
+            if isiOSAppOnMac {
+                self?.setup(theme: ConsoleViewController.choosenTheme)
+            }
         }
         
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
@@ -796,6 +812,10 @@ func directory(for scriptURL: URL) -> URL {
     
     /// Searches for text in code.
     @objc func search() {
+        
+        if (parent as? EditorSplitViewController)?.folder != nil, !textView.isFirstResponder && searchBar?.isFirstResponder != true {
+            return ((splitViewController?.viewControllers.first as? UINavigationController)?.viewControllers.last as? FileBrowserViewController)?.search() ?? ()
+        }
         
         guard searchBar?.window == nil else {
             
