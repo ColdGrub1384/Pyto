@@ -6,7 +6,7 @@
 //  Copyright © 2020 Adrian Labbé. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import BackgroundTasks
 
 @available(iOS 14.0, *)
@@ -15,30 +15,34 @@ class RuntimeCommunicator {
     static let runScriptNotificationName = "pyto.runScript" as CFString
     static let isAppRunningNotificationName = "pyto.isAppRunning" as CFString
     
-    static let shared = RuntimeCommunicator()
-    private init() {
+    static let shared = RuntimeCommunicator(userDefaults: UserDefaults.shared)
+        
+    private var userDefaults: UserDefaults?
+    
+    private init(userDefaults: UserDefaults?) {
+        self.userDefaults = userDefaults
     }
     
     var widgetsToBeReloaded: [String]? {
         get {
-            return UserDefaults.shared?.stringArray(forKey: "widgetsToBeReloaded")
+            return self.userDefaults?.stringArray(forKey: "widgetsToBeReloaded")
         }
         
         set {
-            UserDefaults.shared?.setValue(newValue, forKey: "widgetsToBeReloaded")
+            self.userDefaults?.setValue(newValue, forKey: "widgetsToBeReloaded")
         }
     }
     
-    #if MAIN || WIDGET
+    #if MAIN || WIDGET || AUTOMATOR
     private var isListening = false
     
     private var isAppRunning: Bool {
         get {
-            return UserDefaults.shared?.bool(forKey: "isAppRunning") ?? false
+            return self.userDefaults?.bool(forKey: "isAppRunning") ?? false
         }
         
         set {
-            UserDefaults.shared?.setValue(newValue, forKey: "isAppRunning")
+            self.userDefaults?.setValue(newValue, forKey: "isAppRunning")
         }
     }
     
@@ -71,7 +75,7 @@ class RuntimeCommunicator {
     
     var passedScript: IntentScript? {
         get {
-            guard let data = UserDefaults.shared?.data(forKey: "passedScript") else {
+            guard let data = self.userDefaults?.data(forKey: "passedScript") else {
                 return nil
             }
             
@@ -86,7 +90,7 @@ class RuntimeCommunicator {
         
         set {
             do {
-                UserDefaults.shared?.setValue(try JSONEncoder().encode(newValue), forKey: "passedScript")
+                self.userDefaults?.setValue(try JSONEncoder().encode(newValue), forKey: "passedScript")
             } catch {
                 print(error.localizedDescription)
             }
@@ -95,7 +99,7 @@ class RuntimeCommunicator {
     
     var scriptEntry: ScriptEntry? {
         get {
-            guard let data = UserDefaults.shared?.data(forKey: "passedEntry") else {
+            guard let data = self.userDefaults?.data(forKey: "passedEntry") else {
                 return nil
             }
             
@@ -110,7 +114,7 @@ class RuntimeCommunicator {
         
         set {
             do {
-                UserDefaults.shared?.setValue(try JSONEncoder().encode(newValue), forKey: "passedEntry")
+                self.userDefaults?.setValue(try JSONEncoder().encode(newValue), forKey: "passedEntry")
             } catch {
                 print(error.localizedDescription)
             }

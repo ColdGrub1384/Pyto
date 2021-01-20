@@ -64,7 +64,10 @@ class ProjectsBrowserViewController: UITableViewController, UIDocumentPickerDele
     /// - Parameters:
     ///     - url: The URL of the folder to open.
     ///     - viewController: A View controller where the project should be presented.
-    func open(url: URL, viewController: UIViewController? = nil) {
+    ///     - show: If set to `true` (default), the project navigator will be shown.
+    ///
+    /// - Returns: The view controller.
+    @discardableResult func open(url: URL, viewController: UIViewController? = nil, show: Bool = true) -> UIViewController {
         
         if let i = recent.index(of: url) {
             recent.remove(at: i)
@@ -93,14 +96,18 @@ class ProjectsBrowserViewController: UITableViewController, UIDocumentPickerDele
         
         uiSplitVC.viewControllers = [browserNavVC]
         
-        if let vc = viewController {
-            vc.present(uiSplitVC, animated: true, completion: nil)
-        } else {
-            let presenting = presentingViewController
-            dismiss(animated: true) {
-                presenting?.present(uiSplitVC, animated: true, completion: nil)
+        if show {
+            if let vc = viewController {
+                vc.present(uiSplitVC, animated: true, completion: nil)
+            } else {
+                let presenting = presentingViewController
+                dismiss(animated: true) {
+                    presenting?.present(uiSplitVC, animated: true, completion: nil)
+                }
             }
         }
+        
+        return uiSplitVC
     }
     
     /// Closes the View controller.
@@ -187,6 +194,7 @@ class ProjectsBrowserViewController: UITableViewController, UIDocumentPickerDele
         case IndexPath(row: 0, section: 0):
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
             cell.imageView?.image = UIImage(systemName: "arrow.up.right.square.fill")
+            cell.backgroundColor = .secondarySystemGroupedBackground
             cell.textLabel?.text = Localizable.ProjectsBrowser.open
             return cell
         default:
@@ -194,6 +202,13 @@ class ProjectsBrowserViewController: UITableViewController, UIDocumentPickerDele
                 let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
                 cell.imageView?.image = UIImage(systemName: "cube.box.fill")
                 cell.textLabel?.text = FileManager.default.displayName(atPath: recent[indexPath.row].path)
+                
+                if recent[indexPath.row].path.hasSuffix("com~apple~CloudDocs/Documents/") || recent[indexPath.row].path.hasSuffix("com~apple~CloudDocs/Desktop/") || recent[indexPath.row].path.hasSuffix("com~apple~CloudDocs/Documents") || recent[indexPath.row].path.hasSuffix("com~apple~CloudDocs/Desktop") {
+                    
+                    cell.textLabel?.text = recent[indexPath.row].lastPathComponent
+                }
+                
+                cell.backgroundColor = .secondarySystemGroupedBackground
                 return cell
             } else {
                 return UITableViewCell()

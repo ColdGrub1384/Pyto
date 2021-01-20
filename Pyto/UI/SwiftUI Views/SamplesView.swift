@@ -157,11 +157,15 @@ public struct SamplesNavigationView: View {
         
     public var body: some View {
         NavigationView {
-            withoutNavigation.cornerRadius(6).navigationBarItems(trailing: Button(action: {
-                self.hostController?.dismiss(animated: true, completion: nil)
-            }, label: {
-                Text("done").fontWeight(.bold)
-            }).hoverEffect())
+            if isiOSAppOnMac {
+                withoutNavigation.cornerRadius(6).padding()
+            } else {
+                withoutNavigation.cornerRadius(6).navigationBarItems(trailing: Button(action: {
+                    self.hostController?.dismiss(animated: true, completion: nil)
+                }, label: {
+                    Text("done").fontWeight(.bold)
+                }).hoverEffect())
+            }
 
         }
         .navigationViewStyle(StackNavigationViewStyle())

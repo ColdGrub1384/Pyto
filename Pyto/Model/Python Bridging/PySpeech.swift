@@ -22,12 +22,12 @@ import AVFoundation
         }
     }
     
-    @objc static func availableVoices() -> [String] {
-        var voices = [String]()
+    @objc static func availableVoices() -> NSArray {
+        let voices = NSMutableArray()
         
         for voice in AVSpeechSynthesisVoice.speechVoices() {
             if !voices.contains(voice.language) {
-                voices.append(voice.language)
+                voices.add(voice.language)
             }
         }
         

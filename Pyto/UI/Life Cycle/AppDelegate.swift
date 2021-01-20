@@ -278,7 +278,7 @@ import TrueTime
         WCSession.default.delegate = self
         WCSession.default.activate()
         
-        if #available(iOS 13.0, *) { // Listen for memory
+        if #available(iOS 13.0, *) { // Listen to memory
             let mem = MemoryManager()
             mem.memoryLimitAlmostReached = {
                 Python.shared.tooMuchUsedMemory = true
@@ -449,6 +449,14 @@ import TrueTime
             Python \(Python.shared.version)
             """
         }
+        #endif
+        
+        #if MAIN
+        NotificationCenter.default.addObserver(forName: .init("NSWindowDidBecomeKeyNotification"), object: nil, queue: nil) { (notification) in
+            self.appKitWindowDidBecomeKey(notification)
+        }
+        
+        shareBundleBookmarkData()
         #endif
         
         #else

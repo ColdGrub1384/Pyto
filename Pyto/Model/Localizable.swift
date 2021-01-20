@@ -90,6 +90,9 @@ class Localizable: Static {
     /// The body of the notification shown when the free trial expired
     static let trialExpiredMessage = NSLocalizedString("freetrial.expired.message", comment: "The body of the notification shown when the free trial expired")
     
+    /// Title of the menu bar item to install the Automator action
+    static let installAutomatorAction = NSLocalizedString("automator.install", comment: "Title of the menu bar item to install the Automator action")
+    
     /// Strings used in the projects browser.
     class ProjectsBrowser: Static {
         

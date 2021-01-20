@@ -9,7 +9,9 @@
 import Foundation
 
 /// Opens an empty script in a new window.
-func openEmptyScript(onWindow window: UIWindow?) {
+///
+/// - Returns: The editor.
+@discardableResult func openEmptyScript(onWindow window: UIWindow?) -> UIViewController? {
     
     var url = FileManager.default.urls(for: .cachesDirectory, in: .allDomainsMask)[0].appendingPathComponent(Localizable.untitled)
     var i = 1
@@ -23,11 +25,13 @@ func openEmptyScript(onWindow window: UIWindow?) {
     FileManager.default.createFile(atPath: url.path, contents: nil, attributes: nil)
     
     guard let editor = DocumentBrowserViewController().openDocument(url, run: false, show: false) else {
-        return
+        return nil
     }
     
     editor.editor?.setupToolbarIfNeeded(windowScene: window?.windowScene)
     let navVC = EditorSplitViewController.NavigationController(rootViewController: editor)
     navVC.isNavigationBarHidden = true
     window?.rootViewController = navVC
+    
+    return navVC
 }

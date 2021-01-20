@@ -34,20 +34,25 @@ class Notification:
     """
     A class representing a notification.
     """
+    
+    def __init__(self, message: str = None, url: str = None, actions: dict = None):
+        self.message = message
+        self.url = url
+        self.actions = actions
 
     __id__ = None
 
-    message = None
+    message: str = None
     """
     The body of the notification.
     """
 
-    url = None
+    url: str = None
     """
     The URL to open when the notification is opened.
     """
 
-    actions = None
+    actions: dict = None
     """
     Additional actions on the notification.
 

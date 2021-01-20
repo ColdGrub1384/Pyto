@@ -770,7 +770,7 @@ import SwiftUI
     private static func editor(in window: UIWindow) -> EditorSplitViewController? {
         #if !Xcode11
         if #available(iOS 14.0, *) {
-            return (((window.topViewController?.children.first as? UISplitViewController)?.viewControllers.last as? UINavigationController)?.visibleViewController?.children.first as? ContainerViewController)?.children.first as? EditorSplitViewController
+            return window.topViewController as? EditorSplitViewController ?? ((window.topViewController as? UISplitViewController)?.viewControllers.last as? UINavigationController)?.topViewController as? EditorSplitViewController ?? (((window.topViewController?.children.first as? UISplitViewController)?.viewControllers.last as? UINavigationController)?.visibleViewController?.children.first as? ContainerViewController)?.children.first as? EditorSplitViewController
         } else {
             return window.topViewController as? EditorSplitViewController
         }
