@@ -14,7 +14,15 @@ import UIKit
     /// The `UIColor` represented by this object.
     var color: UIColor {
         return get {
-            return self.managed as! UIColor
+            return self.managed as? UIColor ?? .clear
+        }
+    }
+    
+    @objc public override func isEqual(_ object: Any?) -> Bool {
+        if let color = object as? PyColor {
+            return self.color == color.color
+        } else {
+            return super.isEqual(object)
         }
     }
     
@@ -93,7 +101,7 @@ import UIKit
         return PyColor(managed: color)
     }
     
-    override init(managed: Any! = NSObject()) {
+    override init(managed: NSObject! = NSObject()) {
         super.init(managed: managed)
     }
     

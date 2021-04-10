@@ -13,6 +13,7 @@ except ValueError:
 
 NSBundle = ObjCClass("NSBundle")
 
+ignored_threads_on_crash = []
 
 def __isMainApp__():
     if NSBundle is None:
@@ -74,6 +75,7 @@ if __isMainApp__():
     DocumentBrowserViewController = __Class__("DocumentBrowserViewController")
     ModulesTableViewController = __Class__("ModulesTableViewController")
     PyCallbackHelper = __Class__("PyCallbackHelper")
+    PytoUIPreviewViewController = __Class__("PytoUIPreviewViewController")
 else:
     QuickLookHelper = None
     PySelector = None
@@ -86,6 +88,7 @@ else:
     DocumentBrowserViewController = None
     ModulesTableViewController = None
     PyCallbackHelper = None
+    PytoUIPreviewViewController = None
 
 all = [
     "PyMainThread",

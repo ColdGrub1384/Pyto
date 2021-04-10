@@ -43,6 +43,9 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// A Python subclass of NSObject that executes and stops scripts.
     @objc public static var pythonShared: NSObject?
     
+    /// Capture sessions per threads so they are stopped when its corresponding thread is killed.
+    var captureSessionsPerThreads = [Thread:AVCaptureSession]()
+    
     private override init() {}
     
     /// The bundle containing all Python resources.
@@ -87,13 +90,16 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         default:
             signalString = "UNKNOWN"
         }
+        
+        captureSessionsPerThreads[Thread.current]?.stopRunning()
+        captureSessionsPerThreads[Thread.current] = nil
                 
         #if MAIN
         
         var code = """
         import traceback
         import threading
-        from pyto import PyOutputHelper, Python
+        from pyto import PyOutputHelper, Python, ignored_threads_on_crash
 
         stack = traceback.format_stack()
         stack.insert(-3, "\\n")
@@ -101,14 +107,16 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         stack = "Traceback (most recent call last):\\n"+stack
         stack += f"\\n\\n{threading.current_thread().name}\(" crashed with signal: \(signalString)")\\n"
 
-        try:
+        if threading.current_thread() not in ignored_threads_on_crash:
 
-            if Python.shared.shouldPrintCrashTraceback(threading.current_thread().script_path):
+            try:
+
+                if Python.shared.shouldPrintCrashTraceback(threading.current_thread().script_path):
+                    PyOutputHelper.printError(stack, script=None)
+
+                Python.shared.removeScriptFromList(threading.current_thread().script_path)
+            except AttributeError:
                 PyOutputHelper.printError(stack, script=None)
-
-            Python.shared.removeScriptFromList(threading.current_thread().script_path)
-        except AttributeError:
-            PyOutputHelper.printError(stack, script=None)
 
 
         """
@@ -397,11 +405,11 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         ///     - debug: Set to `true` if the script should  be debugged with `pdb`.
         ///     - runREPL: If set to `true`, the REPL will run after executing the script.
         ///     - breakpoints: Line numbers where breakpoints should be placed if the script should be debugged.
-        @objc public init(path: String, debug: Bool, runREPL: Bool, breakpoints: [Int] = []) {
+        @objc public init(path: String, debug: Bool, runREPL: Bool, breakpoints: NSArray = NSArray()) {
             self.path = path
             self.debug = debug
             self.runREPL = runREPL
-            self.breakpoints = NSArray(array: breakpoints)
+            self.breakpoints = breakpoints
         }
     }
     

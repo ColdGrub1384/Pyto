@@ -17,6 +17,7 @@ import builtins
 import base64
 import threading
 import traceback
+import sys
 import pyto_ui as ui
 
 
@@ -25,6 +26,13 @@ if (
     and float(str(UIDevice.currentDevice.systemVersion).split(".")[0]) < 13
 ):
     raise ImportError("PytoCore requires iPadOS / iOS 13")
+
+
+try:
+    del sys.modules["pyto_ui"]
+    del sys.modules["ui_constants"]
+except KeyError:
+    pass
 
 
 __py_core__ = __Class__("PyCore")

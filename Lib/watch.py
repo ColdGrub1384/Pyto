@@ -147,7 +147,7 @@ class Complication:
                 continue
 
             if component.color.__py_color__ == wd.COLOR_LABEL.__py_color__.managed:
-                component.color = wd.COLOR_WHOTE
+                component.color = wd.COLOR_WHITE
 
         super.add_row(row, background_color, corner_radius, link)
 

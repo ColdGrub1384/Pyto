@@ -11,7 +11,7 @@ import WebKit
 
 @available(iOS 13.0, *) extension UIView {
     
-    fileprivate struct Holder {
+    struct Holder {
         static var presentationMode = [UIView:Int]()
         static var buttonItems = [UIView:[UIBarButtonItem]]()
         static var viewController = [UIView:UIViewController]()
@@ -67,7 +67,7 @@ import WebKit
 /// A Python wrapper for `UIView`.
 @available(iOS 13.0, *) @objc public class PyView: PyWrapper {
     
-    override required init(managed: Any! = NSObject()) {
+    override required init(managed: NSObject! = NSObject()) {
         super.init(managed: managed)
         
         if self.managed is UIView {
@@ -78,16 +78,21 @@ import WebKit
                     return
                 }
                 
-                var values = PyView.values
-                values[self.view] = self
-                PyView.values = values
+                PyView.values[self.view] = self
             }
         }
     }
     
     deinit {
-        print("Deallocated view")
+        for key in PyView.values.keys {
+            if PyView.values[key] == self {
+                PyView.values[key] = nil
+            }
+        }
+        //print("Deallocated \(self)")
     }
+    
+    let id = UUID()
     
     var sizeObserver: NSKeyValueObservation?
     
@@ -104,21 +109,40 @@ import WebKit
         }
     }
     
+    func releaseHandler() {
+        
+    }
+    
     @objc var references = 0 {
         didSet {
             if references == 0 {
+                
+                releaseHandler()
+                
                 PyView.values[view] = nil
                 UIView.Holder.buttonItems[view] = nil
                 UIView.Holder.name[view] = nil
                 UIView.Holder.presentationMode[view] = nil
                 UIView.Holder.viewController[view] = nil
+                
+                /*for view in subviews {
+                    (view as? PyView)?.references = 0
+                }
                                 
                 set {
                     self.view.removeFromSuperview()
-                }
+                }*/
                 
                 sizeObserver = nil
-                managed = nil
+                //managed = nil
+                                
+                /*set {
+                    for view in self.view.subviews {
+                        view.removeFromSuperview()
+                    }
+                    
+                    //self.perform(NSSelectorFromString("release"))
+                }*/
             }
         }
     }
@@ -318,9 +342,15 @@ import WebKit
     /// The view associated with this object.
     @objc public var view: UIView {
         return get {
-            return (self.managed as? UIView) ?? UIView()
+            return (self.managed as? UIView) ?? {
+                let view = UIView()
+                view.backgroundColor = .red
+                return view
+            }()
         }
     }
+    
+    @objc var _setSize = false
     
     /// The x position.
     @objc public var x: Double {
@@ -361,6 +391,7 @@ import WebKit
         }
         
         set {
+            _setSize = true
             set {
                 self.view.frame.size.width = CGFloat(newValue)
             }
@@ -376,6 +407,7 @@ import WebKit
         }
         
         set {
+            _setSize = true
             set {
                 self.view.frame.size.height = CGFloat(newValue)
             }
@@ -698,7 +730,11 @@ import WebKit
     @objc public var backgroundColor: PyColor? {
         get {
             return get {
-                return PyColor(managed: self.view.backgroundColor)
+                if let bg = self.view.backgroundColor {
+                    return PyColor(managed: bg)
+                } else {
+                    return nil
+                }
             }
         }
         
@@ -759,7 +795,11 @@ import WebKit
     @objc public var tintColor: PyColor! {
         get {
             return get {
-                return PyColor(managed: self.view.tintColor)
+                if let tint = self.view.tintColor {
+                    return PyColor(managed: tint)
+                } else {
+                    return nil
+                }
             }
         }
         
@@ -1046,7 +1086,9 @@ import WebKit
             return get {
                 var items = [PyButtonItem]()
                 for item in self.view.buttonItems {
-                    items.append(PyButtonItem(managed: item))
+                    if let item = item as? NSObject {
+                        items.append(PyButtonItem(managed: item))
+                    }
                 }
                 return NSArray(array: items)
             }

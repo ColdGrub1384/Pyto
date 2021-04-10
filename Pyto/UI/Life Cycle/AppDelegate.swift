@@ -17,6 +17,7 @@ import WatchConnectivity
 import Intents
 import SwiftyStoreKit
 import TrueTime
+import AVFoundation
 #endif
 
 /// The application's delegate.
@@ -213,7 +214,7 @@ import TrueTime
     }
     
     private let exceptionHandler: Void = NSSetUncaughtExceptionHandler { (exception) in
-        PyOutputHelper.printError("\(exception.name.rawValue): \(exception.reason ?? "")\n", script: nil)
+        PyOutputHelper.printError("\(exception.name.rawValue): \(exception.reason ?? "")\n\n\(exception.callStackSymbols.joined(separator: "\n"))\n", script: nil)
     }
     #endif
     
@@ -454,6 +455,15 @@ import TrueTime
         #if MAIN
         NotificationCenter.default.addObserver(forName: .init("NSWindowDidBecomeKeyNotification"), object: nil, queue: nil) { (notification) in
             self.appKitWindowDidBecomeKey(notification)
+        }
+        
+        NotificationCenter.default.addObserver(forName: .init("NSWindowWillCloseNotification"), object: nil, queue: nil) { (notification) in
+            self.appKitWindowWillClose(notification)
+        }
+        
+        NotificationCenter.default.addObserver(forName: .init("AVCaptureSessionDidStartRunningNotification"), object: nil, queue: nil) { (notification) in
+            
+            Python.shared.captureSessionsPerThreads[Thread.current] = notification.object as? AVCaptureSession
         }
         
         shareBundleBookmarkData()

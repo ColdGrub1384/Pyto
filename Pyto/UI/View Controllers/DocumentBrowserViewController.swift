@@ -154,7 +154,7 @@ import SwiftUI
         
         let document = PyDocument(fileURL: documentURL)
         
-        guard documentURL.pathExtension.lowercased() == "py" else {
+        guard documentURL.pathExtension.lowercased() == "py" || documentURL.pathExtension.lowercased() == "pytoui" else {
             return nil
         }
         

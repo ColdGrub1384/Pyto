@@ -171,7 +171,7 @@ enum PyDocumentError: Error {
         storedModificationDate = fileModificationDate
         
         if let data = try? Data(contentsOf: fileURL) {
-            try? load(fromContents: data, ofType: "public.python-script")
+            try? load(fromContents: data, ofType: "public.text")
             DispatchQueue.main.async { [weak self] in
                 
                 guard let self = self else {

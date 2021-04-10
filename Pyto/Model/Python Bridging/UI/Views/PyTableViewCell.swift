@@ -10,7 +10,7 @@ import UIKit
 
 extension UITableViewCell {
     
-    private struct Holder {
+    fileprivate struct Holder {
         static var canBeDeleted = [UITableViewCell:Bool]()
         static var canBeMoved = [UITableViewCell:Bool]()
     }
@@ -44,6 +44,73 @@ extension UITableViewCell {
     @objc public var cell: UITableViewCell {
         return get {
             return self.managed as! UITableViewCell
+        }
+    }
+    
+    /// Removes the view from dictionaries to release it from memory.
+    func removeAssociations(for view: UIView?) {
+        
+        guard let view = view else {
+            return
+        }
+        
+        // I think doing just PyView.values[view] = nil made the app crash but I'm not sure if it was that
+        
+        for key in PyView.values.keys {
+            if key == view {
+                PyView.values[key] = nil
+            }
+        }
+        
+        for key in UIView.Holder.buttonItems.keys {
+            if key == view {
+                UIView.Holder.buttonItems[key] = nil
+            }
+        }
+        
+        for key in UIView.Holder.name.keys {
+            if key == view {
+                UIView.Holder.name[key] = nil
+            }
+        }
+        
+        for key in UIView.Holder.viewController.keys {
+            if key == view {
+                UIView.Holder.viewController[key] = nil
+            }
+        }
+        
+        for key in UIView.Holder.presentationMode.keys {
+            if key == view {
+                UIView.Holder.presentationMode[key] = nil
+            }
+        }
+    }
+    
+    override func releaseHandler() {
+        guard self.managed != nil else {
+            return
+        }
+            
+        UITableViewCell.Holder.canBeDeleted[cell] = nil
+        UITableViewCell.Holder.canBeMoved[cell] = nil
+        
+        set { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
+            
+            let views = [self.cell.contentView, self.cell.textLabel, self.cell.detailTextLabel]
+            
+            //let semaphore = DispatchSemaphore(value: 0)
+            //DispatchQueue.global().async {
+                for view in views {
+                    self.removeAssociations(for: view)
+                }
+            //}
+            //semaphore.wait(timeout: .now()+1)
         }
     }
     
@@ -133,7 +200,7 @@ extension UITableViewCell {
         }
     }
     
-    required init(managed: Any! = NSObject()) {
+    required init(managed: NSObject! = NSObject()) {
         super.init(managed: managed)
     }
     

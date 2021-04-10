@@ -28,7 +28,7 @@ import WatchConnectivity
             
             // Convert HTML to plain text
             
-            _text = (text as NSString).replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: NSRange(location: 0, length: (text as NSString).length))
+            _text = (text as NSString).replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: NSRange(location: 0, length: (text as NSString).length)).replacingOccurrences(of: "&amp;", with: "&")
         }
     }
     

@@ -12,6 +12,7 @@ from __check_type__ import check
 from datetime import datetime
 from time import sleep
 from os.path import abspath
+import os
 import sys
 import threading
 import stopit
@@ -176,6 +177,9 @@ class BackgroundTask:
         self.__background_task__.sendNotification = new_value
 
     def __init__(self, audio_path: str = None, id: str = None):
+
+        if "widget" in os.environ:
+            raise RuntimeError("Cannot create a background task from a widget.")
 
         check(audio_path, "audio_path", [str, None])
         check(id, "id", [str, None])

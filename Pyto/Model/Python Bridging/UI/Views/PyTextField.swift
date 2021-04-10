@@ -118,7 +118,7 @@ import UIKit
         }
     }
     
-    required init(managed: Any! = NSObject()) {
+    required init(managed: NSObject! = NSObject()) {
         super.init(managed: managed)
         
         DispatchQueue.main.async { [weak self] in

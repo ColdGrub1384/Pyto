@@ -37,7 +37,7 @@ import Dynamic
     func openDocument(at url: URL, run: Bool, folder: URL?, isShortcut: Bool) {
         
         if #available(iOS 14.0, *), isiOSAppOnMac && documentBrowserViewController == nil {
-            window?.rootViewController = DocumentBrowserViewController(forOpening: [.pythonScript])
+            window?.rootViewController = DocumentBrowserViewController(forOpening: [.pythonScript/*, .init(exportedAs: "ch.ada.pytoui")*/])
         }
         
         _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] (timer) in
@@ -91,7 +91,7 @@ import Dynamic
         }
         
         if #available(iOS 14.0, *), isiOSAppOnMac {
-            window?.rootViewController = DocumentBrowserViewController(forOpening: [.pythonScript])
+            window?.rootViewController = DocumentBrowserViewController(forOpening: [.pythonScript/*, .init(exportedAs: "ch.ada.pytoui")*/])
         }
         
         window?.overrideUserInterfaceStyle = ConsoleViewController.choosenTheme.userInterfaceStyle

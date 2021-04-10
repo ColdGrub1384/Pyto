@@ -162,6 +162,8 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         // So please, open iTunes, play your playlist, focus and then go back.
         //
         // Edit from 2020: Stop watching TikTok and focus
+        //
+        // 2021: Ok, so: THIS CODE DOES NOT TOUCHES THE CONSOLE'S TEXTVIEW, IT JUST MOVES THE TEXT BOX. So look at ConsoleViewController.swift if you have a problem with the text view. There's a lot of maths here so I don't really remember how it works but it works so don't touch this.
         
         if console?.parent?.parent?.modalPresentationStyle != .popover || console?.parent?.parent?.view.frame.width != console?.parent?.parent?.preferredContentSize.width {
             
@@ -169,11 +171,6 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             let inputAssistantOrigin = inputAssistant.frame.origin
             
             let yPos = inputAssistant.convert(inputAssistantOrigin, to: console?.view).y
-            /*if EditorSplitViewController.shouldShowConsoleAtBottom {
-             yPos = inputAssistantOrigin.y
-             } else {
-             yPos =
-             }*/
             
             toolbar.frame.origin = CGPoint(x: console?.view.safeAreaInsets.left ?? 0, y: yPos-toolbar.frame.height)
             

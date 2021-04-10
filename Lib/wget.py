@@ -27,7 +27,7 @@ def main(args):
     )
 
     ns = ap.parse_args(args)
-    url = ns.url or clipboard.get()
+    url = ns.url or clipboard.string()
     output_file = ns.output_file or url.split("/")[-1]
 
     try:

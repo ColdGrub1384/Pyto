@@ -111,7 +111,7 @@ import UIKit
     
     @objc public static let TypeInfoLight = UIButton.ButtonType.infoLight
     
-    required init(managed: Any! = NSObject()) {
+    required init(managed: NSObject! = NSObject()) {
         super.init(managed: managed)
     }
     

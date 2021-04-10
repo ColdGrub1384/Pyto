@@ -11,6 +11,10 @@ import Foundation
 /// This class is used to represent a Python object. This object contains a reference to it.
 @objc public class PyValue: NSObject {
     
+    deinit {
+        print("Deallocated \(self)")
+    }
+    
     /// The name of the object stored in `_values` module.
     @objc public var identifier: String
     
@@ -61,7 +65,9 @@ import Foundation
             
                 param = _values.\(param.identifier)
                 func = _values.\(identifier)
-                if func.__code__.co_argcount >= 1:
+                if func.__code__.co_argcount == 1 and "__self__" in dir(func):
+                    func()
+                elif func.__code__.co_argcount >= 1:
                     func(param)
                 else:
                     func()'''
@@ -69,6 +75,7 @@ import Foundation
             """
         } else {
             code += """
+
             code = '''import _values
             
             if "\(identifier)" in dir(_values):

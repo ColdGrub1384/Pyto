@@ -40,10 +40,9 @@ fileprivate class _PyLabel: UILabel {
     }
 }
 
-/// A Python wrapper for `UIView`.
 @available(iOS 13.0, *) @objc public class PyLabel: PyView {
     
-    required init(managed: Any! = NSObject()) {
+    required init(managed: NSObject! = NSObject()) {
         super.init(managed: managed)
     }
     

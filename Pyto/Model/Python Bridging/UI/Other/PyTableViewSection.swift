@@ -36,6 +36,16 @@ import UIKit
     
     @objc public var reload = true
     
+    @objc var references = 0
+    
+    @objc func releaseReference() {
+        references -= 1
+    }
+    
+    @objc func retainReference() {
+        references += 1
+    }
+    
     public func call(action: PyValue, for index: Int, to destination: Int? = nil) {
         
         guard let identifier = managedValue?.identifier else {

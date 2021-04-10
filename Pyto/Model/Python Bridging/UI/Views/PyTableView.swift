@@ -11,9 +11,26 @@ import UIKit
 @available(iOS 13.0, *) @objc public class PyTableView: PyView, UITableViewDataSource, UITableViewDelegate {
     
     /// The table view associated with this object.
-    @objc public var tableView: UITableView {
+    @objc public var tableView: UITableView! {
         return get {
-            return self.managed as! UITableView
+            return (self.managed as? UITableView) ?? nil
+        }
+    }
+    
+    override func releaseHandler() {
+        for section in sections {
+            (section as? PyTableViewSection)?.tableView = nil
+            for cell in (section as? PyTableViewSection)?.cells ?? [] {
+                (cell as? PyTableViewCell)?.releaseReference()
+            }
+                        
+            (section as? PyTableViewSection)?.cells = NSArray(array: [])
+        }
+        
+        sections = NSArray(array: [])
+        
+        DispatchQueue.global().async { [weak self] in
+            self?.perform(NSSelectorFromString("release"))
         }
     }
     
@@ -62,7 +79,7 @@ import UIKit
     @objc public var sections = NSArray() {
         didSet {
             set {
-                self.tableView.reloadData()
+                self.tableView?.reloadData()
             }
         }
     }
@@ -175,7 +192,7 @@ import UIKit
         }
     }
     
-    required init(managed: Any! = NSObject()) {
+    required init(managed: NSObject! = NSObject()) {
         super.init(managed: managed)
         
         DispatchQueue.main.async { [weak self] in

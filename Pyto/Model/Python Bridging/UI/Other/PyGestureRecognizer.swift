@@ -11,6 +11,8 @@ import UIKit
 /// A Python wrapper for `UIGestureRecognizer`.
 @available(iOS 13.0, *) @objc public class PyGestureRecognizer: PyWrapper {
     
+    let queue = DispatchQueue.global()
+    
     @objc public var action: PyValue?
     
     @objc public var managedValue: PyValue?
@@ -56,7 +58,9 @@ import UIKit
         _values.\(action.identifier)(param)
         """
         
-        Python.shared.run(code: code)
+        queue.async {
+            Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: code)
+        }
     }
     
     @objc public var view: PyView? {
@@ -228,7 +232,7 @@ import UIKit
         }
     }
     
-    override init(managed: Any! = NSObject()) {
+    override init(managed: NSObject! = NSObject()) {
         super.init(managed: managed)
         
         DispatchQueue.main.async { [weak self] in

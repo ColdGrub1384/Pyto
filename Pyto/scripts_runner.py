@@ -1,7 +1,7 @@
-from pyto import Python, PyOutputHelper, ConsoleViewController, EditorViewController, __Class__
+from pyto import Python, PyOutputHelper, ConsoleViewController, EditorViewController, __Class__, ignored_threads_on_crash
 from time import sleep
 from console import run_script
-from rubicon.objc import ObjCClass, objc_method, NSObject
+from rubicon.objc import ObjCClass, objc_method, NSObject, SEL
 import threading
 import traceback
 import stopit
@@ -9,6 +9,8 @@ import sys
 import os
 import ctypes
 import gc
+import random
+import string
 import __pyto_ui_garbage_collector__ as _gc
 
 c = ctypes.CDLL(None)
@@ -23,6 +25,7 @@ def raise_exception(script, exception):
             continue
 
 NSAutoreleasePool = ObjCClass("NSAutoreleasePool")
+NSThread = ObjCClass("NSThread")
 
 class Thread(threading.Thread):
 
@@ -51,15 +54,25 @@ class Thread(threading.Thread):
 
 threading.Thread = Thread
 
+def release_views(views):
+    for view in views:
+        if view.respondsToSelector(SEL("releaseReference")):
+            try:
+                view.releaseReference()
+                view.release()
+            except ValueError:
+                pass
+
 class PythonImplementation(NSObject):
 
     @objc_method
     def runScript_(self, script):
+
         gc.collect()
 
-        for view in _gc.collected:
-            view.releaseReference()
-            view.release()
+        release_thread = Thread(target=release_views, args=(_gc.collected,))
+        ignored_threads_on_crash.append(release_thread)
+        release_thread.start()
             
         _gc.collected = []
 

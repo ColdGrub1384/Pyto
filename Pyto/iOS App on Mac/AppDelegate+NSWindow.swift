@@ -24,4 +24,16 @@ extension AppDelegate {
         let panel = Dynamic(object)
         panel.canChooseDirectories = true
     }
+    
+    func appKitWindowWillClose(_ notification: Notification) {
+        let appKitWindow = Dynamic(notification.object)
+        
+        for window in UIApplication.shared.windows {
+            if let editor = window.topViewController as? EditorSplitViewController {
+                if editor.editor?.appKitWindow.asObject == appKitWindow.asObject {
+                    editor.dismiss(animated: true, completion: nil)
+                }
+            }
+        }
+    }
 }
