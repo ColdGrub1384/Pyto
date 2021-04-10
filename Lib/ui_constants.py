@@ -81,7 +81,7 @@ class CONTENT_MODE:
     pass
 
 
-class HORZONTAL_ALIGNMENT:
+class HORIZONTAL_ALIGNMENT:
     pass
 
 
@@ -290,19 +290,19 @@ try:
     CONTENT_MODE_BOTTOM_LEFT = __PyView__.ContentModeBottomLeft
     CONTENT_MODE_BOTTOM_RIGHT = __PyView__.ContentModeBottomRight
 
-    FLEXIBLE_WIDTH = 0
-    FLEXIBLE_HEIGHT = 1
-    FLEXIBLE_TOP_MARGIN = 2
-    FLEXIBLE_BOTTOM_MARGIN = 3
-    FLEXIBLE_LEFT_MARGIN = 4
-    FLEXIBLE_RIGHT_MARGIN = 5
+    FLEXIBLE_WIDTH = "width"
+    FLEXIBLE_HEIGHT = "height"
+    FLEXIBLE_TOP_MARGIN = "top"
+    FLEXIBLE_BOTTOM_MARGIN = "bottom"
+    FLEXIBLE_LEFT_MARGIN = "left"
+    FLEXIBLE_RIGHT_MARGIN = "right"
 
-    HORZONTAL_ALIGNMENT_CENTER = __PyControl__.ContentHorizontalAlignmentCenter
-    HORZONTAL_ALIGNMENT_FILL = __PyControl__.ContentHorizontalAlignmentFill
-    HORZONTAL_ALIGNMENT_LEADING = __PyControl__.ContentHorizontalAlignmentLeading
-    HORZONTAL_ALIGNMENT_LEFT = __PyControl__.ContentHorizontalAlignmentLeft
-    HORZONTAL_ALIGNMENT_RIGHT = __PyControl__.ContentHorizontalAlignmentRight
-    HORZONTAL_ALIGNMENT_TRAILING = __PyControl__.ContentHorizontalAlignmentTrailing
+    HORIZONTAL_ALIGNMENT_CENTER = __PyControl__.ContentHorizontalAlignmentCenter
+    HORIZONTAL_ALIGNMENT_FILL = __PyControl__.ContentHorizontalAlignmentFill
+    HORIZONTAL_ALIGNMENT_LEADING = __PyControl__.ContentHorizontalAlignmentLeading
+    HORIZONTAL_ALIGNMENT_LEFT = __PyControl__.ContentHorizontalAlignmentLeft
+    HORIZONTAL_ALIGNMENT_RIGHT = __PyControl__.ContentHorizontalAlignmentRight
+    HORIZONTAL_ALIGNMENT_TRAILING = __PyControl__.ContentHorizontalAlignmentTrailing
 
     VERTICAL_ALIGNMENT_BOTTOM = __PyControl__.ContentVerticalAlignmentBottom
     VERTICAL_ALIGNMENT_CENTER = __PyControl__.ContentVerticalAlignmentCenter
@@ -528,12 +528,12 @@ except AttributeError:
     CONTENT_MODE_BOTTOM_LEFT = Value()
     CONTENT_MODE_BOTTOM_RIGHT = Value()
 
-    HORZONTAL_ALIGNMENT_CENTER = Value()
-    HORZONTAL_ALIGNMENT_FILL = Value()
-    HORZONTAL_ALIGNMENT_LEADING = Value()
-    HORZONTAL_ALIGNMENT_LEFT = Value()
-    HORZONTAL_ALIGNMENT_RIGHT = Value()
-    HORZONTAL_ALIGNMENT_TRAILING = Value()
+    HORIZONTAL_ALIGNMENT_CENTER = Value()
+    HORIZONTAL_ALIGNMENT_FILL = Value()
+    HORIZONTAL_ALIGNMENT_LEADING = Value()
+    HORIZONTAL_ALIGNMENT_LEFT = Value()
+    HORIZONTAL_ALIGNMENT_RIGHT = Value()
+    HORIZONTAL_ALIGNMENT_TRAILING = Value()
 
     VERTICAL_ALIGNMENT_BOTTOM = Value()
     VERTICAL_ALIGNMENT_CENTER = Value()

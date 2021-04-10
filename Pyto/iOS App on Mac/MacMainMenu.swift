@@ -65,7 +65,7 @@ extension UIResponder {
     
     @objc func showBrowser(_ sender: Any) {
         if #available(iOS 14.0, *) {
-            showWindow(vc: DocumentBrowserViewController(forOpening: [.pythonScript]), allowDuplicates: false)
+            showWindow(vc: DocumentBrowserViewController(forOpening: [.pythonScript/*, .init(exportedAs: "ch.ada.pytoui")*/]), allowDuplicates: false)
         }
     }
     

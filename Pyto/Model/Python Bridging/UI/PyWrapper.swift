@@ -12,7 +12,7 @@ import Foundation
 @available(iOS 13.0, *) @objc public class PyWrapper: NSObject {
     
     /// The managed object.
-    @objc public var managed: Any!
+    @objc public var managed: NSObject!
     
     public override init() {}
     
@@ -20,7 +20,7 @@ import Foundation
     ///
     /// - Parameters:
     ///     - managed: The wrapped object.
-    @objc public init(managed: Any! = NSObject()) {
+    @objc public init(managed: NSObject! = NSObject()) {
         super.init()
         
         self.managed = managed

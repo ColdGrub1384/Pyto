@@ -78,7 +78,7 @@ import UIKit
         }
     }
     
-    public override init(managed: Any! = NSObject()) {
+    public override init(managed: NSObject! = NSObject()) {
         super.init(managed: managed)
     }
     
@@ -102,6 +102,24 @@ import UIKit
             self.barButtonItem.target = self
             self.barButtonItem.action = #selector(self.callAction)
         }
+    }
+    
+    @objc var references = 0
+    
+    @objc func releaseReference() {
+        references -= 1
+        
+        if references == 0 {
+            for (key, views) in UIView.Holder.buttonItems {
+                if let i = views.firstIndex(of: barButtonItem) {
+                    UIView.Holder.buttonItems[key]?.remove(at: i)
+                }
+            }
+        }
+    }
+    
+    @objc func retainReference() {
+        references += 1
     }
     
     @objc public static let StylePlain = UIBarButtonItem.Style.plain

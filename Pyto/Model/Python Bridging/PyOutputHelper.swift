@@ -22,6 +22,8 @@ fileprivate extension ConsoleViewController {
     struct Holder {
         
         static var values = [ConsoleViewController:NSAttributedString]()
+        
+        static var scrollingConsoles = [ConsoleViewController]()
     }
     
     var attributedConsole: NSAttributedString? {
@@ -31,6 +33,29 @@ fileprivate extension ConsoleViewController {
         
         set {
             Holder.values[self] = newValue
+        }
+    }
+    
+    func scrollToBottom() {
+        
+        guard !Holder.scrollingConsoles.contains(self) else {
+            return
+        }
+        
+        #if MAIN
+        guard textFieldReachedBottom else {
+            return
+        }
+        #endif
+        
+        Holder.scrollingConsoles.append(self)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
+            self.textView.scrollToBottom()
+            
+            if let i = Holder.scrollingConsoles.firstIndex(of: self) {
+                Holder.scrollingConsoles.remove(at: i)
+            }
         }
     }
 }
@@ -254,7 +279,7 @@ fileprivate extension ConsoleViewController {
                     let mutable = NSMutableAttributedString(attributedString: attrStr)
                     mutable.append(NSAttributedString(string: text_, attributes: [.font : font, .foregroundColor : color]))
                     console.textView.attributedText = mutable
-                    console.textView.scrollToBottom()
+                    console.scrollToBottom()
                 }
             }
         }
@@ -325,7 +350,7 @@ fileprivate extension ConsoleViewController {
                     let mutable = NSMutableAttributedString(attributedString: attrStr)
                     mutable.append(NSAttributedString(string: text_, attributes: [.font : font, .foregroundColor : color]))
                     console.textView.attributedText = mutable
-                    console.textView.scrollToBottom()
+                    console.scrollToBottom()
                 }
             }
         }
@@ -383,7 +408,7 @@ fileprivate extension ConsoleViewController {
                     let mutable = NSMutableAttributedString(attributedString: attrStr)
                     mutable.append(NSAttributedString(string: text_, attributes: [.font : font, .foregroundColor : color]))
                     console.textView.attributedText = mutable
-                    console.textView.scrollToBottom()
+                    console.scrollToBottom()
                 }
             }
         }
@@ -450,7 +475,7 @@ fileprivate extension ConsoleViewController {
                     let mutable = NSMutableAttributedString(attributedString: attrStr)
                     mutable.append(NSAttributedString(string: text_, attributes: [.font : font, .foregroundColor : color, .link : url, .underlineStyle: NSUnderlineStyle.single.rawValue]))
                     console.textView.attributedText = mutable
-                    console.textView.scrollToBottom()
+                    console.scrollToBottom()
                 }
             }
         }
@@ -512,7 +537,7 @@ fileprivate extension ConsoleViewController {
                     let mutable = NSMutableAttributedString(attributedString: attrStr)
                     mutable.append(NSAttributedString(string: text_, attributes: [.font : font, .foregroundColor : color, .link : url, .underlineStyle: NSUnderlineStyle.single.rawValue]))
                     console.textView.attributedText = mutable
-                    console.textView.scrollToBottom()
+                    console.scrollToBottom()
                 }
             }
         }

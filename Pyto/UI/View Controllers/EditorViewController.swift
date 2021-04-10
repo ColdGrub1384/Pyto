@@ -115,7 +115,6 @@ func directory(for scriptURL: URL) -> URL {
     /// The document to be edited.
     @objc var document: PyDocument? {
         didSet {
-            
             isDocOpened = false
             
             loadViewIfNeeded()
@@ -386,6 +385,14 @@ func directory(for scriptURL: URL) -> URL {
     
     private func setBarItems() {
         
+        guard document?.fileURL.pathExtension == "py" else {
+            parent?.navigationController?.isToolbarHidden = true
+            parentVC?.toolbarItems = []
+            parentNavigationItem?.rightBarButtonItems = []
+            parentNavigationItem?.leftBarButtonItems = []
+            return
+        }
+        
         runBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(run))
         stopBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(stop))
         
@@ -558,6 +565,8 @@ func directory(for scriptURL: URL) -> URL {
             
             let path = doc.fileURL.path
             
+            (textView.textStorage as? CodeAttributedString)?.language = document?.fileURL.pathExtension == "py" ? "Python" : "javascript"
+            
             self.textView.text = document?.text ?? ""
             
             self.updateSuggestions(force: true)
@@ -580,6 +589,33 @@ func directory(for scriptURL: URL) -> URL {
         
         if !isDocOpened {
             isDocOpened = true
+            
+            let console = (parent as? EditorSplitViewController)?.console
+            
+            for child in console?.children ?? [] {
+                if child is PytoUIPreviewViewController {
+                    child.view.removeFromSuperview()
+                    child.removeFromParent()
+                }
+            }
+            
+            if document?.fileURL.pathExtension == "pytoui" {
+                let previewVC = PytoUIPreviewViewController()
+                previewVC.view.frame = console?.view.frame ?? .zero
+                previewVC.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                console?.addChild(previewVC)
+                DispatchQueue.main.async {
+                    console?.view.addSubview(previewVC.view)
+                }
+                
+                console?.textView.isHidden = true
+                console?.movableTextField?.toolbar.isHidden = true
+                console?.movableTextField?.textField.isHidden = true
+            } else {
+                console?.textView.isHidden = false
+                console?.movableTextField?.toolbar.isHidden = false
+                console?.movableTextField?.textField.isHidden = false
+            }
             
             if document?.hasBeenOpened != true {
                 document?.open(completionHandler: { (_) in
@@ -1587,7 +1623,7 @@ func directory(for scriptURL: URL) -> URL {
     private var breakpointMarkers = [MarkerPosition : UIView]()
     
     /// List of breakpoints in script. Each item is the line where the code will break.
-    var breakpoints = [Int]()
+    var breakpoints = NSMutableArray()
     
     /// The currently running line. Set to `0` when no breakpoint is running.
     @objc static var runningLine = 0 {
@@ -1681,7 +1717,7 @@ func directory(for scriptURL: URL) -> URL {
         }
         
         if !breakpoints.contains(currentLineNum) {
-            breakpoints.append(currentLineNum)
+            breakpoints.add(currentLineNum)
             
             if let textRange = textView.contentTextView.currentLineRange, let eol = textView.contentTextView.textRange(from: textRange.start, to: textRange.end) {
                 let view = UIView()
@@ -1695,8 +1731,8 @@ func directory(for scriptURL: URL) -> URL {
                 
                 textView.contentTextView.addSubview(view)
             }
-        } else if let index = breakpoints.firstIndex(of: currentLineNum) {
-            breakpoints.remove(at: index)
+        } else if let index = (breakpoints as? [Int])?.firstIndex(of: currentLineNum) {
+            breakpoints.removeObject(at: index)
             
             for marker in breakpointMarkers {
                 if marker.key.line == currentLineNum {
@@ -1895,6 +1931,12 @@ func directory(for scriptURL: URL) -> URL {
                 }
                 
                 editor?.textView.text = textView.text
+            }
+        }
+        
+        if document?.fileURL.pathExtension == "pytoui" {
+            for child in (parent as? EditorSplitViewController)?.console?.children ?? [] {
+                (child as? PytoUIPreviewViewController)?.preview(self)
             }
         }
     }
@@ -2379,22 +2421,24 @@ func directory(for scriptURL: URL) -> URL {
         """
         
         func complete() {
+            isCompleting = true
             DispatchQueue.global().async { [weak self] in
-                self?.isCompleting = true
                 Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: code)
                 self?.isCompleting = false
             }
         }
         
         if isCompleting { // A timer so it doesn't block the main thread
-            codeCompletionTimer?.invalidate()
-            codeCompletionTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] (timer) in
-                
-                if self?.isCompleting == false && timer.isValid {
-                    complete()
-                    timer.invalidate()
-                }
-            })
+            
+            if !(codeCompletionTimer?.isValid == true) {
+                codeCompletionTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] (timer) in
+                    
+                    if self?.isCompleting == false && timer.isValid {
+                        complete()
+                        timer.invalidate()
+                    }
+                })
+            }
         } else {
             complete()
         }

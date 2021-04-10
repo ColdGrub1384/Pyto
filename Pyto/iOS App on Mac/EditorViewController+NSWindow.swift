@@ -11,6 +11,8 @@ import Dynamic
 
 fileprivate let toolbarItemIdentifiers: [NSString] = ["toolbar.sidebar", "NSToolbarFlexibleSpaceItem", "toolbar.settings", "toolbar.editorActions", "toolbar.debug", "toolbar.run"]
 
+fileprivate let toolbarItemIdentifiersUIEditor: [NSString] = ["toolbar.sidebar", "NSToolbarFlexibleSpaceItem"]
+
 fileprivate var toolbarI = 0
 
 extension EditorViewController {
@@ -45,7 +47,8 @@ extension EditorViewController {
         
         let titlebar = Dynamic(windowScene).titlebar
         
-        let toolbar = Dynamic.NSToolbar(identifier: "editor.toolbar\(toolbarI)")
+        let isScript = document?.fileURL.pathExtension.lowercased() == "py"
+        let toolbar = Dynamic.NSToolbar(identifier: isScript ? "editor.toolbar\(toolbarI)" : "editor.ui.toolbar\(toolbarI)")
         toolbarI += 1
         toolbar.displayMode = 2
         
@@ -66,7 +69,7 @@ extension EditorViewController {
             self?.appKitWindow.representedURL = self?.document?.fileURL
             
             if (self?.parent as? EditorSplitViewController)?.folder == nil {
-                if toolbar.items.count == toolbarItemIdentifiers.count {
+                if (isScript && toolbar.items.count == toolbarItemIdentifiers.count) || (!isScript && toolbar.items.count == toolbarItemIdentifiersUIEditor.count) {
                     toolbar.removeItem(atIndex: 0)
                     toolbar.removeItem(atIndex: 0)
                 }
@@ -81,7 +84,11 @@ extension EditorViewController {
     // MARK: - Toolbar delegate
     
     @objc func toolbarDefaultItemIdentifiers(_ toolbar: NSObject) -> [AnyObject] {
-        return toolbarItemIdentifiers
+        if !(Dynamic(toolbar).identifier.asString ?? "").hasPrefix("editor.ui.") {
+            return toolbarItemIdentifiers
+        } else {
+            return toolbarItemIdentifiersUIEditor
+        }
     }
 
     @objc func toolbarAllowedItemIdentifiers(_ toolbar: NSObject) -> [AnyObject] {
@@ -93,54 +100,79 @@ extension EditorViewController {
     }
     
     @objc func toolbar(_ toolbar: NSObject, itemForItemIdentifier itemIdentifier: String, willBeInsertedIntoToolbar flag: Bool) -> NSObject? {
-        let iconImage: UIImage?
-        let label: String
-        let action: String
-        if itemIdentifier.hasSuffix(".run") {
-            if !Python.shared.isScriptRunning(document!.fileURL.path) {
-                iconImage = UIImage(systemName: "play")
-                label = Localizable.MenuItems.run
-                action = "run"
+        
+        if Dynamic(toolbar).identifier.asString?.hasPrefix("editor.ui.") == false {
+            let iconImage: UIImage?
+            let label: String
+            let action: String
+            if itemIdentifier.hasSuffix(".run") {
+                if !Python.shared.isScriptRunning(document!.fileURL.path) {
+                    iconImage = UIImage(systemName: "play")
+                    label = Localizable.MenuItems.run
+                    action = "run"
+                } else {
+                    iconImage = UIImage(systemName: "xmark")
+                    label = Localizable.interrupt
+                    action = "stop"
+                }
+            } else if itemIdentifier.hasSuffix(".settings") {
+                iconImage = UIImage(systemName: "gear")
+                label = Localizable.runtime
+                action = "showRuntimeSettings:"
+            } else if itemIdentifier.hasSuffix(".debug") {
+                iconImage = UIImage(systemName: "ant")
+                label = "PDB"
+                action = "debug"
+            } else if itemIdentifier.hasSuffix(".editorActions") {
+                iconImage = UIImage(systemName: "list.bullet")
+                label = Localizable.EditorActionsTableViewController.title
+                action = "showEditorScripts:"
+            } else if itemIdentifier.hasSuffix(".sidebar") {
+                iconImage = UIImage(systemName: "sidebar.left")
+                label = "Show Sidebar"
+                action = "toggleSidebar:"
             } else {
-                iconImage = UIImage(systemName: "xmark")
-                label = Localizable.interrupt
-                action = "stop"
+                return nil
             }
-        } else if itemIdentifier.hasSuffix(".settings") {
-            iconImage = UIImage(systemName: "gear")
-            label = Localizable.runtime
-            action = "showRuntimeSettings:"
-        } else if itemIdentifier.hasSuffix(".debug") {
-            iconImage = UIImage(systemName: "ant")
-            label = "PDB"
-            action = "debug"
-        } else if itemIdentifier.hasSuffix(".editorActions") {
-            iconImage = UIImage(systemName: "list.bullet")
-            label = Localizable.EditorActionsTableViewController.title
-            action = "showEditorScripts:"
-        } else if itemIdentifier.hasSuffix(".sidebar") {
-            iconImage = UIImage(systemName: "sidebar.left")
-            label = "Show Sidebar"
-            action = "toggleSidebar:"
+                    
+            let toolbarItem = Dynamic.NSToolbarItem(itemIdentifier: itemIdentifier)
+            
+            toolbarItem.label = label
+            toolbarItem.image = iconImage
+            toolbarItem.target = self
+            toolbarItem.action = NSSelectorFromString(action)
+            
+            if itemIdentifier.hasSuffix(".sidebar") {
+                toolbarItem.isNavigational = true
+            }
+            
+            if itemIdentifier.hasSuffix(".run") {
+                runToolbarItem = toolbarItem.asObject
+            }
+            
+            return toolbarItem.asObject
         } else {
-            return nil
+            
+            let iconImage: UIImage?
+            let label: String
+            let action: String
+            
+            if itemIdentifier.hasPrefix(".sidebar") {
+                iconImage = UIImage(systemName: "sidebar.left")
+                label = "Show Sidebar"
+                action = "toggleSidebar:"
+            } else {
+                return nil
+            }
+            
+            let toolbarItem = Dynamic.NSToolbarItem(itemIdentifier: itemIdentifier)
+            
+            toolbarItem.label = label
+            toolbarItem.image = iconImage
+            toolbarItem.target = self
+            toolbarItem.action = NSSelectorFromString(action)
+            
+            return toolbarItem.asObject
         }
-                
-        let toolbarItem = Dynamic.NSToolbarItem(itemIdentifier: itemIdentifier)
-        
-        toolbarItem.label = label
-        toolbarItem.image = iconImage
-        toolbarItem.target = self
-        toolbarItem.action = NSSelectorFromString(action)
-        
-        if itemIdentifier.hasSuffix(".sidebar") {
-            toolbarItem.isNavigational = true
-        }
-        
-        if itemIdentifier.hasSuffix(".run") {
-            runToolbarItem = toolbarItem.asObject
-        }
-        
-        return toolbarItem.asObject
     }
 }

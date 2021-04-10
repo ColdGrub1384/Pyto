@@ -406,6 +406,8 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
                                 editor.viewWillAppear(false)
                                 editor.appKitWindow.representedURL = document.fileURL
                                 
+                                editor.setupToolbarIfNeeded(windowScene: self.view.window?.windowScene)
+                                
                                 if let parent = editor.parent?.navigationController {
                                     self.navigationController?.splitViewController?.showDetailViewController(parent, sender: self)
                                 }

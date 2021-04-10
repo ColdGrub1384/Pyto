@@ -20,6 +20,7 @@ from time import sleep
 from io import BytesIO
 from threading import Thread
 from mainthread import mainthread
+from inspect import signature
 import __pyto_ui_garbage_collector__ as _gc
 import os
 import sys
@@ -28,6 +29,9 @@ import threading
 import _values
 import ui_constants
 import builtins
+import json
+import warnings
+import re
 from timeit import default_timer as timer
 
 try:
@@ -64,7 +68,10 @@ class __v__:
 #############################
 
 __PyView__ = __Class__("PyView")
+__PyScrollView__ = __Class__("PyScrollView")
 __PyControl__ = __Class__("PyControl")
+__PyStackView__ = __Class__("PyStackView")
+__PyStackSpacerView__ = __Class__("PyStackSpacerView")
 __PySlider__ = __Class__("PySlider")
 __PySegmentedControl__ = __Class__("PySegmentedControl")
 __PySwitch__ = __Class__("PySwitch")
@@ -513,34 +520,34 @@ The option to align the content in the bottom-right corner of the view.
 
 # MARK: - Horizontal Alignment
 
-HORZONTAL_ALIGNMENT = ui_constants.HORZONTAL_ALIGNMENT
+HORIZONTAL_ALIGNMENT = ui_constants.HORIZONTAL_ALIGNMENT
 
-HORZONTAL_ALIGNMENT_CENTER = ui_constants.HORZONTAL_ALIGNMENT_CENTER
+HORIZONTAL_ALIGNMENT_CENTER = ui_constants.HORIZONTAL_ALIGNMENT_CENTER
 """
 Aligns the content horizontally in the center of the control.
 """
 
-HORZONTAL_ALIGNMENT_FILL = ui_constants.HORZONTAL_ALIGNMENT_FILL
+HORIZONTAL_ALIGNMENT_FILL = ui_constants.HORIZONTAL_ALIGNMENT_FILL
 """
 Aligns the content horizontally to fill the content rectangles; text may wrap and images may be stretched.
 """
 
-HORZONTAL_ALIGNMENT_LEADING = ui_constants.HORZONTAL_ALIGNMENT_LEADING
+HORIZONTAL_ALIGNMENT_LEADING = ui_constants.HORIZONTAL_ALIGNMENT_LEADING
 """
 Aligns the content horizontally from the leading edge of the control.
 """
 
-HORZONTAL_ALIGNMENT_LEFT = ui_constants.HORZONTAL_ALIGNMENT_LEFT
+HORIZONTAL_ALIGNMENT_LEFT = ui_constants.HORIZONTAL_ALIGNMENT_LEFT
 """
 Aligns the content horizontally from the left of the control (the default).
 """
 
-HORZONTAL_ALIGNMENT_RIGHT = ui_constants.HORZONTAL_ALIGNMENT_RIGHT
+HORIZONTAL_ALIGNMENT_RIGHT = ui_constants.HORIZONTAL_ALIGNMENT_RIGHT
 """
 Aligns the content horizontally from the right of the control.
 """
 
-HORZONTAL_ALIGNMENT_TRAILING = ui_constants.HORZONTAL_ALIGNMENT_TRAILING
+HORIZONTAL_ALIGNMENT_TRAILING = ui_constants.HORIZONTAL_ALIGNMENT_TRAILING
 """
 Aligns the content horizontally from the trailing edge of the control.
 """
@@ -973,6 +980,71 @@ class Color:
 
     __py_color__ = None
 
+    def _hex_to_rgb(self, hx, hsl=False):
+        if re.compile(r'#[a-fA-F0-9]{3}(?:[a-fA-F0-9]{3})?$').match(hx):
+            div = 255.0 if hsl else 0
+            if len(hx) <= 4:
+                return tuple(int(hx[i]*2, 16) / div if div else
+                            int(hx[i]*2, 16) for i in (1, 2, 3))
+            return tuple(int(hx[i:i+2], 16) / div if div else
+                        int(hx[i:i+2], 16) for i in (1, 3, 5))
+        raise ValueError(f'"{hx}" is not a valid HEX code.')
+
+    def configure_from_dictionary(self, obj):
+        cls = Color
+        if isinstance(obj, str):
+            if obj.startswith("#"):
+                color = self._hex_to_rgb(obj)
+                self.__py_color__ = cls.rgb(color[0]/255, color[1]/255, color[2]/255).__py_color__
+            else:
+                name = "color_"+obj
+                name = name.upper()
+                self.__py_color__ = globals()[name].__py_color__
+        elif isinstance(obj, dict):
+            if "dark" in obj and "light" in obj:
+                light = cls.__new__()
+                light.configure_from_dictionary(obj["light"])
+
+                dark = cls.__new__()
+                dark.configure_from_dictionary(obj["dark"])
+
+                self.__py_color__ = cls.dynamic(light, dark).__py_color__
+            else:
+                try:
+                    alpha = obj["alpha"]
+                except KeyError:
+                    alpha = 1
+                
+                self.__py_color__ = cls.rgb(obj["red"], obj["green"], obj["blue"], alpha).__py_color__
+        else:
+            return None
+
+    def dictionary_representation(self):
+        if self._dark is not None and self._light is not None:
+            return {
+                "dark": self._dark.dictionary_representation(),
+                "light": self._light.dictionary_representation()
+            }
+        else:
+
+            everything = list(globals().keys()).copy()
+
+            declared_colors = []
+            for key in everything:
+                if key.startswith("COLOR_") and isinstance(globals()[key], Color):
+                    declared_colors.append(key)
+
+            for color_name in declared_colors:
+                if globals()[color_name].__py_color__.isEqual(self.__py_color__):
+                    return color_name.lower().split("color_")[1]
+
+        return {
+            "red": self.red(),
+            "green": self.green(),
+            "blue": self.blue(),
+            "alpha": self.alpha()
+        }
+
     def red(self) -> float:
         """
         Returns the red value of the color.
@@ -1012,11 +1084,14 @@ class Color:
     def __init__(self, py_color):
         self.__py_color__ = py_color
 
+        self._light = None
+        self._dark = None
+
     # def __del__(self):
     #    self.__py_color__.release()
 
     def __repr__(self):
-        return str(self.__py_color__.managed.description)
+        return "<"+self.__class__.__module__+"."+self.__class__.__name__+" "+str(self.__py_color__.managed.description)+">"
 
     @classmethod
     def rgb(cls, red: float, green: float, blue, alpha: float = 1) -> Color:
@@ -1078,9 +1153,14 @@ class Color:
         check(light, "light", Color)
         check(dark, "dark", Color)
 
-        return cls(
+        object = cls(
             __PyColor__.colorWithLight(light.__py_color__, dark=dark.__py_color__)
         )
+
+        object._light = light
+        object._dark = dark
+
+        return object
 
     def __eq__(self, other):
         try:
@@ -1250,6 +1330,13 @@ COLOR_WHITE = Color(ui_constants.COLOR_WHITE)
 COLOR_YELLOW = Color(ui_constants.COLOR_YELLOW)
 """ A color object with RGB values of 1.0, 1.0, and 0.0 and an alpha value of 1.0. """
 
+if not COLOR_CLEAR.__py_color__.objc_class.name.endswith("PyColor"): # Something went wrong, retry
+    del sys.modules["ui_constants"]
+    del sys.modules["pyto_ui"]
+
+    import pyto_ui as _ui
+    globals().update(_ui.__dict__)
+
 
 # MARK: - Font
 
@@ -1277,8 +1364,25 @@ class Font:
 
         self.__ui_font__ = __UIFont__.fontWithName(name, size=CGFloat(size))
 
+    def configure_from_dictionary(self, obj):
+        try:
+            size = float(obj)
+            self.__ui_font__ = __UIFont__.systemFontOfSize(CGFloat(size))
+        except ValueError:
+            try:
+                parts = obj.split("-")
+                name_parts = parts.copy()
+                del name_parts[-1]
+                name = "-".join(name_parts)
+                self.__init__(name, float(parts[-1]))
+            except ValueError:
+                self.__init__(obj, FONT_SYSTEM_SIZE)
+
+    def dictionary_representation(self):
+        return f"{str(self.__ui_font__.fontName)}-{float(self.__ui_font__.pointSize)}"
+
     def __repr__(self):
-        return str(self.__ui_font__.description)
+        return "<"+self.__class__.__module__+"."+self.__class__.__name__+" "+str(self.__ui_font__.description)+">"
 
     def with_size(self, size: float) -> Font:
         """
@@ -1441,7 +1545,7 @@ class GestureRecognizer:
             self.action = action
 
     def __repr__(self):
-        return str(self.__py_gesture__.managed.description)
+        return "<"+self.__class__.__module__+"."+self.__class__.__name__+" "+str(self.__py_gesture__.managed.description)+">"
 
     __x__ = []
     __y__ = []
@@ -1658,11 +1762,63 @@ class TableViewSection:
 
     __py_section__ = None
 
-    def __init__(self, title: str, cells: List["TableViewCell"]):
+    _parent = None
+
+    def configure_from_dictionary(self, dictionary):
+        if "title" in dictionary and dictionary["title"] is not None:
+            self.title = dictionary["title"]
+        
+        if "cells" in dictionary and dictionary["cells"] is not None:
+            cells = []
+            for cell in dictionary["cells"]:
+
+                if isinstance(cell, View):
+                    cell = cell.dictionary_representation()
+
+                _cell = TableViewCell()
+                _cell._parent = self._parent
+                _cell.configure_from_dictionary(cell)
+                cells.append(_cell)
+            
+            self.cells = cells
+
+    def dictionary_representation(self):
+        cells = []
+        for cell in self.cells:
+            cells.append(cell.dictionary_representation())
+
+        d = {
+            "title": self.title,
+            "cells": cells
+        }
+
+        return d
+
+    def __init__(self, title: str = "", cells: List["TableViewCell"] = []):
         self.__py_section__ = __PyTableViewSection__.new()
         self.__py_section__.managedValue = _values.value(self)
         self.title = title
         self.cells = cells
+
+    def __del__(self):
+        self.__py_section__.releaseReference()
+        self.__py_section__.release()
+
+    def __setattr__(self, name, value):
+        if name == "__py_section__":
+            previous = self.__py_section__
+            if previous is not None and previous.references == 1:
+                previous.releaseReference()
+                previous.release()
+            elif previous is not None:
+                if previous not in _gc.collected:
+                    _gc.collected.append(previous)
+
+            if value is not None:
+                value.retainReference()
+                #value.retain()
+
+        super().__setattr__(name, value)
 
     @property
     def table_view(self) -> "TableView":
@@ -1816,6 +1972,99 @@ class ButtonItem:
 
     __py_item__ = None
 
+    _system_item = None
+
+    _style = None
+
+    _get_function = None
+
+    _parent = None
+
+    def __del__(self):
+        self.__py_item__.releaseReference()
+        self.__py_item__.release()
+
+    def __setattr__(self, name, value):
+        if name == "__py_item__":
+            previous = self.__py_item__
+            if previous is not None and previous.references == 1:
+                previous.releaseReference()
+                previous.release()
+            elif previous is not None:
+                if previous not in _gc.collected:
+                    _gc.collected.append(previous)
+
+            if value is not None:
+                value.retainReference()
+                value.retain()
+        
+        super().__setattr__(name, value)
+
+    def dictionary_representation(self):
+        dict = {}
+        if self.title is not None:
+            dict["title"] = self.title
+        
+        if self.image is not None and isinstance(self.image, Image.Image):
+            dict["image"] = self.image.filename
+        
+        if self._system_item is not None:
+
+            for key in list(globals().keys()).copy():
+                if key.startswith("SYSTEM_ITEM_") and globals()[key] == self._system_item:
+                    dict["system_item"] = key.split("SYSTEM_ITEM_")[1].lower()
+
+        dict["enabled"] = self.enabled
+
+        for name in dir(self):
+            try:
+                func = getattr(self.__class__, name)
+                if not isinstance(func, property):
+                    continue
+                func = func.fget
+
+                sig = signature(func)
+                if sig.return_annotation.startswith("Callable["):
+                    value = getattr(self, name)
+                    if callable(value) and "__self__" in dir(value) and value.__self__ == self:
+                        dict[name] = "self."+value.__name__
+
+            except AttributeError:
+                continue
+
+        return dict
+
+    def configure_from_dictionary(self, dictionary):
+        def get(key, _dict=dictionary, default=None):
+            try:
+                return _dict[key]
+            except KeyError:
+                return default
+        
+        if "connections" in dictionary:
+            def _get_connections(key, default=None):
+                return get(key, _dict=dictionary["connections"], default=default)
+            
+            self._get_function = _get_connections
+
+        system_item = get("system_item")
+        if system_item is not None:
+            name = "SYSTEM_ITEM_"+(system_item.upper())
+            self._system_item = globals()[name]
+            self.__py_item__ = __PyButtonItem__.alloc().initWithSystemItem(self._system_item)
+
+        self.title = get("title")
+        
+        if get("image") is not None:
+            if os.path.isfile(get("image")):
+                self.image = Image.open(get("image"))
+            else:
+                self.image = image_with_system_name(get("image"))
+
+        self.enabled = get("enabled", default=True)
+        
+        View._decode_functions(self)
+
     def __init__(
         self,
         title: str = None,
@@ -1829,15 +2078,17 @@ class ButtonItem:
 
         if system_item is not None:
             self.__py_item__ = __PyButtonItem__.alloc().initWithSystemItem(system_item)
+            self._system_item = system_item
         else:
             self.__py_item__ = __PyButtonItem__.alloc().initWithStyle(style)
+            self._style = style
 
         self.__py_item__.managedValue = _values.value(self)
         self.title = title
         self.image = image
 
     def __repr__(self):
-        return str(self.__py_item__.managed.description)
+        return "<"+self.__class__.__module__+"."+self.__class__.__name__+" "+str(self.__py_item__.managed.description)+">"
 
     @property
     def title(self) -> str:
@@ -1928,6 +2179,34 @@ class ButtonItem:
             self.__py_item__.action = None
         else:
             self.__py_item__.action = _values.value(new_value)
+
+
+# MARK: - Padding
+
+class Padding:
+    """
+    Padding with custom values.
+    """
+
+    top: float = None
+    """ Top padding """
+
+    bottom: float = None
+    """ Bottom padding """
+
+    left: float = None
+    """ Left padding """
+
+    right: float = None
+    """ Right padding """
+
+    def __init__(
+        self, top: float = 0, bottom: float = 0, left: float = 0, right: float = 0
+    ):
+        self.top = top
+        self.bottom = bottom
+        self.left = left
+        self.right = right
 
 
 if "widget" not in os.environ:
@@ -2026,34 +2305,285 @@ class View:
 
     __py_view__ = None
 
+    _parent = None
+
+    def _get(self, key, _dict, default=None):
+        try:
+            return _dict[key]
+        except KeyError:
+            return default
+
+    def configure_from_dictionary(self, dictionary):
+        """
+        Set properties from the given dictionary representation.
+
+        :param dictionary: A dictionary with the properties of the view to configure.
+        """
+
+        if self.__py_view__ is None:
+            self.__init__()
+
+        def get(key, _dict=dictionary, default=None):
+            return self._get(key, _dict, default)
+
+        if "connections" in dictionary:
+            def _get_connections(key, default=None):
+                return get(key, _dict=dictionary["connections"], default=default)
+
+            self._get_function = _get_connections
+
+        self.name = get("name")
+
+        if get("frame") is not None:
+            self.frame = tuple(get("frame"))
+
+        if get("size") is not None:
+            self.size = tuple(get("size"))
+
+        topbar = get("topbar")
+        if topbar is not None:
+            hidden = get("hidden", topbar, False)
+            title = get("title", topbar)
+
+            self.navigation_bar_hidden = hidden            
+            self.title = title
+        
+        self.flex = get("flex", default=[])
+
+        subviews = get("children", default=[])
+        for view in subviews:
+            if view == "Spacer":
+                if not isinstance(self, StackView):
+                    raise NotImplementedError("Spacers can only have a 'StackView' instance as their super view.")
+
+                self.add_subview(_StackSpacerView())
+            elif isinstance(view, View):
+                view._parent = self
+                view._decode_functions()
+                self.add_subview(view)
+            else:
+                view = _from_json(view)
+                view._parent = self
+                view._decode_functions()
+                self.add_subview(view)
+
+        self.hidden = get("hidden", default=False)
+        self.alpha = get("alpha", default=1)
+        self.opaque = get("opaque", default=False)
+
+        if get("background_color") is not None:
+            bg_color = Color.__new__(Color)
+            bg_color.configure_from_dictionary(get("background_color"))
+            self.background_color = bg_color
+
+        if get("tint_color") is not None:
+            tint_color = Color.__new__(Color)
+            tint_color.configure_from_dictionary(get("tint_color"))
+            self.tint_color = tint_color
+        
+        self.user_interaction_enabled = get("user_interaction", default=True)
+        self.clips_to_bounds = get("clips_to_bounds", default=False)
+        self.corner_radius = get("corner_radius", default=0)
+        self.border_width = get("border_width", default=0)
+
+        if get("border_color") is not None:
+            border_color = Color.__new__(Color)
+            border_color.configure_from_dictionary(get("border_color"))
+            self.border_color = border_color
+        
+        if get("content_mode") is not None:
+            content_mode = ("content_mode_"+get("content_mode")).upper()
+            self.content_mode = globals()[content_mode]
+
+        if get("appearance") is not None:
+            appearance = ("appearance_"+get("appearance")).upper()
+            self.appearance = globals()[appearance]
+
+        button_items = []
+        if get("button_items") is not None:
+            for item in get("button_items"):
+                b_item = ButtonItem()
+                b_item._parent = self
+                b_item.configure_from_dictionary(item)
+                button_items.append(b_item)
+
+        self.button_items = button_items
+
+        self._decode_functions()
+
+    _get_function = None
+
+    def _decode_functions(self):
+
+        get = self._get_function
+
+        if get is None:
+            return
+
+        for name in dir(self):
+            try:
+                func = getattr(self.__class__, name)
+                if not isinstance(func, property):
+                    continue
+                func = func.fget
+
+                sig = signature(func)
+                if sig.return_annotation.startswith("Callable[") and get(name) is not None:
+                    try:
+                        setattr(self, name, eval(get(name), sys.modules["__main__"].__dict__, locals()))
+                    except NameError:
+                        def try_with_parent(parent):
+                            if get(name) in dir(parent):
+                                return getattr(parent, get(name))
+                            elif parent._parent is not None:
+                                return try_with_parent(parent._parent)
+                            else:
+                                return None
+                        
+                        setattr(self, name, try_with_parent(self))
+
+            except AttributeError:
+                continue
+
+    def dictionary_representation(self) -> dict:
+        """
+        Returns a dictionary representation containing the properties of the receiver.
+
+        :rtype: A serializable dictionary.
+        """
+
+        subviews = []
+        for view in self.subviews:
+            if isinstance(view, _StackSpacerView):
+                subviews.append("Spacer")
+            else:
+                subviews.append(view.dictionary_representation())
+
+        bg_color = self.background_color
+        if bg_color is not None:
+            bg_color = bg_color.dictionary_representation()
+
+        tint_color = self.tint_color
+        if tint_color is not None and self._set_tint_color:
+            tint_color = tint_color.dictionary_representation()
+
+        border_color = self.border_color
+        if border_color is not None:
+            border_color = border_color.dictionary_representation()
+
+        content_mode = None
+        for key in list(globals().keys()).copy():
+            if key.startswith("CONTENT_MODE_") and globals()[key] == self.content_mode:
+                content_mode = key.lower().split("content_mode_")[1]
+
+        if self.appearance == APPEARANCE_DARK and self._set_appearance:
+            appearance = "dark"
+        elif self.appearance == APPEARANCE_LIGHT and self._set_appearance:
+            appearance = "light"
+        else:
+            appearance = None
+
+        button_items = []
+        for item in self.button_items:
+            button_items.append(item.dictionary_representation())
+
+        d = {
+            "class": ".".join([self.__class__.__module__, self.__class__.__name__]),
+            "name": self.name,
+
+            "frame": self.frame,
+
+            "topbar": {
+                "hidden": self.navigation_bar_hidden,
+                "title": self.title
+            },
+
+            "flex": self.flex,
+
+            "children": subviews,
+
+            "hidden": self.hidden,
+            "alpha": self.alpha,
+            "opaque": self.opaque,
+
+            "background_color": bg_color,
+            "tint_color": tint_color,
+
+            "user_interaction": self.user_interaction_enabled,
+
+            "clips_to_bounds": self.clips_to_bounds,
+            "corner_radius": self.corner_radius,
+            "border_width": self.border_width,
+            "border_color": border_color,
+
+            "content_mode": content_mode,
+            "appearance": appearance,
+
+            "button_items": button_items
+        }
+
+        for name in dir(self):
+            try:
+                func = getattr(self.__class__, name)
+                if not isinstance(func, property):
+                    continue
+                func = func.fget
+
+                sig = signature(func)
+                if sig.return_annotation.startswith("Callable["):
+                    value = getattr(self, name)
+                    if callable(value) and "__self__" in dir(value) and value.__self__ == self:
+                        d[name] = "self."+value.__name__
+
+            except AttributeError:
+                continue
+    
+        return d
+
+    def _setup_subclass(self):
+        if callable(self.layout):
+            self.__py_view__.layoutAction = _values.value(self.layout)
+        
+        if callable(self.did_appear):
+            self.__py_view__.appearAction = _values.value(self.did_appear)
+        
+        if callable(self.did_disappear):
+            self.__py_view__.disappearAction = _values.value(self.did_disappear)
+
     def __init__(self):
         self.__py_view__ = __PyView__.newView()
+        self._setup_subclass()
 
     def __repr__(self):
-        return str(self.__py_view__.managed.description)
+        return "<"+self.__class__.__module__+"."+self.__class__.__name__+" "+str(self.__py_view__.managed.description)+">"
 
     def __getitem__(self, item):
         return self.subview_with_name(item)
 
     def __del__(self):
-        if self.__py_view__.references == 1:
-            _gc.collected.append(self.__py_view__)
-        else:
-            self.__py_view__.releaseReference()
-            self.__py_view__.release()
+        try:
+            if self.__py_view__.references == 1:
+                _gc.collected.append(self.__py_view__)
+            elif self.__py_view__ not in _gc.collected:
+                self.__py_view__.releaseReference()
+                self.__py_view__.release()
+        except (AttributeError, ValueError):
+            pass
 
     def __setattr__(self, name, value):
         if name == "__py_view__":
             previous = self.__py_view__
-            if previous is not None and previous.references != 1:
+            if previous is not None and previous.references == 1:
                 previous.releaseReference()
                 previous.release()
             elif previous is not None:
-                _gc.collected.append(previous)
+                if previous not in _gc.collected:
+                    _gc.collected.append(previous)
 
             if value is not None:
                 value.retainReference()
-                value.retain()
+                if isinstance(self, TableView) or isinstance(self, StackView):
+                    value.retain()
 
         super().__setattr__(name, value)
 
@@ -2383,16 +2913,25 @@ class View:
 
     def subview_with_name(self, name) -> View:
         """
-        Returns the subview with the given name.
+        Returns the subview with the given name. This function search through all of the subviews recursively.
 
         Raises ``NameError`` if no view is found.
 
         :rtype: View
         """
 
-        for view in self.subviews:
-            if view.name == name:
-                return view
+        def search_in_view(subview):
+            for view in subview.subviews:
+                if view.name == name:
+                    return view
+
+            for view in subview.subviews:
+                return search_in_view(view)
+        
+        view = search_in_view(self)
+
+        if view is not None:
+            return view
 
         raise NameError(f"No subview named '{name}'")
 
@@ -2412,7 +2951,11 @@ class View:
         else:
             _views = []
             for view in views:
-                ui = sys.modules["pyto_ui"]
+                try:
+                    ui = sys.modules["pyto_ui"]
+                except KeyError:
+                    import pyto_ui as ui
+
                 _class = getattr(ui, str(view.objc_class.pythonName))
                 _view = _class()
                 _view.__py_view__ = view
@@ -2431,7 +2974,11 @@ class View:
         if superview is None:
             return None
         else:
-            ui = sys.modules["pyto_ui"]
+            try:
+                    ui = sys.modules["pyto_ui"]
+            except KeyError:
+                import pyto_ui as ui
+
             _class = getattr(ui, str(superview.objc_class.pythonName))
             view = _class()
             view.__py_view__ = superview
@@ -2500,6 +3047,8 @@ class View:
     def opaque(self, new_value: bool):
         self.__py_view__.opaque = new_value
 
+    _set_tint_color = False
+
     @property
     def tint_color(self) -> Color:
         """
@@ -2518,8 +3067,10 @@ class View:
     def tint_color(self, new_value: Color):
         if new_value is None:
             self.__py_view__.tintColor = None
+            self._set_tint_color = False
         else:
             self.__py_view__.tintColor = new_value.__py_color__
+            self._set_tint_color = True
 
     @property
     def user_interaction_enabled(self) -> bool:
@@ -2624,8 +3175,13 @@ class View:
 
         return self.__py_view__.appearance
 
+    _set_appearance = False
+
     @appearance.setter
     def appearance(self, new_value: APPEARANCE):
+        
+        self._set_appearance = (new_value != APPEARANCE_UNSPECIFIED)
+
         self.__py_view__.appearance = new_value
 
     @property
@@ -2892,20 +3448,318 @@ class UIKitView(View):
         view = self.make_view()
         py_view = __PyUIKitView__.alloc().initWithManaged(view)
         self.__py_view__ = py_view
+        self._setup_subclass()
+
+
+class ScrollView(View):
+    """
+    A view that allows the scrolling of its contained views.
+    """
+
+    _content_view = None
+
+    def configure_from_dictionary(self, dictionary):
+        super().configure_from_dictionary(dictionary)
+
+        def get(key, _dict=dictionary, default=None):
+            return self._get(key, _dict, default)
+
+        try:
+            dictionary = dictionary["ScrollView"]
+        except KeyError:
+            return
+        
+        content = get("content")
+
+        if content is not None:
+            self.content_width = get("width", content)
+            self.content_height = get("height", content)
+
+            view = get("view", content)
+            if view is not None:
+                if isinstance(view, View):
+                    view = view.dictionary_representation()
+                self.content_view._parent = self
+                self.content_view.configure_from_dictionary(view)
+        
+        self.horizontal = get("horizontal", default=False)
+        self.vertical = get("vertical", default=False)
+
+    def dictionary_representation(self):
+        d = super().dictionary_representation()
+
+        scroll_view = {
+            "content": {
+                "width": self.content_width,
+                "height": self.content_height,
+                "view": self.content_view.dictionary_representation()
+            },
+
+            "vertical": self.vertical,
+            "horizontal": self.horizontal
+        }
+
+        d["ScrollView"] = scroll_view
+
+        return d
+
+    @property
+    def content_width(self) -> float:
+        """
+        The horizontal size of the content. The value is used to calculate when the scroll view should stop scrolling horizontally.
+
+        The default value is ``None``, which means the content width will be equal to the width size of the Scroll View.
+
+        :rtype: float
+        """
+
+        return self.__py_view__.contentWidth
+
+    @content_width.setter
+    def content_width(self, new_value: float):
+        self.__py_view__.contentWidth = new_value
+
+    @property
+    def content_height(self) -> float:
+        """
+        The vertical size of the content. The value is used to calculate when the scroll view should stop scrolling vertically.
+
+        The default value is ``None``, which means the content height will be equal to the height size of the Scroll View.
+
+        :rtype: float
+        """
+
+        return self.__py_view__.contentHeight
+
+    @content_height.setter
+    def content_height(self, new_value: float):
+        self.__py_view__.contentHeight = new_value
+
+    @property
+    def vertical(self) -> bool:
+        """
+        A boolean indicating whether the user can scroll vertically.
+
+        The default value is ``False``.
+
+        :rtype: bool
+        """
+
+        return self.__py_view__.vertical
+
+    @vertical.setter
+    def vertical(self, new_value: bool):
+        self.__py_view__.vertical = new_value
+
+    @property
+    def horizontal(self) -> bool:
+        """
+        A boolean indicating whether the user can scroll horizontally.
+
+        The default value is ``True``.
+
+        :rtype: bool
+        """
+
+        return self.__py_view__.horizontal
+
+    @horizontal.setter
+    def horizontal(self, new_value: bool):
+        self.__py_view__.horizontal = new_value
+
+    @property
+    def content_view(self) -> View:
+        """
+        (Read Only) This view is the content of the Scroll View.
+
+        You should add subviewss there instead of adding them directy to the Scroll View.
+        """
+
+        if self._content_view is not None:
+            return self._content_view
+        else:
+            view = View()
+            view.__py_view__ = self.__py_view__.content
+            self._content_view = view
+            return view
+
+    def __init__(self):
+        self.__py_view__ = __PyScrollView__.newView()
+        self._setup_subclass()
+
+    def add_subview(self, view):
+        super().add_subview(view)
+
+        msg = "Adding a subview to a ScrollView doesn't add it to the scrollable area. See 'ScrollView.content_view'."
+        warnings.warn(msg, UserWarning)
+
+
+class _StackSpacerView(View):
+
+    def __init__(self):
+        self.__py_view__ = __PyStackSpacerView__.newView()
+        self._setup_subclass()
+
+
+class StackView(View):
+    """
+    A view that arranges its children in a horizontal or vertical line.
+
+    This is a base class for :class:`~pyto_ui.HorizontalStackView` and :class:`~pyto_ui.VerticalStackView`. You should use one of them instead of :class:`~pyto_ui.StackView`.
+    """
+
+    def __init__(self):
+        raise NotImplementedError("Cannot initialize a 'StackView'. Use 'HorizontalStackView' or 'VerticalStackView'.")
+
+    #def __del__(self):
+    #    for view in self.subviews:
+    #        view.remove_from_superview()
+    #    super().__del__()
+
+    def configure_from_dictionary(self, dictionary):
+        super().configure_from_dictionary(dictionary)
+
+        try:
+            dictionary = dictionary["StackView"]
+        except KeyError:
+            return
+
+        if "padding" in dictionary and dictionary["padding"] is not None:
+            padding = dictionary["padding"]
+            self.padding = Padding(padding[0], padding[1], padding[2], padding[3])
+
+    def dictionary_representation(self):
+        d = super().dictionary_representation()
+
+        stack_view = {
+            "padding": [self.padding.top, self.padding.bottom, self.padding.left, self.padding.right]
+        }
+
+        d["StackView"] = stack_view
+        return d
+
+    def add_spacer(self):
+        """
+        Adss a flexible space.
+        """
+
+        self.add_subview(_StackSpacerView())
+    
+    def insert_spacer(self, index: int):
+        """
+        Inserts a flexible space at the given index.
+
+        :param index: The index where the view should be inserted.
+        """
+
+        self.insert_subview(_StackSpacerView(), index)
+    
+    def insert_spacer_before(self, before_view):
+        """
+        Inserts a flexible space at the given index.
+
+        :param before_view: The view placed after the spacer.
+        """
+
+        self.insert_subview_below(_StackSpacerView(), before_view)
+
+    def insert_spacer_after(self, after_view):
+        """
+        Inserts a flexible space at the given index.
+
+        :param after_view: The view placed before the spacer.
+        """
+
+        self.insert_subview_below(_StackSpacerView(), after_view)
+
+    @property
+    def padding(self) -> Padding:
+        """
+        The padding of the view.
+        The default value is (0, 0, 0, 0).
+
+        :rtype: Padding
+        """
+
+        padding = self.__py_view__.padding
+        return Padding(padding[0], padding[1], padding[2], padding[3])
+
+    @padding.setter
+    def padding(self, new_value: Padding):
+        self.__py_view__.padding = [new_value.top, new_value.bottom, new_value.left, new_value.right]
+
+
+class HorizontalStackView(StackView):
+    """
+    A view that arranges its children in a horizontal line.
+    """
+
+    def __init__(self):
+        self.__py_view__ = __PyStackView__.horizontal()
+        self._setup_subclass()
+
+
+class VerticalStackView(StackView):
+    """
+    A view that arranges its children in a vertical line.
+    """
+
+    def __init__(self):
+        self.__py_view__ = __PyStackView__.vertical()
+        self._setup_subclass()
 
 
 class ImageView(View):
     """
-    A view displaying an image. The displayed image can be a ``PIL`` image, an ``UIKit`` ``UIImage`` (see :func:`~pyto_ui.image_with_system_name`) or can be directly downloaded from an URL.
+    A view displaying an image.
+
+    :param image: A PIL image.
+    :param symbol_name: An SF symbol name. See `sf_symbols <sf_symbols.html>`_
+    :param url: The URL of an image to load it remotely.
     """
 
     def __init__(self, image: "Image" = None, symbol_name: str = None, url: str = None):
         self.__py_view__ = __UIImageView__.newView()
+        self._setup_subclass()
         self.image = image
+        self._symbol_name = None
+        self._url = None
         if url is not None:
             self.load_from_url(url)
+            self._url = url
         elif symbol_name is not None:
             self.image = image_with_system_name(symbol_name)
+            self._symbol_name = symbol_name
+
+    def configure_from_dictionary(self, dictionary):
+        super().configure_from_dictionary(dictionary)
+
+        try:
+            dictionary = dictionary["ImageView"]
+        except KeyError:
+            return
+
+        if "url" in dictionary and isinstance(dictionary["url"], str):
+            self.load_from_url(dictionary["url"])
+        elif "symbol" in dictionary and isinstance(dictionary["symbol"], str):
+            self.image = image_with_system_name(dictionary["symbol"])
+        elif "path" in dictionary and isinstance(dictionary["path"], str):
+            self.image = Image.open(dictionary["path"])
+
+    def dictionary_representation(self):
+        r = super().dictionary_representation()
+        image_view = {}
+
+        if self._url is not None:
+            image_view["url"] = self._url
+        elif self._symbol_name is not None:
+            image_view["symbol"] = self._symbol_name
+        elif self.image is not None and self.image.filename is not None:
+            image_view["path"] = self.image.filename
+
+        r["ImageView"] = image_view
+
+        return r
 
     @property
     def image(self) -> "Image":
@@ -2958,7 +3812,74 @@ class Label(View):
 
     def __init__(self, text: str = ""):
         self.__py_view__ = __PyLabel__.newView()
+        self._setup_subclass()
         self.text = text
+        self._html = None
+
+    def configure_from_dictionary(self, dictionary):
+        super().configure_from_dictionary(dictionary)
+        
+        try:
+            dictionary = dictionary["Label"]
+        except KeyError:
+            return
+
+        def get(key, _dict=dictionary, default=None):
+            return self._get(key, _dict, default)
+
+        self.text = get("text", default="")
+        html = get("html")
+
+        if html is not None:
+            self.load_html(html)
+
+        font = get("font")
+        if font is not None:
+            font_obj = Font.__new__(Font)
+            font_obj.configure_from_dictionary(font)
+            self.font = font_obj
+        
+        alignment = get("alignment")
+        if alignment is not None:
+            name = "TEXT_ALIGNMENT_"+(alignment.upper())
+            self.text_alignment = globals()[name]
+
+        line_break_mode = get("line_break_mode")
+        if line_break_mode is not None:
+            name = "LINE_BREAK_MODE_"+(line_break_mode.upper())
+            self.line_break_mode = globals()[name]
+
+        self.number_of_lines = get("number_of_lines", default=1)
+        self.adjusts_font_size_to_fit_width = get("adjusts_font_size_to_fit_width", default=False)
+
+    def dictionary_representation(self):
+        r = super().dictionary_representation()
+        label = {}
+
+        label["text"] = self.text
+
+        if self._html is not None:
+            label["html"] = self._html
+        
+        if self.text_color is not None:
+            label["color"] = self.text_color.dictionary_representation()
+        
+        if self.font is not None:
+            label["font"] = self.font.dictionary_representation()
+        
+        for key in list(globals().keys()).copy():
+            if key.startswith("TEXT_ALIGNMENT_") and globals()[key] == self.text_alignment:
+                label["alignment"] = key.split("TEXT_ALIGNMENT_")[1].lower()
+        
+        for key in list(globals().keys()).copy():
+            if key.startswith("LINE_BREAK_MODE_") and globals()[key] == self.line_break_mode:
+                label["line_break_mode"] = key.split("LINE_BREAK_MODE_")[1].lower()
+
+        label["adjusts_font_size_to_fit_width"] = self.adjusts_font_size_to_fit_width
+        label["number_of_lines"] = self.number_of_lines
+
+        r["Label"] = label
+        return r
 
     def load_html(self, html):
         """
@@ -2967,6 +3888,7 @@ class Label(View):
         :param html: The HTML code to load.
         """
 
+        self._html = html
         self.__py_view__.loadHTML(html)
 
     @property
@@ -3100,6 +4022,73 @@ class TableViewCell(View):
     For a list of supported style, see `Table View Cell Style <constants.html#table-view-cell-style>`_ constants.
     """
 
+    def configure_from_dictionary(self, dictionary):
+        super().configure_from_dictionary(dictionary)
+
+        try:
+            dictionary = dictionary["TableViewCell"]
+        except KeyError:
+            return
+
+        def get(key, _dict=dictionary, default=None):
+            return self._get(key, _dict, default)
+
+        self.movable, self.removable = get("movable", default=False), get("removable", default=False)
+
+        if get("content") is not None:
+            content = get("content")
+            if isinstance(content, View):
+                content = content.dictionary_representation()
+            self.content_view.configure_from_dictionary(content)
+
+        if get("image") is not None and self.image_view is not None:
+            image = get("image")
+            if isinstance(image, View):
+                image = image.dictionary_representation()
+            self.image_view.configure_from_dictionary(image)
+
+        if get("label") is not None and self.text_label is not None:
+            label = get("label")
+            if isinstance(label, View):
+                label = label.dictionary_representation()
+            self.text_label.configure_from_dictionary(label)
+
+        if get("detail_label") is not None and self.detail_text_label is not None:
+            detail_label = get("detail_label")
+            if isinstance(detail_label, View):
+                detail_label = label.dictionary_representation()
+            self.detail_text_label.configure_from_dictionary(detail_label)
+
+        accessory_type = get("accessory_type")
+        if accessory_type is not None:
+            name = "ACCESSORY_TYPE_"+(accessory_type.upper())
+            self.accessory_type = globals()[name]
+
+    def dictionary_representation(self):
+        r = super().dictionary_representation()
+
+        table_view_cell = {
+            "movable": self.movable,
+            "removable": self.removable,
+            "content": self.content_view.dictionary_representation(),
+        }
+
+        if self.image_view is not None:
+            table_view_cell["image"] = self.image_view.dictionary_representation()
+
+        if self.text_label is not None:
+            table_view_cell["label"] = self.text_label.dictionary_representation()
+
+        if self.detail_text_label is not None:
+            table_view_cell["detail_label"] = self.detail_text_label.dictionary_representation()
+
+        for key in list(globals().keys()).copy():
+            if key.startswith("ACCESSORY_TYPE_") and globals()[key] == self.accessory_type:
+                table_view_cell["accessory_type"] = key.split("ACCESSORY_TYPE_")[1].lower()
+
+        r["TableViewCell"] = table_view_cell
+        return r
+
     def __init__(
         self, style: TABLE_VIEW_STYLE = __v__("TABLE_VIEW_CELL_STYLE_DEFAULT")
     ):
@@ -3110,6 +4099,7 @@ class TableViewCell(View):
         else:
             self.__py_view__ = __PyTableViewCell__.newViewWithStyle(style)
         self.__py_view__.managedValue = _values.value(self)
+        self._setup_subclass()
 
     @property
     def movable(self) -> bool:
@@ -3139,6 +4129,8 @@ class TableViewCell(View):
     def removable(self, new_value: bool):
         self.__py_view__.removable = new_value
 
+    _content_view = None
+
     @property
     def content_view(self) -> View:
         """
@@ -3146,10 +4138,18 @@ class TableViewCell(View):
 
         :rtype: View
         """
-
+        
+        if self._content_view is not None:
+            return self._content_view
+        
         _view = View()
         _view.__py_view__ = self.__py_view__.contentView
+        self._content_view = _view
+        _view.__py_view__.retainReference()
+        _view.__py_view__.retain()
         return _view
+
+    _image_view = None
 
     @property
     def image_view(self) -> ImageView:
@@ -3159,13 +4159,20 @@ class TableViewCell(View):
         :rtype: Image View
         """
 
+        if self._image_view is not None:
+            return self._image_view
+
         view = self.__py_view__.imageView
         if view is None:
             return None
         else:
             _view = ImageView()
             _view.__py_view__ = view
+            self._image_view = _view
+            view.retainReference()
             return _view
+
+    _text_label = None
 
     @property
     def text_label(self) -> Label:
@@ -3175,13 +4182,21 @@ class TableViewCell(View):
         :rtype: Label
         """
 
+        if self._text_label is not None:
+            return self._text_label
+
         view = self.__py_view__.textLabel
         if view is None:
             return None
         else:
             _view = Label()
             _view.__py_view__ = view
+            self._text_label = _view
+            view.retainReference()
+            view.retain()
             return _view
+
+    _detail_text_label = None
 
     @property
     def detail_text_label(self) -> Label:
@@ -3191,12 +4206,18 @@ class TableViewCell(View):
         :rtype: Label
         """
 
+        if self._detail_text_label is not None:
+            return self._detail_text_label
+
         view = self.__py_view__.detailLabel
         if view is None:
             return None
         else:
             _view = Label()
             _view.__py_view__ = view
+            self._detail_text_label = _view
+            view.retainReference()
+            view.retain()
             return _view
 
     @property
@@ -3221,6 +4242,37 @@ class TableView(View):
     A Table View has a list of :class:`TableViewSection` objects that represent groups of cells. A Table View has two possible styles. See `Table View Style <constants.html#table-view-style>`_.
     """
 
+    def dictionary_representation(self):
+        d = super().dictionary_representation()
+
+        sections = []
+
+        for section in self.sections:
+            sections.append(section.dictionary_representation())
+
+        d["TableView"] = {
+            "sections": sections
+        }
+        return d
+
+    def configure_from_dictionary(self, dictionary):
+        super().configure_from_dictionary(dictionary)
+
+        try:
+            dictionary = dictionary["TableView"]
+        except KeyError:
+            return
+        
+        if "sections" in dictionary and dictionary["sections"] is not None:
+            sections = []
+            for section in dictionary["sections"]:
+                _section = TableViewSection()
+                _section._parent = self._parent
+                _section.configure_from_dictionary(section)
+                sections.append(_section)
+
+            self.sections = sections
+
     def __init__(
         self,
         style: TABLE_VIEW_STYLE = __v__("TABLE_VIEW_STYLE_PLAIN"),
@@ -3232,6 +4284,7 @@ class TableView(View):
             self.__py_view__ = __PyTableView__.newViewWithStyle(style)
         self.__py_view__.managedValue = _values.value(self)
         self.sections = sections
+        self._setup_subclass()
 
     @property
     def reload_action(self) -> Callable[TableView, None]:
@@ -3309,6 +4362,111 @@ class TextView(View):
         self.__py_view__ = __PyTextView__.newView()
         self.__py_view__.managedValue = _values.value(self)
         self.text = text
+        self._setup_subclass()
+
+    def configure_from_dictionary(self, dictionary):
+        super().configure_from_dictionary(dictionary)
+
+        try:
+            dictionary = dictionary["TextView"]
+        except KeyError:
+            return
+        
+        def get(key, _dict=dictionary, default=None):
+            return self._get(_dict, default)
+        
+        self.selected_range = tuple(get("selected_range", default=[]))
+        self.text = get("text", default="")
+        self.editable = get("editable", default=True)
+        self.selectable = get("selectable", default=True)
+        self.smart_quotes = get("smart_quotes", default=True)
+        self.smart_dashes = get("smart_dashes", default=True)
+        self.autocorrection = get("autocorrection", default=True)
+        self.secure = get("secure", default=False)
+
+        if get("html") is not None:
+            self.load_html(get("html"))
+        
+        if get("color") is not None:
+            color = Color.__new__(Color)
+            color.configure_from_dictionary(get("color"))
+            self.text_color = color
+
+        if get("font") is not None:
+            font = Font.__new__(Font)
+            font.configure_from_dictionary(get("font"))
+            self.font = font
+
+        text_alignment = get("text_alignment")
+        if text_alignment is not None:
+            name = "TEXT_ALIGNMENT_"+(text_alignment.upper())
+            self.text_alignment = globals()[name]
+        
+        keyboard_type = get("keyboard_type")
+        if keyboard_type is not None:
+            name = "KEYBOARD_TYPE_"+(keyboard_type.upper())
+            self.keyboard_type = globals()[name]
+        
+        keyboard_appearance = get("keyboard_appearance")
+        if keyboard_appearance is not None:
+            name = "KEYBOARD_APPEARANCE__"+(keyboard_appearance.upper())
+            self.keyboard_appearance = globals()[name]
+
+        autocapitalization_type = get("autocapitalization_type")
+        if autocapitalization_type is not None:
+            name = "AUTO_CAPITALIZE_"+(autocapitalization_type.upper())
+            self.autocapitalization_type = globals()[name]
+        
+        return_key_type = get("return_key_type")
+        if return_key_type is not None:
+            name = "RETURN_KEY_TYPE_"+(return_key_type.upper())
+            self.return_key_type = globals()[name]
+
+    def dictionary_representation(self):
+        r = super().dictionary_representation()
+
+        text_view = {
+            "selected_range": self.selected_range,
+            "text": self.text,
+            "editable": self.editable,
+            "selectable": self.selectable,
+            "smart_quotes": self.smart_quotes,
+            "smart_dashes": self.smart_dashes,
+            "autocorrection": self.autocorrection,
+            "secure": self.secure
+        }
+
+        if self._html is not None:
+            text_view["html"] = self._html
+        
+        if self.text_color is not None:
+            text_view["color"] = self.text_color.dictionary_representation()
+        
+        if self.font is not None:
+            text_view["font"] = self.font.dictionary_representation()
+        
+        for key in list(globals().keys()).copy():
+            if key.startswith("TEXT_ALIGNMENT_") and globals()[key] == self.text_alignment:
+                text_view["alignment"] = key.split("TEXT_ALIGNMENT_")[1].lower()
+        
+        for key in list(globals().keys()).copy():
+            if key.startswith("KEYBOARD_TYPE_") and globals()[key] == self.keyboard_type:
+                text_view["keyboard_type"] = key.split("KEYBOARD_TYPE_")[1].lower()
+
+        for key in list(globals().keys()).copy():
+            if key.startswith("KEYBOARD_APPEARANCE__") and globals()[key] == self.keyboard_appearance:
+                text_view["keyboard_appearance"] = key.split("KEYBOARD_APPEARANCE__")[1].lower()
+
+        for key in list(globals().keys()).copy():
+            if key.startswith("AUTO_CAPITALIZE_") and globals()[key] == self.autocapitalization_type:
+                text_view["autocapitalization_type"] = key.split("AUTO_CAPITALIZE_")[1].lower()
+
+        for key in list(globals().keys()).copy():
+            if key.startswith("RETURN_KEY_TYPE_") and globals()[key] == self.return_key_type:
+                text_view["return_key_type"] = key.split("RETURN_KEY_TYPE_")[1].lower()
+
+        r["TextView"] = text_view
+        return r
 
     @property
     def selected_range(self) -> Tuple[int, int]:
@@ -3383,6 +4541,8 @@ class TextView(View):
         else:
             self.__py_view__.didChangeText = _values.value(new_value)
 
+    _html = None
+
     def load_html(self, html):
         """
         Loads HTML in the Text View.
@@ -3390,6 +4550,7 @@ class TextView(View):
         :param html: The HTML code to load.
         """
 
+        self._html = html
         self.__py_view__.loadHTML(html)
 
     @property
@@ -3619,9 +4780,53 @@ if "widget" not in os.environ:
 
             pass
 
+        def configure_from_dictionary(self, dictionary):
+            super().configure_from_dictionary(dictionary)
+
+            try:
+                dictionary = dictionary["WebView"]
+            except KeyError:
+                return
+
+            if "html" in dictionary and dictionary["html"] is not None:
+
+                try:
+                    base_url = dictionary["base_url"]
+                except KeyError:
+                    base_url = None
+
+                self.load_html(dictionary["html"], base_url=base_url)
+            elif "url" in dictionary and dictionary["url"] is not None:
+                self.load_url(dictionary["url"])
+
+        def dictionary_representation(self):
+            r = super().dictionary_representation()
+
+            web_view = {}
+
+            if self._url is not None:
+                web_view["url"] = self._url
+            elif self._html is not None:
+                web_view["html"] = self._html
+                web_view["base_url"] = self._base_url
+
+            r["WebView"] = web_view
+            return r
+
         def __init__(self, url: str = None):
             self.__py_view__ = __PyWebView__.newView()
+            self._setup_subclass()
             self.__py_view__.managedValue = _values.value(self)
+            
+            if callable(self.did_finish_loading):
+                self.__py_view__.didFinishLoading = _values.value(self.did_finish_loading)
+        
+            if callable(self.did_fail_loading):
+                self.__py_view__.didFailLoading = _values.value(self.did_fail_loading)
+        
+            if callable(self.did_start_loading):
+                self.__py_view__.didStartLoading = _values.value(self.did_start_loading)
+            
             if url is not None:
                 self.load_url(url)
 
@@ -3649,6 +4854,8 @@ if "widget" not in os.environ:
                         result.replace("_ERROR_:", "", 1)
                     )
 
+        _url = None
+
         def load_url(self, url: str):
             """
             Loads an URL.
@@ -3656,7 +4863,12 @@ if "widget" not in os.environ:
             :param url: The URL to laod. Can be 'http://', 'https://' or 'file://'.
             """
 
+            self._url = url
             self.__py_view__.loadURL(url)
+
+        _html = None
+
+        _base_url = None
 
         def load_html(self, html: str, base_url: str = None):
             """
@@ -3670,6 +4882,8 @@ if "widget" not in os.environ:
             if baseURL is not None:
                 baseURL = str(base_url)
 
+            self._html = html
+            self._base_url = base_url
             self.__py_view__.loadHTML(html, baseURL=baseURL)
 
         def reload(self):
@@ -3821,7 +5035,53 @@ class Control(View):
 
     def __init__(self):
         self.__py_view__ = __PyControl__.newView()
+        self._setup_subclass()
         self.__py_view__.managedValue = _values.value(self)
+        
+        if callable(self.action):
+            self.__py_view__.action = _values.value(self.action)
+
+    def configure_from_dictionary(self, dictionary):
+        super().configure_from_dictionary(dictionary)
+
+        def get(key, _dict=dictionary, default=None):
+            return self._get(key, _dict, default)
+
+        try:
+            dictionary = dictionary["Control"]
+        except KeyError:
+            return
+        
+        if "enabled" in dictionary and dictionary["enabled"] is not None:
+            self.enabled = dictionary["enabled"]
+        
+        horizontal_alignment = get("horizontal_alignment")
+        if horizontal_alignment is not None:
+            name = "HORIZONTAL_ALIGNMENT_"+(self.horizontal_alignment.upper())
+            self.horizontal_alignment = globals()[name]
+
+        vertical_alignment = get("vertical_alignment")
+        if vertical_alignment is not None:
+            name = "VERTICAL_ALIGNMENT_"+(self.vertical_alignment.upper())
+            self.vertical_alignment = globals()[name]
+
+    def dictionary_representation(self):
+        r = super().dictionary_representation()
+        
+        control = {
+            "enabled": self.enabled
+        }
+
+        for key in list(globals().keys()).copy():
+            if key.startswith("HORIZONTAL_ALIGNMENT_") and globals()[key] == self.horizontal_alignment:
+                control["horizontal_alignment"] = key.split("HORIZONTAL_ALIGNMENT_")[1].lower()
+
+        for key in list(globals().keys()).copy():
+            if key.startswith("VERTICAL_ALIGNMENT_") and globals()[key] == self.vertical_alignment:
+                control["vertical_alignment"] = key.split("VERTICAL_ALIGNMENT_")[1].lower()
+
+        r["Control"] = control
+        return r
 
     @property
     def enabled(self) -> bool:
@@ -3838,7 +5098,7 @@ class Control(View):
         self.__py_view__.enabled = new_value
 
     @property
-    def horizontal_alignment(self) -> HORZONTAL_ALIGNMENT:
+    def horizontal_alignment(self) -> HORIZONTAL_ALIGNMENT:
         """
         The horizontal alignment of the view's contents. See `Horizontal Alignment <constants.html#horizontal-alignment>`_ constants for possible values.
 
@@ -3848,7 +5108,7 @@ class Control(View):
         return self.__py_view__.contentHorizontalAlignment
 
     @horizontal_alignment.setter
-    def horizontal_alignment(self, new_value: HORZONTAL_ALIGNMENT):
+    def horizontal_alignment(self, new_value: HORIZONTAL_ALIGNMENT):
         self.__py_view__.contentHorizontalAlignment = new_value
 
     @property
@@ -3898,8 +5158,34 @@ class SegmentedControl(Control):
 
     def __init__(self, segments: List[str] = []):
         self.__py_view__ = __PySegmentedControl__.newView()
+        self._setup_subclass()
         self.__py_view__.managedValue = _values.value(self)
         self.segments = segments
+
+    def configure_from_dictionary(self, dictionary):
+        super().configure_from_dictionary(dictionary)
+
+        try:
+            dictionary = dictionary["SegmentedControl"]
+        except KeyError:
+            return
+
+        if "segments" in dictionary and dictionary["segments"] is not None:
+            self.segments = dictionary["segments"]
+
+        if "selection" in dictionary and dictionary["selection"] is not None:
+            self.selected_segment = dictionary["selection"]
+
+    def dictionary_representation(self):
+        r = super().dictionary_representation()
+
+        segmented_control = {
+            "segments": self.segments,
+            "selection": self.selected_segment
+        }
+
+        r["SegmentedControl"] = segmented_control
+        return r
 
     @property
     def segments(self) -> List[str]:
@@ -3938,8 +5224,60 @@ class Slider(Control):
 
     def __init__(self, value: float = 0.5):
         self.__py_view__ = __PySlider__.newView()
+        self._setup_subclass()
         self.__py_view__.managedValue = _values.value(self)
         self.value = value
+
+    def configure_from_dictionary(self, dictionary):
+        super().configure_from_dictionary()
+
+        try:
+            dictionary = dictionary["Slider"]
+        except KeyError:
+            return
+        
+        def get(key, _dict=dictionary, default=None):
+            return self._get(key, _dict, default)
+        
+        self.value = get("value", default=0)
+        self.minimum_value = get("min", default=0)
+        self.maximum_value = get("max", default=1)
+
+        if get("thumb_color") is not None:
+            thumb_color = Color.__new__(Color)
+            thumb_color.configure_from_dictionary(get("thumb_color"))
+            self.thumb_color = thumb_color
+        
+        if get("maximum_track_color") is not None:
+            maximum_track_color = Color.__new__(Color)
+            maximum_track_color.configure_from_dictionary(get("maximum_track_color"))
+            self.maximum_track_color = maximum_track_color
+
+        if get("minimum_track_color") is not None:
+            minimum_track_color = Color.__new__(Color)
+            minimum_track_color.configure_from_dictionary(get("minimum_track_color"))
+            self.minimum_track_color = minimum_track_color
+
+    def dictionary_representation(self):
+        r = super().dictionary_representation()
+
+        slider = {
+            "value": self.value,
+            "min": self.minimum_value,
+            "max": self.maximum_value
+        }
+
+        if self.thumb_color is not None:
+            slider["thumb_color"] = self.thumb_color.dictionary_representation()
+        
+        if self.maximum_track_color is not None:
+            slider["maximum_track_color"] = self.maximum_track_color.dictionary_representation()
+
+        if self.minimum_track_color is not None:
+            slider["minimum_track_color"] = self.minimum_track_color.dictionary_representation()
+
+        r["Slider"] = slider
+        return r
 
     def set_value_with_animation(self, value: float):
         """
@@ -4064,8 +5402,47 @@ class Switch(Control):
 
     def __init__(self, on=False):
         self.__py_view__ = __PySwitch__.newView()
+        self._setup_subclass()
         self.__py_view__.managedValue = _values.value(self)
         self.on = on
+
+    def configure_from_dictionary(self, dictionary):
+        super().configure_from_dictionary(dictionary)
+
+        try:
+            dictionary = dictionary["Switch"]
+        except KeyError:
+            return
+        
+        if "on" in dictionary and dictionary["on"] is not None:
+            self.on = dictionary["on"]
+        
+        if "on_color" in dictionary and dictionary["on_color"] is not None:
+            on_color = Color.__new__(Color)
+            on_color.configure_from_dictionary(dictionary["on_color"])
+            self.on_color = on_color
+        
+        if "thumb_color" in dictionary and dictionary["thumb_color"] is not None:
+            thumb_color = Color.__new__(Color)
+            thumb_color.configure_from_dictionary(dictionary["thumb_color"])
+            self.thumb_color = thumb_color
+
+    def dictionary_representation(self):
+        r = super().dictionary_representation()
+
+        switch = {}
+
+        switch["on"] = self.on
+
+        if self.on_color is not None:
+            switch["on_color"] = self.on_color.dictionary_representation()
+        
+        if self.thumb_color is not None:
+            switch["thumb_color"] = self.thumb_color.dictionary_representation()
+
+        r["Switch"] = switch
+
+        return r
 
     def set_on_with_animation(self, on: bool):
         """
@@ -4141,6 +5518,8 @@ class Button(Control):
     For types of buttons, see `Button Type <constants.html#button-type>`_ constants.
     """
 
+    _button_type = None
+
     def __init__(
         self,
         type: BUTTON_TYPE = __v__("BUTTON_TYPE_SYSTEM"),
@@ -4149,11 +5528,72 @@ class Button(Control):
     ):
         if type == "BUTTON_TYPE_SYSTEM":
             self.__py_view__ = __PyButton__.newButtonWithType(BUTTON_TYPE_SYSTEM)
+            self._button_type = type
         else:
             self.__py_view__ = __PyButton__.newButtonWithType(type)
         self.__py_view__.managedValue = _values.value(self)
         self.title = title
         self.image = image
+        self._setup_subclass()
+
+    def configure_from_dictionary(self, dictionary):
+        super().configure_from_dictionary(dictionary)
+
+        try:
+            dictionary = dictionary["Button"]
+        except KeyError:
+            return
+
+        def get(key, _dict=dictionary, default=None):
+            return self._get(key, _dict, default)
+        
+        button_type = get("type")
+        if button_type is not None:
+            name = "BUTTON_TYPE_"+(button_type.upper())
+            self._button_type = globals()[name]
+            self.__py_view__ = __PyButton__.newButtonWithType(self._button_type)
+            self._setup_subclass()
+
+        self.title = get("title")
+
+        if get("color") is not None:
+            title_color = Color.__new__(Color)
+            title_color.configure_from_dictionary(get("color"))
+            self.title_color = title_color
+        
+        if get("font") is not None:
+            font = Font.__new__(Font)
+            font.configure_from_dictionary(get("font"))
+            self.font = font
+        
+        if get("image") is not None:
+            if os.path.isfile(get("image")):
+                self.image = Image.open(get("image"))
+            else:
+                self.image = image_with_system_name(get("image"))
+
+    def dictionary_representation(self):
+        r = super().dictionary_representation()
+
+        button = {
+            "title": self.title
+        }
+
+        if self.title_color is not None:
+            button["color"] = self.title_color.dictionary_representation()
+        
+        if self.font is not None:
+            button["font"] = self.font.dictionary_representation()
+
+        if self.image is not None and isinstance(self.image, Image.Image):
+            button["image"] = self.image.filename
+
+        for key in list(globals().keys()).copy():
+            if key.startswith("BUTTON_TYPE_") and globals()[key] == self._button_type:
+                button["type"] = key.split("BUTTON_TYPE_")[1].lower()
+
+        r["Button"] = button
+        return r
 
     @property
     def title(self) -> str:
@@ -4210,13 +5650,17 @@ class Button(Control):
         else:
             return __pil_image_from_ui_image__(ui_image)
 
+    _image = None
+
     @image.setter
     def image(self, new_value: "Image"):
         if new_value is None:
             self.__py_view__.image = None
+            self._image = None
         elif "objc_class" in dir(new_value) and new_value.objc_class == UIImage:
             self.__py_view__.image = new_value
         else:
+            self._image = new_value
             self.__py_view__.image = __ui_image_from_pil_image__(new_value)
 
     @property
@@ -4250,12 +5694,128 @@ class TextField(Control):
 
     def __init__(self, text: str = "", placeholder: str = None):
         self.__py_view__ = __PyTextField__.newView()
+        self._setup_subclass()
         self.__py_view__.managedValue = _values.value(self)
         self.text = text
         self.placeholder = placeholder
+        
+        if callable(self.did_begin_editing):
+            self.__py_view__.didBeginEditing = _values.value(self.did_begin_editing)
+            
+        if callable(self.did_end_editing):
+            self.__py_view__.didEndEditing = _values.value(self.did_end_editing)
+
+    def configure_from_dictionary(self, dictionary):
+        super().configure_from_dictionary(dictionary)
+
+        try:
+            dictionary = dictionary["TextView"]
+        except KeyError:
+            return
+        
+        def get(key, _dict=dictionary, default=None):
+            return self._get(_dict, default)
+        
+        self.placeholder = tuple(get("placeholder", default=""))
+        self.text = get("text", default="")
+        self.smart_quotes = get("smart_quotes", default=True)
+        self.smart_dashes = get("smart_dashes", default=True)
+        self.autocorrection = get("autocorrection", default=True)
+        self.secure = get("secure", default=False)
+
+        if get("color") is not None:
+            color = Color.__new__(Color)
+            color.configure_from_dictionary(get("color"))
+            self.text_color = color
+
+        if get("font") is not None:
+            font = Font.__new__(Font)
+            font.configure_from_dictionary(get("font"))
+            self.font = font
+
+        text_alignment = get("text_alignment")
+        if text_alignment is not None:
+            name = "TEXT_ALIGNMENT_"+(text_alignment.upper())
+            self.text_alignment = globals()[name]
+        
+        keyboard_type = get("keyboard_type")
+        if keyboard_type is not None:
+            name = "KEYBOARD_TYPE_"+(keyboard_type.upper())
+            self.keyboard_type = globals()[name]
+        
+        keyboard_appearance = get("keyboard_appearance")
+        if keyboard_appearance is not None:
+            name = "KEYBOARD_APPEARANCE__"+(keyboard_appearance.upper())
+            self.keyboard_appearance = globals()[name]
+
+        autocapitalization_type = get("autocapitalization_type")
+        if autocapitalization_type is not None:
+            name = "AUTO_CAPITALIZE_"+(autocapitalization_type.upper())
+            self.autocapitalization_type = globals()[name]
+        
+        return_key_type = get("return_key_type")
+        if return_key_type is not None:
+            name = "RETURN_KEY_TYPE_"+(return_key_type.upper())
+            self.return_key_type = globals()[name]
+        
+        border_style = get("border_style")
+        if border_style is not None:
+            name = "TEXT_FIELD_BORDER_STYLE_"+(border_style.upper())
+            self.border_style = globals()[name]
+
+    def dictionary_representation(self):
+        r = super().dictionary_representation()
+
+        text_field = {
+            "text": self.text,
+            "placeholder": self.placeholder,
+            "smart_quotes": self.smart_quotes,
+            "smart_dashes": self.smart_dashes,
+            "autocorrection": self.autocorrection,
+            "secure": self.secure
+        }
+
+        for key in list(globals().keys()).copy():
+            if key.startswith("KEYBOARD_TYPE_") and globals()[key] == self.keyboard_type:
+                text_field["keyboard_type"] = key.split("KEYBOARD_TYPE_")[1].lower()
+
+        for key in list(globals().keys()).copy():
+            if key.startswith("KEYBOARD_APPEARANCE__") and globals()[key] == self.keyboard_appearance:
+                text_field["keyboard_appearance"] = key.split("KEYBOARD_APPEARANCE__")[1].lower()
+
+        for key in list(globals().keys()).copy():
+            if key.startswith("AUTO_CAPITALIZE_") and globals()[key] == self.autocapitalization_type:
+                text_field["autocapitalization_type"] = key.split("AUTO_CAPITALIZE_")[1].lower()
+
+        for key in list(globals().keys()).copy():
+            if key.startswith("RETURN_KEY_TYPE_") and globals()[key] == self.return_key_type:
+                text_field["return_key_type"] = key.split("RETURN_KEY_TYPE_")[1].lower()
+
+        for key in list(globals().keys()).copy():
+            if key.startswith("TEXT_FIELD_BORDER_STYLE_") and globals()[key] == self.border_style:
+                text_field["border_style"] = key.split("TEXT_FIELD_BORDER_STYLE_")[1].lower()
+
+        for key in list(globals().keys()).copy():
+            if key.startswith("TEXT_ALIGNMENT_") and globals()[key] == self.text_alignment:
+                text_field["alignment"] = key.split("TEXT_ALIGNMENT_")[1].lower()
+
+        if self.text_color is not None:
+            text_field["color"] = self.text_color.dictionary_representation()
+        
+        if self.font is not None:
+            text_field["font"] = self.font.dictionary_representation()
+
+        r["TextField"] = text_field
+        return r
 
     @property
     def border_style(self) -> TEXT_FIELD_BORDER_STYLE:
+        """
+        The border style of the Text Field.
+
+        :rtype: TEXT_FIELD_BORDER_STYLE
+        """
+
         return self.__py_view__.borderStyle
 
     @border_style.setter
@@ -4503,10 +6063,48 @@ class TextField(Control):
         self.__py_view__.isSecureTextEntry = new_value
 
 
+##################
+# MARK: - Serialization
+##################
+
+def _from_json(obj):
+    if "class" in obj and isinstance(obj["class"], str):
+        full_class_name = obj["class"]
+        if "." in full_class_name:
+            parts = full_class_name.split(".")
+            class_name = parts[-1]
+            del parts[-1]
+            module = ".".join(parts)
+                
+            klass = getattr(sys.modules[module], class_name)
+        else:
+            try:
+                klass = getattr(sys.modules["__main__"], full_class_name)
+            except AttributeError:
+                klass = globals()[full_class_name]
+        
+        if klass is None:
+            klass = eval(full_class_name)
+
+        view = klass.__new__(klass)
+        view.configure_from_dictionary(obj)
+        return view
+    else:
+        return obj
+
+class Encoder(json.JSONEncoder):
+
+    def default(self, o):
+        return o.dictionary_representation()
+
+class Decoder(json.JSONDecoder):
+
+    def __init__(self):
+        super().__init__(object_hook=_from_json)
+
 ###################
 # MARK: - Functions
 ###################
-
 
 def font_family_names() -> List[str]:
     """

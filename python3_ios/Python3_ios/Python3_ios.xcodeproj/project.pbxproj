@@ -475,20 +475,15 @@
 		C94003DC250827B900EB74EB /* callproc.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3FC237718C6002263CE /* callproc.o */; platformFilter = ios; };
 		C94003DD250827B900EB74EB /* stgdict.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3F6237718C6002263CE /* stgdict.o */; platformFilter = ios; };
 		C94003DE250827B900EB74EB /* java_raw_api.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3F9237718C6002263CE /* java_raw_api.o */; platformFilter = ios; };
-		C94AC3E92377181E002263CE /* stgdict.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3DD2377181E002263CE /* stgdict.o */; };
-		C94AC3EA2377181E002263CE /* sysv_arm64.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3DE2377181E002263CE /* sysv_arm64.o */; };
-		C94AC3EB2377181E002263CE /* callbacks.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3DF2377181E002263CE /* callbacks.o */; };
-		C94AC3EC2377181E002263CE /* raw_api.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E02377181E002263CE /* raw_api.o */; };
-		C94AC3ED2377181E002263CE /* java_raw_api.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E12377181E002263CE /* java_raw_api.o */; };
-		C94AC3EE2377181E002263CE /* _ctypes.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E22377181E002263CE /* _ctypes.o */; };
-		C94AC3EF2377181E002263CE /* cfield.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E32377181E002263CE /* cfield.o */; };
-		C94AC3F02377181E002263CE /* callproc.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E42377181E002263CE /* callproc.o */; };
-		C94AC3F12377181E002263CE /* closures.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E52377181E002263CE /* closures.o */; };
-		C94AC3F22377181E002263CE /* prep_cif.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E62377181E002263CE /* prep_cif.o */; };
-		C94AC3F32377181E002263CE /* ffi_arm64.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E72377181E002263CE /* ffi_arm64.o */; };
-		C94AC3F42377181E002263CE /* _ctypes_test.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E82377181E002263CE /* _ctypes_test.o */; };
 		C95F9D5C2565754B007B12EB /* dynload_shlib.c in Sources */ = {isa = PBXBuildFile; fileRef = C97F5781235B652E00F289C7 /* dynload_shlib.c */; };
 		C95F9D5F2565754C007B12EB /* dynload_shlib.c in Sources */ = {isa = PBXBuildFile; fileRef = C97F5781235B652E00F289C7 /* dynload_shlib.c */; };
+		C979268A25D24F9D00CD14AF /* libffi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C979268925D24F9D00CD14AF /* libffi.a */; };
+		C979268F25D24FFD00CD14AF /* _ctypes.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E22377181E002263CE /* _ctypes.o */; platformFilter = ios; };
+		C979269225D2500B00CD14AF /* callproc.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E42377181E002263CE /* callproc.o */; platformFilter = ios; };
+		C979269525D2500E00CD14AF /* cfield.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E32377181E002263CE /* cfield.o */; platformFilter = ios; };
+		C979269825D2501500CD14AF /* callbacks.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3DF2377181E002263CE /* callbacks.o */; platformFilter = ios; };
+		C979269B25D2502300CD14AF /* stgdict.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3DD2377181E002263CE /* stgdict.o */; platformFilter = ios; };
+		C979269E25D2504D00CD14AF /* _ctypes_test.o in Frameworks */ = {isa = PBXBuildFile; fileRef = C94AC3E82377181E002263CE /* _ctypes_test.o */; platformFilter = ios; };
 		C97F5772235B5F5100F289C7 /* python.c in Sources */ = {isa = PBXBuildFile; fileRef = 22E8FEEE21C66BF000967E21 /* python.c */; };
 		C97F57B2235B653200F289C7 /* pathconfig.c in Sources */ = {isa = PBXBuildFile; fileRef = C97F5773235B652D00F289C7 /* pathconfig.c */; };
 		C97F57B8235B653200F289C7 /* getcopyright.c in Sources */ = {isa = PBXBuildFile; fileRef = C97F5774235B652D00F289C7 /* getcopyright.c */; };
@@ -910,16 +905,10 @@
 		C94003CF2508279F00EB74EB /* python3_ios_screenshots.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = python3_ios_screenshots.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C94003D0250827A000EB74EB /* python3_ios copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "python3_ios copy2-Info.plist"; path = "/Users/adrianlabbe/Desktop/Pyto/python3_ios/Python3_ios/python3_ios copy2-Info.plist"; sourceTree = "<absolute>"; };
 		C94AC3DD2377181E002263CE /* stgdict.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = stgdict.o; sourceTree = "<group>"; };
-		C94AC3DE2377181E002263CE /* sysv_arm64.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = sysv_arm64.o; sourceTree = "<group>"; };
 		C94AC3DF2377181E002263CE /* callbacks.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = callbacks.o; sourceTree = "<group>"; };
-		C94AC3E02377181E002263CE /* raw_api.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = raw_api.o; sourceTree = "<group>"; };
-		C94AC3E12377181E002263CE /* java_raw_api.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = java_raw_api.o; sourceTree = "<group>"; };
 		C94AC3E22377181E002263CE /* _ctypes.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = _ctypes.o; sourceTree = "<group>"; };
 		C94AC3E32377181E002263CE /* cfield.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = cfield.o; sourceTree = "<group>"; };
 		C94AC3E42377181E002263CE /* callproc.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = callproc.o; sourceTree = "<group>"; };
-		C94AC3E52377181E002263CE /* closures.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = closures.o; sourceTree = "<group>"; };
-		C94AC3E62377181E002263CE /* prep_cif.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = prep_cif.o; sourceTree = "<group>"; };
-		C94AC3E72377181E002263CE /* ffi_arm64.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = ffi_arm64.o; sourceTree = "<group>"; };
 		C94AC3E82377181E002263CE /* _ctypes_test.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = _ctypes_test.o; sourceTree = "<group>"; };
 		C94AC3F6237718C6002263CE /* stgdict.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = stgdict.o; sourceTree = "<group>"; };
 		C94AC3F7237718C6002263CE /* callbacks.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = callbacks.o; sourceTree = "<group>"; };
@@ -936,6 +925,7 @@
 		C94AC40E23771934002263CE /* unix64_x86_64.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = unix64_x86_64.o; sourceTree = "<group>"; };
 		C94AC41023771948002263CE /* win64_x86_64.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = win64_x86_64.o; sourceTree = "<group>"; };
 		C969D2A123D1FF6500460F05 /* README_BEFORE_UPDATING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README_BEFORE_UPDATING.md; sourceTree = "<group>"; };
+		C979268925D24F9D00CD14AF /* libffi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libffi.a; sourceTree = "<group>"; };
 		C97F5773235B652D00F289C7 /* pathconfig.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = pathconfig.c; path = "../Python-3.8/Python/pathconfig.c"; sourceTree = "<group>"; };
 		C97F5774235B652D00F289C7 /* getcopyright.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = getcopyright.c; path = "../Python-3.8/Python/getcopyright.c"; sourceTree = "<group>"; };
 		C97F5775235B652D00F289C7 /* dynload_dl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = dynload_dl.c; path = "../Python-3.8/Python/dynload_dl.c"; sourceTree = "<group>"; };
@@ -1352,25 +1342,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C94AC3EB2377181E002263CE /* callbacks.o in Frameworks */,
-				C94AC3EC2377181E002263CE /* raw_api.o in Frameworks */,
-				C94AC3E92377181E002263CE /* stgdict.o in Frameworks */,
-				C94AC3ED2377181E002263CE /* java_raw_api.o in Frameworks */,
-				C94AC3F32377181E002263CE /* ffi_arm64.o in Frameworks */,
-				C94AC3EE2377181E002263CE /* _ctypes.o in Frameworks */,
-				C94AC3F22377181E002263CE /* prep_cif.o in Frameworks */,
-				C94AC3EA2377181E002263CE /* sysv_arm64.o in Frameworks */,
 				C9FDC0F3235B81DB000B0D61 /* libsqlite3.tbd in Frameworks */,
-				C94AC3F12377181E002263CE /* closures.o in Frameworks */,
+				C979269E25D2504D00CD14AF /* _ctypes_test.o in Frameworks */,
 				C9FDC269235BB771000B0D61 /* libxz.a in Frameworks */,
-				C94AC3F42377181E002263CE /* _ctypes_test.o in Frameworks */,
 				22288E082211FAC20081D86C /* Accelerate.framework in Frameworks */,
-				C94AC3F02377181E002263CE /* callproc.o in Frameworks */,
+				C979268A25D24F9D00CD14AF /* libffi.a in Frameworks */,
+				C979269B25D2502300CD14AF /* stgdict.o in Frameworks */,
+				C979269825D2501500CD14AF /* callbacks.o in Frameworks */,
 				226ED58B21C784B300A71A20 /* libbz2.tbd in Frameworks */,
 				C9FDC268235BB771000B0D61 /* libOpenSSL.a in Frameworks */,
+				C979268F25D24FFD00CD14AF /* _ctypes.o in Frameworks */,
+				C979269525D2500E00CD14AF /* cfield.o in Frameworks */,
 				221CD96421DFAABF00F3B47C /* libc++.tbd in Frameworks */,
-				C94AC3EF2377181E002263CE /* cfield.o in Frameworks */,
 				C9FDC267235BB771000B0D61 /* libbzip2.a in Frameworks */,
+				C979269225D2500B00CD14AF /* callproc.o in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1730,17 +1715,12 @@
 		C94AC3DC2377181E002263CE /* arm64 */ = {
 			isa = PBXGroup;
 			children = (
+				C979268925D24F9D00CD14AF /* libffi.a */,
 				C94AC3DD2377181E002263CE /* stgdict.o */,
-				C94AC3DE2377181E002263CE /* sysv_arm64.o */,
 				C94AC3DF2377181E002263CE /* callbacks.o */,
-				C94AC3E02377181E002263CE /* raw_api.o */,
-				C94AC3E12377181E002263CE /* java_raw_api.o */,
 				C94AC3E22377181E002263CE /* _ctypes.o */,
 				C94AC3E32377181E002263CE /* cfield.o */,
 				C94AC3E42377181E002263CE /* callproc.o */,
-				C94AC3E52377181E002263CE /* closures.o */,
-				C94AC3E62377181E002263CE /* prep_cif.o */,
-				C94AC3E72377181E002263CE /* ffi_arm64.o */,
 				C94AC3E82377181E002263CE /* _ctypes_test.o */,
 			);
 			name = arm64;
@@ -3248,7 +3228,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/..\"";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SRCROOT)/..\"",
+					"\"$(SRCROOT)/../Python-3.8/Modules/_ctypes/arm64\"",
+				);
 				MACH_O_TYPE = mh_dylib;
 				OTHER_CFLAGS = (
 					"-Wno-unused-result",
@@ -3327,7 +3310,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/..\"";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SRCROOT)/..\"",
+					"\"$(SRCROOT)/../Python-3.8/Modules/_ctypes/arm64\"",
+				);
 				MACH_O_TYPE = mh_dylib;
 				OTHER_CFLAGS = (
 					"-Wno-unused-result",
@@ -3705,7 +3691,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/..\"";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SRCROOT)/..\"",
+					"\"$(SRCROOT)/../Python-3.8/Modules/_ctypes/arm64\"",
+				);
 				MACH_O_TYPE = mh_dylib;
 				OTHER_CFLAGS = (
 					"-Wno-unused-result",

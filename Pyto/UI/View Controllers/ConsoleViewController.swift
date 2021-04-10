@@ -690,7 +690,15 @@ import SwiftUI
         #else
         for console in visibles {
             
+            guard viewController.presentingViewController == nil else {
+                break
+            }
+            
             guard console.view.window != nil else {
+                continue
+            }
+            
+            guard console.view.window?.windowScene?.activationState == UIScene.ActivationState.foregroundActive || console.view.window?.windowScene?.activationState == UIScene.ActivationState.foregroundInactive else {
                 continue
             }
             
@@ -1159,7 +1167,7 @@ import SwiftUI
         }
         #endif
     }
-    
+        
     open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
                 
@@ -1169,10 +1177,12 @@ import SwiftUI
         if !(movableTextField?.textField.isFirstResponder ?? false) {
             movableTextField?.toolbar.frame.origin.y = view.frame.height-(movableTextField?.toolbar.frame.height ?? 0)
         }
-        
-        textView.frame = view.safeAreaLayoutGuide.layoutFrame
-        textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
-        textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
+
+        if !isiOSAppOnMac {
+            textView.frame = view.safeAreaLayoutGuide.layoutFrame
+            textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
+            textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
+        }
         
         movableTextField?.toolbar.isHidden = (view.frame.size.height == 0)
         #if MAIN
@@ -1199,6 +1209,11 @@ import SwiftUI
     // MARK: - Keyboard
     
     @objc func keyboardWillShow(_ notification:Notification) {
+        
+        if isiOSAppOnMac {
+            textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-94
+            return
+        }
         
         guard textView.frame.origin.y != view.safeAreaLayoutGuide.layoutFrame.origin.y else {
             return
@@ -1264,6 +1279,17 @@ import SwiftUI
     }
     
     // MARK: - Text view delegate
+    
+    /// A boolean indicating whether the text field reached the bottom.
+    var textFieldReachedBottom = true
+    
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        textFieldReachedBottom = false
+    }
+    
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        textFieldReachedBottom = ((scrollView.contentOffset.y + 1)-(scrollView.contentSize.height - scrollView.frame.size.height) > -30)
+    }
     
     public func textViewDidChange(_ textView: UITextView) {
         console = textView.text

@@ -1,4 +1,5 @@
 from pyto import __Class__
+import __pyto_ui_garbage_collector__ as gc
 import random
 import string
 import sys
@@ -21,6 +22,21 @@ def random_string(string_length=10):
 
 def value(object):
 
+    # Release unused values from memory
+
+    for obj in gc.collected_py_values:
+        if str(obj.identifier) not in _dir:
+            try:
+                gc.collected_py_values.remove(obj)
+                #obj.release()
+            except ValueError:
+                pass
+
+    try:
+        list
+    except NameError:
+        from builtins import list # Yes, wtf
+
     if object in list(globals().values()):
         for (key, item) in list(globals().items()):
             if item is object:
@@ -42,6 +58,8 @@ def value(object):
         _value.scriptPath = threading.current_thread().script_path
     except AttributeError:
         pass
+    
+    gc.collected_py_values.append(_value)
     return _value
 
 
