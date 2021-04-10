@@ -20,8 +20,8 @@ sys.path.insert(0, os.path.abspath('../downloadable-site-packages'))
 # -- Project information -----------------------------------------------------
 
 project = 'Pyto'
-copyright = '2019, Adrian Labbé'
-author = 'Adrian Labbé'
+copyright = '2019, Emma Labbé'
+author = 'Emma Labbé'
 
 # -- ReadTheDocs VM ----------------------------------------------------------
 

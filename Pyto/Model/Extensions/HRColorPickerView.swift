@@ -2,8 +2,8 @@
 //  HRColorPickerView.swift
 //  Pyto
 //
-//  Created by Adrian Labbé on 13-10-19.
-//  Copyright © 2019 Adrian Labbé. All rights reserved.
+//  Created by Emma Labbé on 13-10-19.
+//  Copyright © 2019 Emma Labbé. All rights reserved.
 //
 
 import Color_Picker_for_iOS

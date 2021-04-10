@@ -2,8 +2,8 @@
 //  RunCodeIntentHandler.swift
 //  Pyto Intents
 //
-//  Created by Adrian Labbé on 30-07-19.
-//  Copyright © 2019 Adrian Labbé. All rights reserved.
+//  Created by Emma Labbé on 30-07-19.
+//  Copyright © 2019 Emma Labbé. All rights reserved.
 //
 
 import Intents

@@ -3,7 +3,7 @@
 //  Pyto
 //
 //  Created by administrator on 12/13/20.
-//  Copyright © 2020 Adrian Labbé. All rights reserved.
+//  Copyright © 2020 Emma Labbé. All rights reserved.
 //
 
 import UIKit

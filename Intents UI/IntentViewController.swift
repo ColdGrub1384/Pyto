@@ -2,8 +2,8 @@
 //  IntentViewController.swift
 //  Intents UI
 //
-//  Created by Adrian Labbé on 02-08-20.
-//  Copyright © 2020 Adrian Labbé. All rights reserved.
+//  Created by Emma Labbé on 02-08-20.
+//  Copyright © 2020 Emma Labbé. All rights reserved.
 //
 
 import IntentsUI

@@ -2,8 +2,8 @@
 //  Default.swift
 //  Pyto
 //
-//  Created by Adrian Labbé on 06-06-19.
-//  Copyright © 2019 Adrian Labbé. All rights reserved.
+//  Created by Emma Labbé on 06-06-19.
+//  Copyright © 2019 Emma Labbé. All rights reserved.
 //
 
 import SourceEditor

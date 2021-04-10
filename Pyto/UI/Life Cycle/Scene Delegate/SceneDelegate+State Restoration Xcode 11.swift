@@ -2,8 +2,8 @@
 //  SceneDelegate+State Restoration Xcode 11.swift
 //  Pyto
 //
-//  Created by Adrian Labbé on 05-07-20.
-//  Copyright © 2020 Adrian Labbé. All rights reserved.
+//  Created by Emma Labbé on 05-07-20.
+//  Copyright © 2020 Emma Labbé. All rights reserved.
 //
 //
 // Backward compatibility with Xcode 11

@@ -2,8 +2,8 @@
 //  PytoCore.h
 //  PytoCore
 //
-//  Created by Adrian Labbé on 1/13/19.
-//  Copyright © 2019 Adrian Labbé. All rights reserved.
+//  Created by Emma Labbé on 1/13/19.
+//  Copyright © 2019 Emma Labbé. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
