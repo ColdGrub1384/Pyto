@@ -320,17 +320,17 @@ Content Mode
 Horizontal Alignment
 --------------------
 
-.. autodata:: HORZONTAL_ALIGNMENT_CENTER
+.. autodata:: HORIZONTAL_ALIGNMENT_CENTER
 
-.. autodata:: HORZONTAL_ALIGNMENT_FILL
+.. autodata:: HORIZONTAL_ALIGNMENT_FILL
 
-.. autodata:: HORZONTAL_ALIGNMENT_LEADING
+.. autodata:: HORIZONTAL_ALIGNMENT_LEADING
 
-.. autodata:: HORZONTAL_ALIGNMENT_LEFT
+.. autodata:: HORIZONTAL_ALIGNMENT_LEFT
 
-.. autodata:: HORZONTAL_ALIGNMENT_RIGHT
+.. autodata:: HORIZONTAL_ALIGNMENT_RIGHT
 
-.. autodata:: HORZONTAL_ALIGNMENT_TRAILING
+.. autodata:: HORIZONTAL_ALIGNMENT_TRAILING
 
 Vertical Alignment
 ------------------

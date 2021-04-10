@@ -369,6 +369,17 @@ This value is a tuple with X and Y coordinates.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="pyto_ui.View.configure_from_dictionary">
+<code class="sig-name descname">configure_from_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.View.configure_from_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set properties from the given dictionary representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dictionary</strong> – A dictionary with the properties of the view to configure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="pyto_ui.View.content_mode">
 <em class="property">property </em><code class="sig-name descname">content_mode</code><a class="headerlink" href="#pyto_ui.View.content_mode" title="Permalink to this definition">¶</a></dt>
 <dd><p>A flag used to determine how a view lays out its content when its bounds change.
@@ -387,6 +398,17 @@ See <cite>Content Mode</cite> &lt;constants.html#content-mode&gt;`_ constants fo
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.View.dictionary_representation">
+<code class="sig-name descname">dictionary_representation</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#pyto_ui.View.dictionary_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary representation containing the properties of the receiver.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A serializable dictionary.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -676,7 +698,7 @@ This value is a tuple with height and width values.</p>
 <dl class="py method">
 <dt id="pyto_ui.View.subview_with_name">
 <code class="sig-name descname">subview_with_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#pyto_ui.View" title="pyto_ui.View">pyto_ui.View</a><a class="headerlink" href="#pyto_ui.View.subview_with_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the subview with the given name.</p>
+<dd><p>Returns the subview with the given name. This function search through all of the subviews recursively.</p>
 <p>Raises <code class="docutils literal notranslate"><span class="pre">NameError</span></code> if no view is found.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -796,7 +818,38 @@ This value is a tuple with height and width values.</p>
 <dl class="py class">
 <dt id="pyto_ui.ImageView">
 <em class="property">class </em><code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">ImageView</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Image<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">symbol_name</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">url</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.ImageView" title="Permalink to this definition">¶</a></dt>
-<dd><p>A view displaying an image. The displayed image can be a <code class="docutils literal notranslate"><span class="pre">PIL</span></code> image, an <code class="docutils literal notranslate"><span class="pre">UIKit</span></code> <code class="docutils literal notranslate"><span class="pre">UIImage</span></code> (see <a class="reference internal" href="functions.html#pyto_ui.image_with_system_name" title="pyto_ui.image_with_system_name"><code class="xref py py-func docutils literal notranslate"><span class="pre">image_with_system_name()</span></code></a>) or can be directly downloaded from an URL.</p>
+<dd><p>A view displaying an image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> – A PIL image.</p></li>
+<li><p><strong>symbol_name</strong> – An SF symbol name. See <a class="reference external" href="sf_symbols.html">sf_symbols</a></p></li>
+<li><p><strong>url</strong> – The URL of an image to load it remotely.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="pyto_ui.ImageView.configure_from_dictionary">
+<code class="sig-name descname">configure_from_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.ImageView.configure_from_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set properties from the given dictionary representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dictionary</strong> – A dictionary with the properties of the view to configure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.ImageView.dictionary_representation">
+<code class="sig-name descname">dictionary_representation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.ImageView.dictionary_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary representation containing the properties of the receiver.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A serializable dictionary.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt id="pyto_ui.ImageView.image">
 <em class="property">property </em><code class="sig-name descname">image</code><a class="headerlink" href="#pyto_ui.ImageView.image" title="Permalink to this definition">¶</a></dt>
@@ -832,6 +885,28 @@ This value is a tuple with height and width values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.Label.configure_from_dictionary">
+<code class="sig-name descname">configure_from_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.Label.configure_from_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set properties from the given dictionary representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dictionary</strong> – A dictionary with the properties of the view to configure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.Label.dictionary_representation">
+<code class="sig-name descname">dictionary_representation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.Label.dictionary_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary representation containing the properties of the receiver.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A serializable dictionary.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -935,6 +1010,17 @@ Can have a title, a subtitle, an image and an accessory view.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="pyto_ui.TableViewCell.configure_from_dictionary">
+<code class="sig-name descname">configure_from_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.TableViewCell.configure_from_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set properties from the given dictionary representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dictionary</strong> – A dictionary with the properties of the view to configure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="pyto_ui.TableViewCell.content_view">
 <em class="property">property </em><code class="sig-name descname">content_view</code><a class="headerlink" href="#pyto_ui.TableViewCell.content_view" title="Permalink to this definition">¶</a></dt>
 <dd><p>(Read Only) The view contained in the cell. Custom views should be added inside it.</p>
@@ -952,6 +1038,17 @@ Can have a title, a subtitle, an image and an accessory view.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="#pyto_ui.Label" title="pyto_ui.Label">Label</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.TableViewCell.dictionary_representation">
+<code class="sig-name descname">dictionary_representation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.TableViewCell.dictionary_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary representation containing the properties of the receiver.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A serializable dictionary.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1008,9 +1105,31 @@ Can have a title, a subtitle, an image and an accessory view.</p>
 <dd><p>A view containing a list of cells.</p>
 <p>A Table View has a list of <a class="reference internal" href="#pyto_ui.TableViewSection" title="pyto_ui.TableViewSection"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableViewSection</span></code></a> objects that represent groups of cells. A Table View has two possible styles. See <a class="reference external" href="constants.html#table-view-style">Table View Style</a>.</p>
 <dl class="py method">
+<dt id="pyto_ui.TableView.configure_from_dictionary">
+<code class="sig-name descname">configure_from_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.TableView.configure_from_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set properties from the given dictionary representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dictionary</strong> – A dictionary with the properties of the view to configure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="pyto_ui.TableView.deselect_row">
 <code class="sig-name descname">deselect_row</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.TableView.deselect_row" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deselects the current selected row.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.TableView.dictionary_representation">
+<code class="sig-name descname">dictionary_representation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.TableView.dictionary_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary representation containing the properties of the receiver.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A serializable dictionary.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1073,6 +1192,28 @@ Setting a new value will reload automatically the contents of the Table View.</p
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.TextView.configure_from_dictionary">
+<code class="sig-name descname">configure_from_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.TextView.configure_from_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set properties from the given dictionary representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dictionary</strong> – A dictionary with the properties of the view to configure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.TextView.dictionary_representation">
+<code class="sig-name descname">dictionary_representation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.TextView.dictionary_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary representation containing the properties of the receiver.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A serializable dictionary.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1303,6 +1444,28 @@ Setting a new value will reload automatically the contents of the Table View.</p
 </dd></dl>
 
 <dl class="py method">
+<dt id="pyto_ui.WebView.configure_from_dictionary">
+<code class="sig-name descname">configure_from_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.WebView.configure_from_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set properties from the given dictionary representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dictionary</strong> – A dictionary with the properties of the view to configure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.WebView.dictionary_representation">
+<code class="sig-name descname">dictionary_representation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.WebView.dictionary_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary representation containing the properties of the receiver.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A serializable dictionary.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="pyto_ui.WebView.did_fail_loading">
 <em class="property">property </em><code class="sig-name descname">did_fail_loading</code><a class="headerlink" href="#pyto_ui.WebView.did_fail_loading" title="Permalink to this definition">¶</a></dt>
 <dd><p>A function called when the Web View failed to load contents. Takes the sender Web View and a string describing the error as parameters.</p>
@@ -1422,6 +1585,98 @@ Setting a new value will reload automatically the contents of the Table View.</p
 
 </dd></dl>
 
+<dl class="py class">
+<dt id="pyto_ui.StackView">
+<em class="property">class </em><code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">StackView</code><a class="headerlink" href="#pyto_ui.StackView" title="Permalink to this definition">¶</a></dt>
+<dd><p>A view that arranges its children in a horizontal or vertical line.</p>
+<p>This is a base class for <a class="reference internal" href="#pyto_ui.HorizontalStackView" title="pyto_ui.HorizontalStackView"><code class="xref py py-class docutils literal notranslate"><span class="pre">HorizontalStackView</span></code></a> and <a class="reference internal" href="#pyto_ui.VerticalStackView" title="pyto_ui.VerticalStackView"><code class="xref py py-class docutils literal notranslate"><span class="pre">VerticalStackView</span></code></a>. You should use one of them instead of <a class="reference internal" href="#pyto_ui.StackView" title="pyto_ui.StackView"><code class="xref py py-class docutils literal notranslate"><span class="pre">StackView</span></code></a>.</p>
+<dl class="py method">
+<dt id="pyto_ui.StackView.add_spacer">
+<code class="sig-name descname">add_spacer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.StackView.add_spacer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adss a flexible space.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.StackView.configure_from_dictionary">
+<code class="sig-name descname">configure_from_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.StackView.configure_from_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set properties from the given dictionary representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dictionary</strong> – A dictionary with the properties of the view to configure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.StackView.dictionary_representation">
+<code class="sig-name descname">dictionary_representation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.StackView.dictionary_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary representation containing the properties of the receiver.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A serializable dictionary.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.StackView.insert_spacer">
+<code class="sig-name descname">insert_spacer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.StackView.insert_spacer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inserts a flexible space at the given index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> – The index where the view should be inserted.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.StackView.insert_spacer_after">
+<code class="sig-name descname">insert_spacer_after</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">after_view</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.StackView.insert_spacer_after" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inserts a flexible space at the given index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>after_view</strong> – The view placed before the spacer.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.StackView.insert_spacer_before">
+<code class="sig-name descname">insert_spacer_before</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">before_view</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.StackView.insert_spacer_before" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inserts a flexible space at the given index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>before_view</strong> – The view placed after the spacer.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.StackView.padding">
+<em class="property">property </em><code class="sig-name descname">padding</code><a class="headerlink" href="#pyto_ui.StackView.padding" title="Permalink to this definition">¶</a></dt>
+<dd><p>The padding of the view.
+The default value is (0, 0, 0, 0).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../widgets/ui.html#widgets.Padding" title="widgets.Padding">Padding</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="pyto_ui.VerticalStackView">
+<em class="property">class </em><code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">VerticalStackView</code><a class="headerlink" href="#pyto_ui.VerticalStackView" title="Permalink to this definition">¶</a></dt>
+<dd><p>A view that arranges its children in a vertical line.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="pyto_ui.HorizontalStackView">
+<em class="property">class </em><code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">HorizontalStackView</code><a class="headerlink" href="#pyto_ui.HorizontalStackView" title="Permalink to this definition">¶</a></dt>
+<dd><p>A view that arranges its children in a horizontal line.</p>
+</dd></dl>
+
 </div>
 <div class="section" id="controls">
 <h2>Controls<a class="headerlink" href="#controls" title="Permalink to this headline">¶</a></h2>
@@ -1439,6 +1694,28 @@ For example, a <a class="reference internal" href="#pyto_ui.Button" title="pyto_
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Callable[[<a class="reference internal" href="#pyto_ui.Control" title="pyto_ui.Control">Control</a>], None]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.Control.configure_from_dictionary">
+<code class="sig-name descname">configure_from_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.Control.configure_from_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set properties from the given dictionary representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dictionary</strong> – A dictionary with the properties of the view to configure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.Control.dictionary_representation">
+<code class="sig-name descname">dictionary_representation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.Control.dictionary_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary representation containing the properties of the receiver.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A serializable dictionary.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1485,6 +1762,28 @@ For example, a <a class="reference internal" href="#pyto_ui.Button" title="pyto_
 <dd><p>A horizontal control made of multiple segments, each segment functioning as a discrete button.
 The function passed to <a class="reference internal" href="#pyto_ui.Control.action" title="pyto_ui.Control.action"><code class="xref py py-data docutils literal notranslate"><span class="pre">action</span></code></a> will be called when the segmented control changes its selection.</p>
 <dl class="py method">
+<dt id="pyto_ui.SegmentedControl.configure_from_dictionary">
+<code class="sig-name descname">configure_from_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.SegmentedControl.configure_from_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set properties from the given dictionary representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dictionary</strong> – A dictionary with the properties of the view to configure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.SegmentedControl.dictionary_representation">
+<code class="sig-name descname">dictionary_representation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.SegmentedControl.dictionary_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary representation containing the properties of the receiver.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A serializable dictionary.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="pyto_ui.SegmentedControl.segments">
 <em class="property">property </em><code class="sig-name descname">segments</code><a class="headerlink" href="#pyto_ui.SegmentedControl.segments" title="Permalink to this definition">¶</a></dt>
 <dd><p>A list of strings representing segments titles.</p>
@@ -1513,6 +1812,28 @@ The function passed to <a class="reference internal" href="#pyto_ui.Control.acti
 <em class="property">class </em><code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">Slider</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.Slider" title="Permalink to this definition">¶</a></dt>
 <dd><p>A control used to select a single value from a continuous range of values. The default range is located between <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">1</span></code>.
 The function passed to <a class="reference internal" href="#pyto_ui.Control.action" title="pyto_ui.Control.action"><code class="xref py py-data docutils literal notranslate"><span class="pre">action</span></code></a> will be called when the slider changes its value.</p>
+<dl class="py method">
+<dt id="pyto_ui.Slider.configure_from_dictionary">
+<code class="sig-name descname">configure_from_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.Slider.configure_from_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set properties from the given dictionary representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dictionary</strong> – A dictionary with the properties of the view to configure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.Slider.dictionary_representation">
+<code class="sig-name descname">dictionary_representation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.Slider.dictionary_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary representation containing the properties of the receiver.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A serializable dictionary.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt id="pyto_ui.Slider.maximum_track_color">
 <em class="property">property </em><code class="sig-name descname">maximum_track_color</code><a class="headerlink" href="#pyto_ui.Slider.maximum_track_color" title="Permalink to this definition">¶</a></dt>
@@ -1598,6 +1919,28 @@ The function passed to <a class="reference internal" href="#pyto_ui.Control.acti
 <dd><p>A control that offers a binary choice, such as On/Off.
 The function passed to <a class="reference internal" href="#pyto_ui.Control.action" title="pyto_ui.Control.action"><code class="xref py py-data docutils literal notranslate"><span class="pre">action</span></code></a> will be called when the switch changes its value.</p>
 <dl class="py method">
+<dt id="pyto_ui.Switch.configure_from_dictionary">
+<code class="sig-name descname">configure_from_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.Switch.configure_from_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set properties from the given dictionary representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dictionary</strong> – A dictionary with the properties of the view to configure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.Switch.dictionary_representation">
+<code class="sig-name descname">dictionary_representation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.Switch.dictionary_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary representation containing the properties of the receiver.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A serializable dictionary.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="pyto_ui.Switch.on">
 <em class="property">property </em><code class="sig-name descname">on</code><a class="headerlink" href="#pyto_ui.Switch.on" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean indicating whether the switch is On.</p>
@@ -1649,6 +1992,28 @@ The function passed to <a class="reference internal" href="#pyto_ui.Control.acti
 <dd><p>A control that executes your custom code in response to user interactions.
 To add an action, set <a class="reference internal" href="#pyto_ui.Control.action" title="pyto_ui.Control.action"><code class="xref py py-data docutils literal notranslate"><span class="pre">action</span></code></a>.</p>
 <p>For types of buttons, see <a class="reference external" href="constants.html#button-type">Button Type</a> constants.</p>
+<dl class="py method">
+<dt id="pyto_ui.Button.configure_from_dictionary">
+<code class="sig-name descname">configure_from_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.Button.configure_from_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set properties from the given dictionary representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dictionary</strong> – A dictionary with the properties of the view to configure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.Button.dictionary_representation">
+<code class="sig-name descname">dictionary_representation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.Button.dictionary_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary representation containing the properties of the receiver.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A serializable dictionary.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt id="pyto_ui.Button.font">
 <em class="property">property </em><code class="sig-name descname">font</code><a class="headerlink" href="#pyto_ui.Button.font" title="Permalink to this definition">¶</a></dt>
@@ -1719,6 +2084,39 @@ The function passed to <a class="reference internal" href="#pyto_ui.Control.acti
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.TextField.border_style">
+<em class="property">property </em><code class="sig-name descname">border_style</code><a class="headerlink" href="#pyto_ui.TextField.border_style" title="Permalink to this definition">¶</a></dt>
+<dd><p>The border style of the Text Field.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>TEXT_FIELD_BORDER_STYLE</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.TextField.configure_from_dictionary">
+<code class="sig-name descname">configure_from_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.TextField.configure_from_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set properties from the given dictionary representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dictionary</strong> – A dictionary with the properties of the view to configure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyto_ui.TextField.dictionary_representation">
+<code class="sig-name descname">dictionary_representation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.TextField.dictionary_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary representation containing the properties of the receiver.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A serializable dictionary.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2286,7 +2684,7 @@ When the gesture is starting, cancelling or changig, <code class="docutils liter
 
 <dl class="py class">
 <dt id="pyto_ui.TableViewSection">
-<em class="property">class </em><code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">TableViewSection</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">title</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">cells</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="#pyto_ui.TableViewCell" title="pyto_ui.TableViewCell">TableViewCell</a><span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.TableViewSection" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pyto_ui.</code><code class="sig-name descname">TableViewSection</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">title</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">cells</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="#pyto_ui.TableViewCell" title="pyto_ui.TableViewCell">TableViewCell</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.TableViewSection" title="Permalink to this definition">¶</a></dt>
 <dd><p>An object representing a section in a Table View.
 A section has a title and a list of cells contained in.</p>
 <dl class="py method">

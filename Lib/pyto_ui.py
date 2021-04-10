@@ -1330,13 +1330,15 @@ COLOR_WHITE = Color(ui_constants.COLOR_WHITE)
 COLOR_YELLOW = Color(ui_constants.COLOR_YELLOW)
 """ A color object with RGB values of 1.0, 1.0, and 0.0 and an alpha value of 1.0. """
 
-if not COLOR_CLEAR.__py_color__.objc_class.name.endswith("PyColor"): # Something went wrong, retry
-    del sys.modules["ui_constants"]
-    del sys.modules["pyto_ui"]
+try:
+    if not COLOR_CLEAR.__py_color__.objc_class.name.endswith("PyColor"): # Something went wrong, retry
+        del sys.modules["ui_constants"]
+        del sys.modules["pyto_ui"]
 
-    import pyto_ui as _ui
-    globals().update(_ui.__dict__)
-
+        import pyto_ui as _ui
+        globals().update(_ui.__dict__)
+except AttributeError:
+    pass
 
 # MARK: - Font
 
