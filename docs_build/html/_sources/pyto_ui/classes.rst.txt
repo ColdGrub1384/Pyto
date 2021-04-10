@@ -33,6 +33,15 @@ A list of UI elements to be displayed on screen.
    
 .. autoclass:: WebView
    :members:
+   
+.. autoclass:: StackView
+   :members:
+   
+.. autoclass:: VerticalStackView
+   :members:
+   
+.. autoclass:: HorizontalStackView
+   :members:
 
 Controls
 ********
