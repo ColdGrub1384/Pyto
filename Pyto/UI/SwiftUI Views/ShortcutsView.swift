@@ -2,8 +2,8 @@
 //  ShortcutsView.swift
 //  SwiftUI Views
 //
-//  Created by Adrian Labbé on 31-05-20.
-//  Copyright © 2020 Adrian Labbé. All rights reserved.
+//  Created by Emma Labbé on 31-05-20.
+//  Copyright © 2020 Emma Labbé. All rights reserved.
 //
 
 import SwiftUI

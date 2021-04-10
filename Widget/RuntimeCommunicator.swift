@@ -2,8 +2,8 @@
 //  RuntimeCommunicator.swift
 //  Pyto
 //
-//  Created by Adrian Labbé on 09-10-20.
-//  Copyright © 2020 Adrian Labbé. All rights reserved.
+//  Created by Emma Labbé on 09-10-20.
+//  Copyright © 2020 Emma Labbé. All rights reserved.
 //
 
 import Foundation

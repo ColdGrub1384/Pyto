@@ -3,7 +3,7 @@
 //  Pyto
 //
 //  Created by Adrian Labbe on 11/16/18.
-//  Copyright © 2018 Adrian Labbé. All rights reserved.
+//  Copyright © 2018 Emma Labbé. All rights reserved.
 //
 
 import Foundation

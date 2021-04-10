@@ -2,7 +2,7 @@
 //  RemoteImage.swift
 //  UnicornStore
 //
-//  Created by Adrian Labbé on 20-09-20.
+//  Created by Emma Labbé on 20-09-20.
 //
 
 import SwiftUI

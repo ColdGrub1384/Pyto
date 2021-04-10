@@ -5,7 +5,7 @@
 //  Created by Adrian Labbe on 9/16/18.
 //  Modified by goodclass on 2019/4/30.
 //
-//  Copyright © 2018 Adrian Labbé. All rights reserved.
+//  Copyright © 2018 Emma Labbé. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

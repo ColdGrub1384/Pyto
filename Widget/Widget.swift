@@ -2,8 +2,8 @@
 //  Widget.swift
 //  Widget
 //
-//  Created by Adrian Labbé on 25-06-20.
-//  Copyright © 2020 Adrian Labbé. All rights reserved.
+//  Created by Emma Labbé on 25-06-20.
+//  Copyright © 2020 Emma Labbé. All rights reserved.
 //
 
 import WidgetKit

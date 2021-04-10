@@ -2,8 +2,8 @@
 //  PyMotionManager.swift
 //  Pyto
 //
-//  Created by Adrian Labbé on 07-02-20.
-//  Copyright © 2020 Adrian Labbé. All rights reserved.
+//  Created by Emma Labbé on 07-02-20.
+//  Copyright © 2020 Emma Labbé. All rights reserved.
 //
 
 import CoreMotion
