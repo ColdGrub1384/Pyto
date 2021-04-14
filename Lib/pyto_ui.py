@@ -2316,12 +2316,6 @@ class View:
             return default
 
     def configure_from_dictionary(self, dictionary):
-        """
-        Set properties from the given dictionary representation.
-
-        :param dictionary: A dictionary with the properties of the view to configure.
-        """
-
         if self.__py_view__ is None:
             self.__init__()
 
@@ -2448,12 +2442,6 @@ class View:
                 continue
 
     def dictionary_representation(self) -> dict:
-        """
-        Returns a dictionary representation containing the properties of the receiver.
-
-        :rtype: A serializable dictionary.
-        """
-
         subviews = []
         for view in self.subviews:
             if isinstance(view, _StackSpacerView):
@@ -3642,7 +3630,7 @@ class StackView(View):
 
     def add_spacer(self):
         """
-        Adss a flexible space.
+        Adds a flexible space.
         """
 
         self.add_subview(_StackSpacerView())
@@ -4828,7 +4816,10 @@ if "widget" not in os.environ:
         
             if callable(self.did_start_loading):
                 self.__py_view__.didStartLoading = _values.value(self.did_start_loading)
-            
+
+            if callable(self.did_receive_message):
+                self.__py_view__.didReceiveMessage = _values.value(self.did_receive_message)
+
             if url is not None:
                 self.load_url(url)
 
@@ -4958,6 +4949,65 @@ if "widget" not in os.environ:
                 return None
             else:
                 return str(url)
+
+        def register_message_handler(self, name: str):
+            """
+            Adds a script message handler.
+
+            Adding a script message handler with name name causes the JavaScript function ``window.webkit.messageHandlers.name.postMessage(messageBody)`` to be defined in all frames in all web views that use the user content controller.
+
+            :param name: The name of the message handler.
+            """
+
+            self.__py_view__.registerMessageHandler(name)
+
+        @property
+        def did_receive_message(self) -> Callable[[WebView, str, object], None]:
+            """
+            A function called when a script message is received from a webpage.
+            Takes the sender Web View, the name of the message and the content of the message as parameters.
+
+            The following example script shows how to send a message from a JavaScript page and how to receive it from the Web View.
+
+            .. highlight:: python
+            .. code-block:: python
+
+                import pyto_ui as ui
+
+                def did_receive_message(web_view, name, message):
+                    print(name, message)
+
+                web_view = ui.WebView()
+                web_view.did_receive_message = did_receive_message
+                web_view.register_message_handler("webView")
+
+                web_view.load_html('''
+
+                <h1> Hello World </h1>
+
+                <script>
+                    window.webkit.messageHandlers.webView.postMessage({foo:"bar"})
+                </script>
+
+                ''')
+
+                ui.show_view(web_view, ui.PRESENTATION_MODE_SHEET)
+
+            :rtype: Callable[[WebView, str, object], None]
+            """
+
+            action = self.__py_view__.didReceiveMessage
+            if action is None:
+                return None
+            else:
+                return getattr(_values, str(action.identifier))
+
+        @did_receive_message.setter
+        def did_receive_message(self, new_value: Callable[[WebView, str, object], None]):
+            if new_value is None:
+                self.__py_view__.didReceiveMessage = None
+            else:
+                self.__py_view__.didReceiveMessage = _values.value(new_value)
 
         @property
         def did_start_loading(self) -> Callable[[WebView], None]:
