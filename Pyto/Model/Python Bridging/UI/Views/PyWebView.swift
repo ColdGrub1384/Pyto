@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-@available(iOS 13.0, *) @objc public class PyWebView: PyView, WKNavigationDelegate, WKUIDelegate {
+@available(iOS 13.0, *) @objc public class PyWebView: PyView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {
     
     public override class var pythonName: String {
         return "WebView"
@@ -22,6 +22,8 @@ import WebKit
     @objc public var didFinishLoading: PyValue?
     
     @objc public var didFailLoading: PyValue?
+    
+    @objc public var didReceiveMessage: PyValue?
     
     @objc public var url: String? {
         return get {
@@ -115,6 +117,13 @@ import WebKit
         return str
     }
     
+    @objc func registerMessageHandler(_ name: String) {
+        set {
+            self.webView.configuration.userContentController.add(self, name: name)
+        }
+    }
+    
+    
     /// The Web view associated with this object.
     @objc public var webView: WKWebView {
         return get {
@@ -169,9 +178,45 @@ import WebKit
         let alert = UIAlertController(title: "Pyto", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
         #if MAIN && !WIDGET
-        webView.window?.topViewController?.present(alert, animated: true, completion: nil)
+        var window: UIWindow?
+        for scene in UIApplication.shared.connectedScenes {
+            if scene.activationState == .foregroundActive || scene.activationState == .foregroundInactive {
+                window = (scene as? UIWindowScene)?.windows.first
+                break
+            }
+        }
+        (webView.window?.topViewController ?? window?.topViewController)?.present(alert, animated: true, completion: nil)
         #endif
         
         completionHandler()
+    }
+    
+    @objc private var lastReceivedMessage: String?
+    
+    public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        
+        guard let identifier = managedValue?.identifier, let action = didReceiveMessage else {
+            return
+        }
+        
+        do {
+            lastReceivedMessage = String(data: try JSONSerialization.data(withJSONObject: message.body, options: .fragmentsAllowed), encoding: .utf8)
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        Python.shared.run(code: """
+        import _values
+        import json
+
+        web_view = _values.\(identifier)
+
+        message = web_view.__py_view__.lastReceivedMessage
+        if message is not None:
+            message = str(message)
+            message = json.loads(message)
+
+        _values.\(action.identifier)(web_view, \"\(message.name)\", message)
+        """)
     }
 }
