@@ -2,12 +2,20 @@ func = None
 
 
 def check(_object, name, types):
+
     for _type in types:
         if _type is None:
             _type = type(None)
 
         if _type is func and callable(_object):
             return
+
+        try:
+            if _type.__name__ == "View" and _type.__module__ == "pyto_ui":
+                if "__py_view__" in dir(_object):
+                    return
+        except AttributeError:
+            pass
 
         if isinstance(_object, _type):
             return

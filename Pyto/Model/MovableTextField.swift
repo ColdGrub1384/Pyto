@@ -11,6 +11,9 @@ import UIKit
 import InputAssistant
 #endif
 
+/// The text field used in the terminal.
+class TerminalTextField: UITextField {}
+
 /// A class for managing a movable text field.
 class MovableTextField: NSObject, UITextFieldDelegate {
     
@@ -156,7 +159,9 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     
     // MARK: - Keyboard
     
-    @objc private func keyboardDidShow(_ notification: NSNotification) {
+    var lastKeyboardDidShowNotification: NSNotification?
+    
+    @objc func keyboardDidShow(_ notification: NSNotification) {
         
         // That's the typical code you just cannot understand when you are playing Clash Royale while coding
         // So please, open iTunes, play your playlist, focus and then go back.
@@ -164,6 +169,8 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         // Edit from 2020: Stop watching TikTok and focus
         //
         // 2021: Ok, so: THIS CODE DOES NOT TOUCHES THE CONSOLE'S TEXTVIEW, IT JUST MOVES THE TEXT BOX. So look at ConsoleViewController.swift if you have a problem with the text view. There's a lot of maths here so I don't really remember how it works but it works so don't touch this.
+        
+        lastKeyboardDidShowNotification = notification
         
         if console?.parent?.parent?.modalPresentationStyle != .popover || console?.parent?.parent?.view.frame.width != console?.parent?.parent?.preferredContentSize.width {
             
@@ -190,6 +197,8 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         UIView.animate(withDuration: 0.5) {
             self.toolbar.alpha = 1
         }
+        
+        console?.webView.evaluateJavaScript("sendSize()", completionHandler: nil)
     }
     
     @objc private func keyboardDidHide(_ notification: NSNotification) {
@@ -206,6 +215,8 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         UIView.animate(withDuration: 0.5) {
             self.toolbar.alpha = 1
         }
+        
+        console?.webView.evaluateJavaScript("sendSize()", completionHandler: nil)
     }
     
     @objc private func keyboardWillHide(_ notification: NSNotification) {
@@ -247,6 +258,8 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         if isiOSAppOnMac {
             toolbar.frame.origin.y = (console?.view.frame.height ?? 0)-(inputAssistant.frame.height*1.75)
         }
+        
+        console?.webView.evaluateJavaScript("sendSize()", completionHandler: nil)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -255,6 +268,8 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         if isiOSAppOnMac {
             toolbar.frame.origin.y = console?.view.frame.height ?? 0
         }
+        
+        console?.webView.evaluateJavaScript("sendSize()", completionHandler: nil)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

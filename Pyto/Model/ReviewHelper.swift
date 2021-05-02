@@ -28,14 +28,6 @@ import StoreKit
             launches = 0
             if #available(iOS 10.3, *) {
                 SKStoreReviewController.requestReview()
-                
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(1 * Double(NSEC_PER_SEC)) / Double(NSEC_PER_SEC), execute: {
-                    if UIApplication.shared.windows.count > 1 {
-                        for console in ConsoleViewController.visibles {
-                            console.textView.resignFirstResponder()
-                        }
-                    }
-                })
             }
         }
     }
