@@ -158,6 +158,9 @@
 		C91680C225845D5300D3CAD2 /* zmq-libzmq.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C91680BE25845D4600D3CAD2 /* zmq-libzmq.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C916F44B226CFD4800FA2FB6 /* modules_inspector.py in Resources */ = {isa = PBXBuildFile; fileRef = C916F44A226CFD4700FA2FB6 /* modules_inspector.py */; };
 		C916FD04248B36DC000AAE76 /* InternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C916FD03248B36DC000AAE76 /* InternetConnection.swift */; };
+		C917E5AE263F583C0035BC1A /* typed_ast in Resources */ = {isa = PBXBuildFile; fileRef = C917E5AB263F583C0035BC1A /* typed_ast */; settings = {ASSET_TAGS = (typed_ast, ); }; };
+		C917E5B5263F58AA0035BC1A /* typed_ast-_ast27.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C917E5B3263F58A30035BC1A /* typed_ast-_ast27.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C917E5B6263F58AE0035BC1A /* typed_ast-_ast3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C917E5B4263F58A30035BC1A /* typed_ast-_ast3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C91A5DA725113AEA0095A0D0 /* Shortcuts iOS 14.json in Resources */ = {isa = PBXBuildFile; fileRef = C91A5D9025113AEA0095A0D0 /* Shortcuts iOS 14.json */; };
 		C91B9E6925AFFFBE00DAAD21 /* shareBundleBookmarkData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91B9E6825AFFFBE00DAAD21 /* shareBundleBookmarkData.swift */; };
 		C91B9E7D25AFFFED00DAAD21 /* shareBundleBookmarkData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91B9E6825AFFFBE00DAAD21 /* shareBundleBookmarkData.swift */; };
@@ -1058,10 +1061,12 @@
 		C98CECF823CA449400E133E3 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E22145D50A00C8B5E3 /* String.swift */; };
 		C98E1FFD214EE6ED002F0178 /* Samples in Resources */ = {isa = PBXBuildFile; fileRef = C98E1FFC214EE6EC002F0178 /* Samples */; };
 		C98F37BB23ED894700E5D52C /* PyMotionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98F37BA23ED894700E5D52C /* PyMotionHelper.swift */; };
+		C9913729263F169300BFB439 /* PySpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = C965606A241D53CC00188779 /* PySpeech.swift */; };
 		C9930CF124BBE9C9009B33B6 /* PyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF46E622E106D500B8FE4B /* PyTableView.swift */; };
 		C9930CF224BBE9C9009B33B6 /* PyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF46E122E0DC4F00B8FE4B /* PyTableViewCell.swift */; };
 		C9930D0924BBE9D1009B33B6 /* PyTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF46E922E108C100B8FE4B /* PyTableViewSection.swift */; };
 		C9930D0A24BBE9E9009B33B6 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1721D0592C00412CEF /* Localizable.swift */; };
+		C994194E263764EE0008487C /* terminal in Resources */ = {isa = PBXBuildFile; fileRef = C994194B263764EE0008487C /* terminal */; };
 		C9980CAB2585E2AA0021FF61 /* sklearn-utils-_openmp_helpers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9980CA82585E2A20021FF61 /* sklearn-utils-_openmp_helpers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C99D8E20223E960100489E9B /* PipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99D8E1F223E960100489E9B /* PipViewController.swift */; };
 		C99DDCEC21BBED22002A734E /* DocumentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99DDCEB21BBED22002A734E /* DocumentationViewController.swift */; };
@@ -1720,6 +1725,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C917E5B6263F58AE0035BC1A /* typed_ast-_ast3.framework in Embed Frameworks */,
+				C917E5B5263F58AA0035BC1A /* typed_ast-_ast27.framework in Embed Frameworks */,
 				C9980CAB2585E2AA0021FF61 /* sklearn-utils-_openmp_helpers.framework in Embed Frameworks */,
 				C91680C225845D5300D3CAD2 /* zmq-libzmq.framework in Embed Frameworks */,
 				C9B2B7E82583EDE000D75C66 /* matplotlib-deps.framework in Embed Frameworks */,
@@ -2308,6 +2315,9 @@
 		C91680BE25845D4600D3CAD2 /* zmq-libzmq.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "zmq-libzmq.framework"; sourceTree = "<group>"; };
 		C916F44A226CFD4700FA2FB6 /* modules_inspector.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = modules_inspector.py; sourceTree = "<group>"; };
 		C916FD03248B36DC000AAE76 /* InternetConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnection.swift; sourceTree = "<group>"; };
+		C917E5AB263F583C0035BC1A /* typed_ast */ = {isa = PBXFileReference; lastKnownFileType = folder; path = typed_ast; sourceTree = "<group>"; };
+		C917E5B3263F58A30035BC1A /* typed_ast-_ast27.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "typed_ast-_ast27.framework"; sourceTree = "<group>"; };
+		C917E5B4263F58A30035BC1A /* typed_ast-_ast3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "typed_ast-_ast3.framework"; sourceTree = "<group>"; };
 		C91A5D9025113AEA0095A0D0 /* Shortcuts iOS 14.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Shortcuts iOS 14.json"; sourceTree = "<group>"; };
 		C91B9E6825AFFFBE00DAAD21 /* shareBundleBookmarkData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shareBundleBookmarkData.swift; sourceTree = "<group>"; };
 		C91BE6A823F99BF600B6ED6B /* FileBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowserViewController.swift; sourceTree = "<group>"; };
@@ -2846,6 +2856,7 @@
 		C98CECF423CA430E00E133E3 /* Pyto Intents-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pyto Intents-Bridging-Header.h"; sourceTree = "<group>"; };
 		C98E1FFC214EE6EC002F0178 /* Samples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Samples; sourceTree = "<group>"; };
 		C98F37BA23ED894700E5D52C /* PyMotionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyMotionHelper.swift; sourceTree = "<group>"; };
+		C994194B263764EE0008487C /* terminal */ = {isa = PBXFileReference; lastKnownFileType = folder; path = terminal; sourceTree = "<group>"; };
 		C996931221FDF56D00ED9DA7 /* libboringssl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libboringssl.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/lib/libboringssl.tbd; sourceTree = DEVELOPER_DIR; };
 		C996931621FDF57C00ED9DA7 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
 		C9980CA82585E2A20021FF61 /* sklearn-utils-_openmp_helpers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "sklearn-utils-_openmp_helpers.framework"; sourceTree = "<group>"; };
@@ -3545,6 +3556,15 @@
 			path = "SwiftUI Views";
 			sourceTree = "<group>";
 		};
+		C917E5B2263F58A30035BC1A /* TypedAST */ = {
+			isa = PBXGroup;
+			children = (
+				C917E5B3263F58A30035BC1A /* typed_ast-_ast27.framework */,
+				C917E5B4263F58A30035BC1A /* typed_ast-_ast3.framework */,
+			);
+			path = TypedAST;
+			sourceTree = "<group>";
+		};
 		C91F961824AD9185003ACF02 /* SwiftUI Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -3815,6 +3835,7 @@
 		C93D61E82145E1D300C8B5E3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C994194B263764EE0008487C /* terminal */,
 				C9F04E852173C33400BDD03E /* Localizable.strings */,
 				C9F04E8A2173DD7300BDD03E /* Main.storyboard */,
 				C90BC03124720F3F00EF7F09 /* Theme Chooser.storyboard */,
@@ -4466,6 +4487,7 @@
 				C958AEE32564600E00492BA9 /* _extensionsimporter.m */,
 				C958AF20256467AF00492BA9 /* _extensionsimporter.h */,
 				C938ECA425683A830083EBE6 /* README.md */,
+				C917E5B2263F58A30035BC1A /* TypedAST */,
 				C95FA6DD24994A54004A4197 /* OpenCV */,
 				C95EE98D23273E050084EA0C /* CFFI */,
 				C95EE6DA23273D9A0084EA0C /* OpenBlas */,
@@ -4850,6 +4872,7 @@
 		C9FFF401246E1F70004F41D3 /* compiled */ = {
 			isa = PBXGroup;
 			children = (
+				C917E5AB263F583C0035BC1A /* typed_ast */,
 				C90BBFEB2470F3E600EF7F09 /* astropy */,
 				C9FFF40C246E238B004F41D3 /* bcrypt */,
 				C9FFF40E246E238C004F41D3 /* Bio */,
@@ -5445,11 +5468,12 @@
 					sklearn,
 					smart_open,
 					statsmodels,
+					typed_ast,
 					zmq,
 				);
 				LastSwiftUpdateCheck = 1200;
 				LastUpgradeCheck = 1000;
-				ORGANIZATIONNAME = "Adrian Labbé";
+				ORGANIZATIONNAME = "Emma Labbé";
 				TargetAttributes = {
 					C90BC0B42473522300EF7F09 = {
 						CreatedOnToolsVersion = 11.4.1;
@@ -5913,6 +5937,7 @@
 				C95F9D032564A1FA007B12EB /* numpy in Resources */,
 				C9A419A823A321EB00BF5393 /* Type.png in Resources */,
 				C954FAB5220A165E0060C488 /* Replace.xib in Resources */,
+				C917E5AE263F583C0035BC1A /* typed_ast in Resources */,
 				C90BC03324720F5900EF7F09 /* Settings.storyboard in Resources */,
 				C95F9D062564A1FA007B12EB /* matplotlib in Resources */,
 				C90BC02F24720F3F00EF7F09 /* Theme Chooser.storyboard in Resources */,
@@ -5923,6 +5948,7 @@
 				C95F9D152564A1FB007B12EB /* gensim in Resources */,
 				C95F9D072564A1FA007B12EB /* lxml in Resources */,
 				C95F9D1A2564A1FB007B12EB /* dask in Resources */,
+				C994194E263764EE0008487C /* terminal in Resources */,
 				C90BC03724720F6800EF7F09 /* ConflictsResolver.storyboard in Resources */,
 				C92FC4462352BCB8000BBF46 /* Hello World.py.template in Resources */,
 				C98472AE21A05CB1008E16AC /* README.md in Resources */,
@@ -6650,6 +6676,7 @@
 				C94129F024C3830C0030F76E /* Size.swift in Sources */,
 				C94D3BAF2530E64300C81D32 /* RuntimeCommunicator.swift in Sources */,
 				C9FE884324CFBDB500D0C615 /* Date.swift in Sources */,
+				C9913729263F169300BFB439 /* PySpeech.swift in Sources */,
 				C9273C6924BA60AE00B2A12C /* PySwitch.swift in Sources */,
 				C937FF4224C4D8CA0083C9D9 /* IntentScript.swift in Sources */,
 				C9930D0A24BBE9E9009B33B6 /* Localizable.swift in Sources */,
