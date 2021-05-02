@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WebKit
 #if MAIN
 import InputAssistant
 import SavannaKit
@@ -15,7 +16,7 @@ import SwiftUI
 #endif
 
 /// A View controller containing Python script output.
-@objc open class ConsoleViewController: UIViewController, UITextViewDelegate {
+@objc open class ConsoleViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler {
     
     #if MAIN
     /// The theme the user choosed.
@@ -132,25 +133,31 @@ import SwiftUI
     
     /// Clears screen.
     @objc func clear() {
-        
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.textView.text = ""
-            self?.console = ""
-            semaphore.signal()
-        }
-        
-        if !Thread.current.isMainThread {
-            semaphore.wait()
-        }
+        console = ""
+        print("\u{001b}[2J\u{001b}[H")
     }
     
     /// The content of the console.
     @objc var console = ""
     
-    /// The Text view containing the console.
-    @objc public var textView = ConsoleTextView()
+    /// The  scroll view containing the very big web view.
+    let scrollView = UIScrollView()
+    
+    /// The Web view showing the terminal.
+    @objc public var webView = WKWebView()
+    
+    /// Load the terminal into the web view.
+    func loadTerminal() {
+        guard let url = Bundle.main.url(forResource: "terminal", withExtension: nil) else {
+            return
+        }
+        webView.loadFileURL(url.appendingPathComponent("index.html"), allowingReadAccessTo: url)
+    }
+    
+    /// The text contained in the terminal.
+    public var text: String {
+        return ""
+    }
     
     /// If set to `true`, the user will not be able to input.
     var ignoresInput = false
@@ -158,42 +165,46 @@ import SwiftUI
     /// If set to `true`, the user will not be able to input.
     static var ignoresInput = false
     
-    /// Add the content of the given notification as `String` to `textView`. Called when the stderr changed or when a script printed from the Pyto module's `print` function`.
+    /// Adds text to the terminal.
     ///
     /// - Parameters:
-    ///     - notification: Its associated object should be the `String` added to `textView`.
-    @objc func print_(_ notification: Notification) {
-        if let output = notification.object as? String {
-            DispatchQueue.main.async { [weak self] in
-                
-                guard let self = self else {
-                    return
-                }
-                
-                self.console += output
-                
-                let attrStr = NSMutableAttributedString(attributedString: self.textView.attributedText)
-                
-                #if MAIN
-                let font = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
-                let foregroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
-                #else
-                let font = UIFont(name: "Menlo", size: 12) ?? UIFont.systemFont(ofSize: 12)
-                let foregroundColor: UIColor
-                if #available(iOS 13.0, *) {
-                    foregroundColor = .label
-                } else {
-                    foregroundColor = .black
-                }
-                #endif
-                
-                attrStr.append(NSAttributedString(string: output, attributes: [.font : font, .foregroundColor : foregroundColor]))
-                self.textView.attributedText = attrStr
-                
-                self.textViewDidChange(self.textView)
-                self.textView.scrollToBottom()
-            }
+    ///     - text: The text to add.
+    func print(_ text: String) {
+        PyWrapper.set { [weak self] in
+            self?.webView.evaluateJavaScript("print('\(text.replacingOccurrences(of: "\n", with: "\n\r").data(using: .utf8)?.base64EncodedString() ?? "")')", completionHandler: nil)
         }
+    }
+    
+    /// Prints a link.
+    ///
+    /// - Parameters:
+    ///     - text: The text to add.
+    ///     - link: The link to add.
+    func printLink(text: String, link: String) {
+        let _text = text.replacingOccurrences(of: "\n", with: "\n\r").data(using: .utf8)?.base64EncodedString() ?? ""
+        let _link = link.replacingOccurrences(of: "\n", with: "\n\r").data(using: .utf8)?.base64EncodedString() ?? ""
+        
+        PyWrapper.set { [weak self] in
+            self?.webView.evaluateJavaScript("printLink('\(_text)', '\(_link)')", completionHandler: nil)
+        }
+    }
+    
+    /// Displays an image inline.
+    ///
+    /// - Parameters:
+    ///     - image: The image to display.
+    ///     - completionHandler: The code called after the image is displayed.
+    func display(image: UIImage, completionHandler: ((Any?, Error?) -> Void)?) {
+        guard let data = image.data?.base64EncodedString() else {
+            return
+        }
+        
+        webView.evaluateJavaScript("showImage('data:image/png;base64,\(data)')", completionHandler: { a, b in
+            
+            self.webView.evaluateJavaScript("t.io.print(' '); sendHeight();") { (_, _) in
+                completionHandler?(a, b)
+            }
+        })
     }
     
     #if MAIN
@@ -361,8 +372,7 @@ import SwiftUI
         
         movableTextField?.theme = theme
         
-        textView.keyboardAppearance = theme.keyboardAppearance
-        textView.backgroundColor = theme.sourceCodeTheme.backgroundColor
+        //textView.backgroundColor = theme.sourceCodeTheme.backgroundColor
         view.backgroundColor = theme.sourceCodeTheme.backgroundColor
         
         if #available(iOS 13.0, *) {
@@ -371,9 +381,15 @@ import SwiftUI
             }
         }
         
-        if textView.textColor != theme.sourceCodeTheme.color(for: .plain) {
+        /*if textView.textColor != theme.sourceCodeTheme.color(for: .plain) {
             textView.textColor = theme.sourceCodeTheme.color(for: .plain)
-        }
+        }*/
+                
+        webView.evaluateJavaScript("""
+        t.prefs_.set('foreground-color', '\(theme.sourceCodeTheme.color(for: .plain).hexString)');
+        t.prefs_.set('font-size', \(theme.sourceCodeTheme.font.pointSize));
+        t.prefs_.set('font-family', '\(theme.sourceCodeTheme.font.familyName)');
+        """, completionHandler: nil)
     }
     
     /// Called when the user choosed a theme.
@@ -387,51 +403,9 @@ import SwiftUI
     #endif
     
     /// Sets "COLUMNS" and "ROWS" environment variables.
-    func updateSize() {
-        var columns: Int {
-            
-            #if MAIN
-            let font = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
-            #else
-            guard let font = UIFont(name: "Menlo", size: 12) else {
-                assertionFailure("Expected font")
-                return 0
-            }
-            #endif
-            
-            // TODO: check if the bounds includes the safe area (on iPhone X)
-            let viewWidth = textView.bounds.width
-            
-            let dummyAtributedString = NSAttributedString(string: "X", attributes: [.font: font])
-            let charWidth = dummyAtributedString.size().width
-            
-            // Assumes the font is monospaced
-            return Int((viewWidth / charWidth).rounded(.down))
-        }
-        
-        var rows: Int {
-            
-            #if MAIN
-            let font = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
-            #else
-            guard let font = UIFont(name: "Menlo", size: 12) else {
-                assertionFailure("Expected font")
-                return 0
-            }
-            #endif
-            
-            // TODO: check if the bounds includes the safe area (on iPhone X)
-            let viewHeight = textView.bounds.height-textView.contentInset.bottom
-            
-            let dummyAtributedString = NSAttributedString(string: "X", attributes: [.font: font])
-            let charHeight = dummyAtributedString.size().height
-            
-            // Assumes the font is monospaced
-            return Int((viewHeight / charHeight).rounded(.down))
-        }
-        
-        setenv("COLUMNS", "\(columns-1)", 1)
-        setenv("ROWS", "\(rows-1)", 1)
+    func updateSize(_ columns: Int, _ rows: Int) {
+        setenv("COLUMNS", "\(columns)", 1)
+        setenv("ROWS", "\(rows)", 1)
     }
     
     // MARK: - UI Presentation
@@ -931,24 +905,26 @@ import SwiftUI
         
         title = Localizable.console
         
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.frame.size.height = view.frame.height
-        textView.delegate = self
-        textView.isEditable = false
-        #if !MAIN
-        if #available(iOS 13.0, *) {
-            view.backgroundColor = .systemBackground
-            textView.backgroundColor = .systemBackground
-            textView.textColor = .label
-        }
-        #endif
-        view.addSubview(textView)
+        webView.frame.size.width = view.frame.width
+        webView.autoresizingMask = [.flexibleWidth]
+        webView.frame.size.height = 50000
+        webView.backgroundColor = .clear
+        webView.isOpaque = false
+        webView.scrollView.isScrollEnabled = false
+        webView.configuration.userContentController.add(self, name: "pyto")
+        webView.navigationDelegate = self
+        scrollView.addSubview(webView)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(print_(_:)), name: .init(rawValue: "DidReceiveOutput"), object: nil)
+        scrollView.contentSize.height = 50000
+        view.addSubview(scrollView)
+        scrollView.scrollRectToVisible(CGRect(x: 0, y: 50000, width: 0, height: 0), animated: true)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
         
         movableTextField = MovableTextField(console: self)
+        
+        loadTerminal()
     }
     
     #if MAIN
@@ -963,9 +939,7 @@ import SwiftUI
         }
         #endif
         
-        let attrString = NSMutableAttributedString(attributedString: textView.attributedText)
-        attrString.removeAttribute(.backgroundColor, range: NSRange(location: 0, length: attrString.length))
-        textView.attributedText = attrString
+        // TODO: Trait collection did change
     }
     #endif
     
@@ -980,16 +954,16 @@ import SwiftUI
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        webView.frame.size.width = view.frame.width
+        
         if !ConsoleViewController.visibles.contains(self) {
             ConsoleViewController.visibles.append(self)
         }
         
-        textView.frame = view.safeAreaLayoutGuide.layoutFrame
-        textView.frame.size.height -= 44
-        textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
-        
-        updateSize()
-        
+        scrollView.frame = view.safeAreaLayoutGuide.layoutFrame
+        scrollView.frame.size.height -= 44
+        scrollView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
+                
         if movableTextField == nil {
             movableTextField = MovableTextField(console: self)
             movableTextField?.setPrompt(prompt ?? "")
@@ -1086,43 +1060,7 @@ import SwiftUI
             #endif
             if !secureTextEntry {
                 Python.shared.output += text
-                
-                #if MAIN
-                if self.highlightInput { // Highlight code
-                    
-                    class Delegate: NSObject, SyntaxTextViewDelegate {
-                        
-                        static let shared = Delegate()
-                        
-                        func didChangeText(_ syntaxTextView: SyntaxTextView) {}
-                        
-                        func didChangeSelectedRange(_ syntaxTextView: SyntaxTextView, selectedRange: NSRange) {}
-                        
-                        func lexerForSource(_ source: String) -> Lexer {
-                            return Python3Lexer()
-                        }
-                    }
-                    
-                    let textView = SyntaxTextView()
-                    textView.theme = ConsoleViewController.choosenTheme.sourceCodeTheme
-                    textView.delegate = Delegate.shared
-                    textView.text = text+"\n"
-                    
-                    self.console += text
-                    
-                    let attrStr = NSMutableAttributedString(attributedString: self.textView.attributedText)
-                                        
-                    attrStr.append(textView.contentTextView.attributedText)
-                    self.textView.attributedText = attrStr
-                    
-                    self.textViewDidChange(self.textView)
-                    self.textView.scrollToBottom()
-                    
-                    return
-                }
-                #endif
-                
-                self.print_(Notification(name: Notification.Name(rawValue: "DidReceiveOutput"), object: "\(text)\n", userInfo: nil))
+                self.print("\(text)\n")
             } else {
                 
                 var hiddenPassword = ""
@@ -1131,9 +1069,8 @@ import SwiftUI
                 }
                 
                 Python.shared.output += text
-                self.print_(Notification(name: Notification.Name(rawValue: "DidReceiveOutput"), object: "\(hiddenPassword)\n", userInfo: nil))
+                self.print("\(hiddenPassword)\n")
             }
-            self.textView.scrollToBottom()
         }
         
         var items = [UIBarButtonItem]()
@@ -1179,16 +1116,31 @@ import SwiftUI
         }
 
         if !isiOSAppOnMac {
-            textView.frame = view.safeAreaLayoutGuide.layoutFrame
-            textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
-            textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
+            scrollView.frame = view.safeAreaLayoutGuide.layoutFrame
+            scrollView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
+            scrollView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
         }
         
         movableTextField?.toolbar.isHidden = (view.frame.size.height == 0)
         #if MAIN
         movableTextField?.applyTheme()
         #endif
-        updateSize()
+    }
+    
+    open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        let wasFirstResponder = self.movableTextField?.textField.isFirstResponder ?? false
+        
+        coordinator.animateAlongsideTransition(in: view, animation: { (_) in
+            if wasFirstResponder {
+                self.movableTextField?.textField.resignFirstResponder()
+            }
+        }) { (_) in
+            if wasFirstResponder {
+                self.movableTextField?.textField.becomeFirstResponder()
+            }
+        }
     }
     
     open override var keyCommands: [UIKeyCommand]? {
@@ -1211,11 +1163,11 @@ import SwiftUI
     @objc func keyboardWillShow(_ notification:Notification) {
         
         if isiOSAppOnMac {
-            textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-94
+            scrollView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-94
             return
         }
         
-        guard textView.frame.origin.y != view.safeAreaLayoutGuide.layoutFrame.origin.y else {
+        guard scrollView.frame.origin.y != view.safeAreaLayoutGuide.layoutFrame.origin.y else {
             return
         }
         
@@ -1227,27 +1179,33 @@ import SwiftUI
             
             #if MAIN
             let y =  point.y-(navigationController?.toolbar.frame.height ?? 44)
-            if textView.frame.size.height != y {
-                textView.frame.size.height = y
+            if scrollView.frame.size.height != y {
+                scrollView.frame.size.height = y
             }
             #else
-            textView.frame.size.height = point.y-(44+(view.safeAreaInsets.top))
+            webView.frame.size.height = point.y-(44+(view.safeAreaInsets.top))
             #endif
         } else {
-            textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
+            scrollView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
         }
         
-        textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
+        scrollView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+            self.webView.evaluateJavaScript("sendSize()", completionHandler: nil)
+        }
     }
     
     @objc func keyboardWillHide(_ notification:Notification) {
         #if MAIN
-        textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
-        textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
+        scrollView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
+        scrollView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
         #else
-        textView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height
-        textView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
+        scrollView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height
+        scrollView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
         #endif
+        
+        webView.evaluateJavaScript("sendSize()", completionHandler: nil)
     }
     
     @objc private func up() {
@@ -1278,32 +1236,47 @@ import SwiftUI
         #endif
     }
     
-    // MARK: - Text view delegate
+    // MARK: - Message handler
     
-    /// A boolean indicating whether the text field reached the bottom.
-    var textFieldReachedBottom = true
-    
-    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        textFieldReachedBottom = false
-    }
-    
-    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        textFieldReachedBottom = ((scrollView.contentOffset.y + 1)-(scrollView.contentSize.height - scrollView.frame.size.height) > -30)
-    }
-    
-    public func textViewDidChange(_ textView: UITextView) {
-        console = textView.text
-    }
-    
-    #if MAIN
-    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+    public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         
-        // pyto://inspector/<repr>?<json>
+        guard let msg = message.body as? String else {
+            return
+        }
         
-        movableTextField?.textField.resignFirstResponder()
-        return true
+        if msg.hasPrefix("content-height:"), let heightStr = msg.components(separatedBy: "content-height:").last, let height = Float(heightStr) {
+            
+            scrollView.contentSize.height = CGFloat(height)
+            let bottomOffset = CGPoint(x: 0, y: scrollView.contentSize.height - scrollView.bounds.height + scrollView.contentInset.bottom)
+            if scrollView.frame.height < CGFloat(height) {
+                scrollView.setContentOffset(bottomOffset, animated: false)
+            }
+        } else if msg.hasPrefix("size:"), let sizeData = msg.components(separatedBy: "size:").last?.data(using: .utf8) {
+            
+            do {
+                guard let info = try JSONSerialization.jsonObject(with: sizeData, options: []) as? [String : Float] else {
+                    return
+                }
+                guard let columns = info["width"], let charHeight = info["charHeightSize"] else {
+                    return
+                }
+                updateSize(Int(columns), Int(scrollView.frame.height/CGFloat(charHeight)))
+            } catch {
+                Swift.print(error.localizedDescription)
+            }
+        } else if msg.hasPrefix("openlink:"), let link = msg.components(separatedBy: "openlink:").last, let url = URL(string: link) {
+            
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
     }
-    #endif
+    
+    // MARK: - Navigation delegate
+    
+    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        
+        webView.evaluateJavaScript("window.voiceOver = \(UIAccessibility.isVoiceOverRunning); t.setAccessibilityEnabled(window.voiceOver)", completionHandler: nil)
+        setup(theme: ConsoleViewController.choosenTheme)
+    }
     
     // MARK: - Color picker
     

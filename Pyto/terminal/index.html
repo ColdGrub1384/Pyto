@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'/>
+    <meta name="viewport" content="viewport-fit=cover, width=device-width,  height=device-height, initial-scale=1, user-scalable=no">
+  </head>
+  <body style="background-color: transparent">
+    <div id="terminal"
+         style="width:100%; height:100%; background-color: transparent"></div>
+  </body>
+
+  <script src="hterm/hterm_all.js"></script>
+
+  <script>
+    var t = null;
+    
+    var urls = [];
+
+    const esc = `\x1b`;
+    const bel = `\x07`;
+    
+    const sgr = (...args) => `${esc}[${args.join(';')}m`;
+    
+    const underline = sgr(4);
+
+    const osc = (...args) => `${esc}]${args.join(';')}${bel}`;
+    const osc8 = (uri='', params='') => osc(8, params, uri);
+    
+    const normal = sgr(0);
+    
+    const bullet = '\u{2022}';
+    
+    window.openUrl = function (url) {
+        var link = null;
+        if (isNaN(parseInt(url))) {
+            link = url;
+        } else {
+            link = urls[parseInt(url)];
+        }
+        
+        window.webkit.messageHandlers.pyto.postMessage("openlink:"+link);
+    }
+    
+    function getContentHeight() {
+      var i = t.screen_.rowsArray.length;
+
+      var continue_ = true;
+      t.screen_.rowsArray.slice().reverse().forEach(function(entry) {
+
+        if (!continue_) { return; }
+          
+        if (entry.innerText == "") {
+          i -= 1;
+        } else {
+          continue_ = false;
+        }
+      });
+
+      return (t.scrollPort_.characterSize.height*i)+5;
+    }
+  
+    function sendSize() {
+      window.webkit.messageHandlers.pyto.postMessage("size:"+JSON.stringify({width:t.screenSize.width, height:t.screenSize.height, charHeightSize: t.scrollPort_.characterSize.height}));
+    }
+  
+    function sendHeight() {
+      window.webkit.messageHandlers.pyto.postMessage("content-height:"+getContentHeight());
+    }
+  
+    function printLink(text, link) {
+      _link = decodeURIComponent(escape(window.atob(link)));
+      _text = decodeURIComponent(escape(window.atob(text)));
+      urls.push(_link)
+      output = `${underline}${osc8(urls.length-1)}${_text}${osc8()}${normal}`;
+      t.io.print(output);
+      console.log(output);
+      sendHeight();
+    }
+    
+    function print(text) {
+      t.io.print(decodeURIComponent(escape(window.atob(text))));
+      sendHeight();
+    }
+  
+    function showImage(image) {
+      t.displayImage({uri:image, inline:true});
+    }
+    
+    function setupHterm() {
+      t = new hterm.Terminal();
+      t.prefs_.set('cursor-shape', 'BLOCK');
+      t.prefs_.set('background-color', "transparent");
+      t.prefs_.set('cursor-color', "transparent");
+      t.prefs_.set('cursor-blink', true);
+      t.prefs_.set('enable-clipboard-notice', false);
+      t.prefs_.set('use-default-window-copy', true);
+      t.prefs_.set('clear-selection-after-copy', true);
+      t.prefs_.set('copy-on-select', false);
+      t.prefs_.set('audible-bell-sound', '');
+      t.prefs_.set('meta-sends-escape', 'false');
+      t.prefs_.set('terminal-encoding', 'utf-8');
+      
+      t.setReverseWraparound(true);
+      t.setWraparound(true);
+      
+      t.scrollPort_.onTouch = (e) => {
+          Object.defineProperty(e, 'defaultPrevented', {value: true});
+      };
+
+      t.onTerminalReady = function() {
+        const io = t.io.push();
+        
+        t.setCursorVisible(false);
+
+        io.onTerminalResize = (columns, rows) => {
+          sendSize();
+        };
+        
+        sendSize();
+      };
+
+      t.decorate(document.querySelector('#terminal'));
+
+      if (window.voiceOver != undefined) {
+				t.setAccessibilityEnabled(window.voiceOver);
+			}
+    }
+
+    // This will be whatever normal entry/initialization point your project uses.
+    window.onload = async function() {
+      await lib.init();
+      setupHterm();
+    };
+  </script>
+</html>

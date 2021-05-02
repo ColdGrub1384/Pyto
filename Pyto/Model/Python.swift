@@ -524,7 +524,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
                                 } else if let msg = PyCallbackHelper.exception, let error = PyCallbackHelper.errorURL, let url = URL(string: error)?.appendingParameters(params: ["errorMessage": msg]) {
                                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                                } else if let success = PyCallbackHelper.successURL, let url = URL(string: success)?.appendingParameters(params: ["result":contentVC.textView.text]) {
+                                } else if let success = PyCallbackHelper.successURL, let url = URL(string: success)?.appendingParameters(params: ["result":contentVC.text]) {
                                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
                                 }
                                 
@@ -536,11 +536,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                             }
                             
                             var images = [UIImage]()
-                            splitVC?.console?.textView.textStorage.enumerateAttributes(in: NSRange(location: 0, length: splitVC?.console?.textView.textStorage.length ?? 0)) { (attr, range, _) in
-                                if let plot = (attr[NSAttributedString.Key.attachment] as? NSTextAttachment)?.image {
-                                    images.append(plot)
-                                }
-                            }
+                            // TODO: Images
                             
                             // Shortcut
                             if editor.isShortcut {
@@ -569,7 +565,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                                 }
                                 
                                 do {
-                                    try ("\(prefix)\n"+contentVC.textView.text).write(to: group.appendingPathComponent("ShortcutOutput.txt"), atomically: true, encoding: .utf8)
+                                    try ("\(prefix)\n"+contentVC.text).write(to: group.appendingPathComponent("ShortcutOutput.txt"), atomically: true, encoding: .utf8)
                                 } catch {
                                     print(error.localizedDescription)
                                 }

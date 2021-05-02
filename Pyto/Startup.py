@@ -176,19 +176,21 @@ try:
                 import os
                 import tempfile
                 import sharing
-        
-                imgPath = tempfile.gettempdir()+"/image.png"
-
-                i = 1
-                while os.path.isfile(imgPath):
-                    i += 1
-                    imgPath = os.path.join(tempfile.gettempdir(), 'image '+str(i)+'.png')
-        
-                image.save(imgPath, "PNG")
+                import _opencv_view as ocv
                 
                 if title == "OpenCV":
-                    sharing.quick_look(imgPath, remove_previous=True)
+                    ocv.show(image)
                 else:
+
+                    imgPath = tempfile.gettempdir()+"/image.png"
+
+                    i = 1
+                    while os.path.isfile(imgPath):
+                        i += 1
+                        imgPath = os.path.join(tempfile.gettempdir(), 'image '+str(i)+'.png')
+            
+                    image.save(imgPath, "PNG")
+                    
                     sharing.quick_look(imgPath)
 
             PIL.ImageShow.show = show_image
@@ -224,27 +226,9 @@ try:
     def waitpid(pid, options):
         return (-1, 0)
 
-    if os.system("ls") != 0: # App is sandboxed
-        os.fork = fork
-        os.waitpid = waitpid
-        os._exit = sys.exit
-    else: # Not sanboxed
-        _system = os.system
-        def system(cmd):
-            res = _system(cmd+(f" >>{out.txt} 2>&1"))
-            
-            try:
-                f = open("out.txt", "r")
-                sys.stdout.write(f.read())
-                f.close()
-                _system("rm out.txt")
-            except FileNotFoundError:
-                pass
-            
-            return res
-    
-        os.system = system
-            
+    os.fork = fork
+    os.waitpid = waitpid
+    os._exit = sys.exit        
 
     # MARK: - Handle signal called outside main thread
 

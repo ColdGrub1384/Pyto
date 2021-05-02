@@ -142,12 +142,7 @@ fileprivate class ImageAttachment: NSTextAttachment {
                 semaphore.signal()
                 return
             }
-            #endif
             
-            let attachment = ImageAttachment()
-            attachment.image = image
-            let attrString = NSMutableAttributedString(attributedString: NSAttributedString(attachment: attachment))
-            #if MAIN
             for console in ConsoleViewController.visibles {
                 
                 if script != nil {
@@ -156,30 +151,13 @@ fileprivate class ImageAttachment: NSTextAttachment {
                     }
                 }
                 
-                if removePrevious {
-                    let attrString = NSMutableAttributedString(attributedString: console.textView.attributedText)
-                    var attachments = [NSRange]()
-                    attrString.enumerateAttribute(.attachment, in: NSRange(location: 0, length: attrString.length), options: []) { (_, range, _) in
-                        attachments.append(range)
-                    }
-                    for attachment in attachments {
-                        attrString.removeAttribute(.attachment, range: attachment)
-                    }
-                    console.textView.attributedText = attrString
-                } else {
-                    attrString.append(NSMutableAttributedString(string: "\n"))
-                }
-                
-                attachment.textView = console.textView
-                
-                console.textView.textStorage.insert(attrString, at: console.textView.offset(from: console.textView.beginningOfDocument, to: console.textView.endOfDocument))
-                console.textView.scrollToBottom()
+                console.display(image: image, completionHandler: { _, _ in
+                    
+                    semaphore.signal()
+                })
             }
-            #else
-            ConsoleViewController.visibles.first?.textView.textStorage.insert(attrString, at: ConsoleViewController.visibles[0].textView.offset(from: ConsoleViewController.visibles[0].textView.endOfDocument, to: ConsoleViewController.visibles[0].textView.endOfDocument))
+                        
             #endif
-            
-            semaphore.signal()
         }
         
         semaphore.wait()

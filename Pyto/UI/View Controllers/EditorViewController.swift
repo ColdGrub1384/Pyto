@@ -608,11 +608,11 @@ func directory(for scriptURL: URL) -> URL {
                     console?.view.addSubview(previewVC.view)
                 }
                 
-                console?.textView.isHidden = true
+                console?.webView.isHidden = true
                 console?.movableTextField?.toolbar.isHidden = true
                 console?.movableTextField?.textField.isHidden = true
             } else {
-                console?.textView.isHidden = false
+                console?.webView.isHidden = false
                 console?.movableTextField?.toolbar.isHidden = false
                 console?.movableTextField?.textField.isHidden = false
             }
@@ -1227,7 +1227,6 @@ func directory(for scriptURL: URL) -> URL {
         for console in ConsoleViewController.visibles {
             func stop_() {
                 Python.shared.stop(script: path)
-                console.textView.resignFirstResponder()
             }
             
             if console.presentedViewController != nil {
@@ -1335,9 +1334,7 @@ func directory(for scriptURL: URL) -> URL {
             guard let console = (self.parent as? EditorSplitViewController)?.console else {
                 return
             }
-            
-            console.updateSize()
-            
+                        
             (UIApplication.shared.delegate as? AppDelegate)?.addURLToShortcuts(self.document!.fileURL)
             
             #if !Xcode11
@@ -1355,7 +1352,7 @@ func directory(for scriptURL: URL) -> URL {
                 if let url = self.document?.fileURL {
                     func run() {
                         if !(self.parent is REPLViewController) {
-                            console.textView.text = ""
+                            console.clear()
                             console.console = ""
                         }
                         console.movableTextField?.placeholder = ""
@@ -1367,9 +1364,7 @@ func directory(for scriptURL: URL) -> URL {
                             Python.shared.run(script: Python.Script(path: path, debug: debug, runREPL: true, breakpoints: self.breakpoints))
                         } else {
                             Python.shared.runScriptAt(url)
-                        }
-                        
-                        console.updateSize()
+                        }                        
                     }
                     
                     let editorSplitViewController = console.editorSplitViewController
