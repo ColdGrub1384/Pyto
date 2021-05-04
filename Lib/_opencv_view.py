@@ -1,7 +1,7 @@
 import pyto_ui as ui
 import pyto_core as pc
 import sys
-from time import sleep
+from time import sleep
 
 class OpenCVView(ui.ImageView):
 

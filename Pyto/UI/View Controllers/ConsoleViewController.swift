@@ -133,12 +133,10 @@ import SwiftUI
     
     /// Clears screen.
     @objc func clear() {
-        console = ""
+        text = ""
+        images = []
         print("\u{001b}[2J\u{001b}[H")
     }
-    
-    /// The content of the console.
-    @objc var console = ""
     
     /// The  scroll view containing the very big web view.
     let scrollView = UIScrollView()
@@ -153,11 +151,12 @@ import SwiftUI
         }
         webView.loadFileURL(url.appendingPathComponent("index.html"), allowingReadAccessTo: url)
     }
-    
+        
     /// The text contained in the terminal.
-    public var text: String {
-        return ""
-    }
+    public var text = ""
+    
+    /// The images displayed in the terminal.
+    public var images = [UIImage]()
     
     /// If set to `true`, the user will not be able to input.
     var ignoresInput = false
@@ -165,11 +164,40 @@ import SwiftUI
     /// If set to `true`, the user will not be able to input.
     static var ignoresInput = false
     
+    /// Get the console as plain text, without terminal stuff.
+    ///
+    /// - Parameters:
+    ///     - completion: A block called when the text is ready. Takes the result as parameter.
+    func getPlainText(_ completion: @escaping ((String) -> Void)) {
+        class Delegate: ParserDelegate {
+                        
+            var completion: ((String) -> Void)?
+            
+            func parser(_ parser: Parser, didReceiveString string: NSAttributedString) {
+                completion?(string.string)
+            }
+            
+            func parserDidEndTransmission(_ parser: Parser) {
+                
+            }
+        }
+        
+                    
+        let delegate = Delegate()
+        delegate.completion = completion
+        
+        let parser = Parser()
+        parser.delegate = delegate
+        parser.parse(text.data(using: .utf8) ?? Data())
+        
+    }
+    
     /// Adds text to the terminal.
     ///
     /// - Parameters:
     ///     - text: The text to add.
     func print(_ text: String) {
+        self.text += text
         PyWrapper.set { [weak self] in
             self?.webView.evaluateJavaScript("print('\(text.replacingOccurrences(of: "\n", with: "\n\r").data(using: .utf8)?.base64EncodedString() ?? "")')", completionHandler: nil)
         }
@@ -181,6 +209,7 @@ import SwiftUI
     ///     - text: The text to add.
     ///     - link: The link to add.
     func printLink(text: String, link: String) {
+        self.text += text
         let _text = text.replacingOccurrences(of: "\n", with: "\n\r").data(using: .utf8)?.base64EncodedString() ?? ""
         let _link = link.replacingOccurrences(of: "\n", with: "\n\r").data(using: .utf8)?.base64EncodedString() ?? ""
         
@@ -200,6 +229,8 @@ import SwiftUI
         }
         
         webView.evaluateJavaScript("showImage('data:image/png;base64,\(data)')", completionHandler: { a, b in
+            
+            self.images.append(image)
             
             self.webView.evaluateJavaScript("t.io.print(' '); sendHeight();") { (_, _) in
                 completionHandler?(a, b)

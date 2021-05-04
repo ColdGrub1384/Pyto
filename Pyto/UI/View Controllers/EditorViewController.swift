@@ -1353,7 +1353,6 @@ func directory(for scriptURL: URL) -> URL {
                     func run() {
                         if !(self.parent is REPLViewController) {
                             console.clear()
-                            console.console = ""
                         }
                         console.movableTextField?.placeholder = ""
                         if Python.shared.isREPLRunning {
