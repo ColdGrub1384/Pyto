@@ -517,59 +517,60 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                             }
                             #endif
                             
-                            if contentVC.editorSplitViewController?.editor?.textView.text == PyCallbackHelper.code {
-                                // Run callback
-                                
-                                if PyCallbackHelper.cancelled, let cancel = PyCallbackHelper.cancelURL, let url = URL(string: cancel) {
-                                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                                } else if let msg = PyCallbackHelper.exception, let error = PyCallbackHelper.errorURL, let url = URL(string: error)?.appendingParameters(params: ["errorMessage": msg]) {
-                                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                                } else if let success = PyCallbackHelper.successURL, let url = URL(string: success)?.appendingParameters(params: ["result":contentVC.text]) {
-                                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                            contentVC.getPlainText { text in
+                                if contentVC.editorSplitViewController?.editor?.textView.text == PyCallbackHelper.code {
+                                    // Run callback
+                                    
+                                    if PyCallbackHelper.cancelled, let cancel = PyCallbackHelper.cancelURL, let url = URL(string: cancel) {
+                                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                                    } else if let msg = PyCallbackHelper.exception, let error = PyCallbackHelper.errorURL, let url = URL(string: error)?.appendingParameters(params: ["errorMessage": msg]) {
+                                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                                    } else if let success = PyCallbackHelper.successURL, let url = URL(string: success)?.appendingParameters(params: ["result":text]) {
+                                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                                    }
+                                    
+                                    PyCallbackHelper.cancelURL = nil
+                                    PyCallbackHelper.errorURL = nil
+                                    PyCallbackHelper.successURL = nil
+                                    PyCallbackHelper.cancelled = false
+                                    PyCallbackHelper.exception = nil
                                 }
                                 
-                                PyCallbackHelper.cancelURL = nil
-                                PyCallbackHelper.errorURL = nil
-                                PyCallbackHelper.successURL = nil
-                                PyCallbackHelper.cancelled = false
-                                PyCallbackHelper.exception = nil
-                            }
-                            
-                            var images = [UIImage]()
-                            // TODO: Images
-                            
-                            // Shortcut
-                            if editor.isShortcut {
+                                let images = contentVC.images
                                 
-                                editor.isShortcut = false
-                                
-                                // Send result to Shortcuts
-                                
-                                guard let group = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.pyto") else {
-                                    return
+                                // Shortcut
+                                if editor.isShortcut {
+                                    
+                                    editor.isShortcut = false
+                                    
+                                    // Send result to Shortcuts
+                                    
+                                    guard let group = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.pyto") else {
+                                        return
+                                    }
+                                    
+                                    #if MAIN
+                                    let prefix: String
+                                    if PyCallbackHelper.exception != nil {
+                                        prefix = "Fail"
+                                    } else {
+                                        prefix = "Success"
+                                    }
+                                    
+                                    do {
+                                        let encodedImages = try NSKeyedArchiver.archivedData(withRootObject: images, requiringSecureCoding: true)
+                                        try encodedImages.write(to: group.appendingPathComponent("ShortcutPlots"))
+                                    } catch {
+                                        print(error.localizedDescription)
+                                    }
+                                    
+                                    do {
+                                        try ("\(prefix)\n"+text).write(to: group.appendingPathComponent("ShortcutOutput.txt"), atomically: true, encoding: .utf8)
+                                    } catch {
+                                        print(error.localizedDescription)
+                                    }
+                                    #endif
                                 }
-                                
-                                #if MAIN
-                                let prefix: String
-                                if PyCallbackHelper.exception != nil {
-                                    prefix = "Fail"
-                                } else {
-                                    prefix = "Success"
-                                }
-                                
-                                do {
-                                    let encodedImages = try NSKeyedArchiver.archivedData(withRootObject: images, requiringSecureCoding: true)
-                                    try encodedImages.write(to: group.appendingPathComponent("ShortcutPlots"))
-                                } catch {
-                                    print(error.localizedDescription)
-                                }
-                                
-                                do {
-                                    try ("\(prefix)\n"+contentVC.text).write(to: group.appendingPathComponent("ShortcutOutput.txt"), atomically: true, encoding: .utf8)
-                                } catch {
-                                    print(error.localizedDescription)
-                                }
-                                #endif
                             }
                         }
                     }
