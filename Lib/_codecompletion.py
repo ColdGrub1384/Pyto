@@ -124,7 +124,11 @@ def suggestForCode(code, index, path):
                     completions = []
                     suggestions = []
                     break
-
+            
+            if visibleEditor.text != code:
+                return
+            
+            visibleEditor.lastCodeFromCompletions = code
             visibleEditor.signature = signature
             visibleEditor.completions = completions
             visibleEditor.suggestions = suggestions
