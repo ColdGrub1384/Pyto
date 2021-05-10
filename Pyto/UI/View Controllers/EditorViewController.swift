@@ -273,6 +273,29 @@ func directory(for scriptURL: URL) -> URL {
         return intent
     }
     
+    @objc private var lastCodeFromCompletions: String?
+    
+    /// Returns the text of the text view from any thread.
+    @objc var text: String {
+        
+        if Thread.current.isMainThread {
+            return textView.text
+        } else {
+            let semaphore = DispatchSemaphore(value: 0)
+            
+            var value = ""
+            
+            DispatchQueue.main.async {
+                value = self.text
+                semaphore.signal()
+            }
+            
+            semaphore.wait()
+            
+            return value
+        }
+    }
+    
     /// Initialize with given document.
     ///
     /// - Parameters:
@@ -1866,7 +1889,9 @@ func directory(for scriptURL: URL) -> URL {
     
     func textViewDidChangeSelection(_ textView: UITextView) {
         if textView.isFirstResponder {
-            updateSuggestions()
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
+                self.updateSuggestions()
+            }
         }
     }
     
@@ -2201,6 +2226,10 @@ func directory(for scriptURL: URL) -> URL {
         
         set {
             
+            guard lastCodeFromCompletions == text else {
+                return
+            }
+            
             currentSuggestionIndex = -1
             
             _suggestions = newValue
@@ -2235,6 +2264,11 @@ func directory(for scriptURL: URL) -> URL {
         }
         
         set {
+            
+            guard lastCodeFromCompletions == text else {
+                return
+            }
+            
             _completions = newValue
         }
     }
@@ -2516,6 +2550,10 @@ func directory(for scriptURL: URL) -> URL {
     }
     
     func numberOfSuggestionsInInputAssistantView() -> Int {
+        
+        guard lastCodeFromCompletions == text else {
+            return 0
+        }
         
         var zero: Int {
             signature = ""
