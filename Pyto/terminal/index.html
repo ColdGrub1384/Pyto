@@ -11,6 +11,15 @@
 
   <script src="hterm/hterm_all.js"></script>
 
+  <style>
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+        overflow: auto;
+      }
+  </style>
+  
   <script>
     var t = null;
     
@@ -29,6 +38,8 @@
     const normal = sgr(0);
     
     const bullet = '\u{2022}';
+    
+    var outputHistory = "";
     
     window.openUrl = function (url) {
         var link = null;
@@ -68,17 +79,21 @@
     }
   
     function printLink(text, link) {
-      _link = decodeURIComponent(escape(window.atob(link)));
-      _text = decodeURIComponent(escape(window.atob(text)));
+      var _link = decodeURIComponent(escape(window.atob(link)));
+      var _text = decodeURIComponent(escape(window.atob(text)));
+      _text = "\x1b[32m"+_text+"\x1b[39m";
       urls.push(_link)
       output = `${underline}${osc8(urls.length-1)}${_text}${osc8()}${normal}`;
+      outputHistory += output;
       t.io.print(output);
       console.log(output);
       sendHeight();
     }
     
     function print(text) {
-      t.io.print(decodeURIComponent(escape(window.atob(text))));
+      var output = decodeURIComponent(escape(window.atob(text)));
+      outputHistory += output;
+      t.io.print(output);
       sendHeight();
     }
   
@@ -99,14 +114,11 @@
       t.prefs_.set('audible-bell-sound', '');
       t.prefs_.set('meta-sends-escape', 'false');
       t.prefs_.set('terminal-encoding', 'utf-8');
+      t.prefs_.set('enable-resize-status', false);
       
       t.setReverseWraparound(true);
       t.setWraparound(true);
       
-      t.scrollPort_.onTouch = (e) => {
-          Object.defineProperty(e, 'defaultPrevented', {value: true});
-      };
-
       t.onTerminalReady = function() {
         const io = t.io.push();
         
@@ -114,6 +126,9 @@
 
         io.onTerminalResize = (columns, rows) => {
           sendSize();
+          t.io.print("\x1b[2J\x1b[;H");
+          t.io.print("\x1b[3J");
+          t.io.print(outputHistory);
         };
         
         sendSize();
@@ -122,8 +137,38 @@
       t.decorate(document.querySelector('#terminal'));
 
       if (window.voiceOver != undefined) {
-				t.setAccessibilityEnabled(window.voiceOver);
-			}
+        t.setAccessibilityEnabled(window.voiceOver);
+      }
+      
+      t.scrollPort_.screen_.contentEditable = false;
+      
+      var a = false;
+      document.getElementById("terminal").addEventListener('wheel', function(event) {
+        
+        if (a) {
+            a = false;
+            return;
+        }
+        
+        a = true;
+        
+        var intDelta = Math.ceil(event.deltaY);
+        if (intDelta < 0) {
+            intDelta = intDelta * (-1);
+        }
+        
+        var i = 0
+        while (i <= intDelta) {
+            if (event.deltaY > 0) {
+                t.scrollLineDown();
+            } else {
+                t.scrollLineUp();
+            }
+            i += 1;
+        }
+        
+        return false;
+      }, false);
     }
 
     // This will be whatever normal entry/initialization point your project uses.

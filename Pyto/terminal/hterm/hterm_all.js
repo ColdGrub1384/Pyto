@@ -9203,7 +9203,7 @@ hterm.NotificationCenter = class {
     const size = this.container_.getBoundingClientRect();
     this.container_.style.top = `calc(50% - ${size.height / 2}px)`;
     this.container_.style.left = `calc(50% - ${size.width / 2}px)`;
-
+      
     if (this.reader_) {
       this.reader_.assertiveAnnounce(this.container_.textContent);
     }
@@ -18190,9 +18190,10 @@ hterm.Terminal.prototype.onMouse_ = function(e) {
         this.contextMenu.show(e, this);
       } else if (e.button == this.mousePasteButton ||
           (this.mouseRightClickPaste && e.button == 2 /* right button */)) {
-        if (this.paste() === false) {
+        /*if (this.paste() === false) {
           console.warn('Could not paste manually due to web restrictions');
-        }
+        }*/
+        e.preventDefault();
       }
     }
 

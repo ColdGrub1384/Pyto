@@ -7,9 +7,19 @@ import sys
 import traceback
 from rubicon.objc import at
 from Foundation import NSAutoreleasePool
+from pygments import highlight
+from pygments import lexers
+from pygments.formatters.terminal256 import TerminalTrueColorFormatter
+from pygments.styles import get_style_by_name
 
 _completions_queue = 0
 
+lexer = lexers.get_lexer_by_name('python')
+style = get_style_by_name('default')
+formatter = TerminalTrueColorFormatter(full=True, style=style)
+
+def printHighlightedCode(code):
+    print(highlight(code, lexer, formatter), end="")
 
 def suggestForCode(code, index, path):
     global _completions_queue
