@@ -3,7 +3,7 @@
 //  PytoCore
 //
 //  Created by Emma Labbé on 1/13/19.
-//  Copyright © 2019 Emma Labbé. All rights reserved.
+//  Copyright © 2018-2021 Emma Labbé. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

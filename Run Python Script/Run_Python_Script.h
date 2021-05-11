@@ -3,7 +3,7 @@
 //  Run Python Script
 //
 //  Created by Emma Labbé on 14-01-21.
-//  Copyright © 2021 Emma Labbé. All rights reserved.
+//  Copyright © 2018-2021 Emma Labbé. All rights reserved.
 //
 
 #import <Automator/AMBundleAction.h>

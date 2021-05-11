@@ -3,7 +3,7 @@
 //  SeeLess
 //
 //  Created by Emma Labbé on 15-09-19.
-//  Copyright © 2019 Emma Labbé. All rights reserved.
+//  Copyright © 2018-2021 Emma Labbé. All rights reserved.
 //
 
 import UIKit

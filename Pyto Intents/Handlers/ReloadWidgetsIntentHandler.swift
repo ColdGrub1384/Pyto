@@ -3,7 +3,7 @@
 //  Pyto Intents
 //
 //  Created by Emma Labbé on 13-10-20.
-//  Copyright © 2020 Emma Labbé. All rights reserved.
+//  Copyright © 2018-2021 Emma Labbé. All rights reserved.
 //
 
 import Intents

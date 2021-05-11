@@ -3,7 +3,7 @@
 //  Pyto Watch Extension
 //
 //  Created by Emma Labbé on 11-11-20.
-//  Copyright © 2020 Emma Labbé. All rights reserved.
+//  Copyright © 2018-2021 Emma Labbé. All rights reserved.
 //
 
 import ClockKit
