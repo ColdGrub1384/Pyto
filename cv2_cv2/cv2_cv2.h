@@ -3,7 +3,7 @@
 //  cv2_cv2
 //
 //  Created by Emma Labbé on 04-12-20.
-//  Copyright © 2020 Emma Labbé. All rights reserved.
+//  Copyright © 2018-2021 Emma Labbé. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

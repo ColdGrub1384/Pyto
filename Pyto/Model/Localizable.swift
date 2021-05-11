@@ -2,8 +2,8 @@
 //  Localizable.swift
 //  Pyto
 //
-//  Created by Adrian Labbe on 10/14/18.
-//  Copyright © 2018 Emma Labbé. All rights reserved.
+//  Created by Emma Labbé on 10/14/18.
+//  Copyright © 2018-2021 Emma Labbé. All rights reserved.
 //
 
 import UIKit

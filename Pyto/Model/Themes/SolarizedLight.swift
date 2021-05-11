@@ -3,7 +3,7 @@
 //  Pyto
 //
 //  Created by Emma Labbé on 1/17/19.
-//  Copyright © 2019 Emma Labbé. All rights reserved.
+//  Copyright © 2018-2021 Emma Labbé. All rights reserved.
 //
 
 import SavannaKit

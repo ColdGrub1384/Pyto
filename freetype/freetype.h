@@ -3,7 +3,7 @@
 //  freetype
 //
 //  Created by Emma Labbé on 26-03-21.
-//  Copyright © 2021 Emma Labbé. All rights reserved.
+//  Copyright © 2018-2021 Emma Labbé. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

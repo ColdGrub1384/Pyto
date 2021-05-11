@@ -3,7 +3,7 @@
 //  SwiftUI Views
 //
 //  Created by Emma Labbé on 22-05-20.
-//  Copyright © 2020 Emma Labbé. All rights reserved.
+//  Copyright © 2018-2021 Emma Labbé. All rights reserved.
 //
 
 import Foundation
