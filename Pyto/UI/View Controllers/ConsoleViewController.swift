@@ -137,10 +137,7 @@ import SwiftUI
         images = []
         print("\u{001b}[2J\u{001b}[H")
     }
-    
-    /// The  scroll view containing the very big web view.
-    let scrollView = UIScrollView()
-    
+        
     /// The Web view showing the terminal.
     @objc public var webView = WKWebView()
     
@@ -403,7 +400,7 @@ import SwiftUI
         
         movableTextField?.theme = theme
         
-        //textView.backgroundColor = theme.sourceCodeTheme.backgroundColor
+        webView.backgroundColor = theme.sourceCodeTheme.backgroundColor
         view.backgroundColor = theme.sourceCodeTheme.backgroundColor
         
         if #available(iOS 13.0, *) {
@@ -411,15 +408,12 @@ import SwiftUI
                 return
             }
         }
-        
-        /*if textView.textColor != theme.sourceCodeTheme.color(for: .plain) {
-            textView.textColor = theme.sourceCodeTheme.color(for: .plain)
-        }*/
                 
         webView.evaluateJavaScript("""
         t.prefs_.set('foreground-color', '\(theme.sourceCodeTheme.color(for: .plain).hexString)');
         t.prefs_.set('font-size', \(theme.sourceCodeTheme.font.pointSize));
         t.prefs_.set('font-family', '\(theme.sourceCodeTheme.font.familyName)');
+        t.document_.body.style.color = '\(theme.sourceCodeTheme.backgroundColor.hexString)';
         """, completionHandler: nil)
     }
     
@@ -906,6 +900,8 @@ import SwiftUI
     
     private var wasFirstResponder = false
     
+    @objc static private var codeToHighlight: String?
+    
     //private var wasFirstResp
     
     // MARK: - View controller
@@ -936,19 +932,22 @@ import SwiftUI
         
         title = Localizable.console
         
-        webView.frame.size.width = view.frame.width
+        webView.frame.size = view.frame.size
         webView.autoresizingMask = [.flexibleWidth]
-        webView.frame.size.height = 50000
         webView.backgroundColor = .clear
         webView.isOpaque = false
-        webView.scrollView.isScrollEnabled = false
         webView.configuration.userContentController.add(self, name: "pyto")
         webView.navigationDelegate = self
-        scrollView.addSubview(webView)
+        webView.scrollView.alwaysBounceVertical = false
+        webView.scrollView.bounces = false
+        webView.scrollView.showsVerticalScrollIndicator = false
+        webView.scrollView.showsHorizontalScrollIndicator = false
+        view.addSubview(webView)
         
-        scrollView.contentSize.height = 50000
-        view.addSubview(scrollView)
-        scrollView.scrollRectToVisible(CGRect(x: 0, y: 50000, width: 0, height: 0), animated: true)
+        //webView.contentInset.bottom = 5
+        //webView.contentSize.height = 50000
+        //view.addSubview(scrollView)
+        //webView.scrollRectToVisible(CGRect(x: 0, y: 50000, width: 0, height: 0), animated: true)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
@@ -991,9 +990,9 @@ import SwiftUI
             ConsoleViewController.visibles.append(self)
         }
         
-        scrollView.frame = view.safeAreaLayoutGuide.layoutFrame
-        scrollView.frame.size.height -= 44
-        scrollView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
+        webView.frame = view.safeAreaLayoutGuide.layoutFrame
+        webView.frame.size.height -= 44
+        webView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
                 
         if movableTextField == nil {
             movableTextField = MovableTextField(console: self)
@@ -1084,14 +1083,15 @@ import SwiftUI
                 #endif
             }
             
-            #if MAIN
-            PyInputHelper.userInput[self.editorSplitViewController?.editor?.document?.fileURL.path ?? ""] = text
-            #else
-            PyInputHelper.userInput[""] = text
-            #endif
             if !secureTextEntry {
                 Python.shared.output += text
-                self.print("\(text)\n")
+                
+                if self.highlightInput {
+                    ConsoleViewController.codeToHighlight = text
+                    Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: "import _codecompletion; import pyto; _codecompletion.printHighlightedCode(str(pyto.ConsoleViewController.codeToHighlight))")
+                } else {
+                    self.print("\(text)\n")
+                }
             } else {
                 
                 var hiddenPassword = ""
@@ -1102,6 +1102,12 @@ import SwiftUI
                 Python.shared.output += text
                 self.print("\(hiddenPassword)\n")
             }
+            
+            #if MAIN
+            PyInputHelper.userInput[self.editorSplitViewController?.editor?.document?.fileURL.path ?? ""] = text
+            #else
+            PyInputHelper.userInput[""] = text
+            #endif
         }
         
         var items = [UIBarButtonItem]()
@@ -1147,9 +1153,9 @@ import SwiftUI
         }
 
         if !isiOSAppOnMac {
-            scrollView.frame = view.safeAreaLayoutGuide.layoutFrame
-            scrollView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
-            scrollView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
+            webView.frame = view.safeAreaLayoutGuide.layoutFrame
+            webView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
+            webView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
         }
         
         movableTextField?.toolbar.isHidden = (view.frame.size.height == 0)
@@ -1194,11 +1200,11 @@ import SwiftUI
     @objc func keyboardWillShow(_ notification:Notification) {
         
         if isiOSAppOnMac {
-            scrollView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-94
+            webView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-94
             return
         }
         
-        guard scrollView.frame.origin.y != view.safeAreaLayoutGuide.layoutFrame.origin.y else {
+        guard webView.frame.origin.y != view.safeAreaLayoutGuide.layoutFrame.origin.y else {
             return
         }
         
@@ -1210,17 +1216,17 @@ import SwiftUI
             
             #if MAIN
             let y =  point.y-(navigationController?.toolbar.frame.height ?? 44)
-            if scrollView.frame.size.height != y {
-                scrollView.frame.size.height = y
+            if webView.frame.size.height != y {
+                webView.frame.size.height = y
             }
             #else
             webView.frame.size.height = point.y-(44+(view.safeAreaInsets.top))
             #endif
         } else {
-            scrollView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
+            webView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
         }
         
-        scrollView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
+        webView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
         
         DispatchQueue.main.asyncAfter(deadline: .now()+1) {
             self.webView.evaluateJavaScript("sendSize()", completionHandler: nil)
@@ -1229,11 +1235,11 @@ import SwiftUI
     
     @objc func keyboardWillHide(_ notification:Notification) {
         #if MAIN
-        scrollView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
-        scrollView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
+        webView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
+        webView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
         #else
-        scrollView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height
-        scrollView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
+        webView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height
+        webView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
         #endif
         
         webView.evaluateJavaScript("sendSize()", completionHandler: nil)
@@ -1275,23 +1281,16 @@ import SwiftUI
             return
         }
         
-        if msg.hasPrefix("content-height:"), let heightStr = msg.components(separatedBy: "content-height:").last, let height = Float(heightStr) {
-            
-            scrollView.contentSize.height = CGFloat(height)
-            let bottomOffset = CGPoint(x: 0, y: scrollView.contentSize.height - scrollView.bounds.height + scrollView.contentInset.bottom)
-            if scrollView.frame.height < CGFloat(height) {
-                scrollView.setContentOffset(bottomOffset, animated: false)
-            }
-        } else if msg.hasPrefix("size:"), let sizeData = msg.components(separatedBy: "size:").last?.data(using: .utf8) {
+        if msg.hasPrefix("size:"), let sizeData = msg.components(separatedBy: "size:").last?.data(using: .utf8) {
             
             do {
                 guard let info = try JSONSerialization.jsonObject(with: sizeData, options: []) as? [String : Float] else {
                     return
                 }
-                guard let columns = info["width"], let charHeight = info["charHeightSize"] else {
+                guard let columns = info["width"], let lines = info["height"] else {
                     return
                 }
-                updateSize(Int(columns), Int(scrollView.frame.height/CGFloat(charHeight)))
+                updateSize(Int(columns), Int(lines))
             } catch {
                 Swift.print(error.localizedDescription)
             }

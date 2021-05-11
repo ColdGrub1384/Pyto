@@ -240,7 +240,7 @@ fileprivate extension ConsoleViewController {
             }
             #endif
             
-            console.printLink(text: text, link: url)
+            console.printLink(text: ShortenFilePaths(in: text), link: url)
             
         }
         #endif

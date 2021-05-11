@@ -35,6 +35,7 @@ if "widget" not in os.environ:
     from time import sleep
     from rubicon.objc import ObjCInstance
     from Foundation import NSObject
+    import warnings
 
     try:
         from rubicon.objc import *
@@ -662,7 +663,8 @@ class ClearREPL:
         return "Type 'clear()' to clear the console."
 
     def __call__(self):
-        clear()
+        print(u"{}[2J{}[;H".format(chr(27), chr(27)), end="")
+        print(chr(27) + "[3J", end="")
 
 
 def clear():
@@ -673,17 +675,11 @@ def clear():
     if threading.current_thread() in ignoredThreads:
         return
 
-    try:
-        ConsoleViewController.clearConsoleForPath(
-            threading.current_thread().script_path
-        )
-    except AttributeError:
-        try:
-            ConsoleViewController.clearConsoleForPath(None)
-        except:
-            ConsoleViewController.visible.clear()
-
-    time.sleep(0.1)
+    print(u"{}[2J{}[;H".format(chr(27), chr(27)), end="")
+    print(chr(27) + "[3J", end="")
+    
+    msg = "'clear()' was deprecated in Pyto 16.1 since the terminal supports more escape sequences. You should just print the adequate escape sequences to clear the terminal."
+    warnings.warn(msg, DeprecationWarning)
 
 
 __PyInputHelper__ = PyInputHelper
