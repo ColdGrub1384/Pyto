@@ -3,6 +3,7 @@
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
 python3 -m pip install packaging
+python3 -m pip install --upgrade setuptools_scm
 
 source environment.sh
 
