@@ -5,7 +5,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 source environment.sh
 
 if ! [ -d fortran-ios ]; then
-curl -L https://github.com/ColdGrub1384/fortran-ios/releases/download/v1.0/fortran-ios-macos-x86_64.zip -o fortran-ios.zip
+curl -L https://github.com/ColdGrub1384/fortran-ios/releases/download/v2.1/fortran-ios-macos-$(uname -m).zip -o fortran-ios.zip
 unzip fortran-ios.zip
 rm -rf __MACOSX
 rm -rf fortran-ios.zip
