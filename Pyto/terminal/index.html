@@ -153,9 +153,15 @@
         a = true;
         
         var intDelta = Math.ceil(event.deltaY);
+        
+        intDelta = intDelta/4;
+        intDelta = Math.ceil(intDelta);
+        
         if (intDelta < 0) {
             intDelta = intDelta * (-1);
         }
+        
+        console.log(intDelta);
         
         var i = 0
         while (i <= intDelta) {

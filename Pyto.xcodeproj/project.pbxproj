@@ -727,6 +727,9 @@
 		C951634A253C792400E5E641 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D61E22145D50A00C8B5E3 /* String.swift */; };
 		C954FAB5220A165E0060C488 /* Replace.xib in Resources */ = {isa = PBXBuildFile; fileRef = C954FAB4220A165E0060C488 /* Replace.xib */; };
 		C954FAB9220A2BB00060C488 /* ReplaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C954FAB8220A2BB00060C488 /* ReplaceView.swift */; };
+		C9566716264DC62700DBE3B4 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9566715264DC62600DBE3B4 /* WebView.swift */; };
+		C9566719264DC63000DBE3B4 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9566715264DC62600DBE3B4 /* WebView.swift */; };
+		C956671A264DC63100DBE3B4 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9566715264DC62600DBE3B4 /* WebView.swift */; };
 		C956AB6322CD6BD700DBC580 /* PyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C956AB6222CD6BD600DBC580 /* PyLabel.swift */; };
 		C958355E24A67AA400C0CD74 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C96A03D82484478700A066BE /* Preview Assets.xcassets */; };
 		C958AEE42564600E00492BA9 /* _extensionsimporter.m in Sources */ = {isa = PBXBuildFile; fileRef = C958AEE32564600E00492BA9 /* _extensionsimporter.m */; };
@@ -2561,6 +2564,7 @@
 		C955039424B4D82D00AD34BA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Intents.strings; sourceTree = "<group>"; };
 		C955039624B4D83B00AD34BA /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Intents.strings; sourceTree = "<group>"; };
 		C955039824B4D84000AD34BA /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Intents.strings; sourceTree = "<group>"; };
+		C9566715264DC62600DBE3B4 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		C956AB6222CD6BD600DBC580 /* PyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyLabel.swift; sourceTree = "<group>"; };
 		C958AEE32564600E00492BA9 /* _extensionsimporter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _extensionsimporter.m; sourceTree = "<group>"; };
 		C958AF20256467AF00492BA9 /* _extensionsimporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _extensionsimporter.h; sourceTree = "<group>"; };
@@ -4711,6 +4715,7 @@
 				C954FAB8220A2BB00060C488 /* ReplaceView.swift */,
 				C91BFF9B2360B7D80016AFD8 /* LoadingPythonView.swift */,
 				C95E1DBD24F3FB4000843A74 /* EditorTextView.swift */,
+				C9566715264DC62600DBE3B4 /* WebView.swift */,
 				C954FAB4220A165E0060C488 /* Replace.xib */,
 			);
 			path = Views;
@@ -6361,6 +6366,7 @@
 				C940FC60250825A800EB74EB /* Parser.swift in Sources */,
 				C940FC62250825A800EB74EB /* MemoryManager.swift in Sources */,
 				C9E93C162526B1740025C363 /* Progress.swift in Sources */,
+				C956671A264DC63100DBE3B4 /* WebView.swift in Sources */,
 				C940FC65250825A800EB74EB /* RunModuleViewController.swift in Sources */,
 				C940FC66250825A800EB74EB /* RMAppReceipt.m in Sources */,
 				C33B44FE25894A9E00F2D1E6 /* isiOSAppOnMac.swift in Sources */,
@@ -6791,6 +6797,7 @@
 				C90A803E220D0E0300C9A5A1 /* PyMainThread.swift in Sources */,
 				C91321D821FB684C00437845 /* BlockBasedSelector.swift in Sources */,
 				C9F4622522ECB40C007DC3B8 /* PyWrapper.swift in Sources */,
+				C9566719264DC63000DBE3B4 /* WebView.swift in Sources */,
 				C9F4623122ECB412007DC3B8 /* PyTableViewCell.swift in Sources */,
 				C9C5BC7623DA02D800420DD5 /* PyWebView.swift in Sources */,
 				C9CEE1F921EB8FC800316D3C /* ConsoleViewController.swift in Sources */,
@@ -6993,6 +7000,7 @@
 				C94921FC24AD961D009E7E5F /* View Controller Presentation.swift in Sources */,
 				C972AE3F23467AE30053E1C3 /* FoldersBrowserViewController.swift in Sources */,
 				C949D39B21F8A00C005AF481 /* NSRange.swift in Sources */,
+				C9566716264DC62700DBE3B4 /* WebView.swift in Sources */,
 				C9E016F122823E30002DF4CA /* EditorActionsTableViewController.swift in Sources */,
 				C99D8E20223E960100489E9B /* PipViewController.swift in Sources */,
 				C9DA43CA250EC2B300A32A53 /* PythonRuntime.swift in Sources */,
