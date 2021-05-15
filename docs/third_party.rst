@@ -9,7 +9,7 @@ Full Version Exclusive
 - `astropy <http://astropy.org>`_ 4.2
 - `biopython <https://biopython.org/>`_ 1.78
 - `cffi <http://cffi.readthedocs.org>`_ 1.14.3
-- `pyerfa <https://github.com/liberfa/pyerfa>`_ 1.7.1.2.dev0+g78aec43.d20210502
+- `pyerfa <https://github.com/liberfa/pyerfa>`_ 1.7.1.2+g78aec43.d20210513
 - `gensim <http://radimrehurek.com/gensim>`_ 3.8.3
 - `kiwisolver <https://github.com/nucleic/kiwi>`_ 1.3.1
 - `numpy <https://www.numpy.org>`_ 1.19.4
@@ -23,24 +23,25 @@ Full Version Exclusive
 - `scikit-learn <http://scikit-learn.org>`_ 0.24.dev0
 - `statsmodels <https://www.statsmodels.org/>`_ 0.12.1
 - `typed-ast <https://github.com/python/typed_ast>`_ 1.4.3
-- `opencv-python <https://github.com/skvark/opencv-python>`_ 4.5.1.48
+- `opencv-python <https://github.com/skvark/opencv-python>`_ 4.5.2.52
 
 Other dependencies
 ------------------
+- `Pygments <https://pygments.org/>`_ 2.9.0
 - `appdirs <http://github.com/ActiveState/appdirs>`_ 1.4.4
 - `asn1crypto <https://github.com/wbond/asn1crypto>`_ 1.4.0
 - `beautifulsoup4 <http://www.crummy.com/software/BeautifulSoup/bs4/>`_ 4.9.3
-- `black <https://github.com/psf/black>`_ 21.4b2
+- `black <https://github.com/psf/black>`_ 21.5b1
 - `boto <https://github.com/boto/boto/>`_ 2.49.0
-- `boto3 <https://github.com/boto/boto3>`_ 1.17.62
-- `botocore <https://github.com/boto/botocore>`_ 1.20.62
+- `boto3 <https://github.com/boto/boto3>`_ 1.17.72
+- `botocore <https://github.com/boto/botocore>`_ 1.20.72
 - `certifi <https://certifiio.readthedocs.io/en/latest/>`_ 2020.12.5
 - `chardet <https://github.com/chardet/chardet>`_ 4.0.0
-- `click <https://palletsprojects.com/p/click/>`_ 7.1.2
+- `click <https://palletsprojects.com/p/click/>`_ 8.0.0
 - `cloudpickle <https://github.com/cloudpipe/cloudpickle>`_ 1.6.0
 - `colorama <https://github.com/tartley/colorama>`_ 0.4.4
 - `configparser2 <http://docs.python.org/3/library/configparser.html>`_ 4.0.0
-- `cryptography <https://github.com/pyca/cryptography>`_ 2.7
+- `cryptography <https://github.com/pyca/cryptography>`_ 3.4.7
 - `cycler <http://github.com/matplotlib/cycler>`_ 0.10.0
 - `dask <https://github.com/dask/dask/>`_ 2021.4.1
 - `decorator <https://github.com/micheles/decorator>`_ 5.0.7
@@ -65,8 +66,8 @@ Other dependencies
 - `pytoml <https://github.com/avakar/pytoml>`_ 0.1.21
 - `pytz <http://pythonhosted.org/pytz>`_ 2021.1
 - `requests <https://requests.readthedocs.io>`_ 2.25.1
-- `setuptools <https://github.com/pypa/setuptools>`_ 56.0.0
-- `six <https://github.com/benjaminp/six>`_ 1.15.0
+- `setuptools <https://github.com/pypa/setuptools>`_ 56.2.0
+- `six <https://github.com/benjaminp/six>`_ 1.16.0
 - `smart-open <https://github.com/piskvorky/smart_open>`_ 5.0.0
 - `soupsieve <https://github.com/facelessuser/soupsieve>`_ 2.2.1
 - `stopit <http://pypi.python.org/pypi/stopit>`_ 1.1.2
