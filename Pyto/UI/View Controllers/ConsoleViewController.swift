@@ -139,7 +139,7 @@ import SwiftUI
     }
         
     /// The Web view showing the terminal.
-    @objc public var webView = WKWebView()
+    @objc public var webView: WKWebView = WebView()
     
     /// Load the terminal into the web view.
     func loadTerminal() {
