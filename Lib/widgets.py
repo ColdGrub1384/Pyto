@@ -754,6 +754,16 @@ COLOR_WHITE = Color(ui_constants.COLOR_WHITE)
 COLOR_YELLOW = Color(ui_constants.COLOR_YELLOW)
 """ A color object with RGB values of 1.0, 1.0, and 0.0 and an alpha value of 1.0. """
 
+try:
+    if not COLOR_CLEAR.__py_color__.objc_class.name.endswith("PyColor"): # Something went wrong, retry
+        del sys.modules["ui_constants"]
+        del sys.modules["widgets"]
+
+        import widgets as _wd
+        globals().update(_wd.__dict__)
+except AttributeError:
+    pass
+
 # Date Style
 
 DATE_STYLE = "DATE_STYLE"
@@ -980,7 +990,7 @@ class Text(WidgetComponent):
 
         try:
             obj.backgroundColor = self.background_color.__py_color__.managed
-        except AttributeError:
+        except (AttributeError, ValueError):
             pass
 
         obj.font = self.font.__ui_font__
@@ -1106,7 +1116,7 @@ class DynamicDate(WidgetComponent):
 
         try:
             obj.backgroundColor = self.background_color.__py_color__.managed
-        except AttributeError:
+        except (AttributeError, ValueError):
             pass
 
         obj.font = self.font.__ui_font__
@@ -1176,7 +1186,7 @@ class SystemSymbol(WidgetComponent):
 
         try:
             obj.backgroundColor = self.background_color.__py_color__.managed
-        except AttributeError:
+        except (AttributeError, ValueError):
             pass
 
         obj.cornerRadius = self.corner_radius
@@ -1233,7 +1243,7 @@ class Image(WidgetComponent):
         obj.image = __image__.__ui_image_from_pil_image__(self.image)
         try:
             obj.backgroundColor = self.background_color.__py_color__.managed
-        except AttributeError:
+        except (AttributeError, ValueError):
             pass
         obj.cornerRadius = self.corner_radius
         __set_padding__(self.padding, obj)
@@ -1289,7 +1299,7 @@ class WidgetLayout:
 
         try:
             self.__widget_view__.backgroundColor = color.__py_color__.managed
-        except AttributeError:
+        except (AttributeError, ValueError):
             self.__widget_view__.backgroundColor = COLOR_CLEAR
 
     def set_background_gradient(self, colors: List[Color]):
