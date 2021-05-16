@@ -440,7 +440,10 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     ///     - code: Python code to run.
     @objc public func run(code: String) {
         if let pythonInstance = Python.pythonShared {
-            pythonInstance.performSelector(inBackground: #selector(PythonRuntime.runCode(_:)), with: code)
+            DispatchQueue.global().async {
+                PyEval_InitThreads()
+                pythonInstance.perform(#selector(PythonRuntime.runCode(_:)), with: code)
+            }
         } else {
             codeToRun = code
         }
@@ -633,14 +636,14 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// - Parameters:
     ///     - script: Script to run.
     @objc(runScript:) public func run(script: Script) {
-        
         #if MAIN
         currentWorkingDirectory = directory(for: URL(fileURLWithPath: script.path)).path
         #endif
         
         if let pythonInstance = Python.pythonShared {
             DispatchQueue.global().async {
-                pythonInstance.performSelector(inBackground: #selector(PythonRuntime.runScript(_:)), with: script)
+                PyEval_InitThreads()
+                pythonInstance.perform(#selector(PythonRuntime.runScript(_:)), with: script)
             }
         } else {
             scriptToRun = script
