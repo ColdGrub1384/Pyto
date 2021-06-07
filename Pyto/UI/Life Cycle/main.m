@@ -187,7 +187,7 @@ int initialize_python(int argc, char *argv[]) {
 #if MAIN
 int main(int argc, char *argv[]) {
 #elif WIDGET
-int init_python() {
+int init_python(void) {
 #endif
     
     #if !MAIN

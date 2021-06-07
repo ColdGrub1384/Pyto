@@ -116,15 +116,29 @@ extension UIResponder {
     }
 }
 
-func setupMacMenu(builder: UIMenuBuilder) {
+func setupMenu(builder: UIMenuBuilder) {
     // Ensure that the builder is modifying the menu bar system.
 
-    guard builder.system == UIMenuSystem.main, isiOSAppOnMac else { return }
+    guard #available(iOS 14.0, *) else {
+        return
+    }
+    
+    guard builder.system == UIMenuSystem.main else { return }
 
     let run = UIKeyCommand(title: Localizable.MenuItems.run,
                            action: #selector(EditorSplitViewController.runScript(_:)),
                             input: "r",
                             modifierFlags: .command)
+    
+    let runWithArguments = UIKeyCommand(title: Localizable.runAndSetArguments,
+                           action: #selector(EditorSplitViewController.runWithArguments),
+                            input: "r",
+                            modifierFlags: [.shift, .command])
+    
+    let stop = UIKeyCommand(title: Localizable.stop,
+                           action: #selector(EditorSplitViewController.stopScript(_:)),
+                            input: "x",
+                            modifierFlags: [.shift, .command])
 
     let save = UIKeyCommand(title: NSLocalizedString("Save", bundle: Bundle(for: UIApplication.self), comment: ""),
                             action: #selector(EditorViewController.saveScript(_:)),
@@ -180,18 +194,26 @@ func setupMacMenu(builder: UIMenuBuilder) {
                            input: "n",
                            modifierFlags: [.command])
     
-    let fileMenuTop = UIMenu(title: "", options: .displayInline, children: [new, openScript, repl])
-    let fileMenu = UIMenu(title: "", options: .displayInline, children: [save, run])
-    let editMenu = UIMenu(title: "", options: .displayInline, children: [find])
+    let toggleComment = UIKeyCommand.command(input: "c", modifierFlags: [.command, .shift], action: #selector(EditorViewController.toggleComment), discoverabilityTitle: Localizable.MenuItems.toggleComment)
+    let setBreakpoint = UIKeyCommand.command(input: "b", modifierFlags: [.command, .shift], action: #selector(EditorViewController.setBreakpoint(_:)), discoverabilityTitle: Localizable.MenuItems.breakpoint)
+    let unindent = UIKeyCommand.command(input: "\t", modifierFlags: [.alternate], action: #selector(EditorViewController.unindent), discoverabilityTitle: Localizable.unindent)
+    
+    let fileMenuTop = UIMenu(title: "", options: .displayInline, children: ProcessInfo.processInfo.isiOSAppOnMac ? [new, openScript, repl] : [repl])
+    let fileMenu = UIMenu(title: "", options: .displayInline, children: [save, stop, run, runWithArguments])
+    let editMenu = UIMenu(title: "", options: .displayInline, children: [find, toggleComment, setBreakpoint, unindent])
     
     let windowMenu = UIMenu(title: "", options: .displayInline, children: [docs, examples, pyPI])
 
     let pytoMenu = UIMenu(title: "", options: .displayInline, children: [automator, prefs])
     
     builder.remove(menu: .newScene)
-    builder.insertSibling(pytoMenu, afterMenu: .about)
-    builder.insertChild(fileMenuTop, atStartOfMenu: .file)
+    if ProcessInfo.processInfo.isiOSAppOnMac {
+        builder.insertSibling(pytoMenu, afterMenu: .about)
+        builder.insertChild(windowMenu, atEndOfMenu: .window)
+        
+    }
+    
     builder.insertChild(fileMenu, atEndOfMenu: .file)
+    builder.insertChild(fileMenuTop, atStartOfMenu: .file)
     builder.insertChild(editMenu, atEndOfMenu: .edit)
-    builder.insertChild(windowMenu, atEndOfMenu: .window)
 }

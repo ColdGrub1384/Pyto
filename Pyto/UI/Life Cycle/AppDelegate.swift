@@ -525,7 +525,7 @@ import AVFoundation
     }
     
     public override func buildMenu(with builder: UIMenuBuilder) {
-        setupMacMenu(builder: builder)
+        setupMenu(builder: builder)
     }
     
     #endif
