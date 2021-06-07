@@ -746,8 +746,8 @@
 		C95A9ED123765C5A00975507 /* HeaderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A9ED023765C5A00975507 /* HeaderLabel.swift */; };
 		C95AECB82208A688003BCB05 /* cacert.pem in Resources */ = {isa = PBXBuildFile; fileRef = C95AECB72208A688003BCB05 /* cacert.pem */; };
 		C95E1DBE24F3FB4000843A74 /* EditorTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E1DBD24F3FB4000843A74 /* EditorTextView.swift */; };
-		C95ED5C2261657A90029C518 /* joblib in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF40B246E238B004F41D3 /* joblib */; };
-		C95ED5D6261657AB0029C518 /* joblib in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF40B246E238B004F41D3 /* joblib */; };
+		C95ED5C2261657A90029C518 /* joblib in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF40B246E238B004F41D3 /* joblib */; settings = {ASSET_TAGS = (joblib, ); }; };
+		C95ED5D6261657AB0029C518 /* joblib in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF40B246E238B004F41D3 /* joblib */; settings = {ASSET_TAGS = (joblib, ); }; };
 		C95EE4E722070224006611CB /* libpng.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE4DF22070224006611CB /* libpng.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C95EE4ED22070275006611CB /* png.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BA62202590E0085E1AA /* png.c */; };
 		C95EE4EE22070277006611CB /* pngerror.c in Sources */ = {isa = PBXBuildFile; fileRef = C9FB5BA72202590E0085E1AA /* pngerror.c */; };
@@ -5454,11 +5454,9 @@
 					cryptography,
 					cv2,
 					dask,
-					docs,
 					erfa,
 					gensim,
 					imageio,
-					jmespath,
 					joblib,
 					lxml,
 					matplotlib,
@@ -5471,7 +5469,6 @@
 					scipy,
 					skimage,
 					sklearn,
-					smart_open,
 					statsmodels,
 					typed_ast,
 					zmq,
@@ -8391,7 +8388,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_NUMBER = 382;
+				BUILD_NUMBER = 384;
 				BUNDLE_ID = ch.ada.PytoVPP;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9769,7 +9766,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_NUMBER = 382;
+				BUILD_NUMBER = 384;
 				BUNDLE_ID = ch.marcela.ada.Pyto;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9834,7 +9831,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_NUMBER = 382;
+				BUILD_NUMBER = 384;
 				BUNDLE_ID = ch.marcela.ada.Pyto;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;

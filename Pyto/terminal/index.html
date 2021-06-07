@@ -127,6 +127,11 @@
 
         io.onTerminalResize = (columns, rows) => {
           sendSize();
+          
+          if (t.document_.getElementsByTagName("img").length > 0) {
+            return;
+          }
+          
           t.io.print("\x1b[2J\x1b[;H");
           t.io.print("\x1b[3J");
           t.io.print(outputHistory);
