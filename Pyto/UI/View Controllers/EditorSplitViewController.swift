@@ -377,6 +377,11 @@ public class EditorSplitViewController: SplitViewController {
     }
     
     public override var keyCommands: [UIKeyCommand]? {
+        
+        if #available(iOS 15.0, *) {
+            return [UIKeyCommand.command(input: "d", modifierFlags: .command, action: #selector(showDocs), discoverabilityTitle: Localizable.Help.documentation)]
+        }
+        
         var commands = [
             UIKeyCommand.command(input: "d", modifierFlags: .command, action: #selector(showDocs), discoverabilityTitle: Localizable.Help.documentation),
             UIKeyCommand.command(input: "f", modifierFlags: .command, action: #selector(search), discoverabilityTitle: Localizable.find),

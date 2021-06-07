@@ -311,6 +311,14 @@ import SwiftUI
     
     // MARK: - Document browser view controller
     
+    public override var keyCommands: [UIKeyCommand]? {
+        if presentedViewController == nil {
+            return super.keyCommands
+        } else {
+            return nil
+        }
+    }
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         

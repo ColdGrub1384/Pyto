@@ -749,31 +749,48 @@ func directory(for scriptURL: URL) -> URL {
         return true
     }
     
-    override var keyCommands: [UIKeyCommand]? {
-        if textView.contentTextView.isFirstResponder {
-            var commands = [
-                UIKeyCommand.command(input: "c", modifierFlags: [.command, .shift], action: #selector(toggleComment), discoverabilityTitle: Localizable.MenuItems.toggleComment),
-                UIKeyCommand.command(input: "b", modifierFlags: [.command, .shift], action: #selector(setBreakpoint(_:)), discoverabilityTitle: Localizable.MenuItems.breakpoint)
-            ]
-            if numberOfSuggestionsInInputAssistantView() != 0 {
-                commands.append(UIKeyCommand.command(input: "\t", modifierFlags: [], action: #selector(nextSuggestion), discoverabilityTitle: Localizable.nextSuggestion))
-            }
-            
-            var indented = false
-            if let range = textView.contentTextView.selectedTextRange {
-                for line in textView.contentTextView.text(in: range)?.components(separatedBy: "\n") ?? [] {
-                    if line.hasPrefix(EditorViewController.indentation) {
-                        indented = true
-                        break
-                    }
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(unindent) {
+            return isIndented && textView.isFirstResponder
+        } else if action == #selector(toggleComment) || action == #selector(setBreakpoint(_:)) {
+            return textView.isFirstResponder
+        } else {
+            return super.canPerformAction(action, withSender: sender)
+        }
+    }
+    
+    private var isIndented: Bool {
+        var indented = false
+        if let range = textView.contentTextView.selectedTextRange {
+            for line in textView.contentTextView.text(in: range)?.components(separatedBy: "\n") ?? [] {
+                if line.hasPrefix(EditorViewController.indentation) {
+                    indented = true
+                    break
                 }
             }
-            if let line = textView.contentTextView.currentLine, line.hasPrefix(EditorViewController.indentation) {
-                indented = true
+        }
+        if let line = textView.contentTextView.currentLine, line.hasPrefix(EditorViewController.indentation) {
+            indented = true
+        }
+        
+        return indented
+    }
+    
+    override var keyCommands: [UIKeyCommand]? {
+        if textView.contentTextView.isFirstResponder {
+            var commands = [UIKeyCommand]()
+            
+            if #available(iOS 15.0, *) {
+            } else {
+                commands.append(contentsOf: [
+                    UIKeyCommand.command(input: "c", modifierFlags: [.command, .shift], action: #selector(toggleComment), discoverabilityTitle: Localizable.MenuItems.toggleComment),
+                    UIKeyCommand.command(input: "b", modifierFlags: [.command, .shift], action: #selector(setBreakpoint(_:)), discoverabilityTitle: Localizable.MenuItems.breakpoint),
+                    UIKeyCommand.command(input: "\t", modifierFlags: [.alternate], action: #selector(unindent), discoverabilityTitle: Localizable.unindent)
+                ])
             }
             
-            if indented {
-                commands.append(UIKeyCommand.command(input: "\t", modifierFlags: [.alternate], action: #selector(unindent), discoverabilityTitle: Localizable.unindent))
+            if numberOfSuggestionsInInputAssistantView() != 0 {
+                commands.append(UIKeyCommand.command(input: "\t", modifierFlags: [], action: #selector(nextSuggestion), discoverabilityTitle: Localizable.nextSuggestion))
             }
             
             return commands
