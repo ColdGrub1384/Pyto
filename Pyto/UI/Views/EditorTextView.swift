@@ -27,7 +27,39 @@ class EditorTextView: LineNumberTextView, UITextViewDelegate {
         delegate = theDelegate
     }
     
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(undo) {
+            return undoManager?.canUndo ?? false
+        } else if action == #selector(redo) {
+            return undoManager?.canRedo ?? false
+        } else {
+            return super.canPerformAction(action, withSender: send)
+        }
+    }
+    
+    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        
+        if #available(iOS 15.0, *), presses.first?.key?.keyCode == .keyboardTab {
+            var next = self.next
+            while !(next is EditorViewController) && next != nil {
+                next = next?.next
+            }
+            
+            if (next as? EditorViewController)?.numberOfSuggestionsInInputAssistantView() != 0 {
+                (next as? EditorViewController)?.nextSuggestion()
+                return
+            }
+        }
+        
+        super.pressesBegan(presses, with: event)
+    }
+    
     override var keyCommands: [UIKeyCommand]? {
+        
+        if #available(iOS 15.0, *) {
+            return nil
+        }
+        
         let undoCommand = UIKeyCommand.command(input: "z", modifierFlags: .command, action: #selector(undo), discoverabilityTitle: Localizable.MenuItems.undo)
         let redoCommand = UIKeyCommand.command(input: "z", modifierFlags: [.command, .shift], action: #selector(redo), discoverabilityTitle: Localizable.MenuItems.redo)
         

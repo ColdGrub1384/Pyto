@@ -196,11 +196,15 @@ func setupMenu(builder: UIMenuBuilder) {
     
     let toggleComment = UIKeyCommand.command(input: "c", modifierFlags: [.command, .shift], action: #selector(EditorViewController.toggleComment), discoverabilityTitle: Localizable.MenuItems.toggleComment)
     let setBreakpoint = UIKeyCommand.command(input: "b", modifierFlags: [.command, .shift], action: #selector(EditorViewController.setBreakpoint(_:)), discoverabilityTitle: Localizable.MenuItems.breakpoint)
-    let unindent = UIKeyCommand.command(input: "\t", modifierFlags: [.alternate], action: #selector(EditorViewController.unindent), discoverabilityTitle: Localizable.unindent)
+    let unindent = UIKeyCommand.command(input: "t", modifierFlags: [.alternate], action: #selector(EditorViewController.unindent), discoverabilityTitle: Localizable.unindent)
+    
+    let undo = UIKeyCommand.command(input: "z", modifierFlags: [.command], action: #selector(EditorTextView.undo), discoverabilityTitle: Localizable.unindent)
+    
+    let redo = UIKeyCommand.command(input: "z", modifierFlags: [.command, .shift], action: #selector(EditorTextView.redo), discoverabilityTitle: Localizable.MenuItems.redo)
     
     let fileMenuTop = UIMenu(title: "", options: .displayInline, children: ProcessInfo.processInfo.isiOSAppOnMac ? [new, openScript, repl] : [repl])
     let fileMenu = UIMenu(title: "", options: .displayInline, children: [save, stop, run, runWithArguments])
-    let editMenu = UIMenu(title: "", options: .displayInline, children: [find, toggleComment, setBreakpoint, unindent])
+    let editMenu = UIMenu(title: "", options: .displayInline, children: [redo, undo, find, toggleComment, setBreakpoint, unindent])
     
     let windowMenu = UIMenu(title: "", options: .displayInline, children: [docs, examples, pyPI])
 
