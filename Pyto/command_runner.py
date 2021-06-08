@@ -46,6 +46,10 @@ def _main_function_no_one_calls_a_function_like_that():
     __clear_mods__()
 
     try:
+        try:
+            sys.modules["__main__"]
+        except KeyError:
+            sys.modules["__main__"] = pyto
         runpy._run_module_as_main(module_name)
     except KeyboardInterrupt:
         pass

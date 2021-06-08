@@ -176,8 +176,14 @@ public struct EditorView: View {
                 } else {
                     open()
                 }
+                
             }
             
+            editorStore.editor!.viewController!.removeFromParent()
+            editorStore.editor!.viewController!.view.removeFromSuperview()
+            
+            editorStore.editor = ViewController(viewController: editorStore.editor!.viewController!, viewControllerStore: editorStore.editor!.viewControllerStore)
+                        
             view = AnyView(editorStore.editor!)
         }
         

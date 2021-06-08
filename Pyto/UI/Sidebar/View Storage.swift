@@ -106,8 +106,10 @@ public class RecentDataSource: ObservableObject {
         var items = [RecentItem]()
         
         for item in recent {
+            let blank = UIViewController()
+            blank.view.backgroundColor = .red
             items.append(RecentItem(url: item, makeViewController: { store in
-                return ViewController(viewController: self.makeEditor?(item) ?? UIViewController(), viewControllerStore: store)
+                return ViewController(viewController: self.makeEditor?(item) ?? blank, viewControllerStore: store)
             }))
         }
         

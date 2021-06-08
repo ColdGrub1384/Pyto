@@ -688,6 +688,9 @@ func directory(for scriptURL: URL) -> URL {
         }
         
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
+            self.textView.frame = self.view.safeAreaLayoutGuide.layoutFrame
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
