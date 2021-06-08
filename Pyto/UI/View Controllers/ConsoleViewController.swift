@@ -1180,10 +1180,27 @@ import SwiftUI
         }
     }
     
+    open override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        super.pressesBegan(presses, with: event)
+        
+        guard #available(iOS 15.0, *) else {
+            return
+        }
+        
+        let press = presses.first
+        
+        if press?.key?.keyCode == .keyboardUpArrow {
+            up()
+        } else if press?.key?.keyCode == .keyboardDownArrow {
+            down()
+        }
+    }
+    
     open override var keyCommands: [UIKeyCommand]? {
         var commands = [
             UIKeyCommand(input: UIKeyCommand.inputDownArrow, modifierFlags: [], action: #selector(down)),
             UIKeyCommand(input: UIKeyCommand.inputUpArrow, modifierFlags: [], action: #selector(up)),
+            UIKeyCommand.command(input: "C", modifierFlags: .control, action: #selector(editorSplitViewController?.interrupt(_:)), discoverabilityTitle: Localizable.interrupt)
         ]
         
         #if MAIN

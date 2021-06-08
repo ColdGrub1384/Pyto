@@ -26,6 +26,7 @@ public class ContainerViewController: UIViewController {
         }
         
         if children.count == 0 {
+            dontCallDidLayoutSubviews = true
             viewController.removeFromParent()
             viewController.view.removeFromSuperview()
             addChild(viewController)
@@ -95,8 +96,14 @@ public class ContainerViewController: UIViewController {
         #endif
     }
     
+    var dontCallDidLayoutSubviews = false
+    
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
+        guard !dontCallDidLayoutSubviews else {
+            return dontCallDidLayoutSubviews = false
+        }
         
         update()
     }
@@ -125,7 +132,7 @@ public struct ViewController: UIViewControllerRepresentable {
     
     /// The `ViewControllerStore` associated with the sidebar navigation.
     var viewControllerStore: ViewControllerStore?
-    
+        
     /// Initialize with a given VC.
     ///
     /// - Parameters:
@@ -148,10 +155,12 @@ public struct ViewController: UIViewControllerRepresentable {
         var contained = viewController as? (UIViewController & ContainedViewController)
         contained?.container = vc
         
+        vc.update()
+        
         return vc
     }
     
-    public func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+    public func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
     }
 }
 

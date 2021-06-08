@@ -28,8 +28,7 @@ fileprivate extension IndexPath {
     static let watchScript = IndexPath(row: 0, section: 3)
     static let inputSugestions = IndexPath(row: 1, section: 3)
     
-    static let discord = IndexPath(row: 0, section: 5)
-    static let contact = IndexPath(row: 1, section: 5)
+    static let contact = IndexPath(row: 0, section: 5)
     
     static let acknowledgments = IndexPath(row: 0, section: 6)
     static let sourceCode = IndexPath(row: 1, section: 6)
@@ -276,9 +275,6 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
             controller.setToRecipients(["support@pyto.app"])
             controller.mailComposeDelegate = self
             viewControllerToPresent = controller
-        case .discord:
-            UIApplication.shared.open(URL(string: "https://discord.gg/326ster")!, options: [:], completionHandler: nil)
-            viewControllerToPresent = nil
         case .acknowledgments:
             viewControllerToPresent = ThemableNavigationController(rootViewController: AcknowledgmentsViewController())
         case .sourceCode:
