@@ -257,12 +257,16 @@ import SwiftUI
         InAppWidgetsStore.shared.migrate()
         
         InAppWidgetsStore.shared.set(entry: entry, id: key)
+        #if MAIN
         let task = BackgroundTask()
         task.startBackgroundTask()
+        #endif
         WidgetCenter.shared.reloadTimelines(ofKind: "SetInApp")
+        #if MAIN
         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
             task.stopBackgroundTask()
         }
+        #endif
     }
     
     static var savedWidgets: [String : ScriptEntry] {
