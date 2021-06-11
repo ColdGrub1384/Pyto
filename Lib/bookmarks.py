@@ -148,3 +148,37 @@ class FolderBookmark(StoredBookmark):
     """
 
     __type__ = "public.folder"
+
+
+def AllBookmarks():
+    """
+    Function to return a list of dictionaries 
+    for all bookmarks with name, path, and 
+    type (file or folder) keys.
+    JG 2021-06-11
+    """
+    answer = []
+    bkmks = __stored_bookmarks__()
+    for name in bkmks.keys():
+        value = bkmks[name]
+        data = NSData.alloc().initWithBase64EncodedString(value, options=0)
+        url = NSURL.URLByResolvingBookmarkData(
+            data,
+            options=0,
+            relativeToURL=None,
+            bookmarkDataIsStale=None,
+            error=None,
+            )
+        path = str(url.path)
+        typ = "unknown"
+        if (os.path.isfile(path)):
+            typ = "file"
+        if (os.path.isdir(path)):
+            typ = "folder"
+        answer.append({
+            "name":name,
+            "path":path,
+            "type":typ
+            })
+    return(answer)
+
