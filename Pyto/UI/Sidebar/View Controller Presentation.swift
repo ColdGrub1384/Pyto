@@ -25,8 +25,7 @@ public class ContainerViewController: UIViewController {
             return
         }
         
-        if children.count == 0 {
-            dontCallDidLayoutSubviews = true
+        if children.count == 0 && view.window?.windowScene?.activationState != .background && view.window != nil {
             viewController.removeFromParent()
             viewController.view.removeFromSuperview()
             addChild(viewController)
@@ -36,10 +35,8 @@ public class ContainerViewController: UIViewController {
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) { [weak self] in
-            if self?.vcStore?.scene?.activationState != .background {
-                self?.vcStore?.showSidebar = (self?.vcStore?.vc?.children.first as? UISplitViewController)?.displayMode != .secondaryOnly
-            } else {
-                (self?.vcStore?.vc?.children.first as? UISplitViewController)?.preferredDisplayMode = ((self?.vcStore?.showSidebar == true) ? .allVisible : .secondaryOnly)
+            if self?.vcStore?.scene?.activationState == .background {
+                self?.splitViewController?.preferredDisplayMode = .secondaryOnly
             }
         }
         
@@ -84,7 +81,7 @@ public class ContainerViewController: UIViewController {
     
     private func showEditor() {
         #if MAIN
-        if let editor = children.first as? EditorSplitViewController {
+        if let editor = children.first as? EditorSplitViewController, !(editor is REPLViewController) {
             editor.animateLayouts = false
             if editor.isConsoleShown {
                 editor.showConsole {}
@@ -96,22 +93,33 @@ public class ContainerViewController: UIViewController {
         #endif
     }
     
-    var dontCallDidLayoutSubviews = false
-    
-    public override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         
-        guard !dontCallDidLayoutSubviews else {
-            return dontCallDidLayoutSubviews = false
+        coordinator.animate(alongsideTransition: nil) { _ in
+            self.update()
         }
-        
-        update()
     }
     
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        NotificationCenter.default.addObserver(forName: UIScene.willEnterForegroundNotification, object: nil, queue: nil) { notification in
+            if notification.object as? UIScene == self.view.window?.windowScene {
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                    self.update()
+                }
+            }
+        }
+        
         showEditor()
         update()
+    }
+    
+    public override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
@@ -155,8 +163,6 @@ public struct ViewController: UIViewControllerRepresentable {
         var contained = viewController as? (UIViewController & ContainedViewController)
         contained?.container = vc
         
-        vc.update()
-        
         return vc
     }
     
@@ -174,8 +180,10 @@ extension View {
     ///     - isStack: A boolean indicating whether the navigaton view should be presented as stack.
     ///
     /// - Returns: A view that sets the current view on appear.
-    func link(store: CurrentViewStore, isStack: Binding<Bool>, selection: SelectedSection, selected: Binding<SelectedSection?>, restoredSelection: Binding<SelectedSection?>) -> some View {
+    func link(store: CurrentViewStore, viewController: UIViewController? = nil, isStack: Binding<Bool>, selection: SelectedSection, selected: Binding<SelectedSection?>, restoredSelection: Binding<SelectedSection?>) -> some View {
+        
         onAppear {
+            store.currentVC = viewController
             isStack.wrappedValue = false
             store.currentView = AnyView(self)
             restoredSelection.wrappedValue = nil

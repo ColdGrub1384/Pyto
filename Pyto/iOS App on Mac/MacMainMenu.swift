@@ -22,11 +22,6 @@ func showWindow(vc: UIViewController?, allowDuplicates: Bool) {
             continue
         }
         
-        if let browser = (scene as? UIWindowScene)?.windows.first?.rootViewController as? DocumentBrowserViewController, browser.presentedViewController == nil {
-            browser.view.window?.rootViewController = vc
-            return
-        }
-        
         let session = scene.session
         let typeOfVC = type(of: vc)
         if let sceneVC = ((scene as? UIWindowScene)?.windows.first?.rootViewController as? SceneDelegate.ViewController)?.presentedViewController  {
@@ -157,7 +152,7 @@ func setupMenu(builder: UIMenuBuilder) {
     
     let repl = UIKeyCommand(title: Localizable.repl,
                             action: #selector(UIResponder.showREPL(_:)),
-                            input: "r",
+                            input: "e",
                             modifierFlags: [.command, .shift])
     
     let docs = UIKeyCommand(title: Localizable.Help.documentation,
@@ -211,6 +206,7 @@ func setupMenu(builder: UIMenuBuilder) {
     let pytoMenu = UIMenu(title: "", options: .displayInline, children: [automator, prefs])
     
     builder.remove(menu: .newScene)
+    builder.remove(menu: .preferences)
     if ProcessInfo.processInfo.isiOSAppOnMac {
         builder.insertSibling(pytoMenu, afterMenu: .about)
         builder.insertChild(windowMenu, atEndOfMenu: .window)

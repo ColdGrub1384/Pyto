@@ -302,7 +302,6 @@
 		C93D62DC24981A7700CE60BE /* InputAssistant.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AC4126249811C500847A13 /* InputAssistant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C93D62DD24981A9000CE60BE /* InputAssistant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9AC4126249811C500847A13 /* InputAssistant.framework */; };
 		C93E18C2252ACD0000EDE77E /* ComplicationCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93E18C1252ACD0000EDE77E /* ComplicationCache.swift */; };
-		C93E18EB252ACD3C00EDE77E /* ComplicationCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93E18C1252ACD0000EDE77E /* ComplicationCache.swift */; };
 		C9400035250825A800EB74EB /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C943AC3D215277A000844368 /* Python.framework */; };
 		C94003E22508282700EB74EB /* libjpeg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C97867D52304DEB000BD6FA4 /* libjpeg.framework */; };
 		C94003E32508282C00EB74EB /* libpng.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C95EE4DF22070224006611CB /* libpng.framework */; };
@@ -600,6 +599,19 @@
 		C9477BBB21D45D29000680AE /* installer.py in Resources */ = {isa = PBXBuildFile; fileRef = C9477BBA21D45D28000680AE /* installer.py */; };
 		C947C6F822E512CD00B7B35A /* Lib in Resources */ = {isa = PBXBuildFile; fileRef = C947C6F522E512CC00B7B35A /* Lib */; };
 		C947C6F922E512CD00B7B35A /* Lib in Resources */ = {isa = PBXBuildFile; fileRef = C947C6F522E512CC00B7B35A /* Lib */; };
+		C9480F7626712E9D00B2F90A /* Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = C9480F7526712E9D00B2F90A /* Dynamic */; };
+		C9480F7926712ECD00B2F90A /* shareBundleBookmarkData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91B9E6825AFFFBE00DAAD21 /* shareBundleBookmarkData.swift */; };
+		C9480F7A26712ECD00B2F90A /* EditorViewController+saveAsIfNeeded.swift in Sources */ = {isa = PBXBuildFile; fileRef = C312BAD7259D0F05000A6BAD /* EditorViewController+saveAsIfNeeded.swift */; };
+		C9480F7B26712ECD00B2F90A /* EditorViewController+NSWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C2CB4B25992A9E0017B6C8 /* EditorViewController+NSWindow.swift */; };
+		C9480F7C26712ECD00B2F90A /* DocumentationViewController+NSWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C963FCCA25AF8590006D859F /* DocumentationViewController+NSWindow.swift */; };
+		C9480F7D26712ECD00B2F90A /* AppDelegate+NSWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DFDDD425AE4AAC00B809B4 /* AppDelegate+NSWindow.swift */; };
+		C9480F7E26712ECD00B2F90A /* openEmptyScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = C312BAC2259BDE86000A6BAD /* openEmptyScript.swift */; };
+		C9480F7F26712EEF00B2F90A /* RuntimeCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94D3BAD2530E64300C81D32 /* RuntimeCommunicator.swift */; };
+		C9480F8026712F1400B2F90A /* InAppWidgetsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92B72692561E0FA000D2BE3 /* InAppWidgetsStore.swift */; };
+		C9480F8126712F4900B2F90A /* AppDelegate+AppleWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C943CAB8255C2C4E005F929B /* AppDelegate+AppleWatch.swift */; };
+		C9480F8226712F4F00B2F90A /* View+hover.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90788EA254DF77600FC5348 /* View+hover.swift */; };
+		C9480F8326712F6A00B2F90A /* StartHandlingWidgetsInAppIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9145BC42536ACB50099D91B /* StartHandlingWidgetsInAppIntentHandler.swift */; };
+		C9480F8426712FE100B2F90A /* _extensionsimporter.m in Sources */ = {isa = PBXBuildFile; fileRef = C958AEE32564600E00492BA9 /* _extensionsimporter.m */; };
 		C948B81624BA676300EE982A /* SetupPython.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948B81524BA676300EE982A /* SetupPython.swift */; };
 		C948B81824BA6B2100EE982A /* PyWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948B81724BA6B2100EE982A /* PyWidget.swift */; };
 		C94921FC24AD961D009E7E5F /* View Controller Presentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D7F29024ABE46D00FCC1B6 /* View Controller Presentation.swift */; };
@@ -1293,29 +1305,6 @@
 		C9E501AE220C85B1002719CE /* PyMainThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E501AD220C85B1002719CE /* PyMainThread.swift */; };
 		C9E93C052526B1680025C363 /* PyComplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D30CDF2521573000AB7965 /* PyComplication.swift */; };
 		C9E93C162526B1740025C363 /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D30C5C25212FD400AB7965 /* Progress.swift */; };
-		C9E93C3B2526C8F40025C363 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C96A199A2480C2D400AFD7BD /* Interface.storyboard */; };
-		C9E93C3C2526C8F40025C363 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C97B021423E9F82A00032925 /* Assets.xcassets */; };
-		C9E93CAC2526C9440025C363 /* Pyto Watch Simulator.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = C9E93C442526C8F40025C363 /* Pyto Watch Simulator.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		C9E93CE22526C96B0025C363 /* CodableWidgetComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A7D9E024D3540300204932 /* CodableWidgetComponent.swift */; };
-		C9E93CE32526C96B0025C363 /* CodableFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A7D9F924D3829B00204932 /* CodableFont.swift */; };
-		C9E93CE42526C96B0025C363 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5C75E24CD2CB9000CC6D0 /* Image.swift */; };
-		C9E93CE52526C96B0025C363 /* PyComplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D30CDF2521573000AB7965 /* PyComplication.swift */; };
-		C9E93CE62526C96B0025C363 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97B022223E9F82A00032925 /* InterfaceController.swift */; };
-		C9E93CE72526C96B0025C363 /* ImageInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97B023D23EAF8C600032925 /* ImageInterfaceController.swift */; };
-		C9E93CE82526C96B0025C363 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FE884124CFBDB500D0C615 /* Date.swift */; };
-		C9E93CE92526C96B0025C363 /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5C75B24CD2C8B000CC6D0 /* Symbol.swift */; };
-		C9E93CEA2526C96B0025C363 /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D30C5C25212FD400AB7965 /* Progress.swift */; };
-		C9E93CEB2526C96B0025C363 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A49E6C23EB2ACC0074B8CC /* ComplicationController.swift */; };
-		C9E93CEC2526C96B0025C363 /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5C76124CD2D05000CC6D0 /* WidgetView.swift */; };
-		C9E93CED2526C96B0025C363 /* SessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97B023B23EA2DEC00032925 /* SessionDelegate.swift */; };
-		C9E93CEE2526C96B0025C363 /* WidgetRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5C76724CD2E7F000CC6D0 /* WidgetRow.swift */; };
-		C9E93CEF2526C96B0025C363 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91321C821FB500300437845 /* UIColor.swift */; };
-		C9E93CF02526C96B0025C363 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5C74124CD2BF3000CC6D0 /* Text.swift */; };
-		C9E93CF12526C96B0025C363 /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5C76424CD2DB1000CC6D0 /* Component.swift */; };
-		C9E93CF22526C96B0025C363 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97B022423E9F82A00032925 /* ExtensionDelegate.swift */; };
-		C9E93CF32526C96B0025C363 /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9508C4425146E0B00E4D665 /* Padding.swift */; };
-		C9E93CF62526C96B0025C363 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C97B022823E9F82B00032925 /* Assets.xcassets */; };
-		C9E93D452526C9940025C363 /* Pyto Watch Extension Simulator.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C9E93CFB2526C96B0025C363 /* Pyto Watch Extension Simulator.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C9E9660724C685380053B52D /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946A5C622077F9800F78C5C /* UserDefaults.swift */; };
 		C9E9661F24C688980053B52D /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946A5C622077F9800F78C5C /* UserDefaults.swift */; };
 		C9E9662024C6895F0053B52D /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91321C821FB500300437845 /* UIColor.swift */; };
@@ -1602,20 +1591,6 @@
 			remoteGlobalIDString = C943AC3C215277A000844368;
 			remoteInfo = Python;
 		};
-		C9E93D582526CA640025C363 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C9FCFD4D214428AE00A07974 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C9E93C372526C8F40025C363;
-			remoteInfo = "Pyto Watch Simulator";
-		};
-		C9E93D5A2526CA6E0025C363 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C9FCFD4D214428AE00A07974 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C9E93CE02526C96B0025C363;
-			remoteInfo = "Pyto Watch Extension Simulator";
-		};
 		C9F1E4D62473727000A28F2A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C9FCFD4D214428AE00A07974 /* Project object */;
@@ -1671,7 +1646,6 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				C9E93CAC2526C9440025C363 /* Pyto Watch Simulator.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1709,17 +1683,6 @@
 				C97B023023E9F82B00032925 /* Pyto Watch.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C9E93C3D2526C8F40025C363 /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				C9E93D452526C9940025C363 /* Pyto Watch Extension Simulator.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C9EAB4CA214D95C500DFC9A4 /* Embed Frameworks */ = {
@@ -2996,9 +2959,7 @@
 		C9E49CF121FDF5A900D30931 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/lib/libbz2.tbd; sourceTree = DEVELOPER_DIR; };
 		C9E501AD220C85B1002719CE /* PyMainThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyMainThread.swift; sourceTree = "<group>"; };
 		C9E7ABAA2152D0D30007BB87 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
-		C9E93C442526C8F40025C363 /* Pyto Watch Simulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pyto Watch Simulator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9E93C562526C8F70025C363 /* Pyto Watch copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Pyto Watch copy-Info.plist"; path = "/Users/adrianlabbe/Desktop/Pyto/Pyto Watch copy-Info.plist"; sourceTree = "<absolute>"; };
-		C9E93CFB2526C96B0025C363 /* Pyto Watch Extension Simulator.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Pyto Watch Extension Simulator.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9E93D0E2526C96D0025C363 /* Pyto Watch Extension copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Pyto Watch Extension copy-Info.plist"; path = "/Users/adrianlabbe/Desktop/Pyto/Pyto Watch Extension copy-Info.plist"; sourceTree = "<absolute>"; };
 		C9E98D932200BF5100C60946 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C9E98D972200BFA100C60946 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -3177,6 +3138,7 @@
 				C940FD86250825A800EB74EB /* MarqueeLabel in Frameworks */,
 				C940FDB5250825A800EB74EB /* libz.tbd in Frameworks */,
 				C940FF5B250825A800EB74EB /* Accelerate.framework in Frameworks */,
+				C9480F7626712E9D00B2F90A /* Dynamic in Frameworks */,
 				C9400035250825A800EB74EB /* Python.framework in Frameworks */,
 				661A396962347B634955210E /* Pods_Pyto_Screenshots.framework in Frameworks */,
 			);
@@ -3272,20 +3234,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C9DF04C724998BCD0073A871 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C9E93C3F2526C8F40025C363 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C9E93CF42526C96B0025C363 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -4813,8 +4761,6 @@
 				C979923D24B398A5003571AB /* TodayExtension.appex */,
 				C936525224D7BAF100B08A7C /* Intents UI.appex */,
 				C940020F250825A800EB74EB /* Pyto.app */,
-				C9E93C442526C8F40025C363 /* Pyto Watch Simulator.app */,
-				C9E93CFB2526C96B0025C363 /* Pyto Watch Extension Simulator.appex */,
 				C9509D7F257AF6260015FC92 /* cv2-cv2.framework */,
 				C9B2B7E02583EDDF00D75C66 /* matplotlib-deps.framework */,
 				C9395E4B25B0F15D0060D9CB /* Run Python Script.action */,
@@ -5112,7 +5058,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				C9E93D592526CA640025C363 /* PBXTargetDependency */,
 				C94003E525082B3A00EB74EB /* PBXTargetDependency */,
 				C940FBBF250825A800EB74EB /* PBXTargetDependency */,
 				C940FBC7250825A800EB74EB /* PBXTargetDependency */,
@@ -5120,6 +5065,7 @@
 			name = "Pyto Screenshots";
 			packageProductDependencies = (
 				C940FBD7250825A800EB74EB /* MarqueeLabel */,
+				C9480F7526712E9D00B2F90A /* Dynamic */,
 			);
 			productName = Pyto;
 			productReference = C940020F250825A800EB74EB /* Pyto.app */;
@@ -5339,41 +5285,6 @@
 			productReference = C9DF04CA24998BCD0073A871 /* PytoTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		C9E93C372526C8F40025C363 /* Pyto Watch Simulator */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C9E93C402526C8F40025C363 /* Build configuration list for PBXNativeTarget "Pyto Watch Simulator" */;
-			buildPhases = (
-				C9E93C3A2526C8F40025C363 /* Resources */,
-				C9E93C3D2526C8F40025C363 /* Embed App Extensions */,
-				C9E93C3F2526C8F40025C363 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C9E93D5B2526CA6E0025C363 /* PBXTargetDependency */,
-			);
-			name = "Pyto Watch Simulator";
-			productName = "Pyto Watch";
-			productReference = C9E93C442526C8F40025C363 /* Pyto Watch Simulator.app */;
-			productType = "com.apple.product-type.application.watchapp2";
-		};
-		C9E93CE02526C96B0025C363 /* Pyto Watch Extension Simulator */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C9E93CF72526C96B0025C363 /* Build configuration list for PBXNativeTarget "Pyto Watch Extension Simulator" */;
-			buildPhases = (
-				C9E93CE12526C96B0025C363 /* Sources */,
-				C9E93CF42526C96B0025C363 /* Frameworks */,
-				C9E93CF52526C96B0025C363 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Pyto Watch Extension Simulator";
-			productName = "Pyto Watch Extension";
-			productReference = C9E93CFB2526C96B0025C363 /* Pyto Watch Extension Simulator.appex */;
-			productType = "com.apple.product-type.watchkit2-extension";
-		};
 		C9F1E4AB2473721A00A28F2A /* SwiftUI Preview */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C9F1E4D52473721E00A28F2A /* Build configuration list for PBXNativeTarget "SwiftUI Preview" */;
@@ -5533,9 +5444,6 @@
 						CreatedOnToolsVersion = 11.5;
 						TestTargetID = C9FCFD54214428AE00A07974;
 					};
-					C9E93C372526C8F40025C363 = {
-						LastSwiftMigration = 1220;
-					};
 					C9F1E4AB2473721A00A28F2A = {
 						CreatedOnToolsVersion = 11.4.1;
 					};
@@ -5606,8 +5514,6 @@
 				C9379B3F24A656F800B375F9 /* Widget PreviewExtension */,
 				C97B021A23E9F82A00032925 /* Pyto Watch Extension */,
 				C940FBBE250825A800EB74EB /* Pyto Screenshots */,
-				C9E93C372526C8F40025C363 /* Pyto Watch Simulator */,
-				C9E93CE02526C96B0025C363 /* Pyto Watch Extension Simulator */,
 				C9509D7E257AF6260015FC92 /* cv2-cv2 */,
 				C9B2B7DF2583EDDF00D75C66 /* matplotlib-deps */,
 				C9395E4A25B0F15D0060D9CB /* Run Python Script */,
@@ -5883,23 +5789,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9DF04D624999DF90073A871 /* test_pyto.py in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C9E93C3A2526C8F40025C363 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C9E93C3B2526C8F40025C363 /* Interface.storyboard in Resources */,
-				C9E93C3C2526C8F40025C363 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C9E93CF52526C96B0025C363 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C9E93CF62526C96B0025C363 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6261,9 +6150,11 @@
 				C940FBE2250825A800EB74EB /* PyButton.swift in Sources */,
 				C940FBE3250825A800EB74EB /* PyTableView.swift in Sources */,
 				C940FBE4250825A800EB74EB /* PyButtonItem.swift in Sources */,
+				C9480F8126712F4900B2F90A /* AppDelegate+AppleWatch.swift in Sources */,
 				C940FBE5250825A800EB74EB /* Intents.intentdefinition in Sources */,
 				C940FBE6250825A800EB74EB /* PyPhotosHelper.swift in Sources */,
 				C940FBE8250825A800EB74EB /* RMStoreAppReceiptVerifier.m in Sources */,
+				C9480F7C26712ECD00B2F90A /* DocumentationViewController+NSWindow.swift in Sources */,
 				C940FBE9250825A800EB74EB /* FileManager.swift in Sources */,
 				C940FBEA250825A800EB74EB /* In App Purchases.swift in Sources */,
 				C940FBEB250825A800EB74EB /* MovableTextField.swift in Sources */,
@@ -6285,6 +6176,7 @@
 				C940FC01250825A800EB74EB /* PyTableViewSection.swift in Sources */,
 				C940FC03250825A800EB74EB /* PyExtensionContext.swift in Sources */,
 				C940FC04250825A800EB74EB /* Default.swift in Sources */,
+				C9480F8026712F1400B2F90A /* InAppWidgetsStore.swift in Sources */,
 				C940FC05250825A800EB74EB /* WWDC16.swift in Sources */,
 				C940FC06250825A800EB74EB /* JSONBrowserView.swift in Sources */,
 				C940FC07250825A800EB74EB /* SearchBar.swift in Sources */,
@@ -6322,12 +6214,16 @@
 				C940FC2D250825A800EB74EB /* PyMusicHelper.swift in Sources */,
 				C940FC2F250825A800EB74EB /* CustomIconTableViewController.swift in Sources */,
 				C940FC30250825A800EB74EB /* PyCallbackHelper.swift in Sources */,
+				C9480F8426712FE100B2F90A /* _extensionsimporter.m in Sources */,
 				C940FC32250825A800EB74EB /* BackgroundTask.swift in Sources */,
 				C940FC34250825A800EB74EB /* AboutTableViewController.swift in Sources */,
+				C9480F7F26712EEF00B2F90A /* RuntimeCommunicator.swift in Sources */,
 				C940FC35250825A800EB74EB /* PyTableViewCell.swift in Sources */,
 				C940FC36250825A800EB74EB /* PyDocument.swift in Sources */,
+				C9480F7D26712ECD00B2F90A /* AppDelegate+NSWindow.swift in Sources */,
 				C940FC37250825A800EB74EB /* MarkdownPreviewController.swift in Sources */,
 				C940FC38250825A800EB74EB /* PyAlert.swift in Sources */,
+				C9480F8326712F6A00B2F90A /* StartHandlingWidgetsInAppIntentHandler.swift in Sources */,
 				C940FC39250825A800EB74EB /* main.m in Sources */,
 				C940FC3A250825A800EB74EB /* PyNotificationCenter.swift in Sources */,
 				C940FC3B250825A800EB74EB /* Theme.swift in Sources */,
@@ -6396,6 +6292,7 @@
 				C940FC86250825A800EB74EB /* ConsoleTextView.swift in Sources */,
 				C940FC87250825A800EB74EB /* PyColor.swift in Sources */,
 				C940FC88250825A800EB74EB /* DefinitionsView.swift in Sources */,
+				C9480F7B26712ECD00B2F90A /* EditorViewController+NSWindow.swift in Sources */,
 				C9508C4625146E0B00E4D665 /* Padding.swift in Sources */,
 				C940FC89250825A800EB74EB /* SidebarNavigation.swift in Sources */,
 				C940FC8D250825A800EB74EB /* Localizable.swift in Sources */,
@@ -6409,10 +6306,12 @@
 				C940FC96250825A800EB74EB /* OnboardingView.swift in Sources */,
 				C940FC97250825A800EB74EB /* UIImage+color.swift in Sources */,
 				C940FC98250825A800EB74EB /* PyThread.swift in Sources */,
+				C9480F7A26712ECD00B2F90A /* EditorViewController+saveAsIfNeeded.swift in Sources */,
 				C9DA43CC250EC2B300A32A53 /* PythonRuntime.swift in Sources */,
 				C940FC99250825A800EB74EB /* PyWrapper.swift in Sources */,
 				C940FC9B250825A800EB74EB /* UIWindow.swift in Sources */,
 				C940FC9C250825A800EB74EB /* PyMotionHelper.swift in Sources */,
+				C9480F7E26712ECD00B2F90A /* openEmptyScript.swift in Sources */,
 				C940FC9D250825A800EB74EB /* WidgetSimulatorViewController.swift in Sources */,
 				C940FC9E250825A800EB74EB /* RemoveCachedOutput.swift in Sources */,
 				C940FCA0250825A800EB74EB /* WidgetPreview.swift in Sources */,
@@ -6432,7 +6331,9 @@
 				C940FCB3250825A800EB74EB /* SceneState.swift in Sources */,
 				C933A0AF25CDFBF100B3C640 /* PyScrollView.swift in Sources */,
 				C940FCB5250825A800EB74EB /* UIKitView.swift in Sources */,
+				C9480F8226712F4F00B2F90A /* View+hover.swift in Sources */,
 				C939A8A9260EBA6F00877A15 /* PyViewGarbageCollector.swift in Sources */,
+				C9480F7926712ECD00B2F90A /* shareBundleBookmarkData.swift in Sources */,
 				C9BBDB9B25CF458D00471265 /* PyStackView.swift in Sources */,
 				C940FCB6250825A800EB74EB /* PySharingHelper.swift in Sources */,
 				C940FCB8250825A800EB74EB /* EditorScript.swift in Sources */,
@@ -6811,32 +6712,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C9E93CE12526C96B0025C363 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C93E18EB252ACD3C00EDE77E /* ComplicationCache.swift in Sources */,
-				C9E93CE22526C96B0025C363 /* CodableWidgetComponent.swift in Sources */,
-				C9E93CE32526C96B0025C363 /* CodableFont.swift in Sources */,
-				C9E93CE42526C96B0025C363 /* Image.swift in Sources */,
-				C9E93CE52526C96B0025C363 /* PyComplication.swift in Sources */,
-				C9E93CE62526C96B0025C363 /* InterfaceController.swift in Sources */,
-				C9E93CE72526C96B0025C363 /* ImageInterfaceController.swift in Sources */,
-				C9E93CE82526C96B0025C363 /* Date.swift in Sources */,
-				C9E93CE92526C96B0025C363 /* Symbol.swift in Sources */,
-				C9E93CEA2526C96B0025C363 /* Progress.swift in Sources */,
-				C9E93CEB2526C96B0025C363 /* ComplicationController.swift in Sources */,
-				C9E93CEC2526C96B0025C363 /* WidgetView.swift in Sources */,
-				C9E93CED2526C96B0025C363 /* SessionDelegate.swift in Sources */,
-				C9E93CEE2526C96B0025C363 /* WidgetRow.swift in Sources */,
-				C9E93CEF2526C96B0025C363 /* UIColor.swift in Sources */,
-				C9E93CF02526C96B0025C363 /* Text.swift in Sources */,
-				C9E93CF12526C96B0025C363 /* Component.swift in Sources */,
-				C9E93CF22526C96B0025C363 /* ExtensionDelegate.swift in Sources */,
-				C9E93CF32526C96B0025C363 /* Padding.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C9F1E4A82473721A00A28F2A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -7182,16 +7057,6 @@
 			isa = PBXTargetDependency;
 			target = C943AC3C215277A000844368 /* Python */;
 			targetProxy = C9DF71082171768A00981B4F /* PBXContainerItemProxy */;
-		};
-		C9E93D592526CA640025C363 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C9E93C372526C8F40025C363 /* Pyto Watch Simulator */;
-			targetProxy = C9E93D582526CA640025C363 /* PBXContainerItemProxy */;
-		};
-		C9E93D5B2526CA6E0025C363 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C9E93CE02526C96B0025C363 /* Pyto Watch Extension Simulator */;
-			targetProxy = C9E93D5A2526CA6E0025C363 /* PBXContainerItemProxy */;
 		};
 		C9F1E4D72473727000A28F2A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -8388,7 +8253,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_NUMBER = 385;
+				BUILD_NUMBER = 389;
 				BUNDLE_ID = ch.ada.PytoVPP;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9553,171 +9418,6 @@
 			};
 			name = Release;
 		};
-		C9E93C412526C8F40025C363 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 351;
-				DEVELOPMENT_TEAM = Y96PL6G497;
-				IBSC_MODULE = Pyto_Watch_Extension;
-				INFOPLIST_FILE = "Pyto Watch copy-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				MARKETING_VERSION = 15.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 7.0;
-			};
-			name = Debug;
-		};
-		C9E93C422526C8F40025C363 /* VPP */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-VPP";
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 351;
-				DEVELOPMENT_TEAM = Y96PL6G497;
-				IBSC_MODULE = Pyto_Watch_Extension;
-				INFOPLIST_FILE = "Pyto Watch copy-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				MARKETING_VERSION = 15.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 7.0;
-			};
-			name = VPP;
-		};
-		C9E93C432526C8F40025C363 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 351;
-				DEVELOPMENT_TEAM = Y96PL6G497;
-				IBSC_MODULE = Pyto_Watch_Extension;
-				INFOPLIST_FILE = "Pyto Watch copy-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				MARKETING_VERSION = 15.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 7.0;
-			};
-			name = Release;
-		};
-		C9E93CF82526C96B0025C363 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 351;
-				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = Y96PL6G497;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "Pyto Watch Extension copy-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 15.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp.watchkitextension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 7.0;
-			};
-			name = Debug;
-		};
-		C9E93CF92526C96B0025C363 /* VPP */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 351;
-				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = Y96PL6G497;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "Pyto Watch Extension copy-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 15.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp.watchkitextension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 7.0;
-			};
-			name = VPP;
-		};
-		C9E93CFA2526C96B0025C363 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 351;
-				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = Y96PL6G497;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "Pyto Watch Extension copy-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 15.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp.watchkitextension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 7.0;
-			};
-			name = Release;
-		};
 		C9F1E4BD2473721E00A28F2A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -9766,7 +9466,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_NUMBER = 385;
+				BUILD_NUMBER = 389;
 				BUNDLE_ID = ch.marcela.ada.Pyto;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9831,7 +9531,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_NUMBER = 385;
+				BUILD_NUMBER = 389;
 				BUNDLE_ID = ch.marcela.ada.Pyto;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -10327,26 +10027,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C9E93C402526C8F40025C363 /* Build configuration list for PBXNativeTarget "Pyto Watch Simulator" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C9E93C412526C8F40025C363 /* Debug */,
-				C9E93C422526C8F40025C363 /* VPP */,
-				C9E93C432526C8F40025C363 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C9E93CF72526C96B0025C363 /* Build configuration list for PBXNativeTarget "Pyto Watch Extension Simulator" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C9E93CF82526C96B0025C363 /* Debug */,
-				C9E93CF92526C96B0025C363 /* VPP */,
-				C9E93CFA2526C96B0025C363 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		C9F1E4D52473721E00A28F2A /* Build configuration list for PBXNativeTarget "SwiftUI Preview" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -10416,6 +10096,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C940FBD8250825A800EB74EB /* XCRemoteSwiftPackageReference "MarqueeLabel" */;
 			productName = MarqueeLabel;
+		};
+		C9480F7526712E9D00B2F90A /* Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C312BAEA259D25D1000A6BAD /* XCRemoteSwiftPackageReference "Dynamic" */;
+			productName = Dynamic;
 		};
 		C9B1A1A1249B1E5000DBC4FC /* MarqueeLabel */ = {
 			isa = XCSwiftPackageProductDependency;

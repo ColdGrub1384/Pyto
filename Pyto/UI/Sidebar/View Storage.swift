@@ -153,9 +153,6 @@ public class ViewControllerStore {
     /// The View Controller containing the SwiftUI view.
     public weak var vc: UIHostingController<AnyView>?
     
-    /// A boolean indicating whether the sidebar is showing.
-    public var showSidebar = false
-    
     /// The window scene where the sidebar navigation is shown.
     public var scene: UIWindowScene?
 }
@@ -172,6 +169,9 @@ class CurrentViewStore {
     
     /// The current detail view controller.
     var currentView: AnyView?
+    
+    /// The current UIKit view controller.
+    var currentVC: UIViewController?
     
     /// The scene state store.
     var sceneStateStore: SceneStateStore?

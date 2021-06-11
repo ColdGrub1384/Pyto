@@ -139,9 +139,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     
     /// Handles crashes for the current thread.
     @objc public func handleCrashesForCurrentThread() {
-        
-        print("Handle crashes for: \(Thread.current)")
-        
+                
         signal(SIGKILL, { signal in
             Python.shared.crashHandler(signal)
         })

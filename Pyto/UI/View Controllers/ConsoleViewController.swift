@@ -972,13 +972,21 @@ import SwiftUI
         // TODO: Trait collection did change
     }
     #endif
-    
+        
     open override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        movableTextField?.inputAssistant.delegate = nil
-        movableTextField?.textField.inputAccessoryView = nil
-        movableTextField = nil
+        guard view.window?.windowScene?.activationState == .foregroundActive || view.window?.windowScene?.activationState == .foregroundInactive else {
+            return
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+            if self.view.window == nil {
+                self.movableTextField?.inputAssistant.delegate = nil
+                self.movableTextField?.textField.inputAccessoryView = nil
+                self.movableTextField = nil
+            }
+        }
     }
     
     override open func viewDidAppear(_ animated: Bool) {
@@ -993,7 +1001,7 @@ import SwiftUI
         webView.frame = view.safeAreaLayoutGuide.layoutFrame
         webView.frame.size.height -= 44
         webView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
-                
+        
         if movableTextField == nil {
             movableTextField = MovableTextField(console: self)
             movableTextField?.setPrompt(prompt ?? "")

@@ -136,6 +136,10 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             return
         }
         
+        if toolbar.superview != nil {
+            toolbar.removeFromSuperview()
+        }
+        
         toolbar.frame.size.width = console.view.safeAreaLayoutGuide.layoutFrame.width
         toolbar.frame.origin.x = console.view.safeAreaInsets.left
         toolbar.frame.origin.y = console.view.safeAreaLayoutGuide.layoutFrame.height-toolbar.frame.height

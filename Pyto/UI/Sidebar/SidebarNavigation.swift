@@ -179,11 +179,8 @@ public struct EditorView: View {
                 
             }
             
-            editorStore.editor!.viewController!.removeFromParent()
-            editorStore.editor!.viewController!.view.removeFromSuperview()
-            
             editorStore.editor = ViewController(viewController: editorStore.editor!.viewController!, viewControllerStore: editorStore.editor!.viewControllerStore)
-                        
+            
             view = AnyView(editorStore.editor!)
         }
         
@@ -254,11 +251,6 @@ public struct SidebarNavigation: View {
     
     /// The selection restored from state restoration.
     @State var restoredSelection: SelectedSection?
-    
-    /// A boolean indicating whether the sidebar is shown.
-    var isSidebarShowing: Bool {
-        return (viewControllerStore.vc?.children.first as? UISplitViewController)?.displayMode != .secondaryOnly
-    }
         
     /// Initializes from given views.
     ///
@@ -346,7 +338,7 @@ public struct SidebarNavigation: View {
                         
             Section(header: Text("sidebar.python")) {
                 NavigationLink(
-                    destination: repl.navigationBarTitleDisplayMode(.inline).link(store: currentViewStore, isStack: $stack, selection: .repl, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
+                    destination: ViewController(viewController: repl.viewController!, viewControllerStore: repl.viewControllerStore).navigationBarTitleDisplayMode(.inline).link(store: currentViewStore, viewController: repl.viewController!, isStack: $stack, selection: .repl, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
                     tag: SelectedSection.repl,
                     selection: $restoredSelection,
                     label: {
@@ -354,23 +346,19 @@ public struct SidebarNavigation: View {
                 })
                 
                 NavigationLink(
-                    destination: runModule.navigationBarTitleDisplayMode(.inline).link(store: currentViewStore, isStack: $stack, selection: .runModule, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
+                    destination: ViewController(viewController: runModule.viewController!, viewControllerStore: runModule.viewControllerStore).navigationBarTitleDisplayMode(.inline).link(store: currentViewStore, viewController: runModule.viewController!, isStack: $stack, selection: .runModule, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
                     tag: SelectedSection.runModule,
                     selection: $restoredSelection) {
                     SidebarLabel("sidebar.runModule", systemImage: "doc", selection: .runModule, selected: sceneStateStore.sceneState.selection)
                 }
                 
-                NavigationLink(destination: pypi.onAppear {
-                    scene?.title = "PyPI"
-                }.onDisappear {
-                    scene?.title = ""
-                }.link(store: currentViewStore, isStack: $stack, selection: .pypi, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
+                NavigationLink(destination: ViewController(viewController: pypi.viewController!, viewControllerStore: viewControllerStore).link(store: currentViewStore, viewController: pypi.viewController!, isStack: $stack, selection: .pypi, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
                 tag: SelectedSection.pypi,
                 selection: $restoredSelection) {
                     SidebarLabel("sidebar.pypi", systemImage: "cube.box", selection: .pypi, selected: sceneStateStore.sceneState.selection)
                 }
                 
-                NavigationLink(destination: modules.link(store: currentViewStore, isStack: $stack, selection: .loadedModules, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
+                NavigationLink(destination: ViewController(viewController: modules.viewController!, viewControllerStore: viewControllerStore).link(store: currentViewStore, viewController: modules.viewController!, isStack: $stack, selection: .loadedModules, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
                     tag: SelectedSection.loadedModules,
                     selection: $restoredSelection) {
                     SidebarLabel("sidebar.loadedModules", systemImage: "info.circle", selection: .loadedModules, selected: sceneStateStore.sceneState.selection)
@@ -388,7 +376,7 @@ public struct SidebarNavigation: View {
                     SidebarLabel("sidebar.examples", systemImage: "bookmark", selection: .examples, selected: sceneStateStore.sceneState.selection)
                 }
                 
-                NavigationLink(destination: documentation.link(store: currentViewStore, isStack: $stack, selection: .documentation, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
+                NavigationLink(destination: ViewController(viewController: documentation.viewController!, viewControllerStore: viewControllerStore).link(store: currentViewStore, viewController: documentation.viewController!, isStack: $stack, selection: .documentation, selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection),
                     tag: SelectedSection.documentation,
                     selection: $restoredSelection) {
                     SidebarLabel("help.documentation", systemImage: "book", selection: .documentation, selected: sceneStateStore.sceneState.selection)
@@ -428,7 +416,12 @@ public struct SidebarNavigation: View {
     /// The content view.
     var contentView: AnyView? {
         if currentViewStore.currentView != nil {
-            return withDoneButton(currentViewStore.currentView!)
+            
+            var view: AnyView {
+                AnyView(ViewController(viewController: currentViewStore.currentVC!, viewControllerStore: viewControllerStore).navigationBarTitleDisplayMode(currentViewStore.currentVC is EditorSplitViewController ? .inline : .automatic))
+            }
+            
+            return withDoneButton(((currentViewStore.currentVC != nil) ? view : currentViewStore.currentView) ?? AnyView(EmptyView()))
         } else if !stack && url != nil {
             return AnyView(editor.link(store: currentViewStore, isStack: $stack, selection: .recent(url!), selected: $sceneStateStore.sceneState.selection, restoredSelection: $restoredSelection).onAppear {
                 if let url = url {
@@ -463,7 +456,7 @@ public struct SidebarNavigation: View {
         } else {
             navigationView = AnyView(NavigationView {
                 sidebar
-                Rectangle().fill(Color(.systemBackground))
+                ViewController(viewController: UIViewController(), viewControllerStore: viewControllerStore)
             })
         }
         

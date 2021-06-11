@@ -1375,7 +1375,9 @@ func directory(for scriptURL: URL) -> URL {
             }
             
             guard let console = (self.parent as? EditorSplitViewController)?.console else {
-                return
+                return DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                    self.runScript(debug: debug)
+                }
             }
                         
             (UIApplication.shared.delegate as? AppDelegate)?.addURLToShortcuts(self.document!.fileURL)
