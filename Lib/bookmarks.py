@@ -150,7 +150,7 @@ class FolderBookmark(StoredBookmark):
     __type__ = "public.folder"
 
 
-def AllBookmarks():
+def all_bookmarks():
     """
     Function to return a list of dictionaries 
     for all bookmarks with name, path, and 
@@ -181,4 +181,3 @@ def AllBookmarks():
             "type":typ
             })
     return(answer)
-
