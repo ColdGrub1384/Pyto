@@ -167,11 +167,10 @@ def all_bookmarks():
             error=None,
             )
         path = str(url.path)
-        typ = "unknown"
-        if (os.path.isfile(path)):
+        if os.path.isfile(path):
             typ = "file"
-        if (os.path.isdir(path)):
-            typ = "folder"
+        else:
+            typ = "folder" if os.path.isdir(path) else "unknown"
         answer.append({
             "name":name,
             "path":path,
