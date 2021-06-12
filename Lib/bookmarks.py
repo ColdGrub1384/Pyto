@@ -158,9 +158,7 @@ def all_bookmarks():
     JG 2021-06-11
     """
     answer = []
-    bkmks = __stored_bookmarks__()
-    for name in bkmks.keys():
-        value = bkmks[name]
+    for name, value in __stored_bookmarks__().items():
         data = NSData.alloc().initWithBase64EncodedString(value, options=0)
         url = NSURL.URLByResolvingBookmarkData(
             data,
