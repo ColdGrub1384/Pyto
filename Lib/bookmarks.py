@@ -156,6 +156,7 @@ def all_bookmarks():
     for all bookmarks with name, path, and 
     type (file or folder) keys.
     JG 2021-06-11
+    JG+CC 2021-06-12
     """
     answer = []
     for name, value in __stored_bookmarks__().items():
@@ -167,13 +168,11 @@ def all_bookmarks():
             error=None,
             )
         path = str(url.path)
-        if os.path.isfile(path):
-            typ = "file"
-        else:
-            typ = "folder" if os.path.isdir(path) else "unknown"
         answer.append({
             "name":name,
             "path":path,
-            "type":typ
+            "type":("file" if os.path.isfile(path) 
+                else "folder" if os.path.isdir(path) 
+                else "unknown")
             })
     return(answer)
