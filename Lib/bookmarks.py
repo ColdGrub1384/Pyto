@@ -159,9 +159,8 @@ def all_bookmarks():
     """
     answer = []
     for name, value in __stored_bookmarks__().items():
-        data = NSData.alloc().initWithBase64EncodedString(value, options=0)
         url = NSURL.URLByResolvingBookmarkData(
-            data,
+            NSData.alloc().initWithBase64EncodedString(value, options=0),
             options=0,
             relativeToURL=None,
             bookmarkDataIsStale=None,
