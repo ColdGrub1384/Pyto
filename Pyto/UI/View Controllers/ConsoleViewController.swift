@@ -135,7 +135,7 @@ import SwiftUI
     @objc func clear() {
         text = ""
         images = []
-        print("\u{001b}[2J\u{001b}[H")
+        print("\u{001b}[2J\u{001b}[H\u{001b}[3J")
     }
         
     /// The Web view showing the terminal.
