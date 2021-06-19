@@ -1400,7 +1400,7 @@ func directory(for scriptURL: URL) -> URL {
                             console.clear()
                         }
                         console.movableTextField?.placeholder = ""
-                        if Python.shared.isREPLRunning {
+                        if Python.shared.isREPLRunning { // I will keep this condition to remember the time when there was ONE instance of a REPL running and every script was executed in it by passing code to the running REPL through `input()` 3 years ago 🤣🤣
                             if Python.shared.isScriptRunning(path) {
                                 return
                             }
@@ -1415,8 +1415,8 @@ func directory(for scriptURL: URL) -> URL {
                     
                     guard console.view.window != nil && editorSplitViewController?.ratio != 1 else {
                         editorSplitViewController?.showConsole {
+                            run()
                         }
-                        run()
                         return
                     }
                     

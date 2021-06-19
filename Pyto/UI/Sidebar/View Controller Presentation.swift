@@ -114,6 +114,9 @@ public class ContainerViewController: UIViewController {
         
         showEditor()
         update()
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
+            self.update()
+        }
     }
     
     public override func viewDidDisappear(_ animated: Bool) {
@@ -162,6 +165,8 @@ public struct ViewController: UIViewControllerRepresentable {
         
         var contained = viewController as? (UIViewController & ContainedViewController)
         contained?.container = vc
+        
+        vc.update()
         
         return vc
     }
