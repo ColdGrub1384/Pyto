@@ -197,7 +197,7 @@ public struct OnboardingView: View {
                     isPricingSheetPresented = false
                 }, label: {
                     Text("done").fontWeight(.bold)
-                }).hover().padding(5)
+                }).hover().padding()
             }
             
             ScrollView {
@@ -249,10 +249,29 @@ public struct OnboardingView: View {
         }
     }
     
+    var welcome: Text {
+        if #available(iOS 15.0, *) {
+            var attr = AttributedString(localized: "onboarding.title.ios15", comment: "The title of the onboarding view")
+            
+            let inflection = InflectionRule(morphology: Morphology.user)
+            attr.inflect = inflection
+            
+            attr = attr.inflected()
+            
+            if Morphology.user.grammaticalGender == nil || Morphology.user.grammaticalGender == .none {
+                attr = AttributedString(localized: "onboarding.title.ios15.genderless", comment: "The title of the onboarding view")
+            }
+            
+            return Text(attr)
+        } else {
+            return Text("onboarding.title", comment: "The title of the onboarding view")
+        }
+    }
+    
     public var body: some View {
         VStack {
             
-            Text("onboarding.title", comment: "The title of the onboarding view")
+            welcome
                 .font(.largeTitle)
                 .padding()
                             

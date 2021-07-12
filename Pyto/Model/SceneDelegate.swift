@@ -65,7 +65,7 @@ import Dynamic
     @available(iOS 13.0, *)
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
-        #if VPP || SCREENSHOTS || DEBUG
+        #if VPP || SCREENSHOTS
         changingUserDefaultsInAppPurchasesValues = true
         isPurchased.boolValue = true
         changingUserDefaultsInAppPurchasesValues = true
