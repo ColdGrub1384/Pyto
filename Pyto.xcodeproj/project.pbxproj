@@ -588,6 +588,8 @@
 		C943E7F322E1719200B8027C /* PyTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C943E7F222E1719200B8027C /* PyTextView.swift */; };
 		C943E7F522E21D4C00B8027C /* PyTextInputTraits.swift in Sources */ = {isa = PBXBuildFile; fileRef = C943E7F422E21D4C00B8027C /* PyTextInputTraits.swift */; };
 		C943E7FA22E2BA0500B8027C /* PyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C943E7F922E2BA0500B8027C /* PyTextField.swift */; };
+		C944C45126891FCE00964119 /* FocusSystemObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C944C45026891FCD00964119 /* FocusSystemObserver.swift */; };
+		C944C45226891FCE00964119 /* FocusSystemObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C944C45026891FCD00964119 /* FocusSystemObserver.swift */; };
 		C9464938255731F700F2845B /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9464937255731F700F2845B /* GalleryView.swift */; };
 		C946493A255731F700F2845B /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9464937255731F700F2845B /* GalleryView.swift */; };
 		C946493B255731F700F2845B /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9464937255731F700F2845B /* GalleryView.swift */; };
@@ -2407,6 +2409,7 @@
 		C943E7F922E2BA0500B8027C /* PyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyTextField.swift; sourceTree = "<group>"; };
 		C944180821FDF54000B0A046 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
 		C944180C21FDF54600B0A046 /* liblzma.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = liblzma.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/lib/liblzma.tbd; sourceTree = DEVELOPER_DIR; };
+		C944C45026891FCD00964119 /* FocusSystemObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSystemObserver.swift; sourceTree = "<group>"; };
 		C9464937255731F700F2845B /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; };
 		C946497625573AC800F2845B /* GalleryScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryScript.swift; sourceTree = "<group>"; };
 		C946A5A922074EAA00F78C5C /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -3563,6 +3566,7 @@
 		C91F963F24AD928B003ACF02 /* Life Cycle */ = {
 			isa = PBXGroup;
 			children = (
+				C944C45026891FCD00964119 /* FocusSystemObserver.swift */,
 				C94B7BF424AE2BC5002934C5 /* Scene Delegate */,
 				C9FCFD58214428AE00A07974 /* AppDelegate.swift */,
 				C943CAB8255C2C4E005F929B /* AppDelegate+AppleWatch.swift */,
@@ -6306,6 +6310,7 @@
 				C940FC96250825A800EB74EB /* OnboardingView.swift in Sources */,
 				C940FC97250825A800EB74EB /* UIImage+color.swift in Sources */,
 				C940FC98250825A800EB74EB /* PyThread.swift in Sources */,
+				C944C45226891FCE00964119 /* FocusSystemObserver.swift in Sources */,
 				C9480F7A26712ECD00B2F90A /* EditorViewController+saveAsIfNeeded.swift in Sources */,
 				C9DA43CC250EC2B300A32A53 /* PythonRuntime.swift in Sources */,
 				C940FC99250825A800EB74EB /* PyWrapper.swift in Sources */,
@@ -6766,6 +6771,7 @@
 				C979921324B10375003571AB /* UIApplication+orientation.swift in Sources */,
 				C9CF40AF2242DECF0076B627 /* PipInstallerViewController.swift in Sources */,
 				C9FCFD6B21442DE700A07974 /* DocumentBrowserViewController.swift in Sources */,
+				C944C45126891FCE00964119 /* FocusSystemObserver.swift in Sources */,
 				C91F963724AD9185003ACF02 /* ValueView.swift in Sources */,
 				C946A5C722077F9800F78C5C /* UserDefaults.swift in Sources */,
 				C9FE884224CFBDB500D0C615 /* Date.swift in Sources */,
@@ -8253,7 +8259,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_NUMBER = 390;
+				BUILD_NUMBER = 392;
 				BUNDLE_ID = ch.ada.PytoVPP;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -8310,7 +8316,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				VERSION = 16.1.2;
+				VERSION = 16.1.3;
 			};
 			name = VPP;
 		};
@@ -9466,7 +9472,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_NUMBER = 390;
+				BUILD_NUMBER = 392;
 				BUNDLE_ID = ch.marcela.ada.Pyto;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9523,7 +9529,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				VERSION = 16.1.2;
+				VERSION = 16.1.3;
 			};
 			name = Debug;
 		};
@@ -9531,7 +9537,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_NUMBER = 390;
+				BUILD_NUMBER = 392;
 				BUNDLE_ID = ch.marcela.ada.Pyto;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9582,7 +9588,7 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
-				VERSION = 16.1.2;
+				VERSION = 16.1.3;
 			};
 			name = Release;
 		};

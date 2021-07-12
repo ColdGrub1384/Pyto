@@ -15,8 +15,16 @@ class AcknowledgmentsViewController: DocumentationViewController {
         super.viewDidLoad()
         
         webView.stopLoading()
-        if let url = Bundle.main.url(forResource: "docs_build/html", withExtension: "") {
-            webView.loadFileURL(url.appendingPathComponent("third_party.html"), allowingReadAccessTo: url)
+        DispatchQueue.global().async { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
+            let url = self.docsURL
+            DispatchQueue.main.async { [weak self] in
+                self?.webView.loadFileURL(url.appendingPathComponent("html/third_party.html"), allowingReadAccessTo: url)
+            }
         }
     }
 }

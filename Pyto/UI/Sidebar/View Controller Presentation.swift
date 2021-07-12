@@ -112,6 +112,22 @@ public class ContainerViewController: UIViewController {
             }
         }
         
+        NotificationCenter.default.addObserver(forName: FocusSystemObserver.focusSystemDidDisableNotification, object: nil, queue: nil) { _ in
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                if self.vcStore?.scene?.activationState != .background {
+                    self.update()
+                }
+            }
+        }
+        
+        NotificationCenter.default.addObserver(forName: FocusSystemObserver.focusSystemDidEnableNotification, object: nil, queue: nil) { _ in
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                if self.vcStore?.scene?.activationState != .background {
+                    self.update()
+                }
+            }
+        }
+        
         showEditor()
         update()
         DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {

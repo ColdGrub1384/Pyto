@@ -69,7 +69,7 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         }
     }
     
-    private var docsURL: URL {
+    var docsURL: URL {
         let url = FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask)[0].appendingPathComponent("docs_build")
         
         if /*!FileManager.default.fileExists(atPath: url.path),*/ let bundledDocs = Bundle.main.url(forResource: "docs", withExtension: "zip") {

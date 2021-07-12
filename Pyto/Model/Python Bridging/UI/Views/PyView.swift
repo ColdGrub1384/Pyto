@@ -89,7 +89,6 @@ import WebKit
                 PyView.values[key] = nil
             }
         }
-        //print("Deallocated \(self)")
     }
     
     let id = UUID()
@@ -133,6 +132,7 @@ import WebKit
                     self.view.removeFromSuperview()
                 }*/
                 
+                sizeObserver?.invalidate()
                 sizeObserver = nil
                 //managed = nil
                                 
@@ -155,8 +155,22 @@ import WebKit
         references += 1
     }
     
+    private static var _values = [UIView:PyView]()
+    
     /// A dictionary containing `PyView`s per `UIView`.
-    static var values = [UIView:PyView]()
+    @objc static var values: [UIView:PyView] {
+        get {
+            get {
+                return _values
+            }
+        }
+        
+        set {
+            set {
+                _values = newValue
+            }
+        }
+    }
     
     /// The name of the Python class wrapping this.
     @objc open class var pythonName: String {
