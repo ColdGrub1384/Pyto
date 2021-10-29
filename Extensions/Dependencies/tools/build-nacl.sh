@@ -2,6 +2,8 @@
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
+python3 -m pip install cffi
+
 source environment.sh
 
 cd ../nacl

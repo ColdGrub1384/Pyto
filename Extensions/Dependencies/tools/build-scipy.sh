@@ -4,8 +4,10 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 
 source environment.sh
 
+export LDFLAGS="$LDFLAGS -L$(pwd) -L$(pwd)/../numpy/build/temp.iphoneos-arm64-3.8"
+
 if ! [ -d fortran-ios ]; then
-curl -L https://github.com/ColdGrub1384/fortran-ios/releases/download/v2.1/fortran-ios-macos-$(uname -m).zip -o fortran-ios.zip
+curl -L https://github.com/ColdGrub1384/fortran-ios/releases/download/v2.2/fortran-ios-macos-$(uname -m).zip -o fortran-ios.zip
 unzip fortran-ios.zip
 rm -rf __MACOSX
 rm -rf fortran-ios.zip
