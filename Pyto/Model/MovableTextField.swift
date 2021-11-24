@@ -7,12 +7,73 @@
 //
 
 import UIKit
+import AVKit
 #if MAIN
 import InputAssistant
+import Pipable
 #endif
 
 /// The text field used in the terminal.
-class TerminalTextField: UITextField {}
+class TerminalTextField: UITextField {
+    
+    var isTabbing = false
+    
+    @objc func down() {
+        console?.down()
+    }
+    
+    @objc func up() {
+        console?.up()
+    }
+    
+    @objc func nextSuggestion() {
+        console?.nextSuggestion()
+        becomeFirstResponder()
+    }
+    
+    @objc func interrupt() {
+        console?.editorSplitViewController?.interrupt(self)
+    }
+    
+    @objc func doNothing() {
+        print("Do nothing")
+    }
+    
+    var pipBarButtonItem: UIBarButtonItem!
+    
+    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        for press in presses {
+            
+            if press.key?.keyCode == .keyboardTab && press.key?.modifierFlags == [] {
+                isTabbing = true
+                nextSuggestion()
+                return
+            }
+            
+            break
+        }
+        
+        super.pressesBegan(presses, with: event)
+    }
+    
+    override var keyCommands: [UIKeyCommand]? {
+        var commands = [
+            UIKeyCommand(input: UIKeyCommand.inputDownArrow, modifierFlags: [], action: #selector(down)),
+            UIKeyCommand(input: UIKeyCommand.inputUpArrow, modifierFlags: [], action: #selector(up)),
+            UIKeyCommand.command(input: "C", modifierFlags: .control, action: #selector(interrupt), discoverabilityTitle: Localizable.interrupt)
+        ]
+        
+        #if MAIN
+        commands.append(UIKeyCommand.command(input: "\t", modifierFlags: [], action: #selector(doNothing), discoverabilityTitle: Localizable.nextSuggestion))
+        #endif
+        
+        return commands
+    }
+    
+    var console: ConsoleViewController? {
+        (delegate as? MovableTextField)?.console
+    }
+}
 
 /// A class for managing a movable text field.
 class MovableTextField: NSObject, UITextFieldDelegate {
@@ -51,11 +112,11 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             textField.keyboardAppearance = .light
         }
         if textField.keyboardAppearance == .dark {
-            toolbar.barStyle = .black
+            _uiToolbar.barStyle = .black
         } else {
-            toolbar.barStyle = .default
+            _uiToolbar.barStyle = .default
         }
-        toolbar.isTranslucent = true
+        _uiToolbar.isTranslucent = true
         
         if #available(iOS 13.0, *) {
         } else {
@@ -76,8 +137,12 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     #endif
     
     /// The toolbar containing the text field
-    let toolbar: UIToolbar
+    let toolbar: UIView
     
+    private var _uiToolbar: UIToolbar {
+        toolbar.subviews.first(where: { $0 is UIToolbar }) as! UIToolbar
+    }
+        
     /// The text field.
     let textField: UITextField
     
@@ -95,8 +160,9 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     ///     - console: The console containing the text field.
     init(console: ConsoleViewController) {
         self.console = console
-        toolbar = Bundle(for: MovableTextField.self).loadNibNamed("TextField", owner: nil, options: nil)?.first as! UIToolbar
-        textField = toolbar.items!.first!.customView as! UITextField
+        toolbar = Bundle(for: MovableTextField.self).loadNibNamed("TextField", owner: nil, options: nil)?.first as! UIView
+        
+        textField = (toolbar.subviews.first(where: { $0 is UIToolbar }) as! UIToolbar).items!.first!.customView as! UITextField
         
         super.init()
         
@@ -174,6 +240,10 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         //
         // 2021: Ok, so: THIS CODE DOES NOT TOUCHES THE CONSOLE'S TEXTVIEW, IT JUST MOVES THE TEXT BOX. So look at ConsoleViewController.swift if you have a problem with the text view. There's a lot of maths here so I don't really remember how it works but it works so don't touch this.
         
+        guard textField.isFirstResponder else {
+            return
+        }
+        
         lastKeyboardDidShowNotification = notification
         
         if console?.parent?.parent?.modalPresentationStyle != .popover || console?.parent?.parent?.view.frame.width != console?.parent?.parent?.preferredContentSize.width {
@@ -241,6 +311,11 @@ class MovableTextField: NSObject, UITextFieldDelegate {
                 
         defer {
             self.handler?(self.textField.text ?? "")
+        }
+        
+        if textField.text?.isEmpty == true {
+            textField.resignFirstResponder()
+            return true
         }
         
         #if MAIN
@@ -348,4 +423,3 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         }
     }
 }
-

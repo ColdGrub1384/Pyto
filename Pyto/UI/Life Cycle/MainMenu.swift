@@ -1,5 +1,5 @@
 //
-//  setMacMainMenu.swift
+//  MainMenu.swift
 //  Pyto
 //
 //  Created by administrator on 12/13/20.
@@ -48,66 +48,8 @@ extension UIResponder {
         Dynamic.NSWorkspace.sharedWorkspace.openFile(zipURL.path, withApplication: "Archive Utility")
     }
     
-    @objc func showDocumentation(_ sender: Any) {
-        showWindow(vc: DocumentationViewController(), allowDuplicates: false)
-    }
-    
-    @objc func newScript(_ sender: Any) {
-        if #available(iOS 14.0, *) {
-            showWindow(vc: openEmptyScript(onWindow: nil), allowDuplicates: true)
-        }
-    }
-    
-    @objc func showBrowser(_ sender: Any) {
-        if #available(iOS 14.0, *) {
-            showWindow(vc: DocumentBrowserViewController(forOpening: [.pythonScript/*, .init(exportedAs: "ch.ada.pytoui")*/]), allowDuplicates: false)
-        }
-    }
-    
-    @objc func showREPL(_ sender: Any) {
-        if #available(iOS 14.0, *) {
-            showWindow(vc: REPLViewController(), allowDuplicates: true)
-        }
-    }
-    
-    @objc func showPyPI(_ sender: Any) {
-        if #available(iOS 14.0, *) {
-            let navVC = UINavigationController(rootViewController: MenuTableViewController.makePyPiView())
-            navVC.navigationBar.prefersLargeTitles = true
-            showWindow(vc: navVC, allowDuplicates: false)
-        }
-    }
-    
-    @objc func showExamples(_ sender: Any) {
-        if #available(iOS 14.0, *) {
-            var vc: UIHostingController<SamplesNavigationView>!
-            vc = UIHostingController(rootView: SamplesNavigationView(url: Bundle.main.url(forResource: "Samples", withExtension: nil)!,
-                                                                               selectScript: { (file) in
-                                                                                                               
-                guard file.pathExtension.lowercased() == "py" else {
-                    return
-                }
-                                                                               
-                guard let editor = DocumentBrowserViewController().openDocument(file, run: false, show: false) else {
-                    return
-                }
-                                                                                                           
-                editor.navigationItem.largeTitleDisplayMode = .never
-                editor.editor?.alwaysShowBackButton = true
-                editor.navigationController?.isNavigationBarHidden = true
-            
-                SceneDelegate.viewControllerToShow = editor.navigationController
-                UIApplication.shared.requestSceneSessionActivation(nil, userActivity: nil, options: nil, errorHandler: nil)
-            }))
-            showWindow(vc: vc, allowDuplicates: false)
-        }
-    }
-    
-    @objc func showPreferences(_ sender: Any) {
-        if #available(iOS 14.0, *), let vc = UIStoryboard(name: "Settings", bundle: .main).instantiateInitialViewController() {
-            let navVC = UINavigationController(rootViewController: vc)
-            showWindow(vc: navVC, allowDuplicates: false)
-        }
+    @objc func openNewWindow(_ sender: Any) {
+        UIApplication.shared.requestSceneSessionActivation(nil, userActivity: nil, options: nil, errorHandler: nil)
     }
 }
 
@@ -120,6 +62,11 @@ func setupMenu(builder: UIMenuBuilder) {
     
     guard builder.system == UIMenuSystem.main else { return }
 
+    let newWindow = UIKeyCommand(title: NSLocalizedString("New window", comment: "A menu bar item to open a new window"),
+                                 action: #selector(UIResponder.openNewWindow(_:)),
+                                  input: "n",
+                                 modifierFlags: [.command, .shift])
+    
     let run = UIKeyCommand(title: Localizable.MenuItems.run,
                            action: #selector(EditorSplitViewController.runScript(_:)),
                             input: "r",
@@ -146,28 +93,23 @@ func setupMenu(builder: UIMenuBuilder) {
                             modifierFlags: .command)
     
     let openScript = UIKeyCommand(title: NSLocalizedString("Open", tableName: "SavePanel", bundle: Bundle(for: NSClassFromString("NSApplication") ?? UIApplication.self), value: "Open", comment: ""),
-                            action: #selector(UIResponder.showBrowser(_:)),
+                                  action: #selector(SidebarSplitViewController.openScript),
                             input: "o",
                             modifierFlags: [.command])
     
     let repl = UIKeyCommand(title: Localizable.repl,
-                            action: #selector(UIResponder.showREPL(_:)),
+                            action: #selector(SidebarSplitViewController.showREPL),
                             input: "e",
                             modifierFlags: [.command, .shift])
     
     let docs = UIKeyCommand(title: Localizable.Help.documentation,
-                            action: #selector(UIResponder.showDocumentation(_:)),
-                            input: "0",
-                            modifierFlags: [.command, .shift])
-    
-    let examples = UIKeyCommand(title: Localizable.Help.samples,
-                            action: #selector(UIResponder.showExamples(_:)),
-                            input: "1",
-                            modifierFlags: [.command, .shift])
-        
+                            action: #selector(SidebarSplitViewController.showDocumentationOnSplitView),
+                            input: "d",
+                            modifierFlags: [.command])
+
     let pyPI = UIKeyCommand(title: "PyPI",
-                            action: #selector(UIResponder.showPyPI(_:)),
-                            input: "2",
+                            action: #selector(SidebarSplitViewController.showPyPI),
+                            input: "p",
                             modifierFlags: [.command, .shift])
     
     var prefsString = NSLocalizedString("%@ Preferences", tableName: "Preferences", bundle: Bundle(for: NSClassFromString("NSApplication") ?? UIApplication.self), value: " Preferences", comment: "").replacingOccurrences(of: "%@", with: "")
@@ -175,7 +117,7 @@ func setupMenu(builder: UIMenuBuilder) {
         prefsString.removeFirst()
     }
     let prefs = UIKeyCommand(title: prefsString,
-                            action: #selector(UIResponder.showPreferences(_:)),
+                             action: #selector(SidebarSplitViewController.showSettings),
                             input: ",",
                             modifierFlags: [.command])
 
@@ -185,7 +127,7 @@ func setupMenu(builder: UIMenuBuilder) {
                                  modifierFlags: [])
     
     let new = UIKeyCommand(title: NSLocalizedString("New Document", tableName: "Document", bundle: Bundle(for: NSClassFromString("NSApplication") ?? UIApplication.self), value: "New Document", comment: ""),
-                           action: #selector(UIResponder.newScript),
+                           action: #selector(SidebarSplitViewController.newScript),
                            input: "n",
                            modifierFlags: [.command])
     
@@ -197,21 +139,27 @@ func setupMenu(builder: UIMenuBuilder) {
     
     let redo = UIKeyCommand.command(input: "z", modifierFlags: [.command, .shift], action: #selector(EditorTextView.redo), discoverabilityTitle: Localizable.MenuItems.redo)
     
-    let fileMenuTop = UIMenu(title: "", options: .displayInline, children: ProcessInfo.processInfo.isiOSAppOnMac ? [new, openScript, repl] : [repl])
+    var fileMenuTopItems = [new, openScript]
+    if isiOSAppOnMac {
+        fileMenuTopItems.insert(newWindow, at: 0)
+    }
+    let fileMenuTop = UIMenu(title: "", options: .displayInline, children: fileMenuTopItems)
     let fileMenu = UIMenu(title: "", options: .displayInline, children: [save, stop, run, runWithArguments])
     let editMenu = UIMenu(title: "", options: .displayInline, children: [redo, undo, find, toggleComment, setBreakpoint, unindent])
     
-    let windowMenu = UIMenu(title: "", options: .displayInline, children: [docs, examples, pyPI])
+    let windowMenu = UIMenu(title: "", options: .displayInline, children: [repl, docs, pyPI])
 
-    let pytoMenu = UIMenu(title: "", options: .displayInline, children: [automator, prefs])
+    var pytoMenuItems = [automator, prefs]
+    if !isiOSAppOnMac {
+        pytoMenuItems.remove(at: 0)
+    }
+    let pytoMenu = UIMenu(title: "", options: .displayInline, children: pytoMenuItems)
     
     builder.remove(menu: .newScene)
     builder.remove(menu: .preferences)
-    if ProcessInfo.processInfo.isiOSAppOnMac {
-        builder.insertSibling(pytoMenu, afterMenu: .about)
-        builder.insertChild(windowMenu, atEndOfMenu: .window)
-        
-    }
+    
+    builder.insertSibling(pytoMenu, afterMenu: .about)
+    builder.insertChild(windowMenu, atEndOfMenu: .window)
     
     builder.insertChild(fileMenu, atEndOfMenu: .file)
     builder.insertChild(fileMenuTop, atStartOfMenu: .file)

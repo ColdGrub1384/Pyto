@@ -25,11 +25,8 @@ func RunShortcutsScript(at url: URL, arguments: [String], sendOutput: Bool = tru
     })
     
     checkIfUnlocked(on: nil)
-    
-    Python.shared.currentWorkingDirectory = directory(for: url).path
-    
+        
     AppDelegate.shared.shortcutScript = url.path
-    Python.shared.args = NSMutableArray(array: arguments)
     
     QuickLookHelper.images = []
     PyOutputHelper.output = ""
@@ -42,7 +39,7 @@ func RunShortcutsScript(at url: URL, arguments: [String], sendOutput: Bool = tru
     
     func run() {
         DispatchQueue.global().async {
-            Python.pythonShared?.perform(#selector(PythonRuntime.runScript(_:)), with: Python.Script(path: url.path, debug: false, runREPL: false))
+            Python.pythonShared?.perform(#selector(PythonRuntime.runScript(_:)), with: Python.Script(path: url.path, args: arguments as NSArray, workingDirectory: directory(for: url).path, debug: false, runREPL: false))
         }
         
         _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { (timer) in

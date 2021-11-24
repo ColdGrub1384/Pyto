@@ -45,7 +45,7 @@ fileprivate extension FileManager {
 
 class RunScriptIntentHandler: NSObject, RunScriptIntentHandling {
     
-    static func getScripts() -> [INFile] {
+    static func getScripts(pathExtension: String = "py") -> [INFile] {
         guard let docs = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.pyto")?.appendingPathComponent("Shortcuts") else {
             return []
         }
@@ -55,6 +55,11 @@ class RunScriptIntentHandler: NSObject, RunScriptIntentHandling {
         do {
             for file in (try FileManager.default.contentsOfDirectory(atURL: docs, sortedBy: .created) ?? []) {
                 let fileURL = docs.appendingPathComponent(file)
+                
+                guard fileURL.pathExtension.lowercased() == pathExtension else {
+                    continue
+                }
+                
                 let data = try Data(contentsOf: fileURL)
                 do {
                     let script = try JSONDecoder().decode(IntentScript.self, from: data)

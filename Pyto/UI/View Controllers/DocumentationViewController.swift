@@ -116,13 +116,20 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         
         toolbarItems = [goBackButton, UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), goForwardButton]
         
-        if !isiOSAppOnMac {
+        if !isiOSAppOnMac && splitViewController == nil {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
         }
         
-        if UIDevice.current.userInterfaceIdiom == .pad, #available(iOS 13.0, *) {
+        if UIDevice.current.userInterfaceIdiom == .pad && splitViewController == nil {
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.down.square.fill"), style: .plain, target: self, action: #selector(openInNewWindow))
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.backgroundColor = .systemBackground
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -134,8 +141,6 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         if #available(iOS 13.0, *) {
             view.window?.windowScene?.title = Localizable.Help.documentation
         }
-        
-        setupToolbarIfNeeded(windowScene: view.window?.windowScene)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -27,7 +27,12 @@ import StoreKit
         if launches >= (minLaunches as? Int ?? 0) {
             launches = 0
             if #available(iOS 10.3, *) {
-                SKStoreReviewController.requestReview()
+                for windowScene in UIApplication.shared.connectedScenes.filter({ $0 is UIWindowScene }).map({ $0 as! UIWindowScene }) {
+                    if windowScene.activationState == .foregroundActive || windowScene.activationState == .foregroundInactive {
+                        SKStoreReviewController.requestReview(in: windowScene)
+                        break
+                    }
+                }
             }
         }
     }

@@ -126,9 +126,7 @@ class WidgetSimulatorViewController: UIViewController {
             alert.addAction(UIAlertAction(title: Localizable.ok, style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
         }
-        (UIApplication.shared.delegate as? AppDelegate)?.copyModules()
-        
-        NCWidgetController().setHasContent(true, forWidgetWithBundleIdentifier: Bundle.main.bundleIdentifier!+".Pyto-Widget")
+        (UIApplication.shared.delegate as? AppDelegate)?.copyModules()        
     }
     
     /// Closes the widget simulator.

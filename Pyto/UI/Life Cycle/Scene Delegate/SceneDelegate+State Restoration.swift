@@ -24,43 +24,16 @@ extension SceneDelegate {
         
         if let sceneStateData = userActivity.userInfo?["sceneState"] as? Data, #available(iOS 14.0, *) {
             
-            do {
-                let sceneState = try JSONDecoder().decode(SceneState.self, from: sceneStateData)
-                
-                if sceneState.selection == nil || sceneState.selection == .none {
-                    return
+            if sidebarSplitViewController == nil {
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.1) { [weak self] in
+                    self?.continueActivity(userActivity)
                 }
-                
-                var url: URL?
-                switch sceneState.selection {
-                case .recent(let _url):
-                    url = _url
-                default:
-                    break
+            } else {
+                do {
+                    sidebarSplitViewController?.restore(sceneState: try JSONDecoder().decode(SceneState.self, from: sceneStateData))
+                } catch {
+                    print(error.localizedDescription)
                 }
-                
-                sceneStateStore.sceneState = sceneState
-                
-                _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] (timer) in
-                    
-                    guard let self = self else {
-                        return
-                    }
-                    
-                    if let doc = self.documentBrowserViewController, doc.view.window != nil {
-                        let sidebar = doc.makeSidebarNavigation(url: url, run: false, isShortcut: false, restoreSelection: true)
-                        let vc = SidebarController(rootView: AnyView(sidebar))
-                        vc.modalPresentationStyle = .fullScreen
-                        vc.modalTransitionStyle = .crossDissolve
-                        sidebar.viewControllerStore.vc = vc
-                         
-                        doc.present(vc, animated: true, completion: nil)
-                    }
-                    
-                    timer.invalidate()
-                })
-            } catch {
-                print(error.localizedDescription)
             }
             
         } else if let data = userActivity.userInfo?["bookmarkData"] as? Data {
@@ -94,7 +67,6 @@ extension SceneDelegate {
                 let url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
                 
                 if let arguments = (userActivity.userInfo?["arguments"] as? [String]) ?? (userActivity.interaction?.intent as? RunScriptIntent)?.arguments {
-                    Python.shared.args = NSMutableArray(array: arguments)
                     UserDefaults.standard.set(arguments, forKey: "arguments\(url.path.replacingOccurrences(of: "//", with: "/"))")
                 }
                 
@@ -116,7 +88,6 @@ extension SceneDelegate {
             }
             
             if let arguments = userActivity.userInfo?["arguments"] as? [String] {
-                Python.shared.args = NSMutableArray(array: arguments)
                 UserDefaults.standard.set(arguments, forKey: "arguments\(fileURL.path.replacingOccurrences(of: "//", with: "/"))")
             }
             
@@ -137,29 +108,44 @@ extension SceneDelegate {
     // MARK: - Scene delegate
     
     func stateRestorationActivity(for scene: UIScene) -> NSUserActivity? {
-        
-        guard !isiOSAppOnMac else {
-            return nil
-        }
-        
         do {
             let activity = NSUserActivity(activityType: "pyto.stateRestoration")
             
-            if isiOSAppOnMac, let splitVC = ((window?.rootViewController as? EditorSplitViewController.NavigationController) ?? (window?.rootViewController?.presentedViewController as? EditorSplitViewController.NavigationController))?.viewControllers.first as? EditorSplitViewController, let editor = splitVC.editor {
-                activity.addUserInfoEntries(from: ["bookmarkData": try editor.document!.fileURL.bookmarkData()])
+            guard let directoryBookmarkData = try sidebarSplitViewController?.fileBrowser.directory.bookmarkData() else {
+                return nil
             }
             
-            if let splitVC = documentBrowserViewController?.presentedViewController as? EditorSplitViewController.ProjectSplitViewController, let dir = ((splitVC.viewControllers.first as? UINavigationController)?.viewControllers.first as? FileBrowserViewController)?.directory {
+            let section: SceneState.Section?
+            
+            let vc = (sidebarSplitViewController?.viewController(for: sidebarSplitViewController?.isCollapsed == true ? .compact : .secondary) as? UINavigationController)?.viewControllers.first
+            switch vc {
                 
-                activity.addUserInfoEntries(from: ["directory": try dir.bookmarkData()])
+            case is REPLViewController:
+                section = .repl
+            
+            case is RunModuleViewController:
+                section = .runModule
+            
+            case is UIHostingController<PyPiView>:
+                section = .pypi
+            
+            case is ModulesTableViewController:
+                section = .loadedModules
+            
+            case is UIHostingController<SamplesNavigationView>:
+                section = .examples
+            
+            case is DocumentationViewController:
+                section = .documentation
+            
+            case is EditorSplitViewController:
+                section = .editor(try (vc as! EditorSplitViewController).editor!.document!.fileURL.bookmarkData())
                 
-                if let editor = ((splitVC.viewControllers.last as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor {
-                    activity.addUserInfoEntries(from: ["bookmarkData": try editor.document!.fileURL.bookmarkData()])
-                }
-            } else {
-                let data = try JSONEncoder().encode(sceneStateStore.sceneState)
-                activity.addUserInfoEntries(from: ["sceneState":data])
+            default:
+                section = nil
             }
+            
+            activity.addUserInfoEntries(from: ["sceneState": try JSONEncoder().encode(SceneState(directoryBookmarkData: directoryBookmarkData, section: section))])
             
             return activity
         } catch {

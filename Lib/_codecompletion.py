@@ -11,6 +11,7 @@ from pygments import highlight
 from pygments import lexers
 from pygments.formatters.terminal256 import TerminalTrueColorFormatter
 from pygments.styles import get_style_by_name
+from pyto import PyOutputHelper
 
 _completions_queue = 0
 
@@ -18,8 +19,8 @@ lexer = lexers.get_lexer_by_name('python')
 style = get_style_by_name('default')
 formatter = TerminalTrueColorFormatter(full=True, style=style)
 
-def printHighlightedCode(code):
-    print(highlight(code, lexer, formatter), end="")
+def printHighlightedCode(code, path):
+    PyOutputHelper.print(highlight(code, lexer, formatter), script=path)
 
 def suggestForCode(code, index, path):
     global _completions_queue
@@ -70,13 +71,34 @@ def suggestForCode(code, index, path):
 
             definitions = []
             for _def in script.get_names():
+            
+                if _def.type == "statement" or _def.type == "keyword":
+                    continue
+            
                 decl = _def.description
                 line = _def.line
                 if "=" in decl:
                     decl = decl.split("=")[0]
                 if ":" in decl:
                     decl = decl.split(":")[0]
-                definitions.append([decl, line])
+                
+                signatures = []
+                for signature in _def.get_signatures():
+                    signatures.append(signature.to_string())
+                
+                defined_names = []
+                for name in _def.defined_names():
+                
+                    if not name.is_definition():
+                        continue
+                
+                    _signatures = []
+                    for signature in name.get_signatures():
+                        _signatures.append(signature.to_string())
+                
+                    defined_names.append([name.description, name.line, name.docstring(raw=True), name.name, _signatures, [], name.module_name, name.type])
+                
+                definitions.append([decl, line, _def.docstring(raw=True), _def.name, signatures, defined_names, _def.module_name, _def.type])
 
             visibleEditor.definitions = definitions
 
@@ -118,9 +140,6 @@ def suggestForCode(code, index, path):
                 if completion.complete.startswith("."):
                     suggestion = "." + suggestion
 
-                if completion.name in __builtins__["deprecated"]:
-                    continue
-
                 complete = completion.complete
                 if complete.endswith("="):
                     complete = complete[:-1]
@@ -135,7 +154,7 @@ def suggestForCode(code, index, path):
                     suggestions = []
                     break
             
-            if visibleEditor.text != code:
+            if path.endswith(".py") and visibleEditor.text != code:
                 return
             
             visibleEditor.lastCodeFromCompletions = code
@@ -176,10 +195,7 @@ def suggestionsForCode(code, path=None):
             if completion.complete.startswith("."):
                 suggestion = "." + suggestion
 
-            if (
-                completion.name.startswith("_")
-                or completion.name in __builtins__["deprecated"]
-            ):
+            if completion.name.startswith("_"):
                 continue
 
             suggestions[completion.name] = completion.complete

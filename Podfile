@@ -23,6 +23,7 @@ target 'Pyto' do
   pod 'ObjectUserDefaults'
   pod 'TrueTime'
   pod 'Highlightr', :git => 'https://github.com/brunophilipe/Highlightr.git'
+  pod "GCDWebServer", "~> 3.0"
 end
 
 target 'Pyto Screenshots' do

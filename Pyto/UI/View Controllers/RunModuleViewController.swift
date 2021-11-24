@@ -31,7 +31,7 @@ import UIKit
     
     @objc private func setCurrentDirectory() {
         console?.movableTextField?.textField.resignFirstResponder()
-        let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
+        let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.folder])
         picker.delegate = self
         picker.allowsMultipleSelection = true
         present(picker, animated: true, completion: nil)
@@ -69,10 +69,14 @@ import UIKit
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = NSLocalizedString("sidebar.runModule", comment: "")
+        
         firstChild = editor
         secondChild = console
         
         arrangement = .horizontal
+        
+        navigationItem.largeTitleDisplayMode = .never
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,7 +85,7 @@ import UIKit
         navigationItem.leftBarButtonItems = []
         navigationItem.rightBarButtonItems = []
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(setCurrentDirectory))
-        if !isiOSAppOnMac {
+        if !isiOSAppOnMac && splitViewController == nil {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(goToFileBrowser))
         }
         navigationController?.isToolbarHidden = true

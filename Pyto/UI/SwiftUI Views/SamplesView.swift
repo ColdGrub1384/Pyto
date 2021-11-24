@@ -99,35 +99,64 @@ public struct SamplesView: View {
         return isDir.boolValue
     }
     
+    func button(item: URL) -> some View {
+        Button(action: {
+             self.selectScript(item)
+        }) {
+            HStack {
+                Image(systemName: "doc.fill").font(.system(size: 20))
+                Text(item.lastPathComponent).foregroundColor(.primary)
+            }
+        }.onDrag { () -> NSItemProvider in
+            let provider = NSItemProvider(contentsOf: item) ?? NSItemProvider()
+            let activity = NSUserActivity(activityType: "PythonScript")
+            do {
+                activity.addUserInfoEntries(from: ["bookmarkData" : try item.bookmarkData()])
+            } catch {}
+            provider.registerObject(activity, visibility: .all)
+            return provider
+        }
+    }
+    
+    func urls(at directory: URL) -> [URL] {
+        (try? FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)) ?? []
+    }
+    
+    struct Folder<Content: View>: View {
+        
+        @State var isExpanded = false
+        
+        var title: String
+        
+        @ViewBuilder var content: () -> Content
+        
+        var body: some View {
+            DisclosureGroup(title) {
+                content()
+            }
+        }
+    }
+    
     public var body: some View {
         
-        List(self.contents, id: \.path) { item in
+        List(self.contents.sorted(by: { !SamplesView.isDirectory($0) && SamplesView.isDirectory($1) }), id: \.path) { item in
             
             if item.path == "/Shortcuts" {
                 ShortcutsView(shortcuts: self.shortcuts, hostController: self.hostController)
             } else {
                 if SamplesView.isDirectory(item) {
-                    NavigationLink(destination: SamplesView(url: item, title: item.lastPathComponent, selectScript: self.selectScript, shortcuts: [], hostController: self.hostController), tag: item, selection: self.$selectedItemStore.selectedItem) {
+                    /*NavigationLink(destination: SamplesView(url: item, title: item.lastPathComponent, selectScript: self.selectScript, shortcuts: [], hostController: self.hostController), tag: item, selection: self.$selectedItemStore.selectedItem) {
                         Image(systemName: "folder.fill")
                         Text(item.lastPathComponent)
+                    }*/
+                    
+                    Folder(title: item.lastPathComponent) {
+                        ForEach(0..<urls(at: item).count) { i in
+                            button(item: urls(at: item)[i])
+                        }
                     }
                 } else {
-                    Button(action: {
-                         self.selectScript(item)
-                    }) {
-                        HStack {
-                            Image(systemName: "doc.fill").font(.system(size: 20))
-                            Text(item.lastPathComponent)
-                        }
-                    }.onDrag { () -> NSItemProvider in
-                        let provider = NSItemProvider(contentsOf: item) ?? NSItemProvider()
-                        let activity = NSUserActivity(activityType: "PythonScript")
-                        do {
-                            activity.addUserInfoEntries(from: ["bookmarkData" : try item.bookmarkData()])
-                        } catch {}
-                        provider.registerObject(activity, visibility: .all)
-                        return provider
-                    }
+                    button(item: item)
                 }
             }
         }.navigationBarTitle(Text(title), displayMode: displayMode)

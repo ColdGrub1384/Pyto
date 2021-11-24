@@ -8,22 +8,116 @@
 
 import SwiftUI
 
-public struct Definiton {
+fileprivate extension Array where Element: Hashable {
+    func uniqued() -> [Element] {
+        var seen = Set<Element>()
+        return filter{ seen.insert($0).inserted }
+    }
+}
+
+public struct Definition: View, Hashable {
     
-    public var signature: String
+    public static func == (lhs: Definition, rhs: Definition) -> Bool {
+        lhs.signature == rhs.signature
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(signature)
+    }
+    
+    private var _signatures: [String]
+    
+    private var _signature: String
+    
+    public var signature: String {
+        if type == "statement" {
+            return _signature
+        } else {
+            return _signatures.first ?? _signature
+        }
+    }
     
     public var line: Int
     
-    public init(signature: String, line: Int) {
-        self.signature = signature
+    public var docString: String
+    
+    public var name: String
+        
+    public var definedNames: [Definition]
+    
+    public var moduleName: String
+    
+    public var type: String
+    
+    @State var isDocStringExpanded = false
+    
+    @State var text = ""
+    
+    public init(signature: String, line: Int, docString: String, name: String, signatures: [String], definedNames: [Definition], moduleName: String, type: String) {
+        self._signature = signature
         self.line = line
+        self.docString = docString
+        self.name = name
+        self._signatures = signatures
+        self.definedNames = definedNames
+        self.moduleName = moduleName
+        self.type = type
+    }
+    
+    public var body: some View {
+        VStack {
+            SearchBar(text: $text).padding()
+            
+            ScrollView {
+                VStack {
+                    HStack {
+                        if #available(iOS 15.0, *) {
+                            Text(signature).bold().font(.custom("Courier", size: UIFont.labelFontSize)).textSelection(.enabled)
+                        } else {
+                            Text(signature).bold().font(.custom("Courier", size: UIFont.labelFontSize))
+                        }
+                        Spacer()
+                    }.padding()
+                    
+                    if !docString.isEmpty {
+                        DisclosureGroup(isExpanded: $isDocStringExpanded) {
+                            Text(docString).font(.custom("Courier", size: UIFont.labelFontSize)).disabled(true)
+                        } label: {
+                            Text("Docstring").bold()
+                        }.padding(.horizontal)
+                    }
+                    
+                    ForEach(definedNames.uniqued().filter({ $0.type != "module" }).sorted(by: { $0.signature.lowercased() < $1.signature.lowercased() }).filter({ def in
+                        
+                        if text != "" {
+                            return def.signature.contains(text)
+                        } else {
+                            return true
+                        }
+                        
+                    }), id: \.signature) { name in
+                        NavigationLink(destination: {
+                            name.navigationTitle(name.name)
+                        }, label: {
+                            VStack {
+                                HStack {
+                                    HighlightedText(name.signature, matching: text).font(.custom("Courier", size: UIFont.labelFontSize))
+                                    Spacer()
+                                }
+                                Divider()
+                            }.foregroundColor(.primary)
+                        }).padding(.horizontal)
+                    }
+                }
+            }
+        }
     }
 }
 
 @available(iOS 13.0.0, *)
 public class DefinitionsDataSource: ObservableObject {
     
-    @Published public var definitions = [Definiton]()
+    @Published public var definitions = [Definition]()
 }
 
 @available(iOS 13.0.0, *)
@@ -51,7 +145,7 @@ struct HighlightedText: View {
 @available(iOS 13.0.0, *)
 public struct DefinitionsView: View {
         
-    public var handler: ((Definiton) -> Void)
+    public var handler: ((Definition) -> Void)
     
     public var dismiss: (() -> Void)?
     
@@ -59,7 +153,7 @@ public struct DefinitionsView: View {
     
     @State var text = ""
     
-    public init(defintions: [Definiton], handler: @escaping ((Definiton) -> Void), dismiss: (() -> Void)?) {
+    public init(defintions: [Definition], handler: @escaping ((Definition) -> Void), dismiss: (() -> Void)?) {
         self.handler = handler
         self.dismiss = dismiss
         self.dataSource.definitions = defintions
@@ -72,17 +166,22 @@ public struct DefinitionsView: View {
             
             List(dataSource.definitions.filter({ (def) -> Bool in
                 if text != "" {
-                    return def.signature.lowercased().contains(text)
+                    return def.signature.contains(text)
                 } else {
                     return true
                 }
             }), id: \.signature) { item in
-                Button(action: {
-                    self.handler(item)
-                }) {
+                
+                NavigationLink {
+                    item.navigationBarItems(trailing: Button(action: {
+                        self.handler(item)
+                    }) {
+                        Text("Go")
+                    }).navigationTitle(item.name)
+                } label: {
                     HStack {
                         HighlightedText(item.signature, matching: self.text)
-                            .font(Font.custom("Courier", size: 16))
+                            .font(Font.custom("Courier", size: 16)).foregroundColor(.primary)
                         Spacer()
                         Text("\(item.line)")
                             .font(Font.custom("Courier", size: 16))
@@ -98,13 +197,13 @@ public struct DefinitionsView: View {
                     }
                 }.hover()
             )
-        }
+        }.navigationBarTitle(Text("Definitions"))
     }
 }
 
 @available(iOS 13.0.0, *)
 struct DefinitionsView_Previews: PreviewProvider {
     static var previews: some View {
-        DefinitionsView(defintions: [Definiton(signature: "def foo", line: 2)], handler: { _ in }, dismiss: {})
+        DefinitionsView(defintions: [Definition(signature: "def foo", line: 2, docString: "docstring", name: "foo", signatures: [], definedNames: [], moduleName: "", type: "function")], handler: { _ in }, dismiss: {})
     }
 }

@@ -16,6 +16,9 @@ import UIKit
     /// The shared instance.
     @objc static var shared: REPLViewController?
     
+    /// The directory picked from the directory picker per script path.
+    static var pickedDirectory = [String:String]()
+    
     /// Set to `false` to not reload the REPL.
     var reloadREPL = false
     
@@ -35,7 +38,7 @@ import UIKit
     
     /// Runs a selected script in the REPL.
     @objc func addScript() {
-        let picker = UIDocumentPickerViewController(documentTypes: ["public.python-script"], in: .open)
+        let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.pythonScript])
         picker.delegate = self
         picker.allowsMultipleSelection = true
         present(picker, animated: true, completion: nil)
@@ -43,7 +46,7 @@ import UIKit
     
     @objc private func setCurrentDirectory() {
         console?.movableTextField?.textField.resignFirstResponder()
-        let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
+        let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.folder])
         picker.allowsMultipleSelection = true
         picker.delegate = self
         present(picker, animated: true, completion: nil)
@@ -84,7 +87,7 @@ import UIKit
         }
         console = ConsoleViewController()
     }
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -94,7 +97,7 @@ import UIKit
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+                
         let chdirItem = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(setCurrentDirectory))
         
         navigationItem.leftBarButtonItems = []
@@ -103,9 +106,11 @@ import UIKit
         } else {
             navigationItem.rightBarButtonItems = [chdirItem]
         }
-        if !isiOSAppOnMac {
+        if !isiOSAppOnMac && splitViewController == nil {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(goToFileBrowser))
         }
+        
+        navigationItem.largeTitleDisplayMode = .never
         
         parent?.navigationItem.rightBarButtonItems = navigationItem.rightBarButtonItems
         
@@ -126,7 +131,7 @@ import UIKit
         
         if !opened, let script = editor?.document?.fileURL.path, !Python.shared.isScriptRunning(script) {
             opened = true
-            editor?.currentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            editor?.currentDirectory = (splitViewController as? SidebarSplitViewController)?.fileBrowser.directory ?? editor!.currentDirectory
             _ = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true, block: { [weak self] (timer) in
                 if Python.shared.isSetup && isUnlocked {
                     self?.editor?.run()
@@ -152,7 +157,7 @@ import UIKit
         if FileManager.default.fileExists(atPath: urls[0].path, isDirectory: &isDir), isDir.boolValue {
             console?.movableTextField?.focus()
             _ = urls[0].startAccessingSecurityScopedResource()
-            Python.shared.run(code: "import os, sys; path = \"\(urls[0].path.replacingOccurrences(of: "\"", with: "\\\""))\"; os.chdir(path); sys.path.append(path)")
+            Self.pickedDirectory[editor!.document!.fileURL.path] = urls[0].path
         } else {
             REPLViewController.scriptsToRun = NSMutableArray()
             for url in urls {
@@ -183,7 +188,10 @@ import UIKit
             
             try? code.write(to: editor!.document!.fileURL, atomically: true, encoding: .utf8)
             
-            Python.shared.run(script: .init(path: editor!.document!.fileURL.path, debug: false, runREPL: true))
+            var arguments = editor!.args.components(separatedBy: " ")
+            ParseArgs(&arguments)
+                                    
+            Python.shared.run(script: .init(path: editor!.document!.fileURL.path, args: NSArray(array: arguments), workingDirectory: editor!.currentDirectory.path, debug: false, runREPL: true))
         }
     }
 }

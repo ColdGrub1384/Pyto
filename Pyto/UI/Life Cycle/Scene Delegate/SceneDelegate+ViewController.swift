@@ -36,10 +36,6 @@ extension SceneDelegate {
         override func viewDidAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
             
-            if let navVC = viewControllerToPresent as? UINavigationController, let editor = navVC.viewControllers.first as? EditorSplitViewController {
-                editor.editor?.setupToolbarIfNeeded(windowScene: view.window?.windowScene)
-            }
-            
             if justShown, let vc = viewControllerToPresent {
                 vc.modalPresentationStyle = .fullScreen
                 present(vc, animated: false, completion: { [weak self] in

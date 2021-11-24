@@ -187,7 +187,7 @@ public class EditorSplitViewController: SplitViewController {
         }
         
         if firstChild == editor {
-            var items = [editor.scriptsItem!, editor.searchItem!, editor.definitionsItem!]
+            var items = [editor.searchItem!, editor.definitionsItem!]
             
             if #available(iOS 14.0, *), ((parent as? EditorSplitViewController)?.folder == nil && editor.traitCollection.horizontalSizeClass != .compact) || isiOSAppOnMac, !editor.alwaysShowBackButton {
                 items.removeFirst()
@@ -206,21 +206,15 @@ public class EditorSplitViewController: SplitViewController {
                 ]
             }
         } else {
-            navigationItem.leftBarButtonItems = [editor.scriptsItem]
+            navigationItem.leftBarButtonItems = []
             navigationItem.rightBarButtonItems = [closeConsoleBarButtonItem]
-        }
-        
-        if #available(iOS 14.0, *) {
-            #if !Xcode11
-            container?.update()
-            #endif
         }
     }
     
     /// The button for closing the full screen console.
     var closeConsoleBarButtonItem: UIBarButtonItem!
     
-    /// A boolean indicating whether `showEditor` and  `showConsole(completionm:)` are animated.
+    /// A boolean indicating whether `showEditor` and  `showConsole(completion:)` are animated.
     var animateLayouts = true
     
     var exitScript = true
@@ -310,6 +304,8 @@ public class EditorSplitViewController: SplitViewController {
             }
         }
         
+        let isFirstResponder = console?.movableTextField?.textField.isFirstResponder == true
+        
         DispatchQueue.main.asyncAfter(deadline: .now()+(animateLayouts ? 0.25 : 0), execute: { [weak self] in
             
             guard let self = self else {
@@ -331,6 +327,12 @@ public class EditorSplitViewController: SplitViewController {
             
             self.firstChild = self.console
             self.secondChild = self.editor
+            
+            if isFirstResponder {
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
+                    self.console?.movableTextField?.textField.becomeFirstResponder()
+                }
+            }
             
             self.setNavigationBarItems()
             
@@ -371,6 +373,12 @@ public class EditorSplitViewController: SplitViewController {
             return !Python.shared.isScriptRunning(path)
         } else if action == #selector(stopScript(_:)) || action == #selector(interrupt(_:)) {
             return Python.shared.isScriptRunning(path)
+        } else if action == #selector(search) {
+            if #available(iOS 15, *) {
+                return true
+            } else {
+                return false
+            }
         } else {
             return super.canPerformAction(action, withSender: sender)
         }
@@ -392,11 +400,7 @@ public class EditorSplitViewController: SplitViewController {
             return commands
         }
         
-        if Python.shared.isScriptRunning(path) {
-            commands.append(
-                UIKeyCommand.command(input: "c", modifierFlags: .control, action: #selector(interrupt(_:)), discoverabilityTitle: Localizable.interrupt)
-            )
-        } else {
+        if !Python.shared.isScriptRunning(path) {
             commands.append(
                 UIKeyCommand.command(input: "r", modifierFlags: .command, action: #selector(runScript(_:)), discoverabilityTitle: Localizable.MenuItems.run)
             )
@@ -406,11 +410,17 @@ public class EditorSplitViewController: SplitViewController {
             )
         }
         
+        commands.append(
+            UIKeyCommand.command(input: "c", modifierFlags: .control, action: #selector(interrupt(_:)), discoverabilityTitle: Localizable.interrupt)
+        )
+        
         return commands
     }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        
+        edgesForExtendedLayout = []
         
         // In SwiftUI
         parent?.navigationItem.leftItemsSupplementBackButton = true
@@ -474,12 +484,6 @@ public class EditorSplitViewController: SplitViewController {
         justShown = false
         
         removeGestures()
-        
-        #if !Xcode11
-        if #available(iOS 14.0, *) {
-            container?.update()
-        }
-        #endif
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
@@ -499,22 +503,11 @@ public class EditorSplitViewController: SplitViewController {
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        #if Xcode11
-        guard let firstChild = self.firstChild, let secondChild = self.secondChild else {
-            return
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.2) { [weak self] in
+            if self?.editor?.textView.frame != self?.editor?.view.safeAreaLayoutGuide.layoutFrame && (self?.editor?.view.safeAreaLayoutGuide.layoutFrame ?? .zero).width > 100 {
+                self?.editor?.textView.frame = self?.editor?.view.safeAreaLayoutGuide.layoutFrame ?? .zero
+            }
         }
-        
-        firstChild.view.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
-        secondChild.view.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
-        
-        firstChild.viewWillTransition(to: firstChild.view.frame.size, with: ViewControllerTransitionCoordinator())
-        secondChild.viewWillTransition(to: firstChild.view.frame.size, with: ViewControllerTransitionCoordinator())
-        
-        firstChild.view.superview?.backgroundColor = view.backgroundColor
-        secondChild.view.superview?.backgroundColor = view.backgroundColor
-        #else
-        editor?.textView.frame = editor?.view.safeAreaLayoutGuide.layoutFrame ?? .zero
-        #endif
     }
     
     public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -537,10 +530,10 @@ public class EditorSplitViewController: SplitViewController {
             }
         }
         
-        guard presentedViewController == nil else {
+        guard presentedViewController == nil || (presentedViewController as? UINavigationController)?.visibleViewController is AboutTableViewController else {
             return
         }
-        
+                
         if newCollection.horizontalSizeClass == .compact && !shouldShowConsoleAtBottom {
             arrangement = .vertical
         } else {
@@ -673,30 +666,5 @@ public class EditorSplitViewController: SplitViewController {
         }
     }
     
-    /// A Split view controller displaying a file browser and the code editor?.
-    class ProjectSplitViewController: UISplitViewController {
-        
-        /// The editor.
-        var editor: EditorSplitViewController?
-    }
-    
     fileprivate var containerViewController: UIViewController?
 }
-
-#if !Xcode11
-@available(iOS 14.0, *)
-extension EditorSplitViewController: ContainedViewController {
-    
-    // MARK: - Contained view controller
-    
-    public var container: ContainerViewController? {
-        set {
-            containerViewController = newValue
-        }
-        
-        get {
-            return containerViewController as? ContainerViewController
-        }
-    }
-}
-#endif

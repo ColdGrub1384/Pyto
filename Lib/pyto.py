@@ -72,7 +72,6 @@ if __isMainApp__():
     ReviewHelper = __Class__("ReviewHelper")
     EditorViewController = __Class__("EditorViewController")
     EditorSplitViewController = __Class__("EditorSplitViewController")
-    DocumentBrowserViewController = __Class__("DocumentBrowserViewController")
     ModulesTableViewController = __Class__("ModulesTableViewController")
     PyCallbackHelper = __Class__("PyCallbackHelper")
     PytoUIPreviewViewController = __Class__("PytoUIPreviewViewController")
@@ -85,7 +84,6 @@ else:
     ReviewHelper = None
     EditorViewController = None
     EditorSplitViewController = None
-    DocumentBrowserViewController = None
     ModulesTableViewController = None
     PyCallbackHelper = None
     PytoUIPreviewViewController = None

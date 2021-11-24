@@ -12,12 +12,16 @@ import SwiftUI
 /// A view for previewing widgets.
 @available(iOS 14.0, *)
 struct WidgetPreview: View {
-        
+    
+    class ViewControllerStore {
+        var vc: UIViewController?
+    }
+    
     var entry: ScriptEntry
+        
+    @Environment(\.horizontalSizeClass) var horizontalSize
     
     let viewControllerStore = ViewControllerStore()
-    
-    @Environment(\.horizontalSizeClass) var horizontalSize
     
     func widget(family: WidgetFamily) -> some View {
         WidgetEntryView(entry: entry, customFamily: family)

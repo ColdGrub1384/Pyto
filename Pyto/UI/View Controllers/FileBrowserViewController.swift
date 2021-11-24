@@ -10,10 +10,17 @@ import UIKit
 import QuickLook
 import MobileCoreServices
 import Dynamic
+import UniformTypeIdentifiers
 
 /// The file browser used to manage files inside a project.
-public class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate, UIContextMenuInteractionDelegate, UITableViewDragDelegate, UITableViewDropDelegate, UISearchResultsUpdating {
-        
+@objc public class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate, UIContextMenuInteractionDelegate, UITableViewDragDelegate, UITableViewDropDelegate, UISearchResultsUpdating {
+    
+    /// Returns the URL for iCloud Drive folder.
+    @objc static let iCloudContainerURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents")
+    
+    /// Returns the URL for local folder.
+    @objc static let localContainerURL = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0]
+    
     private struct LocalFile {
         var url: URL
         var directory: URL
@@ -50,7 +57,7 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
     /// The directory to browse.
     var directory: URL! {
         didSet {
-            title = FileManager.default.displayName(atPath: directory.path)
+            title = directory != FileBrowserViewController.iCloudContainerURL ? FileManager.default.displayName(atPath: directory.path) : "iCloud Drive"
             load()
         }
     }
@@ -61,7 +68,7 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
         do {
             var files = [URL]()
             for file in try FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil, options: []) {
-                if file.lastPathComponent != ".DS_Store" {
+                if file.lastPathComponent != ".DS_Store" && file.lastPathComponent != ".Trash" {
                     files.append(file)
                 }
             }
@@ -143,6 +150,11 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
         self.present(alert, animated: true, completion: nil)
     }
     
+    /// Creates a new folder.
+    @objc func createFolder(_ sender: UIBarButtonItem) {
+        self.createFile(type: .folder)
+    }
+    
     /// Creates a new file.
     @objc func createNewFile(_ sender: UIBarButtonItem) {
         let alert = UIAlertController(title: Localizable.Creation.createFileTitle, message: nil, preferredStyle: .actionSheet)
@@ -155,12 +167,8 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
             self.createFile(type: .blank)
         }))
         
-        alert.addAction(UIAlertAction(title: Localizable.Creation.folder, style: .default, handler: { (_) in
-            self.createFile(type: .folder)
-        }))
-        
         alert.addAction(UIAlertAction(title: Localizable.Creation.importFromFiles, style: .default, handler: { (_) in
-            let vc = UIDocumentPickerViewController(documentTypes: ["public.item"], in: .import)
+            let vc = UIDocumentPickerViewController.init(forOpeningContentTypes: [.item], asCopy: true)
             vc.allowsMultipleSelection = true
             vc.delegate = self
             self.present(vc, animated: true, completion: nil)
@@ -210,7 +218,6 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
             if let parent = navigationController?.presentingViewController, parent is EditorViewController || parent is EditorSplitViewController || parent is EditorSplitViewController.NavigationController {
                 items.append(UIBarButtonItem(image: EditorSplitViewController.gridImage, style: .plain, target: self, action: #selector(goToFiles)))
             }
-            items.append(UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close)))
             navigationItem.leftBarButtonItems = items
         }
         
@@ -243,7 +250,10 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
         navigationItem.searchController = searchController
         definesPresentationContext = true
         
-        navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createNewFile(_:)))]
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createNewFile(_:))),
+            UIBarButtonItem(image: UIImage(systemName: "folder.badge.plus"), style: .plain, target: self, action: #selector(createFolder(_:)))
+        ]
     }
     
     public override func viewDidAppear(_ animated: Bool) {
@@ -316,35 +326,6 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
             cell.accessoryType = .none
         }
         
-        if isiOSAppOnMac {
-            let icon = Dynamic.NSWorkspace.sharedWorkspace.iconForFile(files[indexPath.row].path)
-            var imageRect = CGRect(origin: .zero, size: icon.size.asCGSize ?? .zero)
-            
-            func doIt(_ rect: UnsafePointer<CGRect>) {
-                let imageRef = icon.CGImageForProposedRect(rect, context: nil, hints: nil)
-                
-                let buffer = UnsafeMutablePointer<CGImage>.allocate(capacity: 1)
-                
-                defer {
-                    buffer.deallocate()
-                }
-                
-                imageRef.asValue?.getValue(buffer)
-                
-                let image = Dynamic.UIImage.imageWithCGImage(buffer.pointee)
-                cell.imageView?.image = image.asObject as? UIImage
-                
-                let itemSize = CGSize.init(width: 25, height: 25)
-                UIGraphicsBeginImageContextWithOptions(itemSize, false, UIScreen.main.scale)
-                let imageRect = CGRect(origin: CGPoint.zero, size: itemSize)
-                cell.imageView?.image?.draw(in: imageRect)
-                cell.imageView?.image = UIGraphicsGetImageFromCurrentImageContext()!
-                UIGraphicsEndImageContext()
-            }
-            
-            doIt(&imageRect)
-        }
-        
         cell.contentView.alpha = files[indexPath.row].lastPathComponent.hasPrefix(".") ? 0.5 : 1
         
         let interaction = UIContextMenuInteraction(delegate: self)
@@ -352,6 +333,8 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
         
         return cell
     }
+    
+    private var lastDoc: UIDocument?
     
     public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -377,9 +360,9 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
                 url = files[indexPath.row]
             }
             
-            if url.pathExtension.lowercased() == "py" {
+            if url.pathExtension.lowercased() == "py" || url.pathExtension.lowercased() == "pyhtml" || (try? url.resourceValues(forKeys: [.contentTypeKey]))?.contentType?.conforms(to: .plainText) == true {
                 
-                if let editor = ((navigationController?.splitViewController as? EditorSplitViewController.ProjectSplitViewController)?.editor)?.editor {
+                if let editor = ((splitViewController as? SidebarSplitViewController)?.sidebar?.editor?.vc as? EditorSplitViewController)?.editor {
                     
                     (editor.parent as? EditorSplitViewController)?.killREPL()
                     
@@ -388,11 +371,7 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
                     editor.save { (_) in
                         editor.document?.close(completionHandler: { (_) in
                             let document = PyDocument(fileURL: url)
-                            document.open { [weak self] (_) in
-                                
-                                guard let self = self else {
-                                    return
-                                }
+                            document.open { (_) in
                                 
                                 #if !Xcode11
                                 if #available(iOS 14.0, *) {
@@ -406,21 +385,15 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
                                 editor.viewWillAppear(false)
                                 editor.appKitWindow.representedURL = document.fileURL
                                 
-                                editor.setupToolbarIfNeeded(windowScene: self.view.window?.windowScene)
-                                
-                                if let parent = editor.parent?.navigationController {
-                                    self.navigationController?.splitViewController?.showDetailViewController(parent, sender: self)
-                                }
+                                self.showDetailViewController(UINavigationController(rootViewController: editor.parent!), sender: self)
                             }
                         })
-                    }                    
+                    }
                 } else {
-                    let browser = (presentingViewController as? DocumentBrowserViewController) ?? DocumentBrowserViewController()
-                    if let editor = browser.openDocument(url, run: false, folder: self.directory, show: false) {
-                        editor.editor?.setupToolbarIfNeeded(windowScene: view.window?.windowScene)
-                        (navigationController?.splitViewController as? EditorSplitViewController.ProjectSplitViewController)?.editor = editor
+                    let splitVC = splitViewController as? SidebarSplitViewController
+                    if let editor = splitVC?.sidebar?.openDocument(url, run: false, folder: self.directory) {
+                        (splitViewController as? SidebarSplitViewController)?.sidebar?.editor = SidebarViewController.NavigationController(rootViewController: editor)
                         let navVC = UINavigationController(rootViewController: editor)
-                        navVC.isNavigationBarHidden = isiOSAppOnMac
                         navVC.navigationBar.prefersLargeTitles = false
                         editor.navigationItem.largeTitleDisplayMode = .never
                         showDetailViewController(navVC, sender: self)
@@ -457,33 +430,6 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
                 } else {
                     Dynamic.NSWorkspace.sharedWorkspace.openURL(url)
                 }
-            }
-        }
-    }
-    
-    public override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    public override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
-        let files = filteredResults ?? self.files
-        
-        if editingStyle == .delete {
-            do {
-                try FileManager.default.removeItem(at: files[indexPath.row])
-                
-                if filteredResults != nil {
-                    filteredResults?.remove(at: indexPath.row)
-                } else {
-                    self.files.remove(at: indexPath.row)
-                }
-                
-                tableView.deleteRows(at: [indexPath], with: .automatic)
-            } catch {
-                let alert = UIAlertController(title: Localizable.Errors.errorRemovingFile, message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
-                present(alert, animated: true, completion: nil)
             }
         }
     }
@@ -653,7 +599,7 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
                     return
                 }
                 
-                self.present(UIDocumentPickerViewController(url: files[index.row], in: .exportToService), animated: true, completion: nil)
+                self.present(UIDocumentPickerViewController(forExporting: [files[index.row]], asCopy: true), animated: true, completion: nil)
             }
         } else {
             saveTo = UIAction(title: "Show in Finder", image: UIImage(systemName: "folder")) { action in
@@ -708,7 +654,21 @@ public class FileBrowserViewController: UITableViewController, UIDocumentPickerD
                 return
             }
             
-            self.tableView(self.tableView, commit: .delete, forRowAt: index)
+            do {
+                try FileManager.default.removeItem(at: files[index.row])
+                
+                if self.filteredResults != nil {
+                    self.filteredResults?.remove(at: index.row)
+                } else {
+                    self.files.remove(at: index.row)
+                }
+                
+                self.tableView.deleteRows(at: [IndexPath(row: index.row, section: 0)], with: .automatic)
+            } catch {
+                let alert = UIAlertController(title: Localizable.Errors.errorRemovingFile, message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
         }
 
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { (_) -> UIMenu? in

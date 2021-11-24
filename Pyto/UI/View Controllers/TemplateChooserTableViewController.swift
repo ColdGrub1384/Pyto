@@ -149,7 +149,7 @@ class TemplateChooserTableViewController: UITableViewController, UIDocumentPicke
         case IndexPath(row: 3, section: 0):
             createUI()
         case IndexPath(row: 0, section: 1):
-            let picker = UIDocumentPickerViewController(documentTypes: ["public.python-script"], in: .open)
+            let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.pythonScript])
             picker.allowsMultipleSelection = true
             picker.delegate = self
             present(picker, animated: true, completion: nil)

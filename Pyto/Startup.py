@@ -82,6 +82,13 @@ try:
     # MARK: - Allow / Disallow subprocesses
 
     os.allows_subprocesses = (not sys.platform == "ios")
+    
+    # MARK: - Per thread chdir
+    
+    def chdir(dir):
+        CDLL(None).pthread_chdir_np(os.path.realpath(dir).encode())
+    
+    os.chdir = chdir
 
     # MARK: - Input
 
@@ -162,8 +169,10 @@ try:
 
     # MARK: - Modules
 
-    sys.meta_path.insert(0, DownloadableImporter())
-    sys.meta_path.insert(1, FrameworksImporter())
+    sys_importer = SysImporter(sys)
+    sys.meta_path.insert(0, sys_importer)
+    sys.meta_path.insert(1, DownloadableImporter())
+    sys.meta_path.insert(2, FrameworksImporter())
 
     # MARK: - Pre-import modules
 
@@ -207,9 +216,38 @@ try:
 
     threading.Thread(target=addOnDemandPaths).start()
 
-    # MARK: - Deprecations
-
-    __builtins__.deprecated = []
+    # MARK: - Sys
+    
+    _old_import = __builtins__.__import__
+    def _import(name, globals=None, locals=None, fromlist=(), level=0):
+        if name == "sys":
+            try:
+                threading.current_thread().script_path
+                _sys = sys_importer.load_module("sys")
+                _sys.path = _sys.path.copy()
+                _sys.argv = _sys.argv.copy()
+                
+                if "sys" not in _sys.modules:
+                    _sys.modules["sys"] = sys
+                
+                return _sys
+            except AttributeError:
+                return sys
+        else:
+            path = sys.path
+            try:
+                threading.current_thread().script_path
+                sys.path = _import("sys").path
+            except AttributeError:
+                pass
+        
+            mod = _old_import(name, globals, locals, fromlist, level)
+            sys.path = path
+            return mod
+    
+    sys.__path__ = sys.path
+    
+    __builtins__.__import__ = _import
 
     # MARK: - Pip bundled modules
     
@@ -271,7 +309,7 @@ try:
     unittest.main = _unittest_main
 
     # MARK: - Run script
-
+    
     def run():
         CDLL(None).putenv(b"IS_PYTHON_RUNNING=1")
         SourceFileLoader("main", "%@").load_module()

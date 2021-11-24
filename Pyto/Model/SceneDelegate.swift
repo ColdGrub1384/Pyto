@@ -15,18 +15,50 @@ import Dynamic
 /// The scene delegate.
 @objc class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
-    /// The document browser associated with this scene.
-    var documentBrowserViewController: DocumentBrowserViewController? {
-        return window?.rootViewController as? DocumentBrowserViewController
+    /// The state of a scene, savable on the disk for state restoration.
+    struct SceneState: Codable {
+        
+        /// The content of the detail view controller.
+        enum Section: Codable {
+            
+            /// An editor with the bookmark data
+            case editor(Data)
+            
+            /// The URL.
+            case repl
+            
+            /// Run module
+            case runModule
+            
+            /// PyPI
+            case pypi
+            
+            /// Loaded modules
+            case loadedModules
+            
+            /// Examples
+            case examples
+            
+            /// The documentation
+            case documentation
+        }
+        
+        /// The URL bookmark data of the working directory.
+        var directoryBookmarkData: Data
+        
+        /// The content of the detail view controller.
+        var section: Section?
+    }
+    
+    /// The root split view.
+    var sidebarSplitViewController: SidebarSplitViewController? {
+        return window?.rootViewController?.children.first as? SidebarSplitViewController
     }
     
     /// Shows onboarding if needed.
     func showOnboarding() {
         checkIfUnlocked(on: window)
     }
-    
-    /// The scene state.
-    var sceneStateStore = SceneStateStore()
     
     /// Opens a document after the scene is shown.
     ///
@@ -36,22 +68,20 @@ import Dynamic
     ///     - isShortcut: A boolean indicating whether the script is executed from Shortcuts.
     func openDocument(at url: URL, run: Bool, folder: URL?, isShortcut: Bool) {
         
-        if #available(iOS 14.0, *), isiOSAppOnMac && documentBrowserViewController == nil {
-            window?.rootViewController = DocumentBrowserViewController(forOpening: [.pythonScript/*, .init(exportedAs: "ch.ada.pytoui")*/])
-        }
-        
         _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] (timer) in
             guard let self = self else {
                 return
             }
             
-            if let doc = self.documentBrowserViewController {
-                if run || isiOSAppOnMac {
-                    doc.openDocument(url, run: run, isShortcut: isShortcut, folder: folder)
+            if let splitVC = self.sidebarSplitViewController {
+                
+                if run {
+                    let runner = ScriptRunnerViewController(scriptURL: url)
+                    let navVC = UINavigationController(rootViewController: runner)
+                    navVC.modalPresentationStyle = .fullScreen
+                    splitVC.topViewController.present(navVC, animated: true, completion: nil)
                 } else {
-                    doc.revealDocument(at: url, importIfNeeded: false) { (url_, _) in
-                        doc.openDocument(url_ ?? url, run: run, isShortcut: isShortcut, folder: folder)
-                    }
+                    splitVC.sidebar?.open(url: url)
                 }
                 timer.invalidate()
             }
@@ -78,6 +108,15 @@ import Dynamic
         
         window?.tintColor = ConsoleViewController.choosenTheme.tintColor
         
+        if isiOSAppOnMac {
+            Dynamic(window?.windowScene).titlebar.titleVisibility = 1
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
+                for window in Dynamic.NSApplication.sharedApplication.windows.asArray ?? [] {
+                   Dynamic(window).styleMask = 32783
+                }
+            }
+        }
+        
         if let vc = SceneDelegate.viewControllerToShow {
             SceneDelegate.viewControllerToShow = nil
             
@@ -90,9 +129,7 @@ import Dynamic
             return
         }
         
-        if #available(iOS 14.0, *), isiOSAppOnMac {
-            window?.rootViewController = DocumentBrowserViewController(forOpening: [.pythonScript/*, .init(exportedAs: "ch.ada.pytoui")*/])
-        }
+        window?.rootViewController = KeyboardHostingController(viewController: SidebarSplitViewController())
         
         window?.overrideUserInterfaceStyle = ConsoleViewController.choosenTheme.userInterfaceStyle
         if let window = self.window {
@@ -124,7 +161,7 @@ import Dynamic
         
         func open() {
             if shortcutItem.type == "PyPI" {
-                let vc = MenuTableViewController.makePyPiView()
+                let vc = SidebarViewController.makePyPiView()
                 let navVC = UINavigationController(rootViewController: vc)
                 navVC.modalPresentationStyle = .formSheet
                 navVC.navigationBar.prefersLargeTitles = true
@@ -145,7 +182,7 @@ import Dynamic
                 otherCondition = Python.shared.isSetup
             }
             
-            if self?.documentBrowserViewController != nil && otherCondition {
+            if self?.sidebarSplitViewController != nil && otherCondition {
                 
                 open()
                 
@@ -159,11 +196,7 @@ import Dynamic
         #if MAIN
         (UIApplication.shared.delegate as? AppDelegate)?.copyModules()
         
-        if #available(iOS 14.0, *), let windowScene = scene as? UIWindowScene {
-            (EditorView.EditorStore.perScene[windowScene]?.editor?.viewController as? EditorSplitViewController)?.editor?.save()
-        } else {
-            ((window?.rootViewController?.presentedViewController as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor?.save()
-        }
+        (sidebarSplitViewController?.sidebar?.editor?.vc as? EditorSplitViewController)?.editor?.save()
         #endif
     }
     
@@ -218,7 +251,7 @@ import Dynamic
                 PyCallbackHelper.successURL = inputURL.queryParameters?["x-success"]
             
                 
-                guard let documentBrowserViewController = documentBrowserViewController else {
+                guard let splitVC = sidebarSplitViewController else {
                     window?.rootViewController?.dismiss(animated: true, completion: {
                         self.scene(scene, openURLContexts: URLContexts)
                     })
@@ -227,7 +260,7 @@ import Dynamic
                 
                 if let code = inputURL.queryParameters?["code"] {
                     PyCallbackHelper.code = code
-                    documentBrowserViewController.run(code: code)
+                    splitVC.sidebar?.run(code: code)
                 }
             } else if inputURL.host == "widget" || inputURL.host == "automator" { // Open script from widget or Automator
                 guard let bookmarkString = inputURL.queryParameters?["bookmark"] else {
@@ -287,7 +320,7 @@ import Dynamic
             }
             
             // Run code passed to the URL
-            documentBrowserViewController?.run(code: query)
+            sidebarSplitViewController?.sidebar?.run(code: query)
             
             return
         }
@@ -297,22 +330,6 @@ import Dynamic
         // Reveal / import the document at the URL
         
         openDocument(at: inputURL, run: false, folder: nil, isShortcut: false)
-    }
-    
-    func sceneDidBecomeActive(_ scene: UIScene) {
-        if isiOSAppOnMac { // Close document browser window because we only need the panel. I can't find a pattern in this bug so I can't really file a radar :(
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.5) { [weak self] in
-                if self?.window?.rootViewController is DocumentBrowserViewController, self?.window?.rootViewController?.presentedViewController == nil {
-                    var window = Dynamic.NSApplication.sharedApplication.delegate.hostWindowForUIWindow(self?.window)
-                    
-                    if window.attachedWindow.asObject != nil && !(window.attachedWindow.asObject is Error) {
-                        window = window.attachedWindow
-                    }
-                    
-                    window.close()
-                }
-            }
-        }
     }
 }
 

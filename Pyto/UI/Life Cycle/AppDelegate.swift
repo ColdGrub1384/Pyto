@@ -131,7 +131,7 @@ import AVFoundation
                 if data != nil {
                     widgetURL = URL(fileURLWithPath: widgetPath)
                 } else {
-                    widgetURL = URL(fileURLWithPath: widgetPath.replacingFirstOccurrence(of: "iCloud/", with: (DocumentBrowserViewController.iCloudContainerURL?.path ?? DocumentBrowserViewController.localContainerURL.path)+"/"), relativeTo: DocumentBrowserViewController.localContainerURL)
+                    widgetURL = URL(fileURLWithPath: widgetPath.replacingFirstOccurrence(of: "iCloud/", with: (FileBrowserViewController.iCloudContainerURL?.path ?? FileBrowserViewController.localContainerURL.path)+"/"), relativeTo: FileBrowserViewController.localContainerURL)
                 }
                 
                 let newWidgetURL = sharedDir.appendingPathComponent("main.py")
@@ -144,11 +144,6 @@ import AVFoundation
             }
         } catch {
             print(error.localizedDescription)
-        }
-        
-        if let bundleID = Bundle.main.bundleIdentifier?.appending(".Today-Widget"), let dir = FileManager.default.sharedDirectory?.path {
-            let scriptExists = FileManager.default.fileExists(atPath: (dir as NSString).appendingPathComponent("main.py"))
-            NCWidgetController().setHasContent(scriptExists, forWidgetWithBundleIdentifier: bundleID)
         }
         
         do {
@@ -243,8 +238,8 @@ import AVFoundation
             UIMenuItem(title: Localizable.MenuItems.toggleComment, action: #selector(EditorViewController.toggleComment))
         ]
         
-        let docs = DocumentBrowserViewController.localContainerURL
-        let iCloudDriveContainer = DocumentBrowserViewController.iCloudContainerURL
+        let docs = FileBrowserViewController.localContainerURL
+        let iCloudDriveContainer = FileBrowserViewController.iCloudContainerURL
         
         do {
             let modulesURL = docs.appendingPathComponent("site-packages")
@@ -444,16 +439,6 @@ import AVFoundation
         observeUserDefaults()
         
         updatePyPiCache()
-        
-        #if !Xcode11
-        if #available(iOS 14.0, *) {
-            SidebarNavigation.footer = """
-            \n\(MenuTableViewController.pytoVersion)
-                
-            Python \(Python.shared.version)
-            """
-        }
-        #endif
         
         #if MAIN
         NotificationCenter.default.addObserver(forName: .init("NSWindowDidBecomeKeyNotification"), object: nil, queue: nil) { (notification) in

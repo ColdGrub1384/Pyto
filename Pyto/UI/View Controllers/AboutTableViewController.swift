@@ -20,18 +20,16 @@ fileprivate extension IndexPath {
     static let font = IndexPath(row: 3, section: 0)
     static let showConsoleAtBottom = IndexPath(row: 4, section: 0)
     static let showSeparator = IndexPath(row: 5, section: 0)
+        
+    static let downloadAll = IndexPath(row: 0, section: 1)
     
-    static let todayWidget = IndexPath(row: 0, section: 1)
+    static let watchScript = IndexPath(row: 0, section: 2)
+    static let inputSugestions = IndexPath(row: 1, section: 2)
     
-    static let downloadAll = IndexPath(row: 0, section: 2)
+    static let contact = IndexPath(row: 0, section: 4)
     
-    static let watchScript = IndexPath(row: 0, section: 3)
-    static let inputSugestions = IndexPath(row: 1, section: 3)
-    
-    static let contact = IndexPath(row: 0, section: 5)
-    
-    static let acknowledgments = IndexPath(row: 0, section: 6)
-    static let sourceCode = IndexPath(row: 1, section: 6)
+    static let acknowledgments = IndexPath(row: 0, section: 5)
+    static let sourceCode = IndexPath(row: 1, section: 5)
 }
 
 /// A View controller with settings and info.
@@ -100,14 +98,28 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
     /// Switch for toggling console at bottom.
     @IBOutlet weak var showConsoleAtBottom: UISwitch!
     
+    private func reloadEditors() {
+        for scene in UIApplication.shared.connectedScenes.filter({ $0 is UIWindowScene }).map({ $0 as! UIWindowScene }) {
+            guard let sidebarSplitViewController = (scene.delegate as? SceneDelegate)?.sidebarSplitViewController else {
+                continue
+            }
+            
+            let vc = (sidebarSplitViewController.viewController(for: sidebarSplitViewController.isCollapsed ? .compact : .secondary) as? UINavigationController)?.viewControllers.first
+            
+            if let editor = vc as? EditorSplitViewController {
+                editor.editor?.save(completion: { _ in
+                    sidebarSplitViewController.sidebar?.editor = nil
+                    sidebarSplitViewController.sidebar?.open(url: editor.editor!.document!.fileURL)
+                })
+            }
+        }
+    }
+    
     /// Toggles console at bottom.
     @IBAction func toggleConsoleAtBottom(_ sender: UISwitch) {
         EditorSplitViewController.shouldShowConsoleAtBottom = sender.isOn
-        #if !Xcode11
-        if #available(iOS 14.0, *) {
-            EditorView.EditorStore.perScene.removeAll()
-        }
-        #endif
+        
+        reloadEditors()
     }
     
     // MARK: - Show separator
@@ -118,11 +130,8 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
     /// Toggles the separator between editor and console.
     @IBAction func toggleSeparator(_ sender: UISwitch) {
         EditorSplitViewController.shouldShowSeparator = sender.isOn
-        #if !Xcode11
-        if #available(iOS 14.0, *) {
-            EditorView.EditorStore.perScene.removeAll()
-        }
-        #endif
+        
+        reloadEditors()
     }
         
     // MARK: - Table view controller
@@ -176,16 +185,7 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
         
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
-        if indexPath == .todayWidget {
-            var isStale = false
-            if let lastPathComponent = (UserDefaults.standard.string(forKey: "todayWidgetScriptPath") as NSString?)?.lastPathComponent {
-                cell.detailTextLabel?.text = lastPathComponent
-            } else if let data = UserDefaults.standard.data(forKey: "todayWidgetScriptPath"), let url = (try? URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)) {
-                cell.detailTextLabel?.text = url.lastPathComponent
-            } else {
-                cell.detailTextLabel?.text = ""
-            }
-        } else if indexPath == .watchScript {
+        if indexPath == .watchScript {
             var isStale = false
             if let data = UserDefaults.standard.data(forKey: "watchScriptPath"), let url = (try? URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)) {
                 cell.detailTextLabel?.text = url.lastPathComponent
@@ -210,20 +210,6 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        let superFooter = super.tableView(tableView, titleForFooterInSection: section)
-        
-        if section == IndexPath.todayWidget.section {
-            if #available(iOS 14.0, *) {
-                return superFooter
-            } else {
-                return nil
-            }
-        } else {
-            return superFooter
-        }
-    }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         lastIndex = indexPath
@@ -243,10 +229,6 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
             } else {
                 viewControllerToPresent = nil
             }
-        case .todayWidget:
-            let picker = UIDocumentPickerViewController(documentTypes: ["public.python-script"], in: .open)
-            picker.delegate = self
-            viewControllerToPresent = picker
         case .downloadAll:
             
             viewControllerToPresent = nil
@@ -258,15 +240,12 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
             }
             
             NSLog("Will present")
-            let presenting = presentingViewController
+            let splitVC = (view.window?.windowScene?.delegate as? SceneDelegate)?.sidebarSplitViewController
             dismiss(animated: true) {
-                let docBrowser = presenting?.presentingViewController as? DocumentBrowserViewController
-                presenting?.dismiss(animated: true, completion: {
-                    docBrowser?.openDocument(script, run: true)
-                })
+                splitVC?.sidebar?.open(url: script)
             }
         case .watchScript:
-            let picker = UIDocumentPickerViewController(documentTypes: ["public.python-script"], in: .open)
+            let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.pythonScript])
             picker.delegate = self
             viewControllerToPresent = picker
         case .contact:
@@ -289,7 +268,7 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
             return
         }
         
-        if indexPath == .theme || indexPath == .todayWidget {
+        if indexPath == .theme {
             if vc is UIDocumentPickerViewController {
                 present(vc, animated: true, completion: nil)
             } else {
@@ -316,16 +295,6 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
             }
             UserDefaults.standard.synchronize()
             WCSession.default.transferCurrentComplicationUserInfo(["Reload":"All"])
-        } else if lastIndex == IndexPath.todayWidget {
-            do {
-                UserDefaults.standard.set(try urls[0].bookmarkData(), forKey: "todayWidgetScriptPath")
-            } catch {
-                print(error.localizedDescription)
-            }
-            UserDefaults.standard.synchronize()
-            (UIApplication.shared.delegate as? AppDelegate)?.copyModules()
-            
-            NCWidgetController().setHasContent(true, forWidgetWithBundleIdentifier: Bundle.main.bundleIdentifier!+".Pyto-Widget")
         }
         
         tableView.reloadData()

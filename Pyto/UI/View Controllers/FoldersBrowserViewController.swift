@@ -127,7 +127,7 @@ class FoldersBrowserViewController: UITableViewController, UIDocumentPickerDeleg
     #if MAIN
     /// Adds a folder to `accessibleFolders`.
     @IBAction func addFolder(_ sender: Any) {
-        let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
+        let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.folder])
         picker.delegate = self
         picker.allowsMultipleSelection = true
         present(picker, animated: true, completion: nil)

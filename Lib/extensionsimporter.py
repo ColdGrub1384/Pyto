@@ -10,9 +10,9 @@ import warnings
 from rubicon.objc import ObjCClass
 import _extensionsimporter
 import ctypes
+import threading
 from importlib import util, __import__
 from importlib.machinery import ExtensionFileLoader, ModuleSpec, PathFinder
-
 
 NSBundle = ObjCClass("NSBundle")
 
@@ -253,10 +253,79 @@ if "widget" not in os.environ:
                     self.__is_importing__ = False
 
             self.__is_importing__ = False
+    
+    # MARK: - Thread specific sys
+
+    class SysImporter(object):
+        """
+        Meta path for importing a different sys for each script.
+        """
+
+        _sys = {}
+        __is_importing__ = False
+
+        def __init__(self, sys):
+            self.sys = sys
+
+        def find_module(self, fullname, mpath=None):
+
+            if self.__class__.__is_importing__:
+                return
+            
+            if fullname == "sys":
+                return self
+
+        def is_package(self, i_dont_know_what_goes_here):
+            return False
+
+        def load_module(self, fullname):
+            
+            try:
+                path = threading.current_thread().script_path
+            except AttributeError:
+                return self.sys
+
+            try:
+                _sys = self.__class__._sys[path]
+                return _sys
+            except KeyError:
+                
+                try:
+                    del sys.modules["sys"]
+                except KeyError:
+                    pass
+
+                self.__class__.__is_importing__ = True
+                _sys = __import__("sys")
+                self.__class__.__is_importing__ = False
+
+                try:
+                    del sys.modules["sys"]
+                except KeyError:
+                    pass
+
+                _sys.meta_path = [self, FrameworksImporter(), DownloadableImporter()]
+                _sys.path = self.sys.__path__
+                
+                _sys.argv = [""]
+                
+                for attr in dir(self.sys):
+                    try:
+                        getattr(_sys, attr)
+                    except AttributeError:
+                        value = getattr(sys, attr)
+                        if isinstance(value, list):
+                            value = value.copy()
+                        setattr(_sys, attr, value)
+
+                _sys.script_path = path
+
+                self.__class__._sys[path] = _sys
+                return _sys
 
     # MARK: - All
 
-    __all__ = ["FrameworksImporter", "DownloadableImporter"]
+    __all__ = ["FrameworksImporter", "DownloadableImporter", "SysImporter"]
 
 else:
 

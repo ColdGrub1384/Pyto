@@ -37,7 +37,7 @@ class ScriptSettingsViewController: UIViewController, UITextFieldDelegate, UIDoc
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if textField == currentDirectoryTextField {
             
-            let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
+            let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.folder])
             picker.delegate = self
             if #available(iOS 13.0, *) {
                 picker.directoryURL = editor.currentDirectory
@@ -153,7 +153,7 @@ class ScriptSettingsViewController: UIViewController, UITextFieldDelegate, UIDoc
             }))
             
             alert.addAction(UIAlertAction(title: Localizable.CouldNotAccessScriptAlert.selectAnotherLocation, style: .default, handler: { (_) in
-                let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
+                let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.folder])
                 picker.delegate = self
                 if #available(iOS 13.0, *) {
                     picker.directoryURL = self.editor.currentDirectory

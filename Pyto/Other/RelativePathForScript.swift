@@ -17,8 +17,8 @@ import Foundation
 ///     - The relative path.
 func RelativePathForScript(_ url: URL) -> String {
     var filePath = url.path
-    filePath = filePath.replacingFirstOccurrence(of: DocumentBrowserViewController.localContainerURL.path, with: "")
-    if let iCloudPath = DocumentBrowserViewController.iCloudContainerURL?.path {
+    filePath = filePath.replacingFirstOccurrence(of: FileBrowserViewController.localContainerURL.path, with: "")
+    if let iCloudPath = FileBrowserViewController.iCloudContainerURL?.path {
         filePath = filePath.replacingFirstOccurrence(of: iCloudPath, with: "iCloud/")
     }
     

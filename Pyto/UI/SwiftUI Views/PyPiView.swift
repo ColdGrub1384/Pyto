@@ -150,9 +150,9 @@ public struct PyPiView: View {
                     }, label: {
                         HStack {
                             if item.lowercased() == self.index.searchString.lowercased() {
-                                Text(item).fontWeight(.bold)
+                                Text(item).fontWeight(.bold).foregroundColor(.primary)
                             } else {
-                                Text(item)
+                                Text(item).foregroundColor(.primary)
                             }
                             
                             Spacer()
@@ -215,13 +215,6 @@ public struct PyPiView: View {
             }
         }
         .navigationBarTitle("PyPi")
-        .navigationBarItems(trailing:
-            Button(action: {
-                self.hostingController?.dismiss(animated: true, completion: nil)
-            }) {
-                Text("done", comment: "Done button").fontWeight(.bold).padding(5)
-            }.hover()
-        )
     }
 }
 

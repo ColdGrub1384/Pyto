@@ -1,11 +1,4 @@
-"""
-Today Widgets
-
-This module is used to manage Today Widget expansion / collapsion.
-
-.. warning::
-   Deprecated since iOS 14.
-"""
+raise ImportError("Notification Center Widgets are no longer supported since Pyto 17.")
 
 from UIKit import UIDevice
 from pyto import __Class__

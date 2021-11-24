@@ -2,6 +2,9 @@ PODS:
   - Color-Picker-for-iOS (2.0.3)
   - Down (0.8.6)
   - FileBrowser (1.0.0)
+  - GCDWebServer (3.5.4):
+    - GCDWebServer/Core (= 3.5.4)
+  - GCDWebServer/Core (3.5.4)
   - Highlightr (1.1.0)
   - MultiPeer (0.1.0)
   - ObjectUserDefaults (1.0)
@@ -17,6 +20,7 @@ DEPENDENCIES:
   - Color-Picker-for-iOS (from `https://github.com/ColdGrub1384/Color-Picker-for-iOS.git`)
   - Down (from `https://github.com/ColdGrub1384/Down.git`)
   - FileBrowser (from `https://github.com/ColdGrub1384/FileBrowser.git`)
+  - GCDWebServer (~> 3.0)
   - Highlightr (from `https://github.com/brunophilipe/Highlightr.git`)
   - MultiPeer
   - ObjectUserDefaults
@@ -28,6 +32,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - GCDWebServer
     - MultiPeer
     - ObjectUserDefaults
     - SavannaKit
@@ -73,6 +78,7 @@ SPEC CHECKSUMS:
   Color-Picker-for-iOS: aaf433e40b18e83f248b4d89e7cb8f436e3d1db0
   Down: 065ea594046e99ea02a0990a53ebf585e9a50a7b
   FileBrowser: 42fe0e5dbb9602f13c6f7f742f4a4193b018eafd
+  GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   Highlightr: 09ddfc99e24e4ebd81dd711f712f1620f199f8fa
   MultiPeer: 8be1b3b47faa9d2e94b4c8c29a2d984eb0d68007
   ObjectUserDefaults: 72b8d13aea15090168579b079a21cae312a1cefd
@@ -83,6 +89,6 @@ SPEC CHECKSUMS:
   TrueTime: b49551ffafb28a9dee04e51b226f42a416010842
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: a2bf17f47086f637c63f58c29c043e8e85cb0bec
+PODFILE CHECKSUM: cfa8fd7fde81e7199ccc61e25cd5d3a9ed84dfba
 
 COCOAPODS: 1.11.2

@@ -37,6 +37,16 @@ import WatchConnectivity
         semaphore.wait()
         let input = getUserInput(path)
         userInput[path] = nil
+        
+        if let dir = REPLViewController.pickedDirectory[path] {
+            pthread_chdir_np(dir.cValue)
+            Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: """
+            import sys
+            sys.path.append('\(dir.replacingOccurrences(of: "'", with: "\\'"))')
+            """)
+            REPLViewController.pickedDirectory[path] = nil
+        }
+        
         return input
     }
     

@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import UniformTypeIdentifiers
 
 /// A class accessible by Rubicon to share items and pick documents..
 @objc class PySharingHelper: NSObject {
@@ -56,7 +57,7 @@ import SafariServices
     @objc static func presentFilePicker(_ filePicker: PyFilePicker, scriptPath: String?) {
         semaphore = DispatchSemaphore(value: 0)
         DispatchQueue.main.async {
-            let picker = UIDocumentPickerViewController(documentTypes: (filePicker.fileTypes as? [String]) ?? [], in: .open)
+            let picker = UIDocumentPickerViewController(forOpeningContentTypes: ((filePicker.fileTypes as? [String]) ?? []).map({ UTType($0) ?? UTType.item }))
             picker.allowsMultipleSelection = filePicker.allowsMultipleSelection
             picker.delegate = filePicker
             #if WIDGET

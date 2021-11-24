@@ -13,7 +13,7 @@ import BackgroundTasks
 
 @objc class BackgroundTask: NSObject {
     
-    static private var count = 0
+    static var count = 0
     
     // MARK: - Vars
     

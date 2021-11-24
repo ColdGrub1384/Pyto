@@ -15,12 +15,13 @@ import IntentsUI
 import MarqueeLabel
 import SwiftUI
 import Highlightr
+import AVKit
 #else
 import Foundation
 #endif
 
 #if MAIN
-fileprivate func parseArgs(_ args: inout [String]) {
+func parseArgs(_ args: inout [String]) {
     ParseArgs(&args)
 }
 #endif
@@ -56,7 +57,7 @@ func directory(for scriptURL: URL) -> URL {
 
 #if MAIN
 /// The View controller used to edit source code.
-@objc class EditorViewController: UIViewController, InputAssistantViewDelegate, InputAssistantViewDataSource, UITextViewDelegate, UISearchBarDelegate, UIDocumentPickerDelegate {
+@objc class EditorViewController: UIViewController, InputAssistantViewDelegate, InputAssistantViewDataSource, UITextViewDelegate, UIDocumentPickerDelegate {
     
     /// Parses a string into a list of arguments.
     ///
@@ -132,6 +133,12 @@ func directory(for scriptURL: URL) -> URL {
             }
             
             _ = document?.fileURL.startAccessingSecurityScopedResource()
+            
+            if #available(iOS 15.0, *) {
+                (parent as? EditorSplitViewController)?.console?.pipTextView.pictureInPictureController?.invalidatePlaybackState()
+            }
+            
+            setBarItems()
         }
     }
     
@@ -153,6 +160,8 @@ func directory(for scriptURL: URL) -> URL {
     var documentationNavigationController: UINavigationController?
     
     var isDocOpened = false
+    
+    private var areEditorButtonsSetup = false
     
     /// The line number where an error occurred. If this value is set at `viewDidAppear(_:)`, the error will be shown and the value will be reset to `nil`.
     var lineNumberError: Int?
@@ -177,7 +186,7 @@ func directory(for scriptURL: URL) -> URL {
             if let url = document?.fileURL {
                 return directory(for: url)
             } else {
-                return DocumentBrowserViewController.localContainerURL
+                return FileBrowserViewController.localContainerURL
             }
         }
         
@@ -339,6 +348,9 @@ func directory(for scriptURL: URL) -> URL {
     /// The button for seeing definitions.
     var definitionsItem: UIBarButtonItem!
     
+    /// The button for toggling PIP.
+    var pipItem: UIBarButtonItem!
+    
     /// If set to `true`, the back button will always be displayed.
     var alwaysShowBackButton = false
     
@@ -406,18 +418,17 @@ func directory(for scriptURL: URL) -> URL {
         setup(theme: ConsoleViewController.choosenTheme)
     }
     
+    @objc private func togglePIP() {
+        (parent as? EditorSplitViewController)?.console?.togglePIP()
+    }
+    
     private func setBarItems() {
-        
-        guard document?.fileURL.pathExtension == "py" else {
-            parent?.navigationController?.isToolbarHidden = true
-            parentVC?.toolbarItems = []
-            parentNavigationItem?.rightBarButtonItems = []
-            parentNavigationItem?.leftBarButtonItems = []
-            return
-        }
-        
         runBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(run))
         stopBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(stop))
+        
+        if pipItem == nil {
+            pipItem = UIBarButtonItem(image: UIImage(systemName: "pip.enter"), style: .plain, target: self, action: #selector(togglePIP))
+        }
         
         let debugButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         debugButton.addTarget(self, action: #selector(debug), for: .touchUpInside)
@@ -448,31 +459,44 @@ func directory(for scriptURL: URL) -> URL {
         let runtimeItem = UIBarButtonItem(image: EditorSplitViewController.gearImage, style: .plain, target: self, action: #selector(showRuntimeSettings(_:)))
         
         if !(parent is REPLViewController) && !(parent is RunModuleViewController) && !(parent is PipInstallerViewController), (parent as? EditorSplitViewController)?.isConsoleShown != true {
-            if let path = document?.fileURL.path, Python.shared.isScriptRunning(path) {
-                parentNavigationItem?.rightBarButtonItems = [
-                    stopBarButtonItem,
-                    debugItem,
-                ]
-            } else {
-                parentNavigationItem?.rightBarButtonItems = [
-                    runBarButtonItem,
-                    debugItem,
-                ]
-            }
             
-            if (parent as? EditorSplitViewController)?.folder != nil {
-                scriptsItem = splitViewController?.displayModeButtonItem ?? scriptsItem
-            }
-            
-            #if !Xcode11
-            if #available(iOS 14.0, *), ((parent as? EditorSplitViewController)?.folder == nil && traitCollection.horizontalSizeClass != .compact) || isiOSAppOnMac, !alwaysShowBackButton {
-                parentNavigationItem?.leftBarButtonItems = [searchItem, definitionsItem]
+            if document?.fileURL.pathExtension.lowercased() == "py" {
+                if let path = document?.fileURL.path, Python.shared.isScriptRunning(path) {
+                    parentNavigationItem?.rightBarButtonItems = [
+                        stopBarButtonItem,
+                        debugItem,
+                    ]
+                } else {
+                    parentNavigationItem?.rightBarButtonItems = [
+                        runBarButtonItem,
+                        debugItem,
+                    ]
+                }
+                
+                if #available(iOS 15, *) {
+                    parentNavigationItem?.leftBarButtonItems = [searchItem, definitionsItem]
+                } else {
+                    parentNavigationItem?.leftBarButtonItems = [definitionsItem]
+                }
             } else {
-                parentNavigationItem?.leftBarButtonItems = [scriptsItem, searchItem, definitionsItem]
+                if #available(iOS 15, *) {
+                    parentNavigationItem?.leftBarButtonItems = [searchItem]
+                } else {
+                    parentNavigationItem?.leftBarButtonItems = []
+                }
+                
+                if document?.fileURL.pathExtension.lowercased() == "pyhtml" {
+                    if let path = document?.fileURL.path, Python.shared.isScriptRunning(path) {
+                        parentNavigationItem?.rightBarButtonItems = [
+                            stopBarButtonItem
+                        ]
+                    } else {
+                        parentNavigationItem?.rightBarButtonItems = [
+                            runBarButtonItem
+                        ]
+                    }
+                }
             }
-            #else
-            parentNavigationItem?.leftBarButtonItems = [scriptsItem, searchItem, definitionsItem]
-            #endif
         }
     
         if !(parent is REPLViewController) && !(parent is RunModuleViewController) && !(parent is PipInstallerViewController) {
@@ -483,31 +507,52 @@ func directory(for scriptURL: URL) -> URL {
         let space = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         space.width = 10
         
-        if !(parent is REPLViewController) && !(parent is PipInstallerViewController) && !(parent is RunModuleViewController) && !isiOSAppOnMac {
-            parent?.navigationController?.isToolbarHidden = false
+        if !(parent is REPLViewController) && !(parent is PipInstallerViewController) && !(parent is RunModuleViewController) {
+            parent?.navigationController?.isToolbarHidden = (parent as? EditorSplitViewController)?.console?.movableTextField?.textField.isFirstResponder == true
         } else {
             parent?.navigationController?.isToolbarHidden = true
         }
         
-        if #available(iOS 13.0, *), !FileManager.default.isReadableFile(atPath: currentDirectory.path) {
-            parentVC?.toolbarItems = [
-                shareItem,
-                moreItem,
-                space,
-                docItem,
-                UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-                UIBarButtonItem(image: UIImage(systemName: "lock.fill"), style: .plain, target: self, action: #selector(setCwd(_:))),
-                runtimeItem
-            ]
+        if document?.fileURL.pathExtension.lowercased() == "py" {
+            if #available(iOS 13.0, *), !FileManager.default.isReadableFile(atPath: currentDirectory.path) {
+                parentVC?.toolbarItems = [
+                    shareItem,
+                    moreItem,
+                    space,
+                    docItem,
+                    UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+                    UIBarButtonItem(image: UIImage(systemName: "lock.fill"), style: .plain, target: self, action: #selector(setCwd(_:))),
+                ]+( AVPictureInPictureController.isPictureInPictureSupported() ? [pipItem, runtimeItem] : [runtimeItem] )
+            } else {
+                parentVC?.toolbarItems = [
+                    shareItem,
+                    moreItem,
+                    space,
+                    docItem,
+                    UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+                ]+( AVPictureInPictureController.isPictureInPictureSupported() ? [pipItem, runtimeItem] : [runtimeItem] )
+            }
         } else {
-            parentVC?.toolbarItems = [
-                shareItem,
-                moreItem,
-                space,
-                docItem,
-                UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-                runtimeItem
-            ]
+            if document?.fileURL.pathExtension.lowercased() == "pyhtml" {
+                parentVC?.toolbarItems = [shareItem, moreItem, docItem, UIBarButtonItem(systemItem: .flexibleSpace), runtimeItem]
+            } else {
+                parentVC?.toolbarItems = [shareItem, moreItem, docItem]
+            }
+        }
+        
+        if #available(iOS 15.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = .secondarySystemBackground
+            
+            let toolbarAppearance = UIToolbarAppearance()
+            toolbarAppearance.configureWithOpaqueBackground()
+            toolbarAppearance.backgroundColor = .secondarySystemBackground
+            
+            navigationController?.navigationBar.standardAppearance = appearance
+            navigationController?.navigationBar.scrollEdgeAppearance = appearance
+            navigationController?.toolbar.standardAppearance = toolbarAppearance
+            navigationController?.toolbar.scrollEdgeAppearance = toolbarAppearance
         }
     }
     
@@ -524,6 +569,8 @@ func directory(for scriptURL: URL) -> URL {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        edgesForExtendedLayout = []
                 
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
         NotificationCenter.default.addObserver(forName: UIApplication.willResignActiveNotification, object: nil, queue: nil) { [weak self] (notif) in
@@ -554,7 +601,6 @@ func directory(for scriptURL: URL) -> URL {
         setBarItems()
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardDidHideNotification, object: nil)
@@ -582,17 +628,24 @@ func directory(for scriptURL: URL) -> URL {
                 return
             }
             
-            if #available(iOS 13.0, *) {
+            if #available(iOS 13.0, *), !areEditorButtonsSetup {
                 EditorViewController.setupEditorButton(self)
+                areEditorButtonsSetup = true
             }
             
             let path = doc.fileURL.path
             
-            (textView.textStorage as? CodeAttributedString)?.language = document?.fileURL.pathExtension == "py" ? "Python" : "javascript"
-            
+            switch document?.fileURL.pathExtension.lowercased() ?? "" {
+            case "py":
+                (textView.textStorage as? CodeAttributedString)?.language = "python"
+            case "pyhtml":
+                (textView.textStorage as? CodeAttributedString)?.language = "html"
+            default:
+                (textView.textStorage as? CodeAttributedString)?.language = document?.fileURL.pathExtension.lowercased()
+            }
+                        
             self.textView.text = document?.text ?? ""
             
-            self.updateSuggestions(force: true)
             
             if !FileManager.default.isWritableFile(atPath: doc.fileURL.path) {
                 self.navigationItem.leftBarButtonItem = nil
@@ -668,11 +721,13 @@ func directory(for scriptURL: URL) -> URL {
             }
         }
         
-        if !(parent is REPLViewController) && !(parent is PipInstallerViewController) && !(parent is RunModuleViewController) && !isiOSAppOnMac {
+        if !(parent is REPLViewController) && !(parent is PipInstallerViewController) && !(parent is RunModuleViewController) {
             parent?.navigationController?.isToolbarHidden = false
         } else {
             parent?.navigationController?.isToolbarHidden = true
         }
+        
+        setBarItems()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -757,6 +812,12 @@ func directory(for scriptURL: URL) -> URL {
             return isIndented && textView.isFirstResponder
         } else if action == #selector(toggleComment) || action == #selector(setBreakpoint(_:)) {
             return textView.isFirstResponder
+        } else if action == #selector(search) {
+            if #available(iOS 15.0, *) {
+                return true
+            } else {
+                return false
+            }
         } else {
             return super.canPerformAction(action, withSender: sender)
         }
@@ -804,216 +865,26 @@ func directory(for scriptURL: URL) -> URL {
     
     // MARK: - Searching
     
-    /// Search bar used for searching for code.
-    var searchBar: UISearchBar!
-    
-    /// The height of the find bar.
-    var findBarHeight: CGFloat {
-        var height = searchBar.frame.height
-        if replace {
-            height += 30
-        }
-        return height
-    }
-    
-    /// Set to `true` for replacing text.
-    var replace = false {
-        didSet {
-            
-            textView.contentInset.top = findBarHeight
-            textView.contentTextView.verticalScrollIndicatorInsets.top = findBarHeight
-            
-            if replace {
-                if let replaceView = Bundle.main.loadNibNamed("Replace", owner: nil, options: nil)?.first as? ReplaceView {
-                    replaceView.frame.size.width = view.frame.width
-                    replaceView.frame.origin.y = searchBar.frame.height
-                    
-                    
-                    replaceView.replaceHandler = { searchText in
-                        if let range = self.ranges.first {
-                            
-                            var text = self.textView.text ?? ""
-                            text = (text as NSString).replacingCharacters(in: range, with: searchText)
-                            self.textView.text = text
-                            
-                            self.performSearch()
-                        }
-                    }
-                    
-                    replaceView.replaceAllHandler = { searchText in
-                        while let range = self.ranges.first {
-                            
-                            var text = self.textView.text ?? ""
-                            text = (text as NSString).replacingCharacters(in: range, with: searchText)
-                            self.textView.text = text
-                            
-                            self.performSearch()
-                        }
-                    }
-                    
-                    replaceView.autoresizingMask = [.flexibleWidth]
-                    
-                    view.addSubview(replaceView)
-                }
-                textView.contentTextView.setContentOffset(CGPoint(x: 0, y: textView.contentTextView.contentOffset.y-30), animated: true)
-            } else {
-                for view in view.subviews {
-                    if let replaceView = view as? ReplaceView {
-                        replaceView.removeFromSuperview()
-                    }
-                }
-                textView.contentTextView.setContentOffset(CGPoint(x: 0, y: textView.contentTextView.contentOffset.y+30), animated: true)
-            }
-        }
-    }
-    
-    /// Set to `true` for ignoring case.
-    var ignoreCase = true
-    
-    /// Search mode.
-    enum SearchMode {
-        
-        /// Contains typed text.
-        case contains
-        
-        /// Starts with typed text.
-        case startsWith
-        
-        /// Full word.
-        case fullWord
-    }
-    
-    /// Applied search mode.
-    var searchMode = SearchMode.contains
-    
-    /// Found ranges.
-    var ranges = [NSRange]()
-    
+    var searchVC: UIViewController!
+
     /// Searches for text in code.
     @objc func search() {
         
-        if (parent as? EditorSplitViewController)?.folder != nil, !textView.isFirstResponder && searchBar?.isFirstResponder != true {
-            return ((splitViewController?.viewControllers.first as? UINavigationController)?.viewControllers.last as? FileBrowserViewController)?.search() ?? ()
-        }
-        
-        guard searchBar?.window == nil else {
-            
-            
-            replace = false
-            
-            searchBar.removeFromSuperview()
-            searchBar.resignFirstResponder()
-            textView.contentInset.top = 0
-            textView.contentTextView.verticalScrollIndicatorInsets.top = 0
-            
-            let text = textView.text
-            textView.delegate = nil
-            textView.text = text
-            textView.delegate = self
-            
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.5) { [weak self] in
-                self?.textView.contentTextView.becomeFirstResponder()
-            }
-            
+        guard #available(iOS 15.0, *) else {
             return
         }
         
-        searchBar = UISearchBar()
-        
-        searchBar.barTintColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
-        searchBar.frame.size.width = view.frame.width
-        searchBar.autoresizingMask = [.flexibleWidth]
-        
-        view.addSubview(searchBar)
-        
-        searchBar.setShowsCancelButton(true, animated: true)
-        searchBar.showsScopeBar = true
-        searchBar.scopeButtonTitles = [Localizable.find, Localizable.replace]
-        searchBar.delegate = self
-        
-        func findTextField(_ containerView: UIView) {
-            for view in containerView.subviews {
-                if let textField = view as? UITextField {
-                    textField.backgroundColor = ConsoleViewController.choosenTheme.sourceCodeTheme.backgroundColor
-                    textField.textColor = ConsoleViewController.choosenTheme.sourceCodeTheme.color(for: .plain)
-                    textField.keyboardAppearance = ConsoleViewController.choosenTheme.keyboardAppearance
-                    textField.autocorrectionType = .no
-                    textField.autocapitalizationType = .none
-                    textField.smartDashesType = .no
-                    textField.smartQuotesType = .no
-                    break
-                } else {
-                    findTextField(view)
-                }
-            }
+        if searchVC == nil {
+            searchVC = UIHostingController(rootView: TextViewSearch(textView: textView))
+            searchVC.modalPresentationStyle = .pageSheet
         }
         
-        findTextField(searchBar)
-        
-        searchBar.becomeFirstResponder()
-        
-        textView.contentInset.top = findBarHeight
-        textView.contentTextView.verticalScrollIndicatorInsets.top = findBarHeight
-    }
-    
-    /// Highlights search results.
-    func performSearch() {
-        
-        ranges = []
-        
-        let baseString = textView.text ?? ""
-        
-        self.textStorage?.removeAttribute(.backgroundColor, range: NSRange(location: 0, length: NSString(string: baseString).length))
-        
-        guard searchBar.text != nil && !searchBar.text!.isEmpty else {
-            return
+        if let presentationController = searchVC.presentationController as? UISheetPresentationController {
+            presentationController.detents = [.medium(), .large()]
+            presentationController.prefersGrabberVisible = true
         }
         
-        let searchString = searchBar.text!
-        
-        guard let regex = try? NSRegularExpression(pattern: searchString, options: .caseInsensitive) else {
-            return
-        }
-        
-        for match in regex.matches(in: baseString, options: [], range: NSRange(location: 0, length: baseString.utf16.count)) as [NSTextCheckingResult] {
-            ranges.append(match.range)
-            
-            textStorage?.addAttributes([NSAttributedString.Key.backgroundColor: UIColor.yellow.withAlphaComponent(0.5)], range: match.range)
-        }
-        
-        if let range = ranges.first {
-            textView.contentTextView.scrollRangeToVisible(range)
-        }
-    }
-    
-    // MARK: - Search bar delegate
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        search()
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        
-        if text == "\n" {
-            searchBar.resignFirstResponder()
-        }
-        
-        return true
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        if selectedScope == 0 {
-            replace = false
-        } else {
-            replace = true
-        }
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        performSearch()
+        present(searchVC, animated: true, completion: nil)
     }
     
     // MARK: - Plugin
@@ -1052,17 +923,6 @@ func directory(for scriptURL: URL) -> URL {
         
         if let editor = editor, !editor.buttonAdded {
             addToEditor(editor)
-        } else {
-            if #available(iOS 13.0, *) {
-                for scene in UIApplication.shared.connectedScenes {
-                    let presented = (scene.delegate as? UIWindowSceneDelegate)?.window??.rootViewController?.presentedViewController
-                    let editor = ((presented as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor ?? (presented as? EditorSplitViewController.ProjectSplitViewController)?.editor?.editor
-                    
-                    if let editor = editor, !editor.buttonAdded {
-                        addToEditor(editor)
-                    }
-                }
-            }
         }
     }
     
@@ -1161,41 +1021,49 @@ func directory(for scriptURL: URL) -> URL {
         }
     }
     
+    private var definitionsNavVC: UINavigationController?
+    
     /// Shows function definitions.
     @objc func showDefintions(_ sender: Any) {
-        var navVC: UINavigationController!
-                
-        let view = DefinitionsView(defintions: definitionsList, handler: { (def) in
-            navVC.dismiss(animated: true) {
-                
-                var lines = [NSRange]()
-                
-                let textView = self.textView.contentTextView
-                let text = NSString(string: textView.text)
-                text.enumerateSubstrings(in: text.range(of: text as String), options: .byLines) { (_, range, _, _) in
-                    lines.append(range)
-                }
-                
-                if lines.indices.contains(def.line-1), textView.contentSize.height > textView.frame.height {
-                    let substringRange = lines[def.line-1]
-                    let glyphRange = textView.layoutManager.glyphRange(forCharacterRange: substringRange, actualCharacterRange: nil)
-                    let rect = textView.layoutManager.boundingRect(forGlyphRange: glyphRange, in: textView.textContainer)
-                    let topTextInset = textView.textContainerInset.top
-                    let contentOffset = CGPoint(x: 0, y: topTextInset + rect.origin.y)
-                    if textView.contentSize.height-contentOffset.y > textView.frame.height {
-                        textView.setContentOffset(contentOffset, animated: true)
-                    } else {
-                        textView.scrollToBottom()
+        var navVC: UINavigationController! = definitionsNavVC
+        
+        updateSuggestions(force: true)
+        
+        if navVC == nil {
+            let view = DefinitionsView(defintions: definitionsList, handler: { (def) in
+                navVC.dismiss(animated: true) {
+                    
+                    var lines = [NSRange]()
+                    
+                    let textView = self.textView.contentTextView
+                    let text = NSString(string: textView.text)
+                    text.enumerateSubstrings(in: text.range(of: text as String), options: .byLines) { (_, range, _, _) in
+                        lines.append(range)
+                    }
+                    
+                    if lines.indices.contains(def.line-1), textView.contentSize.height > textView.frame.height {
+                        let substringRange = lines[def.line-1]
+                        let glyphRange = textView.layoutManager.glyphRange(forCharacterRange: substringRange, actualCharacterRange: nil)
+                        let rect = textView.layoutManager.boundingRect(forGlyphRange: glyphRange, in: textView.textContainer)
+                        let topTextInset = textView.textContainerInset.top
+                        let contentOffset = CGPoint(x: 0, y: topTextInset + rect.origin.y)
+                        if textView.contentSize.height-contentOffset.y > textView.frame.height {
+                            textView.setContentOffset(contentOffset, animated: true)
+                        } else {
+                            textView.scrollToBottom()
+                        }
                     }
                 }
+            }) {
+                navVC.dismiss(animated: true, completion: nil)
             }
-        }) {
-            navVC.dismiss(animated: true, completion: nil)
+            
+            navVC = UINavigationController(rootViewController: UIHostingController(rootView: view))
+            navVC.modalPresentationStyle = .popover
         }
         
-        navVC = UINavigationController(rootViewController: UIHostingController(rootView: view))
-        navVC.modalPresentationStyle = .popover
         navVC.popoverPresentationController?.barButtonItem = definitionsItem
+        definitionsNavVC = navVC
         
         present(navVC, animated: true, completion: nil)
     }
@@ -1250,7 +1118,7 @@ func directory(for scriptURL: URL) -> URL {
     /// Sets current directory.
     @objc func setCwd(_ sender: Any) {
         
-        let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
+        let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.folder])
         picker.delegate = self
         if #available(iOS 13.0, *) {
             picker.directoryURL = self.currentDirectory
@@ -1308,6 +1176,10 @@ func directory(for scriptURL: URL) -> URL {
     /// - Parameters:
     ///     - debug: Set to `true` for debugging with `pdb`.
     func runScript(debug: Bool) {
+        
+        guard document?.fileURL.pathExtension.lowercased() == "py" || document?.fileURL.pathExtension.lowercased() == "pyhtml" else {
+            return
+        }
         
         guard isReceiptChecked else {
             _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] (timer) in
@@ -1367,11 +1239,13 @@ func directory(for scriptURL: URL) -> URL {
                 return
             }
             
+            
+            var args = NSArray()
             if !(UserDefaults.standard.value(forKey: "arguments\(self.document?.fileURL.path.replacingOccurrences(of: "//", with: "/") ?? "")") is [String]) {
                 var arguments = self.args.components(separatedBy: " ")
                 parseArgs(&arguments)
                             
-                Python.shared.args = NSMutableArray(array: arguments)
+                args = NSArray(array: arguments)
             }
             
             guard let console = (self.parent as? EditorSplitViewController)?.console else {
@@ -1405,7 +1279,11 @@ func directory(for scriptURL: URL) -> URL {
                                 return
                             }
                             
-                            Python.shared.run(script: Python.Script(path: path, debug: debug, runREPL: true, breakpoints: self.breakpoints))
+                            if url.pathExtension.lowercased() == "py" {
+                                Python.shared.run(script: Python.Script(path: path, args: args, workingDirectory: directory(for: url).path, debug: debug, runREPL: true, breakpoints: self.breakpoints))
+                            } else {
+                                Python.shared.run(script: Python.PyHTMLPage(path: path, args: args, workingDirectory: directory(for: url).path))
+                            }
                         } else {
                             Python.shared.runScriptAt(url)
                         }                        
@@ -1462,6 +1340,7 @@ func directory(for scriptURL: URL) -> URL {
         #endif
         
         if document?.documentState != UIDocument.State.editingDisabled {
+            
             document?.save(to: document!.fileURL, for: .forOverwriting, completionHandler: completion)
             
             AppDelegate.shared.addURLToShortcuts(document!.fileURL)
@@ -1508,7 +1387,7 @@ func directory(for scriptURL: URL) -> URL {
             return
         }
         
-        if documentationNavigationController == nil {
+        if documentationNavigationController == nil || documentationNavigationController?.viewControllers.count == 0 {
             documentationNavigationController = ThemableNavigationController(rootViewController: DocumentationViewController())
         }
         present(documentationNavigationController!, animated: true, completion: nil)
@@ -1785,88 +1664,12 @@ func directory(for scriptURL: URL) -> URL {
     
     // MARK: - Keyboard
     
-    /// A boolean that is set to `true` when the toolbar is above the external keyboard.
-    var isToolbarUp = false
-    
     /// Resize `textView`.
     @objc func keyboardDidShow(_ notification:Notification) {
-        
-        func resize() {
-            let d = notification.userInfo!
-            let r = d[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-            
-            let inset = r.height-((navigationController?.toolbar.frame.height ?? 0)+(((parent as? EditorSplitViewController) ?? self).view.safeAreaLayoutGuide.layoutFrame.height-view.frame.height))
-            
-            textView.contentInset.bottom = inset
-            textView.verticalScrollIndicatorInsets.bottom = inset
-        }
-        
-        #if !Xcode11
-        if #available(iOS 14.0, *) {
-        } else {
-            resize()
-        }
-        #else
-        resize()
-        #endif
-            
-        if searchBar?.window != nil {
-            textView.contentInset.top = findBarHeight
-            textView.contentTextView.verticalScrollIndicatorInsets.top = findBarHeight
-        }
-        
-        if #available(iOS 14.0, *) {
-            let origin = self.inputAssistant.convert(self.inputAssistant.frame.origin, to: self.view.window ?? self.view)
-            if origin.y == (self.view.window ?? self.view).frame.height-self.inputAssistant.frame.height && textView.isFirstResponder {
-                textView.contentInset.bottom = self.inputAssistant.frame.height
-            }
-        }
-    }
-    
-    @objc func keyboardWillShow(_ notification:Notification) {
-        let state = view.window?.windowScene?.activationState
-        let isForeground = (state == .foregroundActive || state == .foregroundInactive)
-        if !isToolbarUp && isForeground && textView.isFirstResponder {
-            parent?.navigationController?.toolbar.frame.origin.y -= 50
-            isToolbarUp = true
-        }
     }
     
     /// Set `textView` to the default size.
     @objc func keyboardWillHide(_ notification:Notification) {
-        
-        func resize() {
-            textView.contentInset = .zero
-            textView.verticalScrollIndicatorInsets = .zero
-        }
-        
-        #if !Xcode11
-        if #available(iOS 14.0, *) {
-        } else {
-            resize()
-        }
-        #else
-        resize()
-        #endif
-        
-        if searchBar?.window != nil {
-            textView.contentInset.top = findBarHeight
-            textView.contentTextView.verticalScrollIndicatorInsets.top = findBarHeight
-        }
-        
-        //parent?.navigationController?.toolbar.frame.origin.y = ((parent?.navigationController?.view.safeAreaLayoutGuide.layoutFrame.height ?? 0)-(parent?.navigationController?.toolbar.frame.height ?? 0))
-        let state = view.window?.windowScene?.activationState
-        let isForeground = (state == .foregroundActive || state == .foregroundInactive)
-        if notification.name == UIResponder.keyboardWillHideNotification && isToolbarUp && isForeground {
-            parent?.navigationController?.toolbar.frame.origin.y += 50
-            isToolbarUp = false
-        } else if notification.name == UIResponder.keyboardWillHideNotification && !isForeground {
-            isToolbarUp = false
-        }
-        
-        if notification.name == UIResponder.keyboardDidHideNotification {
-            textView.contentInset.bottom = 0
-        }
     }
     
     // MARK: - Text view delegate
@@ -1958,14 +1761,7 @@ func directory(for scriptURL: URL) -> URL {
                     continue
                 }
                 
-                let editor: EditorViewController?
-                
-                if #available(iOS 14.0, *), let scene = view.window?.windowScene {
-                    editor = (EditorView.EditorStore.perScene[scene]?.editor?.viewController as? EditorSplitViewController)?.editor
-                } else {
-                    let presented = (scene.delegate as? UIWindowSceneDelegate)?.window??.rootViewController?.presentedViewController
-                    editor = ((presented as? UINavigationController)?.viewControllers.first as? EditorSplitViewController)?.editor ?? (presented as? EditorSplitViewController.ProjectSplitViewController)?.editor?.editor
-                }
+                let editor = ((scene.delegate as? SceneDelegate)?.sidebarSplitViewController?.sidebar?.editor?.vc as? EditorSplitViewController)?.editor
                 
                 guard editor?.textView.text != textView.text, editor?.document?.fileURL.path == document?.fileURL.path else {
                     continue
@@ -2148,7 +1944,7 @@ func directory(for scriptURL: URL) -> URL {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         save(completion: nil)
-                
+        
         parent?.setNeedsUpdateOfHomeIndicatorAutoHidden()
     }
     
@@ -2163,7 +1959,7 @@ func directory(for scriptURL: URL) -> URL {
         
     // MARK: - Suggestions
     
-    /// The defintions of the scripts. Array of arrays: [["content", lineNumber]]
+    /// The definitions of the scripts. Array of arrays: [["content", lineNumber]]
     @objc var definitions = NSMutableArray() {
         didSet {
             DispatchQueue.main.async { [weak self] in
@@ -2172,18 +1968,18 @@ func directory(for scriptURL: URL) -> URL {
                     return
                 }
                 
-                if let hostC = (self.presentedViewController as? UINavigationController)?.visibleViewController as? UIHostingController<DefinitionsView> {
+                if let hostC = (self.presentedViewController as? UINavigationController)?.viewControllers.first as? UIHostingController<DefinitionsView> {
                     hostC.rootView.dataSource.definitions = self.definitionsList
                 }
             }
         }
     }
     
-    /// Defintions of the scripts.
-    var definitionsList: [Definiton] {
-        var definitions = [Definiton]()
+    /// Definitions of the scripts.
+    var definitionsList: [Definition] {
+        var definitions = [Definition]()
         for def in self.definitions {
-            if let content = def as? [Any], content.count == 2 {
+            if let content = def as? [Any], content.count == 8 {
                 guard let description = content[0] as? String else {
                     continue
                 }
@@ -2192,7 +1988,74 @@ func directory(for scriptURL: URL) -> URL {
                     continue
                 }
                 
-                definitions.append(Definiton(signature: description, line: line))
+                guard let docString = content[2] as? String else {
+                    continue
+                }
+                
+                guard let name = content[3] as? String else {
+                    continue
+                }
+                
+                guard let signatures = content[4] as? [String] else {
+                    continue
+                }
+                
+                guard let _definedNames = content[5] as? [Any] else {
+                    continue
+                }
+                
+                guard let moduleName = content[6] as? String else {
+                    continue
+                }
+                
+                guard let type = content[7] as? String else {
+                    continue
+                }
+                
+                var definedNames = [Definition]()
+                
+                for _name in _definedNames {
+                    
+                    guard let name = _name as? [Any] else {
+                        continue
+                    }
+                    
+                    guard name.count == 8 else {
+                        continue
+                    }
+                    
+                    guard let description = name[0] as? String else {
+                        continue
+                    }
+                    
+                    guard let line = name[1] as? Int else {
+                        continue
+                    }
+                    
+                    guard let docString = name[2] as? String else {
+                        continue
+                    }
+                    
+                    guard let _name = name[3] as? String else {
+                        continue
+                    }
+                    
+                    guard let signatures = name[4] as? [String] else {
+                        continue
+                    }
+                    
+                    guard let moduleName = name[6] as? String else {
+                        continue
+                    }
+                    
+                    guard let type = name[7] as? String else {
+                        continue
+                    }
+                    
+                    definedNames.append(Definition(signature: description, line: line, docString: docString, name: _name, signatures: signatures, definedNames: [], moduleName: moduleName, type: type))
+                }
+                
+                definitions.append(Definition(signature: description, line: line, docString: docString, name: name, signatures: signatures, definedNames: definedNames, moduleName: moduleName, type: type))
             }
         
         }
@@ -2248,7 +2111,7 @@ func directory(for scriptURL: URL) -> URL {
         
         set {
             
-            guard lastCodeFromCompletions == text else {
+            guard document?.fileURL.pathExtension.lowercased() == "pyhtml" || lastCodeFromCompletions == text else {
                 return
             }
             
@@ -2287,7 +2150,7 @@ func directory(for scriptURL: URL) -> URL {
         
         set {
             
-            guard lastCodeFromCompletions == text else {
+            guard document?.fileURL.pathExtension.lowercased() == "pyhtml" || lastCodeFromCompletions == text else {
                 return
             }
             
@@ -2408,13 +2271,83 @@ func directory(for scriptURL: URL) -> URL {
     
     var codeCompletionTimer: Timer?
     
+    let completeQueue = DispatchQueue(label: "code-completion")
+    
+    /// Returns information about the pyhtml Python script tag the cursor is currently in.
+    var currentPythonScriptTag: (codeRange: NSRange, code: String, relativeCodeRange: NSRange)? {
+            
+        let selectedRange = textView.selectedRange
+            
+        var openScriptTagRange: NSRange?
+        var closeScriptTagRange: NSRange?
+            
+        (text as NSString).enumerateSubstrings(in: NSRange(location: 0, length: selectedRange.location), options: .byLines) { (line, a, b, continue) in
+                
+            guard let line = line else {
+                return
+            }
+                
+            let withoutSpaces = line.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\t", with: "")
+                
+            if withoutSpaces.hasPrefix("<scripttype=") && withoutSpaces.contains("python") {
+                    
+                openScriptTagRange = a
+                `continue`.pointee = false
+            }
+        }
+            
+        (text as NSString).enumerateSubstrings(in: NSRange(location: selectedRange.location, length: (text as NSString).length-selectedRange.location), options: .byLines) { (line, a, b, continue) in
+            guard let line = line else {
+                return
+            }
+                
+            let withoutSpaces = line.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\t", with: "")
+                
+            if withoutSpaces.hasPrefix("</script>") {
+                closeScriptTagRange = a
+                `continue`.pointee = false
+            }
+        }
+            
+        let isInsidePythonScriptTag = openScriptTagRange != nil && closeScriptTagRange != nil
+        
+        var code: String!
+        
+        var codeRange: NSRange!
+        
+        var relativeCodeRange: NSRange!
+        
+        if isInsidePythonScriptTag {
+            let start = openScriptTagRange!.location+openScriptTagRange!.length
+            codeRange = NSRange(location: start, length: closeScriptTagRange!.location-start)
+            code = (text as NSString).substring(with: codeRange)
+            relativeCodeRange = NSRange(location: selectedRange.location-start+1, length: 0)
+        }
+            
+        if !isInsidePythonScriptTag {
+            return nil
+        } else {
+            return (codeRange: codeRange, code: code, relativeCodeRange: relativeCodeRange)
+        }
+    }
+    
     /// Updates suggestions.
     ///
     /// - Parameters:
     ///     - force: If set to `true`, the Python code will be called without doing any check.
     func updateSuggestions(force: Bool = false) {
-        let text = textView.text ?? ""
         
+        guard document?.fileURL.pathExtension.lowercased() == "py" || document?.fileURL.pathExtension.lowercased() == "pyhtml" else {
+            return
+        }
+        
+        let currentPythonScriptTag = self.currentPythonScriptTag
+        let text = currentPythonScriptTag?.code ?? self.text
+        
+        if currentPythonScriptTag == nil && document?.fileURL.pathExtension.lowercased() == "pyhtml" {
+            return
+        }
+                
         guard let textRange = textView.selectedTextRange else {
             return
         }
@@ -2429,11 +2362,15 @@ func directory(for scriptURL: URL) -> URL {
         }
                 
         var location = 0
-        guard let range = textView.textRange(from: textView.beginningOfDocument, to: textRange.end) else {
-            return
-        }
-        for _ in textView.text(in: range) ?? "" {
-            location += 1
+        if currentPythonScriptTag == nil {
+            guard let range = textView.textRange(from: textView.beginningOfDocument, to: textRange.end) else {
+                return
+            }
+            for _ in textView.text(in: range) ?? "" {
+                location += 1
+            }
+        } else {
+            location = currentPythonScriptTag!.relativeCodeRange.location-1
         }
         
         EditorViewController.codeToComplete = text
@@ -2449,12 +2386,15 @@ func directory(for scriptURL: URL) -> URL {
             from pyto import EditorViewController
             from _codecompletion import suggestForCode
             import sys
+            import os
 
             Python.shared.handleCrashesForCurrentThread()
 
             path = '\(self.currentDirectory.path.replacingOccurrences(of: "'", with: "\\'"))'
             should_path_be_deleted = False
-                
+            
+            os.chdir(path)
+        
             if not path in sys.path:
                 sys.path.append(path)
                 should_path_be_deleted = True
@@ -2466,13 +2406,14 @@ func directory(for scriptURL: URL) -> URL {
                 sys.path.remove(path)
 
         thread = Thread(target=complete)
+        thread.script_path = '\((self.document?.fileURL.path ?? "").replacingOccurrences(of: "'", with: "\\'"))'
         thread.start()
         thread.join()
         """
         
         func complete() {
             isCompleting = true
-            DispatchQueue.global().async { [weak self] in
+            completeQueue.async { [weak self] in
                 Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: code)
                 self?.isCompleting = false
             }
@@ -2573,7 +2514,7 @@ func directory(for scriptURL: URL) -> URL {
     
     func numberOfSuggestionsInInputAssistantView() -> Int {
         
-        guard lastCodeFromCompletions == text else {
+        guard document?.fileURL.pathExtension.lowercased() == "pyhtml" || lastCodeFromCompletions == text else {
             return 0
         }
         

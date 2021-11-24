@@ -8,6 +8,8 @@
 
 import UIKit
 import WebKit
+import Pipable
+import AVKit
 #if MAIN
 import InputAssistant
 import SavannaKit
@@ -16,8 +18,8 @@ import SwiftUI
 #endif
 
 /// A View controller containing Python script output.
-@objc open class ConsoleViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler {
-    
+@objc open class ConsoleViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler, PictureInPictureDelegate, ParserDelegate {
+            
     #if MAIN
     /// The theme the user choosed.
     static var choosenTheme: Theme {
@@ -139,7 +141,7 @@ import SwiftUI
     }
         
     /// The Web view showing the terminal.
-    @objc public var webView: WKWebView = WebView()
+    @objc public var webView = WebView()
     
     /// Load the terminal into the web view.
     func loadTerminal() {
@@ -196,7 +198,11 @@ import SwiftUI
     func print(_ text: String) {
         self.text += text
         PyWrapper.set { [weak self] in
-            self?.webView.evaluateJavaScript("print('\(text.replacingOccurrences(of: "\n", with: "\n\r").data(using: .utf8)?.base64EncodedString() ?? "")')", completionHandler: nil)
+            self?.webView.evaluateJavaScript("print('\(text.replacingOccurrences(of: "\n", with: "\n\r").data(using: .utf8)?.base64EncodedString() ?? "")')", completionHandler: { _, _ in
+                if #available(iOS 15.0, *) {
+                    self?.updatePIP()
+                }
+            })
         }
     }
     
@@ -211,7 +217,14 @@ import SwiftUI
         let _link = link.replacingOccurrences(of: "\n", with: "\n\r").data(using: .utf8)?.base64EncodedString() ?? ""
         
         PyWrapper.set { [weak self] in
-            self?.webView.evaluateJavaScript("printLink('\(_text)', '\(_link)')", completionHandler: nil)
+            self?.webView.evaluateJavaScript("printLink('\(_text)', '\(_link)')", completionHandler: { _, _ in
+                
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
+                    if #available(iOS 15.0, *) {
+                        self?.updatePIP()
+                    }
+                }
+            })
         }
     }
     
@@ -231,6 +244,9 @@ import SwiftUI
             
             self.webView.evaluateJavaScript("t.io.print(' '); sendHeight();") { (_, _) in
                 completionHandler?(a, b)
+                if #available(iOS 15.0, *) {
+                    self.updatePIP()
+                }
             }
         })
     }
@@ -577,6 +593,7 @@ import SwiftUI
             
             setNavigationBarHidden(pyViews.last?.navigationBarHidden == true, animated: true)
             navigationBar.backgroundColor = UIColor.systemBackground
+            view.backgroundColor = pyViews.last?.backgroundColor?.color
         }
     }
     
@@ -775,15 +792,13 @@ import SwiftUI
     }
     
     private static func editor(in window: UIWindow) -> EditorSplitViewController? {
-        #if !Xcode11
-        if #available(iOS 14.0, *) {
-            return window.topViewController as? EditorSplitViewController ?? ((window.topViewController as? UISplitViewController)?.viewControllers.last as? UINavigationController)?.topViewController as? EditorSplitViewController ?? (((window.topViewController?.children.first as? UISplitViewController)?.viewControllers.last as? UINavigationController)?.visibleViewController?.children.first as? ContainerViewController)?.children.first as? EditorSplitViewController
-        } else {
-            return window.topViewController as? EditorSplitViewController
-        }
-        #else
-        return window.topViewController as? EditorSplitViewController
-        #endif
+        (window.topViewController as? EditorSplitViewController) ??
+        
+        (window.topViewController as? UINavigationController)?.visibleViewController as? EditorSplitViewController ??
+        
+        ((window.windowScene?.delegate as? SceneDelegate)?.sidebarSplitViewController?.sidebar?.repl?.vc as? REPLViewController) ??
+        
+        (window.windowScene?.delegate as? SceneDelegate)?.sidebarSplitViewController?.sidebar?.editor?.vc as? EditorSplitViewController
     }
     
     #if MAIN
@@ -864,10 +879,6 @@ import SwiftUI
                 completions.remove(at: currentSuggestionIndex)
                 completions.insert(completion, at: 0)
         
-                DispatchQueue.main.async { [weak self] in
-                    self?.movableTextField?.inputAssistant.reloadData()
-                }
-        
                 return completions
             }
             
@@ -895,15 +906,11 @@ import SwiftUI
     private var isCompleting = false
     
     private var codeCompletionTimer: Timer?
-    
-    private let codeCompletionQueue = DispatchQueue.global()
-    
+        
     private var wasFirstResponder = false
     
     @objc static private var codeToHighlight: String?
-    
-    //private var wasFirstResp
-    
+        
     // MARK: - View controller
     
     override open func viewDidLoad() {
@@ -962,14 +969,6 @@ import SwiftUI
         super.traitCollectionDidChange(previousTraitCollection)
         
         themeDidChange(nil)
-        
-        #if Xcode11
-        guard view.window?.windowScene?.activationState != .background else {
-            return
-        }
-        #endif
-        
-        // TODO: Trait collection did change
     }
     #endif
         
@@ -1010,7 +1009,11 @@ import SwiftUI
         #if MAIN
         movableTextField?.inputAssistant.delegate = self
         movableTextField?.inputAssistant.dataSource = self
-        movableTextField?.didChangeText = { text in
+        movableTextField?.didChangeText = { [weak self] text in
+            
+            guard let self = self else {
+                return
+            }
             
             guard self.highlightInput else {
                 return
@@ -1018,13 +1021,15 @@ import SwiftUI
             
             let code =
             """
+            import threading
+            threading.current_thread().script_path = '\(self.editorSplitViewController!.editor!.document!.fileURL.path.replacingOccurrences(of: "'", with: "\\'"))'
             try:
                 import jedi
                 import console
                 import pyto
                 namespace = console.__repl_namespace__['\((self.parent as! EditorSplitViewController).editor?.document!.fileURL.lastPathComponent.replacingOccurrences(of: "'", with: "\\'") ?? "")']
                 script = jedi.Interpreter('\(text.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "'", with: "\\'"))', [namespace])
-                    
+                
                 suggestions = []
                 completions = []
                 for completion in script.complete():
@@ -1034,17 +1039,17 @@ import SwiftUI
                 pyto.ConsoleViewController.suggestions = suggestions
                 pyto.ConsoleViewController.completions = completions
             except Exception as e:
-                pass
+                print(e)
             """
             
             func complete() {
                 DispatchQueue.global().async { [weak self] in
                     self?.isCompleting = true
                     
-                    self?.codeCompletionQueue.async {
+                    Thread {
                         Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: code)
                         self?.isCompleting = false
-                    }
+                    }.start()
                 }
             }
             
@@ -1096,7 +1101,7 @@ import SwiftUI
                 
                 if self.highlightInput {
                     ConsoleViewController.codeToHighlight = text
-                    Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: "import _codecompletion; import pyto; _codecompletion.printHighlightedCode(str(pyto.ConsoleViewController.codeToHighlight))")
+                    Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: "import _codecompletion; import pyto; _codecompletion.printHighlightedCode(str(pyto.ConsoleViewController.codeToHighlight), '\(self.editorSplitViewController?.editor?.document?.fileURL.path ?? "")')")
                 } else {
                     self.print("\(text)\n")
                 }
@@ -1112,7 +1117,9 @@ import SwiftUI
             }
             
             #if MAIN
-            PyInputHelper.userInput[self.editorSplitViewController?.editor?.document?.fileURL.path ?? ""] = text
+            DispatchQueue.main.asyncAfter(deadline: .now()+(self.highlightInput ? 0.1 : 0)) {
+                PyInputHelper.userInput[self.editorSplitViewController?.editor?.document?.fileURL.path ?? ""] = text
+            }
             #else
             PyInputHelper.userInput[""] = text
             #endif
@@ -1204,22 +1211,6 @@ import SwiftUI
         }
     }
     
-    open override var keyCommands: [UIKeyCommand]? {
-        var commands = [
-            UIKeyCommand(input: UIKeyCommand.inputDownArrow, modifierFlags: [], action: #selector(down)),
-            UIKeyCommand(input: UIKeyCommand.inputUpArrow, modifierFlags: [], action: #selector(up)),
-            UIKeyCommand.command(input: "C", modifierFlags: .control, action: #selector(editorSplitViewController?.interrupt(_:)), discoverabilityTitle: Localizable.interrupt)
-        ]
-        
-        #if MAIN
-        if numberOfSuggestionsInInputAssistantView() != 0 {
-            commands.append(UIKeyCommand.command(input: "\t", modifierFlags: [], action: #selector(nextSuggestion), discoverabilityTitle: Localizable.nextSuggestion))
-        }
-        #endif
-        
-        return commands
-    }
-    
     // MARK: - Keyboard
     
     @objc func keyboardWillShow(_ notification:Notification) {
@@ -1270,12 +1261,16 @@ import SwiftUI
         webView.evaluateJavaScript("sendSize()", completionHandler: nil)
     }
     
-    @objc private func up() {
+    @objc func up() {
         movableTextField?.up()
     }
     
-    @objc private func down() {
+    @objc func down() {
         movableTextField?.down()
+    }
+    
+    @objc func doNothing() {
+        Swift.print("Do nothing")
     }
     
     /// Selects a suggestion from hardware tab key.
@@ -1450,6 +1445,148 @@ import SwiftUI
         
         fontPickerSemaphore?.wait()
         return pickedFont
+    }
+    
+    // MARK: - Picture in Picture
+    
+    let pipTextView = PipTextView()
+    
+    let pipVC = UIHostingController(rootView: ConsolePipView())
+    
+    class PipTextView: UITextView, Pipable {
+        
+        var pictureInPictureDelegate: PictureInPictureDelegate?
+        
+        var previewSize: CGSize {
+            CGSize(width: 1024, height: 1024)
+        }
+        
+        func willTakeSnapshot() {
+            isHidden = false
+        }
+        
+        func didTakeSnapshot() {
+            isHidden = true
+        }
+    }
+    
+    func parser(_ parser: Parser, didReceiveString string: NSAttributedString) {
+        let attr = NSMutableAttributedString(attributedString: string)
+        attr.addAttributes([NSAttributedString.Key.font: EditorViewController.font.withSize(40),
+                            NSAttributedString.Key.backgroundColor : UIColor.clear,
+                            NSAttributedString.Key.foregroundColor : UIColor.label], range: NSRange(location: 0, length: attr.length))
+        pipTextView.attributedText = attr
+        if #available(iOS 15.0, *) {
+            pipTextView.updatePictureInPictureSnapshot()
+        }
+    }
+    
+    func parserDidEndTransmission(_ parser: Parser) {
+    }
+    
+    @available(iOS 15.0, *)
+    func updatePIP(force: Bool = false) {
+        
+        if !force {
+            guard pipTextView.pictureInPictureController?.isPictureInPictureActive == true else {
+                return
+            }
+        }
+        
+        if let data = text.data(using: .utf8) {
+            let parser = Parser()
+            parser.delegate = self
+            parser.parse(data)
+        }
+    }
+    
+    func togglePIP() {
+        guard #available(iOS 15.0, *), let pip = pipTextView.pictureInPictureController else {
+            return
+        }
+        
+        if pipVC.parent == nil {
+            pipVC.view.frame = view.frame
+            pipVC.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            pipVC.view.isHidden = true
+            
+            addChild(pipVC)
+            view.addSubview(pipVC.view)
+        }
+        
+        if pipTextView.superview == nil {
+            pipTextView.frame.size = pipTextView.previewSize
+            pipTextView.isEditable = false
+            pipTextView.isHidden = true
+            view.addSubview(pipTextView)
+        }
+        
+        updatePIP(force: true)
+        
+        pipTextView.pictureInPictureDelegate = self
+        
+        if pip.isPictureInPictureActive {
+            
+            do {
+                if BackgroundTask.count == 0 {
+                    try AVAudioSession.sharedInstance().setActive(false, options: [])
+                }
+            } catch {
+                print(error.localizedDescription)
+            }
+            
+            pip.stopPictureInPicture()
+        } else {
+            
+            pipTextView.pictureInPictureController?.invalidatePlaybackState()
+            
+            do {
+                if BackgroundTask.count == 0 {
+                    try AVAudioSession.sharedInstance().setCategory(.playback, options: .mixWithOthers)
+                    try AVAudioSession.sharedInstance().setActive(true, options: [])
+                }
+            } catch {
+                print(error.localizedDescription)
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
+                pip.startPictureInPicture()
+            }
+        }
+    }
+    
+    public func didEnterPictureInPicture() {
+        editorSplitViewController?.editor?.pipItem?.image = UIImage(systemName: "pip.exit")
+        pipVC.view.isHidden = false
+    }
+    
+    public func didExitPictureInPicture() {
+        editorSplitViewController?.editor?.pipItem?.image = UIImage(systemName: "pip.enter")
+        pipVC.view.isHidden = true
+    }
+    
+    public func didFailToEnterPictureInPicture(error: Error) {
+        Swift.print(error.localizedDescription)
+    }
+    
+    public func didPause() {
+        guard let path = editorSplitViewController?.editor?.document?.fileURL.path else {
+            return
+        }
+        
+        Python.shared.stop(script: path)
+    }
+    
+    public func didResume() {
+        editorSplitViewController?.editor?.run()
+    }
+    
+    public var isPlaying: Bool {
+        guard let path = editorSplitViewController?.editor?.document?.fileURL.path else {
+            return false
+        }
+        
+        return Python.shared.isScriptRunning(path)
     }
 }
 

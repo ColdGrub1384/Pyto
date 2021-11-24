@@ -5,7 +5,6 @@ This script asks user for input and runs the given command.
 import os
 import os.path
 import sys
-import traceback
 import pyto
 import runpy
 import shlex
@@ -51,12 +50,15 @@ def _main_function_no_one_calls_a_function_like_that():
         except KeyError:
             sys.modules["__main__"] = pyto
         runpy._run_module_as_main(module_name)
-    except KeyboardInterrupt:
-        pass
-    except SystemExit:
-        pass
-    except:
-        print(traceback.format_exc())
+    except KeyboardInterrupt as e:
+        print(e)
+    except SystemExit as e:
+        try:
+            int(e)
+        except:
+            print(e)
+    except Exception as e:
+        print(e)
 
     sys.argv = [sys.argv[0]]
     

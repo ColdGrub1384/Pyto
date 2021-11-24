@@ -199,7 +199,7 @@ def __runREPL__(repl_name="", namespace={}, banner=None):
     Python.shared.isScriptRunning = True
 
     if banner is None:
-        banner = f"Python {sys.version}\n{str(__Class__('MenuTableViewController').pytoVersion)}\nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\nType \"clear()\" to clear the console."
+        banner = f"Python {sys.version}\n{str(__Class__('SidebarViewController').pytoVersion)}\nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\nType \"clear()\" to clear the console."
     interact(readfunc=read, local=__namespace__, banner=banner)
 
 

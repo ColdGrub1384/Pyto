@@ -1,0 +1,176 @@
+//
+//  SidebarSplitViewController.swift
+//  Pyto
+//
+//  Created by Emma on 10-11-21.
+//  Copyright © 2021 Emma Labbé. All rights reserved.
+//
+
+import UIKit
+import SwiftUI
+
+class SidebarSplitViewController: UISplitViewController, UISplitViewControllerDelegate {
+    
+    let id = UUID()
+    
+    init() {
+        super.init(style: .tripleColumn)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    let fileBrowser = FileBrowserViewController()
+    
+    var fileBrowserNavVC: SidebarViewController.NavigationController!
+    
+    let compactFileBrowser = FileBrowserViewController()
+    
+    var compactFileBrowserNavVC: SidebarViewController.NavigationController!
+    
+    var sidebar: SidebarViewController? {
+        (viewController(for: isCollapsed ? .compact : .primary) as? UINavigationController)?.viewControllers.first as? SidebarViewController
+    }
+    
+    override var childForHomeIndicatorAutoHidden: UIViewController? {
+        if isCollapsed {
+            return (viewController(for: .compact) as? UINavigationController)?.visibleViewController
+        } else {
+            return (viewController(for: .secondary) as? UINavigationController)?.visibleViewController
+        }
+    }
+    
+    @objc func showSettings() {
+        sidebar?.loadViewIfNeeded()
+        sidebar?.showSettings()
+    }
+    
+    @objc func openScript() {
+        sidebar?.loadViewIfNeeded()
+        sidebar?.openScript()
+    }
+    
+    @objc func showExamples() {
+        sidebar?.loadViewIfNeeded()
+        sidebar?.showExamples()
+    }
+    
+    @objc func showDocumentationOnSplitView() {
+        sidebar?.loadViewIfNeeded()
+        sidebar?.showDocumentationOnSplitView()
+    }
+    
+    @objc func showPyPI() {
+        sidebar?.loadViewIfNeeded()
+        sidebar?.showPyPI()
+    }
+    
+    @objc func showREPL() {
+        sidebar?.loadViewIfNeeded()
+        sidebar?.showREPL()
+    }
+    
+    @objc func newScript() {
+        sidebar?.loadViewIfNeeded()
+        sidebar?.newScript()
+    }
+    
+    func restore(sceneState: SceneDelegate.SceneState) {
+        do {
+            var isStale = false
+            
+            let directory = try URL(resolvingBookmarkData: sceneState.directoryBookmarkData, bookmarkDataIsStale: &isStale)
+            fileBrowser.directory = directory
+            compactFileBrowser.directory = directory
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        sidebar?.loadViewIfNeeded()
+        
+        switch sceneState.section {
+        case .editor(let bookmarkData):
+            do {
+                var isStale = false
+                
+                let url = try URL(resolvingBookmarkData: bookmarkData, bookmarkDataIsStale: &isStale)
+                
+                sidebar?.open(url: url)
+            } catch {
+                print(error.localizedDescription)
+            }
+        case .repl:
+            sidebar?.showREPL()
+        case .runModule:
+            sidebar?.showModuleRunner()
+        case .examples:
+            sidebar?.showExamples()
+        case .documentation:
+            sidebar?.showDocumentationOnSplitView()
+        case .pypi:
+            sidebar?.showPyPI()
+        case .loadedModules:
+            sidebar?.showLoadedModules()
+        case nil:
+            break
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = .systemBackground
+        
+        fileBrowser.directory = FileBrowserViewController.iCloudContainerURL ?? FileBrowserViewController.localContainerURL
+        
+        fileBrowserNavVC = .init(rootViewController: fileBrowser)
+        fileBrowserNavVC.navigationBar.prefersLargeTitles = true
+        fileBrowserNavVC.view.backgroundColor = .systemBackground
+        
+        compactFileBrowser.directory = FileBrowserViewController.iCloudContainerURL ?? FileBrowserViewController.localContainerURL
+        
+        compactFileBrowserNavVC = .init(rootViewController: compactFileBrowser)
+        compactFileBrowserNavVC.navigationBar.prefersLargeTitles = true
+        compactFileBrowserNavVC.view.backgroundColor = .systemBackground
+        
+        setViewController(UINavigationController(rootViewController: SidebarViewController(splitViewID: id, compact: false)), for: .primary)
+        setViewController(fileBrowserNavVC, for: .supplementary)
+        setViewController(UINavigationController(rootViewController: UIViewController()), for: .secondary)
+        setViewController(UINavigationController(rootViewController: SidebarViewController(splitViewID: id, compact: true)), for: .compact)
+        
+        primaryBackgroundStyle = .sidebar
+        
+        showsSecondaryOnlyButton = true
+        
+        delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if !SidebarViewController.splitViews.contains(self) {
+            SidebarViewController.splitViews.append(self)
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        if let i = SidebarViewController.splitViews.firstIndex(of: self) {
+            SidebarViewController.splitViews.remove(at: i)
+        }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if traitCollection.horizontalSizeClass == .compact {
+            preferredDisplayMode = .secondaryOnly
+        } else {
+            preferredDisplayMode = .oneBesideSecondary
+        }
+    }
+    
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        true
+    }
+}

@@ -31,6 +31,13 @@ import WebKit
         }
     }
     
+    @objc public func addUserScript(_ script: String) {
+        set {
+            let userScript = WKUserScript(source: script, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
+            self.webView.configuration.userContentController.addUserScript(userScript)
+        }
+    }
+    
     @objc public func loadURL(_ url: String) {
         set {
             guard let url = URL(string: url) else {

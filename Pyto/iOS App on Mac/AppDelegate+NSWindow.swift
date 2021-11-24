@@ -13,16 +13,6 @@ extension AppDelegate {
     
     func appKitWindowDidBecomeKey(_ notification: Notification) {
         
-        guard let object = notification.object else {
-            return
-        }
-        
-        guard type(of: notification.object!) == NSClassFromString("NSOpenPanel") else {
-            return
-        }
-        
-        let panel = Dynamic(object)
-        panel.canChooseDirectories = true
     }
     
     func appKitWindowWillClose(_ notification: Notification) {

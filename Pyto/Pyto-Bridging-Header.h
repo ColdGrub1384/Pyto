@@ -12,6 +12,8 @@
 #import <openssl/ssl.h>
 #import <openssl/asn1.h>
 #import "Other/RMStore/RMAppReceipt.h"
+#import <GCDWebServer/GCDWebServer.h>
+#import <GCDWebServer/GCDWebServerDataResponse.h>
 #endif
 
 #if MAIN
@@ -19,3 +21,5 @@
 #endif
 
 #include <os/proc.h>
+
+int pthread_chdir_np(char *path);

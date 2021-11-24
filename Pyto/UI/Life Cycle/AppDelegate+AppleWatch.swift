@@ -72,7 +72,6 @@ extension AppDelegate: WCSessionDelegate {
                 _ = url.startAccessingSecurityScopedResource()
                 
                 watchScript = url.path
-                Python.shared.currentWorkingDirectory = directory(for: url).path
                 
                 var task: UIBackgroundTaskIdentifier!
                 task = UIApplication.shared.beginBackgroundTask {
@@ -169,7 +168,7 @@ extension AppDelegate: WCSessionDelegate {
                         pool.release()
                         Event().wait()
 
-                    """))
+                    """, workingDirectory: directory(for: url).path))
                 }
                 
                 if Python.shared.isSetup {
@@ -210,7 +209,7 @@ extension AppDelegate: WCSessionDelegate {
 
                     script = str(ObjCClass("Pyto.AppDelegate").shared.watchScript)
                     runpy.run_path(script)
-                    """))
+                    """, workingDirectory: directory(for: url).path))
                 }
                 
                 if Python.shared.isSetup {
@@ -231,7 +230,7 @@ extension AppDelegate: WCSessionDelegate {
                 func run() {
                     Python.shared.run(script: Python.WatchScript(code: """
                     print("\(Localizable.Errors.noWatchScript)")
-                    """))
+                    """, workingDirectory: FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].path))
                 }
                 
                 if Python.shared.isSetup {

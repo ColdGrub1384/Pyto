@@ -545,13 +545,8 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                         continue
                     }
                     
-                    if isiOSAppOnMac { // Reload toolbar
-                        let toolbarItem = Dynamic(editor.runToolbarItem)
-                        
-                        toolbarItem.label = self.runningScripts.contains(scriptPath) ? Localizable.interrupt : Localizable.MenuItems.run
-                        toolbarItem.image = self.runningScripts.contains(scriptPath) ? UIImage(systemName: "xmark") : UIImage(systemName: "play")
-                        toolbarItem.target = editor
-                        toolbarItem.action = NSSelectorFromString(self.runningScripts.contains(scriptPath) ? "stop" : "run")
+                    if #available(iOS 15.0, *) {
+                        splitVC?.console?.pipTextView.pictureInPictureController?.invalidatePlaybackState()
                     }
                     
                     guard !(contentVC.editorSplitViewController is REPLViewController) && !(contentVC.editorSplitViewController is RunModuleViewController) && !(contentVC.editorSplitViewController is PipInstallerViewController) else {
@@ -566,18 +561,8 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                     if item?.rightBarButtonItem != contentVC.editorSplitViewController?.closeConsoleBarButtonItem {
                         if self.runningScripts.contains(scriptPath) {
                             item?.rightBarButtonItem = editor.stopBarButtonItem
-                            #if !Xcode11
-                            if #available(iOS 14.0, *) {
-                                splitVC?.container?.update()
-                            }
-                            #endif
                         } else {
                             item?.rightBarButtonItem = editor.runBarButtonItem
-                            #if !Xcode11
-                            if #available(iOS 14.0, *) {
-                                splitVC?.container?.update()
-                            }
-                            #endif
                             
                             contentVC.getPlainText { text in
                                 if contentVC.editorSplitViewController?.editor?.textView.text == PyCallbackHelper.code {

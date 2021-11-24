@@ -60,7 +60,7 @@ import UIKit
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
         
-        if !isiOSAppOnMac {
+        if !isiOSAppOnMac && splitViewController == nil {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
         }
         
@@ -139,23 +139,21 @@ import UIKit
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let url = URL(fileURLWithPath: ModulesTableViewController.paths[indexPath.row])
-        let window = view.window
         if FileManager.default.fileExists(atPath: url.path) {
             
             if UIDevice.current.userInterfaceIdiom == .pad {
-                let docBrowser = DocumentBrowserViewController()
+                let docBrowser = KeyboardHostingController(viewController: SidebarSplitViewController())
                 SceneDelegate.viewControllerToShow = docBrowser
                 if #available(iOS 13.0, *) {
                     UIApplication.shared.requestSceneSessionActivation(nil, userActivity: nil, options: nil, errorHandler: nil)
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                    let sidebar = (docBrowser.view.window?.windowScene?.delegate as? SceneDelegate)?.sidebarSplitViewController?.sidebar
                     docBrowser.view.window?.tintColor = ConsoleViewController.choosenTheme.tintColor
-                    docBrowser.openDocument(url, run: false)
+                    sidebar?.open(url: url)
                 }
-            } else if let docBrowser = window?.rootViewController as? DocumentBrowserViewController {
-                presentingViewController?.dismiss(animated: true, completion: {
-                    docBrowser.openDocument(url, run: false)
-                })
+            } else if let splitVC = splitViewController as? SidebarSplitViewController {
+                splitVC.sidebar?.open(url: url)
             }
         }
         tableView.deselectRow(at: indexPath, animated: true)

@@ -95,6 +95,20 @@ enum PyDocumentError: Error {
         
         text = newText
     }
+    
+    override func save(to url: URL, for saveOperation: UIDocument.SaveOperation, completionHandler: ((Bool) -> Void)? = nil) {
+        
+        #if !SCREENSHOTS
+        super.save(to: url, for: saveOperation, completionHandler: completionHandler)
+        #else
+        do {
+            try text.write(to: url, atomically: true, encoding: .utf8)
+            completionHandler?(true)
+        } catch {
+            completionHandler?(false)
+        }
+        #endif
+    }
         
     private func makeData() throws -> Data {
         guard let data = text.data(using: .utf8) else {

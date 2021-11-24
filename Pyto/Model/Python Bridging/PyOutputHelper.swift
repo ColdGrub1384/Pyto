@@ -216,7 +216,7 @@ fileprivate extension ConsoleViewController {
     @objc static func printValue(_ text: String, value: String, script: String?) {
         
         let url = "pyto://inspector/\(text.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? "")/?\(value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")"
-        printLink(text, url: url, script: nil)
+        printLink(text, url: url, script: script)
     }
     
     /// Shows link

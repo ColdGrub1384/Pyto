@@ -189,7 +189,7 @@ class RuntimeCommunicator {
                                 send()
                             }
                             
-                            Python.shared.run(script: Python.Script(path: url.path, debug: false, runREPL: false))
+                            Python.shared.run(script: Python.Script(path: url.path, args: NSArray(), workingDirectory: directory(for: url).path, debug: false, runREPL: false))
                         }
                     }
                 } catch {
