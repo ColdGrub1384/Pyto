@@ -582,6 +582,8 @@ print_error_text(PyObject *f, int offset, PyObject *text_obj)
 int
 _Py_HandleSystemExit(int *exitcode_p)
 {
+    return 0;
+    
     int inspect = _PyInterpreterState_GET_UNSAFE()->config.inspect;
     if (inspect) {
         /* Don't exit if -i flag was given. This flag is set to 0
