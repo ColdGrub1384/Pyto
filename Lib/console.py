@@ -196,8 +196,6 @@ def __runREPL__(repl_name="", namespace={}, banner=None):
 
         return input(prompt, highlight=True)
 
-    sys.argv = [""]
-
     Python.shared.isScriptRunning = True
 
     if banner is None:
@@ -307,7 +305,7 @@ if "widget" not in os.environ:
 
     __are_breakpoints_set__ = True
 
-    def run_script(path, replMode=False, debug=False, breakpoints=[], runREPL=True):
+    def run_script(path, replMode=False, debug=False, breakpoints=[], runREPL=True, args=[], cwd="/"):
         """
         Run the script at given path catching exceptions.
     
@@ -319,7 +317,11 @@ if "widget" not in os.environ:
             debug: Set to `True` for debugging.
             breakpoints: Lines to break if debugging.
             runREPL: Set it to `True` for running the REPL.
+            args: The arguments passed to sys.argv.
+            cwd: The thread working directory.
         """
+
+        sys = __import__("sys")
 
         __repl_namespace__[path.split("/")[-1]] = {}
         __clear_mods__()
@@ -334,11 +336,7 @@ if "widget" not in os.environ:
         if path == str(Python.watchScriptURL.path):
             is_watch_script = True
 
-        currentDir = ""
-        try:
-            currentDir = str(python.currentWorkingDirectory)
-        except:
-            currentDir = os.path.expanduser(os.path.dirname(path))
+        currentDir = cwd
 
         try:
             del os.environ["ps1"]
@@ -350,10 +348,7 @@ if "widget" not in os.environ:
         except KeyError:
             pass
 
-        sys.argv = [path]
-        for arg in python.args:
-            if arg != "":
-                sys.argv.append(str(arg))
+        sys.argv = [path]+args
 
         d = os.path.expanduser("~/tmp")
         filesToRemove = []
@@ -462,7 +457,11 @@ if "widget" not in os.environ:
                             return "b " + str(breakpoints[console.__i__])
                         else:
                             console.__should_inspect__ = True
-                            return old_input(prompt)
+                            _input = old_input(prompt)
+                            if _input == "<WILL INTERRUPT>":
+                                return "exit"
+                            else:
+                                return _input
 
                     if len(breakpoints) > 0:
                         builtins.input = debugger_input
@@ -550,8 +549,6 @@ if "widget" not in os.environ:
                             )
                         except AttributeError:
                             PyOutputHelper.printError(string, script=None)
-
-                    sys.path.remove(currentDir)
 
                     if debug:
                         pdb.post_mortem(exc_tb)

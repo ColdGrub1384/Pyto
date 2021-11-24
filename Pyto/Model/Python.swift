@@ -375,9 +375,6 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     
     /// The last error's reason.
     @objc public var errorReason: String?
-    
-    /// The arguments to pass to scripts.
-    @objc public var args = NSMutableArray()
 
     /// A boolean indicating whether the app is running out of memory.
     @objc public var tooMuchUsedMemory = false
@@ -394,17 +391,28 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         /// If set to `true`, the REPL will run after executing the script.
         @objc public var runREPL: Bool
         
+        ///  Line numbers where breakpoints should be placed if the script should be debugged.
         @objc public var breakpoints: NSArray
+        
+        /// Arguments passed to 'sys.argv'
+        @objc public var args: NSArray
+        
+        /// The working directory of the thread running the script.
+        @objc public var workingDirectory: String
         
         /// Initializes the script.
         ///
         /// - Parameters:
         ///     - path: The path of the script.
+        ///     - args: Arguments passed to 'sys.argv'.
+        ///     - workingDirectory: The working directory of the thread running the script.
         ///     - debug: Set to `true` if the script should  be debugged with `pdb`.
         ///     - runREPL: If set to `true`, the REPL will run after executing the script.
         ///     - breakpoints: Line numbers where breakpoints should be placed if the script should be debugged.
-        @objc public init(path: String, debug: Bool, runREPL: Bool, breakpoints: NSArray = NSArray()) {
+        @objc public init(path: String, args: NSArray, workingDirectory: String, debug: Bool, runREPL: Bool, breakpoints: NSArray = NSArray()) {
             self.path = path
+            self.args = args
+            self.workingDirectory = workingDirectory
             self.debug = debug
             self.runREPL = runREPL
             self.breakpoints = breakpoints
@@ -472,12 +480,13 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         ///
         /// - Parameters:
         ///     - code: The code to run.
-        init(code: String) {
+        ///     - workingDirectory: The working directory of the thread running the script.
+        init(code: String, workingDirectory: String) {
             let url = Python.watchScriptURL
             FileManager.default.createFile(atPath: url.path, contents: nil, attributes: nil)
             try? code.write(to: url, atomically: true, encoding: .utf8)
             
-            super.init(path: url.path, debug: false, runREPL: false)
+            super.init(path: url.path, args: NSArray(), workingDirectory: workingDirectory, debug: false, runREPL: false)
         }
     }
     
@@ -490,10 +499,10 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     ///     - code: Python code to run.
     @objc public func run(code: String) {
         if let pythonInstance = Python.pythonShared {
-            DispatchQueue.global().async {
+            Thread {
                 PyEval_InitThreads()
                 pythonInstance.perform(#selector(PythonRuntime.runCode(_:)), with: code)
-            }
+            }.start()
         } else {
             codeToRun = code
         }
@@ -639,28 +648,6 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// Add a script here to send `SystemExit`to it.
     @objc public var scriptsToExit = NSMutableArray()
     
-    private var _cwd = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].path
-    
-    /// The directory from which the script is executed.
-    @objc public var currentWorkingDirectory: String {
-        get {
-            var cwd = ""
-            let semaphore = DispatchSemaphore(value: 0)
-            queue.async {
-                cwd = self._cwd
-                semaphore.signal()
-            }
-                semaphore.wait()
-            return cwd
-        }
-        
-        set {
-            queue.async {
-                self._cwd = newValue
-            }
-        }
-    }
-    
     /// Returns the environment.
     @objc var environment: NSDictionary {
         return ProcessInfo.processInfo.environment as NSDictionary
@@ -686,15 +673,11 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// - Parameters:
     ///     - script: Script to run.
     @objc(runScript:) public func run(script: Script) {
-        #if MAIN
-        currentWorkingDirectory = directory(for: URL(fileURLWithPath: script.path)).path
-        #endif
-        
         if let pythonInstance = Python.pythonShared {
-            DispatchQueue.global().async {
+            Thread(block: {
                 PyEval_InitThreads()
                 pythonInstance.perform(#selector(PythonRuntime.runScript(_:)), with: script)
-            }
+            }).start()
         } else {
             scriptToRun = script
         }
@@ -706,9 +689,9 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
             return
         }
         
-        run(script: Script(path: scriptURL.path, debug: false, runREPL: false))
+        run(script: Script(path: scriptURL.path, args: NSArray(), workingDirectory: FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].path, debug: false, runREPL: false))
     }
-    
+        
     /// Run script at given URL. Will be ran with Python C API directly. Call it once!
     ///
     /// - Parameters:
@@ -745,7 +728,8 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         }
     }
     
-    private var scriptThreads = [String:pthread_t]()
+    /// Threads and their respective script paths.
+    var scriptThreads = [String:pthread_t]()
 
     private var scriptsAboutToExit = [String]()
     
@@ -781,11 +765,11 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
             if scriptsToExit.index(of: script) == NSNotFound {
                 scriptsToExit.add(script)
             }
+            
+            #if MAIN
+            PyInputHelper.userInput[script] = ""
+            #endif
         }
-        
-        #if MAIN
-        PyInputHelper.userInput[script] = ""
-        #endif
     }
     
     /// Sends `KeyboardInterrupt`.
