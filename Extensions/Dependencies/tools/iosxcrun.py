@@ -4,6 +4,7 @@ import sys
 import shlex
 import os
 import subprocess
+import numpy as np
 
 args = sys.argv
 del args[0]
@@ -20,7 +21,10 @@ for arg in sys.argv:
     if is_just_c_not_cpp and arg.startswith("-std=c++"):
         continue
 
-    if arg == "-march=native":
+    if arg == "-I"+np.get_include():
+        print("Ignored Numpy include path")
+        continue
+    elif arg == "-march=native":
         continue
     elif "MacOSX" in arg or "macosx" in arg:
         if arg.endswith("MacOSX.sdk"):

@@ -9,6 +9,8 @@ export NPY_LAPACK_ORDER=""
 
 cd ../numpy
 
+# Edit headers so they don't include features.h
+# Update them when you update numpy
 rm numpy/core/src/common/npy_config.h
 cp ../tools/npy_config.h numpy/core/src/common/
 rm numpy/core/include/numpy/npy_common.h
