@@ -411,6 +411,58 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         }
     }
     
+    ///
+    @objc public class PyHTMLPage: Script {
+        
+        /// The path of the page.
+        @objc var pagePath: String?
+        
+        /// Initializes the PyHTML page from the given path.
+        ///
+        /// - Parameters:
+        ///     - path: The path of a PyHTML path.
+        ///     - args: The arguments passed to sys.argv.
+        ///     - workingDirectory: The working directory of the thread running the script.
+        @objc public init(path: String, args: NSArray, workingDirectory: String) {
+            let url = FileManager.default.urls(for: .cachesDirectory, in: .allDomainsMask)[0].appendingPathComponent("_pyhtml_page.py")
+            
+            let code = """
+            from pyhtml import WebView, PyHTMLServer
+            import pyto_ui as ui
+            from urllib.parse import quote
+
+            web_view = WebView()
+            web_view.register_message_handler("webView")
+            
+            server = PyHTMLServer.alloc().init()
+            server.directory = "\(URL(fileURLWithPath: path).deletingLastPathComponent().path)"
+            server.start()
+            
+            path = "\(path)"
+            url = f"http://localhost:{server.port}"+"/"+path.split("/")[-1]
+            web_view.load_url(url)
+            
+            web_view.background_color = ui.COLOR_SYSTEM_BACKGROUND
+            
+            ui.show_view(web_view, ui.PRESENTATION_MODE_FULLSCREEN)
+            
+            server.stop()
+            server.release()
+            del server
+            
+            web_view.load_url("about:blank")
+            
+            web_view.__py_view__.release()
+            del web_view
+            """
+            
+            try? code.write(to: url, atomically: false, encoding: .utf8)
+            
+            super.init(path: url.path, args: args, workingDirectory: workingDirectory, debug: false, runREPL: false)
+            self.pagePath = path
+        }
+    }
+    
     /// The URL where the Apple Watch script is stored.
     @objc public static let watchScriptURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("Watch.py")
     

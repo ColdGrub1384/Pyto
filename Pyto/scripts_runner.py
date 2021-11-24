@@ -12,6 +12,7 @@ import gc
 import random
 import string
 import __pyto_ui_garbage_collector__ as _gc
+import extensionsimporter
 
 c = ctypes.CDLL(None)
 
@@ -26,6 +27,12 @@ def raise_exception(script, exception):
 
 NSAutoreleasePool = ObjCClass("NSAutoreleasePool")
 NSThread = ObjCClass("NSThread")
+
+sys_importer = None
+
+for meta_path in sys.meta_path:
+    if isinstance(meta_path, extensionsimporter.SysImporter):
+        sys_importer = meta_path
 
 class Thread(threading.Thread):
 
@@ -52,8 +59,6 @@ class Thread(threading.Thread):
         pool.release()
         del pool
 
-threading.Thread = Thread
-
 def release_views(views):
     for view in views:
         if view.respondsToSelector(SEL("releaseReference")):
@@ -76,8 +81,23 @@ class PythonImplementation(NSObject):
             
         _gc.collected = []
 
-        thread = Thread(target=run_script, args=(str(script.path), False, script.debug, script.breakpoints, script.runREPL))
-        thread.script_path = str(script.path)
+        args = []
+        for arg in list(script.args):
+            args.append(str(arg))
+        
+        if args == [""]:
+            args = []
+        
+        cwd = str(script.workingDirectory)
+
+        if str(script.path) in sys_importer._sys:
+            del sys_importer._sys[str(script.path)]
+
+        thread = Thread(target=run_script, args=(str(script.path), False, script.debug, script.breakpoints, script.runREPL, args, cwd))
+        try:
+            thread.script_path = str(script.pagePath)
+        except AttributeError:
+            thread.script_path = str(script.path)
         thread.start()
     
     @objc_method
@@ -101,6 +121,8 @@ class PythonImplementation(NSObject):
     @objc_method
     def interruptScript_(self, script):
         raise_exception(str(script), KeyboardInterrupt)
+
+threading.Thread = Thread
 
 Python.pythonShared = PythonImplementation.alloc().init()
 
