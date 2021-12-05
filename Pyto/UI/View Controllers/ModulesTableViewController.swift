@@ -54,7 +54,7 @@ import UIKit
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = Localizable.ModulesTableViewController.title
+        title = NSLocalizedString("modulesTableViewController.title", comment: "The title of the view controller for displaying modules")
         
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -106,7 +106,7 @@ import UIKit
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if section == 0 {
-            return Localizable.ModulesTableViewController.subtitle
+            return NSLocalizedString("modulesTableViewController.subtitle", comment: "The subtitle of the view controller for displaying modules")
         } else {
             return nil
         }

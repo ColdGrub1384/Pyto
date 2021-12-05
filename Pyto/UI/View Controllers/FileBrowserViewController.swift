@@ -110,21 +110,21 @@ import UniformTypeIdentifiers
         }
         
         func present(error: Error) {
-            let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: error.localizedDescription, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+            let alert = UIAlertController(title: NSLocalizedString("errors.errorCreatingFile", comment: "The title of alerts shown when an error occurred while creating a file"), message: error.localizedDescription, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "'Cancel' button"), style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
         
-        let alert = UIAlertController(title: (type == .python ? Localizable.Creation.createScriptTitle : (type == .folder ? Localizable.Creation.createFolderTitle : Localizable.Creation.createFileTitle)), message: (type == .folder ? Localizable.Creation.typeFolderName : Localizable.Creation.typeFileName), preferredStyle: .alert)
+        let alert = UIAlertController(title: (type == .python ? NSLocalizedString("creation.createScriptTitle", comment: "The title of the button shown for creating a script") : (type == .folder ? NSLocalizedString("creation.createFolderTitle", comment: "The title of the button shown for creating a folder") : NSLocalizedString("creation.createFileTitle", comment: "The title of the button shown for creating a file"))), message: (type == .folder ? NSLocalizedString("creation.typeFolderName", comment: "The message of the alert shown for creating a folder") : NSLocalizedString("creation.typeFileName", comment: "The message of the alert shown for creating a file")), preferredStyle: .alert)
         
         var textField: UITextField!
         
-        alert.addAction(UIAlertAction(title: Localizable.create, style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("create", comment: "'Create' button"), style: .default, handler: { (_) in
             if true {
                 do {
-                    var name = textField.text ?? Localizable.untitled
+                    var name = textField.text ?? NSLocalizedString("untitled", comment: "Untitled")
                     if name.replacingOccurrences(of: " ", with: "").isEmpty {
-                        name =  Localizable.untitled
+                        name =  NSLocalizedString("untitled", comment: "Untitled")
                     }
                     
                     if type == .folder {
@@ -140,11 +140,11 @@ import UniformTypeIdentifiers
             }
         }))
         
-        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "'Cancel' button"), style: .cancel, handler: nil))
         
         alert.addTextField { (_textField) in
             textField = _textField
-            textField.placeholder = Localizable.untitled
+            textField.placeholder = NSLocalizedString("untitled", comment: "Untitled")
         }
         
         self.present(alert, animated: true, completion: nil)
@@ -157,24 +157,24 @@ import UniformTypeIdentifiers
     
     /// Creates a new file.
     @objc func createNewFile(_ sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: Localizable.Creation.createFileTitle, message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: NSLocalizedString("creation.createFileTitle", comment: "The title of the button shown for creating a file"), message: nil, preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: Localizable.Creation.pythonScript, style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("creation.pythonScript", comment: "A Python script"), style: .default, handler: { (_) in
             self.createFile(type: .python)
         }))
         
-        alert.addAction(UIAlertAction(title: Localizable.Creation.blankFile, style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("creation.blankFile", comment: "A blank file"), style: .default, handler: { (_) in
             self.createFile(type: .blank)
         }))
         
-        alert.addAction(UIAlertAction(title: Localizable.Creation.importFromFiles, style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("creation.importFromFiles", comment: "Import from Files"), style: .default, handler: { (_) in
             let vc = UIDocumentPickerViewController.init(forOpeningContentTypes: [.item], asCopy: true)
             vc.allowsMultipleSelection = true
             vc.delegate = self
             self.present(vc, animated: true, completion: nil)
         }))
         
-        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "'Cancel' button"), style: .cancel, handler: nil))
         
         alert.popoverPresentationController?.barButtonItem = sender
         present(alert, animated: true, completion: nil)
@@ -205,7 +205,7 @@ import UniformTypeIdentifiers
     private var alreadyShown = false
     
     public override var keyCommands: [UIKeyCommand]? {
-        return [UIKeyCommand.command(input: "f", modifierFlags: .command, action: #selector(search), discoverabilityTitle: Localizable.find)]
+        return [UIKeyCommand.command(input: "f", modifierFlags: .command, action: #selector(search), discoverabilityTitle: NSLocalizedString("find", comment: "'Find'"))]
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -553,8 +553,8 @@ import UniformTypeIdentifiers
                 }
                 
             } catch {
-                let alert = UIAlertController(title: Localizable.Errors.errorCreatingFile, message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: { _ in
+                let alert = UIAlertController(title: NSLocalizedString("errors.errorCreatingFile", comment: "The title of alerts shown when an error occurred while creating a file"), message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "'Cancel' button"), style: .cancel, handler: { _ in
                     if urls.indices.contains(index+1) {
                         move(at: index+1)
                     } else {
@@ -579,7 +579,7 @@ import UniformTypeIdentifiers
             return nil
         }
         
-        let share = UIAction(title: Localizable.MenuItems.share, image: UIImage(systemName: "square.and.arrow.up")) { action in
+        let share = UIAction(title: NSLocalizedString("menuItems.share", comment: "The menu item to share a file"), image: UIImage(systemName: "square.and.arrow.up")) { action in
             
             guard let index = self.tableView.indexPath(for: cell), files.indices.contains(index.row) else {
                 return
@@ -593,7 +593,7 @@ import UniformTypeIdentifiers
         
         let saveTo: UIAction
         if !isiOSAppOnMac {
-            saveTo = UIAction(title: Localizable.MenuItems.saveToFiles, image: UIImage(systemName: "folder")) { action in
+            saveTo = UIAction(title: NSLocalizedString("menuItems.saveToFiles", comment: "The menu item to save a file to Files"), image: UIImage(systemName: "folder")) { action in
                 
                 guard let index = self.tableView.indexPath(for: cell), files.indices.contains(index.row) else {
                     return
@@ -612,7 +612,7 @@ import UniformTypeIdentifiers
             }
         }
                 
-        let rename = UIAction(title: Localizable.MenuItems.rename, image: UIImage(systemName: "pencil")) { action in
+        let rename = UIAction(title: NSLocalizedString("menuItems.rename", comment: "The 'Rename' menu item"), image: UIImage(systemName: "pencil")) { action in
             
             guard let index = self.tableView.indexPath(for: cell), files.indices.contains(index.row) else {
                 return
@@ -621,9 +621,9 @@ import UniformTypeIdentifiers
             let file = files[index.row]
             
             var textField: UITextField!
-            let alert = UIAlertController(title: "\(Localizable.MenuItems.rename) '\(file.lastPathComponent)'", message: Localizable.Creation.typeFileName, preferredStyle: .alert)
+            let alert = UIAlertController(title: "\(NSLocalizedString("menuItems.rename", comment: "The 'Rename' menu item")) '\(file.lastPathComponent)'", message: NSLocalizedString("creation.typeFileName", comment: "The message of the alert shown for creating a file"), preferredStyle: .alert)
             
-            alert.addAction(UIAlertAction(title: Localizable.MenuItems.rename, style: .default, handler: { (_) in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("menuItems.rename", comment: "The 'Rename' menu item"), style: .default, handler: { (_) in
                 do {
                     
                     let name = textField.text ?? ""
@@ -632,23 +632,23 @@ import UniformTypeIdentifiers
                         try FileManager.default.moveItem(at: file, to: file.deletingLastPathComponent().appendingPathComponent(name))
                     }
                 } catch {
-                    let alert = UIAlertController(title: Localizable.Errors.errorRenamingFile, message: error.localizedDescription, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+                    let alert = UIAlertController(title: NSLocalizedString("errors.errorRenamingFile", comment: "Title of the alert shown when an error occurred while renaming a file"), message: error.localizedDescription, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "'Cancel' button"), style: .cancel, handler: nil))
                     self.present(alert, animated: true, completion: nil)
                 }
             }))
             
-            alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "'Cancel' button"), style: .cancel, handler: nil))
             alert.addTextField { (_textField) in
                 textField = _textField
-                textField.placeholder = Localizable.untitled
+                textField.placeholder = NSLocalizedString("untitled", comment: "Untitled")
                 textField.text = file.lastPathComponent
             }
             
             self.present(alert, animated: true, completion: nil)
         }
         
-        let delete = UIAction(title: Localizable.MenuItems.remove, image: UIImage(systemName: "trash.fill"), attributes: .destructive) { action in
+        let delete = UIAction(title: NSLocalizedString("menuItems.remove", comment: "The 'Remove' menu item"), image: UIImage(systemName: "trash.fill"), attributes: .destructive) { action in
             
             guard let index = self.tableView.indexPath(for: cell), files.indices.contains(index.row) else {
                 return
@@ -665,13 +665,13 @@ import UniformTypeIdentifiers
                 
                 self.tableView.deleteRows(at: [IndexPath(row: index.row, section: 0)], with: .automatic)
             } catch {
-                let alert = UIAlertController(title: Localizable.Errors.errorRemovingFile, message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+                let alert = UIAlertController(title: NSLocalizedString("errors.errorRemovingFile", comment: "Title of the alert shown when an error occurred while removing a file"), message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "'Cancel' button"), style: .cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
         }
         
-        let run = UIAction(title: Localizable.MenuItems.run, image: UIImage(systemName: "play")) { action in
+        let run = UIAction(title: NSLocalizedString("menuItems.run", comment: "The 'Run' menu item"), image: UIImage(systemName: "play")) { action in
             
             guard let index = self.tableView.indexPath(for: cell), files.indices.contains(index.row) else {
                 return

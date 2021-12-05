@@ -100,9 +100,9 @@ class WidgetSimulatorViewController: UIViewController {
         }
         
         if isExpanded {
-            sender.setTitle(Localizable.WidgetSimulator.showMore, for: .normal)
+            sender.setTitle(NSLocalizedString("widget.showMore", comment: "Title of the button for expanding a widget."), for: .normal)
         } else {
-            sender.setTitle(Localizable.WidgetSimulator.showLess, for: .normal)
+            sender.setTitle(NSLocalizedString("widget.showLess", comment: "Title of the button for collapsing a widget."), for: .normal)
         }
         
         isExpanded = !isExpanded
@@ -118,12 +118,12 @@ class WidgetSimulatorViewController: UIViewController {
         do {
             UserDefaults.standard.set(try url.bookmarkData(), forKey: "todayWidgetScriptPath")
             
-            let alert = UIAlertController(title: Localizable.WidgetSimulator.alertTitle, message: Localizable.WidgetSimulator.alertMessage, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: Localizable.ok, style: .default, handler: nil))
+            let alert = UIAlertController(title: NSLocalizedString("widget.alertTitle", comment: "The message of the alert displayed when a widget script is set"), message: NSLocalizedString("widget.alertMessage", comment: "Title of the button for collapsing a widget."), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "'Ok' button"), style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
         } catch {
-            let alert = UIAlertController(title: Localizable.WidgetSimulator.alertTitle, message: error.localizedDescription, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: Localizable.ok, style: .default, handler: nil))
+            let alert = UIAlertController(title: NSLocalizedString("widget.alertTitle", comment: "The message of the alert displayed when a widget script is set"), message: error.localizedDescription, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "'Ok' button"), style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
         }
         (UIApplication.shared.delegate as? AppDelegate)?.copyModules()        

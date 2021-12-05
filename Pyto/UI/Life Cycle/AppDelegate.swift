@@ -234,8 +234,8 @@ import AVFoundation
         }
                 
         UIMenuController.shared.menuItems = [
-            UIMenuItem(title: Localizable.MenuItems.breakpoint, action: #selector(EditorViewController.setBreakpoint(_:))),
-            UIMenuItem(title: Localizable.MenuItems.toggleComment, action: #selector(EditorViewController.toggleComment))
+            UIMenuItem(title: NSLocalizedString("menuItems.breakpoint", comment: "The menu item for setting breakpoint"), action: #selector(EditorViewController.setBreakpoint(_:))),
+            UIMenuItem(title: NSLocalizedString("menuItems.toggleComment", comment: "The 'Toggle Comment' menu item"), action: #selector(EditorViewController.toggleComment))
         ]
         
         let docs = FileBrowserViewController.localContainerURL
@@ -352,10 +352,10 @@ import AVFoundation
                 }
                 
                 let alert = UIAlertController(title: NSLocalizedString(name, comment: ""), message: message, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: Localizable.ok, style: .default, handler: { (_) in
+                alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "'Ok' button"), style: .default, handler: { (_) in
                     purchase(id: id, window: window)
                 }))
-                alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+                alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "'Cancel' button"), style: .cancel, handler: nil))
                 DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
                     window?.topViewController?.present(alert, animated: true, completion: nil)
                 }

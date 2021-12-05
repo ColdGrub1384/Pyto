@@ -229,7 +229,7 @@ extension AppDelegate: WCSessionDelegate {
             } else {
                 func run() {
                     Python.shared.run(script: Python.WatchScript(code: """
-                    print("\(Localizable.Errors.noWatchScript)")
+                    print("\(NSLocalizedString("errors.noWatchScript", comment: "An error message shown in the Watch when a script is not set"))")
                     """, workingDirectory: FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].path))
                 }
                 

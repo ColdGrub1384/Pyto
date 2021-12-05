@@ -148,6 +148,10 @@
 		B526B597274C60D40094FCBB /* ConsolePipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B526B593274C60780094FCBB /* ConsolePipView.swift */; };
 		B526B598274C60DF0094FCBB /* isiOSAppOnMac.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33B44FB25894A9E00F2D1E6 /* isiOSAppOnMac.swift */; };
 		B526B599274C60E00094FCBB /* isiOSAppOnMac.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33B44FB25894A9E00F2D1E6 /* isiOSAppOnMac.swift */; };
+		B53436C8275D716700691204 /* UIKitLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53436C7275D716700691204 /* UIKitLocalizedString.swift */; };
+		B53436C9275D717D00691204 /* UIKitLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53436C7275D716700691204 /* UIKitLocalizedString.swift */; };
+		B53436CA275D717E00691204 /* UIKitLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53436C7275D716700691204 /* UIKitLocalizedString.swift */; };
+		B53436CB275D718B00691204 /* UIKitLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53436C7275D716700691204 /* UIKitLocalizedString.swift */; };
 		B5477107274EA0E3001F3039 /* Pipable in Frameworks */ = {isa = PBXBuildFile; productRef = B5477106274EA0E3001F3039 /* Pipable */; };
 		B549F21A275AD2C700B5E20A /* clipboard_manager in Resources */ = {isa = PBXBuildFile; fileRef = B549F217275AD2C700B5E20A /* clipboard_manager */; };
 		B549F21D275AD32000B5E20A /* Screenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = B549F21C275AD32000B5E20A /* Screenshots.swift */; };
@@ -505,7 +509,6 @@
 		C940FC86250825A800EB74EB /* ConsoleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E4152A21513E3400D64E32 /* ConsoleTextView.swift */; };
 		C940FC87250825A800EB74EB /* PyColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98A5BB322C7E86900D411CC /* PyColor.swift */; };
 		C940FC88250825A800EB74EB /* DefinitionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91F961D24AD9185003ACF02 /* DefinitionsView.swift */; };
-		C940FC8D250825A800EB74EB /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1721D0592C00412CEF /* Localizable.swift */; };
 		C940FC8E250825A800EB74EB /* LoadingPythonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BFF9B2360B7D80016AFD8 /* LoadingPythonView.swift */; };
 		C940FC8F250825A800EB74EB /* PySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C8E1822DFDEBC0008DC13 /* PySlider.swift */; };
 		C940FC90250825A800EB74EB /* HighlightrTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936523624D7789600B08A7C /* HighlightrTheme.swift */; };
@@ -794,7 +797,6 @@
 		C9592D1821D0592C00412CEF /* PyDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1421D0592C00412CEF /* PyDocument.swift */; };
 		C9592D1921D0592C00412CEF /* ViewControllerTransitionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1521D0592C00412CEF /* ViewControllerTransitionCoordinator.swift */; };
 		C9592D1A21D0592C00412CEF /* XcodeLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1621D0592C00412CEF /* XcodeLight.swift */; };
-		C9592D1B21D0592C00412CEF /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1721D0592C00412CEF /* Localizable.swift */; };
 		C9592D2721D059BA00412CEF /* EditorSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1F21D059B900412CEF /* EditorSplitViewController.swift */; };
 		C959D50723761FC40001AEAF /* PyPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C959D50623761FC40001AEAF /* PyPackage.swift */; };
 		C95A79E8214DC9D0007A1B90 /* PyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A79E7214DC9D0007A1B90 /* PyAlert.swift */; };
@@ -1094,7 +1096,6 @@
 		C9930CF124BBE9C9009B33B6 /* PyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF46E622E106D500B8FE4B /* PyTableView.swift */; };
 		C9930CF224BBE9C9009B33B6 /* PyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF46E122E0DC4F00B8FE4B /* PyTableViewCell.swift */; };
 		C9930D0924BBE9D1009B33B6 /* PyTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF46E922E108C100B8FE4B /* PyTableViewSection.swift */; };
-		C9930D0A24BBE9E9009B33B6 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1721D0592C00412CEF /* Localizable.swift */; };
 		C994194E263764EE0008487C /* terminal in Resources */ = {isa = PBXBuildFile; fileRef = C994194B263764EE0008487C /* terminal */; };
 		C9980CAB2585E2AA0021FF61 /* sklearn-utils-_openmp_helpers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9980CA82585E2A20021FF61 /* sklearn-utils-_openmp_helpers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C99D8E20223E960100489E9B /* PipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99D8E1F223E960100489E9B /* PipViewController.swift */; };
@@ -1212,7 +1213,6 @@
 		C9CEE20721EB95C900316D3C /* ConsoleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E4152A21513E3400D64E32 /* ConsoleTextView.swift */; };
 		C9CEE20921EB960200316D3C /* PyDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1421D0592C00412CEF /* PyDocument.swift */; };
 		C9CEE20A21EB960400316D3C /* ViewControllerTransitionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1521D0592C00412CEF /* ViewControllerTransitionCoordinator.swift */; };
-		C9CEE20C21EB960900316D3C /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9592D1721D0592C00412CEF /* Localizable.swift */; };
 		C9CEE21021EB96D300316D3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCFD58214428AE00A07974 /* AppDelegate.swift */; };
 		C9CEE21621EB9D1400316D3C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EDF9A62144620A00382DCC /* libz.tbd */; };
 		C9CEE21A21EB9D6C00316D3C /* PythonApplicationMain.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CEE21921EB9D6C00316D3C /* PythonApplicationMain.m */; };
@@ -2185,6 +2185,7 @@
 		B526B5882747902A0094FCBB /* TextViewSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewSearch.swift; sourceTree = "<group>"; };
 		B526B593274C60780094FCBB /* ConsolePipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsolePipView.swift; sourceTree = "<group>"; };
 		B53436C6275D66F100691204 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Settings.strings; sourceTree = "<group>"; };
+		B53436C7275D716700691204 /* UIKitLocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitLocalizedString.swift; sourceTree = "<group>"; };
 		B549F217275AD2C700B5E20A /* clipboard_manager */ = {isa = PBXFileReference; lastKnownFileType = folder; path = clipboard_manager; sourceTree = "<group>"; };
 		B549F21C275AD32000B5E20A /* Screenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshots.swift; sourceTree = "<group>"; };
 		B549F21E275BCD2100B5E20A /* rotated_panda.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rotated_panda.png; sourceTree = "<group>"; };
@@ -2537,7 +2538,6 @@
 		C9592D1421D0592C00412CEF /* PyDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PyDocument.swift; sourceTree = "<group>"; };
 		C9592D1521D0592C00412CEF /* ViewControllerTransitionCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerTransitionCoordinator.swift; sourceTree = "<group>"; };
 		C9592D1621D0592C00412CEF /* XcodeLight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XcodeLight.swift; sourceTree = "<group>"; };
-		C9592D1721D0592C00412CEF /* Localizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
 		C9592D1F21D059B900412CEF /* EditorSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSplitViewController.swift; sourceTree = "<group>"; };
 		C959D50623761FC40001AEAF /* PyPackage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyPackage.swift; sourceTree = "<group>"; };
 		C95A79E7214DC9D0007A1B90 /* PyAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyAlert.swift; sourceTree = "<group>"; };
@@ -3907,9 +3907,9 @@
 				C9592D1521D0592C00412CEF /* ViewControllerTransitionCoordinator.swift */,
 				C9E016EC22823186002DF4CA /* EditorScript.swift */,
 				C959D50623761FC40001AEAF /* PyPackage.swift */,
-				C9592D1721D0592C00412CEF /* Localizable.swift */,
 				C91BE6B423F9A3E500B6ED6B /* ProjectDocument.swift */,
 				C9300EFF24B8D34A0017E071 /* PythonLexer.swift */,
+				B53436C7275D716700691204 /* UIKitLocalizedString.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -6125,6 +6125,7 @@
 				C940FC0F250825A800EB74EB /* URL.swift in Sources */,
 				C940FC11250825A800EB74EB /* ThemeMakerTableViewController.swift in Sources */,
 				B51E07E5274067C6009BABC1 /* KeyboardHostingController.swift in Sources */,
+				B53436CA275D717E00691204 /* UIKitLocalizedString.swift in Sources */,
 				C940FC12250825A800EB74EB /* ReviewHelper.swift in Sources */,
 				C940FC13250825A800EB74EB /* LineNumberTextViewWrapper.m in Sources */,
 				C940FC14250825A800EB74EB /* ANSITextState.swift in Sources */,
@@ -6226,7 +6227,6 @@
 				C940FC88250825A800EB74EB /* DefinitionsView.swift in Sources */,
 				C9480F7B26712ECD00B2F90A /* EditorViewController+NSWindow.swift in Sources */,
 				C9508C4625146E0B00E4D665 /* Padding.swift in Sources */,
-				C940FC8D250825A800EB74EB /* Localizable.swift in Sources */,
 				C940FC8E250825A800EB74EB /* LoadingPythonView.swift in Sources */,
 				C940FC8F250825A800EB74EB /* PySlider.swift in Sources */,
 				C940FC90250825A800EB74EB /* HighlightrTheme.swift in Sources */,
@@ -6459,12 +6459,12 @@
 				C9913729263F169300BFB439 /* PySpeech.swift in Sources */,
 				C9273C6924BA60AE00B2A12C /* PySwitch.swift in Sources */,
 				C937FF4224C4D8CA0083C9D9 /* IntentScript.swift in Sources */,
-				C9930D0A24BBE9E9009B33B6 /* Localizable.swift in Sources */,
 				C9E03C8B24BA9EBA00D8E665 /* PyMainThread.swift in Sources */,
 				C9DA43CD250EC33100A32A53 /* PythonRuntime.swift in Sources */,
 				C9273C6F24BA60AE00B2A12C /* PyGestureRecognizer.swift in Sources */,
 				C9509FFF257C5C2E0015FC92 /* _extensionsimporter.m in Sources */,
 				C9273C5A24BA591B00B2A12C /* PyOutputHelper.swift in Sources */,
+				B53436CB275D718B00691204 /* UIKitLocalizedString.swift in Sources */,
 				C9273C6B24BA60AE00B2A12C /* PySlider.swift in Sources */,
 				C9D1DD88251BD13300A4D663 /* URL.swift in Sources */,
 				C9930CF124BBE9C9009B33B6 /* PyTableView.swift in Sources */,
@@ -6528,7 +6528,7 @@
 				C9F4623022ECB412007DC3B8 /* PyTableView.swift in Sources */,
 				C9F4622E22ECB412007DC3B8 /* PySwitch.swift in Sources */,
 				C9CEE20921EB960200316D3C /* PyDocument.swift in Sources */,
-				C9CEE20C21EB960900316D3C /* Localizable.swift in Sources */,
+				B53436C9275D717D00691204 /* UIKitLocalizedString.swift in Sources */,
 				C91321D921FB684E00437845 /* PySelector.swift in Sources */,
 				C9F4623722ECB417007DC3B8 /* PyTableViewSection.swift in Sources */,
 				C9F4623422ECB417007DC3B8 /* PyValue.swift in Sources */,
@@ -6661,6 +6661,7 @@
 				C91F962824AD9185003ACF02 /* SearchBar.swift in Sources */,
 				C937FF3F24C4D8C50083C9D9 /* IntentScript.swift in Sources */,
 				C93D61DD2145CD0800C8B5E3 /* PyInputHelper.swift in Sources */,
+				B53436C8275D716700691204 /* UIKitLocalizedString.swift in Sources */,
 				C91376B6245E365E00AA0935 /* RemoteNotifications.swift in Sources */,
 				C904EB7321445D5800585C28 /* Python.swift in Sources */,
 				C927187B22C99CEA0025341B /* PyControl.swift in Sources */,
@@ -6778,7 +6779,6 @@
 				C91F962E24AD9185003ACF02 /* DefinitionsView.swift in Sources */,
 				C9508C4525146E0B00E4D665 /* Padding.swift in Sources */,
 				C9464938255731F700F2845B /* GalleryView.swift in Sources */,
-				C9592D1B21D0592C00412CEF /* Localizable.swift in Sources */,
 				C972DD1F2365E87100911098 /* LoadingPythonView.swift in Sources */,
 				C93C8E1922DFDEBC0008DC13 /* PySlider.swift in Sources */,
 				C936523724D7789600B08A7C /* HighlightrTheme.swift in Sources */,

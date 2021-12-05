@@ -66,7 +66,7 @@ class EditorActionsTableViewController: UITableViewController, UIPopoverPresenta
     
     @objc private func addScript(_ sender: Any) {
         
-        let alert = UIAlertController(title: Localizable.EditorActionsTableViewController.createEditorActionAlertTitle, message: Localizable.EditorActionsTableViewController.createEditorActionAlertMessage, preferredStyle: .alert)
+        let alert = UIAlertController(title: NSLocalizedString("editorActionsTableViewController.createEditorActionAlertTitle", comment: "The title of the alert for adding an editor action."), message: NSLocalizedString("editorActionsTableViewController.createEditorActionAlertMessage", comment: "The message of the alert for adding an editor action."), preferredStyle: .alert)
         
         var argumentsTextField: UITextField?
         
@@ -80,7 +80,7 @@ class EditorActionsTableViewController: UITableViewController, UIPopoverPresenta
             inputAssistant.attach(to: textField)
         }
         
-        alert.addAction(UIAlertAction(title: Localizable.ok, style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "'Ok' button"), style: .default, handler: { (_) in
             guard let arguments = argumentsTextField?.text, !arguments.isEmpty else {
                 return
             }
@@ -88,7 +88,7 @@ class EditorActionsTableViewController: UITableViewController, UIPopoverPresenta
             self.savedEditorScripts.append(EditorScript(argv: arguments.components(separatedBy: " ")))
         }))
         
-        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "'Cancel' button"), style: .cancel, handler: nil))
         
         present(alert, animated: true, completion: nil)
     }
@@ -98,7 +98,7 @@ class EditorActionsTableViewController: UITableViewController, UIPopoverPresenta
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = Localizable.EditorActionsTableViewController.title
+        title = NSLocalizedString("editorActionsTableViewController.title", comment: "The title of the view controller for managing editor actions.")
         
         navigationItem.rightBarButtonItems = [editButtonItem, UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addScript(_:)))]
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))

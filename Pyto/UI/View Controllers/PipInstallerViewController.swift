@@ -48,7 +48,7 @@ import WebKit
     // MARK: - Editor split view controller
     
     override var keyCommands: [UIKeyCommand]? {
-        return [UIKeyCommand.command(input: "C", modifierFlags: .control, action: #selector(interrupt), discoverabilityTitle: Localizable.interrupt)]
+        return [UIKeyCommand.command(input: "C", modifierFlags: .control, action: #selector(interrupt), discoverabilityTitle: NSLocalizedString("interrupt", comment: "Description for CTRL+C key command."))]
     }
     
     override func loadView() {

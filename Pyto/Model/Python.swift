@@ -248,8 +248,9 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                 UserDefaults.standard.setValue(true, forKey: "downloadedModule")
                 
                 if #available(iOS 13.0, *) {
-                    let alert = UIAlertController(title: module, message: Localizable.Python.DownloadingModuleAlert.explaination(module: module), preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: Localizable.Python.DownloadingModuleAlert.iUnderstand, style: .default, handler: nil))
+                    let message = NSString(format: NSLocalizedString("python.downloadingModuleAlert.explaination", comment: "The message of the alert shown when a module is being downloaded for the first time") as NSString, module) as String
+                    let alert = UIAlertController(title: module, message: message, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: NSLocalizedString("python.downloadingModuleAlert.iUnderstand", comment: "I understand"), style: .default, handler: nil))
                     for scene in UIApplication.shared.connectedScenes {
                         let window = (scene as? UIWindowScene)?.windows.first
                         if window?.isKeyWindow == true {
@@ -328,7 +329,9 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                     newline = "\n"
                 }
                 
-                PyOutputHelper.print("\r\(Localizable.Python.downloading(module: module, completedPercentage: Int(request.progress.fractionCompleted*100)))\(newline)", script: nil)
+                let message = NSString(format: NSLocalizedString("python.downloadingModule", comment: "A message shown in the console while downloading a module (Downloading module 100%)") as NSString, module, "\(Int(request.progress.fractionCompleted*100)))%") as String
+                
+                PyOutputHelper.print("\r\(message)\(newline)", script: nil)
                 
                 if finished {
                     return timer.invalidate()
@@ -500,7 +503,6 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     @objc public func run(code: String) {
         if let pythonInstance = Python.pythonShared {
             Thread {
-                PyEval_InitThreads()
                 pythonInstance.perform(#selector(PythonRuntime.runCode(_:)), with: code)
             }.start()
         } else {

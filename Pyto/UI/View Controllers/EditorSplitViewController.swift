@@ -387,13 +387,13 @@ public class EditorSplitViewController: SplitViewController {
     public override var keyCommands: [UIKeyCommand]? {
         
         if #available(iOS 15.0, *) {
-            return [UIKeyCommand.command(input: "d", modifierFlags: .command, action: #selector(showDocs), discoverabilityTitle: Localizable.Help.documentation)]
+            return [UIKeyCommand.command(input: "d", modifierFlags: .command, action: #selector(showDocs), discoverabilityTitle: NSLocalizedString("help.documentation", comment: "'Documentation' button"))]
         }
         
         var commands = [
-            UIKeyCommand.command(input: "d", modifierFlags: .command, action: #selector(showDocs), discoverabilityTitle: Localizable.Help.documentation),
-            UIKeyCommand.command(input: "f", modifierFlags: .command, action: #selector(search), discoverabilityTitle: Localizable.find),
-            UIKeyCommand.command(input: "w", modifierFlags: .command, action: #selector(close), discoverabilityTitle: Localizable.close),
+            UIKeyCommand.command(input: "d", modifierFlags: .command, action: #selector(showDocs), discoverabilityTitle: NSLocalizedString("help.documentation", comment: "'Documentation' button")),
+            UIKeyCommand.command(input: "f", modifierFlags: .command, action: #selector(search), discoverabilityTitle: NSLocalizedString("find", comment: "'Find'")),
+            UIKeyCommand.command(input: "w", modifierFlags: .command, action: #selector(close), discoverabilityTitle: NSLocalizedString("close", comment: "'Close'")),
         ]
         
         guard let path = editor?.document?.fileURL.path else {
@@ -402,16 +402,16 @@ public class EditorSplitViewController: SplitViewController {
         
         if !Python.shared.isScriptRunning(path) {
             commands.append(
-                UIKeyCommand.command(input: "r", modifierFlags: .command, action: #selector(runScript(_:)), discoverabilityTitle: Localizable.MenuItems.run)
+                UIKeyCommand.command(input: "r", modifierFlags: .command, action: #selector(runScript(_:)), discoverabilityTitle: NSLocalizedString("menuItems.run", comment: "The 'Run' menu item"))
             )
             
             commands.append(
-                UIKeyCommand.command(input: "r", modifierFlags: [.command, .shift], action: #selector(runWithArguments), discoverabilityTitle: Localizable.runAndSetArguments)
+                UIKeyCommand.command(input: "r", modifierFlags: [.command, .shift], action: #selector(runWithArguments), discoverabilityTitle: NSLocalizedString("runAndSetArguments", comment: "Description for key command for running and setting arguments."))
             )
         }
         
         commands.append(
-            UIKeyCommand.command(input: "c", modifierFlags: .control, action: #selector(interrupt(_:)), discoverabilityTitle: Localizable.interrupt)
+            UIKeyCommand.command(input: "c", modifierFlags: .control, action: #selector(interrupt(_:)), discoverabilityTitle: NSLocalizedString("interrupt", comment: "Description for CTRL+C key command."))
         )
         
         return commands

@@ -60,8 +60,8 @@ class EditorTextView: LineNumberTextView, UITextViewDelegate {
             return nil
         }
         
-        let undoCommand = UIKeyCommand.command(input: "z", modifierFlags: .command, action: #selector(undo), discoverabilityTitle: Localizable.MenuItems.undo)
-        let redoCommand = UIKeyCommand.command(input: "z", modifierFlags: [.command, .shift], action: #selector(redo), discoverabilityTitle: Localizable.MenuItems.redo)
+        let undoCommand = UIKeyCommand.command(input: "z", modifierFlags: .command, action: #selector(undo), discoverabilityTitle: NSLocalizedString("menuItems.undo", comment: "The 'Undo' menu item"))
+        let redoCommand = UIKeyCommand.command(input: "z", modifierFlags: [.command, .shift], action: #selector(redo), discoverabilityTitle: NSLocalizedString("menuItems.redo", comment: "The 'Redo' menu item"))
         
         var commands = [UIKeyCommand]()
         

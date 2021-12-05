@@ -89,7 +89,7 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = Localizable.Help.documentation
+        title = NSLocalizedString("help.documentation", comment: "'Documentation' button")
         
         edgesForExtendedLayout = []
         
@@ -139,7 +139,7 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         navigationController?.setToolbarHidden(false, animated: true)
                 
         if #available(iOS 13.0, *) {
-            view.window?.windowScene?.title = Localizable.Help.documentation
+            view.window?.windowScene?.title = NSLocalizedString("help.documentation", comment: "'Documentation' button")
         }
     }
     

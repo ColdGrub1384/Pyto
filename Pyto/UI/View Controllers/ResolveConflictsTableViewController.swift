@@ -92,8 +92,8 @@ class ResolveConflictsTableViewController: UITableViewController, QLPreviewContr
             
             dismiss(animated: true, completion: completion)
         } catch {
-            let alert = UIAlertController(title: Localizable.Errors.errorWrittingToScript, message: error.localizedDescription, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+            let alert = UIAlertController(title: NSLocalizedString("errors.errorWrittingToScript", comment: "Title of the alert shown when code cannot be written"), message: error.localizedDescription, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "'Cancel' button"), style: .cancel, handler: nil))
             present(alert, animated: true, completion: nil)
         }
     }

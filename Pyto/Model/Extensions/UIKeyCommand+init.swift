@@ -10,7 +10,7 @@ import UIKit
 
 extension UIKeyCommand {
     
-    //UIKeyCommand(input: "C", modifierFlags: .control, action: #selector(interrupt), discoverabilityTitle: Localizable.interrupt)
+    //UIKeyCommand(input: "C", modifierFlags: .control, action: #selector(interrupt), discoverabilityTitle: NSLocalizedString("interrupt", comment: "Description for CTRL+C key command."))
     
     static func command(input: String, modifierFlags: UIKeyModifierFlags, action: Selector, discoverabilityTitle: String?) -> UIKeyCommand {
         return UIKeyCommand(title: discoverabilityTitle ?? "", image: nil, action: action, input: input, modifierFlags: modifierFlags, propertyList: nil, alternates: [], discoverabilityTitle: discoverabilityTitle, attributes: [], state: .off)

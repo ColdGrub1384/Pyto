@@ -49,8 +49,8 @@ func purchase(id: Product, window: UIWindow?) {
                     switch result {
                     case .error(error: let error):
                         if error.code != .paymentCancelled {
-                            let alert = UIAlertController(title: Localizable.error, message: error.localizedDescription, preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+                            let alert = UIAlertController(title: NSLocalizedString("error", comment: "Error"), message: error.localizedDescription, preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "'Cancel' button"), style: .cancel, handler: nil))
                             window?.topViewController?.present(alert, animated: true, completion: nil)
                         }
                     case .success(purchase: let details):
@@ -225,7 +225,7 @@ func completePurchase(id: String) {
             }
             
             if days <= freeTrialDuration { // Free trial
-                PyNotificationCenter.scheduleNotification(title: Localizable.trialExpiredTitle, message: Localizable.trialExpiredMessage, delay: Double(((freeTrialDuration*24)*60)*60))
+                PyNotificationCenter.scheduleNotification(title: NSLocalizedString("freetrial.expired.title", comment: "The title of the notification shown when the free trial expired"), message: NSLocalizedString("freetrial.expired.message", comment: "The body of the notification shown when the free trial expired"), delay: Double(((freeTrialDuration*24)*60)*60))
                 unlock()
             } else {
                 

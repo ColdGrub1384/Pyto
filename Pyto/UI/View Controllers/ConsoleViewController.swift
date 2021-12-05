@@ -937,7 +937,7 @@ import SwiftUI
         
         edgesForExtendedLayout = []
         
-        title = Localizable.console
+        title = NSLocalizedString("console", comment: "'Console' tab")
         
         webView.frame.size = view.frame.size
         webView.autoresizingMask = [.flexibleWidth]

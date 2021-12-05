@@ -40,7 +40,7 @@ import UIKit
     // MARK: - Editor split view controller
     
     override var keyCommands: [UIKeyCommand]? {
-        return [UIKeyCommand.command(input: "C", modifierFlags: .control, action: #selector(interrupt), discoverabilityTitle: Localizable.interrupt)]
+        return [UIKeyCommand.command(input: "C", modifierFlags: .control, action: #selector(interrupt), discoverabilityTitle: NSLocalizedString("interrupt", comment: "Description for CTRL+C key command."))]
     }
     
     override func loadView() {
@@ -89,7 +89,7 @@ import UIKit
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(goToFileBrowser))
         }
         navigationController?.isToolbarHidden = true
-        title = Localizable.repl
+        title = NSLocalizedString("repl", comment: "'REPL' tab")
         parent?.title = title
         parent?.navigationItem.title = title
         parent?.navigationItem.rightBarButtonItems = navigationItem.rightBarButtonItems

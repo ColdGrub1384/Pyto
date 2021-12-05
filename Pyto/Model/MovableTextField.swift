@@ -60,11 +60,11 @@ class TerminalTextField: UITextField {
         var commands = [
             UIKeyCommand(input: UIKeyCommand.inputDownArrow, modifierFlags: [], action: #selector(down)),
             UIKeyCommand(input: UIKeyCommand.inputUpArrow, modifierFlags: [], action: #selector(up)),
-            UIKeyCommand.command(input: "C", modifierFlags: .control, action: #selector(interrupt), discoverabilityTitle: Localizable.interrupt)
+            UIKeyCommand.command(input: "C", modifierFlags: .control, action: #selector(interrupt), discoverabilityTitle: NSLocalizedString("interrupt", comment: "Description for CTRL+C key command."))
         ]
         
         #if MAIN
-        commands.append(UIKeyCommand.command(input: "\t", modifierFlags: [], action: #selector(doNothing), discoverabilityTitle: Localizable.nextSuggestion))
+        commands.append(UIKeyCommand.command(input: "\t", modifierFlags: [], action: #selector(doNothing), discoverabilityTitle: NSLocalizedString("nextSuggestion", comment: "Title for command for selecting next suggestion")))
         #endif
         
         return commands

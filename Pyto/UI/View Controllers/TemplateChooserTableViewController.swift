@@ -79,9 +79,9 @@ class TemplateChooserTableViewController: UITableViewController, UIDocumentPicke
         }
         
         if chooseName {
-            let alert = UIAlertController(title: Localizable.Creation.createScriptTitle, message: Localizable.Creation.typeFileName, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
-            alert.addAction(UIAlertAction(title: Localizable.create, style: .default, handler: { (_) in
+            let alert = UIAlertController(title: NSLocalizedString("creation.createScriptTitle", comment: "The title of the button shown for creating a script"), message: NSLocalizedString("creation.typeFileName", comment: "The message of the alert shown for creating a file"), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "'Cancel' button"), style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("create", comment: "'Create' button"), style: .default, handler: { (_) in
                 
                 var name = ""
                 if let text = alert.textFields?.first?.text {
@@ -91,7 +91,7 @@ class TemplateChooserTableViewController: UITableViewController, UIDocumentPicke
                         name = alert.textFields?.first?.placeholder ?? ""
                     }
                 } else {
-                    name = Localizable.untitled
+                    name = NSLocalizedString("untitled", comment: "Untitled")
                 }
                 
                 if (name as NSString).pathExtension.lowercased() != "py" {
@@ -101,11 +101,11 @@ class TemplateChooserTableViewController: UITableViewController, UIDocumentPicke
                 create(name: name)
             }))
             alert.addTextField { (textField) in
-                textField.placeholder = Localizable.untitled
+                textField.placeholder = NSLocalizedString("untitled", comment: "Untitled")
             }
             present(alert, animated: true, completion: nil)
         } else {
-            create(name: Localizable.untitled+".py")
+            create(name: NSLocalizedString("untitled", comment: "Untitled")+".py")
         }
     }
     

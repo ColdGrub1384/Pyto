@@ -72,7 +72,7 @@ class ScriptSettingsViewController: UIViewController, UITextFieldDelegate, UIDoc
         currentDirectoryTextField.text = FileManager.default.displayName(atPath: editor.currentDirectory.path)
         
         if FileManager.default.isReadableFile(atPath: editor.currentDirectory.path) {
-            currentDirectoryStatusLabel.text = Localizable.CouldNotAccessScriptAlert.readable
+            currentDirectoryStatusLabel.text = NSLocalizedString("couldNotAccessScriptAlert.readable", comment: "The current directory is readable")
             currentDirectoryStatusLabel.textColor = .systemGreen
         } else {
             currentDirectoryStatusLabel.textColor = .systemRed
@@ -126,7 +126,7 @@ class ScriptSettingsViewController: UIViewController, UITextFieldDelegate, UIDoc
             }
             
             if FileManager.default.isReadableFile(atPath: editor.currentDirectory.path) {
-                currentDirectoryStatusLabel.text = Localizable.CouldNotAccessScriptAlert.readable
+                currentDirectoryStatusLabel.text = NSLocalizedString("couldNotAccessScriptAlert.readable", comment: "The current directory is readable")
                 currentDirectoryStatusLabel.textColor = .systemGreen
             }
             
@@ -146,13 +146,13 @@ class ScriptSettingsViewController: UIViewController, UITextFieldDelegate, UIDoc
             doChange()
         } else {
             
-            let alert = UIAlertController(title: Localizable.CouldNotAccessScriptAlert.title, message: Localizable.CouldNotAccessScriptAlert.message, preferredStyle: .alert)
+            let alert = UIAlertController(title: NSLocalizedString("couldNotAccessScriptAlert.title", comment: "Title of the alert shown when setting a current directory not containing the script"), message: NSLocalizedString("couldNotAccessScriptAlert.message", comment: "Message of the alert shown when setting a current directory not containing the script"), preferredStyle: .alert)
             
-            alert.addAction(UIAlertAction(title: Localizable.CouldNotAccessScriptAlert.useAnyway, style: .destructive, handler: { (_) in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("couldNotAccessScriptAlert.useAnyway", comment: "Use anyway"), style: .destructive, handler: { (_) in
                 doChange()
             }))
             
-            alert.addAction(UIAlertAction(title: Localizable.CouldNotAccessScriptAlert.selectAnotherLocation, style: .default, handler: { (_) in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("couldNotAccessScriptAlert.selectAnotherLocation", comment: "Select another location"), style: .default, handler: { (_) in
                 let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.folder])
                 picker.delegate = self
                 if #available(iOS 13.0, *) {
@@ -163,7 +163,7 @@ class ScriptSettingsViewController: UIViewController, UITextFieldDelegate, UIDoc
                 self.present(picker, animated: true, completion: nil)
             }))
             
-            alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: { (_) in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "'Cancel' button"), style: .cancel, handler: { (_) in
                 urls.first?.stopAccessingSecurityScopedResource()
             }))
             

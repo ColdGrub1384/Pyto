@@ -67,17 +67,17 @@ func setupMenu(builder: UIMenuBuilder) {
                                   input: "n",
                                  modifierFlags: [.command, .shift])
     
-    let run = UIKeyCommand(title: Localizable.MenuItems.run,
+    let run = UIKeyCommand(title: NSLocalizedString("menuItems.run", comment: "The 'Run' menu item"),
                            action: #selector(EditorSplitViewController.runScript(_:)),
                             input: "r",
                             modifierFlags: .command)
     
-    let runWithArguments = UIKeyCommand(title: Localizable.runAndSetArguments,
+    let runWithArguments = UIKeyCommand(title: NSLocalizedString("runAndSetArguments", comment: "Description for key command for running and setting arguments."),
                            action: #selector(EditorSplitViewController.runWithArguments),
                             input: "r",
                             modifierFlags: [.shift, .command])
     
-    let stop = UIKeyCommand(title: Localizable.stop,
+    let stop = UIKeyCommand(title: NSLocalizedString("stop", comment: "Stop the execution of a script"),
                            action: #selector(EditorSplitViewController.stopScript(_:)),
                             input: "x",
                             modifierFlags: [.shift, .command])
@@ -87,7 +87,7 @@ func setupMenu(builder: UIMenuBuilder) {
                             input: "s",
                             modifierFlags: .command)
     
-    let find = UIKeyCommand(title: Localizable.find,
+    let find = UIKeyCommand(title: NSLocalizedString("find", comment: "'Find'"),
                             action: NSSelectorFromString("search"),
                             input: "f",
                             modifierFlags: .command)
@@ -97,12 +97,12 @@ func setupMenu(builder: UIMenuBuilder) {
                             input: "o",
                             modifierFlags: [.command])
     
-    let repl = UIKeyCommand(title: Localizable.repl,
+    let repl = UIKeyCommand(title: NSLocalizedString("repl", comment: "'REPL' tab"),
                             action: #selector(SidebarSplitViewController.showREPL),
                             input: "e",
                             modifierFlags: [.command, .shift])
     
-    let docs = UIKeyCommand(title: Localizable.Help.documentation,
+    let docs = UIKeyCommand(title: NSLocalizedString("help.documentation", comment: "'Documentation' button"),
                             action: #selector(SidebarSplitViewController.showDocumentationOnSplitView),
                             input: "d",
                             modifierFlags: [.command])
@@ -121,7 +121,7 @@ func setupMenu(builder: UIMenuBuilder) {
                             input: ",",
                             modifierFlags: [.command])
 
-    let automator = UIKeyCommand(title: Localizable.installAutomatorAction,
+    let automator = UIKeyCommand(title: NSLocalizedString("automator.install", comment: "Title of the menu bar item to install the Automator action"),
                                  action: #selector(UIResponder.installAutomatorAction(_:)),
                                  input: "",
                                  modifierFlags: [])
@@ -131,13 +131,13 @@ func setupMenu(builder: UIMenuBuilder) {
                            input: "n",
                            modifierFlags: [.command])
     
-    let toggleComment = UIKeyCommand.command(input: "c", modifierFlags: [.command, .shift], action: #selector(EditorViewController.toggleComment), discoverabilityTitle: Localizable.MenuItems.toggleComment)
-    let setBreakpoint = UIKeyCommand.command(input: "b", modifierFlags: [.command, .shift], action: #selector(EditorViewController.setBreakpoint(_:)), discoverabilityTitle: Localizable.MenuItems.breakpoint)
-    let unindent = UIKeyCommand.command(input: "t", modifierFlags: [.alternate], action: #selector(EditorViewController.unindent), discoverabilityTitle: Localizable.unindent)
+    let toggleComment = UIKeyCommand.command(input: "c", modifierFlags: [.command, .shift], action: #selector(EditorViewController.toggleComment), discoverabilityTitle: NSLocalizedString("menuItems.toggleComment", comment: "The 'Toggle Comment' menu item"))
+    let setBreakpoint = UIKeyCommand.command(input: "b", modifierFlags: [.command, .shift], action: #selector(EditorViewController.setBreakpoint(_:)), discoverabilityTitle: NSLocalizedString("menuItems.breakpoint", comment: "The menu item for setting breakpoint"))
+    let unindent = UIKeyCommand.command(input: "t", modifierFlags: [.alternate], action: #selector(EditorViewController.unindent), discoverabilityTitle: NSLocalizedString("unindent", comment: "'Unindent' key command"))
     
-    let undo = UIKeyCommand.command(input: "z", modifierFlags: [.command], action: #selector(EditorTextView.undo), discoverabilityTitle: Localizable.unindent)
+    let undo = UIKeyCommand.command(input: "z", modifierFlags: [.command], action: #selector(EditorTextView.undo), discoverabilityTitle: NSLocalizedString("unindent", comment: "'Unindent' key command"))
     
-    let redo = UIKeyCommand.command(input: "z", modifierFlags: [.command, .shift], action: #selector(EditorTextView.redo), discoverabilityTitle: Localizable.MenuItems.redo)
+    let redo = UIKeyCommand.command(input: "z", modifierFlags: [.command, .shift], action: #selector(EditorTextView.redo), discoverabilityTitle: NSLocalizedString("menuItems.redo", comment: "The 'Redo' menu item"))
     
     var fileMenuTopItems = [new, openScript]
     if isiOSAppOnMac {

@@ -89,7 +89,8 @@ import BackgroundTasks
                     }
                     
                     if self.sendNotification, let str = formatter.string(from: TimeInterval(time)) {
-                        PyNotificationCenter.scheduleNotification(title: self.scriptName, message: Localizable.Python.isRunning(script: self.scriptName, since: str), delay: 1)
+                        let message = NSString(format: NSLocalizedString("python.isRunningScript", comment: "A notification sent to remind that a script is running in background") as NSString, self.scriptName, str) as String
+                        PyNotificationCenter.scheduleNotification(title: self.scriptName, message: message, delay: 1)
                         i = 0
                     }
                 }

@@ -72,8 +72,8 @@ extension SceneDelegate {
                 
                 openDocument(at: url, run: true, folder: nil, isShortcut: true)
             } catch {
-                let alert = UIAlertController(title: Localizable.Errors.errorReadingFile, message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
+                let alert = UIAlertController(title: NSLocalizedString("errors.errorReadingFile", comment: "The title of the alert shown when a script cannot be read"), message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "'Ok' button"), style: .cancel, handler: nil))
                 root?.present(alert, animated: true, completion: nil)
             }
         } else if let code = userActivity.userInfo?["code"] as? String {

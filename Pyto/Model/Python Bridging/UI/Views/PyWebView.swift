@@ -183,7 +183,7 @@ import WebKit
     public func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
         
         let alert = UIAlertController(title: "Pyto", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "'Ok' button"), style: .cancel, handler: nil))
         #if MAIN && !WIDGET
         var window: UIWindow?
         for scene in UIApplication.shared.connectedScenes {

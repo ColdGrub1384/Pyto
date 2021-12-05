@@ -845,14 +845,14 @@ func directory(for scriptURL: URL) -> URL {
             if #available(iOS 15.0, *) {
             } else {
                 commands.append(contentsOf: [
-                    UIKeyCommand.command(input: "c", modifierFlags: [.command, .shift], action: #selector(toggleComment), discoverabilityTitle: Localizable.MenuItems.toggleComment),
-                    UIKeyCommand.command(input: "b", modifierFlags: [.command, .shift], action: #selector(setBreakpoint(_:)), discoverabilityTitle: Localizable.MenuItems.breakpoint),
-                    UIKeyCommand.command(input: "\t", modifierFlags: [.alternate], action: #selector(unindent), discoverabilityTitle: Localizable.unindent)
+                    UIKeyCommand.command(input: "c", modifierFlags: [.command, .shift], action: #selector(toggleComment), discoverabilityTitle: NSLocalizedString("menuItems.toggleComment", comment: "The 'Toggle Comment' menu item")),
+                    UIKeyCommand.command(input: "b", modifierFlags: [.command, .shift], action: #selector(setBreakpoint(_:)), discoverabilityTitle: NSLocalizedString("menuItems.breakpoint", comment: "The menu item for setting breakpoint")),
+                    UIKeyCommand.command(input: "\t", modifierFlags: [.alternate], action: #selector(unindent), discoverabilityTitle: NSLocalizedString("unindent", comment: "'Unindent' key command"))
                 ])
             }
             
             if numberOfSuggestionsInInputAssistantView() != 0 {
-                commands.append(UIKeyCommand.command(input: "\t", modifierFlags: [], action: #selector(nextSuggestion), discoverabilityTitle: Localizable.nextSuggestion))
+                commands.append(UIKeyCommand.command(input: "\t", modifierFlags: [], action: #selector(nextSuggestion), discoverabilityTitle: NSLocalizedString("nextSuggestion", comment: "Title for command for selecting next suggestion")))
             }
             
             return commands
@@ -1006,8 +1006,8 @@ func directory(for scriptURL: URL) -> URL {
             
             guard success else {
                 DispatchQueue.main.async { [weak self] in
-                    let alert = UIAlertController(title: Localizable.Errors.errorWrittingToScript, message: nil, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: { (_) in
+                    let alert = UIAlertController(title: NSLocalizedString("errors.errorWrittingToScript", comment: "Title of the alert shown when code cannot be written"), message: nil, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "'Cancel' button"), style: .cancel, handler: { (_) in
                         presentPopover()
                     }))
                     self?.present(alert, animated: true, completion: nil)
@@ -1079,7 +1079,7 @@ func directory(for scriptURL: URL) -> URL {
     ///     - sender: The sender object. If called programatically with `sender` set to `true`, will run code after setting arguments.
     @objc func setArgs(_ sender: Any) {
         
-        let alert = UIAlertController(title: Localizable.ArgumentsAlert.title, message: Localizable.ArgumentsAlert.message, preferredStyle: .alert)
+        let alert = UIAlertController(title: NSLocalizedString("argumentsAlert.title", comment: "Title of the alert for setting arguments"), message: NSLocalizedString("argumentsAlert.message", comment: "Message of the alert for setting arguments"), preferredStyle: .alert)
         
         var textField: UITextField?
         
@@ -1089,7 +1089,7 @@ func directory(for scriptURL: URL) -> URL {
         }
         
         if (sender as? Bool) == true {
-            alert.addAction(UIAlertAction(title: Localizable.MenuItems.run, style: .default, handler: { _ in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("menuItems.run", comment: "The 'Run' menu item"), style: .default, handler: { _ in
                 
                 if let text = textField?.text {
                     self.args = text
@@ -1099,7 +1099,7 @@ func directory(for scriptURL: URL) -> URL {
                 
             }))
         } else {
-            alert.addAction(UIAlertAction(title: Localizable.ok, style: .default, handler: { _ in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "'Ok' button"), style: .default, handler: { _ in
                 
                 if let text = textField?.text {
                     self.args = text
@@ -1108,7 +1108,7 @@ func directory(for scriptURL: URL) -> URL {
             }))
         }
         
-        alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "'Cancel' button"), style: .cancel, handler: nil))
         
         present(alert, animated: true, completion: nil)
     }
@@ -1368,8 +1368,8 @@ func directory(for scriptURL: URL) -> URL {
                     self.document?.text = self.textView.text
                     self.document?.close(completionHandler: { (success) in
                         if !success {
-                            let alert = UIAlertController(title: Localizable.Errors.errorWrittingToScript, message: nil, preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: Localizable.ok, style: .cancel, handler: nil))
+                            let alert = UIAlertController(title: NSLocalizedString("errors.errorWrittingToScript", comment: "Title of the alert shown when code cannot be written"), message: nil, preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "'Ok' button"), style: .cancel, handler: nil))
                             presenting?.present(alert, animated: true, completion: nil)
                         }
                     })
@@ -1737,11 +1737,11 @@ func directory(for scriptURL: URL) -> URL {
         removeUndoAndRedo()
         
         if textView.undoManager?.canRedo == true {
-            UIMenuController.shared.menuItems?.insert(UIMenuItem(title: Localizable.MenuItems.redo, action: #selector(EditorViewController.redo)), at: 0)
+            UIMenuController.shared.menuItems?.insert(UIMenuItem(title: NSLocalizedString("menuItems.redo", comment: "The 'Redo' menu item"), action: #selector(EditorViewController.redo)), at: 0)
         }
         
         if textView.undoManager?.canUndo == true {
-            UIMenuController.shared.menuItems?.insert(UIMenuItem(title: Localizable.MenuItems.undo, action: #selector(EditorViewController.undo)), at: 0)
+            UIMenuController.shared.menuItems?.insert(UIMenuItem(title: NSLocalizedString("menuItems.undo", comment: "The 'Undo' menu item"), action: #selector(EditorViewController.undo)), at: 0)
         }
         
         let text = textView.text ?? ""
@@ -2609,17 +2609,17 @@ func directory(for scriptURL: URL) -> URL {
             doChange()
         } else {
             
-            let alert = UIAlertController(title: Localizable.CouldNotAccessScriptAlert.title, message: Localizable.CouldNotAccessScriptAlert.message, preferredStyle: .alert)
+            let alert = UIAlertController(title: NSLocalizedString("couldNotAccessScriptAlert.title", comment: "Title of the alert shown when setting a current directory not containing the script"), message: NSLocalizedString("couldNotAccessScriptAlert.message", comment: "Message of the alert shown when setting a current directory not containing the script"), preferredStyle: .alert)
             
-            alert.addAction(UIAlertAction(title: Localizable.CouldNotAccessScriptAlert.useAnyway, style: .destructive, handler: { (_) in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("couldNotAccessScriptAlert.useAnyway", comment: "Use anyway"), style: .destructive, handler: { (_) in
                 doChange()
             }))
             
-            alert.addAction(UIAlertAction(title: Localizable.CouldNotAccessScriptAlert.selectAnotherLocation, style: .default, handler: { (_) in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("couldNotAccessScriptAlert.selectAnotherLocation", comment: "Select another location"), style: .default, handler: { (_) in
                 self.setCwd(alert)
             }))
             
-            alert.addAction(UIAlertAction(title: Localizable.cancel, style: .cancel, handler: { (_) in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "'Cancel' button"), style: .cancel, handler: { (_) in
                 urls.first?.stopAccessingSecurityScopedResource()
             }))
             
