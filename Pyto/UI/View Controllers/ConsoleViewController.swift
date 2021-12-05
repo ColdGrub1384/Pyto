@@ -212,7 +212,7 @@ import SwiftUI
     ///     - text: The text to add.
     ///     - link: The link to add.
     func printLink(text: String, link: String) {
-        self.text += text
+        self.text += "\u{1B}[32m"+text+"\u{1B}[39m"
         let _text = text.replacingOccurrences(of: "\n", with: "\n\r").data(using: .utf8)?.base64EncodedString() ?? ""
         let _link = link.replacingOccurrences(of: "\n", with: "\n\r").data(using: .utf8)?.base64EncodedString() ?? ""
         

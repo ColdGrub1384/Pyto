@@ -105,6 +105,7 @@ func directory(for scriptURL: URL) -> URL {
         textView.autocorrectionType = .no
         textView.autocapitalizationType = .none
         textView.spellCheckingType = .no
+        textView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         return textView
     }()
     
@@ -418,11 +419,22 @@ func directory(for scriptURL: URL) -> URL {
         setup(theme: ConsoleViewController.choosenTheme)
     }
     
-    @objc private func togglePIP() {
+    @objc func togglePIP() {
         (parent as? EditorSplitViewController)?.console?.togglePIP()
     }
     
     private func setBarItems() {
+        
+        guard !(parent is ScriptRunnerViewController) else {
+            return
+        }
+        
+        #if targetEnvironment(simulator)
+        let isPIPSupported = true
+        #else
+        let isPIPSupported = AVPictureInPictureController.isPictureInPictureSupported()
+        #endif
+        
         runBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(run))
         stopBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(stop))
         
@@ -495,6 +507,8 @@ func directory(for scriptURL: URL) -> URL {
                             runBarButtonItem
                         ]
                     }
+                } else {
+                    parentNavigationItem?.rightBarButtonItems = []
                 }
             }
         }
@@ -522,7 +536,7 @@ func directory(for scriptURL: URL) -> URL {
                     docItem,
                     UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
                     UIBarButtonItem(image: UIImage(systemName: "lock.fill"), style: .plain, target: self, action: #selector(setCwd(_:))),
-                ]+( AVPictureInPictureController.isPictureInPictureSupported() ? [pipItem, runtimeItem] : [runtimeItem] )
+                ]+( isPIPSupported ? [pipItem, runtimeItem] : [runtimeItem] )
             } else {
                 parentVC?.toolbarItems = [
                     shareItem,
@@ -530,7 +544,7 @@ func directory(for scriptURL: URL) -> URL {
                     space,
                     docItem,
                     UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-                ]+( AVPictureInPictureController.isPictureInPictureSupported() ? [pipItem, runtimeItem] : [runtimeItem] )
+                ]+( isPIPSupported ? [pipItem, runtimeItem] : [runtimeItem] )
             }
         } else {
             if document?.fileURL.pathExtension.lowercased() == "pyhtml" {
@@ -743,9 +757,6 @@ func directory(for scriptURL: URL) -> URL {
         }
         
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
-            self.textView.frame = self.view.safeAreaLayoutGuide.layoutFrame
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -779,20 +790,7 @@ func directory(for scriptURL: URL) -> URL {
             self?.updateBreakpointMarkersPosition()
         }
         
-        guard (view.frame.size != size) || (textView.contentTextView.isFirstResponder && textView.frame.height != view.safeAreaLayoutGuide.layoutFrame.height) else {
-            
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.5) { [weak self] in
-                self?.textView.frame = self?.view.safeAreaLayoutGuide.layoutFrame ?? .zero
-            }
-            return
-        }
-        
-        self.textView.resignFirstResponder()
-        
-        _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
-            self.textView.frame = self.view.safeAreaLayoutGuide.layoutFrame
-            self.setup(theme: ConsoleViewController.choosenTheme)
-        }) // TODO: Anyway to to it without a timer?
+        self.setup(theme: ConsoleViewController.choosenTheme)
     }
     
     #if !Xcode11
@@ -1027,7 +1025,7 @@ func directory(for scriptURL: URL) -> URL {
     @objc func showDefintions(_ sender: Any) {
         var navVC: UINavigationController! = definitionsNavVC
         
-        updateSuggestions(force: true)
+        updateSuggestions(getDefinitions: true)
         
         if navVC == nil {
             let view = DefinitionsView(defintions: definitionsList, handler: { (def) in
@@ -2111,9 +2109,11 @@ func directory(for scriptURL: URL) -> URL {
         
         set {
             
+            #if !targetEnvironment(simulator)
             guard document?.fileURL.pathExtension.lowercased() == "pyhtml" || lastCodeFromCompletions == text else {
                 return
             }
+            #endif
             
             currentSuggestionIndex = -1
             
@@ -2335,7 +2335,8 @@ func directory(for scriptURL: URL) -> URL {
     ///
     /// - Parameters:
     ///     - force: If set to `true`, the Python code will be called without doing any check.
-    func updateSuggestions(force: Bool = false) {
+    ///     - getDefinitions: If set to `true` definitons will be retrieved, we don't need to update them every time, just when we open the definitions list.
+    func updateSuggestions(force: Bool = false, getDefinitions: Bool = false) {
         
         guard document?.fileURL.pathExtension.lowercased() == "py" || document?.fileURL.pathExtension.lowercased() == "pyhtml" else {
             return
@@ -2352,7 +2353,7 @@ func directory(for scriptURL: URL) -> URL {
             return
         }
         
-        if !force {
+        if !force && !getDefinitions {
             guard let line = textView.currentLine, !line.isEmpty else {
                 self.suggestions = []
                 self.completions = []
@@ -2385,8 +2386,12 @@ func directory(for scriptURL: URL) -> URL {
         def complete():
             from pyto import EditorViewController
             from _codecompletion import suggestForCode
-            import sys
             import os
+        
+            #try:
+            #    sys.modules["sys"]
+            #except KeyError:
+            #    sys.modules["sys"] = sys
 
             Python.shared.handleCrashesForCurrentThread()
 
@@ -2400,7 +2405,7 @@ func directory(for scriptURL: URL) -> URL {
                 should_path_be_deleted = True
                 
             source = str(EditorViewController.codeToComplete)
-            suggestForCode(source, \(location), '\((self.document?.fileURL.path ?? "").replacingOccurrences(of: "'", with: "\\'"))')
+            suggestForCode(source, \(location), '\((self.document?.fileURL.path ?? "").replacingOccurrences(of: "'", with: "\\'"))', \(getDefinitions ? "True" : "False"))
                     
             if should_path_be_deleted:
                 sys.path.remove(path)
@@ -2514,9 +2519,11 @@ func directory(for scriptURL: URL) -> URL {
     
     func numberOfSuggestionsInInputAssistantView() -> Int {
         
+        #if !targetEnvironment(simulator)
         guard document?.fileURL.pathExtension.lowercased() == "pyhtml" || lastCodeFromCompletions == text else {
             return 0
         }
+        #endif
         
         var zero: Int {
             signature = ""

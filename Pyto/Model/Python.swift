@@ -660,7 +660,6 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     @objc(runScript:) public func run(script: Script) {
         if let pythonInstance = Python.pythonShared {
             Thread(block: {
-                PyEval_InitThreads()
                 pythonInstance.perform(#selector(PythonRuntime.runScript(_:)), with: script)
             }).start()
         } else {
@@ -682,35 +681,36 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     /// - Parameters:
     ///     - url: URL of the Python script to run.
     @objc public func runScriptAt(_ url: URL) {
-        queue.async {
-            
-            self.thread = Thread.current
-            
-            #if WIDGET && !Xcode11
-            #else
-            guard !self.isREPLRunning else {
-                return
-            }
-            
-            self.isREPLRunning = true
-            #endif
-            
-            #if WIDGET
-            let arr = NSMutableArray(array: self.runningScripts)
-            arr.add(url.path)
-            self.runningScripts = arr
-            PyRun_SimpleFileExFlags(fopen(url.path.cValue, "r"), url.lastPathComponent.cValue, 0, nil)
-            #else
-            guard let startupURL = Bundle(for: Python.self).url(forResource: "Startup", withExtension: "py"), let src = try? String(contentsOf: startupURL) else {
-                return
-            }
-            
-            let code = String(format: src, url.path)
-            PyRun_SimpleStringFlags(code.cValue, nil)
-            NSLog("Will throw fatal error")
-            Swift.fatalError()
-            #endif
+        #if targetEnvironment(simulator)
+        return Void()
+        #else
+        self.thread = Thread.current
+        
+        #if WIDGET && !Xcode11
+        #else
+        guard !self.isREPLRunning else {
+            return
         }
+        
+        self.isREPLRunning = true
+        #endif
+        
+        #if WIDGET
+        let arr = NSMutableArray(array: self.runningScripts)
+        arr.add(url.path)
+        self.runningScripts = arr
+        PyRun_SimpleFileExFlags(fopen(url.path.cValue, "r"), url.lastPathComponent.cValue, 0, nil)
+        #else
+        guard let startupURL = Bundle(for: Python.self).url(forResource: "Startup", withExtension: "py"), let src = try? String(contentsOf: startupURL) else {
+            return
+        }
+        
+        let code = String(format: src, url.path)
+        PyRun_SimpleStringFlags(code.cValue, nil)
+        NSLog("Will throw fatal error")
+        Swift.fatalError()
+        #endif
+        #endif
     }
     
     /// Threads and their respective script paths.

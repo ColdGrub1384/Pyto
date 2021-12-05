@@ -13,6 +13,12 @@ class GetScriptOutputIntentHandler: NSObject, GetScriptOutputIntentHandling {
     
     func handle(intent: GetScriptOutputIntent, completion: @escaping (GetScriptOutputIntentResponse) -> Void) {
         
+        #if targetEnvironment(simulator)
+        let response = GetScriptOutputIntentResponse(code: .success, userActivity: nil)
+        response.output = [INFile(data: "bar\n".data(using: .utf8)!, filename: "output.txt", typeIdentifier: "public.text")]
+        return completion(response)
+        #else
+        
         guard let group = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.pyto") else {
             return completion(.init(code: .failure, userActivity: nil))
         }
@@ -72,5 +78,6 @@ class GetScriptOutputIntentHandler: NSObject, GetScriptOutputIntentHandling {
             }
             sleep(UInt32(0.2))
         }
+        #endif
     }
 }

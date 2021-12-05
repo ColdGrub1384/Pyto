@@ -22,7 +22,7 @@ formatter = TerminalTrueColorFormatter(full=True, style=style)
 def printHighlightedCode(code, path):
     PyOutputHelper.print(highlight(code, lexer, formatter), script=path)
 
-def suggestForCode(code, index, path):
+def suggestForCode(code, index, path, get_definitions=False):
     global _completions_queue
 
     try:
@@ -69,38 +69,39 @@ def suggestForCode(code, index, path):
         try:
             script = jedi.Script(code, path=path)
 
-            definitions = []
-            for _def in script.get_names():
-            
-                if _def.type == "statement" or _def.type == "keyword":
-                    continue
-            
-                decl = _def.description
-                line = _def.line
-                if "=" in decl:
-                    decl = decl.split("=")[0]
-                if ":" in decl:
-                    decl = decl.split(":")[0]
+            if get_definitions:
+                definitions = []
+                for _def in script.get_names():
                 
-                signatures = []
-                for signature in _def.get_signatures():
-                    signatures.append(signature.to_string())
-                
-                defined_names = []
-                for name in _def.defined_names():
-                
-                    if not name.is_definition():
+                    if _def.type == "statement" or _def.type == "keyword":
                         continue
                 
-                    _signatures = []
-                    for signature in name.get_signatures():
-                        _signatures.append(signature.to_string())
-                
-                    defined_names.append([name.description, name.line, name.docstring(raw=True), name.name, _signatures, [], name.module_name, name.type])
-                
-                definitions.append([decl, line, _def.docstring(raw=True), _def.name, signatures, defined_names, _def.module_name, _def.type])
+                    decl = _def.description
+                    line = _def.line
+                    if "=" in decl:
+                        decl = decl.split("=")[0]
+                    if ":" in decl:
+                        decl = decl.split(":")[0]
+                    
+                    signatures = []
+                    for signature in _def.get_signatures():
+                        signatures.append(signature.to_string())
+                    
+                    defined_names = []
+                    for name in _def.defined_names():
+                    
+                        if not name.is_definition():
+                            continue
+                    
+                        _signatures = []
+                        for signature in name.get_signatures():
+                            _signatures.append(signature.to_string())
+                    
+                        defined_names.append([name.description, name.line, name.docstring(raw=True), name.name, _signatures, [], name.module_name, name.type])
+                    
+                    definitions.append([decl, line, _def.docstring(raw=True), _def.name, signatures, defined_names, _def.module_name, _def.type])
 
-            visibleEditor.definitions = definitions
+                visibleEditor.definitions = definitions
 
             suggestions = []
             completions = []

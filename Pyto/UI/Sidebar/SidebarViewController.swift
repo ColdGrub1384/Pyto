@@ -421,10 +421,6 @@ fileprivate enum Section: String {
         
         let document = PyDocument(fileURL: documentURL)
         
-        guard documentURL.pathExtension.lowercased() == "py" || documentURL.pathExtension.lowercased() == "pyhtml" else {
-            return nil
-        }
-        
         let isPip = (documentURL.path == Bundle.main.path(forResource: "installer", ofType: "py"))
                 
         let editor = EditorViewController(document: document)
@@ -475,6 +471,8 @@ fileprivate enum Section: String {
                 navVC.navigationBar.prefersLargeTitles = false
                 editor.navigationItem.largeTitleDisplayMode = .never
                 self.editor = navVC
+            } else {
+                return
             }
         }
         

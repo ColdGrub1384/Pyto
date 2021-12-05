@@ -360,7 +360,7 @@ import UniformTypeIdentifiers
                 url = files[indexPath.row]
             }
             
-            if url.pathExtension.lowercased() == "py" || url.pathExtension.lowercased() == "pyhtml" || (try? url.resourceValues(forKeys: [.contentTypeKey]))?.contentType?.conforms(to: .plainText) == true {
+            if url.pathExtension.lowercased() == "py" || url.pathExtension.lowercased() == "pyhtml" || (try? url.resourceValues(forKeys: [.contentTypeKey]))?.contentType?.conforms(to: .text) == true {
                 
                 if let editor = ((splitViewController as? SidebarSplitViewController)?.sidebar?.editor?.vc as? EditorSplitViewController)?.editor {
                     
@@ -602,7 +602,7 @@ import UniformTypeIdentifiers
                 self.present(UIDocumentPickerViewController(forExporting: [files[index.row]], asCopy: true), animated: true, completion: nil)
             }
         } else {
-            saveTo = UIAction(title: "Show in Finder", image: UIImage(systemName: "folder")) { action in
+            saveTo = UIAction(title: NSLocalizedString("Show in Finder", comment: "The 'Show in Finder' menu item"), image: UIImage(systemName: "folder")) { action in
                 
                 guard let index = self.tableView.indexPath(for: cell), files.indices.contains(index.row) else {
                     return
@@ -670,6 +670,26 @@ import UniformTypeIdentifiers
                 self.present(alert, animated: true, completion: nil)
             }
         }
+        
+        let run = UIAction(title: Localizable.MenuItems.run, image: UIImage(systemName: "play")) { action in
+            
+            guard let index = self.tableView.indexPath(for: cell), files.indices.contains(index.row) else {
+                return
+            }
+            
+            let runner = ScriptRunnerViewController(scriptURL: files[index.row])
+            let navVC = UINavigationController(rootViewController: runner)
+            navVC.modalPresentationStyle = .formSheet
+            
+            if #available(iOS 15.0, *) {
+                if let presentationController = navVC.presentationController as? UISheetPresentationController {
+                    presentationController.prefersGrabberVisible = true
+                    presentationController.detents = [.medium(), .large()]
+                }
+            }
+            
+            self.present(navVC, animated: true, completion: nil)
+        }
 
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { (_) -> UIMenu? in
             
@@ -677,7 +697,7 @@ import UniformTypeIdentifiers
                 return nil
             }
             
-            return UIMenu(title: cell.textLabel?.text ?? "", children: [share, saveTo, rename, delete])
+            return UIMenu(title: cell.textLabel?.text ?? "", children: ((files[index.row].pathExtension.lowercased() == "py" || files[index.row].pathExtension.lowercased() == "pyhtml") ? [run] : [])+[share, saveTo, rename, delete])
         }
     }
     

@@ -139,6 +139,8 @@ class SidebarSplitViewController: UISplitViewController, UISplitViewControllerDe
         setViewController(UINavigationController(rootViewController: UIViewController()), for: .secondary)
         setViewController(UINavigationController(rootViewController: SidebarViewController(splitViewID: id, compact: true)), for: .compact)
         
+        preferredDisplayMode = .twoOverSecondary
+        
         primaryBackgroundStyle = .sidebar
         
         showsSecondaryOnlyButton = true

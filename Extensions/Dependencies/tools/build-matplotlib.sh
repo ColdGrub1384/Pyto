@@ -11,6 +11,8 @@ export LDFLAGS="$LDFLAGS -L$PWD"
 
 cd ../matplotlib
 rm -f setup.cfg
+rm -f lib/matplotlib/font_manager.py
+cp ../tools/font_manager.py lib/matplotlib
 cp ../tools/matplotlib-setup.cfg setup.cfg
 
 python3 setup.py bdist

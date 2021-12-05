@@ -1,0 +1,13 @@
+history_path = "history"
+
+
+def make_path(i: int, ext: str) -> str:
+    return os.path.join(history_path, str(i) + "." + ext)
+
+
+def find_available_filename(ext: str) -> str:
+    i = 1
+    while os.path.isfile(make_path(i, ext)):
+        i += 1
+
+    return make_path(i, ext)

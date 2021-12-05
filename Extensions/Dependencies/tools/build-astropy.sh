@@ -7,6 +7,7 @@ CURDIR="$PWD"
 source environment.sh
 
 python3 -m pip install extension_helpers
+python3 -m pip install jinja2
 
 cd ../astropy
 python3 setup.py bdist

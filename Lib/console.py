@@ -9,7 +9,6 @@ Some Pyto core functions
 #  Good luck
 
 import os
-
 from pyto import *
 from pyto import __isMainApp__, __Class__
 import os
@@ -18,6 +17,7 @@ import traceback
 import threading
 import time
 from extensionsimporter import __UpgradeException__
+import ctypes
 
 if "widget" not in os.environ:
     from code import interact, InteractiveConsole
@@ -132,6 +132,11 @@ def displayhook(_value):
     except AttributeError:
         PyOutputHelper.printValue(_repr + "\n", value=json, script=None)
 
+offer_suggestion_prototype = ctypes.PYFUNCTYPE(    
+    ctypes.c_char_p,                
+    ctypes.py_object
+)
+offer_suggestion = offer_suggestion_prototype(('_offer_suggestions', ctypes.CDLL(None)))
 
 def excepthook(exc, value, tb, limit=None):
 
@@ -152,6 +157,11 @@ def excepthook(exc, value, tb, limit=None):
             parts[0] = Fore.RED + parts[0] + Style.RESET_ALL
 
             msg = ":".join(parts)
+
+            suggestion = offer_suggestion(value)
+            if suggestion is not None:
+                msg =  msg[:-1]
+                msg += ". Did you mean '"+suggestion.decode()+"'?\n"
         elif part.startswith("  File"):  # File "file", line 1, in function
             parts = part.split('"')
             parts[1] = Fore.YELLOW + parts[1] + Style.RESET_ALL
@@ -164,7 +174,7 @@ def excepthook(exc, value, tb, limit=None):
         else:
             msg = part
 
-        builtins.print(msg, file=sys.stderr, end="")
+        builtins.print(msg, end="")
 
 
 __repl_namespace__ = {}
@@ -195,8 +205,6 @@ def __runREPL__(repl_name="", namespace={}, banner=None):
         __namespace__.update(console.__repl_namespace__[repl_name])
 
         return input(prompt, highlight=True)
-
-    Python.shared.isScriptRunning = True
 
     if banner is None:
         banner = f"Python {sys.version}\n{str(__Class__('SidebarViewController').pytoVersion)}\nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\nType \"clear()\" to clear the console."
@@ -320,15 +328,15 @@ if "widget" not in os.environ:
             args: The arguments passed to sys.argv.
             cwd: The thread working directory.
         """
-
+        
         sys = __import__("sys")
 
         __repl_namespace__[path.split("/")[-1]] = {}
         __clear_mods__()
-
+        
         python = Python.shared
         python.addScriptToList(path)
-
+        
         if PyCallbackHelper is not None:
             PyCallbackHelper.exception = None
 
@@ -347,7 +355,7 @@ if "widget" not in os.environ:
             del os.environ["ps2"]
         except KeyError:
             pass
-
+            
         sys.argv = [path]+args
 
         d = os.path.expanduser("~/tmp")
@@ -403,10 +411,10 @@ if "widget" not in os.environ:
             loop = asyncio.new_event_loop()
             loop.add_signal_handler = add_signal_handler
             asyncio.set_event_loop(loop)
-
+                        
             pip_directory = os.path.expanduser("~/Documents/site-packages")
-            Python.shared.isScriptRunning = True
             os.chdir(currentDir)
+                        
             try:
                 sys.path.remove(pip_directory)
             except:
@@ -564,15 +572,10 @@ if "widget" not in os.environ:
                 ReviewHelper.shared.launches = ReviewHelper.shared.launches + 1
                 ReviewHelper.shared.requestReview()
 
-        Python.shared.isScriptRunning = True
-        Python.shared._isScriptRunning = True
-
         def run_repl(t):
 
             global __repl_threads__
 
-            Python.shared._isScriptRunning = False
-            Python.shared.isScriptRunning = False
             Python.shared.removeScriptFromList(path)
 
             if path.endswith(".repl.py") or not runREPL:
@@ -623,8 +626,6 @@ if "widget" not in os.environ:
             else:
                 _script = t[1]
 
-        Python.shared._isScriptRunning = False
-        Python.shared.isScriptRunning = False
         Python.shared.removeScriptFromList(path)
 
         sys.path = list(dict.fromkeys(sys.path))  # I don't remember why 😭

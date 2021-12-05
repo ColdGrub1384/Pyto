@@ -34,7 +34,9 @@ def string() -> str:
     """
     Returns the text contained in the pasteboard.
     """
-    return str(general_pasteboard().string)
+    string = general_pasteboard().string
+    if string is not None:
+        return str(string)
 
 
 def strings() -> List[str]:

@@ -30,7 +30,7 @@ public struct Definition: View, Hashable {
     private var _signature: String
     
     public var signature: String {
-        if type == "statement" {
+        if type == "statement" || type == "module" {
             return _signature
         } else {
             return _signatures.first ?? _signature

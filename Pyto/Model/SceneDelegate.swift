@@ -117,6 +117,12 @@ import Dynamic
             }
         }
         
+        #if targetEnvironment(simulator)
+        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+            takeScreenshots(sceneDelegate: self)
+        }
+        #endif
+        
         if let vc = SceneDelegate.viewControllerToShow {
             SceneDelegate.viewControllerToShow = nil
             

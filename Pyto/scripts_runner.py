@@ -28,12 +28,6 @@ def raise_exception(script, exception):
 NSAutoreleasePool = ObjCClass("NSAutoreleasePool")
 NSThread = ObjCClass("NSThread")
 
-sys_importer = None
-
-for meta_path in sys.meta_path:
-    if isinstance(meta_path, extensionsimporter.SysImporter):
-        sys_importer = meta_path
-
 class Thread(threading.Thread):
 
     # Pass the 'script_path' attribute
@@ -82,7 +76,12 @@ class PythonImplementation(NSObject):
         _gc.collected = []
 
         args = []
-        for arg in list(script.args):
+        try:
+            py_args = list(script.args)
+        except TypeError as e:
+            py_args = []
+
+        for arg in py_args:
             args.append(str(arg))
         
         if args == [""]:
@@ -90,8 +89,8 @@ class PythonImplementation(NSObject):
         
         cwd = str(script.workingDirectory)
 
-        if str(script.path) in sys_importer._sys:
-            del sys_importer._sys[str(script.path)]
+        if str(script.path) in sys.__class__.instances:
+            del sys.__class__.instances[str(script.path)]
 
         thread = Thread(target=run_script, args=(str(script.path), False, script.debug, script.breakpoints, script.runREPL, args, cwd))
         try:

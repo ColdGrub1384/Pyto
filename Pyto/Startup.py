@@ -3,29 +3,7 @@ try:
     import os
     import zipfile
 
-    zippedLib = os.environ["ZIPPEDLIB"]
-    destDir = os.path.expanduser("~/Library/python38")
-
-    if not os.path.isdir(destDir):
-        with zipfile.ZipFile(zippedLib, "r") as zip_ref:
-            zip_ref.extractall(destDir)
-
     sys.path.insert(-1, os.path.expanduser("~/Documents/site-packages"))
-
-    try:
-        os.remove(destDir+"/turtle.py")
-    except:
-        pass
-        
-    try:
-        os.remove(destDir+"/pydoc.py")
-    except:
-        pass
-
-    try:
-        os.remove(destDir+"/pdb.py")
-    except:
-        pass
 
     import io
     import console
@@ -48,6 +26,7 @@ try:
     import unittest
     from pip import BUNDLED_MODULES
     from ctypes import CDLL
+    from time import sleep
 
     # MARK: - Warnings
 
@@ -70,6 +49,11 @@ try:
             import pyto
         
         _message = warnings.formatwarning(message, category, filename, lineno, line)
+        
+        if "ImportWarning: DownloadableImporter.find_spec()" in _message or "DeprecationWarning: the load_module() method is deprecated" in _message or "DeprecationWarning: PathFinder.find_module() is deprecated":
+            # TODO: Fix those warnings instead of hiding them
+            return
+        
         try:
             pyto.PyOutputHelper.printWarning(_message, script=threading.current_thread().script_path)
         except AttributeError:
@@ -169,10 +153,8 @@ try:
 
     # MARK: - Modules
 
-    sys_importer = SysImporter(sys)
-    sys.meta_path.insert(0, sys_importer)
-    sys.meta_path.insert(1, DownloadableImporter())
-    sys.meta_path.insert(2, FrameworksImporter())
+    sys.meta_path.insert(0, DownloadableImporter())
+    sys.meta_path.insert(1, FrameworksImporter())
 
     # MARK: - Pre-import modules
 
@@ -218,36 +200,53 @@ try:
 
     # MARK: - Sys
     
-    _old_import = __builtins__.__import__
-    def _import(name, globals=None, locals=None, fromlist=(), level=0):
-        if name == "sys":
-            try:
-                threading.current_thread().script_path
-                _sys = sys_importer.load_module("sys")
-                _sys.path = _sys.path.copy()
-                _sys.argv = _sys.argv.copy()
-                
-                if "sys" not in _sys.modules:
-                    _sys.modules["sys"] = sys
-                
-                return _sys
-            except AttributeError:
-                return sys
-        else:
-            path = sys.path
-            try:
-                threading.current_thread().script_path
-                sys.path = _import("sys").path
-            except AttributeError:
-                pass
+    class Sys(sys.__class__):
+    
+        instances = {}
+    
+        def __init__(self, sys):
+            self.sys = sys
         
-            mod = _old_import(name, globals, locals, fromlist, level)
-            sys.path = path
-            return mod
+        def __dir__(self):
+            return dir(self.sys)
+        
+        def setup_properties_if_needed(self, script_path):
+            if not script_path in self.__class__.instances:
+                path = []
+                for location in self.sys.path:
+                    path.append(location)
+                self.__class__.instances[script_path] = { "path": path, "argv": [] }
+        
+        def __setattr__(self, attr, value):
+            if attr == "sys":
+                super().__setattr__(attr, value)
+            else:
+                thread = threading.current_thread()
+        
+                if "script_path" in dir(thread):
+        
+                    self.setup_properties_if_needed(thread.script_path)
+        
+                    if attr in self.__class__.instances[thread.script_path]:
+                        self.__class__.instances[thread.script_path][attr] = value
+                        return
+            
+                setattr(self.sys, attr, value)
+        
+        def __getattr__(self, attr):
+            thread = threading.current_thread()
     
-    sys.__path__ = sys.path
+            if "script_path" in dir(thread):
     
-    __builtins__.__import__ = _import
+                self.setup_properties_if_needed(thread.script_path)
+    
+                if attr in self.__class__.instances[thread.script_path]:
+                    return self.__class__.instances[thread.script_path][attr]
+                        
+        
+            return getattr(self.sys, attr)
+
+    sys.modules["sys"] = Sys(sys)
 
     # MARK: - Pip bundled modules
     
@@ -309,10 +308,11 @@ try:
     unittest.main = _unittest_main
 
     # MARK: - Run script
-    
+        
     def run():
-        CDLL(None).putenv(b"IS_PYTHON_RUNNING=1")
         SourceFileLoader("main", "%@").load_module()
+        sleep(0.5)
+        CDLL(None).putenv(b"IS_PYTHON_RUNNING=1")
 
     threading.Thread(target=run).start()
 

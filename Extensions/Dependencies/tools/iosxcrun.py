@@ -13,12 +13,12 @@ new_args = ["xcrun"]
 
 is_just_c_not_cpp = True
 for arg in sys.argv:
-    if arg.endswith(".cpp") or arg.endswith(".cxx"):
+    if arg.endswith(".cpp") or arg.endswith(".cxx") or arg.endswith(".cc"):
         is_just_c_not_cpp = False
 
 for arg in sys.argv:
 
-    if is_just_c_not_cpp and arg.startswith("-std=c++"):
+    if arg.startswith("-std=c++"):
         continue
 
     if arg == "-I"+np.get_include():
@@ -37,6 +37,12 @@ for arg in sys.argv:
         elif arg == "fPIC":
             arg = "-fPIC"
     new_args.append(arg)
+
+if is_just_c_not_cpp:
+    if "scipy/ndimage/src/ni_morphology.c" in " ".join(new_args):
+        new_args.append("-std=c11")
+else:
+    new_args.append("-std=gnu++11")
 
 command = shlex.join(new_args)
 sys.exit(os.system(command))

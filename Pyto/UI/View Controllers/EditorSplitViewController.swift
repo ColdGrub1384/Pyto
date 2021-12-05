@@ -419,9 +419,7 @@ public class EditorSplitViewController: SplitViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
-        edgesForExtendedLayout = []
-        
+                
         // In SwiftUI
         parent?.navigationItem.leftItemsSupplementBackButton = true
         
@@ -498,16 +496,6 @@ public class EditorSplitViewController: SplitViewController {
         super.viewDidDisappear(animated)
         
         killREPL()
-    }
-    
-    public override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.2) { [weak self] in
-            if self?.editor?.textView.frame != self?.editor?.view.safeAreaLayoutGuide.layoutFrame && (self?.editor?.view.safeAreaLayoutGuide.layoutFrame ?? .zero).width > 100 {
-                self?.editor?.textView.frame = self?.editor?.view.safeAreaLayoutGuide.layoutFrame ?? .zero
-            }
-        }
     }
     
     public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

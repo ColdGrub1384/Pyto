@@ -102,7 +102,7 @@ import UIKit
         
         navigationItem.leftBarButtonItems = []
         if #available(iOS 13.0, *) {
-            navigationItem.rightBarButtonItems = [chdirItem, UIBarButtonItem(image: UIImage(systemName: "arrow.down.doc.fill") ?? UIImage(), style: .plain, target: self, action: #selector(addScript))]
+            navigationItem.rightBarButtonItems = [chdirItem, UIBarButtonItem(image: UIImage(systemName: "arrow.down.doc") ?? UIImage(), style: .plain, target: self, action: #selector(addScript))]
         } else {
             navigationItem.rightBarButtonItems = [chdirItem]
         }

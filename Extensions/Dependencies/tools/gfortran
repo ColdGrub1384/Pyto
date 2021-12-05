@@ -1,0 +1,153 @@
+#!/usr/bin/env python3
+
+import sys
+import os
+import shlex
+import subprocess
+import string
+import random
+import shutil
+
+def join_args(args):
+    return ' '.join(shlex.quote(x) for x in args)
+
+
+if "-dumpversion" in sys.argv:
+    print("10.2.0")
+    sys.exit(0)
+
+arguments = []
+sys_args = sys.argv
+del sys_args[0]
+
+try:
+    for arg in os.environ["ARCHFLAGS"].split(" "):
+        sys_args.append(arg)
+except KeyError:
+    pass
+
+if "-h" in sys_args or "--help" in sys_args:
+    print("The running executable emulates a Fortran compiler. If '-arch arm64' is passed, the compiler will produce an arm64 object file for iOS from the passed source. If not, gfortran located in '/usr/local/bin/' will be executed.")
+    print("Because flang runs in a Docker container, only files under '/Users/', '/var/folders' or '/Library' can be compiled.")
+    sys.exit(0)
+
+all_args_are_object_files = True
+
+for arg in sys_args:
+
+    if os.path.isfile(arg) and not arg.endswith(".o"):
+        all_args_are_object_files = False
+
+if (not "-c" and not all_args_are_object_files) in sys_args or not "-arch arm64" in " ".join(sys_args):
+    print("The executed Fortran compiler only supports producing object files for iOS arm64, falling back to gfortran.", file=sys.stderr)
+    print("To compile sources for iOS arm64, make sure to add -arch arm64 and -c.", file=sys.stderr)
+    sys.exit(os.system(shlex.join(["/usr/local/bin/gfortran"]+sys_args)))
+
+if "-bundle" in sys_args or all_args_are_object_files:
+    args = ["clang", "-undefined", "dynamic_lookup", "-shared"]
+    try:
+        for arg in os.environ["LDFLAGS"].split(" "):
+            args.append(arg)
+    except KeyError:
+        pass
+    for arg in sys_args:
+        if arg != "-bundle":
+            args.append(arg)
+    
+    command = shlex.join(args)
+    sys.exit(os.system(command))
+
+def convert_to_docker_path(arg):
+    if arg.startswith("/"):
+        arg = "/¡"+arg
+    else:
+        arg = os.path.join(os.getcwd(), arg)
+    
+    return arg
+
+the_previous_parameter_was_dash_o = False
+the_previous_parameter_was_dash_c = False
+the_previous_parameter_was_dash_arch = False
+output_path = None
+source = None
+
+for arg in sys_args:
+
+    if arg == "-c":
+        the_previous_parameter_was_dash_c = True
+    elif the_previous_parameter_was_dash_c:
+        the_previous_parameter_was_dash_c = False
+        source = arg
+
+    if arg == "-o":
+        the_previous_parameter_was_dash_o = True
+        continue
+    elif the_previous_parameter_was_dash_o:
+        the_previous_parameter_was_dash_o = False
+        output_path = arg
+        continue
+
+    if arg == "-arch":
+        the_previous_parameter_was_dash_arch = True
+        continue
+    elif the_previous_parameter_was_dash_arch:
+        the_previous_parameter_was_dash_arch = False
+        continue
+
+    if arg == "-fallow-argument-mismatch":
+        continue
+
+    if os.path.exists(arg):
+        arg = convert_to_docker_path(arg)
+    if arg.startswith("-I"):
+        path = arg.split("-I")[-1]
+        arg = "-I"+convert_to_docker_path(path)
+
+    if arg.startswith("/¡"):
+        arg = arg[2:]
+
+    arguments.append(arg)
+
+if output_path is None and source is not None:
+    parts = source.split(".")
+    del parts[-1]
+    output_path = os.getcwd()+"/"+".".join(parts)+".o"
+
+if os.path.isfile(output_path):
+    sys.exit(0)
+
+print(output_path)
+
+dir = os.path.dirname(os.path.abspath(__file__))
+cwd = os.getcwd()
+
+arguments.insert(0, os.path.abspath(os.path.join(dir, "flang.sh")))
+arguments.insert(1, "--save-temps")
+flang_command = join_args(arguments)
+
+inbox = os.path.join(cwd, ".inbox"+''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5)))
+
+try:
+    os.mkdir(inbox)
+except FileExistsError:
+    pass
+
+os.chdir(inbox)
+
+os.system(flang_command)
+file_path = None
+
+for file in os.listdir("."):
+    if not file.endswith(".ll"):
+        try:
+            os.remove(file)
+        except FileNotFoundError:
+            pass
+    else:
+        file_path = os.path.join(os.getcwd(), file)
+
+os.chdir(cwd)
+llc = [os.path.join(dir, "llc"), "-mtriple=arm64-apple-ios", "-filetype=obj", file_path, "-o", output_path]
+subprocess.run(llc, stdout=None, stderr=None)
+
+shutil.rmtree(inbox)

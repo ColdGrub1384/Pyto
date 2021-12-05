@@ -14,6 +14,11 @@ import UIKit
 class RunCodeIntentHandler: NSObject, RunCodeIntentHandling {
     
     func handle(intent: RunCodeIntent, completion: @escaping (RunCodeIntentResponse) -> Void) {
+        
+        #if targetEnvironment(simulator)
+        return completion(.init(code: .success, userActivity: nil))
+        #else
+        
         let userActivity = NSUserActivity(activityType: "RunCodeIntent")
         guard let code = intent.code else {
             return completion(.init(code: .failure, userActivity: nil))
@@ -38,6 +43,7 @@ class RunCodeIntentHandler: NSObject, RunCodeIntentHandling {
         #endif
         
         return completion(.init(code: .continueInApp, userActivity: userActivity))
+        #endif
     }
     
     func resolveCode(for intent: RunCodeIntent, with completion: @escaping (INStringResolutionResult) -> Void) {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVKit
 
 /// A View Controller showing the console of a running script.
 class ScriptRunnerViewController: REPLViewController {
@@ -44,5 +45,15 @@ class ScriptRunnerViewController: REPLViewController {
         navigationController?.isToolbarHidden = true
         
         title = scriptURL.deletingPathExtension().lastPathComponent
+        
+        if editor?.pipItem == nil {
+            editor?.loadViewIfNeeded()
+            editor?.pipItem = UIBarButtonItem(image: UIImage(systemName: "pip.enter"), style: .plain, target: editor, action: #selector(editor?.togglePIP))
+        }
+        
+        if editor != nil && AVPictureInPictureController.isPictureInPictureSupported() {
+            navigationItem.rightBarButtonItems = [editor!.pipItem]
+            parent?.navigationItem.rightBarButtonItems = [editor!.pipItem]
+        }
     }
 }
