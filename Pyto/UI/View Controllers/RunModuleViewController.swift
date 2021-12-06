@@ -69,7 +69,7 @@ import UIKit
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = NSLocalizedString("sidebar.runModule", comment: "")
+        title = NSLocalizedString("sidebar.runModule", comment: "Run module")
         
         firstChild = editor
         secondChild = console
@@ -89,7 +89,7 @@ import UIKit
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(goToFileBrowser))
         }
         navigationController?.isToolbarHidden = true
-        title = NSLocalizedString("repl", comment: "'REPL' tab")
+        title = NSLocalizedString("repl", comment: "The REPL")
         parent?.title = title
         parent?.navigationItem.title = title
         parent?.navigationItem.rightBarButtonItems = navigationItem.rightBarButtonItems

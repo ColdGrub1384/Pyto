@@ -201,7 +201,7 @@ struct TextViewSearch: View {
                         HStack {
                             Image(systemName: "pencil")
 
-                            TextField("Replace by", text: $replaceText).foregroundColor(.primary)
+                            TextField(NSLocalizedString("Replace by", comment: "'Replace by' text field placeholder"), text: $replaceText).foregroundColor(.primary)
                         }
                         .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
                         .foregroundColor(.secondary)

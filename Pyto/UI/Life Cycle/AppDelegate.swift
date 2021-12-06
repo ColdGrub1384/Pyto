@@ -346,9 +346,13 @@ import AVFoundation
                 
                 let message: String
                 if id == .fullVersion || id == .upgrade {
-                    message = NSLocalizedString("fullversion.promotion", comment: "")
+                    message = NSLocalizedString("fullversion.promotion", comment: "The text describing the full version.")
+                } else if id  == .liteVersion {
+                    message = NSLocalizedString("liteversion.promotion", comment: "The text describing the lite version.")
+                } else if id == .restore {
+                    message = NSLocalizedString("onboarding.restore", comment: "The button for restoring purchases")
                 } else {
-                    message = NSLocalizedString("\(name).promotion", comment: "")
+                    message = ""
                 }
                 
                 let alert = UIAlertController(title: NSLocalizedString(name, comment: ""), message: message, preferredStyle: .alert)

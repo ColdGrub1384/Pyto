@@ -186,7 +186,7 @@ public struct PyPiView: View {
                             Button(action: {
                                 self.didSelectPackage(item, false, false)
                             }) {
-                                Text("pypi.moreInfo", comment: "")
+                                Text("pypi.moreInfo", comment: "A button on the context menu to show more info")
                                 Image(systemName: "ellipsis")
                             }
                         }

@@ -1,16 +1,17 @@
-/* Created with Localizable Strings Merge, the swiss-army knife for iOS and OS X localization. */
-
 /* Add */
-"add" = "Ajouter"; /* NEW */
+"add" = "Ajouter";
 
 /* Button to add script to Siri. */
 "addToSiri" = "Ajouter à Siri";
 
+/* No comment provided by engineer. */
+"All" = "Tout";
+
 /* Message of the alert for setting arguments */
-"argumentsAlert.message" = "Entrez les nouveaux arguments."; /* NEW */
+"argumentsAlert.message" = "Entrez les nouveaux arguments.";
 
 /* Title of the alert for setting arguments */
-"argumentsAlert.title" = "Arguments"; /* NEW */
+"argumentsAlert.title" = "Arguments";
 
 /* Title of the menu bar item to install the Automator action */
 "automator.install" = "Installer l'Action Automator";
@@ -28,49 +29,61 @@
 "console" = "Console";
 
 /* Message of the alert shown when setting a current directory not containing the script */
-"couldNotAccessScriptAlert.message" = "Le répértoire sélectionné ne contient pas le script."; /* NEW */
+"couldNotAccessScriptAlert.message" = "Le répértoire sélectionné ne contient pas le script.";
 
 /* The current directory is readable */
-"couldNotAccessScriptAlert.readable" = "Le répértoire actuel est lisible"; /* NEW */
+"couldNotAccessScriptAlert.readable" = "Le répértoire actuel est lisible";
 
 /* Select another location */
-"couldNotAccessScriptAlert.selectAnotherLocation" = "Autre répértoire"; /* NEW */
+"couldNotAccessScriptAlert.selectAnotherLocation" = "Autre répértoire";
 
 /* Title of the alert shown when setting a current directory not containing the script */
-"couldNotAccessScriptAlert.title" = "Échec lors de l'accès au script"; /* NEW */
+"couldNotAccessScriptAlert.title" = "Échec lors de l'accès au script";
 
 /* Use anyway */
-"couldNotAccessScriptAlert.useAnyway" = "Utiliser quand même"; /* NEW */
+"couldNotAccessScriptAlert.useAnyway" = "Utiliser quand même";
 
 /* 'Create' button */
 "create" = "Créer";
 
+/* Create script */
+"Create" = "Créer";
+
 /* A blank file */
-"creation.blankFile" = "Fichier vide"; /* NEW */
+"creation.blankFile" = "Fichier vide";
 
 /* The title of the button shown for creating a file */
 "creation.createFileTitle" = "Créer fichier";
 
 /* The title of the button shown for creating a folder */
-"creation.createFolderTitle" = "Créer dossier"; /* NEW */
+"creation.createFolderTitle" = "Créer dossier";
 
 /* The title of the button shown for creating a script */
-"creation.createScriptTitle" = "Créer script"; /* NEW */
+"creation.createScriptTitle" = "Créer script";
 
 /* A folder */
-"creation.folder" = "Dossier"; /* NEW */
+"creation.folder" = "Dossier";
 
 /* Import from Files */
-"creation.importFromFiles" = "Importer depuis Fichiers"; /* NEW */
+"creation.importFromFiles" = "Importer depuis Fichiers";
 
 /* A Python script */
-"creation.pythonScript" = "Script Python"; /* NEW */
+"creation.pythonScript" = "Script Python";
 
 /* The message of the alert shown for creating a file */
-"creation.typeFileName" = "Entrez le nom du fichier"; /* NEW */
+"creation.typeFileName" = "Entrez le nom du fichier";
 
 /* The message of the alert shown for creating a folder */
 "creation.typeFolderName" = "Entrez le nom du dossier";
+
+/* No comment provided by engineer. */
+"Definitions" = "Définitions";
+
+/* No comment provided by engineer. */
+"Docstring" = "Docstring";
+
+/* Done button */
+"done" = "OK";
 
 /* The message of the alert for adding an editor action. */
 "editorActionsTableViewController.createEditorActionAlertMessage" = "Entrez la command à exécuter. Le premier argument est le programme Python. Entrez \"$SCRIPT\" pour passer le chemin script edité.\n\n Exemple:\npy2to3 -w $SCRIPT";
@@ -82,7 +95,7 @@
 "editorActionsTableViewController.title" = "Actions";
 
 /* Error */
-"error" = "Erreur"; /* NEW */
+"error" = "Erreur";
 
 /* Message shown when the user typed an empty name */
 "errors.emptyName" = "Impossible de créer un fichier sans nom.";
@@ -112,16 +125,31 @@
 "errors.errorWrittingToScript" = "Erreur lors de la sauvegarde du fichier!";
 
 /* An error message shown in the Watch when a script is not set */
-"errors.noWatchScript" = "Sélectionnez un script dans les réglages de Pyto pour l'exécuter ici."; /* NEW */
+"errors.noWatchScript" = "Sélectionnez un script dans les réglages de Pyto pour l'exécuter ici.";
 
 /* 'Find' */
 "find" = "Chercher";
 
-/* The title of the notification shown when the free trial expired */
-"freetrial.expired.title" = "Essai gratuit expiré";
+/* No comment provided by engineer. */
+"Find" = "Chercher";
+
+/* No comment provided by engineer. */
+"First" = "Premier";
 
 /* The body of the notification shown when the free trial expired */
 "freetrial.expired.message" = "Merci pour utiliser Pyto. Veuillez l'acheter pour continuer à utiliser l'application.";
+
+/* The title of the notification shown when the free trial expired */
+"freetrial.expired.title" = "Essai gratuit expiré";
+
+/* (No Comment) */
+"fullversion" = "Version complète";
+
+/* The text describing the full version. */
+"fullversion.promotion" = "La version complète vous donne accès à Numpy, Pandas, Matplotlib et à d'autres bibliothèques avec des extensions C. Pour voir une liste, appuyez sur Annuler.";
+
+/* No comment provided by engineer. */
+"Go" = "Aller";
 
 /* 'Documentation' button */
 "help.documentation" = "Documentation";
@@ -144,11 +172,20 @@
 /* 'Theme' button */
 "help.theme" = "Thème";
 
+/* The inspector title */
+"inspector" = "Inspecteur";
+
 /* Install */
 "install" = "Installer";
 
 /* Description for CTRL+C key command. */
 "interrupt" = "Interrompre";
+
+/* (No Comment) */
+"liteversion" = "Version lite";
+
+/* The text describing the lite version. */
+"liteversion.promotion" = "La version lite ne contient aucune bibliothèque avec des extensions C à l'exception de PIL. Numpy, Pandas, Matplotlib, etc. nécessitent la version complète.";
 
 /* The menu item for setting breakpoint */
 "menuItems.breakpoint" = "Breakpoint";
@@ -175,10 +212,10 @@
 "menuItems.run" = "Exécuter";
 
 /* The menu item to save a file to Files */
-"menuItems.saveToFiles" = "Exporter dans Fichiers"; /* NEW */
+"menuItems.saveToFiles" = "Exporter dans Fichiers";
 
 /* The menu item to share a file */
-"menuItems.share" = "Partager"; /* NEW */
+"menuItems.share" = "Partager";
 
 /* The 'Toggle Comment' menu item */
 "menuItems.toggleComment" = "Basculer Commentaire";
@@ -195,6 +232,9 @@
 /* Action for moving file at current directory */
 "moveHere" = "Déplacer ici";
 
+/* A menu bar item to open a new window */
+"New window" = "Nouvelle fenêtre";
+
 /* Title for command for selecting next suggestion */
 "nextSuggestion" = "Suggestion suivante";
 
@@ -207,62 +247,158 @@
 /* 'Ok' button */
 "ok" = "Ok";
 
+/* Begin free trial */
+"onboarding.beginFreeTrial" = "Commencer l'essai gratuit (3 jours)";
+
+/* The second presented feature */
+"onboarding.editor" = "Éditez du code avec de la coloration syntaxique et la complétion du code.";
+
+/* The first featured feature */
+"onboarding.features.1" = "Éditer et exécuter le code";
+
+/* The second featured feature */
+"onboarding.features.2" = "Intégration avec Shortcuts";
+
+/* The third featured feature */
+"onboarding.features.3" = "Widgets";
+
+/* The fourth featured feature */
+"onboarding.features.4" = "APIs du système";
+
+/* The fifth featured feature */
+"onboarding.features.5" = "Bibliothèques Python Pure de PyPI";
+
+/* 'Full' */
+"onboarding.full" = "Complet";
+
+/* The button for purchasing the full featured version */
+"onboarding.fullFeatured %@" = "Version complète %@";
+
+/* The button linking to a list of contained libraries in the pro version */
+"onboarding.libraries" = "Contient ces bibliothèques";
+
+/* 'Limited' */
+"onboarding.limited" = "Lite";
+
+/* The button for purchasing the limited version */
+"onboarding.limitedVersion %@" = "Version lite %@";
+
+/* The footnote below the button for purchasing the limited version */
+"onboarding.noExtensionsFootnote" = "Ne contient pas numpy, pandas et toute autre bibliothèque avec des extensions C";
+
+/* The button for choosing a pricing */
+"onboarding.purchase" = "Acheter";
+
+/* A warning so people don't email me about how to install Tensorflow */
+"onboarding.purchaseWarning" = "Pour des raisons techniques, aucune autre bibliothèque avec des extensions C ne peut être installée à partir de PyPI. C'est pourquoi elles doivent être inclus dans l'application.";
+
+/* The third presented feature */
+"onboarding.pypi" = "Installez des modules en Python pur avec PyPI.";
+
+/* The button for restoring purchases */
+"onboarding.restore" = "Restaurer";
+
+/* The first presented feature */
+"onboarding.runCode" = "Exécutez du code Python localement.";
+
+/* The fourth presented feature */
+"onboarding.shortcuts" = "Exécutez des scripts ou du code personnalisé avec les raccourcis Siri.";
+
+/* The text below the title */
+"onboarding.subtitle" = "Vous pouvez essayer Pyto gratuitement pendant 3 jours. Une fois votre essai gratuit expiré, vous devrez acheter l'une des deux options ci-dessous pour continuer à utiliser l'application.";
+
+/* The title of the onboarding view */
+"onboarding.title" = "Bienvenue dans Pyto\n";
+
+/* The title of the onboarding view */
+"onboarding.title.ios15" = "Bienvenue dans Pyto\n";
+
+/* The title of the onboarding view */
+"onboarding.title.ios15.genderless" = "Bienvenue dans Pyto\n";
+
+/* Trial period ended */
+"onboarding.trialEnded" = "Fin de la période d'essai";
+
+/* The text below the purchase button */
+"onboarding.twoPricesAvailable" = "Deux prix disponibles";
+
+/* The fifth presented feature */
+"onboarding.widgets" = "Widgets";
+
 /* 1 file */
 "oneFile" = "1 fichier";
 
-/* 'Open' */
-"projectsBrowser.open" = "Ouvrir"; /* NEW */
+/* Open directory */
+"Open directory" = "Ouvrir dossier";
 
-/* 'Recent' */
-"projectsBrowser.recent" = "Récent"; /* NEW */
+/* Open script */
+"Open script" = "Ouvrir script";
 
-/* 'Projects' */
-"projectsBrowser.title" = "Projets"; /* NEW */
+/* 'Open' & NEW */
+"projectsBrowser.open" = "Ouvrir";
+
+/* 'Recent' & NEW */
+"projectsBrowser.recent" = "Récent";
+
+/* 'Projects' & NEW */
+"projectsBrowser.title" = "Projets";
 
 /* Author */
-"pypi.author" = "Auteur"; /* NEW */
+"pypi.author" = "Auteur";
+
+/* Credits displayed on the bottom of the PyPi installer */
+"pypi.credits" = "UI inspirée par ";
+
+/* Text displayed on the PyPi installer */
+"pypi.info" = "Installez des packages Python purs avec PyPI.\n\nLes paquets sont installés sur Stockage Local > Pyto > site_packages";
 
 /* Install (package) */
-"pypi.install" = "Installer %@"; /* NEW */
+"pypi.install" = "Installer %@";
 
 /* The title of the 'Links' section */
-"pypi.links" = "Liens"; /* NEW */
+"pypi.links" = "Liens";
 
 /* Maintainer */
-"pypi.maintainer" = "Mainteneur"; /* NEW */
+"pypi.maintainer" = "Mainteneur";
+
+/* A button on the context menu to show more info */
+"pypi.moreInfo" = "Plus d'information";
 
 /* Package not found */
-"pypi.packageNotFound" = "Paquet non trouvé"; /* NEW */
+"pypi.packageNotFound" = "Paquet non trouvé";
 
 /* The title of the 'Project' section */
-"pypi.project" = "Projet"; /* NEW */
+"pypi.project" = "Projet";
 
 /* Library is provided by Pyto */
-"pypi.providedByPyto" = "Inclu dans Pyto"; /* NEW */
+"pypi.providedByPyto" = "Inclu dans Pyto";
 
 /* Remove (package) */
-"pypi.remove" = "Supprimer"; /* NEW */
+"pypi.remove" = "Supprimer";
 
 /* The title of the 'Requirements' section */
-"pypi.requirements" = "Dépendances"; /* NEW */
+"pypi.requirements" = "Dépendances";
 
 /* The placeholder of the search bar */
-"pypi.searchBarPlaceholder" = "Paquet Python"; /* NEW */
+"pypi.searchBarPlaceholder" = "Paquet Python";
 
 /* Select a version */
-"pypi.selectVersion" = "Sélectionnez une version"; /* NEW */
+"pypi.selectVersion" = "Sélectionnez une version";
 
 /* Version */
-"pypi.version" = "Version"; /* NEW */
+"pypi.version" = "Version";
+
+/* A button on the context menu to show the package on PyPi */
+"pypi.viewOnPyPi" = "Voir sur PyPI.org";
 
 /* A message shown in the console while downloading a module (Downloading module 100%) */
-"python.downloadingModule" = "Téléchargement de %@ %@"; /* NEW */
+"python.downloadingModule" = "Téléchargement de %@ %@";
 
 /* The message of the alert shown when a module is being downloaded for the first time */
-"python.downloadingModuleAlert.explaination" = "Pyto est entrain de télécharger les scripts de %@. Les scripts ne sont pas inclus dans le paquet de l'application. Les libraires tierces incluses comme numpy, scipy, pandas etc prendront plus long pour importer la primière fois, mais les scripts resteront dans le stockage après. Une conection à internet sera requise pour la première fois lors de l'importation d'un module inclus, mais pas pour la prochaine fois que le module sera importé. Ce popup n'apparaîtra plus."; /* NEW */
+"python.downloadingModuleAlert.explaination" = "Pyto est entrain de télécharger les scripts de %@. Les scripts ne sont pas inclus dans le paquet de l'application. Les libraires tierces incluses comme numpy, scipy, pandas etc prendront plus long pour importer la primière fois, mais les scripts resteront dans le stockage après. Une conection à internet sera requise pour la première fois lors de l'importation d'un module inclus, mais pas pour la prochaine fois que le module sera importé. Ce popup n'apparaîtra plus.";
 
 /* I understand */
-"python.downloadingModuleAlert.iUnderstand" = "Je comprends"; /* NEW */
+"python.downloadingModuleAlert.iUnderstand" = "Je comprends";
 
 /* A notification sent to remind that a script is running in background */
 "python.isRunningScript" = "%@ est entrain de s'exécuter depuis %@.";
@@ -280,7 +416,13 @@
 "repl" = "REPL";
 
 /* 'Replace' */
-"replace" = "Remplacer"; /* NEW */
+"replace" = "Remplacer";
+
+/* No comment provided by engineer. */
+"Replace" = "Remplacer";
+
+/* 'Replace by' text field placeholder */
+"Replace by" = "Remplacer par";
 
 /* Description for key command for running and setting arguments. */
 "runAndSetArguments" = "Exécuter avec arguments";
@@ -288,11 +430,32 @@
 /* 'Runtime' button on the editor */
 "runtime" = "Runtime";
 
+/* The title of the examples gallery */
+"samplesTitle" = "Exemples";
+
+/* No comment provided by engineer. */
+"Save" = "Sauvegarder";
+
+/* No comment provided by engineer. */
+"Script is running in Picture in Picture (PIP)" = "Script est entrain de s'exécuter en Picture in Picture (PIP)";
+
+/* Placeholder of the search bar */
+"search" = "Chercher";
+
+/* No comment provided by engineer. */
+"Search" = "Chercher";
+
+/* The 'Show in Finder' menu item */
+"Show in Finder" = "Montrer dans le Finder";
+
 /* The 'Examples' sidebar section */
 "sidebar.examples" = "Exemples";
 
 /* The 'Loaded modules' sidebar section */
 "sidebar.loadedModules" = "Modules chargés";
+
+/* The 'Projects' sidebar section */
+"sidebar.projects" = "Projets";
 
 /* The 'PyPI' sidebar section */
 "sidebar.pypi" = "PyPI";
@@ -312,20 +475,26 @@
 /* The 'Scripts' sidebar section */
 "sidebar.scripts" = "Scripts";
 
-/* The 'Projects' sidebar section */
-"sidebar.projects" = "Projets";
+/* Stop the execution of a script */
+"stop" = "Arrêter";
 
 /* 'Unindent' key command */
 "unindent" = "Enlever indentation";
 
 /* Untitled */
-"untitled" = "Sans titre"; /* NEW */
+"untitled" = "Sans titre";
+
+/* (No Comment) */
+"upgradeToFull" = "Mettre à niveau";
+
+/* No comment provided by engineer. */
+"Utilities" = "Utilitaire";
 
 /* The message of the alert for adding a new suggestion */
-"watchInputSuggestions.message" = "Entrez une nouvelle suggestion"; /* NEW */
+"watchInputSuggestions.message" = "Entrez une nouvelle suggestion";
 
 /* The title of the alert for adding a new suggestion */
-"watchInputSuggestions.title" = "Nouvelle suggestion"; /* NEW */
+"watchInputSuggestions.title" = "Nouvelle suggestion";
 
 /* Title of the button for collapsing a widget. */
 "widget.alertMessage" = "Le script du widget à été réglé. Il va apparaîte dans le widget \"Pyto\"";
@@ -339,116 +508,3 @@
 /* Title of the button for expanding a widget. */
 "widget.showMore" = "Plus";
 
-/* The inspector title */
-"inspector" = "Inspecteur";
-
-/* Done button */
-"done" = "OK";
-
-/* Placeholder of the search bar */
-"search" = "Chercher";
-
-/* The title of the examples gallery */
-"samplesTitle" = "Exemples";
-
-/* The title of the onboarding view */
-"onboarding.title" = "Bienvenue dans Pyto\n";
-
-/* The title of the onboarding view */
-"onboarding.title.ios15" = "Bienvenue dans Pyto\n";
-
-/* The title of the onboarding view */
-"onboarding.title.ios15.genderless" = "Bienvenue dans Pyto\n";
-
-/* The text below the title */
-"onboarding.subtitle" = "Vous pouvez essayer Pyto gratuitement pendant 3 jours. Une fois votre essai gratuit expiré, vous devrez acheter l'une des deux options ci-dessous pour continuer à utiliser l'application.";
-
-/* The first presented feature */
-"onboarding.runCode" = "Exécutez du code Python localement.";
-
-/* The second presented feature */
-"onboarding.editor" = "Éditez du code avec de la coloration syntaxique et la complétion du code.";
-
-/* The third presented feature */
-"onboarding.pypi" = "Installez des modules en Python pur avec PyPI.";
-
-/* The fourth presented feature */
-"onboarding.shortcuts" = "Exécutez des scripts ou du code personnalisé avec les raccourcis Siri.";
-
-/* The button linking to a list of contained libraries in the pro version */
-"onboarding.libraries" = "Contient ces bibliothèques";
-
-/* The footnote below the button for purchasing the limited version */
-"onboarding.noExtensionsFootnote" = "Ne contient pas numpy, pandas et toute autre bibliothèque avec des extensions C";
-
-/* Trial period ended */
-"onboarding.trialEnded" = "Fin de la période d'essai";
-
-/* Begin free trial */
-"onboarding.beginFreeTrial" = "Commencer l'essai gratuit (3 jours)";
-
-/* The button for restoring purchases */
-"onboarding.restore" = "Restaurer";
-
-/* The button for purchasing the full featured version */
-"onboarding.fullFeatured %@" = "Version complète %@";
-
-/* The button for purchasing the limited version */
-"onboarding.limitedVersion %@" = "Version lite %@";
-
-/* The button for choosing a pricing */
-"onboarding.purchase" = "Acheter";
-
-/* The text below the purchase button */
-"onboarding.twoPricesAvailable" = "Deux prix disponibles";
-
-/* 'Full' */
-"onboarding.full" = "Complet";
-
-/* 'Limited' */
-"onboarding.limited" = "Lite";
-
-"onboarding.widgets" = "Widgets";
-
-/* A warning so people don't email me about how to install Tensorflow */
-"onboarding.purchaseWarning" = "Pour des raisons techniques, aucune autre bibliothèque avec des extensions C ne peut être installée à partir de PyPI. C'est pourquoi elles doivent être inclus dans l'application.";
-
-/* The first featured feature */
-"onboarding.features.1" = "Éditer et exécuter le code";
-
-/* The second featured feature */
-"onboarding.features.2" = "Intégration avec Shortcuts";
-
-/* The third featured feature */
-"onboarding.features.3" = "Widgets";
-
-/* The fourth featured feature */
-"onboarding.features.4" = "APIs du système";
-
-/* The fifth featured feature */
-"onboarding.features.5" = "Bibliothèques Python Pure de PyPI";
-
-"fullversion" = "Version complète";
-
-"liteversion" = "Version lite";
-
-"upgradeToFull" = "Mettre à niveau";
-
-"fullversion.promotion" = "La version complète vous donne accès à Numpy, Pandas, Matplotlib et à d'autres bibliothèques avec des extensions C. Pour voir une liste, appuyez sur Annuler.";
-
-"liteversion.promotion" = "La version lite ne contient aucune bibliothèque avec des extensions C à l'exception de PIL. Numpy, Pandas, Matplotlib, etc. nécessitent la version complète.";
-
-/* Text displayed on the PyPi installer */
-"pypi.info" = "Installez des packages Python purs avec PyPI.\n\nLes paquets sont installés sur Stockage Local > Pyto > site_packages";
-
-/* Credits displayed on the bottom of the PyPi installer */
-"pypi.credits" = "UI inspirée par ";
-
-/* A button on the context menu to show the package on PyPi */
-"pypi.viewOnPyPi" = "Voir sur PyPI.org";
-
-/* A button on the context menu to show more info */
-"pypi.moreInfo" = "Plus d'information";
-
-/* Stop the execution of a script */
-"stop" = "Arrêter";

@@ -1,5 +1,3 @@
-/* Created with Localizable Strings Merge, the swiss-army knife for iOS and OS X localization. */
-
 /* Add */
 "add" = "Add";
 
@@ -72,6 +70,9 @@
 /* The message of the alert shown for creating a folder */
 "creation.typeFolderName" = "Type the new folder's name";
 
+/* Done button */
+"done" = "Done";
+
 /* The message of the alert for adding an editor action. */
 "editorActionsTableViewController.createEditorActionAlertMessage" = "Type below the command to be executed. The first argument is the Python program to be executed. Type \"$SCRIPT\" for passing the edited script's path.\n\n Example:\npy2to3 -w $SCRIPT";
 
@@ -117,11 +118,17 @@
 /* 'Find' */
 "find" = "Find";
 
+/* The body of the notification shown when the free trial expired */
+"freetrial.expired.message" = "Thanks for using Pyto. Purchase it to continue using the app.";
+
 /* The title of the notification shown when the free trial expired */
 "freetrial.expired.title" = "Free trial expired";
 
-/* The body of the notification shown when the free trial expired */
-"freetrial.expired.message" = "Thanks for using Pyto. Purchase it to continue using the app.";
+/* (No Comment) */
+"fullversion" = "Full Version";
+
+/* The text describing the full version. */
+"fullversion.promotion" = "The full version gives you access to Numpy, Pandas, Matplotlib and more libraries with C extensions. To see a list, press cancel.";
 
 /* 'Documentation' button */
 "help.documentation" = "Documentation";
@@ -144,11 +151,20 @@
 /* 'Theme' button */
 "help.theme" = "Theme";
 
+/* The inspector title */
+"inspector" = "Inspector";
+
 /* Install */
 "install" = "Install";
 
 /* Description for CTRL+C key command. */
 "interrupt" = "Interrupt";
+
+/* (No Comment) */
+"liteversion" = "Lite Version";
+
+/* The text describing the lite version. */
+"liteversion.promotion" = "The lite version does not contain any library with C extensions except PIL. Numpy, Pandas, Matplotlib etc require the full version.";
 
 /* The menu item for setting breakpoint */
 "menuItems.breakpoint" = "Breakpoint";
@@ -201,26 +217,113 @@
 /* The text shown when a folder is empty */
 "noFiles" = "No files in folder";
 
+/* No comment provided by engineer. */
+"noSelectedScript" = "No selected script";
+
 /* The text shown when a folder has subdirectories but no files */
 "numberOfFiles" = "%i files";
 
 /* 'Ok' button */
 "ok" = "Ok";
 
+/* Begin free trial */
+"onboarding.beginFreeTrial" = "Begin free trial (3 days)";
+
+/* The second presented feature */
+"onboarding.editor" = "Edit code with syntax highlighting and code completion.";
+
+/* The first featured feature */
+"onboarding.features.1" = "Edit and run code";
+
+/* The second featured feature */
+"onboarding.features.2" = "Integration with Shortcuts";
+
+/* The third featured feature */
+"onboarding.features.3" = "Widgets";
+
+/* The fourth featured feature */
+"onboarding.features.4" = "System APIs";
+
+/* The fifth featured feature */
+"onboarding.features.5" = "Pure Python libraries from PyPI";
+
+/* 'Full' */
+"onboarding.full" = "Full";
+
+/* The button for purchasing the full featured version */
+"onboarding.fullFeatured %@" = "Full featured %@";
+
+/* The button linking to a list of contained libraries in the pro version */
+"onboarding.libraries" = "Contains these libraries";
+
+/* 'Limited' */
+"onboarding.limited" = "Lite";
+
+/* The button for purchasing the limited version */
+"onboarding.limitedVersion %@" = "No C extensions %@";
+
+/* The footnote below the button for purchasing the limited version */
+"onboarding.noExtensionsFootnote" = "Does not contain numpy, pandas and any other library with C extensions";
+
+/* The button for choosing a pricing */
+"onboarding.purchase" = "Purchase";
+
+/* A warning so people don't email me about how to install Tensorflow */
+"onboarding.purchaseWarning" = "Due to technical reasons, no other library with C extensions can be installed from PyPI. That's why they need to be included in the app.";
+
+/* The third presented feature */
+"onboarding.pypi" = "Install pure Python modules from PyPI.";
+
+/* The button for restoring purchases */
+"onboarding.restore" = "Restore";
+
+/* The first presented feature */
+"onboarding.runCode" = "Run Python code locally.";
+
+/* The fourth presented feature */
+"onboarding.shortcuts" = "Run scripts or custom code with Siri Shortcuts.";
+
+/* The text below the title */
+"onboarding.subtitle" = "You can try Pyto for free during 3 days. Once your free trial expired, you'll need to purchase one of the two options below to continue using the app.";
+
+/* The title of the onboarding view */
+"onboarding.title" = "Welcome to Pyto\n";
+
+/* The title of the onboarding view */
+"onboarding.title.ios15" = "Welcome to Pyto\n";
+
+/* The title of the onboarding view */
+"onboarding.title.ios15.genderless" = "Welcome to Pyto\n";
+
+/* Trial period ended */
+"onboarding.trialEnded" = "Trial period ended";
+
+/* The text below the purchase button */
+"onboarding.twoPricesAvailable" = "Two prices available";
+
+/* The fifth presented feature */
+"onboarding.widgets" = "Widgets";
+
 /* 1 file */
 "oneFile" = "1 file";
 
-/* 'Open' */
-"projectsBrowser.open" = "Open"; /* NEW */
+/* 'Open' & NEW */
+"projectsBrowser.open" = "Open";
 
-/* 'Recent' */
-"projectsBrowser.recent" = "Recent"; /* NEW */
+/* 'Recent' & NEW */
+"projectsBrowser.recent" = "Recent";
 
-/* 'Projects' */
-"projectsBrowser.title" = "Projects"; /* NEW */
+/* 'Projects' & NEW */
+"projectsBrowser.title" = "Projects";
 
 /* Author */
 "pypi.author" = "Author";
+
+/* Credits displayed on the bottom of the PyPi installer */
+"pypi.credits" = "UI inspired by ";
+
+/* Text displayed on the PyPi installer */
+"pypi.info" = "Install pure Python packages with PyPI.\n\nPackages are installed to Local Storage > Pyto > site_packages";
 
 /* Install (package) */
 "pypi.install" = "Install %@";
@@ -230,6 +333,9 @@
 
 /* Maintainer */
 "pypi.maintainer" = "Maintainer";
+
+/* A button on the context menu to show more info */
+"pypi.moreInfo" = "More information";
 
 /* Package not found */
 "pypi.packageNotFound" = "Package not found";
@@ -254,6 +360,9 @@
 
 /* Version */
 "pypi.version" = "Version";
+
+/* A button on the context menu to show the package on PyPi */
+"pypi.viewOnPyPi" = "View on PyPI.org";
 
 /* A message shown in the console while downloading a module (Downloading module 100%) */
 "python.downloadingModule" = "Downloading %@ %@";
@@ -288,11 +397,20 @@
 /* 'Runtime' button on the editor */
 "runtime" = "Runtime";
 
+/* The title of the examples gallery */
+"samplesTitle" = "Examples";
+
+/* Placeholder of the search bar */
+"search" = "Search";
+
 /* The 'Examples' sidebar section */
 "sidebar.examples" = "Examples";
 
 /* The 'Loaded modules' sidebar section */
 "sidebar.loadedModules" = "Loaded modules";
+
+/* The 'Projects' sidebar section */
+"sidebar.projects" = "Projects";
 
 /* The 'PyPI' sidebar section */
 "sidebar.pypi" = "PyPI";
@@ -312,14 +430,17 @@
 /* The 'Scripts' sidebar section */
 "sidebar.scripts" = "Scripts";
 
-/* The 'Projects' sidebar section */
-"sidebar.projects" = "Projects";
+/* Stop the execution of a script */
+"stop" = "Stop";
 
 /* 'Unindent' key command */
 "unindent" = "Un-indent";
 
 /* Untitled */
 "untitled" = "Untitled";
+
+/* (No Comment) */
+"upgradeToFull" = "Upgrade";
 
 /* The message of the alert for adding a new suggestion */
 "watchInputSuggestions.message" = "Type a new suggestion";
@@ -339,116 +460,3 @@
 /* Title of the button for expanding a widget. */
 "widget.showMore" = "Show More";
 
-/* The inspector title */
-"inspector" = "Inspector";
-
-/* Done button */
-"done" = "Done";
-
-/* Placeholder of the search bar */
-"search" = "Search";
-
-/* The title of the examples gallery */
-"samplesTitle" = "Examples";
-
-/* The title of the onboarding view */
-"onboarding.title" = "Welcome to Pyto\n";
-
-/* The title of the onboarding view */
-"onboarding.title.ios15" = "Welcome to Pyto\n";
-
-/* The title of the onboarding view */
-"onboarding.title.ios15.genderless" = "Welcome to Pyto\n";
-
-/* The text below the title */
-"onboarding.subtitle" = "You can try Pyto for free during 3 days. Once your free trial expired, you'll need to purchase one of the two options below to continue using the app.";
-
-/* The first presented feature */
-"onboarding.runCode" = "Run Python code locally.";
-
-/* The second presented feature */
-"onboarding.editor" = "Edit code with syntax highlighting and code completion.";
-
-/* The third presented feature */
-"onboarding.pypi" = "Install pure Python modules from PyPI.";
-
-/* The fourth presented feature */
-"onboarding.shortcuts" = "Run scripts or custom code with Siri Shortcuts.";
-
-/* The button linking to a list of contained libraries in the pro version */
-"onboarding.libraries" = "Contains these libraries";
-
-/* The footnote below the button for purchasing the limited version */
-"onboarding.noExtensionsFootnote" = "Does not contain numpy, pandas and any other library with C extensions";
-
-/* Trial period ended */
-"onboarding.trialEnded" = "Trial period ended";
-
-/* Begin free trial */
-"onboarding.beginFreeTrial" = "Begin free trial (3 days)";
-
-/* The button for restoring purchases */
-"onboarding.restore" = "Restore";
-
-/* The button for purchasing the full featured version */
-"onboarding.fullFeatured %@" = "Full featured %@";
-
-/* The button for purchasing the limited version */
-"onboarding.limitedVersion %@" = "No C extensions %@";
-
-/* The button for choosing a pricing */
-"onboarding.purchase" = "Purchase";
-
-/* The text below the purchase button */
-"onboarding.twoPricesAvailable" = "Two prices available";
-
-/* 'Full' */
-"onboarding.full" = "Full";
-
-/* 'Limited' */
-"onboarding.limited" = "Lite";
-
-/* A warning so people don't email me about how to install Tensorflow */
-"onboarding.purchaseWarning" = "Due to technical reasons, no other library with C extensions can be installed from PyPI. That's why they need to be included in the app.";
-
-/* The first featured feature */
-"onboarding.features.1" = "Edit and run code";
-
-/* The second featured feature */
-"onboarding.features.2" = "Integration with Shortcuts";
-
-/* The third featured feature */
-"onboarding.features.3" = "Widgets";
-
-/* The fourth featured feature */
-"onboarding.features.4" = "System APIs";
-
-/* The fifth featured feature */
-"onboarding.features.5" = "Pure Python libraries from PyPI";
-
-"fullversion" = "Full Version";
-
-"liteversion" = "Lite Version";
-
-"fullversion.promotion" = "The full version gives you access to Numpy, Pandas, Matplotlib and more libraries with C extensions. To see a list, press cancel.";
-
-"liteversion.promotion" = "The lite version does not contain any library with C extensions except PIL. Numpy, Pandas, Matplotlib etc require the full version.";
-
-"upgradeToFull" = "Upgrade";
-
-"onboarding.widgets" = "Widgets";
-
-/* Text displayed on the PyPi installer */
-"pypi.info" = "Install pure Python packages with PyPI.\n\nPackages are installed to Local Storage > Pyto > site_packages";
-
-/* Credits displayed on the bottom of the PyPi installer */
-"pypi.credits" = "UI inspired by ";
-
-/* A button on the context menu to show the package on PyPi */
-"pypi.viewOnPyPi" = "View on PyPI.org";
-
-/* A button on the context menu to show more info */
-"pypi.moreInfo" = "More information";
-
-/* Stop the execution of a script */
-"stop" = "Stop";

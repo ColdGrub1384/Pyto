@@ -16,21 +16,35 @@ fileprivate struct Item: Hashable {
 }
 
 fileprivate let tabsItems = [
-    Item(title: NSLocalizedString("Create", comment: ""), image: UIImage(systemName: "plus.square.fill")),
-    Item(title: NSLocalizedString("Open script", comment: ""), image: UIImage(systemName: "square.and.arrow.down")),
-    Item(title: NSLocalizedString("Open directory", comment: ""), image: UIImage(systemName: "folder"))]
+    Item(title: NSLocalizedString("Create", comment: "Create script"), image: UIImage(systemName: "plus.square.fill")),
+    Item(title: NSLocalizedString("Open script", comment: "Open script"), image: UIImage(systemName: "square.and.arrow.down")),
+    Item(title: NSLocalizedString("Open directory", comment: "Open directory"), image: UIImage(systemName: "folder"))]
 
-fileprivate let pythonItems = [Item(title: NSLocalizedString("repl", comment: ""), image: UIImage(systemName: "play")),
-                     Item(title: NSLocalizedString("sidebar.runModule", comment: ""), image: UIImage(systemName: "chevron.left.forwardslash.chevron.right")),
-                     Item(title: NSLocalizedString("sidebar.pypi", comment: ""), image: UIImage(systemName: "cloud")),
-                     Item(title: NSLocalizedString("sidebar.loadedModules", comment: ""), image: UIImage(systemName: "info.circle"))]
+fileprivate let pythonItems = [Item(title: NSLocalizedString("repl", comment: "The REPL"), image: UIImage(systemName: "play")),
+                     Item(title: NSLocalizedString("sidebar.runModule", comment: "Run module"), image: UIImage(systemName: "chevron.left.forwardslash.chevron.right")),
+                     Item(title: NSLocalizedString("sidebar.pypi", comment: "PyPI"), image: UIImage(systemName: "cloud")),
+                     Item(title: NSLocalizedString("sidebar.loadedModules", comment: "Loaded modules"), image: UIImage(systemName: "info.circle"))]
     
 fileprivate let resourcesItems = [
-    Item(title: NSLocalizedString("sidebar.examples", comment: ""), image: UIImage(systemName: "bookmark")),
-    Item(title: NSLocalizedString("help.documentation", comment: ""), image: UIImage(systemName: "book")),
+    Item(title: NSLocalizedString("sidebar.examples", comment: "Examples"), image: UIImage(systemName: "bookmark")),
+    Item(title: NSLocalizedString("help.documentation", comment: "'Documentation' button"), image: UIImage(systemName: "book")),
 ]
     
 fileprivate enum Section: String {
+    
+    var localizedString: String {
+        switch self {
+        case .recents:
+            return NSLocalizedString("sidebar.recent", comment: "'Recents' section header")
+        case .python:
+            return NSLocalizedString("sidebar.python", comment: "'Python' section header")
+        case .resources:
+            return NSLocalizedString("sidebar.resources", comment: "'Resources' section header")
+        case .tabs:
+            return ""
+        }
+    }
+    
     case tabs
     case recents = "sidebar.recent"
     case python = "sidebar.python"
@@ -211,7 +225,7 @@ fileprivate enum Section: String {
         
         loadViewIfNeeded()
         
-        let headerItem = Item(title: NSLocalizedString(section.rawValue, comment: ""), image: nil)
+        let headerItem = Item(title: section.localizedString, image: nil)
         var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
         sectionSnapshot.append([headerItem])
         sectionSnapshot.append(items, to: headerItem)
@@ -220,7 +234,7 @@ fileprivate enum Section: String {
     }
     
     @objc func showSettings() {
-        let vc = UIStoryboard(name: "Settings", bundle: .main).instantiateInitialViewController()
+        let vc = UIStoryboard(name: "SettingsView", bundle: .main).instantiateInitialViewController()
         vc?.modalPresentationStyle = .formSheet
         let navVC = UINavigationController(rootViewController: vc!)
         navVC.modalPresentationStyle = .formSheet
@@ -367,14 +381,14 @@ fileprivate enum Section: String {
             case .recents:
                 loadRecents()
             case .python:
-                let headerItem = Item(title: NSLocalizedString(section.rawValue, comment: ""), image: nil)
+                let headerItem = Item(title: section.localizedString, image: nil)
                 var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
                 sectionSnapshot.append([headerItem])
                 sectionSnapshot.append(pythonItems, to: headerItem)
                 sectionSnapshot.expand([headerItem])
                 dataSource.apply(sectionSnapshot, to: section)
             case .resources:
-                let headerItem = Item(title: NSLocalizedString(section.rawValue, comment: ""), image: nil)
+                let headerItem = Item(title: section.localizedString, image: nil)
                 var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
                 sectionSnapshot.append([headerItem])
                 sectionSnapshot.append(resourcesItems, to: headerItem)

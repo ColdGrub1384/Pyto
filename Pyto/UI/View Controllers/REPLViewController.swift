@@ -115,7 +115,7 @@ import UIKit
         parent?.navigationItem.rightBarButtonItems = navigationItem.rightBarButtonItems
         
         navigationController?.isToolbarHidden = true
-        title = NSLocalizedString("repl", comment: "'REPL' tab")
+        title = NSLocalizedString("repl", comment: "The REPL")
         parent?.title = title
         parent?.navigationItem.title = title
         

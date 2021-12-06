@@ -148,6 +148,8 @@
 		B526B597274C60D40094FCBB /* ConsolePipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B526B593274C60780094FCBB /* ConsolePipView.swift */; };
 		B526B598274C60DF0094FCBB /* isiOSAppOnMac.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33B44FB25894A9E00F2D1E6 /* isiOSAppOnMac.swift */; };
 		B526B599274C60E00094FCBB /* isiOSAppOnMac.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33B44FB25894A9E00F2D1E6 /* isiOSAppOnMac.swift */; };
+		B533EEE6275E6E7600D37F6D /* SettingsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B533EEE9275E6E7600D37F6D /* SettingsView.storyboard */; };
+		B533EEE7275E6E7600D37F6D /* SettingsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B533EEE9275E6E7600D37F6D /* SettingsView.storyboard */; };
 		B53436C8275D716700691204 /* UIKitLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53436C7275D716700691204 /* UIKitLocalizedString.swift */; };
 		B53436C9275D717D00691204 /* UIKitLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53436C7275D716700691204 /* UIKitLocalizedString.swift */; };
 		B53436CA275D717E00691204 /* UIKitLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53436C7275D716700691204 /* UIKitLocalizedString.swift */; };
@@ -206,7 +208,6 @@
 		C90BA5CA23C4CD2B00B2B187 /* Light 2.png in Resources */ = {isa = PBXBuildFile; fileRef = C90BA5C523C4CD2A00B2B187 /* Light 2.png */; };
 		C90BA5CB23C4CD2B00B2B187 /* Light 5.png in Resources */ = {isa = PBXBuildFile; fileRef = C90BA5C623C4CD2B00B2B187 /* Light 5.png */; };
 		C90BC02F24720F3F00EF7F09 /* Theme Chooser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C90BC03124720F3F00EF7F09 /* Theme Chooser.storyboard */; };
-		C90BC03324720F5900EF7F09 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C90BC03524720F5900EF7F09 /* Settings.storyboard */; };
 		C90BC03724720F6800EF7F09 /* ConflictsResolver.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C90BC03924720F6800EF7F09 /* ConflictsResolver.storyboard */; };
 		C90BC03B24720F7B00EF7F09 /* Widget Simulator.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C90BC03D24720F7B00EF7F09 /* Widget Simulator.storyboard */; };
 		C90BC03F24720F8A00EF7F09 /* Template Chooser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C90BC04124720F8A00EF7F09 /* Template Chooser.storyboard */; };
@@ -557,7 +558,6 @@
 		C940FCC8250825A800EB74EB /* TextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9A33B12224FCDAD0083F041 /* TextField.xib */; };
 		C940FCC9250825A800EB74EB /* Type.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A419A423A321EB00BF5393 /* Type.png */; };
 		C940FCCB250825A800EB74EB /* Replace.xib in Resources */ = {isa = PBXBuildFile; fileRef = C954FAB4220A165E0060C488 /* Replace.xib */; };
-		C940FCCC250825A800EB74EB /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C90BC03524720F5900EF7F09 /* Settings.storyboard */; };
 		C940FCCD250825A800EB74EB /* cryptography in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF41A246E2391004F41D3 /* cryptography */; settings = {ASSET_TAGS = (cryptography, ); }; };
 		C940FCCE250825A800EB74EB /* Theme Chooser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C90BC03124720F3F00EF7F09 /* Theme Chooser.storyboard */; };
 		C940FCCF250825A800EB74EB /* Welcome to Pyto.md in Resources */ = {isa = PBXBuildFile; fileRef = C9EA5C7C21F23024000F7FA7 /* Welcome to Pyto.md */; };
@@ -2184,8 +2184,24 @@
 		B52412DD27594DE100896B11 /* libOpenSSL.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOpenSSL.a; sourceTree = "<group>"; };
 		B526B5882747902A0094FCBB /* TextViewSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewSearch.swift; sourceTree = "<group>"; };
 		B526B593274C60780094FCBB /* ConsolePipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsolePipView.swift; sourceTree = "<group>"; };
-		B53436C6275D66F100691204 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Settings.strings; sourceTree = "<group>"; };
+		B533EEEE275E730100D37F6D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/SettingsView.storyboard; sourceTree = "<group>"; };
+		B533EEF2275E733E00D37F6D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/SettingsView.strings; sourceTree = "<group>"; };
+		B533EEF3275E734500D37F6D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SettingsView.strings; sourceTree = "<group>"; };
+		B533EEF4275E734B00D37F6D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/SettingsView.strings; sourceTree = "<group>"; };
+		B533EEF5275E86A500D37F6D /* de */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = de; path = de.lproj/ScriptSettingsViewController.storyboard; sourceTree = "<group>"; };
+		B533EEF6275E86A500D37F6D /* de */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = de; path = "de.lproj/Template Chooser.storyboard"; sourceTree = "<group>"; };
+		B533EEF7275E86A500D37F6D /* de */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = de; path = "de.lproj/Widget Simulator.storyboard"; sourceTree = "<group>"; };
+		B533EEF8275E86AD00D37F6D /* es */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = es; path = es.lproj/ScriptSettingsViewController.storyboard; sourceTree = "<group>"; };
+		B533EEF9275E86AD00D37F6D /* es */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = es; path = "es.lproj/Template Chooser.storyboard"; sourceTree = "<group>"; };
+		B533EEFA275E86AD00D37F6D /* es */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = es; path = "es.lproj/Widget Simulator.storyboard"; sourceTree = "<group>"; };
+		B533EEFB275E86B900D37F6D /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = fr; path = fr.lproj/ScriptSettingsViewController.storyboard; sourceTree = "<group>"; };
 		B53436C7275D716700691204 /* UIKitLocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitLocalizedString.swift; sourceTree = "<group>"; };
+		B53436DA275D75B500691204 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = es; path = "es.lproj/Theme Chooser.storyboard"; sourceTree = "<group>"; };
+		B53436DB275D75B500691204 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = de; path = "de.lproj/Theme Chooser.storyboard"; sourceTree = "<group>"; };
+		B53436DC275D75B600691204 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = es; path = es.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B53436DD275D75B600691204 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = de; path = de.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B53436DE275D75B600691204 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = es; path = es.lproj/ConflictsResolver.storyboard; sourceTree = "<group>"; };
+		B53436DF275D75B600691204 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = de; path = de.lproj/ConflictsResolver.storyboard; sourceTree = "<group>"; };
 		B549F217275AD2C700B5E20A /* clipboard_manager */ = {isa = PBXFileReference; lastKnownFileType = folder; path = clipboard_manager; sourceTree = "<group>"; };
 		B549F21C275AD32000B5E20A /* Screenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshots.swift; sourceTree = "<group>"; };
 		B549F21E275BCD2100B5E20A /* rotated_panda.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rotated_panda.png; sourceTree = "<group>"; };
@@ -2225,10 +2241,6 @@
 		C90951042478540A00931684 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C90951052478540E00931684 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C9095106247856F600931684 /* SwiftUIBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIBundle.swift; sourceTree = "<group>"; };
-		C90951082478859D00931684 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
-		C90951092478859F00931684 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "de.lproj/Theme Chooser.strings"; sourceTree = "<group>"; };
-		C909510A2478859F00931684 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Settings.strings; sourceTree = "<group>"; };
-		C909510B247885A000931684 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/ConflictsResolver.strings; sourceTree = "<group>"; };
 		C9095110247885A400931684 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C9095111247885A400931684 /* de */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C909A19B2267E6E30058C145 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
@@ -2246,7 +2258,6 @@
 		C90BBFEB2470F3E600EF7F09 /* astropy */ = {isa = PBXFileReference; lastKnownFileType = folder; path = astropy; sourceTree = "<group>"; };
 		C90BC0432472103500EF7F09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C90BC0442472103600EF7F09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Theme Chooser.storyboard"; sourceTree = "<group>"; };
-		C90BC0452472103600EF7F09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
 		C90BC0462472103700EF7F09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ConflictsResolver.storyboard; sourceTree = "<group>"; };
 		C90BC0472472103700EF7F09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Widget Simulator.storyboard"; sourceTree = "<group>"; };
 		C90BC0482472103800EF7F09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Template Chooser.storyboard"; sourceTree = "<group>"; };
@@ -2258,16 +2269,11 @@
 		C90BC0572472108100EF7F09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ScriptSettingsViewController.storyboard; sourceTree = "<group>"; };
 		C90BC059247210EC00EF7F09 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		C90BC05A247210ED00EF7F09 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = "fr.lproj/Theme Chooser.strings"; sourceTree = "<group>"; };
-		C90BC05B247210EE00EF7F09 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Settings.strings; sourceTree = "<group>"; };
 		C90BC05C247210EE00EF7F09 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/ConflictsResolver.strings; sourceTree = "<group>"; };
 		C90BC05D247210EF00EF7F09 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = "fr.lproj/Widget Simulator.strings"; sourceTree = "<group>"; };
 		C90BC05E247210F000EF7F09 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = "fr.lproj/Template Chooser.strings"; sourceTree = "<group>"; };
 		C90BC0612472111100EF7F09 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		C90BC0802472E02F00EF7F09 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
-		C90BC0812472E02F00EF7F09 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = "es.lproj/Theme Chooser.strings"; sourceTree = "<group>"; };
-		C90BC0832472E03000EF7F09 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/ConflictsResolver.strings; sourceTree = "<group>"; };
 		C90BC0882472E03600EF7F09 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
-		C90BC08B2472EDCF00EF7F09 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Settings.strings; sourceTree = "<group>"; };
 		C90BC0B52473522300EF7F09 /* SwiftUI_Views.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftUI_Views.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C90BC0B72473522400EF7F09 /* SwiftUI_Views.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftUI_Views.h; sourceTree = "<group>"; };
 		C90BC0B82473522400EF7F09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -3770,12 +3776,12 @@
 				C9F04E852173C33400BDD03E /* Localizable.strings */,
 				C9F04E8A2173DD7300BDD03E /* Main.storyboard */,
 				C90BC03124720F3F00EF7F09 /* Theme Chooser.storyboard */,
-				C90BC03524720F5900EF7F09 /* Settings.storyboard */,
 				C90BC03924720F6800EF7F09 /* ConflictsResolver.storyboard */,
 				C9A33B12224FCDAD0083F041 /* TextField.xib */,
 				C90BC03D24720F7B00EF7F09 /* Widget Simulator.storyboard */,
 				C90BC04124720F8A00EF7F09 /* Template Chooser.storyboard */,
 				C90BC0582472108100EF7F09 /* ScriptSettingsViewController.storyboard */,
+				B533EEE9275E6E7600D37F6D /* SettingsView.storyboard */,
 				C90860D224ADB7F100C0DE8F /* LaunchScreen.storyboard */,
 				C92F6FE5247DD1A5006CC037 /* Intents.intentdefinition */,
 				C9FCFD5F214428B300A07974 /* Assets.xcassets */,
@@ -5568,7 +5574,6 @@
 				C940FCC8250825A800EB74EB /* TextField.xib in Resources */,
 				C940FCC9250825A800EB74EB /* Type.png in Resources */,
 				C940FCCB250825A800EB74EB /* Replace.xib in Resources */,
-				C940FCCC250825A800EB74EB /* Settings.storyboard in Resources */,
 				C940FCCD250825A800EB74EB /* cryptography in Resources */,
 				B549F21A275AD2C700B5E20A /* clipboard_manager in Resources */,
 				C940FCCE250825A800EB74EB /* Theme Chooser.storyboard in Resources */,
@@ -5593,6 +5598,7 @@
 				C940FCE1250825A800EB74EB /* blank.wav in Resources */,
 				C940FCE2250825A800EB74EB /* Untitled.py.template in Resources */,
 				C940FCE3250825A800EB74EB /* scipy in Resources */,
+				B533EEE7275E6E7600D37F6D /* SettingsView.storyboard in Resources */,
 				C940FCE5250825A800EB74EB /* modules_inspector.py in Resources */,
 				C940FCE6250825A800EB74EB /* zmq in Resources */,
 				C940FCE7250825A800EB74EB /* Light 6.png in Resources */,
@@ -5752,6 +5758,7 @@
 				C9F8661A21ED059F0062D1C1 /* site-packages in Resources */,
 				C9BC97FA25826F5E0093E11E /* cv2 in Resources */,
 				C95F9D192564A1FB007B12EB /* skimage in Resources */,
+				B533EEE6275E6E7600D37F6D /* SettingsView.storyboard in Resources */,
 				C942476624844F2800C9FF02 /* Shortcuts.json in Resources */,
 				C95F9D0F2564A1FA007B12EB /* regex in Resources */,
 				C95F9D0C2564A1FA007B12EB /* networkx in Resources */,
@@ -5762,7 +5769,6 @@
 				C9A419A823A321EB00BF5393 /* Type.png in Resources */,
 				C954FAB5220A165E0060C488 /* Replace.xib in Resources */,
 				C917E5AE263F583C0035BC1A /* typed_ast in Resources */,
-				C90BC03324720F5900EF7F09 /* Settings.storyboard in Resources */,
 				C95F9D062564A1FA007B12EB /* matplotlib in Resources */,
 				C90BC02F24720F3F00EF7F09 /* Theme Chooser.storyboard in Resources */,
 				C95F9D012564A1EE007B12EB /* astropy in Resources */,
@@ -6939,6 +6945,17 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		B533EEE9275E6E7600D37F6D /* SettingsView.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B533EEEE275E730100D37F6D /* en */,
+				B533EEF2275E733E00D37F6D /* fr */,
+				B533EEF3275E734500D37F6D /* de */,
+				B533EEF4275E734B00D37F6D /* es */,
+			);
+			name = SettingsView.storyboard;
+			sourceTree = "<group>";
+		};
 		C90951032478540500931684 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -6956,22 +6973,10 @@
 				C90BC0442472103600EF7F09 /* Base */,
 				C90BC04D2472105C00EF7F09 /* en */,
 				C90BC05A247210ED00EF7F09 /* fr */,
-				C90BC0812472E02F00EF7F09 /* es */,
-				C90951092478859F00931684 /* de */,
+				B53436DA275D75B500691204 /* es */,
+				B53436DB275D75B500691204 /* de */,
 			);
 			name = "Theme Chooser.storyboard";
-			sourceTree = "<group>";
-		};
-		C90BC03524720F5900EF7F09 /* Settings.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C90BC0452472103600EF7F09 /* Base */,
-				C90BC05B247210EE00EF7F09 /* fr */,
-				C90BC08B2472EDCF00EF7F09 /* es */,
-				C909510A2478859F00931684 /* de */,
-				B53436C6275D66F100691204 /* en */,
-			);
-			name = Settings.storyboard;
 			sourceTree = "<group>";
 		};
 		C90BC03924720F6800EF7F09 /* ConflictsResolver.storyboard */ = {
@@ -6980,8 +6985,8 @@
 				C90BC0462472103700EF7F09 /* Base */,
 				C90BC0512472106400EF7F09 /* en */,
 				C90BC05C247210EE00EF7F09 /* fr */,
-				C90BC0832472E03000EF7F09 /* es */,
-				C909510B247885A000931684 /* de */,
+				B53436DE275D75B600691204 /* es */,
+				B53436DF275D75B600691204 /* de */,
 			);
 			name = ConflictsResolver.storyboard;
 			sourceTree = "<group>";
@@ -6992,6 +6997,8 @@
 				C90BC0472472103700EF7F09 /* Base */,
 				C90BC0532472107000EF7F09 /* en */,
 				C90BC05D247210EF00EF7F09 /* fr */,
+				B533EEF7275E86A500D37F6D /* de */,
+				B533EEFA275E86AD00D37F6D /* es */,
 			);
 			name = "Widget Simulator.storyboard";
 			sourceTree = "<group>";
@@ -7002,6 +7009,8 @@
 				C90BC0482472103800EF7F09 /* Base */,
 				C90BC0552472107600EF7F09 /* en */,
 				C90BC05E247210F000EF7F09 /* fr */,
+				B533EEF6275E86A500D37F6D /* de */,
+				B533EEF9275E86AD00D37F6D /* es */,
 			);
 			name = "Template Chooser.storyboard";
 			sourceTree = "<group>";
@@ -7010,6 +7019,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				C90BC0572472108100EF7F09 /* Base */,
+				B533EEF5275E86A500D37F6D /* de */,
+				B533EEF8275E86AD00D37F6D /* es */,
+				B533EEFB275E86B900D37F6D /* fr */,
 			);
 			name = ScriptSettingsViewController.storyboard;
 			sourceTree = "<group>";
@@ -7105,8 +7117,8 @@
 				C90BC0432472103500EF7F09 /* Base */,
 				C90BC04B2472105300EF7F09 /* en */,
 				C90BC059247210EC00EF7F09 /* fr */,
-				C90BC0802472E02F00EF7F09 /* es */,
-				C90951082478859D00931684 /* de */,
+				B53436DC275D75B600691204 /* es */,
+				B53436DD275D75B600691204 /* de */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

@@ -175,7 +175,7 @@ public struct OnboardingView: View {
     
     func featureView(name: String, lite: Bool) -> some View {
         HStack {
-            Text(NSLocalizedString(name, comment: ""))
+            Text(name)
             Spacer()
             
             Image(systemName: "checkmark").foregroundColor(.green).padding(.horizontal, 30)
@@ -216,11 +216,11 @@ public struct OnboardingView: View {
                         Text("onboarding.limited", comment: "'Limited'")
                     }.padding()
                     
-                    featureView(name: "onboarding.features.1", lite: true)
-                    featureView(name: "onboarding.features.2", lite: true)
-                    featureView(name: "onboarding.features.3", lite: true)
-                    featureView(name: "onboarding.features.4", lite: true)
-                    featureView(name: "onboarding.features.5", lite: true)
+                    featureView(name: NSLocalizedString("onboarding.features.1", comment: "Feature 1"), lite: true)
+                    featureView(name: NSLocalizedString("onboarding.features.2", comment: "Feature 2"), lite: true)
+                    featureView(name: NSLocalizedString("onboarding.features.3", comment: "Feature 3"), lite: true)
+                    featureView(name: NSLocalizedString("onboarding.features.4", comment: "Feature 4"), lite: true)
+                    featureView(name: NSLocalizedString("onboarding.features.5", comment: "Feature 5"), lite: true)
                     
                     ForEach(fullVersionLibrairies, id: \.self) { lib in
                         featureView(name: lib.capitalized, lite: false)

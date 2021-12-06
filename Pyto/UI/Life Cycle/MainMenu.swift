@@ -97,7 +97,7 @@ func setupMenu(builder: UIMenuBuilder) {
                             input: "o",
                             modifierFlags: [.command])
     
-    let repl = UIKeyCommand(title: NSLocalizedString("repl", comment: "'REPL' tab"),
+    let repl = UIKeyCommand(title: NSLocalizedString("repl", comment: "The REPL"),
                             action: #selector(SidebarSplitViewController.showREPL),
                             input: "e",
                             modifierFlags: [.command, .shift])
