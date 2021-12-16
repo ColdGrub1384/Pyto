@@ -45,7 +45,7 @@ fileprivate extension FileManager {
 
 class RunScriptIntentHandler: NSObject, RunScriptIntentHandling {
     
-    static func getScripts(pathExtension: String = "py") -> [INFile] {
+    static func getScripts(pathExtension: String = "py", includePackages: Bool = true) -> [INFile] {
         guard let docs = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.pyto")?.appendingPathComponent("Shortcuts") else {
             return []
         }
@@ -53,10 +53,14 @@ class RunScriptIntentHandler: NSObject, RunScriptIntentHandling {
         var files = [INFile]()
         
         do {
-            for file in (try FileManager.default.contentsOfDirectory(atURL: docs, sortedBy: .created) ?? []) {
+            for file in (try FileManager.default.contentsOfDirectory(atURL: docs, sortedBy: .modified) ?? []) {
                 let fileURL = docs.appendingPathComponent(file)
                 
                 guard fileURL.pathExtension.lowercased() == pathExtension else {
+                    continue
+                }
+                
+                if fileURL.lastPathComponent.hasSuffix(")") && fileURL.lastPathComponent.components(separatedBy: " (").first?.hasSuffix(pathExtension) == true, !includePackages {
                     continue
                 }
                 
@@ -64,6 +68,36 @@ class RunScriptIntentHandler: NSObject, RunScriptIntentHandling {
                 do {
                     let script = try JSONDecoder().decode(IntentScript.self, from: data)
                     files.append(INFile(data: script.bookmarkData, filename: fileURL.lastPathComponent, typeIdentifier: nil))
+                } catch {
+                    files.append(INFile(data: data, filename: fileURL.lastPathComponent, typeIdentifier: nil))
+                }
+            }
+        } catch {
+            return []
+        }
+        
+        return files.reversed()
+    }
+    
+    static func getPackages() -> [INFile] {
+        guard let docs = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.pyto")?.appendingPathComponent("Shortcuts") else {
+            return []
+        }
+        
+        var files = [INFile]()
+                
+        do {
+            for file in (try FileManager.default.contentsOfDirectory(atURL: docs, sortedBy: .modified) ?? []) {
+                let fileURL = docs.appendingPathComponent(file)
+                
+                guard fileURL.lastPathComponent.hasSuffix(")") && fileURL.lastPathComponent.components(separatedBy: " (").first?.hasSuffix("py") == true else {
+                    continue
+                }
+                
+                let data = try Data(contentsOf: fileURL)
+                do {
+                    let script = try JSONDecoder().decode(IntentScript.self, from: data)
+                    files.append(INFile(data: script.bookmarkData, filename: fileURL.lastPathComponent.slice(from: ".py (", to: ")") ?? fileURL.lastPathComponent, typeIdentifier: nil))
                 } catch {
                     files.append(INFile(data: data, filename: fileURL.lastPathComponent, typeIdentifier: nil))
                 }
@@ -99,7 +133,15 @@ class RunScriptIntentHandler: NSObject, RunScriptIntentHandling {
     @available(iOSApplicationExtension 14.0, *)
     func provideScriptOptionsCollection(for intent: RunScriptIntent, with completion: @escaping (INObjectCollection<INFile>?, Error?) -> Void) {
         
-        let collection = INObjectCollection(items: RunScriptIntentHandler.getScripts())
+        var scripts = Self.getScripts(includePackages: false)
+        while scripts.count > 5 {
+            scripts.remove(at: scripts.count-1)
+        }
+        
+        let collection = INObjectCollection(sections: [
+            INObjectSection(title: "Recents", items: scripts),
+            INObjectSection(title: "Packages", items: Self.getPackages())
+        ])
         return completion(collection, nil)
     }
     #endif
@@ -158,6 +200,8 @@ class RunScriptIntentHandler: NSObject, RunScriptIntentHandling {
             return completion(RunScriptIntentResponse(code: .failure, userActivity: nil))
         }
         
+        PyItemProvider.setShortcutsFiles(intent.items ?? [])
+        
         if !Bool(truncating: intent.showConsole ?? 0) {
             guard let script = url else {
                 return
@@ -179,10 +223,6 @@ class RunScriptIntentHandler: NSObject, RunScriptIntentHandling {
         return completion(.success(with: file))
     }
     
-    func provideScriptOptions(for intent: RunScriptIntent, with completion: @escaping ([INFile]?, Error?) -> Void) {
-        completion(RunScriptIntentHandler.getScripts(), nil)
-    }
-    
     func resolveArguments(for intent: RunScriptIntent, with completion: @escaping ([INStringResolutionResult]) -> Void) {
         var result = [INStringResolutionResult]()
         
@@ -191,5 +231,9 @@ class RunScriptIntentHandler: NSObject, RunScriptIntentHandling {
         }
         
         completion(result)
+    }
+    
+    func resolveItems(for intent: RunScriptIntent, with completion: @escaping ([INFileResolutionResult]) -> Void) {
+        completion((intent.items ?? []).map({ INFileResolutionResult.success(with: $0) }))
     }
 }

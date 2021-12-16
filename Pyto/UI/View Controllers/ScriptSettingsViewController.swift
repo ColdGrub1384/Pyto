@@ -80,7 +80,7 @@ class ScriptSettingsViewController: UIViewController, UITextFieldDelegate, UIDoc
         
         title = FileManager.default.displayName(atPath: editor.document!.fileURL.path)
         
-        if let url = editor.document?.fileURL, !isiOSAppOnMac {
+        if let url = editor.document?.fileURL {
             
             (UIApplication.shared.delegate as? AppDelegate)?.addURLToShortcuts(url)
             
@@ -94,7 +94,7 @@ class ScriptSettingsViewController: UIViewController, UITextFieldDelegate, UIDoc
             
             if #available(iOS 13.0, *) {
                 let intent = editor.runScriptIntent
-                intent.suggestedInvocationPhrase = url.deletingPathExtension().lastPathComponent
+                intent.suggestedInvocationPhrase = intent.script?.filename
                 button.shortcut = INShortcut(intent: intent)
             } else if let activity = editor.userActivity {
                 button.shortcut = INShortcut(userActivity: activity)
@@ -108,6 +108,10 @@ class ScriptSettingsViewController: UIViewController, UITextFieldDelegate, UIDoc
             siriButtonContainerView.addSubview(button)
             siriButtonContainerView.centerXAnchor.constraint(equalTo: button.centerXAnchor).isActive = true
             siriButtonContainerView.centerYAnchor.constraint(equalTo: button.centerYAnchor).isActive = true
+            
+            if url.pathExtension.lowercased() == "html" {
+                button.isHidden = true
+            }
         }
     }
     

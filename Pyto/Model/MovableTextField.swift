@@ -180,14 +180,10 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(_:)), name: UIResponder.keyboardDidHideNotification, object: nil)
         }
         
-        #if !Xcode11
-        if #available(iOS 14.0, *), !(console.editorSplitViewController is REPLViewController), !(console.editorSplitViewController is RunModuleViewController) {
+        if (console.editorSplitViewController is REPLViewController) || (console.editorSplitViewController is RunModuleViewController) {
         } else {
             listenToKeyboardNotifications()
         }
-        #else
-        listenToKeyboardNotifications()
-        #endif
         
         if #available(iOS 14.0, *) {} else {
             NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -244,27 +240,36 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             return
         }
         
+        guard let console = console else {
+            return
+        }
+        
+        if isiOSAppOnMac {
+            toolbar.frame.origin.y = console.view.frame.size.height-toolbar.frame.size.height
+            return
+        }
+        
         lastKeyboardDidShowNotification = notification
         
-        if console?.parent?.parent?.modalPresentationStyle != .popover || console?.parent?.parent?.view.frame.width != console?.parent?.parent?.preferredContentSize.width {
+        if console.parent?.parent?.modalPresentationStyle != .popover || console.parent?.parent?.view.frame.width != console.parent?.parent?.preferredContentSize.width {
             
             #if MAIN
             let inputAssistantOrigin = inputAssistant.frame.origin
             
-            let yPos = inputAssistant.convert(inputAssistantOrigin, to: console?.view).y
+            let yPos = inputAssistant.convert(inputAssistantOrigin, to: console.view).y
             
-            toolbar.frame.origin = CGPoint(x: console?.view.safeAreaInsets.left ?? 0, y: yPos-toolbar.frame.height)
+            toolbar.frame.origin = CGPoint(x: console.view.safeAreaInsets.left, y: yPos-toolbar.frame.height)
             
             
             if toolbar.superview != nil,
                 !EditorSplitViewController.shouldShowConsoleAtBottom,
                 !toolbar.superview!.bounds.intersection(toolbar.frame).equalTo(toolbar.frame) {
-                toolbar.frame.origin.y = (console?.view.frame.height ?? 0)-toolbar.frame.height
+                toolbar.frame.origin.y = console.view.frame.height-toolbar.frame.height
             }
             #else
             var r = notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-            r = console?.textView.convert(r, from:nil)
-            toolbar.frame.origin.y = console?.view.frame.height-r.height-toolbar.frame.height
+            r = console.textView.convert(r, from:nil)
+            toolbar.frame.origin.y = console.view.frame.height-r.height-toolbar.frame.height
             #endif
         }
         
@@ -272,7 +277,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             self.toolbar.alpha = 1
         }
         
-        console?.webView.evaluateJavaScript("sendSize()", completionHandler: nil)
+        console.webView.evaluateJavaScript("sendSize()", completionHandler: nil)
     }
     
     @objc private func keyboardDidHide(_ notification: NSNotification) {

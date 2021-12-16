@@ -21,7 +21,7 @@ import MobileCoreServices
             
             var path: String?
             
-            let semaphore = DispatchSemaphore(value: 0)
+            let semaphore = Python.Semaphore(value: 0)
             
             func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
                 

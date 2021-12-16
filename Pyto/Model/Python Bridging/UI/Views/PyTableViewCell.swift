@@ -54,13 +54,7 @@ extension UITableViewCell {
             return
         }
         
-        // I think doing just PyView.values[view] = nil made the app crash but I'm not sure if it was that
-        
-        for key in PyView.values.keys {
-            if key == view {
-                PyView.values[key] = nil
-            }
-        }
+        PyView.values[view] = nil
         
         for key in UIView.Holder.buttonItems.keys {
             if key == view {
@@ -104,13 +98,9 @@ extension UITableViewCell {
             
             let views = [self.cell.contentView, self.cell.textLabel, self.cell.detailTextLabel]
             
-            //let semaphore = DispatchSemaphore(value: 0)
-            //DispatchQueue.global().async {
-                for view in views {
-                    self.removeAssociations(for: view)
-                }
-            //}
-            //semaphore.wait(timeout: .now()+1)
+            for view in views {
+                self.removeAssociations(for: view)
+            }
         }
     }
     

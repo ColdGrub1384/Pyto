@@ -12,6 +12,11 @@
 #
 import os
 import sys
+
+import PIL
+from PIL import Image
+PIL.Image = Image
+
 sys.path.insert(0, os.path.abspath('../Lib'))
 sys.path.insert(0, os.path.abspath('../Lib/objc'))
 sys.path.insert(0, os.path.abspath('../site-packages'))

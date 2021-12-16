@@ -170,7 +170,7 @@ import MediaPlayer
         
         class Delegate: NSObject, MPMediaPickerControllerDelegate {
             
-            var semaphore: DispatchSemaphore?
+            var semaphore: Python.Semaphore?
             
             var picked = NSMutableArray()
                         
@@ -189,7 +189,7 @@ import MediaPlayer
             return [] 
         }
         
-        let semaphore = DispatchSemaphore(value: 0)
+        let semaphore = Python.Semaphore(value: 0)
         let delegate = Delegate()
         delegate.semaphore = semaphore
         

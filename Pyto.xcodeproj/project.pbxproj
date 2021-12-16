@@ -154,6 +154,9 @@
 		B53436C9275D717D00691204 /* UIKitLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53436C7275D716700691204 /* UIKitLocalizedString.swift */; };
 		B53436CA275D717E00691204 /* UIKitLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53436C7275D716700691204 /* UIKitLocalizedString.swift */; };
 		B53436CB275D718B00691204 /* UIKitLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53436C7275D716700691204 /* UIKitLocalizedString.swift */; };
+		B5355635275EF47100238E91 /* PyItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5355634275EF47100238E91 /* PyItemProvider.swift */; };
+		B5355636275EF47100238E91 /* PyItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5355634275EF47100238E91 /* PyItemProvider.swift */; };
+		B5355637275EF47100238E91 /* PyItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5355634275EF47100238E91 /* PyItemProvider.swift */; };
 		B5477107274EA0E3001F3039 /* Pipable in Frameworks */ = {isa = PBXBuildFile; productRef = B5477106274EA0E3001F3039 /* Pipable */; };
 		B549F21A275AD2C700B5E20A /* clipboard_manager in Resources */ = {isa = PBXBuildFile; fileRef = B549F217275AD2C700B5E20A /* clipboard_manager */; };
 		B549F21D275AD32000B5E20A /* Screenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = B549F21C275AD32000B5E20A /* Screenshots.swift */; };
@@ -162,9 +165,32 @@
 		B549F222275D26FA00B5E20A /* UIImage+icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B549F221275D26FA00B5E20A /* UIImage+icon.swift */; };
 		B549F223275D26FA00B5E20A /* UIImage+icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B549F221275D26FA00B5E20A /* UIImage+icon.swift */; };
 		B55490282736D51B00BEB778 /* ScriptRunnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55490272736D51B00BEB778 /* ScriptRunnerViewController.swift */; };
+		B5594D6B276A7EC200E274FF /* In App Widget.py.txt in Resources */ = {isa = PBXBuildFile; fileRef = B5594D6A276A7EC200E274FF /* In App Widget.py.txt */; };
+		B5594D6C276A7EC200E274FF /* In App Widget.py.txt in Resources */ = {isa = PBXBuildFile; fileRef = B5594D6A276A7EC200E274FF /* In App Widget.py.txt */; };
+		B5594D6E276A7F1300E274FF /* HTML + Python.html.txt in Resources */ = {isa = PBXBuildFile; fileRef = B5594D6D276A7F1300E274FF /* HTML + Python.html.txt */; };
+		B5594D6F276A7F1300E274FF /* HTML + Python.html.txt in Resources */ = {isa = PBXBuildFile; fileRef = B5594D6D276A7F1300E274FF /* HTML + Python.html.txt */; };
+		B5594D71276A7F6E00E274FF /* templates.json in Resources */ = {isa = PBXBuildFile; fileRef = B5594D70276A7F6E00E274FF /* templates.json */; };
+		B5594D72276A7F6E00E274FF /* templates.json in Resources */ = {isa = PBXBuildFile; fileRef = B5594D70276A7F6E00E274FF /* templates.json */; };
+		B5594D74276A819F00E274FF /* TemplateChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5594D73276A819F00E274FF /* TemplateChooser.swift */; };
+		B5594D75276A819F00E274FF /* TemplateChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5594D73276A819F00E274FF /* TemplateChooser.swift */; };
+		B5594D76276A819F00E274FF /* TemplateChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5594D73276A819F00E274FF /* TemplateChooser.swift */; };
+		B5594D77276A819F00E274FF /* TemplateChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5594D73276A819F00E274FF /* TemplateChooser.swift */; };
+		B5594D86276A822B00E274FF /* Timeline Widget.py.txt in Resources */ = {isa = PBXBuildFile; fileRef = B5594D79276A821C00E274FF /* Timeline Widget.py.txt */; };
+		B5594D87276A822B00E274FF /* Untitled.py.txt in Resources */ = {isa = PBXBuildFile; fileRef = B5594D7D276A821D00E274FF /* Untitled.py.txt */; };
+		B5594D88276A822B00E274FF /* HTML + Python.html.txt in Resources */ = {isa = PBXBuildFile; fileRef = B5594D7A276A821C00E274FF /* HTML + Python.html.txt */; };
+		B5594D89276A822B00E274FF /* In App Widget.py.txt in Resources */ = {isa = PBXBuildFile; fileRef = B5594D7C276A821D00E274FF /* In App Widget.py.txt */; };
+		B5594D8A276A822B00E274FF /* templates.json in Resources */ = {isa = PBXBuildFile; fileRef = B5594D7E276A821D00E274FF /* templates.json */; };
+		B5594D8B276A822B00E274FF /* Toga User Interface.py.txt in Resources */ = {isa = PBXBuildFile; fileRef = B5594D7B276A821D00E274FF /* Toga User Interface.py.txt */; };
+		B5594D8C276A822B00E274FF /* PytoUI User Interface.py.txt in Resources */ = {isa = PBXBuildFile; fileRef = B5594D78276A821C00E274FF /* PytoUI User Interface.py.txt */; };
 		B585045E275A7AC800BC8542 /* cryptography-hazmat-bindings-_openssl.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B585045D275A7AC300BC8542 /* cryptography-hazmat-bindings-_openssl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B585045F275A7AC800BC8542 /* cryptography-hazmat-bindings-_rust.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B585045C275A7AC300BC8542 /* cryptography-hazmat-bindings-_rust.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B59800532734904F00F47F56 /* PyHTMLServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59800522734904F00F47F56 /* PyHTMLServer.swift */; };
+		B5A179BA2767C714009E4C6C /* Toga User Interface.py.txt in Resources */ = {isa = PBXBuildFile; fileRef = B5A179B72767C714009E4C6C /* Toga User Interface.py.txt */; };
+		B5A179BB2767C714009E4C6C /* Toga User Interface.py.txt in Resources */ = {isa = PBXBuildFile; fileRef = B5A179B72767C714009E4C6C /* Toga User Interface.py.txt */; };
+		B5AB6C212768F343001C5472 /* ThreadSafeDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AB6C202768F343001C5472 /* ThreadSafeDictionary.swift */; };
+		B5AB6C222768F343001C5472 /* ThreadSafeDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AB6C202768F343001C5472 /* ThreadSafeDictionary.swift */; };
+		B5AB6C232768F343001C5472 /* ThreadSafeDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AB6C202768F343001C5472 /* ThreadSafeDictionary.swift */; };
+		B5AB6C3B276977AB001C5472 /* libffi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5AB6C34276977A4001C5472 /* libffi.a */; };
+		B5AE82112760F73A000AF4B1 /* ReloadWidgetsIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EA38442535675E00ABDA80 /* ReloadWidgetsIntentHandler.swift */; };
 		B5B0B88A274EA1BB00F5030F /* ConsolePipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B526B593274C60780094FCBB /* ConsolePipView.swift */; };
 		B5B0B88D274EA1D600F5030F /* TextViewSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = B526B5882747902A0094FCBB /* TextViewSearch.swift */; };
 		B5B0B88E274EA1E100F5030F /* ScriptRunnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55490272736D51B00BEB778 /* ScriptRunnerViewController.swift */; };
@@ -210,7 +236,6 @@
 		C90BC02F24720F3F00EF7F09 /* Theme Chooser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C90BC03124720F3F00EF7F09 /* Theme Chooser.storyboard */; };
 		C90BC03724720F6800EF7F09 /* ConflictsResolver.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C90BC03924720F6800EF7F09 /* ConflictsResolver.storyboard */; };
 		C90BC03B24720F7B00EF7F09 /* Widget Simulator.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C90BC03D24720F7B00EF7F09 /* Widget Simulator.storyboard */; };
-		C90BC03F24720F8A00EF7F09 /* Template Chooser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C90BC04124720F8A00EF7F09 /* Template Chooser.storyboard */; };
 		C90BC0562472108100EF7F09 /* ScriptSettingsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C90BC0582472108100EF7F09 /* ScriptSettingsViewController.storyboard */; };
 		C90BC0B92473522400EF7F09 /* SwiftUI_Views.h in Headers */ = {isa = PBXBuildFile; fileRef = C90BC0B72473522400EF7F09 /* SwiftUI_Views.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C90E5C9622DECB9F00851BD4 /* PyNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90E5C9522DECB9F00851BD4 /* PyNotificationCenter.swift */; };
@@ -314,11 +339,9 @@
 		C92DBD8221F687480098BE43 /* REPLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92DBD8121F687480098BE43 /* REPLViewController.swift */; };
 		C92F6FE2247DD1A5006CC037 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = C92F6FE5247DD1A5006CC037 /* Intents.intentdefinition */; };
 		C92F6FE3247DD1A5006CC037 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = C92F6FE5247DD1A5006CC037 /* Intents.intentdefinition */; };
-		C92FC4462352BCB8000BBF46 /* Hello World.py.template in Resources */ = {isa = PBXBuildFile; fileRef = C92FC4452352BCB8000BBF46 /* Hello World.py.template */; };
 		C9300F0024B8D34A0017E071 /* PythonLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9300EFF24B8D34A0017E071 /* PythonLexer.swift */; };
 		C93071BF23ED98F5000ADFF6 /* PyMotionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98F37BA23ED894700E5D52C /* PyMotionHelper.swift */; };
 		C9335D2B260E13D1005DEBCC /* freetype.h in Headers */ = {isa = PBXBuildFile; fileRef = C9335D29260E13D1005DEBCC /* freetype.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C9335D2E260E13D1005DEBCC /* freetype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9335D27260E13D0005DEBCC /* freetype.framework */; };
 		C9335D2F260E13D1005DEBCC /* freetype.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9335D27260E13D0005DEBCC /* freetype.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9335D49260E13E5005DEBCC /* libFreetype2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9509BC7257A75560015FC92 /* libFreetype2.a */; };
 		C933A0AC25CDFBF100B3C640 /* PyScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C933A0AB25CDFBF100B3C640 /* PyScrollView.swift */; };
@@ -326,7 +349,7 @@
 		C933A0AF25CDFBF100B3C640 /* PyScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C933A0AB25CDFBF100B3C640 /* PyScrollView.swift */; };
 		C933A0C425CDFBF700B3C640 /* PyScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C933A0AB25CDFBF100B3C640 /* PyScrollView.swift */; };
 		C934CACE24FE08B50018EB81 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9622BFD246891E000D0D697 /* main.m */; };
-		C935746624EEC9C300689740 /* Widget.py.template in Resources */ = {isa = PBXBuildFile; fileRef = C935746524EEC9C300689740 /* Widget.py.template */; };
+		C935746624EEC9C300689740 /* Timeline Widget.py.txt in Resources */ = {isa = PBXBuildFile; fileRef = C935746524EEC9C300689740 /* Timeline Widget.py.txt */; };
 		C936523724D7789600B08A7C /* HighlightrTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936523624D7789600B08A7C /* HighlightrTheme.swift */; };
 		C936525324D7BAF100B08A7C /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C93B6A2F2200B711009D637F /* IntentsUI.framework */; };
 		C936525624D7BAF200B08A7C /* IntentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936525524D7BAF100B08A7C /* IntentViewController.swift */; };
@@ -374,8 +397,8 @@
 		C9400035250825A800EB74EB /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C943AC3D215277A000844368 /* Python.framework */; };
 		C94003E625082B4A00EB74EB /* python3_ios_screenshots.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C94003E12508281A00EB74EB /* python3_ios_screenshots.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C94003E725082BBA00EB74EB /* python3_ios_screenshots.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C94003E12508281A00EB74EB /* python3_ios_screenshots.framework */; };
-		C94003F62509890400EB74EB /* User Interface.py.template in Resources */ = {isa = PBXBuildFile; fileRef = C94003F52509890300EB74EB /* User Interface.py.template */; };
-		C94003F82509890400EB74EB /* User Interface.py.template in Resources */ = {isa = PBXBuildFile; fileRef = C94003F52509890300EB74EB /* User Interface.py.template */; };
+		C94003F62509890400EB74EB /* PytoUI User Interface.py.txt in Resources */ = {isa = PBXBuildFile; fileRef = C94003F52509890300EB74EB /* PytoUI User Interface.py.txt */; };
+		C94003F82509890400EB74EB /* PytoUI User Interface.py.txt in Resources */ = {isa = PBXBuildFile; fileRef = C94003F52509890300EB74EB /* PytoUI User Interface.py.txt */; };
 		C94003F92509B89C00EB74EB /* Widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = C94003FE2509B89C00EB74EB /* Widget.intentdefinition */; };
 		C94003FA2509B89C00EB74EB /* Widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = C94003FE2509B89C00EB74EB /* Widget.intentdefinition */; };
 		C94003FB2509B89C00EB74EB /* Widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = C94003FE2509B89C00EB74EB /* Widget.intentdefinition */; };
@@ -542,7 +565,7 @@
 		C940FCB6250825A800EB74EB /* PySharingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97659052147192C001C96A8 /* PySharingHelper.swift */; };
 		C940FCB8250825A800EB74EB /* EditorScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E016EC22823186002DF4CA /* EditorScript.swift */; };
 		C940FCB9250825A800EB74EB /* LineNumberTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A7DA2924D52C3F00204932 /* LineNumberTextView.m */; };
-		C940FCBB250825A800EB74EB /* Widget.py.template in Resources */ = {isa = PBXBuildFile; fileRef = C935746524EEC9C300689740 /* Widget.py.template */; };
+		C940FCBB250825A800EB74EB /* Timeline Widget.py.txt in Resources */ = {isa = PBXBuildFile; fileRef = C935746524EEC9C300689740 /* Timeline Widget.py.txt */; };
 		C940FCBC250825A800EB74EB /* Samples in Resources */ = {isa = PBXBuildFile; fileRef = C98E1FFC214EE6EC002F0178 /* Samples */; };
 		C940FCBD250825A800EB74EB /* OnDemandLibraries.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF3F9246DBBDB004F41D3 /* OnDemandLibraries.plist */; };
 		C940FCBE250825A800EB74EB /* Light 3.png in Resources */ = {isa = PBXBuildFile; fileRef = C90BA5C223C4CD2900B2B187 /* Light 3.png */; };
@@ -566,7 +589,6 @@
 		C940FCD2250825A800EB74EB /* Light.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A419A123A321EA00BF5393 /* Light.png */; };
 		C940FCD3250825A800EB74EB /* ConflictsResolver.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C90BC03924720F6800EF7F09 /* ConflictsResolver.storyboard */; };
 		C940FCD4250825A800EB74EB /* nacl in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF411246E238D004F41D3 /* nacl */; settings = {ASSET_TAGS = (nacl, ); }; };
-		C940FCD5250825A800EB74EB /* Hello World.py.template in Resources */ = {isa = PBXBuildFile; fileRef = C92FC4452352BCB8000BBF46 /* Hello World.py.template */; };
 		C940FCD6250825A800EB74EB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C98472AD21A05CB1008E16AC /* README.md */; };
 		C940FCD7250825A800EB74EB /* bcrypt in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF40C246E238B004F41D3 /* bcrypt */; settings = {ASSET_TAGS = (bcrypt, ); }; };
 		C940FCD8250825A800EB74EB /* matplotlib in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF40F246E238C004F41D3 /* matplotlib */; settings = {ASSET_TAGS = (matplotlib, ); }; };
@@ -579,7 +601,7 @@
 		C940FCDF250825A800EB74EB /* ScriptSettingsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C90BC0582472108100EF7F09 /* ScriptSettingsViewController.storyboard */; };
 		C940FCE0250825A800EB74EB /* gensim in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF414246E238F004F41D3 /* gensim */; settings = {ASSET_TAGS = (gensim, ); }; };
 		C940FCE1250825A800EB74EB /* blank.wav in Resources */ = {isa = PBXBuildFile; fileRef = C98C5A3D2490142B00535EA7 /* blank.wav */; };
-		C940FCE2250825A800EB74EB /* Untitled.py.template in Resources */ = {isa = PBXBuildFile; fileRef = C9FCFD6C21442FD700A07974 /* Untitled.py.template */; };
+		C940FCE2250825A800EB74EB /* Untitled.py.txt in Resources */ = {isa = PBXBuildFile; fileRef = C9FCFD6C21442FD700A07974 /* Untitled.py.txt */; };
 		C940FCE3250825A800EB74EB /* scipy in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF409246E238A004F41D3 /* scipy */; settings = {ASSET_TAGS = (scipy, ); }; };
 		C940FCE5250825A800EB74EB /* modules_inspector.py in Resources */ = {isa = PBXBuildFile; fileRef = C916F44A226CFD4700FA2FB6 /* modules_inspector.py */; };
 		C940FCE6250825A800EB74EB /* zmq in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF41B246E2391004F41D3 /* zmq */; settings = {ASSET_TAGS = (zmq, ); }; };
@@ -595,7 +617,6 @@
 		C940FCF0250825A800EB74EB /* 420.png in Resources */ = {isa = PBXBuildFile; fileRef = C9F56EAB23D4EE37005C59FD /* 420.png */; };
 		C940FCF1250825A800EB74EB /* statsmodels in Resources */ = {isa = PBXBuildFile; fileRef = C9FFF413246E238E004F41D3 /* statsmodels */; settings = {ASSET_TAGS = (statsmodels, ); }; };
 		C940FCF3250825A800EB74EB /* Startup.py in Resources */ = {isa = PBXBuildFile; fileRef = C9E4152D21514F9100D64E32 /* Startup.py */; };
-		C940FCF4250825A800EB74EB /* Template Chooser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C90BC04124720F8A00EF7F09 /* Template Chooser.storyboard */; };
 		C940FCF5250825A800EB74EB /* REPL.py in Resources */ = {isa = PBXBuildFile; fileRef = C92DBD7F21F67B9C0098BE43 /* REPL.py */; };
 		C940FCF6250825A800EB74EB /* Widget Simulator.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C90BC03D24720F7B00EF7F09 /* Widget Simulator.storyboard */; };
 		C940FCF7250825A800EB74EB /* download_all.py in Resources */ = {isa = PBXBuildFile; fileRef = C9F1E4FB2474083B00A28F2A /* download_all.py */; };
@@ -1289,7 +1310,6 @@
 		C9E9E2FA23E0ADC4004CF05A /* numpy-core-_umath_tests.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2EA23E0ADB6004CF05A /* numpy-core-_umath_tests.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9E9E2FB23E0ADC4004CF05A /* numpy-linalg-lapack_lite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2DF23E0ADB4004CF05A /* numpy-linalg-lapack_lite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9E9E2FC23E0ADC4004CF05A /* numpy-random-mtrand.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9E2DB23E0ADB4004CF05A /* numpy-random-mtrand.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9EA38452535675E00ABDA80 /* ReloadWidgetsIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EA38442535675E00ABDA80 /* ReloadWidgetsIntentHandler.swift */; };
 		C9EA55B3219F752D007546BC /* RelativePathForScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EA55B2219F752D007546BC /* RelativePathForScript.swift */; };
 		C9EA5C7D21F23558000F7FA7 /* Welcome to Pyto.md in Resources */ = {isa = PBXBuildFile; fileRef = C9EA5C7C21F23024000F7FA7 /* Welcome to Pyto.md */; };
 		C9EDF9AB21446FCA00382DCC /* ConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EDF9AA21446FCA00382DCC /* ConsoleViewController.swift */; };
@@ -1337,7 +1357,7 @@
 		C9FCFD59214428AE00A07974 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCFD58214428AE00A07974 /* AppDelegate.swift */; };
 		C9FCFD5B214428AE00A07974 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FCFD5A214428AE00A07974 /* EditorViewController.swift */; };
 		C9FCFD60214428B300A07974 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9FCFD5F214428B300A07974 /* Assets.xcassets */; };
-		C9FCFD6D21442FD700A07974 /* Untitled.py.template in Resources */ = {isa = PBXBuildFile; fileRef = C9FCFD6C21442FD700A07974 /* Untitled.py.template */; };
+		C9FCFD6D21442FD700A07974 /* Untitled.py.txt in Resources */ = {isa = PBXBuildFile; fileRef = C9FCFD6C21442FD700A07974 /* Untitled.py.txt */; };
 		C9FE884224CFBDB500D0C615 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FE884124CFBDB500D0C615 /* Date.swift */; };
 		C9FE884324CFBDB500D0C615 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FE884124CFBDB500D0C615 /* Date.swift */; };
 		C9FFCACA255C37070077A7BB /* Complication.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FFCAC9255C37070077A7BB /* Complication.swift */; };
@@ -1361,6 +1381,41 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		B5AB6C2D276977A4001C5472 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B5AB6C2A276977A3001C5472 /* libffi.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = DB13B1651849DF1E0010F42D;
+			remoteInfo = "libffi-iOS";
+		};
+		B5AB6C33276977A4001C5472 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B5AB6C2A276977A3001C5472 /* libffi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DB13B1661849DF1E0010F42D;
+			remoteInfo = "libffi-iOS";
+		};
+		B5AB6C35276977A4001C5472 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B5AB6C2A276977A3001C5472 /* libffi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FDB52FC51F6144FA00AA92E6;
+			remoteInfo = "libffi-tvOS";
+		};
+		B5AB6C37276977A4001C5472 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B5AB6C2A276977A3001C5472 /* libffi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DB13B1911849DF510010F42D;
+			remoteInfo = "libffi-Mac";
+		};
+		B5AB6C39276977A4001C5472 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B5AB6C2A276977A3001C5472 /* libffi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FDDB2F621F5D846400EF414E;
+			remoteInfo = "libffi-static-Mac";
+		};
 		C91D078725B62E3A0050FD86 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C9FCFD4D214428AE00A07974 /* Project object */;
@@ -2189,10 +2244,8 @@
 		B533EEF3275E734500D37F6D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SettingsView.strings; sourceTree = "<group>"; };
 		B533EEF4275E734B00D37F6D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/SettingsView.strings; sourceTree = "<group>"; };
 		B533EEF5275E86A500D37F6D /* de */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = de; path = de.lproj/ScriptSettingsViewController.storyboard; sourceTree = "<group>"; };
-		B533EEF6275E86A500D37F6D /* de */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = de; path = "de.lproj/Template Chooser.storyboard"; sourceTree = "<group>"; };
 		B533EEF7275E86A500D37F6D /* de */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = de; path = "de.lproj/Widget Simulator.storyboard"; sourceTree = "<group>"; };
 		B533EEF8275E86AD00D37F6D /* es */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = es; path = es.lproj/ScriptSettingsViewController.storyboard; sourceTree = "<group>"; };
-		B533EEF9275E86AD00D37F6D /* es */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = es; path = "es.lproj/Template Chooser.storyboard"; sourceTree = "<group>"; };
 		B533EEFA275E86AD00D37F6D /* es */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = es; path = "es.lproj/Widget Simulator.storyboard"; sourceTree = "<group>"; };
 		B533EEFB275E86B900D37F6D /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = fr; path = fr.lproj/ScriptSettingsViewController.storyboard; sourceTree = "<group>"; };
 		B53436C7275D716700691204 /* UIKitLocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitLocalizedString.swift; sourceTree = "<group>"; };
@@ -2202,15 +2255,31 @@
 		B53436DD275D75B600691204 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = de; path = de.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B53436DE275D75B600691204 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = es; path = es.lproj/ConflictsResolver.storyboard; sourceTree = "<group>"; };
 		B53436DF275D75B600691204 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = de; path = de.lproj/ConflictsResolver.storyboard; sourceTree = "<group>"; };
+		B5355634275EF47100238E91 /* PyItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyItemProvider.swift; sourceTree = "<group>"; };
 		B549F217275AD2C700B5E20A /* clipboard_manager */ = {isa = PBXFileReference; lastKnownFileType = folder; path = clipboard_manager; sourceTree = "<group>"; };
 		B549F21C275AD32000B5E20A /* Screenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshots.swift; sourceTree = "<group>"; };
 		B549F21E275BCD2100B5E20A /* rotated_panda.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rotated_panda.png; sourceTree = "<group>"; };
 		B549F221275D26FA00B5E20A /* UIImage+icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+icon.swift"; sourceTree = "<group>"; };
 		B55038E3A0EDA2B8DC07639F /* Pods_Pyto_Screenshots.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pyto_Screenshots.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B55490272736D51B00BEB778 /* ScriptRunnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptRunnerViewController.swift; sourceTree = "<group>"; };
+		B5594D6A276A7EC200E274FF /* In App Widget.py.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "In App Widget.py.txt"; sourceTree = "<group>"; };
+		B5594D6D276A7F1300E274FF /* HTML + Python.html.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "HTML + Python.html.txt"; sourceTree = "<group>"; };
+		B5594D70276A7F6E00E274FF /* templates.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = templates.json; sourceTree = "<group>"; };
+		B5594D73276A819F00E274FF /* TemplateChooser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateChooser.swift; sourceTree = "<group>"; };
+		B5594D78276A821C00E274FF /* PytoUI User Interface.py.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "PytoUI User Interface.py.txt"; sourceTree = "<group>"; };
+		B5594D79276A821C00E274FF /* Timeline Widget.py.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Timeline Widget.py.txt"; sourceTree = "<group>"; };
+		B5594D7A276A821C00E274FF /* HTML + Python.html.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "HTML + Python.html.txt"; sourceTree = "<group>"; };
+		B5594D7B276A821D00E274FF /* Toga User Interface.py.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Toga User Interface.py.txt"; sourceTree = "<group>"; };
+		B5594D7C276A821D00E274FF /* In App Widget.py.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "In App Widget.py.txt"; sourceTree = "<group>"; };
+		B5594D7D276A821D00E274FF /* Untitled.py.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Untitled.py.txt; sourceTree = "<group>"; };
+		B5594D7E276A821D00E274FF /* templates.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = templates.json; sourceTree = "<group>"; };
 		B585045C275A7AC300BC8542 /* cryptography-hazmat-bindings-_rust.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "cryptography-hazmat-bindings-_rust.framework"; sourceTree = "<group>"; };
 		B585045D275A7AC300BC8542 /* cryptography-hazmat-bindings-_openssl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "cryptography-hazmat-bindings-_openssl.framework"; sourceTree = "<group>"; };
-		B59800522734904F00F47F56 /* PyHTMLServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyHTMLServer.swift; sourceTree = "<group>"; };
+		B5A179B72767C714009E4C6C /* Toga User Interface.py.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Toga User Interface.py.txt"; sourceTree = "<group>"; };
+		B5AB6C202768F343001C5472 /* ThreadSafeDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadSafeDictionary.swift; sourceTree = "<group>"; };
+		B5AB6C27276943EB001C5472 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		B5AB6C282769779B001C5472 /* libffi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libffi.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5AB6C2A276977A3001C5472 /* libffi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libffi.xcodeproj; path = "/Users/emma/Developer/Pyto/python3_ios/Python3_ios/libffi-3.4.2/libffi.xcodeproj"; sourceTree = "<absolute>"; };
 		B5D98165273C838F00382439 /* SidebarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarViewController.swift; sourceTree = "<group>"; };
 		B5D98169273C83A000382439 /* SidebarSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSplitViewController.swift; sourceTree = "<group>"; };
 		B5D9816B274017CA00382439 /* RecentDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentDataSource.swift; sourceTree = "<group>"; };
@@ -2260,18 +2329,15 @@
 		C90BC0442472103600EF7F09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Theme Chooser.storyboard"; sourceTree = "<group>"; };
 		C90BC0462472103700EF7F09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ConflictsResolver.storyboard; sourceTree = "<group>"; };
 		C90BC0472472103700EF7F09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Widget Simulator.storyboard"; sourceTree = "<group>"; };
-		C90BC0482472103800EF7F09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Template Chooser.storyboard"; sourceTree = "<group>"; };
 		C90BC04B2472105300EF7F09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		C90BC04D2472105C00EF7F09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/Theme Chooser.strings"; sourceTree = "<group>"; };
 		C90BC0512472106400EF7F09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ConflictsResolver.strings; sourceTree = "<group>"; };
 		C90BC0532472107000EF7F09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/Widget Simulator.strings"; sourceTree = "<group>"; };
-		C90BC0552472107600EF7F09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/Template Chooser.strings"; sourceTree = "<group>"; };
 		C90BC0572472108100EF7F09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ScriptSettingsViewController.storyboard; sourceTree = "<group>"; };
 		C90BC059247210EC00EF7F09 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		C90BC05A247210ED00EF7F09 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = "fr.lproj/Theme Chooser.strings"; sourceTree = "<group>"; };
 		C90BC05C247210EE00EF7F09 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/ConflictsResolver.strings; sourceTree = "<group>"; };
 		C90BC05D247210EF00EF7F09 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = "fr.lproj/Widget Simulator.strings"; sourceTree = "<group>"; };
-		C90BC05E247210F000EF7F09 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = "fr.lproj/Template Chooser.strings"; sourceTree = "<group>"; };
 		C90BC0612472111100EF7F09 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C90BC0882472E03600EF7F09 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C90BC0B52473522300EF7F09 /* SwiftUI_Views.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftUI_Views.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2329,7 +2395,6 @@
 		C92DBD8121F687480098BE43 /* REPLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REPLViewController.swift; sourceTree = "<group>"; };
 		C92F6FE4247DD1A5006CC037 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Intents.intentdefinition; sourceTree = "<group>"; };
 		C92F701C248024A2006CC037 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/SwiftUI.framework; sourceTree = DEVELOPER_DIR; };
-		C92FC4452352BCB8000BBF46 /* Hello World.py.template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Hello World.py.template"; sourceTree = "<group>"; };
 		C9300EFF24B8D34A0017E071 /* PythonLexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PythonLexer.swift; sourceTree = "<group>"; };
 		C931CE5F25B64B8F003D17BB /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C931CE6225B64B90003D17BB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -2338,7 +2403,7 @@
 		C9335D29260E13D1005DEBCC /* freetype.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = freetype.h; sourceTree = "<group>"; };
 		C9335D2A260E13D1005DEBCC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C933A0AB25CDFBF100B3C640 /* PyScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyScrollView.swift; sourceTree = "<group>"; };
-		C935746524EEC9C300689740 /* Widget.py.template */ = {isa = PBXFileReference; lastKnownFileType = text; path = Widget.py.template; sourceTree = "<group>"; };
+		C935746524EEC9C300689740 /* Timeline Widget.py.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Timeline Widget.py.txt"; sourceTree = "<group>"; };
 		C936523624D7789600B08A7C /* HighlightrTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightrTheme.swift; sourceTree = "<group>"; };
 		C936525224D7BAF100B08A7C /* Intents UI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Intents UI.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C936525524D7BAF100B08A7C /* IntentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentViewController.swift; sourceTree = "<group>"; };
@@ -2385,7 +2450,7 @@
 		C93E9F0E22BAC8E30065A3F2 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
 		C93E9F0F22BAC8E80065A3F2 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/libsqlite3.0.tbd; sourceTree = DEVELOPER_DIR; };
 		C940020F250825A800EB74EB /* Pyto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pyto.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C94003F52509890300EB74EB /* User Interface.py.template */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "User Interface.py.template"; sourceTree = "<group>"; };
+		C94003F52509890300EB74EB /* PytoUI User Interface.py.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "PytoUI User Interface.py.txt"; sourceTree = "<group>"; };
 		C94003FD2509B89C00EB74EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Widget.intentdefinition; sourceTree = "<group>"; };
 		C940040A2509BE9500EB74EB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C940040C2509BE9B00EB74EB /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2996,7 +3061,7 @@
 		C9FCFD5A214428AE00A07974 /* EditorViewController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; wrapsLines = 1; };
 		C9FCFD5F214428B300A07974 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9FCFD64214428B300A07974 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C9FCFD6C21442FD700A07974 /* Untitled.py.template */ = {isa = PBXFileReference; lastKnownFileType = text; path = Untitled.py.template; sourceTree = "<group>"; };
+		C9FCFD6C21442FD700A07974 /* Untitled.py.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Untitled.py.txt; sourceTree = "<group>"; };
 		C9FE884124CFBDB500D0C615 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		C9FFCAC9255C37070077A7BB /* Complication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Complication.swift; sourceTree = "<group>"; };
 		C9FFCB05255C813E0077A7BB /* RemoteImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteImage.swift; sourceTree = "<group>"; };
@@ -3202,7 +3267,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9335D2E260E13D1005DEBCC /* freetype.framework in Frameworks */,
+				B5AB6C3B276977AB001C5472 /* libffi.a in Frameworks */,
 				C312BAEC259D25D1000A6BAD /* Dynamic in Frameworks */,
 				C9298E072581545800D4C140 /* opencv2.framework in Frameworks */,
 				C904FA2621DA4C7600B70A39 /* Accelerate.framework in Frameworks */,
@@ -3234,6 +3299,7 @@
 		777F5989381586AA988D5FF0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B5AB6C282769779B001C5472 /* libffi.a */,
 				B5174FA327503A61002CDE6C /* libcrypto.a */,
 				B5174F9F27503A5B002CDE6C /* libssl.a */,
 				C9509DCF257AF7280015FC92 /* AVFoundation.framework */,
@@ -3309,6 +3375,26 @@
 				B549F21C275AD32000B5E20A /* Screenshots.swift */,
 			);
 			path = Screenshots;
+			sourceTree = "<group>";
+		};
+		B5AB6C26276943CF001C5472 /* ThreadSafeDictionary */ = {
+			isa = PBXGroup;
+			children = (
+				B5AB6C202768F343001C5472 /* ThreadSafeDictionary.swift */,
+				B5AB6C27276943EB001C5472 /* LICENSE */,
+			);
+			path = ThreadSafeDictionary;
+			sourceTree = "<group>";
+		};
+		B5AB6C2B276977A3001C5472 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B5AB6C34276977A4001C5472 /* libffi.a */,
+				B5AB6C36276977A4001C5472 /* libffi.a */,
+				B5AB6C38276977A4001C5472 /* ffi.dylib */,
+				B5AB6C3A276977A4001C5472 /* libffi.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		C31E730E25868DF2000FCE35 /* iOS App on Mac */ = {
@@ -3516,6 +3602,7 @@
 				C946497625573AC800F2845B /* GalleryScript.swift */,
 				C9FFCB05255C813E0077A7BB /* RemoteImage.swift */,
 				C90788EA254DF77600FC5348 /* View+hover.swift */,
+				B5594D73276A819F00E274FF /* TemplateChooser.swift */,
 			);
 			path = "SwiftUI Views";
 			sourceTree = "<group>";
@@ -3719,10 +3806,10 @@
 			isa = PBXGroup;
 			children = (
 				C9DA43C9250EC2B300A32A53 /* PythonRuntime.swift */,
+				B5AB6C26276943CF001C5472 /* ThreadSafeDictionary */,
 				C98A5BB022C7E86900D411CC /* UI */,
 				C93D61DC2145CD0800C8B5E3 /* PyInputHelper.swift */,
 				C93D61E02145D46700C8B5E3 /* PyOutputHelper.swift */,
-				B59800522734904F00F47F56 /* PyHTMLServer.swift */,
 				C97659052147192C001C96A8 /* PySharingHelper.swift */,
 				C9C3308623C29747003B5971 /* PyLocationHelper.swift */,
 				C98F37BA23ED894700E5D52C /* PyMotionHelper.swift */,
@@ -3739,6 +3826,7 @@
 				C9E501AD220C85B1002719CE /* PyMainThread.swift */,
 				C9624EF321A9905400DDA9A7 /* PyThread.swift */,
 				C95A79E7214DC9D0007A1B90 /* PyAlert.swift */,
+				B5355634275EF47100238E91 /* PyItemProvider.swift */,
 				C91376B5245E365E00AA0935 /* RemoteNotifications.swift */,
 				C9425A7921F49B5A00E7CC35 /* Selectors */,
 				C9B3FDEB21503DE7000FC9A8 /* PyExtensionContext.swift */,
@@ -3779,7 +3867,6 @@
 				C90BC03924720F6800EF7F09 /* ConflictsResolver.storyboard */,
 				C9A33B12224FCDAD0083F041 /* TextField.xib */,
 				C90BC03D24720F7B00EF7F09 /* Widget Simulator.storyboard */,
-				C90BC04124720F8A00EF7F09 /* Template Chooser.storyboard */,
 				C90BC0582472108100EF7F09 /* ScriptSettingsViewController.storyboard */,
 				B533EEE9275E6E7600D37F6D /* SettingsView.storyboard */,
 				C90860D224ADB7F100C0DE8F /* LaunchScreen.storyboard */,
@@ -3794,10 +3881,13 @@
 				C95AECB72208A688003BCB05 /* cacert.pem */,
 				C97AA8B22489495D0063B6F8 /* AppleIncRootCertificate.cer */,
 				C98E1FFC214EE6EC002F0178 /* Samples */,
-				C9FCFD6C21442FD700A07974 /* Untitled.py.template */,
-				C92FC4452352BCB8000BBF46 /* Hello World.py.template */,
-				C935746524EEC9C300689740 /* Widget.py.template */,
-				C94003F52509890300EB74EB /* User Interface.py.template */,
+				C9FCFD6C21442FD700A07974 /* Untitled.py.txt */,
+				B5A179B72767C714009E4C6C /* Toga User Interface.py.txt */,
+				C94003F52509890300EB74EB /* PytoUI User Interface.py.txt */,
+				C935746524EEC9C300689740 /* Timeline Widget.py.txt */,
+				B5594D6A276A7EC200E274FF /* In App Widget.py.txt */,
+				B5594D6D276A7F1300E274FF /* HTML + Python.html.txt */,
+				B5594D70276A7F6E00E274FF /* templates.json */,
 				C9E4152D21514F9100D64E32 /* Startup.py */,
 				C92DBD7F21F67B9C0098BE43 /* REPL.py */,
 				C9E116DF21F773EB00FB5DD2 /* UserREPL.py */,
@@ -4018,6 +4108,13 @@
 		C96A03D62484478700A066BE /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				B5594D7A276A821C00E274FF /* HTML + Python.html.txt */,
+				B5594D7C276A821D00E274FF /* In App Widget.py.txt */,
+				B5594D78276A821C00E274FF /* PytoUI User Interface.py.txt */,
+				B5594D7E276A821D00E274FF /* templates.json */,
+				B5594D79276A821C00E274FF /* Timeline Widget.py.txt */,
+				B5594D7B276A821D00E274FF /* Toga User Interface.py.txt */,
+				B5594D7D276A821D00E274FF /* Untitled.py.txt */,
 				C9A366622495B68700A2EC29 /* pypi_index.html */,
 				C97AA8D424895EC80063B6F8 /* OnDemandLibraries.plist */,
 				C96A03D82484478700A066BE /* Preview Assets.xcassets */,
@@ -4704,6 +4801,7 @@
 				C9FCFD56214428AE00A07974 /* Products */,
 				E49BBFEA4FF54799EBA99E3A /* Pods */,
 				777F5989381586AA988D5FF0 /* Frameworks */,
+				B5AB6C2A276977A3001C5472 /* libffi.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -5273,6 +5371,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				B5AB6C2E276977A4001C5472 /* PBXTargetDependency */,
 				C91D078825B62E3A0050FD86 /* PBXTargetDependency */,
 				C967A07C249D39B200EE3871 /* PBXTargetDependency */,
 				C98169B8235E61360062A91F /* PBXTargetDependency */,
@@ -5437,6 +5536,10 @@
 					ProjectRef = C9AC411F249811C500847A13 /* InputAssistant.xcodeproj */;
 				},
 				{
+					ProductGroup = B5AB6C2B276977A3001C5472 /* Products */;
+					ProjectRef = B5AB6C2A276977A3001C5472 /* libffi.xcodeproj */;
+				},
+				{
 					ProductGroup = C9816989235E5E6B0062A91F /* Products */;
 					ProjectRef = C9816988235E5E6B0062A91F /* Python3_ios.xcodeproj */;
 				},
@@ -5467,6 +5570,34 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		B5AB6C34276977A4001C5472 /* libffi.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libffi.a;
+			remoteRef = B5AB6C33276977A4001C5472 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B5AB6C36276977A4001C5472 /* libffi.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libffi.a;
+			remoteRef = B5AB6C35276977A4001C5472 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B5AB6C38276977A4001C5472 /* ffi.dylib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = ffi.dylib;
+			remoteRef = B5AB6C37276977A4001C5472 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B5AB6C3A276977A4001C5472 /* libffi.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = libffi.a;
+			remoteRef = B5AB6C39276977A4001C5472 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		C94003E12508281A00EB74EB /* python3_ios_screenshots.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -5557,8 +5688,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C940FCBB250825A800EB74EB /* Widget.py.template in Resources */,
+				C940FCBB250825A800EB74EB /* Timeline Widget.py.txt in Resources */,
 				C940FCBC250825A800EB74EB /* Samples in Resources */,
+				B5594D6F276A7F1300E274FF /* HTML + Python.html.txt in Resources */,
 				C940FCBD250825A800EB74EB /* OnDemandLibraries.plist in Resources */,
 				C940FCBE250825A800EB74EB /* Light 3.png in Resources */,
 				C95ED5D6261657AB0029C518 /* joblib in Resources */,
@@ -5583,7 +5715,6 @@
 				C940FCD2250825A800EB74EB /* Light.png in Resources */,
 				C940FCD3250825A800EB74EB /* ConflictsResolver.storyboard in Resources */,
 				C940FCD4250825A800EB74EB /* nacl in Resources */,
-				C940FCD5250825A800EB74EB /* Hello World.py.template in Resources */,
 				C940FCD6250825A800EB74EB /* README.md in Resources */,
 				C940FCD7250825A800EB74EB /* bcrypt in Resources */,
 				C940FCD8250825A800EB74EB /* matplotlib in Resources */,
@@ -5595,8 +5726,9 @@
 				C940FCDE250825A800EB74EB /* Dark 5.png in Resources */,
 				C940FCDF250825A800EB74EB /* ScriptSettingsViewController.storyboard in Resources */,
 				C940FCE0250825A800EB74EB /* gensim in Resources */,
+				B5594D6C276A7EC200E274FF /* In App Widget.py.txt in Resources */,
 				C940FCE1250825A800EB74EB /* blank.wav in Resources */,
-				C940FCE2250825A800EB74EB /* Untitled.py.template in Resources */,
+				C940FCE2250825A800EB74EB /* Untitled.py.txt in Resources */,
 				C940FCE3250825A800EB74EB /* scipy in Resources */,
 				B533EEE7275E6E7600D37F6D /* SettingsView.storyboard in Resources */,
 				C940FCE5250825A800EB74EB /* modules_inspector.py in Resources */,
@@ -5604,18 +5736,18 @@
 				C940FCE7250825A800EB74EB /* Light 6.png in Resources */,
 				C940FCE8250825A800EB74EB /* Dark 3.png in Resources */,
 				C940FCE9250825A800EB74EB /* pywt in Resources */,
-				C94003F82509890400EB74EB /* User Interface.py.template in Resources */,
+				C94003F82509890400EB74EB /* PytoUI User Interface.py.txt in Resources */,
 				B5B0B88F274EB24F00F5030F /* terminal in Resources */,
 				C940FCEA250825A800EB74EB /* body.html in Resources */,
 				C940FCEB250825A800EB74EB /* lxml in Resources */,
 				C940FCEC250825A800EB74EB /* scripts_runner.py in Resources */,
 				C940FCED250825A800EB74EB /* Dark 2.png in Resources */,
 				C940FCEE250825A800EB74EB /* regex in Resources */,
+				B5594D72276A7F6E00E274FF /* templates.json in Resources */,
 				C940FCEF250825A800EB74EB /* Bio in Resources */,
 				C940FCF0250825A800EB74EB /* 420.png in Resources */,
 				C940FCF1250825A800EB74EB /* statsmodels in Resources */,
 				C940FCF3250825A800EB74EB /* Startup.py in Resources */,
-				C940FCF4250825A800EB74EB /* Template Chooser.storyboard in Resources */,
 				B549F21F275BCD2100B5E20A /* rotated_panda.png in Resources */,
 				C940FCF5250825A800EB74EB /* REPL.py in Resources */,
 				C940FCF6250825A800EB74EB /* Widget Simulator.storyboard in Resources */,
@@ -5633,6 +5765,7 @@
 				C940FD02250825A800EB74EB /* AppleIncRootCertificate.cer in Resources */,
 				C940FD04250825A800EB74EB /* Dark 7.png in Resources */,
 				C940FD05250825A800EB74EB /* Assets.xcassets in Resources */,
+				B5A179BB2767C714009E4C6C /* Toga User Interface.py.txt in Resources */,
 				C940FD06250825A800EB74EB /* pandas in Resources */,
 				C940FD07250825A800EB74EB /* test_pyto.py in Resources */,
 				C940FD08250825A800EB74EB /* Dark 4.png in Resources */,
@@ -5736,9 +5869,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				C97AA8D624895EC80063B6F8 /* OnDemandLibraries.plist in Resources */,
+				B5594D88276A822B00E274FF /* HTML + Python.html.txt in Resources */,
+				B5594D89276A822B00E274FF /* In App Widget.py.txt in Resources */,
+				B5594D8C276A822B00E274FF /* PytoUI User Interface.py.txt in Resources */,
 				C96A03DC2484478700A066BE /* Preview Assets.xcassets in Resources */,
 				C9F1E4BB2473721E00A28F2A /* LaunchScreen.storyboard in Resources */,
+				B5594D8A276A822B00E274FF /* templates.json in Resources */,
 				C9A366632495B68700A2EC29 /* pypi_index.html in Resources */,
+				B5594D8B276A822B00E274FF /* Toga User Interface.py.txt in Resources */,
+				B5594D87276A822B00E274FF /* Untitled.py.txt in Resources */,
+				B5594D86276A822B00E274FF /* Timeline Widget.py.txt in Resources */,
 				C9F1E4B52473721D00A28F2A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5748,9 +5888,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C95F9D102564A1FA007B12EB /* boto in Resources */,
-				C935746624EEC9C300689740 /* Widget.py.template in Resources */,
+				C935746624EEC9C300689740 /* Timeline Widget.py.txt in Resources */,
 				C98E1FFD214EE6ED002F0178 /* Samples in Resources */,
 				C9FFF3FA246DBBDB004F41D3 /* OnDemandLibraries.plist in Resources */,
+				B5594D6B276A7EC200E274FF /* In App Widget.py.txt in Resources */,
 				C90BA5C723C4CD2B00B2B187 /* Light 3.png in Resources */,
 				C90F7CED227F445D00EEA045 /* command_runner.py in Resources */,
 				C95F9D1B2564A1FB007B12EB /* botocore in Resources */,
@@ -5763,6 +5904,7 @@
 				C95F9D0F2564A1FA007B12EB /* regex in Resources */,
 				C95F9D0C2564A1FA007B12EB /* networkx in Resources */,
 				C95AECB82208A688003BCB05 /* cacert.pem in Resources */,
+				B5594D6E276A7F1300E274FF /* HTML + Python.html.txt in Resources */,
 				C9F04E832173C33400BDD03E /* Localizable.strings in Resources */,
 				C9A33B13224FCDAD0083F041 /* TextField.xib in Resources */,
 				C95F9D032564A1FA007B12EB /* numpy in Resources */,
@@ -5776,11 +5918,12 @@
 				C90BA5BE23C4CD1F00B2B187 /* Dark 6.png in Resources */,
 				C9A419A523A321EB00BF5393 /* Light.png in Resources */,
 				C95F9D152564A1FB007B12EB /* gensim in Resources */,
+				B5A179BA2767C714009E4C6C /* Toga User Interface.py.txt in Resources */,
 				C95F9D072564A1FA007B12EB /* lxml in Resources */,
 				C95F9D1A2564A1FB007B12EB /* dask in Resources */,
 				C994194E263764EE0008487C /* terminal in Resources */,
+				B5594D71276A7F6E00E274FF /* templates.json in Resources */,
 				C90BC03724720F6800EF7F09 /* ConflictsResolver.storyboard in Resources */,
-				C92FC4462352BCB8000BBF46 /* Hello World.py.template in Resources */,
 				C98472AE21A05CB1008E16AC /* README.md in Resources */,
 				C9F04E882173DD7300BDD03E /* Main.storyboard in Resources */,
 				C90860D324ADB7F200C0DE8F /* LaunchScreen.storyboard in Resources */,
@@ -5790,20 +5933,19 @@
 				C90BC0562472108100EF7F09 /* ScriptSettingsViewController.storyboard in Resources */,
 				C9F311BF2492B96C00488BD7 /* blank.wav in Resources */,
 				C95ED5C2261657A90029C518 /* joblib in Resources */,
-				C9FCFD6D21442FD700A07974 /* Untitled.py.template in Resources */,
+				C9FCFD6D21442FD700A07974 /* Untitled.py.txt in Resources */,
 				C95F9D122564A1FA007B12EB /* bcrypt in Resources */,
 				C916F44B226CFD4800FA2FB6 /* modules_inspector.py in Resources */,
 				C90BA5C823C4CD2B00B2B187 /* Light 6.png in Resources */,
 				C95F9D182564A1FB007B12EB /* cryptography in Resources */,
 				C90BA5BD23C4CD1F00B2B187 /* Dark 3.png in Resources */,
-				C94003F62509890400EB74EB /* User Interface.py.template in Resources */,
+				C94003F62509890400EB74EB /* PytoUI User Interface.py.txt in Resources */,
 				C95F9D042564A1FA007B12EB /* imageio in Resources */,
 				C9B5D87621F214DC00E980BA /* body.html in Resources */,
 				C929167E22B192A5001C8BA0 /* scripts_runner.py in Resources */,
 				C90BA5C023C4CD1F00B2B187 /* Dark 2.png in Resources */,
 				C9F56EAE23D4EE37005C59FD /* 420.png in Resources */,
 				C9E4152E21514F9100D64E32 /* Startup.py in Resources */,
-				C90BC03F24720F8A00EF7F09 /* Template Chooser.storyboard in Resources */,
 				C92DBD8021F67B9D0098BE43 /* REPL.py in Resources */,
 				C91A5DA725113AEA0095A0D0 /* Shortcuts iOS 14.json in Resources */,
 				C95F9D0D2564A1FA007B12EB /* Bio in Resources */,
@@ -6016,6 +6158,7 @@
 				C91F962624AD9185003ACF02 /* Cell.swift in Sources */,
 				C91F962324AD9185003ACF02 /* ShortcutsView.swift in Sources */,
 				C91F963224AD9185003ACF02 /* JSONBrowserView.swift in Sources */,
+				B5594D75276A819F00E274FF /* TemplateChooser.swift in Sources */,
 				C9E4DC6B2551DC7A0064772D /* View+hover.swift in Sources */,
 				C9516336253C792300E5E641 /* String.swift in Sources */,
 				C91F962924AD9185003ACF02 /* SearchBar.swift in Sources */,
@@ -6098,6 +6241,8 @@
 				C940FBE8250825A800EB74EB /* RMStoreAppReceiptVerifier.m in Sources */,
 				C940FBE9250825A800EB74EB /* FileManager.swift in Sources */,
 				C940FBEA250825A800EB74EB /* In App Purchases.swift in Sources */,
+				B5355637275EF47100238E91 /* PyItemProvider.swift in Sources */,
+				B5594D77276A819F00E274FF /* TemplateChooser.swift in Sources */,
 				C940FBEB250825A800EB74EB /* MovableTextField.swift in Sources */,
 				C940FBEC250825A800EB74EB /* Basic.swift in Sources */,
 				C940FBEF250825A800EB74EB /* HeaderLabel.swift in Sources */,
@@ -6202,6 +6347,7 @@
 				C940FC62250825A800EB74EB /* MemoryManager.swift in Sources */,
 				C9E93C162526B1740025C363 /* Progress.swift in Sources */,
 				C956671A264DC63100DBE3B4 /* WebView.swift in Sources */,
+				B5AB6C232768F343001C5472 /* ThreadSafeDictionary.swift in Sources */,
 				C940FC65250825A800EB74EB /* RunModuleViewController.swift in Sources */,
 				C940FC66250825A800EB74EB /* RMAppReceipt.m in Sources */,
 				C33B44FE25894A9E00F2D1E6 /* isiOSAppOnMac.swift in Sources */,
@@ -6448,7 +6594,9 @@
 				C9B5C76024CD2CB9000CC6D0 /* Image.swift in Sources */,
 				C9B5C76924CD2E7F000CC6D0 /* WidgetRow.swift in Sources */,
 				C9930CF224BBE9C9009B33B6 /* PyTableViewCell.swift in Sources */,
+				B5355636275EF47100238E91 /* PyItemProvider.swift in Sources */,
 				C9D1DD61251BD10400A4D663 /* EditorViewController.swift in Sources */,
+				B5AB6C222768F343001C5472 /* ThreadSafeDictionary.swift in Sources */,
 				C9273C7224BA60AE00B2A12C /* PyImageView.swift in Sources */,
 				C9A2C9F524A59FD700D94E0B /* main.m in Sources */,
 				C9273C5724BA591B00B2A12C /* PyLocationHelper.swift in Sources */,
@@ -6502,7 +6650,6 @@
 				C94003FB2509B89C00EB74EB /* Widget.intentdefinition in Sources */,
 				C9C7AC6C22F5ED2300659685 /* RunCodeIntentHandler.swift in Sources */,
 				C98CECF823CA449400E133E3 /* String.swift in Sources */,
-				C9EA38452535675E00ABDA80 /* ReloadWidgetsIntentHandler.swift in Sources */,
 				C9509FEE257C3E7B0015FC92 /* InAppWidgetsStore.swift in Sources */,
 				C9E9661F24C688980053B52D /* UserDefaults.swift in Sources */,
 				C96A19BD2481EA0E00AFD7BD /* GetScriptOutputIntentHandler.swift in Sources */,
@@ -6513,6 +6660,7 @@
 				C9C7AC6B22F5ED2300659685 /* RunScriptIntentHandler.swift in Sources */,
 				C9E9662024C6895F0053B52D /* UIColor.swift in Sources */,
 				C9622C00246891E100D0D697 /* main.m in Sources */,
+				B5AE82112760F73A000AF4B1 /* ReloadWidgetsIntentHandler.swift in Sources */,
 				C93D19A5251A69F6002BD7A5 /* SetContentInAppIntentHandler.swift in Sources */,
 				C93AE21524A99BE30066568A /* RemoveCachedOutput.swift in Sources */,
 				C9DE31B12538DC7700E9E2E1 /* RuntimeCommunicator.swift in Sources */,
@@ -6603,6 +6751,7 @@
 				C95162EC253C78F800E5E641 /* UIColor.swift in Sources */,
 				C94247692484579800C9FF02 /* UIImage+color.swift in Sources */,
 				C91F963624AD9185003ACF02 /* PyPiView.swift in Sources */,
+				B5594D76276A819F00E274FF /* TemplateChooser.swift in Sources */,
 				C91F963C24AD9185003ACF02 /* OnboardingView.swift in Sources */,
 				C942476124844DD400C9FF02 /* SwiftUIBundle.swift in Sources */,
 				C91F963924AD9185003ACF02 /* ValueView.swift in Sources */,
@@ -6640,6 +6789,7 @@
 				C92F6FE2247DD1A5006CC037 /* Intents.intentdefinition in Sources */,
 				C969D2A523D49B3200460F05 /* PyPhotosHelper.swift in Sources */,
 				C976DF202489BEB2006D4EF7 /* RMStoreAppReceiptVerifier.m in Sources */,
+				B5355635275EF47100238E91 /* PyItemProvider.swift in Sources */,
 				C946A5CA2207809700F78C5C /* FileManager.swift in Sources */,
 				B51E07E4274067C6009BABC1 /* KeyboardHostingController.swift in Sources */,
 				C97AA8DC24898BE40063B6F8 /* In App Purchases.swift in Sources */,
@@ -6656,6 +6806,7 @@
 				C9B5C75C24CD2C8B000CC6D0 /* Symbol.swift in Sources */,
 				C965606B241D53CC00188779 /* PySpeech.swift in Sources */,
 				C91F962224AD9185003ACF02 /* ShortcutsView.swift in Sources */,
+				B5AB6C212768F343001C5472 /* ThreadSafeDictionary.swift in Sources */,
 				C312BAD8259D0F05000A6BAD /* EditorViewController+saveAsIfNeeded.swift in Sources */,
 				C94F12B0226BC98D00B4A035 /* ModulesTableViewController.swift in Sources */,
 				C9C0E78321EF75080057C63E /* Midnight.swift in Sources */,
@@ -6673,7 +6824,6 @@
 				C927187B22C99CEA0025341B /* PyControl.swift in Sources */,
 				C91F962B24AD9185003ACF02 /* SamplesView.swift in Sources */,
 				C958F8F222EC250E00481712 /* URL.swift in Sources */,
-				B59800532734904F00F47F56 /* PyHTMLServer.swift in Sources */,
 				C9CED5352353A214000BB464 /* ThemeMakerTableViewController.swift in Sources */,
 				C92495C72151A3E3007EB4DB /* ReviewHelper.swift in Sources */,
 				C9A7DA2D24D52C3F00204932 /* LineNumberTextViewWrapper.m in Sources */,
@@ -6722,6 +6872,7 @@
 				C91F962524AD9185003ACF02 /* Cell.swift in Sources */,
 				C9C0E77A21EF65BE0057C63E /* ThemableNavigationController.swift in Sources */,
 				C33B44FC25894A9E00F2D1E6 /* isiOSAppOnMac.swift in Sources */,
+				B5594D74276A819F00E274FF /* TemplateChooser.swift in Sources */,
 				C93CA8B522022E67008DD049 /* QuickLookHelper.swift in Sources */,
 				C91BE6B523F9A3E500B6ED6B /* ProjectDocument.swift in Sources */,
 				C966D254242036BF009BB33E /* PyCore.swift in Sources */,
@@ -6832,6 +6983,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		B5AB6C2E276977A4001C5472 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "libffi-iOS";
+			targetProxy = B5AB6C2D276977A4001C5472 /* PBXContainerItemProxy */;
+		};
 		C91D078825B62E3A0050FD86 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilter = ios;
@@ -7001,18 +7157,6 @@
 				B533EEFA275E86AD00D37F6D /* es */,
 			);
 			name = "Widget Simulator.storyboard";
-			sourceTree = "<group>";
-		};
-		C90BC04124720F8A00EF7F09 /* Template Chooser.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C90BC0482472103800EF7F09 /* Base */,
-				C90BC0552472107600EF7F09 /* en */,
-				C90BC05E247210F000EF7F09 /* fr */,
-				B533EEF6275E86A500D37F6D /* de */,
-				B533EEF9275E86AD00D37F6D /* es */,
-			);
-			name = "Template Chooser.storyboard";
 			sourceTree = "<group>";
 		};
 		C90BC0582472108100EF7F09 /* ScriptSettingsViewController.storyboard */ = {

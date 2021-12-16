@@ -11,7 +11,7 @@ class TestPyto(unittest.TestCase):
 
     def test_lib(self):
         from Lib import (apps, location, mainthread, motion,
-        multipeer, music, notification_center, notifications,
+        multipeer, music, notifications,
         pasteboard, photos, pyto_core, pyto_ui,
         remote_notifications, sharing, sound, speech, userkeys,
         xcallback)
@@ -29,7 +29,7 @@ class TestPyto(unittest.TestCase):
 
     def test_command_runner(self):
         
-        expected_result = "usage: pip.py [-h] [--verbose] [-6]\n              sub-command ...\npip.py: error: argument sub-command: invalid choice: '—-help' (choose from 'list', 'install', 'download', 'search', 'versions', 'uninstall', 'update')"
+        expected_result = "usage: pip.py [-h] [--verbose] [-6]\n              sub-command ...\npip.py: error: argument sub-command: invalid choice: '—-help' (choose from 'list', 'install', 'download', 'search', 'versions', 'uninstall', 'update')\n0"
         
         out_path = os.path.join(os.path.expanduser("~/tmp"), "out.txt")
         

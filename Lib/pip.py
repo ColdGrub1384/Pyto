@@ -86,7 +86,7 @@ except NameError:
 
 
 def _get_bundled_modules():
-    mods = []
+    mods = ["rubicon-objc", "toga"]
     for path in sys.path:
         if path.endswith(".zip") or os.access(path, os.W_OK):
             continue
@@ -99,15 +99,18 @@ def _get_bundled_modules():
         for lib in contents:
 
             if lib.endswith(".dist-info"):
-                try:
-                    mods.append(lib.split("-")[0])
-                except IndexError:
-                    continue
+                with open(os.path.join(path, lib, "METADATA"), mode="r", encoding="utf-8") as f:
+                    for line in f.read().split("\n"):
+                        if line.startswith("Name: "):
+                            mods.append(line.split("Name: ")[1])
+                            break
+                    
             elif lib.endswith(".egg-info"):
-                try:
-                    mods.append(lib.split(".egg-info")[0])
-                except IndexError:
-                    continue
+                with open(os.path.join(path, lib, "PKG-INFO"), mode="r", encoding="utf-8") as f:
+                    for line in f.read().split("\n"):
+                        if line.startswith("Name: "):
+                            mods.append(line.split("Name: ")[1])
+                            break
     return mods
 
 

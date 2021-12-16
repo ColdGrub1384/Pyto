@@ -9,11 +9,11 @@
 	<key>INIntentDefinitionNamespace</key>
 	<string>1zhe5j</string>
 	<key>INIntentDefinitionSystemVersion</key>
-	<string>20A4299v</string>
+	<string>21A559</string>
 	<key>INIntentDefinitionToolsBuildVersion</key>
-	<string>12B5035g</string>
+	<string>13A233</string>
 	<key>INIntentDefinitionToolsVersion</key>
-	<string>12.2</string>
+	<string>13.0</string>
 	<key>INIntents</key>
 	<array>
 		<dict>
@@ -22,7 +22,7 @@
 			<key>INIntentConfigurable</key>
 			<true/>
 			<key>INIntentDescription</key>
-			<string>Runs Python code</string>
+			<string>Runs Python code. The files passed to the 'Attachments' parameter can be retrieved with 'pasteboard.shortcuts_attachments()'.</string>
 			<key>INIntentDescriptionID</key>
 			<string>LZDnIH</string>
 			<key>INIntentIneligibleForSuggestions</key>
@@ -32,10 +32,10 @@
 			<key>INIntentKeyParameter</key>
 			<string>code</string>
 			<key>INIntentLastParameterTag</key>
-			<integer>7</integer>
+			<integer>9</integer>
 			<key>INIntentManagedParameterCombinations</key>
 			<dict>
-				<key>code,arguments,showConsole</key>
+				<key>code,arguments,showConsole,items</key>
 				<dict>
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
@@ -141,11 +141,62 @@
 					<key>INIntentParameterConfigurable</key>
 					<true/>
 					<key>INIntentParameterDisplayName</key>
+					<string>Attachments</string>
+					<key>INIntentParameterDisplayNameID</key>
+					<string>jhmY5h</string>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>3</integer>
+					<key>INIntentParameterMetadata</key>
+					<dict>
+						<key>INIntentParameterMetadataCustomUTIs</key>
+						<array>
+							<dict>
+								<key>UTI</key>
+								<string>public.item</string>
+							</dict>
+						</array>
+						<key>INIntentParameterMetadataType</key>
+						<string>Custom</string>
+					</dict>
+					<key>INIntentParameterName</key>
+					<string>items</string>
+					<key>INIntentParameterPromptDialogs</key>
+					<array>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Configuration</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogFormatString</key>
+							<string>What items would you like to pass?</string>
+							<key>INIntentParameterPromptDialogFormatStringID</key>
+							<string>QjtZfC</string>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Primary</string>
+						</dict>
+					</array>
+					<key>INIntentParameterSupportsMultipleValues</key>
+					<true/>
+					<key>INIntentParameterSupportsResolution</key>
+					<true/>
+					<key>INIntentParameterTag</key>
+					<integer>9</integer>
+					<key>INIntentParameterType</key>
+					<string>File</string>
+				</dict>
+				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
+					<key>INIntentParameterDisplayName</key>
 					<string>Show Console</string>
 					<key>INIntentParameterDisplayNameID</key>
 					<string>mksMNI</string>
 					<key>INIntentParameterDisplayPriority</key>
-					<integer>3</integer>
+					<integer>4</integer>
 					<key>INIntentParameterMetadata</key>
 					<dict>
 						<key>INIntentParameterMetadataFalseDisplayName</key>
@@ -292,7 +343,7 @@
 			<key>INIntentConfigurable</key>
 			<true/>
 			<key>INIntentDescription</key>
-			<string>Runs a Python script</string>
+			<string>Runs a Python script. The files passed to the 'Attachments' parameter can be retrieved with 'pasteboard.shortcuts_attachments()'.</string>
 			<key>INIntentDescriptionID</key>
 			<string>3Ywctx</string>
 			<key>INIntentInput</key>
@@ -300,10 +351,10 @@
 			<key>INIntentKeyParameter</key>
 			<string>script</string>
 			<key>INIntentLastParameterTag</key>
-			<integer>22</integer>
+			<integer>25</integer>
 			<key>INIntentManagedParameterCombinations</key>
 			<dict>
-				<key>script,arguments,showConsole</key>
+				<key>script,arguments,showConsole,items</key>
 				<dict>
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
@@ -461,11 +512,62 @@
 					<key>INIntentParameterConfigurable</key>
 					<true/>
 					<key>INIntentParameterDisplayName</key>
+					<string>Attachments</string>
+					<key>INIntentParameterDisplayNameID</key>
+					<string>7uyvin</string>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>3</integer>
+					<key>INIntentParameterMetadata</key>
+					<dict>
+						<key>INIntentParameterMetadataCustomUTIs</key>
+						<array>
+							<dict>
+								<key>UTI</key>
+								<string>public.item</string>
+							</dict>
+						</array>
+						<key>INIntentParameterMetadataType</key>
+						<string>Custom</string>
+					</dict>
+					<key>INIntentParameterName</key>
+					<string>items</string>
+					<key>INIntentParameterPromptDialogs</key>
+					<array>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Configuration</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogFormatString</key>
+							<string>What items would you like to pass?</string>
+							<key>INIntentParameterPromptDialogFormatStringID</key>
+							<string>SI0K8j</string>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Primary</string>
+						</dict>
+					</array>
+					<key>INIntentParameterSupportsMultipleValues</key>
+					<true/>
+					<key>INIntentParameterSupportsResolution</key>
+					<true/>
+					<key>INIntentParameterTag</key>
+					<integer>25</integer>
+					<key>INIntentParameterType</key>
+					<string>File</string>
+				</dict>
+				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
+					<key>INIntentParameterDisplayName</key>
 					<string>Show Console</string>
 					<key>INIntentParameterDisplayNameID</key>
 					<string>6VwO9t</string>
 					<key>INIntentParameterDisplayPriority</key>
-					<integer>3</integer>
+					<integer>4</integer>
 					<key>INIntentParameterMetadata</key>
 					<dict>
 						<key>INIntentParameterMetadataFalseDisplayName</key>

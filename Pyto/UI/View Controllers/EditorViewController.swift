@@ -274,7 +274,12 @@ func directory(for scriptURL: URL) -> URL {
         
         let intent = RunScriptIntent()
         do {
-            intent.script = INFile(data: try self.document!.fileURL.bookmarkData(), filename: document!.fileURL.lastPathComponent, typeIdentifier: "public.python-script")
+            var name = document!.fileURL.lastPathComponent
+            if name == "__init__.py" || name == "__main__.py" {
+                name = document!.fileURL.deletingLastPathComponent().lastPathComponent
+            }
+            
+            intent.script = INFile(data: try self.document!.fileURL.bookmarkData(), filename: name, typeIdentifier: "public.python-script")
         } catch {
             print(error.localizedDescription)
         }
@@ -364,6 +369,10 @@ func directory(for scriptURL: URL) -> URL {
     /// - Parameters:
     ///     - theme: The theme to apply.
     func setup(theme: Theme) {
+        
+        guard view.window?.windowScene?.activationState != .background && view.window?.windowScene?.activationState != .unattached && view.window != nil else {
+            return
+        }
         
         textView.contentTextView.inputAccessoryView = nil
         textView.font = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
@@ -497,7 +506,7 @@ func directory(for scriptURL: URL) -> URL {
                     parentNavigationItem?.leftBarButtonItems = []
                 }
                 
-                if document?.fileURL.pathExtension.lowercased() == "pyhtml" {
+                if document?.fileURL.pathExtension.lowercased() == "html" {
                     if let path = document?.fileURL.path, Python.shared.isScriptRunning(path) {
                         parentNavigationItem?.rightBarButtonItems = [
                             stopBarButtonItem
@@ -547,7 +556,7 @@ func directory(for scriptURL: URL) -> URL {
                 ]+( isPIPSupported ? [pipItem, runtimeItem] : [runtimeItem] )
             }
         } else {
-            if document?.fileURL.pathExtension.lowercased() == "pyhtml" {
+            if document?.fileURL.pathExtension.lowercased() == "html" {
                 parentVC?.toolbarItems = [shareItem, moreItem, docItem, UIBarButtonItem(systemItem: .flexibleSpace), runtimeItem]
             } else {
                 parentVC?.toolbarItems = [shareItem, moreItem, docItem]
@@ -652,7 +661,7 @@ func directory(for scriptURL: URL) -> URL {
             switch document?.fileURL.pathExtension.lowercased() ?? "" {
             case "py":
                 (textView.textStorage as? CodeAttributedString)?.language = "python"
-            case "pyhtml":
+            case "html":
                 (textView.textStorage as? CodeAttributedString)?.language = "html"
             default:
                 (textView.textStorage as? CodeAttributedString)?.language = document?.fileURL.pathExtension.lowercased()
@@ -750,10 +759,7 @@ func directory(for scriptURL: URL) -> URL {
         DispatchQueue.main.asyncAfter(deadline: .now()+0.2) { [weak self] in
             self?.updateSuggestions(force: true)
             
-            
-            if isiOSAppOnMac {
-                self?.setup(theme: ConsoleViewController.choosenTheme)
-            }
+            self?.setup(theme: ConsoleViewController.choosenTheme)
         }
         
         textView.frame = view.safeAreaLayoutGuide.layoutFrame
@@ -1175,7 +1181,7 @@ func directory(for scriptURL: URL) -> URL {
     ///     - debug: Set to `true` for debugging with `pdb`.
     func runScript(debug: Bool) {
         
-        guard document?.fileURL.pathExtension.lowercased() == "py" || document?.fileURL.pathExtension.lowercased() == "pyhtml" else {
+        guard document?.fileURL.pathExtension.lowercased() == "py" || document?.fileURL.pathExtension.lowercased() == "html" else {
             return
         }
         
@@ -2110,7 +2116,7 @@ func directory(for scriptURL: URL) -> URL {
         set {
             
             #if !targetEnvironment(simulator)
-            guard document?.fileURL.pathExtension.lowercased() == "pyhtml" || lastCodeFromCompletions == text else {
+            guard document?.fileURL.pathExtension.lowercased() == "html" || lastCodeFromCompletions == text else {
                 return
             }
             #endif
@@ -2150,7 +2156,7 @@ func directory(for scriptURL: URL) -> URL {
         
         set {
             
-            guard document?.fileURL.pathExtension.lowercased() == "pyhtml" || lastCodeFromCompletions == text else {
+            guard document?.fileURL.pathExtension.lowercased() == "html" || lastCodeFromCompletions == text else {
                 return
             }
             
@@ -2338,14 +2344,14 @@ func directory(for scriptURL: URL) -> URL {
     ///     - getDefinitions: If set to `true` definitons will be retrieved, we don't need to update them every time, just when we open the definitions list.
     func updateSuggestions(force: Bool = false, getDefinitions: Bool = false) {
         
-        guard document?.fileURL.pathExtension.lowercased() == "py" || document?.fileURL.pathExtension.lowercased() == "pyhtml" else {
+        guard document?.fileURL.pathExtension.lowercased() == "py" || document?.fileURL.pathExtension.lowercased() == "html" else {
             return
         }
         
         let currentPythonScriptTag = self.currentPythonScriptTag
         let text = currentPythonScriptTag?.code ?? self.text
         
-        if currentPythonScriptTag == nil && document?.fileURL.pathExtension.lowercased() == "pyhtml" {
+        if currentPythonScriptTag == nil && document?.fileURL.pathExtension.lowercased() == "html" {
             return
         }
                 
@@ -2396,19 +2402,14 @@ func directory(for scriptURL: URL) -> URL {
             Python.shared.handleCrashesForCurrentThread()
 
             path = '\(self.currentDirectory.path.replacingOccurrences(of: "'", with: "\\'"))'
-            should_path_be_deleted = False
             
             os.chdir(path)
         
             if not path in sys.path:
                 sys.path.append(path)
-                should_path_be_deleted = True
                 
             source = str(EditorViewController.codeToComplete)
             suggestForCode(source, \(location), '\((self.document?.fileURL.path ?? "").replacingOccurrences(of: "'", with: "\\'"))', \(getDefinitions ? "True" : "False"))
-                    
-            if should_path_be_deleted:
-                sys.path.remove(path)
 
         thread = Thread(target=complete)
         thread.script_path = '\((self.document?.fileURL.path ?? "").replacingOccurrences(of: "'", with: "\\'"))'
@@ -2520,7 +2521,7 @@ func directory(for scriptURL: URL) -> URL {
     func numberOfSuggestionsInInputAssistantView() -> Int {
         
         #if !targetEnvironment(simulator)
-        guard document?.fileURL.pathExtension.lowercased() == "pyhtml" || lastCodeFromCompletions == text else {
+        guard document?.fileURL.pathExtension.lowercased() == "html" || lastCodeFromCompletions == text else {
             return 0
         }
         #endif

@@ -13,18 +13,17 @@ import Foundation
     @objc static func runAsync(_ code: @escaping (() -> Void)) {
         let code_ = code
         DispatchQueue.main.async {
-            print("Will run code")
             code_()
-            print("Ran")
         }
     }
     
     @objc static func runSync(_ code: @escaping (() -> Void)) {
         let code_ = code
-        DispatchQueue.main.sync {
-            print("Will run code")
+        let semaphore = Python.Semaphore(value: 0)
+        DispatchQueue.main.async {
             code_()
-            print("Ran")
+            semaphore.signal()
         }
+        semaphore.wait()
     }
 }

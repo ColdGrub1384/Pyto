@@ -125,13 +125,6 @@ fileprivate extension ConsoleViewController {
     ///     - text: Text to print.
     ///     - script: Script that printed the output. Set to `nil` to be printed in every console.
     @objc static func print(_ text: String, script: String?) {
-        
-        if Thread.current.isMainThread {
-            return DispatchQueue.global().async {
-                print(text, script: script)
-            }
-        }
-        
         var text_ = text
         
         guard !text_.isEmpty else {

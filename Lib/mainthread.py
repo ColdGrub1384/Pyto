@@ -22,21 +22,13 @@ import pyto
 from time import sleep
 from __check_type__ import check
 from __check_type__ import func as _func
+import threading
 
 __PyMainThread__ = pyto.PyMainThread
 
-
-def runAsync(code):
-    raise NameError("`runAsync` was renamed to `run_async`")
-
-
-def runSync(code):
-    raise NameError("`runSync` was renamed to `run_sync`")
-
-
 def mainthread(func):
     """
-    A decorator for a function running in the main thread.
+    A decorator that makes a function run in synchronously on the main thread.
 
     Example:
 
@@ -59,9 +51,9 @@ def mainthread(func):
         import mainthread
 
         def _run():
-            func(*args, **kwargs)
+            return func(*args, **kwargs)
 
-        mainthread.run_async(_run)
+        return mainthread.run_sync(_run)
 
     return run
 
@@ -81,12 +73,42 @@ def run_async(code):
     __PyMainThread__.runAsync(code_)
 
 
+_ret_value = None
+_exc = None
+
 def run_sync(code):
+    """
+    Runs the given code asynchronously on the main thread.
+    Supports return values as opposed to :func:`~mainthread.run_async`
+
+    :param code: Code to execute in the main thread.
+    """
+    
+    global _exc
 
     check(code, "code", [_func])
 
+    try:
+        script_path = threading.current_thread().script_path
+    except AttributeError:
+        script_path = None
+
     def code_() -> None:
-        code()
+        global _ret_value
+        global _exc
+        threading.current_thread().script_path = script_path
+        try:
+            _ret_value = code()
+        except Exception as e:
+            _exc = e
+        threading.current_thread().script_path = None
 
     __PyMainThread__.runSync(code_)
     sleep(0.1)
+    
+    if _exc is not None:
+        __exc = _exc
+        _exc = None
+        raise __exc
+    
+    return _ret_value

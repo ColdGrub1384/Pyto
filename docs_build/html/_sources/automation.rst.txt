@@ -12,6 +12,9 @@ Pyto provides Shortcuts for running scripts and code. Shortcuts will open Pyto t
 
 ``Get Script Output`` will wait for a script to be executed and returns its output.
 
+The code executes asynchronously unless ``Get Script Output`` is ran.
+The ``Run Code`` and ``Run Script`` actions support an ``Attachments`` parameter. You can pass files to it and they can be access with the :func:`~pasteboard.shortcuts_attachments()` API.
+
 x-callback URLs
 ---------------
 

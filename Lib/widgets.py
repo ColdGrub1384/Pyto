@@ -108,9 +108,6 @@ try:
 except AttributeError:
     pass
 
-if __PyWidget__ is None and not "sphinx" in sys.modules:
-    raise NotImplementedError("Home Screen Widgets are coming on Pyto 13.")
-
 
 def schedule_next_reload(time: Union[datetime.timedelta, float]):
     """
@@ -1418,10 +1415,17 @@ class Widget:
     A :class:`~widgets.WidgetLayout` object which UI's will be used for large sized widgets.
     """
 
+    extra_large_layout: WidgetLayout = WidgetLayout()
+    """
+    A :class:`~widgets.WidgetLayout` object which UI's will be used for extra large widgets (only available on iPadOS).
+    """
+
+
     def __init__(self):
         self.small_layout = WidgetLayout()
         self.medium_layout = WidgetLayout()
         self.large_layout = WidgetLayout()
+        self.extra_large_layout = WidgetLayout()
 
 
 def __show_widget__(widget: Widget, key: str):
@@ -1435,10 +1439,11 @@ def __show_widget__(widget: Widget, key: str):
     _widget.addView(widget.small_layout.__widget_view__, family=0)
     _widget.addView(widget.medium_layout.__widget_view__, family=1)
     _widget.addView(widget.large_layout.__widget_view__, family=2)
+    _widget.addView(widget.extra_large_layout.__widget_view__, family=3)
 
-    if key is None:
-        __PyWidget__.updateTimeline(__widget_id__, widget=_widget)
-    else:
+    __PyWidget__.updateTimeline(__widget_id__, widget=_widget)
+    
+    if key is not None:
         __PyWidget__.addWidget(_widget, key=key)
 
 

@@ -19,4 +19,6 @@ import Foundation
     @objc func interruptScript(_ script: String)
     
     @objc func runWidgetWithCode(_ code: String, andID id: String)
+    
+    @objc func getScriptPath() -> String?
 }

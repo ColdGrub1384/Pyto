@@ -109,6 +109,8 @@ struct Provider: IntentTimelineProvider {
                 from threading import Thread
 
                 PyWidget = __Class__("PyWidget")
+                
+                PyWidget.breakpoint("Initialized PyWidget")
 
                 console = ""
 
@@ -236,7 +238,9 @@ struct Provider: IntentTimelineProvider {
                     widgetsQueue += 1
                     
                     if !RuntimeCommunicator.shared.isContainerAppRunning && !Python.shared.isSetup {
-                        SetupPython()
+                        DispatchQueue.global().async {
+                            SetupPython()
+                        }
                     }
                     
                     if (Python.shared.isSetup || RuntimeCommunicator.shared.isContainerAppRunning) && !runningScript {

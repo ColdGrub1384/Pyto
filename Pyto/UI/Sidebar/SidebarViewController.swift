@@ -296,9 +296,7 @@ fileprivate enum Section: String {
     }
     
     @objc func newScript() {
-        let navVC = UIStoryboard(name: "Template Chooser", bundle: nil).instantiateInitialViewController()!
-        ((navVC as? UINavigationController)?.topViewController as? TemplateChooserTableViewController)?.chooseName = false
-        ((navVC as? UINavigationController)?.topViewController as? TemplateChooserTableViewController)?.importHandler = { [weak self] url, _ in
+        let templateChooser = TemplateChooser(parent: self, chooseName: false) { [weak self] url, _ in
             self?.dismiss(animated: true, completion: {
                 if let url = url {
                     let docPicker = UIDocumentPickerViewController(forExporting: [url], asCopy: false)
@@ -308,7 +306,7 @@ fileprivate enum Section: String {
             })
         }
         
-        self.present(navVC, animated: true, completion: nil)
+        self.present(UIHostingController(rootView: templateChooser), animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
@@ -547,7 +545,7 @@ fileprivate enum Section: String {
     }
     
     func openScript() {
-        let docPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.pythonScript, .init(filenameExtension: "pyhtml")!])
+        let docPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.pythonScript, .init(filenameExtension: "html")!])
         docPicker.delegate = self
         present(docPicker, animated: true, completion: nil)
     }

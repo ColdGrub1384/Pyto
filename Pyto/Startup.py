@@ -27,7 +27,9 @@ try:
     from pip import BUNDLED_MODULES
     from ctypes import CDLL
     from time import sleep
-
+    import collections
+    import shutil
+    
     # MARK: - Warnings
 
     logging.basicConfig(level=logging.INFO)
@@ -159,6 +161,11 @@ try:
     # MARK: - Pre-import modules
 
     def importModules():
+    
+        try:
+            import toga_Pyto
+        except:
+            pass
 
         try:
             import PIL.ImageShow
@@ -198,14 +205,62 @@ try:
 
     threading.Thread(target=addOnDemandPaths).start()
 
+    # MARK: - Terminal size
+    
+    def _get_terminal_size(fallback=(80, 24)):
+        try:
+            path = threading.current_thread().script_path
+        except AttributeError:
+            path = None
+
+        size = list(pyto.ConsoleViewController.getTerminalSize(path, fallback=list(fallback)))
+        return os.terminal_size((size[0].intValue, size[1].intValue))
+
+    def _os_get_terminal_size(fd=None):
+        return _get_terminal_size()
+    
+    os.get_terminal_size = _os_get_terminal_size
+    shutil.get_terminal_size = _get_terminal_size
+
     # MARK: - Sys
+    
+    class SysPath(collections.abc.MutableSequence):
+
+        def __init__(self, path):
+            self.path = path
+
+        def get_path(self):
+            thread = threading.current_thread()
+            if "script_path" in dir(thread):
+                return sys.modules["sys"].path
+            else:
+                return self.path
+
+        def __len__(self): return len(self.get_path())
+
+        def __getitem__(self, i): return self.get_path()[i]
+
+        def __delitem__(self, i): del self.get_path()[i]
+
+        def __setitem__(self, i, v):
+            self.get_path()[i] = v
+
+        def insert(self, i, v):
+            self.get_path().insert(i, v)
+
+        def __str__(self):
+            return str(self.get_path())
     
     class Sys(sys.__class__):
     
         instances = {}
+        
+        main = {}
     
         def __init__(self, sys):
             self.sys = sys
+            self.sys.__path__ = self.sys.path
+            self.sys.path = SysPath(self.sys.path)
         
         def __dir__(self):
             return dir(self.sys)
@@ -213,7 +268,7 @@ try:
         def setup_properties_if_needed(self, script_path):
             if not script_path in self.__class__.instances:
                 path = []
-                for location in self.sys.path:
+                for location in self.sys.__path__:
                     path.append(location)
                 self.__class__.instances[script_path] = { "path": path, "argv": [] }
         
@@ -247,6 +302,12 @@ try:
             return getattr(self.sys, attr)
 
     sys.modules["sys"] = Sys(sys)
+    console.sys = sys.modules["sys"]
+
+    try:
+        del sys.modules["__main__"]
+    except KeyError:
+        pass
 
     # MARK: - Pip bundled modules
     
@@ -311,7 +372,7 @@ try:
         
     def run():
         SourceFileLoader("main", "%@").load_module()
-        sleep(0.5)
+        sleep(0.2)
         CDLL(None).putenv(b"IS_PYTHON_RUNNING=1")
 
     threading.Thread(target=run).start()

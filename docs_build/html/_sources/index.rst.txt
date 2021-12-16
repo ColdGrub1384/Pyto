@@ -14,6 +14,10 @@ Welcome to Pyto's documentation!
 Pyto is an open source app to code and run Python code locally on an iPad or iPhone.
 The app uses the Python C API to run Python code in the same process of the app, due to iOS restrictions. Third party pure Python modules can be installed from PyPi and some libraries with C extensions are bundled in the app. For a list of included libraries, see `Third Party <third_party.html>`__.
 
+The Python 3.10 binary that comes with the app is from the `Python-Apple-support <https://github.com/beeware/Python-Apple-support/tree/3.10>`__ project by beeware. `Toga <https://toga.readthedocs.io/en/latest/>`__, a cross platform UI library is also included.
+
+Other modules were built specifically for this app, allowing access to some of the OS APIs.
+
 Frequently asked
 ----------------
 
@@ -67,6 +71,7 @@ The following modules are integrated with Pyto.
    sf_symbols
    sharing
    mainthread
+   htmpy
    pyto_core
 
 .. toctree::
@@ -88,7 +93,7 @@ The following modules are integrated with Pyto.
    :maxdepth: 2
    :caption: Sharing data
 
-   apps
-   xcallback
-   userkeys
    pasteboard
+   userkeys
+   xcallback
+   apps

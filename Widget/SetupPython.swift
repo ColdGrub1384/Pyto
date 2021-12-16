@@ -84,6 +84,13 @@ func SetupPython() {
                     print(str(e))
             
             @objc_method
+            def getScriptPath(self):
+                try:
+                    return threading.current_thread().script_path
+                except AttributeError:
+                    return
+    
+            @objc_method
             def runWidgetWithCode_andID_(self, code, id):
 
                 Python.shared.handleCrashesForCurrentThread()

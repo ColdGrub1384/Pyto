@@ -176,14 +176,40 @@ import AVFoundation
             try? FileManager.default.createDirectory(at: docs, withIntermediateDirectories: true, attributes: nil)
         }
         
-        do {
-            let bookmarkData = try url.bookmarkData()
-            let script = IntentScript(bookmarkData: bookmarkData, code: (try String(contentsOf: url)))
-            let data = try JSONEncoder().encode(script)
-            try data.write(to: docs.appendingPathComponent(url.lastPathComponent))
-        } catch {
-            print(error.localizedDescription)
+        for file in (try? FileManager.default.contentsOfDirectory(at: docs, includingPropertiesForKeys: nil, options: [])) ?? [] {
+            if file.lastPathComponent == "__init__.py" || file.lastPathComponent == "__main__.py" {
+                try? FileManager.default.removeItem(at: file)
+            }
         }
+        
+        func write() {
+            do {
+                let bookmarkData = try url.bookmarkData()
+                let script = IntentScript(bookmarkData: bookmarkData, code: (try String(contentsOf: url)))
+                let data = try JSONEncoder().encode(script)
+                
+                var name = url.lastPathComponent
+                
+                if name == "__init__.py" || name == "__main__.py" {
+                    name = name+" (\(url.deletingLastPathComponent().lastPathComponent))"
+                }
+                
+                if name.hasPrefix("__init__.py (") && FileManager.default.fileExists(atPath: docs.appendingPathComponent(name.replacingOccurrences(of: "__init__.py", with: "__main__.py")).path) {
+                    return // Just keep __main__.py
+                }
+                
+                if name.hasPrefix("__main__.py (") && FileManager.default.fileExists(atPath: docs.appendingPathComponent(name.replacingOccurrences(of: "__main__.py", with: "__init__.py")).path) {
+                    // Remove __init__.py replace it by __main__
+                    try? FileManager.default.removeItem(at: docs.appendingPathComponent(name.replacingOccurrences(of: "__main__.py", with: "__init__.py")))
+                }
+                
+                try data.write(to: docs.appendingPathComponent(name))
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        
+        write()
         
         // Remove missing files
         DispatchQueue.global().async {

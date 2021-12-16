@@ -6,7 +6,7 @@ import jedi
 import sys
 import traceback
 from rubicon.objc import at
-from Foundation import NSAutoreleasePool
+from Foundation import NSAutoreleasePool, NSBundle
 from pygments import highlight
 from pygments import lexers
 from pygments.formatters.terminal256 import TerminalTrueColorFormatter
@@ -19,6 +19,8 @@ lexer = lexers.get_lexer_by_name('python')
 style = get_style_by_name('default')
 formatter = TerminalTrueColorFormatter(full=True, style=style)
 
+downloadable_path = str(NSBundle.mainBundle.pathForResource("Lib/_downloadable_packages", ofType=""))
+
 def printHighlightedCode(code, path):
     PyOutputHelper.print(highlight(code, lexer, formatter), script=path)
 
@@ -29,6 +31,9 @@ def suggestForCode(code, index, path, get_definitions=False):
         visibles = ConsoleViewController.objcVisibles
     except AttributeError:
         visibles = []
+
+    if not downloadable_path in sys.path:
+        sys.path.append(downloadable_path)
 
     for console in visibles:
 
@@ -176,8 +181,13 @@ def suggestForCode(code, index, path, get_definitions=False):
             visibleEditor.signature = ""
             visibleEditor.docStrings = None
 
+    if downloadable_path in sys.path:
+        sys.path.remove(downloadable_path)
 
 def suggestionsForCode(code, path=None):
+
+    if not downloadable_path in sys.path:
+        sys.path.append(downloadable_path)
 
     try:
         if path is None:
@@ -201,6 +211,12 @@ def suggestionsForCode(code, path=None):
 
             suggestions[completion.name] = completion.complete
 
+        if downloadable_path in sys.path:
+            sys.path.remove(downloadable_path)
+
         return suggestions
     except Exception as e:
+        if downloadable_path in sys.path:
+            sys.path.remove(downloadable_path)
+
         return {}

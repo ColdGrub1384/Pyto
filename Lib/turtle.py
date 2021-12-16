@@ -207,7 +207,7 @@ class Turtle(object):
     def pencolor(self, *args):
         if len(args) == 0:
             color = self.__turtle__.colorValues
-            return (color[0] * 255, color[1] * 255, color[2] * 255)
+            return (color[0].intValue * 255, color[1].intValue * 255, color[2].intValue * 255)
         if len(args) == 1 and isinstance(args[0], str):
             color = colors.to_rgba(args[0])
             self.__turtle__.colorWithRed(
@@ -230,7 +230,7 @@ class Turtle(object):
     def fillcolor(self, *args):
         if len(args) == 0:
             color = self.__turtle__.colorValues
-            return (color[0] * 255, color[1] * 255, color[2] * 255)
+            return (color[0].intValue * 255, color[1].intValue * 255, color[2].intValue * 255)
         if len(args) == 1 and isinstance(args[0], str):
             color = colors.to_rgba(args[0])
             self.__turtle__.fillColorWithRed(

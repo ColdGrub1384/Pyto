@@ -8,11 +8,11 @@
 
 import Foundation
 
-// So we just have to check one condition and not both if iOS 14 is available AND iOS App on Mac
+@objc class MacSupport: NSObject {
+    
+    @objc static let isRunningOnMac = isiOSAppOnMac
+}
+
 var isiOSAppOnMac: Bool {
-    if #available(iOS 14.0, *) {
-        return ProcessInfo.processInfo.isiOSAppOnMac
-    } else {
-        return false
-    }
+    return ProcessInfo.processInfo.isiOSAppOnMac
 }

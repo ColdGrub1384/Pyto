@@ -197,11 +197,20 @@ import SwiftUI
     ///     - text: The text to add.
     func print(_ text: String) {
         self.text += text
+        
+        let semaphore: Python.Semaphore?
+        if !Thread.isMainThread {
+            semaphore = Python.Semaphore(value: 0)
+        } else {
+            semaphore = nil
+        }
+        
         PyWrapper.set { [weak self] in
             self?.webView.evaluateJavaScript("print('\(text.replacingOccurrences(of: "\n", with: "\n\r").data(using: .utf8)?.base64EncodedString() ?? "")')", completionHandler: { _, _ in
                 if #available(iOS 15.0, *) {
                     self?.updatePIP()
                 }
+                semaphore?.signal()
             })
         }
     }
@@ -216,6 +225,13 @@ import SwiftUI
         let _text = text.replacingOccurrences(of: "\n", with: "\n\r").data(using: .utf8)?.base64EncodedString() ?? ""
         let _link = link.replacingOccurrences(of: "\n", with: "\n\r").data(using: .utf8)?.base64EncodedString() ?? ""
         
+        let semaphore: Python.Semaphore?
+        if !Thread.isMainThread {
+            semaphore = Python.Semaphore(value: 0)
+        } else {
+            semaphore = nil
+        }
+        
         PyWrapper.set { [weak self] in
             self?.webView.evaluateJavaScript("printLink('\(_text)', '\(_link)')", completionHandler: { _, _ in
                 
@@ -225,6 +241,8 @@ import SwiftUI
                     }
                 }
             })
+            
+            semaphore?.signal()
         }
     }
     
@@ -238,6 +256,13 @@ import SwiftUI
             return
         }
         
+        let semaphore: Python.Semaphore?
+        if !Thread.isMainThread {
+            semaphore = Python.Semaphore(value: 0)
+        } else {
+            semaphore = nil
+        }
+        
         webView.evaluateJavaScript("showImage('data:image/png;base64,\(data)')", completionHandler: { a, b in
             
             self.images.append(image)
@@ -247,7 +272,10 @@ import SwiftUI
                 if #available(iOS 15.0, *) {
                     self.updatePIP()
                 }
+                
+                semaphore?.signal()
             }
+            
         })
     }
     
@@ -368,6 +396,45 @@ import SwiftUI
     
     /// All visible instances.
     @objc static let objcVisibles = NSMutableArray()
+        
+    private class DismisallDelegate: NSObject, UIAdaptivePresentationControllerDelegate {
+        
+        static var instances = [DismisallDelegate]() // Store them here so they aren't released
+        
+        override init() {
+            super.init()
+            Self.instances.append(self)
+        }
+        
+        var semaphore: Python.Semaphore?
+        
+        func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+            semaphore?.signal()
+        }
+    }
+    
+    /// Returns when the passed view controller is dismissed.
+    @objc static func waitForViewController(_ vc: UIViewController) {
+        guard !Thread.isMainThread else {
+            return
+        }
+        
+        var delegate: DismisallDelegate!
+        
+        PyWrapper.set {
+            delegate = vc.presentationController?.delegate as? DismisallDelegate
+        }
+        
+        guard delegate != nil else {
+            return
+        }
+        
+        delegate.semaphore?.wait()
+        
+        if let i = DismisallDelegate.instances.firstIndex(of: delegate) {
+            DismisallDelegate.instances.remove(at: i)
+        }
+    }
     
     /// All visible instances.
     @objc static var visibles: [ConsoleViewController] {
@@ -414,6 +481,10 @@ import SwiftUI
     ///     - theme: The theme to apply.
     func setup(theme: Theme) {
         
+        guard view.window?.windowScene?.activationState != .background && view.window?.windowScene?.activationState != .unattached && view.window != nil else {
+            return
+        }
+        
         movableTextField?.theme = theme
         
         webView.backgroundColor = theme.sourceCodeTheme.backgroundColor
@@ -443,10 +514,27 @@ import SwiftUI
     }
     #endif
     
-    /// Sets "COLUMNS" and "ROWS" environment variables.
+    /// The size of the terminal
+    var terminalSize = (columns: 0, rows: 0)
+    
+    /// Sets `terminalSize`.
     func updateSize(_ columns: Int, _ rows: Int) {
-        setenv("COLUMNS", "\(columns)", 1)
-        setenv("ROWS", "\(rows)", 1)
+        terminalSize = (columns: columns, rows: rows)
+    }
+    
+    /// Returns the terminal size of the console with the given 
+    @objc static func getTerminalSize(_ scriptPath: String?, fallback: NSArray) -> NSArray {
+        guard let scriptPath = scriptPath else {
+            return fallback
+        }
+        
+        for console in visibles {
+            if console.editorSplitViewController?.editor?.document?.fileURL.path == scriptPath {
+                return NSArray(array: [console.terminalSize.columns, console.terminalSize.rows])
+            }
+        }
+        
+        return fallback
     }
     
     // MARK: - UI Presentation
@@ -629,6 +717,10 @@ import SwiftUI
     ///     - viewController: The view controller to present.
     ///     - path: The path of the script that called this method.
     @available(iOS 13.0, *) @objc public static func showVC(_ viewController: UIViewController, onConsoleForPath path: String?) {
+        
+        let delegate = DismisallDelegate()
+        delegate.semaphore = Python.Semaphore(value: 0)
+        viewController.presentationController?.delegate = delegate
         
         #if WIDGET
         ConsoleViewController.visible.present(viewController, animated: true, completion: completion)
@@ -951,15 +1043,8 @@ import SwiftUI
         webView.scrollView.showsHorizontalScrollIndicator = false
         view.addSubview(webView)
         
-        //webView.contentInset.bottom = 5
-        //webView.contentSize.height = 50000
-        //view.addSubview(scrollView)
-        //webView.scrollRectToVisible(CGRect(x: 0, y: 50000, width: 0, height: 0), animated: true)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
-        
-        movableTextField = MovableTextField(console: self)
         
         loadTerminal()
     }
@@ -1027,7 +1112,7 @@ import SwiftUI
                 import jedi
                 import console
                 import pyto
-                namespace = console.__repl_namespace__['\((self.parent as! EditorSplitViewController).editor?.document!.fileURL.lastPathComponent.replacingOccurrences(of: "'", with: "\\'") ?? "")']
+                namespace = console.__repl_namespace__['\((self.parent as! EditorSplitViewController).editor?.document!.fileURL.path.replacingOccurrences(of: "'", with: "\\'") ?? "")']
                 script = jedi.Interpreter('\(text.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "'", with: "\\'"))', [namespace])
                 
                 suggestions = []

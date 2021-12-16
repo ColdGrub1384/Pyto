@@ -78,7 +78,7 @@ fileprivate class ImageAttachment: NSTextAttachment {
     /// - Returns: Rotation to be used on OpenCV images.
     @objc static func openCvRotation(_ device: Int) -> Double {
         var rotation: Double = 0
-        let semaphore = DispatchSemaphore(value: 0)
+        let semaphore = Python.Semaphore(value: 0)
         
         DispatchQueue.main.async {
             switch UIApplication.shared.orientation {

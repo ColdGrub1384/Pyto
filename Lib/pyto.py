@@ -64,6 +64,7 @@ PyMultipeerHelper = __Class__("PyMultipeerHelper")
 PyMotionHelper = __Class__("PyMotionHelper")
 PyTurtle = __Class__("PyTurtle")
 PySpeech = __Class__("PySpeech")
+MacSupport = __Class__("MacSupport")
 
 if __isMainApp__():
     QuickLookHelper = __Class__("QuickLookHelper")

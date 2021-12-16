@@ -32,7 +32,7 @@ cp ../tools/Cargo.toml src/rust
 pushd src/rust
 cargo build --target aarch64-apple-ios
 mkdir objects
-PUSHD objects
+pushd objects
 python3 ../../../../tools/extract_objects.py ../target/aarch64-apple-ios/debug/libcryptography_rust.a
 xcrun --sdk iphoneos clang -shared -arch arm64 -undefined dynamic_lookup -o _rust.abi3.so *.o
 mv _rust.abi3.so ../../../build/lib.iphoneos-arm64-3.10/cryptography/hazmat/bindings/

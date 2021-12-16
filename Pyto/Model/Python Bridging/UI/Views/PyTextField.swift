@@ -121,15 +121,22 @@ import UIKit
     required init(managed: NSObject! = NSObject()) {
         super.init(managed: managed)
         
-        DispatchQueue.main.async { [weak self] in
-            
-            guard let self = self else {
-                return
-            }
-            
+        if Thread.current.isMainThread {
             (managed as? UITextField)?.delegate = self
             if (managed as? UITextField)?.allTargets.count == 0 {
                 (managed as? UITextField)?.addTarget(self, action: #selector(self.callDidChangeText), for: .editingChanged)
+            }
+        } else {
+            DispatchQueue.main.async { [weak self] in
+                
+                guard let self = self else {
+                    return
+                }
+                
+                (managed as? UITextField)?.delegate = self
+                if (managed as? UITextField)?.allTargets.count == 0 {
+                    (managed as? UITextField)?.addTarget(self, action: #selector(self.callDidChangeText), for: .editingChanged)
+                }
             }
         }
     }

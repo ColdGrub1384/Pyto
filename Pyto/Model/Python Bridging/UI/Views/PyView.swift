@@ -72,23 +72,24 @@ import WebKit
         
         if self.managed is UIView {
             addSizeObserver()
-            DispatchQueue.main.async { [weak self] in
-                
-                guard let self = self else {
-                    return
+            
+            if !Thread.current.isMainThread {
+                DispatchQueue.main.async { [weak self] in
+                    
+                    guard let self = self else {
+                        return
+                    }
+                    
+                    PyView.values[self.view] = self
                 }
-                
+            } else {
                 PyView.values[self.view] = self
             }
         }
     }
     
     deinit {
-        for key in PyView.values.keys {
-            if PyView.values[key] == self {
-                PyView.values[key] = nil
-            }
-        }
+        PyView.values[view] = nil
     }
     
     let id = UUID()
@@ -96,12 +97,18 @@ import WebKit
     var sizeObserver: NSKeyValueObservation?
     
     func addSizeObserver() {
-        DispatchQueue.main.async { [weak self] in
-            
-            guard let self = self else {
-                return
+        if !Thread.current.isMainThread {
+            DispatchQueue.main.async { [weak self] in
+                
+                guard let self = self else {
+                    return
+                }
+                
+                self.sizeObserver = self.view.layer.observe(\.bounds) { [weak self] (_, _) in
+                    self?.layoutAction?.call(parameter: self?.pyValue)
+                }
             }
-            
+        } else {
             self.sizeObserver = self.view.layer.observe(\.bounds) { [weak self] (_, _) in
                 self?.layoutAction?.call(parameter: self?.pyValue)
             }
@@ -118,31 +125,29 @@ import WebKit
                 
                 releaseHandler()
                 
-                PyView.values[view] = nil
-                UIView.Holder.buttonItems[view] = nil
-                UIView.Holder.name[view] = nil
-                UIView.Holder.presentationMode[view] = nil
-                UIView.Holder.viewController[view] = nil
-                
-                /*for view in subviews {
-                    (view as? PyView)?.references = 0
+                if Thread.current.isMainThread {
+                    PyView.values[view] = nil
+                    UIView.Holder.buttonItems[view] = nil
+                    UIView.Holder.name[view] = nil
+                    UIView.Holder.presentationMode[view] = nil
+                    UIView.Holder.viewController[view] = nil
+                } else {
+                    DispatchQueue.main.async { [weak self] in
+                        
+                        guard let view = self?.view else {
+                            return
+                        }
+                        
+                        PyView.values[view] = nil
+                        UIView.Holder.buttonItems[view] = nil
+                        UIView.Holder.name[view] = nil
+                        UIView.Holder.presentationMode[view] = nil
+                        UIView.Holder.viewController[view] = nil
+                    }
                 }
-                                
-                set {
-                    self.view.removeFromSuperview()
-                }*/
                 
                 sizeObserver?.invalidate()
                 sizeObserver = nil
-                //managed = nil
-                                
-                /*set {
-                    for view in self.view.subviews {
-                        view.removeFromSuperview()
-                    }
-                    
-                    //self.perform(NSSelectorFromString("release"))
-                }*/
             }
         }
     }
@@ -154,23 +159,9 @@ import WebKit
     @objc func retainReference() {
         references += 1
     }
-    
-    private static var _values = [UIView:PyView]()
-    
-    /// A dictionary containing `PyView`s per `UIView`.
-    @objc static var values: [UIView:PyView] {
-        get {
-            get {
-                return _values
-            }
-        }
         
-        set {
-            set {
-                _values = newValue
-            }
-        }
-    }
+    /// A dictionary containing `PyView`s per `UIView`.
+    static var values = ThreadSafeDictionary<UIView, PyView>()
     
     /// The name of the Python class wrapping this.
     @objc open class var pythonName: String {

@@ -52,7 +52,11 @@ import Dynamic
     
     /// The root split view.
     var sidebarSplitViewController: SidebarSplitViewController? {
-        return window?.rootViewController?.children.first as? SidebarSplitViewController
+        return
+            window?.rootViewController?.children.first as? SidebarSplitViewController ??
+            (window?.rootViewController as? SceneDelegate.ViewController)?.viewControllerToPresent as? SidebarSplitViewController ??
+            (window?.rootViewController as? KeyboardHostingController)?.viewController as? SidebarSplitViewController ??
+            ((window?.rootViewController as? SceneDelegate.ViewController)?.viewControllerToPresent as? KeyboardHostingController)?.viewController as? SidebarSplitViewController
     }
     
     /// Shows onboarding if needed.

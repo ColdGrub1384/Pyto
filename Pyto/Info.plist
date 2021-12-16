@@ -25,20 +25,6 @@
 				<string>ch.ada.python-script</string>
 			</array>
 		</dict>
-		<dict>
-			<key>CFBundleTypeIconFiles</key>
-			<array/>
-			<key>CFBundleTypeName</key>
-			<string>PyHTML</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>LSHandlerRank</key>
-			<string>Owner</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>ch.ada.pyhtml</string>
-			</array>
-		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
@@ -415,17 +401,17 @@
 	<key>NSAppleMusicUsageDescription</key>
 	<string>Scripts can play music.</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Allow camera usage if you want to allow scripts accessing to it. The app itself doesn't require photo library access.</string>
+	<string>Allow camera usage if you want to allow scripts accessing to it. The app itself doesn&apos;t require photo library access.</string>
 	<key>NSContactsUsageDescription</key>
 	<string>Allow contacts usage if you want to allow scripts to use them.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Scripts can access location.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow microphone usage if you want to allow scripts accessing to it. The app itself doesn't require access to the microphone.</string>
+	<string>Allow microphone usage if you want to allow scripts accessing to it. The app itself doesn&apos;t require access to the microphone.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Allow photo library usage if you want to allow scripts accessing to it or if you want to save Matplotlib figures. The app itself doesn't require photo library access.</string>
+	<string>Allow photo library usage if you want to allow scripts accessing to it or if you want to save Matplotlib figures. The app itself doesn&apos;t require photo library access.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow photo library usage if you want to allow scripts accessing to it. The app itself doesn't require photo library access.</string>
+	<string>Allow photo library usage if you want to allow scripts accessing to it. The app itself doesn&apos;t require photo library access.</string>
 	<key>NSUbiquitousContainers</key>
 	<dict>
 		<key>iCloud.ch.marcela.ada.Pyto</key>
@@ -557,16 +543,16 @@
 				<string>public.html</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>PyHTML Page</string>
+			<string>HTML+Python</string>
 			<key>UTTypeIconFiles</key>
 			<array/>
 			<key>UTTypeIdentifier</key>
-			<string>ch.ada.pyhtml</string>
+			<string>ch.ada.htmpy</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
-					<string>pyhtml</string>
+					<string>htmpy</string>
 				</array>
 			</dict>
 		</dict>

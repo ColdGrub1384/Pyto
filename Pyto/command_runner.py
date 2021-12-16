@@ -5,10 +5,11 @@ This script asks user for input and runs the given command.
 import os
 import os.path
 import sys
-import pyto
 import runpy
 import shlex
-from console import __clear_mods__
+import weakref
+from console import __clear_mods__, MainModule
+import threading
 
 if len(sys.argv) == 1:
     usage = "Usage: <module-name> [<args>]"
@@ -19,6 +20,8 @@ if len(sys.argv) == 1:
 # from the executed module, like if the namespace from here was merged
 # from the namespace of the executed module. Idk how, that's why the weird name.
 # I'm pretty sure it's for something I did recently because it worked before.
+#
+# Dec 2021: Oh I think it has to do with sys.modules["__main__"], that should be fixed now
 def _main_function_no_one_calls_a_function_like_that():
     command = sys.argv[1:]
     if len(command) == 0:
@@ -43,13 +46,18 @@ def _main_function_no_one_calls_a_function_like_that():
     sys.argv = command
 
     __clear_mods__()
+    
+    _script_path = threading.current_thread().script_path
 
     try:
         try:
-            sys.modules["__main__"]
+            sys.modules["argparse"]
         except KeyError:
-            sys.modules["__main__"] = pyto
-        runpy._run_module_as_main(module_name)
+            pass
+        
+        _globals = {}
+        sys.__class__.main[_script_path] = MainModule(module_name, _globals)
+        runpy.run_module(module_name, init_globals=_globals, run_name="__main__")
     except KeyboardInterrupt as e:
         print(e)
     except SystemExit as e:
@@ -59,6 +67,11 @@ def _main_function_no_one_calls_a_function_like_that():
             print(e)
     except Exception as e:
         print(e)
+    finally:
+        try:
+            del sys.__class__.main[_script_path]
+        except KeyError:
+            pass
 
     sys.argv = [sys.argv[0]]
     

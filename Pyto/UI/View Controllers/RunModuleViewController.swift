@@ -14,7 +14,7 @@ import UIKit
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-        
+    
     /// Arguments sent to the script containing script to run name.
     var argv: [String]? {
         didSet {
@@ -89,7 +89,7 @@ import UIKit
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(goToFileBrowser))
         }
         navigationController?.isToolbarHidden = true
-        title = NSLocalizedString("repl", comment: "The REPL")
+        title = NSLocalizedString("sidebar.runModule", comment: "The 'Run module' sidebar section")
         parent?.title = title
         parent?.navigationItem.title = title
         parent?.navigationItem.rightBarButtonItems = navigationItem.rightBarButtonItems
@@ -123,7 +123,7 @@ import UIKit
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         console?.movableTextField?.focus()
         _ = urls[0].startAccessingSecurityScopedResource()
-        Python.shared.run(code: "import os, sys; path = \"\(urls[0].path.replacingOccurrences(of: "\"", with: "\\\""))\"; os.chdir(path); sys.path.append(path)")
+        REPLViewController.pickedDirectory[editor!.document!.fileURL.path] = urls[0].path
     }
 }
 

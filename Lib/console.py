@@ -18,6 +18,8 @@ import threading
 import time
 from extensionsimporter import __UpgradeException__
 import ctypes
+import weakref
+from types import ModuleType as Module
 
 if "widget" not in os.environ:
     from code import interact, InteractiveConsole
@@ -28,7 +30,6 @@ if "widget" not in os.environ:
     from colorama import Fore, Back, Style
     from json import dumps
     from collections.abc import Mapping
-    from types import ModuleType as Module
     import stopit
     import asyncio
     import gc
@@ -181,6 +182,25 @@ __repl_namespace__ = {}
 
 __repl_threads__ = {}
 
+class MainModule(Module):
+
+    def __getattribute__(self, name):
+        if name == "__dict__":
+            return self._dict
+        elif name != "_dict" and name in self._dict:
+            return self._dict[name]
+        else:
+            return super().__getattribute__(name)
+
+    def __setattr__(self, name, value):
+        if name == "_dict":
+            super().__setattr__(name, value)
+        else:
+            self._dict[name] = value
+
+    def __init__(self, name, _dict):
+        self._dict = _dict
+        super().__init__(name)
 
 def __runREPL__(repl_name="", namespace={}, banner=None):
 
@@ -193,9 +213,11 @@ def __runREPL__(repl_name="", namespace={}, banner=None):
     __repl_namespace__[repl_name] = {
         "clear": ClearREPL(),
         "__name__": repl_name.split(".")[0],
-        "__file__": repl_name,
+        "__file__": threading.current_thread().script_path,
     }
     __repl_namespace__[repl_name].update(namespace)
+
+    sys.__class__.main[threading.current_thread().script_path] = MainModule(repl_name, __repl_namespace__[repl_name])
 
     __namespace__ = __repl_namespace__[repl_name]
 
@@ -208,7 +230,10 @@ def __runREPL__(repl_name="", namespace={}, banner=None):
 
     if banner is None:
         banner = f"Python {sys.version}\n{str(__Class__('SidebarViewController').pytoVersion)}\nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\nType \"clear()\" to clear the console."
-    interact(readfunc=read, local=__namespace__, banner=banner)
+    try:
+        interact(readfunc=read, local=__namespace__, banner=banner)
+    except SystemExit:
+        del sys.__class__.main[threading.current_thread().script_path]
 
 
 # MARK: - Running
@@ -426,7 +451,8 @@ if "widget" not in os.environ:
                 global __script__
                 spec = importlib.util.spec_from_file_location("__main__", path)
                 __script__ = importlib.util.module_from_spec(spec)
-                sys.modules["__main__"] = __script__
+                sys.__class__.main[path] = weakref.ref(__script__)
+                sys.modules["__main__"] = __import__("__main__")
                 if debug and "widget" not in os.environ:
 
                     try:
@@ -583,7 +609,7 @@ if "widget" not in os.environ:
 
             if type(t) is tuple and len(t) == 3 and not is_watch_script:
                 __repl_threads__[t[0]] = threading.current_thread()
-                __runREPL__(t[0].split("/")[-1], t[1], "")
+                __runREPL__(t[0], t[1], "")
 
         _script = None
 

@@ -85,10 +85,12 @@ import UIKit
     }
     
     @objc public func deselectRowAnimated(_ animated: Bool) {
-        DispatchQueue.main.async { [weak self] in
-            if let indexPath = self?.tableView.indexPathForSelectedRow {
-                self?.tableView.deselectRow(at: indexPath, animated: animated)
-            }
+        guard Thread.current.isMainThread else {
+            return deselectRowAnimated(animated)
+        }
+        
+        if let indexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: indexPath, animated: animated)
         }
     }
     
@@ -195,17 +197,25 @@ import UIKit
     required init(managed: NSObject! = NSObject()) {
         super.init(managed: managed)
         
-        DispatchQueue.main.async { [weak self] in
-            
-            guard let self = self else {
-                return
-            }
-            
+        if Thread.current.isMainThread {
             let refreshControl = UIRefreshControl()
             refreshControl.addTarget(self, action: #selector(self.reload), for: .valueChanged)
             (managed as? UITableView)?.refreshControl = refreshControl
             (managed as? UITableView)?.dataSource = self
             (managed as? UITableView)?.delegate = self
+        } else {
+            DispatchQueue.main.async { [weak self] in
+                
+                guard let self = self else {
+                    return
+                }
+                
+                let refreshControl = UIRefreshControl()
+                refreshControl.addTarget(self, action: #selector(self.reload), for: .valueChanged)
+                (managed as? UITableView)?.refreshControl = refreshControl
+                (managed as? UITableView)?.dataSource = self
+                (managed as? UITableView)?.delegate = self
+            }
         }
     }
     

@@ -52,7 +52,7 @@ import Foundation
     /// - Returns: The object returned by `code`.
     class func get <T: Any>(code: @escaping () -> T) -> T {
         
-        let semaphore = DispatchSemaphore(value: 0)
+        let semaphore = Python.Semaphore(value: 0)
         
         var value: T!
         
@@ -78,7 +78,7 @@ import Foundation
     ///     - code: Code to execute.
     class func set(code: @escaping () -> Void) {
         
-        let semaphore = DispatchSemaphore(value: 0)
+        let semaphore = Python.Semaphore(value: 0)
         
         if !Thread.current.isMainThread {
             DispatchQueue.main.async {

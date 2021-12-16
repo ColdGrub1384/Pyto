@@ -71,6 +71,10 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     
     private func crashHandler(_ signal: Int32) {
         
+        guard !Thread.current.isMainThread else {
+            return
+        }
+        
         let signalString: String
         switch signal {
         case SIGKILL:
@@ -118,20 +122,8 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
             except AttributeError:
                 PyOutputHelper.printError(stack, script=None)
 
-
+        threading.Event().wait()
         """
-        
-        if !Thread.current.isMainThread {
-            code += "threading.Event().wait()"
-        } else {
-            code = """
-            import notifications as nc
-
-            notif = nc.Notification()
-            notif.message = stack
-            nc.send_notification(notif)
-            """
-        }
         
         Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: code)
         #endif
@@ -329,7 +321,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                     newline = "\n"
                 }
                 
-                let message = NSString(format: NSLocalizedString("python.downloadingModule", comment: "A message shown in the console while downloading a module (Downloading module 100%)") as NSString, module, "\(Int(request.progress.fractionCompleted*100)))%") as String
+                let message = NSString(format: NSLocalizedString("python.downloadingModule", comment: "A message shown in the console while downloading a module (Downloading module 100%)") as NSString, module, "\(Int(request.progress.fractionCompleted*100))%") as String
                 
                 PyOutputHelper.print("\r\(message)\(newline)", script: nil)
                 
@@ -438,33 +430,18 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
             let url = FileManager.default.urls(for: .cachesDirectory, in: .allDomainsMask)[0].appendingPathComponent("_pyhtml_page.py")
             
             let code = """
-            from pyhtml import WebView, PyHTMLServer
+            from htmpy import WebView
             import pyto_ui as ui
             from urllib.parse import quote
 
             web_view = WebView()
-            web_view.register_message_handler("webView")
             
-            server = PyHTMLServer.alloc().init()
-            server.directory = "\(URL(fileURLWithPath: path).deletingLastPathComponent().path)"
-            server.start()
-            
-            path = "\(path)"
-            url = f"http://localhost:{server.port}"+"/"+path.split("/")[-1]
-            web_view.load_url(url)
+            path = "\(path.replacingOccurrences(of: "\"", with: "\\\""))"
+            web_view.load_file_path(path)
             
             web_view.background_color = ui.COLOR_SYSTEM_BACKGROUND
             
             ui.show_view(web_view, ui.PRESENTATION_MODE_FULLSCREEN)
-            
-            server.stop()
-            server.release()
-            del server
-            
-            web_view.load_url("about:blank")
-            
-            web_view.__py_view__.release()
-            del web_view
             """
             
             try? code.write(to: url, atomically: false, encoding: .utf8)
@@ -730,6 +707,48 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         #endif
     }
  
+    /// An alternative to `DispatchSemaphore` that doesn't interrupt the exit of a script.
+    class Semaphore: Hashable {
+        
+        static func == (lhs: Python.Semaphore, rhs: Python.Semaphore) -> Bool {
+            lhs.semaphore == rhs.semaphore
+        }
+        
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(semaphore)
+        }
+        
+        static var sempahores = [(scriptPath: String, semaphore: Semaphore)]()
+        
+        private let semaphore: DispatchSemaphore
+        
+        /// Initializes the semaphore with the given value.
+        ///
+        /// - Parameters:
+        ///     - value: The value passed to the initializer of `DispatchSemaphore`.
+        init(value: Int) {
+            self.semaphore = DispatchSemaphore(value: value)
+        }
+        
+        /// Wait.
+        func wait() {
+            if let scriptPath = Python.shared.getScriptPath() {
+                Self.sempahores.append((scriptPath: scriptPath, semaphore: self))
+            }
+            
+            self.semaphore.wait()
+            
+            if let i = Self.sempahores.firstIndex(where: { $0.semaphore == self }) {
+                Self.sempahores.remove(at: i)
+            }
+        }
+        
+        /// Signal.
+        func signal() {
+            self.semaphore.signal()
+        }
+    }
+    
     /// Sends `SystemExit`.
     ///
     /// - Parameters:
@@ -741,6 +760,11 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
             #if MAIN
             PyInputHelper.userInput[script] = "<WILL INTERRUPT>"
             #endif
+            
+            while let i = Semaphore.sempahores.firstIndex(where: { $0.scriptPath == script }) {
+                Self.Semaphore.sempahores[i].semaphore.signal()
+                Self.Semaphore.sempahores.remove(at: i)
+            }
             
             pthread_kill(thread, SIGSEGV)
             return
@@ -757,6 +781,11 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
             PyInputHelper.userInput[script] = ""
             #endif
         }
+    }
+    
+    /// Returns `threading.current_thread().script_path`
+    @objc public func getScriptPath() -> String? {
+        return Self.pythonShared?.perform(#selector(PythonRuntime.getScriptPath))?.takeUnretainedValue() as? String
     }
     
     /// Sends `KeyboardInterrupt`.

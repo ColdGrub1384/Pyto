@@ -101,7 +101,7 @@ import WebKit
     }
     
     @objc public func evaluateJavaScript(_ code: String) -> String? {
-        let semaphore = DispatchSemaphore(value: 0)
+        let semaphore = Python.Semaphore(value: 0)
         
         var str: String?
         
@@ -141,9 +141,14 @@ import WebKit
     required init(managed: NSObject! = NSObject()) {
         super.init(managed: managed)
         
-        DispatchQueue.main.async { [weak self] in
+        if Thread.current.isMainThread {
             (managed as? WKWebView)?.navigationDelegate = self
             (managed as? WKWebView)?.uiDelegate = self
+        } else {
+            DispatchQueue.main.async { [weak self] in
+                (managed as? WKWebView)?.navigationDelegate = self
+                (managed as? WKWebView)?.uiDelegate = self
+            }
         }
     }
     

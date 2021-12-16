@@ -120,6 +120,14 @@ class PythonImplementation(NSObject):
     @objc_method
     def interruptScript_(self, script):
         raise_exception(str(script), KeyboardInterrupt)
+        
+    
+    @objc_method
+    def getScriptPath(self):
+        try:
+            return threading.current_thread().script_path
+        except AttributeError:
+            return
 
 threading.Thread = Thread
 

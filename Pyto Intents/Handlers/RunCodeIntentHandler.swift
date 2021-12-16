@@ -28,6 +28,10 @@ class RunCodeIntentHandler: NSObject, RunCodeIntentHandling {
         
         RemoveCachedOutput()
         
+        #if MAIN
+        PyItemProvider.setShortcutsFiles(intent.items ?? [])
+        #endif
+        
         #if MAIN        
         if !Bool(truncating: intent.showConsole ?? 0) {
             let url = URL(fileURLWithPath: NSTemporaryDirectory()+"/Script.py")
@@ -58,5 +62,9 @@ class RunCodeIntentHandler: NSObject, RunCodeIntentHandling {
         }
         
         completion(result)
+    }
+    
+    func resolveItems(for intent: RunCodeIntent, with completion: @escaping ([INFileResolutionResult]) -> Void) {
+        completion((intent.items ?? []).map({ INFileResolutionResult.success(with: $0) }))
     }
 }

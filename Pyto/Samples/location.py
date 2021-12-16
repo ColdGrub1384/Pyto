@@ -7,6 +7,8 @@ from time import sleep
 
 location.start_updating()
 
+clear = u"{}[2J{}[;H".format(chr(27), chr(27))
+
 while True:
-    print(f"\rCurrent location: {location.get_location()}", end="")
+    print(f"{clear}Current location: {location.get_location()}", end="")
     sleep(1)

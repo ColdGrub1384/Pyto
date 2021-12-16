@@ -110,9 +110,24 @@ import UIKit
         references -= 1
         
         if references == 0 {
-            for (key, views) in UIView.Holder.buttonItems {
-                if let i = views.firstIndex(of: barButtonItem) {
-                    UIView.Holder.buttonItems[key]?.remove(at: i)
+            if Thread.current.isMainThread {
+                for (key, views) in UIView.Holder.buttonItems {
+                    if let i = views.firstIndex(of: barButtonItem) {
+                        UIView.Holder.buttonItems[key]?.remove(at: i)
+                    }
+                }
+            } else {
+                DispatchQueue.main.async { [weak self] in
+                    
+                    guard let barButtonItem = self?.barButtonItem else {
+                        return
+                    }
+                    
+                    for (key, views) in UIView.Holder.buttonItems {
+                        if let i = views.firstIndex(of: barButtonItem) {
+                            UIView.Holder.buttonItems[key]?.remove(at: i)
+                        }
+                    }
                 }
             }
         }

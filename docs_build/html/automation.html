@@ -1,68 +1,34 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Automation with Shortcuts and x-callback URLs &mdash; Pyto  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-
-  
-  
-  
-  
-
-  
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Accessing external files" href="external.html" />
     <link rel="prev" title="Welcome to Pyto’s documentation!" href="index.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Pyto
-          
-
-          
+            <a href="index.html" class="icon icon-home"> Pyto
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -70,18 +36,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Automation with Shortcuts and x-callback URLs</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#shortcuts">Shortcuts</a></li>
@@ -93,11 +48,11 @@
 <li class="toctree-l1"><a class="reference internal" href="django.html">Using Django</a></li>
 <li class="toctree-l1"><a class="reference internal" href="third_party.html">Third Party Libraries</a></li>
 </ul>
-<p class="caption"><span class="caption-text">ObjC Runtime</span></p>
+<p class="caption" role="heading"><span class="caption-text">ObjC Runtime</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Objective-C.html">Objective-C</a></li>
 </ul>
-<p class="caption"><span class="caption-text">User Interface</span></p>
+<p class="caption" role="heading"><span class="caption-text">User Interface</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="pyto_ui.html">pyto_ui</a></li>
 <li class="toctree-l1"><a class="reference internal" href="widgets.html">widgets</a></li>
@@ -108,7 +63,7 @@
 <li class="toctree-l1"><a class="reference internal" href="mainthread.html">mainthread</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pyto_core.html">pyto_core</a></li>
 </ul>
-<p class="caption"><span class="caption-text">OS Technologies</span></p>
+<p class="caption" role="heading"><span class="caption-text">OS Technologies</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="notifications.html">notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="remote_notifications.html">remote_notifications</a></li>
@@ -121,88 +76,51 @@
 <li class="toctree-l1"><a class="reference internal" href="multipeer.html">multipeer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="speech.html">speech</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Sharing data</span></p>
+<p class="caption" role="heading"><span class="caption-text">Sharing data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="apps.html">apps</a></li>
-<li class="toctree-l1"><a class="reference internal" href="xcallback.html">xcallback</a></li>
-<li class="toctree-l1"><a class="reference internal" href="userkeys.html">userkeys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pasteboard.html">pasteboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userkeys.html">userkeys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xcallback.html">xcallback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps.html">apps</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">Pyto</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Automation with Shortcuts and x-callback URLs</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-            
             <a href="_sources/automation.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="automation-with-shortcuts-and-x-callback-urls">
-<h1>Automation with Shortcuts and x-callback URLs<a class="headerlink" href="#automation-with-shortcuts-and-x-callback-urls" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="shortcuts">
-<h2>Shortcuts<a class="headerlink" href="#shortcuts" title="Permalink to this headline">¶</a></h2>
+             
+  <section id="automation-with-shortcuts-and-x-callback-urls">
+<h1>Automation with Shortcuts and x-callback URLs<a class="headerlink" href="#automation-with-shortcuts-and-x-callback-urls" title="Permalink to this headline"></a></h1>
+<section id="shortcuts">
+<h2>Shortcuts<a class="headerlink" href="#shortcuts" title="Permalink to this headline"></a></h2>
 <p>Pyto provides Shortcuts for running scripts and code. Shortcuts will open Pyto to execute the code and it’s not possible to retrieve the result. See <a class="reference external" href="#x-callbackURLs">x-callback URLs</a> for getting callbacks.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">Code</span></code> will execute the given code with the given arguments. Can be executed in app or without leaving Shortcuts.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">Script</span></code> will execute the given script with the given arguments. Can be executed in app or without leaving Shortcuts.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Script</span> <span class="pre">Output</span></code> will wait for a script to be executed and returns its output.</p>
-</div>
-<div class="section" id="id1">
-<h2>x-callback URLs<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>The code executes asynchronously unless <code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">Script</span> <span class="pre">Output</span></code> is ran.
+The <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">Code</span></code> and <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">Script</span></code> actions support an <code class="docutils literal notranslate"><span class="pre">Attachments</span></code> parameter. You can pass files to it and they can be access with the <code class="xref py py-func docutils literal notranslate"><span class="pre">shortcuts_attachments()</span></code> API.</p>
+</section>
+<section id="id1">
+<h2>x-callback URLs<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
 <p>Pyto supports <a class="reference external" href="http://x-callback-url.com">x-callback URLs</a> for running scripts from other apps and getting the result.</p>
 <p>With this method you can only run code and not a script but you can use the <a class="reference external" href="https://docs.python.org/3/library/runpy.html">runpy</a> module for running scripts in a location like <code class="docutils literal notranslate"><span class="pre">~/Documents</span></code> or <code class="docutils literal notranslate"><span class="pre">~/Documents/site-packages</span></code>.</p>
 <p>This is the structure that should be used for running code:</p>
@@ -213,63 +131,38 @@
 <p><code class="docutils literal notranslate"><span class="pre">x-cancel</span></code> is the URL to open when a script was stopped by the user or when the script raised <code class="docutils literal notranslate"><span class="pre">SystemExit</span></code> or <code class="docutils literal notranslate"><span class="pre">KeyboardInterrupt</span></code>.</p>
 <p>The Shortcuts app supports opening x-callback URLs. <a class="reference external" href="https://www.icloud.com/shortcuts/b85b8afe92e54dc9b54be5ab1495995f">Here</a> is an example of a Shortcut that shows the current Python version.</p>
 <p>Pyto can also open external x-callback URLs with the <a class="reference external" href="xcallback.html">xcallback</a> and <a class="reference external" href="apps.html">apps</a> module.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="external.html" class="btn btn-neutral float-right" title="Accessing external files" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Pyto’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Pyto’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="external.html" class="btn btn-neutral float-right" title="Accessing external files" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        
-        &copy; Copyright 2019, Emma Labbé
-
-    </p>
+    <p>&#169; Copyright 2019, Emma Labbé.</p>
   </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

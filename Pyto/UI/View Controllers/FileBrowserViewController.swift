@@ -11,6 +11,7 @@ import QuickLook
 import MobileCoreServices
 import Dynamic
 import UniformTypeIdentifiers
+import SwiftUI
 
 /// The file browser used to manage files inside a project.
 @objc public class FileBrowserViewController: UITableViewController, UIDocumentPickerDelegate, UIContextMenuInteractionDelegate, UITableViewDragDelegate, UITableViewDropDelegate, UISearchResultsUpdating {
@@ -54,11 +55,30 @@ import UniformTypeIdentifiers
     /// FIles in the directory.
     var files = [URL]()
         
+    private func observeDirectory() {
+        folderObserver?.cancel()
+        
+        if descriptor != nil {
+            UIKit.close(descriptor!)
+        }
+        
+        descriptor = open(directory.path, O_EVTONLY)
+        folderObserver = DispatchSource.makeFileSystemObjectSource(fileDescriptor: descriptor!, eventMask: .all, queue: DispatchQueue.main)
+        folderObserver?.setEventHandler {
+            self.load()
+        }
+        folderObserver?.resume()
+    }
+    
     /// The directory to browse.
     var directory: URL! {
         didSet {
             title = directory != FileBrowserViewController.iCloudContainerURL ? FileManager.default.displayName(atPath: directory.path) : "iCloud Drive"
             load()
+            
+            if view.window != nil {
+                observeDirectory()
+            }
         }
     }
     
@@ -93,8 +113,7 @@ import UniformTypeIdentifiers
     func createFile(type: FileType) {
         
         if type == .python {
-            let navVC = UIStoryboard(name: "Template Chooser", bundle: nil).instantiateInitialViewController()!
-            ((navVC as? UINavigationController)?.topViewController as? TemplateChooserTableViewController)?.importHandler = { url, _ in
+            let templateChooser = TemplateChooser(parent: self, chooseName: true, importHandler: { url, _ in
                 if let url = url {
                     do {
                         try FileManager.default.copyItem(at: url, to: self.directory.appendingPathComponent(url.lastPathComponent))
@@ -102,9 +121,9 @@ import UniformTypeIdentifiers
                         present(error: error)
                     }
                 }
-            }
+            })
             
-            self.present(navVC, animated: true, completion: nil)
+            self.present(UIHostingController(rootView: templateChooser), animated: true, completion: nil)
             
             return
         }
@@ -259,14 +278,11 @@ import UniformTypeIdentifiers
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        becomeFirstResponder()
+        observeDirectory()
         
-        descriptor = open(directory.path, O_EVTONLY)
-        folderObserver = DispatchSource.makeFileSystemObjectSource(fileDescriptor: descriptor!, eventMask: .write, queue: DispatchQueue.main)
-        folderObserver?.setEventHandler {
-            self.load()
-        }
-        folderObserver?.resume()
+        load()
+        
+        becomeFirstResponder()
     }
     
     public override func viewDidDisappear(_ animated: Bool) {
@@ -315,7 +331,11 @@ import UniformTypeIdentifiers
         
         var isDir: ObjCBool = false
         if FileManager.default.fileExists(atPath: files[indexPath.row].path, isDirectory: &isDir) && isDir.boolValue {
-            cell.imageView?.image = UIImage(systemName: "folder.fill")
+            if FileManager.default.fileExists(atPath: files[indexPath.row].appendingPathComponent("__init__.py").path) || FileManager.default.fileExists(atPath: files[indexPath.row].appendingPathComponent("__main__.py").path) {
+                cell.imageView?.image = UIImage(systemName: "shippingbox.fill")
+            } else {
+                cell.imageView?.image = UIImage(systemName: "folder.fill")
+            }
             cell.accessoryType = .disclosureIndicator
         } else {
             if !icloud {
@@ -360,7 +380,7 @@ import UniformTypeIdentifiers
                 url = files[indexPath.row]
             }
             
-            if url.pathExtension.lowercased() == "py" || url.pathExtension.lowercased() == "pyhtml" || (try? url.resourceValues(forKeys: [.contentTypeKey]))?.contentType?.conforms(to: .text) == true {
+            if url.pathExtension.lowercased() == "py" || url.pathExtension.lowercased() == "html" || (try? url.resourceValues(forKeys: [.contentTypeKey]))?.contentType?.conforms(to: .text) == true {
                 
                 if let editor = ((splitViewController as? SidebarSplitViewController)?.sidebar?.editor?.vc as? EditorSplitViewController)?.editor {
                     
@@ -480,6 +500,8 @@ import UniformTypeIdentifiers
                 } else if coordinator.proposal.operation == .copy {
                     try? FileManager.default.copyItem(at: file.url, to: destination.appendingPathComponent(fileName))
                 }
+                
+                load()
                 
             } else if item.dragItem.itemProvider.hasItemConformingToTypeIdentifier(kUTTypeItem as String) {
                 
@@ -697,7 +719,7 @@ import UniformTypeIdentifiers
                 return nil
             }
             
-            return UIMenu(title: cell.textLabel?.text ?? "", children: ((files[index.row].pathExtension.lowercased() == "py" || files[index.row].pathExtension.lowercased() == "pyhtml") ? [run] : [])+[share, saveTo, rename, delete])
+            return UIMenu(title: cell.textLabel?.text ?? "", children: ((files[index.row].pathExtension.lowercased() == "py" || files[index.row].pathExtension.lowercased() == "html") ? [run] : [])+[share, saveTo, rename, delete])
         }
     }
     

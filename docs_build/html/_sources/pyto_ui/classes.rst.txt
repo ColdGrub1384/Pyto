@@ -5,6 +5,14 @@ This page contains a list of classes used by the ``pyto_ui`` API.
 
 .. currentmodule:: pyto_ui
 
+Toga Compatibility
+******************
+
+It's possible to embed PytoUI views in a `Toga <https://toga.readthedocs.io/en/latest/>`__ app with the :class:`~pyto_ui.TogaWidget` class.
+
+.. autoclass:: TogaWidget
+   :members:
+
 Views
 *****
 

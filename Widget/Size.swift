@@ -27,6 +27,8 @@ func size(for mode: WidgetFamily, size: UserInterfaceSizeClass = .regular) -> CG
             return CGSize(width: 360, height: 169)
         case .systemLarge:
             return CGSize(width: 360, height: 379)
+        case .systemExtraLarge:
+            return CGSize(width: 540, height: 260)
         default:
             return CGSize(width: 169, height: 379)
         }
@@ -38,6 +40,8 @@ func size(for mode: WidgetFamily, size: UserInterfaceSizeClass = .regular) -> CG
             return CGSize(width: 292, height: 141)
         case .systemLarge:
             return CGSize(width: 292, height: 311)
+        case .systemExtraLarge:
+            return CGSize(width: 540, height: 260)
         default:
             return CGSize(width: 141, height: 141)
         }

@@ -21,6 +21,9 @@ for arg in sys.argv:
     if arg.startswith("-std=c++"):
         continue
 
+    if arg.endswith("MacOSX.sdk/usr/include/ffi"):
+        continue
+
     if arg == "-I"+np.get_include():
         print("Ignored Numpy include path")
         continue

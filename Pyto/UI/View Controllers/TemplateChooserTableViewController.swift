@@ -9,7 +9,7 @@
 import UIKit
 
 /// A View controller displayed for creating a script.
-class TemplateChooserTableViewController: UITableViewController, UIDocumentPickerDelegate {
+class _TemplateChooserTableViewController: UITableViewController, UIDocumentPickerDelegate {
     
     /// The function called to create the file. Passed from `UIDocumentBrowserViewController.documentBrowser(_:didRequestDocumentCreationWithHandler:)`.
     var importHandler: ((URL?, UIDocumentBrowserViewController.ImportMode) -> Void)?

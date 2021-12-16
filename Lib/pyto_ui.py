@@ -11,7 +11,7 @@ This library may have a lot of similarities with ``UIKit``, but subclassing isn'
 
 from __future__ import annotations
 from UIKit import UIFont as __UIFont__, UIImage, UIView, UIViewController
-from Foundation import NSThread
+from Foundation import NSThread, NSURL
 from typing import List, Callable, Tuple
 from pyto import __Class__, ConsoleViewController, PyAlert as __PyAlert__
 from __check_type__ import check
@@ -50,6 +50,12 @@ if "widget" not in os.environ:
         from PIL import Image
     except ImportError:
         pass
+
+
+if "sphinx" not in sys.modules:
+    from toga_iOS.widgets.box import Box as iOSBox
+    from toga_iOS.colors import native_color
+    import toga
 
 
 class __v__:
@@ -3204,23 +3210,6 @@ class View:
 
         self.__py_view__.insertSubview(view.__py_view__, at=index)
 
-    def insert_subview_bellow(self, view: View, bellow_view: View):
-        """
-        Inserts the given view to the receiver's hierarchy bellow another given view.
-
-        .. warning::
-            Deprecated in favor of View.insert_subview_below().
-
-        :param view: The view to insert.
-        :param bellow_view: The view above the inserted view.
-
-        """
-
-        _warning = "View.insert_subview_bellow() is deprecated in favor of View.insert_subview_below()."
-        warnings.warn(_warning, DeprecationWarning)
-
-        self.__py_view__.insertSubview(view.__py_view__, below=bellow_view.__py_view__)
-
     def insert_subview_below(self, view: View, below_view: View):
         """
         Inserts the given view to the receiver's hierarchy bellow another given view.
@@ -4859,6 +4848,17 @@ if "widget" not in os.environ:
             self._url = url
             self.__py_view__.loadURL(url)
 
+        def load_file_path(self, path: str):
+            """
+            Loads a file.
+
+            :param path: The path of the file to load.
+            """
+
+            url = str(NSURL.alloc().initFileURLWithPath(os.path.abspath(path)).absoluteString)
+            self._url = url
+            self.__py_view__.loadURL(url)
+
         _html = None
 
         _base_url = None
@@ -6314,3 +6314,44 @@ def pick_font(size: float = None) -> Font:
         if size is not None:
             pyFont = pyFont.with_size(size)
         return pyFont
+
+
+# MARK: - Toga
+
+if "sphinx" in sys.modules:
+
+    iOSBox = object
+
+    class toga:
+
+        class Box:
+            pass
+
+class _PytoBox(iOSBox):
+    
+    def __init__(self, view, interface):
+        self.pyto_view = view
+        super().__init__(interface=interface)
+    
+    def create(self):
+        self.native = self.pyto_view.__py_view__.managed
+        
+        # Add the layout constraints
+        self.add_constraints()
+
+
+class TogaWidget(toga.Box):
+    """
+    A Toga Widget created from a PytoUI view.
+    Pass a :class:`~pyto_ui.View` as the first parameter of the initializer.
+    """
+    
+    def __init__(self, view: View, id=None, style=None, children=None, factory=None):
+        super().__init__(id=id, style=style, factory=factory)
+
+        self._children = []
+        if children:
+            self.add(*children)
+
+        # Create a platform specific implementation of a Box
+        self._impl = _PytoBox(view=view, interface=self)

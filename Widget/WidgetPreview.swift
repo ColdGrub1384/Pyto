@@ -33,27 +33,30 @@ struct WidgetPreview: View {
     var body: some View {
         
         NavigationView {
-            ScrollView {
-                VStack {
-                    if horizontalSize == .compact {
-                        widget(family: .systemSmall)
-                        widget(family: .systemMedium)
-                        widget(family: .systemLarge)
-                    } else {
-                        HStack {
+            ZStack {
+                Image("Wallpaper").resizable().aspectRatio(contentMode: ContentMode.fill).ignoresSafeArea()
+                
+                ScrollView {
+                    VStack {
+                        if horizontalSize == .compact {
                             widget(family: .systemSmall)
                             widget(family: .systemMedium)
-                            Spacer()
-                        }
-                        HStack {
                             widget(family: .systemLarge)
-                            Spacer()
+                        } else {
+                            HStack {
+                                widget(family: .systemSmall)
+                                widget(family: .systemMedium)
+                                Spacer()
+                            }
+                            HStack {
+                                widget(family: .systemLarge)
+                                Spacer()
+                            }
                         }
                     }
                 }
             }
             .frame(minWidth: 0, maxWidth: .infinity)
-            .background(Image("Wallpaper").resizable().aspectRatio(contentMode: ContentMode.fill))
             .navigationBarItems(trailing: Button(action: {
                 self.viewControllerStore.vc?.dismiss(animated: true, completion: nil)
             }, label: {
