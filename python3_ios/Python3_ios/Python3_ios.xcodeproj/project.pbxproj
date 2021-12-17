@@ -16,16 +16,14 @@
 		B51A31D92750202B00B46897 /* _python.c in Sources */ = {isa = PBXBuildFile; fileRef = B51A31D82750202B00B46897 /* _python.c */; };
 		B51A31DA2750202B00B46897 /* _python.c in Sources */ = {isa = PBXBuildFile; fileRef = B51A31D82750202B00B46897 /* _python.c */; };
 		B51A31E5275020CA00B46897 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B51A31E4275020C100B46897 /* libz.tbd */; };
-		B51A31E82750211E00B46897 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B51A31E62750211D00B46897 /* libcrypto.a */; };
-		B51A31E92750211E00B46897 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B51A31E62750211D00B46897 /* libcrypto.a */; };
 		B51A31ED2750213D00B46897 /* libbz2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B51A31EC2750213D00B46897 /* libbz2.a */; };
 		B51A31EE2750213D00B46897 /* libbz2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B51A31EC2750213D00B46897 /* libbz2.a */; };
 		B51A31F02750217600B46897 /* liblzma.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B51A31EF2750217600B46897 /* liblzma.a */; };
 		B51A31F12750217600B46897 /* liblzma.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B51A31EF2750217600B46897 /* liblzma.a */; };
-		B52412DF27595D4F00896B11 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B51A31E72750211E00B46897 /* libssl.a */; };
-		B52412E027595D5000896B11 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B51A31E72750211E00B46897 /* libssl.a */; };
 		B549F214275A7D1200B5E20A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B51A31E4275020C100B46897 /* libz.tbd */; };
 		B549F216275A865C00B5E20A /* libFFI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B549F215275A865C00B5E20A /* libFFI.a */; };
+		B5D8FCEE276CDF1A009151E8 /* libOpenSSL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5D8FCED276CDF19009151E8 /* libOpenSSL.a */; };
+		B5D8FCEF276CDF1A009151E8 /* libOpenSSL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5D8FCED276CDF19009151E8 /* libOpenSSL.a */; };
 		C94002552508279F00EB74EB /* Python3_ios.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E8FEE521C66AD100967E21 /* Python3_ios.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C94003C02508279F00EB74EB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9FDC0F2235B81D6000B0D61 /* libsqlite3.tbd */; };
 		C94003C42508279F00EB74EB /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22288E072211FAC20081D86C /* Accelerate.framework */; };
@@ -85,11 +83,10 @@
 		B51A31D527501FD800B46897 /* libpython3.10.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpython3.10.a; sourceTree = "<group>"; };
 		B51A31D82750202B00B46897 /* _python.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = _python.c; sourceTree = "<group>"; };
 		B51A31E4275020C100B46897 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
-		B51A31E62750211D00B46897 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
-		B51A31E72750211E00B46897 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		B51A31EC2750213D00B46897 /* libbz2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbz2.a; sourceTree = "<group>"; };
 		B51A31EF2750217600B46897 /* liblzma.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = liblzma.a; sourceTree = "<group>"; };
 		B549F215275A865C00B5E20A /* libFFI.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFFI.a; sourceTree = "<group>"; };
+		B5D8FCED276CDF19009151E8 /* libOpenSSL.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOpenSSL.a; sourceTree = "<group>"; };
 		C94003CF2508279F00EB74EB /* python3_ios_screenshots.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = python3_ios_screenshots.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C94003D0250827A000EB74EB /* python3_ios copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "python3_ios copy2-Info.plist"; path = "/Users/adrianlabbe/Desktop/Pyto/python3_ios/Python3_ios/python3_ios copy2-Info.plist"; sourceTree = "<absolute>"; };
 		C969D2A123D1FF6500460F05 /* README_BEFORE_UPDATING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README_BEFORE_UPDATING.md; sourceTree = "<group>"; };
@@ -107,14 +104,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B52412DF27595D4F00896B11 /* libssl.a in Frameworks */,
 				B51A31E5275020CA00B46897 /* libz.tbd in Frameworks */,
 				C9FDC0F3235B81DB000B0D61 /* libsqlite3.tbd in Frameworks */,
 				B51A31F02750217600B46897 /* liblzma.a in Frameworks */,
 				B5034676275415FE009106A5 /* libffi.a in Frameworks */,
-				B51A31E82750211E00B46897 /* libcrypto.a in Frameworks */,
 				B51A31ED2750213D00B46897 /* libbz2.a in Frameworks */,
 				B51A31D627501FD800B46897 /* libpython3.10.a in Frameworks */,
+				B5D8FCEE276CDF1A009151E8 /* libOpenSSL.a in Frameworks */,
 				22288E082211FAC20081D86C /* Accelerate.framework in Frameworks */,
 				221CD96421DFAABF00F3B47C /* libc++.tbd in Frameworks */,
 			);
@@ -124,16 +120,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5D8FCEF276CDF1A009151E8 /* libOpenSSL.a in Frameworks */,
 				B549F214275A7D1200B5E20A /* libz.tbd in Frameworks */,
 				C94003C02508279F00EB74EB /* libsqlite3.tbd in Frameworks */,
 				B51A31D727501FD800B46897 /* libpython3.10.a in Frameworks */,
 				C94003C42508279F00EB74EB /* Accelerate.framework in Frameworks */,
 				C94003C62508279F00EB74EB /* libbz2.tbd in Frameworks */,
 				C94003C82508279F00EB74EB /* libc++.tbd in Frameworks */,
-				B52412E027595D5000896B11 /* libssl.a in Frameworks */,
 				B549F216275A865C00B5E20A /* libFFI.a in Frameworks */,
 				B51A31EE2750213D00B46897 /* libbz2.a in Frameworks */,
-				B51A31E92750211E00B46897 /* libcrypto.a in Frameworks */,
 				B51A31F12750217600B46897 /* liblzma.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -172,8 +167,7 @@
 			children = (
 				B5034667275415F6009106A5 /* libffi.xcodeproj */,
 				B51A31D527501FD800B46897 /* libpython3.10.a */,
-				B51A31E62750211D00B46897 /* libcrypto.a */,
-				B51A31E72750211E00B46897 /* libssl.a */,
+				B5D8FCED276CDF19009151E8 /* libOpenSSL.a */,
 				B51A31EC2750213D00B46897 /* libbz2.a */,
 				B51A31EF2750217600B46897 /* liblzma.a */,
 				B549F215275A865C00B5E20A /* libFFI.a */,

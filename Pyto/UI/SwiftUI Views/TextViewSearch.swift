@@ -234,6 +234,11 @@ struct TextViewSearch: View {
                 List {
                     ForEach(SearchResult.lines(from: searchResults)) { result in
                         Button {
+                            
+                            if let range = result.searchResults.first?.absoluteTextRange {
+                                textView.scrollRangeToVisible(range)
+                            }
+                            
                             let animation = CATransition()
                             animation.duration = 0.25
                             animation.timingFunction = .init(name: .easeInEaseOut)

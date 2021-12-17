@@ -219,8 +219,13 @@ public class EditorSplitViewController: SplitViewController {
     
     var exitScript = true
     
-    /// Shows the editor on full screen.
+    /// Shows the editor in full screen.
     @objc func showEditor() {
+        showEditor(completion: {})
+    }
+    
+    /// Shows the editor in full screen.
+    @objc func showEditor(completion: @escaping (() -> Void)) {
         
         isConsoleShown = false
         
@@ -270,6 +275,9 @@ public class EditorSplitViewController: SplitViewController {
                     self.view.alpha = 1
                 }
             }
+            
+            completion()
+            self.editor?.textView.becomeFirstResponder()
             
             self.animateLayouts = true
         })
@@ -337,6 +345,7 @@ public class EditorSplitViewController: SplitViewController {
             self.setNavigationBarItems()
             
             completion()
+            self.console?.movableTextField?.textField.becomeFirstResponder()
             
             if self.animateLayouts {
                 UIView.animate(withDuration: 0.25) {
@@ -426,7 +435,7 @@ public class EditorSplitViewController: SplitViewController {
         // In UIKit
         navigationItem.leftItemsSupplementBackButton = true
         
-        closeConsoleBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(showEditor))
+        closeConsoleBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: NSSelectorFromString("showEditor"))
         
         NotificationCenter.default.addObserver(forName: UIScene.willEnterForegroundNotification, object: nil, queue: OperationQueue.main) { [weak self] (_) in
             

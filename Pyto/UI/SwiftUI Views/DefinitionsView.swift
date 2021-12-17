@@ -197,7 +197,7 @@ public struct DefinitionsView: View {
                     }
                 }.hover()
             )
-        }.navigationBarTitle(Text("Definitions"))
+        }.navigationBarTitle(Text("Definitions")).navigationBarTitleDisplayMode(.large)
     }
 }
 

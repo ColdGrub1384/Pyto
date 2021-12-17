@@ -54,6 +54,7 @@
 <li class="toctree-l1"><a class="reference internal" href="sf_symbols.html">sf_symbols</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mainthread.html">mainthread</a></li>
+<li class="toctree-l1"><a class="reference internal" href="htmpy.html">htmpy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pyto_core.html">pyto_core</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">OS Technologies</span></p>
@@ -2290,6 +2291,8 @@
 </li>
       <li><a href="pyto_ui/classes.html#pyto_ui.WebView.did_receive_message">did_receive_message (pyto_ui.WebView property)</a>
 </li>
+      <li><a href="htmpy.html#htmpy.WebView.did_receive_message">did_receive_message() (htmpy.WebView method)</a>
+</li>
       <li><a href="pyto_core/editor.html#pyto_core.EditorDelegate.did_run_script">did_run_script() (pyto_core.EditorDelegate method)</a>
 </li>
       <li><a href="pyto_ui/classes.html#pyto_ui.TableViewSection.did_select_cell">did_select_cell (pyto_ui.TableViewSection property)</a>
@@ -2592,10 +2595,10 @@
 </li>
       <li><a href="pyto_ui/classes.html#pyto_ui.WebView.evaluate_js">evaluate_js() (pyto_ui.WebView method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="sf_symbols.html#sf_symbols.EXCLAMATIONMARK">EXCLAMATIONMARK (in module sf_symbols)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="sf_symbols.html#sf_symbols.EXCLAMATIONMARK_2">EXCLAMATIONMARK_2 (in module sf_symbols)</a>
 </li>
       <li><a href="sf_symbols.html#sf_symbols.EXCLAMATIONMARK_3">EXCLAMATIONMARK_3 (in module sf_symbols)</a>
@@ -2631,6 +2634,8 @@
       <li><a href="sf_symbols.html#sf_symbols.EXCLAMATIONMARK_TRIANGLE_FILL">EXCLAMATIONMARK_TRIANGLE_FILL (in module sf_symbols)</a>
 </li>
       <li><a href="background.html#background.BackgroundTask.execution_time">execution_time() (background.BackgroundTask method)</a>
+</li>
+      <li><a href="notification_center.html#notification_center.expandable">expandable (in module notification_center)</a>
 </li>
       <li><a href="sf_symbols.html#sf_symbols.EXTERNALDRIVE">EXTERNALDRIVE (in module sf_symbols)</a>
 </li>
@@ -3592,13 +3597,15 @@
 </li>
       <li><a href="sf_symbols.html#sf_symbols.J_SQUARE">J_SQUARE (in module sf_symbols)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="sf_symbols.html#sf_symbols.J_SQUARE_FILL">J_SQUARE_FILL (in module sf_symbols)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="sf_symbols.html#sf_symbols.J_SQUARE_FILL_ON_SQUARE_FILL">J_SQUARE_FILL_ON_SQUARE_FILL (in module sf_symbols)</a>
 </li>
       <li><a href="sf_symbols.html#sf_symbols.J_SQUARE_ON_SQUARE">J_SQUARE_ON_SQUARE (in module sf_symbols)</a>
+</li>
+      <li><a href="htmpy.html#htmpy.JSObject">JSObject (class in htmpy)</a>
 </li>
       <li><a href="apps.html#apps.Things3.json">json() (apps.Things3 method)</a>
 </li>
@@ -4120,6 +4127,8 @@
 </li>
       <li><a href="sf_symbols.html#sf_symbols.MAPPIN_SLASH">MAPPIN_SLASH (in module sf_symbols)</a>
 </li>
+      <li><a href="notification_center.html#notification_center.maximum_height">maximum_height (in module notification_center)</a>
+</li>
       <li><a href="pyto_ui/classes.html#pyto_ui.Slider.maximum_track_color">maximum_track_color (pyto_ui.Slider property)</a>
 </li>
       <li><a href="pyto_ui/classes.html#pyto_ui.Slider.maximum_value">maximum_value (pyto_ui.Slider property)</a>
@@ -4243,6 +4252,8 @@
         <li><a href="multipeer.html#module-multipeer">multipeer</a>
 </li>
         <li><a href="music.html#module-music">music</a>
+</li>
+        <li><a href="notification_center.html#module-notification_center">notification_center</a>
 </li>
         <li><a href="notifications.html#module-notifications">notifications</a>
 </li>
@@ -4670,10 +4681,10 @@
 </li>
       <li><a href="sf_symbols.html#sf_symbols.N34_CIRCLE_FILL">N34_CIRCLE_FILL (in module sf_symbols)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="sf_symbols.html#sf_symbols.N34_SQUARE">N34_SQUARE (in module sf_symbols)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="sf_symbols.html#sf_symbols.N34_SQUARE_FILL">N34_SQUARE_FILL (in module sf_symbols)</a>
 </li>
       <li><a href="sf_symbols.html#sf_symbols.N35_CIRCLE">N35_CIRCLE (in module sf_symbols)</a>
@@ -4956,6 +4967,13 @@
 </li>
       <li><a href="notifications.html#notifications.Notification">Notification (class in notifications)</a>
 </li>
+      <li>
+    notification_center
+
+      <ul>
+        <li><a href="notification_center.html#module-notification_center">module</a>
+</li>
+      </ul></li>
       <li><a href="background.html#background.BackgroundTask.notification_delay">notification_delay (background.BackgroundTask property)</a>
 </li>
       <li>
@@ -7538,12 +7556,16 @@
 </li>
       <li><a href="sf_symbols.html#sf_symbols.WAVEFORM_PATH_ECG_RECTANGLE">WAVEFORM_PATH_ECG_RECTANGLE (in module sf_symbols)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="sf_symbols.html#sf_symbols.WAVEFORM_PATH_ECG_RECTANGLE_FILL">WAVEFORM_PATH_ECG_RECTANGLE_FILL (in module sf_symbols)</a>
 </li>
-      <li><a href="pyto_ui/classes.html#pyto_ui.WebView">WebView (class in pyto_ui)</a>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="htmpy.html#htmpy.WebView">WebView (class in htmpy)</a>
+
+      <ul>
+        <li><a href="pyto_ui/classes.html#pyto_ui.WebView">(class in pyto_ui)</a>
 </li>
+      </ul></li>
       <li><a href="pyto_ui/classes.html#pyto_ui.WebView.JavaScriptException">WebView.JavaScriptException</a>
 </li>
       <li><a href="pyto_ui/classes.html#pyto_ui.Color.white">white() (pyto_ui.Color class method)</a>

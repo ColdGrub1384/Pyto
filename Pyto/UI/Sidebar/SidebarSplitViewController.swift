@@ -165,9 +165,9 @@ class SidebarSplitViewController: UISplitViewController, UISplitViewControllerDe
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        if traitCollection.horizontalSizeClass == .compact {
+        if traitCollection.horizontalSizeClass == .compact && previousTraitCollection?.horizontalSizeClass != .compact {
             preferredDisplayMode = .secondaryOnly
-        } else {
+        } else if traitCollection.horizontalSizeClass == .regular && previousTraitCollection?.horizontalSizeClass != .regular {
             preferredDisplayMode = .oneBesideSecondary
         }
     }

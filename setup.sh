@@ -9,6 +9,26 @@ python3 -m pip install jinja2
 python3 -m pip install wheel
 brew install zlib
 
+# Python
+
+curl -L https://briefcase-support.org/python\?platform\=iOS\&version\=3.10 -o Python-3.10-iOS-support.b1.tar.gz
+mkdir python-apple-support
+cd python-apple-support
+
+tar -xzvf Python-3.10-iOS-support.b1.tar.gz
+rm ../Python-3.10-iOS-support.b1.tar.gz
+
+cp OpenSSL/libOpenSSL.a ../
+cp OpenSSL/libOpenSSL.a ../python3_ios/Python3_ios/libOpenSSL.a
+cp libFFI/libFFI.a ../python3_ios/Python3_ios/
+cp BZip2/libbzip2.a ../python3_ios/Python3_ios/libbz2.a
+cp XZ/libxz.a ../python3_ios/Python3_ios/liblzma.a
+cp Python/libPython.a ../python3_ios/Python3_ios/libPython3.10.a
+cp -r Python/Resources/lib/python3.10 ../python310
+
+cd ../
+rm -rf python-apple-support
+
 # OpenCV
 
 rm -rf opencv2.framework

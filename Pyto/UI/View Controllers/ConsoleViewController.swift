@@ -748,8 +748,6 @@ import SwiftUI
                 } else {
                     showView()
                 }
-            } else if console.presentedViewController != nil {
-                console.dismiss(animated: true)
             }
         }
         #endif
@@ -825,8 +823,6 @@ import SwiftUI
                 } else {
                     showView()
                 }
-            } else if console.presentedViewController != nil {
-                console.dismiss(animated: true)
             }
         }
         #endif

@@ -225,7 +225,6 @@ import AVFoundation
                         }
                         urls.append(url)
                     } catch {
-                        print(error.localizedDescription)
                     }
                 }
             } catch {

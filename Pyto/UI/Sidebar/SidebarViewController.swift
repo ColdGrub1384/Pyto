@@ -176,7 +176,7 @@ fileprivate enum Section: String {
     
     init(splitViewID: UUID, compact: Bool) {
         super.init(collectionViewLayout: UICollectionViewCompositionalLayout { section, layoutEnvironment in
-            var config = UICollectionLayoutListConfiguration(appearance: (Self.splitViews.first(where: { $0.id == splitViewID }))?.traitCollection.horizontalSizeClass == .compact ? .sidebarPlain : .sidebar)
+            var config = UICollectionLayoutListConfiguration(appearance: .sidebar)
             config.headerMode = section == 0 ? .none : .firstItemInSection
             config.footerMode = section == 3 ? .supplementary : .none
             
@@ -314,6 +314,7 @@ fileprivate enum Section: String {
         
         title = "Pyto"
         navigationItem.largeTitleDisplayMode = .always
+        navigationItem.backButtonDisplayMode = .minimal
         
         let headerRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, Item> { (cell, indexPath, item) in
                 var content = cell.defaultContentConfiguration()
@@ -476,7 +477,7 @@ fileprivate enum Section: String {
         return splitVC
     }
     
-    func open(url: URL, reloadRecents: Bool = false, run: Bool = false) {
+    func open(url: URL, reloadRecents: Bool = false, run: Bool = false, completion: ((EditorViewController) -> Void)? = nil) {
         if self.editor == nil {
             if let editor = openDocument(url, run: false, folder: nil) {
                 let navVC = NavigationController(rootViewController: editor)
@@ -509,6 +510,8 @@ fileprivate enum Section: String {
                         editor.document = document
                         editor.viewWillAppear(false)
                         editor.appKitWindow.representedURL = document.fileURL
+                        
+                        completion?(editor)
                     }
                 })
             }

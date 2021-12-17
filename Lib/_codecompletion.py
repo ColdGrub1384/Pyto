@@ -93,16 +93,19 @@ def suggestForCode(code, index, path, get_definitions=False):
                         signatures.append(signature.to_string())
                     
                     defined_names = []
-                    for name in _def.defined_names():
+                    try:
+                        for name in _def.defined_names():
                     
-                        if not name.is_definition():
-                            continue
-                    
-                        _signatures = []
-                        for signature in name.get_signatures():
-                            _signatures.append(signature.to_string())
-                    
-                        defined_names.append([name.description, name.line, name.docstring(raw=True), name.name, _signatures, [], name.module_name, name.type])
+                            if not name.is_definition():
+                                continue
+                        
+                            _signatures = []
+                            for signature in name.get_signatures():
+                                _signatures.append(signature.to_string())
+                        
+                            defined_names.append([name.description, name.line, name.docstring(raw=True), name.name, _signatures, [], name.module_name, name.type])
+                    except NotImplementedError:
+                        pass
                     
                     definitions.append([decl, line, _def.docstring(raw=True), _def.name, signatures, defined_names, _def.module_name, _def.type])
 

@@ -1,10 +1,13 @@
-raise ImportError("Notification Center Widgets are no longer supported since Pyto 17.")
-
 from UIKit import UIDevice
 from pyto import __Class__
 from types import ModuleType
 import sys
 import warnings
+
+if "sphinx" not in sys.modules:
+    msg = "Notification Center Widgets are no longer supported since Pyto 17."
+    raise ImportError(msg)
+
 
 if (
     UIDevice is not None

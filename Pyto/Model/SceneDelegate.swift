@@ -70,7 +70,8 @@ import Dynamic
     ///     - url: The URL to open.
     ///     - run: A boolean indicating whether the script should be executed.
     ///     - isShortcut: A boolean indicating whether the script is executed from Shortcuts.
-    func openDocument(at url: URL, run: Bool, folder: URL?, isShortcut: Bool) {
+    ///     - completion: The code to executed after the document is open.
+    func openDocument(at url: URL, run: Bool, folder: URL?, isShortcut: Bool, completion: ((EditorViewController) -> Void)? = nil) {
         
         _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] (timer) in
             guard let self = self else {
@@ -85,7 +86,7 @@ import Dynamic
                     navVC.modalPresentationStyle = .fullScreen
                     splitVC.topViewController.present(navVC, animated: true, completion: nil)
                 } else {
-                    splitVC.sidebar?.open(url: url)
+                    splitVC.sidebar?.open(url: url, completion: completion)
                 }
                 timer.invalidate()
             }

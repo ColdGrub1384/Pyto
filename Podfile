@@ -25,6 +25,14 @@ target 'Pyto' do
   pod 'Highlightr', :git => 'https://github.com/brunophilipe/Highlightr.git'
   pod "GCDWebServer", "~> 3.0"
 end
+target 'SwiftUI Preview' do
+
+use_frameworks!
+inhibit_all_warnings!
+
+pod 'Highlightr', :git => 'https://github.com/brunophilipe/Highlightr.git'
+
+end
 
 target 'Pyto Screenshots' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks

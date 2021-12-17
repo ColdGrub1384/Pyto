@@ -120,6 +120,52 @@ func openPyPI(sceneDelegate: SceneDelegate) {
 
 // MARK: - Screenshot 4
 
+/// Simulates showing a traceback
+func openTracebackExample(sceneDelegate: SceneDelegate) {
+    
+    let traceback = try! JSONDecoder().decode(Traceback.self, from: try! Data(contentsOf: Bundle.main.url(forResource: "traceback", withExtension: "json")!))
+    
+    let semaphore = DispatchSemaphore(value: 0)
+    DispatchQueue.main.async {
+        let url = Bundle.main.url(forResource: "my_app", withExtension: "py")!
+        sceneDelegate.sidebarSplitViewController?.sidebar?.open(url: url)
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+            let console = ((sceneDelegate.sidebarSplitViewController?.sidebar?.editor?.visibleViewController as? EditorSplitViewController) ?? sceneDelegate.sidebarSplitViewController?.sidebar?.navigationController?.visibleViewController as? EditorSplitViewController)?.console
+            let editor = ((sceneDelegate.sidebarSplitViewController?.sidebar?.editor?.visibleViewController as? EditorSplitViewController) ?? sceneDelegate.sidebarSplitViewController?.sidebar?.navigationController?.visibleViewController as? EditorSplitViewController)?.editor
+            
+            
+            sceneDelegate.sidebarSplitViewController?.preferredDisplayMode = .secondaryOnly
+            
+            DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                editor?.textView.text = try! String(contentsOf: url)
+                console?.clear()
+                console?.print(">>> ")
+                editor?.traceback = traceback
+                editor?.showTraceback()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                    if #available(iOS 15.0, *) {
+                        editor?.presentedViewController?.sheetPresentationController?.detents = [.large()]
+                    }
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now()+12) {
+                    editor?.traceback = nil
+                    editor?.dismiss(animated: true, completion: {
+                        semaphore.signal()
+                    })
+                }
+            }
+            
+            console?.movableTextField?.textField.placeholder = ">>> "
+        }
+    }
+    
+    semaphore.wait()
+}
+
+// MARK: - Screenshot 5
+
 /// Shows and simulates running the SciPy panda image example.
 func openSciPyExample(sceneDelegate: SceneDelegate) {
     let semaphore = DispatchSemaphore(value: 0)
@@ -186,6 +232,7 @@ func takeScreenshots(sceneDelegate: SceneDelegate) {
         openProject(sceneDelegate: sceneDelegate)
         openREPL(sceneDelegate: sceneDelegate)
         openPyPI(sceneDelegate: sceneDelegate)
+        openTracebackExample(sceneDelegate: sceneDelegate)
         openSciPyExample(sceneDelegate: sceneDelegate)
     }
 }

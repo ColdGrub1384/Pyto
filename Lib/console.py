@@ -37,6 +37,7 @@ if "widget" not in os.environ:
     from rubicon.objc import ObjCInstance
     from Foundation import NSObject
     import warnings
+    from _exc_handling import get_json, offer_suggestion
 
     try:
         from rubicon.objc import *
@@ -133,13 +134,10 @@ def displayhook(_value):
     except AttributeError:
         PyOutputHelper.printValue(_repr + "\n", value=json, script=None)
 
-offer_suggestion_prototype = ctypes.PYFUNCTYPE(    
-    ctypes.c_char_p,                
-    ctypes.py_object
-)
-offer_suggestion = offer_suggestion_prototype(('_offer_suggestions', ctypes.CDLL(None)))
 
-def excepthook(exc, value, tb, limit=None):
+def return_excepthook(exc, value, tb, limit=None):
+
+    text = ""
 
     if isinstance(value, __UpgradeException__):
         builtins.print(value)
@@ -147,7 +145,7 @@ def excepthook(exc, value, tb, limit=None):
 
     message = traceback.format_exception(exc, value, tb, limit=limit)
 
-    if limit is None:
+    if limit is None and not exc is SyntaxError:
         del message[1]  # Remove the first element of the traceback in the REPL
 
     for part in message:
@@ -175,7 +173,13 @@ def excepthook(exc, value, tb, limit=None):
         else:
             msg = part
 
-        builtins.print(msg, end="")
+        text += msg
+    
+    return text
+
+
+def excepthook(exc, value, tb, limit=None):
+    builtins.print(return_excepthook(exc, value, tb, limit), end="")
 
 
 __repl_namespace__ = {}
@@ -553,19 +557,31 @@ if "widget" not in os.environ:
                             int(s) for s in (str(e)[:-1]).split() if s.isdigit()
                         ][-1]
 
-                    Python.shared.errorType = exc_type.__name__
-                    Python.shared.errorReason = str(e)
+                    as_text = return_excepthook(exc_type, exc_obj, exc_tb, -count)
+
+                    offset = 0
+                    end_offset = 0
+                    if isinstance(e, SyntaxError):
+                        offset = e.offset
+                        end_offset = e.end_offset
+                        count = 0
+
+                    _json = get_json(exc_tb, exc_obj, as_text, count, offset, end_offset)
+
+                    traceback_shown = False
                     for console in ConsoleViewController.objcVisibles:
                         if (
                             console.editorSplitViewController.editor.document.fileURL.path
                             != path
                         ):
                             continue
-                        console.editorSplitViewController.editor.showErrorAtLine(
-                            lineNumber
+                        console.editorSplitViewController.editor.showTraceback(
+                            _json
                         )
+                        traceback_shown = True
 
-                    excepthook(exc_type, exc_obj, exc_tb, -count)
+                    if not traceback_shown:
+                        builtins.print(as_text)
 
                     try:
                         PyOutputHelper.printError(

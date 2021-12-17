@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		661A396962347B634955210E /* Pods_Pyto_Screenshots.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B55038E3A0EDA2B8DC07639F /* Pods_Pyto_Screenshots.framework */; };
 		6AB6C68D181C2C686D545A61 /* Pods_Pyto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 296FFAAD958315A38A36E2A4 /* Pods_Pyto.framework */; };
+		6E57BE45E596328AF96378B1 /* Pods_SwiftUI_Preview.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0077854FCDCC5D121A3867FA /* Pods_SwiftUI_Preview.framework */; };
 		B50346AF2755269E009106A5 /* statsmodels-nonparametric-_smoothers_lowess.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B50346892755266D009106A5 /* statsmodels-nonparametric-_smoothers_lowess.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B50346B02755269E009106A5 /* statsmodels-nonparametric-linbin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B50346822755266B009106A5 /* statsmodels-nonparametric-linbin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B50346B12755269E009106A5 /* statsmodels-robust-_qn.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B503467A2755266A009106A5 /* statsmodels-robust-_qn.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -184,6 +185,7 @@
 		B5594D8C276A822B00E274FF /* PytoUI User Interface.py.txt in Resources */ = {isa = PBXBuildFile; fileRef = B5594D78276A821C00E274FF /* PytoUI User Interface.py.txt */; };
 		B585045E275A7AC800BC8542 /* cryptography-hazmat-bindings-_openssl.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B585045D275A7AC300BC8542 /* cryptography-hazmat-bindings-_openssl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B585045F275A7AC800BC8542 /* cryptography-hazmat-bindings-_rust.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B585045C275A7AC300BC8542 /* cryptography-hazmat-bindings-_rust.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B58FC3CC276B13B100DDDA0A /* ShortenFilePaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90ECC51228B8B2000EC91C6 /* ShortenFilePaths.swift */; };
 		B5A179BA2767C714009E4C6C /* Toga User Interface.py.txt in Resources */ = {isa = PBXBuildFile; fileRef = B5A179B72767C714009E4C6C /* Toga User Interface.py.txt */; };
 		B5A179BB2767C714009E4C6C /* Toga User Interface.py.txt in Resources */ = {isa = PBXBuildFile; fileRef = B5A179B72767C714009E4C6C /* Toga User Interface.py.txt */; };
 		B5AB6C212768F343001C5472 /* ThreadSafeDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AB6C202768F343001C5472 /* ThreadSafeDictionary.swift */; };
@@ -201,6 +203,11 @@
 		B5D9816D274017CC00382439 /* RecentDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D9816B274017CA00382439 /* RecentDataSource.swift */; };
 		B5D9816E274017CE00382439 /* SidebarSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D98169273C83A000382439 /* SidebarSplitViewController.swift */; };
 		B5D9816F274017D000382439 /* SidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D98165273C838F00382439 /* SidebarViewController.swift */; };
+		B5E805CC276CD05200F3E344 /* traceback.json in Resources */ = {isa = PBXBuildFile; fileRef = B5E805CB276CD05100F3E344 /* traceback.json */; };
+		B5F44E81276CCD95004F7BEE /* my_app.py in Resources */ = {isa = PBXBuildFile; fileRef = B5F44E80276CCD95004F7BEE /* my_app.py */; };
+		B5FFA760276B01030057C99C /* ExceptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FFA75F276B01030057C99C /* ExceptionView.swift */; };
+		B5FFA762276B01030057C99C /* ExceptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FFA75F276B01030057C99C /* ExceptionView.swift */; };
+		B5FFA763276B01030057C99C /* ExceptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FFA75F276B01030057C99C /* ExceptionView.swift */; };
 		C312BAD8259D0F05000A6BAD /* EditorViewController+saveAsIfNeeded.swift in Sources */ = {isa = PBXBuildFile; fileRef = C312BAD7259D0F05000A6BAD /* EditorViewController+saveAsIfNeeded.swift */; };
 		C312BAEC259D25D1000A6BAD /* Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = C312BAEB259D25D1000A6BAD /* Dynamic */; };
 		C31E737E25869292000FCE35 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31E737D25869292000FCE35 /* MainMenu.swift */; };
@@ -2094,13 +2101,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0077854FCDCC5D121A3867FA /* Pods_SwiftUI_Preview.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftUI_Preview.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AB460A7F9027835C4024AC2 /* Pods-Pyto.vpp.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto.vpp.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto/Pods-Pyto.vpp.xcconfig"; sourceTree = "<group>"; };
 		2212511F8CE9BF8B16FDB2F9 /* Pods-Pyto Share.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Share.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Share/Pods-Pyto Share.debug.xcconfig"; sourceTree = "<group>"; };
 		296FFAAD958315A38A36E2A4 /* Pods_Pyto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pyto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F8F8D2B8DAB35A84F3DD8B0 /* Pods_Pyto_Mac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pyto_Mac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		301864F4483E195A07FFBD1C /* Pods-SwiftUI Preview.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftUI Preview.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftUI Preview/Pods-SwiftUI Preview.debug.xcconfig"; sourceTree = "<group>"; };
 		36CFFBC467CCAC7C2830805C /* Pods-Pyto Screenshots.vpp.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Screenshots.vpp.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Screenshots/Pods-Pyto Screenshots.vpp.xcconfig"; sourceTree = "<group>"; };
 		486497B57E25E63492329299 /* Pods-Pyto Mac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Mac.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Mac/Pods-Pyto Mac.release.xcconfig"; sourceTree = "<group>"; };
 		5B4F2E5CF24C6BFB01D382FC /* Pods-Pyto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto/Pods-Pyto.release.xcconfig"; sourceTree = "<group>"; };
+		896AF67CA3627DC13E2D5A49 /* Pods-SwiftUI Preview.vpp.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftUI Preview.vpp.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftUI Preview/Pods-SwiftUI Preview.vpp.xcconfig"; sourceTree = "<group>"; };
 		926A61F13AC480920459EC02 /* Pods-Pyto Screenshots.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Screenshots.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Screenshots/Pods-Pyto Screenshots.debug.xcconfig"; sourceTree = "<group>"; };
 		959A7F231ADE2A490B8CF5F8 /* Pods-Pyto Xcode 11.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Xcode 11.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Xcode 11/Pods-Pyto Xcode 11.release.xcconfig"; sourceTree = "<group>"; };
 		B02EB2632C549B97E51CA165 /* Pods-Pyto Xcode 11.vpp.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Xcode 11.vpp.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Xcode 11/Pods-Pyto Xcode 11.vpp.xcconfig"; sourceTree = "<group>"; };
@@ -2232,6 +2242,7 @@
 		B503472C27568F46009106A5 /* scipy-io-matlab-mio_utils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "scipy-io-matlab-mio_utils.framework"; sourceTree = "<group>"; };
 		B503472D27568F46009106A5 /* scipy-linalg-_matfuncs_sqrtm_triu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "scipy-linalg-_matfuncs_sqrtm_triu.framework"; sourceTree = "<group>"; };
 		B503472E27568F46009106A5 /* scipy-cluster-_vq.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "scipy-cluster-_vq.framework"; sourceTree = "<group>"; };
+		B507C1DA276B09FE0079A44C /* Highlightr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Highlightr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5174F9F27503A5B002CDE6C /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = python3_ios/Python3_ios/libssl.a; sourceTree = "<group>"; };
 		B5174FA327503A61002CDE6C /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = python3_ios/Python3_ios/libcrypto.a; sourceTree = "<group>"; };
 		B51E07E3274067C6009BABC1 /* KeyboardHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHostingController.swift; sourceTree = "<group>"; };
@@ -2275,6 +2286,7 @@
 		B5594D7E276A821D00E274FF /* templates.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = templates.json; sourceTree = "<group>"; };
 		B585045C275A7AC300BC8542 /* cryptography-hazmat-bindings-_rust.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "cryptography-hazmat-bindings-_rust.framework"; sourceTree = "<group>"; };
 		B585045D275A7AC300BC8542 /* cryptography-hazmat-bindings-_openssl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "cryptography-hazmat-bindings-_openssl.framework"; sourceTree = "<group>"; };
+		B58FC3D2276B14F200DDDA0A /* SwiftUI Preview.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "SwiftUI Preview.entitlements"; path = "SwiftUI Preview/SwiftUI Preview.entitlements"; sourceTree = "<group>"; };
 		B5A179B72767C714009E4C6C /* Toga User Interface.py.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Toga User Interface.py.txt"; sourceTree = "<group>"; };
 		B5AB6C202768F343001C5472 /* ThreadSafeDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadSafeDictionary.swift; sourceTree = "<group>"; };
 		B5AB6C27276943EB001C5472 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -2283,6 +2295,9 @@
 		B5D98165273C838F00382439 /* SidebarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarViewController.swift; sourceTree = "<group>"; };
 		B5D98169273C83A000382439 /* SidebarSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSplitViewController.swift; sourceTree = "<group>"; };
 		B5D9816B274017CA00382439 /* RecentDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentDataSource.swift; sourceTree = "<group>"; };
+		B5E805CB276CD05100F3E344 /* traceback.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = traceback.json; sourceTree = "<group>"; };
+		B5F44E80276CCD95004F7BEE /* my_app.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = my_app.py; sourceTree = "<group>"; };
+		B5FFA75F276B01030057C99C /* ExceptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionView.swift; sourceTree = "<group>"; };
 		BDF906F857A60D2FF55BE403 /* Pods-Pyto Mac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Mac.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Mac/Pods-Pyto Mac.debug.xcconfig"; sourceTree = "<group>"; };
 		C312BAD7259D0F05000A6BAD /* EditorViewController+saveAsIfNeeded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorViewController+saveAsIfNeeded.swift"; sourceTree = "<group>"; };
 		C31E737D25869292000FCE35 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
@@ -3100,6 +3115,7 @@
 		C9FFF41A246E2391004F41D3 /* cryptography */ = {isa = PBXFileReference; lastKnownFileType = folder; path = cryptography; sourceTree = "<group>"; };
 		C9FFF41B246E2391004F41D3 /* zmq */ = {isa = PBXFileReference; lastKnownFileType = folder; path = zmq; sourceTree = "<group>"; };
 		C9FFF41C246E2391004F41D3 /* dask */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dask; sourceTree = "<group>"; };
+		CA1BB04BE75BACB5994B9AED /* Pods-SwiftUI Preview.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftUI Preview.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftUI Preview/Pods-SwiftUI Preview.release.xcconfig"; sourceTree = "<group>"; };
 		CEC013BBC4CEB1D521395DAE /* Pods-Pyto Xcode 11.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto Xcode 11.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto Xcode 11/Pods-Pyto Xcode 11.debug.xcconfig"; sourceTree = "<group>"; };
 		DF3B38D28106CCF95BF2F4C5 /* Pods_Pyto_Xcode_11.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pyto_Xcode_11.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E81EF026A4715B89A3481319 /* Pods-Pyto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pyto.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pyto/Pods-Pyto.debug.xcconfig"; sourceTree = "<group>"; };
@@ -3260,6 +3276,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9F1E4D82473727900A28F2A /* SwiftUI_Views.framework in Frameworks */,
+				6E57BE45E596328AF96378B1 /* Pods_SwiftUI_Preview.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3299,6 +3316,7 @@
 		777F5989381586AA988D5FF0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B507C1DA276B09FE0079A44C /* Highlightr.framework */,
 				B5AB6C282769779B001C5472 /* libffi.a */,
 				B5174FA327503A61002CDE6C /* libcrypto.a */,
 				B5174F9F27503A5B002CDE6C /* libssl.a */,
@@ -3354,6 +3372,7 @@
 				C9A2C9CB24A5908D00D94E0B /* WidgetKit.framework */,
 				DF3B38D28106CCF95BF2F4C5 /* Pods_Pyto_Xcode_11.framework */,
 				B55038E3A0EDA2B8DC07639F /* Pods_Pyto_Screenshots.framework */,
+				0077854FCDCC5D121A3867FA /* Pods_SwiftUI_Preview.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -3373,6 +3392,8 @@
 				B549F21E275BCD2100B5E20A /* rotated_panda.png */,
 				B549F217275AD2C700B5E20A /* clipboard_manager */,
 				B549F21C275AD32000B5E20A /* Screenshots.swift */,
+				B5F44E80276CCD95004F7BEE /* my_app.py */,
+				B5E805CB276CD05100F3E344 /* traceback.json */,
 			);
 			path = Screenshots;
 			sourceTree = "<group>";
@@ -3588,11 +3609,11 @@
 			isa = PBXGroup;
 			children = (
 				C91F961924AD9185003ACF02 /* ShortcutsView.swift */,
+				C91F961E24AD9185003ACF02 /* JSONBrowserView.swift */,
 				C91F961A24AD9185003ACF02 /* Cell.swift */,
 				C91F961B24AD9185003ACF02 /* SearchBar.swift */,
 				C91F961C24AD9185003ACF02 /* SamplesView.swift */,
 				C91F961D24AD9185003ACF02 /* DefinitionsView.swift */,
-				C91F961E24AD9185003ACF02 /* JSONBrowserView.swift */,
 				C91F961F24AD9185003ACF02 /* PyPiView.swift */,
 				C91F962024AD9185003ACF02 /* ValueView.swift */,
 				C91F962124AD9185003ACF02 /* OnboardingView.swift */,
@@ -3603,6 +3624,7 @@
 				C9FFCB05255C813E0077A7BB /* RemoteImage.swift */,
 				C90788EA254DF77600FC5348 /* View+hover.swift */,
 				B5594D73276A819F00E274FF /* TemplateChooser.swift */,
+				B5FFA75F276B01030057C99C /* ExceptionView.swift */,
 			);
 			path = "SwiftUI Views";
 			sourceTree = "<group>";
@@ -4782,6 +4804,7 @@
 		C9FCFD4C214428AE00A07974 = {
 			isa = PBXGroup;
 			children = (
+				B58FC3D2276B14F200DDDA0A /* SwiftUI Preview.entitlements */,
 				C9379B2324A64C1200B375F9 /* WidgetExtension.entitlements */,
 				C98472AD21A05CB1008E16AC /* README.md */,
 				C9AC411E249811BF00847A13 /* Subprojects */,
@@ -4933,6 +4956,9 @@
 				926A61F13AC480920459EC02 /* Pods-Pyto Screenshots.debug.xcconfig */,
 				36CFFBC467CCAC7C2830805C /* Pods-Pyto Screenshots.vpp.xcconfig */,
 				EE4D6C04C60322CDC58FEC6E /* Pods-Pyto Screenshots.release.xcconfig */,
+				301864F4483E195A07FFBD1C /* Pods-SwiftUI Preview.debug.xcconfig */,
+				896AF67CA3627DC13E2D5A49 /* Pods-SwiftUI Preview.vpp.xcconfig */,
+				CA1BB04BE75BACB5994B9AED /* Pods-SwiftUI Preview.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -5335,11 +5361,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C9F1E4D52473721E00A28F2A /* Build configuration list for PBXNativeTarget "SwiftUI Preview" */;
 			buildPhases = (
+				886FCA61ED47959DD8C20E48 /* [CP] Check Pods Manifest.lock */,
 				C9F1E4A82473721A00A28F2A /* Sources */,
 				C9F1E4A92473721A00A28F2A /* Frameworks */,
 				C9F1E4AA2473721A00A28F2A /* Resources */,
 				C9F1E4DC2473727900A28F2A /* Embed Frameworks */,
 				C9379B5024A656FA00B375F9 /* Embed App Extensions */,
+				191A0150370B499E2304417A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -5758,6 +5786,7 @@
 				C940FCFB250825A800EB74EB /* Lib in Resources */,
 				C940FCFC250825A800EB74EB /* Light 4.png in Resources */,
 				C940FCFD250825A800EB74EB /* boto3 in Resources */,
+				B5E805CC276CD05200F3E344 /* traceback.json in Resources */,
 				C940FCFE250825A800EB74EB /* Dark.png in Resources */,
 				C940FCFF250825A800EB74EB /* installer.py in Resources */,
 				C940FD00250825A800EB74EB /* numpy in Resources */,
@@ -5768,6 +5797,7 @@
 				B5A179BB2767C714009E4C6C /* Toga User Interface.py.txt in Resources */,
 				C940FD06250825A800EB74EB /* pandas in Resources */,
 				C940FD07250825A800EB74EB /* test_pyto.py in Resources */,
+				B5F44E81276CCD95004F7BEE /* my_app.py in Resources */,
 				C940FD08250825A800EB74EB /* Dark 4.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5992,6 +6022,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pyto Screenshots/Pods-Pyto Screenshots-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		191A0150370B499E2304417A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SwiftUI Preview/Pods-SwiftUI Preview-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SwiftUI Preview/Pods-SwiftUI Preview-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SwiftUI Preview/Pods-SwiftUI Preview-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		886FCA61ED47959DD8C20E48 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SwiftUI Preview-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8B77444CB27802637BAB7D62 /* [CP] Check Pods Manifest.lock */ = {
@@ -6411,6 +6480,7 @@
 				C940FCAF250825A800EB74EB /* ParseArgs.swift in Sources */,
 				C940FCB0250825A800EB74EB /* CodableWidgetComponent.swift in Sources */,
 				C940FCB1250825A800EB74EB /* DocumentationViewController.swift in Sources */,
+				B5FFA763276B01030057C99C /* ExceptionView.swift in Sources */,
 				C940FCB2250825A800EB74EB /* WatchInputSuggestionsTableViewController.swift in Sources */,
 				C933A0AF25CDFBF100B3C640 /* PyScrollView.swift in Sources */,
 				C940FCB5250825A800EB74EB /* UIKitView.swift in Sources */,
@@ -6745,6 +6815,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B58FC3CC276B13B100DDDA0A /* ShortenFilePaths.swift in Sources */,
 				B526B598274C60DF0094FCBB /* isiOSAppOnMac.swift in Sources */,
 				B526B595274C60830094FCBB /* ConsolePipView.swift in Sources */,
 				C91F962D24AD9185003ACF02 /* SamplesView.swift in Sources */,
@@ -6753,6 +6824,7 @@
 				C91F963624AD9185003ACF02 /* PyPiView.swift in Sources */,
 				B5594D76276A819F00E274FF /* TemplateChooser.swift in Sources */,
 				C91F963C24AD9185003ACF02 /* OnboardingView.swift in Sources */,
+				B5FFA762276B01030057C99C /* ExceptionView.swift in Sources */,
 				C942476124844DD400C9FF02 /* SwiftUIBundle.swift in Sources */,
 				C91F963924AD9185003ACF02 /* ValueView.swift in Sources */,
 				C91F963024AD9185003ACF02 /* DefinitionsView.swift in Sources */,
@@ -6879,6 +6951,7 @@
 				B55490282736D51B00BEB778 /* ScriptRunnerViewController.swift in Sources */,
 				C9A8F02522DCE184000E320F /* PyGestureRecognizer.swift in Sources */,
 				C9AAAB5221950E8B0042E733 /* TextView.swift in Sources */,
+				B5FFA760276B01030057C99C /* ExceptionView.swift in Sources */,
 				C9B5C74224CD2BF3000CC6D0 /* Text.swift in Sources */,
 				C9A05F6622E400890096DCA8 /* PyView.swift in Sources */,
 				C943E7F522E21D4C00B8027C /* PyTextInputTraits.swift in Sources */,
@@ -7519,7 +7592,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.ada.SwiftUI-Preview.Widget-Preview";
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.ada.SwiftUI-Preview-1.Widget-Preview";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -7542,7 +7615,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.ada.SwiftUI-Preview.Widget-Preview";
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.ada.SwiftUI-Preview-1.Widget-Preview";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -7565,7 +7638,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.ada.SwiftUI-Preview.Widget-Preview";
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.ada.SwiftUI-Preview-1.Widget-Preview";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -7758,7 +7831,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "MAIN DEBUG SCREENSHOTS";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pyto/Pyto-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 arm64e x86_64";
 			};
@@ -7884,7 +7957,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "MAIN DEBUG VPP SCREENSHOTS";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pyto/Pyto-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 arm64e x86_64";
 			};
@@ -8008,7 +8081,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "MAIN SCREENSHOTS";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pyto/Pyto-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 arm64e x86_64";
 			};
@@ -8459,7 +8532,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "MAIN DEBUG VPP";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pyto/Pyto-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 arm64e";
 			};
@@ -8724,9 +8797,11 @@
 		};
 		C967A047249D142F00EE3871 /* VPP */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 896AF67CA3627DC13E2D5A49 /* Pods-SwiftUI Preview.vpp.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "SwiftUI Preview/SwiftUI Preview.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"$(SRCROOT)/SwiftUI Views/Preview Content\"";
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -8737,7 +8812,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.ada.SwiftUI-Preview";
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.ada.SwiftUI-Preview-1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -9333,9 +9408,11 @@
 		};
 		C9F1E4BD2473721E00A28F2A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 301864F4483E195A07FFBD1C /* Pods-SwiftUI Preview.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "SwiftUI Preview/SwiftUI Preview.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"$(SRCROOT)/SwiftUI Views/Preview Content\"";
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -9346,7 +9423,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.ada.SwiftUI-Preview";
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.ada.SwiftUI-Preview-1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -9355,9 +9432,11 @@
 		};
 		C9F1E4BE2473721E00A28F2A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CA1BB04BE75BACB5994B9AED /* Pods-SwiftUI Preview.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "SwiftUI Preview/SwiftUI Preview.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"$(SRCROOT)/SwiftUI Views/Preview Content\"";
 				DEVELOPMENT_TEAM = Y96PL6G497;
@@ -9368,7 +9447,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.ada.SwiftUI-Preview";
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.ada.SwiftUI-Preview-1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -9625,7 +9704,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "MAIN DEBUG";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pyto/Pyto-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 arm64e";
 			};
@@ -9755,7 +9834,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = MAIN;
 				SWIFT_OBJC_BRIDGING_HEADER = "Pyto/Pyto-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 arm64e";
 			};

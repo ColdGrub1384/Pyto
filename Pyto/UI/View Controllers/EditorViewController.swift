@@ -325,6 +325,85 @@ func directory(for scriptURL: URL) -> URL {
         super.init(coder: aDecoder)
     }
     
+    // MARK: - Traceback
+    
+    /// The traceback accessible from the navigation bar.
+    var traceback: Traceback? {
+        didSet {
+            DispatchQueue.main.async {
+                self.setBarItems()
+            }
+        }
+    }
+    
+    /// Shows `traceback`.
+    @objc func showTraceback() {
+        guard let traceback = traceback else {
+            return
+        }
+        
+        let excView = ExceptionView(traceback: traceback, editor: self)
+        let vc = UIHostingController(rootView: excView)
+        vc.modalPresentationStyle = .formSheet
+        if #available(iOS 15.0, *) {
+            vc.sheetPresentationController?.detents = [.medium(), .large()]
+            vc.sheetPresentationController?.prefersGrabberVisible = true
+        }
+        
+        present(vc, animated: true, completion: nil)
+    }
+    
+    /**
+     Shows a traceback.
+     
+     Format:
+     {
+      "exc_type": "ZeroDivisionError",
+      "msg": "division by zero",
+      "as_text": "Traceback (most recent call last):\n  File \"/iCloud//test/exc.py\", line 12, in <module>\n    main()\n  File \"/iCloud//test/exc.py\", line 9, in main\n    return 0/0\nZeroDivisionError: division by zero\n",
+      "stack": [
+       {
+        "file_path": "/iCloud//test/exc.py",
+        "lineno": 9,
+        "line": "return 0/0",
+        "name": "main",
+        "index": 0
+       },
+       {
+        "file_path": "/iCloud//test/exc.py",
+        "lineno": 12,
+        "line": "main()",
+        "name": "<module>",
+        "index": 1
+       }
+      ]
+     }
+     */
+    @objc func showTraceback(_ json: String) {
+        
+        do {
+            traceback = try JSONDecoder().decode(Traceback.self, from: json.data(using: .utf8) ?? Data())
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                
+                guard let traceback = self.traceback else {
+                    return
+                }
+                
+                guard self.view.window != nil && (self.view.window?.windowScene?.activationState == .foregroundActive || self.view.window?.windowScene?.activationState == .foregroundInactive) else {
+                    (self.parent as? EditorSplitViewController)?.console?.print(traceback.as_text)
+                    return
+                }
+                
+                self.showTraceback()
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
     // MARK: - Bar button items
     
     /// The Mac toolbar item for running the script.
@@ -356,6 +435,9 @@ func directory(for scriptURL: URL) -> URL {
     
     /// The button for toggling PIP.
     var pipItem: UIBarButtonItem!
+    
+    /// Show traceback.
+    var showTracebackItem: UIBarButtonItem!
     
     /// If set to `true`, the back button will always be displayed.
     var alwaysShowBackButton = false
@@ -432,9 +514,14 @@ func directory(for scriptURL: URL) -> URL {
         (parent as? EditorSplitViewController)?.console?.togglePIP()
     }
     
-    private func setBarItems() {
+    /// Sets bar items.
+    func setBarItems() {
         
         guard !(parent is ScriptRunnerViewController) else {
+            return
+        }
+        
+        guard (parent as? EditorSplitViewController)?.isConsoleShown == false else {
             return
         }
         
@@ -449,6 +536,11 @@ func directory(for scriptURL: URL) -> URL {
         
         if pipItem == nil {
             pipItem = UIBarButtonItem(image: UIImage(systemName: "pip.enter"), style: .plain, target: self, action: #selector(togglePIP))
+        }
+        
+        if showTracebackItem == nil {
+            showTracebackItem = UIBarButtonItem(image: UIImage(systemName: "exclamationmark.triangle.fill"), style: .plain, target: self, action: NSSelectorFromString("showTraceback"))
+            showTracebackItem.tintColor = .systemRed
         }
         
         let debugButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
@@ -486,12 +578,12 @@ func directory(for scriptURL: URL) -> URL {
                     parentNavigationItem?.rightBarButtonItems = [
                         stopBarButtonItem,
                         debugItem,
-                    ]
+                    ]+((traceback != nil) ? [showTracebackItem] : [])
                 } else {
                     parentNavigationItem?.rightBarButtonItems = [
                         runBarButtonItem,
                         debugItem,
-                    ]
+                    ]+((traceback != nil) ? [showTracebackItem] : [])
                 }
                 
                 if #available(iOS 15, *) {
@@ -1063,6 +1155,7 @@ func directory(for scriptURL: URL) -> URL {
             }
             
             navVC = UINavigationController(rootViewController: UIHostingController(rootView: view))
+            navVC.navigationBar.prefersLargeTitles = true
             navVC.modalPresentationStyle = .popover
         }
         
@@ -1236,6 +1329,8 @@ func directory(for scriptURL: URL) -> URL {
                 }
             }
         }
+        
+        traceback = nil
         
         save { [weak self] (_) in
             

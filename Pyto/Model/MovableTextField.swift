@@ -180,7 +180,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(_:)), name: UIResponder.keyboardDidHideNotification, object: nil)
         }
         
-        if (console.editorSplitViewController is REPLViewController) || (console.editorSplitViewController is RunModuleViewController) {
+        if ((console.editorSplitViewController is REPLViewController) && !(console.editorSplitViewController is ScriptRunnerViewController)) || (console.editorSplitViewController is RunModuleViewController) {
         } else {
             listenToKeyboardNotifications()
         }

@@ -16,6 +16,7 @@ import Foundation
 /// - Returns: The given string with shortened file paths.
 func ShortenFilePaths(in str: String) -> String {
     
+    #if MAIN
     var text = str
     
     let docs = FileBrowserViewController.localContainerURL
@@ -39,4 +40,7 @@ func ShortenFilePaths(in str: String) -> String {
     }
     
     return text
+    #else
+    return str
+    #endif
 }
