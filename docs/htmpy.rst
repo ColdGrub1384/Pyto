@@ -3,6 +3,8 @@ htmpy
 
 .. currentmodule:: htmpy
 
+.. automodule:: htmpy
+
 .. autoclass:: WebView
    :members:
 

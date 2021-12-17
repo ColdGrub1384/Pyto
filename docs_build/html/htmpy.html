@@ -105,8 +105,28 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="htmpy">
-<h1>htmpy<a class="headerlink" href="#htmpy" title="Permalink to this headline"></a></h1>
+  <section id="module-htmpy">
+<span id="htmpy"></span><h1>htmpy<a class="headerlink" href="#module-htmpy" title="Permalink to this headline"></a></h1>
+<p>HTML + Python</p>
+<p>HtmPy is let’s you run Python code in a <code class="docutils literal notranslate"><span class="pre">&lt;script&gt;</span></code> tag on an HTML page when it’s shown on a <a class="reference internal" href="#htmpy.WebView" title="htmpy.WebView"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebView</span></code></a>.</p>
+<p>This module is also a bridge between Python and JavaScript so the code has access to the <code class="docutils literal notranslate"><span class="pre">window</span></code> object. However, the code can be very slow if too many JavaScript functions are called. 
+This can be easily solved by doing the logic in Python and then calling a JavaScript function previously declared on a <code class="docutils literal notranslate"><span class="pre">script</span></code> tag to modify the DOM.</p>
+<p>To take advantage of HtmPy, just create an HTML file and the editor will let you show it.
+Place your Python code in a <code class="docutils literal notranslate"><span class="pre">script</span></code> tag like that:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/python&quot;</span><span class="p">&gt;</span>
+    <span class="p">...</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>To access the window object:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">htmpy</span> <span class="kn">import</span> <span class="n">window</span>
+</pre></div>
+</div>
+<p>Then you can just call any function or get any attribute of the window object to modify the DOM.
+If you put JavaScript code on a tag before, you can get anything declared on the global scope through the <code class="docutils literal notranslate"><span class="pre">window</span></code> object.
+You can do the opposite, store a Python function or variable in the <code class="docutils literal notranslate"><span class="pre">window</span></code> object and it will be accessible from JavaScript.
+HtmPy will bridge Python functions so they can be called from JavaScript, so you could use <code class="docutils literal notranslate"><span class="pre">addEventListener</span></code> for example. However, the functions will run asynchronously and will not return any value.</p>
+<p>You can use <a class="reference internal" href="#htmpy.WebView" title="htmpy.WebView"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebView</span></code></a> to show HTML + Python pages on your custom UI.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="htmpy.WebView">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">htmpy.</span></span><span class="sig-name descname"><span class="pre">WebView</span></span><a class="headerlink" href="#htmpy.WebView" title="Permalink to this definition"></a></dt>
