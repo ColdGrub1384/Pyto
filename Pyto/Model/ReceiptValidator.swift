@@ -20,15 +20,15 @@ fileprivate func readASN1Integer(ptr: inout UnsafePointer<UInt8>?, maxLength: In
     var type: Int32 = 0
     var xclass: Int32 = 0
     var length: Int = 0
-  
+    
     ASN1_get_object(&ptr, &length, &type, &xclass, maxLength)
     guard type == V_ASN1_INTEGER else {
-        return nil
+      return nil
     }
     let integerObject = c2i_ASN1_INTEGER(nil, &ptr, length)
     let intValue = ASN1_INTEGER_get(integerObject)
     ASN1_INTEGER_free(integerObject)
-  
+    
     return intValue
 }
 
@@ -153,9 +153,9 @@ struct ReceiptValidator {
         X509_STORE_add_cert(store, rootCertX509)
 
         // 2
-        SSL_library_init()
-        OpenSSL_add_all_digests()
-
+        OPENSSL_init()
+        OPENSSL_init_crypto(UInt64(OPENSSL_INIT_ADD_ALL_DIGESTS), nil)
+        
         // 3
         let verificationResult = PKCS7_verify(receipt, nil, store, nil, nil, 0)
         guard verificationResult == 1  else {

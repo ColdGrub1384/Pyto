@@ -24,7 +24,7 @@ cp libFFI/libFFI.a ../python3_ios/Python3_ios/
 cp BZip2/libbzip2.a ../python3_ios/Python3_ios/libbz2.a
 cp XZ/libxz.a ../python3_ios/Python3_ios/liblzma.a
 cp Python/libPython.a ../python3_ios/Python3_ios/libPython3.10.a
-cp -r Python/Resources/lib/python3.10 ../python310
+cp -r Python/Resources/lib/python3.10 ../site-packages/python3.10
 
 cd ../
 rm -rf python-apple-support

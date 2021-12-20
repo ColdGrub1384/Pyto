@@ -57,7 +57,7 @@ def _main_function_no_one_calls_a_function_like_that():
         
         _globals = {}
         sys.__class__.main[_script_path] = MainModule(module_name, _globals)
-        runpy.run_module(module_name, init_globals=_globals, run_name="__main__")
+        runpy.run_module(module_name, init_globals=_globals, run_name="__main__", alter_sys=True)
     except KeyboardInterrupt as e:
         print(e)
     except SystemExit as e:

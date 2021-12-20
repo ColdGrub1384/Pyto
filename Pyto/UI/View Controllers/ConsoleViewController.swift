@@ -741,12 +741,14 @@ import SwiftUI
                 showView()
                 break
             } else if console.editorSplitViewController?.editor?.document?.fileURL.path == path {
-                if console.presentedViewController != nil {
+                if console.presentedViewController != nil && !((console.presentedViewController as? UINavigationController)?.viewControllers.first is ScriptRunnerViewController) {
                     console.dismiss(animated: true) {
                         showView()
                     }
+                    break
                 } else {
                     showView()
+                    break
                 }
             }
         }
@@ -774,6 +776,7 @@ import SwiftUI
                    let window = (scene as? UIWindowScene)?.windows.first
                    if window?.isKeyWindow == true {
                        window?.topViewController?.present(vc, animated: true, completion: nil)
+                       break
                    }
                }
             } else {
@@ -816,12 +819,14 @@ import SwiftUI
                 showView()
                 break
             } else if console.editorSplitViewController?.editor?.document?.fileURL.path == scriptPath {
-                if console.presentedViewController != nil {
+                if console.presentedViewController != nil && !((console.presentedViewController as? UINavigationController)?.viewControllers.first is ScriptRunnerViewController) {
                     console.dismiss(animated: true) {
                         showView()
                     }
+                    break
                 } else {
                     showView()
+                    break
                 }
             }
         }

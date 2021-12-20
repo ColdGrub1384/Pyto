@@ -63,7 +63,7 @@ class CustomIconTableViewController: UITableViewController {
             cell.accessoryType = .none
         }
         
-        let icon = icons[indexPath.section] == "Default" ? Bundle.main.icon : UIImage(named: icons[indexPath.section])
+        let icon = icons[indexPath.section] == "Default" ? Bundle.main.icon : UIImage(named: icons[indexPath.section]+"Icon")
         cell.imageView?.image = icon
         cell.imageView?.layer.cornerRadius = 16
         

@@ -456,6 +456,8 @@ func directory(for scriptURL: URL) -> URL {
             return
         }
         
+        textView.isHidden = false
+        
         textView.contentTextView.inputAccessoryView = nil
         textView.font = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
         textStorage?.highlightr.theme.codeFont = textView.font
@@ -701,6 +703,7 @@ func directory(for scriptURL: URL) -> URL {
         
         view.addSubview(textView)
         textView.delegate = self
+        textView.isHidden = true
         
         NoSuggestionsLabel = {
             let label = MarqueeLabel(frame: .zero, rate: 100, fadeLength: 1)

@@ -18,8 +18,8 @@ export PATH="$(pwd):$PATH"
 rustup target add aarch64-apple-ios
 cargo install cargo-lipo
 
-export CFLAGS="$CFLAGS -I'$(pwd)' -I/opt/homebrew/opt/openssl@3/include"
-export LDFLAGS="$LDFLAGS -L'$(pwd)'/../../../python3_ios/Python3_ios"
+export CFLAGS="$CFLAGS -I'$(pwd)' -I'$(pwd)'/../../../python3_ios"
+export LDFLAGS="$LDFLAGS -L'$(pwd)'/../../../python3_ios/Python3_ios -lOpenSSL"
 
 export PYO3_CROSS_LIB_DIR"=/Users/emma/Developer/Pyto/python3_ios/Python3_ios"
 

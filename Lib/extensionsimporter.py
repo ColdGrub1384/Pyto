@@ -48,6 +48,26 @@ if "widget" not in os.environ:
 
 _added_modules = []
 
+class Extension:
+
+    def __init__(self, module):
+        self.__original_module__ = module
+    
+    def __repr__(self):
+        return self.__original_module__.__repr__() # __repr__() isn't called for modules
+
+    def __getattribute__(self, attr):
+        if attr == "__original_module__" or attr == "__repr__":
+            return super().__getattribute__(attr)
+        else:
+            return getattr(self.__original_module__, attr)
+
+    def __setattr__(self, attr, value):
+        if attr == "__original_module__":
+            super().__setattr__(attr, value)
+        else:
+            setattr(self.__original_module__, attr, value)
+
 
 class FrameworkLoader(ExtensionFileLoader):
     def __init__(self, fullname, path):
@@ -60,16 +80,19 @@ class FrameworkLoader(ExtensionFileLoader):
         if mod is None:
             with warnings.catch_warnings(record=True) as w:
                 mod = _extensionsimporter.module_from_binary(fullname, spec)
+                mod.__repr__ = self.mod_repr
+                mod = Extension(mod)
                 sys.modules[fullname] = mod
             return mod
 
+        mod.__repr__ = self.mod_repr
         return mod
 
     def exec_module(self, module):
         pass
 
-    def module_repr(self, module):
-        return f"<module '{module.__name__}' from '{self.path}'>"
+    def mod_repr(self):
+        return f"<module '{self.fullname}' from '{self.path}'>"
 
 
 class BuiltinLoader(ExtensionFileLoader):

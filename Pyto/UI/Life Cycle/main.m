@@ -90,9 +90,12 @@ int initialize_python(int argc, char *argv[]) {
     #if !WIDGET
     putenv("PYTHONDONTWRITEBYTECODE=1");
     #endif
+    NSString *site_packages = [mainBundle() pathForResource:@"site-packages" ofType:NULL];
+    NSString *stdlib = [site_packages stringByAppendingPathComponent: @"python3.10"];
+    
     putenv((char *)[[NSString stringWithFormat:@"TMP=%@", NSTemporaryDirectory()] UTF8String]);
-    putenv((char *)[[NSString stringWithFormat:@"PYTHONHOME=%@", pythonBundle.bundlePath] UTF8String]);
-    NSString* path = [NSString stringWithFormat:@"PYTHONPATH=%@:%@:%@:%@:%@", [pythonBundle.bundleURL URLByAppendingPathComponent:@"python310"].path, [mainBundle() pathForResource: @"Lib" ofType:NULL], [mainBundle() pathForResource: @"Lib/objc" ofType:NULL], [mainBundle() pathForResource:@"site-packages" ofType:NULL], [mainBundle() resourceURL].path];
+    putenv((char *)[[NSString stringWithFormat:@"PYTHONHOME=%@", stdlib] UTF8String]);
+    NSString* path = [NSString stringWithFormat:@"PYTHONPATH=%@:%@:%@:%@:%@", stdlib, [mainBundle() pathForResource: @"Lib" ofType:NULL], [mainBundle() pathForResource: @"Lib/objc" ofType:NULL], site_packages, [mainBundle() resourceURL].path];
     #if WIDGET
     path = [path stringByAppendingString: [NSString stringWithFormat:@":%@:%@", [NSFileManager.defaultManager sharedDirectory], [NSFileManager.defaultManager.sharedDirectory URLByAppendingPathComponent:@"modules"]]];
     #endif

@@ -155,7 +155,7 @@ struct TemplateChooser: View {
                         isShowingTemplateImporter = true
                     } label: {
                         Label {
-                            Text("Import template")
+                            Text("importTemplate")
                         } icon: {
                             Image(systemName: "plus")
                         }

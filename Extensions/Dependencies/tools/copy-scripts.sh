@@ -10,3 +10,5 @@ find $2 -name "*.py" -delete
 find $2 -name "*.pyx" -delete
 find $2 -name "*.pxd" -delete
 find $2 -name "*.so" -delete
+find $2 -name "*.pyi" -delete
+find $2 -name "*.sh" -delete
