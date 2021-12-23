@@ -160,6 +160,11 @@
 		B536842E276FA6B700642E66 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B53683BF276FA6B600642E66 /* libcrypto.a */; };
 		B5368431276FA6B700642E66 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B53683C1276FA6B600642E66 /* libssl.a */; };
 		B5368432276FA6B700642E66 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B53683C1276FA6B600642E66 /* libssl.a */; };
+		B541B0592770FC9700D8EFEE /* Breakpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FEA8F32770E3B800859F78 /* Breakpoint.swift */; };
+		B541B06027715CA800D8EFEE /* LocalsAndGlobalsREPLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B541B05F27715CA800D8EFEE /* LocalsAndGlobalsREPLViewController.swift */; };
+		B541B06127715CA800D8EFEE /* LocalsAndGlobalsREPLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B541B05F27715CA800D8EFEE /* LocalsAndGlobalsREPLViewController.swift */; };
+		B541B06327715DE100D8EFEE /* locals_and_globals_repl.py in Resources */ = {isa = PBXBuildFile; fileRef = B541B06227715DE100D8EFEE /* locals_and_globals_repl.py */; };
+		B541B06427715DE100D8EFEE /* locals_and_globals_repl.py in Resources */ = {isa = PBXBuildFile; fileRef = B541B06227715DE100D8EFEE /* locals_and_globals_repl.py */; };
 		B5477107274EA0E3001F3039 /* Pipable in Frameworks */ = {isa = PBXBuildFile; productRef = B5477106274EA0E3001F3039 /* Pipable */; };
 		B549F21A275AD2C700B5E20A /* clipboard_manager in Resources */ = {isa = PBXBuildFile; fileRef = B549F217275AD2C700B5E20A /* clipboard_manager */; };
 		B549F21D275AD32000B5E20A /* Screenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = B549F21C275AD32000B5E20A /* Screenshots.swift */; };
@@ -2276,6 +2281,8 @@
 		B53683C0276FA6B600642E66 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		B53683C1276FA6B600642E66 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		B5368435276FA86C00642E66 /* openssl */ = {isa = PBXFileReference; lastKnownFileType = folder; path = openssl; sourceTree = "<group>"; };
+		B541B05F27715CA800D8EFEE /* LocalsAndGlobalsREPLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalsAndGlobalsREPLViewController.swift; sourceTree = "<group>"; };
+		B541B06227715DE100D8EFEE /* locals_and_globals_repl.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = locals_and_globals_repl.py; sourceTree = "<group>"; };
 		B549F217275AD2C700B5E20A /* clipboard_manager */ = {isa = PBXFileReference; lastKnownFileType = folder; path = clipboard_manager; sourceTree = "<group>"; };
 		B549F21C275AD32000B5E20A /* Screenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshots.swift; sourceTree = "<group>"; };
 		B549F21E275BCD2100B5E20A /* rotated_panda.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rotated_panda.png; sourceTree = "<group>"; };
@@ -3843,6 +3850,7 @@
 				C9592D1F21D059B900412CEF /* EditorSplitViewController.swift */,
 				C92DBD8121F687480098BE43 /* REPLViewController.swift */,
 				B55490272736D51B00BEB778 /* ScriptRunnerViewController.swift */,
+				B541B05F27715CA800D8EFEE /* LocalsAndGlobalsREPLViewController.swift */,
 				C90F7CF0227F494300EEA045 /* RunModuleViewController.swift */,
 				C9CF40AE2242DECF0076B627 /* PipInstallerViewController.swift */,
 				C99D8E1F223E960100489E9B /* PipViewController.swift */,
@@ -3938,6 +3946,7 @@
 				C91A5D9025113AEA0095A0D0 /* Shortcuts iOS 14.json */,
 				C9477BBA21D45D28000680AE /* installer.py */,
 				C929167D22B192A5001C8BA0 /* scripts_runner.py */,
+				B541B06227715DE100D8EFEE /* locals_and_globals_repl.py */,
 				C928ACA0258C046600412A0D /* _blank.py */,
 				C95AECB72208A688003BCB05 /* cacert.pem */,
 				C97AA8B22489495D0063B6F8 /* AppleIncRootCertificate.cer */,
@@ -5780,6 +5789,7 @@
 				C940FCD1250825A800EB74EB /* Dark 6Icon.png in Resources */,
 				C940FCD2250825A800EB74EB /* LightIcon.png in Resources */,
 				C940FCD3250825A800EB74EB /* ConflictsResolver.storyboard in Resources */,
+				B541B06427715DE100D8EFEE /* locals_and_globals_repl.py in Resources */,
 				C940FCD4250825A800EB74EB /* nacl in Resources */,
 				C940FCD6250825A800EB74EB /* README.md in Resources */,
 				C940FCD7250825A800EB74EB /* bcrypt in Resources */,
@@ -6017,6 +6027,7 @@
 				C95F9D0D2564A1FA007B12EB /* Bio in Resources */,
 				C95F9D112564A1FA007B12EB /* scipy in Resources */,
 				C90BC03B24720F7B00EF7F09 /* Widget Simulator.storyboard in Resources */,
+				B541B06327715DE100D8EFEE /* locals_and_globals_repl.py in Resources */,
 				C9F1E4FC2474083B00A28F2A /* download_all.py in Resources */,
 				C9A419A623A321EB00BF5393 /* StripesIcon.png in Resources */,
 				C947C6F822E512CD00B7B35A /* Lib in Resources */,
@@ -6461,6 +6472,7 @@
 				C940FC67250825A800EB74EB /* CodableFont.swift in Sources */,
 				C940FC69250825A800EB74EB /* FoldersBrowserViewController.swift in Sources */,
 				C940FC6A250825A800EB74EB /* NSRange.swift in Sources */,
+				B541B06127715CA800D8EFEE /* LocalsAndGlobalsREPLViewController.swift in Sources */,
 				C940FC6B250825A800EB74EB /* EditorActionsTableViewController.swift in Sources */,
 				C940FC6C250825A800EB74EB /* PipViewController.swift in Sources */,
 				C940FC6E250825A800EB74EB /* UIViewController.swift in Sources */,
@@ -6684,6 +6696,7 @@
 				C9A7D9FB24D3829B00204932 /* CodableFont.swift in Sources */,
 				C9273C7024BA60AE00B2A12C /* PyTextInputTraits.swift in Sources */,
 				C9273C6A24BA60AE00B2A12C /* PyValue.swift in Sources */,
+				B541B0592770FC9700D8EFEE /* Breakpoint.swift in Sources */,
 				C9273C7624BA611900B2A12C /* UIColor.swift in Sources */,
 				C9930D0924BBE9D1009B33B6 /* PyTableViewSection.swift in Sources */,
 				C9B5C76624CD2DB1000CC6D0 /* Component.swift in Sources */,
@@ -7024,6 +7037,7 @@
 				C9E016F122823E30002DF4CA /* EditorActionsTableViewController.swift in Sources */,
 				C99D8E20223E960100489E9B /* PipViewController.swift in Sources */,
 				C9DA43CA250EC2B300A32A53 /* PythonRuntime.swift in Sources */,
+				B541B06027715CA800D8EFEE /* LocalsAndGlobalsREPLViewController.swift in Sources */,
 				C909A19C2267E6E30058C145 /* UIViewController.swift in Sources */,
 				C946497725573AC800F2845B /* GalleryScript.swift in Sources */,
 				C94129D324C3670B0030F76E /* PyWidget.swift in Sources */,

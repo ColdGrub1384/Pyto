@@ -259,7 +259,6 @@ import AVFoundation
         }
                 
         UIMenuController.shared.menuItems = [
-            UIMenuItem(title: NSLocalizedString("menuItems.breakpoint", comment: "The menu item for setting breakpoint"), action: #selector(EditorViewController.setBreakpoint(_:))),
             UIMenuItem(title: NSLocalizedString("menuItems.toggleComment", comment: "The 'Toggle Comment' menu item"), action: #selector(EditorViewController.toggleComment))
         ]
         

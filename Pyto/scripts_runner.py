@@ -92,7 +92,7 @@ class PythonImplementation(NSObject):
         if str(script.path) in sys.__class__.instances:
             del sys.__class__.instances[str(script.path)]
 
-        thread = Thread(target=run_script, args=(str(script.path), False, script.debug, script.breakpoints, script.runREPL, args, cwd))
+        thread = Thread(target=run_script, args=(str(script.path), False, script.debug, str(script.breakpoints), script.runREPL, args, cwd))
         try:
             thread.script_path = str(script.pagePath)
         except AttributeError:
