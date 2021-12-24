@@ -16,12 +16,16 @@ import sys
 import traceback
 import threading
 import time
-from extensionsimporter import __UpgradeException__
 import ctypes
 import weakref
 import json
 from types import ModuleType as Module
 import builtins
+
+
+if "sphinx" not in sys.modules:
+    from extensionsimporter import __UpgradeException__
+
 
 if "widget" not in os.environ:
     from code import interact, InteractiveConsole
