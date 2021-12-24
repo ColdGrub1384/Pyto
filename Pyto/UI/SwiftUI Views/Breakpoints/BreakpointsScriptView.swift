@@ -134,13 +134,13 @@ struct BreakpointsScriptView: View {
                     
                     List {
                         DisclosureGroup(isExpanded: $areLocalsExpanded) {
-                            EmptyView()
+                            ObjectView(object: .namespace(id ?? "", .locals))
                         } label: {
                             Text("Locals")
                         }
                         
                         DisclosureGroup(isExpanded: $areGlobalsExpanded) {
-                            EmptyView()
+                            ObjectView(object: .namespace(id ?? "", .globals))
                         } label: {
                             Text("Globals")
                         }

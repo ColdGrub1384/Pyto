@@ -516,6 +516,8 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
             DispatchQueue.main.async {
                 #if MAIN
                 
+                NotificationCenter.default.post(name: EditorViewController.didUpdateBarItemsNotificationName, object: nil)
+                
                 #if WIDGET
                 let visibles = [ConsoleViewController.visible ?? ConsoleViewController()]
                 #else

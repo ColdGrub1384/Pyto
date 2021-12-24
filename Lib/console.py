@@ -21,12 +21,12 @@ import ctypes
 import weakref
 import json
 from types import ModuleType as Module
+import builtins
 
 if "widget" not in os.environ:
     from code import interact, InteractiveConsole
     import importlib.util
     from importlib import reload
-    import builtins
     import pdb
     from colorama import Fore, Back, Style
     from json import dumps
@@ -52,9 +52,7 @@ if "widget" not in os.environ:
     except ImportError:
         pass
 
-
 namespaces = {}
-
 
 def displayhook(_value):
     if _value is None:
@@ -471,6 +469,7 @@ if "widget" not in os.environ:
                     console._has_started_debugging = False
                     console._are_breakpoints_set = False
                     console._breakpoints = json.loads(breakpoints)
+                    console._are_breakpoints_cleared = False
 
                     console.__i__ = -1
 
@@ -483,12 +482,15 @@ if "widget" not in os.environ:
                         except:
                             import console
 
-                        if not console._are_breakpoints_set:
+                        if not console._are_breakpoints_cleared:
+                            console._are_breakpoints_cleared = True
+                            return "clear"
+                        elif not console._are_breakpoints_set:
 
                             breakpoints = console._breakpoints
                             console.__i__ += 1
 
-                            if len(breakpoints) < console.__i__:
+                            if len(breakpoints) < console.__i__ or len(breakpoints) == 0:
                                 console._are_breakpoints_set = True
                                 return ""
 
@@ -608,10 +610,9 @@ if "widget" not in os.environ:
                         except AttributeError:
                             PyOutputHelper.printError(string, script=None)
 
-                    if debug:
-                        pdb.post_mortem(exc_tb)
-
                     return (path, vars(__script__), e)
+            finally:
+                Python.shared.removeScriptFromList(path)
 
             if __isMainApp__():
 
@@ -625,8 +626,6 @@ if "widget" not in os.environ:
         def run_repl(t):
 
             global __repl_threads__
-
-            Python.shared.removeScriptFromList(path)
 
             if path.endswith(".repl.py") or not runREPL:
                 return
@@ -675,8 +674,6 @@ if "widget" not in os.environ:
                 run_repl(t)
             else:
                 _script = t[1]
-
-        Python.shared.removeScriptFromList(path)
 
         sys.path = list(dict.fromkeys(sys.path))  # I don't remember why 😭
 

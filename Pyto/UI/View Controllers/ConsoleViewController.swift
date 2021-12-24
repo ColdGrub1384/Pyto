@@ -885,6 +885,8 @@ import SwiftUI
     }
     
     private static func editor(in window: UIWindow) -> EditorSplitViewController? {
+        ((window.topViewController?.children.first as? UINavigationController)?.visibleViewController?.children.first as? EditorSplitViewController) ?? // Debugger
+        
         (window.topViewController as? EditorSplitViewController) ??
         
         (window.topViewController as? UINavigationController)?.visibleViewController as? EditorSplitViewController ??

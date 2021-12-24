@@ -21,4 +21,6 @@ import Foundation
     @objc func runWidgetWithCode(_ code: String, andID id: String)
     
     @objc func getScriptPath() -> String?
+    
+    @objc func getString(_ code: String) -> String?
 }

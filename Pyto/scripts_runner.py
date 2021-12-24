@@ -128,6 +128,18 @@ class PythonImplementation(NSObject):
             return threading.current_thread().script_path
         except AttributeError:
             return
+            
+    
+    @objc_method
+    def getString_(self, code):
+        try:
+            loc = {}
+            exec(str(code), globals(), loc)
+            return loc["s"]
+        except Exception as e:
+            print(e)
+            return
+
 
 threading.Thread = Thread
 

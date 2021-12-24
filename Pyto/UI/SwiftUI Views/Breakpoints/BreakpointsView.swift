@@ -74,14 +74,13 @@ struct BreakpointsView: View {
     
     @Environment(\.dismiss) var dismiss
     
-    var isRunning: Bool
+    @State var isRunning = false
     
     var run: () -> ()
     
-    init(fileURL: URL, id: String?, isRunning: Bool, run: @escaping () -> (), runningBreakpoint: Breakpoint?) {
+    init(fileURL: URL, id: String?, run: @escaping () -> (), runningBreakpoint: Breakpoint?) {
         self.fileURL = fileURL
         self._id = .init(initialValue: id)
-        self.isRunning = isRunning
         self.run = run
         self._runningBreakpoint = .init(initialValue: runningBreakpoint)
     }
@@ -112,11 +111,19 @@ struct BreakpointsView: View {
                         Image(systemName: "plus")
                     }
                     
-                    Button {
-                        run()
-                    } label: {
-                        Image(systemName: "play.fill")
-                    }.disabled(isRunning)
+                    if runningBreakpoint == nil {
+                        Button {
+                            run()
+                        } label: {
+                            Image(systemName: "play.fill")
+                        }.disabled(isRunning)
+                    } else {
+                        Button {
+                            PyInputHelper.userInput[runningBreakpoint!.url!.path] = "c"
+                        } label: {
+                            Image(systemName: "forward.end.fill")
+                        }
+                    }
                 }
             }.onReceive(NotificationCenter.Publisher(center: .default, name: EditorViewController.didTriggerBreakpointNotificationName, object: nil)) { notif in
                 runningBreakpoint = notif.object as? Breakpoint
@@ -133,6 +140,10 @@ struct BreakpointsView: View {
             BreakpointCreator(fileURL: fileURL, files: files)
         }.onReceive(NotificationCenter.Publisher(center: .default, name: breakpointStoreDidChangeNotification, object: nil)) { notif in
             breakpoints = BreakpointsStore.breakpoints(for: fileURL)
+        }.onAppear {
+            isRunning = Python.shared.isScriptRunning(fileURL.path)
+        }.onReceive(NotificationCenter.Publisher(center: .default, name: EditorViewController.didUpdateBarItemsNotificationName, object: nil)) { notif in
+            isRunning = Python.shared.isScriptRunning(fileURL.path)
         }
     }
 }

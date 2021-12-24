@@ -534,7 +534,7 @@ func directory(for scriptURL: URL) -> URL {
         #endif
         
         runBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(run))
-        stopBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(stop))
+        stopBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "stop.fill"), style: .plain, target: self, action: #selector(stop))
         
         if pipItem == nil {
             pipItem = UIBarButtonItem(image: UIImage(systemName: "pip.enter"), style: .plain, target: self, action: #selector(togglePIP))
@@ -671,6 +671,8 @@ func directory(for scriptURL: URL) -> URL {
             navigationController?.toolbar.standardAppearance = toolbarAppearance
             navigationController?.toolbar.scrollEdgeAppearance = toolbarAppearance
         }
+        
+        NotificationCenter.default.post(name: Self.didUpdateBarItemsNotificationName, object: nil)
     }
     
     // MARK: - View controller
@@ -1241,19 +1243,29 @@ func directory(for scriptURL: URL) -> URL {
     
     /// Debugs script.
     @objc func debug() {
-        showDebugger(filePath: nil, lineno: nil, id: nil)
+        showDebugger(filePath: lastBreakpointFilePath, lineno: lastBreakpointLineno, id: lastBreakpointID)
     }
     
     private class DebuggerHostingController: UIHostingController<AnyView> {}
     
     static let didTriggerBreakpointNotificationName = Notification.Name("DidTriggerBreakpointNotification")
     
+    static let didUpdateBarItemsNotificationName = Notification.Name("DidUpdateBarItemsNotification")
+    
+    private var lastBreakpointFilePath: String?
+    
+    private var lastBreakpointLineno: Int?
+    
+    private var lastBreakpointID: String?
+    
     func showDebugger(filePath: String?, lineno: Int?, id: String?) {
         let vc: DebuggerHostingController
         if #available(iOS 15.0, *) {
-            
+                        
             let runningBreakpoint: Breakpoint?
             if let filePath = filePath, let lineno = lineno {
+                lastBreakpointFilePath = filePath
+                lastBreakpointLineno = lineno
                 runningBreakpoint = try? Breakpoint(url: URL(fileURLWithPath: filePath), lineno: lineno)
             } else {
                 runningBreakpoint = nil
@@ -1264,7 +1276,7 @@ func directory(for scriptURL: URL) -> URL {
                 return
             }
             
-            vc = DebuggerHostingController(rootView: AnyView(BreakpointsView(fileURL: document!.fileURL, id: id, isRunning: Python.shared.isScriptRunning(document!.fileURL.path), run: {
+            vc = DebuggerHostingController(rootView: AnyView(BreakpointsView(fileURL: document!.fileURL, id: id, run: {
                 self.runScript(debug: true)
             }, runningBreakpoint: runningBreakpoint)))
         } else {
@@ -1662,33 +1674,39 @@ func directory(for scriptURL: URL) -> URL {
         DispatchQueue.main.async {
             for console in ConsoleViewController.visibles {
                 guard let editor = console.editorSplitViewController?.editor else {
-                    return
+                    continue
                 }
                 
                 guard editor.document?.fileURL.path == scriptPath || scriptPath == nil else {
-                    return
+                    continue
                 }
                 
                 guard currentBreakpoint != nil else {
+                    editor.lastBreakpointFilePath = nil
+                    editor.lastBreakpointLineno = nil
+                    editor.lastBreakpointID = nil
                     return NotificationCenter.default.post(name: Self.didTriggerBreakpointNotificationName, object: nil, userInfo: [:])
                 }
                 
                 guard currentBreakpoint!.count == 2 else {
-                    return
+                    continue
                 }
                 
                 guard let filePath = currentBreakpoint![0] as? String, let lineno = currentBreakpoint![1] as? Int else {
-                    return
+                    continue
                 }
                 
                 guard FileManager.default.fileExists(atPath: filePath) else {
-                    return
+                    continue
                 }
                 
                 guard BreakpointsStore.breakpoints(for: editor.document!.fileURL).contains(where: { $0.url?.path == filePath && $0.lineno == lineno }) else {
-                    return
+                    continue
                 }
                 
+                editor.lastBreakpointFilePath = filePath
+                editor.lastBreakpointLineno = lineno
+                editor.lastBreakpointID = id
                 editor.showDebugger(filePath: filePath, lineno: lineno, id: id)
                 
                 break
