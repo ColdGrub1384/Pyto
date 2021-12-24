@@ -27,7 +27,7 @@ if "sphinx" not in sys.modules:
     from extensionsimporter import __UpgradeException__
 
 
-if "widget" not in os.environ:
+if "widget" not in os.environ and not "sphinx" in sys.modules:
     from code import interact, InteractiveConsole
     import importlib.util
     from importlib import reload
