@@ -87,7 +87,7 @@ import random
 import console
 import weakref
 
-if "widget" not in os.environ:
+if "widget" not in os.environ and not "sphinx" in sys.modules:
     from pyto import EditorViewController
 
 
