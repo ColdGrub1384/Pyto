@@ -82,6 +82,10 @@ import signal
 import inspect
 import traceback
 import linecache
+import threading
+import random
+import console
+import weakref
 
 if "widget" not in os.environ:
     from pyto import EditorViewController
@@ -153,6 +157,11 @@ class _rstr(str):
 # line_prefix = ': '    # Use this to get the old situation back
 line_prefix = "\n-> "  # Probably a better default
 
+class NamespaceHolder:
+
+    def __init__(self, local, _global):
+        self.local = local
+        self._global = _global
 
 class Pdb(bdb.Bdb, cmd.Cmd):
 
@@ -282,7 +291,19 @@ class Pdb(bdb.Bdb, cmd.Cmd):
     def user_line(self, frame):
         """This function is called when we stop or break at this line."""
         if "widget" not in os.environ:
-            EditorViewController.runningLine = frame.f_lineno
+
+            try:
+                script_path = threading.current_thread().script_path
+            except AttributeError:
+                script_path = None
+
+            _id = ''.join(random.choice([chr(i) for i in range(ord('a'),ord('z'))]) for _ in range(10))
+
+            holder = NamespaceHolder(frame.f_locals, frame.f_globals)
+            frame.f_locals["__namespace__"] = holder
+            console.namespaces[_id] = weakref.ref(holder)
+            
+            EditorViewController.setCurrentBreakpoint([os.path.abspath(frame.f_code.co_filename), frame.f_lineno], id=_id, scriptPath=script_path)
         if self._wait_for_mainpyfile:
             if (
                 self.mainpyfile != self.canonic(frame.f_code.co_filename)
@@ -292,8 +313,6 @@ class Pdb(bdb.Bdb, cmd.Cmd):
             self._wait_for_mainpyfile = False
         if self.bp_commands(frame):
             self.interaction(frame, None)
-        if "widget" not in os.environ:
-            EditorViewController.runningLine = frame.f_lineno
 
     def bp_commands(self, frame):
         """Call every command that was set for the current active breakpoint
@@ -912,11 +931,7 @@ class Pdb(bdb.Bdb, cmd.Cmd):
         clear all breaks at that line in that file.
         """
         if not arg:
-            try:
-                reply = input("Clear all breaks? ")
-            except EOFError:
-                reply = "no"
-            reply = reply.strip().lower()
+            reply = "yes"
             if reply in ("y", "yes"):
                 bplist = [bp for bp in bdb.Breakpoint.bpbynumber if bp]
                 self.clear_all_breaks()
@@ -1813,9 +1828,15 @@ def main(argv=sys.argv):
                 pdb._runmodule(mainpyfile)
             else:
                 pdb._runscript(mainpyfile)
-            if pdb._user_requested_quit:
-                break
-            print("The program finished and will be restarted")
+
+            try:
+                script_path = threading.current_thread().script_path
+            except AttributeError:
+                script_path = None
+
+            EditorViewController.setCurrentBreakpoint(None, id=None, scriptPath=script_path)
+
+            break
         except Restart:
             print("Restarting", mainpyfile, "with arguments:")
             print("\t" + " ".join(args))
@@ -1826,20 +1847,6 @@ def main(argv=sys.argv):
             print(sys.exc_info()[1])
             """
             break
-        except SyntaxError:
-            traceback.print_exc()
-            sys.exit(1)
-        except:
-            traceback.print_exc()
-            print("Uncaught exception. Entering post mortem debugging")
-            print("Running 'cont' or 'step' will restart the program")
-            t = sys.exc_info()[2]
-            pdb.interaction(None, t)
-            print(
-                "Post mortem debugger finished. The "
-                + mainpyfile
-                + " will be restarted"
-            )
 
 
 # When invoked as main program, invoke the debugger on a script

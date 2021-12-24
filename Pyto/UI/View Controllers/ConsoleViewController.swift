@@ -885,6 +885,8 @@ import SwiftUI
     }
     
     private static func editor(in window: UIWindow) -> EditorSplitViewController? {
+        ((window.topViewController?.children.first as? UINavigationController)?.visibleViewController?.children.first as? EditorSplitViewController) ?? // Debugger
+        
         (window.topViewController as? EditorSplitViewController) ??
         
         (window.topViewController as? UINavigationController)?.visibleViewController as? EditorSplitViewController ??
@@ -1105,6 +1107,8 @@ import SwiftUI
                 return
             }
             
+            let url = (self.parent as? LocalsAndGlobalsREPLViewController)?.url ?? (self.parent as! EditorSplitViewController).editor?.document!.fileURL
+            
             let code =
             """
             import threading
@@ -1113,7 +1117,7 @@ import SwiftUI
                 import jedi
                 import console
                 import pyto
-                namespace = console.__repl_namespace__['\((self.parent as! EditorSplitViewController).editor?.document!.fileURL.path.replacingOccurrences(of: "'", with: "\\'") ?? "")']
+                namespace = console.__repl_namespace__['\(url?.path.replacingOccurrences(of: "'", with: "\\'") ?? "")']
                 script = jedi.Interpreter('\(text.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "'", with: "\\'"))', [namespace])
                 
                 suggestions = []

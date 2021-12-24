@@ -386,8 +386,8 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         /// If set to `true`, the REPL will run after executing the script.
         @objc public var runREPL: Bool
         
-        ///  Line numbers where breakpoints should be placed if the script should be debugged.
-        @objc public var breakpoints: NSArray
+        /// A JSON array of `Breakpoint.PythonBreakpoint`
+        @objc public var breakpoints: String
         
         /// Arguments passed to 'sys.argv'
         @objc public var args: NSArray
@@ -403,14 +403,18 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         ///     - workingDirectory: The working directory of the thread running the script.
         ///     - debug: Set to `true` if the script should  be debugged with `pdb`.
         ///     - runREPL: If set to `true`, the REPL will run after executing the script.
-        ///     - breakpoints: Line numbers where breakpoints should be placed if the script should be debugged.
-        @objc public init(path: String, args: NSArray, workingDirectory: String, debug: Bool, runREPL: Bool, breakpoints: NSArray = NSArray()) {
+        ///     - breakpoints: A list of breakpoints
+        init(path: String, args: NSArray, workingDirectory: String, debug: Bool, runREPL: Bool, breakpoints: [Breakpoint] = []) {
             self.path = path
             self.args = args
             self.workingDirectory = workingDirectory
             self.debug = debug
             self.runREPL = runREPL
-            self.breakpoints = breakpoints
+            do {
+                self.breakpoints = String(data: (try JSONEncoder().encode(breakpoints.filter({ $0.isEnabled }).map({ $0.pythonBreakpoint }))), encoding: .utf8) ?? "[]"
+            } catch {
+                self.breakpoints = "[]"
+            }
         }
     }
     
@@ -511,6 +515,8 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         didSet {
             DispatchQueue.main.async {
                 #if MAIN
+                
+                NotificationCenter.default.post(name: EditorViewController.didUpdateBarItemsNotificationName, object: nil)
                 
                 #if WIDGET
                 let visibles = [ConsoleViewController.visible ?? ConsoleViewController()]

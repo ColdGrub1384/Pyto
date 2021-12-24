@@ -534,7 +534,7 @@ func directory(for scriptURL: URL) -> URL {
         #endif
         
         runBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(run))
-        stopBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(stop))
+        stopBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "stop.fill"), style: .plain, target: self, action: #selector(stop))
         
         if pipItem == nil {
             pipItem = UIBarButtonItem(image: UIImage(systemName: "pip.enter"), style: .plain, target: self, action: #selector(togglePIP))
@@ -671,6 +671,8 @@ func directory(for scriptURL: URL) -> URL {
             navigationController?.toolbar.standardAppearance = toolbarAppearance
             navigationController?.toolbar.scrollEdgeAppearance = toolbarAppearance
         }
+        
+        NotificationCenter.default.post(name: Self.didUpdateBarItemsNotificationName, object: nil)
     }
     
     // MARK: - View controller
@@ -883,14 +885,6 @@ func directory(for scriptURL: URL) -> URL {
             return
         }
         
-        for (_, marker) in breakpointMarkers {
-            marker.backgroundColor = .clear
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now()+1) { [weak self] in
-            self?.updateBreakpointMarkersPosition()
-        }
-        
         self.setup(theme: ConsoleViewController.choosenTheme)
     }
     
@@ -909,8 +903,6 @@ func directory(for scriptURL: URL) -> URL {
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if action == #selector(unindent) {
             return isIndented && textView.isFirstResponder
-        } else if action == #selector(toggleComment) || action == #selector(setBreakpoint(_:)) {
-            return textView.isFirstResponder
         } else if action == #selector(search) {
             if #available(iOS 15.0, *) {
                 return true
@@ -947,7 +939,6 @@ func directory(for scriptURL: URL) -> URL {
             } else {
                 commands.append(contentsOf: [
                     UIKeyCommand.command(input: "c", modifierFlags: [.command, .shift], action: #selector(toggleComment), discoverabilityTitle: NSLocalizedString("menuItems.toggleComment", comment: "The 'Toggle Comment' menu item")),
-                    UIKeyCommand.command(input: "b", modifierFlags: [.command, .shift], action: #selector(setBreakpoint(_:)), discoverabilityTitle: NSLocalizedString("menuItems.breakpoint", comment: "The menu item for setting breakpoint")),
                     UIKeyCommand.command(input: "\t", modifierFlags: [.alternate], action: #selector(unindent), discoverabilityTitle: NSLocalizedString("unindent", comment: "'Unindent' key command"))
                 ])
             }
@@ -1252,7 +1243,50 @@ func directory(for scriptURL: URL) -> URL {
     
     /// Debugs script.
     @objc func debug() {
-        runScript(debug: true)
+        showDebugger(filePath: lastBreakpointFilePath, lineno: lastBreakpointLineno, id: lastBreakpointID)
+    }
+    
+    private class DebuggerHostingController: UIHostingController<AnyView> {}
+    
+    static let didTriggerBreakpointNotificationName = Notification.Name("DidTriggerBreakpointNotification")
+    
+    static let didUpdateBarItemsNotificationName = Notification.Name("DidUpdateBarItemsNotification")
+    
+    private var lastBreakpointFilePath: String?
+    
+    private var lastBreakpointLineno: Int?
+    
+    private var lastBreakpointID: String?
+    
+    func showDebugger(filePath: String?, lineno: Int?, id: String?) {
+        let vc: DebuggerHostingController
+        if #available(iOS 15.0, *) {
+                        
+            let runningBreakpoint: Breakpoint?
+            if let filePath = filePath, let lineno = lineno {
+                lastBreakpointFilePath = filePath
+                lastBreakpointLineno = lineno
+                runningBreakpoint = try? Breakpoint(url: URL(fileURLWithPath: filePath), lineno: lineno)
+            } else {
+                runningBreakpoint = nil
+            }
+            
+            guard !(presentedViewController is DebuggerHostingController) else {
+                NotificationCenter.default.post(name: Self.didTriggerBreakpointNotificationName, object: runningBreakpoint, userInfo: ["id": id ?? ""])
+                return
+            }
+            
+            vc = DebuggerHostingController(rootView: AnyView(BreakpointsView(fileURL: document!.fileURL, id: id, run: {
+                self.runScript(debug: true)
+            }, runningBreakpoint: runningBreakpoint)))
+        } else {
+            vc = DebuggerHostingController(rootView: AnyView(Text("The debugger requires iOS / iPadOS 15+.")))
+        }
+        
+        if #available(iOS 15.0, *) {
+            vc.sheetPresentationController?.prefersGrabberVisible = true
+        }
+        present(vc, animated: true, completion: nil)
     }
     
     /// Runs script.
@@ -1382,7 +1416,7 @@ func directory(for scriptURL: URL) -> URL {
                             }
                             
                             if url.pathExtension.lowercased() == "py" {
-                                Python.shared.run(script: Python.Script(path: path, args: args, workingDirectory: directory(for: url).path, debug: debug, runREPL: true, breakpoints: self.breakpoints))
+                                Python.shared.run(script: Python.Script(path: path, args: args, workingDirectory: directory(for: url).path, debug: debug, runREPL: true, breakpoints: BreakpointsStore.breakpoints(for: self.document!.fileURL)))
                             } else {
                                 Python.shared.run(script: Python.PyHTMLPage(path: path, args: args, workingDirectory: directory(for: url).path))
                             }
@@ -1635,131 +1669,47 @@ func directory(for scriptURL: URL) -> URL {
     
     // MARK: - Breakpoints
     
-    private struct MarkerPosition: Hashable {
-        var line: Int
-        var range: UITextRange
-    }
-    
-    private var breakpointMarkers = [MarkerPosition : UIView]()
-    
-    /// List of breakpoints in script. Each item is the line where the code will break.
-    var breakpoints = NSMutableArray()
-    
-    /// The currently running line. Set to `0` when no breakpoint is running.
-    @objc static var runningLine = 0 {
-        didSet {
+    /// The current breakpoint. An array containing the file path and the line number
+    @objc static func setCurrentBreakpoint(_ currentBreakpoint: NSArray?, id: String, scriptPath: String?) {
+        DispatchQueue.main.async {
             for console in ConsoleViewController.visibles {
                 guard let editor = console.editorSplitViewController?.editor else {
-                    return
+                    continue
                 }
-                for (position, marker) in editor.breakpointMarkers {
-                    DispatchQueue.main.async {
-                        marker.backgroundColor = breakpointColor
-                        if position.line == runningLine {
-                            print("Running")
-                            marker.backgroundColor = runningLineColor
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    /// Color for highlighting a breakpoint.
-    static let breakpointColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 0.7039777729)
-    
-    /// Color for highlighting a line that is currently running.
-    static let runningLineColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 0.7)
-    
-    /// Updates breakpoint markers position.
-    func updateBreakpointMarkersPosition() {
-        for (position, marker) in breakpointMarkers {
-            marker.backgroundColor = EditorViewController.breakpointColor
-            marker.frame.origin.y = textView.contentTextView.firstRect(for: position.range).origin.y
-            marker.frame.origin.x = textView.contentTextView.frame.width-marker.frame.width
-        }
-        let runningLine = EditorViewController.runningLine
-        EditorViewController.runningLine = 0
-        EditorViewController.runningLine = runningLine
-    }
-    
-    /// Sets breakpoint on current line.
-    @objc func setBreakpoint(_ sender: Any) {
-        
-        let currentLineRange = (textView.text as NSString).lineRange(for: textView.contentTextView.selectedRange)
-        
-        var currentLine = (textView.text as NSString).substring(with: currentLineRange)
-        if currentLine.hasSuffix("\n") {
-            currentLine.removeLast()
-        }
-        
-        var rangesOfLinesThatHaveTheSameContentThatTheCurrentLine = [NSRange]()
-        
-        var script = textView.text as NSString
-        if !currentLine.isEmpty {
-            while true {
-                let foundRange = script.range(of: currentLine)
-                if foundRange.location != NSNotFound {
-                    rangesOfLinesThatHaveTheSameContentThatTheCurrentLine.append(foundRange)
-                    script = script.replacingCharacters(in: foundRange, with: "") as NSString
-                } else {
-                    break
-                }
-            }
-        } else {
-            var lineRanges = [NSRange]()
-            script.enumerateSubstrings(in: NSMakeRange(0, script.length), options: .byLines, using: { (_, lineRange, _, _) in
-                lineRanges.append(lineRange)
-            })
-            for lineRange in lineRanges {
-                if script.substring(with: lineRange).isEmpty {
-                    rangesOfLinesThatHaveTheSameContentThatTheCurrentLine.append(lineRange)
-                }
-            }
-        }
-        
-        var currentLineNumber: Int?
-        
-        var currentLineIndex = 0
-        let lines = textView.text.components(separatedBy: .newlines)
-        for line in lines.enumerated() {
-            if line.element == currentLine {
-                if rangesOfLinesThatHaveTheSameContentThatTheCurrentLine.indices.contains(currentLineIndex), (rangesOfLinesThatHaveTheSameContentThatTheCurrentLine[currentLineIndex].location == currentLineRange.location || rangesOfLinesThatHaveTheSameContentThatTheCurrentLine[currentLineIndex].location == currentLineRange.location-(currentLineRange.length-1)) {
-                    currentLineNumber = line.offset+1
-                    break
-                }
-                currentLineIndex += 1
-            }
-        }
-        
-        guard let currentLineNum = currentLineNumber else {
-            return
-        }
-        
-        if !breakpoints.contains(currentLineNum) {
-            breakpoints.add(currentLineNum)
-            
-            if let textRange = textView.contentTextView.currentLineRange, let eol = textView.contentTextView.textRange(from: textRange.start, to: textRange.end) {
-                let view = UIView()
-                view.backgroundColor = EditorViewController.breakpointColor
-                view.frame.origin.y = textView.contentTextView.firstRect(for: eol).origin.y
-                view.frame.size = CGSize(width: ConsoleViewController.choosenTheme.sourceCodeTheme.font.pointSize, height: ConsoleViewController.choosenTheme.sourceCodeTheme.font.pointSize)
-                view.frame.origin.x = textView.contentTextView.frame.width-view.frame.width
-                view.layer.cornerRadius = view.frame.width/2
                 
-                breakpointMarkers[MarkerPosition(line: currentLineNum, range: eol)] = view
-                
-                textView.contentTextView.addSubview(view)
-            }
-        } else if let index = (breakpoints as? [Int])?.firstIndex(of: currentLineNum) {
-            breakpoints.removeObject(at: index)
-            
-            for marker in breakpointMarkers {
-                if marker.key.line == currentLineNum {
-                    marker.value.removeFromSuperview()
-                    breakpointMarkers[marker.key] = nil
-                    break
+                guard editor.document?.fileURL.path == scriptPath || scriptPath == nil else {
+                    continue
                 }
+                
+                guard currentBreakpoint != nil else {
+                    editor.lastBreakpointFilePath = nil
+                    editor.lastBreakpointLineno = nil
+                    editor.lastBreakpointID = nil
+                    return NotificationCenter.default.post(name: Self.didTriggerBreakpointNotificationName, object: nil, userInfo: [:])
+                }
+                
+                guard currentBreakpoint!.count == 2 else {
+                    continue
+                }
+                
+                guard let filePath = currentBreakpoint![0] as? String, let lineno = currentBreakpoint![1] as? Int else {
+                    continue
+                }
+                
+                guard FileManager.default.fileExists(atPath: filePath) else {
+                    continue
+                }
+                
+                guard BreakpointsStore.breakpoints(for: editor.document!.fileURL).contains(where: { $0.url?.path == filePath && $0.lineno == lineno }) else {
+                    continue
+                }
+                
+                editor.lastBreakpointFilePath = filePath
+                editor.lastBreakpointLineno = lineno
+                editor.lastBreakpointID = id
+                editor.showDebugger(filePath: filePath, lineno: lineno, id: id)
+                
+                break
             }
         }
     }

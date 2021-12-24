@@ -19,13 +19,14 @@ import time
 from extensionsimporter import __UpgradeException__
 import ctypes
 import weakref
+import json
 from types import ModuleType as Module
+import builtins
 
 if "widget" not in os.environ:
     from code import interact, InteractiveConsole
     import importlib.util
     from importlib import reload
-    import builtins
     import pdb
     from colorama import Fore, Back, Style
     from json import dumps
@@ -51,6 +52,7 @@ if "widget" not in os.environ:
     except ImportError:
         pass
 
+namespaces = {}
 
 def displayhook(_value):
     if _value is None:
@@ -338,11 +340,11 @@ if "widget" not in os.environ:
 
     __i__ = 0
 
-    __breakpoints__ = []
+    _breakpoints = []
 
-    __are_breakpoints_set__ = True
+    _are_breakpoints_set = True
 
-    def run_script(path, replMode=False, debug=False, breakpoints=[], runREPL=True, args=[], cwd="/"):
+    def run_script(path, replMode=False, debug=False, breakpoints="[]", runREPL=True, args=[], cwd="/"):
         """
         Run the script at given path catching exceptions.
     
@@ -352,7 +354,7 @@ if "widget" not in os.environ:
             path: The path of the script.
             replMode: If set to `True`, errors will not be handled.
             debug: Set to `True` for debugging.
-            breakpoints: Lines to break if debugging.
+            breakpoints: A list of breakpoints as a JSON array.
             runREPL: Set it to `True` for running the REPL.
             args: The arguments passed to sys.argv.
             cwd: The thread working directory.
@@ -464,8 +466,10 @@ if "widget" not in os.environ:
                     except:
                         import console
 
-                    console.__are_breakpoints_set__ = False
-                    console.__breakpoints__ = breakpoints
+                    console._has_started_debugging = False
+                    console._are_breakpoints_set = False
+                    console._breakpoints = json.loads(breakpoints)
+                    console._are_breakpoints_cleared = False
 
                     console.__i__ = -1
 
@@ -478,21 +482,27 @@ if "widget" not in os.environ:
                         except:
                             import console
 
-                        if not console.__are_breakpoints_set__:
+                        if not console._are_breakpoints_cleared:
+                            console._are_breakpoints_cleared = True
+                            return "clear"
+                        elif not console._are_breakpoints_set:
 
-                            breakpoints = console.__breakpoints__
+                            breakpoints = console._breakpoints
                             console.__i__ += 1
 
-                            if len(breakpoints) < console.__i__:
-                                console.__are_breakpoints_set__ = True
+                            if len(breakpoints) < console.__i__ or len(breakpoints) == 0:
+                                console._are_breakpoints_set = True
                                 return ""
 
                             try:
                                 breakpoints[console.__i__ + 1]
                             except:
-                                console.__are_breakpoints_set__ = True
+                                console._are_breakpoints_set = True
 
-                            return "b " + str(breakpoints[console.__i__])
+                            return "b " + str(breakpoints[console.__i__]["file_path"]) + ":" + str(breakpoints[console.__i__]["lineno"])
+                        elif not console._has_started_debugging:
+                            console._has_started_debugging = True
+                            return "c"
                         else:
                             console.__should_inspect__ = True
                             _input = old_input(prompt)
@@ -600,10 +610,9 @@ if "widget" not in os.environ:
                         except AttributeError:
                             PyOutputHelper.printError(string, script=None)
 
-                    if debug:
-                        pdb.post_mortem(exc_tb)
-
                     return (path, vars(__script__), e)
+            finally:
+                Python.shared.removeScriptFromList(path)
 
             if __isMainApp__():
 
@@ -617,8 +626,6 @@ if "widget" not in os.environ:
         def run_repl(t):
 
             global __repl_threads__
-
-            Python.shared.removeScriptFromList(path)
 
             if path.endswith(".repl.py") or not runREPL:
                 return
@@ -667,8 +674,6 @@ if "widget" not in os.environ:
                 run_repl(t)
             else:
                 _script = t[1]
-
-        Python.shared.removeScriptFromList(path)
 
         sys.path = list(dict.fromkeys(sys.path))  # I don't remember why 😭
 
