@@ -203,10 +203,12 @@ public class EditorSplitViewController: SplitViewController {
             if Python.shared.isScriptRunning(path) {
                 navigationItem.rightBarButtonItems = [
                     editor.stopBarButtonItem,
+                    editor.ellipsisButtonItem,
                 ]
             } else {
                 navigationItem.rightBarButtonItems = [
                     editor.runBarButtonItem,
+                    editor.ellipsisButtonItem,
                 ]
             }
         } else {
