@@ -100,7 +100,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
                 
         #if MAIN
         
-        var code = """
+        let code = """
         import traceback
         import threading
         from pyto import PyOutputHelper, Python, ignored_threads_on_crash
@@ -111,6 +111,11 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         stack = "Traceback (most recent call last):\\n"+stack
         stack += f"\\n\\n{threading.current_thread().name}\(" crashed with signal: \(signalString)")\\n"
 
+        try:
+            Python.shared.removeScriptFromList(threading.current_thread().script_path)
+        except AttributeError:
+            pass
+        
         if threading.current_thread() not in ignored_threads_on_crash:
 
             try:
@@ -762,10 +767,6 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
     @objc public func stop(script: String) {
         if let thread = scriptThreads[script], !Python.shared.tooMuchUsedMemory {
             scriptsAboutToExit.append(script)
-            
-            #if MAIN
-            PyInputHelper.userInput[script] = "<WILL INTERRUPT>"
-            #endif
             
             while let i = Semaphore.sempahores.firstIndex(where: { $0.scriptPath == script }) {
                 Self.Semaphore.sempahores[i].semaphore.signal()
