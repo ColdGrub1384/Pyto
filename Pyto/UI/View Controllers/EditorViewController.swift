@@ -565,6 +565,10 @@ func directory(for scriptURL: URL) -> URL {
         
         ellipsisButtonItem.menu = UIMenu(title: "", image: nil, identifier: nil, options: [], children: [
         
+            UIAction(title: "Run with Arguments", image: UIImage(systemName: "play"), identifier: nil, discoverabilityTitle: "Run with Arguments", attributes: [], state: .off, handler: { [weak self] _ in
+                self?.setArgs(true)
+            }),
+            
             UIAction(title: "Debugger", image: UIImage(systemName: "ant"), identifier: nil, discoverabilityTitle: "Debugger", attributes: [], state: .off, handler: { [weak self] _ in
                 self?.debug()
             }),

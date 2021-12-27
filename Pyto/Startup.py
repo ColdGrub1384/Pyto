@@ -251,6 +251,33 @@ try:
         def __str__(self):
             return str(self.get_path())
     
+    class SysArgv(collections.abc.MutableSequence):
+
+        def __init__(self, argv):
+            self.argv = argv
+
+        def get_argv(self):
+            thread = threading.current_thread()
+            if "script_path" in dir(thread):
+                return sys.modules["sys"].argv
+            else:
+                return self.argv
+
+        def __len__(self): return len(self.get_argv())
+
+        def __getitem__(self, i): return self.get_argv()[i]
+
+        def __delitem__(self, i): del self.get_argv()[i]
+
+        def __setitem__(self, i, v):
+            self.get_argv()[i] = v
+
+        def insert(self, i, v):
+            self.get_argv().insert(i, v)
+
+        def __str__(self):
+            return str(self.get_argv())
+    
     class Sys(sys.__class__):
     
         instances = {}
@@ -261,6 +288,7 @@ try:
             self.sys = sys
             self.sys.__path__ = self.sys.path
             self.sys.path = SysPath(self.sys.path)
+            self.sys.argv = SysArgv(self.sys.argv)
         
         def __dir__(self):
             return dir(self.sys)

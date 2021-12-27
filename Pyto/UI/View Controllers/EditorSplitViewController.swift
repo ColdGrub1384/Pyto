@@ -154,7 +154,7 @@ public class EditorSplitViewController: SplitViewController {
     
     /// Show documentation.
     @objc func showDocs() {
-        editor?.showDocs(editor!.ellipsisButtonItem)
+        editor?.showDocs(editor!.ellipsisButtonItem!)
     }
     
     /// Runs code with arguments.
