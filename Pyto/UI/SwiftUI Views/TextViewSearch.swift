@@ -161,24 +161,15 @@ struct TextViewSearch: View {
     
     func replace(all: Bool) {
         
-        var result = searchResults.first
-        while result != nil {
-            
-            guard let lineRange = result?.lineRange, let range = result?.foundTextRange else {
-                continue
-            }
-            
-            let newLine = (((textView.text as NSString).substring(with: lineRange)) as NSString).replacingCharacters(in: range, with: replaceText)
-            
-            textView.text = (textView.text as NSString).replacingCharacters(in: lineRange, with: newLine)
-            updateResults()
-            result = searchResults.first
-            if !all {
-                break
-            }
+        if all {
+            textView.text = textView.text.replacingOccurrences(of: search, with: replaceText, options: caseSensitive ? [] : [.caseInsensitive])
+        } else {
+            textView.text = textView.text.replacingFirstOccurrence(of: search, with: replaceText, options: caseSensitive ? [] : [.caseInsensitive])
         }
         
         replaceText = ""
+        
+        updateResults()
     }
     
     var body: some View {

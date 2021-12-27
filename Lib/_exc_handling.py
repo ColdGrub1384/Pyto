@@ -1,6 +1,7 @@
 import traceback
 import json
 import ctypes
+import os
 
 offer_suggestion_prototype = ctypes.PYFUNCTYPE(    
     ctypes.c_char_p,                
@@ -8,14 +9,18 @@ offer_suggestion_prototype = ctypes.PYFUNCTYPE(
 )
 offer_suggestion = offer_suggestion_prototype(('_offer_suggestions', ctypes.CDLL(None)))
 
-def main():
-    return 0/0
+
+class Breakpoint(BaseException):
+    pass
+
 
 def get_json(tb, exc, text, remove, offset=0, end_offset=0):
         
-    tb_exc = traceback.TracebackException(exc.__class__, exc, tb)
-    
-    msg = " ".join(tb_exc.format_exception_only())
+    if isinstance(tb, list): # tb can be a traceback or a list of frames
+        msg = ""
+    else:
+        tb_exc = traceback.TracebackException(exc.__class__, exc, tb)
+        msg = " ".join(tb_exc.format_exception_only())
     
     try:
         msg = exc.msg
@@ -50,13 +55,20 @@ def get_json(tb, exc, text, remove, offset=0, end_offset=0):
     
     stack_json = []
     
-    stack = traceback.extract_tb(tb)
+    if isinstance(tb, list):
+        stack = tb
+    else:
+        stack = traceback.extract_tb(tb)
 
     for _ in range(remove):
         del stack[0]
 
     try:
-        while len(stack) > 0 and stack[0].filename.endswith("/Lib/console.py") or stack[0].filename.startswith("<frozen importlib"):
+        if isinstance(tb, list):
+            stack_filename = os.path.abspath(stack[0].f_code.co_filename)
+        else:
+            stack_filename = stack[0].filename
+        while len(stack) > 0 and stack_filename.endswith("/Lib/console.py") or stack_filename.startswith("<frozen importlib"):
             del stack[0]
     except IndexError:
         pass
@@ -69,13 +81,34 @@ def get_json(tb, exc, text, remove, offset=0, end_offset=0):
     stack.reverse()
     i = 0
     for frame in stack:
-        stack_json.append({
-            "file_path": frame.filename,
-            "lineno": frame.lineno,
-            "line": frame.line,
-            "name": frame.name,
-            "index": i
-        })
+        if isinstance(tb, list):
+            
+            path = os.path.abspath(frame.f_code.co_filename)
+            line = ""
+            try:
+                with open(path, "r", encoding="utf-8") as f:
+                    line = f.read().split("\n")[frame.f_lineno-1]
+            except (FileNotFoundError, IndexError):
+                pass
+            
+            while line.startswith(" ") or line.startswith("\t"):
+                line = line[1:]
+
+            stack_json.append({
+                "file_path": path,
+                "lineno": frame.f_lineno,
+                "line": line,
+                "name": frame.f_code.co_name,
+                "index": i
+            })
+        else:
+            stack_json.append({
+                "file_path": frame.filename,
+                "lineno": frame.lineno,
+                "line": frame.line,
+                "name": frame.name,
+                "index": i
+            })
         i += 1
     
     traceback_json["stack"] = stack_json

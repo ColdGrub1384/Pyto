@@ -342,12 +342,23 @@ func directory(for scriptURL: URL) -> URL {
             return
         }
         
-        let excView = ExceptionView(traceback: traceback, editor: self)
+        let excView = NavigationView {
+            ExceptionView(traceback: traceback, editor: self)
+        }.navigationViewStyle(.stack)
         let vc = UIHostingController(rootView: excView)
         vc.modalPresentationStyle = .formSheet
         if #available(iOS 15.0, *) {
             vc.sheetPresentationController?.detents = [.medium(), .large()]
             vc.sheetPresentationController?.prefersGrabberVisible = true
+        }
+        
+        let console = (parent as? EditorSplitViewController)?.console
+        if console?.movableTextField?.textField.isFirstResponder == true {
+            console?.movableTextField?.textField.resignFirstResponder()
+        }
+        
+        if textView.isFirstResponder {
+            textView.resignFirstResponder()
         }
         
         present(vc, animated: true, completion: nil)
@@ -1243,7 +1254,7 @@ func directory(for scriptURL: URL) -> URL {
     
     /// Debugs script.
     @objc func debug() {
-        showDebugger(filePath: lastBreakpointFilePath, lineno: lastBreakpointLineno, id: lastBreakpointID)
+        showDebugger(filePath: lastBreakpointFilePath, lineno: lastBreakpointLineno, tracebackJSON: lastTracebackJSON, id: lastBreakpointID)
     }
     
     private class DebuggerHostingController: UIHostingController<AnyView> {}
@@ -1258,27 +1269,30 @@ func directory(for scriptURL: URL) -> URL {
     
     private var lastBreakpointID: String?
     
-    func showDebugger(filePath: String?, lineno: Int?, id: String?) {
+    private var lastTracebackJSON: String?
+    
+    func showDebugger(filePath: String?, lineno: Int?, tracebackJSON: String?, id: String?) {
         let vc: DebuggerHostingController
         if #available(iOS 15.0, *) {
                         
             let runningBreakpoint: Breakpoint?
-            if let filePath = filePath, let lineno = lineno {
+            if let filePath = filePath, let lineno = lineno, let json = tracebackJSON {
                 lastBreakpointFilePath = filePath
                 lastBreakpointLineno = lineno
+                lastTracebackJSON = json
                 runningBreakpoint = try? Breakpoint(url: URL(fileURLWithPath: filePath), lineno: lineno)
             } else {
                 runningBreakpoint = nil
             }
             
             guard !(presentedViewController is DebuggerHostingController) else {
-                NotificationCenter.default.post(name: Self.didTriggerBreakpointNotificationName, object: runningBreakpoint, userInfo: ["id": id ?? ""])
+                NotificationCenter.default.post(name: Self.didTriggerBreakpointNotificationName, object: runningBreakpoint, userInfo: ["id": id ?? "", "traceback": tracebackJSON ?? ""])
                 return
             }
             
             vc = DebuggerHostingController(rootView: AnyView(BreakpointsView(fileURL: document!.fileURL, id: id, run: {
                 self.runScript(debug: true)
-            }, runningBreakpoint: runningBreakpoint)))
+            }, runningBreakpoint: runningBreakpoint, tracebackJSON: tracebackJSON).environment(\.editor, self)))
         } else {
             vc = DebuggerHostingController(rootView: AnyView(Text("The debugger requires iOS / iPadOS 15+.")))
         }
@@ -1670,7 +1684,7 @@ func directory(for scriptURL: URL) -> URL {
     // MARK: - Breakpoints
     
     /// The current breakpoint. An array containing the file path and the line number
-    @objc static func setCurrentBreakpoint(_ currentBreakpoint: NSArray?, id: String, scriptPath: String?) {
+    @objc static func setCurrentBreakpoint(_ currentBreakpoint: NSArray?, tracebackJSON: String?, id: String, scriptPath: String?) {
         DispatchQueue.main.async {
             for console in ConsoleViewController.visibles {
                 guard let editor = console.editorSplitViewController?.editor else {
@@ -1685,6 +1699,7 @@ func directory(for scriptURL: URL) -> URL {
                     editor.lastBreakpointFilePath = nil
                     editor.lastBreakpointLineno = nil
                     editor.lastBreakpointID = nil
+                    editor.lastTracebackJSON = nil
                     return NotificationCenter.default.post(name: Self.didTriggerBreakpointNotificationName, object: nil, userInfo: [:])
                 }
                 
@@ -1707,7 +1722,8 @@ func directory(for scriptURL: URL) -> URL {
                 editor.lastBreakpointFilePath = filePath
                 editor.lastBreakpointLineno = lineno
                 editor.lastBreakpointID = id
-                editor.showDebugger(filePath: filePath, lineno: lineno, id: id)
+                editor.lastTracebackJSON = tracebackJSON
+                editor.showDebugger(filePath: filePath, lineno: lineno, tracebackJSON: tracebackJSON, id: id)
                 
                 break
             }

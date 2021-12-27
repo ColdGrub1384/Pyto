@@ -76,12 +76,15 @@ struct BreakpointsView: View {
     
     @State var isRunning = false
     
+    @State var tracebackJSON: String?
+    
     var run: () -> ()
     
-    init(fileURL: URL, id: String?, run: @escaping () -> (), runningBreakpoint: Breakpoint?) {
+    init(fileURL: URL, id: String?, run: @escaping () -> (), runningBreakpoint: Breakpoint?, tracebackJSON: String?) {
         self.fileURL = fileURL
         self._id = .init(initialValue: id)
         self.run = run
+        self._tracebackJSON = .init(initialValue: tracebackJSON)
         self._runningBreakpoint = .init(initialValue: runningBreakpoint)
     }
     
@@ -89,7 +92,7 @@ struct BreakpointsView: View {
         NavigationView {
             List {
                 ForEach(files, id: \.path) { script in
-                    BreakpointsScriptView(runningBreakpoint: $runningBreakpoint, script: script, breakpoints: breakpoints(script: script), id: $id, update: update, removeFile: {
+                    BreakpointsScriptView(runningBreakpoint: $runningBreakpoint, script: script, breakpoints: breakpoints(script: script), tracebackJSON: tracebackJSON, id: $id, update: update, removeFile: {
                         remove(file: $0)
                     }, removeBreakpoint: {
                         remove(breakpoint: $0)
@@ -128,8 +131,12 @@ struct BreakpointsView: View {
             }.onReceive(NotificationCenter.Publisher(center: .default, name: EditorViewController.didTriggerBreakpointNotificationName, object: nil)) { notif in
                 runningBreakpoint = notif.object as? Breakpoint
                 
-                if let id = notif.userInfo?["id"] as? String {
+                if let id = notif.userInfo?["id"] as? String, !id.isEmpty {
                     self.id = id
+                }
+                
+                if let json = notif.userInfo?["traceback"] as? String, !json.isEmpty {
+                    self.tracebackJSON = json
                 }
             }
         }.navigationViewStyle(.stack).onAppear { 

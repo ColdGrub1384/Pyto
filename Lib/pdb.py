@@ -89,6 +89,7 @@ import weakref
 
 if "widget" not in os.environ and not "sphinx" in sys.modules:
     from pyto import EditorViewController
+    import _exc_handling
 
 
 class Restart(Exception):
@@ -303,7 +304,15 @@ class Pdb(bdb.Bdb, cmd.Cmd):
             frame.f_locals["__namespace__"] = holder
             console.namespaces[_id] = weakref.ref(holder)
             
-            EditorViewController.setCurrentBreakpoint([os.path.abspath(frame.f_code.co_filename), frame.f_lineno], id=_id, scriptPath=script_path)
+            frames = []
+            last_frame = frame
+            while last_frame is not None:
+                frames.append(last_frame)
+                last_frame = last_frame.f_back
+            
+            frames.reverse()
+            tb_json = _exc_handling.get_json(frames, _exc_handling.Breakpoint(), "", 10)
+            EditorViewController.setCurrentBreakpoint([os.path.abspath(frame.f_code.co_filename), frame.f_lineno], tracebackJSON=tb_json, id=_id, scriptPath=script_path)
         if self._wait_for_mainpyfile:
             if (
                 self.mainpyfile != self.canonic(frame.f_code.co_filename)
@@ -1834,7 +1843,7 @@ def main(argv=sys.argv):
             except AttributeError:
                 script_path = None
 
-            EditorViewController.setCurrentBreakpoint(None, id=None, scriptPath=script_path)
+            EditorViewController.setCurrentBreakpoint(None, id=None, tracebackJSON=None, scriptPath=script_path)
 
             break
         except Restart:

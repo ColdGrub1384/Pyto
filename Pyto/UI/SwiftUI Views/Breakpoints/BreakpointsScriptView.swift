@@ -1,5 +1,16 @@
 import SwiftUI
 
+struct EditorKey: EnvironmentKey {
+    static let defaultValue: EditorViewController? = nil
+}
+
+extension EnvironmentValues {
+    var editor: EditorViewController? {
+      get { self[EditorKey.self] }
+      set { self[EditorKey.self] = newValue }
+    }
+}
+
 @available(iOS 15.0, *)
 struct BreakpointsScriptView: View {
     
@@ -12,6 +23,8 @@ struct BreakpointsScriptView: View {
     var script: URL
     
     var breakpoints: [Breakpoint]
+    
+    var tracebackJSON: String?
     
     @Binding var id: String?
     
@@ -57,6 +70,8 @@ struct BreakpointsScriptView: View {
         
         var scriptURL: URL
         
+        var tracebackJSON: String?
+        
         @State var areLocalsExpanded = true
         
         @State var areGlobalsExpanded = false
@@ -67,7 +82,11 @@ struct BreakpointsScriptView: View {
         
         @State var isShowingREPL = false
         
+        @State var isShowingStackTrace = false
+        
         @Environment(\.dismiss) var dismiss
+        
+        @Environment(\.editor) var editor
         
         struct LocalsAndGlobalsREPL: UIViewControllerRepresentable {
             
@@ -94,6 +113,16 @@ struct BreakpointsScriptView: View {
                     Text("")
                 }.opacity(0)
                 
+                NavigationLink(isActive: $isShowingStackTrace) {
+                    if let data = tracebackJSON?.data(using: .utf8), let traceback = try? JSONDecoder().decode(Traceback.self, from: data), let editor = editor {
+                        ExceptionView(traceback: traceback, editor: editor)
+                    } else {
+                        EmptyView()
+                    }
+                } label: {
+                    Text("")
+                }.opacity(0)
+                
                 Color(UIColor.systemGroupedBackground)
                 
                 VStack {
@@ -112,6 +141,17 @@ struct BreakpointsScriptView: View {
                                 Text("Resume")
                             }.frame(width: 70)
                         }.padding(.trailing, 2)
+                        
+                        if tracebackJSON != nil {
+                            Button {
+                                isShowingStackTrace = true
+                            } label: {
+                                VStack {
+                                    Image(systemName: "rectangle.stack.fill")
+                                    Text("Stack")
+                                }.frame(width: 70)
+                            }.padding(.leading, 2)
+                        }
                         
                         Button {
                             if repl == nil && id != nil {
@@ -157,7 +197,7 @@ struct BreakpointsScriptView: View {
                     
                     if isRunning(breakpoint: breakpoint) {
                         NavigationLink(isActive: $isShowingRunningBreakpoint) {
-                            StoppedView(breakpoint: breakpoint, scriptURL: script, id: $id).navigationBarTitleDisplayMode(.inline)
+                            StoppedView(breakpoint: breakpoint, scriptURL: script, tracebackJSON: tracebackJSON, id: $id).navigationBarTitleDisplayMode(.inline)
                         } label: {
                             Text("").opacity(0)
                         }

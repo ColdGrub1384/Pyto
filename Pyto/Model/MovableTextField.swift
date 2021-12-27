@@ -39,6 +39,10 @@ class TerminalTextField: UITextField {
         print("Do nothing")
     }
     
+    override var canBecomeFirstResponder: Bool {
+        console?.presentedViewController == nil
+    }
+    
     var pipBarButtonItem: UIBarButtonItem!
     
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {

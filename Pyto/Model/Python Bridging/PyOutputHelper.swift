@@ -233,7 +233,14 @@ fileprivate extension ConsoleViewController {
             }
             #endif
             
-            console.printLink(text: ShortenFilePaths(in: text), link: url)
+            var _text = text
+            if _text.hasSuffix("\n") {
+                _text.removeLast()
+            }
+            console.printLink(text: ShortenFilePaths(in: _text), link: url)
+            if text.hasSuffix("\n") {
+                console.print("\n")
+            }
             
         }
         #endif

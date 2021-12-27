@@ -30,10 +30,11 @@ extension String {
     /// - Parameters:
     ///     - string: String to replace.
     ///     - replacement: Replacement of `string`.
+    ///     - options: Compare options.
     ///
     /// - Returns: This string replacing the first occurrence of `string` with `replacement`.
-    func replacingFirstOccurrence(of string: String, with replacement: String) -> String {
-        guard let range = self.range(of: string) else { return self }
+    func replacingFirstOccurrence(of string: String, with replacement: String, options: CompareOptions = []) -> String {
+        guard let range = self.range(of: string, options: options) else { return self }
         return replacingCharacters(in: range, with: replacement)
     }
     

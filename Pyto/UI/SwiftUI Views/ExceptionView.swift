@@ -359,13 +359,13 @@ struct ExceptionView: View {
     }
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                if colorScheme == .light {
-                    Color(UIColor.secondarySystemBackground).ignoresSafeArea()
-                }
-                
-                VStack {
+        ZStack {
+            if colorScheme == .light {
+                Color(UIColor.secondarySystemBackground).ignoresSafeArea()
+            }
+            
+            VStack {
+                if !message.isEmpty {
                     HStack {
                         if #available(iOS 15.0, *) {
                             Text(ShortenFilePaths(in: message)).foregroundColor(.red).textSelection(.enabled)
@@ -374,71 +374,73 @@ struct ExceptionView: View {
                         }
                         Spacer()
                     }.padding()
-                    
-                    ScrollView {
-                        VStack {
-                            ForEach(traceback.stack) { frame in
-                                
-                                VStack {
-                                    Traceback.Frame.FrameView(frame: frame, handler: { frame in
-                                        #if MAIN
+                }
+                
+                ScrollView {
+                    VStack {
+                        ForEach(traceback.stack) { frame in
+                            
+                            VStack {
+                                Traceback.Frame.FrameView(frame: frame, handler: { frame in
+                                    #if MAIN
 
-                                        guard FileManager.default.fileExists(atPath: frame.file_path) else {
-                                            return
-                                        }
+                                    guard FileManager.default.fileExists(atPath: frame.file_path) else {
+                                        return
+                                    }
 
-                                        show(url: URL(fileURLWithPath: frame.file_path)) { editor in
-                                            let text = (editor.textView.text as NSString)
-                                            let range = NSRange(location: 0, length: text.length)
+                                    show(url: URL(fileURLWithPath: frame.file_path)) { editor in
+                                        let text = (editor.textView.text as NSString)
+                                        let range = NSRange(location: 0, length: text.length)
+                                        
+                                        var i = 1
+                                        text.enumerateSubstrings(in: range, options: .byLines) { _, range, _, `continue` in
                                             
-                                            var i = 1
-                                            text.enumerateSubstrings(in: range, options: .byLines) { _, range, _, `continue` in
+                                            if i == frame.lineno {
+                                                let endRange = NSRange(location: range.location+range.length, length: 0)
                                                 
-                                                if i == frame.lineno {
-                                                    let endRange = NSRange(location: range.location+range.length, length: 0)
-                                                    
-                                                    editor.textView.selectedRange = endRange
-                                                    editor.textView.becomeFirstResponder()
-                                                    `continue`.pointee = true
-                                                }
-                                                
-                                                i += 1
+                                                editor.textView.selectedRange = endRange
+                                                editor.textView.becomeFirstResponder()
+                                                `continue`.pointee = true
                                             }
-                                        }
-                                        #endif
-                                    }).foregroundColor(.primary)
-                                    
-                                    if frame.index == 0, traceback.suggestion != nil || shouldInsertComma {
-                                        HStack {
-                                            if shouldInsertComma {
-                                                Text("Perhaps you forgot a comma?").foregroundColor(.red)
-                                            } else if let suggestion = traceback.suggestion {
-                                                (Text("Did you mean ") + Text(suggestion).bold() + Text("?")).foregroundColor(.red)
-                                            }
-                                            Spacer()
-                                            if #available(iOS 15.0, *) {
-                                                Button {
-                                                    fixIt(frame: frame)
-                                                } label: {
-                                                    Text("Fix it")
-                                                }.tint(Color.red).buttonStyle(BorderedButtonStyle())
-                                            } else {
-                                                Button {
-                                                    fixIt(frame: frame)
-                                                } label: {
-                                                    Text("Fix it")
-                                                }.accentColor(Color.red)
-                                            }
+                                            
+                                            i += 1
                                         }
                                     }
-                                    
-                                    Divider()
+                                    #endif
+                                }).foregroundColor(.primary)
+                                
+                                if frame.index == 0, traceback.suggestion != nil || shouldInsertComma {
+                                    HStack {
+                                        if shouldInsertComma {
+                                            Text("Perhaps you forgot a comma?").foregroundColor(.red)
+                                        } else if let suggestion = traceback.suggestion {
+                                            (Text("Did you mean ") + Text(suggestion).bold() + Text("?")).foregroundColor(.red)
+                                        }
+                                        Spacer()
+                                        if #available(iOS 15.0, *) {
+                                            Button {
+                                                fixIt(frame: frame)
+                                            } label: {
+                                                Text("Fix it")
+                                            }.tint(Color.red).buttonStyle(BorderedButtonStyle())
+                                        } else {
+                                            Button {
+                                                fixIt(frame: frame)
+                                            } label: {
+                                                Text("Fix it")
+                                            }.accentColor(Color.red)
+                                        }
+                                    }
                                 }
+                                
+                                Divider()
+                            }
 
-                            }.padding(.horizontal)
-                        }
+                        }.padding(.horizontal)
                     }
-                    
+                }
+                
+                if traceback.exc_type != "Breakpoint" {
                     HStack {
                         if horizontalSizeClass == .compact {
                             Spacer()
@@ -446,22 +448,22 @@ struct ExceptionView: View {
                         }
                     }
                 }
-            }.toolbar {
-                ToolbarItemGroup(placement: .principal) {
-                    HStack {
-                        Image(systemName: "exclamationmark.triangle.fill").font(.title2)
-                        Text(traceback.exc_type).bold().font(Font.custom(Self.viewUIFont.familyName, size: UIFont.preferredFont(forTextStyle: .title2).pointSize))
-                        Spacer()
-                    }.foregroundColor(.red)
+            }
+        }.toolbar {
+            ToolbarItemGroup(placement: .principal) {
+                HStack {
+                    Image(systemName: traceback.exc_type == "Breakpoint" ? "arrowtriangle.forward.fill" : "exclamationmark.triangle.fill").font(.title2)
+                    Text(traceback.exc_type).bold().font(Font.custom(Self.viewUIFont.familyName, size: UIFont.preferredFont(forTextStyle: .title2).pointSize))
+                    Spacer()
+                }.foregroundColor(traceback.exc_type == "Breakpoint" ? .green : .red)
+            }
+            
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                if horizontalSizeClass == .regular && traceback.exc_type != "Breakpoint" {
+                    printTracebackButton
                 }
-                
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    if horizontalSizeClass == .regular {
-                        printTracebackButton
-                    }
-                }
-            }.font(Self.viewFont).navigationBarTitleDisplayMode(.inline)
-        }.navigationViewStyle(.stack)
+            }
+        }.font(Self.viewFont).navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -471,11 +473,14 @@ struct ExceptionView_Previews: PreviewProvider {
     
     static var previews: some View {
         #if MAIN
-        ExceptionView(traceback: traceback, editor: EditorViewController(document: PyDocument(fileURL: URL(fileURLWithPath: "/script.py"))))
+        NavigationView {
+            ExceptionView(traceback: traceback, editor: EditorViewController(document: PyDocument(fileURL: URL(fileURLWithPath: "/script.py"))))
+        }.navigationViewStyle(.stack)
         #else
-        ExceptionView(traceback: traceback)
-            .preferredColorScheme(.light)
-            
+        NavigationView {
+            ExceptionView(traceback: traceback)
+                .preferredColorScheme(.light)
+        }.navigationViewStyle(.stack)
         #endif
     }
 }
