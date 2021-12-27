@@ -420,26 +420,20 @@ func directory(for scriptURL: URL) -> URL {
     /// The Mac toolbar item for running the script.
     var runToolbarItem: NSObject?
     
+    /// The button item that shows the menu.
+    var ellipsisButtonItem: UIBarButtonItem!
+    
     /// The bar button item for running script.
     var runBarButtonItem: UIBarButtonItem!
     
     /// The bar button item for stopping script.
     var stopBarButtonItem: UIBarButtonItem!
     
-    /// The bar button item for showing docs.
-    var docItem: UIBarButtonItem!
-    
-    /// The bar button item for sharing the script.
-    var shareItem: UIBarButtonItem!
-    
     /// Button for searching for text in the editor.
     var searchItem: UIBarButtonItem!
     
     /// Button for going back to scripts.
     var scriptsItem: UIBarButtonItem!
-    
-    /// Button for debugging script.
-    var debugItem: UIBarButtonItem!
     
     /// The button for seeing definitions.
     var definitionsItem: UIBarButtonItem!
@@ -538,11 +532,57 @@ func directory(for scriptURL: URL) -> URL {
             return
         }
         
+        guard document != nil else {
+            return
+        }
+        
         #if targetEnvironment(simulator)
         let isPIPSupported = true
         #else
-        let isPIPSupported = AVPictureInPictureController.isPictureInPictureSupported()
+        let isPIPSupported: Bool
+        if #available(iOS 15.0, *) {
+            isPIPSupported = AVPictureInPictureController.isPictureInPictureSupported()
+        } else {
+            isPIPSupported = false
+        }
         #endif
+        
+        let unlockButtonItem = UIBarButtonItem(image: UIImage(systemName: "lock.fill"), style: .plain, target: self, action: #selector(setCwd(_:)))
+        
+        if ellipsisButtonItem == nil {
+            ellipsisButtonItem = UIBarButtonItem(title: nil, image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: nil)
+        }
+        
+        let pipController: AVPictureInPictureController?
+        if #available(iOS 15.0, *) {
+            pipController = (parent as? EditorSplitViewController)?.console?.pipTextView.pictureInPictureController
+        } else {
+            pipController = nil
+        }
+        
+        makeDocsIfNeeded()
+        let documentationMenu = (documentationNavigationController?.viewControllers.first as? DocumentationViewController)?.makeDocumentationMenu()
+        
+        ellipsisButtonItem.menu = UIMenu(title: "", image: nil, identifier: nil, options: [], children: [
+        
+            UIAction(title: "Debugger", image: UIImage(systemName: "ant"), identifier: nil, discoverabilityTitle: "Debugger", attributes: [], state: .off, handler: { [weak self] _ in
+                self?.debug()
+            }),
+            
+        ] + ((documentationMenu != nil) ? [documentationMenu!] : []) + [UIAction(title: "Runtime", image: UIImage(systemName: "gear"), identifier: nil, discoverabilityTitle: "Runtime", attributes: [], state: .off, handler: { [weak self] action in
+            self?.showRuntimeSettings(action)
+        })] + (!isPIPSupported ? [] : [UIAction(title: (pipController?.isPictureInPictureActive == true) ? "Exit PIP" : "Enter PIP", image: UIImage(systemName: "pip.enter"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] _ in
+            
+            self?.togglePIP()
+        })]) + [
+            UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up"), identifier: nil, discoverabilityTitle: "Share", attributes: [], state: .off, handler: { [weak self] _ in
+                self?.share(self!.ellipsisButtonItem)
+            }),
+            
+            UIAction(title: "Editor Actions", image: UIImage(systemName: "pencil"), identifier: nil, discoverabilityTitle: "Editor Actions", attributes: [], state: .off, handler: { [weak self] _ in
+                self?.showEditorScripts(self!.ellipsisButtonItem!)
+            })
+        ])
         
         runBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(run))
         stopBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "stop.fill"), style: .plain, target: self, action: #selector(stop))
@@ -558,7 +598,6 @@ func directory(for scriptURL: URL) -> URL {
         
         let debugButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         debugButton.addTarget(self, action: #selector(debug), for: .touchUpInside)
-        debugItem = UIBarButtonItem(image: EditorSplitViewController.debugImage, style: .plain, target: self, action: #selector(debug))
         
         let scriptsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         scriptsButton.setImage(EditorSplitViewController.gridImage, for: .normal)
@@ -578,25 +617,18 @@ func directory(for scriptURL: URL) -> URL {
         }
         searchButton.addTarget(self, action: #selector(search), for: .touchUpInside)
         searchItem = UIBarButtonItem(customView: searchButton)
-        
-        docItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showDocs(_:)))
-        shareItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share(_:)))
-        let moreItem = UIBarButtonItem(image: EditorSplitViewController.threeDotsImage, style: .plain, target: self, action: #selector(showEditorScripts(_:)))
-        let runtimeItem = UIBarButtonItem(image: EditorSplitViewController.gearImage, style: .plain, target: self, action: #selector(showRuntimeSettings(_:)))
-        
+                
         if !(parent is REPLViewController) && !(parent is RunModuleViewController) && !(parent is PipInstallerViewController), (parent as? EditorSplitViewController)?.isConsoleShown != true {
             
             if document?.fileURL.pathExtension.lowercased() == "py" {
                 if let path = document?.fileURL.path, Python.shared.isScriptRunning(path) {
                     parentNavigationItem?.rightBarButtonItems = [
                         stopBarButtonItem,
-                        debugItem,
-                    ]+((traceback != nil) ? [showTracebackItem] : [])
+                    ]+((traceback != nil) ? [showTracebackItem] : [])+(!FileManager.default.isReadableFile(atPath: document!.fileURL.deletingLastPathComponent().path) ? [unlockButtonItem] : [])+[ellipsisButtonItem]
                 } else {
                     parentNavigationItem?.rightBarButtonItems = [
                         runBarButtonItem,
-                        debugItem,
-                    ]+((traceback != nil) ? [showTracebackItem] : [])
+                    ]+((traceback != nil) ? [showTracebackItem] : [])+(!FileManager.default.isReadableFile(atPath: document!.fileURL.deletingLastPathComponent().path) ? [unlockButtonItem] : [])+[ellipsisButtonItem]
                 }
                 
                 if #available(iOS 15, *) {
@@ -635,52 +667,13 @@ func directory(for scriptURL: URL) -> URL {
         let space = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         space.width = 10
         
-        if !(parent is REPLViewController) && !(parent is PipInstallerViewController) && !(parent is RunModuleViewController) {
-            parent?.navigationController?.isToolbarHidden = (parent as? EditorSplitViewController)?.console?.movableTextField?.textField.isFirstResponder == true
-        } else {
-            parent?.navigationController?.isToolbarHidden = true
-        }
-        
-        if document?.fileURL.pathExtension.lowercased() == "py" {
-            if #available(iOS 13.0, *), !FileManager.default.isReadableFile(atPath: currentDirectory.path) {
-                parentVC?.toolbarItems = [
-                    shareItem,
-                    moreItem,
-                    space,
-                    docItem,
-                    UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-                    UIBarButtonItem(image: UIImage(systemName: "lock.fill"), style: .plain, target: self, action: #selector(setCwd(_:))),
-                ]+( isPIPSupported ? [pipItem, runtimeItem] : [runtimeItem] )
-            } else {
-                parentVC?.toolbarItems = [
-                    shareItem,
-                    moreItem,
-                    space,
-                    docItem,
-                    UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-                ]+( isPIPSupported ? [pipItem, runtimeItem] : [runtimeItem] )
-            }
-        } else {
-            if document?.fileURL.pathExtension.lowercased() == "html" {
-                parentVC?.toolbarItems = [shareItem, moreItem, docItem, UIBarButtonItem(systemItem: .flexibleSpace), runtimeItem]
-            } else {
-                parentVC?.toolbarItems = [shareItem, moreItem, docItem]
-            }
-        }
-        
         if #available(iOS 15.0, *) {
             let appearance = UINavigationBarAppearance()
             appearance.configureWithOpaqueBackground()
             appearance.backgroundColor = .secondarySystemBackground
             
-            let toolbarAppearance = UIToolbarAppearance()
-            toolbarAppearance.configureWithOpaqueBackground()
-            toolbarAppearance.backgroundColor = .secondarySystemBackground
-            
             navigationController?.navigationBar.standardAppearance = appearance
             navigationController?.navigationBar.scrollEdgeAppearance = appearance
-            navigationController?.toolbar.standardAppearance = toolbarAppearance
-            navigationController?.toolbar.scrollEdgeAppearance = toolbarAppearance
         }
         
         NotificationCenter.default.post(name: Self.didUpdateBarItemsNotificationName, object: nil)
@@ -733,8 +726,9 @@ func directory(for scriptURL: URL) -> URL {
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardDidHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         textView.contentTextView.isEditable = !isSample
     }
@@ -852,12 +846,6 @@ func directory(for scriptURL: URL) -> URL {
             }
         }
         
-        if !(parent is REPLViewController) && !(parent is PipInstallerViewController) && !(parent is RunModuleViewController) {
-            parent?.navigationController?.isToolbarHidden = false
-        } else {
-            parent?.navigationController?.isToolbarHidden = true
-        }
-        
         setBarItems()
     }
     
@@ -877,8 +865,6 @@ func directory(for scriptURL: URL) -> URL {
         super.viewWillDisappear(animated)
         
         save()
-        
-        parent?.navigationController?.isToolbarHidden = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -1530,16 +1516,23 @@ func directory(for scriptURL: URL) -> URL {
         }
     }
     
+    private func makeDocsIfNeeded() {
+        if documentationNavigationController == nil || documentationNavigationController?.viewControllers.count == 0 {
+            documentationNavigationController = UINavigationController(rootViewController: DocumentationViewController())
+            let docVC = documentationNavigationController?.viewControllers.first as? DocumentationViewController
+            docVC?.editor = self
+            docVC?.loadViewIfNeeded()
+        }
+    }
+    
     /// Shows documentation
-    @objc func showDocs(_ sender: UIBarButtonItem) {
+    @objc func showDocs(_ sender: Any) {
         
         guard presentedViewController == nil else {
             return
         }
         
-        if documentationNavigationController == nil || documentationNavigationController?.viewControllers.count == 0 {
-            documentationNavigationController = UINavigationController(rootViewController: DocumentationViewController())
-        }
+        makeDocsIfNeeded()
         documentationNavigationController?.view.backgroundColor = .systemBackground
         present(documentationNavigationController!, animated: true, completion: nil)
     }
@@ -1733,12 +1726,41 @@ func directory(for scriptURL: URL) -> URL {
     
     // MARK: - Keyboard
     
-    /// Resize `textView`.
+    private var previousConstraintValue: CGFloat?
+    
     @objc func keyboardDidShow(_ notification:Notification) {
     }
     
-    /// Set `textView` to the default size.
     @objc func keyboardWillHide(_ notification:Notification) {
+        if EditorSplitViewController.shouldShowConsoleAtBottom, let previousConstraintValue = previousConstraintValue {
+            
+            let splitVC = parent as? EditorSplitViewController
+            let constraint = (splitVC?.firstViewHeightRatioConstraint?.isActive == true) ? splitVC?.firstViewHeightRatioConstraint : splitVC?.firstViewHeightConstraint
+            
+            constraint?.constant = previousConstraintValue
+            self.previousConstraintValue = nil
+        }
+    }
+    
+    @objc func keyboardWillShow(_ notification:Notification) {
+        guard let height = (notification.userInfo?["UIKeyboardBoundsUserInfoKey"] as? CGRect)?.height, height > 100 else { // Only software keyboard
+            return
+        }
+        
+        let splitVC = parent as? EditorSplitViewController
+        
+        if EditorSplitViewController.shouldShowConsoleAtBottom && textView.isFirstResponder {
+            
+            splitVC?.firstViewHeightRatioConstraint?.isActive = false
+            let constraint = (splitVC?.firstViewHeightRatioConstraint?.isActive == true) ? splitVC?.firstViewHeightRatioConstraint : splitVC?.firstViewHeightConstraint
+            
+            guard constraint?.constant != 0 else {
+                return
+            }
+            
+            previousConstraintValue = constraint?.constant
+            constraint?.constant = parent?.view?.frame.height ?? 0
+        }
     }
     
     // MARK: - Text view delegate

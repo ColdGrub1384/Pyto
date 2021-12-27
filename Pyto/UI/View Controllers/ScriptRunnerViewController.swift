@@ -14,7 +14,7 @@ class ScriptRunnerViewController: REPLViewController {
     
     /// The URL of the script.
     var scriptURL: URL!
-    
+
     init(scriptURL: URL) {
         self.scriptURL = scriptURL
         super.init(nibName: nil, bundle: nil)

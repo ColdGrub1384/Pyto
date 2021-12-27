@@ -19,6 +19,12 @@ public class EditorSplitViewController: SplitViewController {
     /// If set to `true`, console will be shown at bottom.
     static var shouldShowConsoleAtBottom: Bool {
         get {
+            
+            if UserDefaults.standard.value(forKey: "shouldShowConsoleAtBottom") == nil || !UserDefaults.standard.bool(forKey: "updatedShouldShowConsoleAtBottom") {
+                UserDefaults.standard.set(true, forKey: "updatedShouldShowConsoleAtBottom")
+                UserDefaults.standard.set(true, forKey: "shouldShowConsoleAtBottom")
+            }
+            
             return UserDefaults.standard.bool(forKey: "shouldShowConsoleAtBottom")
         }
         
@@ -148,7 +154,7 @@ public class EditorSplitViewController: SplitViewController {
     
     /// Show documentation.
     @objc func showDocs() {
-        editor?.showDocs(editor!.docItem)
+        editor?.showDocs(editor!.ellipsisButtonItem)
     }
     
     /// Runs code with arguments.
@@ -197,12 +203,10 @@ public class EditorSplitViewController: SplitViewController {
             if Python.shared.isScriptRunning(path) {
                 navigationItem.rightBarButtonItems = [
                     editor.stopBarButtonItem,
-                    editor.debugItem,
                 ]
             } else {
                 navigationItem.rightBarButtonItems = [
                     editor.runBarButtonItem,
-                    editor.debugItem,
                 ]
             }
         } else {

@@ -14,6 +14,9 @@ import Zip
 /// A View controller showing offline documentation.
 class DocumentationViewController: UIViewController, WKNavigationDelegate {
     
+    /// The editor that holds this controller.
+    weak var editor: EditorViewController?
+    
     /// A downloaded documentation.
     struct Documentation {
         
@@ -27,10 +30,10 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         var pageURL: URL?
         
         /// Pyto's documentation.
-        static let pyto = Documentation(name: "Pyto", url: Bundle.main.url(forResource: "docs_build/html/index", withExtension: "html")!)
+        static let pyto = Documentation(name: "Pyto", url: Bundle.main.url(forResource: "docs_build/html/index", withExtension: "html")!, pageURL: Bundle.main.url(forResource: "docs_build/html/index", withExtension: "html")!)
         
         /// Python's documentation
-        static let python = Documentation(name: "Python", url: Bundle.main.url(forResource: "python-3.10.0-docs-html/index", withExtension: "html")!)
+        static let python = Documentation(name: "Python", url: Bundle.main.url(forResource: "python-3.10.0-docs-html/index", withExtension: "html")!, pageURL: Bundle.main.url(forResource: "python-3.10.0-docs-html/index", withExtension: "html")!)
         
         /// Returns documentation downloaded by the user.
         static func getDownloaded() -> [Documentation] {
@@ -103,19 +106,29 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         }
     }
     
+    private var lastSelection: Documentation?
+    
     /// The selected documentation
     var selectedDocumentation = Documentation.pyto {
         didSet {
             
-            let url = selectedDocumentation.pageURL ?? selectedDocumentation.url
-            if url.isFileURL {
-                webView.loadFileURL(url, allowingReadAccessTo: selectedDocumentation.url.deletingLastPathComponent())
-            } else {
-                webView.load(URLRequest(url: url))
+            if (selectedDocumentation.pageURL ?? selectedDocumentation.url) != (lastSelection?.pageURL ?? lastSelection?.url) {
+                let url = selectedDocumentation.pageURL ?? selectedDocumentation.url
+                if url.isFileURL {
+                    webView.loadFileURL(url, allowingReadAccessTo: selectedDocumentation.url.deletingLastPathComponent())
+                } else {
+                    webView.load(URLRequest(url: url))
+                }
             }
+            
+            lastSelection = selectedDocumentation
             
             documentationButton.title = selectedDocumentation.name
             documentationButton.menu = makeDocumentationMenu()
+            
+            if view.window == nil {
+                editor?.showDocs(self)
+            }
         }
     }
     
@@ -155,7 +168,7 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
             })
         ] + directories(in: documentation.url.deletingLastPathComponent()).sorted(by: { $0.lastPathComponent < $1.lastPathComponent }).map({ folder in
             
-            UIMenu(title: folder.lastPathComponent, image: nil, identifier: nil, options: [], children: self.menuItems(for: documentation, directory: folder))
+            UIMenu(title: folder.lastPathComponent, image: self.selectedDocumentation.pageURL?.deletingLastPathComponent() == folder ? UIImage(systemName: "checkmark") : nil, identifier: nil, options: [], children: self.menuItems(for: documentation, directory: folder))
             
         }) + menuItems(for: documentation, directory: documentation.url.deletingLastPathComponent())
     }
@@ -243,13 +256,13 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
     
     /// Returns the menu for selecting documentation.
     func makeDocumentationMenu() -> UIMenu {
-        UIMenu(title: NSLocalizedString("help.documentation", comment: "'Documentation' button"), image: nil, identifier: nil, options: [], children: [
+        UIMenu(title: NSLocalizedString("help.documentation", comment: "'Documentation' button"), image: UIImage(systemName: "book"), identifier: nil, options: [], children: [
         
-            UIMenu(title: "Pyto", image: nil, identifier: nil, options: [], children: menuItems(for: .pyto)),
+            UIMenu(title: "Pyto", image: selectedDocumentation.url == Documentation.pyto.url ? UIImage(systemName: "checkmark") : nil, identifier: nil, options: [], children: menuItems(for: .pyto)),
             
-            UIMenu(title: "Python", image: nil, identifier: nil, options: [], children: menuItems(for: .python)),
+            UIMenu(title: "Python", image: selectedDocumentation.url == Documentation.python.url ? UIImage(systemName: "checkmark") : nil, identifier: nil, options: [], children: menuItems(for: .python)),
             
-            UIMenu(title: "Third Party", image: nil, identifier: nil, options: [], children: makeThirdPartyMenuItems())
+            UIMenu(title: "Third Party", image: (selectedDocumentation.url != Documentation.pyto.url && selectedDocumentation.url != Documentation.python.url) ? UIImage(systemName: "checkmark") : nil, identifier: nil, options: [], children: makeThirdPartyMenuItems()),
         ])
     }
         
@@ -292,6 +305,7 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         super.viewDidDisappear(animated)
         
         documentationButton.menu = nil // Release menu
+        editor?.setBarItems()
     }
     
     override func viewWillAppear(_ animated: Bool) {

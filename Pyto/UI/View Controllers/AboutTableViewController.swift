@@ -106,7 +106,9 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
             
             let vc = (sidebarSplitViewController.viewController(for: sidebarSplitViewController.isCollapsed ? .compact : .secondary) as? UINavigationController)?.viewControllers.first
             
-            if let editor = vc as? EditorSplitViewController {
+            if let sidebar = vc as? SidebarViewController {
+                sidebar.editor = nil
+            } else if let editor = vc as? EditorSplitViewController {
                 editor.editor?.save(completion: { _ in
                     sidebarSplitViewController.sidebar?.editor = nil
                     sidebarSplitViewController.sidebar?.open(url: editor.editor!.document!.fileURL)

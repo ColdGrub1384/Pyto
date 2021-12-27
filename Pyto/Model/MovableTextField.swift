@@ -189,10 +189,8 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             listenToKeyboardNotifications()
         }
         
-        if #available(iOS 14.0, *) {} else {
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
     /// Shows the text field.
@@ -302,15 +300,39 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         console?.webView.evaluateJavaScript("sendSize()", completionHandler: nil)
     }
     
+    private var previousConstraintValue: CGFloat?
+    
     @objc private func keyboardWillHide(_ notification: NSNotification) {
-        UIView.animate(withDuration: 0.5) {
-            self.toolbar.alpha = 0
+        if EditorSplitViewController.shouldShowConsoleAtBottom, let previousConstraintValue = previousConstraintValue {
+            
+            let splitVC = console?.editorSplitViewController
+            let constraint = (splitVC?.firstViewHeightRatioConstraint?.isActive == true) ? splitVC?.firstViewHeightRatioConstraint : splitVC?.firstViewHeightConstraint
+            
+            constraint?.constant = previousConstraintValue
+            self.previousConstraintValue = nil
         }
     }
     
     @objc private func keyboardWillShow(_ notification: NSNotification) {
-        UIView.animate(withDuration: 0.5) {
-            self.toolbar.alpha = 0
+        guard let height = (notification.userInfo?["UIKeyboardBoundsUserInfoKey"] as? CGRect)?.height, height > 100 else { // Only software keyboard
+            return
+        }
+        
+        if EditorSplitViewController.shouldShowConsoleAtBottom && textField.isFirstResponder {
+            
+            let splitVC = console?.editorSplitViewController
+            
+            // I don't know what the fuck I'm doing
+            splitVC?.firstViewHeightRatioConstraint?.isActive = false
+            
+            let constraint = (splitVC?.firstViewHeightRatioConstraint?.isActive == true) ? splitVC?.firstViewHeightRatioConstraint : splitVC?.firstViewHeightConstraint
+            
+            guard constraint?.constant != 0 else {
+                return
+            }
+            
+            previousConstraintValue = constraint?.constant
+            constraint?.constant = 0
         }
     }
     

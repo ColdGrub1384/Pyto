@@ -1027,6 +1027,7 @@ import SwiftUI
                 self?.wasFirstResponder = false
                 self?.movableTextField?.textField.becomeFirstResponder()
             }
+            self?.movableTextField?.applyTheme()
         }
         #endif
         
@@ -1647,11 +1648,13 @@ import SwiftUI
     
     public func didEnterPictureInPicture() {
         editorSplitViewController?.editor?.pipItem?.image = UIImage(systemName: "pip.exit")
+        editorSplitViewController?.editor?.setBarItems()
         pipVC.view.isHidden = false
     }
     
     public func didExitPictureInPicture() {
         editorSplitViewController?.editor?.pipItem?.image = UIImage(systemName: "pip.enter")
+        editorSplitViewController?.editor?.setBarItems()
         pipVC.view.isHidden = true
     }
     
