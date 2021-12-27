@@ -10,6 +10,7 @@ import shlex
 import weakref
 from console import __clear_mods__, MainModule
 import threading
+import traceback
 
 if len(sys.argv) == 1:
     usage = "Usage: <module-name> [<args>]"
@@ -57,6 +58,9 @@ def _main_function_no_one_calls_a_function_like_that():
         
         _globals = {}
         sys.__class__.main[_script_path] = MainModule(module_name, _globals)
+        if not "__main__" in sys.modules:
+            sys.modules["__main__"] = __import__("__main__")
+
         runpy.run_module(module_name, init_globals=_globals, run_name="__main__", alter_sys=True)
     except KeyboardInterrupt as e:
         print(e)
@@ -65,8 +69,8 @@ def _main_function_no_one_calls_a_function_like_that():
             int(e)
         except:
             print(e)
-    except Exception as e:
-        print(e)
+    except Exception:
+        traceback.print_exc()
     finally:
         try:
             del sys.__class__.main[_script_path]
