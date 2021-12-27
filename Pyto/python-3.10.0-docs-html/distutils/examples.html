@@ -1,0 +1,576 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>6. Distutils Examples &#8212; Python 3.10.0 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css?2021.8" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.10.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="7. Extending Distutils" href="extending.html" />
+    <link rel="prev" title="5. Creating Built Distributions" href="builtdist.html" />
+    <link rel="canonical" href="https://docs.python.org/3/distutils/examples.html" />
+    
+      
+    
+
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+<link rel="shortcut icon" type="image/png" href="../_static/py.svg" />
+            <script type="text/javascript" src="../_static/copybutton.js"></script>
+            <script type="text/javascript" src="../_static/menu.js"></script> 
+
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu" />
+    <label for="menuToggler" class="toggler__label">
+        <span></span>
+    </label>
+    <nav class="nav-content" role="navigation">
+         <a href="https://www.python.org/" class="nav-logo">
+             <img src="../_static/py.svg" alt="Logo"/>
+         </a>
+        <div class="version_switcher_placeholder"></div>
+        <form role="search" class="search" action="../search.html" method="get">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                <path fill-rule="nonzero"
+                        d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="#444"></path>
+            </svg>
+            <input type="text" name="q" aria-label="Quick search"/>
+            <input type="submit" value="Go"/>
+        </form>
+    </nav>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <div class="language_switcher_placeholder"></div>
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">6. Distutils Examples</a><ul>
+<li><a class="reference internal" href="#pure-python-distribution-by-module">6.1. Pure Python distribution (by module)</a></li>
+<li><a class="reference internal" href="#pure-python-distribution-by-package">6.2. Pure Python distribution (by package)</a></li>
+<li><a class="reference internal" href="#single-extension-module">6.3. Single extension module</a></li>
+<li><a class="reference internal" href="#checking-a-package">6.4. Checking a package</a></li>
+<li><a class="reference internal" href="#reading-the-metadata">6.5. Reading the metadata</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="builtdist.html"
+                        title="previous chapter"><span class="section-number">5. </span>Creating Built Distributions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="extending.html"
+                        title="next chapter"><span class="section-number">7. </span>Extending Distutils</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.10/Doc/distutils/examples.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </nav>
+    </div>
+</div>
+
+  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="extending.html" title="7. Extending Distutils"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="builtdist.html" title="5. Creating Built Distributions"
+             accesskey="P">previous</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.10.0 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Distributing Python Modules (Legacy version)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">6. </span>Distutils Examples</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="distutils-examples">
+<span id="id1"></span><h1><span class="section-number">6. </span>Distutils Examples<a class="headerlink" href="#distutils-examples" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This document is being retained solely until the <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> documentation
+at <a class="reference external" href="https://setuptools.readthedocs.io/en/latest/setuptools.html">https://setuptools.readthedocs.io/en/latest/setuptools.html</a>
+independently covers all of the relevant information currently included here.</p>
+</div>
+<p>This chapter provides a number of basic examples to help get started with
+distutils.  Additional information about using distutils can be found in the
+Distutils Cookbook.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://wiki.python.org/moin/Distutils/Cookbook">Distutils Cookbook</a></dt><dd><p>Collection of recipes showing how to achieve more control over distutils.</p>
+</dd>
+</dl>
+</div>
+<section id="pure-python-distribution-by-module">
+<span id="pure-mod"></span><h2><span class="section-number">6.1. </span>Pure Python distribution (by module)<a class="headerlink" href="#pure-python-distribution-by-module" title="Permalink to this headline">¶</a></h2>
+<p>If you’re just distributing a couple of modules, especially if they don’t live
+in a particular package, you can specify them individually using the
+<code class="docutils literal notranslate"><span class="pre">py_modules</span></code> option in the setup script.</p>
+<p>In the simplest case, you’ll have two files to worry about: a setup script and
+the single module you’re distributing, <code class="file docutils literal notranslate"><span class="pre">foo.py</span></code> in this example:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">root</span><span class="o">&gt;/</span>
+        <span class="n">setup</span><span class="o">.</span><span class="n">py</span>
+        <span class="n">foo</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>(In all diagrams in this section, <em>&lt;root&gt;</em> will refer to the distribution root
+directory.)  A minimal setup script to describe this situation would be:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span>
+      <span class="n">version</span><span class="o">=</span><span class="s1">&#39;1.0&#39;</span><span class="p">,</span>
+      <span class="n">py_modules</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">],</span>
+      <span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that the name of the distribution is specified independently with the
+<code class="docutils literal notranslate"><span class="pre">name</span></code> option, and there’s no rule that says it has to be the same as
+the name of the sole module in the distribution (although that’s probably a good
+convention to follow).  However, the distribution name is used to generate
+filenames, so you should stick to letters, digits, underscores, and hyphens.</p>
+<p>Since <code class="docutils literal notranslate"><span class="pre">py_modules</span></code> is a list, you can of course specify multiple
+modules, eg. if you’re distributing modules <code class="xref py py-mod docutils literal notranslate"><span class="pre">foo</span></code> and <code class="xref py py-mod docutils literal notranslate"><span class="pre">bar</span></code>, your
+setup might look like this:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">root</span><span class="o">&gt;/</span>
+        <span class="n">setup</span><span class="o">.</span><span class="n">py</span>
+        <span class="n">foo</span><span class="o">.</span><span class="n">py</span>
+        <span class="n">bar</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>and the setup script might be</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;foobar&#39;</span><span class="p">,</span>
+      <span class="n">version</span><span class="o">=</span><span class="s1">&#39;1.0&#39;</span><span class="p">,</span>
+      <span class="n">py_modules</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">],</span>
+      <span class="p">)</span>
+</pre></div>
+</div>
+<p>You can put module source files into another directory, but if you have enough
+modules to do that, it’s probably easier to specify modules by package rather
+than listing them individually.</p>
+</section>
+<section id="pure-python-distribution-by-package">
+<span id="pure-pkg"></span><h2><span class="section-number">6.2. </span>Pure Python distribution (by package)<a class="headerlink" href="#pure-python-distribution-by-package" title="Permalink to this headline">¶</a></h2>
+<p>If you have more than a couple of modules to distribute, especially if they are
+in multiple packages, it’s probably easier to specify whole packages rather than
+individual modules.  This works even if your modules are not in a package; you
+can just tell the Distutils to process modules from the root package, and that
+works the same as any other package (except that you don’t have to have an
+<code class="file docutils literal notranslate"><span class="pre">__init__.py</span></code> file).</p>
+<p>The setup script from the last example could also be written as</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;foobar&#39;</span><span class="p">,</span>
+      <span class="n">version</span><span class="o">=</span><span class="s1">&#39;1.0&#39;</span><span class="p">,</span>
+      <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">],</span>
+      <span class="p">)</span>
+</pre></div>
+</div>
+<p>(The empty string stands for the root package.)</p>
+<p>If those two files are moved into a subdirectory, but remain in the root
+package, e.g.:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">root</span><span class="o">&gt;/</span>
+        <span class="n">setup</span><span class="o">.</span><span class="n">py</span>
+        <span class="n">src</span><span class="o">/</span>      <span class="n">foo</span><span class="o">.</span><span class="n">py</span>
+                  <span class="n">bar</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>then you would still specify the root package, but you have to tell the
+Distutils where source files in the root package live:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;foobar&#39;</span><span class="p">,</span>
+      <span class="n">version</span><span class="o">=</span><span class="s1">&#39;1.0&#39;</span><span class="p">,</span>
+      <span class="n">package_dir</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;&#39;</span><span class="p">:</span> <span class="s1">&#39;src&#39;</span><span class="p">},</span>
+      <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">],</span>
+      <span class="p">)</span>
+</pre></div>
+</div>
+<p>More typically, though, you will want to distribute multiple modules in the same
+package (or in sub-packages).  For example, if the <code class="xref py py-mod docutils literal notranslate"><span class="pre">foo</span></code>  and <code class="xref py py-mod docutils literal notranslate"><span class="pre">bar</span></code>
+modules belong in package <code class="xref py py-mod docutils literal notranslate"><span class="pre">foobar</span></code>, one way to layout your source tree is</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">root</span><span class="o">&gt;/</span>
+        <span class="n">setup</span><span class="o">.</span><span class="n">py</span>
+        <span class="n">foobar</span><span class="o">/</span>
+                 <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+                 <span class="n">foo</span><span class="o">.</span><span class="n">py</span>
+                 <span class="n">bar</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>This is in fact the default layout expected by the Distutils, and the one that
+requires the least work to describe in your setup script:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;foobar&#39;</span><span class="p">,</span>
+      <span class="n">version</span><span class="o">=</span><span class="s1">&#39;1.0&#39;</span><span class="p">,</span>
+      <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;foobar&#39;</span><span class="p">],</span>
+      <span class="p">)</span>
+</pre></div>
+</div>
+<p>If you want to put modules in directories not named for their package, then you
+need to use the <code class="docutils literal notranslate"><span class="pre">package_dir</span></code> option again.  For example, if the
+<code class="file docutils literal notranslate"><span class="pre">src</span></code> directory holds modules in the <code class="xref py py-mod docutils literal notranslate"><span class="pre">foobar</span></code> package:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">root</span><span class="o">&gt;/</span>
+        <span class="n">setup</span><span class="o">.</span><span class="n">py</span>
+        <span class="n">src</span><span class="o">/</span>
+                 <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+                 <span class="n">foo</span><span class="o">.</span><span class="n">py</span>
+                 <span class="n">bar</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>an appropriate setup script would be</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;foobar&#39;</span><span class="p">,</span>
+      <span class="n">version</span><span class="o">=</span><span class="s1">&#39;1.0&#39;</span><span class="p">,</span>
+      <span class="n">package_dir</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;foobar&#39;</span><span class="p">:</span> <span class="s1">&#39;src&#39;</span><span class="p">},</span>
+      <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;foobar&#39;</span><span class="p">],</span>
+      <span class="p">)</span>
+</pre></div>
+</div>
+<p>Or, you might put modules from your main package right in the distribution
+root:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">root</span><span class="o">&gt;/</span>
+        <span class="n">setup</span><span class="o">.</span><span class="n">py</span>
+        <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+        <span class="n">foo</span><span class="o">.</span><span class="n">py</span>
+        <span class="n">bar</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>in which case your setup script would be</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;foobar&#39;</span><span class="p">,</span>
+      <span class="n">version</span><span class="o">=</span><span class="s1">&#39;1.0&#39;</span><span class="p">,</span>
+      <span class="n">package_dir</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;foobar&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">},</span>
+      <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;foobar&#39;</span><span class="p">],</span>
+      <span class="p">)</span>
+</pre></div>
+</div>
+<p>(The empty string also stands for the current directory.)</p>
+<p>If you have sub-packages, they must be explicitly listed in <code class="docutils literal notranslate"><span class="pre">packages</span></code>,
+but any entries in <code class="docutils literal notranslate"><span class="pre">package_dir</span></code> automatically extend to sub-packages.
+(In other words, the Distutils does <em>not</em> scan your source tree, trying to
+figure out which directories correspond to Python packages by looking for
+<code class="file docutils literal notranslate"><span class="pre">__init__.py</span></code> files.)  Thus, if the default layout grows a sub-package:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">root</span><span class="o">&gt;/</span>
+        <span class="n">setup</span><span class="o">.</span><span class="n">py</span>
+        <span class="n">foobar</span><span class="o">/</span>
+                 <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+                 <span class="n">foo</span><span class="o">.</span><span class="n">py</span>
+                 <span class="n">bar</span><span class="o">.</span><span class="n">py</span>
+                 <span class="n">subfoo</span><span class="o">/</span>
+                           <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+                           <span class="n">blah</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>then the corresponding setup script would be</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;foobar&#39;</span><span class="p">,</span>
+      <span class="n">version</span><span class="o">=</span><span class="s1">&#39;1.0&#39;</span><span class="p">,</span>
+      <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;foobar&#39;</span><span class="p">,</span> <span class="s1">&#39;foobar.subfoo&#39;</span><span class="p">],</span>
+      <span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="single-extension-module">
+<span id="single-ext"></span><h2><span class="section-number">6.3. </span>Single extension module<a class="headerlink" href="#single-extension-module" title="Permalink to this headline">¶</a></h2>
+<p>Extension modules are specified using the <code class="docutils literal notranslate"><span class="pre">ext_modules</span></code> option.
+<code class="docutils literal notranslate"><span class="pre">package_dir</span></code> has no effect on where extension source files are found;
+it only affects the source for pure Python modules.  The simplest  case, a
+single extension module in a single C source file, is:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">root</span><span class="o">&gt;/</span>
+        <span class="n">setup</span><span class="o">.</span><span class="n">py</span>
+        <span class="n">foo</span><span class="o">.</span><span class="n">c</span>
+</pre></div>
+</div>
+<p>If the <code class="xref py py-mod docutils literal notranslate"><span class="pre">foo</span></code> extension belongs in the root package, the setup script for
+this could be</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
+<span class="kn">from</span> <span class="nn">distutils.extension</span> <span class="kn">import</span> <span class="n">Extension</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;foobar&#39;</span><span class="p">,</span>
+      <span class="n">version</span><span class="o">=</span><span class="s1">&#39;1.0&#39;</span><span class="p">,</span>
+      <span class="n">ext_modules</span><span class="o">=</span><span class="p">[</span><span class="n">Extension</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;foo.c&#39;</span><span class="p">])],</span>
+      <span class="p">)</span>
+</pre></div>
+</div>
+<p>If the extension actually belongs in a package, say <code class="xref py py-mod docutils literal notranslate"><span class="pre">foopkg</span></code>, then</p>
+<p>With exactly the same source tree layout, this extension can be put in the
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">foopkg</span></code> package simply by changing the name of the extension:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
+<span class="kn">from</span> <span class="nn">distutils.extension</span> <span class="kn">import</span> <span class="n">Extension</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;foobar&#39;</span><span class="p">,</span>
+      <span class="n">version</span><span class="o">=</span><span class="s1">&#39;1.0&#39;</span><span class="p">,</span>
+      <span class="n">ext_modules</span><span class="o">=</span><span class="p">[</span><span class="n">Extension</span><span class="p">(</span><span class="s1">&#39;foopkg.foo&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;foo.c&#39;</span><span class="p">])],</span>
+      <span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="checking-a-package">
+<h2><span class="section-number">6.4. </span>Checking a package<a class="headerlink" href="#checking-a-package" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">check</span></code> command allows you to verify if your package meta-data
+meet the minimum requirements to build a distribution.</p>
+<p>To run it, just call it using your <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code> script. If something is
+missing, <code class="docutils literal notranslate"><span class="pre">check</span></code> will display a warning.</p>
+<p>Let’s take an example with a simple script:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;foobar&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Running the <code class="docutils literal notranslate"><span class="pre">check</span></code> command will display some warnings:</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python setup.py check
+<span class="go">running check</span>
+<span class="go">warning: check: missing required meta-data: version, url</span>
+<span class="go">warning: check: missing meta-data: either (author and author_email) or</span>
+<span class="go">         (maintainer and maintainer_email) should be supplied</span>
+</pre></div>
+</div>
+<p>If you use the reStructuredText syntax in the <code class="docutils literal notranslate"><span class="pre">long_description</span></code> field and
+<a class="reference external" href="http://docutils.sourceforge.net">docutils</a>  is installed you can check if the syntax is fine with the
+<code class="docutils literal notranslate"><span class="pre">check</span></code> command, using the <code class="docutils literal notranslate"><span class="pre">restructuredtext</span></code> option.</p>
+<p>For example, if the <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code> script is changed like this:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
+
+<span class="n">desc</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">My description</span>
+<span class="s2">==============</span>
+
+<span class="s2">This is the description of the ``foobar`` package.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;foobar&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">author</span><span class="o">=</span><span class="s1">&#39;tarek&#39;</span><span class="p">,</span>
+    <span class="n">author_email</span><span class="o">=</span><span class="s1">&#39;tarek@ziade.org&#39;</span><span class="p">,</span>
+    <span class="n">url</span><span class="o">=</span><span class="s1">&#39;http://example.com&#39;</span><span class="p">,</span> <span class="n">long_description</span><span class="o">=</span><span class="n">desc</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Where the long description is broken, <code class="docutils literal notranslate"><span class="pre">check</span></code> will be able to detect it
+by using the <code class="xref py py-mod docutils literal notranslate"><span class="pre">docutils</span></code> parser:</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python setup.py check --restructuredtext
+<span class="go">running check</span>
+<span class="go">warning: check: Title underline too short. (line 2)</span>
+<span class="go">warning: check: Could not finish the parsing.</span>
+</pre></div>
+</div>
+</section>
+<section id="reading-the-metadata">
+<h2><span class="section-number">6.5. </span>Reading the metadata<a class="headerlink" href="#reading-the-metadata" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="apiref.html#distutils.core.setup" title="distutils.core.setup"><code class="xref py py-func docutils literal notranslate"><span class="pre">distutils.core.setup()</span></code></a> function provides a command-line interface
+that allows you to query the metadata fields of a project through the
+<code class="docutils literal notranslate"><span class="pre">setup.py</span></code> script of a given project:</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python setup.py --name
+<span class="go">distribute</span>
+</pre></div>
+</div>
+<p>This call reads the <code class="docutils literal notranslate"><span class="pre">name</span></code> metadata by running the
+<a class="reference internal" href="apiref.html#distutils.core.setup" title="distutils.core.setup"><code class="xref py py-func docutils literal notranslate"><span class="pre">distutils.core.setup()</span></code></a>  function. Although, when a source or binary
+distribution is created with Distutils, the metadata fields are written
+in a static file called <code class="file docutils literal notranslate"><span class="pre">PKG-INFO</span></code>. When a Distutils-based project is
+installed in Python, the <code class="file docutils literal notranslate"><span class="pre">PKG-INFO</span></code> file is copied alongside the modules
+and packages of the distribution under <code class="file docutils literal notranslate"><span class="pre">NAME-VERSION-pyX.X.egg-info</span></code>,
+where <code class="docutils literal notranslate"><span class="pre">NAME</span></code> is the name of the project, <code class="docutils literal notranslate"><span class="pre">VERSION</span></code> its version as defined
+in the Metadata, and <code class="docutils literal notranslate"><span class="pre">pyX.X</span></code> the major and minor version of Python like
+<code class="docutils literal notranslate"><span class="pre">2.7</span></code> or <code class="docutils literal notranslate"><span class="pre">3.2</span></code>.</p>
+<p>You can read back this static file, by using the
+<code class="xref py py-class docutils literal notranslate"><span class="pre">distutils.dist.DistributionMetadata</span></code> class and its
+<code class="xref py py-func docutils literal notranslate"><span class="pre">read_pkg_file()</span></code> method:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">distutils.dist</span> <span class="kn">import</span> <span class="n">DistributionMetadata</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metadata</span> <span class="o">=</span> <span class="n">DistributionMetadata</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metadata</span><span class="o">.</span><span class="n">read_pkg_file</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;distribute-0.6.8-py2.7.egg-info&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metadata</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;distribute&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metadata</span><span class="o">.</span><span class="n">version</span>
+<span class="go">&#39;0.6.8&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metadata</span><span class="o">.</span><span class="n">description</span>
+<span class="go">&#39;Easily download, build, install, upgrade, and uninstall Python packages&#39;</span>
+</pre></div>
+</div>
+<p>Notice that the class can also be instantiated with a metadata file path to
+loads its values:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pkg_info_path</span> <span class="o">=</span> <span class="s1">&#39;distribute-0.6.8-py2.7.egg-info&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">DistributionMetadata</span><span class="p">(</span><span class="n">pkg_info_path</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;distribute&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">6. Distutils Examples</a><ul>
+<li><a class="reference internal" href="#pure-python-distribution-by-module">6.1. Pure Python distribution (by module)</a></li>
+<li><a class="reference internal" href="#pure-python-distribution-by-package">6.2. Pure Python distribution (by package)</a></li>
+<li><a class="reference internal" href="#single-extension-module">6.3. Single extension module</a></li>
+<li><a class="reference internal" href="#checking-a-package">6.4. Checking a package</a></li>
+<li><a class="reference internal" href="#reading-the-metadata">6.5. Reading the metadata</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="builtdist.html"
+                        title="previous chapter"><span class="section-number">5. </span>Creating Built Distributions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="extending.html"
+                        title="next chapter"><span class="section-number">7. </span>Extending Distutils</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.10/Doc/distutils/examples.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="extending.html" title="7. Extending Distutils"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="builtdist.html" title="5. Creating Built Distributions"
+             >previous</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.10.0 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Distributing Python Modules (Legacy version)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">6. </span>Distutils Examples</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2021, Python Software Foundation.
+    <br />
+    This page is licensed under the Python Software Foundation License Version 2.
+    <br />
+    Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+    <br />
+    See <a href="">History and License</a> for more information.
+    <br /><br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Oct 04, 2021.
+    <a href="https://docs.python.org/3/bugs.html">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+
+  </body>
+</html>

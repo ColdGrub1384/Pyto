@@ -12,7 +12,7 @@ Welcome to Pyto's documentation!
 ================================
 
 Pyto is an open source app to code and run Python code locally on an iPad or iPhone.
-The app uses the Python C API to run Python code in the same process of the app, due to iOS restrictions. Third party pure Python modules can be installed from PyPi and some libraries with C extensions are bundled in the app. For a list of included libraries, see `Third Party <third_party.html>`__.
+The app uses the Python C API to run Python code in the same process of the app, due to iOS restrictions. Third party pure Python modules can be installed from PyPI and some libraries with C extensions are bundled in the app. For a list of included libraries, see `Third Party <third_party.html>`__.
 
 The Python 3.10 binary that comes with the app is from the `Python-Apple-support <https://github.com/beeware/Python-Apple-support/tree/3.10>`__ project by beeware. `Toga <https://toga.readthedocs.io/en/latest/>`__, a cross platform UI library is also included.
 
@@ -46,7 +46,6 @@ Documents
    automation
    external
    opencv
-   django
    third_party
 
 API Reference
@@ -64,36 +63,36 @@ The following modules are integrated with Pyto.
    :maxdepth: 2
    :caption: User Interface
 
-   pyto_ui
-   widgets
-   watch
-   sound
-   sf_symbols
-   sharing
-   mainthread
-   htmpy
-   pyto_core
+   library/pyto_ui
+   library/widgets
+   library/watch
+   library/sound
+   library/sf_symbols
+   library/sharing
+   library/mainthread
+   library/htmpy
+   library/pyto_core
 
 .. toctree::
    :maxdepth: 2
    :caption: OS Technologies
 
-   notifications
-   remote_notifications
-   background
-   bookmarks
-   music
-   photos
-   location
-   motion
-   multipeer
-   speech
+   library/notifications
+   library/remote_notifications
+   library/background
+   library/bookmarks
+   library/music
+   library/photos
+   library/location
+   library/motion
+   library/multipeer
+   library/speech
 
 .. toctree::
    :maxdepth: 2
    :caption: Sharing data
 
-   pasteboard
-   userkeys
-   xcallback
-   apps
+   library/pasteboard
+   library/userkeys
+   library/xcallback
+   library/apps

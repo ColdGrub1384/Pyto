@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyto_ui &mdash; Pyto  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Classes" href="pyto_ui/classes.html" />
+    <link rel="prev" title="Objective-C" href="../Objective-C.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Pyto
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../automation.html">Automation with Shortcuts and x-callback URLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../external.html">Accessing external files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../opencv.html">OpenCV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party.html">Third Party Libraries</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ObjC Runtime</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Objective-C.html">Objective-C</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Interface</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">pyto_ui</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#api-reference">API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pyto_ui/classes.html">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyto_ui/functions.html">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyto_ui/constants.html">Constants</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#uikit-bridge">UIKit bridge</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-uiview">Using UIView</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-uiviewcontroller">Using UIViewController</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="widgets.html">widgets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="watch.html">watch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sf_symbols.html">sf_symbols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">sharing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mainthread.html">mainthread</a></li>
+<li class="toctree-l1"><a class="reference internal" href="htmpy.html">htmpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyto_core.html">pyto_core</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">OS Technologies</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notifications.html">notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="remote_notifications.html">remote_notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="background.html">background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bookmarks.html">bookmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="music.html">music</a></li>
+<li class="toctree-l1"><a class="reference internal" href="photos.html">photos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="location.html">location</a></li>
+<li class="toctree-l1"><a class="reference internal" href="motion.html">motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multipeer.html">multipeer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="speech.html">speech</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Sharing data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pasteboard.html">pasteboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userkeys.html">userkeys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xcallback.html">xcallback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps.html">apps</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Pyto</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>pyto_ui</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/library/pyto_ui.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pyto_ui">
+<span id="pyto-ui"></span><h1>pyto_ui<a class="headerlink" href="#module-pyto_ui" title="Permalink to this headline"></a></h1>
+<p>UI for scripts</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">pyto_ui</span></code> module contains classes for building and presenting a native UI, in app or in the Today Widget.
+This library’s API is very similar to UIKit.</p>
+<p>This library may have a lot of similarities with <code class="docutils literal notranslate"><span class="pre">UIKit</span></code>, but subclassing isn’t supported very well. Instead of overriding methods, you will often need to set properties to a function. For properties, setters are what makes the passed value take effect, so instead of override the getter, you should just set properties. If you really want to subclass a <a class="reference internal" href="pyto_ui/classes.html#pyto_ui.View" title="pyto_ui.View"><code class="xref py py-class docutils literal notranslate"><span class="pre">View</span></code></a>, you can set properties from the initializer.</p>
+<p>(Many docstrings are quoted from the Apple Documentation)</p>
+<section id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pyto_ui/classes.html">Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/classes.html#toga-compatibility">Toga Compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/classes.html#views">Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/classes.html#controls">Controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/classes.html#other-classes">Other classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pyto_ui/functions.html">Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/functions.html#showing-views">Showing views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/functions.html#system-pickers">System pickers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pyto_ui/constants.html">Constants</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#ui-elements-colors">UI Elements Colors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#standard-colors">Standard Colors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#fixed-colors">Fixed Colors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#keyboard-appearance">Keyboard Appearance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#keyboard-type">Keyboard Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#return-key-type">Return Key Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#auto-capitalization">Auto Capitalization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#font-text-style">Font Text Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#font-size">Font Size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#button-type">Button Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#gesture-type">Gesture Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#gesture-state">Gesture State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#touch-type">Touch Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#auto-resizing">Auto Resizing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#content-mode">Content Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#horizontal-alignment">Horizontal Alignment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#vertical-alignment">Vertical Alignment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#text-alignment">Text Alignment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#line-break-mode">Line Break Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#table-view-cell-style">Table View Cell Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#accessory-type">Accessory Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#table-view-style">Table View Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#text-field-border-style">Text Field Border Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#button-item-style">Button Item Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#system-item">System Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#presentation-mode">Presentation Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyto_ui/constants.html#appearance">Appearance</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
+<p>Each item presented on the screen is a <a class="reference internal" href="pyto_ui/classes.html#pyto_ui.View" title="pyto_ui.View"><code class="xref py py-class docutils literal notranslate"><span class="pre">View</span></code></a> object. This module contains many <a class="reference internal" href="pyto_ui/classes.html#pyto_ui.View" title="pyto_ui.View"><code class="xref py py-class docutils literal notranslate"><span class="pre">View</span></code></a> subclasses.</p>
+<p>We can initialize a view like that:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyto_ui</span> <span class="k">as</span> <span class="nn">ui</span>
+
+<span class="n">view</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">View</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You can modify the view’s attributes, like <a class="reference internal" href="pyto_ui/classes.html#pyto_ui.View.background_color" title="pyto_ui.View.background_color"><code class="xref py py-data docutils literal notranslate"><span class="pre">background_color</span></code></a> for example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">view</span><span class="o">.</span><span class="n">background_color</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">COLOR_SYSTEM_BACKGROUND</span>
+</pre></div>
+</div>
+<p>Then, call the <a class="reference internal" href="pyto_ui/functions.html#pyto_ui.show_view" title="pyto_ui.show_view"><code class="xref py py-func docutils literal notranslate"><span class="pre">show_view()</span></code></a> function to show the view:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ui</span><span class="o">.</span><span class="n">show_view</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">ui</span><span class="o">.</span><span class="n">PRESENTATION_MODE_SHEET</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A view will be presented, with the system background color, white or black depending on if the device has dark mode enabled or not.
+It’s important to set our view’s background color because it will be transparent if it’s not set. That looks great on widgets, but not in app.</p>
+<p>NOTE: The thread will be blocked until the view is closed, but you can run code on another thread and modify the UI from there:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ui</span><span class="o">.</span><span class="n">show_view</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Closed&quot;</span><span class="p">)</span> <span class="c1"># This line will be called after the view is closed.</span>
+</pre></div>
+</div>
+<p>Now we have an empty view, the root view, we can add other views inside it, like a <a class="reference internal" href="pyto_ui/classes.html#pyto_ui.Button" title="pyto_ui.Button"><code class="xref py py-class docutils literal notranslate"><span class="pre">Button</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">button</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
+<span class="n">button</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">button</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">view</span><span class="o">.</span><span class="n">height</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">button</span><span class="o">.</span><span class="n">flex</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">ui</span><span class="o">.</span><span class="n">FLEXIBLE_TOP_MARGIN</span><span class="p">,</span>
+    <span class="n">ui</span><span class="o">.</span><span class="n">FLEXIBLE_BOTTOM_MARGIN</span><span class="p">,</span>
+    <span class="n">ui</span><span class="o">.</span><span class="n">FLEXIBLE_LEFT_MARGIN</span><span class="p">,</span>
+    <span class="n">ui</span><span class="o">.</span><span class="n">FLEXIBLE_RIGHT_MARGIN</span>
+<span class="p">]</span>
+<span class="n">view</span><span class="o">.</span><span class="n">add_subview</span><span class="p">(</span><span class="n">button</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We are creating a button with title “Hello World!”, with 100 as width and 50 as height. We place it at center, and we set <a class="reference internal" href="pyto_ui/classes.html#pyto_ui.View.flex" title="pyto_ui.View.flex"><code class="xref py py-data docutils literal notranslate"><span class="pre">flex</span></code></a> to have flexible margins so the button will always stay at center even if the root view will change its size.</p>
+<p>To add an action to the button:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">button_pressed</span><span class="p">(</span><span class="n">sender</span><span class="p">):</span>
+    <span class="n">sender</span><span class="o">.</span><span class="n">superview</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="n">button</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="n">button_pressed</span>
+</pre></div>
+</div>
+<p>We define a function that takes the button as parameter and we pass it to the button’s <code class="xref py py-data docutils literal notranslate"><span class="pre">action</span></code> property. The <a class="reference internal" href="pyto_ui/classes.html#pyto_ui.View.superview" title="pyto_ui.View.superview"><code class="xref py py-data docutils literal notranslate"><span class="pre">superview</span></code></a> property of the button is the view that contains it. With the <a class="reference internal" href="pyto_ui/classes.html#pyto_ui.View.close" title="pyto_ui.View.close"><code class="xref py py-meth docutils literal notranslate"><span class="pre">close()</span></code></a> function, we close it.</p>
+<p>So we have this code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyto_ui</span> <span class="k">as</span> <span class="nn">ui</span>
+
+<span class="k">def</span> <span class="nf">button_pressed</span><span class="p">(</span><span class="n">sender</span><span class="p">):</span>
+    <span class="n">sender</span><span class="o">.</span><span class="n">superview</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="n">view</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">View</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">background_color</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">COLOR_SYSTEM_BACKGROUND</span>
+
+<span class="n">button</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
+<span class="n">button</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">button</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">view</span><span class="o">.</span><span class="n">height</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">button</span><span class="o">.</span><span class="n">flex</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">ui</span><span class="o">.</span><span class="n">FLEXIBLE_TOP_MARGIN</span><span class="p">,</span>
+    <span class="n">ui</span><span class="o">.</span><span class="n">FLEXIBLE_BOTTOM_MARGIN</span><span class="p">,</span>
+    <span class="n">ui</span><span class="o">.</span><span class="n">FLEXIBLE_LEFT_MARGIN</span><span class="p">,</span>
+    <span class="n">ui</span><span class="o">.</span><span class="n">FLEXIBLE_RIGHT_MARGIN</span>
+<span class="p">]</span>
+<span class="n">button</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="n">button_pressed</span>
+<span class="n">view</span><span class="o">.</span><span class="n">add_subview</span><span class="p">(</span><span class="n">button</span><span class="p">)</span>
+
+<span class="n">ui</span><span class="o">.</span><span class="n">show_view</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">ui</span><span class="o">.</span><span class="n">PRESENTATION_MODE_SHEET</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When the button is clicked, the UI will be closed and “Hello World!” will be printed.
+UIs can be presented on the Today widget if you set the widget script.</p>
+</section>
+<section id="uikit-bridge">
+<h2>UIKit bridge<a class="headerlink" href="#uikit-bridge" title="Permalink to this headline"></a></h2>
+<p>(Previous knowledge of iOS development with UIKit is needed to follow this tutorial)</p>
+<p>PytoUI can show custom UIKit views with the <a class="reference internal" href="pyto_ui/classes.html#pyto_ui.UIKitView" title="pyto_ui.UIKitView"><code class="xref py py-class docutils literal notranslate"><span class="pre">UIKitView</span></code></a> class. Presenting <code class="docutils literal notranslate"><span class="pre">UIViewController</span></code> is also possible with <a class="reference internal" href="pyto_ui/functions.html#pyto_ui.show_view_controller" title="pyto_ui.show_view_controller"><code class="xref py py-func docutils literal notranslate"><span class="pre">show_view_controller()</span></code></a>.</p>
+<p>See <a class="reference external" href="Objective-C.html">Objective-C</a> for information about using Objective-C classes in Python.</p>
+<p>To use classes from UIKit, we can write the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">UIKit</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<section id="using-uiview">
+<h3>Using UIView<a class="headerlink" href="#using-uiview" title="Permalink to this headline"></a></h3>
+<p>In this example, we will create a date picker with <code class="docutils literal notranslate"><span class="pre">UIDatePicker</span></code>. Firstly, we will import the needed modules.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyto_ui</span> <span class="k">as</span> <span class="nn">ui</span>
+<span class="kn">from</span> <span class="nn">UIKit</span> <span class="kn">import</span> <span class="n">UIDatePicker</span>
+<span class="kn">from</span> <span class="nn">Foundation</span> <span class="kn">import</span> <span class="n">NSObject</span>
+<span class="kn">from</span> <span class="nn">rubicon.objc</span> <span class="kn">import</span> <span class="n">objc_method</span><span class="p">,</span> <span class="n">SEL</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+</pre></div>
+</div>
+<p>Then we subclass <a class="reference internal" href="pyto_ui/classes.html#pyto_ui.UIKitView" title="pyto_ui.UIKitView"><code class="xref py py-class docutils literal notranslate"><span class="pre">UIKitView</span></code></a> to implement a date picker by implementing <a class="reference internal" href="pyto_ui/classes.html#pyto_ui.UIKitView.make_view" title="pyto_ui.UIKitView.make_view"><code class="xref py py-meth docutils literal notranslate"><span class="pre">make_view()</span></code></a> to return an UIDatePicker object. <code class="docutils literal notranslate"><span class="pre">DatePicker.did_change</span></code> will be the function called when the selected date changes.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">DatePicker</span><span class="p">(</span><span class="n">ui</span><span class="o">.</span><span class="n">UIKitView</span><span class="p">):</span>
+
+    <span class="n">did_change</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">make_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">picker</span> <span class="o">=</span> <span class="n">UIDatePicker</span><span class="o">.</span><span class="n">alloc</span><span class="p">()</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">picker</span>
+</pre></div>
+</div>
+<p>We will now create an Objective-C subclass of <code class="docutils literal notranslate"><span class="pre">NSObject</span></code> to receive <code class="docutils literal notranslate"><span class="pre">UIDatePicker</span></code> events. <code class="docutils literal notranslate"><span class="pre">&#64;objc_method</span></code> is the equivalent of <code class="docutils literal notranslate"><span class="pre">&#64;objc</span></code> in Swift, it exposes a method to the Objective-C runtime.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">didChange</span></code> method converts the selected date from <code class="docutils literal notranslate"><span class="pre">NSDate</span></code> to <code class="docutils literal notranslate"><span class="pre">datetime</span></code> and calls the callback function (<code class="docutils literal notranslate"><span class="pre">DatePicker.did_change</span></code>) with the date as parameter.
+<code class="docutils literal notranslate"><span class="pre">PickerDelegate.picker</span></code> will be set to an instance of the previously created class.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">PickerDelegate</span><span class="p">(</span><span class="n">NSObject</span><span class="p">):</span>
+
+    <span class="n">picker</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@objc_method</span>
+    <span class="k">def</span> <span class="nf">didChange</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">picker</span><span class="o">.</span><span class="n">did_change</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">date</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">objc_picker</span><span class="o">.</span><span class="n">date</span>
+            <span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">timeIntervalSince1970</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">picker</span><span class="o">.</span><span class="n">did_change</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In the <code class="docutils literal notranslate"><span class="pre">DatePicker.make_view</span></code> method, we’ll set the event handler to the delegate’s <code class="docutils literal notranslate"><span class="pre">didChange</span></code> method with <code class="docutils literal notranslate"><span class="pre">addTarget(_:action:forControlEvents:)</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">make_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">picker</span> <span class="o">=</span> <span class="n">UIDatePicker</span><span class="o">.</span><span class="n">alloc</span><span class="p">()</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+
+        <span class="n">delegate</span> <span class="o">=</span> <span class="n">PickerDelegate</span><span class="o">.</span><span class="n">alloc</span><span class="p">()</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+        <span class="n">delegate</span><span class="o">.</span><span class="n">picker</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="n">delegate</span><span class="o">.</span><span class="n">objc_picker</span> <span class="o">=</span> <span class="n">picker</span>
+
+        <span class="c1"># 4096 is the value for UIControlEventValueChanged</span>
+        <span class="n">picker</span><span class="o">.</span><span class="n">addTarget</span><span class="p">(</span><span class="n">delegate</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="n">SEL</span><span class="p">(</span><span class="s2">&quot;didChange&quot;</span><span class="p">),</span> <span class="n">forControlEvents</span><span class="o">=</span><span class="mi">4096</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">picker</span>
+
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>Then the date picker is usable as any view because <a class="reference internal" href="pyto_ui/classes.html#pyto_ui.UIKitView" title="pyto_ui.UIKitView"><code class="xref py py-class docutils literal notranslate"><span class="pre">UIKitView</span></code></a> is a subclass of <a class="reference internal" href="pyto_ui/classes.html#pyto_ui.View" title="pyto_ui.View"><code class="xref py py-class docutils literal notranslate"><span class="pre">View</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">view</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">View</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">background_color</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">COLOR_SYSTEM_BACKGROUND</span>
+
+<span class="k">def</span> <span class="nf">did_change</span><span class="p">(</span><span class="n">date</span><span class="p">):</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+
+<span class="n">date_picker</span> <span class="o">=</span> <span class="n">DatePicker</span><span class="p">()</span>
+<span class="n">date_picker</span><span class="o">.</span><span class="n">did_change</span> <span class="o">=</span> <span class="n">did_change</span>
+
+<span class="n">date_picker</span><span class="o">.</span><span class="n">flex</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">ui</span><span class="o">.</span><span class="n">FLEXIBLE_BOTTOM_MARGIN</span><span class="p">,</span>
+    <span class="n">ui</span><span class="o">.</span><span class="n">FLEXIBLE_TOP_MARGIN</span><span class="p">,</span>
+    <span class="n">ui</span><span class="o">.</span><span class="n">FLEXIBLE_LEFT_MARGIN</span><span class="p">,</span>
+    <span class="n">ui</span><span class="o">.</span><span class="n">FLEXIBLE_RIGHT_MARGIN</span>
+<span class="p">]</span>
+<span class="n">date_picker</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">center</span>
+<span class="n">view</span><span class="o">.</span><span class="n">add_subview</span><span class="p">(</span><span class="n">date_picker</span><span class="p">)</span>
+
+<span class="n">ui</span><span class="o">.</span><span class="n">show_view</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">ui</span><span class="o">.</span><span class="n">PRESENTATION_MODE_SHEET</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The whole script:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyto_ui</span> <span class="k">as</span> <span class="nn">ui</span>
+<span class="kn">from</span> <span class="nn">UIKit</span> <span class="kn">import</span> <span class="n">UIDatePicker</span>
+<span class="kn">from</span> <span class="nn">Foundation</span> <span class="kn">import</span> <span class="n">NSObject</span>
+<span class="kn">from</span> <span class="nn">rubicon.objc</span> <span class="kn">import</span> <span class="n">objc_method</span><span class="p">,</span> <span class="n">SEL</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="c1"># We subclass ui.UIKitView to implement a date picker</span>
+<span class="k">class</span> <span class="nc">DatePicker</span><span class="p">(</span><span class="n">ui</span><span class="o">.</span><span class="n">UIKitView</span><span class="p">):</span>
+
+    <span class="n">did_change</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># Here we return an UIDatePicker object</span>
+    <span class="k">def</span> <span class="nf">make_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">picker</span> <span class="o">=</span> <span class="n">UIDatePicker</span><span class="o">.</span><span class="n">alloc</span><span class="p">()</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+
+         <span class="c1"># We create an Objective-C instance that will respond to the date picker value changed event</span>
+        <span class="n">delegate</span> <span class="o">=</span> <span class="n">PickerDelegate</span><span class="o">.</span><span class="n">alloc</span><span class="p">()</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+        <span class="n">delegate</span><span class="o">.</span><span class="n">picker</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="n">delegate</span><span class="o">.</span><span class="n">objc_picker</span> <span class="o">=</span> <span class="n">picker</span>
+
+        <span class="c1"># 4096 is the value for UIControlEventValueChanged</span>
+        <span class="n">picker</span><span class="o">.</span><span class="n">addTarget</span><span class="p">(</span><span class="n">delegate</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="n">SEL</span><span class="p">(</span><span class="s2">&quot;didChange&quot;</span><span class="p">),</span> <span class="n">forControlEvents</span><span class="o">=</span><span class="mi">4096</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">picker</span>
+
+<span class="c1"># An Objective-C class for addTarget(_:action:forControlEvents:)</span>
+<span class="k">class</span> <span class="nc">PickerDelegate</span><span class="p">(</span><span class="n">NSObject</span><span class="p">):</span>
+
+    <span class="n">picker</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@objc_method</span>
+    <span class="k">def</span> <span class="nf">didChange</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">picker</span><span class="o">.</span><span class="n">did_change</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">date</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">objc_picker</span><span class="o">.</span><span class="n">date</span>
+            <span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">timeIntervalSince1970</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">picker</span><span class="o">.</span><span class="n">did_change</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+
+<span class="c1"># Then we can use our date picker as any other view</span>
+
+<span class="n">view</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">View</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">background_color</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">COLOR_SYSTEM_BACKGROUND</span>
+
+<span class="k">def</span> <span class="nf">did_change</span><span class="p">(</span><span class="n">date</span><span class="p">):</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+
+<span class="n">date_picker</span> <span class="o">=</span> <span class="n">DatePicker</span><span class="p">()</span>
+<span class="n">date_picker</span><span class="o">.</span><span class="n">did_change</span> <span class="o">=</span> <span class="n">did_change</span>
+
+<span class="n">date_picker</span><span class="o">.</span><span class="n">flex</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">ui</span><span class="o">.</span><span class="n">FLEXIBLE_BOTTOM_MARGIN</span><span class="p">,</span>
+    <span class="n">ui</span><span class="o">.</span><span class="n">FLEXIBLE_TOP_MARGIN</span><span class="p">,</span>
+    <span class="n">ui</span><span class="o">.</span><span class="n">FLEXIBLE_LEFT_MARGIN</span><span class="p">,</span>
+    <span class="n">ui</span><span class="o">.</span><span class="n">FLEXIBLE_RIGHT_MARGIN</span>
+<span class="p">]</span>
+<span class="n">date_picker</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">center</span>
+<span class="n">view</span><span class="o">.</span><span class="n">add_subview</span><span class="p">(</span><span class="n">date_picker</span><span class="p">)</span>
+
+<span class="n">ui</span><span class="o">.</span><span class="n">show_view</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">ui</span><span class="o">.</span><span class="n">PRESENTATION_MODE_SHEET</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="using-uiviewcontroller">
+<h3>Using UIViewController<a class="headerlink" href="#using-uiviewcontroller" title="Permalink to this headline"></a></h3>
+<p>UIKit View controllers can be presented with <a class="reference internal" href="pyto_ui/functions.html#pyto_ui.show_view_controller" title="pyto_ui.show_view_controller"><code class="xref py py-func docutils literal notranslate"><span class="pre">show_view_controller()</span></code></a>.</p>
+<p>In this example, we will subclass <code class="docutils literal notranslate"><span class="pre">UIViewController</span></code> and use the <a class="reference external" href="https://developer.apple.com/documentation/linkpresentation">LinkPresentation</a> framework to show the preview of a link.</p>
+<p>We need to import the required modules.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">UIKit</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">LinkPresentation</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">Foundation</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">rubicon.objc</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mainthread</span> <span class="kn">import</span> <span class="n">mainthread</span>
+<span class="kn">import</span> <span class="nn">pyto_ui</span> <span class="k">as</span> <span class="nn">ui</span>
+</pre></div>
+</div>
+<p>Then we can subclass <code class="docutils literal notranslate"><span class="pre">UIViewController</span></code> and implement <code class="docutils literal notranslate"><span class="pre">viewDidLoad</span></code> like any UIKit app does.
+<code class="docutils literal notranslate"><span class="pre">send_super()</span></code> from <code class="docutils literal notranslate"><span class="pre">rubicon.objc</span></code> is used to call methods from the superclass.
+<code class="docutils literal notranslate"><span class="pre">&#64;objc_method</span></code> is the equivalent of <code class="docutils literal notranslate"><span class="pre">&#64;objc</span></code> in Swift, it exposes a method to the Objective-C runtime.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyViewController</span><span class="p">(</span><span class="n">UIViewController</span><span class="p">):</span>
+
+    <span class="nd">@objc_method</span>
+    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dismissViewControllerAnimated</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">completion</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+    <span class="nd">@objc_method</span>
+    <span class="k">def</span> <span class="nf">dealloc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">link_view</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+
+    <span class="nd">@objc_method</span>
+    <span class="k">def</span> <span class="nf">viewDidLoad</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">send_super</span><span class="p">(</span><span class="vm">__class__</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;viewDidLoad&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Link&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="n">UIColor</span><span class="o">.</span><span class="n">systemBackgroundColor</span><span class="p">()</span>
+
+        <span class="c1"># 0 is the value for a &#39;Done&#39; button</span>
+        <span class="n">done_button</span> <span class="o">=</span> <span class="n">UIBarButtonItem</span><span class="o">.</span><span class="n">alloc</span><span class="p">()</span><span class="o">.</span><span class="n">initWithBarButtonSystemItem</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="n">SEL</span><span class="p">(</span><span class="s2">&quot;close&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">navigationItem</span><span class="o">.</span><span class="n">rightBarButtonItems</span> <span class="o">=</span> <span class="p">[</span><span class="n">done_button</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>We create an <code class="docutils literal notranslate"><span class="pre">LPLinkView</span></code> from the <a class="reference external" href="https://developer.apple.com/documentation/linkpresentation">LinkPresentation</a> framework and we fetch the metadata. The <code class="docutils literal notranslate"><span class="pre">fetch_handler()</span></code> function is a block passed to an Objective-C method, it has to be fully annotated. Mark parameters as <code class="docutils literal notranslate"><span class="pre">ObjCInstance</span></code> from <code class="docutils literal notranslate"><span class="pre">rubicon.objc</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+
+    <span class="nd">@objc_method</span>
+    <span class="k">def</span> <span class="nf">viewDidLoad</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="o">...</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">NSURL</span><span class="o">.</span><span class="n">alloc</span><span class="p">()</span><span class="o">.</span><span class="n">initWithString</span><span class="p">(</span><span class="s2">&quot;https://apple.com&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">link_view</span> <span class="o">=</span> <span class="n">LPLinkView</span><span class="o">.</span><span class="n">alloc</span><span class="p">()</span><span class="o">.</span><span class="n">initWithURL</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">link_view</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">000</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">addSubview</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">link_view</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fetchMetadata</span><span class="p">()</span>
+
+
+    <span class="nd">@objc_method</span>
+    <span class="k">def</span> <span class="nf">fetchMetadata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="nd">@mainthread</span>
+        <span class="k">def</span> <span class="nf">set_metadata</span><span class="p">(</span><span class="n">metadata</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">link_view</span><span class="o">.</span><span class="n">setMetadata</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">fetch_handler</span><span class="p">(</span><span class="n">metadata</span><span class="p">:</span> <span class="n">ObjCInstance</span><span class="p">,</span> <span class="n">error</span><span class="p">:</span> <span class="n">ObjCInstance</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+             <span class="n">set_metadata</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
+
+        <span class="n">provider</span> <span class="o">=</span> <span class="n">LPMetadataProvider</span><span class="o">.</span><span class="n">alloc</span><span class="p">()</span><span class="o">.</span><span class="n">init</span><span class="p">()</span><span class="o">.</span><span class="n">autorelease</span><span class="p">()</span>
+        <span class="n">provider</span><span class="o">.</span><span class="n">startFetchingMetadataForURL</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">completionHandler</span><span class="o">=</span><span class="n">fetch_handler</span><span class="p">)</span>
+
+    <span class="nd">@objc_method</span>
+    <span class="k">def</span> <span class="nf">layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">link_view</span><span class="o">.</span><span class="n">sizeToFit</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">link_view</span><span class="o">.</span><span class="n">setCenter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">center</span><span class="p">)</span>
+
+    <span class="nd">@objc_method</span>
+    <span class="k">def</span> <span class="nf">viewDidLayoutSubviews</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>When our View controller is ready, we can show it with <a class="reference internal" href="pyto_ui/functions.html#pyto_ui.show_view_controller" title="pyto_ui.show_view_controller"><code class="xref py py-func docutils literal notranslate"><span class="pre">show_view_controller()</span></code></a>. <a class="reference internal" href="mainthread.html#mainthread.mainthread" title="mainthread.mainthread"><code class="xref py py-func docutils literal notranslate"><span class="pre">mainthread()</span></code></a> is used to call a function in the app’s main thread.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@mainthread</span>
+<span class="k">def</span> <span class="nf">show</span><span class="p">():</span>
+    <span class="n">vc</span> <span class="o">=</span> <span class="n">MyViewController</span><span class="o">.</span><span class="n">alloc</span><span class="p">()</span><span class="o">.</span><span class="n">init</span><span class="p">()</span><span class="o">.</span><span class="n">autorelease</span><span class="p">()</span>
+    <span class="n">nav_vc</span> <span class="o">=</span> <span class="n">UINavigationController</span><span class="o">.</span><span class="n">alloc</span><span class="p">()</span><span class="o">.</span><span class="n">initWithRootViewController</span><span class="p">(</span><span class="n">vc</span><span class="p">)</span><span class="o">.</span><span class="n">autorelease</span><span class="p">()</span>
+    <span class="n">ui</span><span class="o">.</span><span class="n">show_view_controller</span><span class="p">(</span><span class="n">nav_vc</span><span class="p">)</span>
+
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The whole script:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">UIKit</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">LinkPresentation</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">Foundation</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">rubicon.objc</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mainthread</span> <span class="kn">import</span> <span class="n">mainthread</span>
+<span class="kn">import</span> <span class="nn">pyto_ui</span> <span class="k">as</span> <span class="nn">ui</span>
+
+<span class="c1"># We subclass UIViewController</span>
+<span class="k">class</span> <span class="nc">MyViewController</span><span class="p">(</span><span class="n">UIViewController</span><span class="p">):</span>
+
+    <span class="nd">@objc_method</span>
+    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dismissViewControllerAnimated</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">completion</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+    <span class="nd">@objc_method</span>
+    <span class="k">def</span> <span class="nf">dealloc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">link_view</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+
+    <span class="c1"># Overriding viewDidLoad</span>
+    <span class="nd">@objc_method</span>
+    <span class="k">def</span> <span class="nf">viewDidLoad</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">send_super</span><span class="p">(</span><span class="vm">__class__</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;viewDidLoad&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Link&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="n">UIColor</span><span class="o">.</span><span class="n">systemBackgroundColor</span><span class="p">()</span>
+
+        <span class="c1"># 0 is the value for a &#39;Done&#39; button</span>
+        <span class="n">done_button</span> <span class="o">=</span> <span class="n">UIBarButtonItem</span><span class="o">.</span><span class="n">alloc</span><span class="p">()</span><span class="o">.</span><span class="n">initWithBarButtonSystemItem</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="n">SEL</span><span class="p">(</span><span class="s2">&quot;close&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">navigationItem</span><span class="o">.</span><span class="n">rightBarButtonItems</span> <span class="o">=</span> <span class="p">[</span><span class="n">done_button</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">NSURL</span><span class="o">.</span><span class="n">alloc</span><span class="p">()</span><span class="o">.</span><span class="n">initWithString</span><span class="p">(</span><span class="s2">&quot;https://apple.com&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">link_view</span> <span class="o">=</span> <span class="n">LPLinkView</span><span class="o">.</span><span class="n">alloc</span><span class="p">()</span><span class="o">.</span><span class="n">initWithURL</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">link_view</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">000</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">addSubview</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">link_view</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fetchMetadata</span><span class="p">()</span>
+
+    <span class="nd">@objc_method</span>
+    <span class="k">def</span> <span class="nf">fetchMetadata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="nd">@mainthread</span>
+        <span class="k">def</span> <span class="nf">set_metadata</span><span class="p">(</span><span class="n">metadata</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">link_view</span><span class="o">.</span><span class="n">setMetadata</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">fetch_handler</span><span class="p">(</span><span class="n">metadata</span><span class="p">:</span> <span class="n">ObjCInstance</span><span class="p">,</span> <span class="n">error</span><span class="p">:</span> <span class="n">ObjCInstance</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+             <span class="n">set_metadata</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
+
+        <span class="n">provider</span> <span class="o">=</span> <span class="n">LPMetadataProvider</span><span class="o">.</span><span class="n">alloc</span><span class="p">()</span><span class="o">.</span><span class="n">init</span><span class="p">()</span><span class="o">.</span><span class="n">autorelease</span><span class="p">()</span>
+        <span class="n">provider</span><span class="o">.</span><span class="n">startFetchingMetadataForURL</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">completionHandler</span><span class="o">=</span><span class="n">fetch_handler</span><span class="p">)</span>
+
+    <span class="nd">@objc_method</span>
+    <span class="k">def</span> <span class="nf">layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">link_view</span><span class="o">.</span><span class="n">sizeToFit</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">link_view</span><span class="o">.</span><span class="n">setCenter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">center</span><span class="p">)</span>
+
+    <span class="nd">@objc_method</span>
+    <span class="k">def</span> <span class="nf">viewDidLayoutSubviews</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="p">()</span>
+
+<span class="nd">@mainthread</span>
+<span class="k">def</span> <span class="nf">show</span><span class="p">():</span>
+    <span class="c1"># We initialize our view controller and a navigation controller</span>
+    <span class="c1"># This must be called from the main thread</span>
+    <span class="n">vc</span> <span class="o">=</span> <span class="n">MyViewController</span><span class="o">.</span><span class="n">alloc</span><span class="p">()</span><span class="o">.</span><span class="n">init</span><span class="p">()</span><span class="o">.</span><span class="n">autorelease</span><span class="p">()</span>
+    <span class="n">nav_vc</span> <span class="o">=</span> <span class="n">UINavigationController</span><span class="o">.</span><span class="n">alloc</span><span class="p">()</span><span class="o">.</span><span class="n">initWithRootViewController</span><span class="p">(</span><span class="n">vc</span><span class="p">)</span><span class="o">.</span><span class="n">autorelease</span><span class="p">()</span>
+    <span class="n">ui</span><span class="o">.</span><span class="n">show_view_controller</span><span class="p">(</span><span class="n">nav_vc</span><span class="p">)</span>
+
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../Objective-C.html" class="btn btn-neutral float-left" title="Objective-C" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pyto_ui/classes.html" class="btn btn-neutral float-right" title="Classes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Emma Labbé.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

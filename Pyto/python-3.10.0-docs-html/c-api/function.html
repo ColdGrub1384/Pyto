@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Function Objects &#8212; Python 3.10.0 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css?2021.8" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.10.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="Instance Method Objects" href="method.html" />
+    <link rel="prev" title="Set Objects" href="set.html" />
+    <link rel="canonical" href="https://docs.python.org/3/c-api/function.html" />
+    
+      
+    
+
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+<link rel="shortcut icon" type="image/png" href="../_static/py.svg" />
+            <script type="text/javascript" src="../_static/copybutton.js"></script>
+            <script type="text/javascript" src="../_static/menu.js"></script> 
+
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu" />
+    <label for="menuToggler" class="toggler__label">
+        <span></span>
+    </label>
+    <nav class="nav-content" role="navigation">
+         <a href="https://www.python.org/" class="nav-logo">
+             <img src="../_static/py.svg" alt="Logo"/>
+         </a>
+        <div class="version_switcher_placeholder"></div>
+        <form role="search" class="search" action="../search.html" method="get">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                <path fill-rule="nonzero"
+                        d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="#444"></path>
+            </svg>
+            <input type="text" name="q" aria-label="Quick search"/>
+            <input type="submit" value="Go"/>
+        </form>
+    </nav>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <div class="language_switcher_placeholder"></div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="set.html"
+                        title="previous chapter">Set Objects</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="method.html"
+                        title="next chapter">Instance Method Objects</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.10/Doc/c-api/function.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </nav>
+    </div>
+</div>
+
+  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="method.html" title="Instance Method Objects"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="set.html" title="Set Objects"
+             accesskey="P">previous</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.10.0 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Python/C API Reference Manual</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="concrete.html" accesskey="U">Concrete Objects Layer</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Function Objects</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="function-objects">
+<span id="id1"></span><h1>Function Objects<a class="headerlink" href="#function-objects" title="Permalink to this headline">¶</a></h1>
+<p id="index-0">There are a few functions specific to Python functions.</p>
+<dl class="c type">
+<dt id="c.PyFunctionObject">
+<em class="property">type </em><code class="sig-name descname">PyFunctionObject</code><a class="headerlink" href="#c.PyFunctionObject" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The C structure used for functions.</p>
+</dd></dl>
+
+<dl class="c var">
+<dt id="c.PyFunction_Type">
+<a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject">PyTypeObject</a> <code class="sig-name descname">PyFunction_Type</code><a class="headerlink" href="#c.PyFunction_Type" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p id="index-1">This is an instance of <a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyTypeObject</span></code></a> and represents the Python function
+type.  It is exposed to Python programmers as <code class="docutils literal notranslate"><span class="pre">types.FunctionType</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyFunction_Check">
+int <code class="sig-name descname">PyFunction_Check</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFunction_Check" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Return true if <em>o</em> is a function object (has type <a class="reference internal" href="#c.PyFunction_Type" title="PyFunction_Type"><code class="xref c c-data docutils literal notranslate"><span class="pre">PyFunction_Type</span></code></a>).
+The parameter must not be <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.  This function always succeeds.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyFunction_New">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<code class="sig-name descname">PyFunction_New</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>code</em>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>globals</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFunction_New" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em class="refcount">Return value: New reference.</em><p>Return a new function object associated with the code object <em>code</em>. <em>globals</em>
+must be a dictionary with the global variables accessible to the function.</p>
+<p>The function’s docstring and name are retrieved from the code object. <em>__module__</em>
+is retrieved from <em>globals</em>. The argument defaults, annotations and closure are
+set to <code class="docutils literal notranslate"><span class="pre">NULL</span></code>. <em>__qualname__</em> is set to the same value as the function’s name.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyFunction_NewWithQualName">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<code class="sig-name descname">PyFunction_NewWithQualName</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>code</em>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>globals</em>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>qualname</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFunction_NewWithQualName" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em class="refcount">Return value: New reference.</em><p>As <a class="reference internal" href="#c.PyFunction_New" title="PyFunction_New"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyFunction_New()</span></code></a>, but also allows setting the function object’s
+<code class="docutils literal notranslate"><span class="pre">__qualname__</span></code> attribute.  <em>qualname</em> should be a unicode object or <code class="docutils literal notranslate"><span class="pre">NULL</span></code>;
+if <code class="docutils literal notranslate"><span class="pre">NULL</span></code>, the <code class="docutils literal notranslate"><span class="pre">__qualname__</span></code> attribute is set to the same value as its
+<code class="docutils literal notranslate"><span class="pre">__name__</span></code> attribute.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.3.</span></p>
+</div>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyFunction_GetCode">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<code class="sig-name descname">PyFunction_GetCode</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>op</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFunction_GetCode" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em class="refcount">Return value: Borrowed reference.</em><p>Return the code object associated with the function object <em>op</em>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyFunction_GetGlobals">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<code class="sig-name descname">PyFunction_GetGlobals</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>op</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFunction_GetGlobals" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em class="refcount">Return value: Borrowed reference.</em><p>Return the globals dictionary associated with the function object <em>op</em>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyFunction_GetModule">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<code class="sig-name descname">PyFunction_GetModule</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>op</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFunction_GetModule" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em class="refcount">Return value: Borrowed reference.</em><p>Return a <a class="reference internal" href="../glossary.html#term-borrowed-reference"><span class="xref std std-term">borrowed reference</span></a> to the <em>__module__</em> attribute of the
+function object <em>op</em>. It can be <em>NULL</em>.</p>
+<p>This is normally a string containing the module name, but can be set to any
+other object by Python code.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyFunction_GetDefaults">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<code class="sig-name descname">PyFunction_GetDefaults</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>op</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFunction_GetDefaults" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em class="refcount">Return value: Borrowed reference.</em><p>Return the argument default values of the function object <em>op</em>. This can be a
+tuple of arguments or <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyFunction_SetDefaults">
+int <code class="sig-name descname">PyFunction_SetDefaults</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>op</em>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>defaults</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFunction_SetDefaults" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the argument default values for the function object <em>op</em>. <em>defaults</em> must be
+<code class="docutils literal notranslate"><span class="pre">Py_None</span></code> or a tuple.</p>
+<p>Raises <a class="reference internal" href="../library/exceptions.html#SystemError" title="SystemError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">SystemError</span></code></a> and returns <code class="docutils literal notranslate"><span class="pre">-1</span></code> on failure.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyFunction_GetClosure">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<code class="sig-name descname">PyFunction_GetClosure</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>op</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFunction_GetClosure" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em class="refcount">Return value: Borrowed reference.</em><p>Return the closure associated with the function object <em>op</em>. This can be <code class="docutils literal notranslate"><span class="pre">NULL</span></code>
+or a tuple of cell objects.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyFunction_SetClosure">
+int <code class="sig-name descname">PyFunction_SetClosure</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>op</em>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>closure</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFunction_SetClosure" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the closure associated with the function object <em>op</em>. <em>closure</em> must be
+<code class="docutils literal notranslate"><span class="pre">Py_None</span></code> or a tuple of cell objects.</p>
+<p>Raises <a class="reference internal" href="../library/exceptions.html#SystemError" title="SystemError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">SystemError</span></code></a> and returns <code class="docutils literal notranslate"><span class="pre">-1</span></code> on failure.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyFunction_GetAnnotations">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<code class="sig-name descname">PyFunction_GetAnnotations</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>op</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFunction_GetAnnotations" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em class="refcount">Return value: Borrowed reference.</em><p>Return the annotations of the function object <em>op</em>. This can be a
+mutable dictionary or <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyFunction_SetAnnotations">
+int <code class="sig-name descname">PyFunction_SetAnnotations</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>op</em>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>annotations</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyFunction_SetAnnotations" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set the annotations for the function object <em>op</em>. <em>annotations</em>
+must be a dictionary or <code class="docutils literal notranslate"><span class="pre">Py_None</span></code>.</p>
+<p>Raises <a class="reference internal" href="../library/exceptions.html#SystemError" title="SystemError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">SystemError</span></code></a> and returns <code class="docutils literal notranslate"><span class="pre">-1</span></code> on failure.</p>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="set.html"
+                        title="previous chapter">Set Objects</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="method.html"
+                        title="next chapter">Instance Method Objects</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.10/Doc/c-api/function.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="method.html" title="Instance Method Objects"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="set.html" title="Set Objects"
+             >previous</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.10.0 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Python/C API Reference Manual</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="concrete.html" >Concrete Objects Layer</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Function Objects</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2021, Python Software Foundation.
+    <br />
+    This page is licensed under the Python Software Foundation License Version 2.
+    <br />
+    Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+    <br />
+    See <a href="">History and License</a> for more information.
+    <br /><br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Oct 04, 2021.
+    <a href="https://docs.python.org/3/bugs.html">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+
+  </body>
+</html>

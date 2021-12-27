@@ -9,9 +9,11 @@
 import SwiftUI
 import Highlightr
 
-fileprivate struct CodeView: UIViewRepresentable {
+fileprivate struct CodeView: View {
     
     var code: String
+    
+    @Environment(\.colorScheme) var colorScheme
     
     func attributedString(colorScheme: ColorScheme) -> NSAttributedString {
         let highlightr = Highlightr()
@@ -30,15 +32,14 @@ fileprivate struct CodeView: UIViewRepresentable {
         return highlightr.highlight(code, as: "python") ?? NSAttributedString(string: "")
     }
     
-    func makeUIView(context: Context) -> some UIView {
-        let label = UILabel()
-        label.attributedText = attributedString(colorScheme: context.environment.colorScheme)
-        return label
-    }
-    
-    func updateUIView(_ uiView: UIViewType, context: Context) {
-        DispatchQueue.main.async {
-            (uiView as! UILabel).attributedText = attributedString(colorScheme: context.environment.colorScheme)
+    var body: some View {
+        HStack {
+            if #available(iOS 15, *) {
+                Text(AttributedString(attributedString(colorScheme: colorScheme)))
+            } else {
+                Text(code).font(.custom("Menlo", size: 17))
+            }
+            Spacer()
         }
     }
 }

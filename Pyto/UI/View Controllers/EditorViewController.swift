@@ -1538,8 +1538,9 @@ func directory(for scriptURL: URL) -> URL {
         }
         
         if documentationNavigationController == nil || documentationNavigationController?.viewControllers.count == 0 {
-            documentationNavigationController = ThemableNavigationController(rootViewController: DocumentationViewController())
+            documentationNavigationController = UINavigationController(rootViewController: DocumentationViewController())
         }
+        documentationNavigationController?.view.backgroundColor = .systemBackground
         present(documentationNavigationController!, animated: true, completion: nil)
     }
     

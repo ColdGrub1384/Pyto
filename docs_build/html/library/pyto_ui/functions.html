@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Functions &mdash; Pyto  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Constants" href="constants.html" />
+    <link rel="prev" title="Classes" href="classes.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Pyto
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../automation.html">Automation with Shortcuts and x-callback URLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external.html">Accessing external files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../opencv.html">OpenCV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../third_party.html">Third Party Libraries</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ObjC Runtime</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Objective-C.html">Objective-C</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Interface</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../pyto_ui.html">pyto_ui</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../pyto_ui.html#api-reference">API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="classes.html">Classes</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#showing-views">Showing views</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#system-pickers">System pickers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="constants.html">Constants</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../pyto_ui.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pyto_ui.html#uikit-bridge">UIKit bridge</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../widgets.html">widgets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../watch.html">watch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sf_symbols.html">sf_symbols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sharing.html">sharing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mainthread.html">mainthread</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../htmpy.html">htmpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pyto_core.html">pyto_core</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">OS Technologies</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../notifications.html">notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../remote_notifications.html">remote_notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background.html">background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bookmarks.html">bookmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../music.html">music</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../photos.html">photos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../location.html">location</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../motion.html">motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../multipeer.html">multipeer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../speech.html">speech</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Sharing data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../pasteboard.html">pasteboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userkeys.html">userkeys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xcallback.html">xcallback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps.html">apps</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Pyto</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../pyto_ui.html">pyto_ui</a> &raquo;</li>
+      <li>Functions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/library/pyto_ui/functions.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="functions">
+<h1>Functions<a class="headerlink" href="#functions" title="Permalink to this headline"></a></h1>
+<p>This page contains a list of functions defined in the <code class="docutils literal notranslate"><span class="pre">pyto_ui</span></code> module.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyto_ui.font_family_names">
+<span class="sig-prename descclassname"><span class="pre">pyto_ui.</span></span><span class="sig-name descname"><span class="pre">font_family_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyto_ui.font_family_names" title="Permalink to this definition"></a></dt>
+<dd><p>Returns all font family names that can be used to initialize a font.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyto_ui.image_with_system_name">
+<span class="sig-prename descclassname"><span class="pre">pyto_ui.</span></span><span class="sig-name descname"><span class="pre">image_with_system_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyto_ui.image_with_system_name" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a system symbol image from given name. The return value is an UIKit <code class="docutils literal notranslate"><span class="pre">UIImage</span></code> object, so it can only be used on the <code class="docutils literal notranslate"><span class="pre">pyto_ui</span></code> library.
+More info about symbols on <a class="reference external" href="https://developer.apple.com/design/resources/">Apple’s Web Site</a> .</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – The name of the SF Symbol.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>UIImage</p>
+</dd>
+</dl>
+</dd></dl>
+
+<section id="showing-views">
+<h2>Showing views<a class="headerlink" href="#showing-views" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyto_ui.show_view">
+<span class="sig-prename descclassname"><span class="pre">pyto_ui.</span></span><span class="sig-name descname"><span class="pre">show_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">view</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="classes.html#pyto_ui.View" title="pyto_ui.View"><span class="pre">pyto_ui.View</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ui_constants.PRESENTATION_MODE</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.show_view" title="Permalink to this definition"></a></dt>
+<dd><p>Presents the given view.</p>
+<p>This function doesn’t return until the view is closed. You can use another thread to perform background tasks and modify the UI after it’s presented.</p>
+<p>On iPad, if the view has a custom size, it will be used for the presentation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>view</strong> – The <a class="reference internal" href="classes.html#pyto_ui.View" title="pyto_ui.View"><code class="xref py py-class docutils literal notranslate"><span class="pre">View</span></code></a> object to present.</p></li>
+<li><p><strong>mode</strong> – The presentation mode to use. The value will be ignored on a widget. See <a class="reference external" href="constants.html#presentation-mode">Presentation Mode</a> constants for possible values.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyto_ui.show_view_controller">
+<span class="sig-prename descclassname"><span class="pre">pyto_ui.</span></span><span class="sig-name descname"><span class="pre">show_view_controller</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">view_controller</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyto_ui.show_view_controller" title="Permalink to this definition"></a></dt>
+<dd><p>Shows an UIKit View Controller. This function must be called from the main thread.</p>
+<p>See <a class="reference external" href="Objective-C.html">Objective-C</a> and <a class="reference external" href="mainthread.html">mainthread</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>view_controller</strong> – UIViewController.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="system-pickers">
+<h2>System pickers<a class="headerlink" href="#system-pickers" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyto_ui.pick_color">
+<span class="sig-prename descclassname"><span class="pre">pyto_ui.</span></span><span class="sig-name descname"><span class="pre">pick_color</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="classes.html#pyto_ui.Color" title="pyto_ui.Color"><span class="pre">pyto_ui.Color</span></a></span></span><a class="headerlink" href="#pyto_ui.pick_color" title="Permalink to this definition"></a></dt>
+<dd><p>Picks a color with the system color picker and returns it.</p>
+<p>Requires iOS 14.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="classes.html#pyto_ui.Color" title="pyto_ui.Color">pyto_ui.Color</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyto_ui.pick_font">
+<span class="sig-prename descclassname"><span class="pre">pyto_ui.</span></span><span class="sig-name descname"><span class="pre">pick_font</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="classes.html#pyto_ui.Font" title="pyto_ui.Font"><span class="pre">pyto_ui.Font</span></a></span></span><a class="headerlink" href="#pyto_ui.pick_font" title="Permalink to this definition"></a></dt>
+<dd><p>Picks a font with the system font picker and returns it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="classes.html#pyto_ui.Font" title="pyto_ui.Font">pyto_ui.Font</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classes.html" class="btn btn-neutral float-left" title="Classes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="constants.html" class="btn btn-neutral float-right" title="Constants" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Emma Labbé.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

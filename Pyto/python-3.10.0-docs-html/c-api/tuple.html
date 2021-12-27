@@ -1,0 +1,537 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Tuple Objects &#8212; Python 3.10.0 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css?2021.8" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.10.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="List Objects" href="list.html" />
+    <link rel="prev" title="Unicode Objects and Codecs" href="unicode.html" />
+    <link rel="canonical" href="https://docs.python.org/3/c-api/tuple.html" />
+    
+      
+    
+
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+<link rel="shortcut icon" type="image/png" href="../_static/py.svg" />
+            <script type="text/javascript" src="../_static/copybutton.js"></script>
+            <script type="text/javascript" src="../_static/menu.js"></script> 
+
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu" />
+    <label for="menuToggler" class="toggler__label">
+        <span></span>
+    </label>
+    <nav class="nav-content" role="navigation">
+         <a href="https://www.python.org/" class="nav-logo">
+             <img src="../_static/py.svg" alt="Logo"/>
+         </a>
+        <div class="version_switcher_placeholder"></div>
+        <form role="search" class="search" action="../search.html" method="get">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                <path fill-rule="nonzero"
+                        d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="#444"></path>
+            </svg>
+            <input type="text" name="q" aria-label="Quick search"/>
+            <input type="submit" value="Go"/>
+        </form>
+    </nav>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <div class="language_switcher_placeholder"></div>
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Tuple Objects</a></li>
+<li><a class="reference internal" href="#struct-sequence-objects">Struct Sequence Objects</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="unicode.html"
+                        title="previous chapter">Unicode Objects and Codecs</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="list.html"
+                        title="next chapter">List Objects</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.10/Doc/c-api/tuple.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </nav>
+    </div>
+</div>
+
+  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="list.html" title="List Objects"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="unicode.html" title="Unicode Objects and Codecs"
+             accesskey="P">previous</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.10.0 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Python/C API Reference Manual</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="concrete.html" accesskey="U">Concrete Objects Layer</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Tuple Objects</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="tuple-objects">
+<span id="tupleobjects"></span><h1>Tuple Objects<a class="headerlink" href="#tuple-objects" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="index-0"></span><dl class="c type">
+<dt id="c.PyTupleObject">
+<em class="property">type </em><code class="sig-name descname">PyTupleObject</code><a class="headerlink" href="#c.PyTupleObject" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This subtype of <a class="reference internal" href="structures.html#c.PyObject" title="PyObject"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyObject</span></code></a> represents a Python tuple object.</p>
+</dd></dl>
+
+<dl class="c var">
+<dt id="c.PyTuple_Type">
+<a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject">PyTypeObject</a> <code class="sig-name descname">PyTuple_Type</code><a class="headerlink" href="#c.PyTuple_Type" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em class="stableabi"> Part of the <a class="reference internal" href="stable.html#stable"><span class="std std-ref">Stable ABI</span></a>.</em><p>This instance of <a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyTypeObject</span></code></a> represents the Python tuple type; it
+is the same object as <a class="reference internal" href="../library/stdtypes.html#tuple" title="tuple"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a> in the Python layer.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyTuple_Check">
+int <code class="sig-name descname">PyTuple_Check</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyTuple_Check" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Return true if <em>p</em> is a tuple object or an instance of a subtype of the
+tuple type.  This function always succeeds.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyTuple_CheckExact">
+int <code class="sig-name descname">PyTuple_CheckExact</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyTuple_CheckExact" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Return true if <em>p</em> is a tuple object, but not an instance of a subtype of the
+tuple type.  This function always succeeds.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyTuple_New">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<code class="sig-name descname">PyTuple_New</code><span class="sig-paren">(</span>Py_ssize_t <em>len</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyTuple_New" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em class="refcount">Return value: New reference.</em><em class="stableabi"> Part of the <a class="reference internal" href="stable.html#stable"><span class="std std-ref">Stable ABI</span></a>.</em><p>Return a new tuple object of size <em>len</em>, or <code class="docutils literal notranslate"><span class="pre">NULL</span></code> on failure.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyTuple_Pack">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<code class="sig-name descname">PyTuple_Pack</code><span class="sig-paren">(</span>Py_ssize_t <em>n</em>, ...<span class="sig-paren">)</span><a class="headerlink" href="#c.PyTuple_Pack" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em class="refcount">Return value: New reference.</em><em class="stableabi"> Part of the <a class="reference internal" href="stable.html#stable"><span class="std std-ref">Stable ABI</span></a>.</em><p>Return a new tuple object of size <em>n</em>, or <code class="docutils literal notranslate"><span class="pre">NULL</span></code> on failure. The tuple values
+are initialized to the subsequent <em>n</em> C arguments pointing to Python objects.
+<code class="docutils literal notranslate"><span class="pre">PyTuple_Pack(2,</span> <span class="pre">a,</span> <span class="pre">b)</span></code> is equivalent to <code class="docutils literal notranslate"><span class="pre">Py_BuildValue(&quot;(OO)&quot;,</span> <span class="pre">a,</span> <span class="pre">b)</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyTuple_Size">
+Py_ssize_t <code class="sig-name descname">PyTuple_Size</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyTuple_Size" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em class="stableabi"> Part of the <a class="reference internal" href="stable.html#stable"><span class="std std-ref">Stable ABI</span></a>.</em><p>Take a pointer to a tuple object, and return the size of that tuple.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyTuple_GET_SIZE">
+Py_ssize_t <code class="sig-name descname">PyTuple_GET_SIZE</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyTuple_GET_SIZE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Return the size of the tuple <em>p</em>, which must be non-<code class="docutils literal notranslate"><span class="pre">NULL</span></code> and point to a tuple;
+no error checking is performed.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyTuple_GetItem">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<code class="sig-name descname">PyTuple_GetItem</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>p</em>, Py_ssize_t <em>pos</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyTuple_GetItem" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em class="refcount">Return value: Borrowed reference.</em><em class="stableabi"> Part of the <a class="reference internal" href="stable.html#stable"><span class="std std-ref">Stable ABI</span></a>.</em><p>Return the object at position <em>pos</em> in the tuple pointed to by <em>p</em>.  If <em>pos</em> is
+negative or out of bounds, return <code class="docutils literal notranslate"><span class="pre">NULL</span></code> and set an <a class="reference internal" href="../library/exceptions.html#IndexError" title="IndexError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">IndexError</span></code></a> exception.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyTuple_GET_ITEM">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<code class="sig-name descname">PyTuple_GET_ITEM</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>p</em>, Py_ssize_t <em>pos</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyTuple_GET_ITEM" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em class="refcount">Return value: Borrowed reference.</em><p>Like <a class="reference internal" href="#c.PyTuple_GetItem" title="PyTuple_GetItem"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyTuple_GetItem()</span></code></a>, but does no checking of its arguments.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyTuple_GetSlice">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<code class="sig-name descname">PyTuple_GetSlice</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>p</em>, Py_ssize_t <em>low</em>, Py_ssize_t <em>high</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyTuple_GetSlice" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em class="refcount">Return value: New reference.</em><em class="stableabi"> Part of the <a class="reference internal" href="stable.html#stable"><span class="std std-ref">Stable ABI</span></a>.</em><p>Return the slice of the tuple pointed to by <em>p</em> between <em>low</em> and <em>high</em>,
+or <code class="docutils literal notranslate"><span class="pre">NULL</span></code> on failure.  This is the equivalent of the Python expression
+<code class="docutils literal notranslate"><span class="pre">p[low:high]</span></code>.  Indexing from the end of the list is not supported.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyTuple_SetItem">
+int <code class="sig-name descname">PyTuple_SetItem</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>p</em>, Py_ssize_t <em>pos</em>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyTuple_SetItem" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em class="stableabi"> Part of the <a class="reference internal" href="stable.html#stable"><span class="std std-ref">Stable ABI</span></a>.</em><p>Insert a reference to object <em>o</em> at position <em>pos</em> of the tuple pointed to by
+<em>p</em>.  Return <code class="docutils literal notranslate"><span class="pre">0</span></code> on success.  If <em>pos</em> is out of bounds, return <code class="docutils literal notranslate"><span class="pre">-1</span></code>
+and set an <a class="reference internal" href="../library/exceptions.html#IndexError" title="IndexError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">IndexError</span></code></a> exception.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function “steals” a reference to <em>o</em> and discards a reference to
+an item already in the tuple at the affected position.</p>
+</div>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyTuple_SET_ITEM">
+void <code class="sig-name descname">PyTuple_SET_ITEM</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>p</em>, Py_ssize_t <em>pos</em>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyTuple_SET_ITEM" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Like <a class="reference internal" href="#c.PyTuple_SetItem" title="PyTuple_SetItem"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyTuple_SetItem()</span></code></a>, but does no error checking, and should <em>only</em> be
+used to fill in brand new tuples.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This macro “steals” a reference to <em>o</em>, and, unlike
+<a class="reference internal" href="#c.PyTuple_SetItem" title="PyTuple_SetItem"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyTuple_SetItem()</span></code></a>, does <em>not</em> discard a reference to any item that
+is being replaced; any reference in the tuple at position <em>pos</em> will be
+leaked.</p>
+</div>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c._PyTuple_Resize">
+int <code class="sig-name descname">_PyTuple_Resize</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> **<em>p</em>, Py_ssize_t <em>newsize</em><span class="sig-paren">)</span><a class="headerlink" href="#c._PyTuple_Resize" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Can be used to resize a tuple.  <em>newsize</em> will be the new length of the tuple.
+Because tuples are <em>supposed</em> to be immutable, this should only be used if there
+is only one reference to the object.  Do <em>not</em> use this if the tuple may already
+be known to some other part of the code.  The tuple will always grow or shrink
+at the end.  Think of this as destroying the old tuple and creating a new one,
+only more efficiently.  Returns <code class="docutils literal notranslate"><span class="pre">0</span></code> on success. Client code should never
+assume that the resulting value of <code class="docutils literal notranslate"><span class="pre">*p</span></code> will be the same as before calling
+this function. If the object referenced by <code class="docutils literal notranslate"><span class="pre">*p</span></code> is replaced, the original
+<code class="docutils literal notranslate"><span class="pre">*p</span></code> is destroyed.  On failure, returns <code class="docutils literal notranslate"><span class="pre">-1</span></code> and sets <code class="docutils literal notranslate"><span class="pre">*p</span></code> to <code class="docutils literal notranslate"><span class="pre">NULL</span></code>, and
+raises <a class="reference internal" href="../library/exceptions.html#MemoryError" title="MemoryError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">MemoryError</span></code></a> or <a class="reference internal" href="../library/exceptions.html#SystemError" title="SystemError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">SystemError</span></code></a>.</p>
+</dd></dl>
+
+</section>
+<section id="struct-sequence-objects">
+<h1>Struct Sequence Objects<a class="headerlink" href="#struct-sequence-objects" title="Permalink to this headline">¶</a></h1>
+<p>Struct sequence objects are the C equivalent of <a class="reference internal" href="../library/collections.html#collections.namedtuple" title="collections.namedtuple"><code class="xref py py-func docutils literal notranslate"><span class="pre">namedtuple()</span></code></a>
+objects, i.e. a sequence whose items can also be accessed through attributes.
+To create a struct sequence, you first have to create a specific struct sequence
+type.</p>
+<dl class="c function">
+<dt id="c.PyStructSequence_NewType">
+<a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject">PyTypeObject</a> *<code class="sig-name descname">PyStructSequence_NewType</code><span class="sig-paren">(</span><a class="reference internal" href="#c.PyStructSequence_Desc" title="PyStructSequence_Desc">PyStructSequence_Desc</a> *<em>desc</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyStructSequence_NewType" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em class="refcount">Return value: New reference.</em><em class="stableabi"> Part of the <a class="reference internal" href="stable.html#stable"><span class="std std-ref">Stable ABI</span></a>.</em><p>Create a new struct sequence type from the data in <em>desc</em>, described below. Instances
+of the resulting type can be created with <a class="reference internal" href="#c.PyStructSequence_New" title="PyStructSequence_New"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyStructSequence_New()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyStructSequence_InitType">
+void <code class="sig-name descname">PyStructSequence_InitType</code><span class="sig-paren">(</span><a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject">PyTypeObject</a> *<em>type</em>, <a class="reference internal" href="#c.PyStructSequence_Desc" title="PyStructSequence_Desc">PyStructSequence_Desc</a> *<em>desc</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyStructSequence_InitType" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Initializes a struct sequence type <em>type</em> from <em>desc</em> in place.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyStructSequence_InitType2">
+int <code class="sig-name descname">PyStructSequence_InitType2</code><span class="sig-paren">(</span><a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject">PyTypeObject</a> *<em>type</em>, <a class="reference internal" href="#c.PyStructSequence_Desc" title="PyStructSequence_Desc">PyStructSequence_Desc</a> *<em>desc</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyStructSequence_InitType2" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The same as <code class="docutils literal notranslate"><span class="pre">PyStructSequence_InitType</span></code>, but returns <code class="docutils literal notranslate"><span class="pre">0</span></code> on success and <code class="docutils literal notranslate"><span class="pre">-1</span></code> on
+failure.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.4.</span></p>
+</div>
+</dd></dl>
+
+<dl class="c type">
+<dt id="c.PyStructSequence_Desc">
+<em class="property">type </em><code class="sig-name descname">PyStructSequence_Desc</code><a class="headerlink" href="#c.PyStructSequence_Desc" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em class="stableabi"> Part of the <a class="reference internal" href="stable.html#stable"><span class="std std-ref">Stable ABI</span></a>.</em><p>Contains the meta information of a struct sequence type to create.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 34%" />
+<col style="width: 44%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>C Type</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*</span></code></p></td>
+<td><p>name of the struct sequence type</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">doc</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*</span></code></p></td>
+<td><p>pointer to docstring for the type
+or <code class="docutils literal notranslate"><span class="pre">NULL</span></code> to omit</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fields</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PyStructSequence_Field</span> <span class="pre">*</span></code></p></td>
+<td><p>pointer to <code class="docutils literal notranslate"><span class="pre">NULL</span></code>-terminated array
+with field names of the new type</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">n_in_sequence</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>number of fields visible to the
+Python side (if used as tuple)</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="c type">
+<dt id="c.PyStructSequence_Field">
+<em class="property">type </em><code class="sig-name descname">PyStructSequence_Field</code><a class="headerlink" href="#c.PyStructSequence_Field" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em class="stableabi"> Part of the <a class="reference internal" href="stable.html#stable"><span class="std std-ref">Stable ABI</span></a>.</em><p>Describes a field of a struct sequence. As a struct sequence is modeled as a
+tuple, all fields are typed as <span class="xref c c-texpr"><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a>*</span>.  The index in the
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">fields</span></code> array of the <a class="reference internal" href="#c.PyStructSequence_Desc" title="PyStructSequence_Desc"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyStructSequence_Desc</span></code></a> determines which
+field of the struct sequence is described.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 26%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>C Type</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*</span></code></p></td>
+<td><p>name for the field or <code class="docutils literal notranslate"><span class="pre">NULL</span></code> to end
+the list of named fields, set to
+<a class="reference internal" href="#c.PyStructSequence_UnnamedField" title="PyStructSequence_UnnamedField"><code class="xref c c-data docutils literal notranslate"><span class="pre">PyStructSequence_UnnamedField</span></code></a>
+to leave unnamed</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">doc</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*</span></code></p></td>
+<td><p>field docstring or <code class="docutils literal notranslate"><span class="pre">NULL</span></code> to omit</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="c var">
+<dt id="c.PyStructSequence_UnnamedField">
+<em class="property">const</em> char *<em class="property">const</em> <code class="sig-name descname">PyStructSequence_UnnamedField</code><a class="headerlink" href="#c.PyStructSequence_UnnamedField" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Special value for a field name to leave it unnamed.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.9: </span>The type was changed from <code class="docutils literal notranslate"><span class="pre">char</span> <span class="pre">*</span></code>.</p>
+</div>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyStructSequence_New">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<code class="sig-name descname">PyStructSequence_New</code><span class="sig-paren">(</span><a class="reference internal" href="type.html#c.PyTypeObject" title="PyTypeObject">PyTypeObject</a> *<em>type</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyStructSequence_New" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em class="refcount">Return value: New reference.</em><em class="stableabi"> Part of the <a class="reference internal" href="stable.html#stable"><span class="std std-ref">Stable ABI</span></a>.</em><p>Creates an instance of <em>type</em>, which must have been created with
+<a class="reference internal" href="#c.PyStructSequence_NewType" title="PyStructSequence_NewType"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyStructSequence_NewType()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyStructSequence_GetItem">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<code class="sig-name descname">PyStructSequence_GetItem</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>p</em>, Py_ssize_t <em>pos</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyStructSequence_GetItem" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em class="refcount">Return value: Borrowed reference.</em><em class="stableabi"> Part of the <a class="reference internal" href="stable.html#stable"><span class="std std-ref">Stable ABI</span></a>.</em><p>Return the object at position <em>pos</em> in the struct sequence pointed to by <em>p</em>.
+No bounds checking is performed.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyStructSequence_GET_ITEM">
+<a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<code class="sig-name descname">PyStructSequence_GET_ITEM</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>p</em>, Py_ssize_t <em>pos</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyStructSequence_GET_ITEM" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em class="refcount">Return value: Borrowed reference.</em><p>Macro equivalent of <a class="reference internal" href="#c.PyStructSequence_GetItem" title="PyStructSequence_GetItem"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyStructSequence_GetItem()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyStructSequence_SetItem">
+void <code class="sig-name descname">PyStructSequence_SetItem</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>p</em>, Py_ssize_t <em>pos</em>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyStructSequence_SetItem" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em class="stableabi"> Part of the <a class="reference internal" href="stable.html#stable"><span class="std std-ref">Stable ABI</span></a>.</em><p>Sets the field at index <em>pos</em> of the struct sequence <em>p</em> to value <em>o</em>.  Like
+<a class="reference internal" href="#c.PyTuple_SET_ITEM" title="PyTuple_SET_ITEM"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyTuple_SET_ITEM()</span></code></a>, this should only be used to fill in brand new
+instances.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function “steals” a reference to <em>o</em>.</p>
+</div>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.PyStructSequence_SET_ITEM">
+void <code class="sig-name descname">PyStructSequence_SET_ITEM</code><span class="sig-paren">(</span><a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>p</em>, Py_ssize_t *<em>pos</em>, <a class="reference internal" href="structures.html#c.PyObject" title="PyObject">PyObject</a> *<em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#c.PyStructSequence_SET_ITEM" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Macro equivalent of <a class="reference internal" href="#c.PyStructSequence_SetItem" title="PyStructSequence_SetItem"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyStructSequence_SetItem()</span></code></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function “steals” a reference to <em>o</em>.</p>
+</div>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Tuple Objects</a></li>
+<li><a class="reference internal" href="#struct-sequence-objects">Struct Sequence Objects</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="unicode.html"
+                        title="previous chapter">Unicode Objects and Codecs</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="list.html"
+                        title="next chapter">List Objects</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.10/Doc/c-api/tuple.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="list.html" title="List Objects"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="unicode.html" title="Unicode Objects and Codecs"
+             >previous</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.10.0 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Python/C API Reference Manual</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="concrete.html" >Concrete Objects Layer</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Tuple Objects</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2021, Python Software Foundation.
+    <br />
+    This page is licensed under the Python Software Foundation License Version 2.
+    <br />
+    Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+    <br />
+    See <a href="">History and License</a> for more information.
+    <br /><br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Oct 04, 2021.
+    <a href="https://docs.python.org/3/bugs.html">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+
+  </body>
+</html>

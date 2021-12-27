@@ -147,6 +147,10 @@
 		B526B597274C60D40094FCBB /* ConsolePipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B526B593274C60780094FCBB /* ConsolePipView.swift */; };
 		B526B598274C60DF0094FCBB /* isiOSAppOnMac.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33B44FB25894A9E00F2D1E6 /* isiOSAppOnMac.swift */; };
 		B526B599274C60E00094FCBB /* isiOSAppOnMac.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33B44FB25894A9E00F2D1E6 /* isiOSAppOnMac.swift */; };
+		B5328BD0277A0054009A5C5B /* python-3.10.0-docs-html in Resources */ = {isa = PBXBuildFile; fileRef = B5328BCA277A0054009A5C5B /* python-3.10.0-docs-html */; };
+		B5328BD1277A0054009A5C5B /* python-3.10.0-docs-html in Resources */ = {isa = PBXBuildFile; fileRef = B5328BCA277A0054009A5C5B /* python-3.10.0-docs-html */; };
+		B5328BD2277A015E009A5C5B /* docs_build in Resources */ = {isa = PBXBuildFile; fileRef = C99FDFD4234A24320022685B /* docs_build */; };
+		B5328BD3277A015F009A5C5B /* docs_build in Resources */ = {isa = PBXBuildFile; fileRef = C99FDFD4234A24320022685B /* docs_build */; };
 		B533EEE6275E6E7600D37F6D /* SettingsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B533EEE9275E6E7600D37F6D /* SettingsView.storyboard */; };
 		B533EEE7275E6E7600D37F6D /* SettingsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B533EEE9275E6E7600D37F6D /* SettingsView.storyboard */; };
 		B53436C8275D716700691204 /* UIKitLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53436C7275D716700691204 /* UIKitLocalizedString.swift */; };
@@ -2263,6 +2267,7 @@
 		B51E07E3274067C6009BABC1 /* KeyboardHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHostingController.swift; sourceTree = "<group>"; };
 		B526B5882747902A0094FCBB /* TextViewSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewSearch.swift; sourceTree = "<group>"; };
 		B526B593274C60780094FCBB /* ConsolePipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsolePipView.swift; sourceTree = "<group>"; };
+		B5328BCA277A0054009A5C5B /* python-3.10.0-docs-html */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "python-3.10.0-docs-html"; sourceTree = "<group>"; };
 		B533EEF2275E733E00D37F6D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/SettingsView.strings; sourceTree = "<group>"; };
 		B533EEF3275E734500D37F6D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SettingsView.strings; sourceTree = "<group>"; };
 		B533EEF4275E734B00D37F6D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/SettingsView.strings; sourceTree = "<group>"; };
@@ -3933,6 +3938,7 @@
 		C93D61E82145E1D300C8B5E3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B5328BCA277A0054009A5C5B /* python-3.10.0-docs-html */,
 				C994194B263764EE0008487C /* terminal */,
 				C9F04E852173C33400BDD03E /* Localizable.strings */,
 				C9F04E8A2173DD7300BDD03E /* Main.storyboard */,
@@ -5192,7 +5198,6 @@
 				C94000FD250825A800EB74EB /* Embed Frameworks */,
 				C9400204250825A800EB74EB /* Embed App Extensions */,
 				C9400208250825A800EB74EB /* Embed Watch Content */,
-				C940020A250825A800EB74EB /* Zip docs */,
 				0DF997F67D92773FC21A41F1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -5444,7 +5449,6 @@
 				C9EAB4CA214D95C500DFC9A4 /* Embed Frameworks */,
 				C946A5BA22074EAA00F78C5C /* Embed App Extensions */,
 				C97B023823E9F82C00032925 /* Embed Watch Content */,
-				C94DB0D424EDC57E00AD4830 /* Zip docs */,
 				C91D079B25B62F8F0050FD86 /* Zip Automator Bundle */,
 			);
 			buildRules = (
@@ -5821,6 +5825,7 @@
 				C940FCEA250825A800EB74EB /* body.html in Resources */,
 				C940FCEB250825A800EB74EB /* lxml in Resources */,
 				C940FCEC250825A800EB74EB /* scripts_runner.py in Resources */,
+				B5328BD1277A0054009A5C5B /* python-3.10.0-docs-html in Resources */,
 				C940FCED250825A800EB74EB /* Dark 2Icon.png in Resources */,
 				C940FCEE250825A800EB74EB /* regex in Resources */,
 				B5594D72276A7F6E00E274FF /* templates.json in Resources */,
@@ -5841,6 +5846,7 @@
 				B5E805CC276CD05200F3E344 /* traceback.json in Resources */,
 				C940FCFF250825A800EB74EB /* installer.py in Resources */,
 				C940FD00250825A800EB74EB /* numpy in Resources */,
+				B5328BD3277A015F009A5C5B /* docs_build in Resources */,
 				C940FD01250825A800EB74EB /* Light 2Icon.png in Resources */,
 				C940FD02250825A800EB74EB /* AppleIncRootCertificate.cer in Resources */,
 				C940FD04250825A800EB74EB /* Dark 7Icon.png in Resources */,
@@ -5984,6 +5990,7 @@
 				C95F9D0F2564A1FA007B12EB /* regex in Resources */,
 				C95F9D0C2564A1FA007B12EB /* networkx in Resources */,
 				C95AECB82208A688003BCB05 /* cacert.pem in Resources */,
+				B5328BD0277A0054009A5C5B /* python-3.10.0-docs-html in Resources */,
 				B5594D6E276A7F1300E274FF /* HTML + Python.html.txt in Resources */,
 				C9F04E832173C33400BDD03E /* Localizable.strings in Resources */,
 				C9A33B13224FCDAD0083F041 /* TextField.xib in Resources */,
@@ -5998,6 +6005,7 @@
 				C90BA5BE23C4CD1F00B2B187 /* Dark 6Icon.png in Resources */,
 				C9A419A523A321EB00BF5393 /* LightIcon.png in Resources */,
 				C95F9D152564A1FB007B12EB /* gensim in Resources */,
+				B5328BD2277A015E009A5C5B /* docs_build in Resources */,
 				B5A179BA2767C714009E4C6C /* Toga User Interface.py.txt in Resources */,
 				C95F9D072564A1FA007B12EB /* lxml in Resources */,
 				C95F9D1A2564A1FB007B12EB /* dask in Resources */,
@@ -6188,24 +6196,6 @@
 			shellPath = /bin/sh;
 			shellScript = "amlint \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\"\n";
 		};
-		C940020A250825A800EB74EB /* Zip docs */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Zip docs";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "DOCS=\"docs_build\"\nZIP=\"$DOCS\".zip\n\ncd \"$SRCROOT\"\n\nzip -r $ZIP $DOCS/*\n\nmv \"$ZIP\" \"$BUILT_PRODUCTS_DIR/Pyto.app/docs.zip\"\n";
-		};
 		C942435222B9B35D00274AED /* Copy Python lib directory */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -6223,24 +6213,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
 			shellScript = "PYTHONLIB=\"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Versions/A/Resources/python37\"\n\nif [ -d \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Versions\" ]\nthen\n# Is building for macOS\nif [ -d \"$PYTHONLIB\" ]\nthen\nrm -rf \"$PYTHONLIB\"\nfi\nelse\nexit 0\nfi\n\nmkdir \"$PYTHONLIB\"\ncp -r \"${SRCROOT}/Python3_Mac/python/lib/python3.7/\"* \"$PYTHONLIB/\"\n\n";
-		};
-		C94DB0D424EDC57E00AD4830 /* Zip docs */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Zip docs";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "DOCS=\"docs_build\"\nZIP=\"$DOCS\".zip\n\ncd \"$SRCROOT\"\n\nzip -r $ZIP $DOCS/*\n\nmv \"$ZIP\" \"$BUILT_PRODUCTS_DIR/Pyto.app/docs.zip\"\n";
 		};
 		D910EE956F1871789C77F1DA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -1,0 +1,699 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>token — Constants used with Python parse trees &#8212; Python 3.10.0 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css?2021.8" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.10.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="keyword — Testing for Python keywords" href="keyword.html" />
+    <link rel="prev" title="symtable — Access to the compiler’s symbol tables" href="symtable.html" />
+    <link rel="canonical" href="https://docs.python.org/3/library/token.html" />
+    
+      
+    
+
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+<link rel="shortcut icon" type="image/png" href="../_static/py.svg" />
+            <script type="text/javascript" src="../_static/copybutton.js"></script>
+            <script type="text/javascript" src="../_static/menu.js"></script> 
+
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu" />
+    <label for="menuToggler" class="toggler__label">
+        <span></span>
+    </label>
+    <nav class="nav-content" role="navigation">
+         <a href="https://www.python.org/" class="nav-logo">
+             <img src="../_static/py.svg" alt="Logo"/>
+         </a>
+        <div class="version_switcher_placeholder"></div>
+        <form role="search" class="search" action="../search.html" method="get">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                <path fill-rule="nonzero"
+                        d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="#444"></path>
+            </svg>
+            <input type="text" name="q" aria-label="Quick search"/>
+            <input type="submit" value="Go"/>
+        </form>
+    </nav>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <div class="language_switcher_placeholder"></div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="symtable.html"
+                        title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">symtable</span></code> — Access to the compiler’s symbol tables</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="keyword.html"
+                        title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">keyword</span></code> — Testing for Python keywords</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.10/Doc/library/token.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </nav>
+    </div>
+</div>
+
+  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="keyword.html" title="keyword — Testing for Python keywords"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="symtable.html" title="symtable — Access to the compiler’s symbol tables"
+             accesskey="P">previous</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.10.0 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="language.html" accesskey="U">Python Language Services</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><code class="xref py py-mod docutils literal notranslate"><span class="pre">token</span></code> — Constants used with Python parse trees</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-token">
+<span id="token-constants-used-with-python-parse-trees"></span><h1><a class="reference internal" href="#module-token" title="token: Constants representing terminal nodes of the parse tree."><code class="xref py py-mod docutils literal notranslate"><span class="pre">token</span></code></a> — Constants used with Python parse trees<a class="headerlink" href="#module-token" title="Permalink to this headline">¶</a></h1>
+<p><strong>Source code:</strong> <a class="reference external" href="https://github.com/python/cpython/tree/3.10/Lib/token.py">Lib/token.py</a></p>
+<hr class="docutils" />
+<p>This module provides constants which represent the numeric values of leaf nodes
+of the parse tree (terminal tokens).  Refer to the file <code class="file docutils literal notranslate"><span class="pre">Grammar/Tokens</span></code>
+in the Python distribution for the definitions of the names in the context of
+the language grammar.  The specific numeric values which the names map to may
+change between Python versions.</p>
+<p>The module also provides a mapping from numeric codes to names and some
+functions.  The functions mirror definitions in the Python C header files.</p>
+<dl class="py data">
+<dt id="token.tok_name">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">tok_name</code><a class="headerlink" href="#token.tok_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary mapping the numeric values of the constants defined in this module
+back to name strings, allowing more human-readable representation of parse trees
+to be generated.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="token.ISTERMINAL">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">ISTERMINAL</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="headerlink" href="#token.ISTERMINAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> for terminal token values.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="token.ISNONTERMINAL">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">ISNONTERMINAL</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="headerlink" href="#token.ISNONTERMINAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> for non-terminal token values.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="token.ISEOF">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">ISEOF</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="headerlink" href="#token.ISEOF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if <em>x</em> is the marker indicating the end of input.</p>
+</dd></dl>
+
+<p>The token constants are:</p>
+<dl class="py data">
+<dt id="token.ENDMARKER">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">ENDMARKER</code><a class="headerlink" href="#token.ENDMARKER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="token.NAME">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">NAME</code><a class="headerlink" href="#token.NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="token.NUMBER">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">NUMBER</code><a class="headerlink" href="#token.NUMBER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="token.STRING">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">STRING</code><a class="headerlink" href="#token.STRING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="token.NEWLINE">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">NEWLINE</code><a class="headerlink" href="#token.NEWLINE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="token.INDENT">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">INDENT</code><a class="headerlink" href="#token.INDENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="token.DEDENT">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">DEDENT</code><a class="headerlink" href="#token.DEDENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="token.LPAR">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">LPAR</code><a class="headerlink" href="#token.LPAR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;(&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.RPAR">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">RPAR</code><a class="headerlink" href="#token.RPAR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;)&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.LSQB">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">LSQB</code><a class="headerlink" href="#token.LSQB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;[&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.RSQB">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">RSQB</code><a class="headerlink" href="#token.RSQB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;]&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.COLON">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">COLON</code><a class="headerlink" href="#token.COLON" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;:&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.COMMA">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">COMMA</code><a class="headerlink" href="#token.COMMA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;,&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.SEMI">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">SEMI</code><a class="headerlink" href="#token.SEMI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;;&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.PLUS">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">PLUS</code><a class="headerlink" href="#token.PLUS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;+&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.MINUS">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">MINUS</code><a class="headerlink" href="#token.MINUS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;-&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.STAR">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">STAR</code><a class="headerlink" href="#token.STAR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;*&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.SLASH">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">SLASH</code><a class="headerlink" href="#token.SLASH" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;/&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.VBAR">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">VBAR</code><a class="headerlink" href="#token.VBAR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;|&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.AMPER">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">AMPER</code><a class="headerlink" href="#token.AMPER" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;&amp;&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.LESS">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">LESS</code><a class="headerlink" href="#token.LESS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;&lt;&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.GREATER">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">GREATER</code><a class="headerlink" href="#token.GREATER" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;&gt;&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.EQUAL">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">EQUAL</code><a class="headerlink" href="#token.EQUAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;=&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.DOT">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">DOT</code><a class="headerlink" href="#token.DOT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;.&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.PERCENT">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">PERCENT</code><a class="headerlink" href="#token.PERCENT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;%&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.LBRACE">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">LBRACE</code><a class="headerlink" href="#token.LBRACE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;{&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.RBRACE">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">RBRACE</code><a class="headerlink" href="#token.RBRACE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;}&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.EQEQUAL">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">EQEQUAL</code><a class="headerlink" href="#token.EQEQUAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;==&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.NOTEQUAL">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">NOTEQUAL</code><a class="headerlink" href="#token.NOTEQUAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;!=&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.LESSEQUAL">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">LESSEQUAL</code><a class="headerlink" href="#token.LESSEQUAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;&lt;=&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.GREATEREQUAL">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">GREATEREQUAL</code><a class="headerlink" href="#token.GREATEREQUAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;&gt;=&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.TILDE">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">TILDE</code><a class="headerlink" href="#token.TILDE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;~&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.CIRCUMFLEX">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">CIRCUMFLEX</code><a class="headerlink" href="#token.CIRCUMFLEX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;^&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.LEFTSHIFT">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">LEFTSHIFT</code><a class="headerlink" href="#token.LEFTSHIFT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;&lt;&lt;&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.RIGHTSHIFT">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">RIGHTSHIFT</code><a class="headerlink" href="#token.RIGHTSHIFT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;&gt;&gt;&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.DOUBLESTAR">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">DOUBLESTAR</code><a class="headerlink" href="#token.DOUBLESTAR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;**&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.PLUSEQUAL">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">PLUSEQUAL</code><a class="headerlink" href="#token.PLUSEQUAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;+=&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.MINEQUAL">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">MINEQUAL</code><a class="headerlink" href="#token.MINEQUAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;-=&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.STAREQUAL">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">STAREQUAL</code><a class="headerlink" href="#token.STAREQUAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;*=&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.SLASHEQUAL">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">SLASHEQUAL</code><a class="headerlink" href="#token.SLASHEQUAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;/=&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.PERCENTEQUAL">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">PERCENTEQUAL</code><a class="headerlink" href="#token.PERCENTEQUAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;%=&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.AMPEREQUAL">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">AMPEREQUAL</code><a class="headerlink" href="#token.AMPEREQUAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;&amp;=&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.VBAREQUAL">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">VBAREQUAL</code><a class="headerlink" href="#token.VBAREQUAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;|=&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.CIRCUMFLEXEQUAL">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">CIRCUMFLEXEQUAL</code><a class="headerlink" href="#token.CIRCUMFLEXEQUAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;^=&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.LEFTSHIFTEQUAL">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">LEFTSHIFTEQUAL</code><a class="headerlink" href="#token.LEFTSHIFTEQUAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;&lt;&lt;=&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.RIGHTSHIFTEQUAL">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">RIGHTSHIFTEQUAL</code><a class="headerlink" href="#token.RIGHTSHIFTEQUAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;&gt;&gt;=&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.DOUBLESTAREQUAL">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">DOUBLESTAREQUAL</code><a class="headerlink" href="#token.DOUBLESTAREQUAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;**=&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.DOUBLESLASH">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">DOUBLESLASH</code><a class="headerlink" href="#token.DOUBLESLASH" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;//&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.DOUBLESLASHEQUAL">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">DOUBLESLASHEQUAL</code><a class="headerlink" href="#token.DOUBLESLASHEQUAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;//=&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.AT">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">AT</code><a class="headerlink" href="#token.AT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;&#64;&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.ATEQUAL">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">ATEQUAL</code><a class="headerlink" href="#token.ATEQUAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;&#64;=&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.RARROW">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">RARROW</code><a class="headerlink" href="#token.RARROW" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;-&gt;&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.ELLIPSIS">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">ELLIPSIS</code><a class="headerlink" href="#token.ELLIPSIS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;...&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.COLONEQUAL">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">COLONEQUAL</code><a class="headerlink" href="#token.COLONEQUAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value for <code class="docutils literal notranslate"><span class="pre">&quot;:=&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.OP">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">OP</code><a class="headerlink" href="#token.OP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="token.AWAIT">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">AWAIT</code><a class="headerlink" href="#token.AWAIT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="token.ASYNC">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">ASYNC</code><a class="headerlink" href="#token.ASYNC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="token.TYPE_IGNORE">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">TYPE_IGNORE</code><a class="headerlink" href="#token.TYPE_IGNORE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="token.TYPE_COMMENT">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">TYPE_COMMENT</code><a class="headerlink" href="#token.TYPE_COMMENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="token.SOFT_KEYWORD">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">SOFT_KEYWORD</code><a class="headerlink" href="#token.SOFT_KEYWORD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="token.ERRORTOKEN">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">ERRORTOKEN</code><a class="headerlink" href="#token.ERRORTOKEN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="token.N_TOKENS">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">N_TOKENS</code><a class="headerlink" href="#token.N_TOKENS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="token.NT_OFFSET">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">NT_OFFSET</code><a class="headerlink" href="#token.NT_OFFSET" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>The following token type values aren’t used by the C tokenizer but are needed for
+the <a class="reference internal" href="tokenize.html#module-tokenize" title="tokenize: Lexical scanner for Python source code."><code class="xref py py-mod docutils literal notranslate"><span class="pre">tokenize</span></code></a> module.</p>
+<dl class="py data">
+<dt id="token.COMMENT">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">COMMENT</code><a class="headerlink" href="#token.COMMENT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value used to indicate a comment.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.NL">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">NL</code><a class="headerlink" href="#token.NL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value used to indicate a non-terminating newline.  The
+<a class="reference internal" href="#token.NEWLINE" title="token.NEWLINE"><code class="xref py py-data docutils literal notranslate"><span class="pre">NEWLINE</span></code></a> token indicates the end of a logical line of Python code;
+<code class="docutils literal notranslate"><span class="pre">NL</span></code> tokens are generated when a logical line of code is continued over
+multiple physical lines.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="token.ENCODING">
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">ENCODING</code><a class="headerlink" href="#token.ENCODING" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token value that indicates the encoding used to decode the source bytes
+into text. The first token returned by <a class="reference internal" href="tokenize.html#tokenize.tokenize" title="tokenize.tokenize"><code class="xref py py-func docutils literal notranslate"><span class="pre">tokenize.tokenize()</span></code></a> will
+always be an <code class="docutils literal notranslate"><span class="pre">ENCODING</span></code> token.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt>
+<code class="sig-prename descclassname">token.</code><code class="sig-name descname">TYPE_COMMENT</code></dt>
+<dd><p>Token value indicating that a type comment was recognized.  Such
+tokens are only produced when <a class="reference internal" href="ast.html#ast.parse" title="ast.parse"><code class="xref py py-func docutils literal notranslate"><span class="pre">ast.parse()</span></code></a> is invoked with
+<code class="docutils literal notranslate"><span class="pre">type_comments=True</span></code>.</p>
+</dd></dl>
+
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.5: </span>Added <a class="reference internal" href="#token.AWAIT" title="token.AWAIT"><code class="xref py py-data docutils literal notranslate"><span class="pre">AWAIT</span></code></a> and <a class="reference internal" href="#token.ASYNC" title="token.ASYNC"><code class="xref py py-data docutils literal notranslate"><span class="pre">ASYNC</span></code></a> tokens.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.7: </span>Added <a class="reference internal" href="#token.COMMENT" title="token.COMMENT"><code class="xref py py-data docutils literal notranslate"><span class="pre">COMMENT</span></code></a>, <a class="reference internal" href="#token.NL" title="token.NL"><code class="xref py py-data docutils literal notranslate"><span class="pre">NL</span></code></a> and <a class="reference internal" href="#token.ENCODING" title="token.ENCODING"><code class="xref py py-data docutils literal notranslate"><span class="pre">ENCODING</span></code></a> tokens.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.7: </span>Removed <a class="reference internal" href="#token.AWAIT" title="token.AWAIT"><code class="xref py py-data docutils literal notranslate"><span class="pre">AWAIT</span></code></a> and <a class="reference internal" href="#token.ASYNC" title="token.ASYNC"><code class="xref py py-data docutils literal notranslate"><span class="pre">ASYNC</span></code></a> tokens. “async” and “await” are
+now tokenized as <a class="reference internal" href="#token.NAME" title="token.NAME"><code class="xref py py-data docutils literal notranslate"><span class="pre">NAME</span></code></a> tokens.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.8: </span>Added <a class="reference internal" href="#token.TYPE_COMMENT" title="token.TYPE_COMMENT"><code class="xref py py-data docutils literal notranslate"><span class="pre">TYPE_COMMENT</span></code></a>, <a class="reference internal" href="#token.TYPE_IGNORE" title="token.TYPE_IGNORE"><code class="xref py py-data docutils literal notranslate"><span class="pre">TYPE_IGNORE</span></code></a>, <a class="reference internal" href="#token.COLONEQUAL" title="token.COLONEQUAL"><code class="xref py py-data docutils literal notranslate"><span class="pre">COLONEQUAL</span></code></a>.
+Added <a class="reference internal" href="#token.AWAIT" title="token.AWAIT"><code class="xref py py-data docutils literal notranslate"><span class="pre">AWAIT</span></code></a> and <a class="reference internal" href="#token.ASYNC" title="token.ASYNC"><code class="xref py py-data docutils literal notranslate"><span class="pre">ASYNC</span></code></a> tokens back (they’re needed
+to support parsing older Python versions for <a class="reference internal" href="ast.html#ast.parse" title="ast.parse"><code class="xref py py-func docutils literal notranslate"><span class="pre">ast.parse()</span></code></a> with
+<code class="docutils literal notranslate"><span class="pre">feature_version</span></code> set to 6 or lower).</p>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="symtable.html"
+                        title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">symtable</span></code> — Access to the compiler’s symbol tables</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="keyword.html"
+                        title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">keyword</span></code> — Testing for Python keywords</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.10/Doc/library/token.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="keyword.html" title="keyword — Testing for Python keywords"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="symtable.html" title="symtable — Access to the compiler’s symbol tables"
+             >previous</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.10.0 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="language.html" >Python Language Services</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><code class="xref py py-mod docutils literal notranslate"><span class="pre">token</span></code> — Constants used with Python parse trees</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2021, Python Software Foundation.
+    <br />
+    This page is licensed under the Python Software Foundation License Version 2.
+    <br />
+    Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+    <br />
+    See <a href="">History and License</a> for more information.
+    <br /><br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Oct 04, 2021.
+    <a href="https://docs.python.org/3/bugs.html">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,319 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>urllib.error — Exception classes raised by urllib.request &#8212; Python 3.10.0 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css?2021.8" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.10.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="urllib.robotparser — Parser for robots.txt" href="urllib.robotparser.html" />
+    <link rel="prev" title="urllib.parse — Parse URLs into components" href="urllib.parse.html" />
+    <link rel="canonical" href="https://docs.python.org/3/library/urllib.error.html" />
+    
+      
+    
+
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+<link rel="shortcut icon" type="image/png" href="../_static/py.svg" />
+            <script type="text/javascript" src="../_static/copybutton.js"></script>
+            <script type="text/javascript" src="../_static/menu.js"></script> 
+
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu" />
+    <label for="menuToggler" class="toggler__label">
+        <span></span>
+    </label>
+    <nav class="nav-content" role="navigation">
+         <a href="https://www.python.org/" class="nav-logo">
+             <img src="../_static/py.svg" alt="Logo"/>
+         </a>
+        <div class="version_switcher_placeholder"></div>
+        <form role="search" class="search" action="../search.html" method="get">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                <path fill-rule="nonzero"
+                        d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="#444"></path>
+            </svg>
+            <input type="text" name="q" aria-label="Quick search"/>
+            <input type="submit" value="Go"/>
+        </form>
+    </nav>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <div class="language_switcher_placeholder"></div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="urllib.parse.html"
+                        title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">urllib.parse</span></code> — Parse URLs into components</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="urllib.robotparser.html"
+                        title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">urllib.robotparser</span></code> —  Parser for robots.txt</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.10/Doc/library/urllib.error.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </nav>
+    </div>
+</div>
+
+  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="urllib.robotparser.html" title="urllib.robotparser — Parser for robots.txt"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="urllib.parse.html" title="urllib.parse — Parse URLs into components"
+             accesskey="P">previous</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.10.0 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="internet.html" accesskey="U">Internet Protocols and Support</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><code class="xref py py-mod docutils literal notranslate"><span class="pre">urllib.error</span></code> — Exception classes raised by urllib.request</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-urllib.error">
+<span id="urllib-error-exception-classes-raised-by-urllib-request"></span><h1><a class="reference internal" href="#module-urllib.error" title="urllib.error: Exception classes raised by urllib.request."><code class="xref py py-mod docutils literal notranslate"><span class="pre">urllib.error</span></code></a> — Exception classes raised by urllib.request<a class="headerlink" href="#module-urllib.error" title="Permalink to this headline">¶</a></h1>
+<p><strong>Source code:</strong> <a class="reference external" href="https://github.com/python/cpython/tree/3.10/Lib/urllib/error.py">Lib/urllib/error.py</a></p>
+<hr class="docutils" />
+<p>The <a class="reference internal" href="#module-urllib.error" title="urllib.error: Exception classes raised by urllib.request."><code class="xref py py-mod docutils literal notranslate"><span class="pre">urllib.error</span></code></a> module defines the exception classes for exceptions
+raised by <a class="reference internal" href="urllib.request.html#module-urllib.request" title="urllib.request: Extensible library for opening URLs."><code class="xref py py-mod docutils literal notranslate"><span class="pre">urllib.request</span></code></a>.  The base exception class is <a class="reference internal" href="#urllib.error.URLError" title="urllib.error.URLError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">URLError</span></code></a>.</p>
+<p>The following exceptions are raised by <a class="reference internal" href="#module-urllib.error" title="urllib.error: Exception classes raised by urllib.request."><code class="xref py py-mod docutils literal notranslate"><span class="pre">urllib.error</span></code></a> as appropriate:</p>
+<dl class="py exception">
+<dt id="urllib.error.URLError">
+<em class="property">exception </em><code class="sig-prename descclassname">urllib.error.</code><code class="sig-name descname">URLError</code><a class="headerlink" href="#urllib.error.URLError" title="Permalink to this definition">¶</a></dt>
+<dd><p>The handlers raise this exception (or derived exceptions) when they run into
+a problem.  It is a subclass of <a class="reference internal" href="exceptions.html#OSError" title="OSError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">OSError</span></code></a>.</p>
+<dl class="py attribute">
+<dt id="urllib.error.URLError.reason">
+<code class="sig-name descname">reason</code><a class="headerlink" href="#urllib.error.URLError.reason" title="Permalink to this definition">¶</a></dt>
+<dd><p>The reason for this error.  It can be a message string or another
+exception instance.</p>
+</dd></dl>
+
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.3: </span><a class="reference internal" href="#urllib.error.URLError" title="urllib.error.URLError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">URLError</span></code></a> has been made a subclass of <a class="reference internal" href="exceptions.html#OSError" title="OSError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">OSError</span></code></a> instead
+of <a class="reference internal" href="exceptions.html#IOError" title="IOError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">IOError</span></code></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="urllib.error.HTTPError">
+<em class="property">exception </em><code class="sig-prename descclassname">urllib.error.</code><code class="sig-name descname">HTTPError</code><a class="headerlink" href="#urllib.error.HTTPError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Though being an exception (a subclass of <a class="reference internal" href="#urllib.error.URLError" title="urllib.error.URLError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">URLError</span></code></a>), an
+<a class="reference internal" href="#urllib.error.HTTPError" title="urllib.error.HTTPError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">HTTPError</span></code></a> can also function as a non-exceptional file-like return
+value (the same thing that <a class="reference internal" href="urllib.request.html#urllib.request.urlopen" title="urllib.request.urlopen"><code class="xref py py-func docutils literal notranslate"><span class="pre">urlopen()</span></code></a> returns).  This
+is useful when handling exotic HTTP errors, such as requests for
+authentication.</p>
+<dl class="py attribute">
+<dt id="urllib.error.HTTPError.code">
+<code class="sig-name descname">code</code><a class="headerlink" href="#urllib.error.HTTPError.code" title="Permalink to this definition">¶</a></dt>
+<dd><p>An HTTP status code as defined in <span class="target" id="index-0"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc2616.html"><strong>RFC 2616</strong></a>.  This numeric value corresponds
+to a value found in the dictionary of codes as found in
+<a class="reference internal" href="http.server.html#http.server.BaseHTTPRequestHandler.responses" title="http.server.BaseHTTPRequestHandler.responses"><code class="xref py py-attr docutils literal notranslate"><span class="pre">http.server.BaseHTTPRequestHandler.responses</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="urllib.error.HTTPError.reason">
+<code class="sig-name descname">reason</code><a class="headerlink" href="#urllib.error.HTTPError.reason" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is usually a string explaining the reason for this error.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="urllib.error.HTTPError.headers">
+<code class="sig-name descname">headers</code><a class="headerlink" href="#urllib.error.HTTPError.headers" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HTTP response headers for the HTTP request that caused the
+<a class="reference internal" href="#urllib.error.HTTPError" title="urllib.error.HTTPError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">HTTPError</span></code></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.4.</span></p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="urllib.error.ContentTooShortError">
+<em class="property">exception </em><code class="sig-prename descclassname">urllib.error.</code><code class="sig-name descname">ContentTooShortError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msg</span></em>, <em class="sig-param"><span class="n">content</span></em><span class="sig-paren">)</span><a class="headerlink" href="#urllib.error.ContentTooShortError" title="Permalink to this definition">¶</a></dt>
+<dd><p>This exception is raised when the <a class="reference internal" href="urllib.request.html#urllib.request.urlretrieve" title="urllib.request.urlretrieve"><code class="xref py py-func docutils literal notranslate"><span class="pre">urlretrieve()</span></code></a>
+function detects that
+the amount of the downloaded data is less than the expected amount (given by
+the <em>Content-Length</em> header).  The <code class="xref py py-attr docutils literal notranslate"><span class="pre">content</span></code> attribute stores the
+downloaded (and supposedly truncated) data.</p>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="urllib.parse.html"
+                        title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">urllib.parse</span></code> — Parse URLs into components</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="urllib.robotparser.html"
+                        title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">urllib.robotparser</span></code> —  Parser for robots.txt</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.10/Doc/library/urllib.error.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="urllib.robotparser.html" title="urllib.robotparser — Parser for robots.txt"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="urllib.parse.html" title="urllib.parse — Parse URLs into components"
+             >previous</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.10.0 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="internet.html" >Internet Protocols and Support</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><code class="xref py py-mod docutils literal notranslate"><span class="pre">urllib.error</span></code> — Exception classes raised by urllib.request</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2021, Python Software Foundation.
+    <br />
+    This page is licensed under the Python Software Foundation License Version 2.
+    <br />
+    Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+    <br />
+    See <a href="">History and License</a> for more information.
+    <br /><br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Oct 04, 2021.
+    <a href="https://docs.python.org/3/bugs.html">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+
+  </body>
+</html>

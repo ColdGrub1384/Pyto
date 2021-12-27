@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>motion &mdash; Pyto  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="multipeer" href="multipeer.html" />
+    <link rel="prev" title="location" href="location.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Pyto
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../automation.html">Automation with Shortcuts and x-callback URLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../external.html">Accessing external files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../opencv.html">OpenCV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party.html">Third Party Libraries</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ObjC Runtime</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Objective-C.html">Objective-C</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Interface</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pyto_ui.html">pyto_ui</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widgets.html">widgets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="watch.html">watch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sf_symbols.html">sf_symbols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">sharing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mainthread.html">mainthread</a></li>
+<li class="toctree-l1"><a class="reference internal" href="htmpy.html">htmpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyto_core.html">pyto_core</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">OS Technologies</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="notifications.html">notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="remote_notifications.html">remote_notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="background.html">background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bookmarks.html">bookmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="music.html">music</a></li>
+<li class="toctree-l1"><a class="reference internal" href="photos.html">photos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="location.html">location</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">motion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-types">Data Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="multipeer.html">multipeer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="speech.html">speech</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Sharing data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pasteboard.html">pasteboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userkeys.html">userkeys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xcallback.html">xcallback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps.html">apps</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Pyto</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>motion</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/library/motion.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-motion">
+<span id="motion"></span><h1>motion<a class="headerlink" href="#module-motion" title="Permalink to this headline"></a></h1>
+<p>Motion sensors</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">motion</span></code> module gives access to the device’s accelerometer, gyroscope and magnetometer data.</p>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="motion.start_updating">
+<span class="sig-prename descclassname"><span class="pre">motion.</span></span><span class="sig-name descname"><span class="pre">start_updating</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#motion.start_updating" title="Permalink to this definition"></a></dt>
+<dd><p>Starts receiving information from the sensors.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="motion.stop_updating">
+<span class="sig-prename descclassname"><span class="pre">motion.</span></span><span class="sig-name descname"><span class="pre">stop_updating</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#motion.stop_updating" title="Permalink to this definition"></a></dt>
+<dd><p>Stops receiving information from the sensors</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="motion.get_acceleration">
+<span class="sig-prename descclassname"><span class="pre">motion.</span></span><span class="sig-name descname"><span class="pre">get_acceleration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#motion.Acceleration" title="motion.Acceleration"><span class="pre">motion.Acceleration</span></a></span></span><a class="headerlink" href="#motion.get_acceleration" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a tuple with information about acceleration (x, y, z).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#motion.Acceleration" title="motion.Acceleration">Acceleration</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="motion.get_attitude">
+<span class="sig-prename descclassname"><span class="pre">motion.</span></span><span class="sig-name descname"><span class="pre">get_attitude</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#motion.Attitude" title="motion.Attitude"><span class="pre">motion.Attitude</span></a></span></span><a class="headerlink" href="#motion.get_attitude" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a tuple with information about the attitude (roll, pitch, yaw).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#motion.Attitude" title="motion.Attitude">Attitude</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="motion.get_gravity">
+<span class="sig-prename descclassname"><span class="pre">motion.</span></span><span class="sig-name descname"><span class="pre">get_gravity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#motion.Gravity" title="motion.Gravity"><span class="pre">motion.Gravity</span></a></span></span><a class="headerlink" href="#motion.get_gravity" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a tuple with information about gravity (x, y, z).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#motion.Gravity" title="motion.Gravity">Gravity</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="motion.get_magnetic_field">
+<span class="sig-prename descclassname"><span class="pre">motion.</span></span><span class="sig-name descname"><span class="pre">get_magnetic_field</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#motion.MagneticField" title="motion.MagneticField"><span class="pre">motion.MagneticField</span></a></span></span><a class="headerlink" href="#motion.get_magnetic_field" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a tuple with information about the magnetic field (x, y, z).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#motion.MagneticField" title="motion.MagneticField">MagneticField</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="motion.get_rotation">
+<span class="sig-prename descclassname"><span class="pre">motion.</span></span><span class="sig-name descname"><span class="pre">get_rotation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#motion.Rotation" title="motion.Rotation"><span class="pre">motion.Rotation</span></a></span></span><a class="headerlink" href="#motion.get_rotation" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a tuple with information about rotation (x, y, z).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#motion.Rotation" title="motion.Rotation">Rotation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="data-types">
+<h2>Data Types<a class="headerlink" href="#data-types" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="motion.Acceleration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">motion.</span></span><span class="sig-name descname"><span class="pre">Acceleration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#motion.Acceleration" title="Permalink to this definition"></a></dt>
+<dd><p>A tuple containing data about acceleration (x, y, z).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="motion.Acceleration.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#motion.Acceleration.x" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="motion.Acceleration.y">
+<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#motion.Acceleration.y" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="motion.Acceleration.z">
+<span class="sig-name descname"><span class="pre">z</span></span><a class="headerlink" href="#motion.Acceleration.z" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="motion.Attitude">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">motion.</span></span><span class="sig-name descname"><span class="pre">Attitude</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roll</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pitch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#motion.Attitude" title="Permalink to this definition"></a></dt>
+<dd><p>A tuple containing data about attitude (roll, pitch, yaw).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="motion.Attitude.pitch">
+<span class="sig-name descname"><span class="pre">pitch</span></span><a class="headerlink" href="#motion.Attitude.pitch" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="motion.Attitude.roll">
+<span class="sig-name descname"><span class="pre">roll</span></span><a class="headerlink" href="#motion.Attitude.roll" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="motion.Attitude.yaw">
+<span class="sig-name descname"><span class="pre">yaw</span></span><a class="headerlink" href="#motion.Attitude.yaw" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="motion.Gravity">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">motion.</span></span><span class="sig-name descname"><span class="pre">Gravity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#motion.Gravity" title="Permalink to this definition"></a></dt>
+<dd><p>A tuple containing data about gravity (x, y, z).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="motion.Gravity.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#motion.Gravity.x" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="motion.Gravity.y">
+<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#motion.Gravity.y" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="motion.Gravity.z">
+<span class="sig-name descname"><span class="pre">z</span></span><a class="headerlink" href="#motion.Gravity.z" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="motion.MagneticField">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">motion.</span></span><span class="sig-name descname"><span class="pre">MagneticField</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#motion.MagneticField" title="Permalink to this definition"></a></dt>
+<dd><p>A tuple containing data about magnetic field (x, y, z).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="motion.MagneticField.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#motion.MagneticField.x" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="motion.MagneticField.y">
+<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#motion.MagneticField.y" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="motion.MagneticField.z">
+<span class="sig-name descname"><span class="pre">z</span></span><a class="headerlink" href="#motion.MagneticField.z" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="motion.Rotation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">motion.</span></span><span class="sig-name descname"><span class="pre">Rotation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#motion.Rotation" title="Permalink to this definition"></a></dt>
+<dd><p>A tuple containing data about rotation (x, y, z).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="motion.Rotation.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#motion.Rotation.x" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="motion.Rotation.y">
+<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#motion.Rotation.y" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="motion.Rotation.z">
+<span class="sig-name descname"><span class="pre">z</span></span><a class="headerlink" href="#motion.Rotation.z" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="location.html" class="btn btn-neutral float-left" title="location" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="multipeer.html" class="btn btn-neutral float-right" title="multipeer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Emma Labbé.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

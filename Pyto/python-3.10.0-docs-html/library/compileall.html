@@ -1,0 +1,617 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>compileall — Byte-compile Python libraries &#8212; Python 3.10.0 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css?2021.8" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.10.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="dis — Disassembler for Python bytecode" href="dis.html" />
+    <link rel="prev" title="py_compile — Compile Python source files" href="py_compile.html" />
+    <link rel="canonical" href="https://docs.python.org/3/library/compileall.html" />
+    
+      
+    
+
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+<link rel="shortcut icon" type="image/png" href="../_static/py.svg" />
+            <script type="text/javascript" src="../_static/copybutton.js"></script>
+            <script type="text/javascript" src="../_static/menu.js"></script> 
+
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu" />
+    <label for="menuToggler" class="toggler__label">
+        <span></span>
+    </label>
+    <nav class="nav-content" role="navigation">
+         <a href="https://www.python.org/" class="nav-logo">
+             <img src="../_static/py.svg" alt="Logo"/>
+         </a>
+        <div class="version_switcher_placeholder"></div>
+        <form role="search" class="search" action="../search.html" method="get">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                <path fill-rule="nonzero"
+                        d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="#444"></path>
+            </svg>
+            <input type="text" name="q" aria-label="Quick search"/>
+            <input type="submit" value="Go"/>
+        </form>
+    </nav>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <div class="language_switcher_placeholder"></div>
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">compileall</span></code> — Byte-compile Python libraries</a><ul>
+<li><a class="reference internal" href="#command-line-use">Command-line use</a></li>
+<li><a class="reference internal" href="#public-functions">Public functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="py_compile.html"
+                        title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">py_compile</span></code> — Compile Python source files</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="dis.html"
+                        title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dis</span></code> — Disassembler for Python bytecode</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.10/Doc/library/compileall.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </nav>
+    </div>
+</div>
+
+  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="dis.html" title="dis — Disassembler for Python bytecode"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="py_compile.html" title="py_compile — Compile Python source files"
+             accesskey="P">previous</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.10.0 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="language.html" accesskey="U">Python Language Services</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><code class="xref py py-mod docutils literal notranslate"><span class="pre">compileall</span></code> — Byte-compile Python libraries</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-compileall">
+<span id="compileall-byte-compile-python-libraries"></span><h1><a class="reference internal" href="#module-compileall" title="compileall: Tools for byte-compiling all Python source files in a directory tree."><code class="xref py py-mod docutils literal notranslate"><span class="pre">compileall</span></code></a> — Byte-compile Python libraries<a class="headerlink" href="#module-compileall" title="Permalink to this headline">¶</a></h1>
+<p><strong>Source code:</strong> <a class="reference external" href="https://github.com/python/cpython/tree/3.10/Lib/compileall.py">Lib/compileall.py</a></p>
+<hr class="docutils" />
+<p>This module provides some utility functions to support installing Python
+libraries.  These functions compile Python source files in a directory tree.
+This module can be used to create the cached byte-code files at library
+installation time, which makes them available for use even by users who don’t
+have write permission to the library directories.</p>
+<section id="command-line-use">
+<h2>Command-line use<a class="headerlink" href="#command-line-use" title="Permalink to this headline">¶</a></h2>
+<p>This module can work as a script (using <strong class="program">python -m compileall</strong>) to
+compile Python sources.</p>
+<dl class="std cmdoption">
+<dt id="cmdoption-compileall-arg-directory">
+<code class="sig-name descname">directory</code><code class="sig-prename descclassname"> ...</code><a class="headerlink" href="#cmdoption-compileall-arg-directory" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-compileall-arg-file">
+<code class="sig-name descname">file</code><code class="sig-prename descclassname"> ...</code><a class="headerlink" href="#cmdoption-compileall-arg-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Positional arguments are files to compile or directories that contain
+source files, traversed recursively.  If no argument is given, behave as if
+the command line was <code class="docutils literal notranslate"><span class="pre">-l</span> <span class="pre">&lt;directories</span> <span class="pre">from</span> <span class="pre">sys.path&gt;</span></code>.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-compileall-l">
+<code class="sig-name descname">-l</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-compileall-l" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not recurse into subdirectories, only compile source code files directly
+contained in the named or implied directories.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-compileall-f">
+<code class="sig-name descname">-f</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-compileall-f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Force rebuild even if timestamps are up-to-date.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-compileall-q">
+<code class="sig-name descname">-q</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-compileall-q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not print the list of files compiled. If passed once, error messages will
+still be printed. If passed twice (<code class="docutils literal notranslate"><span class="pre">-qq</span></code>), all output is suppressed.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-compileall-d">
+<code class="sig-name descname">-d</code><code class="sig-prename descclassname"> destdir</code><a class="headerlink" href="#cmdoption-compileall-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Directory prepended to the path to each file being compiled.  This will
+appear in compilation time tracebacks, and is also compiled in to the
+byte-code file, where it will be used in tracebacks and other messages in
+cases where the source file does not exist at the time the byte-code file is
+executed.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-compileall-s">
+<code class="sig-name descname">-s</code><code class="sig-prename descclassname"> strip_prefix</code><a class="headerlink" href="#cmdoption-compileall-s" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-compileall-p">
+<code class="sig-name descname">-p</code><code class="sig-prename descclassname"> prepend_prefix</code><a class="headerlink" href="#cmdoption-compileall-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove (<code class="docutils literal notranslate"><span class="pre">-s</span></code>) or append (<code class="docutils literal notranslate"><span class="pre">-p</span></code>) the given prefix of paths
+recorded in the <code class="docutils literal notranslate"><span class="pre">.pyc</span></code> files.
+Cannot be combined with <code class="docutils literal notranslate"><span class="pre">-d</span></code>.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-compileall-x">
+<code class="sig-name descname">-x</code><code class="sig-prename descclassname"> regex</code><a class="headerlink" href="#cmdoption-compileall-x" title="Permalink to this definition">¶</a></dt>
+<dd><p>regex is used to search the full path to each file considered for
+compilation, and if the regex produces a match, the file is skipped.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-compileall-i">
+<code class="sig-name descname">-i</code><code class="sig-prename descclassname"> list</code><a class="headerlink" href="#cmdoption-compileall-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read the file <code class="docutils literal notranslate"><span class="pre">list</span></code> and add each line that it contains to the list of
+files and directories to compile.  If <code class="docutils literal notranslate"><span class="pre">list</span></code> is <code class="docutils literal notranslate"><span class="pre">-</span></code>, read lines from
+<code class="docutils literal notranslate"><span class="pre">stdin</span></code>.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-compileall-b">
+<code class="sig-name descname">-b</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-compileall-b" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the byte-code files to their legacy locations and names, which may
+overwrite byte-code files created by another version of Python.  The default
+is to write files to their <span class="target" id="index-0"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-3147"><strong>PEP 3147</strong></a> locations and names, which allows
+byte-code files from multiple versions of Python to coexist.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-compileall-r">
+<code class="sig-name descname">-r</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-compileall-r" title="Permalink to this definition">¶</a></dt>
+<dd><p>Control the maximum recursion level for subdirectories.
+If this is given, then <code class="docutils literal notranslate"><span class="pre">-l</span></code> option will not be taken into account.
+<strong class="program">python -m compileall &lt;directory&gt; -r 0</strong> is equivalent to
+<strong class="program">python -m compileall &lt;directory&gt; -l</strong>.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-compileall-j">
+<code class="sig-name descname">-j</code><code class="sig-prename descclassname"> N</code><a class="headerlink" href="#cmdoption-compileall-j" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use <em>N</em> workers to compile the files within the given directory.
+If <code class="docutils literal notranslate"><span class="pre">0</span></code> is used, then the result of <a class="reference internal" href="os.html#os.cpu_count" title="os.cpu_count"><code class="xref py py-func docutils literal notranslate"><span class="pre">os.cpu_count()</span></code></a>
+will be used.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-compileall-invalidation-mode">
+<code class="sig-name descname">--invalidation-mode</code><code class="sig-prename descclassname"> [timestamp|checked-hash|unchecked-hash]</code><a class="headerlink" href="#cmdoption-compileall-invalidation-mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Control how the generated byte-code files are invalidated at runtime.
+The <code class="docutils literal notranslate"><span class="pre">timestamp</span></code> value, means that <code class="docutils literal notranslate"><span class="pre">.pyc</span></code> files with the source timestamp
+and size embedded will be generated. The <code class="docutils literal notranslate"><span class="pre">checked-hash</span></code> and
+<code class="docutils literal notranslate"><span class="pre">unchecked-hash</span></code> values cause hash-based pycs to be generated. Hash-based
+pycs embed a hash of the source file contents rather than a timestamp. See
+<a class="reference internal" href="../reference/import.html#pyc-invalidation"><span class="std std-ref">Cached bytecode invalidation</span></a> for more information on how Python validates
+bytecode cache files at runtime.
+The default is <code class="docutils literal notranslate"><span class="pre">timestamp</span></code> if the <span class="target" id="index-1"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">SOURCE_DATE_EPOCH</span></code> environment
+variable is not set, and <code class="docutils literal notranslate"><span class="pre">checked-hash</span></code> if the <code class="docutils literal notranslate"><span class="pre">SOURCE_DATE_EPOCH</span></code>
+environment variable is set.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-compileall-o">
+<code class="sig-name descname">-o</code><code class="sig-prename descclassname"> level</code><a class="headerlink" href="#cmdoption-compileall-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compile with the given optimization level. May be used multiple times
+to compile for multiple levels at a time (for example,
+<code class="docutils literal notranslate"><span class="pre">compileall</span> <span class="pre">-o</span> <span class="pre">1</span> <span class="pre">-o</span> <span class="pre">2</span></code>).</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-compileall-e">
+<code class="sig-name descname">-e</code><code class="sig-prename descclassname"> dir</code><a class="headerlink" href="#cmdoption-compileall-e" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ignore symlinks pointing outside the given directory.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-compileall-hardlink-dupes">
+<code class="sig-name descname">--hardlink-dupes</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-compileall-hardlink-dupes" title="Permalink to this definition">¶</a></dt>
+<dd><p>If two <code class="docutils literal notranslate"><span class="pre">.pyc</span></code> files with different optimization level have
+the same content, use hard links to consolidate duplicate files.</p>
+</dd></dl>
+
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.2: </span>Added the <code class="docutils literal notranslate"><span class="pre">-i</span></code>, <code class="docutils literal notranslate"><span class="pre">-b</span></code> and <code class="docutils literal notranslate"><span class="pre">-h</span></code> options.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.5: </span>Added the  <code class="docutils literal notranslate"><span class="pre">-j</span></code>, <code class="docutils literal notranslate"><span class="pre">-r</span></code>, and <code class="docutils literal notranslate"><span class="pre">-qq</span></code> options.  <code class="docutils literal notranslate"><span class="pre">-q</span></code> option
+was changed to a multilevel value.  <code class="docutils literal notranslate"><span class="pre">-b</span></code> will always produce a
+byte-code file ending in <code class="docutils literal notranslate"><span class="pre">.pyc</span></code>, never <code class="docutils literal notranslate"><span class="pre">.pyo</span></code>.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.7: </span>Added the <code class="docutils literal notranslate"><span class="pre">--invalidation-mode</span></code> option.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.9: </span>Added the <code class="docutils literal notranslate"><span class="pre">-s</span></code>, <code class="docutils literal notranslate"><span class="pre">-p</span></code>, <code class="docutils literal notranslate"><span class="pre">-e</span></code> and <code class="docutils literal notranslate"><span class="pre">--hardlink-dupes</span></code> options.
+Raised the default recursion limit from 10 to
+<a class="reference internal" href="sys.html#sys.getrecursionlimit" title="sys.getrecursionlimit"><code class="xref py py-func docutils literal notranslate"><span class="pre">sys.getrecursionlimit()</span></code></a>.
+Added the possibility to specify the <code class="docutils literal notranslate"><span class="pre">-o</span></code> option multiple times.</p>
+</div>
+<p>There is no command-line option to control the optimization level used by the
+<a class="reference internal" href="functions.html#compile" title="compile"><code class="xref py py-func docutils literal notranslate"><span class="pre">compile()</span></code></a> function, because the Python interpreter itself already
+provides the option: <strong class="program">python -O -m compileall</strong>.</p>
+<p>Similarly, the <a class="reference internal" href="functions.html#compile" title="compile"><code class="xref py py-func docutils literal notranslate"><span class="pre">compile()</span></code></a> function respects the <a class="reference internal" href="sys.html#sys.pycache_prefix" title="sys.pycache_prefix"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sys.pycache_prefix</span></code></a>
+setting. The generated bytecode cache will only be useful if <a class="reference internal" href="functions.html#compile" title="compile"><code class="xref py py-func docutils literal notranslate"><span class="pre">compile()</span></code></a> is
+run with the same <a class="reference internal" href="sys.html#sys.pycache_prefix" title="sys.pycache_prefix"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sys.pycache_prefix</span></code></a> (if any) that will be used at
+runtime.</p>
+</section>
+<section id="public-functions">
+<h2>Public functions<a class="headerlink" href="#public-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="compileall.compile_dir">
+<code class="sig-prename descclassname">compileall.</code><code class="sig-name descname">compile_dir</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dir</span></em>, <em class="sig-param"><span class="n">maxlevels</span><span class="o">=</span><span class="default_value">sys.getrecursionlimit()</span></em>, <em class="sig-param"><span class="n">ddir</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">force</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">rx</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">legacy</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">optimize</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">workers</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">invalidation_mode</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">stripdir</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">prependdir</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">limit_sl_dest</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">hardlink_dupes</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#compileall.compile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recursively descend the directory tree named by <em>dir</em>, compiling all <code class="file docutils literal notranslate"><span class="pre">.py</span></code>
+files along the way. Return a true value if all the files compiled successfully,
+and a false value otherwise.</p>
+<p>The <em>maxlevels</em> parameter is used to limit the depth of the recursion; it
+defaults to <code class="docutils literal notranslate"><span class="pre">sys.getrecursionlimit()</span></code>.</p>
+<p>If <em>ddir</em> is given, it is prepended to the path to each file being compiled
+for use in compilation time tracebacks, and is also compiled in to the
+byte-code file, where it will be used in tracebacks and other messages in
+cases where the source file does not exist at the time the byte-code file is
+executed.</p>
+<p>If <em>force</em> is true, modules are re-compiled even if the timestamps are up to
+date.</p>
+<p>If <em>rx</em> is given, its <code class="docutils literal notranslate"><span class="pre">search</span></code> method is called on the complete path to each
+file considered for compilation, and if it returns a true value, the file
+is skipped. This can be used to exclude files matching a regular expression,
+given as a <a class="reference internal" href="re.html#re-objects"><span class="std std-ref">re.Pattern</span></a> object.</p>
+<p>If <em>quiet</em> is <code class="docutils literal notranslate"><span class="pre">False</span></code> or <code class="docutils literal notranslate"><span class="pre">0</span></code> (the default), the filenames and other
+information are printed to standard out. Set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, only errors are
+printed. Set to <code class="docutils literal notranslate"><span class="pre">2</span></code>, all output is suppressed.</p>
+<p>If <em>legacy</em> is true, byte-code files are written to their legacy locations
+and names, which may overwrite byte-code files created by another version of
+Python.  The default is to write files to their <span class="target" id="index-2"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-3147"><strong>PEP 3147</strong></a> locations and
+names, which allows byte-code files from multiple versions of Python to
+coexist.</p>
+<p><em>optimize</em> specifies the optimization level for the compiler.  It is passed to
+the built-in <a class="reference internal" href="functions.html#compile" title="compile"><code class="xref py py-func docutils literal notranslate"><span class="pre">compile()</span></code></a> function. Accepts also a sequence of optimization
+levels which lead to multiple compilations of one <code class="file docutils literal notranslate"><span class="pre">.py</span></code> file in one call.</p>
+<p>The argument <em>workers</em> specifies how many workers are used to
+compile files in parallel. The default is to not use multiple workers.
+If the platform can’t use multiple workers and <em>workers</em> argument is given,
+then sequential compilation will be used as a fallback.  If <em>workers</em>
+is 0, the number of cores in the system is used.  If <em>workers</em> is
+lower than <code class="docutils literal notranslate"><span class="pre">0</span></code>, a <a class="reference internal" href="exceptions.html#ValueError" title="ValueError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> will be raised.</p>
+<p><em>invalidation_mode</em> should be a member of the
+<a class="reference internal" href="py_compile.html#py_compile.PycInvalidationMode" title="py_compile.PycInvalidationMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">py_compile.PycInvalidationMode</span></code></a> enum and controls how the generated
+pycs are invalidated at runtime.</p>
+<p>The <em>stripdir</em>, <em>prependdir</em> and <em>limit_sl_dest</em> arguments correspond to
+the <code class="docutils literal notranslate"><span class="pre">-s</span></code>, <code class="docutils literal notranslate"><span class="pre">-p</span></code> and <code class="docutils literal notranslate"><span class="pre">-e</span></code> options described above.
+They may be specified as <code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">bytes</span></code> or <a class="reference internal" href="os.html#os.PathLike" title="os.PathLike"><code class="xref py py-class docutils literal notranslate"><span class="pre">os.PathLike</span></code></a>.</p>
+<p>If <em>hardlink_dupes</em> is true and two <code class="docutils literal notranslate"><span class="pre">.pyc</span></code> files with different optimization
+level have the same content, use hard links to consolidate duplicate files.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.2: </span>Added the <em>legacy</em> and <em>optimize</em> parameter.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.5: </span>Added the <em>workers</em> parameter.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.5: </span><em>quiet</em> parameter was changed to a multilevel value.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.5: </span>The <em>legacy</em> parameter only writes out <code class="docutils literal notranslate"><span class="pre">.pyc</span></code> files, not <code class="docutils literal notranslate"><span class="pre">.pyo</span></code> files
+no matter what the value of <em>optimize</em> is.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.6: </span>Accepts a <a class="reference internal" href="../glossary.html#term-path-like-object"><span class="xref std std-term">path-like object</span></a>.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.7: </span>The <em>invalidation_mode</em> parameter was added.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.7.2: </span>The <em>invalidation_mode</em> parameter’s default value is updated to None.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.8: </span>Setting <em>workers</em> to 0 now chooses the optimal number of cores.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.9: </span>Added <em>stripdir</em>, <em>prependdir</em>, <em>limit_sl_dest</em> and <em>hardlink_dupes</em> arguments.
+Default value of <em>maxlevels</em> was changed from <code class="docutils literal notranslate"><span class="pre">10</span></code> to <code class="docutils literal notranslate"><span class="pre">sys.getrecursionlimit()</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="compileall.compile_file">
+<code class="sig-prename descclassname">compileall.</code><code class="sig-name descname">compile_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fullname</span></em>, <em class="sig-param"><span class="n">ddir</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">force</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">rx</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">legacy</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">optimize</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">invalidation_mode</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">stripdir</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">prependdir</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">limit_sl_dest</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">hardlink_dupes</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#compileall.compile_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compile the file with path <em>fullname</em>. Return a true value if the file
+compiled successfully, and a false value otherwise.</p>
+<p>If <em>ddir</em> is given, it is prepended to the path to the file being compiled
+for use in compilation time tracebacks, and is also compiled in to the
+byte-code file, where it will be used in tracebacks and other messages in
+cases where the source file does not exist at the time the byte-code file is
+executed.</p>
+<p>If <em>rx</em> is given, its <code class="docutils literal notranslate"><span class="pre">search</span></code> method is passed the full path name to the
+file being compiled, and if it returns a true value, the file is not
+compiled and <code class="docutils literal notranslate"><span class="pre">True</span></code> is returned. This can be used to exclude files matching
+a regular expression, given as a <a class="reference internal" href="re.html#re-objects"><span class="std std-ref">re.Pattern</span></a> object.</p>
+<p>If <em>quiet</em> is <code class="docutils literal notranslate"><span class="pre">False</span></code> or <code class="docutils literal notranslate"><span class="pre">0</span></code> (the default), the filenames and other
+information are printed to standard out. Set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, only errors are
+printed. Set to <code class="docutils literal notranslate"><span class="pre">2</span></code>, all output is suppressed.</p>
+<p>If <em>legacy</em> is true, byte-code files are written to their legacy locations
+and names, which may overwrite byte-code files created by another version of
+Python.  The default is to write files to their <span class="target" id="index-3"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-3147"><strong>PEP 3147</strong></a> locations and
+names, which allows byte-code files from multiple versions of Python to
+coexist.</p>
+<p><em>optimize</em> specifies the optimization level for the compiler.  It is passed to
+the built-in <a class="reference internal" href="functions.html#compile" title="compile"><code class="xref py py-func docutils literal notranslate"><span class="pre">compile()</span></code></a> function. Accepts also a sequence of optimization
+levels which lead to multiple compilations of one <code class="file docutils literal notranslate"><span class="pre">.py</span></code> file in one call.</p>
+<p><em>invalidation_mode</em> should be a member of the
+<a class="reference internal" href="py_compile.html#py_compile.PycInvalidationMode" title="py_compile.PycInvalidationMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">py_compile.PycInvalidationMode</span></code></a> enum and controls how the generated
+pycs are invalidated at runtime.</p>
+<p>The <em>stripdir</em>, <em>prependdir</em> and <em>limit_sl_dest</em> arguments correspond to
+the <code class="docutils literal notranslate"><span class="pre">-s</span></code>, <code class="docutils literal notranslate"><span class="pre">-p</span></code> and <code class="docutils literal notranslate"><span class="pre">-e</span></code> options described above.
+They may be specified as <code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">bytes</span></code> or <a class="reference internal" href="os.html#os.PathLike" title="os.PathLike"><code class="xref py py-class docutils literal notranslate"><span class="pre">os.PathLike</span></code></a>.</p>
+<p>If <em>hardlink_dupes</em> is true and two <code class="docutils literal notranslate"><span class="pre">.pyc</span></code> files with different optimization
+level have the same content, use hard links to consolidate duplicate files.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.2.</span></p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.5: </span><em>quiet</em> parameter was changed to a multilevel value.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.5: </span>The <em>legacy</em> parameter only writes out <code class="docutils literal notranslate"><span class="pre">.pyc</span></code> files, not <code class="docutils literal notranslate"><span class="pre">.pyo</span></code> files
+no matter what the value of <em>optimize</em> is.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.7: </span>The <em>invalidation_mode</em> parameter was added.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.7.2: </span>The <em>invalidation_mode</em> parameter’s default value is updated to None.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.9: </span>Added <em>stripdir</em>, <em>prependdir</em>, <em>limit_sl_dest</em> and <em>hardlink_dupes</em> arguments.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="compileall.compile_path">
+<code class="sig-prename descclassname">compileall.</code><code class="sig-name descname">compile_path</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">skip_curdir</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">maxlevels</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">force</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">legacy</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">optimize</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">invalidation_mode</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#compileall.compile_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Byte-compile all the <code class="file docutils literal notranslate"><span class="pre">.py</span></code> files found along <code class="docutils literal notranslate"><span class="pre">sys.path</span></code>. Return a
+true value if all the files compiled successfully, and a false value otherwise.</p>
+<p>If <em>skip_curdir</em> is true (the default), the current directory is not included
+in the search.  All other parameters are passed to the <a class="reference internal" href="#compileall.compile_dir" title="compileall.compile_dir"><code class="xref py py-func docutils literal notranslate"><span class="pre">compile_dir()</span></code></a>
+function.  Note that unlike the other compile functions, <code class="docutils literal notranslate"><span class="pre">maxlevels</span></code>
+defaults to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.2: </span>Added the <em>legacy</em> and <em>optimize</em> parameter.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.5: </span><em>quiet</em> parameter was changed to a multilevel value.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.5: </span>The <em>legacy</em> parameter only writes out <code class="docutils literal notranslate"><span class="pre">.pyc</span></code> files, not <code class="docutils literal notranslate"><span class="pre">.pyo</span></code> files
+no matter what the value of <em>optimize</em> is.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.7: </span>The <em>invalidation_mode</em> parameter was added.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.7.2: </span>The <em>invalidation_mode</em> parameter’s default value is updated to None.</p>
+</div>
+</dd></dl>
+
+<p>To force a recompile of all the <code class="file docutils literal notranslate"><span class="pre">.py</span></code> files in the <code class="file docutils literal notranslate"><span class="pre">Lib/</span></code>
+subdirectory and all its subdirectories:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">compileall</span>
+
+<span class="n">compileall</span><span class="o">.</span><span class="n">compile_dir</span><span class="p">(</span><span class="s1">&#39;Lib/&#39;</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Perform same compilation, excluding files in .svn directories.</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="n">compileall</span><span class="o">.</span><span class="n">compile_dir</span><span class="p">(</span><span class="s1">&#39;Lib/&#39;</span><span class="p">,</span> <span class="n">rx</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[/</span><span class="se">\\</span><span class="s1">][.]svn&#39;</span><span class="p">),</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># pathlib.Path objects can also be used.</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="n">compileall</span><span class="o">.</span><span class="n">compile_dir</span><span class="p">(</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;Lib/&#39;</span><span class="p">),</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt>Module <a class="reference internal" href="py_compile.html#module-py_compile" title="py_compile: Generate byte-code files from Python source files."><code class="xref py py-mod docutils literal notranslate"><span class="pre">py_compile</span></code></a></dt><dd><p>Byte-compile a single source file.</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">compileall</span></code> — Byte-compile Python libraries</a><ul>
+<li><a class="reference internal" href="#command-line-use">Command-line use</a></li>
+<li><a class="reference internal" href="#public-functions">Public functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="py_compile.html"
+                        title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">py_compile</span></code> — Compile Python source files</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="dis.html"
+                        title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dis</span></code> — Disassembler for Python bytecode</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.10/Doc/library/compileall.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="dis.html" title="dis — Disassembler for Python bytecode"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="py_compile.html" title="py_compile — Compile Python source files"
+             >previous</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.10.0 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="language.html" >Python Language Services</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><code class="xref py py-mod docutils literal notranslate"><span class="pre">compileall</span></code> — Byte-compile Python libraries</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2021, Python Software Foundation.
+    <br />
+    This page is licensed under the Python Software Foundation License Version 2.
+    <br />
+    Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+    <br />
+    See <a href="">History and License</a> for more information.
+    <br /><br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Oct 04, 2021.
+    <a href="https://docs.python.org/3/bugs.html">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+
+  </body>
+</html>

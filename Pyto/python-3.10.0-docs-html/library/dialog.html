@@ -1,0 +1,559 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Tkinter Dialogs &#8212; Python 3.10.0 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css?2021.8" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.10.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="tkinter.messagebox — Tkinter message prompts" href="tkinter.messagebox.html" />
+    <link rel="prev" title="tkinter.font — Tkinter font wrapper" href="tkinter.font.html" />
+    <link rel="canonical" href="https://docs.python.org/3/library/dialog.html" />
+    
+      
+    
+
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+<link rel="shortcut icon" type="image/png" href="../_static/py.svg" />
+            <script type="text/javascript" src="../_static/copybutton.js"></script>
+            <script type="text/javascript" src="../_static/menu.js"></script> 
+
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu" />
+    <label for="menuToggler" class="toggler__label">
+        <span></span>
+    </label>
+    <nav class="nav-content" role="navigation">
+         <a href="https://www.python.org/" class="nav-logo">
+             <img src="../_static/py.svg" alt="Logo"/>
+         </a>
+        <div class="version_switcher_placeholder"></div>
+        <form role="search" class="search" action="../search.html" method="get">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                <path fill-rule="nonzero"
+                        d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="#444"></path>
+            </svg>
+            <input type="text" name="q" aria-label="Quick search"/>
+            <input type="submit" value="Go"/>
+        </form>
+    </nav>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <div class="language_switcher_placeholder"></div>
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Tkinter Dialogs</a><ul>
+<li><a class="reference internal" href="#module-tkinter.simpledialog"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.simpledialog</span></code> — Standard Tkinter input dialogs</a></li>
+<li><a class="reference internal" href="#module-tkinter.filedialog"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.filedialog</span></code> — File selection dialogs</a><ul>
+<li><a class="reference internal" href="#native-load-save-dialogs">Native Load/Save Dialogs</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-tkinter.commondialog"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.commondialog</span></code> — Dialog window templates</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tkinter.font.html"
+                        title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.font</span></code> — Tkinter font wrapper</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tkinter.messagebox.html"
+                        title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.messagebox</span></code> — Tkinter message prompts</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.10/Doc/library/dialog.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </nav>
+    </div>
+</div>
+
+  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tkinter.messagebox.html" title="tkinter.messagebox — Tkinter message prompts"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tkinter.font.html" title="tkinter.font — Tkinter font wrapper"
+             accesskey="P">previous</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.10.0 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="tk.html" accesskey="U">Graphical User Interfaces with Tk</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Tkinter Dialogs</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="tkinter-dialogs">
+<h1>Tkinter Dialogs<a class="headerlink" href="#tkinter-dialogs" title="Permalink to this headline">¶</a></h1>
+<section id="module-tkinter.simpledialog">
+<span id="tkinter-simpledialog-standard-tkinter-input-dialogs"></span><h2><a class="reference internal" href="#module-tkinter.simpledialog" title="tkinter.simpledialog: Simple dialog windows (Tk)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.simpledialog</span></code></a> — Standard Tkinter input dialogs<a class="headerlink" href="#module-tkinter.simpledialog" title="Permalink to this headline">¶</a></h2>
+<p><strong>Source code:</strong> <a class="reference external" href="https://github.com/python/cpython/tree/3.10/Lib/tkinter/simpledialog.py">Lib/tkinter/simpledialog.py</a></p>
+<hr class="docutils" />
+<p>The <a class="reference internal" href="#module-tkinter.simpledialog" title="tkinter.simpledialog: Simple dialog windows (Tk)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.simpledialog</span></code></a> module contains convenience classes and
+functions for creating simple modal dialogs to get a value from the user.</p>
+<dl class="py function">
+<dt id="tkinter.simpledialog.askfloat">
+<code class="sig-prename descclassname">tkinter.simpledialog.</code><code class="sig-name descname">askfloat</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">title</span></em>, <em class="sig-param"><span class="n">prompt</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.simpledialog.askfloat" title="Permalink to this definition">¶</a></dt>
+<dt id="tkinter.simpledialog.askinteger">
+<code class="sig-prename descclassname">tkinter.simpledialog.</code><code class="sig-name descname">askinteger</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">title</span></em>, <em class="sig-param"><span class="n">prompt</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.simpledialog.askinteger" title="Permalink to this definition">¶</a></dt>
+<dt id="tkinter.simpledialog.askstring">
+<code class="sig-prename descclassname">tkinter.simpledialog.</code><code class="sig-name descname">askstring</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">title</span></em>, <em class="sig-param"><span class="n">prompt</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.simpledialog.askstring" title="Permalink to this definition">¶</a></dt>
+<dd><p>The above three functions provide dialogs that prompt the user to enter a value
+of the desired type.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="tkinter.simpledialog.Dialog">
+<em class="property">class </em><code class="sig-prename descclassname">tkinter.simpledialog.</code><code class="sig-name descname">Dialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.simpledialog.Dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>The base class for custom dialogs.</p>
+<blockquote>
+<div><dl class="py method">
+<dt id="tkinter.simpledialog.Dialog.body">
+<code class="sig-name descname">body</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">master</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.simpledialog.Dialog.body" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override to construct the dialog’s interface and return the widget that
+should have initial focus.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tkinter.simpledialog.Dialog.buttonbox">
+<code class="sig-name descname">buttonbox</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.simpledialog.Dialog.buttonbox" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default behaviour adds OK and Cancel buttons. Override for custom button
+layouts.</p>
+</dd></dl>
+
+</div></blockquote>
+</dd></dl>
+
+</section>
+<section id="module-tkinter.filedialog">
+<span id="tkinter-filedialog-file-selection-dialogs"></span><h2><a class="reference internal" href="#module-tkinter.filedialog" title="tkinter.filedialog: Dialog classes for file selection (Tk)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.filedialog</span></code></a> — File selection dialogs<a class="headerlink" href="#module-tkinter.filedialog" title="Permalink to this headline">¶</a></h2>
+<p><strong>Source code:</strong> <a class="reference external" href="https://github.com/python/cpython/tree/3.10/Lib/tkinter/filedialog.py">Lib/tkinter/filedialog.py</a></p>
+<hr class="docutils" />
+<p>The <a class="reference internal" href="#module-tkinter.filedialog" title="tkinter.filedialog: Dialog classes for file selection (Tk)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.filedialog</span></code></a> module provides classes and factory functions for
+creating file/directory selection windows.</p>
+<section id="native-load-save-dialogs">
+<h3>Native Load/Save Dialogs<a class="headerlink" href="#native-load-save-dialogs" title="Permalink to this headline">¶</a></h3>
+<p>The following classes and functions provide file dialog windows that combine a
+native look-and-feel with configuration options to customize behaviour.
+The following keyword arguments are applicable to the classes and functions
+listed below:</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><em>parent</em> - the window to place the dialog on top of</div>
+</div>
+<div class="line-block">
+<div class="line"><em>title</em> - the title of the window</div>
+</div>
+<div class="line-block">
+<div class="line"><em>initialdir</em> - the directory that the dialog starts in</div>
+</div>
+<div class="line-block">
+<div class="line"><em>initialfile</em> - the file selected upon opening of the dialog</div>
+</div>
+<div class="line-block">
+<div class="line"><em>filetypes</em> - a sequence of (label, pattern) tuples, ‘*’ wildcard is allowed</div>
+</div>
+<div class="line-block">
+<div class="line"><em>defaultextension</em> - default extension to append to file (save dialogs)</div>
+</div>
+<div class="line-block">
+<div class="line"><em>multiple</em> - when true, selection of multiple items is allowed</div>
+</div>
+</div></blockquote>
+<p><strong>Static factory functions</strong></p>
+<p>The below functions when called create a modal, native look-and-feel dialog,
+wait for the user’s selection, then return the selected value(s) or <code class="docutils literal notranslate"><span class="pre">None</span></code> to the
+caller.</p>
+<dl class="py function">
+<dt id="tkinter.filedialog.askopenfile">
+<code class="sig-prename descclassname">tkinter.filedialog.</code><code class="sig-name descname">askopenfile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">'r'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">options</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.askopenfile" title="Permalink to this definition">¶</a></dt>
+<dt id="tkinter.filedialog.askopenfiles">
+<code class="sig-prename descclassname">tkinter.filedialog.</code><code class="sig-name descname">askopenfiles</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">'r'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">options</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.askopenfiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>The above two functions create an <a class="reference internal" href="#tkinter.filedialog.Open" title="tkinter.filedialog.Open"><code class="xref py py-class docutils literal notranslate"><span class="pre">Open</span></code></a> dialog and return the opened
+file object(s) in read-only mode.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tkinter.filedialog.asksaveasfile">
+<code class="sig-prename descclassname">tkinter.filedialog.</code><code class="sig-name descname">asksaveasfile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">'w'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">options</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.asksaveasfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a <a class="reference internal" href="#tkinter.filedialog.SaveAs" title="tkinter.filedialog.SaveAs"><code class="xref py py-class docutils literal notranslate"><span class="pre">SaveAs</span></code></a> dialog and return a file object opened in write-only mode.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tkinter.filedialog.askopenfilename">
+<code class="sig-prename descclassname">tkinter.filedialog.</code><code class="sig-name descname">askopenfilename</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">options</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.askopenfilename" title="Permalink to this definition">¶</a></dt>
+<dt id="tkinter.filedialog.askopenfilenames">
+<code class="sig-prename descclassname">tkinter.filedialog.</code><code class="sig-name descname">askopenfilenames</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">options</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.askopenfilenames" title="Permalink to this definition">¶</a></dt>
+<dd><p>The above two functions create an <a class="reference internal" href="#tkinter.filedialog.Open" title="tkinter.filedialog.Open"><code class="xref py py-class docutils literal notranslate"><span class="pre">Open</span></code></a> dialog and return the
+selected filename(s) that correspond to existing file(s).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tkinter.filedialog.asksaveasfilename">
+<code class="sig-prename descclassname">tkinter.filedialog.</code><code class="sig-name descname">asksaveasfilename</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">options</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.asksaveasfilename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a <a class="reference internal" href="#tkinter.filedialog.SaveAs" title="tkinter.filedialog.SaveAs"><code class="xref py py-class docutils literal notranslate"><span class="pre">SaveAs</span></code></a> dialog and return the selected filename.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tkinter.filedialog.askdirectory">
+<code class="sig-prename descclassname">tkinter.filedialog.</code><code class="sig-name descname">askdirectory</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">options</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.askdirectory" title="Permalink to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Prompt user to select a directory.</div>
+<div class="line">Additional keyword option:</div>
+<div class="line-block">
+<div class="line"><em>mustexist</em> - determines if selection must be an existing directory.</div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt id="tkinter.filedialog.Open">
+<em class="property">class </em><code class="sig-prename descclassname">tkinter.filedialog.</code><code class="sig-name descname">Open</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">master</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">options</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.Open" title="Permalink to this definition">¶</a></dt>
+<dt id="tkinter.filedialog.SaveAs">
+<em class="property">class </em><code class="sig-prename descclassname">tkinter.filedialog.</code><code class="sig-name descname">SaveAs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">master</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">options</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.SaveAs" title="Permalink to this definition">¶</a></dt>
+<dd><p>The above two classes provide native dialog windows for saving and loading
+files.</p>
+</dd></dl>
+
+<p><strong>Convenience classes</strong></p>
+<p>The below classes are used for creating file/directory windows from scratch.
+These do not emulate the native look-and-feel of the platform.</p>
+<dl class="py class">
+<dt id="tkinter.filedialog.Directory">
+<em class="property">class </em><code class="sig-prename descclassname">tkinter.filedialog.</code><code class="sig-name descname">Directory</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">master</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">options</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.Directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a dialog prompting the user to select a directory.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <em>FileDialog</em> class should be subclassed for custom event
+handling and behaviour.</p>
+</div>
+<dl class="py class">
+<dt id="tkinter.filedialog.FileDialog">
+<em class="property">class </em><code class="sig-prename descclassname">tkinter.filedialog.</code><code class="sig-name descname">FileDialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">master</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.FileDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a basic file selection dialog.</p>
+<dl class="py method">
+<dt id="tkinter.filedialog.FileDialog.cancel_command">
+<code class="sig-name descname">cancel_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.FileDialog.cancel_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trigger the termination of the dialog window.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tkinter.filedialog.FileDialog.dirs_double_event">
+<code class="sig-name descname">dirs_double_event</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.FileDialog.dirs_double_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event handler for double-click event on directory.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tkinter.filedialog.FileDialog.dirs_select_event">
+<code class="sig-name descname">dirs_select_event</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.FileDialog.dirs_select_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event handler for click event on directory.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tkinter.filedialog.FileDialog.files_double_event">
+<code class="sig-name descname">files_double_event</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.FileDialog.files_double_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event handler for double-click event on file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tkinter.filedialog.FileDialog.files_select_event">
+<code class="sig-name descname">files_select_event</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.FileDialog.files_select_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event handler for single-click event on file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tkinter.filedialog.FileDialog.filter_command">
+<code class="sig-name descname">filter_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.FileDialog.filter_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter the files by directory.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tkinter.filedialog.FileDialog.get_filter">
+<code class="sig-name descname">get_filter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.FileDialog.get_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the file filter currently in use.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tkinter.filedialog.FileDialog.get_selection">
+<code class="sig-name descname">get_selection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.FileDialog.get_selection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the currently selected item.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tkinter.filedialog.FileDialog.go">
+<code class="sig-name descname">go</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dir_or_file</span><span class="o">=</span><span class="default_value">os.curdir</span></em>, <em class="sig-param"><span class="n">pattern</span><span class="o">=</span><span class="default_value">'*'</span></em>, <em class="sig-param"><span class="n">default</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">key</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.FileDialog.go" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render dialog and start event loop.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tkinter.filedialog.FileDialog.ok_event">
+<code class="sig-name descname">ok_event</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.FileDialog.ok_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exit dialog returning current selection.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tkinter.filedialog.FileDialog.quit">
+<code class="sig-name descname">quit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">how</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.FileDialog.quit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exit dialog returning filename, if any.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tkinter.filedialog.FileDialog.set_filter">
+<code class="sig-name descname">set_filter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dir</span></em>, <em class="sig-param"><span class="n">pat</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.FileDialog.set_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the file filter.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tkinter.filedialog.FileDialog.set_selection">
+<code class="sig-name descname">set_selection</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.FileDialog.set_selection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the current file selection to <em>file</em>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tkinter.filedialog.LoadFileDialog">
+<em class="property">class </em><code class="sig-prename descclassname">tkinter.filedialog.</code><code class="sig-name descname">LoadFileDialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">master</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.LoadFileDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>A subclass of FileDialog that creates a dialog window for selecting an
+existing file.</p>
+<dl class="py method">
+<dt id="tkinter.filedialog.LoadFileDialog.ok_command">
+<code class="sig-name descname">ok_command</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.LoadFileDialog.ok_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that a file is provided and that the selection indicates an
+already existing file.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tkinter.filedialog.SaveFileDialog">
+<em class="property">class </em><code class="sig-prename descclassname">tkinter.filedialog.</code><code class="sig-name descname">SaveFileDialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">master</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.SaveFileDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>A subclass of FileDialog that creates a dialog window for selecting a
+destination file.</p>
+<dl class="py method">
+<dt id="tkinter.filedialog.SaveFileDialog.ok_command">
+<code class="sig-name descname">ok_command</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.filedialog.SaveFileDialog.ok_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether or not the selection points to a valid file that is not a
+directory. Confirmation is required if an already existing file is
+selected.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="module-tkinter.commondialog">
+<span id="tkinter-commondialog-dialog-window-templates"></span><h2><a class="reference internal" href="#module-tkinter.commondialog" title="tkinter.commondialog: Tkinter base class for dialogs (Tk)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.commondialog</span></code></a> — Dialog window templates<a class="headerlink" href="#module-tkinter.commondialog" title="Permalink to this headline">¶</a></h2>
+<p><strong>Source code:</strong> <a class="reference external" href="https://github.com/python/cpython/tree/3.10/Lib/tkinter/commondialog.py">Lib/tkinter/commondialog.py</a></p>
+<hr class="docutils" />
+<p>The <a class="reference internal" href="#module-tkinter.commondialog" title="tkinter.commondialog: Tkinter base class for dialogs (Tk)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.commondialog</span></code></a> module provides the <a class="reference internal" href="#tkinter.commondialog.Dialog" title="tkinter.commondialog.Dialog"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dialog</span></code></a> class that
+is the base class for dialogs defined in other supporting modules.</p>
+<dl class="py class">
+<dt id="tkinter.commondialog.Dialog">
+<em class="property">class </em><code class="sig-prename descclassname">tkinter.commondialog.</code><code class="sig-name descname">Dialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">master</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">options</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.commondialog.Dialog" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="tkinter.commondialog.Dialog.show">
+<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">color</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">options</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tkinter.commondialog.Dialog.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render the Dialog window.</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Modules <a class="reference internal" href="tkinter.messagebox.html#module-tkinter.messagebox" title="tkinter.messagebox: Various types of alert dialogs (Tk)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.messagebox</span></code></a>, <a class="reference internal" href="../tutorial/inputoutput.html#tut-files"><span class="std std-ref">Reading and Writing Files</span></a></p>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Tkinter Dialogs</a><ul>
+<li><a class="reference internal" href="#module-tkinter.simpledialog"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.simpledialog</span></code> — Standard Tkinter input dialogs</a></li>
+<li><a class="reference internal" href="#module-tkinter.filedialog"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.filedialog</span></code> — File selection dialogs</a><ul>
+<li><a class="reference internal" href="#native-load-save-dialogs">Native Load/Save Dialogs</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-tkinter.commondialog"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.commondialog</span></code> — Dialog window templates</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tkinter.font.html"
+                        title="previous chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.font</span></code> — Tkinter font wrapper</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tkinter.messagebox.html"
+                        title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tkinter.messagebox</span></code> — Tkinter message prompts</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.10/Doc/library/dialog.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tkinter.messagebox.html" title="tkinter.messagebox — Tkinter message prompts"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tkinter.font.html" title="tkinter.font — Tkinter font wrapper"
+             >previous</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.10.0 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="tk.html" >Graphical User Interfaces with Tk</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Tkinter Dialogs</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2021, Python Software Foundation.
+    <br />
+    This page is licensed under the Python Software Foundation License Version 2.
+    <br />
+    Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+    <br />
+    See <a href="">History and License</a> for more information.
+    <br /><br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Oct 04, 2021.
+    <a href="https://docs.python.org/3/bugs.html">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+
+  </body>
+</html>

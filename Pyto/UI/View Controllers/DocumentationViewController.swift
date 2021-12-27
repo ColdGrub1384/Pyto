@@ -14,6 +14,40 @@ import Zip
 /// A View controller showing offline documentation.
 class DocumentationViewController: UIViewController, WKNavigationDelegate {
     
+    /// A downloaded documentation.
+    struct Documentation {
+        
+        /// The name.
+        var name: String
+        
+        /// The file URL to the index.html file.
+        var url: URL
+        
+        /// The file URL to the selected HTML page.
+        var pageURL: URL?
+        
+        /// Pyto's documentation.
+        static let pyto = Documentation(name: "Pyto", url: Bundle.main.url(forResource: "docs_build/html/index", withExtension: "html")!)
+        
+        /// Python's documentation
+        static let python = Documentation(name: "Python", url: Bundle.main.url(forResource: "python-3.10.0-docs-html/index", withExtension: "html")!)
+        
+        /// Returns documentation downloaded by the user.
+        static func getDownloaded() -> [Documentation] {
+            var url = FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask)[0].appendingPathComponent("documentation")
+            
+            for content in (try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [])) ?? [] {
+                url = url.appendingPathComponent(content.lastPathComponent)
+                break
+            }
+            
+            return ((try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [])) ?? []).map({ Documentation(name: $0.deletingLastPathComponent().lastPathComponent.localizedCapitalized, url: $0.appendingPathComponent("index.html")) })
+        }
+    }
+    
+    /// The button for changing documentation.
+    var documentationButton: UIBarButtonItem!
+    
     /// The button for going back.
     var goBackButton: UIBarButtonItem!
     
@@ -69,19 +103,154 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         }
     }
     
-    var docsURL: URL {
-        let url = FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask)[0].appendingPathComponent("docs_build")
-        
-        if /*!FileManager.default.fileExists(atPath: url.path),*/ let bundledDocs = Bundle.main.url(forResource: "docs", withExtension: "zip") {
+    /// The selected documentation
+    var selectedDocumentation = Documentation.pyto {
+        didSet {
             
-            do {
-                try Zip.unzipFile(bundledDocs, destination: url.deletingLastPathComponent(), overwrite: true, password: nil)
-            } catch {
-                print(error.localizedDescription)
+            let url = selectedDocumentation.pageURL ?? selectedDocumentation.url
+            if url.isFileURL {
+                webView.loadFileURL(url, allowingReadAccessTo: selectedDocumentation.url.deletingLastPathComponent())
+            } else {
+                webView.load(URLRequest(url: url))
             }
+            
+            documentationButton.title = selectedDocumentation.name
+            documentationButton.menu = makeDocumentationMenu()
+        }
+    }
+    
+    private func directories(in url: URL) -> [URL] {
+        (try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: []))?.filter({ url in
+            var isDir: ObjCBool = false
+            if FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir), isDir.boolValue {
+                
+                for file in (try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [])) ?? [] {
+                    
+                    if file.pathExtension == "html" {
+                        return true
+                    }
+                }
+                
+                return false
+            } else {
+                return false
+            }
+        }) ?? []
+    }
+    
+    private func menuItems(for documentation: Documentation, directory: URL) -> [UIMenuElement] {
+        ((try? FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil, options: [])) ?? []).filter({ $0.pathExtension == "html" && !$0.lastPathComponent.hasPrefix("genindex") }).filter({ (directory == documentation.url.deletingLastPathComponent() && $0.lastPathComponent == "index.html") ? false : true }).sorted(by: { $0.lastPathComponent == "index.html" ? true : $0.lastPathComponent < $1.lastPathComponent }).map({ doc in
+            
+            UIAction(title: doc.deletingPathExtension().lastPathComponent, image: nil, identifier: nil, discoverabilityTitle: doc.deletingPathExtension().lastPathComponent, attributes: [], state: selectedDocumentation.pageURL == doc ? .on : .off, handler: { _ in
+                self.selectedDocumentation = Documentation(name: documentation.name, url: documentation.url, pageURL: doc)
+            })
+            
+        })
+    }
+    
+    private func menuItems(for documentation: Documentation) -> [UIMenuElement] {
+        [
+            UIAction(title: "index", image: nil, identifier: nil, discoverabilityTitle: "index", attributes: [], state: selectedDocumentation.pageURL == documentation.url ? .on : .off, handler: { _ in
+                self.selectedDocumentation = Documentation(name: documentation.name, url: documentation.url, pageURL: nil)
+            })
+        ] + directories(in: documentation.url.deletingLastPathComponent()).sorted(by: { $0.lastPathComponent < $1.lastPathComponent }).map({ folder in
+            
+            UIMenu(title: folder.lastPathComponent, image: nil, identifier: nil, options: [], children: self.menuItems(for: documentation, directory: folder))
+            
+        }) + menuItems(for: documentation, directory: documentation.url.deletingLastPathComponent())
+    }
+    
+    private func makeThirdPartyMenuItems() -> [UIMenuElement] {
+        var items = [UIMenuElement]()
+        
+        let bundled = ((try? FileManager.default.contentsOfDirectory(at: Bundle.main.url(forResource: "site-packages", withExtension: nil)!, includingPropertiesForKeys: nil, options: [])) ?? []).filter({ $0.pathExtension == "dist-info" || $0.pathExtension == "egg-info" })
+        
+        let installed = ((try? FileManager.default.contentsOfDirectory(at: FileBrowserViewController.localContainerURL.appendingPathComponent("site-packages"), includingPropertiesForKeys: nil, options: [])) ?? []).filter({ $0.pathExtension == "dist-info" || $0.pathExtension == "egg-info" })
+        
+        for package in (bundled+installed).sorted(by: { $0.lastPathComponent < $1.lastPathComponent }) {
+            
+            let metadata = FileManager.default.fileExists(atPath: package.appendingPathComponent("METADATA").path) ? package.appendingPathComponent("METADATA") : package.appendingPathComponent("PKG-INFO")
+            
+            guard FileManager.default.fileExists(atPath: metadata.path) else {
+                continue
+            }
+            
+            // Well it's rst actually but whatever
+            guard let markdown = try? String(contentsOf: metadata) else {
+                continue
+            }
+            
+            var name = package.deletingPathExtension().lastPathComponent
+            
+            for line in markdown.components(separatedBy: "\n") {
+                if line.hasPrefix("Name: "), let _name = line.components(separatedBy: "Name: ").last {
+                    name = _name
+                    break
+                }
+            }
+                        
+            for line in markdown.components(separatedBy: "\n") {
+                if line.hasPrefix("Name: "), let _name = line.components(separatedBy: "Name: ").last {
+                    name = _name
+                    break
+                }
+            }
+            
+            items.append(UIAction(title: name, image: nil, identifier: nil, discoverabilityTitle: name, attributes: [], state: selectedDocumentation.name == name ? .on : .off, handler: { _ in
+                
+                guard let jsonURL = URL(string: "https://pypi.org/pypi/\(name)/json") else {
+                    return
+                }
+                
+                URLSession.shared.dataTask(with: jsonURL) { data, _, error in
+                    guard error == nil else {
+                        return print(error!.localizedDescription)
+                    }
+                    
+                    guard let data = data else {
+                        return
+                    }
+                    
+                    do {
+                        guard let info = try JSONSerialization.jsonObject(with: data, options: []) as? [String:Any] else {
+                            return
+                        }
+                        
+                        guard let urls = (info["info"] as? [String:Any])?["project_urls"] as? [String:String] else {
+                            return
+                        }
+                        
+                        guard let urlString = urls["Documentation"] ?? urls["Homepage"] ?? urls["Source Code"] else {
+                            return
+                        }
+                        
+                        guard let url = URL(string: urlString) else {
+                            return
+                        }
+                        
+                        DispatchQueue.main.async {
+                            self.selectedDocumentation = Documentation(name: name, url: url, pageURL: nil)
+                        }
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }.resume()
+            }))
         }
         
-        return url
+        return items
+    }
+    
+    /// Returns the menu for selecting documentation.
+    func makeDocumentationMenu() -> UIMenu {
+        UIMenu(title: NSLocalizedString("help.documentation", comment: "'Documentation' button"), image: nil, identifier: nil, options: [], children: [
+        
+            UIMenu(title: "Pyto", image: nil, identifier: nil, options: [], children: menuItems(for: .pyto)),
+            
+            UIMenu(title: "Python", image: nil, identifier: nil, options: [], children: menuItems(for: .python)),
+            
+            UIMenu(title: "Third Party", image: nil, identifier: nil, options: [], children: makeThirdPartyMenuItems())
+        ])
     }
         
     // MARK: - View controller
@@ -99,16 +268,10 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(webView)
         
-        DispatchQueue.global().async { [weak self] in
-            
-            guard let self = self else {
-                return
-            }
-            
-            let url = self.docsURL
-            DispatchQueue.main.async { [weak self] in
-                self?.webView.loadFileURL(url.appendingPathComponent("html/index.html"), allowingReadAccessTo: url)
-            }
+        documentationButton = UIBarButtonItem(title: selectedDocumentation.name, style: .plain, target: nil, action: nil)
+        documentationButton.menu = makeDocumentationMenu()
+        if !(self is AcknowledgmentsViewController) {
+            navigationItem.rightBarButtonItem = documentationButton
         }
         
         goBackButton = UIBarButtonItem(image: UIImage(named: "back"), style: .plain, target: self, action: #selector(goBack))
@@ -120,9 +283,15 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
         }
         
-        if UIDevice.current.userInterfaceIdiom == .pad && splitViewController == nil {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.down.square.fill"), style: .plain, target: self, action: #selector(openInNewWindow))
-        }
+        navigationItem.largeTitleDisplayMode = .never
+        
+        webView.loadFileURL(selectedDocumentation.url, allowingReadAccessTo: selectedDocumentation.url.deletingLastPathComponent())
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        documentationButton.menu = nil // Release menu
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -141,6 +310,8 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         if #available(iOS 13.0, *) {
             view.window?.windowScene?.title = NSLocalizedString("help.documentation", comment: "'Documentation' button")
         }
+        
+        documentationButton.menu = makeDocumentationMenu()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -156,20 +327,6 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         goBackButton.isEnabled = webView.canGoBack
         goForwardButton.isEnabled = webView.canGoForward
-    }
-    
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        
-        if let url = navigationAction.request.url, url.scheme == "http" || url.scheme == "https", url.host != "pyto.readthedocs.io" {
-            if !isiOSAppOnMac {
-                present(SFSafariViewController(url: url), animated: true, completion: nil)
-            } else {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-            decisionHandler(.cancel)
-        } else {
-            decisionHandler(.allow)
-        }
     }
 }
 

@@ -1,0 +1,1284 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>3. Configure Python &#8212; Python 3.10.0 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css?2021.8" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.10.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="4. Using Python on Windows" href="windows.html" />
+    <link rel="prev" title="2. Using Python on Unix platforms" href="unix.html" />
+    <link rel="canonical" href="https://docs.python.org/3/using/configure.html" />
+    
+      
+    
+
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+<link rel="shortcut icon" type="image/png" href="../_static/py.svg" />
+            <script type="text/javascript" src="../_static/copybutton.js"></script>
+            <script type="text/javascript" src="../_static/menu.js"></script> 
+
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu" />
+    <label for="menuToggler" class="toggler__label">
+        <span></span>
+    </label>
+    <nav class="nav-content" role="navigation">
+         <a href="https://www.python.org/" class="nav-logo">
+             <img src="../_static/py.svg" alt="Logo"/>
+         </a>
+        <div class="version_switcher_placeholder"></div>
+        <form role="search" class="search" action="../search.html" method="get">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                <path fill-rule="nonzero"
+                        d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="#444"></path>
+            </svg>
+            <input type="text" name="q" aria-label="Quick search"/>
+            <input type="submit" value="Go"/>
+        </form>
+    </nav>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <div class="language_switcher_placeholder"></div>
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">3. Configure Python</a><ul>
+<li><a class="reference internal" href="#configure-options">3.1. Configure Options</a><ul>
+<li><a class="reference internal" href="#general-options">3.1.1. General Options</a></li>
+<li><a class="reference internal" href="#install-options">3.1.2. Install Options</a></li>
+<li><a class="reference internal" href="#performance-options">3.1.3. Performance options</a></li>
+<li><a class="reference internal" href="#python-debug-build">3.1.4. Python Debug Build</a></li>
+<li><a class="reference internal" href="#debug-options">3.1.5. Debug options</a></li>
+<li><a class="reference internal" href="#linker-options">3.1.6. Linker options</a></li>
+<li><a class="reference internal" href="#libraries-options">3.1.7. Libraries options</a></li>
+<li><a class="reference internal" href="#security-options">3.1.8. Security Options</a></li>
+<li><a class="reference internal" href="#macos-options">3.1.9. macOS Options</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#python-build-system">3.2. Python Build System</a><ul>
+<li><a class="reference internal" href="#main-files-of-the-build-system">3.2.1. Main files of the build system</a></li>
+<li><a class="reference internal" href="#main-build-steps">3.2.2. Main build steps</a></li>
+<li><a class="reference internal" href="#main-makefile-targets">3.2.3. Main Makefile targets</a></li>
+<li><a class="reference internal" href="#c-extensions">3.2.4. C extensions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#compiler-and-linker-flags">3.3. Compiler and linker flags</a><ul>
+<li><a class="reference internal" href="#preprocessor-flags">3.3.1. Preprocessor flags</a></li>
+<li><a class="reference internal" href="#compiler-flags">3.3.2. Compiler flags</a></li>
+<li><a class="reference internal" href="#linker-flags">3.3.3. Linker flags</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="unix.html"
+                        title="previous chapter"><span class="section-number">2. </span>Using Python on Unix platforms</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="windows.html"
+                        title="next chapter"><span class="section-number">4. </span>Using Python on Windows</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.10/Doc/using/configure.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </nav>
+    </div>
+</div>
+
+  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="windows.html" title="4. Using Python on Windows"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="unix.html" title="2. Using Python on Unix platforms"
+             accesskey="P">previous</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.10.0 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Python Setup and Usage</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">3. </span>Configure Python</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="configure-python">
+<h1><span class="section-number">3. </span>Configure Python<a class="headerlink" href="#configure-python" title="Permalink to this headline">¶</a></h1>
+<section id="configure-options">
+<span id="id1"></span><h2><span class="section-number">3.1. </span>Configure Options<a class="headerlink" href="#configure-options" title="Permalink to this headline">¶</a></h2>
+<p>List all <code class="docutils literal notranslate"><span class="pre">./configure</span></code> script options using:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">configure</span> <span class="o">--</span><span class="n">help</span>
+</pre></div>
+</div>
+<p>See also the <code class="file docutils literal notranslate"><span class="pre">Misc/SpecialBuilds.txt</span></code> in the Python source distribution.</p>
+<section id="general-options">
+<h3><span class="section-number">3.1.1. </span>General Options<a class="headerlink" href="#general-options" title="Permalink to this headline">¶</a></h3>
+<dl class="std cmdoption">
+<dt id="cmdoption-enable-loadable-sqlite-extensions">
+<code class="sig-name descname">--enable-loadable-sqlite-extensions</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-enable-loadable-sqlite-extensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Support loadable extensions in the <code class="xref py py-mod docutils literal notranslate"><span class="pre">_sqlite</span></code> extension module (default
+is no).</p>
+<p>See the <a class="reference internal" href="../library/sqlite3.html#sqlite3.Connection.enable_load_extension" title="sqlite3.Connection.enable_load_extension"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sqlite3.Connection.enable_load_extension()</span></code></a> method of the
+<a class="reference internal" href="../library/sqlite3.html#module-sqlite3" title="sqlite3: A DB-API 2.0 implementation using SQLite 3.x."><code class="xref py py-mod docutils literal notranslate"><span class="pre">sqlite3</span></code></a> module.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.6.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-disable-ipv6">
+<code class="sig-name descname">--disable-ipv6</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-disable-ipv6" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable IPv6 support (enabled by default if supported), see the
+<a class="reference internal" href="../library/socket.html#module-socket" title="socket: Low-level networking interface."><code class="xref py py-mod docutils literal notranslate"><span class="pre">socket</span></code></a> module.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-enable-big-digits">
+<code class="sig-name descname">--enable-big-digits</code><code class="sig-prename descclassname">=[15|30]</code><a class="headerlink" href="#cmdoption-enable-big-digits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the size in bits of Python <a class="reference internal" href="../library/functions.html#int" title="int"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> digits: 15 or 30 bits.</p>
+<p>By default, the number of bits is selected depending on <code class="docutils literal notranslate"><span class="pre">sizeof(void*)</span></code>:
+30 bits if <code class="docutils literal notranslate"><span class="pre">void*</span></code> size is 64-bit or larger, 15 bits otherwise.</p>
+<p>Define the <code class="docutils literal notranslate"><span class="pre">PYLONG_BITS_IN_DIGIT</span></code> to <code class="docutils literal notranslate"><span class="pre">15</span></code> or <code class="docutils literal notranslate"><span class="pre">30</span></code>.</p>
+<p>See <a class="reference internal" href="../library/sys.html#sys.int_info" title="sys.int_info"><code class="xref py py-data docutils literal notranslate"><span class="pre">sys.int_info.bits_per_digit</span></code></a>.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-cxx-main">
+<code class="sig-name descname">--with-cxx-main</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-with-cxx-main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-0">
+<code class="sig-name descname">--with-cxx-main</code><code class="sig-prename descclassname">=COMPILER</code><a class="headerlink" href="#cmdoption-0" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compile the Python <code class="docutils literal notranslate"><span class="pre">main()</span></code> function and link Python executable with C++
+compiler: <code class="docutils literal notranslate"><span class="pre">$CXX</span></code>, or <em>COMPILER</em> if specified.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-suffix">
+<code class="sig-name descname">--with-suffix</code><code class="sig-prename descclassname">=SUFFIX</code><a class="headerlink" href="#cmdoption-with-suffix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the Python executable suffix to <em>SUFFIX</em>.</p>
+<p>The default suffix is <code class="docutils literal notranslate"><span class="pre">.exe</span></code> on Windows and macOS (<code class="docutils literal notranslate"><span class="pre">python.exe</span></code>
+executable), and an empty string on other platforms (<code class="docutils literal notranslate"><span class="pre">python</span></code> executable).</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-tzpath">
+<code class="sig-name descname">--with-tzpath</code><code class="sig-prename descclassname">=&lt;list of absolute paths separated by pathsep&gt;</code><a class="headerlink" href="#cmdoption-with-tzpath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select the default time zone search path for <a class="reference internal" href="../library/zoneinfo.html#zoneinfo.TZPATH" title="zoneinfo.TZPATH"><code class="xref py py-data docutils literal notranslate"><span class="pre">zoneinfo.TZPATH</span></code></a>.
+See the <a class="reference internal" href="../library/zoneinfo.html#zoneinfo-data-compile-time-config"><span class="std std-ref">Compile-time configuration</span></a> of the <a class="reference internal" href="../library/zoneinfo.html#module-zoneinfo" title="zoneinfo: IANA time zone support"><code class="xref py py-mod docutils literal notranslate"><span class="pre">zoneinfo</span></code></a> module.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">/usr/share/zoneinfo:/usr/lib/zoneinfo:/usr/share/lib/zoneinfo:/etc/zoneinfo</span></code>.</p>
+<p>See <a class="reference internal" href="../library/os.html#os.pathsep" title="os.pathsep"><code class="xref py py-data docutils literal notranslate"><span class="pre">os.pathsep</span></code></a> path separator.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.9.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-without-decimal-contextvar">
+<code class="sig-name descname">--without-decimal-contextvar</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-without-decimal-contextvar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the <code class="docutils literal notranslate"><span class="pre">_decimal</span></code> extension module using a thread-local context rather
+than a coroutine-local context (default), see the <a class="reference internal" href="../library/decimal.html#module-decimal" title="decimal: Implementation of the General Decimal Arithmetic  Specification."><code class="xref py py-mod docutils literal notranslate"><span class="pre">decimal</span></code></a> module.</p>
+<p>See <a class="reference internal" href="../library/decimal.html#decimal.HAVE_CONTEXTVAR" title="decimal.HAVE_CONTEXTVAR"><code class="xref py py-data docutils literal notranslate"><span class="pre">decimal.HAVE_CONTEXTVAR</span></code></a> and the <a class="reference internal" href="../library/contextvars.html#module-contextvars" title="contextvars: Context Variables"><code class="xref py py-mod docutils literal notranslate"><span class="pre">contextvars</span></code></a> module.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.9.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-dbmliborder">
+<code class="sig-name descname">--with-dbmliborder</code><code class="sig-prename descclassname">=db1:db2:...</code><a class="headerlink" href="#cmdoption-with-dbmliborder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override order to check db backends for the <a class="reference internal" href="../library/dbm.html#module-dbm" title="dbm: Interfaces to various Unix &quot;database&quot; formats."><code class="xref py py-mod docutils literal notranslate"><span class="pre">dbm</span></code></a> module</p>
+<p>A valid value is a colon (<code class="docutils literal notranslate"><span class="pre">:</span></code>) separated string with the backend names:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ndbm</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gdbm</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bdb</span></code>.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-without-c-locale-coercion">
+<code class="sig-name descname">--without-c-locale-coercion</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-without-c-locale-coercion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable C locale coercion to a UTF-8 based locale (enabled by default).</p>
+<p>Don’t define the <code class="docutils literal notranslate"><span class="pre">PY_COERCE_C_LOCALE</span></code> macro.</p>
+<p>See <span class="target" id="index-0"></span><a class="reference internal" href="cmdline.html#envvar-PYTHONCOERCECLOCALE"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PYTHONCOERCECLOCALE</span></code></a> and the <span class="target" id="index-1"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0538"><strong>PEP 538</strong></a>.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-platlibdir">
+<code class="sig-name descname">--with-platlibdir</code><code class="sig-prename descclassname">=DIRNAME</code><a class="headerlink" href="#cmdoption-with-platlibdir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Python library directory name (default is <code class="docutils literal notranslate"><span class="pre">lib</span></code>).</p>
+<p>Fedora and SuSE use <code class="docutils literal notranslate"><span class="pre">lib64</span></code> on 64-bit platforms.</p>
+<p>See <a class="reference internal" href="../library/sys.html#sys.platlibdir" title="sys.platlibdir"><code class="xref py py-data docutils literal notranslate"><span class="pre">sys.platlibdir</span></code></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.9.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-wheel-pkg-dir">
+<code class="sig-name descname">--with-wheel-pkg-dir</code><code class="sig-prename descclassname">=PATH</code><a class="headerlink" href="#cmdoption-with-wheel-pkg-dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Directory of wheel packages used by the <a class="reference internal" href="../library/ensurepip.html#module-ensurepip" title="ensurepip: Bootstrapping the &quot;pip&quot; installer into an existing Python installation or virtual environment."><code class="xref py py-mod docutils literal notranslate"><span class="pre">ensurepip</span></code></a> module
+(none by default).</p>
+<p>Some Linux distribution packaging policies recommend against bundling
+dependencies. For example, Fedora installs wheel packages in the
+<code class="docutils literal notranslate"><span class="pre">/usr/share/python-wheels/</span></code> directory and don’t install the
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">ensurepip._bundled</span></code> package.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.10.</span></p>
+</div>
+</dd></dl>
+
+</section>
+<section id="install-options">
+<h3><span class="section-number">3.1.2. </span>Install Options<a class="headerlink" href="#install-options" title="Permalink to this headline">¶</a></h3>
+<dl class="std cmdoption">
+<dt id="cmdoption-disable-test-modules">
+<code class="sig-name descname">--disable-test-modules</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-disable-test-modules" title="Permalink to this definition">¶</a></dt>
+<dd><p>Don’t build nor install test modules, like the <a class="reference internal" href="../library/test.html#module-test" title="test: Regression tests package containing the testing suite for Python."><code class="xref py py-mod docutils literal notranslate"><span class="pre">test</span></code></a> package or the
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">_testcapi</span></code> extension module (built and installed by default).</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.10.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-ensurepip">
+<code class="sig-name descname">--with-ensurepip</code><code class="sig-prename descclassname">=[upgrade|install|no]</code><a class="headerlink" href="#cmdoption-with-ensurepip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select the <a class="reference internal" href="../library/ensurepip.html#module-ensurepip" title="ensurepip: Bootstrapping the &quot;pip&quot; installer into an existing Python installation or virtual environment."><code class="xref py py-mod docutils literal notranslate"><span class="pre">ensurepip</span></code></a> command run on Python installation:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">upgrade</span></code> (default): run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">ensurepip</span> <span class="pre">--altinstall</span> <span class="pre">--upgrade</span></code>
+command.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">install</span></code>: run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">ensurepip</span> <span class="pre">--altinstall</span></code> command;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">no</span></code>: don’t run ensurepip;</p></li>
+</ul>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.6.</span></p>
+</div>
+</dd></dl>
+
+</section>
+<section id="performance-options">
+<h3><span class="section-number">3.1.3. </span>Performance options<a class="headerlink" href="#performance-options" title="Permalink to this headline">¶</a></h3>
+<p>Configuring Python using <code class="docutils literal notranslate"><span class="pre">--enable-optimizations</span> <span class="pre">--with-lto</span></code> (PGO + LTO) is
+recommended for best performance.</p>
+<dl class="std cmdoption">
+<dt id="cmdoption-enable-optimizations">
+<code class="sig-name descname">--enable-optimizations</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-enable-optimizations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable Profile Guided Optimization (PGO) using <span class="target" id="index-2"></span><a class="reference internal" href="#envvar-PROFILE_TASK"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PROFILE_TASK</span></code></a>
+(disabled by default).</p>
+<p>The C compiler Clang requires <code class="docutils literal notranslate"><span class="pre">llvm-profdata</span></code> program for PGO. On
+macOS, GCC also requires it: GCC is just an alias to Clang on macOS.</p>
+<p>Disable also semantic interposition in libpython if <code class="docutils literal notranslate"><span class="pre">--enable-shared</span></code> and
+GCC is used: add <code class="docutils literal notranslate"><span class="pre">-fno-semantic-interposition</span></code> to the compiler and linker
+flags.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.6.</span></p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.10: </span>Use <code class="docutils literal notranslate"><span class="pre">-fno-semantic-interposition</span></code> on GCC.</p>
+</div>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-PROFILE_TASK">
+<code class="sig-name descname">PROFILE_TASK</code><a class="headerlink" href="#envvar-PROFILE_TASK" title="Permalink to this definition">¶</a></dt>
+<dd><p>Environment variable used in the Makefile: Python command line arguments for
+the PGO generation task.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">-m</span> <span class="pre">test</span> <span class="pre">--pgo</span> <span class="pre">--timeout=$(TESTTIMEOUT)</span></code>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.8.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-lto">
+<code class="sig-name descname">--with-lto</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-with-lto" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable Link Time Optimization (LTO) in any build (disabled by default).</p>
+<p>The C compiler Clang requires <code class="docutils literal notranslate"><span class="pre">llvm-ar</span></code> for LTO (<code class="docutils literal notranslate"><span class="pre">ar</span></code> on macOS), as well
+as an LTO-aware linker (<code class="docutils literal notranslate"><span class="pre">ld.gold</span></code> or <code class="docutils literal notranslate"><span class="pre">lld</span></code>).</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.6.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-computed-gotos">
+<code class="sig-name descname">--with-computed-gotos</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-with-computed-gotos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable computed gotos in evaluation loop (enabled by default on supported
+compilers).</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-without-pymalloc">
+<code class="sig-name descname">--without-pymalloc</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-without-pymalloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable the specialized Python memory allocator <a class="reference internal" href="../c-api/memory.html#pymalloc"><span class="std std-ref">pymalloc</span></a>
+(enabled by default).</p>
+<p>See also <span class="target" id="index-3"></span><a class="reference internal" href="cmdline.html#envvar-PYTHONMALLOC"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PYTHONMALLOC</span></code></a> environment variable.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-without-doc-strings">
+<code class="sig-name descname">--without-doc-strings</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-without-doc-strings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable static documentation strings to reduce the memory footprint (enabled
+by default). Documentation strings defined in Python are not affected.</p>
+<p>Don’t define the <code class="docutils literal notranslate"><span class="pre">WITH_DOC_STRINGS</span></code> macro.</p>
+<p>See the <code class="docutils literal notranslate"><span class="pre">PyDoc_STRVAR()</span></code> macro.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-enable-profiling">
+<code class="sig-name descname">--enable-profiling</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-enable-profiling" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable C-level code profiling with <code class="docutils literal notranslate"><span class="pre">gprof</span></code> (disabled by default).</p>
+</dd></dl>
+
+</section>
+<section id="python-debug-build">
+<span id="debug-build"></span><h3><span class="section-number">3.1.4. </span>Python Debug Build<a class="headerlink" href="#python-debug-build" title="Permalink to this headline">¶</a></h3>
+<p>A debug build is Python built with the <a class="reference internal" href="#cmdoption-with-pydebug"><code class="xref std std-option docutils literal notranslate"><span class="pre">--with-pydebug</span></code></a> configure
+option.</p>
+<p>Effects of a debug build:</p>
+<ul class="simple">
+<li><p>Display all warnings by default: the list of default warning filters is empty
+in the <a class="reference internal" href="../library/warnings.html#module-warnings" title="warnings: Issue warning messages and control their disposition."><code class="xref py py-mod docutils literal notranslate"><span class="pre">warnings</span></code></a> module.</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">d</span></code> to <a class="reference internal" href="../library/sys.html#sys.abiflags" title="sys.abiflags"><code class="xref py py-data docutils literal notranslate"><span class="pre">sys.abiflags</span></code></a>.</p></li>
+<li><p>Add <code class="xref py py-func docutils literal notranslate"><span class="pre">sys.gettotalrefcount()</span></code> function.</p></li>
+<li><p>Add <a class="reference internal" href="cmdline.html#cmdoption-X"><code class="xref std std-option docutils literal notranslate"><span class="pre">-X</span> <span class="pre">showrefcount</span></code></a> command line option.</p></li>
+<li><p>Add <span class="target" id="index-4"></span><a class="reference internal" href="cmdline.html#envvar-PYTHONTHREADDEBUG"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PYTHONTHREADDEBUG</span></code></a> environment variable.</p></li>
+<li><p>Add support for the <code class="docutils literal notranslate"><span class="pre">__ltrace__</span></code> variable: enable low-level tracing in the
+bytecode evaluation loop if the variable is defined.</p></li>
+<li><p>Install <a class="reference internal" href="../c-api/memory.html#default-memory-allocators"><span class="std std-ref">debug hooks on memory allocators</span></a>
+to detect buffer overflow and other memory errors.</p></li>
+<li><p>Define <code class="docutils literal notranslate"><span class="pre">Py_DEBUG</span></code> and <code class="docutils literal notranslate"><span class="pre">Py_REF_DEBUG</span></code> macros.</p></li>
+<li><p>Add runtime checks: code surroundeded by <code class="docutils literal notranslate"><span class="pre">#ifdef</span> <span class="pre">Py_DEBUG</span></code> and <code class="docutils literal notranslate"><span class="pre">#endif</span></code>.
+Enable <code class="docutils literal notranslate"><span class="pre">assert(...)</span></code> and <code class="docutils literal notranslate"><span class="pre">_PyObject_ASSERT(...)</span></code> assertions: don’t set
+the <code class="docutils literal notranslate"><span class="pre">NDEBUG</span></code> macro (see also the <a class="reference internal" href="#cmdoption-with-assertions"><code class="xref std std-option docutils literal notranslate"><span class="pre">--with-assertions</span></code></a> configure
+option). Main runtime checks:</p>
+<ul>
+<li><p>Add sanity checks on the function arguments.</p></li>
+<li><p>Unicode and int objects are created with their memory filled with a pattern
+to detect usage of uninitialized objects.</p></li>
+<li><p>Ensure that functions which can clear or replace the current exception are
+not called with an exception raised.</p></li>
+<li><p>The garbage collector (<a class="reference internal" href="../library/gc.html#gc.collect" title="gc.collect"><code class="xref py py-func docutils literal notranslate"><span class="pre">gc.collect()</span></code></a> function) runs some basic checks
+on objects consistency.</p></li>
+<li><p>The <code class="xref c c-macro docutils literal notranslate"><span class="pre">Py_SAFE_DOWNCAST()</span></code> macro checks for integer underflow and
+overflow when downcasting from wide types to narrow types.</p></li>
+</ul>
+</li>
+</ul>
+<p>See also the <a class="reference internal" href="../library/devmode.html#devmode"><span class="std std-ref">Python Development Mode</span></a> and the
+<a class="reference internal" href="#cmdoption-with-trace-refs"><code class="xref std std-option docutils literal notranslate"><span class="pre">--with-trace-refs</span></code></a> configure option.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.8: </span>Release builds and debug builds are now ABI compatible: defining the
+<code class="docutils literal notranslate"><span class="pre">Py_DEBUG</span></code> macro no longer implies the <code class="docutils literal notranslate"><span class="pre">Py_TRACE_REFS</span></code> macro (see the
+<a class="reference internal" href="#cmdoption-with-trace-refs"><code class="xref std std-option docutils literal notranslate"><span class="pre">--with-trace-refs</span></code></a> option), which introduces the only ABI
+incompatibility.</p>
+</div>
+</section>
+<section id="debug-options">
+<h3><span class="section-number">3.1.5. </span>Debug options<a class="headerlink" href="#debug-options" title="Permalink to this headline">¶</a></h3>
+<dl class="std cmdoption">
+<dt id="cmdoption-with-pydebug">
+<code class="sig-name descname">--with-pydebug</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-with-pydebug" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#debug-build"><span class="std std-ref">Build Python in debug mode</span></a>: define the <code class="docutils literal notranslate"><span class="pre">Py_DEBUG</span></code>
+macro (disabled by default).</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-trace-refs">
+<code class="sig-name descname">--with-trace-refs</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-with-trace-refs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable tracing references for debugging purpose (disabled by default).</p>
+<p>Effects:</p>
+<ul class="simple">
+<li><p>Define the <code class="docutils literal notranslate"><span class="pre">Py_TRACE_REFS</span></code> macro.</p></li>
+<li><p>Add <code class="xref py py-func docutils literal notranslate"><span class="pre">sys.getobjects()</span></code> function.</p></li>
+<li><p>Add <span class="target" id="index-5"></span><a class="reference internal" href="cmdline.html#envvar-PYTHONDUMPREFS"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PYTHONDUMPREFS</span></code></a> environment variable.</p></li>
+</ul>
+<p>This build is not ABI compatible with release build (default build) or debug
+build (<code class="docutils literal notranslate"><span class="pre">Py_DEBUG</span></code> and <code class="docutils literal notranslate"><span class="pre">Py_REF_DEBUG</span></code> macros).</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.8.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-assertions">
+<code class="sig-name descname">--with-assertions</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-with-assertions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build with C assertions enabled (default is no): <code class="docutils literal notranslate"><span class="pre">assert(...);</span></code> and
+<code class="docutils literal notranslate"><span class="pre">_PyObject_ASSERT(...);</span></code>.</p>
+<p>If set, the <code class="docutils literal notranslate"><span class="pre">NDEBUG</span></code> macro is not defined in the <span class="target" id="index-6"></span><a class="reference internal" href="#envvar-OPT"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">OPT</span></code></a> compiler
+variable.</p>
+<p>See also the <a class="reference internal" href="#cmdoption-with-pydebug"><code class="xref std std-option docutils literal notranslate"><span class="pre">--with-pydebug</span></code></a> option (<a class="reference internal" href="#debug-build"><span class="std std-ref">debug build</span></a>) which also enables assertions.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.6.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-valgrind">
+<code class="sig-name descname">--with-valgrind</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-with-valgrind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable Valgrind support (default is no).</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-dtrace">
+<code class="sig-name descname">--with-dtrace</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-with-dtrace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable DTrace support (default is no).</p>
+<p>See <a class="reference internal" href="../howto/instrumentation.html#instrumentation"><span class="std std-ref">Instrumenting CPython with DTrace and SystemTap</span></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.6.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-address-sanitizer">
+<code class="sig-name descname">--with-address-sanitizer</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-with-address-sanitizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable AddressSanitizer memory error detector, <code class="docutils literal notranslate"><span class="pre">asan</span></code> (default is no).</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.6.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-memory-sanitizer">
+<code class="sig-name descname">--with-memory-sanitizer</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-with-memory-sanitizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable MemorySanitizer allocation error detector, <code class="docutils literal notranslate"><span class="pre">msan</span></code> (default is no).</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.6.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-undefined-behavior-sanitizer">
+<code class="sig-name descname">--with-undefined-behavior-sanitizer</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-with-undefined-behavior-sanitizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable UndefinedBehaviorSanitizer undefined behaviour detector, <code class="docutils literal notranslate"><span class="pre">ubsan</span></code>
+(default is no).</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.6.</span></p>
+</div>
+</dd></dl>
+
+</section>
+<section id="linker-options">
+<h3><span class="section-number">3.1.6. </span>Linker options<a class="headerlink" href="#linker-options" title="Permalink to this headline">¶</a></h3>
+<dl class="std cmdoption">
+<dt id="cmdoption-enable-shared">
+<code class="sig-name descname">--enable-shared</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-enable-shared" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable building a shared Python library: <code class="docutils literal notranslate"><span class="pre">libpython</span></code> (default is no).</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-without-static-libpython">
+<code class="sig-name descname">--without-static-libpython</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-without-static-libpython" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not build <code class="docutils literal notranslate"><span class="pre">libpythonMAJOR.MINOR.a</span></code> and do not install <code class="docutils literal notranslate"><span class="pre">python.o</span></code>
+(built and enabled by default).</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.10.</span></p>
+</div>
+</dd></dl>
+
+</section>
+<section id="libraries-options">
+<h3><span class="section-number">3.1.7. </span>Libraries options<a class="headerlink" href="#libraries-options" title="Permalink to this headline">¶</a></h3>
+<dl class="std cmdoption">
+<dt id="cmdoption-with-libs">
+<code class="sig-name descname">--with-libs</code><code class="sig-prename descclassname">='lib1 ...'</code><a class="headerlink" href="#cmdoption-with-libs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Link against additional libraries (default is no).</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-system-expat">
+<code class="sig-name descname">--with-system-expat</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-with-system-expat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the <code class="xref py py-mod docutils literal notranslate"><span class="pre">pyexpat</span></code> module using an installed <code class="docutils literal notranslate"><span class="pre">expat</span></code> library
+(default is no).</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-system-ffi">
+<code class="sig-name descname">--with-system-ffi</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-with-system-ffi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the <code class="xref py py-mod docutils literal notranslate"><span class="pre">_ctypes</span></code> extension module using an installed <code class="docutils literal notranslate"><span class="pre">ffi</span></code>
+library, see the <a class="reference internal" href="../library/ctypes.html#module-ctypes" title="ctypes: A foreign function library for Python."><code class="xref py py-mod docutils literal notranslate"><span class="pre">ctypes</span></code></a> module (default is system-dependent).</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-system-libmpdec">
+<code class="sig-name descname">--with-system-libmpdec</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-with-system-libmpdec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the <code class="docutils literal notranslate"><span class="pre">_decimal</span></code> extension module using an installed <code class="docutils literal notranslate"><span class="pre">mpdec</span></code>
+library, see the <a class="reference internal" href="../library/decimal.html#module-decimal" title="decimal: Implementation of the General Decimal Arithmetic  Specification."><code class="xref py py-mod docutils literal notranslate"><span class="pre">decimal</span></code></a> module (default is no).</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.3.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-readline">
+<code class="sig-name descname">--with-readline</code><code class="sig-prename descclassname">=editline</code><a class="headerlink" href="#cmdoption-with-readline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use <code class="docutils literal notranslate"><span class="pre">editline</span></code> library for backend of the <a class="reference internal" href="../library/readline.html#module-readline" title="readline: GNU readline support for Python. (Unix)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readline</span></code></a> module.</p>
+<p>Define the <code class="docutils literal notranslate"><span class="pre">WITH_EDITLINE</span></code> macro.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.10.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-without-readline">
+<code class="sig-name descname">--without-readline</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-without-readline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Don’t build the <a class="reference internal" href="../library/readline.html#module-readline" title="readline: GNU readline support for Python. (Unix)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readline</span></code></a> module (built by default).</p>
+<p>Don’t define the <code class="docutils literal notranslate"><span class="pre">HAVE_LIBREADLINE</span></code> macro.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.10.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-tcltk-includes">
+<code class="sig-name descname">--with-tcltk-includes</code><code class="sig-prename descclassname">='-I...'</code><a class="headerlink" href="#cmdoption-with-tcltk-includes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override search for Tcl and Tk include files.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-tcltk-libs">
+<code class="sig-name descname">--with-tcltk-libs</code><code class="sig-prename descclassname">='-L...'</code><a class="headerlink" href="#cmdoption-with-tcltk-libs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override search for Tcl and Tk libraries.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-libm">
+<code class="sig-name descname">--with-libm</code><code class="sig-prename descclassname">=STRING</code><a class="headerlink" href="#cmdoption-with-libm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override <code class="docutils literal notranslate"><span class="pre">libm</span></code> math library to <em>STRING</em> (default is system-dependent).</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-libc">
+<code class="sig-name descname">--with-libc</code><code class="sig-prename descclassname">=STRING</code><a class="headerlink" href="#cmdoption-with-libc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override <code class="docutils literal notranslate"><span class="pre">libc</span></code> C library to <em>STRING</em> (default is system-dependent).</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-openssl">
+<code class="sig-name descname">--with-openssl</code><code class="sig-prename descclassname">=DIR</code><a class="headerlink" href="#cmdoption-with-openssl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Root of the OpenSSL directory.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.7.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-openssl-rpath">
+<code class="sig-name descname">--with-openssl-rpath</code><code class="sig-prename descclassname">=[no|auto|DIR]</code><a class="headerlink" href="#cmdoption-with-openssl-rpath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set runtime library directory (rpath) for OpenSSL libraries:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">no</span></code> (default): don’t set rpath;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">auto</span></code>: auto-detect rpath from <a class="reference internal" href="#cmdoption-with-openssl"><code class="xref std std-option docutils literal notranslate"><span class="pre">--with-openssl</span></code></a> and
+<code class="docutils literal notranslate"><span class="pre">pkg-config</span></code>;</p></li>
+<li><p><em>DIR</em>: set an explicit rpath.</p></li>
+</ul>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.10.</span></p>
+</div>
+</dd></dl>
+
+</section>
+<section id="security-options">
+<h3><span class="section-number">3.1.8. </span>Security Options<a class="headerlink" href="#security-options" title="Permalink to this headline">¶</a></h3>
+<dl class="std cmdoption">
+<dt id="cmdoption-with-hash-algorithm">
+<code class="sig-name descname">--with-hash-algorithm</code><code class="sig-prename descclassname">=[fnv|siphash24]</code><a class="headerlink" href="#cmdoption-with-hash-algorithm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select hash algorithm for use in <code class="docutils literal notranslate"><span class="pre">Python/pyhash.c</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">siphash24</span></code> (default).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fnv</span></code>;</p></li>
+</ul>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.4.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-builtin-hashlib-hashes">
+<code class="sig-name descname">--with-builtin-hashlib-hashes</code><code class="sig-prename descclassname">=md5,sha1,sha256,sha512,sha3,blake2</code><a class="headerlink" href="#cmdoption-with-builtin-hashlib-hashes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Built-in hash modules:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">md5</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sha1</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sha256</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sha512</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sha3</span></code> (with shake);</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">blake2</span></code>.</p></li>
+</ul>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.9.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-ssl-default-suites">
+<code class="sig-name descname">--with-ssl-default-suites</code><code class="sig-prename descclassname">=[python|openssl|STRING]</code><a class="headerlink" href="#cmdoption-with-ssl-default-suites" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override the OpenSSL default cipher suites string:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">python</span></code> (default): use Python’s preferred selection;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">openssl</span></code>: leave OpenSSL’s defaults untouched;</p></li>
+<li><p><em>STRING</em>: use a custom string</p></li>
+</ul>
+<p>See the <a class="reference internal" href="../library/ssl.html#module-ssl" title="ssl: TLS/SSL wrapper for socket objects"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ssl</span></code></a> module.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.7.</span></p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.10: </span>The settings <code class="docutils literal notranslate"><span class="pre">python</span></code> and <em>STRING</em> also set TLS 1.2 as minimum
+protocol version.</p>
+</div>
+</dd></dl>
+
+</section>
+<section id="macos-options">
+<h3><span class="section-number">3.1.9. </span>macOS Options<a class="headerlink" href="#macos-options" title="Permalink to this headline">¶</a></h3>
+<p>See <code class="docutils literal notranslate"><span class="pre">Mac/README.rst</span></code>.</p>
+<dl class="std cmdoption">
+<dt id="cmdoption-enable-universalsdk">
+<code class="sig-name descname">--enable-universalsdk</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-enable-universalsdk" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-1">
+<code class="sig-name descname">--enable-universalsdk</code><code class="sig-prename descclassname">=SDKDIR</code><a class="headerlink" href="#cmdoption-1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a universal binary build. <em>SDKDIR</em> specifies which macOS SDK should
+be used to perform the build (default is no).</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-enable-framework">
+<code class="sig-name descname">--enable-framework</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-enable-framework" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-2">
+<code class="sig-name descname">--enable-framework</code><code class="sig-prename descclassname">=INSTALLDIR</code><a class="headerlink" href="#cmdoption-2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Python.framework rather than a traditional Unix install. Optional
+<em>INSTALLDIR</em> specifies the installation path (default is no).</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-universal-archs">
+<code class="sig-name descname">--with-universal-archs</code><code class="sig-prename descclassname">=ARCH</code><a class="headerlink" href="#cmdoption-with-universal-archs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the kind of universal binary that should be created. This option is
+only valid when <a class="reference internal" href="#cmdoption-1"><code class="xref std std-option docutils literal notranslate"><span class="pre">--enable-universalsdk</span></code></a> is set.</p>
+<p>Options:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">universal2</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">32-bit</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">64-bit</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3-way</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">intel</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">intel-32</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">intel-64</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">all</span></code>.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-with-framework-name">
+<code class="sig-name descname">--with-framework-name</code><code class="sig-prename descclassname">=FRAMEWORK</code><a class="headerlink" href="#cmdoption-with-framework-name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the name for the python framework on macOS only valid when
+<a class="reference internal" href="#cmdoption-2"><code class="xref std std-option docutils literal notranslate"><span class="pre">--enable-framework</span></code></a> is set (default: <code class="docutils literal notranslate"><span class="pre">Python</span></code>).</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="python-build-system">
+<h2><span class="section-number">3.2. </span>Python Build System<a class="headerlink" href="#python-build-system" title="Permalink to this headline">¶</a></h2>
+<section id="main-files-of-the-build-system">
+<h3><span class="section-number">3.2.1. </span>Main files of the build system<a class="headerlink" href="#main-files-of-the-build-system" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">configure.ac</span></code> =&gt; <code class="file docutils literal notranslate"><span class="pre">configure</span></code>;</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">Makefile.pre.in</span></code> =&gt; <code class="file docutils literal notranslate"><span class="pre">Makefile</span></code> (created by <code class="file docutils literal notranslate"><span class="pre">configure</span></code>);</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">pyconfig.h</span></code> (created by <code class="file docutils literal notranslate"><span class="pre">configure</span></code>);</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">Modules/Setup</span></code>: C extensions built by the Makefile using
+<code class="file docutils literal notranslate"><span class="pre">Module/makesetup</span></code> shell script;</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">setup.py</span></code>: C extensions built using the <a class="reference internal" href="../library/distutils.html#module-distutils" title="distutils: Support for building and installing Python modules into an existing Python installation."><code class="xref py py-mod docutils literal notranslate"><span class="pre">distutils</span></code></a> module.</p></li>
+</ul>
+</section>
+<section id="main-build-steps">
+<h3><span class="section-number">3.2.2. </span>Main build steps<a class="headerlink" href="#main-build-steps" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>C files (<code class="docutils literal notranslate"><span class="pre">.c</span></code>) are built as object files (<code class="docutils literal notranslate"><span class="pre">.o</span></code>).</p></li>
+<li><p>A static <code class="docutils literal notranslate"><span class="pre">libpython</span></code> library (<code class="docutils literal notranslate"><span class="pre">.a</span></code>) is created from objects files.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python.o</span></code> and the static <code class="docutils literal notranslate"><span class="pre">libpython</span></code> library are linked into the
+final <code class="docutils literal notranslate"><span class="pre">python</span></code> program.</p></li>
+<li><p>C extensions are built by the Makefile (see <code class="file docutils literal notranslate"><span class="pre">Modules/Setup</span></code>)
+and <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">build</span></code>.</p></li>
+</ul>
+</section>
+<section id="main-makefile-targets">
+<h3><span class="section-number">3.2.3. </span>Main Makefile targets<a class="headerlink" href="#main-makefile-targets" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">make</span></code>: Build Python with the standard library.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">platform:</span></code>: build the <code class="docutils literal notranslate"><span class="pre">python</span></code> program, but don’t build the
+standard library extension modules.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">profile-opt</span></code>: build Python using Profile Guided Optimization (PGO).
+You can use the configure <a class="reference internal" href="#cmdoption-enable-optimizations"><code class="xref std std-option docutils literal notranslate"><span class="pre">--enable-optimizations</span></code></a> option to make
+this the default target of the <code class="docutils literal notranslate"><span class="pre">make</span></code> command (<code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">all</span></code> or just
+<code class="docutils literal notranslate"><span class="pre">make</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">buildbottest</span></code>: Build Python and run the Python test suite, the same
+way than buildbots test Python. Set <code class="docutils literal notranslate"><span class="pre">TESTTIMEOUT</span></code> variable (in seconds)
+to change the test timeout (1200 by default: 20 minutes).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code>: Build and install Python.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">regen-all</span></code>: Regenerate (almost) all generated files;
+<code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">regen-stdlib-module-names</span></code> and <code class="docutils literal notranslate"><span class="pre">autoconf</span></code> must be run separately
+for the remaining generated files.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean</span></code>: Remove built files.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">distclean</span></code>: Same than <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean</span></code>, but remove also files created
+by the configure script.</p></li>
+</ul>
+</section>
+<section id="c-extensions">
+<h3><span class="section-number">3.2.4. </span>C extensions<a class="headerlink" href="#c-extensions" title="Permalink to this headline">¶</a></h3>
+<p>Some C extensions are built as built-in modules, like the <code class="docutils literal notranslate"><span class="pre">sys</span></code> module.
+They are built with the <code class="docutils literal notranslate"><span class="pre">Py_BUILD_CORE_BUILTIN</span></code> macro defined.
+Built-in modules have no <code class="docutils literal notranslate"><span class="pre">__file__</span></code> attribute:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span>
+<span class="go">&lt;module &#39;sys&#39; (built-in)&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="vm">__file__</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+<span class="gr">AttributeError</span>: <span class="n">module &#39;sys&#39; has no attribute &#39;__file__&#39;</span>
+</pre></div>
+</div>
+<p>Other C extensins are built as dynamic libraires, like the <code class="docutils literal notranslate"><span class="pre">_asyncio</span></code> module.
+They are built with the <code class="docutils literal notranslate"><span class="pre">Py_BUILD_CORE_MODULE</span></code> macro defined.
+Example on Linux x86-64:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">_asyncio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_asyncio</span>
+<span class="go">&lt;module &#39;_asyncio&#39; from &#39;/usr/lib64/python3.9/lib-dynload/_asyncio.cpython-39-x86_64-linux-gnu.so&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_asyncio</span><span class="o">.</span><span class="vm">__file__</span>
+<span class="go">&#39;/usr/lib64/python3.9/lib-dynload/_asyncio.cpython-39-x86_64-linux-gnu.so&#39;</span>
+</pre></div>
+</div>
+<p><code class="file docutils literal notranslate"><span class="pre">Modules/Setup</span></code> is used to generate Makefile targets to build C extensions.
+At the beginning of the files, C extensions are built as built-in modules.
+Extensions defined after the <code class="docutils literal notranslate"><span class="pre">*shared*</span></code> marker are built as dynamic libraries.</p>
+<p>The <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code> script only builds C extensions as shared libraries using
+the <a class="reference internal" href="../library/distutils.html#module-distutils" title="distutils: Support for building and installing Python modules into an existing Python installation."><code class="xref py py-mod docutils literal notranslate"><span class="pre">distutils</span></code></a> module.</p>
+<p>The <code class="xref c c-macro docutils literal notranslate"><span class="pre">PyAPI_FUNC()</span></code>, <code class="xref c c-macro docutils literal notranslate"><span class="pre">PyAPI_API()</span></code> and
+<code class="xref c c-macro docutils literal notranslate"><span class="pre">PyMODINIT_FUNC()</span></code> macros of <code class="file docutils literal notranslate"><span class="pre">Include/pyport.h</span></code> are defined
+differently depending if the <code class="docutils literal notranslate"><span class="pre">Py_BUILD_CORE_MODULE</span></code> macro is defined:</p>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">Py_EXPORTED_SYMBOL</span></code> if the <code class="docutils literal notranslate"><span class="pre">Py_BUILD_CORE_MODULE</span></code> is defined</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">Py_IMPORTED_SYMBOL</span></code> otherwise.</p></li>
+</ul>
+<p>If the <code class="docutils literal notranslate"><span class="pre">Py_BUILD_CORE_BUILTIN</span></code> macro is used by mistake on a C extension
+built as a shared library, its <code class="docutils literal notranslate"><span class="pre">PyInit_xxx()</span></code> function is not exported,
+causing an <a class="reference internal" href="../library/exceptions.html#ImportError" title="ImportError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ImportError</span></code></a> on import.</p>
+</section>
+</section>
+<section id="compiler-and-linker-flags">
+<h2><span class="section-number">3.3. </span>Compiler and linker flags<a class="headerlink" href="#compiler-and-linker-flags" title="Permalink to this headline">¶</a></h2>
+<p>Options set by the <code class="docutils literal notranslate"><span class="pre">./configure</span></code> script and environment variables and used by
+<code class="docutils literal notranslate"><span class="pre">Makefile</span></code>.</p>
+<section id="preprocessor-flags">
+<h3><span class="section-number">3.3.1. </span>Preprocessor flags<a class="headerlink" href="#preprocessor-flags" title="Permalink to this headline">¶</a></h3>
+<dl class="std envvar">
+<dt id="envvar-CONFIGURE_CPPFLAGS">
+<code class="sig-name descname">CONFIGURE_CPPFLAGS</code><a class="headerlink" href="#envvar-CONFIGURE_CPPFLAGS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value of <span class="target" id="index-7"></span><a class="reference internal" href="#envvar-CPPFLAGS"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">CPPFLAGS</span></code></a> variable passed to the <code class="docutils literal notranslate"><span class="pre">./configure</span></code> script.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.6.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-CPPFLAGS">
+<code class="sig-name descname">CPPFLAGS</code><a class="headerlink" href="#envvar-CPPFLAGS" title="Permalink to this definition">¶</a></dt>
+<dd><p>(Objective) C/C++ preprocessor flags, e.g. <code class="docutils literal notranslate"><span class="pre">-I&lt;include</span> <span class="pre">dir&gt;</span></code> if you have
+headers in a nonstandard directory <code class="docutils literal notranslate"><span class="pre">&lt;include</span> <span class="pre">dir&gt;</span></code>.</p>
+<p>Both <span class="target" id="index-8"></span><a class="reference internal" href="#envvar-CPPFLAGS"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">CPPFLAGS</span></code></a> and <span class="target" id="index-9"></span><a class="reference internal" href="#envvar-LDFLAGS"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">LDFLAGS</span></code></a> need to contain the shell’s
+value for setup.py to be able to build extension modules using the
+directories specified in the environment variables.</p>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-BASECPPFLAGS">
+<code class="sig-name descname">BASECPPFLAGS</code><a class="headerlink" href="#envvar-BASECPPFLAGS" title="Permalink to this definition">¶</a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 3.4.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-PY_CPPFLAGS">
+<code class="sig-name descname">PY_CPPFLAGS</code><a class="headerlink" href="#envvar-PY_CPPFLAGS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extra preprocessor flags added for building the interpreter object files.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">$(BASECPPFLAGS)</span> <span class="pre">-I.</span> <span class="pre">-I$(srcdir)/Include</span> <span class="pre">$(CONFIGURE_CPPFLAGS)</span> <span class="pre">$(CPPFLAGS)</span></code>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.2.</span></p>
+</div>
+</dd></dl>
+
+</section>
+<section id="compiler-flags">
+<h3><span class="section-number">3.3.2. </span>Compiler flags<a class="headerlink" href="#compiler-flags" title="Permalink to this headline">¶</a></h3>
+<dl class="std envvar">
+<dt id="envvar-CC">
+<code class="sig-name descname">CC</code><a class="headerlink" href="#envvar-CC" title="Permalink to this definition">¶</a></dt>
+<dd><p>C compiler command.</p>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">gcc</span> <span class="pre">-pthread</span></code>.</p>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-MAINCC">
+<code class="sig-name descname">MAINCC</code><a class="headerlink" href="#envvar-MAINCC" title="Permalink to this definition">¶</a></dt>
+<dd><p>C compiler command used to build the <code class="docutils literal notranslate"><span class="pre">main()</span></code> function of programs like
+<code class="docutils literal notranslate"><span class="pre">python</span></code>.</p>
+<p>Variable set by the <a class="reference internal" href="#cmdoption-0"><code class="xref std std-option docutils literal notranslate"><span class="pre">--with-cxx-main</span></code></a> option of the configure
+script.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">$(CC)</span></code>.</p>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-CXX">
+<code class="sig-name descname">CXX</code><a class="headerlink" href="#envvar-CXX" title="Permalink to this definition">¶</a></dt>
+<dd><p>C++ compiler command.</p>
+<p>Used if the <a class="reference internal" href="#cmdoption-0"><code class="xref std std-option docutils literal notranslate"><span class="pre">--with-cxx-main</span></code></a> option is used.</p>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">g++</span> <span class="pre">-pthread</span></code>.</p>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-CFLAGS">
+<code class="sig-name descname">CFLAGS</code><a class="headerlink" href="#envvar-CFLAGS" title="Permalink to this definition">¶</a></dt>
+<dd><p>C compiler flags.</p>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-CFLAGS_NODIST">
+<code class="sig-name descname">CFLAGS_NODIST</code><a class="headerlink" href="#envvar-CFLAGS_NODIST" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="target" id="index-10"></span><a class="reference internal" href="#envvar-CFLAGS_NODIST"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">CFLAGS_NODIST</span></code></a> is used for building the interpreter and stdlib C
+extensions.  Use it when a compiler flag should <em>not</em> be part of the
+distutils <span class="target" id="index-11"></span><a class="reference internal" href="#envvar-CFLAGS"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">CFLAGS</span></code></a> once Python is installed (<a class="reference external" href="https://bugs.python.org/issue21121">bpo-21121</a>).</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.5.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-EXTRA_CFLAGS">
+<code class="sig-name descname">EXTRA_CFLAGS</code><a class="headerlink" href="#envvar-EXTRA_CFLAGS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extra C compiler flags.</p>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-CONFIGURE_CFLAGS">
+<code class="sig-name descname">CONFIGURE_CFLAGS</code><a class="headerlink" href="#envvar-CONFIGURE_CFLAGS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value of <span class="target" id="index-12"></span><a class="reference internal" href="#envvar-CFLAGS"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">CFLAGS</span></code></a> variable passed to the <code class="docutils literal notranslate"><span class="pre">./configure</span></code>
+script.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.2.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-CONFIGURE_CFLAGS_NODIST">
+<code class="sig-name descname">CONFIGURE_CFLAGS_NODIST</code><a class="headerlink" href="#envvar-CONFIGURE_CFLAGS_NODIST" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value of <span class="target" id="index-13"></span><a class="reference internal" href="#envvar-CFLAGS_NODIST"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">CFLAGS_NODIST</span></code></a> variable passed to the <code class="docutils literal notranslate"><span class="pre">./configure</span></code>
+script.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.5.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-BASECFLAGS">
+<code class="sig-name descname">BASECFLAGS</code><a class="headerlink" href="#envvar-BASECFLAGS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base compiler flags.</p>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-OPT">
+<code class="sig-name descname">OPT</code><a class="headerlink" href="#envvar-OPT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optimization flags.</p>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-CFLAGS_ALIASING">
+<code class="sig-name descname">CFLAGS_ALIASING</code><a class="headerlink" href="#envvar-CFLAGS_ALIASING" title="Permalink to this definition">¶</a></dt>
+<dd><p>Strict or non-strict aliasing flags used to compile <code class="docutils literal notranslate"><span class="pre">Python/dtoa.c</span></code>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.7.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-CCSHARED">
+<code class="sig-name descname">CCSHARED</code><a class="headerlink" href="#envvar-CCSHARED" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compiler flags used to build a shared library.</p>
+<p>For example, <code class="docutils literal notranslate"><span class="pre">-fPIC</span></code> is used on Linux and on BSD.</p>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-CFLAGSFORSHARED">
+<code class="sig-name descname">CFLAGSFORSHARED</code><a class="headerlink" href="#envvar-CFLAGSFORSHARED" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extra C flags added for building the interpreter object files.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">$(CCSHARED)</span></code> when <a class="reference internal" href="#cmdoption-enable-shared"><code class="xref std std-option docutils literal notranslate"><span class="pre">--enable-shared</span></code></a> is used, or an empty
+string otherwise.</p>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-PY_CFLAGS">
+<code class="sig-name descname">PY_CFLAGS</code><a class="headerlink" href="#envvar-PY_CFLAGS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">$(BASECFLAGS)</span> <span class="pre">$(OPT)</span> <span class="pre">$(CONFIGURE_CFLAGS)</span> <span class="pre">$(CFLAGS)</span> <span class="pre">$(EXTRA_CFLAGS)</span></code>.</p>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-PY_CFLAGS_NODIST">
+<code class="sig-name descname">PY_CFLAGS_NODIST</code><a class="headerlink" href="#envvar-PY_CFLAGS_NODIST" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">$(CONFIGURE_CFLAGS_NODIST)</span> <span class="pre">$(CFLAGS_NODIST)</span> <span class="pre">-I$(srcdir)/Include/internal</span></code>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.5.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-PY_STDMODULE_CFLAGS">
+<code class="sig-name descname">PY_STDMODULE_CFLAGS</code><a class="headerlink" href="#envvar-PY_STDMODULE_CFLAGS" title="Permalink to this definition">¶</a></dt>
+<dd><p>C flags used for building the interpreter object files.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">$(PY_CFLAGS)</span> <span class="pre">$(PY_CFLAGS_NODIST)</span> <span class="pre">$(PY_CPPFLAGS)</span> <span class="pre">$(CFLAGSFORSHARED)</span></code>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.7.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-PY_CORE_CFLAGS">
+<code class="sig-name descname">PY_CORE_CFLAGS</code><a class="headerlink" href="#envvar-PY_CORE_CFLAGS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">$(PY_STDMODULE_CFLAGS)</span> <span class="pre">-DPy_BUILD_CORE</span></code>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.2.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-PY_BUILTIN_MODULE_CFLAGS">
+<code class="sig-name descname">PY_BUILTIN_MODULE_CFLAGS</code><a class="headerlink" href="#envvar-PY_BUILTIN_MODULE_CFLAGS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compiler flags to build a standard library extension module as a built-in
+module, like the <a class="reference internal" href="../library/posix.html#module-posix" title="posix: The most common POSIX system calls (normally used via module os). (Unix)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">posix</span></code></a> module.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">$(PY_STDMODULE_CFLAGS)</span> <span class="pre">-DPy_BUILD_CORE_BUILTIN</span></code>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.8.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-PURIFY">
+<code class="sig-name descname">PURIFY</code><a class="headerlink" href="#envvar-PURIFY" title="Permalink to this definition">¶</a></dt>
+<dd><p>Purify command. Purify is a memory debugger program.</p>
+<p>Default: empty string (not used).</p>
+</dd></dl>
+
+</section>
+<section id="linker-flags">
+<h3><span class="section-number">3.3.3. </span>Linker flags<a class="headerlink" href="#linker-flags" title="Permalink to this headline">¶</a></h3>
+<dl class="std envvar">
+<dt id="envvar-LINKCC">
+<code class="sig-name descname">LINKCC</code><a class="headerlink" href="#envvar-LINKCC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Linker command used to build programs like <code class="docutils literal notranslate"><span class="pre">python</span></code> and <code class="docutils literal notranslate"><span class="pre">_testembed</span></code>.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">$(PURIFY)</span> <span class="pre">$(MAINCC)</span></code>.</p>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-CONFIGURE_LDFLAGS">
+<code class="sig-name descname">CONFIGURE_LDFLAGS</code><a class="headerlink" href="#envvar-CONFIGURE_LDFLAGS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value of <span class="target" id="index-14"></span><a class="reference internal" href="#envvar-LDFLAGS"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">LDFLAGS</span></code></a> variable passed to the <code class="docutils literal notranslate"><span class="pre">./configure</span></code> script.</p>
+<p>Avoid assigning <span class="target" id="index-15"></span><a class="reference internal" href="#envvar-CFLAGS"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">CFLAGS</span></code></a>, <span class="target" id="index-16"></span><a class="reference internal" href="#envvar-LDFLAGS"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">LDFLAGS</span></code></a>, etc. so users can use
+them on the command line to append to these values without stomping the
+pre-set values.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.2.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-LDFLAGS_NODIST">
+<code class="sig-name descname">LDFLAGS_NODIST</code><a class="headerlink" href="#envvar-LDFLAGS_NODIST" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="target" id="index-17"></span><a class="reference internal" href="#envvar-LDFLAGS_NODIST"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">LDFLAGS_NODIST</span></code></a> is used in the same manner as
+<span class="target" id="index-18"></span><a class="reference internal" href="#envvar-CFLAGS_NODIST"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">CFLAGS_NODIST</span></code></a>.  Use it when a linker flag should <em>not</em> be part of
+the distutils <span class="target" id="index-19"></span><a class="reference internal" href="#envvar-LDFLAGS"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">LDFLAGS</span></code></a> once Python is installed (<a class="reference external" href="https://bugs.python.org/issue35257">bpo-35257</a>).</p>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-CONFIGURE_LDFLAGS_NODIST">
+<code class="sig-name descname">CONFIGURE_LDFLAGS_NODIST</code><a class="headerlink" href="#envvar-CONFIGURE_LDFLAGS_NODIST" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value of <span class="target" id="index-20"></span><a class="reference internal" href="#envvar-LDFLAGS_NODIST"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">LDFLAGS_NODIST</span></code></a> variable passed to the <code class="docutils literal notranslate"><span class="pre">./configure</span></code>
+script.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.8.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-LDFLAGS">
+<code class="sig-name descname">LDFLAGS</code><a class="headerlink" href="#envvar-LDFLAGS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Linker flags, e.g. <code class="docutils literal notranslate"><span class="pre">-L&lt;lib</span> <span class="pre">dir&gt;</span></code> if you have libraries in a nonstandard
+directory <code class="docutils literal notranslate"><span class="pre">&lt;lib</span> <span class="pre">dir&gt;</span></code>.</p>
+<p>Both <span class="target" id="index-21"></span><a class="reference internal" href="#envvar-CPPFLAGS"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">CPPFLAGS</span></code></a> and <span class="target" id="index-22"></span><a class="reference internal" href="#envvar-LDFLAGS"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">LDFLAGS</span></code></a> need to contain the shell’s
+value for setup.py to be able to build extension modules using the
+directories specified in the environment variables.</p>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-LIBS">
+<code class="sig-name descname">LIBS</code><a class="headerlink" href="#envvar-LIBS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Linker flags to pass libraries to the linker when linking the Python
+executable.</p>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">-lrt</span></code>.</p>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-LDSHARED">
+<code class="sig-name descname">LDSHARED</code><a class="headerlink" href="#envvar-LDSHARED" title="Permalink to this definition">¶</a></dt>
+<dd><p>Command to build a shared library.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">&#64;LDSHARED&#64;</span> <span class="pre">$(PY_LDFLAGS)</span></code>.</p>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-BLDSHARED">
+<code class="sig-name descname">BLDSHARED</code><a class="headerlink" href="#envvar-BLDSHARED" title="Permalink to this definition">¶</a></dt>
+<dd><p>Command to build <code class="docutils literal notranslate"><span class="pre">libpython</span></code> shared library.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">&#64;BLDSHARED&#64;</span> <span class="pre">$(PY_CORE_LDFLAGS)</span></code>.</p>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-PY_LDFLAGS">
+<code class="sig-name descname">PY_LDFLAGS</code><a class="headerlink" href="#envvar-PY_LDFLAGS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">$(CONFIGURE_LDFLAGS)</span> <span class="pre">$(LDFLAGS)</span></code>.</p>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-PY_LDFLAGS_NODIST">
+<code class="sig-name descname">PY_LDFLAGS_NODIST</code><a class="headerlink" href="#envvar-PY_LDFLAGS_NODIST" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">$(CONFIGURE_LDFLAGS_NODIST)</span> <span class="pre">$(LDFLAGS_NODIST)</span></code>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.8.</span></p>
+</div>
+</dd></dl>
+
+<dl class="std envvar">
+<dt id="envvar-PY_CORE_LDFLAGS">
+<code class="sig-name descname">PY_CORE_LDFLAGS</code><a class="headerlink" href="#envvar-PY_CORE_LDFLAGS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Linker flags used for building the interpreter object files.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 3.8.</span></p>
+</div>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">3. Configure Python</a><ul>
+<li><a class="reference internal" href="#configure-options">3.1. Configure Options</a><ul>
+<li><a class="reference internal" href="#general-options">3.1.1. General Options</a></li>
+<li><a class="reference internal" href="#install-options">3.1.2. Install Options</a></li>
+<li><a class="reference internal" href="#performance-options">3.1.3. Performance options</a></li>
+<li><a class="reference internal" href="#python-debug-build">3.1.4. Python Debug Build</a></li>
+<li><a class="reference internal" href="#debug-options">3.1.5. Debug options</a></li>
+<li><a class="reference internal" href="#linker-options">3.1.6. Linker options</a></li>
+<li><a class="reference internal" href="#libraries-options">3.1.7. Libraries options</a></li>
+<li><a class="reference internal" href="#security-options">3.1.8. Security Options</a></li>
+<li><a class="reference internal" href="#macos-options">3.1.9. macOS Options</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#python-build-system">3.2. Python Build System</a><ul>
+<li><a class="reference internal" href="#main-files-of-the-build-system">3.2.1. Main files of the build system</a></li>
+<li><a class="reference internal" href="#main-build-steps">3.2.2. Main build steps</a></li>
+<li><a class="reference internal" href="#main-makefile-targets">3.2.3. Main Makefile targets</a></li>
+<li><a class="reference internal" href="#c-extensions">3.2.4. C extensions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#compiler-and-linker-flags">3.3. Compiler and linker flags</a><ul>
+<li><a class="reference internal" href="#preprocessor-flags">3.3.1. Preprocessor flags</a></li>
+<li><a class="reference internal" href="#compiler-flags">3.3.2. Compiler flags</a></li>
+<li><a class="reference internal" href="#linker-flags">3.3.3. Linker flags</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="unix.html"
+                        title="previous chapter"><span class="section-number">2. </span>Using Python on Unix platforms</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="windows.html"
+                        title="next chapter"><span class="section-number">4. </span>Using Python on Windows</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.10/Doc/using/configure.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="windows.html" title="4. Using Python on Windows"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="unix.html" title="2. Using Python on Unix platforms"
+             >previous</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.10.0 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Python Setup and Usage</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">3. </span>Configure Python</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2021, Python Software Foundation.
+    <br />
+    This page is licensed under the Python Software Foundation License Version 2.
+    <br />
+    Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+    <br />
+    See <a href="">History and License</a> for more information.
+    <br /><br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Oct 04, 2021.
+    <a href="https://docs.python.org/3/bugs.html">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+
+  </body>
+</html>

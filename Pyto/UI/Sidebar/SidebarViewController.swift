@@ -256,7 +256,7 @@ fileprivate enum Section: String {
     @objc func showDocumentationOnSplitView() {
         if documentation == nil {
             documentation = NavigationController(rootViewController: DocumentationViewController())
-            documentation?.navigationBar.prefersLargeTitles = true
+            documentation?.navigationBar.prefersLargeTitles = false
         }
             
         show(vc: documentation!)
@@ -397,6 +397,12 @@ fileprivate enum Section: String {
         }
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(showSettings))
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        navigationController?.setToolbarHidden(true, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {

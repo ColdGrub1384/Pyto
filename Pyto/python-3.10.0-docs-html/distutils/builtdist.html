@@ -1,0 +1,696 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>5. Creating Built Distributions &#8212; Python 3.10.0 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css?2021.8" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.10.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="6. Distutils Examples" href="examples.html" />
+    <link rel="prev" title="4. Creating a Source Distribution" href="sourcedist.html" />
+    <link rel="canonical" href="https://docs.python.org/3/distutils/builtdist.html" />
+    
+      
+    
+
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+<link rel="shortcut icon" type="image/png" href="../_static/py.svg" />
+            <script type="text/javascript" src="../_static/copybutton.js"></script>
+            <script type="text/javascript" src="../_static/menu.js"></script> 
+
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu" />
+    <label for="menuToggler" class="toggler__label">
+        <span></span>
+    </label>
+    <nav class="nav-content" role="navigation">
+         <a href="https://www.python.org/" class="nav-logo">
+             <img src="../_static/py.svg" alt="Logo"/>
+         </a>
+        <div class="version_switcher_placeholder"></div>
+        <form role="search" class="search" action="../search.html" method="get">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                <path fill-rule="nonzero"
+                        d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="#444"></path>
+            </svg>
+            <input type="text" name="q" aria-label="Quick search"/>
+            <input type="submit" value="Go"/>
+        </form>
+    </nav>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <div class="language_switcher_placeholder"></div>
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">5. Creating Built Distributions</a><ul>
+<li><a class="reference internal" href="#creating-rpm-packages">5.1. Creating RPM packages</a></li>
+<li><a class="reference internal" href="#cross-compiling-on-windows">5.2. Cross-compiling on Windows</a><ul>
+<li><a class="reference internal" href="#the-postinstallation-script">5.2.1. The Postinstallation script</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="sourcedist.html"
+                        title="previous chapter"><span class="section-number">4. </span>Creating a Source Distribution</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="examples.html"
+                        title="next chapter"><span class="section-number">6. </span>Distutils Examples</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.10/Doc/distutils/builtdist.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </nav>
+    </div>
+</div>
+
+  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="examples.html" title="6. Distutils Examples"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="sourcedist.html" title="4. Creating a Source Distribution"
+             accesskey="P">previous</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.10.0 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Distributing Python Modules (Legacy version)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5. </span>Creating Built Distributions</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="creating-built-distributions">
+<span id="built-dist"></span><h1><span class="section-number">5. </span>Creating Built Distributions<a class="headerlink" href="#creating-built-distributions" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This document is being retained solely until the <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> documentation
+at <a class="reference external" href="https://setuptools.readthedocs.io/en/latest/setuptools.html">https://setuptools.readthedocs.io/en/latest/setuptools.html</a>
+independently covers all of the relevant information currently included here.</p>
+</div>
+<p>A “built distribution” is what you’re probably used to thinking of either as a
+“binary package” or an “installer” (depending on your background).  It’s not
+necessarily binary, though, because it might contain only Python source code
+and/or byte-code; and we don’t call it a package, because that word is already
+spoken for in Python.  (And “installer” is a term specific to the world of
+mainstream desktop systems.)</p>
+<p>A built distribution is how you make life as easy as possible for installers of
+your module distribution: for users of RPM-based Linux systems, it’s a binary
+RPM; for Windows users, it’s an executable installer; for Debian-based Linux
+users, it’s a Debian package; and so forth.  Obviously, no one person will be
+able to create built distributions for every platform under the sun, so the
+Distutils are designed to enable module developers to concentrate on their
+specialty—writing code and creating source distributions—while an
+intermediary species called <em>packagers</em> springs up to turn source distributions
+into built distributions for as many platforms as there are packagers.</p>
+<p>Of course, the module developer could be their own packager; or the packager could
+be a volunteer “out there” somewhere who has access to a platform which the
+original developer does not; or it could be software periodically grabbing new
+source distributions and turning them into built distributions for as many
+platforms as the software has access to.  Regardless of who they are, a packager
+uses the setup script and the <strong class="command">bdist</strong> command family to generate built
+distributions.</p>
+<p>As a simple example, if I run the following command in the Distutils source
+tree:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">bdist</span>
+</pre></div>
+</div>
+<p>then the Distutils builds my module distribution (the Distutils itself in this
+case), does a “fake” installation (also in the <code class="file docutils literal notranslate"><span class="pre">build</span></code> directory), and
+creates the default type of built distribution for my platform.  The default
+format for built distributions is a “dumb” tar file on Unix, and a simple
+executable installer on Windows.  (That tar file is considered “dumb” because it
+has to be unpacked in a specific location to work.)</p>
+<p>Thus, the above command on a Unix system creates
+<code class="file docutils literal notranslate"><span class="pre">Distutils-1.0.</span><em><span class="pre">plat</span></em><span class="pre">.tar.gz</span></code>; unpacking this tarball from the right place
+installs the Distutils just as though you had downloaded the source distribution
+and run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code>.  (The “right place” is either the root of
+the filesystem or  Python’s <code class="file docutils literal notranslate"><em><span class="pre">prefix</span></em></code> directory, depending on the options
+given to the <strong class="command">bdist_dumb</strong> command; the default is to make dumb
+distributions relative to <code class="file docutils literal notranslate"><em><span class="pre">prefix</span></em></code>.)</p>
+<p>Obviously, for pure Python distributions, this isn’t any simpler than just
+running <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code>—but for non-pure distributions, which
+include extensions that would need to be compiled, it can mean the difference
+between someone being able to use your extensions or not.  And creating “smart”
+built distributions, such as an RPM package or an executable installer for
+Windows, is far more convenient for users even if your distribution doesn’t
+include any extensions.</p>
+<p>The <strong class="command">bdist</strong> command has a <code class="xref std std-option docutils literal notranslate"><span class="pre">--formats</span></code> option, similar to the
+<strong class="command">sdist</strong> command, which you can use to select the types of built
+distribution to generate: for example,</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">bdist</span> <span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="nb">zip</span>
+</pre></div>
+</div>
+<p>would, when run on a Unix system, create
+<code class="file docutils literal notranslate"><span class="pre">Distutils-1.0.</span><em><span class="pre">plat</span></em><span class="pre">.zip</span></code>—again, this archive would be unpacked
+from the root directory to install the Distutils.</p>
+<p>The available formats for built distributions are:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 58%" />
+<col style="width: 17%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Format</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gztar</span></code></p></td>
+<td><p>gzipped tar file
+(<code class="file docutils literal notranslate"><span class="pre">.tar.gz</span></code>)</p></td>
+<td><p>(1)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">bztar</span></code></p></td>
+<td><p>bzipped tar file
+(<code class="file docutils literal notranslate"><span class="pre">.tar.bz2</span></code>)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">xztar</span></code></p></td>
+<td><p>xzipped tar file
+(<code class="file docutils literal notranslate"><span class="pre">.tar.xz</span></code>)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ztar</span></code></p></td>
+<td><p>compressed tar file
+(<code class="file docutils literal notranslate"><span class="pre">.tar.Z</span></code>)</p></td>
+<td><p>(3)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">tar</span></code></p></td>
+<td><p>tar file (<code class="file docutils literal notranslate"><span class="pre">.tar</span></code>)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">zip</span></code></p></td>
+<td><p>zip file (<code class="file docutils literal notranslate"><span class="pre">.zip</span></code>)</p></td>
+<td><p>(2),(4)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rpm</span></code></p></td>
+<td><p>RPM</p></td>
+<td><p>(5)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pkgtool</span></code></p></td>
+<td><p>Solaris <strong class="program">pkgtool</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sdux</span></code></p></td>
+<td><p>HP-UX <strong class="program">swinstall</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">msi</span></code></p></td>
+<td><p>Microsoft Installer.</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.5: </span>Added support for the <code class="docutils literal notranslate"><span class="pre">xztar</span></code> format.</p>
+</div>
+<p>Notes:</p>
+<ol class="arabic simple">
+<li><p>default on Unix</p></li>
+<li><p>default on Windows</p></li>
+<li><p>requires external <strong class="program">compress</strong> utility.</p></li>
+<li><p>requires either external <strong class="program">zip</strong> utility or <a class="reference internal" href="../library/zipfile.html#module-zipfile" title="zipfile: Read and write ZIP-format archive files."><code class="xref py py-mod docutils literal notranslate"><span class="pre">zipfile</span></code></a> module (part
+of the standard Python library since Python 1.6)</p></li>
+<li><p>requires external <strong class="program">rpm</strong> utility, version 3.0.4 or better (use <code class="docutils literal notranslate"><span class="pre">rpm</span>
+<span class="pre">--version</span></code> to find out which version you have)</p></li>
+</ol>
+<p>You don’t have to use the <strong class="command">bdist</strong> command with the <code class="xref std std-option docutils literal notranslate"><span class="pre">--formats</span></code>
+option; you can also use the command that directly implements the format you’re
+interested in.  Some of these <strong class="command">bdist</strong> “sub-commands” actually generate
+several similar formats; for instance, the <strong class="command">bdist_dumb</strong> command
+generates all the “dumb” archive formats (<code class="docutils literal notranslate"><span class="pre">tar</span></code>, <code class="docutils literal notranslate"><span class="pre">gztar</span></code>, <code class="docutils literal notranslate"><span class="pre">bztar</span></code>,
+<code class="docutils literal notranslate"><span class="pre">xztar</span></code>, <code class="docutils literal notranslate"><span class="pre">ztar</span></code>, and <code class="docutils literal notranslate"><span class="pre">zip</span></code>), and <strong class="command">bdist_rpm</strong> generates both
+binary and source RPMs.  The <strong class="command">bdist</strong> sub-commands, and the formats
+generated by each, are:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Command</p></th>
+<th class="head"><p>Formats</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong class="command">bdist_dumb</strong></p></td>
+<td><p>tar, gztar, bztar, xztar, ztar, zip</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong class="command">bdist_rpm</strong></p></td>
+<td><p>rpm, srpm</p></td>
+</tr>
+<tr class="row-even"><td><p><strong class="command">bdist_msi</strong></p></td>
+<td><p>msi</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>bdist_msi is deprecated since Python 3.9.</p>
+</div>
+<p>The following sections give details on the individual <strong class="command">bdist_*</strong>
+commands.</p>
+<section id="creating-rpm-packages">
+<span id="creating-rpms"></span><h2><span class="section-number">5.1. </span>Creating RPM packages<a class="headerlink" href="#creating-rpm-packages" title="Permalink to this headline">¶</a></h2>
+<p>The RPM format is used by many popular Linux distributions, including Red Hat,
+SuSE, and Mandrake.  If one of these (or any of the other RPM-based Linux
+distributions) is your usual environment, creating RPM packages for other users
+of that same distribution is trivial. Depending on the complexity of your module
+distribution and differences between Linux distributions, you may also be able
+to create RPMs that work on different RPM-based distributions.</p>
+<p>The usual way to create an RPM of your module distribution is to run the
+<strong class="command">bdist_rpm</strong> command:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">bdist_rpm</span>
+</pre></div>
+</div>
+<p>or the <strong class="command">bdist</strong> command with the <code class="xref std std-option docutils literal notranslate"><span class="pre">--format</span></code> option:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">bdist</span> <span class="o">--</span><span class="n">formats</span><span class="o">=</span><span class="n">rpm</span>
+</pre></div>
+</div>
+<p>The former allows you to specify RPM-specific options; the latter allows  you to
+easily specify multiple formats in one run.  If you need to do both, you can
+explicitly specify multiple <strong class="command">bdist_*</strong> commands and their options:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">bdist_rpm</span> <span class="o">--</span><span class="n">packager</span><span class="o">=</span><span class="s2">&quot;John Doe &lt;jdoe@example.org&gt;&quot;</span>
+</pre></div>
+</div>
+<p>Creating RPM packages is driven by a <code class="file docutils literal notranslate"><span class="pre">.spec</span></code> file, much as using the
+Distutils is driven by the setup script.  To make your life easier, the
+<strong class="command">bdist_rpm</strong> command normally creates a <code class="file docutils literal notranslate"><span class="pre">.spec</span></code> file based on the
+information you supply in the setup script, on the command line, and in any
+Distutils configuration files.  Various options and sections in the
+<code class="file docutils literal notranslate"><span class="pre">.spec</span></code> file are derived from options in the setup script as follows:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 48%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>RPM <code class="file docutils literal notranslate"><span class="pre">.spec</span></code> file option or section</p></th>
+<th class="head"><p>Distutils setup script option</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Name</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Summary (in preamble)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">description</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Version</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">version</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Vendor</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">author</span></code> and <code class="docutils literal notranslate"><span class="pre">author_email</span></code>,
+or  — &amp; <code class="docutils literal notranslate"><span class="pre">maintainer</span></code> and
+<code class="docutils literal notranslate"><span class="pre">maintainer_email</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Copyright</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">license</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Url</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">url</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>%description (section)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">long_description</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Additionally, there are many options in <code class="file docutils literal notranslate"><span class="pre">.spec</span></code> files that don’t have
+corresponding options in the setup script.  Most of these are handled through
+options to the <strong class="command">bdist_rpm</strong> command as follows:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 34%" />
+<col style="width: 29%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>RPM <code class="file docutils literal notranslate"><span class="pre">.spec</span></code> file option
+or section</p></th>
+<th class="head"><p><strong class="command">bdist_rpm</strong> option</p></th>
+<th class="head"><p>default value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Release</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">release</span></code></p></td>
+<td><p>“1”</p></td>
+</tr>
+<tr class="row-odd"><td><p>Group</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">group</span></code></p></td>
+<td><p>“Development/Libraries”</p></td>
+</tr>
+<tr class="row-even"><td><p>Vendor</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vendor</span></code></p></td>
+<td><p>(see above)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Packager</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">packager</span></code></p></td>
+<td><p>(none)</p></td>
+</tr>
+<tr class="row-even"><td><p>Provides</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">provides</span></code></p></td>
+<td><p>(none)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Requires</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">requires</span></code></p></td>
+<td><p>(none)</p></td>
+</tr>
+<tr class="row-even"><td><p>Conflicts</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">conflicts</span></code></p></td>
+<td><p>(none)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Obsoletes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">obsoletes</span></code></p></td>
+<td><p>(none)</p></td>
+</tr>
+<tr class="row-even"><td><p>Distribution</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">distribution_name</span></code></p></td>
+<td><p>(none)</p></td>
+</tr>
+<tr class="row-odd"><td><p>BuildRequires</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">build_requires</span></code></p></td>
+<td><p>(none)</p></td>
+</tr>
+<tr class="row-even"><td><p>Icon</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">icon</span></code></p></td>
+<td><p>(none)</p></td>
+</tr>
+</tbody>
+</table>
+<p>Obviously, supplying even a few of these options on the command-line would be
+tedious and error-prone, so it’s usually best to put them in the setup
+configuration file, <code class="file docutils literal notranslate"><span class="pre">setup.cfg</span></code>—see section <a class="reference internal" href="configfile.html#setup-config"><span class="std std-ref">Writing the Setup Configuration File</span></a>.  If
+you distribute or package many Python module distributions, you might want to
+put options that apply to all of them in your personal Distutils configuration
+file (<code class="file docutils literal notranslate"><span class="pre">~/.pydistutils.cfg</span></code>).  If you want to temporarily disable
+this file, you can pass the <code class="xref std std-option docutils literal notranslate"><span class="pre">--no-user-cfg</span></code> option to <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code>.</p>
+<p>There are three steps to building a binary RPM package, all of which are
+handled automatically by the Distutils:</p>
+<ol class="arabic simple">
+<li><p>create a <code class="file docutils literal notranslate"><span class="pre">.spec</span></code> file, which describes the package (analogous  to the
+Distutils setup script; in fact, much of the information in the  setup script
+winds up in the <code class="file docutils literal notranslate"><span class="pre">.spec</span></code> file)</p></li>
+<li><p>create the source RPM</p></li>
+<li><p>create the “binary” RPM (which may or may not contain binary code, depending
+on whether your module distribution contains Python extensions)</p></li>
+</ol>
+<p>Normally, RPM bundles the last two steps together; when you use the Distutils,
+all three steps are typically bundled together.</p>
+<p>If you wish, you can separate these three steps.  You can use the
+<code class="xref std std-option docutils literal notranslate"><span class="pre">--spec-only</span></code> option to make <strong class="command">bdist_rpm</strong> just create the
+<code class="file docutils literal notranslate"><span class="pre">.spec</span></code> file and exit; in this case, the <code class="file docutils literal notranslate"><span class="pre">.spec</span></code> file will be
+written to the “distribution directory”—normally <code class="file docutils literal notranslate"><span class="pre">dist/</span></code>, but
+customizable with the <code class="xref std std-option docutils literal notranslate"><span class="pre">--dist-dir</span></code> option.  (Normally, the <code class="file docutils literal notranslate"><span class="pre">.spec</span></code>
+file winds up deep in the “build tree,” in a temporary directory created by
+<strong class="command">bdist_rpm</strong>.)</p>
+</section>
+<section id="cross-compiling-on-windows">
+<span id="cross-compile-windows"></span><h2><span class="section-number">5.2. </span>Cross-compiling on Windows<a class="headerlink" href="#cross-compiling-on-windows" title="Permalink to this headline">¶</a></h2>
+<p>Starting with Python 2.6, distutils is capable of cross-compiling between
+Windows platforms.  In practice, this means that with the correct tools
+installed, you can use a 32bit version of Windows to create 64bit extensions
+and vice-versa.</p>
+<p>To build for an alternate platform, specify the <code class="xref std std-option docutils literal notranslate"><span class="pre">--plat-name</span></code> option
+to the build command.  Valid values are currently ‘win32’, and  ‘win-amd64’.
+For example, on a 32bit version of Windows, you could execute:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="o">--</span><span class="n">plat</span><span class="o">-</span><span class="n">name</span><span class="o">=</span><span class="n">win</span><span class="o">-</span><span class="n">amd64</span>
+</pre></div>
+</div>
+<p>to build a 64bit version of your extension.</p>
+<p>would create a 64bit installation executable on your 32bit version of Windows.</p>
+<p>To cross-compile, you must download the Python source code and cross-compile
+Python itself for the platform you are targeting - it is not possible from a
+binary installation of Python (as the .lib etc file for other platforms are
+not included.)  In practice, this means the user of a 32 bit operating
+system will need to use Visual Studio 2008 to open the
+<code class="file docutils literal notranslate"><span class="pre">PCbuild/PCbuild.sln</span></code> solution in the Python source tree and build the
+“x64” configuration of the ‘pythoncore’ project before cross-compiling
+extensions is possible.</p>
+<p>Note that by default, Visual Studio 2008 does not install 64bit compilers or
+tools.  You may need to reexecute the Visual Studio setup process and select
+these tools (using Control Panel-&gt;[Add/Remove] Programs is a convenient way to
+check or modify your existing install.)</p>
+<section id="the-postinstallation-script">
+<span id="postinstallation-script"></span><h3><span class="section-number">5.2.1. </span>The Postinstallation script<a class="headerlink" href="#the-postinstallation-script" title="Permalink to this headline">¶</a></h3>
+<p>Starting with Python 2.3, a postinstallation script can be specified with the
+<code class="xref std std-option docutils literal notranslate"><span class="pre">--install-script</span></code> option.  The basename of the script must be
+specified, and the script filename must also be listed in the scripts argument
+to the setup function.</p>
+<p>This script will be run at installation time on the target system after all the
+files have been copied, with <code class="docutils literal notranslate"><span class="pre">argv[1]</span></code> set to <code class="xref std std-option docutils literal notranslate"><span class="pre">-install</span></code>, and again at
+uninstallation time before the files are removed with <code class="docutils literal notranslate"><span class="pre">argv[1]</span></code> set to
+<code class="xref std std-option docutils literal notranslate"><span class="pre">-remove</span></code>.</p>
+<p>The installation script runs embedded in the windows installer, every output
+(<code class="docutils literal notranslate"><span class="pre">sys.stdout</span></code>, <code class="docutils literal notranslate"><span class="pre">sys.stderr</span></code>) is redirected into a buffer and will be
+displayed in the GUI after the script has finished.</p>
+<p>Some functions especially useful in this context are available as additional
+built-in functions in the installation script.</p>
+<dl class="py function">
+<dt id="directory_created">
+<code class="sig-name descname">directory_created</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#directory_created" title="Permalink to this definition">¶</a></dt>
+<dt id="file_created">
+<code class="sig-name descname">file_created</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#file_created" title="Permalink to this definition">¶</a></dt>
+<dd><p>These functions should be called when a directory or file is created by the
+postinstall script at installation time.  It will register <em>path</em> with the
+uninstaller, so that it will be removed when the distribution is uninstalled.
+To be safe, directories are only removed if they are empty.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="get_special_folder_path">
+<code class="sig-name descname">get_special_folder_path</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">csidl_string</span></em><span class="sig-paren">)</span><a class="headerlink" href="#get_special_folder_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function can be used to retrieve special folder locations on Windows like
+the Start Menu or the Desktop.  It returns the full path to the folder.
+<em>csidl_string</em> must be one of the following strings:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;CSIDL_APPDATA&quot;</span>
+
+<span class="s2">&quot;CSIDL_COMMON_STARTMENU&quot;</span>
+<span class="s2">&quot;CSIDL_STARTMENU&quot;</span>
+
+<span class="s2">&quot;CSIDL_COMMON_DESKTOPDIRECTORY&quot;</span>
+<span class="s2">&quot;CSIDL_DESKTOPDIRECTORY&quot;</span>
+
+<span class="s2">&quot;CSIDL_COMMON_STARTUP&quot;</span>
+<span class="s2">&quot;CSIDL_STARTUP&quot;</span>
+
+<span class="s2">&quot;CSIDL_COMMON_PROGRAMS&quot;</span>
+<span class="s2">&quot;CSIDL_PROGRAMS&quot;</span>
+
+<span class="s2">&quot;CSIDL_FONTS&quot;</span>
+</pre></div>
+</div>
+<p>If the folder cannot be retrieved, <a class="reference internal" href="../library/exceptions.html#OSError" title="OSError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">OSError</span></code></a> is raised.</p>
+<p>Which folders are available depends on the exact Windows version, and probably
+also the configuration.  For details refer to Microsoft’s documentation of the
+<code class="xref c c-func docutils literal notranslate"><span class="pre">SHGetSpecialFolderPath()</span></code> function.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="create_shortcut">
+<code class="sig-name descname">create_shortcut</code><span class="sig-paren">(</span><em class="sig-param">target</em>, <em class="sig-param">description</em>, <em class="sig-param">filename</em><span class="optional">[</span>, <em class="sig-param">arguments</em><span class="optional">[</span>, <em class="sig-param">workdir</em><span class="optional">[</span>, <em class="sig-param">iconpath</em><span class="optional">[</span>, <em class="sig-param">iconindex</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#create_shortcut" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function creates a shortcut. <em>target</em> is the path to the program to be
+started by the shortcut. <em>description</em> is the description of the shortcut.
+<em>filename</em> is the title of the shortcut that the user will see. <em>arguments</em>
+specifies the command line arguments, if any. <em>workdir</em> is the working directory
+for the program. <em>iconpath</em> is the file containing the icon for the shortcut,
+and <em>iconindex</em> is the index of the icon in the file <em>iconpath</em>.  Again, for
+details consult the Microsoft documentation for the <code class="xref py py-class docutils literal notranslate"><span class="pre">IShellLink</span></code>
+interface.</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">5. Creating Built Distributions</a><ul>
+<li><a class="reference internal" href="#creating-rpm-packages">5.1. Creating RPM packages</a></li>
+<li><a class="reference internal" href="#cross-compiling-on-windows">5.2. Cross-compiling on Windows</a><ul>
+<li><a class="reference internal" href="#the-postinstallation-script">5.2.1. The Postinstallation script</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="sourcedist.html"
+                        title="previous chapter"><span class="section-number">4. </span>Creating a Source Distribution</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="examples.html"
+                        title="next chapter"><span class="section-number">6. </span>Distutils Examples</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">Report a Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.10/Doc/distutils/builtdist.rst"
+            rel="nofollow">Show Source
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="examples.html" title="6. Distutils Examples"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="sourcedist.html" title="4. Creating a Source Distribution"
+             >previous</a> |</li>
+
+          <li><img src="../_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+          </li>
+    <li id="cpython-language-and-version">
+      <a href="../index.html">3.10.0 Documentation</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Distributing Python Modules (Legacy version)</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5. </span>Creating Built Distributions</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2001-2021, Python Software Foundation.
+    <br />
+    This page is licensed under the Python Software Foundation License Version 2.
+    <br />
+    Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+    <br />
+    See <a href="">History and License</a> for more information.
+    <br /><br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Oct 04, 2021.
+    <a href="https://docs.python.org/3/bugs.html">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+
+  </body>
+</html>
