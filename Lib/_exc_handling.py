@@ -64,11 +64,14 @@ def get_json(tb, exc, text, remove, offset=0, end_offset=0):
         del stack[0]
 
     try:
-        if isinstance(tb, list):
-            stack_filename = os.path.abspath(stack[0].f_code.co_filename)
-        else:
-            stack_filename = stack[0].filename
-        while len(stack) > 0 and stack_filename.endswith("/Lib/console.py") or stack_filename.startswith("<frozen importlib"):
+        def get_filename():
+            if isinstance(tb, list):
+                return os.path.abspath(stack[0].f_code.co_filename)
+            else:
+                return stack[0].filename
+        
+
+        while len(stack) > 0 and (get_filename().endswith("/Lib/console.py") or get_filename().startswith("<frozen importlib")):
             del stack[0]
     except IndexError:
         pass

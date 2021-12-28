@@ -139,7 +139,7 @@ struct BreakpointsScriptView: View {
                             VStack {
                                 Image(systemName: "forward.end.fill")
                                 Text("resume")
-                            }.frame(width: 70)
+                            }.frame(width: 90)
                         }.padding(.trailing, 2)
                         
                         if tracebackJSON != nil {
@@ -149,7 +149,7 @@ struct BreakpointsScriptView: View {
                                 VStack {
                                     Image(systemName: "rectangle.stack.fill")
                                     Text("Stack")
-                                }.frame(width: 70)
+                                }.frame(width: 90)
                             }.padding(.leading, 2)
                         }
                         
@@ -163,7 +163,7 @@ struct BreakpointsScriptView: View {
                             VStack {
                                 Image(systemName: "terminal.fill")
                                 Text("REPL")
-                            }.frame(width: 70)
+                            }.frame(width: 90)
                         }.padding(.leading, 2)
 
                         
