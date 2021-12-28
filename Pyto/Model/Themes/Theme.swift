@@ -28,6 +28,9 @@ protocol Theme {
     /// The tint color of the interface.
     var tintColor: UIColor? { get }
     
+    /// The background color of the console
+    var consoleBackgroundColor: UIColor { get }
+    
     /// The name of the theme if created by user.
     var name: String? { get }
     
@@ -49,6 +52,10 @@ extension Theme {
     
     var name: String? {
         return nil
+    }
+    
+    var consoleBackgroundColor: UIColor {
+        sourceCodeTheme.backgroundColor
     }
     
     var data: Data {

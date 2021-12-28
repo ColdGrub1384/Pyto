@@ -701,16 +701,18 @@ import SwiftUI
             
             let runner = ScriptRunnerViewController(scriptURL: files[index.row])
             let navVC = UINavigationController(rootViewController: runner)
-            navVC.modalPresentationStyle = .formSheet
+            
+            let keyboardVC = KeyboardHostingController(viewController: navVC)
+            keyboardVC.modalPresentationStyle = .formSheet
             
             if #available(iOS 15.0, *) {
-                if let presentationController = navVC.presentationController as? UISheetPresentationController {
+                if let presentationController = keyboardVC.presentationController as? UISheetPresentationController {
                     presentationController.prefersGrabberVisible = true
                     presentationController.detents = [.medium(), .large()]
                 }
             }
             
-            self.present(navVC, animated: true, completion: nil)
+            self.present(keyboardVC, animated: true, completion: nil)
         }
 
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { (_) -> UIMenu? in

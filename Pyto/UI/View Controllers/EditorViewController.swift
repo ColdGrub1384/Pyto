@@ -502,6 +502,10 @@ func directory(for scriptURL: URL) -> URL {
         lineNumberText?.lineNumberFont = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
         lineNumberText?.lineNumberBorderColor = .clear
         
+        if parent?.superclass?.isSubclass(of: EditorSplitViewController.self) == false {
+            (parent as? EditorSplitViewController)?.separatorColor = theme.sourceCodeTheme.color(for: .plain).withAlphaComponent(0.5)
+        }
+        
         inputAssistant = InputAssistantView()
         inputAssistant.delegate = self
         inputAssistant.dataSource = self

@@ -487,8 +487,15 @@ import SwiftUI
         
         movableTextField?.theme = theme
         
-        webView.backgroundColor = theme.sourceCodeTheme.backgroundColor
-        view.backgroundColor = theme.sourceCodeTheme.backgroundColor
+        let backgroundColor: UIColor
+        if parent?.superclass?.isSubclass(of: EditorSplitViewController.self) == true { // Is a subclass, use the default background color
+            backgroundColor = theme.sourceCodeTheme.backgroundColor
+        } else {
+            backgroundColor = theme.consoleBackgroundColor
+        }
+        
+        webView.backgroundColor = backgroundColor
+        view.backgroundColor = backgroundColor
         
         if #available(iOS 13.0, *) {
             guard view.window?.windowScene?.activationState != .background else {
@@ -500,7 +507,7 @@ import SwiftUI
         t.prefs_.set('foreground-color', '\(theme.sourceCodeTheme.color(for: .plain).hexString)');
         t.prefs_.set('font-size', \(theme.sourceCodeTheme.font.pointSize));
         t.prefs_.set('font-family', '\(theme.sourceCodeTheme.font.familyName)');
-        t.document_.body.style.color = '\(theme.sourceCodeTheme.backgroundColor.hexString)';
+        t.document_.body.style.color = '\(backgroundColor.hexString)';
         """, completionHandler: nil)
     }
     
@@ -1192,7 +1199,19 @@ import SwiftUI
                 
                 if self.highlightInput {
                     ConsoleViewController.codeToHighlight = text
-                    Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: "import _codecompletion; import pyto; _codecompletion.printHighlightedCode(str(pyto.ConsoleViewController.codeToHighlight), '\(self.editorSplitViewController?.editor?.document?.fileURL.path ?? "")')")
+                    
+                    let sourceCodeTheme = Self.choosenTheme.sourceCodeTheme
+                    
+                    let theme = (try? JSONSerialization.data(withJSONObject: [
+                        "comment": sourceCodeTheme.color(for: .comment).hexString,
+                        "keyword": sourceCodeTheme.color(for: .keyword).hexString,
+                        "name": sourceCodeTheme.color(for: .identifier).hexString,
+                        "function": sourceCodeTheme.color(for: .identifier).hexString,
+                        "class": sourceCodeTheme.color(for: .identifier).hexString,
+                        "string": sourceCodeTheme.color(for: .string).hexString,
+                        "number": sourceCodeTheme.color(for: .number).hexString,
+                    ], options: []))?.base64EncodedString() ?? "{}".data(using: .utf8)!.base64EncodedString()
+                    Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: "import _codecompletion; import pyto; import base64; _codecompletion.printHighlightedCode(str(pyto.ConsoleViewController.codeToHighlight), base64.b64decode('\(theme)').decode('utf-8'), '\(self.editorSplitViewController?.editor?.document?.fileURL.path ?? "")')")
                 } else {
                     self.print("\(text)\n")
                 }

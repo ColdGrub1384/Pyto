@@ -463,12 +463,8 @@ fileprivate enum Section: String {
         let navVC = EditorSplitViewController.NavigationController(rootViewController: splitVC)
         navVC.modalPresentationStyle = .fullScreen
         navVC.navigationBar.isTranslucent = true
-        
-        if EditorSplitViewController.shouldShowSeparator {
-            splitVC.separatorColor = tintColor
-        } else {
-            splitVC.separatorColor = .clear
-        }
+                
+        splitVC.separatorColor = .clear
         splitVC.separatorSelectedColor = tintColor
         splitVC.editor = editor
         splitVC.console = contentVC

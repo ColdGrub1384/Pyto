@@ -34,6 +34,10 @@ struct DefaultTheme: Theme {
     
     let barStyle: UIBarStyle = .default
     
+    var consoleBackgroundColor: UIColor {
+        .secondarySystemBackground
+    }
+    
     var sourceCodeTheme: SourceCodeTheme {
         
         let darkTheme: SourceCodeTheme

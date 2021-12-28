@@ -75,5 +75,9 @@ struct XcodeLightTheme: Theme {
     
     let sourceCodeTheme: SourceCodeTheme = XcodeLightSourceCodeTheme()
     
+    var consoleBackgroundColor: UIColor {
+        .secondarySystemBackground
+    }
+    
     let name: String? = "Xcode Light"
 }

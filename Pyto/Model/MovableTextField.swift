@@ -246,6 +246,10 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             return
         }
         
+        guard let splitVC = console.editorSplitViewController, !(splitVC is ScriptRunnerViewController) else {
+            return
+        }
+        
         if isiOSAppOnMac {
             toolbar.frame.origin.y = console.view.frame.size.height-toolbar.frame.size.height
             return
@@ -303,6 +307,11 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     private var previousConstraintValue: CGFloat?
     
     @objc private func keyboardWillHide(_ notification: NSNotification) {
+        
+        guard console?.editorSplitViewController?.superclass?.isSubclass(of: EditorSplitViewController.self) == false else {
+            return
+        }
+        
         if EditorSplitViewController.shouldShowConsoleAtBottom, let previousConstraintValue = previousConstraintValue {
             
             let splitVC = console?.editorSplitViewController
@@ -314,6 +323,11 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     }
     
     @objc private func keyboardWillShow(_ notification: NSNotification) {
+        
+        guard console?.editorSplitViewController?.superclass?.isSubclass(of: EditorSplitViewController.self) == false else {
+            return
+        }
+        
         guard let height = (notification.userInfo?["UIKeyboardBoundsUserInfoKey"] as? CGRect)?.height, height > 100 else { // Only software keyboard
             return
         }

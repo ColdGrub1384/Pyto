@@ -1,27 +1,37 @@
-try:
-    from pyto import ConsoleViewController, Python
-except:
-    pass
 import jedi
 import sys
+import json
 import traceback
 from rubicon.objc import at
 from Foundation import NSAutoreleasePool, NSBundle
 from pygments import highlight
 from pygments import lexers
 from pygments.formatters.terminal256 import TerminalTrueColorFormatter
-from pygments.styles import get_style_by_name
-from pyto import PyOutputHelper
+from pygments.token import Keyword, Name, Comment, String, Number, Operator
+from pygments.style import Style
+from pyto import PyOutputHelper, ConsoleViewController, Python
 
 _completions_queue = 0
 
 lexer = lexers.get_lexer_by_name('python')
-style = get_style_by_name('default')
-formatter = TerminalTrueColorFormatter(full=True, style=style)
 
 downloadable_path = str(NSBundle.mainBundle.pathForResource("Lib/_downloadable_packages", ofType=""))
 
-def printHighlightedCode(code, path):
+def printHighlightedCode(code, _theme, path):
+
+    theme = json.loads(_theme)
+
+    style = type("CodeStyle", (Style,), { "styles": {
+        Comment:                'italic '+theme["comment"],
+        Keyword:                'bold '+theme["keyword"],
+        Name:                   theme["name"],
+        Name.Function:          theme["function"],
+        Name.Class:             'bold '+theme["class"],
+        String:                 theme["string"],
+        Number:                 theme["number"],
+        Operator:               theme["number"],
+    }})
+    formatter = TerminalTrueColorFormatter(full=True, style=style)
     PyOutputHelper.print(highlight(code, lexer, formatter), script=path)
 
 def suggestForCode(code, index, path, get_definitions=False):

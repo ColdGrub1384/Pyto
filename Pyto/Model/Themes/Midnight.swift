@@ -73,6 +73,10 @@ struct MidnightTheme: Theme {
         return .dark
     }
     
+    var consoleBackgroundColor: UIColor {
+        .secondarySystemBackground
+    }
+    
     let sourceCodeTheme: SourceCodeTheme = MidnightSourceCodeTheme()
     
     let name: String? = "Midnight"
