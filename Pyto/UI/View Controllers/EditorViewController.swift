@@ -1248,7 +1248,13 @@ func directory(for scriptURL: URL) -> URL {
     
     /// Debugs script.
     @objc func debug() {
-        showDebugger(filePath: lastBreakpointFilePath, lineno: lastBreakpointLineno, tracebackJSON: lastTracebackJSON, id: lastBreakpointID)
+        save { [weak self] _ in
+            guard let self = self else {
+                return
+            }
+            
+            self.showDebugger(filePath: self.lastBreakpointFilePath, lineno: self.lastBreakpointLineno, tracebackJSON: self.lastTracebackJSON, id: self.lastBreakpointID)
+        }
     }
     
     private class DebuggerHostingController: UIHostingController<AnyView> {}
@@ -1887,6 +1893,29 @@ func directory(for scriptURL: URL) -> URL {
             return false
         }
         
+        // Delete new line
+        if (textView.text as NSString).substring(with: range) == "\n" {
+            let regex = try! NSRegularExpression(pattern: "\n", options: [])
+            let lineNumber = regex.numberOfMatches(in: textView.text, options: [], range: NSMakeRange(0, textView.selectedRange.location)) + 1
+            
+            // Move breakpoints
+            var breakpoints = [Breakpoint]()
+            for breakpoint in BreakpointsStore.breakpoints(for: document!.fileURL) {
+                if breakpoint.url == document?.fileURL && breakpoint.lineno > lineNumber {
+                    
+                    do {
+                        breakpoints.append(try Breakpoint(url: breakpoint.url!, lineno: breakpoint.lineno-1, isEnabled: breakpoint.isEnabled))
+                    } catch {
+                        breakpoints.append(breakpoint)
+                    }
+                } else {
+                    breakpoints.append(breakpoint)
+                }
+            }
+            
+            BreakpointsStore.set(breakpoints: breakpoints, for: document!.fileURL)
+        }
+        
         if text == "" && range.length == 1, EditorViewController.indentation != "\t" { // Un-indent
             var _range = range
             var rangeToDelete = range
@@ -2014,6 +2043,26 @@ func directory(for scriptURL: URL) -> URL {
         
         if text == "\n", var currentLine = textView.currentLine, let currentLineRange = textView.currentLineRange, let selectedRange = textView.selectedTextRange {
             
+            let regex = try! NSRegularExpression(pattern: "\n", options: [])
+            let lineNumber = regex.numberOfMatches(in: textView.text, options: [], range: NSMakeRange(0, textView.selectedRange.location)) + 1
+            
+            // Move breakpoints
+            var breakpoints = [Breakpoint]()
+            for breakpoint in BreakpointsStore.breakpoints(for: document!.fileURL) {
+                if breakpoint.url == document?.fileURL && breakpoint.lineno > lineNumber {
+                    
+                    do {
+                        breakpoints.append(try Breakpoint(url: breakpoint.url!, lineno: breakpoint.lineno+1, isEnabled: breakpoint.isEnabled))
+                    } catch {
+                        breakpoints.append(breakpoint)
+                    }
+                } else {
+                    breakpoints.append(breakpoint)
+                }
+            }
+            
+            BreakpointsStore.set(breakpoints: breakpoints, for: document!.fileURL)
+            
             if selectedRange.start == currentLineRange.start {
                 return true
             }
@@ -2029,6 +2078,7 @@ func directory(for scriptURL: URL) -> URL {
             }
             
             textView.insertText("\n"+spaces)
+            
             return false
         }
         

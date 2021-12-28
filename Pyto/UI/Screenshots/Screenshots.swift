@@ -25,10 +25,6 @@ func openProject(sceneDelegate: SceneDelegate) {
                 DispatchQueue.main.asyncAfter(deadline: .now()+1) {
                     editor?.textView.text = try! String(contentsOf: url.appendingPathComponent("__init__.py"))
                     console?.print("\nSaved text\n>>> ")
-                    editor?.textView.becomeFirstResponder()
-                    editor?.textView.insertText("    pri")
-                    editor?.completions = ["nt"]
-                    editor?.suggestions = ["print"]
                     
                     DispatchQueue.main.asyncAfter(deadline: .now()+12) {
                         semaphore.signal()
@@ -49,7 +45,7 @@ func openProject(sceneDelegate: SceneDelegate) {
 func openREPL(sceneDelegate: SceneDelegate) {
     let semaphore = DispatchSemaphore(value: 0)
     DispatchQueue.main.async {
-        let replText = "Python 3.10.0 (default, Nov 25 2021, 16:45:21) [Clang 13.0.0 (clang-1300.0.29.3)]\nPyto version 17.0 (393) iphonesimulator15.0 03-12-2021 17:34\nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\nType \"clear()\" to clear the console.\n>>> pint(\u{1B}[38;2;186;33;33m\"\u{1B}[39m\u{1B}[38;2;186;33;33mHello World!\u{1B}[39m\u{1B}[38;2;186;33;33m\"\u{1B}[39m)\n\u{1B}[31mTraceback (most recent call last):\n\u{1B}[0m  File \"\u{1B}[33m<console>\u{1B}[0m\", line 1, in \u{1B}[33m<module>\u{1B}[0m\n\u{1B}[31mNameError\u{1B}[0m: name \'pint\' is not defined. Did you mean \'print\'?\n>>> \u{1B}[38;2;0;128;0mprint\u{1B}[39m(\u{1B}[38;2;186;33;33m\"\u{1B}[39m\u{1B}[38;2;186;33;33mHello World!\u{1B}[39m\u{1B}[38;2;186;33;33m\"\u{1B}[39m)\nHello World!\n>>> \u{1B}[38;2;0;128;0;01mimport\u{1B}[39;00m \u{1B}[38;2;0;0;255;01msys\u{1B}[39;00m\n>>> sys\u{1B}[38;2;102;102;102m.\u{1B}[39mversion\n\u{1B}[32m\'3.10.0 (default, Nov 25 2021, 16:45:21) [Clang 13.0.0 (clang-1300.0.29.3)]\'\n\u{1B}[39m>>> "
+        let replText = "Python 3.10.0 (default, Nov 25 2021, 16:45:21) [Clang 13.0.0 (clang-1300.0.29.3)]\nPyto version 17.0 (398) iphonesimulator15.0 27-12-2021 22:17\nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\nType \"clear()\" to clear the console.\n>>> \u{1B}[38;2;50;109;116mpint\u{1B}[39m(\u{1B}[38;2;196;26;22m\"\u{1B}[39m\u{1B}[38;2;196;26;22mHello World!\u{1B}[39m\u{1B}[38;2;196;26;22m\"\u{1B}[39m)\n\u{1B}[31mTraceback (most recent call last):\n\u{1B}[0m  File \"\u{1B}[33m<console>\u{1B}[0m\", line 1, in \u{1B}[33m<module>\u{1B}[0m\n\u{1B}[31mNameError\u{1B}[0m: name \'pint\' is not defined. Did you mean \'print\'?\n>>> \u{1B}[38;2;50;109;116mprint\u{1B}[39m(\u{1B}[38;2;196;26;22m\"\u{1B}[39m\u{1B}[38;2;196;26;22mHello World!\u{1B}[39m\u{1B}[38;2;196;26;22m\"\u{1B}[39m)\nHello World!\n>>> \u{1B}[38;2;155;35;147;01mimport\u{1B}[39;00m \u{1B}[38;2;50;109;116msys\u{1B}[39m\n>>> \u{1B}[38;2;50;109;116msys\u{1B}[39m\u{1B}[38;2;28;0;207m.\u{1B}[39m\u{1B}[38;2;50;109;116mversion\u{1B}[39m\n\u{1B}[32m\'3.10.0 (default, Nov 25 2021, 16:45:21) [Clang 13.0.0 (clang-1300.0.29.3)]\'\u{1B}[39m\n>>> "
         
         
         if sceneDelegate.sidebarSplitViewController?.isCollapsed == true {
@@ -186,6 +182,7 @@ func openSciPyExample(sceneDelegate: SceneDelegate) {
         
         DispatchQueue.main.asyncAfter(deadline: .now()+0.25) {
             let exampleURL = Bundle.main.url(forResource: "Samples/SciPy/ndimage", withExtension: "py")!
+            sceneDelegate.sidebarSplitViewController?.sidebar?.editor = nil
             sceneDelegate.sidebarSplitViewController?.sidebar?.open(url: exampleURL)
             DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
                 let console = ((sceneDelegate.sidebarSplitViewController?.sidebar?.editor?.visibleViewController as? EditorSplitViewController) ?? sceneDelegate.sidebarSplitViewController?.sidebar?.navigationController?.visibleViewController as? EditorSplitViewController)?.console
@@ -197,23 +194,14 @@ func openSciPyExample(sceneDelegate: SceneDelegate) {
                     
                     console?.clear()
                     
-                    if sceneDelegate.sidebarSplitViewController?.isCollapsed == true {
-                        console?.editorSplitViewController?.showConsole {
-                            console?.display(image: UIImage(contentsOfFile: Bundle.main.path(forResource: "rotated_panda", ofType: "png")!)!, completionHandler: { _, _ in
-                                DispatchQueue.main.asyncAfter(deadline: .now()+4) {
-                                    semaphore.signal()
-                                }
-                            })
-                        }
-                    } else {
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now()+2) {
                         console?.display(image: UIImage(contentsOfFile: Bundle.main.path(forResource: "rotated_panda", ofType: "png")!)!, completionHandler: { _, _ in
                             DispatchQueue.main.asyncAfter(deadline: .now()+4) {
                                 semaphore.signal()
                             }
                         })
                     }
-                    
-                    
                 }
                 
                 console?.movableTextField?.textField.placeholder = ">>> "
