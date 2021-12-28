@@ -98,6 +98,10 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     
     /// Applies theme.
     func applyTheme() {
+                
+        guard let view = console?.view, view.window?.windowScene?.activationState != .background && view.window?.windowScene?.activationState != .unattached && view.window != nil else {
+            return
+        }
         
         textField.inputAccessoryView = nil
         

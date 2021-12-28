@@ -1746,7 +1746,11 @@ func directory(for scriptURL: URL) -> URL {
     }
     
     @objc func keyboardWillHide(_ notification:Notification) {
-        if EditorSplitViewController.shouldShowConsoleAtBottom, let previousConstraintValue = previousConstraintValue {
+        if EditorSplitViewController.shouldShowConsoleAtBottom, var previousConstraintValue = previousConstraintValue {
+            
+            if previousConstraintValue == view.window?.frame.height {
+                previousConstraintValue = previousConstraintValue/2
+            }
             
             let splitVC = parent as? EditorSplitViewController
             let constraint = (splitVC?.firstViewHeightRatioConstraint?.isActive == true) ? splitVC?.firstViewHeightRatioConstraint : splitVC?.firstViewHeightConstraint
