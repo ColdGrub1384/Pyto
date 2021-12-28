@@ -103,7 +103,7 @@ struct BreakpointsView: View {
                     Button {
                         dismiss()
                     } label: {
-                        Text("Cancel")
+                        Text("cancel")
                     }
                 }
                 

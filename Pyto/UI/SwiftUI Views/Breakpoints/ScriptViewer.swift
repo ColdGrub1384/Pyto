@@ -145,8 +145,8 @@ struct ScriptView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Line number").bold()
-                Stepper("Line number") { 
+                Text("lineNumber").bold()
+                Stepper("lineNumber") { 
                     if lineno+1 <= text.components(separatedBy: "\n").count {
                         lineno += 1
                     }
@@ -168,7 +168,7 @@ struct ScriptView: View {
             highlight()
         }).toolbar(content: {
             ToolbarItemGroup(placement: .navigationBarTrailing) { 
-                Button("Add") {
+                Button("add") {
                     do {
                         var breakpoints = BreakpointsStore.breakpoints(for: fileURL)
                         breakpoints.append(try Breakpoint(url: fileURL, lineno: lineno))

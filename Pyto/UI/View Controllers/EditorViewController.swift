@@ -569,25 +569,25 @@ func directory(for scriptURL: URL) -> URL {
         
         ellipsisButtonItem.menu = UIMenu(title: "", image: nil, identifier: nil, options: [], children: [
         
-            UIAction(title: "Run with Arguments", image: UIImage(systemName: "play"), identifier: nil, discoverabilityTitle: "Run with Arguments", attributes: [], state: .off, handler: { [weak self] _ in
+            UIAction(title: NSLocalizedString("runAndSetArguments", comment: "Description for key command for running and setting arguments."), image: UIImage(systemName: "play"), identifier: nil, discoverabilityTitle: NSLocalizedString("runAndSetArguments", comment: "Description for key command for running and setting arguments."), attributes: [], state: .off, handler: { [weak self] _ in
                 self?.setArgs(true)
             }),
             
-            UIAction(title: "Debugger", image: UIImage(systemName: "ant"), identifier: nil, discoverabilityTitle: "Debugger", attributes: [], state: .off, handler: { [weak self] _ in
+            UIAction(title: NSLocalizedString("debugger", comment: "'Debugger'"), image: UIImage(systemName: "ant"), identifier: nil, discoverabilityTitle: NSLocalizedString("debugger", comment: "'Debugger'"), attributes: [], state: .off, handler: { [weak self] _ in
                 self?.debug()
             }),
             
-        ] + ((documentationMenu != nil) ? [documentationMenu!] : []) + [UIAction(title: "Runtime", image: UIImage(systemName: "gear"), identifier: nil, discoverabilityTitle: "Runtime", attributes: [], state: .off, handler: { [weak self] action in
+        ] + ((documentationMenu != nil) ? [documentationMenu!] : []) + [UIAction(title: NSLocalizedString("runtime", comment: "'Runtime' button on the editor"), image: UIImage(systemName: "gear"), identifier: nil, discoverabilityTitle: NSLocalizedString("runtime", comment: "'Runtime' button on the editor"), attributes: [], state: .off, handler: { [weak self] action in
             self?.showRuntimeSettings(action)
-        })] + (!isPIPSupported ? [] : [UIAction(title: (pipController?.isPictureInPictureActive == true) ? "Exit PIP" : "Enter PIP", image: UIImage(systemName: "pip.enter"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] _ in
+        })] + (!isPIPSupported ? [] : [UIAction(title: (pipController?.isPictureInPictureActive == true) ? NSLocalizedString("pip.exit", comment: "'Exit PIP'") : NSLocalizedString("pip.enter", comment: "'Enter PIP'"), image: UIImage(systemName: "pip.enter"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] _ in
             
             self?.togglePIP()
         })]) + [
-            UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up"), identifier: nil, discoverabilityTitle: "Share", attributes: [], state: .off, handler: { [weak self] _ in
+            UIAction(title: NSLocalizedString("menuItems.share", comment: "The menu item to share a file"), image: UIImage(systemName: "square.and.arrow.up"), identifier: nil, discoverabilityTitle: NSLocalizedString("menuItems.share", comment: "The menu item to share a file"), attributes: [], state: .off, handler: { [weak self] _ in
                 self?.share(self!.ellipsisButtonItem)
             }),
             
-            UIAction(title: "Editor Actions", image: UIImage(systemName: "pencil"), identifier: nil, discoverabilityTitle: "Editor Actions", attributes: [], state: .off, handler: { [weak self] _ in
+            UIAction(title: NSLocalizedString("editorActionsTableViewController.title", comment: "The title of the view controller for managing editor actions."), image: UIImage(systemName: "pencil"), identifier: nil, discoverabilityTitle: NSLocalizedString("editorActionsTableViewController.title", comment: "The title of the view controller for managing editor actions."), attributes: [], state: .off, handler: { [weak self] _ in
                 self?.showEditorScripts(self!.ellipsisButtonItem!)
             })
         ])

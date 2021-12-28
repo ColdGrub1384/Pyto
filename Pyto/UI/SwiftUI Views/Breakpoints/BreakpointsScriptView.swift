@@ -138,7 +138,7 @@ struct BreakpointsScriptView: View {
                         } label: {
                             VStack {
                                 Image(systemName: "forward.end.fill")
-                                Text("Resume")
+                                Text("resume")
                             }.frame(width: 70)
                         }.padding(.trailing, 2)
                         
@@ -216,7 +216,7 @@ struct BreakpointsScriptView: View {
                             removeBreakpoint(breakpoint)
                         } label: {
                             Label {
-                                Text("Delete")
+                                Text("menuItems.remove")
                             } icon: {
                                 Image(systemName: "trash.fill")
                             }
@@ -233,7 +233,7 @@ struct BreakpointsScriptView: View {
                 isAddingBreakpoint = true
             } label: { 
                 Label { 
-                    Text("Add").foregroundColor(.primary)
+                    Text("add").foregroundColor(.primary)
                 } icon: { 
                     Image(systemName: "plus")
                 }
@@ -246,7 +246,7 @@ struct BreakpointsScriptView: View {
                             Button { 
                                 isAddingBreakpoint = false
                             } label: { 
-                                Text("Cancel")
+                                Text("cancel")
                             }
                         }
                     }.navigationBarTitleDisplayMode(.inline)
@@ -262,7 +262,7 @@ struct BreakpointsScriptView: View {
                     removeFile(script)
                 } label: { 
                     Label { 
-                        Text("Delete")
+                        Text("menuItems.remove")
                     } icon: { 
                         Image(systemName: "trash.fill")
                     }

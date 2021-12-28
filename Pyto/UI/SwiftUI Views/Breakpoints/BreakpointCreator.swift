@@ -50,7 +50,7 @@ struct BreakpointCreator: View {
                             isPickingFile = true
                         } label: { 
                             Label { 
-                                Text("Browse").foregroundColor(.primary)
+                                Text("browse").foregroundColor(.primary)
                             } icon: { 
                                 Image(systemName: "folder")
                             }
@@ -58,11 +58,11 @@ struct BreakpointCreator: View {
                     }
                 }
             }
-            .navigationTitle("Add breakpoint")
+            .navigationTitle("addBreakpoint")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar { 
                 ToolbarItemGroup(placement: .navigationBarTrailing) { 
-                    Button("Cancel") { 
+                    Button("cancel") { 
                         dismiss()
                     }
                 }
