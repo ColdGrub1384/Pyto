@@ -35,9 +35,9 @@ struct BreakpointsStore: Codable {
         for file in shared.breakpoints {
             do {
                 var isStale = false
-                let url = try URL(resolvingBookmarkData: file.key, bookmarkDataIsStale: &isStale)
+                let breakpointURL = try URL(resolvingBookmarkData: file.key, bookmarkDataIsStale: &isStale)
                 
-                if url.resolvingSymlinksInPath().path == url.resolvingSymlinksInPath().path {
+                if breakpointURL.resolvingSymlinksInPath().path == url.resolvingSymlinksInPath().path {
                     return file.value
                 }
             } catch {
@@ -54,9 +54,9 @@ struct BreakpointsStore: Codable {
         for file in shared.breakpoints {
             do {
                 var isStale = false
-                let url = try URL(resolvingBookmarkData: file.key, bookmarkDataIsStale: &isStale)
+                let breakpointURL = try URL(resolvingBookmarkData: file.key, bookmarkDataIsStale: &isStale)
                 
-                if url.resolvingSymlinksInPath().path == url.resolvingSymlinksInPath().path {
+                if url.resolvingSymlinksInPath().path == breakpointURL.resolvingSymlinksInPath().path {
                     bookmarkData = file.key
                     break
                 }

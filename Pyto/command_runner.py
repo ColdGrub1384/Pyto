@@ -10,7 +10,6 @@ import shlex
 import weakref
 from console import __clear_mods__, MainModule
 import threading
-import traceback
 
 if len(sys.argv) == 1:
     usage = "Usage: <module-name> [<args>]"
@@ -69,8 +68,8 @@ def _main_function_no_one_calls_a_function_like_that():
             int(e)
         except:
             print(e)
-    except Exception:
-        traceback.print_exc()
+    except Exception as e:
+        print(e)
     finally:
         try:
             del sys.__class__.main[_script_path]
