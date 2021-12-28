@@ -76,6 +76,51 @@ func openREPL(sceneDelegate: SceneDelegate) {
 
 // MARK: - Screenshot 3
 
+/// Opens the debugger.
+func openDebuggerExample(sceneDelegate: SceneDelegate) {
+    let semaphore = DispatchSemaphore(value: 0)
+    DispatchQueue.main.async {
+        let mainURL = Bundle.main.url(forResource: "main", withExtension: "py")!
+        let breakpoint = try! Breakpoint(url: mainURL, lineno: 3, isEnabled: true)
+        BreakpointsStore.set(breakpoints: [breakpoint], for: mainURL)
+        
+        if sceneDelegate.sidebarSplitViewController?.isCollapsed == false {
+            sceneDelegate.sidebarSplitViewController?.preferredDisplayMode = .secondaryOnly
+            sceneDelegate.sidebarSplitViewController?.fileBrowserNavVC.popViewController(animated: true)
+        }
+        
+        if sceneDelegate.sidebarSplitViewController?.isCollapsed == true {
+            sceneDelegate.sidebarSplitViewController?.sidebar?.navigationController?.popToRootViewController(animated: true)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.25) {
+            sceneDelegate.sidebarSplitViewController?.sidebar?.editor = nil
+            sceneDelegate.sidebarSplitViewController?.sidebar?.open(url: mainURL)
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                let editor = ((sceneDelegate.sidebarSplitViewController?.sidebar?.editor?.visibleViewController as? EditorSplitViewController) ?? sceneDelegate.sidebarSplitViewController?.sidebar?.navigationController?.visibleViewController as? EditorSplitViewController)?.editor
+                editor?.parent?.title = "main"
+                
+                DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                    editor?.textView.text = try! String(contentsOf: mainURL)
+                                        
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                        editor?.showDebugger(filePath: mainURL.path, lineno: 3, tracebackJSON: "{}", id: "r4iue")
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now()+5) {
+                            semaphore.signal()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    semaphore.wait()
+}
+
+// MARK: - Screenshot 4
+
 /// Opens PyPI and shows the sidebar.
 func openPyPI(sceneDelegate: SceneDelegate) {
     let semaphore = DispatchSemaphore(value: 0)
@@ -114,7 +159,7 @@ func openPyPI(sceneDelegate: SceneDelegate) {
     semaphore.wait()
 }
 
-// MARK: - Screenshot 4
+// MARK: - Screenshot 5
 
 /// Simulates showing a traceback
 func openTracebackExample(sceneDelegate: SceneDelegate) {
@@ -160,7 +205,7 @@ func openTracebackExample(sceneDelegate: SceneDelegate) {
     semaphore.wait()
 }
 
-// MARK: - Screenshot 5
+// MARK: - Screenshot 6
 
 /// Shows and simulates running the SciPy panda image example.
 func openSciPyExample(sceneDelegate: SceneDelegate) {
@@ -219,6 +264,7 @@ func takeScreenshots(sceneDelegate: SceneDelegate) {
     DispatchQueue.global().async {
         openProject(sceneDelegate: sceneDelegate)
         openREPL(sceneDelegate: sceneDelegate)
+        openDebuggerExample(sceneDelegate: sceneDelegate)
         openPyPI(sceneDelegate: sceneDelegate)
         openTracebackExample(sceneDelegate: sceneDelegate)
         openSciPyExample(sceneDelegate: sceneDelegate)

@@ -36,6 +36,7 @@ struct ObjectView: View {
     var body: some View {
         if objects == [:] {
             Text("").onAppear {
+                #if !SCREENSHOTS
                 let obj: String
                 
                 switch object {
@@ -86,6 +87,28 @@ struct ObjectView: View {
                         print(error.localizedDescription)
                     }
                 }
+                #else
+                switch object {
+                case .namespace(_, let namespace):
+                    if namespace == .locals {
+                        objects = ["name": "'Emma'"]
+                    } else {
+                        objects = [
+                            "__builtins__": "{'__name__': 'builtins', '__doc__': '', '__package__': '', '__loader__': <class '_frozen_importlib.BuiltinImporter'>, '__spec__': ModuleSpec(name='builtins', loader=",
+                            "__cached__": "'iCloud/test/__pycache__/main.cpython-310.pyc'",
+                            "__doc__": "None",
+                            "__file__": "'iCloud/test/main.py'",
+                            "__loader__": "<_frozen_importlib_external.SourceFileLoader object at 0x12102b400>",
+                            "__name__": "'__main__'",
+                            "__package__": "''",
+                            "__spec__": "ModuleSpec(name='__main__', loader=<_frozen_importlib_external.SourceFileLoader object at 0x12102b400>, origin='iCloud/test/main.py')",
+                            "main": "<function main at 0x11f3f3910>",
+                        ]
+                    }
+                case .evaluate(_):
+                    break
+                }
+                #endif
             }
         } else {
             ForEach(Array(objects.keys).sorted(by: { a, b in
