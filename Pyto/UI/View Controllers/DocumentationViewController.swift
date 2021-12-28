@@ -30,7 +30,7 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         var pageURL: URL?
         
         /// Pyto's documentation.
-        static let pyto = Documentation(name: "Pyto", url: Bundle.main.url(forResource: "docs_build/html/index", withExtension: "html")!, pageURL: Bundle.main.url(forResource: "docs_build/html/index", withExtension: "html")!)
+        static let pyto = Documentation(name: "Pyto", url: FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask)[0].appendingPathComponent("docs_build").appendingPathComponent("html/index.html"), pageURL: FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask)[0].appendingPathComponent("docs_build").appendingPathComponent("html/index.html"))
         
         /// Python's documentation
         static let python = Documentation(name: "Python", url: Bundle.main.url(forResource: "python-3.10.0-docs-html/index", withExtension: "html")!, pageURL: Bundle.main.url(forResource: "python-3.10.0-docs-html/index", withExtension: "html")!)
@@ -108,6 +108,8 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
     
     private var lastSelection: Documentation?
     
+    private var loadHref: String?
+    
     /// The selected documentation
     var selectedDocumentation = Documentation.pyto {
         didSet {
@@ -115,7 +117,15 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
             if (selectedDocumentation.pageURL ?? selectedDocumentation.url) != (lastSelection?.pageURL ?? lastSelection?.url) {
                 let url = selectedDocumentation.pageURL ?? selectedDocumentation.url
                 if url.isFileURL {
-                    webView.loadFileURL(url, allowingReadAccessTo: selectedDocumentation.url.deletingLastPathComponent())
+                    if selectedDocumentation.url == Documentation.pyto.url {
+                        webView.loadFileURL(selectedDocumentation.url, allowingReadAccessTo: selectedDocumentation.url.deletingLastPathComponent())
+                        if var href = selectedDocumentation.pageURL?.resolvingSymlinksInPath().path.replacingOccurrences(of: selectedDocumentation.url.resolvingSymlinksInPath().deletingLastPathComponent().path, with: "") {
+                            if href.hasPrefix("/") {
+                                href.removeFirst()
+                            }
+                            loadHref = href
+                        }
+                    }
                 } else {
                     webView.load(URLRequest(url: url))
                 }
@@ -341,6 +351,11 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         goBackButton.isEnabled = webView.canGoBack
         goForwardButton.isEnabled = webView.canGoForward
+        
+        if let loadHref = loadHref {
+            self.loadHref = nil
+            webView.evaluateJavaScript("location.href = '\(loadHref.replacingOccurrences(of: "'", with: "\\'"))'", completionHandler: nil)
+        }
     }
 }
 

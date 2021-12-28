@@ -18,6 +18,7 @@ import Intents
 import SwiftyStoreKit
 import TrueTime
 import AVFoundation
+import Zip
 #endif
 
 /// The application's delegate.
@@ -250,6 +251,17 @@ import AVFoundation
         #if MAIN
         
         FocusSystemObserver.startObserving()
+        
+        DispatchQueue.global().async {
+            if let bundledDocs = Bundle.main.url(forResource: "docs", withExtension: "zip") {
+                
+                do {
+                    try Zip.unzipFile(bundledDocs, destination: DocumentationViewController.Documentation.pyto.url.deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent(), overwrite: true, password: nil)
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
         
         setenv("PWD", FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].path, 1)
         setenv("SSL_CERT_FILE", Bundle.main.path(forResource: "cacert", ofType: "pem"), 1)

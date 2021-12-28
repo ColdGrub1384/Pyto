@@ -149,8 +149,6 @@
 		B526B599274C60E00094FCBB /* isiOSAppOnMac.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33B44FB25894A9E00F2D1E6 /* isiOSAppOnMac.swift */; };
 		B5328BD0277A0054009A5C5B /* python-3.10.0-docs-html in Resources */ = {isa = PBXBuildFile; fileRef = B5328BCA277A0054009A5C5B /* python-3.10.0-docs-html */; };
 		B5328BD1277A0054009A5C5B /* python-3.10.0-docs-html in Resources */ = {isa = PBXBuildFile; fileRef = B5328BCA277A0054009A5C5B /* python-3.10.0-docs-html */; };
-		B5328BD2277A015E009A5C5B /* docs_build in Resources */ = {isa = PBXBuildFile; fileRef = C99FDFD4234A24320022685B /* docs_build */; };
-		B5328BD3277A015F009A5C5B /* docs_build in Resources */ = {isa = PBXBuildFile; fileRef = C99FDFD4234A24320022685B /* docs_build */; };
 		B533EEE6275E6E7600D37F6D /* SettingsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B533EEE9275E6E7600D37F6D /* SettingsView.storyboard */; };
 		B533EEE7275E6E7600D37F6D /* SettingsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B533EEE9275E6E7600D37F6D /* SettingsView.storyboard */; };
 		B53436C8275D716700691204 /* UIKitLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53436C7275D716700691204 /* UIKitLocalizedString.swift */; };
@@ -5448,6 +5446,7 @@
 				C9EAB4CA214D95C500DFC9A4 /* Embed Frameworks */,
 				C946A5BA22074EAA00F78C5C /* Embed App Extensions */,
 				C97B023823E9F82C00032925 /* Embed Watch Content */,
+				B5EF7C46277BA78700990C6B /* Zip docs */,
 				C91D079B25B62F8F0050FD86 /* Zip Automator Bundle */,
 			);
 			buildRules = (
@@ -5846,7 +5845,6 @@
 				B5E805CC276CD05200F3E344 /* traceback.json in Resources */,
 				C940FCFF250825A800EB74EB /* installer.py in Resources */,
 				C940FD00250825A800EB74EB /* numpy in Resources */,
-				B5328BD3277A015F009A5C5B /* docs_build in Resources */,
 				C940FD01250825A800EB74EB /* Light 2Icon.png in Resources */,
 				C940FD02250825A800EB74EB /* AppleIncRootCertificate.cer in Resources */,
 				C940FD04250825A800EB74EB /* Dark 7Icon.png in Resources */,
@@ -6005,7 +6003,6 @@
 				C90BA5BE23C4CD1F00B2B187 /* Dark 6Icon.png in Resources */,
 				C9A419A523A321EB00BF5393 /* LightIcon.png in Resources */,
 				C95F9D152564A1FB007B12EB /* gensim in Resources */,
-				B5328BD2277A015E009A5C5B /* docs_build in Resources */,
 				B5A179BA2767C714009E4C6C /* Toga User Interface.py.txt in Resources */,
 				C95F9D072564A1FA007B12EB /* lxml in Resources */,
 				C95F9D1A2564A1FB007B12EB /* dask in Resources */,
@@ -6160,6 +6157,24 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		B5EF7C46277BA78700990C6B /* Zip docs */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Zip docs";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "DOCS=\"docs_build\"\nZIP=\"$DOCS\".zip\n\ncd \"$SRCROOT\"\n\nzip -r $ZIP $DOCS/*\n\nmv \"$ZIP\" \"$BUILT_PRODUCTS_DIR/Pyto.app/docs.zip\"\n";
 		};
 		C91D079B25B62F8F0050FD86 /* Zip Automator Bundle */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -8382,7 +8397,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_NUMBER = 402;
+				BUILD_NUMBER = 403;
 				BUNDLE_ID = ch.ada.PytoVPP;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -8790,7 +8805,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = "$(VERSION)";
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).pytowatchkitapp.watchkitextension";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID).watchkitapp.watchkitextension";
 				PRODUCT_NAME = "Pyto Watch App Extension";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -8970,7 +8985,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = "$(VERSION)";
-				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.pytowatchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "Pyto Watch App Extension";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -8996,7 +9011,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = "$(VERSION)";
-				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.pytowatchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "Pyto Watch App Extension";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -9018,7 +9033,7 @@
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
 				MARKETING_VERSION = "$(VERSION)";
-				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.pytowatchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp;
 				PRODUCT_NAME = "Pyto Watch App";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
@@ -9041,7 +9056,7 @@
 				IBSC_MODULE = Pyto_Watch_Extension;
 				INFOPLIST_FILE = "Pyto Watch/Info.plist";
 				MARKETING_VERSION = "$(VERSION)";
-				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.pytowatchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = ch.marcela.ada.Pyto.watchkitapp;
 				PRODUCT_NAME = "Pyto Watch App";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
@@ -9498,7 +9513,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_NUMBER = 402;
+				BUILD_NUMBER = 403;
 				BUNDLE_ID = ch.marcela.ada.Pyto;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9563,7 +9578,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_NUMBER = 402;
+				BUILD_NUMBER = 403;
 				BUNDLE_ID = ch.marcela.ada.Pyto;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
