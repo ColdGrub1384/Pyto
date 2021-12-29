@@ -58,7 +58,7 @@ def get_gravity() -> Gravity:
     """
 
     gravity = __PyMotionHelper__.gravity
-    return Gravity(float(gravity[0]), float(gravity[1]), float(gravity[2]))
+    return Gravity(float(str(gravity[0])), float(str(gravity[1])), float(str(gravity[2])))
 
 
 def get_rotation() -> Rotation:
@@ -69,7 +69,7 @@ def get_rotation() -> Rotation:
     """
 
     rotation = __PyMotionHelper__.rotation
-    return Rotation(float(rotation[0]), float(rotation[1]), float(rotation[2]))
+    return Rotation(float(str(rotation[0])), float(str(rotation[1])), float(str(rotation[2])))
 
 
 def get_acceleration() -> Acceleration:
@@ -81,7 +81,7 @@ def get_acceleration() -> Acceleration:
 
     acceleration = __PyMotionHelper__.acceleration
     return Acceleration(
-        float(acceleration[0]), float(acceleration[1]), float(acceleration[2])
+        float(str(acceleration[0])), float(str(acceleration[1])), float(str(acceleration[2]))
     )
 
 
@@ -94,7 +94,7 @@ def get_magnetic_field() -> MagneticField:
 
     magnetic_field = __PyMotionHelper__.magneticField
     return MagneticField(
-        float(magnetic_field[0]), float(magnetic_field[1]), float(magnetic_field[2])
+        float(str(magnetic_field[0])), float(str(magnetic_field[1])), float(str(magnetic_field[2]))
     )
 
 
@@ -106,4 +106,4 @@ def get_attitude() -> Attitude:
     """
 
     attitude = __PyMotionHelper__.attitude
-    return Attitude(float(attitude[0]), float(attitude[1]), float(attitude[2]))
+    return Attitude(float(str(attitude[0])), float(str(attitude[1])), float(str(attitude[2])))

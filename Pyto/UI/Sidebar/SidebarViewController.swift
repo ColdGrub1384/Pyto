@@ -21,7 +21,7 @@ fileprivate let tabsItems = [
     Item(title: NSLocalizedString("Open directory", comment: "Open directory"), image: UIImage(systemName: "folder"))]
 
 fileprivate let pythonItems = [Item(title: NSLocalizedString("repl", comment: "The REPL"), image: UIImage(systemName: "play")),
-                     Item(title: NSLocalizedString("sidebar.runModule", comment: "Run module"), image: UIImage(systemName: "chevron.left.forwardslash.chevron.right")),
+                     Item(title: "Shell", image: UIImage(systemName: "chevron.left.forwardslash.chevron.right")),
                      Item(title: NSLocalizedString("sidebar.pypi", comment: "PyPI"), image: UIImage(systemName: "cloud")),
                      Item(title: NSLocalizedString("sidebar.loadedModules", comment: "Loaded modules"), image: UIImage(systemName: "info.circle"))]
     
@@ -279,10 +279,14 @@ fileprivate enum Section: String {
         show(vc: repl!)
     }
     
-    func showModuleRunner() {
+    func makeModuleRunnerIfNecessary() {
         if moduleRunner == nil {
             moduleRunner = NavigationController(rootViewController: UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "runModule"))
         }
+    }
+    
+    func showModuleRunner() {
+        makeModuleRunnerIfNecessary()
         
         show(vc: moduleRunner!)
     }
@@ -636,6 +640,7 @@ fileprivate enum Section: String {
             }
             
             (repl?.vc as? REPLViewController)?.documentPicker(controller, didPickDocumentsAt: urls)
+            (moduleRunner?.vc as? RunModuleViewController)?.documentPicker(controller, didPickDocumentsAt: urls)
         } else {
             open(url: urls.first!, reloadRecents: true)
         }

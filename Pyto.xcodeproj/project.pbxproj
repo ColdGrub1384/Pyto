@@ -209,6 +209,60 @@
 		B5B0B88D274EA1D600F5030F /* TextViewSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = B526B5882747902A0094FCBB /* TextViewSearch.swift */; };
 		B5B0B88E274EA1E100F5030F /* ScriptRunnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55490272736D51B00BEB778 /* ScriptRunnerViewController.swift */; };
 		B5B0B88F274EB24F00F5030F /* terminal in Resources */ = {isa = PBXBuildFile; fileRef = C994194B263764EE0008487C /* terminal */; };
+		B5CBE52B277CBD22000864AE /* skimage-_shared-fast_exp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE51D277CBD05000864AE /* skimage-_shared-fast_exp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE52C277CBD22000864AE /* skimage-_shared-geometry.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE502277CBD02000864AE /* skimage-_shared-geometry.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE52D277CBD22000864AE /* skimage-_shared-interpolation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE512277CBD03000864AE /* skimage-_shared-interpolation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE52E277CBD22000864AE /* skimage-_shared-transform.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE519277CBD05000864AE /* skimage-_shared-transform.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE52F277CBD22000864AE /* skimage-draw-_draw.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE4F8277CBD01000864AE /* skimage-draw-_draw.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE530277CBD22000864AE /* skimage-feature-_cascade.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE52A277CBD07000864AE /* skimage-feature-_cascade.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE531277CBD22000864AE /* skimage-feature-_haar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE50C277CBD03000864AE /* skimage-feature-_haar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE532277CBD22000864AE /* skimage-feature-_hessian_det_appx.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE50D277CBD03000864AE /* skimage-feature-_hessian_det_appx.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE533277CBD23000864AE /* skimage-feature-_hoghistogram.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE521277CBD06000864AE /* skimage-feature-_hoghistogram.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE534277CBD23000864AE /* skimage-feature-_texture.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE514277CBD04000864AE /* skimage-feature-_texture.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE535277CBD23000864AE /* skimage-feature-brief_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE524277CBD06000864AE /* skimage-feature-brief_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE536277CBD23000864AE /* skimage-feature-censure_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE529277CBD07000864AE /* skimage-feature-censure_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE537277CBD23000864AE /* skimage-feature-corner_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE520277CBD06000864AE /* skimage-feature-corner_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE538277CBD23000864AE /* skimage-feature-orb_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE4F6277CBD01000864AE /* skimage-feature-orb_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE539277CBD23000864AE /* skimage-filters-_multiotsu.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE4FA277CBD01000864AE /* skimage-filters-_multiotsu.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE53A277CBD23000864AE /* skimage-filters-_sparse_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE4FB277CBD01000864AE /* skimage-filters-_sparse_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE53B277CBD23000864AE /* skimage-filters-rank-bilateral_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE507277CBD03000864AE /* skimage-filters-rank-bilateral_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE53C277CBD23000864AE /* skimage-filters-rank-core_cy_3d.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE50B277CBD03000864AE /* skimage-filters-rank-core_cy_3d.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE53D277CBD23000864AE /* skimage-filters-rank-core_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE50E277CBD03000864AE /* skimage-filters-rank-core_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE53E277CBD23000864AE /* skimage-filters-rank-generic_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE517277CBD04000864AE /* skimage-filters-rank-generic_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE53F277CBD23000864AE /* skimage-filters-rank-percentile_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE522277CBD06000864AE /* skimage-filters-rank-percentile_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE540277CBD23000864AE /* skimage-future-graph-_ncut_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE509277CBD03000864AE /* skimage-future-graph-_ncut_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE541277CBD23000864AE /* skimage-graph-_mcp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE50F277CBD03000864AE /* skimage-graph-_mcp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE542277CBD23000864AE /* skimage-graph-_spath.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE527277CBD06000864AE /* skimage-graph-_spath.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE543277CBD23000864AE /* skimage-graph-heap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE506277CBD02000864AE /* skimage-graph-heap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE544277CBD23000864AE /* skimage-io-_plugins-_colormixer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE4FE277CBD02000864AE /* skimage-io-_plugins-_colormixer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE545277CBD23000864AE /* skimage-io-_plugins-_histograms.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE50A277CBD03000864AE /* skimage-io-_plugins-_histograms.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE546277CBD23000864AE /* skimage-measure-_ccomp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE515277CBD04000864AE /* skimage-measure-_ccomp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE547277CBD23000864AE /* skimage-measure-_find_contours_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE51C277CBD05000864AE /* skimage-measure-_find_contours_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE548277CBD23000864AE /* skimage-measure-_marching_cubes_classic_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE4FC277CBD02000864AE /* skimage-measure-_marching_cubes_classic_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE549277CBD23000864AE /* skimage-measure-_marching_cubes_lewiner_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE4F5277CBD01000864AE /* skimage-measure-_marching_cubes_lewiner_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE54A277CBD23000864AE /* skimage-measure-_moments_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE508277CBD03000864AE /* skimage-measure-_moments_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE54B277CBD23000864AE /* skimage-measure-_pnpoly.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE51E277CBD05000864AE /* skimage-measure-_pnpoly.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE54C277CBD23000864AE /* skimage-morphology-_convex_hull.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE526277CBD06000864AE /* skimage-morphology-_convex_hull.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE54D277CBD23000864AE /* skimage-morphology-_extrema_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE518277CBD05000864AE /* skimage-morphology-_extrema_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE54E277CBD23000864AE /* skimage-morphology-_flood_fill_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE4F9277CBD01000864AE /* skimage-morphology-_flood_fill_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE54F277CBD23000864AE /* skimage-morphology-_greyreconstruct.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE525277CBD06000864AE /* skimage-morphology-_greyreconstruct.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE550277CBD23000864AE /* skimage-morphology-_max_tree.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE516277CBD04000864AE /* skimage-morphology-_max_tree.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE551277CBD23000864AE /* skimage-morphology-_skeletonize_3d_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE503277CBD02000864AE /* skimage-morphology-_skeletonize_3d_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE552277CBD23000864AE /* skimage-morphology-_skeletonize_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE501277CBD02000864AE /* skimage-morphology-_skeletonize_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE553277CBD23000864AE /* skimage-restoration-_denoise_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE4F7277CBD01000864AE /* skimage-restoration-_denoise_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE554277CBD23000864AE /* skimage-restoration-_nl_means_denoising.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE528277CBD06000864AE /* skimage-restoration-_nl_means_denoising.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE555277CBD23000864AE /* skimage-restoration-_rolling_ball_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE51F277CBD06000864AE /* skimage-restoration-_rolling_ball_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE556277CBD23000864AE /* skimage-restoration-_unwrap_1d.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE511277CBD03000864AE /* skimage-restoration-_unwrap_1d.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE557277CBD23000864AE /* skimage-restoration-_unwrap_2d.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE523277CBD06000864AE /* skimage-restoration-_unwrap_2d.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE558277CBD23000864AE /* skimage-restoration-_unwrap_3d.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE51B277CBD05000864AE /* skimage-restoration-_unwrap_3d.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE559277CBD23000864AE /* skimage-segmentation-_felzenszwalb_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE513277CBD03000864AE /* skimage-segmentation-_felzenszwalb_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE55A277CBD23000864AE /* skimage-segmentation-_quickshift_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE504277CBD02000864AE /* skimage-segmentation-_quickshift_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE55B277CBD23000864AE /* skimage-segmentation-_slic.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE4FF277CBD02000864AE /* skimage-segmentation-_slic.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE55C277CBD23000864AE /* skimage-segmentation-_watershed_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE500277CBD02000864AE /* skimage-segmentation-_watershed_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE55D277CBD23000864AE /* skimage-transform-_hough_transform.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE505277CBD02000864AE /* skimage-transform-_hough_transform.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE55E277CBD23000864AE /* skimage-transform-_radon_transform.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE4FD277CBD02000864AE /* skimage-transform-_radon_transform.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE55F277CBD23000864AE /* skimage-transform-_warps_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE51A277CBD05000864AE /* skimage-transform-_warps_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5CBE560277CBD23000864AE /* skimage-util-_remap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5CBE510277CBD03000864AE /* skimage-util-_remap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B5D98166273C838F00382439 /* SidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D98165273C838F00382439 /* SidebarViewController.swift */; };
 		B5D9816A273C83A000382439 /* SidebarSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D98169273C83A000382439 /* SidebarSplitViewController.swift */; };
 		B5D9816C274017CA00382439 /* RecentDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D9816B274017CA00382439 /* RecentDataSource.swift */; };
@@ -945,58 +999,6 @@
 		C9602DF025702DBC00BF66FC /* sklearn-utils-graph_shortest_path.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602D7F25702D9B00BF66FC /* sklearn-utils-graph_shortest_path.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9602DF125702DBC00BF66FC /* sklearn-utils-murmurhash.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602DAE25702DA200BF66FC /* sklearn-utils-murmurhash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9602DF225702DBC00BF66FC /* sklearn-utils-sparsefuncs_fast.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602D5A25702D9200BF66FC /* sklearn-utils-sparsefuncs_fast.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E382570319200BF66FC /* skimage-_shared-fast_exp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E142570314E00BF66FC /* skimage-_shared-fast_exp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E392570319200BF66FC /* skimage-_shared-geometry.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E212570315000BF66FC /* skimage-_shared-geometry.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E3A2570319200BF66FC /* skimage-_shared-interpolation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E132570314E00BF66FC /* skimage-_shared-interpolation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E3B2570319200BF66FC /* skimage-_shared-transform.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E352570315400BF66FC /* skimage-_shared-transform.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E3C2570319200BF66FC /* skimage-draw-_draw.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E172570314E00BF66FC /* skimage-draw-_draw.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E3D2570319200BF66FC /* skimage-feature-_cascade.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E0B2570314C00BF66FC /* skimage-feature-_cascade.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E3E2570319200BF66FC /* skimage-feature-_haar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E162570314E00BF66FC /* skimage-feature-_haar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E3F2570319200BF66FC /* skimage-feature-_hessian_det_appx.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E332570315300BF66FC /* skimage-feature-_hessian_det_appx.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E402570319200BF66FC /* skimage-feature-_hoghistogram.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E1D2570314F00BF66FC /* skimage-feature-_hoghistogram.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E412570319200BF66FC /* skimage-feature-_texture.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E322570315300BF66FC /* skimage-feature-_texture.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E422570319200BF66FC /* skimage-feature-brief_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E092570314C00BF66FC /* skimage-feature-brief_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E432570319200BF66FC /* skimage-feature-censure_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E272570315100BF66FC /* skimage-feature-censure_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E442570319200BF66FC /* skimage-feature-corner_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E0C2570314C00BF66FC /* skimage-feature-corner_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E452570319200BF66FC /* skimage-feature-orb_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E222570315000BF66FC /* skimage-feature-orb_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E462570319200BF66FC /* skimage-filters-_multiotsu.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E2B2570315200BF66FC /* skimage-filters-_multiotsu.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E472570319200BF66FC /* skimage-filters-_sparse_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E362570315400BF66FC /* skimage-filters-_sparse_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E482570319200BF66FC /* skimage-filters-rank-bilateral_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E302570315300BF66FC /* skimage-filters-rank-bilateral_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E492570319200BF66FC /* skimage-filters-rank-core_cy_3d.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E122570314E00BF66FC /* skimage-filters-rank-core_cy_3d.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E4A2570319200BF66FC /* skimage-filters-rank-core_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E0A2570314C00BF66FC /* skimage-filters-rank-core_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E4B2570319200BF66FC /* skimage-filters-rank-generic_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E0E2570314D00BF66FC /* skimage-filters-rank-generic_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E4C2570319200BF66FC /* skimage-filters-rank-percentile_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E202570315000BF66FC /* skimage-filters-rank-percentile_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E4D2570319200BF66FC /* skimage-future-graph-_ncut_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E082570314B00BF66FC /* skimage-future-graph-_ncut_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E4E2570319200BF66FC /* skimage-graph-_mcp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E0F2570314D00BF66FC /* skimage-graph-_mcp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E4F2570319200BF66FC /* skimage-graph-_spath.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E2C2570315200BF66FC /* skimage-graph-_spath.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E502570319200BF66FC /* skimage-graph-heap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E152570314E00BF66FC /* skimage-graph-heap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E512570319200BF66FC /* skimage-io-_plugins-_colormixer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E312570315300BF66FC /* skimage-io-_plugins-_colormixer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E522570319200BF66FC /* skimage-io-_plugins-_histograms.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E1F2570315000BF66FC /* skimage-io-_plugins-_histograms.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E532570319300BF66FC /* skimage-measure-_ccomp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E2E2570315200BF66FC /* skimage-measure-_ccomp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E542570319300BF66FC /* skimage-measure-_find_contours_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E192570314F00BF66FC /* skimage-measure-_find_contours_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E552570319300BF66FC /* skimage-measure-_marching_cubes_classic_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E2D2570315200BF66FC /* skimage-measure-_marching_cubes_classic_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E562570319300BF66FC /* skimage-measure-_marching_cubes_lewiner_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E112570314D00BF66FC /* skimage-measure-_marching_cubes_lewiner_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E572570319300BF66FC /* skimage-measure-_moments_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E372570315400BF66FC /* skimage-measure-_moments_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E582570319300BF66FC /* skimage-measure-_pnpoly.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E1B2570314F00BF66FC /* skimage-measure-_pnpoly.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E592570319300BF66FC /* skimage-morphology-_convex_hull.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E052570314B00BF66FC /* skimage-morphology-_convex_hull.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E5A2570319300BF66FC /* skimage-morphology-_extrema_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E242570315100BF66FC /* skimage-morphology-_extrema_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E5B2570319300BF66FC /* skimage-morphology-_flood_fill_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E252570315100BF66FC /* skimage-morphology-_flood_fill_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E5C2570319300BF66FC /* skimage-morphology-_greyreconstruct.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E1E2570315000BF66FC /* skimage-morphology-_greyreconstruct.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E5D2570319300BF66FC /* skimage-morphology-_max_tree.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E072570314B00BF66FC /* skimage-morphology-_max_tree.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E5E2570319300BF66FC /* skimage-morphology-_skeletonize_3d_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E282570315100BF66FC /* skimage-morphology-_skeletonize_3d_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E5F2570319300BF66FC /* skimage-morphology-_skeletonize_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E2A2570315200BF66FC /* skimage-morphology-_skeletonize_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E602570319300BF66FC /* skimage-restoration-_denoise_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E1A2570314F00BF66FC /* skimage-restoration-_denoise_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E612570319300BF66FC /* skimage-restoration-_nl_means_denoising.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E232570315000BF66FC /* skimage-restoration-_nl_means_denoising.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E622570319300BF66FC /* skimage-restoration-_rolling_ball_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E182570314E00BF66FC /* skimage-restoration-_rolling_ball_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E632570319300BF66FC /* skimage-restoration-_unwrap_1d.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E0D2570314C00BF66FC /* skimage-restoration-_unwrap_1d.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E642570319300BF66FC /* skimage-segmentation-_felzenszwalb_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E062570314B00BF66FC /* skimage-segmentation-_felzenszwalb_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E652570319300BF66FC /* skimage-segmentation-_quickshift_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E042570314B00BF66FC /* skimage-segmentation-_quickshift_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E662570319300BF66FC /* skimage-segmentation-_slic.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E292570315100BF66FC /* skimage-segmentation-_slic.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E672570319300BF66FC /* skimage-segmentation-_watershed_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E342570315400BF66FC /* skimage-segmentation-_watershed_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E682570319300BF66FC /* skimage-transform-_hough_transform.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E2F2570315300BF66FC /* skimage-transform-_hough_transform.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E692570319300BF66FC /* skimage-transform-_radon_transform.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E102570314D00BF66FC /* skimage-transform-_radon_transform.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E6A2570319300BF66FC /* skimage-transform-_warps_cy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E262570315100BF66FC /* skimage-transform-_warps_cy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C9602E6B2570319300BF66FC /* skimage-util-_remap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9602E1C2570314F00BF66FC /* skimage-util-_remap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9622C00246891E100D0D697 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9622BFD246891E000D0D697 /* main.m */; };
 		C9622C01246891E100D0D697 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9622BFD246891E000D0D697 /* main.m */; };
 		C9622C332468B56700D0D697 /* MemoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9622C322468B56700D0D697 /* MemoryManager.swift */; };
@@ -1714,6 +1716,60 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				B5CBE52B277CBD22000864AE /* skimage-_shared-fast_exp.framework in Embed Frameworks */,
+				B5CBE52C277CBD22000864AE /* skimage-_shared-geometry.framework in Embed Frameworks */,
+				B5CBE52D277CBD22000864AE /* skimage-_shared-interpolation.framework in Embed Frameworks */,
+				B5CBE52E277CBD22000864AE /* skimage-_shared-transform.framework in Embed Frameworks */,
+				B5CBE52F277CBD22000864AE /* skimage-draw-_draw.framework in Embed Frameworks */,
+				B5CBE530277CBD22000864AE /* skimage-feature-_cascade.framework in Embed Frameworks */,
+				B5CBE531277CBD22000864AE /* skimage-feature-_haar.framework in Embed Frameworks */,
+				B5CBE532277CBD22000864AE /* skimage-feature-_hessian_det_appx.framework in Embed Frameworks */,
+				B5CBE533277CBD23000864AE /* skimage-feature-_hoghistogram.framework in Embed Frameworks */,
+				B5CBE534277CBD23000864AE /* skimage-feature-_texture.framework in Embed Frameworks */,
+				B5CBE535277CBD23000864AE /* skimage-feature-brief_cy.framework in Embed Frameworks */,
+				B5CBE536277CBD23000864AE /* skimage-feature-censure_cy.framework in Embed Frameworks */,
+				B5CBE537277CBD23000864AE /* skimage-feature-corner_cy.framework in Embed Frameworks */,
+				B5CBE538277CBD23000864AE /* skimage-feature-orb_cy.framework in Embed Frameworks */,
+				B5CBE539277CBD23000864AE /* skimage-filters-_multiotsu.framework in Embed Frameworks */,
+				B5CBE53A277CBD23000864AE /* skimage-filters-_sparse_cy.framework in Embed Frameworks */,
+				B5CBE53B277CBD23000864AE /* skimage-filters-rank-bilateral_cy.framework in Embed Frameworks */,
+				B5CBE53C277CBD23000864AE /* skimage-filters-rank-core_cy_3d.framework in Embed Frameworks */,
+				B5CBE53D277CBD23000864AE /* skimage-filters-rank-core_cy.framework in Embed Frameworks */,
+				B5CBE53E277CBD23000864AE /* skimage-filters-rank-generic_cy.framework in Embed Frameworks */,
+				B5CBE53F277CBD23000864AE /* skimage-filters-rank-percentile_cy.framework in Embed Frameworks */,
+				B5CBE540277CBD23000864AE /* skimage-future-graph-_ncut_cy.framework in Embed Frameworks */,
+				B5CBE541277CBD23000864AE /* skimage-graph-_mcp.framework in Embed Frameworks */,
+				B5CBE542277CBD23000864AE /* skimage-graph-_spath.framework in Embed Frameworks */,
+				B5CBE543277CBD23000864AE /* skimage-graph-heap.framework in Embed Frameworks */,
+				B5CBE544277CBD23000864AE /* skimage-io-_plugins-_colormixer.framework in Embed Frameworks */,
+				B5CBE545277CBD23000864AE /* skimage-io-_plugins-_histograms.framework in Embed Frameworks */,
+				B5CBE546277CBD23000864AE /* skimage-measure-_ccomp.framework in Embed Frameworks */,
+				B5CBE547277CBD23000864AE /* skimage-measure-_find_contours_cy.framework in Embed Frameworks */,
+				B5CBE548277CBD23000864AE /* skimage-measure-_marching_cubes_classic_cy.framework in Embed Frameworks */,
+				B5CBE549277CBD23000864AE /* skimage-measure-_marching_cubes_lewiner_cy.framework in Embed Frameworks */,
+				B5CBE54A277CBD23000864AE /* skimage-measure-_moments_cy.framework in Embed Frameworks */,
+				B5CBE54B277CBD23000864AE /* skimage-measure-_pnpoly.framework in Embed Frameworks */,
+				B5CBE54C277CBD23000864AE /* skimage-morphology-_convex_hull.framework in Embed Frameworks */,
+				B5CBE54D277CBD23000864AE /* skimage-morphology-_extrema_cy.framework in Embed Frameworks */,
+				B5CBE54E277CBD23000864AE /* skimage-morphology-_flood_fill_cy.framework in Embed Frameworks */,
+				B5CBE54F277CBD23000864AE /* skimage-morphology-_greyreconstruct.framework in Embed Frameworks */,
+				B5CBE550277CBD23000864AE /* skimage-morphology-_max_tree.framework in Embed Frameworks */,
+				B5CBE551277CBD23000864AE /* skimage-morphology-_skeletonize_3d_cy.framework in Embed Frameworks */,
+				B5CBE552277CBD23000864AE /* skimage-morphology-_skeletonize_cy.framework in Embed Frameworks */,
+				B5CBE553277CBD23000864AE /* skimage-restoration-_denoise_cy.framework in Embed Frameworks */,
+				B5CBE554277CBD23000864AE /* skimage-restoration-_nl_means_denoising.framework in Embed Frameworks */,
+				B5CBE555277CBD23000864AE /* skimage-restoration-_rolling_ball_cy.framework in Embed Frameworks */,
+				B5CBE556277CBD23000864AE /* skimage-restoration-_unwrap_1d.framework in Embed Frameworks */,
+				B5CBE557277CBD23000864AE /* skimage-restoration-_unwrap_2d.framework in Embed Frameworks */,
+				B5CBE558277CBD23000864AE /* skimage-restoration-_unwrap_3d.framework in Embed Frameworks */,
+				B5CBE559277CBD23000864AE /* skimage-segmentation-_felzenszwalb_cy.framework in Embed Frameworks */,
+				B5CBE55A277CBD23000864AE /* skimage-segmentation-_quickshift_cy.framework in Embed Frameworks */,
+				B5CBE55B277CBD23000864AE /* skimage-segmentation-_slic.framework in Embed Frameworks */,
+				B5CBE55C277CBD23000864AE /* skimage-segmentation-_watershed_cy.framework in Embed Frameworks */,
+				B5CBE55D277CBD23000864AE /* skimage-transform-_hough_transform.framework in Embed Frameworks */,
+				B5CBE55E277CBD23000864AE /* skimage-transform-_radon_transform.framework in Embed Frameworks */,
+				B5CBE55F277CBD23000864AE /* skimage-transform-_warps_cy.framework in Embed Frameworks */,
+				B5CBE560277CBD23000864AE /* skimage-util-_remap.framework in Embed Frameworks */,
 				B585045E275A7AC800BC8542 /* cryptography-hazmat-bindings-_openssl.framework in Embed Frameworks */,
 				B585045F275A7AC800BC8542 /* cryptography-hazmat-bindings-_rust.framework in Embed Frameworks */,
 				B503472F27568FC6009106A5 /* scipy-_lib-_ccallback_c.framework in Embed Frameworks */,
@@ -1852,59 +1908,7 @@
 				C928100E257EAFE900828077 /* erfa-ufunc.framework in Embed Frameworks */,
 				C9509B1E2579AF370015FC92 /* ios_flang_runtime.framework in Embed Frameworks */,
 				C9BD079125757166002A69AA /* scipy-deps.framework in Embed Frameworks */,
-				C9602E382570319200BF66FC /* skimage-_shared-fast_exp.framework in Embed Frameworks */,
-				C9602E392570319200BF66FC /* skimage-_shared-geometry.framework in Embed Frameworks */,
-				C9602E3A2570319200BF66FC /* skimage-_shared-interpolation.framework in Embed Frameworks */,
-				C9602E3B2570319200BF66FC /* skimage-_shared-transform.framework in Embed Frameworks */,
-				C9602E3C2570319200BF66FC /* skimage-draw-_draw.framework in Embed Frameworks */,
-				C9602E3D2570319200BF66FC /* skimage-feature-_cascade.framework in Embed Frameworks */,
-				C9602E3E2570319200BF66FC /* skimage-feature-_haar.framework in Embed Frameworks */,
-				C9602E3F2570319200BF66FC /* skimage-feature-_hessian_det_appx.framework in Embed Frameworks */,
-				C9602E402570319200BF66FC /* skimage-feature-_hoghistogram.framework in Embed Frameworks */,
-				C9602E412570319200BF66FC /* skimage-feature-_texture.framework in Embed Frameworks */,
-				C9602E422570319200BF66FC /* skimage-feature-brief_cy.framework in Embed Frameworks */,
-				C9602E432570319200BF66FC /* skimage-feature-censure_cy.framework in Embed Frameworks */,
-				C9602E442570319200BF66FC /* skimage-feature-corner_cy.framework in Embed Frameworks */,
-				C9602E452570319200BF66FC /* skimage-feature-orb_cy.framework in Embed Frameworks */,
-				C9602E462570319200BF66FC /* skimage-filters-_multiotsu.framework in Embed Frameworks */,
-				C9602E472570319200BF66FC /* skimage-filters-_sparse_cy.framework in Embed Frameworks */,
-				C9602E482570319200BF66FC /* skimage-filters-rank-bilateral_cy.framework in Embed Frameworks */,
-				C9602E492570319200BF66FC /* skimage-filters-rank-core_cy_3d.framework in Embed Frameworks */,
-				C9602E4A2570319200BF66FC /* skimage-filters-rank-core_cy.framework in Embed Frameworks */,
-				C9602E4B2570319200BF66FC /* skimage-filters-rank-generic_cy.framework in Embed Frameworks */,
 				C9335D2F260E13D1005DEBCC /* freetype.framework in Embed Frameworks */,
-				C9602E4C2570319200BF66FC /* skimage-filters-rank-percentile_cy.framework in Embed Frameworks */,
-				C9602E4D2570319200BF66FC /* skimage-future-graph-_ncut_cy.framework in Embed Frameworks */,
-				C9602E4E2570319200BF66FC /* skimage-graph-_mcp.framework in Embed Frameworks */,
-				C9602E4F2570319200BF66FC /* skimage-graph-_spath.framework in Embed Frameworks */,
-				C9602E502570319200BF66FC /* skimage-graph-heap.framework in Embed Frameworks */,
-				C9602E512570319200BF66FC /* skimage-io-_plugins-_colormixer.framework in Embed Frameworks */,
-				C9602E522570319200BF66FC /* skimage-io-_plugins-_histograms.framework in Embed Frameworks */,
-				C9602E532570319300BF66FC /* skimage-measure-_ccomp.framework in Embed Frameworks */,
-				C9602E542570319300BF66FC /* skimage-measure-_find_contours_cy.framework in Embed Frameworks */,
-				C9602E552570319300BF66FC /* skimage-measure-_marching_cubes_classic_cy.framework in Embed Frameworks */,
-				C9602E562570319300BF66FC /* skimage-measure-_marching_cubes_lewiner_cy.framework in Embed Frameworks */,
-				C9602E572570319300BF66FC /* skimage-measure-_moments_cy.framework in Embed Frameworks */,
-				C9602E582570319300BF66FC /* skimage-measure-_pnpoly.framework in Embed Frameworks */,
-				C9602E592570319300BF66FC /* skimage-morphology-_convex_hull.framework in Embed Frameworks */,
-				C9602E5A2570319300BF66FC /* skimage-morphology-_extrema_cy.framework in Embed Frameworks */,
-				C9602E5B2570319300BF66FC /* skimage-morphology-_flood_fill_cy.framework in Embed Frameworks */,
-				C9602E5C2570319300BF66FC /* skimage-morphology-_greyreconstruct.framework in Embed Frameworks */,
-				C9602E5D2570319300BF66FC /* skimage-morphology-_max_tree.framework in Embed Frameworks */,
-				C9602E5E2570319300BF66FC /* skimage-morphology-_skeletonize_3d_cy.framework in Embed Frameworks */,
-				C9602E5F2570319300BF66FC /* skimage-morphology-_skeletonize_cy.framework in Embed Frameworks */,
-				C9602E602570319300BF66FC /* skimage-restoration-_denoise_cy.framework in Embed Frameworks */,
-				C9602E612570319300BF66FC /* skimage-restoration-_nl_means_denoising.framework in Embed Frameworks */,
-				C9602E622570319300BF66FC /* skimage-restoration-_rolling_ball_cy.framework in Embed Frameworks */,
-				C9602E632570319300BF66FC /* skimage-restoration-_unwrap_1d.framework in Embed Frameworks */,
-				C9602E642570319300BF66FC /* skimage-segmentation-_felzenszwalb_cy.framework in Embed Frameworks */,
-				C9602E652570319300BF66FC /* skimage-segmentation-_quickshift_cy.framework in Embed Frameworks */,
-				C9602E662570319300BF66FC /* skimage-segmentation-_slic.framework in Embed Frameworks */,
-				C9602E672570319300BF66FC /* skimage-segmentation-_watershed_cy.framework in Embed Frameworks */,
-				C9602E682570319300BF66FC /* skimage-transform-_hough_transform.framework in Embed Frameworks */,
-				C9602E692570319300BF66FC /* skimage-transform-_radon_transform.framework in Embed Frameworks */,
-				C9602E6A2570319300BF66FC /* skimage-transform-_warps_cy.framework in Embed Frameworks */,
-				C9602E6B2570319300BF66FC /* skimage-util-_remap.framework in Embed Frameworks */,
 				C9602DC025702DBC00BF66FC /* sklearn-__check_build-_check_build.framework in Embed Frameworks */,
 				C9602DC125702DBC00BF66FC /* sklearn-_isotonic.framework in Embed Frameworks */,
 				C9602DC225702DBC00BF66FC /* sklearn-cluster-_dbscan_inner.framework in Embed Frameworks */,
@@ -2315,6 +2319,60 @@
 		B5AB6C27276943EB001C5472 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		B5AB6C282769779B001C5472 /* libffi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libffi.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5AB6C2A276977A3001C5472 /* libffi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libffi.xcodeproj; path = "/Users/emma/Developer/Pyto/python3_ios/Python3_ios/libffi-3.4.2/libffi.xcodeproj"; sourceTree = "<absolute>"; };
+		B5CBE4F5277CBD01000864AE /* skimage-measure-_marching_cubes_lewiner_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-measure-_marching_cubes_lewiner_cy.framework"; sourceTree = "<group>"; };
+		B5CBE4F6277CBD01000864AE /* skimage-feature-orb_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-feature-orb_cy.framework"; sourceTree = "<group>"; };
+		B5CBE4F7277CBD01000864AE /* skimage-restoration-_denoise_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-restoration-_denoise_cy.framework"; sourceTree = "<group>"; };
+		B5CBE4F8277CBD01000864AE /* skimage-draw-_draw.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-draw-_draw.framework"; sourceTree = "<group>"; };
+		B5CBE4F9277CBD01000864AE /* skimage-morphology-_flood_fill_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-morphology-_flood_fill_cy.framework"; sourceTree = "<group>"; };
+		B5CBE4FA277CBD01000864AE /* skimage-filters-_multiotsu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-filters-_multiotsu.framework"; sourceTree = "<group>"; };
+		B5CBE4FB277CBD01000864AE /* skimage-filters-_sparse_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-filters-_sparse_cy.framework"; sourceTree = "<group>"; };
+		B5CBE4FC277CBD02000864AE /* skimage-measure-_marching_cubes_classic_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-measure-_marching_cubes_classic_cy.framework"; sourceTree = "<group>"; };
+		B5CBE4FD277CBD02000864AE /* skimage-transform-_radon_transform.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-transform-_radon_transform.framework"; sourceTree = "<group>"; };
+		B5CBE4FE277CBD02000864AE /* skimage-io-_plugins-_colormixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-io-_plugins-_colormixer.framework"; sourceTree = "<group>"; };
+		B5CBE4FF277CBD02000864AE /* skimage-segmentation-_slic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-segmentation-_slic.framework"; sourceTree = "<group>"; };
+		B5CBE500277CBD02000864AE /* skimage-segmentation-_watershed_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-segmentation-_watershed_cy.framework"; sourceTree = "<group>"; };
+		B5CBE501277CBD02000864AE /* skimage-morphology-_skeletonize_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-morphology-_skeletonize_cy.framework"; sourceTree = "<group>"; };
+		B5CBE502277CBD02000864AE /* skimage-_shared-geometry.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-_shared-geometry.framework"; sourceTree = "<group>"; };
+		B5CBE503277CBD02000864AE /* skimage-morphology-_skeletonize_3d_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-morphology-_skeletonize_3d_cy.framework"; sourceTree = "<group>"; };
+		B5CBE504277CBD02000864AE /* skimage-segmentation-_quickshift_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-segmentation-_quickshift_cy.framework"; sourceTree = "<group>"; };
+		B5CBE505277CBD02000864AE /* skimage-transform-_hough_transform.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-transform-_hough_transform.framework"; sourceTree = "<group>"; };
+		B5CBE506277CBD02000864AE /* skimage-graph-heap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-graph-heap.framework"; sourceTree = "<group>"; };
+		B5CBE507277CBD03000864AE /* skimage-filters-rank-bilateral_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-filters-rank-bilateral_cy.framework"; sourceTree = "<group>"; };
+		B5CBE508277CBD03000864AE /* skimage-measure-_moments_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-measure-_moments_cy.framework"; sourceTree = "<group>"; };
+		B5CBE509277CBD03000864AE /* skimage-future-graph-_ncut_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-future-graph-_ncut_cy.framework"; sourceTree = "<group>"; };
+		B5CBE50A277CBD03000864AE /* skimage-io-_plugins-_histograms.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-io-_plugins-_histograms.framework"; sourceTree = "<group>"; };
+		B5CBE50B277CBD03000864AE /* skimage-filters-rank-core_cy_3d.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-filters-rank-core_cy_3d.framework"; sourceTree = "<group>"; };
+		B5CBE50C277CBD03000864AE /* skimage-feature-_haar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-feature-_haar.framework"; sourceTree = "<group>"; };
+		B5CBE50D277CBD03000864AE /* skimage-feature-_hessian_det_appx.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-feature-_hessian_det_appx.framework"; sourceTree = "<group>"; };
+		B5CBE50E277CBD03000864AE /* skimage-filters-rank-core_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-filters-rank-core_cy.framework"; sourceTree = "<group>"; };
+		B5CBE50F277CBD03000864AE /* skimage-graph-_mcp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-graph-_mcp.framework"; sourceTree = "<group>"; };
+		B5CBE510277CBD03000864AE /* skimage-util-_remap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-util-_remap.framework"; sourceTree = "<group>"; };
+		B5CBE511277CBD03000864AE /* skimage-restoration-_unwrap_1d.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-restoration-_unwrap_1d.framework"; sourceTree = "<group>"; };
+		B5CBE512277CBD03000864AE /* skimage-_shared-interpolation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-_shared-interpolation.framework"; sourceTree = "<group>"; };
+		B5CBE513277CBD03000864AE /* skimage-segmentation-_felzenszwalb_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-segmentation-_felzenszwalb_cy.framework"; sourceTree = "<group>"; };
+		B5CBE514277CBD04000864AE /* skimage-feature-_texture.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-feature-_texture.framework"; sourceTree = "<group>"; };
+		B5CBE515277CBD04000864AE /* skimage-measure-_ccomp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-measure-_ccomp.framework"; sourceTree = "<group>"; };
+		B5CBE516277CBD04000864AE /* skimage-morphology-_max_tree.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-morphology-_max_tree.framework"; sourceTree = "<group>"; };
+		B5CBE517277CBD04000864AE /* skimage-filters-rank-generic_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-filters-rank-generic_cy.framework"; sourceTree = "<group>"; };
+		B5CBE518277CBD05000864AE /* skimage-morphology-_extrema_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-morphology-_extrema_cy.framework"; sourceTree = "<group>"; };
+		B5CBE519277CBD05000864AE /* skimage-_shared-transform.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-_shared-transform.framework"; sourceTree = "<group>"; };
+		B5CBE51A277CBD05000864AE /* skimage-transform-_warps_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-transform-_warps_cy.framework"; sourceTree = "<group>"; };
+		B5CBE51B277CBD05000864AE /* skimage-restoration-_unwrap_3d.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-restoration-_unwrap_3d.framework"; sourceTree = "<group>"; };
+		B5CBE51C277CBD05000864AE /* skimage-measure-_find_contours_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-measure-_find_contours_cy.framework"; sourceTree = "<group>"; };
+		B5CBE51D277CBD05000864AE /* skimage-_shared-fast_exp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-_shared-fast_exp.framework"; sourceTree = "<group>"; };
+		B5CBE51E277CBD05000864AE /* skimage-measure-_pnpoly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-measure-_pnpoly.framework"; sourceTree = "<group>"; };
+		B5CBE51F277CBD06000864AE /* skimage-restoration-_rolling_ball_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-restoration-_rolling_ball_cy.framework"; sourceTree = "<group>"; };
+		B5CBE520277CBD06000864AE /* skimage-feature-corner_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-feature-corner_cy.framework"; sourceTree = "<group>"; };
+		B5CBE521277CBD06000864AE /* skimage-feature-_hoghistogram.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-feature-_hoghistogram.framework"; sourceTree = "<group>"; };
+		B5CBE522277CBD06000864AE /* skimage-filters-rank-percentile_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-filters-rank-percentile_cy.framework"; sourceTree = "<group>"; };
+		B5CBE523277CBD06000864AE /* skimage-restoration-_unwrap_2d.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-restoration-_unwrap_2d.framework"; sourceTree = "<group>"; };
+		B5CBE524277CBD06000864AE /* skimage-feature-brief_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-feature-brief_cy.framework"; sourceTree = "<group>"; };
+		B5CBE525277CBD06000864AE /* skimage-morphology-_greyreconstruct.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-morphology-_greyreconstruct.framework"; sourceTree = "<group>"; };
+		B5CBE526277CBD06000864AE /* skimage-morphology-_convex_hull.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-morphology-_convex_hull.framework"; sourceTree = "<group>"; };
+		B5CBE527277CBD06000864AE /* skimage-graph-_spath.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-graph-_spath.framework"; sourceTree = "<group>"; };
+		B5CBE528277CBD06000864AE /* skimage-restoration-_nl_means_denoising.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-restoration-_nl_means_denoising.framework"; sourceTree = "<group>"; };
+		B5CBE529277CBD07000864AE /* skimage-feature-censure_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-feature-censure_cy.framework"; sourceTree = "<group>"; };
+		B5CBE52A277CBD07000864AE /* skimage-feature-_cascade.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-feature-_cascade.framework"; sourceTree = "<group>"; };
 		B5D98165273C838F00382439 /* SidebarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarViewController.swift; sourceTree = "<group>"; };
 		B5D98169273C83A000382439 /* SidebarSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSplitViewController.swift; sourceTree = "<group>"; };
 		B5D9816B274017CA00382439 /* RecentDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentDataSource.swift; sourceTree = "<group>"; };
@@ -2714,58 +2772,6 @@
 		C9602D9B25702DA000BF66FC /* sklearn-neighbors-_typedefs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "sklearn-neighbors-_typedefs.framework"; sourceTree = "<group>"; };
 		C9602DAD25702DA100BF66FC /* sklearn-svm-_libsvm_sparse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "sklearn-svm-_libsvm_sparse.framework"; sourceTree = "<group>"; };
 		C9602DAE25702DA200BF66FC /* sklearn-utils-murmurhash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "sklearn-utils-murmurhash.framework"; sourceTree = "<group>"; };
-		C9602E042570314B00BF66FC /* skimage-segmentation-_quickshift_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-segmentation-_quickshift_cy.framework"; sourceTree = "<group>"; };
-		C9602E052570314B00BF66FC /* skimage-morphology-_convex_hull.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-morphology-_convex_hull.framework"; sourceTree = "<group>"; };
-		C9602E062570314B00BF66FC /* skimage-segmentation-_felzenszwalb_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-segmentation-_felzenszwalb_cy.framework"; sourceTree = "<group>"; };
-		C9602E072570314B00BF66FC /* skimage-morphology-_max_tree.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-morphology-_max_tree.framework"; sourceTree = "<group>"; };
-		C9602E082570314B00BF66FC /* skimage-future-graph-_ncut_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-future-graph-_ncut_cy.framework"; sourceTree = "<group>"; };
-		C9602E092570314C00BF66FC /* skimage-feature-brief_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-feature-brief_cy.framework"; sourceTree = "<group>"; };
-		C9602E0A2570314C00BF66FC /* skimage-filters-rank-core_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-filters-rank-core_cy.framework"; sourceTree = "<group>"; };
-		C9602E0B2570314C00BF66FC /* skimage-feature-_cascade.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-feature-_cascade.framework"; sourceTree = "<group>"; };
-		C9602E0C2570314C00BF66FC /* skimage-feature-corner_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-feature-corner_cy.framework"; sourceTree = "<group>"; };
-		C9602E0D2570314C00BF66FC /* skimage-restoration-_unwrap_1d.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-restoration-_unwrap_1d.framework"; sourceTree = "<group>"; };
-		C9602E0E2570314D00BF66FC /* skimage-filters-rank-generic_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-filters-rank-generic_cy.framework"; sourceTree = "<group>"; };
-		C9602E0F2570314D00BF66FC /* skimage-graph-_mcp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-graph-_mcp.framework"; sourceTree = "<group>"; };
-		C9602E102570314D00BF66FC /* skimage-transform-_radon_transform.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-transform-_radon_transform.framework"; sourceTree = "<group>"; };
-		C9602E112570314D00BF66FC /* skimage-measure-_marching_cubes_lewiner_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-measure-_marching_cubes_lewiner_cy.framework"; sourceTree = "<group>"; };
-		C9602E122570314E00BF66FC /* skimage-filters-rank-core_cy_3d.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-filters-rank-core_cy_3d.framework"; sourceTree = "<group>"; };
-		C9602E132570314E00BF66FC /* skimage-_shared-interpolation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-_shared-interpolation.framework"; sourceTree = "<group>"; };
-		C9602E142570314E00BF66FC /* skimage-_shared-fast_exp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-_shared-fast_exp.framework"; sourceTree = "<group>"; };
-		C9602E152570314E00BF66FC /* skimage-graph-heap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-graph-heap.framework"; sourceTree = "<group>"; };
-		C9602E162570314E00BF66FC /* skimage-feature-_haar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-feature-_haar.framework"; sourceTree = "<group>"; };
-		C9602E172570314E00BF66FC /* skimage-draw-_draw.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-draw-_draw.framework"; sourceTree = "<group>"; };
-		C9602E182570314E00BF66FC /* skimage-restoration-_rolling_ball_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-restoration-_rolling_ball_cy.framework"; sourceTree = "<group>"; };
-		C9602E192570314F00BF66FC /* skimage-measure-_find_contours_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-measure-_find_contours_cy.framework"; sourceTree = "<group>"; };
-		C9602E1A2570314F00BF66FC /* skimage-restoration-_denoise_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-restoration-_denoise_cy.framework"; sourceTree = "<group>"; };
-		C9602E1B2570314F00BF66FC /* skimage-measure-_pnpoly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-measure-_pnpoly.framework"; sourceTree = "<group>"; };
-		C9602E1C2570314F00BF66FC /* skimage-util-_remap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-util-_remap.framework"; sourceTree = "<group>"; };
-		C9602E1D2570314F00BF66FC /* skimage-feature-_hoghistogram.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-feature-_hoghistogram.framework"; sourceTree = "<group>"; };
-		C9602E1E2570315000BF66FC /* skimage-morphology-_greyreconstruct.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-morphology-_greyreconstruct.framework"; sourceTree = "<group>"; };
-		C9602E1F2570315000BF66FC /* skimage-io-_plugins-_histograms.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-io-_plugins-_histograms.framework"; sourceTree = "<group>"; };
-		C9602E202570315000BF66FC /* skimage-filters-rank-percentile_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-filters-rank-percentile_cy.framework"; sourceTree = "<group>"; };
-		C9602E212570315000BF66FC /* skimage-_shared-geometry.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-_shared-geometry.framework"; sourceTree = "<group>"; };
-		C9602E222570315000BF66FC /* skimage-feature-orb_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-feature-orb_cy.framework"; sourceTree = "<group>"; };
-		C9602E232570315000BF66FC /* skimage-restoration-_nl_means_denoising.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-restoration-_nl_means_denoising.framework"; sourceTree = "<group>"; };
-		C9602E242570315100BF66FC /* skimage-morphology-_extrema_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-morphology-_extrema_cy.framework"; sourceTree = "<group>"; };
-		C9602E252570315100BF66FC /* skimage-morphology-_flood_fill_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-morphology-_flood_fill_cy.framework"; sourceTree = "<group>"; };
-		C9602E262570315100BF66FC /* skimage-transform-_warps_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-transform-_warps_cy.framework"; sourceTree = "<group>"; };
-		C9602E272570315100BF66FC /* skimage-feature-censure_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-feature-censure_cy.framework"; sourceTree = "<group>"; };
-		C9602E282570315100BF66FC /* skimage-morphology-_skeletonize_3d_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-morphology-_skeletonize_3d_cy.framework"; sourceTree = "<group>"; };
-		C9602E292570315100BF66FC /* skimage-segmentation-_slic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-segmentation-_slic.framework"; sourceTree = "<group>"; };
-		C9602E2A2570315200BF66FC /* skimage-morphology-_skeletonize_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-morphology-_skeletonize_cy.framework"; sourceTree = "<group>"; };
-		C9602E2B2570315200BF66FC /* skimage-filters-_multiotsu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-filters-_multiotsu.framework"; sourceTree = "<group>"; };
-		C9602E2C2570315200BF66FC /* skimage-graph-_spath.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-graph-_spath.framework"; sourceTree = "<group>"; };
-		C9602E2D2570315200BF66FC /* skimage-measure-_marching_cubes_classic_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-measure-_marching_cubes_classic_cy.framework"; sourceTree = "<group>"; };
-		C9602E2E2570315200BF66FC /* skimage-measure-_ccomp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-measure-_ccomp.framework"; sourceTree = "<group>"; };
-		C9602E2F2570315300BF66FC /* skimage-transform-_hough_transform.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-transform-_hough_transform.framework"; sourceTree = "<group>"; };
-		C9602E302570315300BF66FC /* skimage-filters-rank-bilateral_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-filters-rank-bilateral_cy.framework"; sourceTree = "<group>"; };
-		C9602E312570315300BF66FC /* skimage-io-_plugins-_colormixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-io-_plugins-_colormixer.framework"; sourceTree = "<group>"; };
-		C9602E322570315300BF66FC /* skimage-feature-_texture.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-feature-_texture.framework"; sourceTree = "<group>"; };
-		C9602E332570315300BF66FC /* skimage-feature-_hessian_det_appx.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-feature-_hessian_det_appx.framework"; sourceTree = "<group>"; };
-		C9602E342570315400BF66FC /* skimage-segmentation-_watershed_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-segmentation-_watershed_cy.framework"; sourceTree = "<group>"; };
-		C9602E352570315400BF66FC /* skimage-_shared-transform.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-_shared-transform.framework"; sourceTree = "<group>"; };
-		C9602E362570315400BF66FC /* skimage-filters-_sparse_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-filters-_sparse_cy.framework"; sourceTree = "<group>"; };
-		C9602E372570315400BF66FC /* skimage-measure-_moments_cy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "skimage-measure-_moments_cy.framework"; sourceTree = "<group>"; };
 		C9622BFD246891E000D0D697 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C9622C322468B56700D0D697 /* MemoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryManager.swift; sourceTree = "<group>"; };
 		C9624EF321A9905400DDA9A7 /* PyThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyThread.swift; sourceTree = "<group>"; };
@@ -3731,58 +3737,60 @@
 		C92A7CAF22F99A4700D3B4DF /* SkImage */ = {
 			isa = PBXGroup;
 			children = (
-				C9602E142570314E00BF66FC /* skimage-_shared-fast_exp.framework */,
-				C9602E212570315000BF66FC /* skimage-_shared-geometry.framework */,
-				C9602E132570314E00BF66FC /* skimage-_shared-interpolation.framework */,
-				C9602E352570315400BF66FC /* skimage-_shared-transform.framework */,
-				C9602E172570314E00BF66FC /* skimage-draw-_draw.framework */,
-				C9602E0B2570314C00BF66FC /* skimage-feature-_cascade.framework */,
-				C9602E162570314E00BF66FC /* skimage-feature-_haar.framework */,
-				C9602E332570315300BF66FC /* skimage-feature-_hessian_det_appx.framework */,
-				C9602E1D2570314F00BF66FC /* skimage-feature-_hoghistogram.framework */,
-				C9602E322570315300BF66FC /* skimage-feature-_texture.framework */,
-				C9602E092570314C00BF66FC /* skimage-feature-brief_cy.framework */,
-				C9602E272570315100BF66FC /* skimage-feature-censure_cy.framework */,
-				C9602E0C2570314C00BF66FC /* skimage-feature-corner_cy.framework */,
-				C9602E222570315000BF66FC /* skimage-feature-orb_cy.framework */,
-				C9602E2B2570315200BF66FC /* skimage-filters-_multiotsu.framework */,
-				C9602E362570315400BF66FC /* skimage-filters-_sparse_cy.framework */,
-				C9602E302570315300BF66FC /* skimage-filters-rank-bilateral_cy.framework */,
-				C9602E122570314E00BF66FC /* skimage-filters-rank-core_cy_3d.framework */,
-				C9602E0A2570314C00BF66FC /* skimage-filters-rank-core_cy.framework */,
-				C9602E0E2570314D00BF66FC /* skimage-filters-rank-generic_cy.framework */,
-				C9602E202570315000BF66FC /* skimage-filters-rank-percentile_cy.framework */,
-				C9602E082570314B00BF66FC /* skimage-future-graph-_ncut_cy.framework */,
-				C9602E0F2570314D00BF66FC /* skimage-graph-_mcp.framework */,
-				C9602E2C2570315200BF66FC /* skimage-graph-_spath.framework */,
-				C9602E152570314E00BF66FC /* skimage-graph-heap.framework */,
-				C9602E312570315300BF66FC /* skimage-io-_plugins-_colormixer.framework */,
-				C9602E1F2570315000BF66FC /* skimage-io-_plugins-_histograms.framework */,
-				C9602E2E2570315200BF66FC /* skimage-measure-_ccomp.framework */,
-				C9602E192570314F00BF66FC /* skimage-measure-_find_contours_cy.framework */,
-				C9602E2D2570315200BF66FC /* skimage-measure-_marching_cubes_classic_cy.framework */,
-				C9602E112570314D00BF66FC /* skimage-measure-_marching_cubes_lewiner_cy.framework */,
-				C9602E372570315400BF66FC /* skimage-measure-_moments_cy.framework */,
-				C9602E1B2570314F00BF66FC /* skimage-measure-_pnpoly.framework */,
-				C9602E052570314B00BF66FC /* skimage-morphology-_convex_hull.framework */,
-				C9602E242570315100BF66FC /* skimage-morphology-_extrema_cy.framework */,
-				C9602E252570315100BF66FC /* skimage-morphology-_flood_fill_cy.framework */,
-				C9602E1E2570315000BF66FC /* skimage-morphology-_greyreconstruct.framework */,
-				C9602E072570314B00BF66FC /* skimage-morphology-_max_tree.framework */,
-				C9602E282570315100BF66FC /* skimage-morphology-_skeletonize_3d_cy.framework */,
-				C9602E2A2570315200BF66FC /* skimage-morphology-_skeletonize_cy.framework */,
-				C9602E1A2570314F00BF66FC /* skimage-restoration-_denoise_cy.framework */,
-				C9602E232570315000BF66FC /* skimage-restoration-_nl_means_denoising.framework */,
-				C9602E182570314E00BF66FC /* skimage-restoration-_rolling_ball_cy.framework */,
-				C9602E0D2570314C00BF66FC /* skimage-restoration-_unwrap_1d.framework */,
-				C9602E062570314B00BF66FC /* skimage-segmentation-_felzenszwalb_cy.framework */,
-				C9602E042570314B00BF66FC /* skimage-segmentation-_quickshift_cy.framework */,
-				C9602E292570315100BF66FC /* skimage-segmentation-_slic.framework */,
-				C9602E342570315400BF66FC /* skimage-segmentation-_watershed_cy.framework */,
-				C9602E2F2570315300BF66FC /* skimage-transform-_hough_transform.framework */,
-				C9602E102570314D00BF66FC /* skimage-transform-_radon_transform.framework */,
-				C9602E262570315100BF66FC /* skimage-transform-_warps_cy.framework */,
-				C9602E1C2570314F00BF66FC /* skimage-util-_remap.framework */,
+				B5CBE51D277CBD05000864AE /* skimage-_shared-fast_exp.framework */,
+				B5CBE502277CBD02000864AE /* skimage-_shared-geometry.framework */,
+				B5CBE512277CBD03000864AE /* skimage-_shared-interpolation.framework */,
+				B5CBE519277CBD05000864AE /* skimage-_shared-transform.framework */,
+				B5CBE4F8277CBD01000864AE /* skimage-draw-_draw.framework */,
+				B5CBE52A277CBD07000864AE /* skimage-feature-_cascade.framework */,
+				B5CBE50C277CBD03000864AE /* skimage-feature-_haar.framework */,
+				B5CBE50D277CBD03000864AE /* skimage-feature-_hessian_det_appx.framework */,
+				B5CBE521277CBD06000864AE /* skimage-feature-_hoghistogram.framework */,
+				B5CBE514277CBD04000864AE /* skimage-feature-_texture.framework */,
+				B5CBE524277CBD06000864AE /* skimage-feature-brief_cy.framework */,
+				B5CBE529277CBD07000864AE /* skimage-feature-censure_cy.framework */,
+				B5CBE520277CBD06000864AE /* skimage-feature-corner_cy.framework */,
+				B5CBE4F6277CBD01000864AE /* skimage-feature-orb_cy.framework */,
+				B5CBE4FA277CBD01000864AE /* skimage-filters-_multiotsu.framework */,
+				B5CBE4FB277CBD01000864AE /* skimage-filters-_sparse_cy.framework */,
+				B5CBE507277CBD03000864AE /* skimage-filters-rank-bilateral_cy.framework */,
+				B5CBE50B277CBD03000864AE /* skimage-filters-rank-core_cy_3d.framework */,
+				B5CBE50E277CBD03000864AE /* skimage-filters-rank-core_cy.framework */,
+				B5CBE517277CBD04000864AE /* skimage-filters-rank-generic_cy.framework */,
+				B5CBE522277CBD06000864AE /* skimage-filters-rank-percentile_cy.framework */,
+				B5CBE509277CBD03000864AE /* skimage-future-graph-_ncut_cy.framework */,
+				B5CBE50F277CBD03000864AE /* skimage-graph-_mcp.framework */,
+				B5CBE527277CBD06000864AE /* skimage-graph-_spath.framework */,
+				B5CBE506277CBD02000864AE /* skimage-graph-heap.framework */,
+				B5CBE4FE277CBD02000864AE /* skimage-io-_plugins-_colormixer.framework */,
+				B5CBE50A277CBD03000864AE /* skimage-io-_plugins-_histograms.framework */,
+				B5CBE515277CBD04000864AE /* skimage-measure-_ccomp.framework */,
+				B5CBE51C277CBD05000864AE /* skimage-measure-_find_contours_cy.framework */,
+				B5CBE4FC277CBD02000864AE /* skimage-measure-_marching_cubes_classic_cy.framework */,
+				B5CBE4F5277CBD01000864AE /* skimage-measure-_marching_cubes_lewiner_cy.framework */,
+				B5CBE508277CBD03000864AE /* skimage-measure-_moments_cy.framework */,
+				B5CBE51E277CBD05000864AE /* skimage-measure-_pnpoly.framework */,
+				B5CBE526277CBD06000864AE /* skimage-morphology-_convex_hull.framework */,
+				B5CBE518277CBD05000864AE /* skimage-morphology-_extrema_cy.framework */,
+				B5CBE4F9277CBD01000864AE /* skimage-morphology-_flood_fill_cy.framework */,
+				B5CBE525277CBD06000864AE /* skimage-morphology-_greyreconstruct.framework */,
+				B5CBE516277CBD04000864AE /* skimage-morphology-_max_tree.framework */,
+				B5CBE503277CBD02000864AE /* skimage-morphology-_skeletonize_3d_cy.framework */,
+				B5CBE501277CBD02000864AE /* skimage-morphology-_skeletonize_cy.framework */,
+				B5CBE4F7277CBD01000864AE /* skimage-restoration-_denoise_cy.framework */,
+				B5CBE528277CBD06000864AE /* skimage-restoration-_nl_means_denoising.framework */,
+				B5CBE51F277CBD06000864AE /* skimage-restoration-_rolling_ball_cy.framework */,
+				B5CBE511277CBD03000864AE /* skimage-restoration-_unwrap_1d.framework */,
+				B5CBE523277CBD06000864AE /* skimage-restoration-_unwrap_2d.framework */,
+				B5CBE51B277CBD05000864AE /* skimage-restoration-_unwrap_3d.framework */,
+				B5CBE513277CBD03000864AE /* skimage-segmentation-_felzenszwalb_cy.framework */,
+				B5CBE504277CBD02000864AE /* skimage-segmentation-_quickshift_cy.framework */,
+				B5CBE4FF277CBD02000864AE /* skimage-segmentation-_slic.framework */,
+				B5CBE500277CBD02000864AE /* skimage-segmentation-_watershed_cy.framework */,
+				B5CBE505277CBD02000864AE /* skimage-transform-_hough_transform.framework */,
+				B5CBE4FD277CBD02000864AE /* skimage-transform-_radon_transform.framework */,
+				B5CBE51A277CBD05000864AE /* skimage-transform-_warps_cy.framework */,
+				B5CBE510277CBD03000864AE /* skimage-util-_remap.framework */,
 			);
 			path = SkImage;
 			sourceTree = "<group>";
@@ -8397,7 +8405,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_NUMBER = 404;
+				BUILD_NUMBER = 405;
 				BUNDLE_ID = ch.ada.PytoVPP;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9513,7 +9521,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_NUMBER = 404;
+				BUILD_NUMBER = 405;
 				BUNDLE_ID = ch.marcela.ada.Pyto;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -9578,7 +9586,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_NUMBER = 404;
+				BUILD_NUMBER = 405;
 				BUNDLE_ID = ch.marcela.ada.Pyto;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;

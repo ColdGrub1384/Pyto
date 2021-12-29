@@ -69,7 +69,7 @@ import UIKit
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = NSLocalizedString("sidebar.runModule", comment: "Run module")
+        title = "Shell"
         
         firstChild = editor
         secondChild = console
@@ -89,7 +89,7 @@ import UIKit
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(goToFileBrowser))
         }
         navigationController?.isToolbarHidden = true
-        title = NSLocalizedString("sidebar.runModule", comment: "The 'Run module' sidebar section")
+        title = "Shell"
         parent?.title = title
         parent?.navigationItem.title = title
         parent?.navigationItem.rightBarButtonItems = navigationItem.rightBarButtonItems
@@ -110,6 +110,9 @@ import UIKit
         
         _ = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true, block: { [weak self] (timer) in
             if Python.shared.isSetup && isUnlocked {
+                if let dir = (self?.view.window?.windowScene?.delegate as? SceneDelegate)?.sidebarSplitViewController?.fileBrowser.directory {
+                    self?.editor?.currentDirectory = dir
+                }
                 self?.editor?.run()
                 timer.invalidate()
             }
@@ -124,6 +127,7 @@ import UIKit
         console?.movableTextField?.focus()
         _ = urls[0].startAccessingSecurityScopedResource()
         REPLViewController.pickedDirectory[editor!.document!.fileURL.path] = urls[0].path
+        console?.movableTextField?.handler?("")
     }
 }
 
