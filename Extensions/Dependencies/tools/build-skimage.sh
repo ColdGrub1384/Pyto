@@ -13,4 +13,5 @@ python3 setup.py bdist
 rm -rf build/lib*/skimage/data
 cp -r skimage/data build/lib*/skimage
 python3 ../tools/make_frameworks.py skimage SkImage
+cp skimage/feature/*.txt  build/lib*/*
 ../tools/copy-scripts.sh build/lib*/* ../../../downloadable-site-packages/compiled/skimage
