@@ -256,7 +256,11 @@ import Zip
             if let bundledDocs = Bundle.main.url(forResource: "docs", withExtension: "zip") {
                 
                 do {
-                    try Zip.unzipFile(bundledDocs, destination: DocumentationViewController.Documentation.pyto.url.deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent(), overwrite: true, password: nil)
+                    let libsURL = DocumentationViewController.Documentation.pyto.url.deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+                    if FileManager.default.fileExists(atPath: libsURL.appendingPathComponent("docs_build").path) {
+                        try? FileManager.default.removeItem(at: libsURL.appendingPathComponent("docs_build"))
+                    }
+                    try Zip.unzipFile(bundledDocs, destination: libsURL, overwrite: true, password: nil)
                 } catch {
                     print(error.localizedDescription)
                 }

@@ -125,6 +125,8 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
                             }
                             loadHref = href
                         }
+                    } else {
+                        webView.loadFileURL(url, allowingReadAccessTo: selectedDocumentation.url.deletingLastPathComponent())
                     }
                 } else {
                     webView.load(URLRequest(url: url))
