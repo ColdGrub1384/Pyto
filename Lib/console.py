@@ -143,6 +143,9 @@ def displayhook(_value):
 
 def return_excepthook(exc, value, tb, limit=None):
 
+    if exc is KeyboardInterrupt:
+        return ""
+
     text = ""
 
     if isinstance(value, __UpgradeException__):
@@ -281,6 +284,7 @@ def __clear_mods__():
         del sys.modules["ui_constants"]
     except KeyError:
         pass
+    sys.modules["ui_constants"] = __import__("ui_constants") # reload
 
     try:
         del sys.modules["watch"]
@@ -764,9 +768,8 @@ def input(prompt: str = None, highlight=False):
 
     userInput = __PyInputHelper__.waitForInput(path)
 
-    if userInput == "<WILL INTERRUPT>":  #  Will raise KeyboardInterrupt, don't return
-        while True:
-            time.sleep(0.2)
+    if userInput == "<WILL INTERRUPT>":  #  Raise KeyboardInterrupt
+        raise KeyboardInterrupt
 
     return str(userInput)
 

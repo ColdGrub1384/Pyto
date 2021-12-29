@@ -25,14 +25,14 @@ import WatchConnectivity
     }
     
     /// Semaphores waiting for user input.
-    static var semaphores = [String:Python.Semaphore]()
+    static var semaphores = [String:DispatchSemaphore]()
     
     /// Waits for user input with the given script path.
     ///
     /// - Returns: The input result.
     @objc static func waitForInput(_ path: String) -> String? {
         userInput[path] = nil
-        let semaphore = Python.Semaphore(value: 0)
+        let semaphore = DispatchSemaphore(value: 0)
         semaphores[path] = semaphore
         semaphore.wait()
         let input = getUserInput(path)
