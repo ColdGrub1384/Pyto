@@ -149,7 +149,8 @@ class Complication:
             if component.color.__py_color__ == wd.COLOR_LABEL.__py_color__.managed:
                 component.color = wd.COLOR_WHITE
 
-        super.add_row(row, background_color, corner_radius, link)
+        for layout in [self.rectangular, self.circular, self.circular_extra_large]:
+            layout.add_row(row, background_color, corner_radius, link)
 
 
 def __objc__(complication: Complication):
