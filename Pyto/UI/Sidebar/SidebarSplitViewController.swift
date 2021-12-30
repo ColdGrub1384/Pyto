@@ -134,9 +134,11 @@ class SidebarSplitViewController: UISplitViewController, UISplitViewControllerDe
         compactFileBrowserNavVC.navigationBar.prefersLargeTitles = true
         compactFileBrowserNavVC.view.backgroundColor = .systemBackground
         
-        setViewController(UINavigationController(rootViewController: SidebarViewController(splitViewID: id, compact: false)), for: .primary)
+        let sidebar = SidebarViewController(splitViewID: id, compact: false)
+        sidebar.makeModuleRunnerIfNecessary()
+        setViewController(UINavigationController(rootViewController: sidebar), for: .primary)
         setViewController(fileBrowserNavVC, for: .supplementary)
-        setViewController(UINavigationController(rootViewController: UIViewController()), for: .secondary)
+        setViewController(sidebar.moduleRunner!, for: .secondary)
         setViewController(UINavigationController(rootViewController: SidebarViewController(splitViewID: id, compact: true)), for: .compact)
         
         preferredDisplayMode = .twoOverSecondary
