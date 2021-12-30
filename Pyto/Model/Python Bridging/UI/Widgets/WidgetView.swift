@@ -74,7 +74,7 @@ import SwiftUI
                         HStack {
                             ForEach(row.content) { view -> AnyView in
                                 #if os(iOS)
-                                if view.identifier != nil, let url = self.entry?.url(viewID: view.identifier) {
+                                 if view.identifier != nil, let url = self.entry?.url(viewID: view.identifier) {
                                     
                                     return AnyView(Link(destination: url, label: {
                                         WidgetComponent.PaddingView(view: AnyView(view.makeView.padding(view.paddingEdges)), customPadding: view.customPadding)
