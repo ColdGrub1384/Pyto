@@ -121,6 +121,19 @@ func openDebuggerExample(sceneDelegate: SceneDelegate) {
 
 // MARK: - Screenshot 4
 
+func openShell(sceneDelegate: SceneDelegate) {
+    let semaphore = DispatchSemaphore(value: 0)
+    DispatchQueue.main.async {
+        sceneDelegate.sidebarSplitViewController?.sidebar?.showModuleRunner()
+        DispatchQueue.main.asyncAfter(deadline: .now()+3) {
+            semaphore.signal()
+        }
+    }
+    semaphore.wait()
+}
+
+// MARK: - Screenshot 5
+
 /// Opens PyPI and shows the sidebar.
 func openPyPI(sceneDelegate: SceneDelegate) {
     let semaphore = DispatchSemaphore(value: 0)
@@ -159,7 +172,7 @@ func openPyPI(sceneDelegate: SceneDelegate) {
     semaphore.wait()
 }
 
-// MARK: - Screenshot 5
+// MARK: - Screenshot 6
 
 /// Simulates showing a traceback
 func openTracebackExample(sceneDelegate: SceneDelegate) {
@@ -205,7 +218,7 @@ func openTracebackExample(sceneDelegate: SceneDelegate) {
     semaphore.wait()
 }
 
-// MARK: - Screenshot 6
+// MARK: - Screenshot 7
 
 /// Shows and simulates running the SciPy panda image example.
 func openSciPyExample(sceneDelegate: SceneDelegate) {
@@ -265,6 +278,7 @@ func takeScreenshots(sceneDelegate: SceneDelegate) {
         openProject(sceneDelegate: sceneDelegate)
         openREPL(sceneDelegate: sceneDelegate)
         openDebuggerExample(sceneDelegate: sceneDelegate)
+        openShell(sceneDelegate: sceneDelegate)
         openPyPI(sceneDelegate: sceneDelegate)
         openTracebackExample(sceneDelegate: sceneDelegate)
         openSciPyExample(sceneDelegate: sceneDelegate)
