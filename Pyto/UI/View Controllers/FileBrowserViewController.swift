@@ -332,9 +332,9 @@ import SwiftUI
         var isDir: ObjCBool = false
         if FileManager.default.fileExists(atPath: files[indexPath.row].path, isDirectory: &isDir) && isDir.boolValue {
             if FileManager.default.fileExists(atPath: files[indexPath.row].appendingPathComponent("__init__.py").path) || FileManager.default.fileExists(atPath: files[indexPath.row].appendingPathComponent("__main__.py").path) {
-                cell.imageView?.image = UIImage(systemName: "shippingbox.fill")
+                cell.imageView?.image = UIImage(systemName: "shippingbox")
             } else {
-                cell.imageView?.image = UIImage(systemName: "folder.fill")
+                cell.imageView?.image = UIImage(systemName: "folder")
             }
             cell.accessoryType = .disclosureIndicator
         } else {
