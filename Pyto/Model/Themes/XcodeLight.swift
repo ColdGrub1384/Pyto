@@ -38,6 +38,8 @@ struct XcodeLightSourceCodeTheme: SourceCodeTheme {
             return defaultTheme.color(for: syntaxColorType)
         case .identifier:
             return Color(red: 50/255, green: 109/255, blue: 116/255, alpha: 1)
+        case .builtin:
+            return Color(red: 57/255, green: 0/255, blue: 160/255, alpha: 1)
         case .keyword:
             return Color(red: 155/255, green: 35/255, blue: 147/255, alpha: 1)
         case .number:

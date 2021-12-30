@@ -38,6 +38,8 @@ struct SolarizedDarkSourceCodeTheme: SourceCodeTheme {
             return defaultTheme.color(for: syntaxColorType)
         case .identifier:
             return Color(red: 38/255, green: 139/255, blue: 210/255, alpha: 1)
+        case .builtin:
+            return Color(red: 37/255, green: 146/255, blue: 134/255, alpha: 1)
         case .keyword:
             return Color(red: 211/255, green: 54/255, blue: 130/255, alpha: 1)
         case .number:

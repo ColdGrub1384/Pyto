@@ -38,6 +38,8 @@ struct WWDC16SourceCodeTheme: SourceCodeTheme {
             return defaultTheme.color(for: syntaxColorType)
         case .identifier:
             return Color(red: 19/255, green: 157/255, blue: 146/255, alpha: 1)
+        case .builtin:
+            return Color(red: 164/255, green: 34/255, blue: 130/255, alpha: 1)
         case .keyword:
             return Color(red: 131/255, green: 189/255, blue: 91/255, alpha: 1)
         case .number:

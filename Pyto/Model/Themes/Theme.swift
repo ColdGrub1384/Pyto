@@ -102,7 +102,7 @@ extension Theme {
     /// Returns CSS to be used with Highlightr.
     var css: String {
         
-        return ".hljs{display:block;overflow-x:auto;padding:.5em;background:\(sourceCodeTheme.backgroundColor.hexString);color:\(sourceCodeTheme.color(for: .plain).hexString)}.hljs-comment,.hljs-quote{color:\(sourceCodeTheme.color(for: .comment) .hexString)}.hljs-keyword,.hljs-literal,.hljs-selector-tag,.hljs-tag{color:\(sourceCodeTheme.color(for: .keyword) .hexString)}.hljs-name{color:\(sourceCodeTheme.color(for: .keyword) .hexString)}.hljs-template-variable,.hljs-variable{color:#660}.hljs-string{color:\(sourceCodeTheme.color(for: .string) .hexString)}.hljs-link,.hljs-regexp{color:#080}.hljs-bullet,.hljs-meta,.hljs-symbol,.hljs-title{color:\(sourceCodeTheme.color(for: .identifier).hexString)}.hljs-number{color:\(sourceCodeTheme.color(for: .number).hexString)}.hljs-attr,.hljs-built_in,.hljs-builtin-name,.hljs-class .hljs-title,.hljs-section,.hljs-type{color:\(sourceCodeTheme.color(for: .identifier).hexString)}.hljs-params{color:\(sourceCodeTheme.color(for: .plain).hexString)}.hljs-attribute,.hljs-subst{color:\(sourceCodeTheme.color(for: .plain) .hexString)}.hljs-formula{background-color:#eee;font-style:italic}.hljs-addition{background-color:#baeeba}.hljs-deletion{background-color:#ffc8bd}.hljs-selector-class,.hljs-selector-id{color:#9b703f}.hljs-doctag,.hljs-strong{font-weight:700}.hljs-emphasis{font-style:italic}"
+        return ".hljs{display:block;overflow-x:auto;padding:.5em;background:\(sourceCodeTheme.backgroundColor.hexString);color:\(sourceCodeTheme.color(for: .plain).hexString)}.hljs-comment,.hljs-quote{color:\(sourceCodeTheme.color(for: .comment) .hexString)}.hljs-keyword,.hljs-literal,.hljs-selector-tag,.hljs-tag{color:\(sourceCodeTheme.color(for: .keyword) .hexString)}.hljs-name{color:\(sourceCodeTheme.color(for: .keyword) .hexString)}.hljs-template-variable,.hljs-variable{color:\(sourceCodeTheme.color(for: .identifier).hexString)}.hljs-string{color:\(sourceCodeTheme.color(for: .string) .hexString)}.hljs-link,.hljs-regexp{color:#080}.hljs-bullet,.hljs-meta,.hljs-symbol,.hljs-title{color:\(sourceCodeTheme.color(for: .identifier).hexString)}.hljs-number{color:\(sourceCodeTheme.color(for: .number).hexString)}.hljs-attr,.hljs-class,.hljs-section,.hljs-type{color:\(sourceCodeTheme.color(for: .identifier).hexString)}.hljs-params{color:\(sourceCodeTheme.color(for: .plain).hexString)}.hljs-attribute,.hljs-subst{color:\(sourceCodeTheme.color(for: .identifier) .hexString)}.hljs-built_in,.hljs-builtin-name{color: \(sourceCodeTheme.color(for: .builtin).hexString)}"        
     }
 }
 
@@ -146,6 +146,8 @@ func ThemeFromData(_ data: Data) -> Theme? {
                 return CustomSourceCodeTheme.decodedColor(from: comp[4])
             case .identifier:
                 return CustomSourceCodeTheme.decodedColor(from: comp[5])
+            case .builtin:
+                return CustomSourceCodeTheme.decodedColor(from: comp.indices.contains(13) ? comp[13] : comp[5])
             case .keyword:
                 return CustomSourceCodeTheme.decodedColor(from: comp[6])
             case .number:
@@ -241,7 +243,7 @@ let ThemeDidChangeNotification = Notification.Name("ThemeDidChangeNotification")
 /// The font size used on the editor.
 var ThemeFontSize: Int {
     get {
-        return (UserDefaults.standard.value(forKey: "fontSize") as? Int) ?? 15
+        return (UserDefaults.standard.value(forKey: "fontSize") as? Int) ?? 13
     }
     
     set {

@@ -39,18 +39,10 @@ struct DefaultTheme: Theme {
     }
     
     var sourceCodeTheme: SourceCodeTheme {
-        
-        let darkTheme: SourceCodeTheme
-        if #available(iOS 14.0, *), ProcessInfo.processInfo.isiOSAppOnMac {
-            darkTheme = XcodeDarkSourceCodeTheme()
-        } else {
-            darkTheme = MidnightSourceCodeTheme()
-        }
-        
-        return (window?.traitCollection.userInterfaceStyle == .dark ? darkTheme : XcodeLightSourceCodeTheme())
+        return (window?.traitCollection.userInterfaceStyle == .dark ? XcodeDarkSourceCodeTheme() : XcodeLightSourceCodeTheme())
     }
     
     var name: String? {
-        return (window?.traitCollection.userInterfaceStyle == .dark ? "Midnight" : "Xcode")
+        return (window?.traitCollection.userInterfaceStyle == .dark ? "Xcode Dark" : "Xcode Light")
     }
 }

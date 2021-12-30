@@ -28,7 +28,7 @@ struct XcodeDarkSourceCodeTheme: SourceCodeTheme {
         return EditorViewController.font.withSize(CGFloat(ThemeFontSize))
     }
     
-    let backgroundColor = Color(displayP3Red: 31/255, green: 31/255, blue: 36/255, alpha: 1)
+    let backgroundColor = UIColor.systemBackground
     
     func color(for syntaxColorType: SourceCodeTokenType) -> Color {
         switch syntaxColorType {
@@ -38,6 +38,8 @@ struct XcodeDarkSourceCodeTheme: SourceCodeTheme {
             return defaultTheme.color(for: syntaxColorType)
         case .identifier:
             return Color(displayP3Red: 122/255, green: 200/255, blue: 182/255, alpha: 1)
+        case .builtin:
+            return Color(displayP3Red: 161/255, green: 103/255, blue: 230/255, alpha: 1)
         case .keyword:
             return Color(red: 252/255, green: 95/255, blue: 163/255, alpha: 1)
         case .number:
@@ -71,6 +73,10 @@ struct XcodeDarkTheme: Theme {
     
     var userInterfaceStyle: UIUserInterfaceStyle {
         return .dark
+    }
+    
+    var consoleBackgroundColor: UIColor {
+        .secondarySystemBackground
     }
     
     let sourceCodeTheme: SourceCodeTheme = XcodeDarkSourceCodeTheme()

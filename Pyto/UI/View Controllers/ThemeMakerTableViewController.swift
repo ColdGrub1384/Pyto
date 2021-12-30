@@ -114,6 +114,12 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate 
         }
     }
     
+    var builtin: UIColor! {
+        didSet {
+            previewTheme()
+        }
+    }
+    
     var keyword: UIColor! {
         didSet {
             keywordView.backgroundColor = keyword
@@ -184,6 +190,8 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate 
                     return defaultTheme.color(for: .editorPlaceholder)
                 case .identifier:
                     return themeMaker.identifier
+                case .builtin:
+                    return themeMaker.builtin
                 case .keyword:
                     return themeMaker.keyword
                 case .number:
@@ -382,6 +390,7 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate 
         plain = theme.sourceCodeTheme.color(for: .plain)
         comment = theme.sourceCodeTheme.color(for: .comment)
         identifier = theme.sourceCodeTheme.color(for: .identifier)
+        builtin = theme.sourceCodeTheme.color(for: .builtin)
         keyword = theme.sourceCodeTheme.color(for: .keyword)
         number = theme.sourceCodeTheme.color(for: .number)
         string = theme.sourceCodeTheme.color(for: .string)

@@ -38,6 +38,8 @@ struct DuskSourceCodeTheme: SourceCodeTheme {
             return defaultTheme.color(for: syntaxColorType)
         case .identifier:
             return Color(displayP3Red: 37/255, green: 144/255, blue: 151/255, alpha: 1)
+        case .builtin:
+            return Color(displayP3Red: 131/255, green: 192/255, blue: 87/255, alpha: 1)
         case .keyword:
             return Color(red: 215/255, green: 0/255, blue: 143/255, alpha: 1)
         case .number:

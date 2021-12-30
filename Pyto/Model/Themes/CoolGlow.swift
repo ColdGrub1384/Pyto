@@ -11,6 +11,9 @@ import SourceEditor
 
 // MARK: - Source code theme
 
+// Update: From where tf did I take this theme?? I think it was in Pythonista but now I'm unable to find it anywhere else.. Did I stole the theme from Pythonista???
+// Oh no it was from a code editor called TextMate I think
+
 /// The Cool Glow source code theme.
 struct CoolGlowSourceCodeTheme: SourceCodeTheme {
     
@@ -38,6 +41,8 @@ struct CoolGlowSourceCodeTheme: SourceCodeTheme {
             return defaultTheme.color(for: syntaxColorType)
         case .identifier:
             return Color(red: 96/255, green: 164/255, blue: 241/255, alpha: 1)
+        case .builtin:
+            return Color(red: 182/255, green: 131/255, blue: 202/255, alpha: 1)
         case .keyword:
             return Color(red: 43/255, green: 241/255, blue: 220/255, alpha: 1)
         case .number:

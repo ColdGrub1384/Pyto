@@ -38,6 +38,8 @@ struct SunsetSourceCodeTheme: SourceCodeTheme {
             return defaultTheme.color(for: syntaxColorType)
         case .identifier:
             return Color(red: 71/255, green: 106/255, blue: 151/255, alpha: 1)
+        case .builtin:
+            return Color(red: 180/255, green: 69/255, blue: 0/255, alpha: 1)
         case .keyword:
             return Color(red: 41/255, green: 66/255, blue: 119/255, alpha: 1)
         case .number:

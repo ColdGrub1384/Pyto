@@ -38,6 +38,8 @@ struct BasicSourceCodeTheme: SourceCodeTheme {
             return defaultTheme.color(for: syntaxColorType)
         case .identifier:
             return Color(red: 43/255, green: 131/255, blue: 159/255, alpha: 1)
+        case .builtin:
+            return Color(red: 43/255, green: 131/255, blue: 159/255, alpha: 1)
         case .keyword:
             return Color(red: 0/255, green: 0/255, blue: 255/255, alpha: 1)
         case .number:

@@ -38,6 +38,8 @@ struct LowKeySourceCodeTheme: SourceCodeTheme {
             return defaultTheme.color(for: syntaxColorType)
         case .identifier:
             return Color(displayP3Red: 71/255, green: 106/255, blue: 151/255, alpha: 1)
+        case .builtin:
+            return Color(displayP3Red: 71/255, green: 106/255, blue: 151/255, alpha: 1)
         case .keyword:
             return Color(red: 38/255, green: 44/255, blue: 106/255, alpha: 1)
         case .number:
