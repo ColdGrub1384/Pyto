@@ -1837,14 +1837,6 @@ def main(argv=sys.argv):
                 pdb._runmodule(mainpyfile)
             else:
                 pdb._runscript(mainpyfile)
-
-            try:
-                script_path = threading.current_thread().script_path
-            except AttributeError:
-                script_path = None
-
-            EditorViewController.setCurrentBreakpoint(None, id=None, tracebackJSON=None, scriptPath=script_path)
-
             break
         except Restart:
             print("Restarting", mainpyfile, "with arguments:")
@@ -1856,6 +1848,13 @@ def main(argv=sys.argv):
             print(sys.exc_info()[1])
             """
             break
+        finally:
+            try:
+                script_path = threading.current_thread().script_path
+            except AttributeError:
+                script_path = None
+
+            EditorViewController.setCurrentBreakpoint(None, id=None, tracebackJSON=None, scriptPath=script_path)
 
 
 # When invoked as main program, invoke the debugger on a script
