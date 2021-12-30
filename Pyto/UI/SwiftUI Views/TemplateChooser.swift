@@ -96,8 +96,8 @@ struct TemplateChooser: View {
                     name = NSLocalizedString("untitled", comment: "Untitled")
                 }
                 
-                if (name as NSString).pathExtension.lowercased() != "py" {
-                    name = (name as NSString).appendingPathExtension("py") ?? ""
+                if (name as NSString).pathExtension.lowercased() != templateURL.deletingPathExtension().pathExtension {
+                    name = (name as NSString).appendingPathExtension(templateURL.deletingPathExtension().pathExtension) ?? ""
                 }
                 
                 create(name: name)
