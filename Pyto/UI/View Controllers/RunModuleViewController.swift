@@ -106,8 +106,13 @@ import UIKit
             return
         }
         
+        #if SCREENSHOTS
+        console?.print("\u{1B}[2J\u{1B}[H\u{1B}[3JType the name of a module to run it as \'__main__\'.\nRun \'help\' to show a list of executable modules.\n\u{1B}[32mDocuments\u{1B}[39m $ ls\n\u{1B}[34mProjects\u{1B}[39m\n\u{1B}[34mTemplates\u{1B}[39m\n\u{1B}[34mWidgets\u{1B}[39m\nmy_script.py\n\u{1B}[34mtest\u{1B}[39m\n\u{1B}[32mDocuments\u{1B}[39m $ edit my_script.py\nSave as [my_script.py] (^c to not save): \n\u{1B}[32mDocuments\u{1B}[39m $ python my_script.py\nThis script is executed from the shell\nArguments: [\'my_script.py\']\n\u{1B}[32mDocuments\u{1B}[39m $ pip uninstall sympy\nPackage removed.\nRemoving dependency: mpmath\nPackage removed.\n\u{1B}[32mDocuments\u{1B}[39m $ help\n\u{1B}[1mBuiltins\u{1B}[0m\ncd, clear, edit, exit, help, ls, man, pip, python, rm\n\n\u{1B}[1m* Everything in sys.path\u{1B}[0m\n\u{1B}[32mDocuments\u{1B}[39m $ ")
+        #endif
+        
         viewAppeared = true
         
+        #if !SCREENSHOTS
         _ = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true, block: { [weak self] (timer) in
             if Python.shared.isSetup && isUnlocked {
                 if let dir = (self?.view.window?.windowScene?.delegate as? SceneDelegate)?.sidebarSplitViewController?.fileBrowser.directory {
@@ -117,6 +122,7 @@ import UIKit
                 timer.invalidate()
             }
         })
+        #endif
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {}
