@@ -125,7 +125,7 @@ extension AppDelegate: WCSessionDelegate {
                     delegate = ObjCClass("Pyto.AppDelegate").shared
 
                     script = str(delegate.getWatchScript())
-                    dir = str(Python.shared.currentWorkingDirectory)
+                    dir = str('\(directory(for: url).path.replacingOccurrences(of: "'", with: "\\'"))')
                     os.chdir(dir)
                     sys.path.append(dir)
 
