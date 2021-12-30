@@ -117,6 +117,8 @@ class SidebarSplitViewController: UISplitViewController, UISplitViewControllerDe
         }
     }
     
+    private var previousDisplayMode: UISplitViewController.DisplayMode?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -148,6 +150,16 @@ class SidebarSplitViewController: UISplitViewController, UISplitViewControllerDe
         showsSecondaryOnlyButton = true
         
         delegate = self
+        
+        NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: nil) { [weak self] _ in
+            self?.previousDisplayMode = self?.displayMode
+        }
+        
+        NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: nil) { [weak self] _ in
+            if let previousDisplayMode = self?.previousDisplayMode {
+                self!.preferredDisplayMode = previousDisplayMode
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -167,6 +179,11 @@ class SidebarSplitViewController: UISplitViewController, UISplitViewControllerDe
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        
+        guard let windowScene = view.window?.windowScene, windowScene.activationState == .foregroundActive || windowScene.activationState == .foregroundInactive else {
+            return
+        }
+        
         if traitCollection.horizontalSizeClass == .compact && previousTraitCollection?.horizontalSizeClass != .compact {
             preferredDisplayMode = .secondaryOnly
         } else if traitCollection.horizontalSizeClass == .regular && previousTraitCollection?.horizontalSizeClass != .regular {

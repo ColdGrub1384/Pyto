@@ -293,10 +293,6 @@ import SwiftUI
             Darwin.close(descriptor)
         }
     }
-    
-    public override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return !isiOSAppOnMac ? 80 : super.tableView(tableView, heightForRowAt: indexPath)
-    }
         
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (filteredResults ?? files).count
@@ -318,17 +314,6 @@ import SwiftUI
             cell.textLabel?.text = files[indexPath.row].lastPathComponent
         }
         
-        do {
-            if let modificationDate = try FileManager.default.attributesOfItem(atPath: files[indexPath.row].path)[FileAttributeKey.modificationDate] as? Date {
-                let formatter = DateFormatter()
-                formatter.dateStyle = .full
-                formatter.timeStyle = .short
-                cell.detailTextLabel?.text = formatter.string(from: modificationDate)
-            }
-        } catch {
-            print(error.localizedDescription)
-        }
-        
         var isDir: ObjCBool = false
         if FileManager.default.fileExists(atPath: files[indexPath.row].path, isDirectory: &isDir) && isDir.boolValue {
             if FileManager.default.fileExists(atPath: files[indexPath.row].appendingPathComponent("__init__.py").path) || FileManager.default.fileExists(atPath: files[indexPath.row].appendingPathComponent("__main__.py").path) {
@@ -339,7 +324,12 @@ import SwiftUI
             cell.accessoryType = .disclosureIndicator
         } else {
             if !icloud {
-                cell.imageView?.image = UIImage(systemName: "doc.fill")
+                if files[indexPath.row].pathExtension.lowercased() == "py" {
+                    cell.imageView?.image = UIImage(systemName: "chevron.left.forwardslash.chevron.right")
+                    
+                } else {
+                    cell.imageView?.image = UIImage(systemName: "doc.fill")
+                }
             } else {
                 cell.imageView?.image = UIImage(systemName: "icloud.and.arrow.down.fill")
             }
