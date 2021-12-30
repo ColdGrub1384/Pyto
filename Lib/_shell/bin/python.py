@@ -29,15 +29,17 @@ def main():
         sys.argv.pop(0)
         sys.argv.pop(0)
         
-        try:
-            sys.modules["__main__"]
-        except KeyError:
-            sys.modules["__main__"] = pyto
         runpy._run_module_as_main(sys.argv[0])
         
         if bin in sys.path:
             sys.path.remove(bin)
+
+    elif os.path.isfile(sys.argv[1]):
         
+        sys.argv.pop(0)
+        
+        runpy.run_path(sys.argv[0], run_name="__main__")
+
     else:
         print(_usage)
 
